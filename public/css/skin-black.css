@@ -1,0 +1,15 @@
+.skin-black .main-sidebar, .skin-black .left-side {
+    background-color: #2f4050;
+}
+
+.skin-black .sidebar-menu>li:hover>a, .skin-black .sidebar-menu>li.active>a {
+    background: #293846;
+}
+
+.skin-black .sidebar-menu>li>.treeview-menu {
+    background: #293846;
+}
+
+.skin-black .sidebar-form input[type="text"], .skin-black .sidebar-form .btn {
+    background-color: #415365;
+}

@@ -1,0 +1,19 @@
+{
+    "name": "Offline",
+    "alias": "offline",
+    "description": "",
+    "version": "1.0.0",
+    "category": "payment-gateways",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Offline\\Providers\\OfflineServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": [],
+    "settings": []
+}

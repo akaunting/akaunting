@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+class CreateAccountsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('company_id');
+            $table->string('name');
+            $table->string('number');
+            $table->string('currency_code');
+            $table->decimal('opening_balance')->default('0');
+            $table->string('bank_name')->nullable();
+            $table->string('bank_phone')->nullable();
+            $table->text('bank_address')->nullable();
+            $table->boolean('enabled');
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->index('company_id');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('accounts');
+    }
+}
