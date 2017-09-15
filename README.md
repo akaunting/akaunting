@@ -1,6 +1,6 @@
 # Akaunting™
 
-[Latest Stable Version](https://img.shields.io/github/release/akaunting/akaunting.svg) [Total Downloads](https://img.shields.io/github/downloads/akaunting/akaunting/total.svg) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/akaunting/localized.png)](https://crowdin.com/project/akaunting) [License](https://img.shields.io/github/license/akaunting/akaunting.svg)
+![Latest Stable Version](https://img.shields.io/github/release/akaunting/akaunting.svg) ![Total Downloads](https://img.shields.io/github/downloads/akaunting/akaunting/total.svg) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/akaunting/localized.svg)](https://crowdin.com/project/akaunting)
 
 Akaunting is a free, online and open source accounting software designed for small businesses and freelancers. It is built with modern technologies such as Laravel, Bootstrap, jQuery, RESTful API etc. Thanks to its modular structure, Akaunting provides an awesome App Store for users and developers.
 
