@@ -68,10 +68,6 @@ class Requirements extends Controller
             $requirements[] = trans('install.requirements.extension', ['extension' => 'OpenSSL']);
         }
 
-        if (!extension_loaded('mcrypt')) {
-            $requirements[] = trans('install.requirements.extension', ['extension' => 'mCrypt']);
-        }
-
         if (!extension_loaded('tokenizer')) {
             $requirements[] = trans('install.requirements.extension', ['extension' => 'Tokenizer']);
         }
