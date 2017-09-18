@@ -27,11 +27,18 @@ class Customers extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  int|string  $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
+        // Check if we're querying by id or email
+        if (is_numeric($id)) {
+            $customer = Customer::findOrFail($id);
+        } else {
+            $customer = Customer::where('email', $id)->first();
+        }
+
         return $this->response->item($customer, new Transformer());
     }
 
