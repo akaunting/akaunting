@@ -36,7 +36,7 @@ class Bills extends Controller
      */
     public function index()
     {
-        $bills = Bill::with('bill_statuses')->collect();
+        $bills = Bill::with('status')->collect();
 
         $status = collect(BillStatus::all()->pluck('name', 'code'))
             ->prepend(trans('general.all_statuses'), '');

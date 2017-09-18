@@ -27,11 +27,18 @@ class Vendors extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  int|string  $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show(Vendor $vendor)
+    public function show($id)
     {
+        // Check if we're querying by id or email
+        if (is_numeric($id)) {
+            $vendor = Vendor::findOrFail($id);
+        } else {
+            $vendor = Vendor::where('email', $id)->first();
+        }
+
         return $this->response->item($vendor, new Transformer());
     }
 

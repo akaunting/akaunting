@@ -38,7 +38,7 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with('invoice_statuses')->collect();
+        $invoices = Invoice::with('status')->collect();
 
         $status = collect(InvoiceStatus::all()->pluck('name', 'code'))
             ->prepend(trans('general.all_statuses'), '');

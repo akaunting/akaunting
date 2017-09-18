@@ -27,13 +27,11 @@ class Roles extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Role  $role
      * @return \Dingo\Api\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        $role = Role::with('permissions')->findOrFail($id);
-
         return $this->response->item($role, new Transformer());
     }
 

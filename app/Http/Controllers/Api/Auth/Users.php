@@ -27,12 +27,17 @@ class Users extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int|string  $id
      * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
-        $user = User::with(['roles', 'permissions'])->findOrFail($id);
+        // Check if we're querying by id or email
+        if (is_numeric($id)) {
+            $user = User::with(['roles', 'permissions'])->findOrFail($id);
+        } else {
+            $user = User::with(['roles', 'permissions'])->where('email', $id)->first();
+        }
 
         return $this->response->item($user, new Transformer());
     }

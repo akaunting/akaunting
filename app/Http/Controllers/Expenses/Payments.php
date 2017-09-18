@@ -22,7 +22,7 @@ class Payments extends Controller
      */
     public function index()
     {
-        $payments = Payment::with('account', 'category')->collect();
+        $payments = Payment::with(['account', 'category'])->collect();
 
         $categories = collect(Category::enabled()->type('expense')->pluck('name', 'id'))
             ->prepend(trans('categories.all'), '');
