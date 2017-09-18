@@ -23,7 +23,7 @@ class OfflineServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $module = Module::get('OfflinePayment');
+        $module = Module::get('Offline');
 
         if (!empty($module) && version_compare($module->get('version'), '1.0.0') == 0) {
             $offline_payments = json_decode(setting('offline.payment.methods'), true);
