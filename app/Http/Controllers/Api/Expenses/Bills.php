@@ -27,7 +27,7 @@ class Bills extends ApiController
      */
     public function index()
     {
-        $bills = Bill::with('bill_statuses')->collect();
+        $bills = Bill::with(['vendor', 'status', 'items', 'payments', 'histories'])->collect();
 
         return $this->response->paginator($bills, new Transformer());
     }

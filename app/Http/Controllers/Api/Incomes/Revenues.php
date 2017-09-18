@@ -19,7 +19,7 @@ class Revenues extends ApiController
      */
     public function index()
     {
-        $revenues = Revenue::with('account', 'customer', 'category')->collect();
+        $revenues = Revenue::with(['account', 'customer', 'category'])->collect();
 
         return $this->response->paginator($revenues, new Transformer());
     }

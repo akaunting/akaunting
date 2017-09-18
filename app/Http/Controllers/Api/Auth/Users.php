@@ -27,13 +27,11 @@ class Users extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Dingo\Api\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::with(['roles', 'permissions'])->findOrFail($id);
-
         return $this->response->item($user, new Transformer());
     }
 

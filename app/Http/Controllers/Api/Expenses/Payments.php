@@ -19,7 +19,7 @@ class Payments extends ApiController
      */
     public function index()
     {
-        $payments = Payment::with('account', 'vendor', 'category')->collect();
+        $payments = Payment::with(['account', 'vendor', 'category'])->collect();
 
         return $this->response->paginator($payments, new Transformer());
     }
