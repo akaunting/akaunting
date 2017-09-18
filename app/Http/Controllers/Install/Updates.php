@@ -19,26 +19,33 @@ class Updates extends Controller
     {
         $updates = Updater::all();
 
-        $core = $updates['core'];
+        $core = null;
 
         $modules = array();
 
+        if (isset($updates['core'])) {
+            $core = $updates['core'];
+        }
+
         $rows = Module::all();
-        foreach ($rows as $row) {
-            $alias = $row->get('alias');
 
-            if (!isset($updates[$alias])) {
-                continue;
+        if ($rows) {
+            foreach ($rows as $row) {
+                $alias = $row->get('alias');
+
+                if (!isset($updates[$alias])) {
+                    continue;
+                }
+
+                $m = new \stdClass();
+                $m->name = $row->get('name');
+                $m->alias = $row->get('alias');
+                $m->category = $row->get('category');
+                $m->installed = $row->get('version');
+                $m->latest = $updates[$alias];
+
+                $modules[] = $m;
             }
-
-            $m = new \stdClass();
-            $m->name = $row->get('name');
-            $m->alias = $row->get('alias');
-            $m->category = $row->get('category');
-            $m->installed = $row->get('version');
-            $m->latest = $updates[$alias];
-
-            $modules[] = $m;
         }
 
         return view('install.updates.index', compact('core', 'modules'));

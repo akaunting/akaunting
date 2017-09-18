@@ -16,7 +16,7 @@
         {{ trans('updates.latest_core') }}
         @else
             {{ trans('updates.new_core') }}
-            <a href="{{ url('install/updates/update', ['alias' => 'core', 'version' => $core]) }}" data-toggle="tooltip" title="{{ trans('updates.update', ['version' => '1.5.2']) }}" class="btn btn-warning btn-xs"><i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}</a>
+            <a href="{{ url('install/updates/update', ['alias' => 'core', 'version' => $core]) }}" data-toggle="tooltip" title="{{ trans('updates.update', ['version' => $core]) }}" class="btn btn-warning btn-xs"><i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}</a>
             <a href="{{ url('install/updates/changelog') }}" data-toggle="tooltip" title="{{ trans('updates.changelog') }}" class="btn btn-default btn-xs popup"><i class="fa fa-exchange"></i> &nbsp;{{ trans('updates.changelog') }}</a>
         @endif
     </div>
