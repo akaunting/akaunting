@@ -1,17 +1,17 @@
 <?php
 
-namespace Modules\Offline\Providers;
+namespace Modules\OfflinePayment\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
 use App\Events\AdminMenuCreated;
-use Modules\Offline\Events\Handlers\OfflineAdminMenu;
+use Modules\OfflinePayment\Events\Handlers\OfflinePaymentAdminMenu;
 
 use App\Events\PaymentGatewayListing;
-use Modules\Offline\Events\Handlers\OfflinePaymentGateway;
+use Modules\OfflinePayment\Events\Handlers\OfflinePaymentGateway;
 
-class OfflineServiceProvider extends ServiceProvider
+class OfflinePaymentServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -32,7 +32,7 @@ class OfflineServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
 
-        $this->app['events']->listen(AdminMenuCreated::class, OfflineAdminMenu::class);
+        $this->app['events']->listen(AdminMenuCreated::class, OfflinePaymentAdminMenu::class);
         $this->app['events']->listen(PaymentGatewayListing::class, OfflinePaymentGateway::class);
     }
 
@@ -54,10 +54,10 @@ class OfflineServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('offline.php'),
+            __DIR__.'/../Config/config.php' => config_path('offlinepayment.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'offline'
+            __DIR__.'/../Config/config.php', 'offlinepayment'
         );
     }
 
@@ -68,7 +68,7 @@ class OfflineServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/modules/offline');
+        $viewPath = resource_path('views/modules/offlinepayment');
 
         $sourcePath = __DIR__.'/../Resources/views';
 
@@ -77,8 +77,8 @@ class OfflineServiceProvider extends ServiceProvider
         ]);
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
-            return $path . '/modules/offline';
-        }, \Config::get('view.paths')), [$sourcePath]), 'offline');
+            return $path . '/modules/offlinepayment';
+        }, \Config::get('view.paths')), [$sourcePath]), 'offlinepayment');
     }
 
     /**
@@ -88,12 +88,12 @@ class OfflineServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/modules/offline');
+        $langPath = resource_path('lang/modules/offlinepayment');
 
         if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'offline');
+            $this->loadTranslationsFrom($langPath, 'offlinepayment');
         } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'offline');
+            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'offlinepayment');
         }
     }
 

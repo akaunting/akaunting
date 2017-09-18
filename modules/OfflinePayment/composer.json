@@ -1,5 +1,5 @@
 {
-    "name": "akaunting/offline",
+    "name": "akaunting/offlinepayment",
     "description": "",
     "authors": [
         {
@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Modules\\Offline\\": ""
+            "Modules\\OfflinePayment\\": ""
         }
     }
 }
