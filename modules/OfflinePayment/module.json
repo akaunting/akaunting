@@ -1,6 +1,6 @@
 {
-    "name": "Offline",
-    "alias": "offline",
+    "name": "OfflinePayment",
+    "alias": "offlinepayment",
     "description": "",
     "version": "1.0.0",
     "category": "payment-gateways",
@@ -8,7 +8,8 @@
     "active": 1,
     "order": 0,
     "providers": [
-        "Modules\\Offline\\Providers\\OfflineServiceProvider"
+        "Modules\\OfflinePayment\\Providers\\OfflineServiceProvider",
+        "Modules\\OfflinePayment\\Providers\\OfflinePaymentServiceProvider"
     ],
     "aliases": {},
     "files": [

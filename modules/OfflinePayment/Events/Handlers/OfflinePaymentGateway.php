@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Offline\Events\Handlers;
+namespace Modules\OfflinePayment\Events\Handlers;
 
 use App\Events\PaymentGatewayListing;
 
@@ -14,6 +14,6 @@ class OfflinePaymentGateway
      */
     public function handle(PaymentGatewayListing $event)
     {
-        return json_decode(setting('offline.payment.methods'), true);
+        return json_decode(setting('offlinepayment.methods'), true);
     }
 }

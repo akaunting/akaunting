@@ -1,31 +1,33 @@
 @extends('layouts.admin')
 
-@section('title', trans('offline::offline.offline'))
+@section('title', trans('offlinepayment::offlinepayment.offlinepayment'))
 
 @section('content')
     <div class="col-md-4 no-padding-left">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('offline::offline.add_new') }}</h3>
+                <h3 class="box-title">{{ trans('offlinepayment::offlinepayment.add_new') }}</h3>
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
 
-            {!! Form::open(['url' => 'modules/offline/settings', 'files' => true, 'role' => 'form']) !!}
+            {!! Form::open(['url' => 'modules/offlinepayment/settings', 'files' => true, 'role' => 'form']) !!}
 
             <div class="box-body">
+                <div id="install-loading"></div>
+
                 {{ Form::textGroup('name', trans('general.name'), 'id-card-o', ['required' => 'required'], null, 'col-md-12') }}
 
-                {{ Form::textGroup('code', trans('offline::offline.code'), 'key', ['required' => 'required'], null, 'col-md-12') }}
+                {{ Form::textGroup('code', trans('offlinepayment::offlinepayment.code'), 'key', ['required' => 'required'], null, 'col-md-12') }}
 
-                {{ Form::textGroup('order', trans('offline::offline.order'), 'sort', [], 0, 'col-md-12') }}
+                {{ Form::textGroup('order', trans('offlinepayment::offlinepayment.order'), 'sort', [], 0, 'col-md-12') }}
 
                 {{ Form::textareaGroup('description', trans('general.description')) }}
             </div>
             <!-- /.box-body -->
 
             <div class="box-footer">
-                {{ Form::saveButtons('modules/offline/settings') }}
+                {{ Form::saveButtons('modules/offlinepayment/settings') }}
             </div>
             <!-- /.box-footer -->
 
@@ -37,7 +39,7 @@
         <!-- Default box -->
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('offline::offline.payment_gateways') }}</h3>
+                <h3 class="box-title">{{ trans('offlinepayment::offlinepayment.payment_gateways') }}</h3>
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
@@ -47,8 +49,8 @@
                         <thead>
                         <tr>
                             <th class="col-md-3">{{ trans('general.name') }}</th>
-                            <th class="col-md-3">{{ trans('offline::offline.code') }}</th>
-                            <th class="col-md-3">{{ trans('offline::offline.order') }}</th>
+                            <th class="col-md-3">{{ trans('offlinepayment::offlinepayment.code') }}</th>
+                            <th class="col-md-3">{{ trans('offlinepayment::offlinepayment.order') }}</th>
                             <th class="col-md-3">{{ trans('general.actions') }}</th>
                         </tr>
                         </thead>
@@ -78,6 +80,33 @@
     </div>
 @endsection
 
+@section('stylesheet')
+    <style type="text/css">
+        .install-loading-bar {
+            font-size: 35px;
+            position: absolute;
+            z-index: 500;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            background: rgb(136, 136, 136);
+            opacity: 0.2;
+            -moz-border-radius-bottomleft: 1px;
+            -moz-border-radius-bottomright: 1px;
+            border-bottom-left-radius: 1px;
+            border-bottom-right-radius: 1px;
+        }
+
+        .install-loading-spin {
+            font-size: 100px;
+            position: absolute;
+            margin: auto;
+            color: #fff;
+            padding: 28% 40%;
+        }
+    </style>
+@endsection
+
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
@@ -85,16 +114,24 @@
                 var code = $(this).attr('id').replace('edit-', '');
 
                 $.ajax({
-                    url: '{{ url("modules/offline/settings/get") }}',
+                    url: '{{ url("modules/offlinepayment/settings/get") }}',
                     type: 'post',
                     dataType: 'json',
                     data: {code: code},
                     headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    beforeSend: function() {
+                        $('#install-loading').html('<span class="install-loading-bar"><span class="install-loading-spin"><i class="fa fa-spinner fa-spin"></i></span></span>');
+                        $('.install-loading-bar').css({"height": $('.col-md-4.no-padding-left').height() - 23});
+                    },
+                    complete: function() {
+                       $('#install-loading .install-loading-bar').remove();
+                    },
                     success: function(json) {
                         if (json['error']) {
                         }
 
                         if (json['success']) {
+                            $('.col-md-4.no-padding-left .box-header.with-border .box-title').html(json['data']['title']);
                             $('input[name="name"]').val(json['data']['name']);
                             $('input[name="code"]').val(json['data']['code']);
                             $('input[name="sort"]').val(json['data']['sort']);
@@ -112,7 +149,7 @@
                 var code = $(this).attr('id').replace('delete-', '');
 
                 $.ajax({
-                    url: '{{ url("modules/offline/settings/delete") }}',
+                    url: '{{ url("modules/offlinepayment/settings/delete") }}',
                     type: 'post',
                     dataType: 'json',
                     data: {code: code},

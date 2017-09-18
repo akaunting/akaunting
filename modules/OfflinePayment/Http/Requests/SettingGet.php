@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Offline\Http\Requests;
+namespace Modules\OfflinePayment\Http\Requests;
 
 use App\Http\Requests\Request;
 
