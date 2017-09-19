@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\Banking;
+namespace App\Http\Controllers\Api\Companies;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Company\Company as Request;
-use App\Http\Transformers\Banking\Company as Transformer;
+use App\Http\Transformers\Company\Company as Transformer;
 use App\Models\Company\Company;
 use Dingo\Api\Routing\Helpers;
 
