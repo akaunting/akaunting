@@ -187,7 +187,6 @@ return [
         Akaunting\Setting\Provider::class,
         Akaunting\Version\Provider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Chumper\Zipper\ZipperServiceProvider::class,
         ClickNow\Money\MoneyServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
@@ -268,7 +267,6 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Setting' => Akaunting\Setting\Facade::class,
         'Version' => Akaunting\Version\Facade::class,
-        'Zipper' => Chumper\Zipper\Zipper::class,
 
     ],
 

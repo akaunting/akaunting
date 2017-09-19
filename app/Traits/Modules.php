@@ -2,13 +2,12 @@
 
 namespace App\Traits;
 
+use App\Utilities\Info;
 use Artisan;
 use File;
-use Zipper;
-use Module;
-
-use App\Utilities\Info;
 use GuzzleHttp\Client;
+use Module;
+use ZipArchive;
 
 trait Modules
 {
@@ -152,28 +151,30 @@ trait Modules
         $file = $temp_path . '/upload.zip';
 
         // Unzip the file
-        try {
-            Zipper::make($file)->extractTo($temp_path);
-        } catch (\RuntimeException $e) {
-            return array(
+        $zip = new ZipArchive();
+
+        if (!$zip->open($file) || !$zip->extractTo($temp_path)) {
+            return [
                 'success' => false,
                 'errors' => true,
                 'data' => null,
-            );
+            ];
         }
 
+        $zip->close();
+
         // Remove Zip
-        Zipper::delete();
+        File::delete($file);
 
-        $data = array(
+        $data = [
             'path' => $path
-        );
+        ];
 
-        return array(
+        return [
             'success' => true,
             'errors' => false,
             'data' => $data,
-        );
+        ];
     }
 
     public function installModule($path)

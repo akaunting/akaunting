@@ -10,7 +10,7 @@ use Cache;
 use Date;
 use File;
 use Module;
-use Zipper;
+use ZipArchive;
 
 class Updater
 {
@@ -50,14 +50,16 @@ class Updater
         }
 
         // Unzip the file
-        try {
-            Zipper::make($file)->extractTo($temp_path);
-        } catch (\RuntimeException $e) {
+        $zip = new ZipArchive();
+
+        if (!$zip->open($file) || !$zip->extractTo($temp_path)) {
             return false;
         }
 
+        $zip->close();
+
         // Remove Zip
-        Zipper::delete();
+        File::delete($file);
 
         if ($alias == 'core') {
             // Move all files/folders from temp path then delete it
