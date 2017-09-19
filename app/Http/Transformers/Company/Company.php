@@ -15,7 +15,11 @@ class Company extends TransformerAbstract
     {
         return [
             'id' => $model->id,
+            'name' => $model->company_name,
+            'email' => $model->company_email,
             'domain' => $model->domain,
+            'address' => $model->company_address,
+            'logo' => $model->company_logo,
             'enabled' => $model->enabled,
             'created_at' => $model->created_at->toIso8601String(),
             'updated_at' => $model->updated_at->toIso8601String(),

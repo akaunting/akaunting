@@ -25,7 +25,7 @@ class Companies extends ApiController
             $company->setSettings();
         }
 
-        return $this->response->paginator($companies, new Transformer());
+        return $this->response->collection($companies, new Transformer());
     }
 
     /**
