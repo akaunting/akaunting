@@ -19,7 +19,7 @@ class Users extends ApiController
      */
     public function index()
     {
-        $users = User::with(['roles', 'permissions'])->collect();
+        $users = User::with(['companies', 'roles', 'permissions'])->collect();
 
         return $this->response->paginator($users, new Transformer());
     }
@@ -34,9 +34,9 @@ class Users extends ApiController
     {
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $user = User::with(['roles', 'permissions'])->findOrFail($id);
+            $user = User::with(['companies', 'roles', 'permissions'])->findOrFail($id);
         } else {
-            $user = User::with(['roles', 'permissions'])->where('email', $id)->first();
+            $user = User::with(['companies', 'roles', 'permissions'])->where('email', $id)->first();
         }
 
         return $this->response->item($user, new Transformer());

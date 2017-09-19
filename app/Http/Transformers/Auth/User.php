@@ -2,6 +2,7 @@
 
 namespace App\Http\Transformers\Auth;
 
+use App\Http\Transformers\Company\Company;
 use App\Models\Auth\User as Model;
 use League\Fractal\TransformerAbstract;
 
@@ -10,7 +11,7 @@ class User extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['roles'];
+    protected $defaultIncludes = ['companies', 'roles'];
 
     /**
      * @param Model $model
@@ -25,6 +26,15 @@ class User extends TransformerAbstract
             'created_at' => $model->created_at->toIso8601String(),
             'updated_at' => $model->updated_at->toIso8601String(),
         ];
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeCompanies(Model $model)
+    {
+        return $this->collection($model->companies, new Company());
     }
 
     /**
