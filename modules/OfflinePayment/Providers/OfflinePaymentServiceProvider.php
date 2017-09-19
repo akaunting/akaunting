@@ -32,6 +32,8 @@ class OfflinePaymentServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
 
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+
         $this->app['events']->listen(AdminMenuCreated::class, OfflinePaymentAdminMenu::class);
         $this->app['events']->listen(PaymentGatewayListing::class, OfflinePaymentGateway::class);
     }

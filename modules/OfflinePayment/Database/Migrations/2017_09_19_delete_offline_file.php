@@ -1,27 +1,16 @@
 <?php
 
-namespace Modules\OfflinePayment\Providers;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
-use Artisan;
-use Module;
-
-use Illuminate\Support\ServiceProvider;
-
-class OfflineServiceProvider extends ServiceProvider
+class OfflineFile extends Migration
 {
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
-     * Boot the application events.
+     * Run the migrations.
      *
      * @return void
      */
-    public function boot()
+    public function up()
     {
         $module = Module::get('Offline');
 
@@ -44,6 +33,11 @@ class OfflineServiceProvider extends ServiceProvider
                     );
                 }
 
+                //$company_id = $this->command->argument('company');
+
+                // Set the active company settings
+                setting()->setExtraColumns(['company_id' => 1]);
+
                 setting()->set('offlinepayment.methods', json_encode($offlinepayment));
 
                 setting()->forget('offline.payment.methods');
@@ -55,5 +49,15 @@ class OfflineServiceProvider extends ServiceProvider
 
             Artisan::call('cache:clear');
         }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+
     }
 }

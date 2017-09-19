@@ -8,7 +8,6 @@
     "active": 1,
     "order": 0,
     "providers": [
-        "Modules\\OfflinePayment\\Providers\\OfflineServiceProvider",
         "Modules\\OfflinePayment\\Providers\\OfflinePaymentServiceProvider"
     ],
     "aliases": {},
