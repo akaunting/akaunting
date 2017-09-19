@@ -51,6 +51,19 @@ class Companies extends ApiController
     {
         $company = Company::create($request->all());
 
+        // Create settings
+        setting()->set([
+            'general.company_name' => $request->get('company_name'),
+            'general.company_email' => $request->get('company_email'),
+            'general.company_address' => $request->get('company_address'),
+            'general.default_currency' => $request->get('default_currency'),
+            'general.default_locale' => $request->get('default_locale', 'en-GB'),
+        ]);
+
+        setting()->setExtraColumns(['company_id' => $company->id]);
+
+        setting()->save();
+
         return $this->response->created(url('api/companies/'.$company->id));
     }
 
@@ -68,6 +81,24 @@ class Companies extends ApiController
         if (!in_array($company->id, $companies)) {
             return $this->response->noContent();
         }
+
+        // Update company
+        $company->update(['domain' => $request->get('domain')]);
+
+        // Update settings
+        setting()->forgetAll();
+        setting()->setExtraColumns(['company_id' => $company->id]);
+        setting()->load(true);
+
+        setting()->set([
+            'general.company_name' => $request->get('company_name'),
+            'general.company_email' => $request->get('company_email'),
+            'general.company_address' => $request->get('company_address'),
+            'general.default_currency' => $request->get('default_currency'),
+            'general.default_locale' => $request->get('default_locale', 'en-GB'),
+        ]);
+
+        setting()->save();
 
         return $this->response->item($company->fresh(), new Transformer());
     }
