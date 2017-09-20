@@ -118,7 +118,7 @@ class Users extends Controller
         // Update user
         $user->update($request->input());
 
-        // Attach roles
+        // Sync roles
         $user->roles()->sync($request['roles']);
 
         // Sync companies

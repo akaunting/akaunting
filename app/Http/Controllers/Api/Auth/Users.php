@@ -52,13 +52,11 @@ class Users extends ApiController
     {
         $user = User::create($request->input());
 
-        if ($request->has('roles')) {
-            $user->roles()->attach($request->get('roles'));
-        }
+        // Attach roles
+        $user->roles()->attach($request->get('roles'));
 
-        if ($request->has('companies')) {
-            $user->companies()->attach($request->get('companies'));
-        }
+        // Attach companies
+        $user->companies()->attach($request->get('companies'));
 
         return $this->response->created(url('api/users/'.$user->id));
     }
@@ -75,13 +73,11 @@ class Users extends ApiController
         // Except password as we don't want to let the users change a password from this endpoint
         $user->update($request->except('password'));
 
-        if ($request->has('roles')) {
-            $user->roles()->attach($request->get('roles'));
-        }
+        // Sync roles
+        $user->roles()->sync($request->get('roles'));
 
-        if ($request->has('companies')) {
-            $user->companies()->attach($request->get('companies'));
-        }
+        // Sync companies
+        $user->companies()->sync($request->get('companies'));
 
         return $this->response->item($user->fresh(), new Transformer());
     }
