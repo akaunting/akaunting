@@ -22,7 +22,7 @@ class Company extends Eloquent
      *
      * @var array
      */
-    public $sortable = ['name', 'domain', 'email'];
+    public $sortable = ['name', 'domain', 'email', 'created_at'];
 
     public function accounts()
     {

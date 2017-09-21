@@ -32,9 +32,10 @@
             <table class="table table-bordered table-striped table-hover" id="tbl-companies">
                 <thead>
                     <tr>
-                        <th class="col-md-5">@sortablelink('name', trans('general.name'))</th>
+                        <th class="col-md-4">@sortablelink('name', trans('general.name'))</th>
                         <th class="col-md-2">@sortablelink('domain', trans('companies.domain'))</th>
                         <th class="col-md-2">@sortablelink('email', trans('general.email'))</th>
+                        <th class="col-md-1">@sortablelink('created_at', trans('general.date'))</th>
                         <th class="col-md-3">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
@@ -44,6 +45,7 @@
                         <td><a href="{{ url('companies/companies/' . $item->id . '/edit') }}">{{ $item->company_name }}</a></td>
                         <td>{{ $item->domain }}</td>
                         <td>{{ $item->company_email }}</td>
+                        <td>{{ Date::parse($item->created_at)->format($date_format) }}</td>
                         <td>
                             <a href="{{ url('companies/companies/' . $item->id . '/set') }}" class="btn btn-info btn-xs"><i class="fa fa-arrow-right" aria-hidden="true"></i> {{ trans('general.change') }}</a>
                             <a href="{{ url('companies/companies/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
