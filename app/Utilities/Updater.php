@@ -66,13 +66,16 @@ class Updater
             File::copyDirectory($temp_path, base_path());
             File::deleteDirectory($temp_path);
 
+            // Clear cache after update
+            Artisan::call('cache:clear');
+
             // Update database
             Artisan::call('migrate', ['--force' => true]);
 
             // Check if the file mirror was successful
-            if (version('short') != $version) {
+            /*if (version('short') != $version) {
                 return false;
-            }
+            }*/
         } else {
             $module = Module::get($alias);
             $model = Model::where('alias', $alias)->first();
@@ -80,6 +83,9 @@ class Updater
             // Move all files/folders from temp path then delete it
             File::copyDirectory($temp_path, module_path($module->get('name')));
             File::deleteDirectory($temp_path);
+
+            // Clear cache after update
+            Artisan::call('cache:clear');
 
             // Update database
             Artisan::call('migrate', ['--force' => true]);
