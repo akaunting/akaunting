@@ -14,7 +14,7 @@ return [
     'open_profit'               => 'Açık Kar',
     'overdue_profit'            => 'Gecikmiş Kar',
     'cash_flow'                 => 'Nakit Akışı',
-    'no_profit_loss'            => 'No Profit Loss',
+    'no_profit_loss'            => 'Kar Kaybı Yok',
     'incomes_by_category'       => 'Gelir Kategorileri',
     'expenses_by_category'      => 'Gider Kategorileri',
     'account_balance'           => 'Hesap Bakiyesi',
