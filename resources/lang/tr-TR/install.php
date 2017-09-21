@@ -3,6 +3,7 @@
 return [
 
     'next'                  => 'İleri',
+    'refresh'               => 'Yenile',
 
     'steps' => [
         'requirements'      => 'Lütfen, aşağıdaki sistem gereksinimlerini karşılayın!',

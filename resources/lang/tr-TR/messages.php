@@ -10,5 +10,8 @@ return [
     'error' => [
         'not_user_company'  => 'Hata: Bu şirketi yönetme yetkiniz yok!',
     ],
+    'warning' => [
+        'deleted'           => 'Uyarı: :type silinemez çünkü :text var ',
+    ],
 
 ];

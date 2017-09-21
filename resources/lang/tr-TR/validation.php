@@ -16,13 +16,13 @@ return [
     'accepted'             => ':attribute kabul edilmelidir.',
     'active_url'           => ':attribute geçerli bir URL olmalıdır.',
     'after'                => ':attribute şundan daha eski bir tarih olmalıdır :date.',
-    'after_or_equal'       => 'The :attribute must be a date after or equal to :date.',
+    'after_or_equal'       => ':attribute tarihi eşit veya daha eski olmalıdır',
     'alpha'                => ':attribute sadece harflerden oluşmalıdır.',
     'alpha_dash'           => ':attribute sadece harfler, rakamlar ve tirelerden oluşmalıdır.',
     'alpha_num'            => ':attribute sadece harfler ve rakamlar içermelidir.',
     'array'                => ':attribute dizi olmalıdır.',
     'before'               => ':attribute şundan daha önceki bir tarih olmalıdır :date.',
-    'before_or_equal'      => 'The :attribute must be a date before or equal to :date.',
+    'before_or_equal'      => ':attribute tarihi eşit veya daha eski olmalıdır',
     'between'              => [
         'numeric' => ':attribute :min - :max arasında olmalıdır.',
         'file'    => ':attribute :min - :max arasındaki kilobayt değeri olmalıdır.',
@@ -47,8 +47,6 @@ return [
     'in_array'             => ':attribute alanı :other içinde mevcut değil.',
     'integer'              => ':attribute tamsayı olmalıdır.',
     'ip'                   => ':attribute geçerli bir IP adresi olmalıdır.',
-    'ipv4'                 => 'The :attribute must be a valid IPv4 address.',
-    'ipv6'                 => 'The :attribute must be a valid IPv6 address.',
     'json'                 => ':attribute geçerli bir JSON değişkeni olmalıdır.',
     'max'                  => [
         'numeric' => ':attribute değeri :max değerinden küçük olmalıdır.',
@@ -66,11 +64,11 @@ return [
     ],
     'not_in'               => 'Seçili :attribute geçersiz.',
     'numeric'              => ':attribute sayı olmalıdır.',
-    'present'              => 'The :attribute field must be present.',
+    'present'              => ':attribute alanı gereklidir',
     'regex'                => ':attribute biçimi geçersiz.',
     'required'             => ':attribute alanı gereklidir.',
     'required_if'          => ':attribute alanı, :other :value değerine sahip olduğunda zorunludur.',
-    'required_unless'      => 'The :attribute field is required unless :other is in :values.',
+    'required_unless'      => ':attribute alanı, :other :values değerine sahip olmadığı sürece zorunludur.',
     'required_with'        => ':attribute alanı :values varken zorunludur.',
     'required_with_all'    => ':attribute alanı herhangi bir :values değeri varken zorunludur.',
     'required_without'     => ':attribute alanı :values yokken zorunludur.',
@@ -85,7 +83,7 @@ return [
     'string'               => ':attribute dizge olmalıdır.',
     'timezone'             => ':attribute geçerli bir saat dilimi olmalıdır.',
     'unique'               => ':attribute daha önceden kayıt edilmiş.',
-    'uploaded'             => 'The :attribute failed to upload.',
+    'uploaded'             => ':attribute yüklenemedi',
     'url'                  => ':attribute biçimi geçersiz.',
 
     /*
@@ -99,9 +97,9 @@ return [
     |
     */
 
-    'custom'               => [
+    'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name' => 'Özel Mesaj',
         ],
     ],
 
@@ -116,8 +114,6 @@ return [
     |
     */
 
-    'attributes'           => [
-        //
-    ],
+    'attributes' => [],
 
 ];

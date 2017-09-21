@@ -10,10 +10,9 @@ return [
     'forgot_password'       => 'Şifremi unuttum',
     'reset_password'        => 'Şifremi Sıfırla',
     'enter_email'           => 'Email Adresinizi Giriniz',
-    'current_email'         => 'Current Email',
+    'current_email'         => 'Geçerli Email',
     'reset'                 => 'Sıfırla',
     'never'                 => 'hiçbir zaman',
-
     'password' => [
         'current'           => 'Şifre',
         'current_confirm'   => 'Şifre Onayı',

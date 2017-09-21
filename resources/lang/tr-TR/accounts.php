@@ -10,6 +10,6 @@ return [
     'bank_phone'            => 'Banka Telefonu',
     'bank_address'          => 'Banka Adresi',
     'default_account'       => 'Varsayılan Hesap',
-    'all'                   => 'Tüm Hesaplar'
+    'all'                   => 'Tüm Hesaplar',
 
 ];

@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Reminder Language Lines
+    | Password Reset Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are the default lines which match reasons
@@ -14,9 +14,9 @@ return [
     */
 
     'password' => 'Şifreler en az altı karakter olmalı ve onay ile eşleşmelidir.',
-    'reset'    => 'Şifreniz sıfırlandı!',
-    'sent'     => 'Şifre sıfırlama bağlantınızı size e-posta ile gönderdik!',
-    'token'    => 'Şifre sıfırlama adresi/kodu geçersiz.',
-    'user'     => 'Bu e-posta adresi ile kayıtlı bir üye bulunmuyor.',
+    'reset' => 'Şifreniz sıfırlandı!',
+    'sent' => 'Şifre sıfırlama bağlantınızı size e-posta ile gönderdik!',
+    'token' => 'Şifre sıfırlama adresi/kodu geçersiz.',
+    'user' => "Bu e-posta adresi ile kayıtlı bir üye bulunmuyor.",
 
 ];

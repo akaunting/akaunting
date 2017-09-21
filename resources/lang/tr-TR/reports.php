@@ -4,7 +4,7 @@ return [
 
     'summary' => [
         'income'            => 'Gelir Özeti',
-        'expense'           => 'Gelir Özeti',
+        'expense'           => 'Gider Özeti',
         'income_expense'    => 'Gelir Gider Dengesi',
     ],
 
