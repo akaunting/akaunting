@@ -2,6 +2,10 @@
 
 @section('title', trans_choice('general.updates', 2))
 
+@section('new_button')
+<span class="new-button"><a href="{{ url('install/updates/check') }}" class="btn btn-warning btn-sm"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a></span>
+@endsection
+
 @section('content')
 <!-- Default box -->
 <div class="box box-success">

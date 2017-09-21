@@ -6,10 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Models\Module\Module as Model;
 use App\Utilities\Updater;
 use App\Utilities\Versions;
+use Illuminate\Routing\Route;
 use Module;
 
 class Updates extends Controller
 {
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @param  Route  $route
+     */
+    public function __construct(Route $route)
+    {
+        if (!setting('general.api_token')) {
+            return redirect('modules/token/create')->send();
+        }
+
+        parent::__construct($route);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -56,6 +72,24 @@ class Updates extends Controller
         return Versions::changelog();
     }
 
+    /**
+     * Check for updates.
+     *
+     * @return Response
+     */
+    public function check()
+    {
+        // Clear cache in order to check for updates
+        Updater::clear();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Update the core or modules.
+     *
+     * @return Response
+     */
     public function update($alias, $version)
     {
         set_time_limit(600); // 10 minutes

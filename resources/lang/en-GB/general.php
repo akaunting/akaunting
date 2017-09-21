@@ -92,6 +92,7 @@ return [
     'help'                  => 'Help',
     'all'                   => 'All',
     'upcoming'              => 'Upcoming',
+    'created'               => 'Created',
 
     'title' => [
         'new'               => 'New :type',

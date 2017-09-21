@@ -35,7 +35,7 @@
                         <th class="col-md-4">@sortablelink('name', trans('general.name'))</th>
                         <th class="col-md-2">@sortablelink('domain', trans('companies.domain'))</th>
                         <th class="col-md-2">@sortablelink('email', trans('general.email'))</th>
-                        <th class="col-md-1">@sortablelink('created_at', trans('general.date'))</th>
+                        <th class="col-md-1">@sortablelink('created_at', trans('general.created'))</th>
                         <th class="col-md-3">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
