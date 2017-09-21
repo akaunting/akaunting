@@ -32,11 +32,10 @@
             <table class="table table-bordered table-striped table-hover" id="tbl-companies">
                 <thead>
                     <tr>
-                        <th>@sortablelink('company_name', trans('general.name'))</th>
-                        <th>@sortablelink('domain', trans('companies.domain'))</th>
-                        <th>@sortablelink('company_email', trans('general.email'))</th>
-
-                        <th style="width: 15%;">{{ trans('general.actions') }}</th>
+                        <th class="col-md-5">@sortablelink('name', trans('general.name'))</th>
+                        <th class="col-md-2">@sortablelink('domain', trans('companies.domain'))</th>
+                        <th class="col-md-2">@sortablelink('email', trans('general.email'))</th>
+                        <th class="col-md-3">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +45,7 @@
                         <td>{{ $item->domain }}</td>
                         <td>{{ $item->company_email }}</td>
                         <td>
+                            <a href="{{ url('companies/companies/' . $item->id . '/set') }}" class="btn btn-info btn-xs"><i class="fa fa-arrow-right" aria-hidden="true"></i> {{ trans('general.change') }}</a>
                             <a href="{{ url('companies/companies/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
                             @permission('delete-companies-companies')
                             {!! Form::deleteButton($item, 'companies/companies', '', 'company_name') !!}
@@ -58,6 +58,11 @@
         </div>
     </div>
     <!-- /.box-body -->
+
+    <div class="box-footer">
+        @include('partials.admin.pagination', ['items' => $companies, 'type' => 'companies'])
+    </div>
+    <!-- /.box-footer -->
 </div>
 <!-- /.box -->
 @endsection

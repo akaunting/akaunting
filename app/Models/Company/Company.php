@@ -22,7 +22,7 @@ class Company extends Eloquent
      *
      * @var array
      */
-    public $sortable = ['domain'];
+    public $sortable = ['name', 'domain', 'email'];
 
     public function accounts()
     {
@@ -195,5 +195,37 @@ class Company extends Eloquent
         $limit = $request->get('limit', setting('general.list_limit', '25'));
 
         return $this->filter($input)->sortable($sort)->paginate($limit);
+    }
+
+    /**
+     * Sort by company name
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function nameSortable($query, $direction)
+    {
+        return $query->join('settings', 'companies.id', '=', 'settings.company_id')
+            ->where('key', 'general.company_name')
+            ->orderBy('value', $direction)
+            ->select('companies.*');
+    }
+
+    /**
+     * Sort by company email
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function emailSortable($query, $direction)
+    {
+        return $query->join('settings', 'companies.id', '=', 'settings.company_id')
+            ->where('key', 'general.company_email')
+            ->orderBy('value', $direction)
+            ->select('companies.*');
     }
 }

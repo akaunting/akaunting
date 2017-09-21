@@ -22,7 +22,7 @@ class Companies extends Controller
      */
     public function index()
     {
-        $companies = Auth::user()->companies()->get()->sortBy('name');
+        $companies = Auth::user()->companies()->collect();
 
         foreach ($companies as $company) {
             $company->setSettings();

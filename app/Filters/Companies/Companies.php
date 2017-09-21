@@ -16,7 +16,6 @@ class Companies extends ModelFilter
 
     public function search($query)
     {
-        $this->related('settings','settings.key', '=',"'company_name'");
-        return $this->related('settings','settings.value', 'LIKE',"'%" . $query . "%'");
+        return $this->whereLike('value', $query);
     }
 }
