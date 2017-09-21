@@ -60,7 +60,7 @@ class Versions
         // Get data from cache
         $data = Cache::get('versions');
 
-        if (!empty($data) || !setting('general.api_token')) {
+        if (!empty($data)) {
             return $data;
         }
 
@@ -73,6 +73,13 @@ class Versions
         $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
 
         $data['core'] = static::getLatestVersion($url);
+
+        // API token required for modules
+        if (!setting('general.api_token')) {
+            Cache::put('versions', $data, Date::now()->addHour(6));
+
+            return $data;
+        }
 
         // Then modules
         foreach ($modules as $module) {

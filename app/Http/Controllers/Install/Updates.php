@@ -6,25 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Module\Module as Model;
 use App\Utilities\Updater;
 use App\Utilities\Versions;
-use Illuminate\Routing\Route;
 use Module;
 
 class Updates extends Controller
 {
-
-    /**
-     * Instantiate a new controller instance.
-     *
-     * @param  Route  $route
-     */
-    public function __construct(Route $route)
-    {
-        if (!setting('general.api_token')) {
-            return redirect('modules/token/create')->send();
-        }
-
-        parent::__construct($route);
-    }
 
     /**
      * Show the form for creating a new resource.

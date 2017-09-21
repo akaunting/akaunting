@@ -124,7 +124,7 @@ class Updater
         // Get data from cache
         $data = Cache::get('updates');
 
-        if (!empty($data) || !setting('general.api_token')) {
+        if (!empty($data)) {
             return $data;
         }
 
