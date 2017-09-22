@@ -51,6 +51,9 @@ class Companies extends ApiController
     {
         $company = Company::create($request->all());
 
+        // Clear settings
+        setting()->forgetAll();
+
         // Create settings
         setting()->set([
             'general.company_name' => $request->get('company_name'),
