@@ -49,10 +49,10 @@ class Companies extends ApiController
      */
     public function store(Request $request)
     {
-        $company = Company::create($request->all());
-
         // Clear settings
         setting()->forgetAll();
+
+        $company = Company::create($request->all());
 
         // Create settings
         setting()->set([
