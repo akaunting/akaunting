@@ -18,7 +18,7 @@ Akaunting is a free, online and open source accounting software designed for sma
 
 ## Framework
 
-Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, as the foundation framework and [Laravel Modules](https://nwidart.com/laravel-modules) package for Apps.
+Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, as the foundation framework and [Modules](https://nwidart.com/laravel-modules) package for Apps.
 
 ## Installation
 
@@ -26,7 +26,7 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
   * Download the [repository](https://github.com/akaunting/akaunting/archive/master.zip) and unzip into your server
   * Open and point your command line to the directory you unzipped Akaunting
   * Run the following command: `composer install`
-  * Finally, go to the Akaunting folder via your browser
+  * Finally, launch the [installer](https://akaunting.com/docs/installation)
 
 ## Contributing
 
@@ -48,7 +48,7 @@ Please see [Releases](../../releases) for more information what has changed rece
 
 ## Security
 
-If you discover any security related issues, please email security[at]akaunting[dot]com instead of using the issue tracker.
+If you discover any security related issues, please email security@akaunting.com instead of using the issue tracker.
 
 ## Credits
 
