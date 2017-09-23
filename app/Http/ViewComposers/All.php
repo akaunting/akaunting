@@ -18,7 +18,7 @@ class All
     public function compose(View $view)
     {
         // Make sure it's installed
-        if (env('DB_DATABASE', '') != '') {
+        if (env('APP_INSTALLED')) {
             // Share date format
             $view->with(['date_format' => $this->getCompanyDateFormat()]);
         }

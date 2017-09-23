@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (env('APP_DEBUG')) {
+        if (env('APP_INSTALLED') && env('APP_DEBUG')) {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
 

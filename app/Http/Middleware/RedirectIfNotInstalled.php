@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use File;
 
-class CheckIfInstalled
+class RedirectIfNotInstalled
 {
     /**
      * Handle an incoming request.
@@ -15,8 +16,8 @@ class CheckIfInstalled
      */
     public function handle($request, Closure $next)
     {
-        // DB_DATABASE not empty means installed
-        if (env('DB_DATABASE', '') != '') {
+        // Check if .env file exists
+        if (File::exists(base_path('.env'))) {
             return $next($request);
         }
 

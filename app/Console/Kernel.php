@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Not installed yet
-        if (env('DB_DATABASE', '') == '') {
+        if (!env('APP_INSTALLED')) {
             return;
         }
 

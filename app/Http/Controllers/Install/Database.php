@@ -61,7 +61,7 @@ class Database extends Controller
             'database'  => $request['database'],
             'username'  => $request['username'],
             'password'  => $request['password'],
-            'driver'    => 'mysql',
+            'driver'    => env('DB_CONNECTION', 'mysql'),
             'port'      => env('DB_PORT', '3306'),
         ]);
 
@@ -105,18 +105,20 @@ class Database extends Controller
             ],
         ])->save();
 
+        $con = env('DB_CONNECTION', 'mysql');
+
         // Change current connection
-        $mysql = Config::get('database.connections.mysql');
+        $db = Config::get('database.connections.' . $con);
 
-        $mysql['host'] = $request['hostname'];
-        $mysql['database'] = $request['database'];
-        $mysql['username'] = $request['username'];
-        $mysql['password'] = $request['password'];
-        $mysql['prefix'] = $prefix;
+        $db['host'] = $request['hostname'];
+        $db['database'] = $request['database'];
+        $db['username'] = $request['username'];
+        $db['password'] = $request['password'];
+        $db['prefix'] = $prefix;
 
-        Config::set('database.connections.mysql', $mysql);
+        Config::set('database.connections.' . $con, $db);
 
-        DB::purge('mysql');
-        DB::reconnect('mysql');
+        DB::purge($con);
+        DB::reconnect($con);
     }
 }
