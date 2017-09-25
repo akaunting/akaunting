@@ -16,6 +16,11 @@
                 @yield('content')
             </div>
             <!-- /.login-box-body -->
+
+            <div class="login-box-footer">
+                {{ trans('footer.powered') }}: <a href="https://akaunting.com" target="_blank">{{ trans('footer.software') }}</a>
+            </div>
+            <!-- /.login-box-footer -->
         </div>
     </body>
 </html>

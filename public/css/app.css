@@ -413,6 +413,16 @@ ul.add-new.nav.navbar-nav.pull-left {
     max-height: 120px;
 }
 
+.login-box-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #d8d8d8;
+}
+
+.login-box-footer a {
+    color: #d8d8d8;
+}
+
 @media only screen and (max-width : 768px) {
     .main-header .add-new.nav.navbar-nav i {
         margin-top: 3px;
