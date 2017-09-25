@@ -85,14 +85,12 @@ class Item extends Model
     {
         $error = false;
 
-        $bills = $this->bills();
-        if ($bills->count()) {
-            $error['bills'] = $bills->count();
+        if ($bills = $this->bills()->count()) {
+            $error['bills'] = $bills;
         }
 
-        $invoices = $this->invoices();
-        if ($invoices->count()) {
-            $error['invoices'] = $invoices->count();
+        if ($invoices = $this->invoices()->count()) {
+            $error['invoices'] = $invoices;
         }
 
         if ($error) {

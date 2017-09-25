@@ -45,19 +45,16 @@ class Tax extends Model
     {
         $error = false;
 
-        $items = $this->items();
-        if ($items->count()) {
-            $error['items'] = $items->count();
+        if ($items = $this->items()->count()) {
+            $error['items'] = $items;
         }
 
-        $bills = $this->bills();
-        if ($bills->count()) {
-            $error['bills'] = $bills->count();
+        if ($bills = $this->bills()->count()) {
+            $error['bills'] = $bills;
         }
 
-        $invoices = $this->invoices();
-        if ($invoices->count()) {
-            $error['invoices'] = $invoices->count();
+        if ($invoices = $this->invoices()->count()) {
+            $error['invoices'] = $invoices;
         }
 
         if ($error) {

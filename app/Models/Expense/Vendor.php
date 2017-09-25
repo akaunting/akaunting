@@ -57,14 +57,12 @@ class Vendor extends Model
     {
         $error = false;
 
-        $bills = $this->bills();
-        if ($bills->count()) {
-            $error['bills'] = $bills->count();
+        if ($bills = $this->bills()->count()) {
+            $error['bills'] = $bills;
         }
 
-        $payments = $this->payments();
-        if ($payments->count()) {
-            $error['payments'] = $payments->count();
+        if ($payments = $this->payments()->count()) {
+            $error['payments'] = $payments;
         }
 
         if ($error) {

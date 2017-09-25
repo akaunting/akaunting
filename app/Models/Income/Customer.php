@@ -64,14 +64,12 @@ class Customer extends Model
     {
         $error = false;
 
-        $invoices = $this->invoices();
-        if ($invoices->count()) {
-            $error['invoices'] = $invoices->count();
+        if ($invoices = $this->invoices()->count()) {
+            $error['invoices'] = $invoices;
         }
 
-        $revenues = $this->revenues();
-        if ($revenues->count()) {
-            $error['revenues'] = $revenues->count();
+        if ($revenues = $this->revenues()->count()) {
+            $error['revenues'] = $revenues;
         }
 
         if ($error) {

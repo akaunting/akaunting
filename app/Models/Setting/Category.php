@@ -44,19 +44,16 @@ class Category extends Model
     {
         $error = false;
 
-        $items = $this->items();
-        if ($items->count()) {
-            $error['items'] = $items->count();
+        if ($items = $this->items()->count()) {
+            $error['items'] = $items;
         }
 
-        $payments = $this->payments();
-        if ($payments->count()) {
-            $error['payments'] = $payments->count();
+        if ($payments = $this->payments()->count()) {
+            $error['payments'] = $payments;
         }
 
-        $revenues = $this->revenues();
-        if ($revenues->count()) {
-            $error['revenues'] = $revenues->count();
+        if ($revenues = $this->revenues()->count()) {
+            $error['revenues'] = $revenues;
         }
 
         if ($error) {

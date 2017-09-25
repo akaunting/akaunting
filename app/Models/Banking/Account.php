@@ -74,24 +74,20 @@ class Account extends Model
     {
         $error = false;
 
-        $bill_payments = $this->bill_payments();
-        if ($bill_payments->count()) {
-            $error['bills'] = $bill_payments->count();
+        if ($bill_payments = $this->bill_payments()->count()) {
+            $error['bills'] = $bill_payments;
         }
 
-        $payments = $this->payments();
-        if ($payments->count()) {
-            $error['payments'] = $payments->count();
+        if ($payments = $this->payments()->count()) {
+            $error['payments'] = $payments;
         }
 
-        $invoice_payments = $this->invoice_payments();
-        if ($invoice_payments->count()) {
-            $error['invoices'] = $invoice_payments->count();
+        if ($invoice_payments = $this->invoice_payments()->count()) {
+            $error['invoices'] = $invoice_payments;
         }
 
-        $revenues = $this->revenues();
-        if ($revenues->count()) {
-            $error['revenues'] = $revenues->count();
+        if ($revenues = $this->revenues()->count()) {
+            $error['revenues'] = $revenues;
         }
 
         if ($error) {
