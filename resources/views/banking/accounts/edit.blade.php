@@ -32,7 +32,7 @@
         </div>
         <!-- /.box-body -->
 
-        @permission('update-accounts')
+        @permission('update-banking-accounts')
         <div class="box-footer">
             {{ Form::saveButtons('banking/accounts') }}
         </div>
