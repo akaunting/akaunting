@@ -92,6 +92,7 @@ return [
     'help'                  => 'Ajuda',
     'all'                   => 'Todos',
     'upcoming'              => 'Próximos',
+    'created'               => 'Criado',
 
     'title' => [
         'new'               => 'Novo :type',

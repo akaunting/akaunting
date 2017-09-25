@@ -92,6 +92,7 @@ return [
     'help'                  => 'Yardım',
     'all'                   => 'Hepsi',
     'upcoming'              => 'Gelecek',
+    'created'               => 'Oluşturuldu',
 
     'title' => [
         'new'               => 'Yeni :type',
