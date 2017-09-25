@@ -133,6 +133,7 @@ Route::group(['middleware' => ['guest', 'language']], function () {
     });
 
     Route::group(['prefix' => 'install'], function () {
+        Route::get('/', 'Install\Requirements@show');
         Route::get('requirements', 'Install\Requirements@show');
 
         Route::get('language', 'Install\Language@create');

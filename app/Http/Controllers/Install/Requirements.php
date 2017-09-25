@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Install;
 
 use DotenvEditor;
+use File;
 use Illuminate\Routing\Controller;
 
 class Requirements extends Controller
@@ -19,7 +20,9 @@ class Requirements extends Controller
 
         if (empty($requirements)) {
             // Create the .env file
-            $this->createEnvFile();
+            if (!File::exists(base_path('.env'))) {
+                $this->createEnvFile();
+            }
 
             redirect('install/language')->send();
         } else {
@@ -80,6 +83,10 @@ class Requirements extends Controller
             $requirements[] = trans('install.requirements.extension', ['extension' => 'cURL']);
         }
 
+        if (!extension_loaded('xml')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'XML']);
+        }
+
         if (!extension_loaded('zip')) {
             $requirements[] = trans('install.requirements.extension', ['extension' => 'ZIP']);
         }
@@ -121,12 +128,16 @@ class Requirements extends Controller
                 'value'     => 'production',
             ],
             [
+                'key'       => 'APP_INSTALLED',
+                'value'     => 'false',
+            ],
+            [
                 'key'       => 'APP_KEY',
                 'value'     => 'base64:'.base64_encode(random_bytes(32)),
             ],
             [
                 'key'       => 'APP_DEBUG',
-                'value'     => 'false',
+                'value'     => 'true',
             ],
             [
                 'key'       => 'APP_LOG_LEVEL',

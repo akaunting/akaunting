@@ -6,6 +6,7 @@ use Artisan;
 use App\Http\Requests\Install\Setting as Request;
 use App\Models\Auth\User;
 use App\Models\Company\Company;
+use DotenvEditor;
 use File;
 use Illuminate\Routing\Controller;
 use Setting;
@@ -84,6 +85,18 @@ class Settings extends Controller
         // Caching the config and route
         //Artisan::call('config:cache');
         //Artisan::call('route:cache');
+
+        // Update .env file
+        DotenvEditor::setKeys([
+            [
+                'key'       => 'APP_INSTALLED',
+                'value'     => 'true',
+            ],
+            [
+                'key'       => 'APP_DEBUG',
+                'value'     => 'false',
+            ],
+        ])->save();
 
         // Rename the robots.txt file
         try {
