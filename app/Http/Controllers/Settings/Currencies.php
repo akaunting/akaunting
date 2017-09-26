@@ -97,7 +97,7 @@ class Currencies extends Controller
     {
         $canDisable = $currency->canDisable();
 
-        if ($canDisable === true) {
+        if ($canDisable === true || $request['enabled']) {
             $currency->update($request->all());
 
             // Update default currency setting
