@@ -95,17 +95,55 @@ class Currencies extends Controller
      */
     public function update(Currency $currency, Request $request)
     {
-        $currency->update($request->all());
+        $canDisable = $currency->canDisable();
 
-        // Update default currency setting
-        if ($request['default_currency']) {
-            setting()->set('general.default_currency', $request['code']);
-            setting()->save();
+        if ($canDisable === true) {
+            $currency->update($request->all());
+
+            // Update default currency setting
+            if ($request['default_currency']) {
+                setting()->set('general.default_currency', $request['code']);
+                setting()->save();
+            }
+
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.currencies', 1)]);
+
+            flash($message)->success();
+        } else {
+            $text = array();
+
+            if (isset($canDisable['company'])) {
+                $text[] = '<b>' . $canDisable['company'] . '</b> ' . trans_choice('general.companies', ($canDisable['company'] > 1) ? 2 : 1);
+            }
+
+            if (isset($canDisable['accounts'])) {
+                $text[] = '<b>' . $canDisable['accounts'] . '</b> ' . trans_choice('general.accounts', ($canDisable['accounts'] > 1) ? 2 : 1);
+            }
+
+            if (isset($canDisable['customers'])) {
+                $text[] = '<b>' . $canDisable['customers'] . '</b> ' . trans_choice('general.customers', ($canDisable['customers'] > 1) ? 2 : 1);
+            }
+
+            if (isset($canDisable['invoices'])) {
+                $text[] = '<b>' . $canDisable['invoices'] . '</b> ' . trans_choice('general.invoices', ($canDisable['invoices'] > 1) ? 2 : 1);
+            }
+
+            if (isset($canDisable['revenues'])) {
+                $text[] = '<b>' . $canDisable['revenues'] . '</b> ' . trans_choice('general.revenues', ($canDisable['revenues'] > 1) ? 2 : 1);
+            }
+
+            if (isset($canDisable['bills'])) {
+                $text[] = '<b>' . $canDisable['bills'] . '</b> ' . trans_choice('general.bills', ($canDisable['bills'] > 1) ? 2 : 1);
+            }
+
+            if (isset($canDisable['payments'])) {
+                $text[] = '<b>' . $canDisable['payments'] . '</b> ' . trans_choice('general.payments', ($canDisable['payments'] > 1) ? 2 : 1);
+            }
+
+            $message = trans('messages.warning.disabled', ['type' => trans_choice('general.currencies', 1), 'text' => implode(', ', $text)]);
+
+            flash($message)->warning();
         }
-
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.currencies', 1)]);
-
-        flash($message)->success();
 
         return redirect('settings/currencies');
     }

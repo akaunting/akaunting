@@ -12,6 +12,7 @@ return [
     ],
     'warning' => [
         'deleted'           => 'Warning: You are not delete :type. Because it has :text',
+        'disabled'          => 'Warning: You are not disable :type. Because it has :text',
     ],
 
 ];

@@ -25,31 +25,70 @@ class Currency extends Model
 
     public function accounts()
     {
-        return $this->hasMany('App\Models\Banking\Account');
+        return $this->hasMany('App\Models\Banking\Account', 'currency_code', 'code');
     }
 
     public function customers()
     {
-        return $this->hasMany('App\Models\Income\Customer');
+        return $this->hasMany('App\Models\Income\Customer', 'currency_code', 'code');
     }
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Income\Invoice', 'code', 'currency_code');
+        return $this->hasMany('App\Models\Income\Invoice', 'currency_code', 'code');
     }
 
     public function revenues()
     {
-        return $this->hasMany('App\Models\Income\Revenue', 'code', 'currency_code');
+        return $this->hasMany('App\Models\Income\Revenue', 'currency_code', 'code');
     }
 
     public function bills()
     {
-        return $this->hasMany('App\Models\Expense\Bill', 'code', 'currency_code');
+        return $this->hasMany('App\Models\Expense\Bill', 'currency_code', 'code');
     }
 
     public function payments()
     {
-        return $this->hasMany('App\Models\Expense\Payment', 'code', 'currency_code');
+        return $this->hasMany('App\Models\Expense\Payment', 'currency_code', 'code');
+    }
+
+    public function canDisable()
+    {
+        $error = false;
+
+        if ($this->code == setting('general.default_currency')) {
+            $error['company'] = 1;
+        }
+
+        if ($accounts = $this->accounts()->count()) {
+            $error['accounts'] = $accounts;
+        }
+
+        if ($customers = $this->customers()->count()) {
+            $error['customers'] = $customers;
+        }
+
+        if ($invoices = $this->invoices()->count()) {
+            $error['invoices'] = $invoices;
+        }
+
+        if ($revenues = $this->revenues()->count()) {
+            $error['revenues'] = $revenues;
+        }
+
+        if ($bills = $this->bills()->count()) {
+            $error['bills'] = $bills;
+        }
+
+        if ($payments = $this->payments()->count()) {
+            $error['payments'] = $payments;
+        }
+
+        if ($error) {
+            return $error;
+        }
+
+        return true;
     }
 }
