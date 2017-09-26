@@ -99,7 +99,7 @@ return [
         'edit'              => 'Editar :type',
     ],
     'form' => [
-        'enter'             => 'Digite :filed',
+        'enter'             => 'Digite :field',
         'select' => [
             'field'         => '- Selecionar :field -',
             'file'          => 'Selecionar Arquivo',
