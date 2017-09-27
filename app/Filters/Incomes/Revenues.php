@@ -14,6 +14,11 @@ class Revenues extends ModelFilter
      */
     public $relations = [];
 
+    public function search($query)
+    {
+        return $this->whereLike('description', $query);
+    }
+
     public function customer($customer)
     {
         return $this->where('customer_id', $customer);

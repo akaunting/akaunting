@@ -23,7 +23,7 @@ class Modules
         if (setting('general.api_token')) {
             $categories = Cache::remember('modules.categories', Date::now()->addHour(6), function () {
                 return collect($this->getCategories())->pluck('name', 'slug')
-                    ->prepend(trans('categories.all'), '');
+                    ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
             });
 
             $view->with(['categories' => $categories]);

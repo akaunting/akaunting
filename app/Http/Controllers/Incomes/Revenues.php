@@ -28,13 +28,13 @@ class Revenues extends Controller
         $revenues = Revenue::with(['account', 'category', 'customer'])->collect();
 
         $customers = collect(Customer::enabled()->pluck('name', 'id'))
-            ->prepend(trans('customer.all'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.customers', 2)]), '');
 
         $categories = collect(Category::enabled()->type('income')->pluck('name', 'id'))
-            ->prepend(trans('categories.all'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
 
         $accounts = collect(Account::enabled()->pluck('name', 'id'))
-            ->prepend(trans('accounts.all'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
 
         return view('incomes.revenues.index', compact('revenues', 'customers', 'categories', 'accounts'));
     }

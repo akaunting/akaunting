@@ -40,10 +40,13 @@ class Invoices extends Controller
     {
         $invoices = Invoice::with('status')->collect();
 
-        $status = collect(InvoiceStatus::all()->pluck('name', 'code'))
-            ->prepend(trans('general.all_statuses'), '');
+        $customers = collect(Customer::enabled()->pluck('name', 'id'))
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.customers', 2)]), '');
 
-        return view('incomes.invoices.index', compact('invoices', 'status'));
+        $status = collect(InvoiceStatus::all()->pluck('name', 'code'))
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.statuses', 2)]), '');
+
+        return view('incomes.invoices.index', compact('invoices', 'customers', 'status'));
     }
 
     /**

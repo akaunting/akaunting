@@ -46,7 +46,7 @@ class Invoices extends Controller
         }
 
         $status = collect(InvoiceStatus::all()->pluck('name', 'code'))
-            ->prepend(trans('general.all_statuses'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.statuses', 2)]), '');
 
         return view('customers.invoices.index', compact('invoices', 'status'));
     }

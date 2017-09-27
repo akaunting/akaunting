@@ -19,6 +19,11 @@ class Invoices extends ModelFilter
         return $this->whereLike('customer_name', $query);
     }
 
+    public function customer($customer)
+    {
+        return $this->where('customer_id', $customer);
+    }
+
     public function status($status)
     {
         return $this->where('invoice_status_code', $status);

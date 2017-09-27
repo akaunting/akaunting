@@ -19,6 +19,11 @@ class Payments extends ModelFilter
         return $this->whereLike('description', $query);
     }
 
+    public function vendor($vendor)
+    {
+        return $this->where('vendor_id', $vendor);
+    }
+
     public function category($category)
     {
         return $this->where('category_id', $category);

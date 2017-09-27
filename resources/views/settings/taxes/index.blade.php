@@ -34,7 +34,7 @@
                     <tr>
                         <th>@sortablelink('name', trans('general.name'))</th>
                         <th>@sortablelink('rate', trans('taxes.rate_percent'))</th>
-                        <th>@sortablelink('enabled', trans('general.status'))</th>
+                        <th>@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-2">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>

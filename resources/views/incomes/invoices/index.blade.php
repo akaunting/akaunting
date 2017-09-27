@@ -16,6 +16,7 @@
         <div class="pull-left">
             <span class="title-filter">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
+            {!! Form::select('customer', $customers, request('customer'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::select('status', $status, request('status'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
@@ -34,7 +35,7 @@
                         <th class="col-md-1">@sortablelink('invoice_number', trans_choice('general.numbers', 1))</th>
                         <th class="col-md-3">@sortablelink('customer_name', trans_choice('general.customers', 1))</th>
                         <th class="col-md-1">@sortablelink('amount', trans('general.amount'))</th>
-                        <th class="col-md-1">@sortablelink('status.name', trans('general.status'))</th>
+                        <th class="col-md-1">@sortablelink('status.name', trans_choice('general.statuses', 1))</th>
                         <th>@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
                         <th>@sortablelink('due_at', trans('invoices.due_date'))</th>
                         <th class="col-md-3">{{ trans('general.actions') }}</th>

@@ -24,7 +24,7 @@
                                 <th>{{ trans('invoices.invoice_number') }}</th>
                                 <th>{{ trans_choice('general.customers', 1) }}</th>
                                 <th>{{ trans('invoices.total_price') }}</th>
-                                <th>{{ trans('general.status') }}</th>
+                                <th>{{ trans_choice('general.statuses', 1) }}</th>
                                 <th>{{ trans('invoices.invoice_date') }}</th>
                                 <th style="width: 18%;">{{ trans('general.actions') }}</th>
                             </tr>
