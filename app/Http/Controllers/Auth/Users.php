@@ -21,7 +21,7 @@ class Users extends Controller
         $users = User::with('roles')->collect();
 
         $roles = collect(Role::all()->pluck('display_name', 'id'))
-            ->prepend(trans('roles.all'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.roles', 2)]), '');
 
         return view('auth.users.index', compact('users', 'roles'));
     }

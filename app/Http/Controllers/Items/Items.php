@@ -23,7 +23,8 @@ class Items extends Controller
     {
         $items = Item::with('category')->collect();
 
-        $categories = Category::enabled()->type('item')->pluck('name', 'id')->prepend(trans('categories.all'), '');
+        $categories = Category::enabled()->type('item')->pluck('name', 'id')
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
 
         return view('items.items.index', compact('items', 'categories'));
     }

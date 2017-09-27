@@ -27,7 +27,7 @@ class Transfers extends Controller
         $items = Transfer::with(['payment', 'revenue', 'account'])->collect('payment.paid_at');
 
         $accounts = collect(Account::enabled()->pluck('name', 'id'))
-            ->prepend(trans('accounts.all'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
 
         $transfers = array();
 

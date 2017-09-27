@@ -16,8 +16,8 @@
         <div class="pull-left">
             <span class="title-filter">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::select('category_id', $categories, request('category_id'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('categories.all')]) !!}
-            {!! Form::select('payment_method', $payment_methods, request('payment_method'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans_choice('general.payment_methods', 2)]) !!}
+            {!! Form::select('category_id', $categories, request('category_id'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::select('payment_method', $payment_methods, request('payment_method'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">

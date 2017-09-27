@@ -19,7 +19,7 @@ class Categories extends Controller
         $categories = Category::collect();
 
         $types = collect(['expense' => 'Expense', 'income' => 'Income', 'item' => 'Item', 'other' => 'Other'])
-            ->prepend(trans('categories.all_types'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
 
         return view('settings.categories.index', compact('categories', 'types'));
     }
