@@ -15,8 +15,8 @@
         {!! Form::open(['url' => 'banking/transfers', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-left">
             <span class="title-filter">{{ trans('general.search') }}:</span>
-            {!! Form::select('from_account', $accounts, request('from_account'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('accounts.all')]) !!}
-            {!! Form::select('to_account', $accounts, request('to_account'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('accounts.all')]) !!}
+            {!! Form::select('from_account', $accounts, request('from_account'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::select('to_account', $accounts, request('to_account'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
