@@ -25,7 +25,7 @@
 
         {{ Form::textGroup('quantity', trans_choice('items.quantities', 1), 'cubes') }}
 
-        {{ Form::selectGroup('tax_id', trans_choice('general.taxes', 1), 'percent', $taxes, setting('general.default_tax', '')) }}
+        {{ Form::selectGroup('tax_id', trans_choice('general.taxes', 1), 'percent', $taxes) }}
 
         {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder-open-o', $categories) }}
 
