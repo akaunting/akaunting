@@ -38,7 +38,7 @@
                         <th class="col-md-1">@sortablelink('quantity', trans_choice('items.quantities', 1))</th>
                         <th>@sortablelink('sale_price', trans('items.sales_price'))</th>
                         <th>@sortablelink('purchase_price', trans('items.purchase_price'))</th>
-                        <th class="col-md-1">@sortablelink('enabled', trans('general.status'))</th>
+                        <th class="col-md-1">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-2">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>

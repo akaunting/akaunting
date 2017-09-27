@@ -179,7 +179,7 @@
                         <thead>
                         <tr>
                             <th>{{ trans('general.date') }}</th>
-                            <th>{{ trans('general.status') }}</th>
+                            <th>{{ trans_choice('general.statuses', 1) }}</th>
                             <th>{{ trans('general.description') }}</th>
                         </tr>
                         </thead>

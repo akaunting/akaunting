@@ -38,10 +38,13 @@ class Bills extends Controller
     {
         $bills = Bill::with('status')->collect();
 
-        $status = collect(BillStatus::all()->pluck('name', 'code'))
-            ->prepend(trans('general.all_statuses'), '');
+        $vendors = collect(Vendor::enabled()->pluck('name', 'id'))
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
 
-        return view('expenses.bills.index', compact('bills', 'status'));
+        $status = collect(BillStatus::all()->pluck('name', 'code'))
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.statuses', 2)]), '');
+
+        return view('expenses.bills.index', compact('bills', 'vendors', 'status'));
     }
 
     /**

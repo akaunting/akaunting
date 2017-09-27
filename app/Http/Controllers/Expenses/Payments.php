@@ -24,13 +24,16 @@ class Payments extends Controller
     {
         $payments = Payment::with(['account', 'category'])->collect();
 
+        $vendors = collect(Vendor::enabled()->pluck('name', 'id'))
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
+
         $categories = collect(Category::enabled()->type('expense')->pluck('name', 'id'))
-            ->prepend(trans('categories.all'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
 
         $accounts = collect(Account::enabled()->pluck('name', 'id'))
-            ->prepend(trans('accounts.all'), '');
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
 
-        return view('expenses.payments.index', compact('payments', 'categories', 'accounts'));
+        return view('expenses.payments.index', compact('payments', 'vendors', 'categories', 'accounts'));
     }
 
     /**

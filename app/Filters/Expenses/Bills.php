@@ -19,6 +19,11 @@ class Bills extends ModelFilter
         return $this->whereLike('vendor_name', $query);
     }
 
+    public function vendor($vendor)
+    {
+        return $this->where('vendor_id', $vendor);
+    }
+
     public function status($status)
     {
         return $this->where('bill_status_code', $status);

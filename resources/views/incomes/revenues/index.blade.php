@@ -15,6 +15,7 @@
         {!! Form::open(['url' => 'incomes/revenues', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-left">
             <span class="title-filter">{{ trans('general.search') }}:</span>
+            {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
             {!! Form::select('customer', $customers, request('customer'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::select('category', $categories, request('category'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::select('account', $accounts, request('account'), ['class' => 'form-control input-filter input-sm']) !!}

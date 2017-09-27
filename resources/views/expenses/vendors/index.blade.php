@@ -34,7 +34,7 @@
                         <th>@sortablelink('name', trans('general.name'))</th>
                         <th>@sortablelink('email', trans('general.email'))</th>
                         <th>@sortablelink('phone', trans('general.phone'))</th>
-                        <th>@sortablelink('enabled', trans('general.status'))</th>
+                        <th>@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                         <th style="width: 15%;">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>

@@ -34,7 +34,7 @@
                         <th>@sortablelink('invoice_number', trans('invoices.invoice_number'))</th>
                         <th>@sortablelink('customer_name', trans_choice('general.customers', 1))</th>
                         <th>@sortablelink('amount', trans('invoices.total_price'))</th>
-                        <th>@sortablelink('status.name', trans('general.status'))</th>
+                        <th>@sortablelink('status.name', trans_choice('general.statuses', 1))</th>
                         <th>@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
                         <th>@sortablelink('due_at', trans('invoices.due_date'))</th>
                         <th style="width: 18%;">{{ trans('general.actions') }}</th>
