@@ -106,7 +106,7 @@ class Users extends Controller
         // Upload picture
         $picture = $request->file('picture');
         if ($picture && $picture->isValid()) {
-            $request['picture'] = $picture->store('uploads/users');
+            $request['picture'] = $picture->store('users');
         }
 
         // Do not reset password if not entered/changed

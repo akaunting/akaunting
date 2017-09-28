@@ -40,7 +40,7 @@
                 <tbody>
                 @foreach($users as $item)
                     <tr>
-                        <td><a href="{{ url('auth/users/' . $item->id . '/edit') }}"><img src="{{ asset($item->picture) }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}"> {{ $item->name }}</a></td>
+                        <td><a href="{{ url('auth/users/' . $item->id . '/edit') }}"><img src="{{ Storage::url($item->picture) }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}"> {{ $item->name }}</a></td>
                         <td>{{ $item->email }}</td>
                         <td style="vertical-align: middle;">
                             @foreach($item->roles as $role)
