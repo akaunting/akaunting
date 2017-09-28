@@ -8,13 +8,13 @@ use Storage;
 class Uploads extends Controller
 {
     /**
-     * Show the specified resource.
+     * Get the specified resource.
      *
      * @param  $folder
      * @param  $file
      * @return boolean|Response
      */
-    public function show($folder, $file)
+    public function get($folder, $file)
     {
         // Get file path
         if (!$path = $this->getPath($folder, $file)) {

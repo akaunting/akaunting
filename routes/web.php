@@ -10,7 +10,7 @@ Route::group(['middleware' => ['auth', 'language', 'adminmenu', 'permission:read
     Route::get('/', 'Dashboard\Dashboard@index');
 
     Route::group(['prefix' => 'uploads'], function () {
-        Route::get('{folder}/{file}', 'Common\Uploads@show');
+        Route::get('{folder}/{file}', 'Common\Uploads@get');
         Route::get('{folder}/{file}/download', 'Common\Uploads@download');
     });
 
