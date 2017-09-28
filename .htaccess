@@ -3,7 +3,18 @@
         Options -MultiViews
     </IfModule>
 
+    Options +FollowSymlinks
+
+    # Prevent Directory listing
+    Options -Indexes
+
     RewriteEngine On
+
+    # Prevent Direct Access To Protected Folders
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests)/(.*) / [L,R=301]
+
+    # Prevent Direct Access To modules/vendor Folders Except Assets
+    RewriteRule ^(modules|vendor)/(.*)\.((?!ico|gif|jpg|jpeg|png|js|css|less|sass|font|woff|woff2|eot|ttf|svg).)*$ / [L,R=301]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d

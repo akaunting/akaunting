@@ -19,7 +19,11 @@ trait Uploads
 
         $file_name = $file->getClientOriginalName();
 
-        $path = 'storage/app/' . $file->storeAs('uploads/' . $company_id . '/' . $folder, $file_name);
+        // Upload file
+        $file->storeAs($company_id . '/' . $folder, $file_name);
+
+        // Prepare db path
+        $path = $folder . '/' . $file_name;
 
         return $path;
     }

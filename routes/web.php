@@ -9,6 +9,11 @@
 Route::group(['middleware' => ['auth', 'language', 'adminmenu', 'permission:read-admin-panel']], function () {
     Route::get('/', 'Dashboard\Dashboard@index');
 
+    Route::group(['prefix' => 'uploads'], function () {
+        Route::get('{folder}/{file}', 'Common\Uploads@show');
+        Route::get('{folder}/{file}/download', 'Common\Uploads@download');
+    });
+
     Route::group(['prefix' => 'search'], function () {
         Route::get('search/search', 'Search\Search@search');
         Route::resource('search', 'Search\Search');

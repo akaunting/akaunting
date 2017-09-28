@@ -79,24 +79,21 @@ class User extends Authenticatable
      */
     public function getPictureAttribute($value)
     {
-        $pic = '';
-
-        if (is_file(base_path($value))) {
-            $pic = $value;
-        } elseif (setting('general.use_gravatar', '0') == '1') {
+        // Check if we should use gravatar
+        if (setting('general.use_gravatar', '0') == '1') {
             // Check for gravatar
             $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))).'?size=90&d=404';
 
             $client = new \GuzzleHttp\Client(['verify' => false]);
 
             try {
-                $pic = $client->request('GET', $url)->getBody()->getContents();
+                $value = $client->request('GET', $url)->getBody()->getContents();
             } catch (RequestException $e) {
                 // 404 Not Found
             }
         }
 
-        return $pic;
+        return $value;
     }
 
     /**
