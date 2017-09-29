@@ -34,7 +34,7 @@
                     <tr>
                         <th class="col-md-1">{{ trans_choice('general.pictures', 1) }}</th>
                         <th class="col-md-3">@sortablelink('name', trans('general.name'))</th>
-                        <th class="col-md-1">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
+                        <th class="col-md-1">@sortablelink('category', trans_choice('general.categories', 1))</th>
                         <th class="col-md-1">@sortablelink('quantity', trans_choice('items.quantities', 1))</th>
                         <th>@sortablelink('sale_price', trans('items.sales_price'))</th>
                         <th>@sortablelink('purchase_price', trans('items.purchase_price'))</th>

@@ -26,7 +26,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $sortable = ['name', 'category_id', 'quantity', 'sale_price', 'purchase_price', 'enabled'];
+    protected $sortable = ['name', 'category', 'quantity', 'sale_price', 'purchase_price', 'enabled'];
 
     /**
      * Searchable rules.
@@ -115,5 +115,20 @@ class Item extends Model
         }
 
         return $query->get();
+    }
+
+    /**
+     * Sort by category name
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function categorySortable($query, $direction)
+    {
+        return $query->join('categories', 'categories.id', '=', 'items.category_id')
+            ->orderBy('name', $direction)
+            ->select('items.*');
     }
 }
