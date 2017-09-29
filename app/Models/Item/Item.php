@@ -69,18 +69,6 @@ class Item extends Model
         return $this->reverseConvert($this->amount, $this->currency_code, $this->currency_rate, $format);
     }
 
-    /**
-     * Always return a valid picture when we retrieve it
-     */
-    public function getPictureAttribute($value)
-    {
-        if (!empty($value)) {
-            return $value;
-        } else {
-            return 'public/img/akaunting-logo-green.png';
-        }
-    }
-
     public function canDelete()
     {
         $error = false;

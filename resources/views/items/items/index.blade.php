@@ -45,7 +45,7 @@
                 <tbody>
                 @foreach($items as $item)
                     <tr>
-                        <td><img src="{{ Storage::url($item->picture) }}" class="img-thumbnail" width="50" alt="{{ $item->name }}"></td>
+                        <td><img src="{{ $item->picture ? Storage::url($item->picture) : asset('public/img/akaunting-logo-green.png') }}" class="img-thumbnail" width="50" alt="{{ $item->name }}"></td>
                         <td><a href="{{ url('items/items/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
                         <td>{{ $item->category ? $item->category->name : trans('general.na') }}</td>
                         <td>{{ $item->quantity }}</td>
