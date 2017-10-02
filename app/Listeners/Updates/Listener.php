@@ -17,12 +17,12 @@ class Listener
     protected function check($event)
     {
         // Apply only to the specified alias
-        if ($event->alias != self::ALIAS) {
+        if ($event->alias != static::ALIAS) {
             return false;
         }
 
         // Do not apply to the same or newer versions
-        if ($event->old >= self::VERSION) {
+        if ($event->old >= static::VERSION) {
             return false;
         }
 
