@@ -7,20 +7,11 @@ use Illuminate\Auth\Events\Logout as ILogout;
 
 class Logout
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Handle the event.
      *
-     * @param Logout $event
+     * @param ILogout $event
      * @return void
      */
     public function handle(ILogout $event)

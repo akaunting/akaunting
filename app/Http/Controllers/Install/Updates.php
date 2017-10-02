@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Install;
 
 use App\Http\Controllers\Controller;
-use App\Models\Module\Module as Model;
+use App\Events\UpdateFinished;
 use App\Utilities\Updater;
 use App\Utilities\Versions;
+use Artisan;
 use Module;
 
 class Updates extends Controller
@@ -73,17 +74,50 @@ class Updates extends Controller
     /**
      * Update the core or modules.
      *
+     * @param  $alias
+     * @param  $version
      * @return Response
      */
     public function update($alias, $version)
     {
         set_time_limit(600); // 10 minutes
 
-        $status = Updater::update($alias, $version);
+        if (Updater::update($alias, $version)) {
+            return redirect('install/updates/post/' . $alias . '/' . version('short') . '/' . $version);
+        }
 
-        // Clear cache in order to check for updates again
-        Updater::clear();
+        flash(trans('updates.error'))->error();
 
         return redirect()->back();
+    }
+
+    /**
+     * Final actions post update.
+     *
+     * @param  $alias
+     * @param  $old
+     * @param  $new
+     * @return Response
+     */
+    public function post($alias, $old, $new)
+    {
+        // Check if the file mirror was successful
+        if (($alias == 'core') && (version('short') != $new)) {
+            flash(trans('updates.error'))->error();
+
+            return redirect('install/updates');
+        }
+
+        // Clear cache after update
+        Artisan::call('cache:clear');
+
+        // Update database
+        Artisan::call('migrate', ['--force' => true]);
+
+        event(new UpdateFinished($alias, $old, $new));
+
+        flash(trans('updates.success'))->success();
+
+        return redirect('install/updates');
     }
 }

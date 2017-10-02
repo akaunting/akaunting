@@ -5,7 +5,6 @@ namespace App\Utilities;
 use App\Models\Module\Module as Model;
 use App\Models\Module\ModuleHistory as ModelHistory;
 use App\Traits\SiteApi;
-use Artisan;
 use Cache;
 use Date;
 use File;
@@ -28,19 +27,20 @@ class Updater
     // Update
     public static function update($alias, $version)
     {
+        // Download file
         if (!$data = static::download($alias, $version)) {
             return false;
         }
 
+        // Create temp directory
         $path = 'temp-' . md5(mt_rand());
         $temp_path = storage_path('app/temp') . '/' . $path;
 
-        $file = $temp_path . '/upload.zip';
-
-        // Create tmp directory
         if (!File::isDirectory($temp_path)) {
             File::makeDirectory($temp_path);
         }
+
+        $file = $temp_path . '/upload.zip';
 
         // Add content to the Zip file
         $uploaded = is_int(file_put_contents($file, $data)) ? true : false;
@@ -58,37 +58,20 @@ class Updater
 
         $zip->close();
 
-        // Remove Zip
-        File::delete($file);
-
         if ($alias == 'core') {
-            // Move all files/folders from temp path then delete it
-            File::copyDirectory($temp_path, base_path());
-            File::deleteDirectory($temp_path);
-
-            // Clear cache after update
-            Artisan::call('cache:clear');
-
-            // Update database
-            Artisan::call('migrate', ['--force' => true]);
-
-            // Check if the file mirror was successful
-            /*if (version('short') != $version) {
+            // Move all files/folders from temp path
+            if (!File::copyDirectory($temp_path, base_path())) {
                 return false;
-            }*/
+            }
         } else {
+            // Get module instance
             $module = Module::get($alias);
             $model = Model::where('alias', $alias)->first();
 
-            // Move all files/folders from temp path then delete it
-            File::copyDirectory($temp_path, module_path($module->get('name')));
-            File::deleteDirectory($temp_path);
-
-            // Clear cache after update
-            Artisan::call('cache:clear');
-
-            // Update database
-            Artisan::call('migrate', ['--force' => true]);
+            // Move all files/folders from temp path
+            if (!File::copyDirectory($temp_path, module_path($module->get('name')))) {
+                return false;
+            }
 
             // Add history
             ModelHistory::create([
@@ -99,6 +82,9 @@ class Updater
                 'description' => trans('modules.history.updated', ['module' => $module->get('name')]),
             ]);
         }
+
+        // Delete temp directory
+        File::deleteDirectory($temp_path);
 
         return true;
     }
