@@ -104,7 +104,8 @@ Route::group(['middleware' => ['auth', 'language', 'adminmenu', 'permission:read
     Route::group(['prefix' => 'install'], function () {
         Route::get('updates/changelog', 'Install\Updates@changelog');
         Route::get('updates/check', 'Install\Updates@check');
-        Route::get('updates/update/{id}/{version}', 'Install\Updates@update');
+        Route::get('updates/update/{alias}/{version}', 'Install\Updates@update');
+        Route::get('updates/post/{alias}/{old}/{new}', 'Install\Updates@post');
         Route::resource('updates', 'Install\Updates');
     });
 });

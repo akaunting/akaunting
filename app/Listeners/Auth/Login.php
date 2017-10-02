@@ -7,20 +7,11 @@ use Illuminate\Auth\Events\Login as ILogin;
 
 class Login
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Handle the event.
      *
-     * @param Logout $event
+     * @param ILogin $event
      * @return void
      */
     public function handle(ILogin $event)
