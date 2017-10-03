@@ -2,6 +2,7 @@
 
 namespace App\Models\Company;
 
+use Auth;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -194,7 +195,7 @@ class Company extends Eloquent
         $input = $request->input();
         $limit = $request->get('limit', setting('general.list_limit', '25'));
 
-        return $this->filter($input)->sortable($sort)->paginate($limit);
+        return Auth::user()->companies()->filter($input)->sortable($sort)->paginate($limit);
     }
 
     /**
