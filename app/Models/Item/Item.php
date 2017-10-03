@@ -81,16 +81,6 @@ class Item extends Model
         $this->attributes['purchase_price'] = (float) $value;
     }
 
-    public function getConvertedAmount($format = false)
-    {
-        return $this->convert($this->amount, $this->currency_code, $this->currency_rate, $format);
-    }
-
-    public function getReverseConvertedAmount($format = false)
-    {
-        return $this->reverseConvert($this->amount, $this->currency_code, $this->currency_rate, $format);
-    }
-
     public function canDelete()
     {
         $error = false;
