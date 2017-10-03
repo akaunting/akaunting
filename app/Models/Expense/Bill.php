@@ -84,6 +84,28 @@ class Bill extends Model
         return $this->hasMany('App\Models\Expense\BillHistory');
     }
 
+    /**
+     * Convert amount to float.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = (float) $value;
+    }
+
+    /**
+     * Convert currency rate to float.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setCurrencyRateAttribute($value)
+    {
+        $this->attributes['currency_rate'] = (float) $value;
+    }
+
     public function scopeDue($query, $date)
     {
         return $query->where('due_at', '=', $date);

@@ -59,6 +59,28 @@ class Item extends Model
         return $this->hasMany('App\Models\Income\Invoice');
     }
 
+    /**
+     * Convert sale price to float.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setSalePriceAttribute($value)
+    {
+        $this->attributes['sale_price'] = (float) $value;
+    }
+
+    /**
+     * Convert purchase price to float.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPurchasePriceAttribute($value)
+    {
+        $this->attributes['purchase_price'] = (float) $value;
+    }
+
     public function getConvertedAmount($format = false)
     {
         return $this->convert($this->amount, $this->currency_code, $this->currency_rate, $format);

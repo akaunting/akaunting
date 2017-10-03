@@ -70,6 +70,17 @@ class Account extends Model
         return $this->hasMany('App\Models\Expense\Payment');
     }
 
+    /**
+     * Convert opening balance to float.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setOpeningBalanceAttribute($value)
+    {
+        $this->attributes['opening_balance'] = (float) $value;
+    }
+
     public function canDelete()
     {
         $error = false;

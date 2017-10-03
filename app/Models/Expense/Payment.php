@@ -64,6 +64,28 @@ class Payment extends Model
         return $this->hasMany('App\Models\Banking\Transfer');
     }
 
+    /**
+     * Convert amount to float.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = (float) $value;
+    }
+
+    /**
+     * Convert currency rate to float.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setCurrencyRateAttribute($value)
+    {
+        $this->attributes['currency_rate'] = (float) $value;
+    }
+
     public static function scopeLatest($query)
     {
         return $query->orderBy('paid_at', 'desc');

@@ -53,6 +53,17 @@ class Currency extends Model
         return $this->hasMany('App\Models\Expense\Payment', 'currency_code', 'code');
     }
 
+    /**
+     * Convert rate to float.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setRateAttribute($value)
+    {
+        $this->attributes['rate'] = (float) $value;
+    }
+
     public function canDisable()
     {
         $error = false;
