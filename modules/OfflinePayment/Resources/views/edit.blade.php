@@ -134,12 +134,12 @@
                             $('.col-md-4.no-padding-left .box-header.with-border .box-title').html(json['data']['title']);
                             $('input[name="name"]').val(json['data']['name']);
                             $('input[name="code"]').val(json['data']['code']);
-                            $('input[name="sort"]').val(json['data']['sort']);
+                            $('input[name="order"]').val(json['data']['order']);
                             $('input[name="description"]').val(json['data']['description']);
 
                             $('input[name="method"]').remove();
 
-                            $('.col-md-4 .box-body').append('<input type="hidden" name="method" value="' + json['data']['code'] + '">');
+                            $('.col-md-4 .box-body').append('<input type="hidden" name="method" value="' + json['data']['method'] + '">');
                         }
                     }
                 });
@@ -167,4 +167,3 @@
         });
     </script>
 @endsection
-

@@ -36,7 +36,9 @@ class Settings extends Controller
         if (isset($request['method'])) {
             foreach ($offlinepayment as $key => $method) {
                 if ($method['code'] == $request['method']) {
-                    $offlinepayment[$key]['code'] = 'offlinepayment.' . $request['code'] . '.' . (count($offlinepayment) + 1);
+                    $method = explode('.', $request['method']);
+
+                    $offlinepayment[$key]['code'] = 'offlinepayment.' . $request['code'] . '.' . $method[2];
                     $offlinepayment[$key]['name'] = $request['name'];
                     $offlinepayment[$key]['order'] = $request['order'];
                     $offlinepayment[$key]['description'] = $request['description'];
@@ -74,6 +76,7 @@ class Settings extends Controller
         foreach ($offlinepayment as $key => $method) {
             if ($method['code'] == $code) {
                 $method['title'] = trans('offlinepayment::offlinepayment.edit', ['method' => $method['name']]);
+                $method['method'] = $code;
 
                 $code = explode('.', $method['code']);
 
