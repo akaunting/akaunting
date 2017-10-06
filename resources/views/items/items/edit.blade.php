@@ -25,9 +25,9 @@
 
         {{ Form::textGroup('quantity', trans_choice('items.quantities', 1), 'cubes') }}
 
-        {{ Form::selectGroup('tax_id', trans_choice('general.taxes', 1), 'percent', $taxes) }}
+        {{ Form::selectGroup('tax_id', trans_choice('general.taxes', 1), 'percent', $taxes, null, []) }}
 
-        {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder-open-o', $categories) }}
+        {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder-open-o', $categories, null, []) }}
 
         {{ Form::fileGroup('picture', trans_choice('general.pictures', 1)) }}
 
