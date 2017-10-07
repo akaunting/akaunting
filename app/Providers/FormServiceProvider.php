@@ -51,6 +51,10 @@ class FormServiceProvider extends ServiceProvider
             'item', 'url', 'text' => '', 'value' => 'name', 'id' => 'id',
         ]);
 
+        Form::component('deleteLink', 'partials.form.delete_link', [
+            'item', 'url', 'text' => '', 'value' => 'name', 'id' => 'id',
+        ]);
+
         Form::component('saveButtons', 'partials.form.save_buttons', [
             'cancel', 'col' => 'col-md-12',
         ]);

@@ -12,15 +12,15 @@
 <!-- Default box -->
 
 <div class="box box-success">
-    <div class="box-header">
+    <div class="box-header with-border">
         {!! Form::open(['url' => 'companies/companies', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-left">
-            <span class="title-filter">{{ trans('general.search') }}:</span>
+            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
-            <span class="title-filter">{{ trans('general.show') }}:</span>
+            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
             {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
         </div>
         {!! Form::close() !!}
@@ -29,29 +29,37 @@
 
     <div class="box-body">
         <div class="table table-responsive">
-            <table class="table table-bordered table-striped table-hover" id="tbl-companies">
+            <table class="table table-striped table-hover" id="tbl-companies">
                 <thead>
                     <tr>
+                        <th class="col-md-1 hidden-xs">@sortablelink('id', trans('general.id'))</th>
                         <th class="col-md-4">@sortablelink('name', trans('general.name'))</th>
-                        <th class="col-md-2">@sortablelink('domain', trans('companies.domain'))</th>
-                        <th class="col-md-2">@sortablelink('email', trans('general.email'))</th>
-                        <th class="col-md-1">@sortablelink('created_at', trans('general.created'))</th>
-                        <th class="col-md-3">{{ trans('general.actions') }}</th>
+                        <th class="col-md-2 hidden-xs">@sortablelink('domain', trans('companies.domain'))</th>
+                        <th class="col-md-2 hidden-xs">@sortablelink('email', trans('general.email'))</th>
+                        <th class="col-md-2 hidden-xs">@sortablelink('created_at', trans('general.created'))</th>
+                        <th class="col-md-1">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($companies as $item)
                     <tr>
+                        <td class="hidden-xs">{{ $item->id }}</td>
                         <td><a href="{{ url('companies/companies/' . $item->id . '/edit') }}">{{ $item->company_name }}</a></td>
-                        <td>{{ $item->domain }}</td>
-                        <td>{{ $item->company_email }}</td>
-                        <td>{{ Date::parse($item->created_at)->format($date_format) }}</td>
+                        <td class="hidden-xs">{{ $item->domain }}</td>
+                        <td class="hidden-xs">{{ $item->company_email }}</td>
+                        <td class="hidden-xs">{{ Date::parse($item->created_at)->format($date_format) }}</td>
                         <td>
-                            <a href="{{ url('companies/companies/' . $item->id . '/set') }}" class="btn btn-info btn-xs"><i class="fa fa-arrow-right" aria-hidden="true"></i> {{ trans('general.change') }}</a>
-                            <a href="{{ url('companies/companies/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
-                            @permission('delete-companies-companies')
-                            {!! Form::deleteButton($item, 'companies/companies', '', 'company_name') !!}
-                            @endpermission
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ url('companies/companies/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @permission('delete-companies-companies')
+                                    <li>{!! Form::deleteLink($item, 'companies/companies', '', 'company_name') !!}</li>
+                                    @endpermission
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

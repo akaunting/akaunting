@@ -93,6 +93,7 @@ return [
     'all_type'              => 'All :type',
     'upcoming'              => 'Upcoming',
     'created'               => 'Created',
+    'id'                    => 'ID',
 
     'title' => [
         'new'               => 'New :type',

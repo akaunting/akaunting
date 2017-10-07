@@ -88,10 +88,6 @@
     border-radius: 15px;
 }
 
-.table-responsive {
-    overflow-x: hidden;
-}
-
 div.required .control-label:not(span):after, td.required:after {
     content: ' *';
     color: #F00;
@@ -421,6 +417,33 @@ ul.add-new.nav.navbar-nav.pull-left {
 
 .login-box-footer a {
     color: #d8d8d8;
+}
+
+.delete-link:hover, .delete-link:focus {
+    background-color: #e1e3e9 !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+.delete-link {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #777;
+    white-space: nowrap;
+    width: 100%;
+    text-align: left;
+    /* button to link */
+    background-color: transparent !important;
+    border: none;
+    cursor: pointer;
+}
+
+.table-responsive {
+    overflow-x: visible;
 }
 
 @media only screen and (max-width : 768px) {
