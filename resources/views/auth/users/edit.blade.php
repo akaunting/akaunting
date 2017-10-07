@@ -32,6 +32,8 @@
             @permission('read-auth-roles')
             {{ Form::checkboxGroup('roles', trans_choice('general.roles', 2), $roles, 'display_name') }}
             @endpermission
+
+            {{ Form::radioGroup('enabled', trans('general.enabled')) }}
         </div>
         <!-- /.box-body -->
 
@@ -58,6 +60,9 @@
 
 @section('scripts')
     <script type="text/javascript">
+        var text_yes = '{{ trans('general.yes') }}';
+        var text_no = '{{ trans('general.no') }}';
+
         $(document).ready(function(){
             $("#locale").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.languages', 1)]) }}"
@@ -69,7 +74,7 @@
                 placeholder : '<?php echo $user->picture; ?>'
             });
 
-            $('input').iCheck({
+            $('input[type=checkbox]').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
                 increaseArea: '20%' // optional

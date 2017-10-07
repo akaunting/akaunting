@@ -33,10 +33,11 @@
                 <thead>
                     <tr>
                         <th class="col-md-1 hidden-xs">@sortablelink('id', trans('general.id'))</th>
-                        <th class="col-md-4">@sortablelink('name', trans('general.name'))</th>
+                        <th class="col-md-3">@sortablelink('name', trans('general.name'))</th>
                         <th class="col-md-2 hidden-xs">@sortablelink('domain', trans('companies.domain'))</th>
                         <th class="col-md-2 hidden-xs">@sortablelink('email', trans('general.email'))</th>
                         <th class="col-md-2 hidden-xs">@sortablelink('created_at', trans('general.created'))</th>
+                        <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-1">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
@@ -48,6 +49,13 @@
                         <td class="hidden-xs">{{ $item->domain }}</td>
                         <td class="hidden-xs">{{ $item->company_email }}</td>
                         <td class="hidden-xs">{{ Date::parse($item->created_at)->format($date_format) }}</td>
+                        <td>
+                            @if ($item->enabled)
+                                <span class="label label-success">{{ trans('general.enabled') }}</span>
+                            @else
+                                <span class="label label-danger">{{ trans('general.disabled') }}</span>
+                            @endif
+                        </td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">

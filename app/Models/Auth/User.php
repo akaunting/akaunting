@@ -17,11 +17,7 @@ use Route;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait;
-    use Notifiable;
-    use SoftDeletes;
-    use Filterable;
-    use Sortable;
+    use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable;
 
     protected $table = 'users';
 
@@ -30,7 +26,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'locale', 'picture'];
+    protected $fillable = ['name', 'email', 'password', 'locale', 'picture', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -45,6 +41,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['last_logged_in_at', 'created_at', 'updated_at', 'deleted_at'];
+
+    /**
+     * Sortable columns.
+     *
+     * @var array
+     */
+    public $sortable = ['name', 'email', 'enabled'];
 
     public function companies()
     {
@@ -177,5 +180,16 @@ class User extends Authenticatable
         $limit = $request->get('limit', setting('general.list_limit', '25'));
 
         return $this->filter($input)->sortable($sort)->paginate($limit);
+    }
+
+    /**
+     * Scope to only include active currencies.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEnabled($query)
+    {
+        return $query->where('enabled', 1);
     }
 }

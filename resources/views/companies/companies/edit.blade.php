@@ -24,6 +24,8 @@
                 {{ Form::textareaGroup('company_address', trans('general.address')) }}
 
                 {{ Form::fileGroup('company_logo', trans('companies.logo')) }}
+
+                {{ Form::radioGroup('enabled', trans('general.enabled')) }}
             </div>
             <!-- /.box-body -->
 
@@ -48,6 +50,9 @@
 
 @section('scripts')
     <script type="text/javascript">
+        var text_yes = '{{ trans('general.yes') }}';
+        var text_no = '{{ trans('general.no') }}';
+
         $(document).ready(function(){
             $("#default_currency").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
