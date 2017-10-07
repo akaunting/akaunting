@@ -62,19 +62,21 @@ class Invoices extends ApiController
                 $item_sku = '';
 
                 if (!empty($item['item_id'])) {
-                    $data = Item::where('id', $item['item_id'])->first();
+                    $item_object = Item::find($item['item_id']);
 
-                    $item_sku = $data['sku'];
+                    $item_sku = $item_object->sku;
                 }
 
-                $tax_id = 0;
-                $tax_rate = 0;
+                $tax = $tax_id = 0;
 
-                if (!empty($item['tax'])) {
-                    $tax = Tax::where('id', $item['tax'])->first();
+                if (!empty($item['tax_id'])) {
+                    $tax_object = Tax::find($item['tax_id']);
 
-                    $tax_rate = $tax->rate;
-                    $tax_id = $item['tax'];
+                    $tax_id = $item['tax_id'];
+
+                    $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
+                } elseif (!empty($item['tax'])) {
+                    $tax = $item['tax'];
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
@@ -82,7 +84,7 @@ class Invoices extends ApiController
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
                 $invoice_item['price'] = $item['price'];
-                $invoice_item['tax'] = (($item['price'] * $item['quantity']) / 100) * $tax_rate;
+                $invoice_item['tax'] = $tax;
                 $invoice_item['tax_id'] = $tax_id;
                 $invoice_item['total'] = ($item['price'] + $invoice_item['tax']) * $item['quantity'];
 
@@ -127,19 +129,21 @@ class Invoices extends ApiController
                 $item_sku = '';
 
                 if (!empty($item['item_id'])) {
-                    $data = Item::where('id', $item['item_id'])->first();
+                    $item_object = Item::find($item['item_id']);
 
-                    $item_sku = $data['sku'];
+                    $item_sku = $item_object->sku;
                 }
 
-                $tax_id = 0;
-                $tax_rate = 0;
+                $tax = $tax_id = 0;
 
-                if (!empty($item['tax'])) {
-                    $tax = Tax::where('id', $item['tax'])->first();
+                if (!empty($item['tax_id'])) {
+                    $tax_object = Tax::find($item['tax_id']);
 
-                    $tax_rate = $tax->rate;
-                    $tax_id = $item['tax'];
+                    $tax_id = $item['tax_id'];
+
+                    $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
+                } elseif (!empty($item['tax'])) {
+                    $tax = $item['tax'];
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
@@ -147,7 +151,7 @@ class Invoices extends ApiController
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
                 $invoice_item['price'] = $item['price'];
-                $invoice_item['tax'] = (($item['price'] * $item['quantity']) / 100 * $tax_rate);
+                $invoice_item['tax'] = $tax;
                 $invoice_item['tax_id'] = $tax_id;
                 $invoice_item['total'] = ($item['price'] + $invoice_item['tax']) * $item['quantity'];
 

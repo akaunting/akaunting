@@ -164,7 +164,7 @@ class Items extends Controller
 
         if ($items) {
             foreach ($items as $item) {
-                $tax = Tax::where('id', $item->tax_id)->first();
+                $tax = Tax::find($item->tax_id);
 
                 $item_tax_price = 0;
 
@@ -213,8 +213,8 @@ class Items extends Controller
                 $item_tax_total= 0;
                 $item_sub_total = ($item['price'] * $item['quantity']);
 
-                if (!empty($item['tax'])) {
-                    $tax = Tax::where('id', $item['tax'])->first();
+                if (!empty($item['tax_id'])) {
+                    $tax = Tax::find($item['tax_id']);
 
                     $item_tax_total = (($item['price'] * $item['quantity']) / 100) * $tax->rate;
                 }

@@ -52,7 +52,7 @@
                                     <input value="{{ $item->price }}" class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    {!! Form::select('item[' . $item_row . '][tax]', $taxes, $item->tax, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
+                                    {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, $item->tax, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
                                 </td>
                                 <td class="text-right" style="vertical-align: middle;">
                                     <span id="item-total-{{ $item_row }}">@money($item->total, $bill->currency_code, true)</span>
@@ -76,7 +76,7 @@
                                     <input class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    {!! Form::select('item[' . $item_row . '][tax]', $taxes, null, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])])  !!}
+                                    {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, null, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])])  !!}
                                 </td>
                                 <td class="text-right" style="vertical-align: middle;">
                                     <span id="item-total-{{ $item_row }}">0</span>
@@ -151,7 +151,7 @@
             html += '      <input class="form-control text-right" required="required" name="item[' + item_row + '][price]" type="text" id="item-price-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
-            html += '      <select class="form-control select2" name="item[' + item_row + '][tax]" id="item-tax-' + item_row + '">';
+            html += '      <select class="form-control select2" name="item[' + item_row + '][tax_id]" id="item-tax-' + item_row + '">';
             html += '         <option selected="selected" value="">{{ trans('general.form.select.filed', ['field' => trans_choice('general.taxes', 1)]) }}</option>';
             @foreach($taxes as $tax_key => $tax_value)
             html += '         <option value="{{ $tax_key }}">{{ $tax_value }}</option>';
