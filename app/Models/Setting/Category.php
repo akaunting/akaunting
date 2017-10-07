@@ -3,9 +3,6 @@
 namespace App\Models\Setting;
 
 use App\Models\Model;
-use App\Models\Item\Item;
-use App\Models\Expense\Payment;
-use App\Models\Income\Revenue;
 
 class Category extends Model
 {

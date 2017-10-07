@@ -11,16 +11,16 @@
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
-    <div class="box-header">
+    <div class="box-header with-border">
         {!! Form::open(['url' => 'auth/users', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-left">
-            <span class="title-filter">{{ trans('general.search') }}:</span>
+            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
             {!! Form::select('role', $roles, request('role'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
-            <span class="title-filter">{{ trans('general.show') }}:</span>
+            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
             {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
         </div>
         {!! Form::close() !!}
@@ -28,30 +28,52 @@
     <!-- /.box-header -->
     <div class="box-body">
         <div class="table table-responsive">
-            <table class="table table-bordered table-striped table-hover" id="tbl-users">
+            <table class="table table-striped table-hover" id="tbl-users">
                 <thead>
                     <tr>
-                        <th>@sortablelink('name', trans('general.name'))</th>
-                        <th>@sortablelink('email', trans('general.email'))</th>
-                        <th>@sortablelink('roles', trans_choice('general.roles', 2))</th>
-                        <th style="width: 15%;">{{ trans('general.actions') }}</th>
+                        <th class="col-md-3">@sortablelink('name', trans('general.name'))</th>
+                        <th class="col-md-3">@sortablelink('email', trans('general.email'))</th>
+                        <th class="col-md-3 hidden-xs">{{ trans_choice('general.roles', 2) }}</th>
+                        <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
+                        <th class="col-md-1">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($users as $item)
                     <tr>
-                        <td><a href="{{ url('auth/users/' . $item->id . '/edit') }}"><img src="{{ Storage::url($item->picture) }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}"> {{ $item->name }}</a></td>
+                        <td>
+                            <a href="{{ url('auth/users/' . $item->id . '/edit') }}">
+                                @if ($item->picture)
+                                <img src="{{ Storage::url($item->picture) }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                @endif
+                                {{ $item->name }}
+                            </a>
+                        </td>
                         <td>{{ $item->email }}</td>
-                        <td style="vertical-align: middle;">
+                        <td class="hidden-xs" style="vertical-align: middle;">
                             @foreach($item->roles as $role)
                                 <label class="label label-default">{{ $role->display_name }}</label>
                             @endforeach
                         </td>
+                        <td class="hidden-xs">
+                            @if ($item->enabled)
+                                <span class="label label-success">{{ trans('general.enabled') }}</span>
+                            @else
+                                <span class="label label-danger">{{ trans('general.disabled') }}</span>
+                            @endif
+                        </td>
                         <td>
-                            <a href="{{ url('auth/users/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
-                            @permission('delete-auth-users')
-                            {!! Form::deleteButton($item, 'auth/users') !!}
-                            @endpermission
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ url('auth/users/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @permission('delete-auth-users')
+                                    <li>{!! Form::deleteLink($item, 'auth/users') !!}</li>
+                                    @endpermission
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

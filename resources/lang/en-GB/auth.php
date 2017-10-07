@@ -24,6 +24,7 @@ return [
     ],
 
     'failed'                => 'These credentials do not match our records.',
+    'disabled'              => 'This account is disabled. Please, contact the system administrator.',
     'throttle'              => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];
