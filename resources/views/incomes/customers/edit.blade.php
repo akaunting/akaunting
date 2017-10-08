@@ -40,9 +40,9 @@
             </div>
         </div>
 
-        {{ Form::textGroup('password', trans('auth.password.current'), 'key', [], null, 'col-md-6 password hidden') }}
+        {{ Form::passwordGroup('password', trans('auth.password.current'), 'key', [], null, 'col-md-6 password hidden') }}
 
-        {{ Form::textGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], null, 'col-md-6 password hidden') }}
+        {{ Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], null, 'col-md-6 password hidden') }}
     </div>
     <!-- /.box-body -->
 

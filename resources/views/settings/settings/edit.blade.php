@@ -82,7 +82,7 @@
 
                         {{ Form::textGroup('email_smtp_username', trans('settings.email.smtp.username'), 'paper-plane-o', []) }}
 
-                        {{ Form::textGroup('email_smtp_password', trans('settings.email.smtp.password'), 'paper-plane-o', []) }}
+                        {{ Form::passwordGroup('email_smtp_password', trans('settings.email.smtp.password'), 'paper-plane-o', []) }}
 
                         {{ Form::selectGroup('email_smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane-o', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], null, []) }}
                     </div>
