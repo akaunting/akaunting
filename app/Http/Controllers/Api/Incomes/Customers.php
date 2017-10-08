@@ -34,7 +34,7 @@ class Customers extends ApiController
     {
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $customer = Customer::findOrFail($id);
+            $customer = Customer::find($id);
         } else {
             $customer = Customer::where('email', $id)->first();
         }

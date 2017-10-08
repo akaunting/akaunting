@@ -34,7 +34,7 @@ class Vendors extends ApiController
     {
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $vendor = Vendor::findOrFail($id);
+            $vendor = Vendor::find($id);
         } else {
             $vendor = Vendor::where('email', $id)->first();
         }

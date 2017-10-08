@@ -27,11 +27,18 @@ class Items extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Item  $item
+     * @param  int|string  $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show(Item $item)
+    public function show($id)
     {
+        // Check if we're querying by id or sku
+        if (is_numeric($id)) {
+            $item = Item::with(['category', 'tax'])->find($id);
+        } else {
+            $item = Item::with(['category', 'tax'])->where('sku', $id)->first();
+        }
+
         return $this->response->item($item, new Transformer());
     }
 

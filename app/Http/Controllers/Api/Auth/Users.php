@@ -34,7 +34,7 @@ class Users extends ApiController
     {
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $user = User::with(['companies', 'roles', 'permissions'])->findOrFail($id);
+            $user = User::with(['companies', 'roles', 'permissions'])->find($id);
         } else {
             $user = User::with(['companies', 'roles', 'permissions'])->where('email', $id)->first();
         }
