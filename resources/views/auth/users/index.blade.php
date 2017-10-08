@@ -35,7 +35,7 @@
                         <th class="col-md-3">@sortablelink('email', trans('general.email'))</th>
                         <th class="col-md-3 hidden-xs">{{ trans_choice('general.roles', 2) }}</th>
                         <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
-                        <th class="col-md-1">{{ trans('general.actions') }}</th>
+                        <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +62,7 @@
                                 <span class="label label-danger">{{ trans('general.disabled') }}</span>
                             @endif
                         </td>
-                        <td>
+                        <td class="text-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
                                     <i class="fa fa-ellipsis-h"></i>
