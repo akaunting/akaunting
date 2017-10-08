@@ -44,9 +44,9 @@ class Item extends Model
         return $this->belongsTo('App\Models\Setting\Category');
     }
 
-    public function taxes()
+    public function tax()
     {
-        return $this->hasMany('App\Models\Setting\Tax');
+        return $this->belongsTo('App\Models\Setting\Tax');
     }
 
     public function bills()
