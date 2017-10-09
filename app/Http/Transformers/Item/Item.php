@@ -15,7 +15,7 @@ class Item extends TransformerAbstract
     protected $defaultIncludes = ['tax', 'category'];
 
     /**
-     * @param Model $model
+     * @param  Model $model
      * @return array
      */
     public function transform(Model $model)
@@ -39,20 +39,28 @@ class Item extends TransformerAbstract
     }
 
     /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
+     * @param  Model $model
+     * @return mixed
      */
     public function includeTax(Model $model)
     {
+        if (!$model->tax) {
+            return $this->null();
+        }
+
         return $this->item($model->tax, new Tax());
     }
 
     /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
+     * @param  Model $model
+     * @return mixed
      */
     public function includeCategory(Model $model)
     {
+        if (!$model->category) {
+            return $this->null();
+        }
+
         return $this->item($model->category, new Category());
     }
 }

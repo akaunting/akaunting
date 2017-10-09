@@ -16,7 +16,7 @@ class Payment extends TransformerAbstract
     protected $defaultIncludes = ['account', 'vendor', 'category'];
 
     /**
-     * @param Model $model
+     * @param  Model $model
      * @return array
      */
     public function transform(Model $model)
@@ -41,7 +41,7 @@ class Payment extends TransformerAbstract
     }
 
     /**
-     * @param Model $model
+     * @param  Model $model
      * @return \League\Fractal\Resource\Item
      */
     public function includeAccount(Model $model)
@@ -50,16 +50,20 @@ class Payment extends TransformerAbstract
     }
 
     /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
+     * @param  Model $model
+     * @return mixed
      */
     public function includeVendor(Model $model)
     {
+        if (!$model->vendor) {
+            return $this->null();
+        }
+
         return $this->item($model->vendor, new Vendor());
     }
 
     /**
-     * @param Model $model
+     * @param  Model $model
      * @return \League\Fractal\Resource\Item
      */
     public function includeCategory(Model $model)

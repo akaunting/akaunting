@@ -16,7 +16,7 @@ class Revenue extends TransformerAbstract
     protected $defaultIncludes = ['account', 'customer', 'category'];
 
     /**
-     * @param Model $model
+     * @param  Model $model
      * @return array
      */
     public function transform(Model $model)
@@ -41,7 +41,7 @@ class Revenue extends TransformerAbstract
     }
 
     /**
-     * @param Model $model
+     * @param  Model $model
      * @return \League\Fractal\Resource\Item
      */
     public function includeAccount(Model $model)
@@ -50,16 +50,20 @@ class Revenue extends TransformerAbstract
     }
 
     /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
+     * @param  Model $model
+     * @return mixed
      */
     public function includeCustomer(Model $model)
     {
+        if (!$model->customer) {
+            return $this->null();
+        }
+
         return $this->item($model->customer, new Customer());
     }
 
     /**
-     * @param Model $model
+     * @param  Model $model
      * @return \League\Fractal\Resource\Item
      */
     public function includeCategory(Model $model)
