@@ -133,7 +133,7 @@ class Items extends Controller
             }
 
             if (isset($canDelete['invoices'])) {
-                $text[] = '<b>' . $canDelete['invoices'] . '</b> ' . trans_choice('general.items', ($canDelete['invoices'] > 1) ? 2 : 1);
+                $text[] = '<b>' . $canDelete['invoices'] . '</b> ' . trans_choice('general.invoices', ($canDelete['invoices'] > 1) ? 2 : 1);
             }
 
             $message = trans('messages.warning.deleted', ['type' => trans_choice('general.items', 1), 'text' => implode(', ', $text)]);

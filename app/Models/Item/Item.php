@@ -49,14 +49,14 @@ class Item extends Model
         return $this->belongsTo('App\Models\Setting\Tax');
     }
 
-    public function bills()
+    public function bill_items()
     {
-        return $this->hasMany('App\Models\Expense\Bill');
+        return $this->hasMany('App\Models\Expense\BillItem');
     }
 
-    public function invoices()
+    public function invoice_items()
     {
-        return $this->hasMany('App\Models\Income\Invoice');
+        return $this->hasMany('App\Models\Income\InvoiceItem');
     }
 
     /**
@@ -85,11 +85,11 @@ class Item extends Model
     {
         $error = false;
 
-        if ($bills = $this->bills()->count()) {
+        if ($bills = $this->bill_items()->count()) {
             $error['bills'] = $bills;
         }
 
-        if ($invoices = $this->invoices()->count()) {
+        if ($invoices = $this->invoice_items()->count()) {
             $error['invoices'] = $invoices;
         }
 
