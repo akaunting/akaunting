@@ -16,6 +16,6 @@ class Customers extends ModelFilter
 
     public function search($query)
     {
-        return $this->whereLike('name', $query);
+        return $this->where('name', 'LIKE', '%' . $query . '%')->orWhere('email', 'LIKE', '%' . $query . '%');
     }
 }
