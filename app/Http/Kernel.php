@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\RedirectIfNotInstalled::class,
             \App\Http\Middleware\LoadSettings::class,
+            \App\Http\Middleware\AddXHeader::class,
         ],
 
         'api' => [
