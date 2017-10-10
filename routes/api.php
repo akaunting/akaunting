@@ -13,6 +13,7 @@ $api->version('v1', ['middleware' => ['api.auth', 'api.company', 'throttle:60,1'
         // Incomes
         $api->resource('customers', 'Incomes\Customers');
         $api->resource('invoices', 'Incomes\Invoices');
+        $api->resource('invoices.payments', 'Incomes\InvoicePayments');
         $api->resource('revenues', 'Incomes\Revenues');
 
         // Expenses
