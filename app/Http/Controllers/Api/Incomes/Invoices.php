@@ -97,7 +97,7 @@ class Invoices extends ApiController
         $invoice->update($request->input());
 
         $request['invoice_id'] = $invoice->id;
-        $request['status_code'] = 'draft';
+        $request['status_code'] = $request['invoice_status_code'];
         $request['notify'] = 0;
         $request['description'] = trans('messages.success.added', ['type' => $request['invoice_number']]);
 

@@ -97,7 +97,7 @@ class Bills extends ApiController
         $bill->update($request->input());
 
         $request['bill_id'] = $bill->id;
-        $request['status_code'] = 'draft';
+        $request['status_code'] = $request['bill_status_code'];
         $request['notify'] = 0;
         $request['description'] = trans('messages.success.added', ['type' => $request['bill_number']]);
 
