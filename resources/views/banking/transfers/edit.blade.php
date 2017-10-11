@@ -22,7 +22,7 @@
 
             {{ Form::textareaGroup('description', trans('general.description')) }}
 
-            {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', ['cash' => 'Cash', 'bank' => 'Bank Transfer', 'paypal' => 'PayPal'], setting('general.default_payment_method')) }}
+            {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, null) }}
 
             {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
         </div>

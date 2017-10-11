@@ -48,7 +48,7 @@ class TestCompany extends Seeder
         Setting::set('general.company_address', 'New Street 1254');
         Setting::set('general.default_currency', 'USD');
         Setting::set('general.default_account', '1');
-        Setting::set('general.default_payment_method', 'cash');
+        Setting::set('general.default_payment_method', 'offlinepayment.cash.1');
         Setting::save();
 
         $this->command->info('Test company created.');

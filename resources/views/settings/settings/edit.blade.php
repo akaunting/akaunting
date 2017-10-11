@@ -66,7 +66,7 @@
 
                         {{ Form::selectGroup('default_tax', trans('settings.default.tax'), 'percent', $taxes, null, []) }}
 
-                        {{ Form::selectGroup('default_payment_method', trans('settings.default.payment'), 'credit-card', ['cash' => 'Cash', 'bank' => 'Bank Transfer', 'paypal' => 'PayPal'], null, []) }}
+                        {{ Form::selectGroup('default_payment_method', trans('settings.default.payment'), 'credit-card', $payment_methods, setting('general.default_payment_method'), []) }}
 
                         {{ Form::selectGroup('default_locale', trans('settings.default.language'), 'flag', language()->allowed(), null, []) }}
                     </div>

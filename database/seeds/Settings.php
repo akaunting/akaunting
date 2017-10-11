@@ -33,7 +33,7 @@ class Settings extends Seeder
             'general.invoice_prefix'            => 'INV-',
             'general.invoice_digit'             => '5',
             'general.invoice_start'             => '1',
-            'general.default_payment_method'    => 'cash',
+            'general.default_payment_method'    => 'offlinepayment.cash.1',
             'general.email_protocol'            => 'mail',
             'general.email_sendmail_path'       => '/usr/sbin/sendmail -bs',
             'general.send_invoice_reminder'     => '0',

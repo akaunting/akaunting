@@ -11,7 +11,6 @@ use App\Utilities\Modules;
 
 use Auth;
 
-
 class Payments extends Controller
 {
 

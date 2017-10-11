@@ -12,6 +12,8 @@ use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 
+use App\Utilities\Modules;
+
 class Transfers extends Controller
 {
 
@@ -79,7 +81,9 @@ class Transfers extends Controller
     {
         $accounts = Account::enabled()->pluck('name', 'id');
 
-        return view('banking.transfers.create', compact('accounts'));
+        $payment_methods = Modules::getPaymentMethods();
+
+        return view('banking.transfers.create', compact('accounts', 'payment_methods'));
     }
 
     /**
@@ -167,7 +171,9 @@ class Transfers extends Controller
 
         $accounts = Account::listArray();
 
-        return view('banking.transfers.edit', compact('transfer', 'accounts'));
+        $payment_methods = Modules::getPaymentMethods();
+
+        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods'));
     }
 
     /**

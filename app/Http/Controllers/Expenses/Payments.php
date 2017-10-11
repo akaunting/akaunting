@@ -11,6 +11,8 @@ use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
 
+use App\Utilities\Modules;
+
 class Payments extends Controller
 {
     use Uploads;
@@ -53,7 +55,9 @@ class Payments extends Controller
 
         $categories = Category::enabled()->type('expense')->pluck('name', 'id');
 
-        return view('expenses.payments.create', compact('accounts', 'currencies', 'account_currency_code', 'vendors', 'categories'));
+        $payment_methods = Modules::getPaymentMethods();
+
+        return view('expenses.payments.create', compact('accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
     }
 
     /**
@@ -105,7 +109,9 @@ class Payments extends Controller
 
         $categories = Category::enabled()->type('expense')->pluck('name', 'id');
 
-        return view('expenses.payments.edit', compact('payment', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories'));
+        $payment_methods = Modules::getPaymentMethods();
+
+        return view('expenses.payments.edit', compact('payment', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
     }
 
     /**

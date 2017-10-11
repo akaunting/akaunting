@@ -130,7 +130,7 @@ class Companies extends Controller
             Setting::set('general.company_logo', $logo_path);
         }
 
-        Setting::set('general.default_payment_method', 'cash');
+        Setting::set('general.default_payment_method', 'offlinepayment.cash.1');
         Setting::set('general.default_currency', $request->get('default_currency'));
 
         Setting::save();

@@ -11,6 +11,8 @@ use App\Models\Setting\Setting;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
 
+use App\Utilities\Modules;
+
 class Settings extends Controller
 {
     use DateTime, Uploads;
@@ -35,6 +37,8 @@ class Settings extends Controller
         $currencies = Currency::enabled()->pluck('name', 'code');
 
         $taxes = Tax::enabled()->pluck('name', 'id');
+
+        $payment_methods = Modules::getPaymentMethods();
 
         $date_formats = [
             'd M Y' => '31 Dec 2017',
@@ -65,6 +69,7 @@ class Settings extends Controller
             'accounts',
             'currencies',
             'taxes',
+            'payment_methods',
             'date_formats',
             'date_separators',
             'email_protocols'

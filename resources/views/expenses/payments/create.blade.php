@@ -30,7 +30,7 @@
 
             {{ Form::selectGroup('vendor_id', trans_choice('general.vendors', 1), 'user', $vendors, null, []) }}
 
-            {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card',['cash' => trans('general.cash'), 'bank' => trans('general.bank'), 'paypal' => trans('general.paypal')], setting('general.default_payment_method')) }}
+            {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, setting('general.default_payment_method')) }}
 
             {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o',[]) }}
 
