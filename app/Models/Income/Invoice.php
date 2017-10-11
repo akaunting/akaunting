@@ -79,6 +79,11 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
 
+    public function totals()
+    {
+        return $this->hasMany('App\Models\Income\InvoiceTotal');
+    }
+
     public function payments()
     {
         return $this->hasMany('App\Models\Income\InvoicePayment');

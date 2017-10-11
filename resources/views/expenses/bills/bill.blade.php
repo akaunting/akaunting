@@ -113,25 +113,14 @@
             <div class="col-xs-5">
                 <div class="table-responsive">
                     <table class="table">
+                    <table class="table">
                         <tbody>
+                        @foreach($invoice->totals as $total)
                         <tr>
-                            <th style="width:50%">{{ trans('bills.sub_total') }}:</th>
-                            <td class="text-right">@money($bill->sub_total, $bill->currency_code, true)</td>
+                            <th>{{ trans($total['name']) }}:</th>
+                            <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
                         </tr>
-                        <tr>
-                            <th>{{ trans('bills.tax_total') }}:</th>
-                            <td class="text-right">@money($bill->tax_total, $bill->currency_code, true)</td>
-                        </tr>
-                        @if($bill->paid)
-                            <tr>
-                                <th>{{ trans('bills.paid') }}:</th>
-                                <td class="text-right">@money('-' . $bill->paid, $bill->currency_code, true)</td>
-                            </tr>
-                        @endif
-                        <tr>
-                            <th>{{ trans('bills.total') }}:</th>
-                            <td class="text-right">@money($bill->grand_total, $bill->currency_code, true)</td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
