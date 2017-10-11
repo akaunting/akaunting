@@ -20,7 +20,7 @@ trait Modules
             return json_decode($response->getBody())->data;
         }
 
-        return array();
+        return [];
     }
 
     public function getModule($alias)
@@ -31,7 +31,7 @@ trait Modules
             return json_decode($response->getBody())->data;
         }
 
-        return array();
+        return [];
     }
 
     public function getCategories()
@@ -42,7 +42,7 @@ trait Modules
             return json_decode($response->getBody())->data;
         }
 
-        return array();
+        return [];
     }
 
     public function getModulesByCategory($alias)
@@ -53,7 +53,7 @@ trait Modules
             return json_decode($response->getBody())->data;
         }
 
-        return array();
+        return [];
     }
 
     public function getPaidModules()
@@ -64,7 +64,7 @@ trait Modules
             return json_decode($response->getBody())->data;
         }
 
-        return array();
+        return [];
     }
 
     public function getNewModules()
@@ -75,7 +75,7 @@ trait Modules
             return json_decode($response->getBody())->data;
         }
 
-        return array();
+        return [];
     }
 
     public function getFreeModules()
@@ -86,7 +86,7 @@ trait Modules
             return json_decode($response->getBody())->data;
         }
 
-        return array();
+        return [];
     }
 
     public function getCoreVersion()
@@ -99,7 +99,7 @@ trait Modules
             return $response->json();
         }
 
-        return array();
+        return [];
     }
 
     public function downloadModule($path)
@@ -126,22 +126,22 @@ trait Modules
                 return false;
             }
 
-            $data = array(
+            $data = [
                 'path' => $path
-            );
+            ];
 
-            return array(
+            return [
                 'success' => true,
                 'errors' => false,
                 'data' => $data,
-            );
+            ];
         }
 
-        return array(
+        return [
             'success' => false,
             'errors' => true,
             'data' => null,
-        );
+        ];
     }
 
     public function unzipModule($path)
@@ -204,79 +204,80 @@ trait Modules
         // Update database
         Artisan::call('migrate', ['--force' => true]);
 
-        $data = array(
-            'path' => $path
-        );
+        $data = [
+            'path'  => $path,
+            'alias' => $module->alias
+        ];
 
-        return array(
+        return [
             'success' => true,
             'installed' => true,
             'errors' => false,
             'data' => $data,
-        );
+        ];
     }
 
     public function uninstallModule($alias)
     {
         $module = Module::findByAlias($alias);
 
-        $data = array(
+        $data = [
             'name' => $module->get('name'),
             'category' => $module->get('category'),
             'version' => $module->get('version'),
-        );
+        ];
 
         $module->delete();
 
         Artisan::call('cache:clear');
 
-        return array(
+        return [
             'success' => true,
             'errors' => false,
             'data'   => $data
-        );
+        ];
     }
 
     public function enabledModule($alias)
     {
         $module = Module::findByAlias($alias);
 
-        $data = array(
+        $data = [
             'name' => $module->get('name'),
             'category' => $module->get('category'),
             'version' => $module->get('version'),
-        );
+        ];
 
         $module->enable();
 
         Artisan::call('cache:clear');
 
-        return array(
+        return [
             'success' => true,
             'errors' => false,
             'data'   => $data
-        );
+        ];
     }
 
     public function disabledModule($alias)
     {
         $module = Module::findByAlias($alias);
 
-        $data = array(
+        $data = [
           'name' => $module->get('name'),
           'category' => $module->get('category'),
           'version' => $module->get('version'),
-        );
+        ];
 
         $module->disable();
 
         Artisan::call('cache:clear');
 
-        return array(
+        return [
             'success' => true,
             'errors' => false,
             'data'   => $data
-        );
+        ];
     }
 
     protected function getRemote($path, $method = 'GET', $data = array())
@@ -285,10 +286,10 @@ trait Modules
 
         $client = new Client(['verify' => false, 'base_uri' => $base]);
 
-        $headers['headers'] = array(
+        $headers['headers'] = [
             'Authorization' => 'Bearer ' . setting('general.api_token'),
             'Accept'        => 'application/json',
-        );
+        ];
 
         $data = array_merge($data, $headers);
 

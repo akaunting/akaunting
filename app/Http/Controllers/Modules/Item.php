@@ -144,7 +144,7 @@ class Item extends Controller
 
         if ($json['success']) {
             $request['company_id'] = session('company_id');
-            $request['alias'] = 'paypal';
+            $request['alias'] = $json['data']['alias'];
 
             $module = Module::create($request->all());
 
