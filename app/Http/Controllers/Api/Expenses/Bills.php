@@ -59,12 +59,17 @@ class Bills extends ApiController
 
         if ($request['item']) {
             foreach ($request['item'] as $item) {
+                $item_id = 0;
                 $item_sku = '';
 
                 if (!empty($item['item_id'])) {
                     $item_object = Item::find($item['item_id']);
 
+                    $item_id = $item['item_id'];
+
                     $item_sku = $item_object->sku;
+                } elseif (!empty($item['sku'])) {
+                    $item_sku = $item['sku'];
                 }
 
                 $tax = $tax_id = 0;
@@ -79,7 +84,7 @@ class Bills extends ApiController
                     $tax = $item['tax'];
                 }
 
-                $bill_item['item_id'] = $item['item_id'];
+                $bill_item['item_id'] = $item_id;
                 $bill_item['name'] = $item['name'];
                 $bill_item['sku'] = $item_sku;
                 $bill_item['quantity'] = $item['quantity'];
@@ -126,12 +131,17 @@ class Bills extends ApiController
             BillItem::where('bill_id', $bill->id)->delete();
 
             foreach ($request['item'] as $item) {
+                $item_id = 0;
                 $item_sku = '';
 
                 if (!empty($item['item_id'])) {
                     $item_object = Item::find($item['item_id']);
 
+                    $item_id = $item['item_id'];
+
                     $item_sku = $item_object->sku;
+                } elseif (!empty($item['sku'])) {
+                    $item_sku = $item['sku'];
                 }
 
                 $tax = $tax_id = 0;
@@ -146,7 +156,7 @@ class Bills extends ApiController
                     $tax = $item['tax'];
                 }
 
-                $bill_item['item_id'] = $item['item_id'];
+                $bill_item['item_id'] = $item_id;
                 $bill_item['name'] = $item['name'];
                 $bill_item['sku'] = $item_sku;
                 $bill_item['quantity'] = $item['quantity'];

@@ -59,12 +59,17 @@ class Invoices extends ApiController
 
         if ($request['item']) {
             foreach ($request['item'] as $item) {
+                $item_id = 0;
                 $item_sku = '';
 
                 if (!empty($item['item_id'])) {
                     $item_object = Item::find($item['item_id']);
 
+                    $item_id = $item['item_id'];
+
                     $item_sku = $item_object->sku;
+                } elseif (!empty($item['sku'])) {
+                    $item_sku = $item['sku'];
                 }
 
                 $tax = $tax_id = 0;
@@ -79,7 +84,7 @@ class Invoices extends ApiController
                     $tax = $item['tax'];
                 }
 
-                $invoice_item['item_id'] = $item['item_id'];
+                $invoice_item['item_id'] = $item_id;
                 $invoice_item['name'] = $item['name'];
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
@@ -126,12 +131,17 @@ class Invoices extends ApiController
             InvoiceItem::where('invoice_id', $invoice->id)->delete();
 
             foreach ($request['item'] as $item) {
+                $item_id = 0;
                 $item_sku = '';
 
                 if (!empty($item['item_id'])) {
                     $item_object = Item::find($item['item_id']);
 
+                    $item_id = $item['item_id'];
+
                     $item_sku = $item_object->sku;
+                } elseif (!empty($item['sku'])) {
+                    $item_sku = $item['sku'];
                 }
 
                 $tax = $tax_id = 0;
@@ -146,7 +156,7 @@ class Invoices extends ApiController
                     $tax = $item['tax'];
                 }
 
-                $invoice_item['item_id'] = $item['item_id'];
+                $invoice_item['item_id'] = $item_id;
                 $invoice_item['name'] = $item['name'];
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
