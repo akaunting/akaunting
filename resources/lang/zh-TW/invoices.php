@@ -2,8 +2,8 @@
 
 return [
 
-    'invoice_number'    => '發票號碼',
-    'invoice_date'      => '發票日期',
+    'invoice_number'    => '訂單號碼',
+    'invoice_date'      => '訂單日期',
     'total_price'       => '總價',
     'due_date'          => '到期日',
     'order_number'      => '訂單編號',
@@ -15,7 +15,7 @@ return [
     'tax_total'         => '稅額',
     'total'             => '總計',
 
-    'item_name'         => '項目名稱 | 項目名稱',
+    'item_name'         => '產品名稱 | 產品名稱',
 
     'payment_due'       => '付款到期日',
     'paid'              => '已付款',

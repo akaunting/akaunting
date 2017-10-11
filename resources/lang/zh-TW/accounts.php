@@ -10,6 +10,5 @@ return [
     'bank_phone'            => '銀行電話',
     'bank_address'          => '銀行地址',
     'default_account'       => '預設帳戶',
-    'all'                   => '所有帳戶',
 
 ];

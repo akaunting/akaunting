@@ -23,11 +23,11 @@ return [
         'timezone'          => '時區',
     ],
     'invoice' => [
-        'tab'               => '發票',
-        'prefix'            => '發票字軌',
-        'digit'             => '發票號碼',
-        'start'             => '發票起始號碼',
-        'logo'              => '發票 Logo',
+        'tab'               => '訂單',
+        'prefix'            => '訂單字軌',
+        'digit'             => '訂單號碼',
+        'start'             => '訂單起始號碼',
+        'logo'              => '訂單商標',
     ],
     'default' => [
         'tab'               => '預設',
@@ -55,7 +55,7 @@ return [
     ],
     'scheduling' => [
         'tab'               => '排程',
-        'send_invoice'      => '傳送發票提醒',
+        'send_invoice'      => '傳送訂單提醒',
         'invoice_days'      => '於到期日後傳送',
         'send_bill'         => '傳送帳單提醒',
         'bill_days'         => '於到期日前傳送',

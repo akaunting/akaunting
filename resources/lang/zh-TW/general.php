@@ -2,10 +2,10 @@
 
 return [
 
-    'items'                 => '項目 | 項目',
+    'items'                 => '產品 | 產品',
     'incomes'               => '收入 | 收入',
-    'invoices'              => '發票 | 發票',
-    'revenues'              => '營利 | 營利',
+    'invoices'              => '訂單 | 訂單',
+    'revenues'              => '營業額 | 營業額',
     'customers'             => '客戶 | 客戶',
     'expenses'              => '支出 | 支出',
     'bills'                 => '帳單 | 帳單',
@@ -35,6 +35,7 @@ return [
     'languages'             => '語言 | 語言',
     'updates'               => '更新 | 更新',
     'numbers'               => '編號 | 編號',
+    'statuses'              => '狀態 | 狀態',
 
     'dashboard'             => '控制面板',
     'banking'               => '銀行',
@@ -76,7 +77,6 @@ return [
     'color'                 => '顏色',
     'save'                  => '儲存',
     'cancel'                => '取消',
-    'status'                => '狀態',
     'from'                  => '來自',
     'to'                    => '收件人',
     'print'                 => '列印',
@@ -85,12 +85,12 @@ return [
     'filter'                => '篩選',
     'create_user'           => '建立使用者',
     'created_user'          => '已建立使用者',
-    'all_statuses'          => '所有狀態',
     'bank'                  => '銀行轉帳',
     'cash'                  => '現金',
     'paypal'                => 'PayPal',
     'help'                  => '說明',
     'all'                   => '全部',
+    'all_type'              => '所有 :type',
     'upcoming'              => '即將到來',
     'created'               => '已建立',
 

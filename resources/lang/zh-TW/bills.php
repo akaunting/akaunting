@@ -15,7 +15,7 @@ return [
     'tax_total'         => '稅額',
     'total'             => '總計',
 
-    'item_name'         => '項目名稱 | 項目名稱',
+    'item_name'         => '產品名稱 | 產品名稱',
 
     'payment_due'       => '付款到期日',
     'amount_due'        => '到期金額',
