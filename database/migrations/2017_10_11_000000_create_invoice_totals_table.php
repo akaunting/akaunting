@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use App\Models\Model;
 use App\Models\Company\Company;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceItem;
