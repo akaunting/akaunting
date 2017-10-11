@@ -68,9 +68,7 @@ class InvoicePayments extends BaseController
 
         if ($request['currency_code'] == $invoice->currency_code) {
             if ($request['amount'] > $invoice->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
-
-                return response()->json($message);
+                return $this->response->noContent();
             } elseif ($request['amount'] == $invoice->amount) {
                 $invoice->invoice_status_code = 'paid';
             } else {
@@ -86,9 +84,7 @@ class InvoicePayments extends BaseController
             $amount = $request_invoice->getConvertedAmount();
 
             if ($amount > $invoice->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
-
-                return response()->json($message);
+                return $this->response->noContent();
             } elseif ($amount == $invoice->amount) {
                 $invoice->invoice_status_code = 'paid';
             } else {
