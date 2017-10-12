@@ -36,6 +36,12 @@ class Companies extends ApiController
      */
     public function show(Company $company)
     {
+        // Check if user can access company
+        $companies = app('Dingo\Api\Auth\Auth')->user()->companies()->pluck('id')->toArray();
+        if (!in_array($company->id, $companies)) {
+            $this->response->errorUnauthorized();
+        }
+
         $company->setSettings();
 
         return $this->response->item($company, new Transformer());
@@ -82,7 +88,7 @@ class Companies extends ApiController
         // Check if user can access company
         $companies = app('Dingo\Api\Auth\Auth')->user()->companies()->pluck('id')->toArray();
         if (!in_array($company->id, $companies)) {
-            return $this->response->noContent();
+            $this->response->errorUnauthorized();
         }
 
         // Update company
@@ -116,10 +122,11 @@ class Companies extends ApiController
     {
         // Check if user can access company
         $companies = app('Dingo\Api\Auth\Auth')->user()->companies()->pluck('id')->toArray();
-
-        if (in_array($company->id, $companies)) {
-            $company->delete();
+        if (!in_array($company->id, $companies)) {
+            $this->response->errorUnauthorized();
         }
+
+        $company->delete();
 
         return $this->response->noContent();
     }
