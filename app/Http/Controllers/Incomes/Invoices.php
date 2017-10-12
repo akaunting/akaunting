@@ -331,7 +331,7 @@ class Invoices extends Controller
             }
         }
 
-        $request['amount'] += $sub_total + $tax_total;
+        $request['amount'] = $sub_total + $tax_total;
 
         $invoice->update($request->input());
 
@@ -402,8 +402,6 @@ class Invoices extends Controller
 
         $request['invoice_status_code'] = 'draft';
 
-        $request['amount'] = 0;
-
         // Upload attachment
         $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
 
@@ -469,9 +467,7 @@ class Invoices extends Controller
             }
         }
 
-        if (empty($request['amount'])) {
-            $request['amount'] += $sub_total + $tax_total;
-        }
+        $request['amount'] = $sub_total + $tax_total;
 
         $invoice->update($request->input());
 

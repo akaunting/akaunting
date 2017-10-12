@@ -51,6 +51,10 @@ class Invoices extends ApiController
      */
     public function store(Request $request)
     {
+        if (empty($request['amount'])) {
+            $request['amount'] = 0;
+        }
+
         $invoice = Invoice::create($request->all());
 
         $taxes = [];
@@ -119,7 +123,7 @@ class Invoices extends ApiController
         }
 
         if (empty($request['amount'])) {
-            $request['amount'] += $sub_total + $tax_total;
+            $request['amount'] = $sub_total + $tax_total;
         }
 
         $invoice->update($request->input());
@@ -219,7 +223,7 @@ class Invoices extends ApiController
         }
 
         if (empty($request['amount'])) {
-            $request['amount'] += $sub_total + $tax_total;
+            $request['amount'] = $sub_total + $tax_total;
         }
 
         $invoice->update($request->input());
