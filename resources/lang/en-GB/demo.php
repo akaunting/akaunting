@@ -11,7 +11,7 @@ return [
     'currencies_gbp'        => 'British Pound',
     'currencies_try'        => 'Turkish Lira',
     'taxes_exempt'          => 'Tax Exempt',
-    'taxes_normal'          => 'Normal',
+    'taxes_normal'          => 'Normal Tax',
     'taxes_sales'           => 'Sales Tax',
 
 ];

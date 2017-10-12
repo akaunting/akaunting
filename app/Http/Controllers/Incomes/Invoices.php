@@ -282,7 +282,6 @@ class Invoices extends Controller
 
         if ($request['item']) {
             foreach ($request['item'] as $item) {
-                unset($tax_object);
                 $item_sku = '';
 
                 if (!empty($item['item_id'])) {
@@ -310,6 +309,9 @@ class Invoices extends Controller
                 $invoice_item['tax_id'] = $tax_id;
                 $invoice_item['total'] = $item['price'] * $item['quantity'];
 
+                InvoiceItem::create($invoice_item);
+
+                // Set taxes
                 if (isset($tax_object)) {
                     if (array_key_exists($tax_object->id, $taxes)) {
                         $taxes[$tax_object->id]['amount'] += $tax;
@@ -321,10 +323,11 @@ class Invoices extends Controller
                     }
                 }
 
+                // Calculate totals
                 $tax_total += $tax;
                 $sub_total += $invoice_item['total'];
 
-                InvoiceItem::create($invoice_item);
+                unset($tax_object);
             }
         }
 
@@ -332,49 +335,8 @@ class Invoices extends Controller
 
         $invoice->update($request->input());
 
-        // Added invoice total sub total
-        $invoice_sub_total = [
-            'company_id' => $request['company_id'],
-            'invoice_id' => $invoice->id,
-            'code' => 'sub_total',
-            'name' => 'invoices.sub_total',
-            'amount' => $sub_total,
-            'sort_order' => 1,
-        ];
-
-        InvoiceTotal::create($invoice_sub_total);
-
-        $sort_order = 2;
-
-        // Added invoice total taxes
-        if ($taxes) {
-            foreach ($taxes as $tax) {
-                $invoice_tax_total = [
-                    'company_id' => $request['company_id'],
-                    'invoice_id' => $invoice->id,
-                    'code' => 'tax',
-                    'name' => $tax['name'],
-                    'amount' => $tax['amount'],
-                    'sort_order' => $sort_order,
-                ];
-
-                InvoiceTotal::create($invoice_tax_total);
-
-                $sort_order++;
-            }
-        }
-
-        // Added invoice total total
-        $invoice_total = [
-            'company_id' => $request['company_id'],
-            'invoice_id' => $invoice->id,
-            'code' => 'total',
-            'name' => 'invoices.total',
-            'amount' => $sub_total + $tax_total,
-            'sort_order' => $sort_order,
-        ];
-
-        InvoiceTotal::create($invoice_total);
+        // Add invoice totals
+        $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
 
         $request['invoice_id'] = $invoice->id;
         $request['status_code'] = 'draft';
@@ -507,55 +469,17 @@ class Invoices extends Controller
             }
         }
 
-        $request['amount'] += $sub_total + $tax_total;
+        if (empty($request['amount'])) {
+            $request['amount'] += $sub_total + $tax_total;
+        }
 
         $invoice->update($request->input());
 
+        // Delete previous invoice totals
         InvoiceTotal::where('invoice_id', $invoice->id)->delete();
 
-        // Added invoice total sub total
-        $invoice_sub_total = [
-            'company_id' => $request['company_id'],
-            'invoice_id' => $invoice->id,
-            'code' => 'sub_total',
-            'name' => 'invoices.sub_total',
-            'amount' => $sub_total,
-            'sort_order' => 1,
-        ];
-
-        InvoiceTotal::create($invoice_sub_total);
-
-        $sort_order = 2;
-
-        // Added invoice total taxes
-        if ($taxes) {
-            foreach ($taxes as $tax) {
-                $invoice_tax_total = [
-                    'company_id' => $request['company_id'],
-                    'invoice_id' => $invoice->id,
-                    'code' => 'tax',
-                    'name' => $tax['name'],
-                    'amount' => $tax['amount'],
-                    'sort_order' => $sort_order,
-                ];
-
-                InvoiceTotal::create($invoice_tax_total);
-
-                $sort_order++;
-            }
-        }
-
-        // Added invoice total total
-        $invoice_total = [
-            'company_id' => $request['company_id'],
-            'invoice_id' => $invoice->id,
-            'code' => 'total',
-            'name' => 'invoices.total',
-            'amount' => $sub_total + $tax_total,
-            'sort_order' => $sort_order,
-        ];
-
-        InvoiceTotal::create($invoice_total);
+        // Add invoice totals
+        $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
 
         // Fire the event to make it extendible
         event(new InvoiceUpdated($invoice));
@@ -612,5 +536,54 @@ class Invoices extends Controller
         flash($message)->success();
 
         return redirect('incomes/invoices');
+    }
+
+    protected function addTotals($invoice, $request, $taxes, $sub_total, $tax_total)
+    {
+        $sort_order = 1;
+
+        // Added invoice total sub total
+        $invoice_sub_total = [
+            'company_id' => $request['company_id'],
+            'invoice_id' => $invoice->id,
+            'code' => 'sub_total',
+            'name' => 'invoices.sub_total',
+            'amount' => $sub_total,
+            'sort_order' => $sort_order,
+        ];
+
+        InvoiceTotal::create($invoice_sub_total);
+
+        $sort_order++;
+
+        // Added invoice total taxes
+        if ($taxes) {
+            foreach ($taxes as $tax) {
+                $invoice_tax_total = [
+                    'company_id' => $request['company_id'],
+                    'invoice_id' => $invoice->id,
+                    'code' => 'tax',
+                    'name' => $tax['name'],
+                    'amount' => $tax['amount'],
+                    'sort_order' => $sort_order,
+                ];
+
+                InvoiceTotal::create($invoice_tax_total);
+
+                $sort_order++;
+            }
+        }
+
+        // Added invoice total total
+        $invoice_total = [
+            'company_id' => $request['company_id'],
+            'invoice_id' => $invoice->id,
+            'code' => 'total',
+            'name' => 'invoices.total',
+            'amount' => $sub_total + $tax_total,
+            'sort_order' => $sort_order,
+        ];
+
+        InvoiceTotal::create($invoice_total);
     }
 }

@@ -92,7 +92,7 @@
                             </td>
                             <td class="text-center">{{ $item->quantity }}</td>
                             <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
-                            <td class="text-right">@money($item->total - $item->tax, $invoice->currency_code, true)</td>
+                            <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
                         </tr>
                     @endforeach
                     </tbody>
