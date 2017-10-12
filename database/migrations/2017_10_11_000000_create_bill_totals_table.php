@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use App\Models\Model;
 use App\Models\Company\Company;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillItem;
@@ -39,7 +40,7 @@ class CreateBillTotalsTable extends Migration
             $bills = Bill::where('company_id', $company->id)->get();
 
             foreach ($bills as $bill) {
-                $bill_items = BillItem::where('bill_id', $bill->id)->get();
+                $bill_items = BillItem::where('company_id', $company->id)->where('bill_id', $bill->id)->get();
 
                 $taxes = [];
                 $tax_total = 0;
@@ -47,13 +48,16 @@ class CreateBillTotalsTable extends Migration
 
                 foreach ($bill_items as $bill_item) {
                     unset($tax_object);
+
                     $bill_item->total = $bill_item->price * $bill_item->quantity;
 
-                    $bill_item->update();
-
                     if (!empty($bill_item->tax_id)) {
-                        $tax_object = Tax::find($bill_item->tax_id);
+                        $tax_object = Tax::where('company_id', $company->id)->where('id', $bill_item->tax_id)->first();
+
+                        $bill_item->tax = (($bill_item->price * $bill_item->quantity) / 100) * $tax_object->rate;
                     }
+
+                    $bill_item->update();
 
                     if (isset($tax_object)) {
                         if (array_key_exists($bill_item->tax_id, $taxes)) {

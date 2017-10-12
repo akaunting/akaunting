@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use App\Models\Model;
 use App\Models\Company\Company;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceItem;
@@ -39,7 +40,7 @@ class CreateInvoiceTotalsTable extends Migration
             $invoices = Invoice::where('company_id', $company->id)->get();
 
             foreach ($invoices as $invoice) {
-                $invoice_items = InvoiceItem::where('invoice_id', $invoice->id)->get();
+                $invoice_items = InvoiceItem::where('company_id', $company->id)->where('invoice_id', $invoice->id)->get();
 
                 $taxes = [];
                 $tax_total = 0;
@@ -47,13 +48,16 @@ class CreateInvoiceTotalsTable extends Migration
 
                 foreach ($invoice_items as $invoice_item) {
                     unset($tax_object);
+
                     $invoice_item->total = $invoice_item->price * $invoice_item->quantity;
 
-                    $invoice_item->update();
-
                     if (!empty($invoice_item->tax_id)) {
-                        $tax_object = Tax::find($invoice_item->tax_id);
+                        $tax_object = Tax::where('company_id', $company->id)->where('id', $invoice_item->tax_id)->first();
+
+                        $invoice_item->tax = (($invoice_item->price * $invoice_item->quantity) / 100) * $tax_object->rate;
                     }
+
+                    $invoice_item->update();
 
                     if (isset($tax_object)) {
                         if (array_key_exists($invoice_item->tax_id, $taxes)) {
