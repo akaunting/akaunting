@@ -49,7 +49,7 @@
                         <td class="hidden-xs">{{ $item->domain }}</td>
                         <td class="hidden-xs">{{ $item->company_email }}</td>
                         <td class="hidden-xs">{{ Date::parse($item->created_at)->format($date_format) }}</td>
-                        <td>
+                        <td class="hidden-xs">
                             @if ($item->enabled)
                                 <span class="label label-success">{{ trans('general.enabled') }}</span>
                             @else

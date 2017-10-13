@@ -11,28 +11,28 @@
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
-    <div class="box-header">
+    <div class="box-header with-border">
         {!! Form::open(['url' => 'auth/permissions', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-left">
-            <span class="title-filter">{{ trans('general.search') }}:</span>
+            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
-            <span class="title-filter">{{ trans('general.show') }}:</span>
+            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
             {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
         </div>
         {!! Form::close() !!}
     </div>
     <div class="box-body">
         <div class="table table-responsive">
-            <table class="table table-bordered table-striped table-hover" id="tbl-permissions">
+            <table class="table table-striped table-hover" id="tbl-permissions">
                 <thead>
                     <tr>
-                        <th>@sortablelink('display_name', trans('general.name'))</th>
-                        <th>@sortablelink('name', trans('general.code'))</th>
-                        <th>@sortablelink('description', trans('general.description'))</th>
-                        <th style="width: 15%;">{{ trans('general.actions') }}</th>
+                        <th class="col-md-4">@sortablelink('display_name', trans('general.name'))</th>
+                        <th class="col-md-4">@sortablelink('name', trans('general.code'))</th>
+                        <th class="col-md-4 hidden-xs">@sortablelink('description', trans('general.description'))</th>
+                        <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,12 +40,19 @@
                     <tr>
                         <td><a href="{{ url('auth/permissions/' . $item->id . '/edit') }}">{{ $item->display_name }}</a></td>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>
-                            <a href="{{ url('auth/permissions/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
-                            @permission('update-auth-permissions')
-                            {!! Form::deleteButton($item, 'auth/permissions', '', 'display_name') !!}
-                            @endpermission
+                        <td class="hidden-xs">{{ $item->description }}</td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ url('auth/permissions/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @permission('delete-auth-permissions')
+                                    <li>{!! Form::deleteLink($item, 'auth/permissions') !!}</li>
+                                    @endpermission
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

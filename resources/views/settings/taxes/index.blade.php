@@ -11,16 +11,15 @@
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
-
-    <div class="box-header">
+    <div class="box-header with-border">
         {!! Form::open(['url' => 'settings/taxes', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-left">
-            <span class="title-filter">{{ trans('general.search') }}:</span>
+            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
-            <span class="title-filter">{{ trans('general.show') }}:</span>
+            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
             {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
         </div>
         {!! Form::close() !!}
@@ -29,13 +28,13 @@
 
     <div class="box-body">
         <div class="table table-responsive">
-            <table class="table table-bordered table-striped table-hover" id="tbl-taxes">
+            <table class="table table-striped table-hover" id="tbl-taxes">
                 <thead>
                     <tr>
-                        <th>@sortablelink('name', trans('general.name'))</th>
-                        <th>@sortablelink('rate', trans('taxes.rate_percent'))</th>
-                        <th>@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
-                        <th class="col-md-2">{{ trans('general.actions') }}</th>
+                        <th class="col-md-5">@sortablelink('name', trans('general.name'))</th>
+                        <th class="col-md-5">@sortablelink('rate', trans('taxes.rate_percent'))</th>
+                        <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
+                        <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,18 +42,25 @@
                     <tr>
                         <td><a href="{{ url('settings/taxes/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
                         <td>{{ $item->rate }}</td>
-                        <td>
+                        <td class="hidden-xs">
                             @if ($item->enabled)
                                 <span class="label label-success">{{ trans('general.enabled') }}</span>
                             @else
                                 <span class="label label-danger">{{ trans('general.disabled') }}</span>
                             @endif
                         </td>
-                        <td>
-                            <a href="{{ url('settings/taxes/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
-                            @permission('delete-settings-taxes')
-                            {!! Form::deleteButton($item, 'settings/taxes', 'tax_rates') !!}
-                            @endpermission
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ url('settings/taxes/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @permission('delete-settings-taxes')
+                                    <li>{!! Form::deleteLink($item, 'settings/taxes', 'tax_rates') !!}</li>
+                                    @endpermission
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

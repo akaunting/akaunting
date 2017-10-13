@@ -117,22 +117,22 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                @foreach($invoice->totals as $total)
-                                @if($total->code != 'total')
+                                @foreach($bill->totals as $total)
+                                @if ($total->code != 'total')
                                     <tr>
                                         <th>{{ trans($total['name']) }}:</th>
-                                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                                        <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
                                     </tr>
                                 @else
-                                    @if ($invoice->paid)
+                                    @if ($bill->paid)
                                         <tr class="text-success">
                                             <th>{{ trans('invoices.paid') }}:</th>
-                                            <td class="text-right">@money('-' . $invoice->paid, $invoice->currency_code, true)</td>
+                                            <td class="text-right">@money('-' . $bill->paid, $bill->currency_code, true)</td>
                                         </tr>
                                     @endif
                                     <tr>
                                         <th>{{ trans($total['name']) }}:</th>
-                                        <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
+                                        <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
                                     </tr>
                                 @endif
                                 @endforeach

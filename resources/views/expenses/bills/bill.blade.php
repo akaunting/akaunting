@@ -113,12 +113,11 @@
             <div class="col-xs-5">
                 <div class="table-responsive">
                     <table class="table">
-                    <table class="table">
                         <tbody>
-                        @foreach($invoice->totals as $total)
+                        @foreach($bill->totals as $total)
                         <tr>
                             <th>{{ trans($total['name']) }}:</th>
-                            <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                            <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
                         </tr>
                         @endforeach
                         </tbody>
