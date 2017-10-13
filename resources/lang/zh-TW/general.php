@@ -85,14 +85,12 @@ return [
     'filter'                => '篩選',
     'create_user'           => '建立使用者',
     'created_user'          => '已建立使用者',
-    'bank'                  => '銀行轉帳',
-    'cash'                  => '現金',
-    'paypal'                => 'PayPal',
     'help'                  => '說明',
     'all'                   => '全部',
     'all_type'              => '所有 :type',
     'upcoming'              => '即將到來',
     'created'               => '已建立',
+    'id'                    => '編號',
 
     'title' => [
         'new'               => '新增 :type',

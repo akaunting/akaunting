@@ -24,6 +24,7 @@ return [
     ],
 
     'failed'                => 'Bu kullanıcı bilgileri, bizim verilerimizle eşleşmiyor.',
+    'disabled'              => 'Bu hesap devre dışı bırakılmıştır. Lütfen, sistem yöneticisi ile iletişime geçin.',
     'throttle'              => 'Çok fazla oturum açma girişimi. Lütfen :seconds saniye içinde tekrar deneyin.',
 
 ];

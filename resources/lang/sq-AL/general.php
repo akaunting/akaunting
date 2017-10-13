@@ -85,14 +85,12 @@ return [
     'filter'                => 'Filtër',
     'create_user'           => 'Krijo Përdorues',
     'created_user'          => 'Përdorues i Krijuar',
-    'bank'                  => 'Transferte Bankare',
-    'cash'                  => 'Para',
-    'paypal'                => 'PayPal',
     'help'                  => 'Ndihmë',
     'all'                   => 'Të gjitha',
     'all_type'              => 'Të gjitha :type',
     'upcoming'              => 'Ardhshme',
     'created'               => 'Krijuar',
+    'id'                    => 'ID',
 
     'title' => [
         'new'               => 'I ri :type',

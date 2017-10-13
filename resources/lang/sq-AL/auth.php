@@ -24,6 +24,7 @@ return [
     ],
 
     'failed'                => 'Këto kredencialet nuk përputhen me të dhënat tona.',
+    'disabled'              => 'Kjo llogari është e mbyllur. Ju lutemi, kontaktoni administratorin e sistemit.',
     'throttle'              => 'Shumë përpjekje për identifikim. Provo sërish në :seconds sekonda.',
 
 ];

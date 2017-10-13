@@ -35,6 +35,7 @@ return [
     'languages'             => 'Dil|Diller',
     'updates'               => 'Güncelleme|Güncellemeler',
     'numbers'               => 'Sayı|Sayılar',
+    'statuses'              => 'Durum|Durumlar',
 
     'dashboard'             => 'Kontrol Paneli',
     'banking'               => 'Banka',
@@ -76,7 +77,6 @@ return [
     'color'                 => 'Renk',
     'save'                  => 'Kaydet',
     'cancel'                => 'İptal',
-    'status'                => 'Durum',
     'from'                  => 'Tarafından',
     'to'                    => 'Tarafına',
     'print'                 => 'Yazdır',
@@ -85,14 +85,12 @@ return [
     'filter'                => 'Filtrele',
     'create_user'           => 'Kullanıcı Oluştur',
     'created_user'          => 'Oluşturulan Kullanıcı',
-    'all_statuses'          => 'Tümü',
-    'bank'                  => 'Banka Transferi',
-    'cash'                  => 'Nakit',
-    'paypal'                => 'PayPal',
     'help'                  => 'Yardım',
     'all'                   => 'Hepsi',
+    'all_type'              => 'Tüm :type',
     'upcoming'              => 'Gelecek',
     'created'               => 'Oluşturuldu',
+    'id'                    => 'ID',
 
     'title' => [
         'new'               => 'Yeni :type',
