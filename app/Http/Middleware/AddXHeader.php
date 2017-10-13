@@ -17,7 +17,10 @@ class AddXHeader
     {
         $response = $next($request);
 
-        $response->header('X-Akaunting', 'Free Accounting Software');
+        // Check if we should add header
+        if (method_exists($response, 'header')) {
+            $response->header('X-Akaunting', 'Free Accounting Software');
+        }
 
         return $response;
     }
