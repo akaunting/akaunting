@@ -71,7 +71,7 @@ class Bill extends Model
 
     public function totals()
     {
-        return $this->hasMany('App\Models\Income\InvoiceTotal');
+        return $this->hasMany('App\Models\Expense\BillTotal');
     }
 
     public function payment()
