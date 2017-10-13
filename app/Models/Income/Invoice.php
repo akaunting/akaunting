@@ -64,16 +64,6 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\Income\InvoiceStatus', 'invoice_status_code', 'code');
     }
 
-    public function item()
-    {
-        return $this->belongsTo('App\Models\Income\InvoiceItem', 'id', 'invoice_id');
-    }
-
-    public function payment()
-    {
-        return $this->belongsTo('App\Models\Income\InvoicePayment', 'id', 'invoice_id');
-    }
-
     public function items()
     {
         return $this->hasMany('App\Models\Income\InvoiceItem');
