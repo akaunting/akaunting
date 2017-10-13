@@ -222,17 +222,16 @@
                 </div>
                 <div class="box-body">
                     @if ($accounts->count())
-                        @foreach($accounts as $item)
-                            <div style="min-height: 30px;">
-                                <div style="width:60%;float: left;">
-                                    <div>{{ $item->name }}</div>
-                                </div>
-                                <div style="width:40%;float: left;text-align: right;">
-                                    @money($item->balance, $item->currency_code, true)
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        @endforeach
+                        <table class="table table-striped">
+                            <tbody>
+                                @foreach($accounts as $item)
+                                <tr>
+                                    <td class="text-left">{{ $item->name }}</td>
+                                    <td class="text-right">@money($item->balance, $item->currency_code, true)</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     @else
                         <h5 class="text-center">{{ trans('general.no_records') }}</h5>
                     @endif
@@ -252,7 +251,7 @@
                 </div>
                 <div class="box-body">
                     @if ($latest_incomes->count())
-                    <table class="table table-bordered">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th class="text-left">{{ trans('general.date') }}</th>
@@ -263,9 +262,9 @@
                         <tbody>
                             @foreach($latest_incomes as $item)
                             <tr>
-                                <td align="left">{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                                <td align="left">{{ $item->category ? $item->category->name : trans_choice('general.invoices', 2) }}</td>
-                                <td align="right">@money($item->amount, $item->currency_code, true)</td>
+                                <td class="text-left">{{ Date::parse($item->paid_at)->format($date_format) }}</td>
+                                <td class="text-left">{{ $item->category ? $item->category->name : trans_choice('general.invoices', 2) }}</td>
+                                <td class="text-right">@money($item->amount, $item->currency_code, true)</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -289,7 +288,7 @@
                 </div>
                 <div class="box-body">
                     @if ($latest_expenses->count())
-                    <table class="table table-bordered">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th class="text-left">{{ trans('general.date') }}</th>
@@ -300,9 +299,9 @@
                         <tbody>
                             @foreach($latest_expenses as $item)
                             <tr>
-                                <td align="left">{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                                <td align="left">{{ $item->category ? $item->category->name : trans_choice('general.bills', 2) }}</td>
-                                <td align="right">@money($item->amount, $item->currency_code, true)</td>
+                                <td class="text-left">{{ Date::parse($item->paid_at)->format($date_format) }}</td>
+                                <td class="text-left">{{ $item->category ? $item->category->name : trans_choice('general.bills', 2) }}</td>
+                                <td class="text-right">@money($item->amount, $item->currency_code, true)</td>
                             </tr>
                             @endforeach
                         </tbody>

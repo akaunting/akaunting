@@ -45,12 +45,12 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="table table-responsive">
-                    <table class="table table-bordered table-striped table-hover" id="tbl-items">
+                    <table class="table table-striped table-hover" id="tbl-items">
                         <thead>
                         <tr>
                             <th class="col-md-3">{{ trans('general.name') }}</th>
-                            <th class="col-md-3">{{ trans('offlinepayment::offlinepayment.code') }}</th>
-                            <th class="col-md-3">{{ trans('offlinepayment::offlinepayment.order') }}</th>
+                            <th class="col-md-4">{{ trans('offlinepayment::offlinepayment.code') }}</th>
+                            <th class="col-md-2 text-center">{{ trans('offlinepayment::offlinepayment.order') }}</th>
                             <th class="col-md-3">{{ trans('general.actions') }}</th>
                         </tr>
                         </thead>
@@ -60,7 +60,7 @@
                             <tr id="method-{{ $item->code }}">
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->code }}</td>
-                                <td>{{ $item->order }}</td>
+                                <td class="text-center">{{ $item->order }}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-xs method-edit" id="edit-{{ $item->code }}" title="{{ trans('general.edit') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</button>
                                     <button type="button" class="btn btn-danger btn-xs method-delete" id="delete-{{ $item->code }}" title="{{ trans('general.delete') }}"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ trans('general.delete') }}</button>
