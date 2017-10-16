@@ -81,25 +81,6 @@ class Item extends Model
         $this->attributes['purchase_price'] = (float) $value;
     }
 
-    public function canDelete()
-    {
-        $error = false;
-
-        if ($bills = $this->bill_items()->count()) {
-            $error['bills'] = $bills;
-        }
-
-        if ($invoices = $this->invoice_items()->count()) {
-            $error['invoices'] = $invoices;
-        }
-
-        if ($error) {
-            return $error;
-        }
-
-        return true;
-    }
-
     public static function getItems($filter_data = array())
     {
         if (empty($filter_data)) {

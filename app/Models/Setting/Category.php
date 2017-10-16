@@ -37,29 +37,6 @@ class Category extends Model
         return $this->hasMany('App\Models\Item\Item');
     }
 
-    public function canDelete()
-    {
-        $error = false;
-
-        if ($items = $this->items()->count()) {
-            $error['items'] = $items;
-        }
-
-        if ($payments = $this->payments()->count()) {
-            $error['payments'] = $payments;
-        }
-
-        if ($revenues = $this->revenues()->count()) {
-            $error['revenues'] = $revenues;
-        }
-
-        if ($error) {
-            return $error;
-        }
-
-        return true;
-    }
-
     /**
      * Scope to only include categories of a given type.
      *

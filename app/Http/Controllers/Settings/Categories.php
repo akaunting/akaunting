@@ -74,13 +74,27 @@ class Categories extends Controller
      */
     public function update(Category $category, Request $request)
     {
-        $category->update($request->all());
+        $relationships = $this->countRelationships($category, [
+            'items' => 'items',
+            'revenues' => 'revenues',
+            'payments' => 'payments',
+        ]);
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.categories', 1)]);
+        if (empty($relationships) || $request['enabled']) {
+            $category->update($request->all());
 
-        flash($message)->success();
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.categories', 1)]);
 
-        return redirect('settings/categories');
+            flash($message)->success();
+
+            return redirect('settings/categories');
+        } else {
+            $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+
+            flash($message)->warning();
+
+            return redirect('settings/categories/' . $category->id . '/edit');
+        }
     }
 
     /**
@@ -92,30 +106,20 @@ class Categories extends Controller
      */
     public function destroy(Category $category)
     {
-        $canDelete = $category->canDelete();
+        $relationships = $this->countRelationships($category, [
+            'items' => 'items',
+            'revenues' => 'revenues',
+            'payments' => 'payments',
+        ]);
 
-        if ($canDelete === true) {
+        if (empty($relationships)) {
             $category->delete();
 
             $message = trans('messages.success.deleted', ['type' => trans_choice('general.categories', 1)]);
 
             flash($message)->success();
         } else {
-            $text = array();
-
-            if (isset($canDelete['items'])) {
-                $text[] = '<b>' . $canDelete['items'] . '</b> ' . trans_choice('general.items', ($canDelete['items'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['payments'])) {
-                $text[] = '<b>' . $canDelete['payments'] . '</b> ' . trans_choice('general.payments', ($canDelete['payments'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['revenues'])) {
-                $text[] = '<b>' . $canDelete['revenues'] . '</b> ' . trans_choice('general.items', ($canDelete['revenues'] > 1) ? 2 : 1);
-            }
-
-            $message = trans('messages.warning.deleted', ['type' => trans_choice('general.categories', 1), 'text' => implode(', ', $text)]);
+            $message = trans('messages.warning.deleted', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }

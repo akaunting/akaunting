@@ -37,27 +37,4 @@ class Tax extends Model
     {
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
-
-    public function canDelete()
-    {
-        $error = false;
-
-        if ($items = $this->items()->count()) {
-            $error['items'] = $items;
-        }
-
-        if ($bills = $this->bill_items()->count()) {
-            $error['bills'] = $bills;
-        }
-
-        if ($invoices = $this->invoice_items()->count()) {
-            $error['invoices'] = $invoices;
-        }
-
-        if ($error) {
-            return $error;
-        }
-
-        return true;
-    }
 }

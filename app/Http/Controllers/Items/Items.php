@@ -117,26 +117,19 @@ class Items extends Controller
      */
     public function destroy(Item $item)
     {
-        $canDelete = $item->canDelete();
+        $relationships = $this->countRelationships($item, [
+            'invoice_items' => 'invoices',
+            'bill_items' => 'bills',
+        ]);
 
-        if ($canDelete === true) {
+        if (empty($relationships)) {
             $item->delete();
 
             $message = trans('messages.success.deleted', ['type' => trans_choice('general.items', 1)]);
 
             flash($message)->success();
         } else {
-            $text = array();
-
-            if (isset($canDelete['bills'])) {
-                $text[] = '<b>' . $canDelete['bills'] . '</b> ' . trans_choice('general.bills', ($canDelete['bills'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['invoices'])) {
-                $text[] = '<b>' . $canDelete['invoices'] . '</b> ' . trans_choice('general.invoices', ($canDelete['invoices'] > 1) ? 2 : 1);
-            }
-
-            $message = trans('messages.warning.deleted', ['type' => trans_choice('general.items', 1), 'text' => implode(', ', $text)]);
+            $message = trans('messages.warning.deleted', ['name' => $item->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }

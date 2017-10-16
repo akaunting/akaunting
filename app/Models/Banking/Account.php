@@ -81,33 +81,6 @@ class Account extends Model
         $this->attributes['opening_balance'] = (float) $value;
     }
 
-    public function canDelete()
-    {
-        $error = false;
-
-        if ($bill_payments = $this->bill_payments()->count()) {
-            $error['bills'] = $bill_payments;
-        }
-
-        if ($payments = $this->payments()->count()) {
-            $error['payments'] = $payments;
-        }
-
-        if ($invoice_payments = $this->invoice_payments()->count()) {
-            $error['invoices'] = $invoice_payments;
-        }
-
-        if ($revenues = $this->revenues()->count()) {
-            $error['revenues'] = $revenues;
-        }
-
-        if ($error) {
-            return $error;
-        }
-
-        return true;
-    }
-
     /**
      * Get the current balance.
      *

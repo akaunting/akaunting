@@ -52,23 +52,4 @@ class Vendor extends Model
     {
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
-
-    public function canDelete()
-    {
-        $error = false;
-
-        if ($bills = $this->bills()->count()) {
-            $error['bills'] = $bills;
-        }
-
-        if ($payments = $this->payments()->count()) {
-            $error['payments'] = $payments;
-        }
-
-        if ($error) {
-            return $error;
-        }
-
-        return true;
-    }
 }

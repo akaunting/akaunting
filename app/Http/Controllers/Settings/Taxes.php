@@ -71,13 +71,27 @@ class Taxes extends Controller
      */
     public function update(Tax $tax, Request $request)
     {
-        $tax->update($request->all());
+        $relationships = $this->countRelationships($tax, [
+            'items' => 'items',
+            'invoice_items' => 'invoices',
+            'bill_items' => 'bills',
+        ]);
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.tax_rates', 1)]);
+        if (empty($relationships) || $request['enabled']) {
+            $tax->update($request->all());
 
-        flash($message)->success();
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.tax_rates', 1)]);
 
-        return redirect('settings/taxes');
+            flash($message)->success();
+
+            return redirect('settings/taxes');
+        } else {
+            $message = trans('messages.warning.disabled', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
+
+            flash($message)->warning();
+
+            return redirect('settings/taxes/' . $tax->id . '/edit');
+        }
     }
 
     /**
@@ -89,30 +103,20 @@ class Taxes extends Controller
      */
     public function destroy(Tax $tax)
     {
-        $canDelete = $tax->canDelete();
+        $relationships = $this->countRelationships($tax, [
+            'items' => 'items',
+            'invoice_items' => 'invoices',
+            'bill_items' => 'bills',
+        ]);
 
-        if ($canDelete === true) {
+        if (empty($relationships)) {
             $tax->delete();
 
             $message = trans('messages.success.deleted', ['type' => trans_choice('general.taxes', 1)]);
 
             flash($message)->success();
         } else {
-            $text = array();
-
-            if (isset($canDelete['items'])) {
-                $text[] = '<b>' . $canDelete['items'] . '</b> ' . trans_choice('general.items', ($canDelete['items'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['bills'])) {
-                $text[] = '<b>' . $canDelete['bills'] . '</b> ' . trans_choice('general.bills', ($canDelete['bills'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['invoices'])) {
-                $text[] = '<b>' . $canDelete['invoices'] . '</b> ' . trans_choice('general.items', ($canDelete['invoices'] > 1) ? 2 : 1);
-            }
-
-            $message = trans('messages.warning.deleted', ['type' => trans_choice('general.taxes', 1), 'text' => implode(', ', $text)]);
+            $message = trans('messages.warning.deleted', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }
