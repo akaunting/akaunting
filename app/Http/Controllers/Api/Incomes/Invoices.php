@@ -6,7 +6,6 @@ use App\Events\InvoiceCreated;
 use App\Events\InvoiceUpdated;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Income\Invoice as Request;
-use App\Http\Transformers\Income\Invoice as Transformer;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceHistory;
 use App\Models\Income\InvoiceItem;
@@ -14,6 +13,7 @@ use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceTotal;
 use App\Models\Item\Item;
 use App\Models\Setting\Tax;
+use App\Transformers\Income\Invoice as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Invoices extends ApiController

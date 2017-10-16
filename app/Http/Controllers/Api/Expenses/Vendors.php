@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Expenses;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Expense\Vendor as Request;
-use App\Http\Transformers\Expense\Vendor as Transformer;
 use App\Models\Expense\Vendor;
+use App\Transformers\Expense\Vendor as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Vendors extends ApiController

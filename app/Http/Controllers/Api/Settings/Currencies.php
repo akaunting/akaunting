@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Settings;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Setting\Currency as Request;
-use App\Http\Transformers\Setting\Currency as Transformer;
 use App\Models\Setting\Currency;
+use App\Transformers\Setting\Currency as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Currencies extends ApiController

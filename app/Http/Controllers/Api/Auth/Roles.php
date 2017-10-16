@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Auth\Role as Request;
-use App\Http\Transformers\Auth\Role as Transformer;
 use App\Models\Auth\Role;
+use App\Transformers\Auth\Role as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Roles extends ApiController

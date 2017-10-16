@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Settings;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Setting\Tax as Request;
-use App\Http\Transformers\Setting\Tax as Transformer;
 use App\Models\Setting\Tax;
+use App\Transformers\Setting\Tax as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Taxes extends ApiController

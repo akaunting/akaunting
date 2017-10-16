@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Expenses;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Expense\Payment as Request;
-use App\Http\Transformers\Expense\Payment as Transformer;
 use App\Models\Expense\Payment;
+use App\Transformers\Expense\Payment as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Payments extends ApiController

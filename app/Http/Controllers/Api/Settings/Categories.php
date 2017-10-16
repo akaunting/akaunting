@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Settings;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Setting\Category as Request;
-use App\Http\Transformers\Setting\Category as Transformer;
 use App\Models\Setting\Category;
+use App\Transformers\Setting\Category as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Categories extends ApiController

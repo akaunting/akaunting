@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api\Banking;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Banking\Transfer as Request;
-use App\Http\Transformers\Banking\Transfer as Transformer;
 use App\Models\Banking\Transfer;
 use App\Models\Expense\Payment;
 use App\Models\Income\Revenue;
+use App\Transformers\Banking\Transfer as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Transfers extends ApiController

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Banking;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Banking\Account as Request;
-use App\Http\Transformers\Banking\Account as Transformer;
 use App\Models\Banking\Account;
+use App\Transformers\Banking\Account as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Accounts extends ApiController

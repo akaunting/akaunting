@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Items;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Item\Item as Request;
-use App\Http\Transformers\Item\Item as Transformer;
 use App\Models\Item\Item;
+use App\Transformers\Item\Item as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Items extends ApiController

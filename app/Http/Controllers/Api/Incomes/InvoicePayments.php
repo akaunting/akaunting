@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\Incomes;
 
 use App\Http\Requests\Income\InvoicePayment as Request;
-use App\Http\Transformers\Income\InvoicePayments as Transformer;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceHistory;
 use App\Models\Income\InvoicePayment;
 use App\Models\Setting\Currency;
 use App\Traits\DateTime;
+use App\Transformers\Income\InvoicePayments as Transformer;
 use Date;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Foundation\Bus\DispatchesJobs;

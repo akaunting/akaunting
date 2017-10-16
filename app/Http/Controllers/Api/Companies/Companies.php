@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Companies;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Company\Company as Request;
-use App\Http\Transformers\Company\Company as Transformer;
 use App\Models\Company\Company;
+use App\Transformers\Company\Company as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Companies extends ApiController

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Incomes;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Income\Customer as Request;
-use App\Http\Transformers\Income\Customer as Transformer;
 use App\Models\Income\Customer;
+use App\Transformers\Income\Customer as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Customers extends ApiController

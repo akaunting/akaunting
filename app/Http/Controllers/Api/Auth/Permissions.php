@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Auth\Permission as Request;
-use App\Http\Transformers\Auth\Permission as Transformer;
 use App\Models\Auth\Permission;
+use App\Transformers\Auth\Permission as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Permissions extends ApiController
