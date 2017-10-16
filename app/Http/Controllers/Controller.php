@@ -44,4 +44,17 @@ class Controller extends BaseController
         $this->middleware('permission:update-' . $controller)->only(['update']);
         $this->middleware('permission:delete-' . $controller)->only('destroy');
     }
+
+    public function countRelationships($model, $relationships)
+    {
+        $counter = array();
+
+        foreach ($relationships as $relationship => $text) {
+            if ($c = $model->$relationship()->count()) {
+                $counter[] = $c . ' ' . strtolower(trans_choice('general.' . $text, ($c > 1) ? 2 : 1));
+            }
+        }
+
+        return $counter;
+    }
 }

@@ -63,43 +63,4 @@ class Currency extends Model
     {
         $this->attributes['rate'] = (float) $value;
     }
-
-    public function canDisable()
-    {
-        $error = false;
-
-        if ($this->code == setting('general.default_currency')) {
-            $error['company'] = 1;
-        }
-
-        if ($accounts = $this->accounts()->count()) {
-            $error['accounts'] = $accounts;
-        }
-
-        if ($customers = $this->customers()->count()) {
-            $error['customers'] = $customers;
-        }
-
-        if ($invoices = $this->invoices()->count()) {
-            $error['invoices'] = $invoices;
-        }
-
-        if ($revenues = $this->revenues()->count()) {
-            $error['revenues'] = $revenues;
-        }
-
-        if ($bills = $this->bills()->count()) {
-            $error['bills'] = $bills;
-        }
-
-        if ($payments = $this->payments()->count()) {
-            $error['payments'] = $payments;
-        }
-
-        if ($error) {
-            return $error;
-        }
-
-        return true;
-    }
 }

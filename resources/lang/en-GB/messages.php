@@ -11,8 +11,8 @@ return [
         'not_user_company'  => 'Error: You are not allowed to manage this company!',
     ],
     'warning' => [
-        'deleted'           => 'Warning: You are not delete :type. Because it has :text',
-        'disabled'          => 'Warning: You are not disable :type. Because it has :text',
+        'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',
+        'disabled'          => 'Warning: You are not allowed to disable <b>:name</b> because it has :text related.',
     ],
 
 ];

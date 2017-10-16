@@ -108,34 +108,21 @@ class Accounts extends Controller
      */
     public function destroy(Account $account)
     {
-        $canDelete = $account->canDelete();
+        $relationships = $this->countRelationships($account, [
+            'bill_payments' => 'bills',
+            'payments' => 'payments',
+            'invoice_payments' => 'invoices',
+            'revenues' => 'revenues',
+        ]);
 
-        if ($canDelete === true) {
+        if (empty($relationships)) {
             $account->delete();
 
             $message = trans('messages.success.deleted', ['type' => trans_choice('general.accounts', 1)]);
 
             flash($message)->success();
         } else {
-            $text = array();
-
-            if (isset($canDelete['bills'])) {
-                $text[] = '<b>' . $canDelete['bills'] . '</b> ' . trans_choice('general.bills', ($canDelete['bills'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['payments'])) {
-                $text[] = '<b>' . $canDelete['payments'] . '</b> ' . trans_choice('general.payments', ($canDelete['payments'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['invoices'])) {
-                $text[] = '<b>' . $canDelete['invoices'] . '</b> ' . trans_choice('general.invoices', ($canDelete['invoices'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['revenues'])) {
-                $text[] = '<b>' . $canDelete['revenues'] . '</b> ' . trans_choice('general.revenues', ($canDelete['revenues'] > 1) ? 2 : 1);
-            }
-
-            $message = trans('messages.warning.deleted', ['type' => trans_choice('general.accounts', 1), 'text' => implode(', ', $text)]);
+            $message = trans('messages.warning.deleted', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }

@@ -94,26 +94,19 @@ class Vendors extends Controller
      */
     public function destroy(Vendor $vendor)
     {
-        $canDelete = $vendor->canDelete();
+        $relationships = $this->countRelationships($vendor, [
+            'bills' => 'bills',
+            'payments' => 'payments',
+        ]);
 
-        if ($canDelete === true) {
+        if (empty($relationships)) {
             $vendor->delete();
 
             $message = trans('messages.success.deleted', ['type' => trans_choice('general.vendors', 1)]);
 
             flash($message)->success();
         } else {
-            $text = array();
-
-            if (isset($canDelete['bills'])) {
-                $text[] = '<b>' . $canDelete['bills'] . '</b> ' . trans_choice('general.bills', ($canDelete['bills'] > 1) ? 2 : 1);
-            }
-
-            if (isset($canDelete['payments'])) {
-                $text[] = '<b>' . $canDelete['payments'] . '</b> ' . trans_choice('general.payments', ($canDelete['payments'] > 1) ? 2 : 1);
-            }
-
-            $message = trans('messages.warning.deleted', ['type' => trans_choice('general.vendors', 1), 'text' => implode(', ', $text)]);
+            $message = trans('messages.warning.deleted', ['name' => $vendor->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }

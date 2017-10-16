@@ -59,23 +59,4 @@ class Customer extends Model
     {
         return $this->belongsTo('App\Models\Auth\User', 'customer_id', 'id');
     }
-
-    public function canDelete()
-    {
-        $error = false;
-
-        if ($invoices = $this->invoices()->count()) {
-            $error['invoices'] = $invoices;
-        }
-
-        if ($revenues = $this->revenues()->count()) {
-            $error['revenues'] = $revenues;
-        }
-
-        if ($error) {
-            return $error;
-        }
-
-        return true;
-    }
 }
