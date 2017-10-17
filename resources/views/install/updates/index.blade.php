@@ -39,7 +39,7 @@
 
     <div class="box-body">
         <div class="table table-responsive">
-            <table class="table table-bordered table-striped table-hover" id="tbl-translations">
+            <table class="table table-striped table-hover" id="tbl-translations">
                 <thead>
                     <tr>
                         <th class="col-md-4">{{ trans('general.name') }}</th>
