@@ -291,6 +291,8 @@ trait Modules
             'Accept'        => 'application/json',
         ];
 
+        $data['http_errors'] = false;
+
         $data = array_merge($data, $headers);
 
         $result = $client->request($method, $path, $data);

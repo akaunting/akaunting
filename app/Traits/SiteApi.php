@@ -18,6 +18,8 @@ trait SiteApi
             'Accept'        => 'application/json',
         );
 
+        $data['http_errors'] = false;
+
         $data = array_merge($data, $headers);
 
         $result = $client->get($url, $data);

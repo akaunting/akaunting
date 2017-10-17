@@ -5,7 +5,6 @@ namespace App\Utilities;
 use App\Traits\SiteApi;
 use Cache;
 use Date;
-use GuzzleHttp\Client;
 
 class Versions
 {
