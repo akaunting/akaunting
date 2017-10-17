@@ -20,7 +20,7 @@ class Menu
         $company_id = session('company_id');
 
         // Get all companies
-        $companies = Auth::user()->companies()->limit(15)->get()->sortBy('name');
+        $companies = Auth::user()->companies()->limit(10)->get()->sortBy('name');
         foreach ($companies as $com) {
             $com->setSettings();
         }
