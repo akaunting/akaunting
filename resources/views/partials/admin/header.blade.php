@@ -173,7 +173,9 @@
                                 <i class="fa fa-4 fa-user-o" style="color: #fff; font-size: 7em;"></i>
                             @endif
                             <p>
+                                @if (!empty($user->name))
                                 {{ $user->name }}
+                                @endif
                                 <small>{{ trans('header.last_login', ['time' => $user->last_logged_in_at]) }}</small>
                             </p>
                         </li>

@@ -21,7 +21,7 @@ class Payments extends Controller
      */
     public function index()
     {
-        $payments = Payment::with('account', 'category')->where('customer_id', '=', Auth::user()->customer->id)->paginate();
+        $payments = Payment::with(['account', 'category'])->where('customer_id', '=', Auth::user()->customer->id)->paginate();
 
         $payment_methods = Modules::getPaymentMethods();
 
