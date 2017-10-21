@@ -111,6 +111,11 @@ Route::group(['middleware' => ['auth', 'language', 'adminmenu', 'permission:read
 });
 
 Route::group(['middleware' => ['auth', 'language', 'customermenu', 'permission:read-customer-panel']], function () {
+    Route::group(['prefix' => 'uploads'], function () {
+        Route::get('{folder}/{file}', 'Common\Uploads@get');
+        Route::get('{folder}/{file}/download', 'Common\Uploads@download');
+    });
+
     Route::group(['prefix' => 'customers'], function () {
         Route::get('/', 'Customers\Dashboard@index');
 

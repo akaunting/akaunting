@@ -18,29 +18,24 @@
                 </div>
                 <div class="box-body">
                     @if ($user->invoices->count())
-                        <table class="table table-bordered">
+                        <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>{{ trans('invoices.invoice_number') }}</th>
-                                <th>{{ trans_choice('general.customers', 1) }}</th>
-                                <th>{{ trans('invoices.total_price') }}</th>
-                                <th>{{ trans_choice('general.statuses', 1) }}</th>
-                                <th>{{ trans('invoices.invoice_date') }}</th>
-                                <th style="width: 18%;">{{ trans('general.actions') }}</th>
+                                <th class="col-md-2">{{ trans('invoices.invoice_number') }}</th>
+                                <th class="col-md-2 text-right">{{ trans('general.amount') }}</th>
+                                <th class="col-md-3 text-right">{{ trans('invoices.invoice_date') }}</th>
+                                <th class="col-md-3 text-right">{{ trans('invoices.due_date') }}</th>
+                                <th class="col-md-2 text-center">{{ trans_choice('general.statuses', 1) }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($user->invoices as $item)
                             <tr>
-                                <td><a href="{{ url('customer/invoices/' . $item->id . '/edit') }}">{{ $item->invoice_number }}</a></td>
-                                <td>{{ $item->customer_name }}</td>
-                                <td>@money($item->amount, $item->currency_code, true)</td>
-                                <td>{{ $item->status->name }}</td>
-                                <td>{{ Date::parse($item->invoiced_at)->format($date_format) }}</td>
-                                <td>
-                                    <a href="{{ url('customers/invoices/' . $item->id . '') }}" class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
-                                    <a href="{{ url('customers/invoices/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
-                                </td>
+                                <td><a href="{{ url('customers/invoices/' . $item->id) }}">{{ $item->invoice_number }}</a></td>
+                                <td class="text-right">@money($item->amount, $item->currency_code, true)</td>
+                                <td class="text-right">{{ Date::parse($item->invoiced_at)->format($date_format) }}</td>
+                                <td class="text-right">{{ Date::parse($item->due_at)->format($date_format) }}</td>
+                                <td class="text-center">{{ $item->status->name }}</td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -68,26 +63,22 @@
                 </div>
                 <div class="box-body">
                     @if ($user->revenues->count())
-                        <table class="table table-bordered">
+                        <table class="table table-striped">
                             <thead>
                             <tr>
                                 <th>{{ trans('general.date') }}</th>
                                 <th>{{ trans('general.amount') }}</th>
                                 <th>{{ trans_choice('general.categories', 1) }}</th>
                                 <th>{{ trans_choice('general.accounts', 1) }}</th>
-                                <th style="width: 15%;">{{ trans('general.actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($user->revenues as $item)
                             <tr>
-                                <td><a href="{{ url('customer/payments/' . $item->id . '') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
+                                <td><a href="{{ url('customers/payments/' . $item->id . '') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
                                 <td>@money($item->amount, $item->currency_code, true)</td>
                                 <td>{{ $item->category->name }}</td>
                                 <td>{{ $item->account->name }}</td>
-                                <td>
-                                    <a href="{{ url('customers/payments/' . $item->id . '') }}" class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
-                                </td>
                             </tr>
                             @endforeach
                             </tbody>

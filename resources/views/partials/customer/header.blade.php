@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><img src="{{ asset($company->company_logo) }}" class="logo-image-lg" width="25"  alt="{{ $company->company_name }}"></span>
+        <span class="logo-mini"><img src="{{ !empty($company->company_logo) ? Storage::url($company->company_logo) : asset('public/img/company.png') }}" class="logo-image-mini" width="25"  alt="{{ $company->company_name }}"></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="{{ asset($company->company_logo) }}" class="logo-image-lg" width="25"  alt="{{ $company->company_name }}"> <b>{{ $company->company_name }}</b></span>
+        <span class="logo-lg"><img src="{{ !empty($company->company_logo) ? Storage::url($company->company_logo) : asset('public/img/company.png') }}" width="25"  alt="{{ $company->company_name }}"> <b>{{ str_limit($company->company_name, 15) }}</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -53,7 +53,7 @@
                 <!-- Tasks: style can be found in dropdown.less -->
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        {!! language()->flag() !!}
+                        <i class="fa fa-flag-o"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">{{ trans('header.change_language') }}</li>
@@ -66,15 +66,27 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset($user->picture) }}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">{{ $user->name }}</span>
+                        @if ($user->picture)
+                            <img src="{{ Storage::url($user->picture) }}" class="user-image" alt="User Image">
+                        @else
+                            <i class="fa fa-user-o"></i>
+                        @endif
+                        @if (!empty($user->name))
+                            <span class="hidden-xs">{{ $user->name }}</span>
+                        @endif
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="{{ asset($user->picture) }}" class="img-circle" alt="User Image">
+                            @if ($user->picture)
+                                <img src="{{ Storage::url($user->picture) }}" class="img-circle" alt="User Image">
+                            @else
+                                <i class="fa fa-4 fa-user-o" style="color: #fff; font-size: 7em;"></i>
+                            @endif
                             <p>
+                                @if (!empty($user->name))
                                 {{ $user->name }}
+                                @endif
                                 <small>{{ trans('header.last_login', ['time' => $user->last_logged_in_at]) }}</small>
                             </p>
                         </li>
