@@ -24,7 +24,7 @@ class CreateInvoiceTotalsTable extends Migration
             $table->integer('invoice_id');
             $table->string('code')->nullable();
             $table->string('name');
-            $table->float('amount', 15, 4);
+            $table->double('amount', 15, 4);
             $table->integer('sort_order');
             $table->timestamps();
             $table->softDeletes();

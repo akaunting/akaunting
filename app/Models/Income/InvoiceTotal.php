@@ -22,4 +22,15 @@ class InvoiceTotal extends Model
     {
         return $this->belongsTo('App\Models\Income\Invoice');
     }
+
+    /**
+     * Convert amount to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = (double) $value;
+    }
 }

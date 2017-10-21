@@ -60,25 +60,25 @@ class Item extends Model
     }
 
     /**
-     * Convert sale price to float.
+     * Convert sale price to double.
      *
      * @param  string  $value
      * @return void
      */
     public function setSalePriceAttribute($value)
     {
-        $this->attributes['sale_price'] = (float) $value;
+        $this->attributes['sale_price'] = (double) $value;
     }
 
     /**
-     * Convert purchase price to float.
+     * Convert purchase price to double.
      *
      * @param  string  $value
      * @return void
      */
     public function setPurchasePriceAttribute($value)
     {
-        $this->attributes['purchase_price'] = (float) $value;
+        $this->attributes['purchase_price'] = (double) $value;
     }
 
     public static function getItems($filter_data = array())

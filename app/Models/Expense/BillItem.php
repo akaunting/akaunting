@@ -33,4 +33,26 @@ class BillItem extends Model
     {
         return $this->belongsTo('App\Models\Setting\Tax');
     }
+
+    /**
+     * Convert price to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPriceAttribute($value)
+    {
+        $this->attributes['price'] = (double) $value;
+    }
+
+    /**
+     * Convert total to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setTotalAttribute($value)
+    {
+        $this->attributes['total'] = (double) $value;
+    }
 }

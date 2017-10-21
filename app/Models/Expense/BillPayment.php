@@ -45,4 +45,26 @@ class BillPayment extends Model
     {
         return $query->orderBy('paid_at', 'desc');
     }
+
+    /**
+     * Convert amount to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = (double) $value;
+    }
+
+    /**
+     * Convert currency rate to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setCurrencyRateAttribute($value)
+    {
+        $this->attributes['currency_rate'] = (double) $value;
+    }
 }

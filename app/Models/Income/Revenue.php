@@ -71,25 +71,25 @@ class Revenue extends Model
     }
 
     /**
-     * Convert amount to float.
+     * Convert amount to double.
      *
      * @param  string  $value
      * @return void
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (float) $value;
+        $this->attributes['amount'] = (double) $value;
     }
 
     /**
-     * Convert currency rate to float.
+     * Convert currency rate to double.
      *
      * @param  string  $value
      * @return void
      */
     public function setCurrencyRateAttribute($value)
     {
-        $this->attributes['currency_rate'] = (float) $value;
+        $this->attributes['currency_rate'] = (double) $value;
     }
 
     public function scopeLatest($query)

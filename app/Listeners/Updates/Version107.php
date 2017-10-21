@@ -2,14 +2,14 @@
 
 namespace App\Listeners\Updates;
 
-//use App\Models\Auth\Permission;
 use App\Events\UpdateFinished;
+use DB;
 
-class Version104 extends Listener
+class Version107 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.0.4';
+    const VERSION = '1.0.7';
 
     /**
      * Handle the event.
@@ -24,10 +24,8 @@ class Version104 extends Listener
             return;
         }
 
-        /*Permission::create([
-            'name' => 'john-doe',
-            'display_name' => 'John Doe',
-            'description' => 'John Doe',
-        ]);*/
+        $table = env('DB_PREFIX') . 'taxes';
+
+        DB::statement("ALTER TABLE `$table` MODIFY `rate` DOUBLE(15,4) NOT NULL");
     }
 }

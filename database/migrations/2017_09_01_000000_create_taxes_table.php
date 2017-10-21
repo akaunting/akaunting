@@ -16,7 +16,7 @@ class CreateTaxesTable extends Migration
             $table->increments('id');
             $table->integer('company_id');
             $table->string('name');
-            $table->integer('rate');
+            $table->double('rate', 15, 4);
             $table->boolean('enabled');
             $table->timestamps();
             $table->softDeletes();

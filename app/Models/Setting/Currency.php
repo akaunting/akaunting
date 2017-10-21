@@ -54,13 +54,13 @@ class Currency extends Model
     }
 
     /**
-     * Convert rate to float.
+     * Convert rate to double.
      *
      * @param  string  $value
      * @return void
      */
     public function setRateAttribute($value)
     {
-        $this->attributes['rate'] = (float) $value;
+        $this->attributes['rate'] = (double) $value;
     }
 }

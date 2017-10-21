@@ -17,7 +17,7 @@ class CreateCurrenciesTable extends Migration
             $table->integer('company_id');
             $table->string('name');
             $table->string('code');
-            $table->float('rate', 15, 8);
+            $table->double('rate', 15, 8);
             $table->tinyInteger('enabled')->default(0);
             $table->timestamps();
             $table->softDeletes();

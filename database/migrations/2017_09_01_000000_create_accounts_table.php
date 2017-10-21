@@ -18,7 +18,7 @@ class CreateAccountsTable extends Migration
             $table->string('name');
             $table->string('number');
             $table->string('currency_code');
-            $table->float('opening_balance', 15, 4)->default('0.0000');
+            $table->double('opening_balance', 15, 4)->default('0.0000');
             $table->string('bank_name')->nullable();
             $table->string('bank_phone')->nullable();
             $table->text('bank_address')->nullable();

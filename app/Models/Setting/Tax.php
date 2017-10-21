@@ -37,4 +37,15 @@ class Tax extends Model
     {
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
+
+    /**
+     * Convert rate to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setRateAttribute($value)
+    {
+        $this->attributes['rate'] = (double) $value;
+    }
 }

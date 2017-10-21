@@ -22,4 +22,15 @@ class BillTotal extends Model
     {
         return $this->belongsTo('App\Models\Expense\Bill');
     }
+
+    /**
+     * Convert amount to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = (double) $value;
+    }
 }

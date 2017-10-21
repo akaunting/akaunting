@@ -20,9 +20,9 @@ class CreateInvoicesTable extends Migration
             $table->string('invoice_status_code');
             $table->date('invoiced_at');
             $table->date('due_at');
-            $table->float('amount', 15, 4);
+            $table->double('amount', 15, 4);
             $table->string('currency_code');
-            $table->float('currency_rate', 15, 8);
+            $table->double('currency_rate', 15, 8);
             $table->integer('customer_id');
             $table->string('customer_name');
             $table->string('customer_email');
@@ -46,9 +46,9 @@ class CreateInvoicesTable extends Migration
             $table->string('name');
             $table->string('sku')->nullable();
             $table->integer('quantity');
-            $table->float('price', 15, 4);
-            $table->float('total', 15, 4);
-            $table->float('tax', 15, 4)->default('0.0000');
+            $table->double('price', 15, 4);
+            $table->double('total', 15, 4);
+            $table->double('tax', 15, 4)->default('0.0000');
             $table->integer('tax_id');
             $table->timestamps();
             $table->softDeletes();
@@ -73,9 +73,9 @@ class CreateInvoicesTable extends Migration
             $table->integer('invoice_id');
             $table->integer('account_id');
             $table->date('paid_at');
-            $table->float('amount', 15, 4);
+            $table->double('amount', 15, 4);
             $table->string('currency_code');
-            $table->float('currency_rate', 15, 8);
+            $table->double('currency_rate', 15, 8);
             $table->text('description')->nullable();
             $table->string('payment_method');
             $table->string('reference')->nullable();
