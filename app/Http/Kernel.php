@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
         'api.company' => \App\Http\Middleware\ApiCompany::class,
+        'install' => \App\Http\Middleware\CanInstall::class,
     ];
 }

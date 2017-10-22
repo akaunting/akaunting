@@ -143,7 +143,7 @@ Route::group(['middleware' => ['guest', 'language']], function () {
         Route::post('reset', 'Auth\Reset@store');
     });
 
-    Route::group(['prefix' => 'install'], function () {
+    Route::group(['middleware' => 'install', 'prefix' => 'install'], function () {
         Route::get('/', 'Install\Requirements@show');
         Route::get('requirements', 'Install\Requirements@show');
 
