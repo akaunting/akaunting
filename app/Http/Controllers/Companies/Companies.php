@@ -54,7 +54,7 @@ class Companies extends Controller
         Setting::forgetAll();
 
         // Create company
-        $company = Company::create(['domain' => $request->get('domain')]);
+        $company = Company::create($request->input());
 
         // Create settings
         Setting::set('general.company_name', $request->get('company_name'));
@@ -113,7 +113,7 @@ class Companies extends Controller
         $this->authorizeUserOrRedirect($company);
 
         // Update company
-        $company->update(['domain' => $request->get('domain')]);
+        $company->update($request->input());
 
         // Get the company settings
         Setting::forgetAll();

@@ -16,14 +16,14 @@ class Company extends Eloquent
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['domain'];
+    protected $fillable = ['domain', 'enabled'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['name', 'domain', 'email', 'created_at'];
+    public $sortable = ['name', 'domain', 'email', 'enabled', 'created_at'];
 
     public function accounts()
     {
