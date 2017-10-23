@@ -261,7 +261,8 @@ div.required .control-label:not(span):after, td.required:after {
 }
 
 .user-panel > .image > img {
-    max-height: 45px;
+    height: 45px;
+    width: 45px;
 }
 
 .main-header .add-new.nav.navbar-nav i {
