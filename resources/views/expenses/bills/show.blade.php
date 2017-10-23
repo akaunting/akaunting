@@ -229,7 +229,7 @@
                                     {!! Form::open([
                                         'id' => 'bill-payment-' . $payment->id,
                                         'method' => 'DELETE',
-                                        'url' => ['expenses/bills/paymentDestroy', $payment->id],
+                                        'url' => ['expenses/bills/payment', $payment->id],
                                         'style' => 'display:inline'
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(

@@ -228,7 +228,7 @@
                                     {!! Form::open([
                                         'id' => 'invoice-payment-' . $payment->id,
                                         'method' => 'DELETE',
-                                        'url' => ['incomes/invoices/paymentDestroy', $payment->id],
+                                        'url' => ['incomes/invoices/payment', $payment->id],
                                         'style' => 'display:inline'
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(

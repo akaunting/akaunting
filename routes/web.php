@@ -47,7 +47,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('invoices/{id}/print', 'Incomes\Invoices@printInvoice');
                 Route::get('invoices/{id}/pdf', 'Incomes\Invoices@pdfInvoice');
                 Route::post('invoices/payment', 'Incomes\Invoices@payment');
-                Route::delete('invoices/{id}/paymentDestroy', 'Incomes\Invoices@paymentDestroy');
+                Route::delete('invoices/payment/{payment}', 'Incomes\Invoices@paymentDestroy');
                 Route::resource('invoices', 'Incomes\Invoices');
                 Route::resource('revenues', 'Incomes\Revenues');
             });
@@ -57,7 +57,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('bills/{id}/print', 'Expenses\Bills@printBill');
                 Route::get('bills/{id}/pdf', 'Expenses\Bills@pdfBill');
                 Route::post('bills/payment', 'Expenses\Bills@payment');
-                Route::delete('bills/{id}/paymentDestroy', 'Expenses\Bills@paymentDestroy');
+                Route::delete('bills/payment/{payment}', 'Expenses\Bills@paymentDestroy');
                 Route::resource('bills', 'Expenses\Bills');
                 Route::get('vendors/currency', 'Expenses\Vendors@currency');
                 Route::resource('vendors', 'Expenses\Vendors');
