@@ -16,7 +16,7 @@ class CanInstall
     public function handle($request, Closure $next)
     {
         // Check if app is installed
-        if (env('APP_INSTALLED', true) == false) {
+        if (env('APP_INSTALLED', false) == false) {
             return $next($request);
         }
 
