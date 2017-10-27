@@ -11,37 +11,28 @@
                 <h3>{{ $module->name }}</h3>
             </div>
 
-            <div class="box box-success">
-                <div class="box-body">
-                    <div>
-                        <img src="{{ $module->cover->path_string }}" class="item-image" alt="{{ $module->name }}" width="800" height="140"/>
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">{{ trans('general.description') }}</a></li>
+                    <li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">{{ trans('modules.faq') }}</a></li>
+                    <li class=""><a href="#changelog" data-toggle="tab" aria-expanded="false">{{ trans('modules.changelog') }}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="description">
+                        {!! $module->description !!}
                     </div>
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">{{ trans('general.description') }}</a></li>
-                            <li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">{{ trans('modules.faq') }}</a></li>
-                            <li class=""><a href="#changelog" data-toggle="tab" aria-expanded="false">{{ trans('modules.changelog') }}</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="description">
-                                {!! $module->description !!}
-                            </div>
-                            <!-- /.tab-pane -->
-                            <div class="tab-pane" id="faq">
-                                {!! $module->faq !!}
-                            </div>
-                            <!-- /.tab-pane -->
-                            <div class="tab-pane" id="changelog">
-                                {!! $module->changelog !!}
-                            </div>
-                            <!-- /.tab-pane -->
-                        </div>
-                        <!-- /.tab-content -->
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="faq">
+                        {!! $module->faq !!}
                     </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="changelog">
+                        {!! $module->changelog !!}
+                    </div>
+                    <!-- /.tab-pane -->
                 </div>
-                <!-- /.box-body -->
+                <!-- /.tab-content -->
             </div>
-            <!-- /.box -->
         </div>
 
         <div class="col-md-4 no-padding-right">
@@ -55,11 +46,11 @@
                         <tbody>
                             <tr>
                                 <th>Price</th>
-                                <td>
+                                <td class="text-right">
                                     @if ($module->price == '0.0000')
                                         {{ trans('modules.free') }}
                                     @else
-                                        {{ $module->price }}
+                                        {{ $module->price . ' / month' }}
                                     @endif
                                 </td>
                             </tr>
@@ -100,27 +91,27 @@
                         <tbody>
                             <tr>
                                 <th>Vendor</th>
-                                <td><a href="{{ url('modules/vendor/' . $module->vendor->id) }}">{{ $module->vendor->first_name . ' ' . $module->vendor->last_name }}</a></td>
+                                <td class="text-right"><a href="{{ url('modules/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a></td>
                             </tr>
                             <tr>
                                 <th>Version</th>
-                                <td>{{ $module->version }}</td>
+                                <td class="text-right">{{ $module->version }}</td>
                             </tr>
                             <tr>
                                 <th>Added</th>
-                                <td>{{ Date::parse($module->created_at)->format($date_format) }}</td>
+                                <td class="text-right">{{ Date::parse($module->created_at)->format($date_format) }}</td>
                             </tr>
                             <tr>
                                 <th>Updated</th>
-                                <td>{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
+                                <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                             </tr>
                             <tr>
                                 <th>Compatibility</th>
-                                <td>{{ $module->compatibility }}</td>
+                                <td class="text-right">{{ $module->compatibility }}</td>
                             </tr>
                             <tr>
                                 <th>Category</th>
-                                <td><a href="{{ url('modules/category/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                                <td class="text-right"><a href="{{ url('modules/category/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                             </tr>
                         </tbody>
                     </table>

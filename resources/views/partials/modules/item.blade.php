@@ -6,24 +6,22 @@
         </div>
         <!-- /.box-header -->
 
-        <div class="box-body">
+        <div class="box-body text-center">
             <a href="{{ url('modules/item/' . $module->slug) }}">
-                <img src="{{ $module->files[0]->path_string }}" alt="{{ $module->name }}" width="280" height="140">
-                <br>
-                {!! str_limit($module->description, 70) !!}
+                <img src="{{ $module->files[0]->path_string }}" alt="{{ $module->name }}" class="item-image">
             </a>
         </div>
         <!-- /.box-body -->
 
         <div class="box-footer">
             <div class="pull-left">
-                {{ $module->category->name }}
+                {{ $module->vendor_name }}
             </div>
             <div class="pull-right">
                 @if ($module->price == '0.0000')
                     {{ trans('modules.free') }}
                 @else
-                    {{ $module->price }}
+                    {{ $module->price . ' / month' }}
                 @endif
             </div>
         </div>
