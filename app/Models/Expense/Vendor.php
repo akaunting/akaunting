@@ -45,7 +45,7 @@ class Vendor extends Model
 
     public function payments()
     {
-        return $this->hasMany('App\Models\Expense\Payments');
+        return $this->hasMany('App\Models\Expense\Payment');
     }
 
     public function currency()
