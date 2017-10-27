@@ -97,19 +97,24 @@ class Versions
 
     public static function getLatestVersion($url)
     {
+        $latest = '0.0.0';
+
         $response = static::getRemote($url, ['timeout' => 30, 'referer' => true]);
 
-        if ($response->getStatusCode() == 200) {
-            $version = json_decode($response->getBody())->data;
-
-            if (is_object($version)) {
-                $latest = $version->latest;
-            } else {
-                $latest = '0.0.0';
-            }
-        } else {
-            $latest = '0.0.0';
+        // Bad response
+        if ($response->getStatusCode() != 200) {
+            return $latest;
         }
+
+        $content = json_decode($response->getBody());
+
+        // Empty response
+        if (!is_object($content) || !is_object($content->data)) {
+            return $latest;
+        }
+
+        // Get the latest version
+        $latest = $content->data->latest;
 
         return $latest;
     }
