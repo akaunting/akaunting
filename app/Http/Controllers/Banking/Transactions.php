@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Banking;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Expense\Payment;
 use App\Models\Income\Revenue;
+use App\Models\Setting\Category;
 
 class Transactions extends Controller
 {
@@ -17,37 +19,51 @@ class Transactions extends Controller
      */
     public function index()
     {
-        //$transactions = Transaction::index();
         $request = request();
-
-        $payments = Payment::collect('paid_at');
-
+        
         $transactions = array();
+        
+        $accounts = collect(Account::enabled()->pluck('name', 'id'))
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
 
-        foreach ($payments as $payment) {
-            $transactions[] = (object)[
-                'paid_at' => $payment->paid_at,
-                'account_name' => $payment->account->name,
-                'type' => trans_choice('general.expenses', 1),
-                'category_name' => $payment->category->name,
-                'description' => $payment->description,
-                'amount' => $payment->amount,
-                'currency_code' => $payment->currency_code,
-            ];
+        $types = collect(['expense' => 'Expense', 'income' => 'Income'])
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
+            
+        $categories = collect(Category::enabled()->type('income')->pluck('name', 'id'))
+            ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
+
+        $type = $request->get('type');
+
+        if ($type != 'income') {
+            $payments = Payment::collect('paid_at');
+    
+            foreach ($payments as $payment) {
+                $transactions[] = (object)[
+                    'paid_at' => $payment->paid_at,
+                    'account_name' => $payment->account->name,
+                    'type' => trans_choice('general.expenses', 1),
+                    'category_name' => $payment->category->name,
+                    'description' => $payment->description,
+                    'amount' => $payment->amount,
+                    'currency_code' => $payment->currency_code,
+                ];
+            }
         }
 
-        $revenues = Revenue::collect('paid_at');
+        if ($type != 'expense') {
+            $revenues = Revenue::collect('paid_at');
 
-        foreach ($revenues as $revenue) {
-            $transactions[] = (object)[
-                'paid_at' => $revenue->paid_at,
-                'account_name' => $revenue->account->name,
-                'type' => trans_choice('general.incomes', 1),
-                'category_name' => $revenue->category->name,
-                'description' => $revenue->description,
-                'amount' => $revenue->amount,
-                'currency_code' => $revenue->currency_code,
-            ];
+            foreach ($revenues as $revenue) {
+                $transactions[] = (object)[
+                    'paid_at' => $revenue->paid_at,
+                    'account_name' => $revenue->account->name,
+                    'type' => trans_choice('general.incomes', 1),
+                    'category_name' => $revenue->category->name,
+                    'description' => $revenue->description,
+                    'amount' => $revenue->amount,
+                    'currency_code' => $revenue->currency_code,
+                ];
+            }
         }
 
         $special_key = array(
@@ -75,6 +91,6 @@ class Transactions extends Controller
 
         $transactions = (object) $transactions;
 
-        return view('banking.transactions.index', compact('transactions'));
+        return view('banking.transactions.index', compact('transactions', 'accounts', 'types', 'categories'));
     }
 }

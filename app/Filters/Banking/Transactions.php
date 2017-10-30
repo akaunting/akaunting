@@ -13,9 +13,14 @@ class Transactions extends ModelFilter
      * @var array
      */
     public $relations = [];
-
-    public function search($query)
+    
+    public function account($account_id)
     {
-        return $this->whereLike('payment.name', $query)->whereLike('revenue.name', $query);
+        return $this->where('account_id', $account_id);
+    }
+    
+    public function category($category_id)
+    {
+        return $this->where('category_id', $category_id);
     }
 }
