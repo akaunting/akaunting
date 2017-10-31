@@ -232,7 +232,13 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->pluck('name', 'id');
 
-        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes'));
+        // Generate next invoice number
+        $prefix = setting('general.invoice_number_prefix', 'INV-');
+        $next = setting('general.invoice_number_next', '1');
+        $digit = setting('general.invoice_number_digit', '5');
+        $number = $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
+
+        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'number'));
     }
 
     /**
@@ -344,6 +350,11 @@ class Invoices extends Controller
         $request['description'] = trans('messages.success.added', ['type' => $request['invoice_number']]);
 
         InvoiceHistory::create($request->all());
+
+        // Update next invoice number
+        $next = setting('general.invoice_number_next', 1) + 1;
+        setting(['general.invoice_number_next' => $next]);
+        setting()->save();
 
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));

@@ -138,6 +138,11 @@ class Invoices extends ApiController
 
         InvoiceHistory::create($request->input());
 
+        // Update next invoice number
+        $next = setting('general.invoice_number_next', 1) + 1;
+        setting(['general.invoice_number_next' => $next]);
+        setting()->save();
+
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));
 

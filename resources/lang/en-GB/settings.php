@@ -24,10 +24,10 @@ return [
     ],
     'invoice' => [
         'tab'               => 'Invoice',
-        'prefix'            => 'Invoice Prefix',
-        'digit'             => 'Invoice Number Digit',
-        'start'             => 'Invoice Start Number',
-        'logo'              => 'Invoice Logo',
+        'prefix'            => 'Prefix',
+        'digit'             => 'Number Digit',
+        'next'              => 'Next Number',
+        'logo'              => 'Logo',
     ],
     'default' => [
         'tab'               => 'Defaults',

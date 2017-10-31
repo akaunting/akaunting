@@ -50,11 +50,11 @@
                     </div>
 
                     <div class="tab-pane tab-margin" id="invoice">
-                        {{ Form::textGroup('invoice_prefix', trans('settings.invoice.prefix'), 'font', []) }}
+                        {{ Form::textGroup('invoice_number_prefix', trans('settings.invoice.prefix'), 'font', []) }}
 
-                        {{ Form::textGroup('invoice_digit', trans('settings.invoice.digit'), 'text-width', []) }}
+                        {{ Form::textGroup('invoice_number_digit', trans('settings.invoice.digit'), 'text-width', []) }}
 
-                        {{ Form::textGroup('invoice_start', trans('settings.invoice.start'), 'chevron-right', []) }}
+                        {{ Form::textGroup('invoice_number_next', trans('settings.invoice.next'), 'chevron-right', []) }}
 
                         {{ Form::fileGroup('invoice_logo', trans('settings.invoice.logo')) }}
                     </div>
