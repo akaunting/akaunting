@@ -24,7 +24,7 @@ return [
     ],
     'invoice' => [
         'tab'               => 'Invoice',
-        'prefix'            => 'Prefix',
+        'prefix'            => 'Number Prefix',
         'digit'             => 'Number Digit',
         'next'              => 'Next Number',
         'logo'              => 'Logo',
