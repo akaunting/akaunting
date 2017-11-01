@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Module\Module;
 use App\Events\AdminMenuCreated;
 use Auth;
 use Closure;
 use Menu;
-use Module;
+use Module as LaravelModule;
 
 class AdminMenu
 {
@@ -152,12 +153,14 @@ class AdminMenu
                     $modules = Module::all();
                     $position = 5;
                     foreach ($modules as $module) {
+                        $m = LaravelModule::findByAlias($module->alias);
+
                         // Check if the module has settings
-                        if (empty($module->get('settings'))) {
+                        if (empty($m->get('settings'))) {
                             continue;
                         }
 
-                        $sub->url('settings/modules/' . $module->getAlias(), $module->getName(), $position, $attr);
+                        $sub->url('settings/modules/' . $m->getAlias(), $m->getName(), $position, $attr);
 
                         $position++;
                     }
