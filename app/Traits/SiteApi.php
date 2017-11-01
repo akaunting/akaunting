@@ -16,7 +16,7 @@ trait SiteApi
         $headers['headers'] = array(
             'Authorization' => 'Bearer ' . setting('general.api_token'),
             'Accept'        => 'application/json',
-            'referer'       => env('APP_URL'),
+            'Referer'       => env('APP_URL'),
         );
 
         $data['http_errors'] = false;
