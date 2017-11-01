@@ -16,20 +16,6 @@ class Item extends Controller
     use Modules;
 
     /**
-     * Instantiate a new controller instance.
-     *
-     * @param  Route  $route
-     */
-    public function __construct(Route $route)
-    {
-        if (!setting('general.api_token')) {
-            return redirect('apps/token/create')->send();
-        }
-
-        parent::__construct($route);
-    }
-
-    /**
      * Show the form for viewing the specified resource.
      *
      * @param  $alias
@@ -38,6 +24,8 @@ class Item extends Controller
      */
     public function show($alias)
     {
+        $this->checkApiToken();
+
         $installed = false;
         $enable = false;
 
@@ -59,12 +47,14 @@ class Item extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  $path
+     * @param  $request
      *
      * @return Response
      */
     public function steps(Request $request)
     {
+        $this->checkApiToken();
+
         $json = array();
         $json['step'] = array();
 
@@ -95,12 +85,14 @@ class Item extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  $path
+     * @param  $request
      *
      * @return Response
      */
     public function download(Request $request)
     {
+        $this->checkApiToken();
+
         $path = $request['path'];
 
         $version = $request['version'];
@@ -115,12 +107,14 @@ class Item extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  $path
+     * @param  $request
      *
      * @return Response
      */
     public function unzip(Request $request)
     {
+        $this->checkApiToken();
+
         $path = $request['path'];
 
         $json = $this->unzipModule($path);
@@ -137,6 +131,8 @@ class Item extends Controller
      */
     public function install(Request $request)
     {
+        $this->checkApiToken();
+
         $path = $request['path'];
 
         $json = $this->installModule($path);
@@ -154,6 +150,8 @@ class Item extends Controller
 
     public function uninstall($alias)
     {
+        $this->checkApiToken();
+
         $json = $this->uninstallModule($alias);
 
         $module = Module::where('alias', $alias)->first();
@@ -179,6 +177,8 @@ class Item extends Controller
 
     public function update($alias)
     {
+        $this->checkApiToken();
+
         $json = $this->updateModule($alias);
 
         $module = Module::where('alias', $alias)->first();
@@ -202,6 +202,8 @@ class Item extends Controller
 
     public function enable($alias)
     {
+        $this->checkApiToken();
+
         $json = $this->enableModule($alias);
 
         $module = Module::where('alias', $alias)->first();
@@ -229,6 +231,8 @@ class Item extends Controller
 
     public function disable($alias)
     {
+        $this->checkApiToken();
+
         $json = $this->disableModule($alias);
 
         $module = Module::where('alias', $alias)->first();

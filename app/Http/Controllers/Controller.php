@@ -57,4 +57,18 @@ class Controller extends BaseController
 
         return $counter;
     }
+
+    /**
+     * Check for api token and redirect if empty.
+     *
+     * @return mixed
+     */
+    public function checkApiToken()
+    {
+        if (setting('general.api_token')) {
+            return;
+        }
+
+        redirect('apps/token/create')->send();
+    }
 }

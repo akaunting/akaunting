@@ -11,20 +11,6 @@ class Tiles extends Controller
     use Modules;
 
     /**
-     * Instantiate a new controller instance.
-     *
-     * @param  Route  $route
-     */
-    public function __construct(Route $route)
-    {
-        if (!setting('general.api_token')) {
-            return redirect('apps/token/create')->send();
-        }
-
-        parent::__construct($route);
-    }
-
-    /**
      * Show the form for viewing the specified resource.
      *
      * @param  $alias
@@ -33,6 +19,8 @@ class Tiles extends Controller
      */
     public function category($alias)
     {
+        $this->checkApiToken();
+
         $data = $this->getModulesByCategory($alias);
 
         $title = $data->category->name;
@@ -48,6 +36,8 @@ class Tiles extends Controller
      */
     public function paid()
     {
+        $this->checkApiToken();
+
         $title = trans('modules.top_paid');
         $modules = $this->getPaidModules();
 
@@ -61,6 +51,8 @@ class Tiles extends Controller
      */
     public function new()
     {
+        $this->checkApiToken();
+
         $title = trans('modules.new');
         $modules = $this->getNewModules();
 
@@ -74,6 +66,8 @@ class Tiles extends Controller
      */
     public function free()
     {
+        $this->checkApiToken();
+
         $title = trans('modules.top_free');
         $modules = $this->getFreeModules();
 

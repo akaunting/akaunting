@@ -25,8 +25,12 @@ class Modules
                 return collect($this->getCategories())->pluck('name', 'slug')
                     ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
             });
-
-            $view->with(['categories' => $categories]);
+        } else {
+            $categories = collect([
+                '' => trans('general.all_type', ['type' => trans_choice('general.categories', 2)]),
+            ]);
         }
+
+        $view->with(['categories' => $categories]);
     }
 }

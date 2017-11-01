@@ -11,26 +11,14 @@ class Home extends Controller
     use Modules;
 
     /**
-     * Instantiate a new controller instance.
-     *
-     * @param  Route  $route
-     */
-    public function __construct(Route $route)
-    {
-        if (!setting('general.api_token')) {
-            return redirect('apps/token/create')->send();
-        }
-
-        parent::__construct($route);
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index()
     {
+        $this->checkApiToken();
+
         $paid = $this->getPaidModules();
         $new = $this->getNewModules();
         $free = $this->getFreeModules();

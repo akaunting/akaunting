@@ -23,6 +23,7 @@ class LoadSettings
 
         // Set the active company settings
         setting()->setExtraColumns(['company_id' => $company_id]);
+        setting()->load(true);
 
         // Timezone
         config(['app.timezone' => setting('general.timezone', 'UTC')]);
