@@ -11,7 +11,7 @@
             </div>
             <!-- /.box-header -->
 
-            {!! Form::open(['url' => 'modules/offlinepayment/settings', 'files' => true, 'role' => 'form']) !!}
+            {!! Form::open(['url' => 'apps/offlinepayment/settings', 'files' => true, 'role' => 'form']) !!}
 
             <div class="box-body">
                 <div id="install-loading"></div>
@@ -27,7 +27,7 @@
             <!-- /.box-body -->
 
             <div class="box-footer">
-                {{ Form::saveButtons('modules/offlinepayment/settings') }}
+                {{ Form::saveButtons('apps/offlinepayment/settings') }}
             </div>
             <!-- /.box-footer -->
 
@@ -114,7 +114,7 @@
                 var code = $(this).attr('id').replace('edit-', '');
 
                 $.ajax({
-                    url: '{{ url("modules/offlinepayment/settings/get") }}',
+                    url: '{{ url("apps/offlinepayment/settings/get") }}',
                     type: 'post',
                     dataType: 'json',
                     data: {code: code},
@@ -149,7 +149,7 @@
                 var code = $(this).attr('id').replace('delete-', '');
 
                 $.ajax({
-                    url: '{{ url("modules/offlinepayment/settings/delete") }}',
+                    url: '{{ url("apps/offlinepayment/settings/delete") }}',
                     type: 'post',
                     dataType: 'json',
                     data: {code: code},

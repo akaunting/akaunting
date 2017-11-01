@@ -157,7 +157,7 @@ class AdminMenu
                             continue;
                         }
 
-                        $sub->url('settings/modules/' . $module->getAlias(), $module->getName(), $position, $attr);
+                        $sub->url('settings/apps/' . $module->getAlias(), $module->getName(), $position, $attr);
 
                         $position++;
                     }
@@ -170,7 +170,7 @@ class AdminMenu
             // Apps
             if ($user->can('read-modules-home')) {
                 $menu->add([
-                    'url' => 'modules/home',
+                    'url' => 'apps/home',
                     'title' => trans_choice('general.modules', 2),
                     'icon' => 'fa fa-rocket',
                     'order' => 8,

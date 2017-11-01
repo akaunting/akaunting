@@ -99,7 +99,7 @@ class Updater
         if ($alias == 'core') {
             $url = 'core/download/' . $version . '/' . $info['php'] . '/' . $info['mysql'];
         } else {
-            $url = 'modules/items/' . $alias . '/download/' . $version . '/' . $info['akaunting'] . '/' . $info['token'];
+            $url = 'apps/items/' . $alias . '/download/' . $version . '/' . $info['akaunting'] . '/' . $info['token'];
         }
 
         $response = static::getRemote($url, ['timeout' => 30, 'track_redirects' => true]);

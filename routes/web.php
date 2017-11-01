@@ -82,11 +82,11 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('settings', 'Settings\Settings@edit');
                 Route::patch('settings', 'Settings\Settings@update');
                 Route::resource('taxes', 'Settings\Taxes');
-                Route::get('modules/{alias}', 'Settings\Modules@edit');
-                Route::patch('modules/{alias}', 'Settings\Modules@update');
+                Route::get('apps/{alias}', 'Settings\Modules@edit');
+                Route::patch('apps/{alias}', 'Settings\Modules@update');
             });
 
-            Route::group(['prefix' => 'modules'], function () {
+            Route::group(['prefix' => 'apps'], function () {
                 Route::resource('token', 'Modules\Token');
                 Route::resource('home', 'Modules\Home');
                 Route::get('categories/{alias}', 'Modules\Tiles@category');

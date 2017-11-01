@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="box box-success">
-        {!! Form::open(['url' => 'modules/token', 'files' => true, 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'apps/token', 'files' => true, 'role' => 'form']) !!}
 
         <div class="box-body">
             <div class="col-md-12">
@@ -24,7 +24,7 @@
         <!-- /.box-body -->
 
         <div class="box-footer">
-            {{ Form::saveButtons('modules/token') }}
+            {{ Form::saveButtons('apps/token') }}
         </div>
 
         {!! Form::close() !!}

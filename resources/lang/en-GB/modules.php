@@ -12,27 +12,19 @@ return [
     'buy_now'               => 'Buy Now',
     'faq'                   => 'FAQ',
     'changelog'             => 'Changelog',
-    'installed'             => 'Installed',
-    'uninstalled'           => 'Uninstalled',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Click here</a> to get your API token.',
 
-    'enabled'               => ':module app enabled',
-    'disabled'              => ':module app disabled',
+    'installed'             => ':module installed',
+    'uninstalled'           => ':module uninstalled',
+    'updated'               => ':module updated',
+    'enabled'               => ':module enabled',
+    'disabled'              => ':module disabled',
 
     'installation' => [
-        'header'            => 'Module Installation',
-        'start'             => ':module installing.',
+        'header'            => 'App Installation',
         'download'          => 'Downloading :module file.',
         'unzip'             => 'Extracting :module files.',
-        'install'           => 'Uploading :module files.',
-    ],
-
-    'history' => [
-        'installed'         => ':module installed',
-        'uninstalled'       => ':module uninstall',
-        'updated'           => ':module updated',
-        'enabled'           => ':module enabled',
-        'disabled'          => ':module disabled',
+        'install'           => 'Installing :module files.',
     ],
 
     'button' => [

@@ -61,20 +61,22 @@
 
                 <div class="box-footer">
                     @if ($installed)
-                        <a href="{{ url('modules/item/' . $module->slug . '/uninstall') }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
+                        <a href="{{ url('apps/' . $module->slug . '/uninstall') }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
                         @if ($enable)
-                            <a href="{{ url('modules/item/' . $module->slug . '/disabled') }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
+                            <a href="{{ url('apps/' . $module->slug . '/disable') }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
                         @else
-                            <a href="{{ url('modules/item/' . $module->slug . '/enabled') }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
+                            <a href="{{ url('apps/' . $module->slug . '/enable') }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
                         @endif
                     @else
-                        <a href="{{ $module->action_url }}" class="btn btn-success btn-block" <?php echo ($module->install) ? 'id="install-module"' : 'target="_blank"'; ?>>
-                            @if ($module->install)
-                                {{ trans('modules.install') }}
-                            @else
-                                {{ trans('modules.buy_now') }}
-                            @endif
+                        @if ($module->install)
+                        <a href="{{ $module->action_url }}" class="btn btn-success btn-block" id="install-module">
+                            {{ trans('modules.install') }}
                         </a>
+                        @else
+                        <a href="{{ $module->action_url }}" class="btn btn-success btn-block" target="_blank">
+                            {{ trans('modules.buy_now') }}
+                        </a>
+                        @endif
                     @endif
                 </div>
                 <!-- /.box-footer -->
@@ -91,7 +93,7 @@
                         <tbody>
                             <tr>
                                 <th>Vendor</th>
-                                <td class="text-right"><a href="{{ url('modules/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a></td>
+                                <td class="text-right"><a href="{{ url('apps/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a></td>
                             </tr>
                             <tr>
                                 <th>Version</th>
@@ -111,7 +113,7 @@
                             </tr>
                             <tr>
                                 <th>Category</th>
-                                <td class="text-right"><a href="{{ url('modules/category/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                                <td class="text-right"><a href="{{ url('apps/category/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -139,7 +141,7 @@
                 startInstallation();
 
                 $.ajax({
-                    url: '{{ url("modules/item/steps") }}',
+                    url: '{{ url("apps/steps") }}',
                     type: 'post',
                     dataType: 'json',
                     data: {name: '{{ $module->name }}', version: '{{ $module->version }}'},
@@ -195,7 +197,7 @@
                             }
 
                             if (json['installed']) {
-                                window.location = '{{ url("modules/item/" . $module->slug) }}';
+                                window.location = '{{ url("apps/" . $module->slug) }}';
                             }
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
@@ -213,11 +215,9 @@
             modal += '  <div class="modal-dialog">';
             modal += '      <div class="modal-content">';
             modal += '          <div class="modal-header">';
-            modal += '              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>';
             modal += '              <h4 class="modal-title">{{ trans('modules.installation.header') }}</h4>';
             modal += '          </div>';
             modal += '          <div class="modal-body">';
-            modal += '              <p><span class="message">{{ trans("modules.installation.start", ['module' => $module->name]) }}</span></p>';
             modal += '              <p></p>';
             modal += '              <p>';
             modal += '                 <div class="progress">';
@@ -227,9 +227,6 @@
             modal += '                 </div>';
             modal += '                 <div id="progress-text"></div>';
             modal += '              </p>';
-            modal += '          </div>';
-            modal += '          <div class="modal-footer">';
-            modal += '              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>';
             modal += '          </div>';
             modal += '      </div>';
             modal += '  </div>';

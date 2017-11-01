@@ -7,7 +7,7 @@
     <div class="box box-success">
         {!! Form::model($setting, [
             'method' => 'PATCH',
-            'url' => ['settings/modules/' . $module->getAlias()],
+            'url' => ['settings/apps/' . $module->getAlias()],
             'files' => true,
             'role' => 'form'
         ]) !!}

@@ -64,14 +64,14 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('select[name=\'category\']').on('change', function() {
-                url = '{{ url('modules/category') }}';
+                url = '{{ url('apps/categories') }}';
 
                 var value = $(this).val();
 
                 if (value) {
                     url += '/' + encodeURIComponent(value);
                 } else {
-                    url = '{{ url('modules/home') }}';
+                    url = '{{ url('apps/home') }}';
                 }
 
                 location = url;

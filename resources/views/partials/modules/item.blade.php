@@ -1,13 +1,13 @@
 <div class="col-md-3 no-padding-left">
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title"><a href="{{ url('modules/' . $module->slug) }}">{{ $module->name }}</a></h3>
+            <h3 class="box-title"><a href="{{ url('apps/' . $module->slug) }}">{{ $module->name }}</a></h3>
             <!-- /.box-tools -->
         </div>
         <!-- /.box-header -->
 
         <div class="box-body text-center">
-            <a href="{{ url('modules/' . $module->slug) }}">
+            <a href="{{ url('apps/' . $module->slug) }}">
                 <img src="{{ $module->files[0]->path_string }}" alt="{{ $module->name }}" class="item-image">
             </a>
         </div>

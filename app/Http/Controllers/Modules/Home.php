@@ -18,7 +18,7 @@ class Home extends Controller
     public function __construct(Route $route)
     {
         if (!setting('general.api_token')) {
-            return redirect('modules/token/create')->send();
+            return redirect('apps/token/create')->send();
         }
 
         parent::__construct($route);

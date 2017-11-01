@@ -32,6 +32,6 @@ class Token extends Controller
 
         setting()->save();
 
-        return redirect('modules/home');
+        return redirect('apps/home');
     }
 }

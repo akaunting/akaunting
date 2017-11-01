@@ -56,7 +56,7 @@ class Modules extends Controller
 
         flash($message)->success();
 
-        return redirect('settings/modules/' . $alias);
+        return redirect('settings/apps/' . $alias);
     }
 
 }

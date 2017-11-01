@@ -14,7 +14,7 @@ trait Modules
 
     public function getModules()
     {
-        $response = $this->getRemote('modules/items');
+        $response = $this->getRemote('apps/items');
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -25,7 +25,7 @@ trait Modules
 
     public function getModule($alias)
     {
-        $response = $this->getRemote('modules/items/' . $alias);
+        $response = $this->getRemote('apps/' . $alias);
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -36,7 +36,7 @@ trait Modules
 
     public function getCategories()
     {
-        $response = $this->getRemote('modules/categories');
+        $response = $this->getRemote('apps/categories');
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -47,7 +47,7 @@ trait Modules
 
     public function getModulesByCategory($alias)
     {
-        $response = $this->getRemote('modules/categories/' . $alias);
+        $response = $this->getRemote('apps/categories/' . $alias);
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -58,7 +58,7 @@ trait Modules
 
     public function getPaidModules()
     {
-        $response = $this->getRemote('modules/paid');
+        $response = $this->getRemote('apps/paid');
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -69,7 +69,7 @@ trait Modules
 
     public function getNewModules()
     {
-        $response = $this->getRemote('modules/new');
+        $response = $this->getRemote('apps/new');
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -80,7 +80,7 @@ trait Modules
 
     public function getFreeModules()
     {
-        $response = $this->getRemote('modules/free');
+        $response = $this->getRemote('apps/free');
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -204,8 +204,11 @@ trait Modules
         // Update database
         Artisan::call('migrate', ['--force' => true]);
 
+        Artisan::call('cache:clear');
+
         $data = [
             'path'  => $path,
+            'name' => $module->name,
             'alias' => $module->alias
         ];
 

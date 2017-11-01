@@ -14,7 +14,7 @@ class ModuleInstall extends Command
      *
      * @var string
      */
-    protected $signature = 'module:install {module} {company_id}';
+    protected $signature = 'module:install {alias} {company_id}';
 
     /**
      * The console command description.
@@ -32,7 +32,7 @@ class ModuleInstall extends Command
     {
         $request = [
             'company_id' => $this->argument('company_id'),
-            'alias' => strtolower($this->argument('module')),
+            'alias' => strtolower($this->argument('alias')),
             'status' => '1',
         ];
 

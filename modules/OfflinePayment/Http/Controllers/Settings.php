@@ -60,7 +60,7 @@ class Settings extends Controller
 
         Artisan::call('cache:clear');
 
-        return redirect('modules/offlinepayment/settings');
+        return redirect('apps/offlinepayment/settings');
     }
 
     /**
