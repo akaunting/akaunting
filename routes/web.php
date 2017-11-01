@@ -89,18 +89,18 @@ Route::group(['middleware' => 'language'], function () {
             Route::group(['prefix' => 'modules'], function () {
                 Route::resource('token', 'Modules\Token');
                 Route::resource('home', 'Modules\Home');
-                Route::get('category/{alias}', 'Modules\Tiles@category');
+                Route::get('categories/{alias}', 'Modules\Tiles@category');
                 Route::get('paid', 'Modules\Tiles@paid');
                 Route::get('new', 'Modules\Tiles@new');
                 Route::get('free', 'Modules\Tiles@free');
-                Route::post('item/steps', 'Modules\Item@steps');
-                Route::post('item/download', 'Modules\Item@download');
-                Route::post('item/unzip', 'Modules\Item@unzip');
-                Route::post('item/install', 'Modules\Item@install');
-                Route::get('item/{alias}/uninstall', 'Modules\Item@uninstall');
-                Route::get('item/{alias}/enabled', 'Modules\Item@enabled');
-                Route::get('item/{alias}/disabled', 'Modules\Item@disabled');
-                Route::resource('item', 'Modules\Item');
+                Route::post('steps', 'Modules\Item@steps');
+                Route::post('download', 'Modules\Item@download');
+                Route::post('unzip', 'Modules\Item@unzip');
+                Route::post('install', 'Modules\Item@install');
+                Route::get('{alias}/uninstall', 'Modules\Item@uninstall');
+                Route::get('{alias}/enable', 'Modules\Item@enable');
+                Route::get('{alias}/disable', 'Modules\Item@disable');
+                Route::get('{alias}', 'Modules\Item@show');
             });
 
             Route::group(['prefix' => 'install'], function () {

@@ -213,12 +213,12 @@ class Item extends Controller
 
         flash($message)->success();
 
-        return redirect('modules/item/' . $alias)->send();
+        return redirect('modules/' . $alias)->send();
     }
 
-    public function enabled($alias)
+    public function enable($alias)
     {
-        $json = $this->enabledModule($alias);
+        $json = $this->enableModule($alias);
 
         $module = Module::where('alias', $alias)->first();
 
@@ -240,12 +240,12 @@ class Item extends Controller
 
         flash($message)->success();
 
-        return redirect('modules/item/' . $alias)->send();
+        return redirect('modules/' . $alias)->send();
     }
 
-    public function disabled($alias)
+    public function disable($alias)
     {
-        $json = $this->disabledModule($alias);
+        $json = $this->disableModule($alias);
 
         $module = Module::where('alias', $alias)->first();
 
@@ -267,6 +267,6 @@ class Item extends Controller
 
         flash($message)->success();
 
-        return redirect('modules/item/' . $alias)->send();
+        return redirect('modules/' . $alias)->send();
     }
 }

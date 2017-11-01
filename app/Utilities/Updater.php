@@ -102,7 +102,7 @@ class Updater
             $url = 'modules/items/' . $alias . '/download/' . $version . '/' . $info['akaunting'] . '/' . $info['token'];
         }
 
-        $response = static::getRemote($url, ['timeout' => 30, 'referer' => true, 'track_redirects' => true]);
+        $response = static::getRemote($url, ['timeout' => 30, 'track_redirects' => true]);
 
         if ($response->getStatusCode() == 200) {
             $file = $response->getBody()->getContents();
