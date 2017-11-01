@@ -10,8 +10,6 @@ use App\Models\Module\ModuleHistory;
 use App\Traits\Modules;
 use Illuminate\Routing\Route;
 
-use Module as MModule;
-
 class Item extends Controller
 {
     use Modules;
@@ -132,7 +130,7 @@ class Item extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  $path
+     * @param  $request
      *
      * @return Response
      */
@@ -143,22 +141,7 @@ class Item extends Controller
         $json = $this->installModule($path);
 
         if ($json['success']) {
-            $request['company_id'] = session('company_id');
-            $request['alias'] = $json['data']['alias'];
-
-            $module = Module::create($request->all());
-
-            $mmodule = MModule::findByAlias($module->alias);
-
-            $data = array(
-                'company_id' => session('company_id'),
-                'module_id' => $module->id,
-                'category' => $mmodule->get('category'),
-                'version' => $mmodule->get('version'),
-                'description' => trans('modules.history.installed', ['module' => $mmodule->get('name')]),
-            );
-
-            ModuleHistory::create($data);
+            Artisan::call('module:install ' . $json['data']['alias'] . ' ' . session('company_id'));
 
             $message = trans('messages.success.added', ['type' => trans('modules.installed', ['module' => $json['data']['name']])]);
 
