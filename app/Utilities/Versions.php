@@ -85,7 +85,7 @@ class Versions
             $alias = $module->get('alias');
             $version = $module->get('version');
 
-            $url = 'apps/items/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
+            $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
 
             $data[$alias] = static::getLatestVersion($url);
         }
