@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\ModuleInstalled;
 use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
 use Illuminate\Console\Command;
@@ -40,6 +41,7 @@ class ModuleInstall extends Command
 
         $module = LaravelModule::findByAlias($model->alias);
 
+        // Add history
         $data = [
             'company_id' => $this->argument('company_id'),
             'module_id' => $model->id,
@@ -49,6 +51,12 @@ class ModuleInstall extends Command
         ];
 
         ModuleHistory::create($data);
+
+        // Update database
+        $this->call('migrate', ['--force' => true]);
+
+        // Trigger event
+        event(new ModuleInstalled($model->alias));
 
         $this->info('Module installed!');
     }

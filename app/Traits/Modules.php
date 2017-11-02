@@ -201,9 +201,6 @@ trait Modules
         File::copyDirectory($temp_path, $module_path);
         File::deleteDirectory($temp_path);
 
-        // Update database
-        Artisan::call('migrate', ['--force' => true]);
-
         Artisan::call('cache:clear');
 
         $data = [
