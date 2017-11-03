@@ -8,7 +8,12 @@
 
         <div class="box-body text-center">
             <a href="{{ url('apps/' . $module->slug) }}">
-                <img src="{{ $module->files[0]->path_string }}" alt="{{ $module->name }}" class="item-image">
+                @foreach ($module->files as $file)
+                    @if (($file->media_type != 'image') || ($file->pivot->zone != 'thumbnail'))
+                        @php continue; @endphp
+                    @endif
+                    <img src="{{ $file->path_string }}" alt="{{ $module->name }}" class="item-image">
+                @endforeach
             </a>
         </div>
         <!-- /.box-body -->

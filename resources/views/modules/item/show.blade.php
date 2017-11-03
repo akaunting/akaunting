@@ -14,30 +14,42 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">{{ trans('general.description') }}</a></li>
-                    <li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">{{ trans('modules.faq') }}</a></li>
-                    <li class=""><a href="#changelog" data-toggle="tab" aria-expanded="false">{{ trans('modules.changelog') }}</a></li>
+                    @if ($module->installation)
+                    <li class=""><a href="#installation" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.installation') }}</a></li>
+                    @endif
+                    @if ($module->faq)
+                    <li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.faq') }}</a></li>
+                    @endif
+                    @if ($module->changelog)
+                    <li class=""><a href="#changelog" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.changelog') }}</a></li>
+                    @endif
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="description">
                         {!! $module->description !!}
                     </div>
-                    <!-- /.tab-pane -->
+                    @if ($module->installation)
+                    <div class="tab-pane" id="installation">
+                        {!! $module->installation !!}
+                    </div>
+                    @endif
+                    @if ($module->faq)
                     <div class="tab-pane" id="faq">
                         {!! $module->faq !!}
                     </div>
-                    <!-- /.tab-pane -->
+                    @endif
+                    @if ($module->changelog)
                     <div class="tab-pane" id="changelog">
                         {!! $module->changelog !!}
                     </div>
-                    <!-- /.tab-pane -->
+                    @endif
                 </div>
-                <!-- /.tab-content -->
             </div>
         </div>
 
         <div class="col-md-4 no-padding-right">
             <div class="content-header no-padding-left">
-                <h3>Action</h3>
+                <h3>{{ trans_choice('general.actions', 1) }}</h3>
             </div>
 
             <div class="box box-success">

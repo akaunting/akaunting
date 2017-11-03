@@ -10,8 +10,6 @@ return [
     'free'                  => 'FREE',
     'install'               => 'Install',
     'buy_now'               => 'Buy Now',
-    'faq'                   => 'FAQ',
-    'changelog'             => 'Changelog',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Click here</a> to get your API token.',
 
     'installed'             => ':module installed',
@@ -19,6 +17,12 @@ return [
     'updated'               => ':module updated',
     'enabled'               => ':module enabled',
     'disabled'              => ':module disabled',
+
+    'tab' => [
+        'installation'      => 'Installation',
+        'faq'               => 'FAQ',
+        'changelog'         => 'Changelog',
+    ],
 
     'installation' => [
         'header'            => 'App Installation',
