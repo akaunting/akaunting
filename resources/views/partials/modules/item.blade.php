@@ -9,10 +9,9 @@
         <div class="box-body text-center">
             <a href="{{ url('apps/' . $module->slug) }}">
                 @foreach ($module->files as $file)
-                    @if (($file->media_type != 'image') || ($file->pivot->zone != 'thumbnail'))
-                        @php continue; @endphp
+                    @if (($file->media_type == 'image') && ($file->pivot->zone == 'thumbnail'))
+                        <img src="{{ $file->path_string }}" alt="{{ $module->name }}" class="item-image">
                     @endif
-                    <img src="{{ $file->path_string }}" alt="{{ $module->name }}" class="item-image">
                 @endforeach
             </a>
         </div>
