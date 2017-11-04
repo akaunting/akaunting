@@ -16,6 +16,6 @@ class Companies extends ModelFilter
 
     public function search($query)
     {
-        return $this->whereLike('value', $query);
+        return $this->whereLike('domain', $query);
     }
 }
