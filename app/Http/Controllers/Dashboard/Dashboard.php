@@ -25,6 +25,9 @@ class Dashboard extends Controller
      */
     public function index()
     {
+        $td = Date::today();
+        $month_days = $td->daysInMonth;
+
         /*
          * Cash Flow
          */
@@ -32,8 +35,8 @@ class Dashboard extends Controller
         // Daily
         $day = array();
 
-        for ($j = 31; $j > -1; $j--) {
-            $day[31 - $j] = date("d M", strtotime("-$j day"));
+        for ($j = $month_days; $j > -1; $j--) {
+            $day[$month_days - $j] = date("d M", strtotime("-$j day"));
         }
 
         $daily_income = $this->getCashFlow('income', 'daily');
@@ -79,7 +82,7 @@ class Dashboard extends Controller
         $open_bill = $overdue_bill = 0;
         $invoice_paid_amount = $bill_paid_amount = 0;
 
-        $today = Date::today()->toDateString();
+        $today = $td->toDateString();
 
         // Invoices
         $invoices = Invoice::with('payments')->get();
