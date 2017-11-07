@@ -125,7 +125,7 @@
                             </tr>
                             <tr>
                                 <th>Category</th>
-                                <td class="text-right"><a href="{{ url('apps/category/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                                <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                             </tr>
                         </tbody>
                     </table>
