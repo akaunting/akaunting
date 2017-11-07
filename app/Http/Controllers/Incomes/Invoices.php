@@ -83,141 +83,6 @@ class Invoices extends Controller
     }
 
     /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  int  $invoice_id
-     *
-     * @return Response
-     */
-    public function printInvoice($invoice_id)
-    {
-        $paid = 0;
-
-        $invoice = Invoice::where('id', $invoice_id)->first();
-
-        foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
-
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $invoice->paid = $paid;
-
-        $invoice->template_path = 'incomes.invoices.invoice';
-
-        event(new InvoicePrinting($invoice));
-
-        return view($invoice->template_path, compact('invoice'));
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  int  $invoice_id
-     *
-     * @return Response
-     */
-    public function pdfInvoice($invoice_id)
-    {
-        $paid = 0;
-
-        $invoice = Invoice::where('id', $invoice_id)->first();
-
-        foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
-
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $invoice->paid = $paid;
-
-        $invoice->template_path = 'incomes.invoices.invoice';
-
-        event(new InvoicePrinting($invoice));
-
-        $html = view($invoice->template_path, compact('invoice'))->render();
-
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($html);
-
-        $file_name = 'invoice_'.time().'.pdf';
-
-        return $pdf->download($file_name);
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  PaymentRequest  $request
-     *
-     * @return Response
-     */
-    public function payment(PaymentRequest $request)
-    {
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'revenues');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
-        $invoice = Invoice::find($request['invoice_id']);
-
-        if ($request['currency_code'] == $invoice->currency_code) {
-            if ($request['amount'] > $invoice->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
-
-                return response()->json($message);
-            } elseif ($request['amount'] == $invoice->amount) {
-                $invoice->invoice_status_code = 'paid';
-            } else {
-                $invoice->invoice_status_code = 'partial';
-            }
-        } else {
-            $request_invoice = new Invoice();
-
-            $request_invoice->amount = (float) $request['amount'];
-            $request_invoice->currency_code = $currency->code;
-            $request_invoice->currency_rate = $currency->rate;
-
-            $amount = $request_invoice->getConvertedAmount();
-
-            if ($amount > $invoice->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
-
-                return response()->json($message);
-            } elseif ($amount == $invoice->amount) {
-                $invoice->invoice_status_code = 'paid';
-            } else {
-                $invoice->invoice_status_code = 'partial';
-            }
-        }
-
-        $invoice->save();
-
-        $invoice_payment = InvoicePayment::create($request->input());
-
-        $request['status_code'] = $invoice->invoice_status_code;
-        $request['notify'] = 0;
-        
-        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
-        $request['description'] = $desc_date . ' ' . $desc_amount;
-        
-        InvoiceHistory::create($request->input());
-
-        $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
-
-        return response()->json($message);
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return Response
@@ -411,8 +276,6 @@ class Invoices extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        $request['invoice_status_code'] = 'draft';
-
         // Upload attachment
         $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
 
@@ -525,6 +388,195 @@ class Invoices extends Controller
         flash($message)->success();
 
         return redirect('incomes/invoices');
+    }
+
+    /**
+     * Mark the invoice as sent.
+     *
+     * @param  int  $invoice_id
+     *
+     * @return Response
+     */
+    public function markSent($invoice_id)
+    {
+        $invoice = Invoice::find($invoice_id);
+        $invoice->invoice_status_code = 'sent';
+        $invoice->save();
+
+        flash(trans('invoices.messages.marked_sent'))->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Mark the invoice as paid.
+     *
+     * @param  int  $invoice_id
+     *
+     * @return Response
+     */
+    public function payInvoice($invoice_id)
+    {
+        $invoice = Invoice::find($invoice_id);
+
+        $paid = 0;
+        foreach ($invoice->payments as $item) {
+            $item->default_currency_code = $invoice->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $amount = $invoice->amount - $paid;
+
+        $request = new PaymentRequest();
+
+        $request['company_id'] = $invoice->company_id;
+        $request['invoice_id'] = $invoice->id;
+        $request['account_id'] = setting('general.default_account');
+        $request['payment_method'] = setting('general.default_payment_method');
+        $request['currency_code'] = $invoice->currency_code;
+        $request['amount'] = $amount;
+        $request['paid_at'] = Date::now();
+        $request['_token'] = csrf_token();
+
+        $this->payment($request);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Print the invoice.
+     *
+     * @param  int  $invoice_id
+     *
+     * @return Response
+     */
+    public function printInvoice($invoice_id)
+    {
+        $paid = 0;
+
+        $invoice = Invoice::find($invoice_id);
+
+        foreach ($invoice->payments as $item) {
+            $item->default_currency_code = $invoice->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $invoice->paid = $paid;
+
+        $invoice->template_path = 'incomes.invoices.invoice';
+
+        event(new InvoicePrinting($invoice));
+
+        return view($invoice->template_path, compact('invoice'));
+    }
+
+    /**
+     * Download the PDF file of invoice.
+     *
+     * @param  int  $invoice_id
+     *
+     * @return Response
+     */
+    public function pdfInvoice($invoice_id)
+    {
+        $paid = 0;
+
+        $invoice = Invoice::find($invoice_id);
+
+        foreach ($invoice->payments as $item) {
+            $item->default_currency_code = $invoice->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $invoice->paid = $paid;
+
+        $invoice->template_path = 'incomes.invoices.invoice';
+
+        event(new InvoicePrinting($invoice));
+
+        $html = view($invoice->template_path, compact('invoice'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        $file_name = 'invoice_'.time().'.pdf';
+
+        return $pdf->download($file_name);
+    }
+
+    /**
+     * Add payment to the invoice.
+     *
+     * @param  PaymentRequest  $request
+     *
+     * @return Response
+     */
+    public function payment(PaymentRequest $request)
+    {
+        // Get currency object
+        $currency = Currency::where('code', $request['currency_code'])->first();
+
+        $request['currency_code'] = $currency->code;
+        $request['currency_rate'] = $currency->rate;
+
+        // Upload attachment
+        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
+
+        if ($attachment_path) {
+            $request['attachment'] = $attachment_path;
+        }
+
+        $invoice = Invoice::find($request['invoice_id']);
+
+        if ($request['currency_code'] == $invoice->currency_code) {
+            if ($request['amount'] > $invoice->amount) {
+                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+
+                return response()->json($message);
+            } elseif ($request['amount'] == $invoice->amount) {
+                $invoice->invoice_status_code = 'paid';
+            } else {
+                $invoice->invoice_status_code = 'partial';
+            }
+        } else {
+            $request_invoice = new Invoice();
+
+            $request_invoice->amount = (float) $request['amount'];
+            $request_invoice->currency_code = $currency->code;
+            $request_invoice->currency_rate = $currency->rate;
+
+            $amount = $request_invoice->getConvertedAmount();
+
+            if ($amount > $invoice->amount) {
+                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+
+                return response()->json($message);
+            } elseif ($amount == $invoice->amount) {
+                $invoice->invoice_status_code = 'paid';
+            } else {
+                $invoice->invoice_status_code = 'partial';
+            }
+        }
+
+        $invoice->save();
+
+        $invoice_payment = InvoicePayment::create($request->input());
+
+        $request['status_code'] = $invoice->invoice_status_code;
+        $request['notify'] = 0;
+
+        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
+        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
+        $request['description'] = $desc_date . ' ' . $desc_amount;
+
+        InvoiceHistory::create($request->input());
+
+        $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
+
+        return response()->json($message);
     }
 
     /**

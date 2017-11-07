@@ -70,23 +70,23 @@ class IncomeSummary extends Controller
 
         // Invoices
         switch ($status) {
-            case 'all':
-                $invoices = Invoice::getMonthsOfYear('invoiced_at');
-                $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'invoiced_at');
+            case 'paid':
+                $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
+                $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'paid_at');
                 break;
             case 'upcoming':
-                $invoices = Invoice::getMonthsOfYear('due_at');
+                $invoices = Invoice::accrued()->monthsOfYear('due_at')->get();
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'due_at');
                 break;
             default:
-                $invoices = InvoicePayment::getMonthsOfYear('paid_at');
-                $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'paid_at');
+                $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
+                $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'invoiced_at');
                 break;
         }
 
         // Revenues
         if ($status != 'upcoming') {
-            $revenues = Revenue::getMonthsOfYear('paid_at');
+            $revenues = Revenue::monthsOfYear('paid_at')->get();
             $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
         }
 

@@ -150,12 +150,21 @@
                     <a href="{{ url('expenses/bills/' . $bill->id . '/print') }}" target="_blank" class="btn btn-default">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
-                    <button type="button" id="button-pdf" class="btn btn-default" data-toggle="tooltip" title="{{ trans('bills.download_pdf') }}">
-                        <i class="fa fa-file-pdf-o"></i>&nbsp; {{ trans('general.download') }}
-                    </button>
-                    <button type="button" id="button-payment" class="btn btn-success">
-                        <i class="fa fa-credit-card"></i>&nbsp; {{ trans('bills.add_payment') }}
-                    </button>
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-circle-up"></i>&nbsp;{{ trans('general.more_actions') }}</button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" id="button-payment">{{ trans('bills.add_payment') }}</a></li>
+                            @permission('update-expenses-bills')
+                            <li><a href="{{ url('expenses/bills/' . $bill->id . '/received') }}">{{ trans('bills.mark_received') }}</a></li>
+                            @endpermission
+                            <li class="divider"></li>
+                            <li><a href="{{ url('expenses/bills/' . $bill->id . '/pdf') }}">{{ trans('bills.download_pdf') }}</a></li>
+                            <li class="divider"></li>
+                            @permission('delete-expenses-bills')
+                            <li>{!! Form::deleteLink($bill, 'expenses/bills') !!}</li>
+                            @endpermission
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

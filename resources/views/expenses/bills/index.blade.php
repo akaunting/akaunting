@@ -17,7 +17,7 @@
             <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
             {!! Form::select('vendor', $vendors, request('vendor'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::select('status', $status, request('status'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::select('status', $statuses, request('status'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">

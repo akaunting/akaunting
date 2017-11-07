@@ -91,6 +91,7 @@ return [
     'upcoming'              => 'Upcoming',
     'created'               => 'Created',
     'id'                    => 'ID',
+    'more_actions'          => 'More Actions',
 
     'title' => [
         'new'               => 'New :type',

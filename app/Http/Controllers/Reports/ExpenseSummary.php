@@ -70,23 +70,23 @@ class ExpenseSummary extends Controller
 
         // Bills
         switch ($status) {
-            case 'all':
-                $bills = Bill::getMonthsOfYear('billed_at');
-                $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'billed_at');
+            case 'paid':
+                $bills = BillPayment::monthsOfYear('paid_at')->get();
+                $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'paid_at');
                 break;
             case 'upcoming':
-                $bills = Bill::getMonthsOfYear('due_at');
+                $bills = Bill::accrued()->monthsOfYear('due_at')->get();
                 $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'due_at');
                 break;
             default:
-                $bills = BillPayment::getMonthsOfYear('paid_at');
-                $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'paid_at');
+                $bills = Bill::accrued()->monthsOfYear('billed_at')->get();
+                $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'billed_at');
                 break;
         }
 
         // Payments
         if ($status != 'upcoming') {
-            $payments = Payment::getMonthsOfYear('paid_at');
+            $payments = Payment::monthsOfYear('paid_at')->get();
             $this->setAmount($expenses_graph, $totals, $expenses, $payments, 'payment', 'paid_at');
         }
 

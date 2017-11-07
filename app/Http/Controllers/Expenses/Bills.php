@@ -41,10 +41,10 @@ class Bills extends Controller
         $vendors = collect(Vendor::enabled()->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
 
-        $status = collect(BillStatus::all()->pluck('name', 'code'))
+        $statuses = collect(BillStatus::all()->pluck('name', 'code'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.statuses', 2)]), '');
 
-        return view('expenses.bills.index', compact('bills', 'vendors', 'status'));
+        return view('expenses.bills.index', compact('bills', 'vendors', 'statuses'));
     }
 
     /**
@@ -79,133 +79,6 @@ class Bills extends Controller
         $payment_methods = Modules::getPaymentMethods();
 
         return view('expenses.bills.show', compact('bill', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  int  $bill_id
-     *
-     * @return Response
-     */
-    public function printBill($bill_id)
-    {
-        $paid = 0;
-
-        $bill = Bill::where('id', $bill_id)->first();
-
-        foreach ($bill->payments as $item) {
-            $item->default_currency_code = $bill->currency_code;
-
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $bill->paid = $paid;
-
-        return view('expenses.bills.bill', compact('bill'));
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  int  $bill_id
-     *
-     * @return Response
-     */
-    public function pdfBill($bill_id)
-    {
-        $paid = 0;
-
-        $bill = Bill::where('id', $bill_id)->first();
-
-        foreach ($bill->payments as $item) {
-            $item->default_currency_code = $bill->currency_code;
-
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $bill->paid = $paid;
-
-        $html = view('expenses.bills.bill', compact('bill'))->render();
-
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($html);
-
-        $file_name = 'bill_'.time().'.pdf';
-
-        return $pdf->download($file_name);
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  PaymentRequest  $request
-     *
-     * @return Response
-     */
-    public function payment(PaymentRequest $request)
-    {
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'revenues');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
-        $bill = Bill::find($request['bill_id']);
-
-        if ($request['currency_code'] == $bill->currency_code) {
-            if ($request['amount'] > $bill->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
-
-                return response()->json($message);
-            } elseif ($request['amount'] == $bill->amount) {
-                $bill->bill_status_code = 'paid';
-            } else {
-                $bill->bill_status_code = 'partial';
-            }
-        } else {
-            $request_bill = new Bill();
-
-            $request_bill->amount = (float) $request['amount'];
-            $request_bill->currency_code = $currency->code;
-            $request_bill->currency_rate = $currency->rate;
-
-            $amount = $request_bill->getConvertedAmount();
-
-            if ($amount > $bill->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
-
-                return response()->json($message);
-            } elseif ($amount == $bill->amount) {
-                $bill->bill_status_code = 'paid';
-            } else {
-                $bill->bill_status_code = 'partial';
-            }
-        }
-
-        $bill->save();
-
-        $bill_payment = BillPayment::create($request->input());
-
-        $request['status_code'] = $bill->bill_status_code;
-        $request['notify'] = 0;
-        
-        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
-        $request['description'] = $desc_date . ' ' . $desc_amount;
-
-        BillHistory::create($request->input());
-
-        $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
-
-        return response()->json($message);
     }
 
     /**
@@ -250,7 +123,7 @@ class Bills extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        $request['bill_status_code'] = 'new';
+        $request['bill_status_code'] = 'draft';
 
         $request['amount'] = 0;
 
@@ -429,8 +302,6 @@ class Bills extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        $request['bill_status_code'] = 'updated';
-
         $request['amount'] = 0;
 
         // Upload attachment
@@ -585,6 +456,151 @@ class Bills extends Controller
         flash($message)->success();
 
         return redirect('expenses/bills');
+    }
+
+    /**
+     * Mark the invoice as sent.
+     *
+     * @param  int  $invoice_id
+     *
+     * @return Response
+     */
+    public function markReceived($bill_id)
+    {
+        $bill = Bill::find($bill_id);
+        $bill->bill_status_code = 'received';
+        $bill->save();
+
+        flash(trans('bills.marked_received'))->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  int  $bill_id
+     *
+     * @return Response
+     */
+    public function printBill($bill_id)
+    {
+        $paid = 0;
+
+        $bill = Bill::where('id', $bill_id)->first();
+
+        foreach ($bill->payments as $item) {
+            $item->default_currency_code = $bill->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $bill->paid = $paid;
+
+        return view('expenses.bills.bill', compact('bill'));
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  int  $bill_id
+     *
+     * @return Response
+     */
+    public function pdfBill($bill_id)
+    {
+        $paid = 0;
+
+        $bill = Bill::where('id', $bill_id)->first();
+
+        foreach ($bill->payments as $item) {
+            $item->default_currency_code = $bill->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $bill->paid = $paid;
+
+        $html = view('expenses.bills.bill', compact('bill'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        $file_name = 'bill_'.time().'.pdf';
+
+        return $pdf->download($file_name);
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  PaymentRequest  $request
+     *
+     * @return Response
+     */
+    public function payment(PaymentRequest $request)
+    {
+        // Get currency object
+        $currency = Currency::where('code', $request['currency_code'])->first();
+
+        $request['currency_code'] = $currency->code;
+        $request['currency_rate'] = $currency->rate;
+
+        // Upload attachment
+        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'revenues');
+
+        if ($attachment_path) {
+            $request['attachment'] = $attachment_path;
+        }
+
+        $bill = Bill::find($request['bill_id']);
+
+        if ($request['currency_code'] == $bill->currency_code) {
+            if ($request['amount'] > $bill->amount) {
+                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+
+                return response()->json($message);
+            } elseif ($request['amount'] == $bill->amount) {
+                $bill->bill_status_code = 'paid';
+            } else {
+                $bill->bill_status_code = 'partial';
+            }
+        } else {
+            $request_bill = new Bill();
+
+            $request_bill->amount = (float) $request['amount'];
+            $request_bill->currency_code = $currency->code;
+            $request_bill->currency_rate = $currency->rate;
+
+            $amount = $request_bill->getConvertedAmount();
+
+            if ($amount > $bill->amount) {
+                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+
+                return response()->json($message);
+            } elseif ($amount == $bill->amount) {
+                $bill->bill_status_code = 'paid';
+            } else {
+                $bill->bill_status_code = 'partial';
+            }
+        }
+
+        $bill->save();
+
+        $bill_payment = BillPayment::create($request->input());
+
+        $request['status_code'] = $bill->bill_status_code;
+        $request['notify'] = 0;
+
+        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
+        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
+        $request['description'] = $desc_date . ' ' . $desc_amount;
+
+        BillHistory::create($request->input());
+
+        $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
+
+        return response()->json($message);
     }
 
     /**

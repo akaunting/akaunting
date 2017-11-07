@@ -18,6 +18,8 @@ class Dashboard extends Controller
 {
     use Currencies;
 
+    public $today;
+
     /**
      * Display a listing of the resource.
      *
@@ -25,8 +27,8 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $td = Date::today();
-        $month_days = $td->daysInMonth;
+        $this->today = Date::today();
+        $month_days = $this->today->daysInMonth;
 
         /*
          * Cash Flow
@@ -78,53 +80,16 @@ class Dashboard extends Controller
         $incomes = $expenses = array();
 
         $incomes_amount = $expenses_amount = 0;
-        $open_invoice = $overdue_invoice = 0;
-        $open_bill = $overdue_bill = 0;
-        $invoice_paid_amount = $bill_paid_amount = 0;
-
-        $today = $td->toDateString();
 
         // Invoices
-        $invoices = Invoice::with('payments')->get();
-
-        foreach ($invoices as $invoice) {
-            $invoice_payments = 0;
-
-            foreach ($invoice->payments as $payment) {
-                $invoice_payments += $payment->getConvertedAmount();
-            }
-
-            $invoice_paid_amount += $invoice_payments;
-
-            // Check if it's open or overdue invoice
-            if ($invoice->due_at > $today) {
-                $open_invoice += $invoice->getConvertedAmount() - $invoice_payments;
-            } else {
-                $overdue_invoice += $invoice->getConvertedAmount() - $invoice_payments;
-            }
-        }
+        $invoices = Invoice::with('payments')->accrued()->get();
+        list($invoice_paid_amount, $open_invoice, $overdue_invoice) = $this->getTotals($invoices, 'invoice');
 
         $incomes_amount += $invoice_paid_amount;
 
         // Bills
-        $bills = Bill::with('payments')->get();
-
-        foreach ($bills as $bill) {
-            $bill_payments = 0;
-            
-            foreach ($bill->payments as $payment) {
-                $bill_payments += $payment->getConvertedAmount();
-            }
-
-            $bill_paid_amount += $bill_payments;
-
-            // Check if it's open or overdue bill
-            if ($bill->due_at > $today) {
-                $open_bill += $bill->getConvertedAmount() - $bill_payments;
-            } else {
-                $overdue_bill += $bill->getConvertedAmount() - $bill_payments;
-            }
-        }
+        $bills = Bill::with('payments')->accrued()->get();
+        list($bill_paid_amount, $open_bill, $overdue_bill) = $this->getTotals($bills, 'bill');
 
         $expenses_amount += $bill_paid_amount;
 
@@ -286,15 +251,15 @@ class Dashboard extends Controller
          * Latest Incomes
          */
 
-        $latest_incomes = collect(InvoicePayment::latest()->take(5)->get());
-        $latest_incomes = $latest_incomes->merge(Revenue::latest()->take(5)->get())->sortByDesc('paid_at');
+        $latest_incomes = collect(Invoice::accrued()->latest()->take(10)->get());
+        $latest_incomes = $latest_incomes->merge(Revenue::latest()->take(10)->get())->take(5)->sortByDesc('invoiced_at');
 
         /*
          * Latest Expenses
          */
 
-        $latest_expenses = collect(BillPayment::latest()->take(5)->get());
-        $latest_expenses = $latest_expenses->merge(Payment::latest()->take(5)->get())->sortByDesc('paid_at');
+        $latest_expenses = collect(Bill::accrued()->latest()->take(10)->get());
+        $latest_expenses = $latest_expenses->merge(Payment::latest()->take(10)->get())->take(5)->sortByDesc('billed_at');
 
         return view('dashboard.dashboard.index', compact(
             'total_incomes',
@@ -364,22 +329,55 @@ class Dashboard extends Controller
 
         $items_1 = $m1::whereBetween('paid_at', [$sub, $now])->get();
 
-        $this->setTotals($totals, $items_1, $date_format);
+        $this->setCashFlowTotals($totals, $items_1, $date_format);
 
         $items_2 = $m2::whereBetween('paid_at', [$sub, $now])->get();
 
-        $this->setTotals($totals, $items_2, $date_format);
+        $this->setCashFlowTotals($totals, $items_2, $date_format);
 
         return $totals;
     }
 
-    private function setTotals(&$totals, $items, $date_format)
+    private function setCashFlowTotals(&$totals, $items, $date_format)
     {
         foreach ($items as $item) {
             $i = Date::parse($item->paid_at)->format($date_format);
 
             $totals[$i] += $item->getConvertedAmount();
         }
+    }
+
+    private function getTotals($items, $type)
+    {
+        $paid = $open = $overdue = 0;
+
+        $today = $this->today->toDateString();
+
+        foreach ($items as $item) {
+            $paid += $item->getConvertedAmount();
+
+            $code_field = $type . '_status_code';
+
+            if ($item->$code_field == 'paid') {
+                continue;
+            }
+
+            $payments = 0;
+            if ($item->$code_field == 'partial') {
+                foreach ($item->payments as $payment) {
+                    $payments += $payment->getConvertedAmount();
+                }
+            }
+
+            // Check if it's open or overdue invoice
+            if ($item->due_at > $today) {
+                $open += $item->getConvertedAmount() - $payments;
+            } else {
+                $overdue += $item->getConvertedAmount() - $payments;
+            }
+        }
+
+        return array($paid, $open, $overdue);
     }
 
     private function getProfit($incomes, $expenses)

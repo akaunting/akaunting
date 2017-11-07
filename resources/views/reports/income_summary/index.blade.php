@@ -7,8 +7,8 @@
     <div class="box box-success">
         <div class="box-header">
             <div class="pull-left" style="margin-left: 23px">
-                <a href="{{ url('reports/income-summary') }}?status=all"><span class="badge @if (request('status') == 'all') bg-green @else bg-default @endif">{{ trans('general.all') }}</span></a>
-                <a href="{{ url('reports/income-summary') }}"><span class="badge @if (request('status') == '') bg-green @else bg-default @endif">{{ trans('invoices.paid') }}</span></a>
+                <a href="{{ url('reports/income-summary') }}"><span class="badge @if (request('status') == '') bg-green @else bg-default @endif">{{ trans('general.all') }}</span></a>
+                <a href="{{ url('reports/income-summary') }}?status=paid"><span class="badge @if (request('status') == 'paid') bg-green @else bg-default @endif">{{ trans('invoices.paid') }}</span></a>
                 <a href="{{ url('reports/income-summary') }}?status=upcoming"><span class="badge @if (request('status') == 'upcoming') bg-green @else bg-default @endif">{{ trans('dashboard.receivables') }}</span></a>
             </div>
             {!! Form::open(['url' => 'reports/income-summary', 'role' => 'form', 'method' => 'GET']) !!}

@@ -23,14 +23,19 @@ return [
     'histories'         => 'Histories',
     'payments'          => 'Payments',
     'add_payment'       => 'Add Payment',
+    'mark_received'     => 'Mark Received',
     'download_pdf'      => 'Download PDF',
     'send_mail'         => 'Send Email',
 
     'status' => [
-        'new'           => 'New',
-        'updated'       => 'Updated',
+        'draft'         => 'Draft',
+        'received'      => 'Received',
         'partial'       => 'Partial',
         'paid'          => 'Paid',
+    ],
+
+    'messages' => [
+        'received'      => 'Bill marked as received successfully!',
     ],
 
 ];

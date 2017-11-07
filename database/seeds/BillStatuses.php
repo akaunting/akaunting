@@ -30,13 +30,13 @@ class BillStatuses extends Seeder
         $rows = [
             [
                 'company_id' => $company_id,
-                'name' => trans('bills.status.new'),
-                'code' => 'new',
+                'name' => trans('bills.status.draft'),
+                'code' => 'draft',
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('bills.status.updated'),
-                'code' => 'updated',
+                'name' => trans('bills.status.received'),
+                'code' => 'received',
             ],
             [
                 'company_id' => $company_id,
