@@ -23,7 +23,7 @@ trait DateTime
         return str_replace(' ', $date_separator, $date_format);
     }
 
-    public static function getMonthsOfYear($field)
+    public function scopeMonthsOfYear($query, $field)
     {
         $year = request('year');
 
@@ -35,7 +35,7 @@ trait DateTime
         $start = Date::parse($year . '-01-01')->format('Y-m-d');
         $end = Date::parse($year . '-12-31')->format('Y-m-d');
 
-        return static::whereBetween($field, [$start, $end])->get();
+        return $query->whereBetween($field, [$start, $end]);
     }
 
     public function getTimezones()

@@ -22,6 +22,8 @@ return [
     'histories'         => 'Histories',
     'payments'          => 'Payments',
     'add_payment'       => 'Add Payment',
+    'mark_paid'         => 'Mark Paid',
+    'mark_sent'         => 'Mark Sent',
     'download_pdf'      => 'Download PDF',
     'send_mail'         => 'Send Email',
 
@@ -32,6 +34,10 @@ return [
         'approved'      => 'Approved',
         'partial'       => 'Partial',
         'paid'          => 'Paid',
+    ],
+
+    'messages' => [
+        'marked_sent'   => 'Invoice marked as sent successfully!',
     ],
 
 ];

@@ -44,6 +44,8 @@ Route::group(['middleware' => 'language'], function () {
             Route::group(['prefix' => 'incomes'], function () {
                 Route::get('customers/currency', 'Incomes\Customers@currency');
                 Route::resource('customers', 'Incomes\Customers');
+                Route::get('invoices/{id}/sent', 'Incomes\Invoices@markSent');
+                Route::get('invoices/{id}/pay', 'Incomes\Invoices@payInvoice');
                 Route::get('invoices/{id}/print', 'Incomes\Invoices@printInvoice');
                 Route::get('invoices/{id}/pdf', 'Incomes\Invoices@pdfInvoice');
                 Route::post('invoices/payment', 'Incomes\Invoices@payment');
@@ -54,6 +56,7 @@ Route::group(['middleware' => 'language'], function () {
 
             Route::group(['prefix' => 'expenses'], function () {
                 Route::resource('payments', 'Expenses\Payments');
+                Route::get('bills/{id}/received', 'Expenses\Bills@markReceived');
                 Route::get('bills/{id}/print', 'Expenses\Bills@printBill');
                 Route::get('bills/{id}/pdf', 'Expenses\Bills@pdfBill');
                 Route::post('bills/payment', 'Expenses\Bills@payment');

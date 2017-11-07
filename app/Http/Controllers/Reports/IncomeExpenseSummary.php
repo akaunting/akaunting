@@ -98,45 +98,45 @@ class IncomeExpenseSummary extends Controller
 
         // Invoices
         switch ($status) {
-            case 'all':
-                $invoices = Invoice::getMonthsOfYear('invoiced_at');
-                $this->setAmount($compares_graph, $totals, $compares, $invoices, 'invoice', 'invoiced_at');
+            case 'paid':
+                $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
+                $this->setAmount($compares_graph, $totals, $compares, $invoices, 'invoice', 'paid_at');
                 break;
             case 'upcoming':
-                $invoices = Invoice::getMonthsOfYear('due_at');
+                $invoices = Invoice::accrued()->monthsOfYear('due_at')->get();
                 $this->setAmount($compares_graph, $totals, $compares, $invoices, 'invoice', 'due_at');
                 break;
             default:
-                $invoices = InvoicePayment::getMonthsOfYear('paid_at');
-                $this->setAmount($compares_graph, $totals, $compares, $invoices, 'invoice', 'paid_at');
+                $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
+                $this->setAmount($compares_graph, $totals, $compares, $invoices, 'invoice', 'invoiced_at');
                 break;
         }
 
         // Revenues
         if ($status != 'upcoming') {
-            $revenues = Revenue::getMonthsOfYear('paid_at');
+            $revenues = Revenue::monthsOfYear('paid_at')->get();
             $this->setAmount($compares_graph, $totals, $compares, $revenues, 'revenue', 'paid_at');
         }
 
         // Bills
         switch ($status) {
-            case 'all':
-                $bills = Bill::getMonthsOfYear('billed_at');
-                $this->setAmount($compares_graph, $totals, $compares, $bills, 'bill', 'billed_at');
+            case 'paid':
+                $bills = BillPayment::monthsOfYear('paid_at')->get();
+                $this->setAmount($compares_graph, $totals, $compares, $bills, 'bill', 'paid_at');
                 break;
             case 'upcoming':
-                $bills = Bill::getMonthsOfYear('due_at');
+                $bills = Bill::accrued()->monthsOfYear('due_at')->get();
                 $this->setAmount($compares_graph, $totals, $compares, $bills, 'bill', 'due_at');
                 break;
             default:
-                $bills = BillPayment::getMonthsOfYear('paid_at');
-                $this->setAmount($compares_graph, $totals, $compares, $bills, 'bill', 'paid_at');
+                $bills = Bill::accrued()->monthsOfYear('billed_at')->get();
+                $this->setAmount($compares_graph, $totals, $compares, $bills, 'bill', 'billed_at');
                 break;
         }
         
         // Payments
         if ($status != 'upcoming') {
-            $payments = Payment::getMonthsOfYear('paid_at');
+            $payments = Payment::monthsOfYear('paid_at')->get();
             $this->setAmount($compares_graph, $totals, $compares, $payments, 'payment', 'paid_at');
         }
 

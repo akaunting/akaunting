@@ -150,15 +150,26 @@
                     <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-default">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
-                    <button type="button" id="button-email" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.send_mail') }}">
-                        <i class="fa fa-envelope-o"></i>&nbsp; {{ trans('general.send') }}
-                    </button>
-                    <button type="button" id="button-pdf" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
-                        <i class="fa fa-file-pdf-o"></i>&nbsp; {{ trans('general.download') }}
-                    </button>
-                    <button type="button" id="button-payment" class="btn btn-success">
-                        <i class="fa fa-credit-card"></i>&nbsp; {{ trans('invoices.add_payment') }}
-                    </button>
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-circle-up"></i>&nbsp;{{ trans('general.more_actions') }}</button>
+                        <ul class="dropdown-menu" role="menu">
+                            @permission('update-incomes-invoices')
+                            <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pay') }}">{{ trans('invoices.mark_paid') }}</a></li>
+                            @endpermission
+                            <li><a href="#" id="button-payment">{{ trans('invoices.add_payment') }}</a></li>
+                            <li class="divider"></li>
+                            @permission('update-incomes-invoices')
+                            <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a></li>
+                            @endpermission
+                            <li><a href="#" id="button-email">{{ trans('invoices.send_mail') }}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}">{{ trans('invoices.download_pdf') }}</a></li>
+                            <li class="divider"></li>
+                            @permission('delete-incomes-invoices')
+                            <li>{!! Form::deleteLink($invoice, 'incomes/invoices') !!}</li>
+                            @endpermission
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>

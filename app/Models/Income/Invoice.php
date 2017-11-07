@@ -84,6 +84,21 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoiceHistory');
     }
 
+    public function scopeDue($query, $date)
+    {
+        return $query->where('due_at', '=', $date);
+    }
+
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('paid_at', 'desc');
+    }
+
+    public function scopeAccrued($query)
+    {
+        return $query->where('invoice_status_code', '!=', 'draft');
+    }
+
     /**
      * Convert amount to double.
      *
@@ -104,10 +119,5 @@ class Invoice extends Model
     public function setCurrencyRateAttribute($value)
     {
         $this->attributes['currency_rate'] = (double) $value;
-    }
-
-    public function scopeDue($query, $date)
-    {
-        return $query->where('due_at', '=', $date);
     }
 }
