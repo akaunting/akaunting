@@ -393,13 +393,12 @@ class Invoices extends Controller
     /**
      * Mark the invoice as sent.
      *
-     * @param  int  $invoice_id
+     * @param  Invoice $invoice
      *
      * @return Response
      */
-    public function markSent($invoice_id)
+    public function markSent(Invoice $invoice)
     {
-        $invoice = Invoice::find($invoice_id);
         $invoice->invoice_status_code = 'sent';
         $invoice->save();
 
@@ -411,15 +410,14 @@ class Invoices extends Controller
     /**
      * Mark the invoice as paid.
      *
-     * @param  int  $invoice_id
+     * @param  Invoice $invoice
      *
      * @return Response
      */
-    public function payInvoice($invoice_id)
+    public function payInvoice(Invoice $invoice)
     {
-        $invoice = Invoice::find($invoice_id);
-
         $paid = 0;
+
         foreach ($invoice->payments as $item) {
             $item->default_currency_code = $invoice->currency_code;
 
@@ -447,15 +445,13 @@ class Invoices extends Controller
     /**
      * Print the invoice.
      *
-     * @param  int  $invoice_id
+     * @param  Invoice $invoice
      *
      * @return Response
      */
-    public function printInvoice($invoice_id)
+    public function printInvoice(Invoice $invoice)
     {
         $paid = 0;
-
-        $invoice = Invoice::find($invoice_id);
 
         foreach ($invoice->payments as $item) {
             $item->default_currency_code = $invoice->currency_code;
@@ -475,15 +471,13 @@ class Invoices extends Controller
     /**
      * Download the PDF file of invoice.
      *
-     * @param  int  $invoice_id
+     * @param  Invoice $invoice
      *
      * @return Response
      */
-    public function pdfInvoice($invoice_id)
+    public function pdfInvoice(Invoice $invoice)
     {
         $paid = 0;
-
-        $invoice = Invoice::find($invoice_id);
 
         foreach ($invoice->payments as $item) {
             $item->default_currency_code = $invoice->currency_code;

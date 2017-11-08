@@ -459,35 +459,32 @@ class Bills extends Controller
     }
 
     /**
-     * Mark the invoice as sent.
+     * Mark the bill as received.
      *
-     * @param  int  $invoice_id
+     * @param  Bill $bill
      *
      * @return Response
      */
-    public function markReceived($bill_id)
+    public function markReceived(Bill $bill)
     {
-        $bill = Bill::find($bill_id);
         $bill->bill_status_code = 'received';
         $bill->save();
 
-        flash(trans('bills.marked_received'))->success();
+        flash(trans('bills.messages.received'))->success();
 
         return redirect()->back();
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Print the bill.
      *
-     * @param  int  $bill_id
+     * @param  Bill $bill
      *
      * @return Response
      */
-    public function printBill($bill_id)
+    public function printBill(Bill $bill)
     {
         $paid = 0;
-
-        $bill = Bill::where('id', $bill_id)->first();
 
         foreach ($bill->payments as $item) {
             $item->default_currency_code = $bill->currency_code;
@@ -501,17 +498,15 @@ class Bills extends Controller
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Download the PDF file of bill.
      *
-     * @param  int  $bill_id
+     * @param  Bill $bill
      *
      * @return Response
      */
-    public function pdfBill($bill_id)
+    public function pdfBill(Bill $bill)
     {
         $paid = 0;
-
-        $bill = Bill::where('id', $bill_id)->first();
 
         foreach ($bill->payments as $item) {
             $item->default_currency_code = $bill->currency_code;
@@ -532,7 +527,7 @@ class Bills extends Controller
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Add payment to the bill.
      *
      * @param  PaymentRequest  $request
      *
