@@ -2,7 +2,6 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Models\Addon\Addon;
 use App\Traits\Modules as RemoteModules;
 use Cache;
 use Date;
