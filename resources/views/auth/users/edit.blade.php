@@ -48,17 +48,17 @@
     </div>
 @endsection
 
-@section('js')
+@push('js')
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
-@endsection
+@endpush
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
@@ -81,4 +81,4 @@
             });
         });
     </script>
-@endsection
+@endpush

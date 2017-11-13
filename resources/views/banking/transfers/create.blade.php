@@ -33,15 +33,15 @@
     </div>
 @endsection
 
-@section('js')
+@push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-@endsection
+@endpush
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function(){
             //Date picker
@@ -63,4 +63,4 @@
             });
         });
     </script>
-@endsection
+@endpush

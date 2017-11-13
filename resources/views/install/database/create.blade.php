@@ -12,7 +12,7 @@
     {{ Form::textGroup('database', trans('install.database.name'), 'database', ['required' => 'required'], old('database'), 'col-md-12') }}
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
             $('#next-button').attr('disabled', true);
@@ -34,4 +34,4 @@
             }
         }
     </script>
-@endsection
+@endpush

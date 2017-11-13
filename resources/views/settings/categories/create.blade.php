@@ -34,15 +34,15 @@
     </div>
 @endsection
 
-@section('js')
+@push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
-@endsection
+@endpush
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
@@ -59,4 +59,4 @@
             $('#category-color-picker').colorpicker();
         });
     </script>
-@endsection
+@endpush

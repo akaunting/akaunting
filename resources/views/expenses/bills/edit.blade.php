@@ -120,18 +120,18 @@
     </div>
 @endsection
 
-@section('js')
+@push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-@endsection
+@endpush
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         var item_row = {{ $item_row }};
 
@@ -291,4 +291,4 @@
             });
         }
     </script>
-@endsection
+@endpush

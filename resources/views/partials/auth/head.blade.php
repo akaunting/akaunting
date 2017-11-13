@@ -22,9 +22,9 @@
     
     <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
 
-    @yield('css')
+    @stack('css')
 
-    @yield('stylesheet')
+    @stack('stylesheet')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +44,7 @@
 
     <script src="{{ asset('public/js/app.js') }}"></script>
 
-    @yield('js')
+    @stack('js')
 
-    @yield('scripts')
+    @stack('scripts')
 </head>

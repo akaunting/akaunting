@@ -137,7 +137,7 @@
     </div>
 @endsection
 
-@section('js')
+@push('scripts')
     <script type="text/javascript">
         var step = new Array();
         var total = 0;
@@ -249,4 +249,4 @@
             $('#modal-installation').modal('show');
         }
     </script>
-@endsection
+@endpush

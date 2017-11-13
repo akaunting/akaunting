@@ -43,7 +43,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
@@ -54,4 +54,4 @@
             });
         });
     </script>
-@endsection
+@endpush

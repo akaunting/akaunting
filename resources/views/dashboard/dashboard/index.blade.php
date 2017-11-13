@@ -315,12 +315,12 @@
     </div>
 @endsection
 
-@section('js')
+@push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/chartjs/Chart.min.js') }}"></script>
     <script src="{{ asset('public/js/highchart/highcharts.js') }}"></script>
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
             var areaChartData = {
@@ -463,4 +463,4 @@
             });
         });
     </script>
-@endsection
+@endpush

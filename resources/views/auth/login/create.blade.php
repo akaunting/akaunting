@@ -44,17 +44,17 @@
 <a href="{{ url('auth/forgot') }}">{{ trans('auth.forgot_password') }}</a><br>
 @endsection
 
-@section('js')
+@push('js')
 <!-- iCheck -->
 <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
-@endsection
+@endpush
 
-@section('css')
+@push('css')
 <!-- iCheck -->
 <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
 <script>
     $(function () {
         $('input').iCheck({
@@ -64,4 +64,4 @@
         });
     });
 </script>
-@endsection
+@endpush

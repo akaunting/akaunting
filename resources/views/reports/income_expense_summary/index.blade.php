@@ -86,11 +86,11 @@
 <!-- /.box -->
 @endsection
 
-@section('js')
+@push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/chartjs/Chart.min.js') }}"></script>
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
             var areaChartData = {
@@ -138,4 +138,4 @@
             cashFlowDaily.Line(areaChartData, cashFlowDailyOptions);
         });
     </script>
-@endsection
+@endpush

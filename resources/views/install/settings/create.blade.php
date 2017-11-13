@@ -12,7 +12,7 @@
     {{ Form::passwordGroup('user_password', trans('install.settings.admin_password'), 'key', ['required' => 'required'], old('user_password'), 'col-md-12') }}
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
             $('#next-button').attr('disabled', true);
@@ -35,4 +35,4 @@
             }
         }
     </script>
-@endsection
+@endpush

@@ -45,15 +45,15 @@
 </div>
 @endsection
 
-@section('js')
+@push('js')
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
-@endsection
+@endpush
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
@@ -74,4 +74,4 @@
             });
         });
     </script>
-@endsection
+@endpush
