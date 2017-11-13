@@ -80,7 +80,7 @@
     </div>
 @endsection
 
-@section('stylesheet')
+@push('stylesheet')
     <style type="text/css">
         .install-loading-bar {
             font-size: 35px;
@@ -105,9 +105,9 @@
             padding: 28% 40%;
         }
     </style>
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
             $('.method-edit').on('click', function() {
@@ -166,4 +166,4 @@
             });
         });
     </script>
-@endsection
+@endpush
