@@ -10,7 +10,7 @@ return [
         'logo'              => 'Logo',
     ],
     'localisation' => [
-        'tab'               => 'Localisation',
+        'tab'               => 'Localization',
         'date' => [
             'format'        => 'Date Format',
             'separator'     => 'Date Separator',
