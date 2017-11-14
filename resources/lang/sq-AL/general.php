@@ -91,6 +91,7 @@ return [
     'upcoming'              => 'Ardhshme',
     'created'               => 'Krijuar',
     'id'                    => 'ID',
+    'more_actions'          => 'Më shumë Veprime',
 
     'title' => [
         'new'               => 'I ri :type',

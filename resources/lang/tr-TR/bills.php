@@ -23,14 +23,19 @@ return [
     'histories'         => 'Geçmiş',
     'payments'          => 'Ödemeler',
     'add_payment'       => 'Ödeme Ekle',
+    'mark_received'     => 'Teslim Alındı İşaretle',
     'download_pdf'      => 'PDF İndir',
     'send_mail'         => 'Email Gönder',
 
     'status' => [
-        'new'           => 'Yeni',
-        'updated'       => 'Güncellendi',
+        'draft'         => 'Taslak',
+        'received'      => 'Teslim Alındı',
         'partial'       => 'Kısmi',
         'paid'          => 'Ödenmiş',
+    ],
+
+    'messages' => [
+        'received'      => 'Fatura başarıyla teslim alındı olarak işaretlendi!',
     ],
 
 ];

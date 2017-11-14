@@ -23,14 +23,19 @@ return [
     'histories'         => 'Historitë',
     'payments'          => 'Pagesat',
     'add_payment'       => 'Shto Pagesë',
+    'mark_received'     => 'Shënoje të Marrë',
     'download_pdf'      => 'Shkarko PDF',
     'send_mail'         => 'Dërgo Email',
 
     'status' => [
-        'new'           => 'I ri',
-        'updated'       => 'Përditësuar',
+        'draft'         => 'Draft',
+        'received'      => 'Marrë',
         'partial'       => 'I pjesshëm',
         'paid'          => 'I paguar',
+    ],
+
+    'messages' => [
+        'received'      => 'Fatura shënohet si i marrë me sukses!',
     ],
 
 ];

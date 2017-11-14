@@ -24,10 +24,10 @@ return [
     ],
     'invoice' => [
         'tab'               => 'Faturë',
-        'prefix'            => 'Prefiksi i Faturës',
-        'digit'             => 'Numri i Faturës',
-        'start'             => 'Numri Fillestar i Faturës',
-        'logo'              => 'Logo e Faturës',
+        'prefix'            => 'Parashtesa e numrit',
+        'digit'             => 'Gjatësia a numrit',
+        'next'              => 'Numri tjetër',
+        'logo'              => 'Logoja',
     ],
     'default' => [
         'tab'               => 'Parazgjedhjet',

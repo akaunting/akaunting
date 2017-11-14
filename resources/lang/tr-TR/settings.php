@@ -24,10 +24,10 @@ return [
     ],
     'invoice' => [
         'tab'               => 'Fatura',
-        'prefix'            => 'Fatura Ön-Eki',
-        'digit'             => 'Fatura Numarası',
-        'start'             => 'Fatura başlangıç numarası',
-        'logo'              => 'Fatura Logosu',
+        'prefix'            => 'Numara Öneki',
+        'digit'             => 'Numara Rakam Sayısı',
+        'next'              => 'Sonraki Numara',
+        'logo'              => 'Logo',
     ],
     'default' => [
         'tab'               => 'Varsayılanlar',
