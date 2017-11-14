@@ -16,8 +16,8 @@ return [
     'uninstalled'           => 'Kaldırıldı',
     'token_link'            => 'API token almak için<a href="https://akaunting.com/tokens" target="_blank">buraya tıklayın</a>.',
 
-    'enabled'               => ':module Modül Etkin',
-    'disabled'              => ':module Modül Devre Dışı',
+    'enabled'               => ':module etkinleştirildi',
+    'disabled'              => ':module devre dışı bırakıldı',
 
     'installation' => [
         'header'            => 'Modül Yükleme',

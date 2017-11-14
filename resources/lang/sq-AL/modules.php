@@ -16,8 +16,8 @@ return [
     'uninstalled'           => 'Çinstaluar',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Kliko këtu</a>për të marrë shenjën tuaj API.',
 
-    'enabled'               => ':module moduli i aktivizuar',
-    'disabled'              => ':module moduli i çaktivizuar',
+    'enabled'               => ':module i aktivizuar',
+    'disabled'              => ':module i çaktivizuar',
 
     'installation' => [
         'header'            => 'Instalim Moduli',

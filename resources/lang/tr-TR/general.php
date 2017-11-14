@@ -91,6 +91,7 @@ return [
     'upcoming'              => 'Gelecek',
     'created'               => 'Oluşturuldu',
     'id'                    => 'ID',
+    'more_actions'          => 'Diğer İşlemler',
 
     'title' => [
         'new'               => 'Yeni :type',

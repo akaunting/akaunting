@@ -22,6 +22,8 @@ return [
     'histories'         => 'Historitë',
     'payments'          => 'Pagesat',
     'add_payment'       => 'Shto Pagesë',
+    'mark_paid'         => 'Shënoje të Paguar',
+    'mark_sent'         => 'Shënoje të Dërguar',
     'download_pdf'      => 'Shkarko PDF',
     'send_mail'         => 'Dërgo Email',
 
@@ -32,6 +34,10 @@ return [
         'approved'      => 'I Miratuar',
         'partial'       => 'I pjesshëm',
         'paid'          => 'I paguar',
+    ],
+
+    'messages' => [
+        'marked_sent'   => 'Fatura shënohet si e dërguar me sukses!',
     ],
 
 ];

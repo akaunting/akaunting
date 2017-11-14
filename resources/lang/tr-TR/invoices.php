@@ -22,6 +22,8 @@ return [
     'histories'         => 'Geçmiş',
     'payments'          => 'Ödemeler',
     'add_payment'       => 'Ödeme Ekle',
+    'mark_paid'         => 'Ödendi İşaretle',
+    'mark_sent'         => 'Gönderildi İşaretle',
     'download_pdf'      => 'PDF İndir',
     'send_mail'         => 'Email Gönder',
 
@@ -32,6 +34,10 @@ return [
         'approved'      => 'Onaylandı',
         'partial'       => 'Kısmi',
         'paid'          => 'Ödenmiş',
+    ],
+
+    'messages' => [
+        'marked_sent'   => 'Fatura başarıyla gönderilmiş olarak işaretlendi!',
     ],
 
 ];
