@@ -1,0 +1,45 @@
+<?php
+
+return [
+
+    'next'                  => 'بعدی',
+    'refresh'               => 'تازه سازی',
+
+    'steps' => [
+        'requirements'      => 'لطفا نیازمندی های نصب را بررسی کنید!',
+        'language'          => 'گام 1/3: انتخاب زبان',
+        'database'          => 'مرحله 2/3: راه اندازی پایگاه داده',
+        'settings'          => 'مرحله 3/3: شرکت و مدیریت اطلاعات',
+    ],
+
+    'language' => [
+        'select'            => 'انتخاب زبان',
+    ],
+
+    'requirements' => [
+        'php_version'       => 'پی اچ پی 5.6.4 یا بالاتر نیاز به استفاده شود!',
+        'enabled'           => ':feature باید فعال باشد!',
+        'disabled'          => ':feature باید غیر فعال باشد!',
+        'extension'         => ':extension باید بارگذاری شود!',
+        'directory'         => ':directory باید فابل نوشتن باشد!',
+    ],
+
+    'database' => [
+        'hostname'          => 'نام هاست',
+        'username'          => 'نام کاربری',
+        'password'          => 'رمز عبور',
+        'name'              => 'پایگاه داده',
+    ],
+
+    'settings' => [
+        'company_name'      => 'نام شرکت',
+        'company_email'     => 'ایمیل شرکت',
+        'admin_email'       => 'ایمیل مدیر',
+        'admin_password'    => 'کلمه عبور مدیر',
+    ],
+
+    'error' => [
+        'connection'        => 'خطا: نمی تواند به پایگاه داده وصل شد! لطفا اطلاعات صحیح را وارد کنید.',
+    ],
+
+];
