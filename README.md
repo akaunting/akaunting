@@ -2,7 +2,7 @@
 
 ![Latest Stable Version](https://img.shields.io/github/release/akaunting/akaunting.svg) ![Total Downloads](https://img.shields.io/github/downloads/akaunting/akaunting/total.svg) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/akaunting/localized.svg)](https://crowdin.com/project/akaunting)
 
-Akaunting is a free, online and open source accounting software designed for small businesses and freelancers. It is built with modern technologies such as Laravel, Bootstrap, jQuery, RESTful API etc. Thanks to its modular structure, Akaunting provides an awesome App Store for users and developers.
+Akaunting is a free, open source and online accounting software designed for small businesses and freelancers. It is built with modern technologies such as Laravel, Bootstrap, jQuery, RESTful API etc. Thanks to its modular structure, Akaunting provides an awesome App Store for users and developers.
 
 * [Home](https://akaunting.com) - The house of Akaunting
 * [Blog](https://akaunting.com/blog) - Get the latest news
@@ -25,7 +25,7 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
   * Install [Composer](https://getcomposer.org/download)
   * Download the [repository](https://github.com/akaunting/akaunting/archive/master.zip) and unzip into your server
   * Open and point your command line to the directory you unzipped Akaunting
-  * Run the following command: `composer install`
+  * Run the following commands separately: `composer install` , `composer dump-autoload`
   * Finally, launch the [installer](https://akaunting.com/docs/installation)
 
 ## Contributing
