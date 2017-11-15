@@ -5,6 +5,7 @@ namespace App\Utilities;
 use App\Traits\SiteApi;
 use Cache;
 use Date;
+use Parsedown;
 
 class Versions
 {
@@ -24,7 +25,7 @@ class Versions
             return $output;
         }
 
-        $github = new \cebe\markdown\GithubMarkdown();
+        $parsedown = new Parsedown();
 
         $releases = json_decode($json);
 
@@ -43,10 +44,7 @@ class Versions
 
             $output .= '<h2><span class="label label-success">'.$release->tag_name.'</span></h2>';
 
-            // Parse markdown output
-            $markdown = str_replace('## Changelog', '', $release->body);
-
-            $output .= $github->parse($markdown);
+            $output .= $parsedown->text($release->body);
 
             $output .= '<hr>';
         }

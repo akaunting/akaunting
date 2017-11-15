@@ -14,7 +14,6 @@
         "barryvdh/laravel-debugbar": "2.3.*",
         "barryvdh/laravel-dompdf": "0.*",
         "barryvdh/laravel-ide-helper": "2.3.*",
-        "cebe/markdown": "1.1.*",
         "cknow/laravel-money": "1.0.*",
         "dingo/api": "1.0.0-beta8",
         "fzaninotto/faker": "1.6.*",
