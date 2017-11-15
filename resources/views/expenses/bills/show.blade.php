@@ -373,10 +373,6 @@
                 });
             });
 
-            $(document).on('click', '#button-pdf', function (e) {
-                location.href = "{{ url('expenses/bills/' . $bill->id . '/pdf') }}";
-            });
-
             $(document).on('click', '#button-email', function (e) {
                 $('#email-modal').remove();
 

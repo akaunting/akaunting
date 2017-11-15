@@ -408,41 +408,6 @@ class Invoices extends Controller
     }
 
     /**
-     * Mark the invoice as paid.
-     *
-     * @param  Invoice $invoice
-     *
-     * @return Response
-     */
-    public function payInvoice(Invoice $invoice)
-    {
-        $paid = 0;
-
-        foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
-
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $amount = $invoice->amount - $paid;
-
-        $request = new PaymentRequest();
-
-        $request['company_id'] = $invoice->company_id;
-        $request['invoice_id'] = $invoice->id;
-        $request['account_id'] = setting('general.default_account');
-        $request['payment_method'] = setting('general.default_payment_method');
-        $request['currency_code'] = $invoice->currency_code;
-        $request['amount'] = $amount;
-        $request['paid_at'] = Date::now();
-        $request['_token'] = csrf_token();
-
-        $this->payment($request);
-
-        return redirect()->back();
-    }
-
-    /**
      * Print the invoice.
      *
      * @param  Invoice $invoice
@@ -499,6 +464,41 @@ class Invoices extends Controller
         $file_name = 'invoice_'.time().'.pdf';
 
         return $pdf->download($file_name);
+    }
+
+    /**
+     * Mark the invoice as paid.
+     *
+     * @param  Invoice $invoice
+     *
+     * @return Response
+     */
+    public function markPaid(Invoice $invoice)
+    {
+        $paid = 0;
+
+        foreach ($invoice->payments as $item) {
+            $item->default_currency_code = $invoice->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $amount = $invoice->amount - $paid;
+
+        $request = new PaymentRequest();
+
+        $request['company_id'] = $invoice->company_id;
+        $request['invoice_id'] = $invoice->id;
+        $request['account_id'] = setting('general.default_account');
+        $request['payment_method'] = setting('general.default_payment_method');
+        $request['currency_code'] = $invoice->currency_code;
+        $request['amount'] = $amount;
+        $request['paid_at'] = Date::now();
+        $request['_token'] = csrf_token();
+
+        $this->payment($request);
+
+        return redirect()->back();
     }
 
     /**
