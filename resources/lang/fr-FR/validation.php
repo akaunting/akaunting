@@ -29,7 +29,7 @@ return [
         'string'  => ':attribute doit contenir entre :min et :max caractères.',
         'array'   => ':attribute doit contenir entre :min et :max chiffres.',
     ],
-    'boolean'              => 'Le champ : attribute doit être vrai ou faux.',
+    'boolean'              => 'Le champ :attribute doit être vrai ou faux.',
     'confirmed'            => 'La confirmation du ":attribute" ne concordent pas.',
     'date'                 => ':attribute n\'est pas une date valide.',
     'date_format'          => ':attribute ne respecte pas le format :format.',

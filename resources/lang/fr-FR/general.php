@@ -35,6 +35,7 @@ return [
     'languages'             => 'Langue|Langues',
     'updates'               => 'Mise à jour|Mises à jour',
     'numbers'               => 'Numéro|Numéros',
+    'statuses'              => 'Statut | Statuts',
 
     'dashboard'             => 'Tableau de bord',
     'banking'               => 'Banque',
@@ -76,7 +77,6 @@ return [
     'color'                 => 'Couleur',
     'save'                  => 'Enregistrer',
     'cancel'                => 'Annuler',
-    'status'                => 'État',
     'from'                  => 'De',
     'to'                    => 'Vers',
     'print'                 => 'Imprimer',
@@ -85,13 +85,13 @@ return [
     'filter'                => 'Filtre',
     'create_user'           => 'Créer un utilisateur',
     'created_user'          => 'Utilisateur crée',
-    'all_statuses'          => 'Tous les statuts',
-    'bank'                  => 'Virement bancaire',
-    'cash'                  => 'Espèce',
-    'paypal'                => 'PayPal',
     'help'                  => 'Aide',
     'all'                   => 'Tous',
+    'all_type'              => 'Tous :type',
     'upcoming'              => 'À venir',
+    'created'               => 'Créés',
+    'id'                    => 'Identifiant',
+    'more_actions'          => 'Autres actions',
 
     'title' => [
         'new'               => 'Nouveau :type',
