@@ -11,6 +11,9 @@ use Modules\OfflinePayment\Events\Handlers\OfflinePaymentAdminMenu;
 use App\Events\PaymentGatewayListing;
 use Modules\OfflinePayment\Events\Handlers\OfflinePaymentGateway;
 
+use App\Events\PaymentGatewayConfirm;
+use Modules\OfflinePayment\Events\Handlers\OfflinePaymentConfirm;
+
 class OfflinePaymentServiceProvider extends ServiceProvider
 {
     /**
@@ -36,6 +39,7 @@ class OfflinePaymentServiceProvider extends ServiceProvider
 
         $this->app['events']->listen(AdminMenuCreated::class, OfflinePaymentAdminMenu::class);
         $this->app['events']->listen(PaymentGatewayListing::class, OfflinePaymentGateway::class);
+        $this->app['events']->listen(PaymentGatewayConfirm::class, OfflinePaymentConfirm::class);
     }
 
     /**
