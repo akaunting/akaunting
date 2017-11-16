@@ -142,308 +142,54 @@
             </div>
 
             <div class="box-footer row no-print">
-                <div class="col-md-12">
+                <div class="col-md-10">
                     <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-default">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
-                    <button type="button" id="button-email" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.send_mail') }}">
-                        <i class="fa fa-envelope-o"></i>&nbsp; {{ trans('general.send') }}
-                    </button>
-                    <button type="button" id="button-pdf" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
+                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
                         <i class="fa fa-file-pdf-o"></i>&nbsp; {{ trans('general.download') }}
-                    </button>
+                    </a>
+                </div>
+
+                <div class="col-sm-2">
+                    {!! Form::select('payment_method', $payment_methods, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])])) !!}
+                    {!! Form::hidden('invoice_id', $invoice->id, []) !!}
                     <button type="button" id="button-payment" class="btn btn-success">
                         <i class="fa fa-credit-card"></i>&nbsp; {{ trans('invoices.add_payment') }}
                     </button>
                 </div>
+                <div class="confirm"></div>
             </div>
         </section>
     </div>
-
-    <div class="col-xs-6 no-padding-left">
-        <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('invoices.histories') }}</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                </div>
-                <!-- /.box-tools -->
-            </div>
-            <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>{{ trans('general.date') }}</th>
-                            <th>{{ trans_choice('general.statuses', 1) }}</th>
-                            <th>{{ trans('general.description') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($invoice->histories as $history)
-                            <tr>
-                                <td>{{ Date::parse($history->created_at)->format($date_format) }}</td>
-                                <td>{{ $history->status->name }}</td>
-                                <td>{{ $history->description }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xs-6 no-padding-right">
-        <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('invoices.payments') }}</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                </div>
-                <!-- /.box-tools -->
-            </div>
-            <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>{{ trans('general.date') }}</th>
-                            <th>{{ trans('general.amount') }}</th>
-                            <th>{{ trans_choice('general.accounts', 1) }}</th>
-                            <th style="width: 15%;">{{ trans('general.actions') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($invoice->payments as $payment)
-                            <tr>
-                                <td>{{ Date::parse($payment->paid_at)->format($date_format) }}</td>
-                                <td>@money($payment->amount, $payment->currency_code, true)</td>
-                                <td>{{ $payment->account->name }}</td>
-                                <td>
-                                    <a href="{{ url('incomes/invoices/' . $payment->id . '') }}" class="btn btn-info btn-xs hidden"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
-                                    <a href="{{ url('incomes/revenues/' . $payment->id . '/edit') }}" class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
-                                    {!! Form::open([
-                                        'id' => 'invoice-payment-' . $payment->id,
-                                        'method' => 'DELETE',
-                                        'url' => ['incomes/invoices/payment', $payment->id],
-                                        'style' => 'display:inline'
-                                    ]) !!}
-                                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
-                                        'type'    => 'button',
-                                        'class'   => 'btn btn-danger btn-xs',
-                                        'title'   => trans('general.delete'),
-                                        'onclick' => 'confirmDelete("' . '#invoice-payment-' . $payment->id . '", "' . trans_choice('general.payments', 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . Date::parse($payment->paid_at)->format($date_format) . ' - ' . money($payment->amount, $payment->currency_code, true) . ' - ' . $payment->account->name . '</strong>', 'type' => strtolower(trans_choice('general.revenues', 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
-                                    )) !!}
-                                    {!! Form::close() !!}
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
-
-@push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
-@endpush
-
-@push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
-@endpush
 
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function(){
             $(document).on('click', '#button-payment', function (e) {
-                $('#payment-modal').remove();
-
-                var html = '';
-
-                html += '<div class="modal fade" id="payment-modal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel">';
-                html += '   <div class="modal-dialog" role="document">';
-                html += '       <div class="modal-content box box-success">';
-                html += '           <div class="modal-header">';
-                html += '               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-                html += '               <h4 class="modal-title" id="paymentModalLabel">{{ trans('invoices.add_payment') }}</h4>';
-                html += '           </div>';
-                html += '           <div class="modal-body box-body">';
-                html += '               <div class="form-group col-md-6 required">';
-                html += '                   {!! Form::label('paid_at', trans('general.date'), ['class' => 'control-label']) !!}';
-                html += '                   <div class="input-group">';
-                html += '                       <div class="input-group-addon"><i class="fa fa-calendar"></i></div>';
-                html += '                       {!! Form::text('paid_at', \Carbon\Carbon::now()->toDateString(), ['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '']) !!}';
-                html += '                   </div>';
-                html += '               </div>';
-                html += '               <div class="form-group col-md-6 required">';
-                html += '                   {!! Form::label('amount', trans('general.amount'), ['class' => 'control-label']) !!}';
-                html += '                   <div class="input-group">';
-                html += '                       <div class="input-group-addon"><i class="fa fa-money"></i></div>';
-                html += '                       {!! Form::text('amount', $invoice->grand_total, ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('general.amount')])]) !!}';
-                html += '                   </div>';
-                html += '               </div>';
-                html += '               <div class="form-group col-md-6 required">';
-                html += '                   {!! Form::label('account_id', trans_choice('general.accounts', 1), ['class' => 'control-label']) !!}';
-                html += '                   <div class="input-group">';
-                html += '                       <div class="input-group-addon"><i class="fa fa-university"></i></div>';
-                html += '                       {!! Form::select('account_id', $accounts, setting('general.default_account'), ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)])]) !!}';
-                html += '                   </div>';
-                html += '               </div>';
-                html += '               <div class="form-group col-md-6 required">';
-                html += '                   {!! Form::label('currency_code', trans_choice('general.currencies', 1), ['class' => 'control-label']) !!}';
-                html += '                   <div class="input-group">';
-                html += '                       <div class="input-group-addon"><i class="fa fa-exchange"></i></div>';
-                html += '                       {!! Form::text('currency', $currencies[$account_currency_code], ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}';
-                html += '                       {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}';
-                html += '                   </div>';
-                html += '               </div>';
-                html += '               <div class="form-group col-md-12">';
-                html += '                   {!! Form::label('description', trans('general.description'), ['class' => 'control-label']) !!}';
-                html += '                   {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => '3', 'placeholder' => trans('general.form.enter', ['field' => trans('general.description')])]) !!}';
-                html += '               </div>';
-                html += '               <div class="form-group col-md-6 required">';
-                html += '                   {!! Form::label('payment_method', trans_choice('general.payment_methods', 1), ['class' => 'control-label']) !!}';
-                html += '                   <div class="input-group">';
-                html += '                       <div class="input-group-addon"><i class="fa fa-folder-open-o"></i></div>';
-                html += '                       {!! Form::select('payment_method', $payment_methods, setting('general.default_payment_method'), ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])]) !!}';
-                html += '                   </div>';
-                html += '               </div>';
-                html += '               <div class="form-group col-md-6">';
-                html += '                   {!! Form::label('reference', trans('general.reference'), ['class' => 'control-label']) !!}';
-                html += '                   <div class="input-group">';
-                html += '                       <div class="input-group-addon"><i class="fa fa-file-text-o"></i></div>';
-                html += '                       {!! Form::text('reference', null, ['class' => 'form-control', 'placeholder' => trans('general.form.enter', ['field' => trans('general.reference')])]) !!}';
-                html += '                   </div>';
-                html += '               </div>';
-                html += '               {!! Form::hidden('invoice_id', $invoice->id, ['id' => 'invoice_id', 'class' => 'form-control', 'required' => 'required']) !!}';
-                html += '           </div>';
-                html += '           <div class="modal-footer">';
-                html += '               <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('general.cancel') }}</button>';
-                html += '               <button type="button" onclick="addPayment();" class="btn btn-success">{{ trans('general.save') }}</button>';
-                html += '           </div>';
-                html += '       </div>';
-                html += '   </div>';
-                html += '</div>';
-
-                $('body').append(html);
-
-                $('#paid_at').datepicker({
-                    format: 'yyyy-mm-dd',
-                    autoclose: true
-                });
-
-                $("#account_id").select2({
-                    placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
-                });
-
-                $("#payment_method").select2({
-                    placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)]) }}"
-                });
-
-                $('#payment-modal').modal('show');
-            });
-
-            $(document).on('change', '#account_id', function (e) {
                 $.ajax({
-                    url: '{{ url("settings/currencies/currency") }}',
-                    type: 'GET',
+                    url: '{{ url("customers/invoices/payment") }}',
+                    type: 'POST',
                     dataType: 'JSON',
-                    data: 'account_id=' + $(this).val(),
+                    data: $('.box-footer input, .box-footer select'),
+                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    beforeSend: function() {
+                        $('.confirm').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
+                    },
+                    complete: function() {
+                        $('#loading').remove();
+                    },
                     success: function(data) {
-                        $('#currency').val(data.currency_name);
-                        $('#currency_code').val(data.currency_code);
+                        $("#payment-modal").modal('hide');
+
+                        location.reload();
+                    },
+                    error: function(data){
+
                     }
                 });
-            });
-
-            $(document).on('click', '#button-pdf', function (e) {
-                location.href = "{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}";
-            });
-
-            $(document).on('click', '#button-email', function (e) {
-                $('#email-modal').remove();
-
-                var html = '<div class="modal fade" id="email-modal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel">';
-                html += '   <div class="modal-dialog" role="document">';
-                html += '       <div class="modal-content">';
-                html += '           <div class="modal-header">';
-                html += '               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-                html += '               <h4 class="modal-title" id="emailModalLabel">Overflowing text</h4>';
-                html += '           </div>';
-                html += '           <div class="modal-body">';
-                html += '              N/A';
-                html += '           </div>';
-                html += '           <div class="modal-footer">';
-                html += '               <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('general.cancel') }}</button>';
-                html += '               <button type="button" class="btn btn-success">Save changes</button>';
-                html += '           </div>';
-                html += '       </div>';
-                html += '   </div>';
-                html += '</div>';
-
-                $('body').append(html);
-
-                $('#email-modal').modal('show');
             });
         });
-
-        function addPayment() {
-            $('.help-block').remove();
-
-            $.ajax({
-                url: '{{ url("incomes/invoices/payment") }}',
-                type: 'POST',
-                dataType: 'JSON',
-                data: $('#payment-modal input[type=\'text\'], #payment-modal input[type=\'hidden\'], #payment-modal textarea, #payment-modal select'),
-                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                beforeSend: function() {
-                    $('#payment-modal .modal-content').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
-                },
-                complete: function() {
-                    $('#loading').remove();
-                },
-                success: function(data) {
-                    $("#payment-modal").modal('hide');
-
-                    location.reload();
-                },
-                error: function(data){
-                    var errors = data.responseJSON;
-
-                    if (typeof errors !== 'undefined') {
-                        if (errors.paid_at) {
-                            $('#payment-modal #paid_at').parent().after('<p class="help-block">' + errors.paid_at + '</p>');
-                        }
-
-                        if (errors.amount) {
-                            $('#payment-modal #amount').parent().after('<p class="help-block">' + errors.amount + '</p>');
-                        }
-
-                        if (errors.account_id) {
-                            $('#payment-modal #account_id').parent().after('<p class="help-block">' + errors.account_id + '</p>');
-                        }
-
-                        if (errors.currency_code) {
-                            $('#payment-modal #currency_code').parent().after('<p class="help-block">' + errors.currency_code + '</p>');
-                        }
-
-                        if (errors.category_id) {
-                            $('#payment-modal #category_id').parent().after('<p class="help-block">' + errors.category_id + '</p>');
-                        }
-
-                        if (errors.payment_method) {
-                            $('#payment-modal #payment_method').parent().after('<p class="help-block">' + errors.payment_method + '</p>');
-                        }
-                    }
-                }
-            });
-        }
     </script>
 @endpush

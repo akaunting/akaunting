@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Income\InvoicePayment as PaymentRequest;
+use App\Http\Requests\Customer\InvoicePayment as PaymentRequest;
 use App\Models\Banking\Account;
 use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceStatus;
-use App\Models\Income\InvoiceHistory;
-use App\Models\Income\InvoicePayment;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Traits\Currencies;
@@ -17,6 +15,8 @@ use App\Traits\DateTime;
 use App\Traits\Uploads;
 use Auth;
 use Jenssegers\Date\Date;
+
+use App\Events\PaymentGatewayConfirm;
 
 use App\Utilities\Modules;
 
@@ -179,37 +179,11 @@ class Invoices extends Controller
      */
     public function payment(PaymentRequest $request)
     {
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
+        $invoice = Invoice::where(['id' => $request['invoice_id'], 'customer_id' => Auth::user()->customer->id])->first();
 
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
+        // Fire the event to extend the menu
+        $result = event(new PaymentGatewayConfirm($request['payment_method'], $invoice));
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'revenues');
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
-        $invoice = Invoice::find($request['invoice_id']);
-
-        $invoice->invoice_status_code = 'partial';
-
-        $invoice->save();
-
-        $invoice_payment = InvoicePayment::create($request->input());
-
-        $request['status_code'] = 'partial';
-        $request['notify'] = 0;
-        
-        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
-        $request['description'] = $desc_date . ' ' . $desc_amount;
-        
-        InvoiceHistory::create($request->input());
-
-        $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
-
-        return response()->json($message);
+        return response()->json($result);
     }
 }
