@@ -46,9 +46,18 @@ class Invoice extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->line('You are receiving this email because you have an upcoming ' . money($this->invoice->amount, $this->invoice->currency_code, true) . ' invoice to ' . $this->invoice->customer->name . ' customer.')
-            ->action('Pay Now', url('customers/invoices', $this->invoice->id, true));
+        $message = (new MailMessage)
+            ->line(trans('invoices.notification.message', ['amount' => money($this->invoice->amount, $this->invoice->currency_code, true), 'customer' => $this->invoice->customer->name]))
+            ->action(trans('invoices.notification.button'), url('customers/invoices', $this->invoice->id, true));
+
+        // Attach the PDF file if available
+        if (isset($this->invoice->pdf_path)) {
+            $message->attach($this->invoice->pdf_path, [
+                'mime' => 'application/pdf',
+            ]);
+        }
+
+        return $message;
     }
 
     /**

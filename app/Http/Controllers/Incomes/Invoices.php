@@ -20,11 +20,13 @@ use App\Models\Item\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
+use App\Notifications\Income\Invoice as Notification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
 use App\Utilities\Modules;
 use Date;
+use File;
 
 class Invoices extends Controller
 {
@@ -408,6 +410,48 @@ class Invoices extends Controller
     }
 
     /**
+     * Download the PDF file of invoice.
+     *
+     * @param  Invoice $invoice
+     *
+     * @return Response
+     */
+    public function emailInvoice(Invoice $invoice)
+    {
+        $invoice = $this->prepareInvoice($invoice);
+
+        $html = view($invoice->template_path, compact('invoice'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        $file = storage_path('app/temp/invoice_'.time().'.pdf');
+
+        $invoice->pdf_path = $file;
+
+        // Save the PDF file into temp folder
+        $pdf->save($file);
+
+        // Notify the customer
+        $invoice->customer->notify(new Notification($invoice));
+
+        // Delete temp file
+        File::delete($file);
+
+        unset($invoice->paid);
+        unset($invoice->template_path);
+        unset($invoice->pdf_path);
+
+        // Mark invoice as sent
+        $invoice->invoice_status_code = 'sent';
+        $invoice->save();
+
+        flash(trans('invoices.messages.email_sent'))->success();
+
+        return redirect()->back();
+    }
+
+    /**
      * Print the invoice.
      *
      * @param  Invoice $invoice
@@ -416,19 +460,7 @@ class Invoices extends Controller
      */
     public function printInvoice(Invoice $invoice)
     {
-        $paid = 0;
-
-        foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
-
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $invoice->paid = $paid;
-
-        $invoice->template_path = 'incomes.invoices.invoice';
-
-        event(new InvoicePrinting($invoice));
+        $invoice = $this->prepareInvoice($invoice);
 
         return view($invoice->template_path, compact('invoice'));
     }
@@ -442,24 +474,14 @@ class Invoices extends Controller
      */
     public function pdfInvoice(Invoice $invoice)
     {
-        $paid = 0;
-
-        foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
-
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $invoice->paid = $paid;
-
-        $invoice->template_path = 'incomes.invoices.invoice';
-
-        event(new InvoicePrinting($invoice));
+        $invoice = $this->prepareInvoice($invoice);
 
         $html = view($invoice->template_path, compact('invoice'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
 
         $file_name = 'invoice_'.time().'.pdf';
 
@@ -589,6 +611,25 @@ class Invoices extends Controller
         flash($message)->success();
 
         return redirect('incomes/invoices');
+    }
+
+    protected function prepareInvoice(Invoice $invoice)
+    {
+        $paid = 0;
+
+        foreach ($invoice->payments as $item) {
+            $item->default_currency_code = $invoice->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $invoice->paid = $paid;
+
+        $invoice->template_path = 'incomes.invoices.invoice';
+
+        event(new InvoicePrinting($invoice));
+
+        return $invoice;
     }
 
     protected function addTotals($invoice, $request, $taxes, $sub_total, $tax_total)

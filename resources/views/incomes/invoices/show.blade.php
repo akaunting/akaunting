@@ -161,7 +161,7 @@
                             @permission('update-incomes-invoices')
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a></li>
                             @endpermission
-                            <li><a href="#" id="button-email">{{ trans('invoices.send_mail') }}</a></li>
+                            <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/email') }}">{{ trans('invoices.send_mail') }}</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}">{{ trans('invoices.download_pdf') }}</a></li>
                             <li class="divider"></li>
