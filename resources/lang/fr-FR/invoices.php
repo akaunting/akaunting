@@ -22,6 +22,8 @@ return [
     'histories'         => 'Historiques',
     'payments'          => 'Paiements',
     'add_payment'       => 'Ajouter un paiement',
+    'mark_paid'         => 'Marquer comme payée',
+    'mark_sent'         => 'Marquer comme envoyée',
     'download_pdf'      => 'Télécharger en PDF',
     'send_mail'         => 'Envoyer un Email',
 
@@ -32,6 +34,10 @@ return [
         'approved'      => 'Approuvé',
         'partial'       => 'Partiel',
         'paid'          => 'Payé',
+    ],
+
+    'messages' => [
+        'marked_sent'   => 'Facture marquée comme envoyée avec succès !',
     ],
 
 ];

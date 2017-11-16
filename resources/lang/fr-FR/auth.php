@@ -24,6 +24,7 @@ return [
     ],
 
     'failed'                => 'Ces identifiants ne correspondent pas à un utilisateur.',
-    'throttle'              => 'Trop de tentatives de connexion. Veuillez réessayer à nouveau dans : secondes secondes.',
+    'disabled'              => 'Ce compte est désactivé. Veuillez contacter l’administrateur système.',
+    'throttle'              => 'Trop de tentatives de connexion. Veuillez réessayer à nouveau dans :seconds secondes.',
 
 ];

@@ -3,7 +3,7 @@
 return [
 
     'success' => [
-        'added'             => ': type ajouté !',
+        'added'             => ':type ajouté !',
         'updated'           => ':type mise à jour !',
         'deleted'           => ':type supprimé !',
     ],
@@ -11,7 +11,8 @@ return [
         'not_user_company'  => 'Erreur : Vous n’êtes pas autorisé à gérer cette société !',
     ],
     'warning' => [
-        'deleted'           => 'Attention : Vous ne pouvez pas supprimer de :type. Parce qu’il a :texte',
+        'deleted'           => 'Avertissement : Vous n’êtes pas autorisé à supprimer <b>:name</b> parce qu’il est associé à :texte.',
+        'disabled'          => 'Avertissement : Vous n’êtes pas autorisé à désactiver <b>:name</b> parce qu’il est associé à :texte.',
     ],
 
 ];
