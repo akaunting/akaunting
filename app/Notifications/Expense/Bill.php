@@ -2,22 +2,22 @@
 
 namespace App\Notifications\Expense;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Bill extends Notification implements ShouldQueue
+class Bill extends Notification
 {
-    use Queueable;
-
+    /**
+     * The invoice model.
+     *
+     * @var object
+     */
     public $bill;
 
     /**
      * Create a notification instance.
      *
      * @param  object  $bill
-     * @return void
      */
     public function __construct($bill)
     {
