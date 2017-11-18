@@ -18,11 +18,28 @@ class OfflinePaymentConfirm
             return [];
         }
 
+        $invoice = $event->invoice;
+
+        $gateway = [];
+
+        $payment_methods = json_decode(setting('offlinepayment.methods'), true);
+
+        foreach ($payment_methods as $payment_method) {
+            if ($payment_method['code'] == $event->gateway) {
+                $gateway = $payment_method;
+
+                break;
+            }
+        }
+
+        $html = view('offlinepayment::confirm', compact('gateway', 'invoice'))->render();
+
         return [
-            'code' => $event->gateway,
-            'name' => $event->gateway,
+            'code' => $gateway['code'],
+            'name' => $gateway['name'],
+            'description' => $gateway['description'],
             'redirect' => false,
-            'html' => true,
+            'html' => $html,
         ];
     }
 }

@@ -123,6 +123,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('invoices/{invoice}/print', 'Customers\Invoices@printInvoice');
                 Route::get('invoices/{invoice}/pdf', 'Customers\Invoices@pdfInvoice');
                 Route::post('invoices/{invoice}/payment', 'Customers\Invoices@payment');
+                Route::post('invoices/{invoice}/confirm', 'Customers\Invoices@confirm');
                 Route::resource('invoices', 'Customers\Invoices');
                 Route::resource('payments', 'Customers\Payments');
                 Route::resource('transactions', 'Customers\Transactions');

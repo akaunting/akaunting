@@ -241,10 +241,10 @@ div.required .control-label:not(span):after, td.required:after {
     left: 40%;
 }
 
-.confirm #loading {
+#confirm #loading {
     position: inherit;
     top: 40%;
-    left: 40%;
+    left: inherit;
 }
 
 #payment-modal .form-group.col-md-6 .help-block {

@@ -151,15 +151,17 @@
                     </a>
                 </div>
 
-                <div class="col-sm-2">
-                    @if ($payment_methods)
-                    {!! Form::select('payment_method', $payment_methods, null, array_merge(['id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])])) !!}
-                    {!! Form::hidden('invoice_id', $invoice->id, []) !!}
-                    @else
+                <div class="col-md-2">
+                    @if($invoice->invoice_status_code != 'paid')
+                        @if ($payment_methods)
+                        {!! Form::select('payment_method', $payment_methods, null, array_merge(['id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])])) !!}
+                        {!! Form::hidden('invoice_id', $invoice->id, []) !!}
+                        @else
 
+                        @endif
                     @endif
                 </div>
-                <div class="confirm"></div>
+                <div id="confirm" class="col-md-12"></div>
             </div>
         </section>
     </div>
@@ -170,21 +172,29 @@
         $(document).ready(function(){
             $(document).on('change', '#payment-method', function (e) {
                 $.ajax({
-                    url: '{{ url("customers/invoices/" . $invoice->id . "payment") }}',
+                    url: '{{ url("customers/invoices/" . $invoice->id . "/payment") }}',
                     type: 'POST',
                     dataType: 'JSON',
                     data: $('.box-footer input, .box-footer select'),
                     headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                     beforeSend: function() {
-                        $('.confirm').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
+                        $('#confirm').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
                     },
                     complete: function() {
                         $('#loading').remove();
                     },
                     success: function(data) {
-                        $("#payment-modal").modal('hide');
+                        if (data['erorr']) {
 
-                        //location.reload();
+                        }
+
+                        if (data['redirect']) {
+                            location = data['redirect'];
+                        }
+
+                        if (data['html']) {
+                            $('#confirm').append(data['html']);
+                        }
                     },
                     error: function(data){
 
