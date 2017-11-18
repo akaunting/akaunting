@@ -102,13 +102,11 @@ class Invoices extends Controller
      *
      * @return Response
      */
-    public function printInvoice($invoice_id)
+    public function printInvoice(Invoice $invoice)
     {
         $sub_total = 0;
         $tax_total = 0;
         $paid = 0;
-
-        $invoice = Invoice::where('id', $invoice_id)->first();
 
         foreach ($invoice->items as $item) {
             $sub_total += ($item->price * $item->quantity);
@@ -136,13 +134,11 @@ class Invoices extends Controller
      *
      * @return Response
      */
-    public function pdfInvoice($invoice_id)
+    public function pdfInvoice(Invoice $invoice)
     {
         $sub_total = 0;
         $tax_total = 0;
         $paid = 0;
-
-        $invoice = Invoice::where('id', $invoice_id)->first();
 
         foreach ($invoice->items as $item) {
             $sub_total += ($item->price * $item->quantity);
@@ -177,10 +173,13 @@ class Invoices extends Controller
      *
      * @return Response
      */
-    public function payment(PaymentRequest $request)
+    public function payment(Invoice $invoice, PaymentRequest $request)
     {
-        $invoice = Invoice::where(['id' => $request['invoice_id'], 'customer_id' => Auth::user()->customer->id])->first();
+        if (!$invoice) {
+            return response()->json(
 
+            );
+        }
         // Fire the event to extend the menu
         $result = event(new PaymentGatewayConfirm($request['payment_method'], $invoice));
 

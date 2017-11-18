@@ -152,11 +152,12 @@
                 </div>
 
                 <div class="col-sm-2">
-                    {!! Form::select('payment_method', $payment_methods, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])])) !!}
+                    @if ($payment_methods)
+                    {!! Form::select('payment_method', $payment_methods, null, array_merge(['id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])])) !!}
                     {!! Form::hidden('invoice_id', $invoice->id, []) !!}
-                    <button type="button" id="button-payment" class="btn btn-success">
-                        <i class="fa fa-credit-card"></i>&nbsp; {{ trans('invoices.add_payment') }}
-                    </button>
+                    @else
+
+                    @endif
                 </div>
                 <div class="confirm"></div>
             </div>
@@ -167,9 +168,9 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function(){
-            $(document).on('click', '#button-payment', function (e) {
+            $(document).on('change', '#payment-method', function (e) {
                 $.ajax({
-                    url: '{{ url("customers/invoices/payment") }}',
+                    url: '{{ url("customers/invoices/" . $invoice->id . "payment") }}',
                     type: 'POST',
                     dataType: 'JSON',
                     data: $('.box-footer input, .box-footer select'),
@@ -183,7 +184,7 @@
                     success: function(data) {
                         $("#payment-modal").modal('hide');
 
-                        location.reload();
+                        //location.reload();
                     },
                     error: function(data){
 

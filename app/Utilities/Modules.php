@@ -13,36 +13,54 @@ class Modules
 
     public static function getPaymentMethods()
     {
-        $payment_methods = Cache::get('payment_methods');
+
+        $payment_methods = Cache::get('payment_methods.admin');
+
+        $customer = auth()->user()->customer;
+
+        if ($customer) {
+            $payment_methods = Cache::get('payment_methods.customer');
+        }
 
         if (!empty($payment_methods)) {
             return $payment_methods;
         }
 
-        $gateways = array();
+        $gateways = [];
+        $methods = [];
 
         // Fire the event to extend the menu
         $results = event(new PaymentGatewayListing($gateways));
 
         foreach ($results as $gateways) {
             foreach ($gateways as $gateway) {
+                if ($customer && empty($gateway['customer'])) {
+                    continue;
+                }
+
                 $methods[] = $gateway;
             }
         }
 
-        $sort_order = array();
+        $sort_order = [];
 
-        foreach ($methods as $key => $value) {
-            $sort_order[$key] = $value['order'];
+        if ($methods) {
+            foreach ($methods as $key => $value) {
+                $sort_order[$key] = $value['order'];
+            }
+
+            array_multisort($sort_order, SORT_ASC, $methods);
+
+            foreach ($methods as $method) {
+                $payment_methods[$method['code']] = $method['name'];
+            }
         }
 
-        array_multisort($sort_order, SORT_ASC, $methods);
-
-        foreach ($methods as $method) {
-            $payment_methods[$method['code']] = $method['name'];
+        if ($customer) {
+            Cache::put('payment_methods.customer', $payment_methods, Date::now()->addHour(6));
+        } else {
+            Cache::put('payment_methods.admin', $payment_methods, Date::now()->addHour(6));
         }
-
-        Cache::put('payment_methods', $payment_methods, Date::now()->addHour(6));
 
         return $payment_methods;
     }

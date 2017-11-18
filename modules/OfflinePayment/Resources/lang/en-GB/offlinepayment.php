@@ -6,6 +6,7 @@ return [
     'add_new'          => 'Add New',
     'edit'             => 'Edit: :method',
     'code'             => 'Code',
+    'customer'         => 'Show to Customer',
     'order'            => 'Order',
     'payment_gateways' => 'Offline Payment Methods',
 

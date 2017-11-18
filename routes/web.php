@@ -120,9 +120,9 @@ Route::group(['middleware' => 'language'], function () {
             Route::group(['prefix' => 'customers'], function () {
                 Route::get('/', 'Customers\Dashboard@index');
 
-                Route::get('invoices/{id}/print', 'Customers\Invoices@printInvoice');
-                Route::get('invoices/{id}/pdf', 'Customers\Invoices@pdfInvoice');
-                Route::post('invoices/payment', 'Customers\Invoices@payment');
+                Route::get('invoices/{invoice}/print', 'Customers\Invoices@printInvoice');
+                Route::get('invoices/{invoice}/pdf', 'Customers\Invoices@pdfInvoice');
+                Route::post('invoices/{invoice}/payment', 'Customers\Invoices@payment');
                 Route::resource('invoices', 'Customers\Invoices');
                 Route::resource('payments', 'Customers\Payments');
                 Route::resource('transactions', 'Customers\Transactions');

@@ -20,7 +20,9 @@
 
                 {{ Form::textGroup('code', trans('offlinepayment::offlinepayment.code'), 'key', ['required' => 'required'], null, 'col-md-12') }}
 
-                {{ Form::textGroup('order', trans('offlinepayment::offlinepayment.order'), 'sort', [], 0, 'col-md-12') }}
+                {{ Form::radioGroup('customer', trans('offlinepayment::offlinepayment.customer'), '', ['required' => 'required'], 0, 'col-md-12') }}
+
+                {{ Form::textGroup('order', trans('offlinepayment::offlinepayment.order'), 'sort', [], null, 'col-md-12') }}
 
                 {{ Form::textareaGroup('description', trans('general.description')) }}
             </div>
@@ -109,6 +111,9 @@
 
 @push('scripts')
     <script type="text/javascript">
+        var text_yes = '{{ trans('general.yes') }}';
+        var text_no = '{{ trans('general.no') }}';
+
         $(document).ready(function() {
             $('.method-edit').on('click', function() {
                 var code = $(this).attr('id').replace('edit-', '');
@@ -134,6 +139,13 @@
                             $('.col-md-4.no-padding-left .box-header.with-border .box-title').html(json['data']['title']);
                             $('input[name="name"]').val(json['data']['name']);
                             $('input[name="code"]').val(json['data']['code']);
+
+                            if (json['data']['customer']) {
+                                $('#customer_1 input').trigger('click');
+                            } else {
+                                $('#customer_0 input').trigger('click');
+                            }
+
                             $('input[name="order"]').val(json['data']['order']);
                             $('input[name="description"]').val(json['data']['description']);
 

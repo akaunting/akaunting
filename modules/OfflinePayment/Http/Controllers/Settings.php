@@ -40,6 +40,7 @@ class Settings extends Controller
 
                     $offlinepayment[$key]['code'] = 'offlinepayment.' . $request['code'] . '.' . $method[2];
                     $offlinepayment[$key]['name'] = $request['name'];
+                    $offlinepayment[$key]['customer'] = $request['customer'];
                     $offlinepayment[$key]['order'] = $request['order'];
                     $offlinepayment[$key]['description'] = $request['description'];
                 }
@@ -48,6 +49,7 @@ class Settings extends Controller
             $offlinepayment[] = array(
                 'code' => 'offlinepayment.' . $request['code'] . '.' . (count($offlinepayment) + 1),
                 'name' => $request['name'],
+                'customer' => $request['customer'],
                 'order' => $request['order'],
                 'description' => $request['description']
             );
@@ -83,6 +85,8 @@ class Settings extends Controller
                 $method['code'] = $code[1];
 
                 $data = $method;
+
+                break;
             }
         }
 

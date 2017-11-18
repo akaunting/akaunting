@@ -14,8 +14,8 @@ class OfflinePaymentConfirm
      */
     public function handle(PaymentGatewayConfirm $event)
     {
-        /*if (strpos($event->gateway, 'offlinepayment') === false) {
-            return false;
+        if (strpos($event->gateway, 'offlinepayment') === false) {
+            return [];
         }
 
         return [
@@ -23,6 +23,6 @@ class OfflinePaymentConfirm
             'name' => $event->gateway,
             'redirect' => false,
             'html' => true,
-        ];*/
+        ];
     }
 }
