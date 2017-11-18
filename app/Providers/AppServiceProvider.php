@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Blade;
 use Illuminate\Support\ServiceProvider;
 use Schema;
 
@@ -17,11 +16,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // Laravel db fix
         Schema::defaultStringLength(191);
-
-        // Add setting directive
-        Blade::directive('setting', function ($expression) {
-            return "<?php echo setting($expression); ?>";
-        });
     }
 
     /**
