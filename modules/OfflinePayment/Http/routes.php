@@ -6,3 +6,8 @@ Route::group(['middleware' => ['web', 'auth', 'language', 'adminmenu', 'permissi
     Route::post('settings/get', 'Settings@get');
     Route::post('settings/delete', 'Settings@delete');
 });
+
+Route::group(['prefix' => 'customers', 'namespace' => 'Modules\OfflinePayment\Http\Controllers'], function () {
+    Route::get('invoices/{invoice}/offlinepayment', 'OfflinePayment@show');
+    Route::post('invoices/{invoice}/offlinepayment/confirm', 'OfflinePayment@confirm');
+});

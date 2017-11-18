@@ -155,7 +155,6 @@
                     @if($invoice->invoice_status_code != 'paid')
                         @if ($payment_methods)
                         {!! Form::select('payment_method', $payment_methods, null, array_merge(['id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])])) !!}
-                        {!! Form::hidden('invoice_id', $invoice->id, []) !!}
                         @else
 
                         @endif
@@ -171,9 +170,13 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(document).on('change', '#payment-method', function (e) {
+                var payment_method = $(this).val();
+
+                gateway = payment_method.split('.');
+
                 $.ajax({
-                    url: '{{ url("customers/invoices/" . $invoice->id . "/payment") }}',
-                    type: 'POST',
+                    url: '{{ url("customers/invoices/" . $invoice->id) }}/' + gateway[0],
+                    type: 'GET',
                     dataType: 'JSON',
                     data: $('.box-footer input, .box-footer select'),
                     headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },

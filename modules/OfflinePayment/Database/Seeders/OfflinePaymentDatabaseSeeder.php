@@ -29,6 +29,7 @@ class OfflinePaymentDatabaseSeeder extends Seeder
         $methods[] = array(
             'code' => 'offlinepayment.cash.1',
             'name' => 'Cash',
+            'customer' => '0',
             'order' => '1',
             'description' => null,
         );
@@ -36,6 +37,7 @@ class OfflinePaymentDatabaseSeeder extends Seeder
         $methods[] = array(
             'code' => 'offlinepayment.bank_transfer.2',
             'name' => 'Bank Transfer',
+            'customer' => '0',
             'order' => '2',
             'description' => null,
         );

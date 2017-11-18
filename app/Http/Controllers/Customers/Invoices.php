@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Customer\InvoicePayment as PaymentRequest;
-use App\Http\Requests\Customer\InvoiceConfirm as ConfirmRequest;
 use App\Models\Banking\Account;
 use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
-use App\Models\Income\InvoicePayment;
-use App\Models\Income\InvoiceHistory;
 use App\Models\Income\InvoiceStatus;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
@@ -17,9 +13,6 @@ use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
 use Auth;
-use Date;
-
-use App\Events\PaymentGatewayConfirm;
 
 use App\Utilities\Modules;
 
@@ -167,85 +160,5 @@ class Invoices extends Controller
         $file_name = 'invoice_'.time().'.pdf';
 
         return $pdf->download($file_name);
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  PaymentRequest  $request
-     *
-     * @return Response
-     */
-    public function payment(Invoice $invoice, PaymentRequest $request)
-    {
-        if (!$invoice) {
-            return response()->json([
-                'error' => trans('You can not pay this invoice. Because it is not yours')
-            ]);
-        }
-
-        // Fire the event to extend the menu
-        $responses = event(new PaymentGatewayConfirm($request['payment_method'], $invoice));
-
-        $result = [
-            'name' => null,
-            'code' => null,
-            'description' => null,
-            'redirect' => false,
-            'html' => null,
-        ];
-
-        foreach ($responses as $response) {
-            if ($response) {
-                $result =  $response;
-            }
-        }
-
-        return response()->json($result);
-    }
-
-    public function confirm(Invoice $invoice, ConfirmRequest $request)
-    {
-        $request['invoice_id'] = $invoice->id;
-        $request['account_id'] = setting('general.default_account');
-
-        if (!isset($request['amount'])) {
-            $request['amount'] = $invoice->amount;
-        }
-
-        $request['currency_code'] = $invoice->currency_code;
-        $request['currency_rate'] = $invoice->currency_rate;
-
-        $request['paid_at'] = Date::parse('now')->format('Y-m-d');
-
-        if ($request['amount'] > $invoice->amount) {
-            $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
-
-            return response()->json($message);
-        } elseif ($request['amount'] == $invoice->amount) {
-            $invoice->invoice_status_code = 'paid';
-        } else {
-            $invoice->invoice_status_code = 'partial';
-        }
-
-        $invoice->save();
-
-        InvoicePayment::create($request->input());
-
-        $request['status_code'] = $invoice->invoice_status_code;
-
-        $request['notify'] = 0;
-
-        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
-
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
-
-        $request['description'] = $desc_date . ' ' . $desc_amount;
-
-        InvoiceHistory::create($request->input());
-
-        return response()->json([
-            'success' => true,
-        ]);
     }
 }

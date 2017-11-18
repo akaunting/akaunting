@@ -28,6 +28,7 @@ class OfflineFile extends Migration
                     $offlinepayment[] = array(
                         'code' => 'offlinepayment.' . $code[1] . '.' . $code[2],
                         'name' => $offline_payment['name'],
+                        'customer' => 0,
                         'order' => $offline_payment['order'],
                         'description' => $offline_payment['description']
                     );

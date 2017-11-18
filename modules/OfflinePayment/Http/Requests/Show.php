@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Customer;
+namespace Modules\OfflinePayment\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class InvoicePayment extends Request
+class Show extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

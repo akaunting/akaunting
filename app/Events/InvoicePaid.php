@@ -2,21 +2,20 @@
 
 namespace App\Events;
 
-class PaymentGatewayConfirm
+class InvoicePaid
 {
-    public $gateway;
-
     public $invoice;
+
+    public $request;
 
     /**
      * Create a new event instance.
      *
-     * @param $gateway
      * @param $invoice
      */
-    public function __construct($gateway, $invoice)
+    public function __construct($invoice, $request)
     {
-        $this->gateway = $gateway;
         $this->invoice = $invoice;
+        $this->request = $request;
     }
 }
