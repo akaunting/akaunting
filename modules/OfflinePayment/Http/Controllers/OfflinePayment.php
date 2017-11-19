@@ -49,6 +49,6 @@ class OfflinePayment extends Controller
     {
         $result = event(new InvoicePaid($invoice, $request));
 
-        return response()->json($result);
+        return response()->json($result[0]);
     }
 }

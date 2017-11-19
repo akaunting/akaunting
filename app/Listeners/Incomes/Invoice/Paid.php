@@ -4,8 +4,16 @@ namespace App\Listeners\Incomes\Invoice;
 
 use App\Events\InvoicePaid;
 
-class Paid extends Listener
+use App\Models\Income\Invoice;
+use App\Models\Income\InvoicePayment;
+use App\Models\Income\InvoiceHistory;
+
+use App\Traits\DateTime;
+use Date;
+
+class Paid
 {
+    use DateTime;
 
     /**
      * Handle the event.
@@ -33,10 +41,10 @@ class Paid extends Listener
         if ($request['amount'] > $invoice->amount) {
             $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
 
-            return response()->json([
+            return [
                 'success' => false,
                 'error' => $message,
-            ]);
+            ];
         } elseif ($request['amount'] == $invoice->amount) {
             $invoice->invoice_status_code = 'paid';
         } else {
@@ -59,9 +67,9 @@ class Paid extends Listener
 
         InvoiceHistory::create($request->input());
 
-        return response()->json([
+        return [
             'success' => true,
             'error' => false,
-        ]);
+        ];
     }
 }

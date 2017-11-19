@@ -26,6 +26,10 @@
                 $('#button-confirm').button('reset');
             },
             success: function(data) {
+                if (data['error']) {
+                    alert(data['error']);
+                }
+
                 if (data['success']) {
                     location.reload();
                 }

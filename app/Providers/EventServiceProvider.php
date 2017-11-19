@@ -24,7 +24,7 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\Auth\Logout',
         ],
-        'App\Events\Events\InvoicePaid' => [
+        'App\Events\InvoicePaid' => [
             'App\Listeners\Incomes\Invoice\Paid',
         ],
     ];
