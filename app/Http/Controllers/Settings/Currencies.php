@@ -48,6 +48,11 @@ class Currencies extends Controller
      */
     public function store(Request $request)
     {
+        // Force the rate to be 1 for default currency
+        if ($request['default_currency']) {
+            $request['rate'] = '1';
+        }
+
         Currency::create($request->all());
 
         // Update default currency setting
@@ -109,6 +114,11 @@ class Currencies extends Controller
         }
 
         if (empty($relationships) || $request['enabled']) {
+            // Force the rate to be 1 for default currency
+            if ($request['default_currency']) {
+                $request['rate'] = '1';
+            }
+
             $currency->update($request->all());
 
             // Update default currency setting
