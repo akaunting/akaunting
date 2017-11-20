@@ -160,7 +160,7 @@ class AdminMenu
                             continue;
                         }
 
-                        $sub->url('settings/apps' . $m->getAlias(), $m->getName(), $position, $attr);
+                        $sub->url('settings/apps/' . $m->getAlias(), title_case(str_replace('_', ' ', snake_case($m->getName()))), $position, $attr);
 
                         $position++;
                     }
