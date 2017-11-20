@@ -34,6 +34,10 @@ class Modules
 
         foreach ($results as $gateways) {
             foreach ($gateways as $gateway) {
+                if (!isset($gateway['name']) || !isset($gateway['code']) || isset($gateway['order'])) {
+                    continue;
+                }
+
                 if ($customer && empty($gateway['customer'])) {
                     continue;
                 }
@@ -46,7 +50,7 @@ class Modules
 
         if ($methods) {
             foreach ($methods as $key => $value) {
-                $sort_order[$key] = $value['order'];
+                $sort_order[$key] = !empty($value['order']) ? $value['order'] : 0;
             }
 
             array_multisort($sort_order, SORT_ASC, $methods);
