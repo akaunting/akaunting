@@ -34,7 +34,7 @@ class Modules
 
         foreach ($results as $gateways) {
             foreach ($gateways as $gateway) {
-                if (!isset($gateway['name']) || !isset($gateway['code']) || isset($gateway['order'])) {
+                if (!isset($gateway['name']) || !isset($gateway['code']) || !isset($gateway['order'])) {
                     continue;
                 }
 
@@ -66,6 +66,6 @@ class Modules
             Cache::put('payment_methods.admin', $payment_methods, Date::now()->addHour(6));
         }
 
-        return $payment_methods;
+        return ($payment_methods) ? $payment_methods : [];
     }
 }
