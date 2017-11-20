@@ -142,16 +142,14 @@
             </div>
 
             <div class="box-footer row no-print">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-default">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
                     <a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
                         <i class="fa fa-file-pdf-o"></i>&nbsp; {{ trans('general.download') }}
                     </a>
-                </div>
 
-                <div class="col-md-2">
                     @if($invoice->invoice_status_code != 'paid')
                         @if ($payment_methods)
                         {!! Form::select('payment_method', $payment_methods, null, array_merge(['id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])])) !!}

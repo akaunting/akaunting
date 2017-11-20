@@ -1,0 +1,85 @@
+{
+    "name": "PaypalStandard",
+    "alias": "paypalstandard",
+    "description": "",
+    "version": "1.0.0",
+    "category": "payment-gateways",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\PaypalStandard\\Providers\\PaypalStandardServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": [],
+    "settings": [
+        {
+            "type": "textGroup",
+            "name": "name",
+            "title": "general.name",
+            "icon": "id-card-o",
+            "attributes": {
+                "required": "required"
+            }
+        },
+        {
+            "type": "textGroup",
+            "name": "email",
+            "title": "paypalstandard::paypalstandard.email",
+            "icon": "envelope-o",
+            "attributes": {
+                "required": "required"
+            }
+        },
+        {
+            "type": "selectGroup",
+            "name": "mode",
+            "title": "paypalstandard::paypalstandard.mode",
+            "icon": "plane",
+            "values": {
+                "live": "Live",
+                "sandbox": "Sandbox"
+            },
+            "selected": null,
+            "attributes": {}
+        },
+        {
+            "type": "selectGroup",
+            "name": "transaction",
+            "title": "paypalstandard::paypalstandard.transaction",
+            "icon": "exchange",
+            "values": {
+                "authorization": "Authorization",
+                "sale": "Sale"
+            },
+            "selected": null,
+            "attributes": {}
+        },
+        {
+            "type": "radioGroup",
+            "name": "customer",
+            "title": "paypalstandard::paypalstandard.customer",
+            "enable": "general.yes",
+            "disable": "general.no",
+            "attributes": {}
+        },
+        {
+            "type": "radioGroup",
+            "name": "debug",
+            "title": "paypalstandard::paypalstandard.debug",
+            "enable": "general.yes",
+            "disable": "general.no",
+            "attributes": {}
+        },
+        {
+            "type": "textGroup",
+            "name": "order",
+            "title": "paypalstandard::paypalstandard.order",
+            "icon": "sort",
+            "attributes": {}
+        }
+    ]
+}
