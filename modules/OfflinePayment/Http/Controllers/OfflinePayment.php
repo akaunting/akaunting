@@ -44,11 +44,4 @@ class OfflinePayment extends Controller
             'html' => $html,
         ]);
     }
-
-    public function confirm(Invoice $invoice, ConfirmRequest $request)
-    {
-        $result = event(new InvoicePaid($invoice, $request));
-
-        return response()->json($result[0]);
-    }
 }

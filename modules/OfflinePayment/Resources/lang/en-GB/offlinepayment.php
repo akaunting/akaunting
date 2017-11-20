@@ -10,7 +10,4 @@ return [
     'order'            => 'Order',
     'payment_gateways' => 'Offline Payment Methods',
 
-    'confirm' => 'Confirm',
-    'loading' => 'Loading',
-
 ];
