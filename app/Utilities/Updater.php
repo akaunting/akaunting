@@ -58,6 +58,9 @@ class Updater
 
         $zip->close();
 
+        // Delete zip file
+        File::delete($file);
+
         if ($alias == 'core') {
             // Move all files/folders from temp path
             if (!File::copyDirectory($temp_path, base_path())) {
