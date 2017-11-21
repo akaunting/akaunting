@@ -68,6 +68,10 @@ class Bills extends ApiController
                     $item_id = $item['item_id'];
 
                     $item_sku = $item_object->sku;
+
+                    // Increase stock (item bought)
+                    $item_object->quantity++;
+                    $item_object->save();
                 } elseif (!empty($item['sku'])) {
                     $item_sku = $item['sku'];
                 }

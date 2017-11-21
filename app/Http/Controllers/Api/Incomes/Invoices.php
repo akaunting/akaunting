@@ -13,6 +13,7 @@ use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceTotal;
 use App\Models\Item\Item;
 use App\Models\Setting\Tax;
+use App\Notifications\Item\Item as ItemNotification;
 use App\Transformers\Income\Invoice as Transformer;
 use Dingo\Api\Routing\Helpers;
 
@@ -76,6 +77,21 @@ class Invoices extends ApiController
                     $item_id = $item['item_id'];
 
                     $item_sku = $item_object->sku;
+
+                    // Decrease stock (item sold)
+                    $item_object->quantity--;
+                    $item_object->save();
+
+                    // Notify users if out of stock
+                    if ($item_object->quantity == 0) {
+                        foreach ($item_object->company->users as $user) {
+                            if (!$user->can('read-notifications')) {
+                                continue;
+                            }
+
+                            $user->notify(new ItemNotification($item_object));
+                        }
+                    }
                 } elseif (!empty($item['sku'])) {
                     $item_sku = $item['sku'];
                 }
