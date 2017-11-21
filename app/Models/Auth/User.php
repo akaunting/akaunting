@@ -84,13 +84,15 @@ class User extends Authenticatable
     {
         // Check if we should use gravatar
         if (setting('general.use_gravatar', '0') == '1') {
-            // Check for gravatar
-            $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))).'?size=90&d=404';
-
-            $client = new \GuzzleHttp\Client(['verify' => false]);
-
             try {
-                $value = $client->request('GET', $url)->getBody()->getContents();
+                // Check for gravatar
+                $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))).'?size=90&d=404';
+
+                $client = new \GuzzleHttp\Client(['verify' => false]);
+
+                $client->request('GET', $url)->getBody()->getContents();
+
+                $value = $url;
             } catch (RequestException $e) {
                 // 404 Not Found
             }
