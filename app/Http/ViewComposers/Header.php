@@ -20,6 +20,7 @@ class Header
 
         $bills = [];
         $invoices = [];
+        $items = [];
         $notifications = 0;
         $company = null;
 
@@ -47,6 +48,10 @@ class Header
                     $invoices[$data['invoice_id']] = $data['amount'];
                     $notifications++;
                     break;
+                case 'App\Notifications\Item\Item':
+                    $items[$data['item_id']] = $data['name'];
+                    $notifications++;
+                    break;
             }
         }
 
@@ -57,6 +62,7 @@ class Header
             'notifications' => $notifications,
             'bills' => $bills,
             'invoices' => $invoices,
+            'items' => $items,
             'company' => $company,
             'updates' => $updates,
         ]);

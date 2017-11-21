@@ -31,6 +31,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('logout', 'Auth\Login@destroy')->name('logout');
                 Route::get('users/{user}/read-bills', 'Auth\Users@readUpcomingBills');
                 Route::get('users/{user}/read-invoices', 'Auth\Users@readOverdueInvoices');
+                Route::get('users/{user}/read-items', 'Auth\Users@readItemsOutOfStock');
                 Route::resource('users', 'Auth\Users');
                 Route::resource('roles', 'Auth\Roles');
                 Route::resource('permissions', 'Auth\Permissions');

@@ -203,4 +203,27 @@ class Users extends Controller
         // Redirect to invoices
         return redirect('incomes/invoices');
     }
+
+    /**
+     * Mark items out of stock notifications are read and redirect to items page.
+     *
+     * @param  User  $user
+     *
+     * @return Response
+     */
+    public function readItemsOutOfStock(User $user)
+    {
+        // Mark item notifications as read
+        foreach ($user->unreadNotifications as $notification) {
+            // Not an item notification
+            if ($notification->getAttribute('type') != 'App\Notifications\Item\Item') {
+                continue;
+            }
+
+            $notification->markAsRead();
+        }
+
+        // Redirect to items
+        return redirect('items/items');
+    }
 }
