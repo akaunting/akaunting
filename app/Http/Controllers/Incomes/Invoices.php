@@ -21,6 +21,7 @@ use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Notifications\Income\Invoice as Notification;
+use App\Notifications\Item\Item as ItemNotification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
@@ -161,6 +162,21 @@ class Invoices extends Controller
                     $item_object = Item::find($item['item_id']);
 
                     $item_sku = $item_object->sku;
+
+                    // Decrease stock (item sold)
+                    $item_object->quantity--;
+                    $item_object->save();
+
+                    // Notify users if out of stock
+                    if ($item_object->quantity == 0) {
+                        foreach ($item_object->company->users as $user) {
+                            if (!$user->can('read-notifications')) {
+                                continue;
+                            }
+
+                            $user->notify(new ItemNotification($item_object));
+                        }
+                    }
                 }
 
                 $tax = $tax_id = 0;

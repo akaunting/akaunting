@@ -116,6 +116,13 @@
                                     </a>
                                 </li>
                                 @endif
+                                @if (count($items))
+                                <li>
+                                    <a href="{{ url('auth/users/' . $user->id . '/read-items') }}">
+                                        <i class="fa fa-cubes text-red"></i> {{ trans_choice('header.notifications.items_stock', count($items), ['count' => count($items)]) }}
+                                    </a>
+                                </li>
+                                @endif
                             </ul>
                         </li>
                         <li class="footer"><a href="#">{{ trans('header.notifications.view_all') }}</a></li>
