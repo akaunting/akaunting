@@ -63,6 +63,7 @@ class Database extends Controller
             'password'  => $request['password'],
             'driver'    => env('DB_CONNECTION', 'mysql'),
             'port'      => env('DB_PORT', '3306'),
+            'charset'   => env('DB_CHARSET', 'utf8mb4'),
         ]);
 
         try {
