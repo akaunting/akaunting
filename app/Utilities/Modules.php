@@ -34,7 +34,7 @@ class Modules
 
         foreach ($results as $gateways) {
             foreach ($gateways as $gateway) {
-                if (!isset($gateway['name']) || !isset($gateway['code']) || !isset($gateway['order'])) {
+                if (!isset($gateway['name']) || !isset($gateway['code'])) {
                     continue;
                 }
 
