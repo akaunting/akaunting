@@ -9,7 +9,7 @@ return [
     ],
     'error' => [
         'not_user_company'  => 'Error: You are not allowed to manage this company!',
-        'customer'          => 'Error: You can not created customer! :name use this email address.',
+        'customer'          => 'Error: You can not created user! :name use this email address.',
     ],
     'warning' => [
         'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',
