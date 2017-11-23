@@ -30,7 +30,7 @@ class Versions
         $releases = json_decode($json);
 
         foreach ($releases as $release) {
-            if ($release->tag_name <= version('short')) {
+            if (version_compare($release->tag_name, version('short'), '<=')) {
                 continue;
             }
 

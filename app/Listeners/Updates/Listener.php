@@ -22,7 +22,7 @@ class Listener
         }
 
         // Do not apply to the same or newer versions
-        if ($event->old >= static::VERSION) {
+        if (version_compare($event->old, static::VERSION, '>=')) {
             return false;
         }
 
