@@ -32,7 +32,7 @@ class Customer extends Request
             $id = null;
         }
 
-        if (!empty($this->request->get('create_user'))) {
+        if (!empty($this->request->get('create_user')) && empty($this->request->get('user_id'))) {
             $required = 'required|';
         }
 

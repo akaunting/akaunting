@@ -77,10 +77,32 @@
             });
 
             $('#create_user').on('ifClicked', function (event) {
+                $('input[name="user_id"]').remove();
+
                 if ($(this).prop('checked')) {
                     $('.col-md-6.password').addClass('hidden');
                 } else {
-                    $('.col-md-6.password').removeClass('hidden');
+                    $.ajax({
+                        url: '{{ url("auth/users/autocomplete") }}',
+                        type: 'GET',
+                        dataType: 'JSON',
+                        data: {column: 'email', value: $('input[name="email"]').val()},
+                        beforeSend: function() {
+                            $('.box-footer .btn').attr('disabled', true);
+                        },
+                        complete: function() {
+                            $('.box-footer .btn').attr('disabled', false);
+                        },
+                        success: function(json) {
+                            if (json['errors']) {
+                                $('.col-md-6.password').removeClass('hidden');
+                            }
+
+                            if (json['success']) {
+                                $('input[name="password_confirmation"]').after('<input name="user_id" type="hidden" value="' + json['data']['id'] + '" id="user-id">');
+                            }
+                        }
+                    });
                 }
             });
         });

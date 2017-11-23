@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\User as Request;
+use Illuminate\Http\Request as ARequest;
 use App\Models\Auth\User;
 use App\Models\Auth\Role;
 
@@ -225,5 +226,32 @@ class Users extends Controller
 
         // Redirect to items
         return redirect('items/items');
+    }
+
+    public function autocomplete(ARequest $request)
+    {
+        $user = false;
+
+        $column = $request['column'];
+        $value = $request['value'];
+
+        if (!empty($column) && !empty($value)) {
+            switch ($column) {
+                case 'id':
+                    $user = User::find();
+                    break;
+                case 'email':
+                    $user = User::where('email', $value)->first();
+                    break;
+                default:
+                    $user = User::where($column, $value)->first();
+            }
+        }
+
+        return response()->json([
+            'errors'  => ($user) ? false: true,
+            'success' => ($user) ? true: false,
+            'data'    => $user
+        ]);
     }
 }

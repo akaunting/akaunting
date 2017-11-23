@@ -44,10 +44,24 @@ class Customers extends Controller
      */
     public function store(Request $request)
     {
-        $customer = Customer::create($request->all());
+        if (empty($request->input('create_user'))) {
+            Customer::create($request->all());
+        } else {
+            $user = User::where('email', $request['email'])->first();
 
-        if (!empty($request->input('create_user'))) {
-            $user = User::create($request->input());
+            if (!empty($user)) {
+                $message = trans('messages.error.customer', ['name' => $user->name]);
+
+                flash($message)->error();
+
+                return redirect()->back()->withInput($request->except('create_user'))->withErrors(
+                    ['email' => trans('customer.error.email')]
+                );
+
+                //$user = User::create($request->input());
+            }
+
+            $customer = Customer::create($request->all());
 
             $request['user_id'] = $user->id;
             $request['roles'] = array('3');
@@ -93,10 +107,22 @@ class Customers extends Controller
      */
     public function update(Customer $customer, Request $request)
     {
-        $customer->update($request->all());
+        if (empty($request->input('create_user'))) {
+            $customer->update($request->all());
+        } else {
+            $user = User::where('email', $request['email'])->first();
 
-        if (!empty($request->input('create_user'))) {
-            $user = User::create($request->input());
+            if (!empty($user)) {
+                $message = trans('messages.error.customer', ['name' => $user->name]);
+
+                flash($message)->error();
+
+                return redirect()->back()->withInput($request->except('create_user'))->withErrors(
+                    ['email' => trans('customer.error.email')]
+                );
+
+                //$user = User::create($request->input());
+            }
 
             $request['user_id'] = $user->id;
             $request['roles'] = array('3');

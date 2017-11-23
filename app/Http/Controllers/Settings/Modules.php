@@ -58,5 +58,4 @@ class Modules extends Controller
 
         return redirect('settings/apps/' . $alias);
     }
-
 }
