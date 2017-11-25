@@ -43,10 +43,6 @@ class Requirements extends Controller
     {
         $requirements = array();
 
-        if (version_compare(PHP_VERSION, '5.6.4', '<')) {
-            $requirements[] = trans('install.requirements.php_version');
-        }
-
         if (ini_get('safe_mode')) {
             $requirements[] = trans('install.requirements.disabled', ['feature' => 'Safe Mode']);
         }
