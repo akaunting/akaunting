@@ -224,12 +224,14 @@ class Invoices extends Controller
         // Add invoice totals
         $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
 
-        $request['invoice_id'] = $invoice->id;
-        $request['status_code'] = 'draft';
-        $request['notify'] = 0;
-        $request['description'] = trans('messages.success.added', ['type' => $request['invoice_number']]);
-
-        InvoiceHistory::create($request->all());
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => session('company_id'),
+            'invoice_id' => $invoice->id,
+            'status_code' => 'draft',
+            'notify' => 0,
+            'description' => trans('messages.success.added', ['type' => $invoice->invoice_number]),
+        ]);
 
         // Update next invoice number
         $this->increaseNextInvoiceNumber();
@@ -254,6 +256,15 @@ class Invoices extends Controller
     public function duplicate(Invoice $invoice)
     {
         $clone = $invoice->duplicate();
+
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => session('company_id'),
+            'invoice_id' => $clone->id,
+            'status_code' => 'draft',
+            'notify' => 0,
+            'description' => trans('messages.success.added', ['type' => $clone->invoice_number]),
+        ]);
 
         // Update next invoice number
         $this->increaseNextInvoiceNumber();
@@ -669,47 +680,41 @@ class Invoices extends Controller
         $sort_order = 1;
 
         // Added invoice total sub total
-        $invoice_sub_total = [
+        InvoiceTotal::create([
             'company_id' => $request['company_id'],
             'invoice_id' => $invoice->id,
             'code' => 'sub_total',
             'name' => 'invoices.sub_total',
             'amount' => $sub_total,
             'sort_order' => $sort_order,
-        ];
-
-        InvoiceTotal::create($invoice_sub_total);
+        ]);
 
         $sort_order++;
 
         // Added invoice total taxes
         if ($taxes) {
             foreach ($taxes as $tax) {
-                $invoice_tax_total = [
+                InvoiceTotal::create([
                     'company_id' => $request['company_id'],
                     'invoice_id' => $invoice->id,
                     'code' => 'tax',
                     'name' => $tax['name'],
                     'amount' => $tax['amount'],
                     'sort_order' => $sort_order,
-                ];
-
-                InvoiceTotal::create($invoice_tax_total);
+                ]);
 
                 $sort_order++;
             }
         }
 
         // Added invoice total total
-        $invoice_total = [
+        InvoiceTotal::create([
             'company_id' => $request['company_id'],
             'invoice_id' => $invoice->id,
             'code' => 'total',
             'name' => 'invoices.total',
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
-        ];
-
-        InvoiceTotal::create($invoice_total);
+        ]);
     }
 }

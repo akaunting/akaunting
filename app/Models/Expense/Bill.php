@@ -50,7 +50,7 @@ class Bill extends Model
      *
      * @var array
      */
-    protected $cloneable_relations = ['histories', 'items', 'payments', 'totals'];
+    protected $cloneable_relations = ['items', 'totals'];
 
     public function vendor()
     {
@@ -100,6 +100,11 @@ class Bill extends Model
     public function scopeAccrued($query)
     {
         return $query->where('bill_status_code', '!=', 'new');
+    }
+
+    public function onCloning($src, $child = null)
+    {
+        $this->bill_status_code = 'draft';
     }
 
     /**

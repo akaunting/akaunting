@@ -201,55 +201,51 @@ class Bills extends Controller
         $bill->update($request->input());
 
         // Added bill total sub total
-        $bill_sub_total = [
+        BillTotal::create([
             'company_id' => $request['company_id'],
             'bill_id' => $bill->id,
             'code' => 'sub_total',
             'name' => 'bills.sub_total',
             'amount' => $sub_total,
             'sort_order' => 1,
-        ];
-
-        BillTotal::create($bill_sub_total);
+        ]);
 
         $sort_order = 2;
 
         // Added bill total taxes
         if ($taxes) {
             foreach ($taxes as $tax) {
-                $bill_tax_total = [
+                BillTotal::create([
                     'company_id' => $request['company_id'],
                     'bill_id' => $bill->id,
                     'code' => 'tax',
                     'name' => $tax['name'],
                     'amount' => $tax['amount'],
                     'sort_order' => $sort_order,
-                ];
-
-                BillTotal::create($bill_tax_total);
+                ]);
 
                 $sort_order++;
             }
         }
 
         // Added bill total total
-        $bill_total = [
+        BillTotal::create([
             'company_id' => $request['company_id'],
             'bill_id' => $bill->id,
             'code' => 'total',
             'name' => 'bills.total',
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
-        ];
+        ]);
 
-        BillTotal::create($bill_total);
-
-        $request['bill_id'] = $bill->id;
-        $request['status_code'] = 'new';
-        $request['notify'] = 0;
-        $request['description'] = trans('messages.success.added', ['type' => $request['bill_number']]);
-
-        BillHistory::create($request->input());
+        // Add bill history
+        BillHistory::create([
+            'company_id' => session('company_id'),
+            'bill_id' => $bill->id,
+            'status_code' => 'draft',
+            'notify' => 0,
+            'description' => trans('messages.success.added', ['type' => $bill->bill_number]),
+        ]);
 
         // Fire the event to make it extendible
         event(new BillCreated($bill));
@@ -271,6 +267,15 @@ class Bills extends Controller
     public function duplicate(Bill $bill)
     {
         $clone = $bill->duplicate();
+
+        // Add bill history
+        BillHistory::create([
+            'company_id' => session('company_id'),
+            'bill_id' => $clone->id,
+            'status_code' => 'draft',
+            'notify' => 0,
+            'description' => trans('messages.success.added', ['type' => $clone->bill_number]),
+        ]);
 
         $message = trans('messages.success.duplicated', ['type' => trans_choice('general.bills', 1)]);
 

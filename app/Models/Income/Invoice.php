@@ -51,7 +51,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $cloneable_relations = ['histories', 'items', 'payments', 'totals'];
+    protected $cloneable_relations = ['items', 'totals'];
 
     public function user()
     {
@@ -110,6 +110,7 @@ class Invoice extends Model
 
     public function onCloning($src, $child = null)
     {
+        $this->invoice_status_code = 'draft';
         $this->invoice_number = $this->getNextInvoiceNumber();
     }
 
