@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Settings;
 
+use Akaunting\Money\Currency as MoneyCurrency;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\Currency as Request;
 use App\Models\Banking\Account;
 use App\Models\Setting\Currency;
-use ClickNow\Money\Currency as MoneyCurrency;
 
 class Currencies extends Controller
 {

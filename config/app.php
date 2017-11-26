@@ -184,11 +184,11 @@ return [
          * Vendor Service Providers...
          */
         Akaunting\Language\Provider::class,
+        Akaunting\Money\Provider::class,
         Akaunting\Setting\Provider::class,
         Akaunting\Version\Provider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Bkwld\Cloner\ServiceProvider::class,
-        ClickNow\Money\MoneyServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         EloquentFilter\ServiceProvider::class,

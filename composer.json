@@ -8,6 +8,7 @@
     "require": {
         "php": ">=5.6.4",
         "akaunting/language": "1.0.*",
+        "akaunting/money": "1.0.*",
         "akaunting/setting": "1.0.*",
         "akaunting/version": "1.0.*",
         "almasaeed2010/adminlte": "2.3.*",
@@ -15,7 +16,6 @@
         "barryvdh/laravel-dompdf": "0.*",
         "barryvdh/laravel-ide-helper": "2.3.*",
         "bkwld/cloner": "3.2.*",
-        "cknow/laravel-money": "1.0.*",
         "dingo/api": "1.0.0-beta8",
         "fzaninotto/faker": "1.6.*",
         "guzzlehttp/guzzle": "6.3.*",

@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use ClickNow\Money\Money;
-use ClickNow\Money\Currency;
+use Akaunting\Money\Money;
+use Akaunting\Money\Currency;
 
 trait Currencies
 {
