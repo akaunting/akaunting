@@ -53,6 +53,24 @@ class Vendors extends Controller
     }
 
     /**
+     * Duplicate the specified resource.
+     *
+     * @param  Vendor  $vendor
+     *
+     * @return Response
+     */
+    public function duplicate(Vendor $vendor)
+    {
+        $clone = $vendor->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.vendors', 1)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/vendors/' . $clone->id . '/edit');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Vendor  $vendor

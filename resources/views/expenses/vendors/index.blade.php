@@ -58,6 +58,11 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('expenses/vendors/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    <li class="divider"></li>
+                                    @permission('create-expenses-vendors')
+                                    <li><a href="{{ url('expenses/vendors/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
+                                    <li class="divider"></li>
+                                    @endpermission
                                     @permission('delete-expenses-vendors')
                                     <li>{!! Form::deleteLink($item, 'expenses/vendors') !!}</li>
                                     @endpermission

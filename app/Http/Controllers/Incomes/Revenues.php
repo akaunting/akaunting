@@ -92,6 +92,24 @@ class Revenues extends Controller
     }
 
     /**
+     * Duplicate the specified resource.
+     *
+     * @param  Revenue  $revenue
+     *
+     * @return Response
+     */
+    public function duplicate(Revenue $revenue)
+    {
+        $clone = $revenue->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.revenues', 1)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/revenues/' . $clone->id . '/edit');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Revenue  $revenue

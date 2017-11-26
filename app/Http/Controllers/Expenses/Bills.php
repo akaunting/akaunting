@@ -262,6 +262,24 @@ class Bills extends Controller
     }
 
     /**
+     * Duplicate the specified resource.
+     *
+     * @param  Bill  $bill
+     *
+     * @return Response
+     */
+    public function duplicate(Bill $bill)
+    {
+        $clone = $bill->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.bills', 1)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/bills/' . $clone->id . '/edit');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Bill  $bill

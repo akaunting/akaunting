@@ -24,6 +24,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::group(['prefix' => 'items'], function () {
                 Route::get('items/autocomplete', 'Items\Items@autocomplete');
                 Route::post('items/totalItem', 'Items\Items@totalItem');
+                Route::get('items/{item}/duplicate', 'Items\Items@duplicate');
                 Route::resource('items', 'Items\Items');
             });
 
@@ -44,28 +45,34 @@ Route::group(['middleware' => 'language'], function () {
             });
 
             Route::group(['prefix' => 'incomes'], function () {
-                Route::get('customers/currency', 'Incomes\Customers@currency');
-                Route::resource('customers', 'Incomes\Customers');
                 Route::get('invoices/{invoice}/sent', 'Incomes\Invoices@markSent');
                 Route::get('invoices/{invoice}/email', 'Incomes\Invoices@emailInvoice');
                 Route::get('invoices/{invoice}/pay', 'Incomes\Invoices@markPaid');
                 Route::get('invoices/{invoice}/print', 'Incomes\Invoices@printInvoice');
                 Route::get('invoices/{invoice}/pdf', 'Incomes\Invoices@pdfInvoice');
+                Route::get('invoices/{invoice}/duplicate', 'Incomes\Invoices@duplicate');
                 Route::post('invoices/payment', 'Incomes\Invoices@payment');
                 Route::delete('invoices/payment/{payment}', 'Incomes\Invoices@paymentDestroy');
                 Route::resource('invoices', 'Incomes\Invoices');
+                Route::get('revenues/{revenue}/duplicate', 'Incomes\Revenues@duplicate');
                 Route::resource('revenues', 'Incomes\Revenues');
+                Route::get('customers/currency', 'Incomes\Customers@currency');
+                Route::get('customers/{customer}/duplicate', 'Incomes\Customers@duplicate');
+                Route::resource('customers', 'Incomes\Customers');
             });
 
             Route::group(['prefix' => 'expenses'], function () {
-                Route::resource('payments', 'Expenses\Payments');
                 Route::get('bills/{bill}/received', 'Expenses\Bills@markReceived');
                 Route::get('bills/{bill}/print', 'Expenses\Bills@printBill');
                 Route::get('bills/{bill}/pdf', 'Expenses\Bills@pdfBill');
+                Route::get('bills/{bill}/duplicate', 'Expenses\Bills@duplicate');
                 Route::post('bills/payment', 'Expenses\Bills@payment');
                 Route::delete('bills/payment/{payment}', 'Expenses\Bills@paymentDestroy');
                 Route::resource('bills', 'Expenses\Bills');
+                Route::get('payments/{payment}/duplicate', 'Expenses\Payments@duplicate');
+                Route::resource('payments', 'Expenses\Payments');
                 Route::get('vendors/currency', 'Expenses\Vendors@currency');
+                Route::get('vendors/{vendor}/duplicate', 'Expenses\Vendors@duplicate');
                 Route::resource('vendors', 'Expenses\Vendors');
             });
 

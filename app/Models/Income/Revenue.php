@@ -5,11 +5,12 @@ namespace App\Models\Income;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
 
 class Revenue extends Model
 {
-    use Currencies, DateTime, Eloquence;
+    use Cloneable, Currencies, DateTime, Eloquence;
 
     protected $table = 'revenues';
 

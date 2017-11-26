@@ -65,6 +65,11 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('items/items/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    <li class="divider"></li>
+                                    @permission('create-items-items')
+                                    <li><a href="{{ url('items/items/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
+                                    <li class="divider"></li>
+                                    @endpermission
                                     @permission('delete-items-items')
                                     <li>{!! Form::deleteLink($item, 'items/items') !!}</li>
                                     @endpermission

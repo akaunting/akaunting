@@ -56,6 +56,11 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('incomes/revenues/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    <li class="divider"></li>
+                                    @permission('create-incomes-revenues')
+                                    <li><a href="{{ url('incomes/revenues/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
+                                    <li class="divider"></li>
+                                    @endpermission
                                     @permission('delete-incomes-revenues')
                                     <li>{!! Form::deleteLink($item, 'incomes/revenues') !!}</li>
                                     @endpermission
