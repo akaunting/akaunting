@@ -68,6 +68,24 @@ class Items extends Controller
     }
 
     /**
+     * Duplicate the specified resource.
+     *
+     * @param  Item  $item
+     *
+     * @return Response
+     */
+    public function duplicate(Item $item)
+    {
+        $clone = $item->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.items', 1)]);
+
+        flash($message)->success();
+
+        return redirect('items/items/' . $clone->id . '/edit');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Item  $item

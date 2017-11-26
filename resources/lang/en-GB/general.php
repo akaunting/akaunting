@@ -92,6 +92,7 @@ return [
     'created'               => 'Created',
     'id'                    => 'ID',
     'more_actions'          => 'More Actions',
+    'duplicate'             => 'Duplicate',
 
     'title' => [
         'new'               => 'New :type',

@@ -5,11 +5,13 @@ namespace App\Models\Income;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Incomes;
+use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
 
 class Invoice extends Model
 {
-    use Currencies, DateTime, Eloquence;
+    use Cloneable, Currencies, DateTime, Eloquence, Incomes;
 
     protected $table = 'invoices';
 
@@ -43,6 +45,13 @@ class Invoice extends Model
         'customer_address' => 1,
         'notes'            => 2,
     ];
+
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    protected $cloneable_relations = ['histories', 'items', 'payments', 'totals'];
 
     public function user()
     {
@@ -97,6 +106,11 @@ class Invoice extends Model
     public function scopeAccrued($query)
     {
         return $query->where('invoice_status_code', '!=', 'draft');
+    }
+
+    public function onCloning($src, $child = null)
+    {
+        $this->invoice_number = $this->getNextInvoiceNumber();
     }
 
     /**

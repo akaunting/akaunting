@@ -84,6 +84,24 @@ class Customers extends Controller
     }
 
     /**
+     * Duplicate the specified resource.
+     *
+     * @param  Customer  $customer
+     *
+     * @return Response
+     */
+    public function duplicate(Customer $customer)
+    {
+        $clone = $customer->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.customers', 1)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/customers/' . $clone->id . '/edit');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Customer  $customer

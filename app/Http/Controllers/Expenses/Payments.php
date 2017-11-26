@@ -91,6 +91,24 @@ class Payments extends Controller
     }
 
     /**
+     * Duplicate the specified resource.
+     *
+     * @param  Payment  $payment
+     *
+     * @return Response
+     */
+    public function duplicate(Payment $payment)
+    {
+        $clone = $payment->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.payments', 1)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/payments/' . $clone->id . '/edit');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Payment  $payment

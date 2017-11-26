@@ -24,6 +24,7 @@ use App\Notifications\Income\Invoice as Notification;
 use App\Notifications\Item\Item as ItemNotification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Incomes;
 use App\Traits\Uploads;
 use App\Utilities\Modules;
 use Date;
@@ -31,7 +32,7 @@ use File;
 
 class Invoices extends Controller
 {
-    use DateTime, Currencies, Uploads;
+    use DateTime, Currencies, Incomes, Uploads;
 
     /**
      * Display a listing of the resource.
@@ -100,11 +101,7 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->pluck('name', 'id');
 
-        // Generate next invoice number
-        $prefix = setting('general.invoice_number_prefix', 'INV-');
-        $next = setting('general.invoice_number_next', '1');
-        $digit = setting('general.invoice_number_digit', '5');
-        $number = $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
+        $number = $this->getNextInvoiceNumber();
 
         return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'number'));
     }
@@ -235,9 +232,7 @@ class Invoices extends Controller
         InvoiceHistory::create($request->all());
 
         // Update next invoice number
-        $next = setting('general.invoice_number_next', 1) + 1;
-        setting(['general.invoice_number_next' => $next]);
-        setting()->save();
+        $this->increaseNextInvoiceNumber();
 
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));
@@ -247,6 +242,27 @@ class Invoices extends Controller
         flash($message)->success();
 
         return redirect('incomes/invoices/' . $invoice->id);
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Invoice  $invoice
+     *
+     * @return Response
+     */
+    public function duplicate(Invoice $invoice)
+    {
+        $clone = $invoice->duplicate();
+
+        // Update next invoice number
+        $this->increaseNextInvoiceNumber();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.invoices', 1)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/invoices/' . $clone->id . '/edit');
     }
 
     /**

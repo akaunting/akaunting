@@ -6,6 +6,7 @@ return [
         'added'             => ':type added!',
         'updated'           => ':type updated!',
         'deleted'           => ':type deleted!',
+        'duplicated'        => ':type duplicated!',
     ],
     'error' => [
         'not_user_company'  => 'Error: You are not allowed to manage this company!',
