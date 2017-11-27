@@ -47,8 +47,8 @@ class Customers extends Controller
         if (empty($request->input('create_user'))) {
             Customer::create($request->all());
         } else {
+            // Check if user exist
             $user = User::where('email', $request['email'])->first();
-
             if (!empty($user)) {
                 $message = trans('messages.error.customer', ['name' => $user->name]);
 
@@ -57,23 +57,16 @@ class Customers extends Controller
                 return redirect()->back()->withInput($request->except('create_user'))->withErrors(
                     ['email' => trans('customer.error.email')]
                 );
-
-                //$user = User::create($request->input());
             }
 
-            $customer = Customer::create($request->all());
+            // Create user first
+            $user = User::create($request->all());
+            $user->roles()->attach(['3']);
+            $user->companies()->attach([session('company_id')]);
 
             $request['user_id'] = $user->id;
-            $request['roles'] = array('3');
-            $request['companies'] = array(session('company_id'));
 
-            // Attach roles
-            $user->roles()->attach($request['roles']);
-
-            // Attach companies
-            $user->companies()->attach($request['companies']);
-
-            $customer->update($request->all());
+            Customer::create($request->all());
         }
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
@@ -128,8 +121,8 @@ class Customers extends Controller
         if (empty($request->input('create_user'))) {
             $customer->update($request->all());
         } else {
+            // Check if user exist
             $user = User::where('email', $request['email'])->first();
-
             if (!empty($user)) {
                 $message = trans('messages.error.customer', ['name' => $user->name]);
 
@@ -138,19 +131,14 @@ class Customers extends Controller
                 return redirect()->back()->withInput($request->except('create_user'))->withErrors(
                     ['email' => trans('customer.error.email')]
                 );
-
-                //$user = User::create($request->input());
             }
 
+            // Create user first
+            $user = User::create($request->all());
+            $user->roles()->attach(['3']);
+            $user->companies()->attach([session('company_id')]);
+
             $request['user_id'] = $user->id;
-            $request['roles'] = array('3');
-            $request['companies'] = array(session('company_id'));
-
-            // Attach roles
-            $user->roles()->attach($request['roles']);
-
-            // Attach companies
-            $user->companies()->attach($request['companies']);
 
             $customer->update($request->all());
         }
