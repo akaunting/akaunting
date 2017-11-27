@@ -28,16 +28,12 @@
 
         {{ Form::radioGroup('enabled', trans('general.enabled')) }}
 
-        <div class="form-group col-md-12">
-            {!! Form::label('create_user', trans('general.create_user'), ['class' => 'control-label']) !!}
-            <br/>
-            <div class="col-md-12">
-                @if ($customer->user_id)
-                    {{ Form::checkbox('create_user', '1', 1, array('disabled')) }} &nbsp; {{ trans('general.created_user') }}
-                @else
-                    {{ Form::checkbox('create_user', '1') }} &nbsp; {{ trans('general.create_user') }}
-                @endif
-            </div>
+        <div class="form-group col-md-12 margin-top">
+            @if ($customer->user_id)
+                <strong>{{ trans('customers.user_created') }}</strong> &nbsp; {{ Form::checkbox('create_user', '1', 1, ['id' => 'create_user', 'disabled' => 'disabled']) }}
+            @else
+                <strong>{{ trans('customers.allow_login') }}</strong> &nbsp; {{ Form::checkbox('create_user', '1', null, ['id' => 'create_user']) }}
+            @endif
         </div>
 
         {{ Form::passwordGroup('password', trans('auth.password.current'), 'key', [], null, 'col-md-6 password hidden') }}

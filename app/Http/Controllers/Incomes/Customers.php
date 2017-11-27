@@ -55,7 +55,7 @@ class Customers extends Controller
                 flash($message)->error();
 
                 return redirect()->back()->withInput($request->except('create_user'))->withErrors(
-                    ['email' => trans('customer.error.email')]
+                    ['email' => trans('customers.error.email')]
                 );
             }
 
@@ -129,7 +129,7 @@ class Customers extends Controller
                 flash($message)->error();
 
                 return redirect()->back()->withInput($request->except('create_user'))->withErrors(
-                    ['email' => trans('customer.error.email')]
+                    ['email' => trans('customers.error.email')]
                 );
             }
 

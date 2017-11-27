@@ -83,8 +83,6 @@ return [
     'search'                => 'Search',
     'search_placeholder'    => 'Type to search..',
     'filter'                => 'Filter',
-    'create_user'           => 'Create User',
-    'created_user'          => 'Created User',
     'help'                  => 'Help',
     'all'                   => 'All',
     'all_type'              => 'All :type',
