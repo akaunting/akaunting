@@ -27,7 +27,7 @@
                         @endif
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">{{ trans_choice('header.notifications.counter', count($notifications), ['count' => count($notifications)]) }}</li>
+                        <li class="header">{{ trans_choice('header.notifications.counter', $notifications, ['count' => $notifications]) }}</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
