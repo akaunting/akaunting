@@ -8,7 +8,17 @@
     {!! Form::open(['url' => 'incomes/invoices', 'files' => true, 'role' => 'form']) !!}
 
     <div class="box-body">
-        {{ Form::selectGroup('customer_id', trans_choice('general.customers', 1), 'user', $customers) }}
+        <div class="form-group col-md-6 required {{ $errors->has('customer_id') ? 'has-error' : ''}}">
+            {!! Form::label('customer_id', trans_choice('general.customers', 1), ['class' => 'control-label']) !!}
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                {!! Form::select('customer_id', $customers, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)])])) !!}
+                <span class="input-group-btn">
+                    <button type="button" onclick="createCustomer();" class="btn btn-success">{{ trans('invoices.create_customer') }}</button>
+                </span>
+            </div>
+            {!! $errors->first('customer_id', '<p class="help-block">:message</p>') !!}
+        </div>
 
         {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, setting('general.default_currency')) }}
 
@@ -261,5 +271,112 @@
                 }
             });
         }
+
+        function createCustomer() {
+            $('#modal-create-customer').remove();
+
+            modal  = '<div class="modal fade" id="modal-create-customer" style="display: none;">';
+            modal += '  <div class="modal-dialog  modal-lg">';
+            modal += '      <div class="modal-content">';
+            modal += '          <div class="modal-header">';
+            modal += '              <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.customers', 1)]) }}</h4>';
+            modal += '          </div>';
+            modal += '          <div class="modal-body">';
+            modal += '              {!! Form::open(['id' => 'form-create-customer', 'role' => 'form']) !!}';
+            modal += '              <div class="row">';
+            modal += '                  <div class="form-group col-md-6 required">';
+            modal += '                      <label for="name" class="control-label">{{ trans('general.name') }}</label>';
+            modal += '                      <div class="input-group">';
+            modal += '                          <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>';
+            modal += '                          <input class="form-control" placeholder="{{ trans('general.name') }}" required="required" name="name" type="text" id="name">';
+            modal += '                      </div>';
+            modal += '                  </div>';
+            modal += '                  <div class="form-group col-md-6 required">';
+            modal += '                      <label for="email" class="control-label">{{ trans('general.email') }}</label>';
+            modal += '                      <div class="input-group">';
+            modal += '                          <div class="input-group-addon"><i class="fa fa-envelope"></i></div>';
+            modal += '                          <input class="form-control" placeholder="{{ trans('general.email') }}" required="required" name="email" type="text" id="email">';
+            modal += '                      </div>';
+            modal += '                  </div>';
+            modal += '                  <div class="form-group col-md-6">';
+            modal += '                      <label for="tax_number" class="control-label">{{ trans('general.tax_number') }}</label>';
+            modal += '                      <div class="input-group">';
+            modal += '                          <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+            modal += '                          <input class="form-control" placeholder="{{ trans('general.tax_number') }}" name="tax_number" type="text" id="tax_number">';
+            modal += '                      </div>';
+            modal += '                  </div>';
+            modal += '                  <div class="form-group col-md-6 required">';
+            modal += '                      <label for="email" class="control-label">{{ trans_choice('general.currencies', 1) }}</label>';
+            modal += '                      <div class="input-group">';
+            modal += '                          <div class="input-group-addon"><i class="fa fa-exchange"></i></div>';
+            modal += '                          <select class="form-control" required="required" id="currency_code" name="currency_code">';
+            modal += '                              <option value="">{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}</option>';
+            @foreach($currencies as $currency_code => $currency_name)
+            modal += '                              <option value="{{ $currency_code }}" {{ (setting('general.default_currency') == $currency_code) ? 'selected' : '' }}>{{ $currency_name }}</option>';
+            @endforeach
+            modal += '                          </select>';
+            modal += '                      </div>';
+            modal += '                  </div>';
+            modal += '                  <div class="form-group col-md-12">';
+            modal += '                      <label for="address" class="control-label">{{ trans('general.address') }}</label>';
+            modal += '                      <textarea class="form-control" placeholder="{{ trans('general.address') }}" rows="3" name="address" cols="50" id="address"></textarea>';
+            modal += '                  </div>';
+            modal += '                  {!! Form::hidden('enabled', '1', []) !!}';
+            modal += '              </div>';
+            modal += '              {!! Form::close() !!}';
+            modal += '          </div>';
+            modal += '          <div class="modal-footer">';
+            modal += '              <div class="pull-left">';
+            modal += '              {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-create-customer', 'class' => 'btn btn-success']) !!}';
+            modal += '              <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</button>';
+            modal += '              </div>';
+            modal += '          </div>';
+            modal += '      </div>';
+            modal += '  </div>';
+            modal += '</div>';
+
+            $('body').append(modal);
+
+            $("#modal-create-customer #currency_code").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
+            });
+
+            $('#modal-create-customer').modal('show');
+        }
+
+        $(document).on('click', '#button-create-customer', function (e) {
+            $.ajax({
+                url: '{{ url("incomes/customers/customer") }}',
+                type: 'POST',
+                dataType: 'JSON',
+                data: $("#form-create-customer").serialize(),
+                beforeSend: function () {
+                    $(".form-group").removeClass("has-error");
+                    $(".help-block").remove();
+                },
+                success: function(data) {
+                    $('#modal-create-customer').modal('hide');
+
+                    $("#customer_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                    $("#customer_id").select2('refresh');
+                },
+                error: function(error, textStatus, errorThrown) {
+                    if (error.responseJSON.name) {
+                        $("input[name='name']").parent().parent().addClass('has-error');
+                        $("input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');
+                    }
+
+                    if (error.responseJSON.email) {
+                        $("input[name='email']").parent().parent().addClass('has-error');
+                        $("input[name='email']").parent().after('<p class="help-block">' + error.responseJSON.email + '</p>');
+                    }
+
+                    if (error.responseJSON.currency_code) {
+                        $("select[name='currency_code']").parent().parent().addClass('has-error');
+                        $("select[name='currency_code']").parent().after('<p class="help-block">' + error.responseJSON.currency_code + '</p>');
+                    }
+                }
+            });
+        });
     </script>
 @endpush
