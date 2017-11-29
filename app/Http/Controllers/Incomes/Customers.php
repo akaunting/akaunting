@@ -187,4 +187,11 @@ class Customers extends Controller
 
         return response()->json($customer);
     }
+
+    public function customer(Request $request)
+    {
+        $customer = Customer::create($request->all());
+
+        return response()->json($customer);
+    }
 }

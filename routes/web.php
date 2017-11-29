@@ -58,6 +58,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('revenues', 'Incomes\Revenues');
                 Route::get('customers/currency', 'Incomes\Customers@currency');
                 Route::get('customers/{customer}/duplicate', 'Incomes\Customers@duplicate');
+                Route::post('customers/customer', 'Incomes\Customers@customer');
                 Route::resource('customers', 'Incomes\Customers');
             });
 
@@ -73,6 +74,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('payments', 'Expenses\Payments');
                 Route::get('vendors/currency', 'Expenses\Vendors@currency');
                 Route::get('vendors/{vendor}/duplicate', 'Expenses\Vendors@duplicate');
+                Route::post('vendors/vendor', 'Expenses\Vendors@vendor');
                 Route::resource('vendors', 'Expenses\Vendors');
             });
 
