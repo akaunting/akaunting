@@ -3,82 +3,84 @@
 @section('title', trans('offlinepayment::offlinepayment.offlinepayment'))
 
 @section('content')
-    <div class="col-md-4 no-padding-left">
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('offlinepayment::offlinepayment.add_new') }}</h3>
-                <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-
-            {!! Form::open(['url' => 'apps/offlinepayment/settings', 'files' => true, 'role' => 'form']) !!}
-
-            <div class="box-body">
-                <div id="install-loading"></div>
-
-                {{ Form::textGroup('name', trans('general.name'), 'id-card-o', ['required' => 'required'], null, 'col-md-12') }}
-
-                {{ Form::textGroup('code', trans('offlinepayment::offlinepayment.code'), 'key', ['required' => 'required'], null, 'col-md-12') }}
-
-                {{ Form::radioGroup('customer', trans('offlinepayment::offlinepayment.customer'), '', ['required' => 'required'], 0, 'col-md-12') }}
-
-                {{ Form::textGroup('order', trans('offlinepayment::offlinepayment.order'), 'sort', [], null, 'col-md-12') }}
-
-                {{ Form::textareaGroup('description', trans('general.description')) }}
-            </div>
-            <!-- /.box-body -->
-
-            <div class="box-footer">
-                {{ Form::saveButtons('apps/offlinepayment/settings') }}
-            </div>
-            <!-- /.box-footer -->
-
-            {!! Form::close() !!}
-        </div>
-        <!-- /.box -->
-    </div>
-    <div class="col-md-8 no-padding-left">
-        <!-- Default box -->
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('offlinepayment::offlinepayment.payment_gateways') }}</h3>
-                <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="table table-responsive">
-                    <table class="table table-striped table-hover" id="tbl-items">
-                        <thead>
-                        <tr>
-                            <th class="col-md-3">{{ trans('general.name') }}</th>
-                            <th class="col-md-4">{{ trans('offlinepayment::offlinepayment.code') }}</th>
-                            <th class="col-md-2 text-center">{{ trans('offlinepayment::offlinepayment.order') }}</th>
-                            <th class="col-md-3">{{ trans('general.actions') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if($items)
-                        @foreach($items as $item)
-                            <tr id="method-{{ $item->code }}">
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->code }}</td>
-                                <td class="text-center">{{ $item->order }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-xs method-edit" id="edit-{{ $item->code }}" title="{{ trans('general.edit') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</button>
-                                    <button type="button" class="btn btn-danger btn-xs method-delete" id="delete-{{ $item->code }}" title="{{ trans('general.delete') }}"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ trans('general.delete') }}</button>
-                                </td>
-                            </tr>
-                        @endforeach
-                        @else
-
-                        @endif
-                        </tbody>
-                    </table>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ trans('offlinepayment::offlinepayment.add_new') }}</h3>
+                    <!-- /.box-tools -->
                 </div>
+                <!-- /.box-header -->
+
+                {!! Form::open(['url' => 'apps/offlinepayment/settings', 'files' => true, 'role' => 'form']) !!}
+
+                <div class="box-body">
+                    <div id="install-loading"></div>
+
+                    {{ Form::textGroup('name', trans('general.name'), 'id-card-o', ['required' => 'required'], null, 'col-md-12') }}
+
+                    {{ Form::textGroup('code', trans('offlinepayment::offlinepayment.code'), 'key', ['required' => 'required'], null, 'col-md-12') }}
+
+                    {{ Form::radioGroup('customer', trans('offlinepayment::offlinepayment.customer'), '', ['required' => 'required'], 0, 'col-md-12') }}
+
+                    {{ Form::textGroup('order', trans('offlinepayment::offlinepayment.order'), 'sort', [], null, 'col-md-12') }}
+
+                    {{ Form::textareaGroup('description', trans('general.description')) }}
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    {{ Form::saveButtons('apps/offlinepayment/settings') }}
+                </div>
+                <!-- /.box-footer -->
+
+                {!! Form::close() !!}
             </div>
-            <!-- /.box-body -->
+            <!-- /.box -->
         </div>
-        <!-- /.box -->
+        <div class="col-md-8">
+            <!-- Default box -->
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ trans('offlinepayment::offlinepayment.payment_gateways') }}</h3>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table table-responsive">
+                        <table class="table table-striped table-hover" id="tbl-items">
+                            <thead>
+                            <tr>
+                                <th class="col-md-3">{{ trans('general.name') }}</th>
+                                <th class="col-md-4">{{ trans('offlinepayment::offlinepayment.code') }}</th>
+                                <th class="col-md-2 text-center">{{ trans('offlinepayment::offlinepayment.order') }}</th>
+                                <th class="col-md-3">{{ trans('general.actions') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if($items)
+                            @foreach($items as $item)
+                                <tr id="method-{{ $item->code }}">
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->code }}</td>
+                                    <td class="text-center">{{ $item->order }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-xs method-edit" id="edit-{{ $item->code }}" title="{{ trans('general.edit') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</button>
+                                        <button type="button" class="btn btn-danger btn-xs method-delete" id="delete-{{ $item->code }}" title="{{ trans('general.delete') }}"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ trans('general.delete') }}</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            @else
+
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
     </div>
 @endsection
 
