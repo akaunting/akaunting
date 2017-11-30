@@ -22,6 +22,7 @@ use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
+use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 
@@ -282,6 +283,31 @@ class Bills extends Controller
         flash($message)->success();
 
         return redirect('expenses/bills/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Bill::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.bills', 2)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/bills');
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Uploads;
+use App\Utilities\ImportFile;
 
 class Items extends Controller
 {
@@ -83,6 +84,31 @@ class Items extends Controller
         flash($message)->success();
 
         return redirect('items/items/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Item::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 2)]);
+
+        flash($message)->success();
+
+        return redirect('items/items');
     }
 
     /**
