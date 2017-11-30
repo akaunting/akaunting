@@ -6,9 +6,13 @@ return [
         'added'             => ':type eklendi!',
         'updated'           => ':type güncellendi!',
         'deleted'           => ':type silindi!',
+        'duplicated'        => ':type çoğaltıldı!',
+        'imported'          => ':type içe aktarıldı!',
     ],
     'error' => [
         'not_user_company'  => 'Hata: Bu şirketi yönetme yetkiniz yok!',
+        'customer'          => 'Hata: :name bu email adresini kullanmaktadır.',
+        'no_file'           => 'Hata: Dosya seçilmedi!',
     ],
     'warning' => [
         'deleted'           => 'Uyarı: <b>:name</b> silinemez çünkü :text ile ilişkilidir.',
