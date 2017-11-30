@@ -5,6 +5,7 @@
 @permission('create-expenses-bills')
 @section('new_button')
 <span class="new-button"><a href="{{ url('expenses/bills/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+<span><a href="{{ url('common/import/expenses/bills') }}" class="btn btn-success btn-sm"><span class="fa fa-download"></span> &nbsp;{{ trans('import.import') }}</a></span>
 @endsection
 @endpermission
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Vendor as Request;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Currency;
+use App\Utilities\ImportFile;
 
 class Vendors extends Controller
 {
@@ -68,6 +69,31 @@ class Vendors extends Controller
         flash($message)->success();
 
         return redirect('expenses/vendors/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Vendor::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/vendors');
     }
 
     /**

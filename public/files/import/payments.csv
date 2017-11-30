@@ -1,0 +1,2 @@
+"account_id","paid_at","amount","currency_code","currency_rate","vendor_id","description","category_id","payment_method","reference","attachment","created_at","updated_at","deleted_at"
+"1","2017-11-30","10.0000","USD","1.00000000","1","","4","offlinepayment.cash.1","","","2017-11-30 00:00:00","2017-11-30 00:00:00",NULL

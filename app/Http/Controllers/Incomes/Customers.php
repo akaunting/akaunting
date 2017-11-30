@@ -7,6 +7,7 @@ use App\Http\Requests\Income\Customer as Request;
 use App\Models\Auth\User;
 use App\Models\Income\Customer;
 use App\Models\Setting\Currency;
+use App\Utilities\ImportFile;
 
 class Customers extends Controller
 {
@@ -92,6 +93,31 @@ class Customers extends Controller
         flash($message)->success();
 
         return redirect('incomes/customers/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Customer::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 2)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/customers');
     }
 
     /**

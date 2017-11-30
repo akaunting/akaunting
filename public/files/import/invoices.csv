@@ -1,0 +1,2 @@
+"invoice_number","order_number","invoice_status_code","invoiced_at","due_at","amount","currency_code","currency_rate","customer_id","customer_name","customer_email","customer_tax_number","customer_phone","customer_address","notes","attachment","created_at","updated_at","deleted_at"
+"INV-00001","","sent","2017-11-30","2017-12-07","10.0000","USD","1.00000000","1","Test Customer","test@customer.com","","","","","","2017-11-30 00:00:00","2017-11-30 00:00:00",NULL

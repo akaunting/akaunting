@@ -26,6 +26,7 @@ use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
 use App\Traits\Uploads;
+use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
@@ -274,6 +275,31 @@ class Invoices extends Controller
         flash($message)->success();
 
         return redirect('incomes/invoices/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Invoice::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 2)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/invoices');
     }
 
     /**
