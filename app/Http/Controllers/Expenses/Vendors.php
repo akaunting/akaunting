@@ -166,4 +166,11 @@ class Vendors extends Controller
 
         return response()->json($vendor);
     }
+
+    public function vendor(Request $request)
+    {
+        $vendor = Vendor::create($request->all());
+
+        return response()->json($vendor);
+    }
 }

@@ -27,6 +27,8 @@ return [
     'download_pdf'      => 'Download PDF',
     'send_mail'         => 'Send Email',
 
+    'create_customer'   => 'Customer Create',
+
     'status' => [
         'draft'         => 'Draft',
         'sent'          => 'Sent',

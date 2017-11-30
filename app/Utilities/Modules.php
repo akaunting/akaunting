@@ -11,14 +11,14 @@ use App\Events\PaymentGatewayListing;
 class Modules
 {
 
-    public static function getPaymentMethods()
+    public static function getPaymentMethods($type = null)
     {
 
         $payment_methods = Cache::get('payment_methods.admin');
 
         $customer = auth()->user()->customer;
 
-        if ($customer) {
+        if ($customer && $type != 'all') {
             $payment_methods = Cache::get('payment_methods.customer');
         }
 
@@ -38,7 +38,7 @@ class Modules
                     continue;
                 }
 
-                if ($customer && empty($gateway['customer'])) {
+                if (($customer && empty($gateway['customer'])) && $type != 'all') {
                     continue;
                 }
 

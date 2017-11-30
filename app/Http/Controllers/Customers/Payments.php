@@ -23,7 +23,7 @@ class Payments extends Controller
     {
         $payments = Payment::with(['account', 'category'])->where('customer_id', '=', Auth::user()->customer->id)->paginate();
 
-        $payment_methods = Modules::getPaymentMethods();
+        $payment_methods = Modules::getPaymentMethods('all');
 
         $categories = collect(Category::enabled()->type('income')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
