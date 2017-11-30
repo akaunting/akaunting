@@ -14,7 +14,7 @@
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
                 {!! Form::select('vendor_id', $vendors, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)])])) !!}
                 <span class="input-group-btn">
-                    <button type="button" onclick="createVendor();" class="btn btn-success">{{ trans('bills.create_vendor') }}</button>
+                    <button type="button" onclick="createVendor();" class="btn btn-primary">{{ trans('general.add_new') }}</button>
                 </span>
             </div>
             {!! $errors->first('vendor_id', '<p class="help-block">:message</p>') !!}
