@@ -4,21 +4,21 @@ return [
 
     'name'      =>  'Akaunting',
 
-    'code'      =>  'Besmele',
+    'code'      =>  'Import',
 
     'major'     =>  '1',
 
-    'minor'     =>  '0',
+    'minor'     =>  '1',
 
-    'patch'     =>  '12',
+    'patch'     =>  '0',
 
     'build'     =>  '',
     
     'status'    =>  'Stable',
     
-    'date'      =>  '23-November-2017',
+    'date'      =>  '30-November-2017',
     
-    'time'      =>  '23:30',
+    'time'      =>  '14:30',
     
     'zone'      =>  'GMT +3',
     
