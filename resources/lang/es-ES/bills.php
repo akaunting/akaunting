@@ -23,14 +23,19 @@ return [
     'histories'         => 'Historial',
     'payments'          => 'Pagos',
     'add_payment'       => 'Añadir pago',
+    'mark_received'     => 'Marcar como recibido',
     'download_pdf'      => 'Descargar PDF',
     'send_mail'         => 'Enviar Email',
 
     'status' => [
-        'new'           => 'Nuevo',
-        'updated'       => 'Actualizado',
+        'draft'         => 'Borrador',
+        'received'      => 'Recibido',
         'partial'       => 'Parcial',
         'paid'          => 'Pagado',
+    ],
+
+    'messages' => [
+        'received'      => 'Recibo marcado como recibido con éxito!',
     ],
 
 ];

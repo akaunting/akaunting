@@ -22,6 +22,8 @@ return [
     'histories'         => 'Historias',
     'payments'          => 'Pagos',
     'add_payment'       => 'Añadir pago',
+    'mark_paid'         => 'Marcar Como Pagada',
+    'mark_sent'         => 'Marcar Como Enviada',
     'download_pdf'      => 'Descargar PDF',
     'send_mail'         => 'Enviar Email',
 
@@ -32,6 +34,16 @@ return [
         'approved'      => 'Aprobado',
         'partial'       => 'Parcial',
         'paid'          => 'Pagado',
+    ],
+
+    'messages' => [
+        'email_sent'    => 'El email de la factura se ha enviado correctamente!',
+        'marked_sent'   => 'Factura marcada como enviada con éxito!',
+    ],
+
+    'notification' => [
+        'message'       => 'Usted está recibiendo este correo electrónico porque usted tiene una factura de :amount para el cliente :cliente .',
+        'button'        => 'Pagar Ahora',
     ],
 
 ];

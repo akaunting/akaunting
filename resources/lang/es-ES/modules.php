@@ -16,8 +16,8 @@ return [
     'uninstalled'           => 'Desinstalado',
     'token_link'            => 'Haga <a href="https://akaunting.com/tokens" target="_blank">Click aquí</a> para obtener su API token.',
 
-    'enabled'               => ':module módulo habilitado',
-    'disabled'              => ':module módulo deshabilitado',
+    'enabled'               => ':module habilitado',
+    'disabled'              => ':module deshabilitado',
 
     'installation' => [
         'header'            => 'Instalación del módulo',
