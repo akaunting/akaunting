@@ -83,8 +83,6 @@ return [
     'search'                => 'Ara',
     'search_placeholder'    => 'Aranacak kelime..',
     'filter'                => 'Filtrele',
-    'create_user'           => 'Kullanıcı Oluştur',
-    'created_user'          => 'Oluşturulan Kullanıcı',
     'help'                  => 'Yardım',
     'all'                   => 'Hepsi',
     'all_type'              => 'Tüm :type',
@@ -92,6 +90,7 @@ return [
     'created'               => 'Oluşturuldu',
     'id'                    => 'ID',
     'more_actions'          => 'Diğer İşlemler',
+    'duplicate'             => 'Çoğalt',
 
     'title' => [
         'new'               => 'Yeni :type',

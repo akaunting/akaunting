@@ -37,7 +37,13 @@ return [
     ],
 
     'messages' => [
+        'email_sent'    => 'Fatura emaili başarı ile gönderildi!',
         'marked_sent'   => 'Fatura başarıyla gönderilmiş olarak işaretlendi!',
+    ],
+
+    'notification' => [
+        'message'       => ':amount tutarında faturayı :customer ödemediği için bu iletiyi almaktasınız.',
+        'button'        => 'Şimdi Öde',
     ],
 
 ];
