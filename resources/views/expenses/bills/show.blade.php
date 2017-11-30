@@ -170,89 +170,91 @@
         </div>
     </div>
 
-    <div class="col-xs-6 no-padding-left">
-        <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('bills.histories') }}</h3>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ trans('bills.histories') }}</h3>
 
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                    </div>
+                    <!-- /.box-tools -->
                 </div>
-                <!-- /.box-tools -->
-            </div>
-            <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>{{ trans('general.date') }}</th>
-                            <th>{{ trans_choice('general.statuses', 1) }}</th>
-                            <th>{{ trans('general.description') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($bill->histories as $history)
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{ Date::parse($bill->created_at)->format($date_format) }}</td>
-                                <td>{{ $bill->status->name }}</td>
-                                <td>{{ $bill->description }}</td>
+                                <th>{{ trans('general.date') }}</th>
+                                <th>{{ trans_choice('general.statuses', 1) }}</th>
+                                <th>{{ trans('general.description') }}</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($bill->histories as $history)
+                                <tr>
+                                    <td>{{ Date::parse($bill->created_at)->format($date_format) }}</td>
+                                    <td>{{ $bill->status->name }}</td>
+                                    <td>{{ $bill->description }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-xs-6 no-padding-right">
-        <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('bills.payments') }}</h3>
+        <div class="col-xs-6">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ trans('bills.payments') }}</h3>
 
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                    </div>
+                    <!-- /.box-tools -->
                 </div>
-                <!-- /.box-tools -->
-            </div>
-            <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>{{ trans('general.date') }}</th>
-                            <th>{{ trans('general.amount') }}</th>
-                            <th>{{ trans_choice('general.accounts', 1) }}</th>
-                            <th style="width: 15%;">{{ trans('general.actions') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($bill->payments as $payment)
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{ Date::parse($payment->paid_at)->format($date_format) }}</td>
-                                <td>@money($payment->amount, $payment->currency_code, true)</td>
-                                <td>{{ $payment->account->name }}</td>
-                                <td>
-                                    <a href="{{ url('expenses/bills/' . $payment->id) }}" class="btn btn-info btn-xs hidden"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
-                                    <a href="{{ url('expenses/bills/' . $payment->id . '/edit') }}" class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
-                                    {!! Form::open([
-                                        'id' => 'bill-payment-' . $payment->id,
-                                        'method' => 'DELETE',
-                                        'url' => ['expenses/bills/payment', $payment->id],
-                                        'style' => 'display:inline'
-                                    ]) !!}
-                                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
-                                        'type'    => 'button',
-                                        'class'   => 'btn btn-danger btn-xs',
-                                        'title'   => trans('general.delete'),
-                                        'onclick' => 'confirmDelete("' . '#bill-payment-' . $payment->id . '", "' . trans_choice('general.payments', 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . Date::parse($payment->paid_at)->format($date_format) . ' - ' . money($payment->amount, $payment->currency_code, true) . ' - ' . $payment->account->name . '</strong>', 'type' => strtolower(trans_choice('general.revenues', 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
-                                    )) !!}
-                                    {!! Form::close() !!}
-                                </td>
+                                <th>{{ trans('general.date') }}</th>
+                                <th>{{ trans('general.amount') }}</th>
+                                <th>{{ trans_choice('general.accounts', 1) }}</th>
+                                <th style="width: 15%;">{{ trans('general.actions') }}</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($bill->payments as $payment)
+                                <tr>
+                                    <td>{{ Date::parse($payment->paid_at)->format($date_format) }}</td>
+                                    <td>@money($payment->amount, $payment->currency_code, true)</td>
+                                    <td>{{ $payment->account->name }}</td>
+                                    <td>
+                                        <a href="{{ url('expenses/bills/' . $payment->id) }}" class="btn btn-info btn-xs hidden"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
+                                        <a href="{{ url('expenses/bills/' . $payment->id . '/edit') }}" class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
+                                        {!! Form::open([
+                                            'id' => 'bill-payment-' . $payment->id,
+                                            'method' => 'DELETE',
+                                            'url' => ['expenses/bills/payment', $payment->id],
+                                            'style' => 'display:inline'
+                                        ]) !!}
+                                        {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                            'type'    => 'button',
+                                            'class'   => 'btn btn-danger btn-xs',
+                                            'title'   => trans('general.delete'),
+                                            'onclick' => 'confirmDelete("' . '#bill-payment-' . $payment->id . '", "' . trans_choice('general.payments', 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . Date::parse($payment->paid_at)->format($date_format) . ' - ' . money($payment->amount, $payment->currency_code, true) . ' - ' . $payment->account->name . '</strong>', 'type' => strtolower(trans_choice('general.revenues', 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
+                                        )) !!}
+                                        {!! Form::close() !!}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
