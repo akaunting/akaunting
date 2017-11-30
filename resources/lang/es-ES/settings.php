@@ -24,10 +24,10 @@ return [
     ],
     'invoice' => [
         'tab'               => 'Factura',
-        'prefix'            => 'Prefijo de Factura',
-        'digit'             => 'Dígitos del Nº de Factura',
-        'start'             => 'Número de Factura Inicial',
-        'logo'              => 'Logotipo de la factura',
+        'prefix'            => 'Prefijo de número',
+        'digit'             => 'Número de cifras',
+        'next'              => 'Siguiente número',
+        'logo'              => 'Logo',
     ],
     'default' => [
         'tab'               => 'Por defecto',
@@ -57,7 +57,7 @@ return [
         'tab'               => 'Programación',
         'send_invoice'      => 'Enviar Recordatorio de Factura',
         'invoice_days'      => 'Enviar después del vencimiento',
-        'send_bill'         => 'Enviar Recordatorio de Factura',
+        'send_bill'         => 'Enviar Recordatorio de Recibo',
         'bill_days'         => 'Enviar Antes del Vencimiento',
         'cron_command'      => 'Comando Cron',
         'schedule_time'     => 'Hora de ejecución',
