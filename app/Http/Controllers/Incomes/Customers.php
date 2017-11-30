@@ -7,6 +7,7 @@ use App\Http\Requests\Income\Customer as Request;
 use App\Models\Auth\User;
 use App\Models\Income\Customer;
 use App\Models\Setting\Currency;
+use App\Utilities\ImportFile;
 
 class Customers extends Controller
 {
@@ -47,36 +48,72 @@ class Customers extends Controller
         if (empty($request->input('create_user'))) {
             Customer::create($request->all());
         } else {
+            // Check if user exist
             $user = User::where('email', $request['email'])->first();
-
             if (!empty($user)) {
                 $message = trans('messages.error.customer', ['name' => $user->name]);
 
                 flash($message)->error();
 
                 return redirect()->back()->withInput($request->except('create_user'))->withErrors(
-                    ['email' => trans('customer.error.email')]
+                    ['email' => trans('customers.error.email')]
                 );
-
-                //$user = User::create($request->input());
             }
 
-            $customer = Customer::create($request->all());
+            // Create user first
+            $user = User::create($request->all());
+            $user->roles()->attach(['3']);
+            $user->companies()->attach([session('company_id')]);
 
             $request['user_id'] = $user->id;
-            $request['roles'] = array('3');
-            $request['companies'] = array(session('company_id'));
 
-            // Attach roles
-            $user->roles()->attach($request['roles']);
-
-            // Attach companies
-            $user->companies()->attach($request['companies']);
-
-            $customer->update($request->all());
+            Customer::create($request->all());
         }
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/customers');
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Customer  $customer
+     *
+     * @return Response
+     */
+    public function duplicate(Customer $customer)
+    {
+        $clone = $customer->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.customers', 1)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/customers/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Customer::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 2)]);
 
         flash($message)->success();
 
@@ -110,29 +147,24 @@ class Customers extends Controller
         if (empty($request->input('create_user'))) {
             $customer->update($request->all());
         } else {
+            // Check if user exist
             $user = User::where('email', $request['email'])->first();
-
             if (!empty($user)) {
                 $message = trans('messages.error.customer', ['name' => $user->name]);
 
                 flash($message)->error();
 
                 return redirect()->back()->withInput($request->except('create_user'))->withErrors(
-                    ['email' => trans('customer.error.email')]
+                    ['email' => trans('customers.error.email')]
                 );
-
-                //$user = User::create($request->input());
             }
 
+            // Create user first
+            $user = User::create($request->all());
+            $user->roles()->attach(['3']);
+            $user->companies()->attach([session('company_id')]);
+
             $request['user_id'] = $user->id;
-            $request['roles'] = array('3');
-            $request['companies'] = array(session('company_id'));
-
-            // Attach roles
-            $user->roles()->attach($request['roles']);
-
-            // Attach companies
-            $user->companies()->attach($request['companies']);
 
             $customer->update($request->all());
         }
@@ -178,6 +210,13 @@ class Customers extends Controller
         $customer_id = request('customer_id');
 
         $customer = Customer::find($customer_id);
+
+        return response()->json($customer);
+    }
+
+    public function customer(Request $request)
+    {
+        $customer = Customer::create($request->all());
 
         return response()->json($customer);
     }

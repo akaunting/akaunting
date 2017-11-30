@@ -3,11 +3,12 @@
 namespace App\Models\Expense;
 
 use App\Models\Model;
+use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
 
 class Vendor extends Model
 {
-    use Eloquence;
+    use Cloneable, Eloquence;
 
     protected $table = 'vendors';
 

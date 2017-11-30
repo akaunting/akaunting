@@ -12,6 +12,7 @@ use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
+use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 
 class Revenues extends Controller
@@ -85,6 +86,49 @@ class Revenues extends Controller
         Revenue::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/revenues');
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Revenue  $revenue
+     *
+     * @return Response
+     */
+    public function duplicate(Revenue $revenue)
+    {
+        $clone = $revenue->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.revenues', 1)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/revenues/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Revenue::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
 
         flash($message)->success();
 

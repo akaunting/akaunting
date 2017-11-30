@@ -3,13 +3,13 @@
 namespace App\Models\Income;
 
 use App\Models\Model;
+use Bkwld\Cloner\Cloneable;
 use Illuminate\Notifications\Notifiable;
 use Sofa\Eloquence\Eloquence;
 
 class Customer extends Model
 {
-    use Eloquence;
-    use Notifiable;
+    use Cloneable, Eloquence, Notifiable;
 
     protected $table = 'customers';
 
@@ -58,5 +58,10 @@ class Customer extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\Auth\User', 'customer_id', 'id');
+    }
+
+    public function onCloning($src, $child = null)
+    {
+        $this->user_id = null;
     }
 }

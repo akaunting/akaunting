@@ -1,0 +1,2 @@
+"name","sku","description","sale_price","purchase_price","quantity","category_id","tax_id","picture","enabled","created_at","updated_at","deleted_at"
+"Test Item","test-item","","10.0000","5.0000","1","5","2","items/test-item.png","1","2017-11-30 00:00:00","2017-11-30 00:00:00",NULL

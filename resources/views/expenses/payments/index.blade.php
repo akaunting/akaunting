@@ -5,6 +5,7 @@
 @permission('create-expenses-payments')
 @section('new_button')
 <span class="new-button"><a href="{{ url('expenses/payments/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+<span><a href="{{ url('common/import/expenses/payments') }}" class="btn btn-success btn-sm"><span class="fa fa-download"></span> &nbsp;{{ trans('import.import') }}</a></span>
 @endsection
 @endpermission
 
@@ -56,6 +57,11 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('expenses/payments/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    <li class="divider"></li>
+                                    @permission('create-expenses-payments')
+                                    <li><a href="{{ url('expenses/payments/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
+                                    <li class="divider"></li>
+                                    @endpermission
                                     @permission('delete-expenses-payments')
                                     <li>{!! Form::deleteLink($item, 'expenses/payments') !!}</li>
                                     @endpermission

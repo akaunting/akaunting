@@ -24,14 +24,16 @@ use App\Notifications\Income\Invoice as Notification;
 use App\Notifications\Item\Item as ItemNotification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Incomes;
 use App\Traits\Uploads;
+use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
 
 class Invoices extends Controller
 {
-    use DateTime, Currencies, Uploads;
+    use DateTime, Currencies, Incomes, Uploads;
 
     /**
      * Display a listing of the resource.
@@ -100,11 +102,7 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->pluck('name', 'id');
 
-        // Generate next invoice number
-        $prefix = setting('general.invoice_number_prefix', 'INV-');
-        $next = setting('general.invoice_number_next', '1');
-        $digit = setting('general.invoice_number_digit', '5');
-        $number = $prefix . str_pad($next, $digit, '0', STR_PAD_LEFT);
+        $number = $this->getNextInvoiceNumber();
 
         return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'number'));
     }
@@ -227,17 +225,17 @@ class Invoices extends Controller
         // Add invoice totals
         $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
 
-        $request['invoice_id'] = $invoice->id;
-        $request['status_code'] = 'draft';
-        $request['notify'] = 0;
-        $request['description'] = trans('messages.success.added', ['type' => $request['invoice_number']]);
-
-        InvoiceHistory::create($request->all());
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => session('company_id'),
+            'invoice_id' => $invoice->id,
+            'status_code' => 'draft',
+            'notify' => 0,
+            'description' => trans('messages.success.added', ['type' => $invoice->invoice_number]),
+        ]);
 
         // Update next invoice number
-        $next = setting('general.invoice_number_next', 1) + 1;
-        setting(['general.invoice_number_next' => $next]);
-        setting()->save();
+        $this->increaseNextInvoiceNumber();
 
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));
@@ -247,6 +245,61 @@ class Invoices extends Controller
         flash($message)->success();
 
         return redirect('incomes/invoices/' . $invoice->id);
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Invoice  $invoice
+     *
+     * @return Response
+     */
+    public function duplicate(Invoice $invoice)
+    {
+        $clone = $invoice->duplicate();
+
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => session('company_id'),
+            'invoice_id' => $clone->id,
+            'status_code' => 'draft',
+            'notify' => 0,
+            'description' => trans('messages.success.added', ['type' => $clone->invoice_number]),
+        ]);
+
+        // Update next invoice number
+        $this->increaseNextInvoiceNumber();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.invoices', 1)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/invoices/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Invoice::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 2)]);
+
+        flash($message)->success();
+
+        return redirect('incomes/invoices');
     }
 
     /**
@@ -653,47 +706,41 @@ class Invoices extends Controller
         $sort_order = 1;
 
         // Added invoice total sub total
-        $invoice_sub_total = [
+        InvoiceTotal::create([
             'company_id' => $request['company_id'],
             'invoice_id' => $invoice->id,
             'code' => 'sub_total',
             'name' => 'invoices.sub_total',
             'amount' => $sub_total,
             'sort_order' => $sort_order,
-        ];
-
-        InvoiceTotal::create($invoice_sub_total);
+        ]);
 
         $sort_order++;
 
         // Added invoice total taxes
         if ($taxes) {
             foreach ($taxes as $tax) {
-                $invoice_tax_total = [
+                InvoiceTotal::create([
                     'company_id' => $request['company_id'],
                     'invoice_id' => $invoice->id,
                     'code' => 'tax',
                     'name' => $tax['name'],
                     'amount' => $tax['amount'],
                     'sort_order' => $sort_order,
-                ];
-
-                InvoiceTotal::create($invoice_tax_total);
+                ]);
 
                 $sort_order++;
             }
         }
 
         // Added invoice total total
-        $invoice_total = [
+        InvoiceTotal::create([
             'company_id' => $request['company_id'],
             'invoice_id' => $invoice->id,
             'code' => 'total',
             'name' => 'invoices.total',
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
-        ];
-
-        InvoiceTotal::create($invoice_total);
+        ]);
     }
 }

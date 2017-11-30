@@ -3,14 +3,13 @@
 namespace App\Models\Item;
 
 use App\Models\Model;
-use App\Models\Expense\Bill;
-use App\Models\Income\Invoice;
 use App\Traits\Currencies;
+use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
 
 class Item extends Model
 {
-    use Currencies, Eloquence;
+    use Cloneable, Currencies, Eloquence;
 
     protected $table = 'items';
 

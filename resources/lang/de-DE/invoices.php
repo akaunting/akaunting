@@ -22,6 +22,8 @@ return [
     'histories'         => 'Historie',
     'payments'          => 'Zahlungen',
     'add_payment'       => 'Zahlung hinzufügen',
+    'mark_paid'         => 'Als bezahlt markieren',
+    'mark_sent'         => 'Als versendet markieren',
     'download_pdf'      => 'PDF herunterladen',
     'send_mail'         => 'E-Mail senden',
 
@@ -32,6 +34,16 @@ return [
         'approved'      => 'Bestätigt',
         'partial'       => 'Teilweise',
         'paid'          => 'Bezahlt',
+    ],
+
+    'messages' => [
+        'email_sent'    => 'Rechnungsemail wurde erfolgreich versendet!',
+        'marked_sent'   => 'Rechnung als erfolgreich versendet markiert!',
+    ],
+
+    'notification' => [
+        'message'       => 'Sie erhalten diese Email, da eine Rechnung in Höhe von :amount für den Kunden :customer ansteht.',
+        'button'        => 'Jetzt bezahlen',
     ],
 
 ];

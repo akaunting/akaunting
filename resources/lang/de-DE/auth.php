@@ -24,6 +24,7 @@ return [
     ],
 
     'failed'                => 'Diese Anmeldeinformationen entsprechen nicht unseren Aufzeichnungen.',
+    'disabled'              => 'Dieses Konto ist deaktiviert! Bitte kontaktieren Sie den Systemadministrator.',
     'throttle'              => 'Zu viele fehlgeschlagene Anmeldeversuche. Bitte versuchen Sie es erneut in :seconds Sekunden.',
 
 ];

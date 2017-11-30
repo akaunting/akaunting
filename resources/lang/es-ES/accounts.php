@@ -10,6 +10,5 @@ return [
     'bank_phone'            => 'Teléfono Banco',
     'bank_address'          => 'Dirección del Banco',
     'default_account'       => 'Cuenta Predeterminada',
-    'all'                   => 'Todas las cuentas',
 
 ];

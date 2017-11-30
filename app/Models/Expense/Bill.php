@@ -5,11 +5,12 @@ namespace App\Models\Expense;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
 
 class Bill extends Model
 {
-    use Currencies, DateTime, Eloquence;
+    use Cloneable, Currencies, DateTime, Eloquence;
 
     protected $table = 'bills';
 
@@ -43,6 +44,13 @@ class Bill extends Model
         'vendor_address' => 1,
         'notes'          => 2,
     ];
+
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    protected $cloneable_relations = ['items', 'totals'];
 
     public function vendor()
     {
@@ -92,6 +100,11 @@ class Bill extends Model
     public function scopeAccrued($query)
     {
         return $query->where('bill_status_code', '!=', 'new');
+    }
+
+    public function onCloning($src, $child = null)
+    {
+        $this->bill_status_code = 'draft';
     }
 
     /**

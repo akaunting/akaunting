@@ -83,8 +83,6 @@ return [
     'search'                => 'جستجو',
     'search_placeholder'    => 'جستجو...',
     'filter'                => 'فیلتر',
-    'create_user'           => 'ایجاد کاربر',
-    'created_user'          => 'کاربر ایجاد شده',
     'help'                  => 'راهنما',
     'all'                   => 'همه',
     'all_type'              => 'همه :type',
@@ -92,6 +90,7 @@ return [
     'created'               => 'ایجاد شده',
     'id'                    => 'شناسه',
     'more_actions'          => 'اقدامات بیشتر',
+    'duplicate'             => 'تکراری',
 
     'title' => [
         'new'               => ':type جدید',

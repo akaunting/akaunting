@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Settings;
 
+use Akaunting\Money\Currency as MoneyCurrency;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\Currency as Request;
 use App\Models\Banking\Account;
 use App\Models\Setting\Currency;
-use ClickNow\Money\Currency as MoneyCurrency;
 
 class Currencies extends Controller
 {
@@ -29,10 +29,18 @@ class Currencies extends Controller
      */
     public function create()
     {
+        // Get current currencies
+        $current = Currency::pluck('code')->toArray();
+
         // Prepare codes
         $codes = array();
         $currencies = MoneyCurrency::getCurrencies();
         foreach ($currencies as $key => $item) {
+            // Don't show if already available
+            if (in_array($key, $current)) {
+                continue;
+            }
+
             $codes[$key] = $key;
         }
 
@@ -77,10 +85,18 @@ class Currencies extends Controller
      */
     public function edit(Currency $currency)
     {
+        // Get current currencies
+        $current = Currency::pluck('code')->toArray();
+
         // Prepare codes
         $codes = array();
         $currencies = MoneyCurrency::getCurrencies();
         foreach ($currencies as $key => $item) {
+            // Don't show if already available
+            if (($key != $currency->code) && in_array($key, $current)) {
+                continue;
+            }
+
             $codes[$key] = $key;
         }
 

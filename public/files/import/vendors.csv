@@ -1,0 +1,2 @@
+"user_id","name","email","tax_number","phone","address","website","currency_code","enabled","created_at","updated_at","deleted_at"
+"","Test Vendor","test@vendor.com","","","","","USD","1","2017-11-30 00:00:00","2017-11-30 00:00:00",NULL

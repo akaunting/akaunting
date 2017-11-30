@@ -1,0 +1,2 @@
+"bill_number","order_number","bill_status_code","billed_at","due_at","amount","currency_code","currency_rate","vendor_id","vendor_name","vendor_email","vendor_tax_number","vendor_phone","vendor_address","notes","attachment","created_at","updated_at","deleted_at"
+"987654","","received","2017-11-30","2017-12-07","10.0000","USD","1.00000000","1","Test Vendor","test@vendor.com","","","","","","2017-11-30 00:00:00","2017-11-30 00:00:00",NULL

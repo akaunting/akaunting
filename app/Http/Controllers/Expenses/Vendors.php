@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Vendor as Request;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Currency;
+use App\Utilities\ImportFile;
 
 class Vendors extends Controller
 {
@@ -46,6 +47,49 @@ class Vendors extends Controller
         Vendor::create($request->all());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/vendors');
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Vendor  $vendor
+     *
+     * @return Response
+     */
+    public function duplicate(Vendor $vendor)
+    {
+        $clone = $vendor->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.vendors', 1)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/vendors/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Vendor::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
 
         flash($message)->success();
 
@@ -119,6 +163,13 @@ class Vendors extends Controller
         $vendor_id = request('vendor_id');
 
         $vendor = Vendor::find($vendor_id);
+
+        return response()->json($vendor);
+    }
+
+    public function vendor(Request $request)
+    {
+        $vendor = Vendor::create($request->all());
 
         return response()->json($vendor);
     }

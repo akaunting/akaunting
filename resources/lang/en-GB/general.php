@@ -83,8 +83,6 @@ return [
     'search'                => 'Search',
     'search_placeholder'    => 'Type to search..',
     'filter'                => 'Filter',
-    'create_user'           => 'Create User',
-    'created_user'          => 'Created User',
     'help'                  => 'Help',
     'all'                   => 'All',
     'all_type'              => 'All :type',
@@ -92,6 +90,7 @@ return [
     'created'               => 'Created',
     'id'                    => 'ID',
     'more_actions'          => 'More Actions',
+    'duplicate'             => 'Duplicate',
 
     'title' => [
         'new'               => 'New :type',

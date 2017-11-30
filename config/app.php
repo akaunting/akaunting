@@ -184,10 +184,11 @@ return [
          * Vendor Service Providers...
          */
         Akaunting\Language\Provider::class,
+        Akaunting\Money\Provider::class,
         Akaunting\Setting\Provider::class,
         Akaunting\Version\Provider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        ClickNow\Money\MoneyServiceProvider::class,
+        Bkwld\Cloner\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         EloquentFilter\ServiceProvider::class,
@@ -197,6 +198,7 @@ return [
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         Nwidart\Menus\MenusServiceProvider::class,
         Nwidart\Modules\LaravelModulesServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
@@ -257,6 +259,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Date' => Jenssegers\Date\Date::class,
         'DotenvEditor' => Jackiedo\DotenvEditor\Facades\DotenvEditor::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,

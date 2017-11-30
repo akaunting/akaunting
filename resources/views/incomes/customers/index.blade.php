@@ -5,6 +5,7 @@
 @permission('create-incomes-customers')
 @section('new_button')
 <span class="new-button"><a href="{{ url('incomes/customers/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+<span><a href="{{ url('common/import/incomes/customers') }}" class="btn btn-success btn-sm"><span class="fa fa-download"></span> &nbsp;{{ trans('import.import') }}</a></span>
 @endsection
 @endpermission
 
@@ -58,6 +59,11 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('incomes/customers/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    <li class="divider"></li>
+                                    @permission('create-incomes-customers')
+                                    <li><a href="{{ url('incomes/customers/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
+                                    <li class="divider"></li>
+                                    @endpermission
                                     @permission('delete-incomes-customers')
                                     <li>{!! Form::deleteLink($item, 'incomes/customers') !!}</li>
                                     @endpermission

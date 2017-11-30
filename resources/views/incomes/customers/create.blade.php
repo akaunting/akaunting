@@ -24,18 +24,13 @@
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
 
-            <div class="form-group col-md-12">
-                {!! Form::label('create_user', trans('general.create_user'), ['class' => 'control-label']) !!}
-                <br/>
-                <div class="col-md-12">
-                    {{ Form::checkbox('create_user', '1') }} &nbsp; {{ trans('general.create_user') }}
-                </div>
+            <div class="form-group col-md-12 margin-top">
+                <strong>{{ trans('customers.allow_login') }}</strong> &nbsp;  {{ Form::checkbox('create_user', '1', null, ['id' => 'create_user']) }}
             </div>
 
             {{ Form::passwordGroup('password', trans('auth.password.current'), 'key', [], null, 'col-md-6 password hidden') }}
 
             {{ Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], null, 'col-md-6 password hidden') }}
-
         </div>
         <!-- /.box-body -->
 

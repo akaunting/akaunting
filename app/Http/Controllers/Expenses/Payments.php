@@ -10,7 +10,7 @@ use App\Models\Expense\Vendor;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
-
+use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 
 class Payments extends Controller
@@ -84,6 +84,49 @@ class Payments extends Controller
         Payment::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/payments');
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Payment  $payment
+     *
+     * @return Response
+     */
+    public function duplicate(Payment $payment)
+    {
+        $clone = $payment->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.payments', 1)]);
+
+        flash($message)->success();
+
+        return redirect('expenses/payments/' . $clone->id . '/edit');
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportFile  $import
+     *
+     * @return Response
+     */
+    public function import(ImportFile $import)
+    {
+        $rows = $import->all();
+
+        foreach ($rows as $row) {
+            $data = $row->toArray();
+            $data['company_id'] = session('company_id');
+
+            Payment::create($data);
+        }
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 2)]);
 
         flash($message)->success();
 

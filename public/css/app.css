@@ -453,6 +453,10 @@ ul.add-new.nav.navbar-nav.pull-left {
     overflow-x: visible;
 }
 
+.margin-top {
+    margin-top: 20px;
+}
+
 @media only screen and (max-width : 768px) {
     .main-header .add-new.nav.navbar-nav i {
         margin-top: 3px;
