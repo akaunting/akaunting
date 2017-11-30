@@ -24,10 +24,10 @@ return [
     ],
     'invoice' => [
         'tab'               => 'Rechnung',
-        'prefix'            => 'Rechnung-Präfix',
-        'digit'             => 'Rechnungsnummer Zahl',
-        'start'             => 'Rechnungsnummer Start bei',
-        'logo'              => 'Rechnung-Logo',
+        'prefix'            => 'Zahlenprefix',
+        'digit'             => 'Nachkommastellen',
+        'next'              => 'Nächste Nummer',
+        'logo'              => 'Logo',
     ],
     'default' => [
         'tab'               => 'Standardeinstellungen',
