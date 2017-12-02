@@ -34,7 +34,9 @@ class Users extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::all()->reject(function($r) {
+            return $r->hasPermission('read-customer-panel');
+        });
 
         $companies = Auth::user()->companies()->get()->sortBy('name');
         foreach ($companies as $company) {
@@ -84,7 +86,17 @@ class Users extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::all();
+        if ($user->customer) {
+            // Show only roles with customer permission
+            $roles = Role::all()->reject(function($r) {
+                return !$r->hasPermission('read-customer-panel');
+            });
+        } else {
+            // Don't show roles with customer permission
+            $roles = Role::all()->reject(function($r) {
+                return $r->hasPermission('read-customer-panel');
+            });
+        }
 
         $companies = Auth::user()->companies()->get()->sortBy('name');
         foreach ($companies as $company) {
