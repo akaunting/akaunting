@@ -345,6 +345,8 @@
         }
 
         $(document).on('click', '#button-create-customer', function (e) {
+            $('#modal-create-customer .modal-header').before('<span id="span-loading" style="position: absolute; height: 100%; width: 100%; z-index: 99; background: #6da252; opacity: 0.4;"><i class="fa fa-spinner fa-spin" style="font-size: 16em !important;margin-left: 35%;margin-top: 8%;"></i></span>');
+
             $.ajax({
                 url: '{{ url("incomes/customers/customer") }}',
                 type: 'POST',
@@ -355,12 +357,16 @@
                     $(".help-block").remove();
                 },
                 success: function(data) {
+                    $('#span-loading').remove();
+
                     $('#modal-create-customer').modal('hide');
 
                     $("#customer_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
                     $("#customer_id").select2('refresh');
                 },
                 error: function(error, textStatus, errorThrown) {
+                    $('#span-loading').remove();
+
                     if (error.responseJSON.name) {
                         $("input[name='name']").parent().parent().addClass('has-error');
                         $("input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');

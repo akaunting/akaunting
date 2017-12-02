@@ -12,7 +12,7 @@
             {!! Form::label('vendor_id', trans_choice('general.vendors', 1), ['class' => 'control-label']) !!}
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                {!! Form::select('vendor_id', $vendors, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)])])) !!}
+                {!! Form::select('vendor_id', $vendors, null, array_merge(['id' => 'vendor_id', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)])])) !!}
                 <span class="input-group-btn">
                     <button type="button" onclick="createVendor();" class="btn btn-primary">{{ trans('general.add_new') }}</button>
                 </span>
@@ -344,22 +344,30 @@
         }
 
         $(document).on('click', '#button-create-vendor', function (e) {
+            $('#modal-create-vendor .modal-header').before('<span id="span-loading" style="position: absolute; height: 100%; width: 100%; z-index: 99; background: #6da252; opacity: 0.4;"><i class="fa fa-spinner fa-spin" style="font-size: 16em !important;margin-left: 35%;margin-top: 8%;"></i></span>');
+
             $.ajax({
                 url: '{{ url("expenses/vendors/vendor") }}',
                 type: 'POST',
                 dataType: 'JSON',
                 data: $("#form-create-vendor").serialize(),
                 beforeSend: function () {
+                    $('#modal-create-vendor .modal-content').append();
+
                     $(".form-group").removeClass("has-error");
                     $(".help-block").remove();
                 },
                 success: function(data) {
+                    $('#span-loading').remove();
+
                     $('#modal-create-vendor').modal('hide');
 
                     $("#vendor_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
                     $("#vendor_id").select2('refresh');
                 },
                 error: function(error, textStatus, errorThrown) {
+                    $('#span-loading').remove();
+
                     if (error.responseJSON.name) {
                         $("input[name='name']").parent().parent().addClass('has-error');
                         $("input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');
