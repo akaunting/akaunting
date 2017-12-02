@@ -10,6 +10,12 @@
 
     RewriteEngine On
 
+    # Prevent Direct Access to Protected Files
+    <FilesMatch "(?i)(^artisan$|\.env|\.log)">
+        Order deny,allow
+        Deny from all
+    </FilesMatch>
+
     # Prevent Direct Access To Protected Folders
     RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests)/(.*) / [L,R=301]
 
