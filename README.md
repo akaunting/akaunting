@@ -28,6 +28,24 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
   * Run the following commands separately: `composer install` , `composer dump-autoload`
   * Finally, launch the [installer](https://akaunting.com/docs/installation)
 
+## Docker
+
+It is possible to containerise Akounting using the [`docker-compose`](./docker-compose.yaml) file. Here are a few commands:
+
+```
+# Make sure you the dependencies are installed
+composer install && composer dump-autoload
+
+# Build the app
+docker-compose build
+
+# Run the app
+docker-compose up
+
+# Access the container
+docker exec -it CONTAINER_ID /bin/sh
+```
+
 ## Contributing
 
 Fork the repository, make the code changes then submit a pull request.
