@@ -48,4 +48,15 @@ class Category extends Model
     {
         return $query->where('type', $type);
     }
+
+    /**
+     * Scope transfer category.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeTransfer($query)
+    {
+        return $query->where('type', 'other')->pluck('id')->first();
+    }
 }

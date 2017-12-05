@@ -18,10 +18,12 @@ class Categories extends Controller
     {
         $categories = Category::collect();
 
+        $transfer_id = Category::transfer();
+
         $types = collect(['expense' => 'Expense', 'income' => 'Income', 'item' => 'Item', 'other' => 'Other'])
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
 
-        return view('settings.categories.index', compact('categories', 'types'));
+        return view('settings.categories.index', compact('categories', 'types', 'transfer_id'));
     }
 
     /**
@@ -111,6 +113,11 @@ class Categories extends Controller
             'revenues' => 'revenues',
             'payments' => 'payments',
         ]);
+
+        // Can't delete transfer category
+        if ($category->id == Category::transfer()) {
+            return redirect('settings/categories');
+        }
 
         if (empty($relationships)) {
             $category->delete();
