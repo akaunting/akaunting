@@ -6,7 +6,6 @@ use Artisan;
 
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
 use Modules\OfflinePayment\Http\Requests\Setting as Request;
 use Modules\OfflinePayment\Http\Requests\SettingGet as GRequest;
 use Modules\OfflinePayment\Http\Requests\SettingDelete as DRequest;
@@ -15,6 +14,7 @@ class Settings extends Controller
 {
     /**
      * Show the form for editing the specified resource.
+     *
      * @return Response
      */
     public function edit()
@@ -26,28 +26,32 @@ class Settings extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @param  Request $request
+     *
      * @return Response
      */
     public function update(Request $request)
     {
-        $offlinepayment = json_decode(setting('offlinepayment.methods'), true);
+        $methods = json_decode(setting('offlinepayment.methods'), true);
 
         if (isset($request['method'])) {
-            foreach ($offlinepayment as $key => $method) {
-                if ($method['code'] == $request['method']) {
-                    $method = explode('.', $request['method']);
-
-                    $offlinepayment[$key]['code'] = 'offlinepayment.' . $request['code'] . '.' . $method[2];
-                    $offlinepayment[$key]['name'] = $request['name'];
-                    $offlinepayment[$key]['customer'] = $request['customer'];
-                    $offlinepayment[$key]['order'] = $request['order'];
-                    $offlinepayment[$key]['description'] = $request['description'];
+            foreach ($methods as $key => $method) {
+                if ($method['code'] != $request['method']) {
+                    continue;
                 }
+
+                $method = explode('.', $request['method']);
+
+                $methods[$key]['code'] = 'offlinepayment.' . $request['code'] . '.' . $method[2];
+                $methods[$key]['name'] = $request['name'];
+                $methods[$key]['customer'] = $request['customer'];
+                $methods[$key]['order'] = $request['order'];
+                $methods[$key]['description'] = $request['description'];
             }
         } else {
-            $offlinepayment[] = array(
-                'code' => 'offlinepayment.' . $request['code'] . '.' . (count($offlinepayment) + 1),
+            $methods[] = array(
+                'code' => 'offlinepayment.' . $request['code'] . '.' . (count($methods) + 1),
                 'name' => $request['name'],
                 'customer' => $request['customer'],
                 'order' => $request['order'],
@@ -56,7 +60,7 @@ class Settings extends Controller
         }
 
         // Set Api Token
-        setting()->set('offlinepayment.methods', json_encode($offlinepayment));
+        setting()->set('offlinepayment.methods', json_encode($methods));
 
         setting()->save();
 
@@ -67,27 +71,34 @@ class Settings extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  GRequest  $request
+     *
      * @return Response
      */
     public function get(GRequest $request)
     {
+        $data = [];
+
         $code = $request['code'];
 
-        $offlinepayment = json_decode(setting('offlinepayment.methods'), true);
+        $methods = json_decode(setting('offlinepayment.methods'), true);
 
-        foreach ($offlinepayment as $key => $method) {
-            if ($method['code'] == $code) {
-                $method['title'] = trans('offlinepayment::offlinepayment.edit', ['method' => $method['name']]);
-                $method['method'] = $code;
-
-                $code = explode('.', $method['code']);
-
-                $method['code'] = $code[1];
-
-                $data = $method;
-
-                break;
+        foreach ($methods as $key => $method) {
+            if ($method['code'] != $code) {
+                continue;
             }
+
+            $method['title'] = trans('offlinepayment::offlinepayment.edit', ['method' => $method['name']]);
+            $method['method'] = $code;
+
+            $code = explode('.', $method['code']);
+
+            $method['code'] = $code[1];
+
+            $data = $method;
+
+            break;
         }
 
         return response()->json([
@@ -99,22 +110,27 @@ class Settings extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  DRequest  $request
+     *
      * @return Response
      */
     public function delete(DRequest $request)
     {
         $code = $request['code'];
 
-        $offlinepayment = json_decode(setting('offlinepayment.methods'), true);
+        $methods = json_decode(setting('offlinepayment.methods'), true);
 
-        foreach ($offlinepayment as $key => $method) {
-            if ($method['code'] == $code) {
-                unset($offlinepayment[$key]);
+        foreach ($methods as $key => $method) {
+            if ($method['code'] != $code) {
+                continue;
             }
+
+            unset($methods[$key]);
         }
 
         // Set Api Token
-        setting()->set('offlinepayment.methods', json_encode($offlinepayment));
+        setting()->set('offlinepayment.methods', json_encode($methods));
 
         setting()->save();
 
