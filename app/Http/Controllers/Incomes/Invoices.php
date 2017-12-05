@@ -581,7 +581,7 @@ class Invoices extends Controller
         $request['company_id'] = $invoice->company_id;
         $request['invoice_id'] = $invoice->id;
         $request['account_id'] = setting('general.default_account');
-        $request['payment_method'] = setting('general.default_payment_method');
+        $request['payment_method'] = setting('general.default_payment_method', 'offlinepayment.cash.1');
         $request['currency_code'] = $invoice->currency_code;
         $request['amount'] = $amount;
         $request['paid_at'] = Date::now();
