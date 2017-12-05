@@ -59,11 +59,12 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('settings/categories/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    @permission('delete-settings-categories')
                                     @if ($item->id != $transfer_id)
+                                    @permission('delete-settings-categories')
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'settings/categories') !!}</li>
-                                    @endif
                                     @endpermission
+                                    @endif
                                 </ul>
                             </div>
                         </td>
