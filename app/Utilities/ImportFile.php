@@ -21,7 +21,7 @@ class ImportFile extends ExcelFile
         $folder = session('company_id') . '/imports';
 
         // Upload file
-        $path = Storage::path($request->import->store($folder));
+        $path = Storage::path($request->file('import')->store($folder));
 
         return $path;
     }
