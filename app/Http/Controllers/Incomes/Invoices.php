@@ -655,10 +655,9 @@ class Invoices extends Controller
         $request['status_code'] = $invoice->invoice_status_code;
         $request['notify'] = 0;
 
-        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
+        $desc_amount = money((float) $request['amount'], (string) $request['currency_code'], true)->format();
 
-        $request['description'] = $desc_date . ' ' . $desc_amount;
+        $request['description'] = $desc_amount . ' ' . trans_choice('general.payments', 1);
 
         InvoiceHistory::create($request->input());
 
