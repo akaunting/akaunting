@@ -19,7 +19,7 @@ class Currencies extends Controller
     {
         $currencies = Currency::collect();
 
-        return view('settings.currencies.index', compact('currencies', 'codes', 'rates'));
+        return view('settings.currencies.index', compact('currencies'));
     }
 
     /**
@@ -116,20 +116,23 @@ class Currencies extends Controller
      */
     public function update(Currency $currency, Request $request)
     {
-        $relationships = $this->countRelationships($currency, [
-            'accounts' => 'accounts',
-            'customers' => 'customers',
-            'invoices' => 'invoices',
-            'revenues' => 'revenues',
-            'bills' => 'bills',
-            'payments' => 'payments',
-        ]);
+        // Check if we can disable it
+        if (!$request['enabled']) {
+            $relationships = $this->countRelationships($currency, [
+                'accounts' => 'accounts',
+                'customers' => 'customers',
+                'invoices' => 'invoices',
+                'revenues' => 'revenues',
+                'bills' => 'bills',
+                'payments' => 'payments',
+            ]);
 
-        if ($currency->code == setting('general.default_currency')) {
-            $relationships[] = strtolower(trans_choice('general.companies', 1));
+            if ($currency->code == setting('general.default_currency')) {
+                $relationships[] = strtolower(trans_choice('general.companies', 1));
+            }
         }
 
-        if (empty($relationships) || $request['enabled']) {
+        if (empty($relationships)) {
             // Force the rate to be 1 for default currency
             if ($request['default_currency']) {
                 $request['rate'] = '1';
