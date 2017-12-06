@@ -102,14 +102,10 @@ class Transfers extends Controller
 
         $request['account_id'] = $request['from_account_id'];
         $request['paid_at'] = $request['transferred_at'];
-        // amount
         $request['currency_code'] = $payment_currency_code;
         $request['currency_rate'] = $currencies[$payment_currency_code];
         $request['vendor_id'] = '0';
-        // description
-        $request['category_id'] = Category::enabled()->type('other')->pluck('id')->first(); // Transfer Category ID
-        // payment_method
-        // reference
+        $request['category_id'] = Category::transfer(); // Transfer Category ID
         $request['attachment'] = '';
 
         $payment = Payment::create($request->all());
@@ -195,14 +191,10 @@ class Transfers extends Controller
 
         $request['account_id'] = $request['from_account_id'];
         $request['paid_at'] = $request['transferred_at'];
-        // amount
         $request['currency_code'] = $payment_currency_code;
         $request['currency_rate'] = $currencies[$payment_currency_code];
         $request['vendor_id'] = '0';
-        // description
-        $request['category_id'] = Category::enabled()->type('other')->pluck('id')->first(); // Transfer Category ID
-        // payment_method
-        // reference
+        $request['category_id'] = Category::transfer(); // Transfer Category ID
         $request['attachment'] = '';
 
         $payment->update($request->all());

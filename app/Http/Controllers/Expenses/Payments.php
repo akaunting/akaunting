@@ -35,7 +35,9 @@ class Payments extends Controller
         $accounts = collect(Account::enabled()->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
 
-        return view('expenses.payments.index', compact('payments', 'vendors', 'categories', 'accounts'));
+        $transfer_cat_id = Category::transfer();
+
+        return view('expenses.payments.index', compact('payments', 'vendors', 'categories', 'accounts', 'transfer_cat_id'));
     }
 
     /**
@@ -197,6 +199,11 @@ class Payments extends Controller
      */
     public function destroy(Payment $payment)
     {
+        // Can't delete transfer payment
+        if ($payment->category->id == Category::transfer()) {
+            return redirect('expenses/payments');
+        }
+
         $payment->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.payments', 1)]);
