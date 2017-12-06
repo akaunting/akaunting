@@ -89,6 +89,10 @@ class Settings extends Controller
         // Update .env file
         DotenvEditor::setKeys([
             [
+                'key'       => 'APP_LOCALE',
+                'value'     => session('locale'),
+            ],
+            [
                 'key'       => 'APP_INSTALLED',
                 'value'     => 'true',
             ],

@@ -124,6 +124,10 @@ class Requirements extends Controller
                 'value'     => 'production',
             ],
             [
+                'key'       => 'APP_LOCALE',
+                'value'     => 'en-GB',
+            ],
+            [
                 'key'       => 'APP_INSTALLED',
                 'value'     => 'false',
             ],
