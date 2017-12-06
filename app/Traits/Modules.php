@@ -56,9 +56,9 @@ trait Modules
         return [];
     }
 
-    public function getPaidModules()
+    public function getPaidModules($data = [])
     {
-        $response = $this->getRemote('apps/paid');
+        $response = $this->getRemote('apps/paid', 'GET', $data);
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -67,9 +67,9 @@ trait Modules
         return [];
     }
 
-    public function getNewModules()
+    public function getNewModules($data = [])
     {
-        $response = $this->getRemote('apps/new');
+        $response = $this->getRemote('apps/new', 'GET', $data);
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -78,9 +78,9 @@ trait Modules
         return [];
     }
 
-    public function getFreeModules()
+    public function getFreeModules($data = [])
     {
-        $response = $this->getRemote('apps/free');
+        $response = $this->getRemote('apps/free', 'GET', $data);
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
