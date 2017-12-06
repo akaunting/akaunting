@@ -67,4 +67,15 @@ class InvoicePayment extends Model
     {
         $this->attributes['currency_rate'] = (double) $value;
     }
+
+    /**
+     * Scope paid invoice.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePaid($query)
+    {
+        return $query->sum('amount');
+    }
 }

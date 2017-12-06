@@ -616,17 +616,11 @@ class Invoices extends Controller
 
         $invoice = Invoice::find($request['invoice_id']);
 
-        if ($request['currency_code'] == $invoice->currency_code) {
-            if ($request['amount'] > $invoice->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+        $total_amount = $invoice->amount;
 
-                return response()->json($message);
-            } elseif ($request['amount'] == $invoice->amount) {
-                $invoice->invoice_status_code = 'paid';
-            } else {
-                $invoice->invoice_status_code = 'partial';
-            }
-        } else {
+        $amount = (double) $request['amount'];
+
+        if ($request['currency_code'] != $invoice->currency_code) {
             $request_invoice = new Invoice();
 
             $request_invoice->amount = (float) $request['amount'];
@@ -634,16 +628,24 @@ class Invoices extends Controller
             $request_invoice->currency_rate = $currency->rate;
 
             $amount = $request_invoice->getConvertedAmount();
+        }
 
-            if ($amount > $invoice->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+        if ($invoice->payments()->count()) {
+            $total_amount -= $invoice->payments()->paid();
+        }
 
-                return response()->json($message);
-            } elseif ($amount == $invoice->amount) {
-                $invoice->invoice_status_code = 'paid';
-            } else {
-                $invoice->invoice_status_code = 'partial';
-            }
+        if ($amount > $total_amount) {
+            $message = trans('messages.error.payment_add');
+
+            return response()->json([
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+            ]);
+        } elseif ($amount == $total_amount) {
+            $invoice->invoice_status_code = 'paid';
+        } else {
+            $invoice->invoice_status_code = 'partial';
         }
 
         $invoice->save();
@@ -655,13 +657,18 @@ class Invoices extends Controller
 
         $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
         $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
+
         $request['description'] = $desc_date . ' ' . $desc_amount;
 
         InvoiceHistory::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
 
-        return response()->json($message);
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => $message,
+        ]);
     }
 
     /**
@@ -673,13 +680,23 @@ class Invoices extends Controller
      */
     public function paymentDestroy(InvoicePayment $payment)
     {
+        $invoice = Invoice::find($payment->invoice_id);
+
+        if ($invoice->payments()->count() > 1) {
+            $invoice->invoice_status_code = 'partial';
+        } else {
+            $invoice->invoice_status_code = 'draft';
+        }
+
+        $invoice->save();
+
         $payment->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
 
         flash($message)->success();
 
-        return redirect('incomes/invoices');
+        return redirect()->back();
     }
 
     protected function prepareInvoice(Invoice $invoice)

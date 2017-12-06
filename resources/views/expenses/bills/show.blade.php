@@ -153,11 +153,13 @@
                     <div class="btn-group dropup">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-circle-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
                         <ul class="dropdown-menu" role="menu">
+                            @if($bill->status->code != 'paid')
                             <li><a href="#" id="button-payment">{{ trans('bills.add_payment') }}</a></li>
                             @permission('update-expenses-bills')
                             <li><a href="{{ url('expenses/bills/' . $bill->id . '/received') }}">{{ trans('bills.mark_received') }}</a></li>
                             @endpermission
                             <li class="divider"></li>
+                            @endif
                             <li><a href="{{ url('expenses/bills/' . $bill->id . '/pdf') }}">{{ trans('bills.download_pdf') }}</a></li>
                             <li class="divider"></li>
                             @permission('delete-expenses-bills')
@@ -287,6 +289,7 @@
                 html += '               <h4 class="modal-title" id="paymentModalLabel">{{ trans('bills.add_payment') }}</h4>';
                 html += '           </div>';
                 html += '           <div class="modal-body box-body">';
+                html += '               <div class="modal-message"></div>';
                 html += '               <div class="form-group col-md-6 required">';
                 html += '                   {!! Form::label('paid_at', trans('general.date'), ['class' => 'control-label']) !!}';
                 html += '                   <div class="input-group">';
@@ -336,9 +339,9 @@
                 html += '               </div>';
                 html += '               {!! Form::hidden('bill_id', $bill->id, ['id' => 'bill_id', 'class' => 'form-control', 'required' => 'required']) !!}';
                 html += '           </div>';
-                html += '           <div class="modal-footer">';
-                html += '               <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('general.cancel') }}</button>';
+                html += '           <div class="modal-footer" style="text-align: left;">';
                 html += '               <button type="button" onclick="addPayment();" class="btn btn-success">{{ trans('general.save') }}</button>';
+                html += '               <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('general.cancel') }}</button>';
                 html += '           </div>';
                 html += '       </div>';
                 html += '   </div>';
@@ -417,10 +420,22 @@
                 complete: function() {
                     $('#loading').remove();
                 },
-                success: function(data) {
-                    $("#payment-modal").modal('hide');
+                success: function(json) {
+                    if (json['error']) {
+                        $('#payment-modal .modal-message').append('<div class="alert alert-danger">' + json['message'] + '</div>');
+                        $('div.alert-danger').delay(3000).fadeOut(350);
+                    }
 
-                    location.reload();
+                    if (json['success']) {
+                        $('#payment-modal .modal-message').before('<div class="alert alert-success">' + json['message'] + '</div>');
+                        $('div.alert-success').delay(3000).fadeOut(350);
+
+                        setTimeout(function(){
+                            $("#payment-modal").modal('hide');
+
+                            location.reload();
+                        }, 3000);
+                    }
                 },
                 error: function(data){
                     var errors = data.responseJSON;
