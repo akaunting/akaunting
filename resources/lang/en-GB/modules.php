@@ -14,6 +14,12 @@ return [
     'no_apps'               => 'There are no apps in this category, yet.',
     'developer'             => 'Are you a developer? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Here</a> you can learn how to create an app and start selling today!',
 
+    'about'                 => 'About',
+
+    'added'                 => 'Added',
+    'updated'               => 'Updated',
+    'compatibility'         => 'Compatibility',
+
     'installed'             => ':module installed',
     'uninstalled'           => ':module uninstalled',
     'updated'               => ':module updated',

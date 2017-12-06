@@ -97,7 +97,7 @@
                 <!-- /.box -->
 
                 <div class="content-header no-padding-left">
-                    <h3>About</h3>
+                    <h3>{{ trans('modules.about') }}</h3>
                 </div>
 
                 <div class="box box-success">
@@ -105,27 +105,27 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
-                                    <th>Vendor</th>
+                                    <th>{{ trans_choice('general.vendors', 1) }}</th>
                                     <td class="text-right"><a href="{{ url('apps/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a></td>
                                 </tr>
                                 <tr>
-                                    <th>Version</th>
+                                    <th>{{ trans('footer.version') }}</th>
                                     <td class="text-right">{{ $module->version }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Added</th>
+                                    <th>{{ trans('modules.added') }}</th>
                                     <td class="text-right">{{ Date::parse($module->created_at)->format($date_format) }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Updated</th>
+                                    <th>{{ trans('modules.updated') }}</th>
                                     <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Compatibility</th>
+                                    <th>{{ trans('modules.compatibility') }}</th>
                                     <td class="text-right">{{ $module->compatibility }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Category</th>
+                                    <th>{{ trans_choice('general.categories', 1) }}</th>
                                     <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                                 </tr>
                             </tbody>
@@ -138,6 +138,16 @@
         </div>
     </div>
 @endsection
+
+@push('css')
+    <style type="text/css">
+    .nav-tabs-custom img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+    </style>
+@endpush
 
 @push('scripts')
     <script type="text/javascript">
