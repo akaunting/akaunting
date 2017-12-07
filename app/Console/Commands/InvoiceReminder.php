@@ -69,7 +69,9 @@ class InvoiceReminder extends Command
 
         foreach ($invoices as $invoice) {
             // Notify the customer
-            $invoice->customer->notify(new Notification($invoice));
+            if ($invoice->customer) {
+                $invoice->customer->notify(new Notification($invoice));
+            }
 
             // Notify all users assigned to this company
             foreach ($company->users as $user) {
