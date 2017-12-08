@@ -47,7 +47,7 @@ class Invoice extends Notification
     public function toMail($notifiable)
     {
         $message = (new MailMessage)
-            ->line(trans('invoices.notification.message', ['amount' => money($this->invoice->amount, $this->invoice->currency_code, true), 'customer' => $this->invoice->customer->name]))
+            ->line(trans('invoices.notification.message', ['amount' => money($this->invoice->amount, $this->invoice->currency_code, true), 'customer' => $this->invoice->customer_name]))
             ->action(trans('invoices.notification.button'), url('customers/invoices', $this->invoice->id, true));
 
         // Attach the PDF file if available
