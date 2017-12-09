@@ -36,9 +36,9 @@ class Dashboard extends Controller
 
         // Daily
         $day = array();
-
-        for ($j = $month_days; $j > -1; $j--) {
-            $day[$month_days - $j] = date("d M", strtotime("-$j day"));
+        $month_ago = $this->today->subMonth();
+        for ($j = $month_days; $j > 0; $j--) {
+            $day[$month_days - $j] = $month_ago->addDay()->format('d M');
         }
 
         $daily_income = $this->getCashFlow('income', 'daily');
@@ -48,9 +48,9 @@ class Dashboard extends Controller
 
         // Monthly
         $month = array();
-
+        $year_ago = $this->today->subYear();
         for ($j = 12; $j >= 0; $j--) {
-            $month[12 - $j] = date("F-Y", strtotime(" -$j month"));
+            $month[12 - $j] = $year_ago->addMonth()->format('M Y');
         }
 
         $monthly_income = $this->getCashFlow('income', 'monthly');
