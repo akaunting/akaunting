@@ -212,4 +212,20 @@ class Currencies extends Controller
 
         return response()->json($json);
     }
+
+    public function config()
+    {
+        $json = new \stdClass();
+
+        $code = request('code');
+
+        if ($code) {
+            $currency = config('money.' . $code);
+            $currency['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
+
+            $json = (object) $currency;
+        }
+
+        return response()->json($json);
+    }
 }
