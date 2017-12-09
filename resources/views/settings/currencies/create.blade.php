@@ -14,7 +14,7 @@
 
         {{ Form::textGroup('rate', trans('currencies.rate'), 'money') }}
 
-        {{ Form::textGroup('precision', trans('currencies.precision'), 'money') }}
+        {{ Form::textGroup('precision', trans('currencies.precision'), 'bullseye') }}
 
         {{ Form::textGroup('symbol', trans('currencies.symbol.symbol'), 'font') }}
 
