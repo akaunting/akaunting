@@ -74,6 +74,7 @@ return [
     'reference'             => 'Reference',
     'attachment'            => 'Attachment',
     'change'                => 'Change',
+    'switch'                => 'Switch',
     'color'                 => 'Colour',
     'save'                  => 'Save',
     'cancel'                => 'Cancel',
