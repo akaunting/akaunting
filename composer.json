@@ -16,6 +16,7 @@
         "barryvdh/laravel-dompdf": "0.*",
         "barryvdh/laravel-ide-helper": "2.3.*",
         "bkwld/cloner": "3.2.*",
+        "consoletvs/charts": "4.6.*",
         "dingo/api": "1.0.0-beta8",
         "guzzlehttp/guzzle": "6.3.*",
         "intervention/image": "2.3.*",
