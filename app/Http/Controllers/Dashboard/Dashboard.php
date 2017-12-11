@@ -12,6 +12,7 @@ use App\Models\Income\InvoicePayment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
+use Charts;
 use Date;
 
 class Dashboard extends Controller
@@ -58,20 +59,24 @@ class Dashboard extends Controller
 
         $monthly_profit = $this->getProfit($monthly_income, $monthly_expense);
 
-        $cash_flow = [
-            'daily' => [
-                'date'    => json_encode($day),
-                'income'  => json_encode(array_values($daily_income)),
-                'expense' => json_encode(array_values($daily_expense)),
-                'profit'  => json_encode(array_values($daily_profit))
-            ],
-            'monthly' => [
-                'date'    => json_encode($month),
-                'income'  => json_encode(array_values($monthly_income)),
-                'expense' => json_encode(array_values($monthly_expense)),
-                'profit'  => json_encode(array_values($monthly_profit))
-            ],
-        ];
+        $line_daily = Charts::multi('line', 'chartjs')
+            ->dimensions(0, 300)
+            ->colors(['#6da252', '#00c0ef', '#F56954'])
+            ->dataset(trans_choice('general.profits', 1), $daily_profit)
+            ->dataset(trans_choice('general.incomes', 1), $daily_income)
+            ->dataset(trans_choice('general.expenses', 1), $daily_expense)
+            ->labels($day)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.multi.line');
+
+        $line_monthly = Charts::multi('bar', 'chartjs')
+            ->dimensions(0, 300)
+            ->colors(['#6da252', '#00c0ef', '#F56954'])
+            ->dataset(trans_choice('general.profits', 1), $monthly_profit)
+            ->dataset(trans_choice('general.incomes', 1), $monthly_income)
+            ->dataset(trans_choice('general.expenses', 1), $monthly_expense)
+            ->labels($month)
+            ->credits(false);
 
         /*
          * Totals & Pie Charts
@@ -87,29 +92,21 @@ class Dashboard extends Controller
 
         $incomes_amount += $invoice_paid_amount;
 
+        // Add to Incomes By Category
+        $donut_incomes_colors[] = '#00c0ef';
+        $donut_incomes_labels[] = money($invoice_paid_amount, setting('general.default_currency'), true)->format() . ' - ' . trans_choice('general.invoices', 2);
+        $donut_incomes_values[] = (int) $invoice_paid_amount;
+
         // Bills
         $bills = Bill::with('payments')->accrued()->get();
         list($bill_paid_amount, $open_bill, $overdue_bill) = $this->getTotals($bills, 'bill');
 
         $expenses_amount += $bill_paid_amount;
 
-        // Add to Incomes By Category
-        $incomes[] = array(
-            'amount'    => money($invoice_paid_amount, setting('general.default_currency'), true)->format(),
-            'value'     => (int) $invoice_paid_amount,
-            'color'     => '#00c0ef',
-            'highlight' => '#00c0ef',
-            'label'     => trans_choice('general.invoices', 2)
-        );
-
         // Add to Expenses By Category
-        $expenses[] = array(
-            'amount'    => money($bill_paid_amount, setting('general.default_currency'), true)->format(),
-            'value'     => (int) $bill_paid_amount,
-            'color'     => '#dd4b39',
-            'highlight' => '#dd4b39',
-            'label'     => trans_choice('general.bills', 2)
-        );
+        $donut_expenses_colors[] = '#dd4b39';
+        $donut_expenses_labels[] = money($bill_paid_amount, setting('general.default_currency'), true)->format() . ' - ' . trans_choice('general.bills', 2);
+        $donut_expenses_values[] = (int) $bill_paid_amount;
 
         // Revenues & Payments
         $categories = Category::orWhere('type', 'income')->orWhere('type', 'expense')->enabled()->get();
@@ -117,85 +114,49 @@ class Dashboard extends Controller
         foreach ($categories as $category) {
             switch ($category->type) {
                 case 'income':
-                    $revenues = $category->revenues;
-
                     $amount = 0;
 
-                    if ($revenues) {
-                        foreach ($revenues as $revenue) {
-                            $amount += $revenue->getConvertedAmount();
-                        }
-
-                        $incomes[] = array(
-                            'amount'    => money($amount, setting('general.default_currency'), true)->format(),
-                            'value'     => (int) $amount,
-                            'color'     => $category->color,
-                            'highlight' => $category->color,
-                            'label'     => $category->name
-                        );
-                    } else {
-                        $incomes[] = array(
-                            'amount'    => money(0, setting('general.default_currency'), true)->format(),
-                            'value'     => (int) 0,
-                            'color'     => $category->color,
-                            'highlight' => $category->color,
-                            'label'     => $category->name
-                        );
+                    foreach ($category->revenues as $revenue) {
+                        $amount += $revenue->getConvertedAmount();
                     }
+
+                    $donut_incomes_colors[] = $category->color;
+                    $donut_incomes_labels[] = money($amount, setting('general.default_currency'), true)->format() . ' - ' . $category->name;
+                    $donut_incomes_values[] = (int) $amount;
 
                     $incomes_amount += $amount;
                     break;
                 case 'expense':
-                    $payments = $category->payments;
-
                     $amount = 0;
 
-                    if ($payments) {
-                        foreach ($payments as $payment) {
-                            $amount += $payment->getConvertedAmount();
-                        }
-
-                        $expenses[] = array(
-                            'amount'    => money($amount, setting('general.default_currency'), true)->format(),
-                            'value'     => (int) $amount,
-                            'color'     => $category->color,
-                            'highlight' => $category->color,
-                            'label'     => $category->name
-                        );
-                    } else {
-                        $expenses[] = array(
-                            'amount'    => money(0, setting('general.default_currency'), true)->format(),
-                            'value'     => (int) 0,
-                            'color'     => $category->color,
-                            'highlight' => $category->color,
-                            'label'     => $category->name
-                        );
+                    foreach ($category->payments as $payment) {
+                        $amount += $payment->getConvertedAmount();
                     }
+
+                    $donut_expenses_colors[] = $category->color;
+                    $donut_expenses_labels[] = money($amount, setting('general.default_currency'), true)->format() . ' - ' . $category->name;
+                    $donut_expenses_values[] = (int) $amount;
 
                     $expenses_amount += $amount;
                     break;
             }
         }
 
-        if (empty($incomes_amount)) {
-            foreach ($incomes as $key => $income) {
-                $incomes[$key]['amount'] = money(0, setting('general.default_currency'), true)->format();
-                $incomes[$key]['value'] = (int) 100 / count($incomes);
-            }
-        }
+        $donut_incomes = Charts::create('donut', 'chartjs')
+            ->colors($donut_incomes_colors)
+            ->labels($donut_incomes_labels)
+            ->values($donut_incomes_values)
+            ->dimensions(0, 160)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.donut');
 
-        // Incomes Pie Chart
-        $income_graph = json_encode($incomes);
-
-        if (empty($expenses_amount)) {
-            foreach ($expenses as $key => $expense) {
-                $expenses[$key]['amount'] = money(0, setting('general.default_currency'), true)->format();
-                $expenses[$key]['value'] = (int) 100 / count($expenses);
-            }
-        }
-
-        // Expenses Pie Chart
-        $expense_graph = json_encode($expenses);
+        $donut_expenses = Charts::create('donut', 'chartjs')
+            ->colors($donut_expenses_colors)
+            ->labels($donut_expenses_labels)
+            ->values($donut_expenses_values)
+            ->dimensions(0, 160)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.donut');
 
         $incomes_progress = 100;
 
@@ -265,13 +226,10 @@ class Dashboard extends Controller
             'total_incomes',
             'total_expenses',
             'total_profit',
-            'cash_flow',
-            'incomes',
-            'incomes_amount',
-            'income_graph',
-            'expenses',
-            'expenses_amount',
-            'expense_graph',
+            'line_daily',
+            'line_monthly',
+            'donut_incomes',
+            'donut_expenses',
             'accounts',
             'latest_incomes',
             'latest_expenses'

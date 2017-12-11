@@ -190,6 +190,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Bkwld\Cloner\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         EloquentFilter\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
@@ -256,6 +257,7 @@ return [
          * Vendor Aliases...
          */
         //'Api' => Dingo\Api\Facade\API,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Date' => Jenssegers\Date\Date::class,
         'DotenvEditor' => Jackiedo\DotenvEditor\Facades\DotenvEditor::class,
