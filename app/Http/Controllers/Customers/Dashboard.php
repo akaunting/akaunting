@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
-
-use Auth;
+use App\Models\Income\Invoice;
 
 class Dashboard extends Controller
 {
@@ -16,8 +15,10 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $user = Auth::user()->customer;
+        $customer = auth()->user()->customer;
 
-        return view('customers.dashboard.index', compact('user'));
+        $invoices = Invoice::with('status')->accrued()->where('customer_id', $customer->id)->get();
+
+        return view('customers.dashboard.index', compact('customer', 'invoices'));
     }
 }

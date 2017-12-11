@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    @if ($user->invoices->count())
+                    @if ($invoices->count())
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -29,13 +29,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($user->invoices as $item)
+                            @foreach($invoices as $item)
                             <tr>
                                 <td><a href="{{ url('customers/invoices/' . $item->id) }}">{{ $item->invoice_number }}</a></td>
                                 <td class="text-right">@money($item->amount, $item->currency_code, true)</td>
                                 <td class="text-right">{{ Date::parse($item->invoiced_at)->format($date_format) }}</td>
                                 <td class="text-right">{{ Date::parse($item->due_at)->format($date_format) }}</td>
-                                <td class="text-center">{{ $item->status->name }}</td>
+                                <td class="text-center"><span class="label {{ $item->status->label }}">{{ $item->status->name }}</span></td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    @if ($user->revenues->count())
+                    @if ($customer->revenues->count())
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -73,7 +73,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($user->revenues as $item)
+                            @foreach($customer->revenues as $item)
                             <tr>
                                 <td><a href="{{ url('customers/payments/' . $item->id . '') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
                                 <td>@money($item->amount, $item->currency_code, true)</td>
