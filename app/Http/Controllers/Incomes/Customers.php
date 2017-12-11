@@ -61,10 +61,14 @@ class Customers extends Controller
             }
 
             // Create user first
-            $user = User::create($request->all());
+            $data = $request->all();
+            $data['locale'] = setting('general.default_locale', 'en-GB');
+
+            $user = User::create($data);
             $user->roles()->attach(['3']);
             $user->companies()->attach([session('company_id')]);
 
+            // Finally create customer
             $request['user_id'] = $user->id;
 
             Customer::create($request->all());
