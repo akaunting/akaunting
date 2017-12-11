@@ -37,7 +37,7 @@ class Bills extends Controller
      */
     public function index()
     {
-        $bills = Bill::with(['vendor', 'status', 'items', 'payments', 'histories'])->collect();
+        $bills = Bill::with(['vendor', 'status', 'items', 'payments', 'histories'])->collect(['billed_at'=> 'desc']);
 
         $vendors = collect(Vendor::enabled()->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
