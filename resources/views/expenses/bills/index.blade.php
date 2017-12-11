@@ -45,26 +45,13 @@
                 </thead>
                 <tbody>
                 @foreach($bills as $item)
-                    @php
-                        switch ($item->status->code) {
-                            case 'paid':
-                                $label = 'label-success';
-                                break;
-                            case 'partial':
-                                $label = 'label-warning';
-                                break;
-                            default:
-                                $label = 'bg-aqua';
-                                break;
-                        }
-                    @endphp
                     <tr>
                         <td><a href="{{ url('expenses/bills/' . $item->id . ' ') }}">{{ $item->bill_number }}</a></td>
                         <td>{{ $item->vendor_name }}</td>
                         <td>@money($item->amount, $item->currency_code, true)</td>
                         <td>{{ Date::parse($item->billed_at)->format($date_format) }}</td>
                         <td>{{ Date::parse($item->due_at)->format($date_format) }}</td>
-                        <td><span class="label {{ $label }}">{{ $item->status->name }}</span></td>
+                        <td><span class="label {{ $item->status->label }}">{{ $item->status->name }}</span></td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
