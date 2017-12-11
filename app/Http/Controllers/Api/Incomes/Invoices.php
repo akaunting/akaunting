@@ -79,7 +79,7 @@ class Invoices extends ApiController
                     $item_sku = $item_object->sku;
 
                     // Decrease stock (item sold)
-                    $item_object->quantity--;
+                    $item_object->quantity -= $item['quantity'];
                     $item_object->save();
 
                     // Notify users if out of stock

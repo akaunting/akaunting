@@ -156,7 +156,7 @@ class Bills extends Controller
                     $item_sku = $item_object->sku;
 
                     // Increase stock (item bought)
-                    $item_object->quantity++;
+                    $item_object->quantity += $item['quantity'];
                     $item_object->save();
                 }
 
