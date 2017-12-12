@@ -270,38 +270,54 @@ class Dashboard extends Controller
 
         $date_format = 'Y-m';
 
-        $n = 1;
-        if ($period == 'quarter') {
+        if ($period == 'month') {
+            $n = 1;
+            $start_date = $start->format($date_format);
+            $end_date = $end->format($date_format);
+            $next_date = $start_date;
+        } else {
             $n = 3;
+            $start_date = $start->quarter;
+            $end_date = $end->quarter;
+            $next_date = $start_date;
         }
 
-        $start_date = $start->format($date_format);
-        $end_date = $end->format($date_format);
-        $next_date = $start_date;
+        $s = clone $start;
 
-        $totals[$start_date] = 0;
-
-        do {
-            $next_date = Date::parse($next_date)->addMonths($n)->format($date_format);
-
+        //$totals[$start_date] = 0;
+        while ($next_date <= $end_date) {
             $totals[$next_date] = 0;
-        } while ($next_date < $end_date);
+
+            if ($period == 'month') {
+                $next_date = $s->addMonths($n)->format($date_format);
+            } else {
+                if (isset($totals[4])) {
+                    break;
+                }
+
+                $next_date = $s->addMonths($n)->quarter;
+            }
+        }
 
         $items_1 = $m1::whereBetween('paid_at', [$start, $end])->get();
 
-        $this->setCashFlowTotals($totals, $items_1, $date_format);
+        $this->setCashFlowTotals($totals, $items_1, $date_format, $period);
 
         $items_2 = $m2::whereBetween('paid_at', [$start, $end])->get();
 
-        $this->setCashFlowTotals($totals, $items_2, $date_format);
+        $this->setCashFlowTotals($totals, $items_2, $date_format, $period);
 
         return $totals;
     }
 
-    private function setCashFlowTotals(&$totals, $items, $date_format)
+    private function setCashFlowTotals(&$totals, $items, $date_format, $period)
     {
         foreach ($items as $item) {
-            $i = Date::parse($item->paid_at)->format($date_format);
+            if ($period == 'month') {
+                $i = Date::parse($item->paid_at)->format($date_format);
+            } else {
+                $i = Date::parse($item->paid_at)->quarter;
+            }
 
             $totals[$i] += $item->getConvertedAmount();
         }
