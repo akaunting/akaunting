@@ -73,6 +73,7 @@
                     <div class="box-tools pull-right">
                         <button type="button" id="cashflow-monthly" class="btn btn-default btn-sm">Monthly</button>&nbsp;&nbsp;
                         <button type="button" id="cashflow-quarterly" class="btn btn-default btn-sm">Quarterly</button>&nbsp;&nbsp;
+                        <input type="hidden" name="period" id="period" value="month" />
                         <div class="btn btn-default btn-sm">
                             <div id="cashflow-range" class="pull-right">
                                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
@@ -249,11 +250,13 @@
 
     $(document).ready(function () {
         $('#cashflow-range').on('apply.daterangepicker', function(ev, picker) {
+            var period = $('#period').val();
+
             $.ajax({
                 url: '{{ url("dashboard/dashboard/cashflow") }}',
                 type: 'GET',
                 dataType: 'HTML',
-                data: 'start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                data: 'period=' + period + '&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
                 success: function(data) {
                     $('#cashflow').html(data);
                 }
@@ -262,6 +265,8 @@
 
         $('#cashflow-monthly').on('click', function() {
             var picker = $('#cashflow-range').data('daterangepicker');
+
+            $('#period').val('month');
 
             $.ajax({
                 url: '{{ url("dashboard/dashboard/cashflow") }}',
@@ -276,6 +281,8 @@
 
         $('#cashflow-quarterly').on('click', function() {
             var picker = $('#cashflow-range').data('daterangepicker');
+
+            $('#period').val('quarter');
 
             $.ajax({
                 url: '{{ url("dashboard/dashboard/cashflow") }}',
