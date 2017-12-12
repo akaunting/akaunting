@@ -15,6 +15,7 @@ Route::group(['middleware' => 'language'], function () {
 
         Route::group(['middleware' => ['adminmenu', 'permission:read-admin-panel']], function () {
             Route::get('/', 'Dashboard\Dashboard@index');
+            Route::get('dashboard/dashboard/cashflow', 'Dashboard\Dashboard@cashFlow');
 
             Route::group(['prefix' => 'search'], function () {
                 Route::get('search/search', 'Search\Search@search');

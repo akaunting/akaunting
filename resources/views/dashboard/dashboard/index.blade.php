@@ -67,20 +67,22 @@
     <div class="row">
         <!---Income, Expense and Profit Line Chart-->
         <div class="col-md-12">
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs pull-right ui-sortable-handle">
-                    <li class=""><a href="#monthly-chart" data-toggle="tab" aria-expanded="false">{{ trans('general.monthly') }}</a></li>
-                    <li class="active"><a href="#daily-chart" data-toggle="tab" aria-expanded="true">{{ trans('general.daily') }}</a></li>
-                    <li class="pull-left header" style="font-size: 18px;">{{ trans('dashboard.cash_flow') }}</li>
-                </ul>
-
-                <div class="tab-content no-padding">
-                    <div class="chart tab-pane active" id="daily-chart" style="position: relative; height: 310px;">
-                        {!! $line_daily->render() !!}
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ trans('dashboard.cash_flow') }}</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" id="cashflow-monthly" class="btn btn-default btn-sm">Monthly</button>&nbsp;&nbsp;
+                        <button type="button" id="cashflow-quarterly" class="btn btn-default btn-sm">Quarterly</button>&nbsp;&nbsp;
+                        <div class="btn btn-default btn-sm">
+                            <div id="cashflow-range" class="pull-right">
+                                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                                <span></span> <b class="caret"></b>
+                            </div>
+                        </div>
                     </div>
-                    <div class="chart tab-pane" id="monthly-chart" style="position: relative; height: 310px;">
-                        {!! $line_monthly->render() !!}
-                    </div>
+                </div>
+                <div class="box-body" id="cashflow">
+                    {!! $cashflow->render() !!}
                 </div>
             </div>
         </div>
@@ -92,9 +94,6 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.incomes_by_category') }}</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
@@ -107,9 +106,6 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.expenses_by_category') }}</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
@@ -125,9 +121,6 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.account_balance') }}</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
@@ -154,9 +147,6 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.latest_incomes') }}</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
@@ -191,9 +181,6 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.latest_expenses') }}</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
@@ -228,4 +215,78 @@
 
 @push('js')
 {!! Charts::assets() !!}
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+@endpush
+
+@push('scripts')
+<script type="text/javascript">
+    $(function() {
+        var start = moment().startOf('year');
+        var end = moment().endOf('year');
+
+        function cb(start, end) {
+            $('#cashflow-range span').html(start.format('D MMM YYYY') + ' - ' + end.format('D MMM YYYY'));
+        }
+
+        $('#cashflow-range').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'This Year': [moment().startOf('year'), moment().endOf('year')],
+                'Previous Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+                'This Quarter': [moment().subtract(2, 'months').startOf('month'), moment().endOf('month')],
+                'Previous Quarter': [moment().subtract(5, 'months').startOf('month'), moment().subtract(3, 'months').endOf('month')],
+                'Last 12 Months': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')]
+            }
+        }, cb);
+
+        cb(start, end);
+    });
+
+    $(document).ready(function () {
+        $('#cashflow-range').on('apply.daterangepicker', function(ev, picker) {
+            $.ajax({
+                url: '{{ url("dashboard/dashboard/cashflow") }}',
+                type: 'GET',
+                dataType: 'HTML',
+                data: 'start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                success: function(data) {
+                    $('#cashflow').html(data);
+                }
+            });
+        });
+
+        $('#cashflow-monthly').on('click', function() {
+            var picker = $('#cashflow-range').data('daterangepicker');
+
+            $.ajax({
+                url: '{{ url("dashboard/dashboard/cashflow") }}',
+                type: 'GET',
+                dataType: 'HTML',
+                data: 'period=month&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                success: function(data) {
+                    $('#cashflow').html(data);
+                }
+            });
+        });
+
+        $('#cashflow-quarterly').on('click', function() {
+            var picker = $('#cashflow-range').data('daterangepicker');
+
+            $.ajax({
+                url: '{{ url("dashboard/dashboard/cashflow") }}',
+                type: 'GET',
+                dataType: 'HTML',
+                data: 'period=quarter&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                success: function(data) {
+                    $('#cashflow').html(data);
+                }
+            });
+        });
+    });
+</script>
 @endpush
