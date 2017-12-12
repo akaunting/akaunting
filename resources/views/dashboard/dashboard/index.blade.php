@@ -71,8 +71,8 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.cash_flow') }}</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" id="cashflow-monthly" class="btn btn-default btn-sm">Monthly</button>&nbsp;&nbsp;
-                        <button type="button" id="cashflow-quarterly" class="btn btn-default btn-sm">Quarterly</button>&nbsp;&nbsp;
+                        <button type="button" id="cashflow-monthly" class="btn btn-default btn-sm">{{ trans('general.monthly') }}</button>&nbsp;&nbsp;
+                        <button type="button" id="cashflow-quarterly" class="btn btn-default btn-sm">{{ trans('general.quarterly') }}</button>&nbsp;&nbsp;
                         <input type="hidden" name="period" id="period" value="month" />
                         <div class="btn btn-default btn-sm">
                             <div id="cashflow-range" class="pull-right">
@@ -90,7 +90,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.incomes_by_category') }}</h3>
@@ -102,7 +102,9 @@
                     {!! $donut_incomes->render() !!}
                 </div>
             </div>
+        </div>
 
+        <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.expenses_by_category') }}</h3>
@@ -115,9 +117,11 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="row">
+        <!-- Account Balance List-->
         <div class="col-md-4">
-            <!-- Account Balance List-->
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.account_balance') }}</h3>
@@ -142,8 +146,10 @@
                     @endif
                 </div>
             </div>
+        </div>
 
-            <!-- Latest Incomes List-->
+        <!-- Latest Incomes List-->
+        <div class="col-md-4">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.latest_incomes') }}</h3>
@@ -176,8 +182,10 @@
                     @endif
                 </div>
             </div>
+        </div>
 
-            <!-- Latest Expenses List-->
+        <!-- Latest Expenses List-->
+        <div class="col-md-4">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('dashboard.latest_expenses') }}</h3>
@@ -214,18 +222,22 @@
     </div>
 @endsection
 
+@push('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/daterangepicker.css') }}" />
+@endpush
+
 @push('js')
 {!! Charts::assets() !!}
-
-<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+<script type="text/javascript" src="{{ asset('public/js/moment/moment.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/js/moment/locale/tr.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/js/daterangepicker/daterangepicker.js') }}"></script>
 @endpush
 
 @push('scripts')
 <script type="text/javascript">
     $(function() {
+        moment.locale('tr');
+
         var start = moment().startOf('year');
         var end = moment().endOf('year');
 
@@ -237,11 +249,11 @@
             startDate: start,
             endDate: end,
             ranges: {
-                'This Year': [moment().startOf('year'), moment().endOf('year')],
-                'Previous Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
-                'This Quarter': [moment().subtract(2, 'months').startOf('month'), moment().endOf('month')],
-                'Previous Quarter': [moment().subtract(5, 'months').startOf('month'), moment().subtract(3, 'months').endOf('month')],
-                'Last 12 Months': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')]
+                '{{ trans("reports.this_year") }}': [moment().startOf('year'), moment().endOf('year')],
+                '{{ trans("reports.previous_year") }}': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+                '{{ trans("reports.this_quarter") }}': [moment().subtract(2, 'months').startOf('month'), moment().endOf('month')],
+                '{{ trans("reports.previous_quarter") }}': [moment().subtract(5, 'months').startOf('month'), moment().subtract(3, 'months').endOf('month')],
+                '{{ trans("reports.last_12_months") }}': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')]
             }
         }, cb);
 
@@ -254,8 +266,8 @@
 
             $.ajax({
                 url: '{{ url("dashboard/dashboard/cashflow") }}',
-                type: 'GET',
-                dataType: 'HTML',
+                type: 'get',
+                dataType: 'html',
                 data: 'period=' + period + '&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
                 success: function(data) {
                     $('#cashflow').html(data);
@@ -270,8 +282,8 @@
 
             $.ajax({
                 url: '{{ url("dashboard/dashboard/cashflow") }}',
-                type: 'GET',
-                dataType: 'HTML',
+                type: 'get',
+                dataType: 'html',
                 data: 'period=month&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
                 success: function(data) {
                     $('#cashflow').html(data);
@@ -286,8 +298,8 @@
 
             $.ajax({
                 url: '{{ url("dashboard/dashboard/cashflow") }}',
-                type: 'GET',
-                dataType: 'HTML',
+                type: 'get',
+                dataType: 'html',
                 data: 'period=quarter&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
                 success: function(data) {
                     $('#cashflow').html(data);

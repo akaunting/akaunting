@@ -50,6 +50,7 @@ return [
     'na'                    => 'N/A',
     'daily'                 => 'Daily',
     'monthly'               => 'Monthly',
+    'quarterly'             => 'Quarterly',
     'yearly'                => 'Yearly',
     'add'                   => 'Add',
     'add_new'               => 'Add New',
