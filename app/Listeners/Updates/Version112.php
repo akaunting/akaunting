@@ -6,11 +6,11 @@ use App\Events\UpdateFinished;
 use App\Models\Company\Company;
 use DotenvEditor;
 
-class Version111 extends Listener
+class Version112 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.1.1';
+    const VERSION = '1.1.2';
 
     /**
      * Handle the event.
