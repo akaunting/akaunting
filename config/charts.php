@@ -79,37 +79,37 @@ return [
 
         'canvas-gauges' => [
             'scripts' => [
-                'https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.2/all/gauge.min.js',
+                //'https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.2/all/gauge.min.js',
             ],
         ],
 
         'chartist' => [
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.js',
             ],
             'styles' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.css',
+                //'https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.css',
             ],
         ],
 
         'chartjs' => [
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js',
+                url('public/js/chartjs//Chart.min.js'),
             ],
         ],
 
         'fusioncharts' => [
             'scripts' => [
-                'https://static.fusioncharts.com/code/latest/fusioncharts.js',
-                'https://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js',
+                //'https://static.fusioncharts.com/code/latest/fusioncharts.js',
+                //'https://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js',
             ],
         ],
 
         'google' => [
             'scripts' => [
-                'https://www.google.com/jsapi',
-                'https://www.gstatic.com/charts/loader.js',
-                "google.charts.load('current', {'packages':['corechart', 'gauge', 'geochart', 'bar', 'line']})",
+                //'https://www.google.com/jsapi',
+                //'https://www.gstatic.com/charts/loader.js',
+                //"google.charts.load('current', {'packages':['corechart', 'gauge', 'geochart', 'bar', 'line']})",
             ],
         ],
 
@@ -119,54 +119,54 @@ return [
                 // 'https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/css/highcharts.css',
             ],
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/highcharts.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/js/modules/offline-exporting.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/map.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/data.js',
-                'https://code.highcharts.com/mapdata/custom/world.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/highcharts.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.7/js/modules/offline-exporting.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/map.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.7/js/modules/data.js',
+                //'https://code.highcharts.com/mapdata/custom/world.js',
             ],
         ],
 
         'justgage' => [
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.6/raphael.min.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.2/justgage.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.6/raphael.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.2/justgage.min.js',
             ],
         ],
 
         'morris' => [
             'styles' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css',
+                //'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css',
             ],
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.6/raphael.min.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.6/raphael.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js',
             ],
         ],
 
         'plottablejs' => [
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/plottable.js/2.8.0/plottable.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/plottable.js/2.8.0/plottable.min.js',
             ],
             'styles' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/plottable.js/2.2.0/plottable.css',
+                //'https://cdnjs.cloudflare.com/ajax/libs/plottable.js/2.2.0/plottable.css',
             ],
         ],
 
         'progressbarjs' => [
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js',
             ],
         ],
 
         'c3' => [
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js',
             ],
             'styles' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css',
+                //'https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css',
             ],
         ],
     ],
