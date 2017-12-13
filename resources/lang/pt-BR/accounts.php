@@ -10,6 +10,5 @@ return [
     'bank_phone'            => 'Telefone',
     'bank_address'          => 'Endereço',
     'default_account'       => 'Conta Padrão',
-    'all'                   => 'Todas as Contas',
 
 ];

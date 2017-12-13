@@ -16,8 +16,8 @@ return [
     'uninstalled'           => '已移除',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">點這裡</a>取得您的 API token.',
 
-    'enabled'               => '已啟用:module',
-    'disabled'              => ':module已停用',
+    'enabled'               => ':module 已啟用',
+    'disabled'              => ':module 已停用',
 
     'installation' => [
         'header'            => '模組安裝',

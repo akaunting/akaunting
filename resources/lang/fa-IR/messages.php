@@ -7,12 +7,12 @@ return [
         'updated'           => ':type به‌روز شد!',
         'deleted'           => ':type حذف شد!',
         'duplicated'        => ':type دو عدد موجود است!',
-        'imported'          => ':type imported!',
+        'imported'          => ':type درون ریزی شد!',
     ],
     'error' => [
         'not_user_company'  => 'خطا: شما اجازه مدیریت این شرکت را ندارید!',
         'customer'          => 'خطا در تعریف کاربر! :name از این ایمیل استفاده می‌کند.',
-        'no_file'           => 'Error: No file selected!',
+        'no_file'           => 'خطا: فایلی انتخاب نشده است!',
     ],
     'warning' => [
         'deleted'           => 'هشدار: شما نمی توانید <b>:name</b> را به دلیل :text حذف کنید.',

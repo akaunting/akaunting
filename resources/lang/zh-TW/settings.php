@@ -24,10 +24,10 @@ return [
     ],
     'invoice' => [
         'tab'               => '訂單',
-        'prefix'            => '訂單字軌',
-        'digit'             => '訂單號碼',
-        'start'             => '訂單起始號碼',
-        'logo'              => '訂單商標',
+        'prefix'            => '數字字軌',
+        'digit'             => '數字位數',
+        'next'              => '下一個號碼',
+        'logo'              => '商標',
     ],
     'default' => [
         'tab'               => '預設',
