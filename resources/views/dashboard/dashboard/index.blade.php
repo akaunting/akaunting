@@ -240,8 +240,6 @@
 @push('scripts')
 <script type="text/javascript">
     $(function() {
-        moment.locale('tr');
-
         var start = moment().startOf('year');
         var end = moment().endOf('year');
 
