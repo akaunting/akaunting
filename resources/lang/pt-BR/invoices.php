@@ -22,6 +22,8 @@ return [
     'histories'         => 'Histórico',
     'payments'          => 'Pagamentos',
     'add_payment'       => 'Novo Pagamento',
+    'mark_paid'         => 'Mark Paid',
+    'mark_sent'         => 'Mark Sent',
     'download_pdf'      => 'Baixar em PDF',
     'send_mail'         => 'Enviar E-mail',
 
@@ -32,6 +34,16 @@ return [
         'approved'      => 'Aprovado',
         'partial'       => 'Parcial',
         'paid'          => 'Pago',
+    ],
+
+    'messages' => [
+        'email_sent'    => 'Invoice email has been sent successfully!',
+        'marked_sent'   => 'Invoice marked as sent successfully!',
+    ],
+
+    'notification' => [
+        'message'       => 'You are receiving this email because you have an upcoming :amount invoice to :customer customer.',
+        'button'        => 'Pay Now',
     ],
 
 ];

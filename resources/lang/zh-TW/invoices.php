@@ -22,6 +22,8 @@ return [
     'histories'         => '歷史記錄',
     'payments'          => '付款方式',
     'add_payment'       => '新增付款方式',
+    'mark_paid'         => '標記為已付款',
+    'mark_sent'         => '標記為已傳送',
     'download_pdf'      => '下載 PDF格式',
     'send_mail'         => '傳送電子郵件',
 
@@ -32,6 +34,16 @@ return [
         'approved'      => '已批准',
         'partial'       => '部分',
         'paid'          => '已付款',
+    ],
+
+    'messages' => [
+        'email_sent'    => '成功傳送帳單郵件！',
+        'marked_sent'   => '成功標記帳單為已傳送！',
+    ],
+
+    'notification' => [
+        'message'       => '由於您有一個即將到來的 :amount 帳單給客戶 :customer，因此收到此封郵件。',
+        'button'        => '立即付款',
     ],
 
 ];

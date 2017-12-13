@@ -24,6 +24,7 @@ return [
     ],
 
     'failed'                => 'Essas credenciais não correspondem aos nossos registros.',
+    'disabled'              => 'Esta conta está desabilitada. Por favor, entre em contato com o administrador do sistema.',
     'throttle'              => 'Muitas tentativas de login. Tente novamente em :seconds segundos.',
 
 ];

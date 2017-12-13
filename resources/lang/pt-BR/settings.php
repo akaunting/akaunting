@@ -24,10 +24,10 @@ return [
     ],
     'invoice' => [
         'tab'               => 'Faturas',
-        'prefix'            => 'Prefixo',
-        'digit'             => 'Número de Fatura',
-        'start'             => 'Inicar número com',
-        'logo'              => 'Logo da Fatura',
+        'prefix'            => 'Number Prefix',
+        'digit'             => 'Number Digit',
+        'next'              => 'Next Number',
+        'logo'              => 'Logo',
     ],
     'default' => [
         'tab'               => 'Padrões',
