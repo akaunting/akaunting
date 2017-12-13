@@ -229,7 +229,11 @@
 @push('js')
 {!! Charts::assets() !!}
 <script type="text/javascript" src="{{ asset('public/js/moment/moment.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/js/moment/locale/tr.js') }}"></script>
+@if (is_file(base_path('public/js/moment/locale/' . strtolower(app()->getLocale()) . '.js')))
+<script type="text/javascript" src="{{ asset('public/js/moment/locale/' . strtolower(app()->getLocale()) . '.js') }}"></script>
+@elseif (is_file(base_path('public/js/moment/locale/' . language()->getShortCode() . '.js')))
+<script type="text/javascript" src="{{ asset('public/js/moment/locale/' . language()->getShortCode() . '.js') }}"></script>
+@endif
 <script type="text/javascript" src="{{ asset('public/js/daterangepicker/daterangepicker.js') }}"></script>
 @endpush
 
