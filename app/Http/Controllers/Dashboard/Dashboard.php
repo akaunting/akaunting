@@ -166,6 +166,13 @@ class Dashboard extends Controller
 
     private function getDonuts()
     {
+        // Show donut prorated if there is no income
+        if (array_sum($this->income_donut['values']) == 0) {
+            foreach ($this->income_donut['values'] as $key => $value) {
+                $this->income_donut['values'][$key] = 1;
+            }
+        }
+
         $donut_incomes = Charts::create('donut', 'chartjs')
             ->colors($this->income_donut['colors'])
             ->labels($this->income_donut['labels'])
@@ -173,6 +180,13 @@ class Dashboard extends Controller
             ->dimensions(0, 160)
             ->credits(false)
             ->view('vendor.consoletvs.charts.chartjs.donut');
+
+        // Show donut prorated if there is no expense
+        if (array_sum($this->expense_donut['values']) == 0) {
+            foreach ($this->expense_donut['values'] as $key => $value) {
+                $this->expense_donut['values'][$key] = 1;
+            }
+        }
 
         $donut_expenses = Charts::create('donut', 'chartjs')
             ->colors($this->expense_donut['colors'])

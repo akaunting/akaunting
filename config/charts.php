@@ -94,7 +94,7 @@ return [
 
         'chartjs' => [
             'scripts' => [
-                url('public/js/chartjs//Chart.min.js'),
+                env('APP_URL') . '/public/js/chartjs/Chart.min.js',
             ],
         ],
 
