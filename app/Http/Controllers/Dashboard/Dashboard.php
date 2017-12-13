@@ -151,7 +151,7 @@ class Dashboard extends Controller
 
         $profit = $this->calculateCashFlowProfit($income, $expense);
 
-        $chart = Charts::multi('bar', 'chartjs')
+        $chart = Charts::multi('line', 'chartjs')
             ->dimensions(0, 300)
             ->colors(['#6da252', '#00c0ef', '#F56954'])
             ->dataset(trans_choice('general.profits', 1), $profit)

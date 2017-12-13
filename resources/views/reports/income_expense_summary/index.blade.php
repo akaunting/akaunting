@@ -18,9 +18,7 @@
         {!! Form::close() !!}
     </div>
     <div class="box-body">
-        <div class="chart">
-            <canvas id="compare_graph" style="height: 246px; width: 1069px;" height="246" width="1069"></canvas>
-        </div>
+        {!! $chart->render() !!}
 
         <hr>
 
@@ -87,55 +85,5 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/chartjs/Chart.min.js') }}"></script>
-@endpush
-
-@push('scripts')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var areaChartData = {
-                labels: {!! json_encode(array_values($dates)) !!},
-                datasets: [
-                    {
-                        label: "{{ trans_choice('general.compares', 2) }}",
-                        fillColor: "#6da252",
-                        strokeColor: "#6da252",
-                        pointColor: "#6da252",
-                        pointStrokeColor: "#6da252",
-                        pointHighlightFill: "#FFF",
-                        pointHighlightStroke: "#6da252",
-                        data: {!! $compares_graph !!}
-                    }
-                ]
-            };
-
-            var areaChartOptions = {
-                showScale: true,
-                scaleShowGridLines: false,
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                scaleGridLineWidth: 1,
-                scaleShowHorizontalLines: true,
-                scaleShowVerticalLines: true,
-                bezierCurve: true,
-                bezierCurveTension: 0.3,
-                pointDot: false,
-                pointDotRadius: 4,
-                pointDotStrokeWidth: 1,
-                pointHitDetectionRadius: 20,
-                datasetStroke: true,
-                datasetStrokeWidth: 2,
-                datasetFill: true,
-                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-                maintainAspectRatio: true,
-                responsive: true
-            };
-
-            var cashFlowDailyCanvas = $("#compare_graph").get(0).getContext("2d");
-            var cashFlowDaily = new Chart(cashFlowDailyCanvas);
-            var cashFlowDailyOptions = areaChartOptions;
-
-            cashFlowDailyOptions.datasetFill = false;
-            cashFlowDaily.Line(areaChartData, cashFlowDailyOptions);
-        });
-    </script>
+{!! Charts::assets() !!}
 @endpush
