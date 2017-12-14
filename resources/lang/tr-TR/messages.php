@@ -10,6 +10,7 @@ return [
         'imported'          => ':type içe aktarıldı!',
     ],
     'error' => [
+        'payment_add'       => 'Hata: Ödeme eklenmedi. Ödeme tutarını kontrol ediniz.',
         'not_user_company'  => 'Hata: Bu şirketi yönetme yetkiniz yok!',
         'customer'          => 'Hata: :name bu email adresini kullanmaktadır.',
         'no_file'           => 'Hata: Dosya seçilmedi!',
