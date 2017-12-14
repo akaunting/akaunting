@@ -21,9 +21,9 @@ class Dashboard extends Controller
 
     public $today;
 
-    public $income_donut = ['colors', 'labels', 'values'];
+    public $income_donut = ['colors' => [], 'labels' => [], 'values' => []];
 
-    public $expense_donut = ['colors', 'labels', 'values'];
+    public $expense_donut = ['colors' => [], 'labels' => [], 'values' => []];
 
     /**
      * Display a listing of the resource.
@@ -387,20 +387,15 @@ class Dashboard extends Controller
 
     private function addToIncomeDonut($color, $amount, $text)
     {
-        $this->addToDonut('income', $color, $amount, $text);
+        $this->income_donut['colors'][] = $color;
+        $this->income_donut['labels'][] = money($amount, setting('general.default_currency'), true)->format() . ' - ' . $text;
+        $this->income_donut['values'][] = (int) $amount;
     }
 
     private function addToExpenseDonut($color, $amount, $text)
     {
-        $this->addToDonut('expense', $color, $amount, $text);
-    }
-
-    private function addToDonut($type, $color, $amount, $text)
-    {
-        $attribute = $type . '_donut';
-
-        $this->$attribute['colors'][] = $color;
-        $this->$attribute['labels'][] = money($amount, setting('general.default_currency'), true)->format() . ' - ' . $text;
-        $this->$attribute['values'][] = (int) $amount;
+        $this->expense_donut['colors'][] = $color;
+        $this->expense_donut['labels'][] = money($amount, setting('general.default_currency'), true)->format() . ' - ' . $text;
+        $this->expense_donut['values'][] = (int) $amount;
     }
 }
