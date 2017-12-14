@@ -10,29 +10,33 @@ return [
     'free'                  => 'مجانى',
     'install'               => 'تثبيت',
     'buy_now'               => 'اشترى الأن',
-    'faq'                   => 'الاسئلة الشائعة',
-    'changelog'             => 'سجل التغييرات',
-    'installed'             => 'مثبت',
-    'uninstalled'           => 'الغاء التثبيت',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">اضغط هنا</a> للحصول على رمز الوصول الخاص بك API.',
+    'no_apps'               => 'لا يوجد تطبيقات فى هذة الفئة حتي الأن.',
+    'developer'             => 'هل أنت مطور؟ <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank"> هنا</a> يمكنك أن تتعلم كيفية إنشاء التطبيق وبدء البيع من اليوم!',
 
-    'enabled'               => ':القسم تم تفعيل التطبيق',
-    'disabled'              => ':القسم تم الغاء تفيل التطبيق',
+    'about'                 => 'حول',
 
-    'installation' => [
-        'header'            => 'تم تثبيت القسم',
-        'start'             => ':تثبيت القسم.',
-        'download'          => 'تحميل : ملفات القسم.',
-        'unzip'             => 'استخراج : ملفات القسم.',
-        'install'           => 'رفع : ملفات القسم .',
+    'added'                 => 'مُضاف',
+    'updated'               => 'تحديث',
+    'compatibility'         => 'التوافق',
+
+    'installed'             => ':القسم مثبت',
+    'uninstalled'           => ': قسم غير مفعل',
+    //'updated'               => ':module updated',
+    'enabled'               => ': قسم مفعل',
+    'disabled'              => ': قسم غير مفعل',
+
+    'tab' => [
+        'installation'      => 'التثبيت',
+        'faq'               => 'الاسئلة الشائعة',
+        'changelog'         => 'سجل التغييرات',
     ],
 
-    'history' => [
-        'installed'         => ':القسم مثبت',
-        'uninstalled'       => ': الغاء تثبيت القسم',
-        'updated'           => ': تحديث القسم',
-        'enabled'           => ': قسم مفعل',
-        'disabled'          => ': قسم غير مفعل',
+    'installation' => [
+        'header'            => 'تثبيت التطبيق',
+        'download'          => 'تحميل : ملفات القسم.',
+        'unzip'             => 'استخراج : ملفات القسم.',
+        'install'           => 'تثبيت: ملفات القسم.',
     ],
 
     'button' => [
