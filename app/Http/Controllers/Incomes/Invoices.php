@@ -30,6 +30,8 @@ use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
+use Image;
+use Storage;
 
 class Invoices extends Controller
 {
@@ -489,7 +491,9 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        $html = view($invoice->template_path, compact('invoice'))->render();
+        $logo = $this->getLogo();
+
+        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -531,7 +535,9 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        return view($invoice->template_path, compact('invoice'));
+        $logo = $this->getLogo();
+
+        return view($invoice->template_path, compact('invoice', 'logo'));
     }
 
     /**
@@ -545,7 +551,9 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        $html = view($invoice->template_path, compact('invoice'))->render();
+        $logo = $this->getLogo();
+
+        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -758,5 +766,32 @@ class Invoices extends Controller
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
         ]);
+    }
+
+    protected function getLogo()
+    {
+        $logo = '';
+
+        if (setting('general.invoice_logo')) {
+            $file = session('company_id') . '/' . setting('general.invoice_logo');
+        } else {
+            $file = session('company_id') . '/' . setting('general.company_logo');
+        }
+
+        $path = Storage::path($file);
+        if (!$path) {
+            return $logo;
+        }
+
+        $extension = File::extension($path);
+
+        $image = Image::make($path)->encode()->getEncoded();
+        if (empty($image)) {
+            return $logo;
+        }
+
+        $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
+
+        return $logo;
     }
 }
