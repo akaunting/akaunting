@@ -78,5 +78,4 @@ class BillReminder extends Command
             }
         }
     }
-
 }

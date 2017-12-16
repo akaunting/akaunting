@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Invoice email has been sent successfully!',
-        'marked_sent'   => 'Invoice marked as sent successfully!',
+        'email_sent'     => 'Invoice email has been sent successfully!',
+        'marked_sent'    => 'Invoice marked as sent successfully!',
+        'email_required' => 'No email address for this customer!',
     ],
 
     'notification' => [
