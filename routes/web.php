@@ -151,6 +151,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('invoices', 'Customers\Invoices');
                 Route::resource('payments', 'Customers\Payments');
                 Route::resource('transactions', 'Customers\Transactions');
+                Route::get('profile/read-invoices', 'Customers\Profile@readOverdueInvoices');
+                Route::resource('profile', 'Customers\Profile');
 
                 Route::get('logout', 'Auth\Login@destroy')->name('customer_logout');
             });
