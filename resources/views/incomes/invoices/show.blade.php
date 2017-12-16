@@ -398,7 +398,7 @@
                 html += '               <h4 class="modal-title" id="emailModalLabel">Overflowing text</h4>';
                 html += '           </div>';
                 html += '           <div class="modal-body">';
-                html += '              N/A';
+                html += '              {{ trans('general.na') }}';
                 html += '           </div>';
                 html += '           <div class="modal-footer">';
                 html += '               <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('general.cancel') }}</button>';
