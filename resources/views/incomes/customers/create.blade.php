@@ -10,7 +10,7 @@
         <div class="box-body">
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
-            {{ Form::textGroup('email', trans('general.email'), 'envelope') }}
+            {{ Form::textGroup('email', trans('general.email'), 'envelope', []) }}
 
             {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
 
@@ -68,7 +68,7 @@
             $('#create_user').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
-                increaseArea: '20%' // optional
+                increaseArea: '20%'
             });
 
             $('#create_user').on('ifClicked', function (event) {
@@ -76,13 +76,29 @@
 
                 if ($(this).prop('checked')) {
                     $('.col-md-6.password').addClass('hidden');
+
+                    $('input[name="email"]').parent().parent().removeClass('has-error');
+                    $('input[name="email"]').parent().parent().find('.help-block').remove();
                 } else {
+                    var email = $('input[name="email"]').val();
+
+                    if (!email) {
+                        $('input[name="email"]').parent().parent().addClass('has-error');
+                        $('input[name="email"]').parent().after('<p class="help-block">{{ trans('validation.required', ['attribute' => 'email']) }}</p>');
+                        $('input[name="email"]').focus();
+
+                        return false;
+                    }
+
                     $.ajax({
                         url: '{{ url("auth/users/autocomplete") }}',
                         type: 'GET',
                         dataType: 'JSON',
-                        data: {column: 'email', value: $('input[name="email"]').val()},
+                        data: {column: 'email', value: email},
                         beforeSend: function() {
+                            $('input[name="email"]').parent().parent().removeClass('has-error');
+                            $('input[name="email"]').parent().parent().find('.help-block').remove();
+
                             $('.box-footer .btn').attr('disabled', true);
                         },
                         complete: function() {
@@ -90,6 +106,14 @@
                         },
                         success: function(json) {
                             if (json['errors']) {
+                                if (json['data']) {
+                                    $('input[name="email"]').parent().parent().addClass('has-error');
+                                    $('input[name="email"]').parent().after('<p class="help-block">' + json['data'] + '</p>');
+                                    $('input[name="email"]').focus();
+
+                                    return false;
+                                }
+
                                 $('.col-md-6.password').removeClass('hidden');
                             }
 

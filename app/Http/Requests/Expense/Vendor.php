@@ -23,6 +23,11 @@ class Vendor extends Request
      */
     public function rules()
     {
+        $email = '';
+
+        // Get company id
+        $company_id = $this->request->get('company_id');
+
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
             $id = $this->vendor->getAttribute('id');
@@ -30,12 +35,13 @@ class Vendor extends Request
             $id = null;
         }
 
-        // Get company id
-        $company_id = $this->request->get('company_id');
+        if (!empty($this->request->get('email'))) {
+            $email = 'email|unique:vendors,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL';
+        }
 
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:vendors,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
+            'email' => $email,
             'currency_code' => 'required|string',
         ];
     }

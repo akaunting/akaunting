@@ -44,6 +44,10 @@ class Vendors extends Controller
      */
     public function store(Request $request)
     {
+        if (empty($request['email'])) {
+            $request['email'] = '';
+        }
+
         Vendor::create($request->all());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
@@ -120,6 +124,10 @@ class Vendors extends Controller
      */
     public function update(Vendor $vendor, Request $request)
     {
+        if (empty($request['email'])) {
+            $request['email'] = '';
+        }
+
         $vendor->update($request->all());
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.vendors', 1)]);
@@ -169,6 +177,10 @@ class Vendors extends Controller
 
     public function vendor(Request $request)
     {
+        if (empty($request['email'])) {
+            $request['email'] = '';
+        }
+
         $vendor = Vendor::create($request->all());
 
         return response()->json($vendor);

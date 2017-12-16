@@ -489,6 +489,10 @@ class Invoices extends Controller
      */
     public function emailInvoice(Invoice $invoice)
     {
+        if (empty($invoice->customer_email)) {
+            return redirect()->back();
+        }
+
         $invoice = $this->prepareInvoice($invoice);
 
         $logo = $this->getLogo();
