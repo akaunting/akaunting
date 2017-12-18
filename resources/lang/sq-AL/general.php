@@ -50,6 +50,7 @@ return [
     'na'                    => 'I Padisponueshëm',
     'daily'                 => 'Ditore',
     'monthly'               => 'Mujore',
+    'quarterly'             => 'Tremujore',
     'yearly'                => 'Vjetore',
     'add'                   => 'Shto',
     'add_new'               => 'Shto të Re',
@@ -74,6 +75,7 @@ return [
     'reference'             => 'Referenca',
     'attachment'            => 'Bashkëngjitje',
     'change'                => 'Ndrysho',
+    'switch'                => 'Ndryshim',
     'color'                 => 'Ngjyra',
     'save'                  => 'Ruaj',
     'cancel'                => 'Anulo',
@@ -83,8 +85,6 @@ return [
     'search'                => 'Kërko',
     'search_placeholder'    => 'Lloji për të kërkuar..',
     'filter'                => 'Filtër',
-    'create_user'           => 'Krijo Përdorues',
-    'created_user'          => 'Përdorues i Krijuar',
     'help'                  => 'Ndihmë',
     'all'                   => 'Të gjitha',
     'all_type'              => 'Të gjitha :type',
@@ -92,6 +92,7 @@ return [
     'created'               => 'Krijuar',
     'id'                    => 'ID',
     'more_actions'          => 'Më shumë Veprime',
+    'duplicate'             => 'Dublo',
 
     'title' => [
         'new'               => 'I ri :type',

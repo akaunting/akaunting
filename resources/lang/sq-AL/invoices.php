@@ -37,7 +37,13 @@ return [
     ],
 
     'messages' => [
+        'email_sent'    => 'Emaili i faturës është dërguar me sukses!',
         'marked_sent'   => 'Fatura shënohet si e dërguar me sukses!',
+    ],
+
+    'notification' => [
+        'message'       => 'Ju po merrni këtë email sepse keni një të ardhshme :amount fature e :customer klientit.',
+        'button'        => 'Paguaj Tani',
     ],
 
 ];

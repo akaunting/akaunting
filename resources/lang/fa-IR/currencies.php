@@ -5,14 +5,14 @@ return [
     'code'                  => 'کد',
     'rate'                  => 'نرخ',
     'default'               => 'واحد پول پیش فرض',
-    'decimal_mark'          => 'Decimal Mark',
-    'thousands_separator'   => 'Thousands Separator',
-    'precision'             => 'Precision',
+    'decimal_mark'          => 'ممیز',
+    'thousands_separator'   => 'هزاران جدا کننده',
+    'precision'             => 'دقت',
     'symbol' => [
-        'symbol'            => 'Symbol',
-        'position'          => 'Symbol Position',
-        'before'            => 'Before Amount',
-        'after'             => 'After Amount',
+        'symbol'            => 'نماد',
+        'position'          => 'موقعیت نماد',
+        'before'            => 'مقدار بعد از',
+        'after'             => 'مقدار بعد از',
     ]
 
 ];
