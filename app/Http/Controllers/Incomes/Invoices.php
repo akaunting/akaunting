@@ -790,16 +790,16 @@ class Invoices extends Controller
         }
 
         $path = Storage::path($file);
-        if (!$path) {
+        if (!is_file($path)) {
             return $logo;
         }
-
-        $extension = File::extension($path);
 
         $image = Image::make($path)->encode()->getEncoded();
         if (empty($image)) {
             return $logo;
         }
+
+        $extension = File::extension($path);
 
         $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
 

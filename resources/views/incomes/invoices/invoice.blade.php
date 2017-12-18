@@ -6,7 +6,9 @@
     <section class="invoice">
         <div class="row invoice-header">
             <div class="col-xs-7">
+                @if ($logo)
                 <img src="{{ $logo }}" class="invoice-logo" />
+                @endif
             </div>
             <div class="col-xs-5 invoice-company">
                 <address>
