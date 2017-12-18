@@ -522,3 +522,16 @@ ul.add-new.nav.navbar-nav.pull-left {
     right: 0;
     z-index: 999;
 }*/
+.progress-bar-green, .progress-bar-success {
+    background-color: #6da252;
+}
+
+#chart .row {
+    margin-top: 10px;
+}
+
+#chart .row .col-md-3 .customer-content .progress {
+    clear: both;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
