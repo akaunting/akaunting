@@ -14,8 +14,8 @@
                                 <div class="pull-left">{{ trans('general.unpaid') }}</div>
                                 <div class="pull-right">{{ $progress['total'] }} / {{ $progress['unpaid'] }}</div>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="{{ (100 / $progress['total']) * $progress['unpaid'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (100 / $progress['total']) * $progress['unpaid'] }}%">
-                                        {{ (100 / $progress['total']) * $progress['unpaid'] }} %
+                                    <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['unpaid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['unpaid'] : '0' }}%">
+                                        {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['unpaid'] : '0' }} %
                                     </div>
                                 </div>
                             </div>
@@ -25,8 +25,8 @@
                                 <div class="pull-left">{{ trans('general.paid') }}</div>
                                 <div class="pull-right">{{ $progress['total'] }} / {{ $progress['paid'] }}</div>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="{{ (100 / $progress['total']) * $progress['paid'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (100 / $progress['total']) * $progress['paid'] }}%">
-                                        {{ (100 / $progress['total']) * $progress['paid'] }}%
+                                    <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['paid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['paid'] : '0' }}%">
+                                        {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['paid'] : '0' }}%
                                     </div>
                                 </div>
                             </div>
@@ -36,8 +36,8 @@
                                 <div class="pull-left">{{ trans('general.overdue') }}</div>
                                 <div class="pull-right">{{ $progress['total'] }} / {{ $progress['overdue'] }}</div>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-yellow" role="progressbar" aria-valuenow="{{ (100 / $progress['total']) * $progress['overdue'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (100 / $progress['total']) * $progress['overdue'] }}%">
-                                        {{ (100 / $progress['total']) * $progress['overdue'] }}%
+                                    <div class="progress-bar progress-bar-yellow" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['overdue'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['overdue'] : '0' }}%">
+                                        {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['overdue'] : '0' }}%
                                     </div>
                                 </div>
                             </div>
@@ -47,8 +47,8 @@
                                 <div class="pull-left">{{ trans('general.partially_paid') }}</div>
                                 <div class="pull-right">{{ $progress['total'] }} / {{ $progress['partially_paid'] }}</div>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-light-blue" role="progressbar" aria-valuenow="{{ (100 / $progress['total']) * $progress['partially_paid'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (100 / $progress['total']) * $progress['partially_paid'] }}%">
-                                        {{ (100 / $progress['total']) * $progress['partially_paid'] }}%
+                                    <div class="progress-bar progress-bar-light-blue" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['partially_paid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['partially_paid'] : '0' }}%">
+                                        {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['partially_paid'] : '0' }}%
                                     </div>
                                 </div>
                             </div>
