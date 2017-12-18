@@ -157,7 +157,9 @@
                             @permission('update-incomes-invoices')
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pay') }}">{{ trans('invoices.mark_paid') }}</a></li>
                             @endpermission
+                            @if(empty($invoice->payments()->count()) || (!empty($invoice->payments()->count()) && $invoice->payments()->paid() != $invoice->amount))
                             <li><a href="#" id="button-payment">{{ trans('invoices.add_payment') }}</a></li>
+                            @endif
                             <li class="divider"></li>
                             @endif
                             @permission('update-incomes-invoices')
