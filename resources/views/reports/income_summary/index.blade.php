@@ -7,13 +7,13 @@
     <div class="box box-success">
         <div class="box-header">
             <div class="pull-left" style="margin-left: 23px">
-                <a href="{{ url('reports/income-summary') }}"><span class="badge @if (request('status') == '') bg-green @else bg-default @endif">{{ trans('general.all') }}</span></a>
-                <a href="{{ url('reports/income-summary') }}?status=paid"><span class="badge @if (request('status') == 'paid') bg-green @else bg-default @endif">{{ trans('invoices.paid') }}</span></a>
-                <a href="{{ url('reports/income-summary') }}?status=upcoming"><span class="badge @if (request('status') == 'upcoming') bg-green @else bg-default @endif">{{ trans('dashboard.receivables') }}</span></a>
+                <a href="{{ url('reports/income-summary') }}?year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == '') bg-green @else bg-default @endif">{{ trans('general.all') }}</span></a>
+                <a href="{{ url('reports/income-summary') }}?status=paid&year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == 'paid') bg-green @else bg-default @endif">{{ trans('invoices.paid') }}</span></a>
+                <a href="{{ url('reports/income-summary') }}?status=upcoming&year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == 'upcoming') bg-green @else bg-default @endif">{{ trans('dashboard.receivables') }}</span></a>
             </div>
             {!! Form::open(['url' => 'reports/income-summary', 'role' => 'form', 'method' => 'GET']) !!}
             <div class="pull-right">
-                {!! Form::select('year', $years, request('year', Date::now()->year), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
+                {!! Form::select('year', $years, request('year', $this_year), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
             </div>
             {!! Form::close() !!}
         </div>
