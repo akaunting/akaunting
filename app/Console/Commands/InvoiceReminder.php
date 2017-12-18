@@ -69,7 +69,7 @@ class InvoiceReminder extends Command
 
         foreach ($invoices as $invoice) {
             // Notify the customer
-            if ($invoice->customer) {
+            if ($invoice->customer && !empty($invoice->customer_email)) {
                 $invoice->customer->notify(new Notification($invoice));
             }
 
@@ -83,5 +83,4 @@ class InvoiceReminder extends Command
             }
         }
     }
-
 }

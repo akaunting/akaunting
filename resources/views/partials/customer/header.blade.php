@@ -31,17 +31,10 @@
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                @if (count($bills))
-                                <li>
-                                    <a href="{{ url('auth/users/' . $user->id . '/read-bills') }}">
-                                        <i class="fa fa-shopping-cart text-red"></i> {{ trans_choice('header.notifications.upcoming_bills', count($bills), ['count' => count($bills)]) }}
-                                    </a>
-                                </li>
-                                @endif
                                 @if (count($invoices))
                                 <li>
-                                    <a href="{{ url('auth/users/' . $user->id . '/read-invoices') }}">
-                                        <i class="fa fa-money text-green"></i> {{ trans_choice('header.notifications.overdue_invoices', count($invoices), ['count' => count($invoices)]) }}
+                                    <a href="{{ url('customers/profile/read-invoices') }}">
+                                        <i class="fa fa-money text-red"></i> {{ trans_choice('header.notifications.overdue_invoices', count($invoices), ['count' => count($invoices)]) }}
                                     </a>
                                 </li>
                                 @endif
@@ -92,9 +85,9 @@
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            @permission('read-customers-profile')
+                            @permission('update-customers-profile')
                             <div class="pull-left">
-                                <a href="{{ url('auth/users/' . $user->id . '/edit') }}" class="btn btn-default btn-flat">{{ trans('auth.profile') }}</a>
+                                <a href="{{ url('customers/profile/edit') }}" class="btn btn-default btn-flat">{{ trans('auth.profile') }}</a>
                             </div>
                             @endpermission
                             <div class="pull-right">

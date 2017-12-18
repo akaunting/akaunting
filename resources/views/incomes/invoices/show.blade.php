@@ -157,13 +157,19 @@
                             @permission('update-incomes-invoices')
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pay') }}">{{ trans('invoices.mark_paid') }}</a></li>
                             @endpermission
+                            @if(empty($invoice->payments()->count()) || (!empty($invoice->payments()->count()) && $invoice->payments()->paid() != $invoice->amount))
                             <li><a href="#" id="button-payment">{{ trans('invoices.add_payment') }}</a></li>
+                            @endif
                             <li class="divider"></li>
                             @endif
                             @permission('update-incomes-invoices')
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a></li>
                             @endpermission
+                            @if($invoice->customer_email)
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/email') }}">{{ trans('invoices.send_mail') }}</a></li>
+                            @else
+                            <li><a href="javascript:void(0);" class="green-tooltip disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}"><span class="text-disabled">{{ trans('invoices.send_mail') }}</span></a></li>
+                            @endif
                             <li class="divider"></li>
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}">{{ trans('invoices.download_pdf') }}</a></li>
                             <li class="divider"></li>
@@ -394,7 +400,7 @@
                 html += '               <h4 class="modal-title" id="emailModalLabel">Overflowing text</h4>';
                 html += '           </div>';
                 html += '           <div class="modal-body">';
-                html += '              N/A';
+                html += '              {{ trans('general.na') }}';
                 html += '           </div>';
                 html += '           <div class="modal-footer">';
                 html += '               <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('general.cancel') }}</button>';

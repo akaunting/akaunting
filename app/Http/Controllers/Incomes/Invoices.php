@@ -489,6 +489,10 @@ class Invoices extends Controller
      */
     public function emailInvoice(Invoice $invoice)
     {
+        if (empty($invoice->customer_email)) {
+            return redirect()->back();
+        }
+
         $invoice = $this->prepareInvoice($invoice);
 
         $logo = $this->getLogo();
@@ -584,18 +588,23 @@ class Invoices extends Controller
 
         $amount = $invoice->amount - $paid;
 
-        $request = new PaymentRequest();
+        if (!empty($amount)) {
+            $request = new PaymentRequest();
 
-        $request['company_id'] = $invoice->company_id;
-        $request['invoice_id'] = $invoice->id;
-        $request['account_id'] = setting('general.default_account');
-        $request['payment_method'] = setting('general.default_payment_method', 'offlinepayment.cash.1');
-        $request['currency_code'] = $invoice->currency_code;
-        $request['amount'] = $amount;
-        $request['paid_at'] = Date::now();
-        $request['_token'] = csrf_token();
+            $request['company_id'] = $invoice->company_id;
+            $request['invoice_id'] = $invoice->id;
+            $request['account_id'] = setting('general.default_account');
+            $request['payment_method'] = setting('general.default_payment_method', 'offlinepayment.cash.1');
+            $request['currency_code'] = $invoice->currency_code;
+            $request['amount'] = $amount;
+            $request['paid_at'] = Date::now();
+            $request['_token'] = csrf_token();
 
-        $this->payment($request);
+            $this->payment($request);
+        } else {
+            $invoice->invoice_status_code = 'paid';
+            $invoice->save();
+        }
 
         return redirect()->back();
     }
@@ -689,7 +698,9 @@ class Invoices extends Controller
     {
         $invoice = Invoice::find($payment->invoice_id);
 
-        if ($invoice->payments()->count() > 1) {
+        if ($invoice->payments()->paid() == $invoice->amount) {
+            $invoice->invoice_status_code = 'paid';
+        } elseif ($invoice->payments()->count() > 1) {
             $invoice->invoice_status_code = 'partial';
         } else {
             $invoice->invoice_status_code = 'draft';
