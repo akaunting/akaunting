@@ -88,6 +88,11 @@ class Vendors extends Controller
 
         foreach ($rows as $row) {
             $data = $row->toArray();
+
+            if (empty($data['email'])) {
+                $data['email'] = '';
+            }
+
             $data['company_id'] = session('company_id');
 
             Vendor::create($data);
