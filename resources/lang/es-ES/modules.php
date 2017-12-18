@@ -10,29 +10,33 @@ return [
     'free'                  => 'GRATIS',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar ahora',
-    'faq'                   => 'Preguntas frecuentes',
-    'changelog'             => 'Historial de cambios',
-    'installed'             => 'Instalado',
-    'uninstalled'           => 'Desinstalado',
     'token_link'            => 'Haga <a href="https://akaunting.com/tokens" target="_blank">Click aquí</a> para obtener su API token.',
+    'no_apps'               => 'No hay aplicaciones en esta categoría, aún.',
+    'developer'             => '¿Eres un desarrollador? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Aquí</a> puedes aprender cómo crear una aplicación y comenzar a venderla hoy!',
 
+    'about'                 => 'Acerca de',
+
+    'added'                 => 'Agregado',
+    'updated'               => 'Actualizado',
+    'compatibility'         => 'Compatibilidad',
+
+    'installed'             => ':module instalado',
+    'uninstalled'           => ':module desinstalado',
+    //'updated'               => ':module updated',
     'enabled'               => ':module habilitado',
     'disabled'              => ':module deshabilitado',
 
-    'installation' => [
-        'header'            => 'Instalación del módulo',
-        'start'             => 'instalando :module .',
-        'download'          => 'Descargando archivo :module .',
-        'unzip'             => 'Extrayendo archivo :module .',
-        'install'           => 'Subiendo archivo :module .',
+    'tab' => [
+        'installation'      => 'Instalación',
+        'faq'               => 'Preguntas frecuentes',
+        'changelog'         => 'Historial de cambios',
     ],
 
-    'history' => [
-        'installed'         => ':module instalado',
-        'uninstalled'       => ':module desinstalado',
-        'updated'           => ':module actualizado',
-        'enabled'           => ':module habilitado',
-        'disabled'          => ':module deshabilitado',
+    'installation' => [
+        'header'            => 'Instalación de Aplicación',
+        'download'          => 'Descargando archivo :module .',
+        'unzip'             => 'Extrayendo archivo :module .',
+        'install'           => 'Instalando archivos de :module .',
     ],
 
     'button' => [
