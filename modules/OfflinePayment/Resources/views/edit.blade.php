@@ -149,7 +149,7 @@
                             }
 
                             $('input[name="order"]').val(json['data']['order']);
-                            $('input[name="description"]').val(json['data']['description']);
+                            $('textarea[name="description"]').val(json['data']['description']);
 
                             $('input[name="method"]').remove();
 
