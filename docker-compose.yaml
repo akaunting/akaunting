@@ -9,6 +9,8 @@ services:
       - db
     volumes:
       - .:/var/www/html # link volume in development
+    environment:
+      APP_DEBUG: 1
   db:
     image: "mysql"
     restart: always
