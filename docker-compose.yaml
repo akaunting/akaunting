@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    image: akaunting
+    build: .
+    ports:
+      - "80:80"
+    links:
+      - db
+    volumes:
+      - .:/var/www/html # link volume in development
+  db:
+    image: "mysql"
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: akaunting
+      MYSQL_ROOT_PASSWORD: CHANGEME
