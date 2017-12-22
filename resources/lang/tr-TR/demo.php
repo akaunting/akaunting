@@ -3,7 +3,7 @@
 return [
 
     'accounts_cash'         => 'Kasa',
-    'categories_uncat'      => 'Kategorize edilmemiş',
+    'categories_uncat'      => 'Diğer',
     'categories_deposit'    => 'Depozito',
     'categories_sales'      => 'Satış',
     'currencies_usd'        => 'Amerikan Doları',
