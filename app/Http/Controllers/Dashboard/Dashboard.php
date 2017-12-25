@@ -173,10 +173,18 @@ class Dashboard extends Controller
             }
         }
 
+        // Get 6 categories by amount
+        $colors = $labels = [];
+        $values = collect($this->income_donut['values'])->sort()->reverse()->take(6)->all();
+        foreach ($values as $id => $val) {
+            $colors[$id] = $this->income_donut['colors'][$id];
+            $labels[$id] = $this->income_donut['labels'][$id];
+        }
+
         $donut_incomes = Charts::create('donut', 'chartjs')
-            ->colors($this->income_donut['colors'])
-            ->labels($this->income_donut['labels'])
-            ->values($this->income_donut['values'])
+            ->colors($colors)
+            ->labels($labels)
+            ->values($values)
             ->dimensions(0, 160)
             ->credits(false)
             ->view('vendor.consoletvs.charts.chartjs.donut');
@@ -188,10 +196,18 @@ class Dashboard extends Controller
             }
         }
 
+        // Get 6 categories by amount
+        $colors = $labels = [];
+        $values = collect($this->expense_donut['values'])->sort()->reverse()->take(6)->all();
+        foreach ($values as $id => $val) {
+            $colors[$id] = $this->expense_donut['colors'][$id];
+            $labels[$id] = $this->expense_donut['labels'][$id];
+        }
+
         $donut_expenses = Charts::create('donut', 'chartjs')
-            ->colors($this->expense_donut['colors'])
-            ->labels($this->expense_donut['labels'])
-            ->values($this->expense_donut['values'])
+            ->colors($colors)
+            ->labels($labels)
+            ->values($values)
             ->dimensions(0, 160)
             ->credits(false)
             ->view('vendor.consoletvs.charts.chartjs.donut');
