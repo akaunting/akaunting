@@ -503,6 +503,7 @@ ul.add-new.nav.navbar-nav.pull-left {
     opacity: 0.4;
 }
 
+/*
 .tooltip > .tooltip-inner {
     background-color: #6da252;
 }
@@ -510,7 +511,7 @@ ul.add-new.nav.navbar-nav.pull-left {
 .tooltip.right .tooltip-arrow {
     border-right-color: #6da252 !important;
 }
-/*
+
 .content-wrapper {
     overflow: inherit;
 }
@@ -521,7 +522,9 @@ ul.add-new.nav.navbar-nav.pull-left {
     position: fixed;
     right: 0;
     z-index: 999;
-}*/
+}
+*/
+
 .progress-bar-green, .progress-bar-success {
     background-color: #6da252;
 }
