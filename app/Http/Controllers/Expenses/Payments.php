@@ -77,13 +77,14 @@ class Payments extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'payments');
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
+        $payment = Payment::create($request->input());
 
-        Payment::create($request->input());
+        // Upload attachment
+        $media = $this->getMedia($request->file('attachment'), 'payments');
+
+        if ($media) {
+            $payment->attachMedia($media, 'attachment');
+        }
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
@@ -175,13 +176,14 @@ class Payments extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'payments');
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $payment->update($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'payments');
+
+            $payment->syncMedia($media, 'attachment');
+        }
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.payments', 1)]);
 

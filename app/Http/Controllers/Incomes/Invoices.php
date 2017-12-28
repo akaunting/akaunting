@@ -137,16 +137,17 @@ class Invoices extends Controller
 
         $request['amount'] = 0;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $invoice = Invoice::create($request->input());
 
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'revenues');
+
+            $invoice->attachMedia($media, 'attachment');
+        }
+
         $taxes = [];
+
         $tax_total = 0;
         $sub_total = 0;
 
@@ -349,13 +350,6 @@ class Invoices extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
@@ -417,6 +411,13 @@ class Invoices extends Controller
         $request['amount'] = $sub_total + $tax_total;
 
         $invoice->update($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'invoices');
+
+            $invoice->syncMedia($media, 'attachment');
+        }
 
         // Delete previous invoice totals
         InvoiceTotal::where('invoice_id', $invoice->id)->delete();
@@ -624,13 +625,6 @@ class Invoices extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $invoice = Invoice::find($request['invoice_id']);
 
         $total_amount = $invoice->amount;
@@ -668,6 +662,13 @@ class Invoices extends Controller
         $invoice->save();
 
         $invoice_payment = InvoicePayment::create($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'invoices');
+
+            $invoice_payment->attachMedia($media, 'attachment');
+        }
 
         $request['status_code'] = $invoice->invoice_status_code;
         $request['notify'] = 0;

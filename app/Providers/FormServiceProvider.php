@@ -44,7 +44,7 @@ class FormServiceProvider extends ServiceProvider
         ]);
 
         Form::component('fileGroup', 'partials.form.file_group', [
-            'name', 'text', 'attributes' => [], 'col' => 'col-md-6',
+            'name', 'text', 'attributes' => [], 'value' => null, 'col' => 'col-md-6',
         ]);
 
         Form::component('deleteButton', 'partials.form.delete_button', [

@@ -8,12 +8,20 @@ use App\Traits\DateTime;
 use App\Traits\Incomes;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
+use Plank\Mediable\Mediable;
 
 class Invoice extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Incomes;
+    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Mediable;
 
     protected $table = 'invoices';
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['attachment'];
 
     protected $dates = ['deleted_at', 'invoiced_at', 'due_at'];
 
@@ -129,5 +137,19 @@ class Invoice extends Model
     public function setCurrencyRateAttribute($value)
     {
         $this->attributes['currency_rate'] = (double) $value;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getAttachmentAttribute()
+    {
+        if (!$this->hasMedia('attachment')) {
+            return false;
+        }
+
+        return $this->getMedia('attachment')->first();
     }
 }

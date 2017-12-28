@@ -11,6 +11,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'uploads'], function () {
             Route::get('{folder}/{file}', 'Common\Uploads@get');
             Route::get('{folder}/{file}/download', 'Common\Uploads@download');
+            Route::get('{folder}/{file}/destroy', 'Common\Uploads@destroy');
         });
 
         Route::group(['middleware' => ['adminmenu', 'permission:read-admin-panel']], function () {

@@ -32,7 +32,8 @@
         "nwidart/laravel-modules": "1.*",
         "santigarcor/laratrust": "4.0.*",
         "sofa/eloquence": "5.4.*",
-        "tucker-eric/eloquentfilter": "1.1.*"
+        "tucker-eric/eloquentfilter": "1.1.*",
+        "plank/laravel-mediable": "2.5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "1.6.*"
