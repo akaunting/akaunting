@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Companies;
 
+use App\Events\CompanySwitched;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\Company as Request;
 use App\Models\Company\Company;
@@ -182,9 +183,10 @@ class Companies extends Controller
         // Check if user can manage company
         if ($this->isUserCompany($company)) {
             session(['company_id' => $company->id]);
+
+            event(new CompanySwitched($company));
         }
 
-        //return redirect('/');
         return redirect()->back();
     }
 
