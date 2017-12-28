@@ -178,6 +178,12 @@
                             @endpermission
                         </ul>
                     </div>
+
+                    @if($invoice->attachment)
+                        <span>
+                            <a href=""><i class="fa fa-file-{{ $invoice->attachment->aggregate_type }}-o"></i> {{ $invoice->attachment->basename }}</a> <i class="fa fa fa-times"></i>
+                        </span>
+                    @endif
                 </div>
             </div>
         </section>

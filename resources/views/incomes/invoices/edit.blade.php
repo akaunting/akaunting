@@ -203,7 +203,9 @@
             $('#attachment').fancyfile({
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
+                @if($invoice->attachment)
                 placeholder : '<?php echo $invoice->attachment->basename; ?>'
+                @endif
             });
 
             var autocomplete_path = "{{ url('items/items/autocomplete') }}";
