@@ -23,6 +23,7 @@ class CreateMediableTables extends Migration
             $table->string('aggregate_type', 32);
             $table->integer('size')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index(['disk', 'directory']);
             $table->unique(['disk', 'directory', 'filename', 'extension']);

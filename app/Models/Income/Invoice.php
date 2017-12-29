@@ -150,6 +150,6 @@ class Invoice extends Model
             return false;
         }
 
-        return $this->getMedia('attachment')->first();
+        return $this->getMedia('attachment')->last();
     }
 }

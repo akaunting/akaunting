@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
+use App\Models\Common\Media;
 use Storage;
 
 class Uploads extends Controller
@@ -39,6 +40,31 @@ class Uploads extends Controller
         }
 
         return response()->download($path);
+    }
+
+    /**
+     * Destroy the specified resource.
+     *
+     * @param  $folder
+     * @param  $file
+     * @return callable
+     */
+    public function destroy($folder, $id)
+    {
+        $media = Media::find($id);
+
+        // Get file path
+        /*if (!$path = $this->getPath($folder, $id)) {
+            $message = trans('messages.warning.deleted', ['name' => $file, 'text' => $file]);
+
+            flash($message)->warning();
+
+            return back();
+        }*/
+
+        $media->delete(); //will not delete files
+
+        return back();
     }
 
     /**
