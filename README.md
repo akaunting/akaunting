@@ -30,14 +30,14 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
 
 ## Docker
 
-It is possible to containerise Akounting using the [`docker-compose`](./docker-compose.yaml) file. Here are a few commands:
+It is possible to containerise Akaunting using the [`docker-compose`](docker/docker-compose.build.yaml) file. Here are a few commands:
 
 ```
 # Make sure you the dependencies are installed
 composer install && composer dump-autoload
 
 # Build the app
-docker-compose build
+docker-compose -f docker/docker-compose.build.yaml build
 
 # Run the app
 docker-compose up
@@ -45,6 +45,9 @@ docker-compose up
 # Access the container
 docker exec -it CONTAINER_ID /bin/sh
 ```
+
+## docker-compose examples
+In the `docker/` folder you'll find some example file to run the image with several databases. 
 
 ## Contributing
 
