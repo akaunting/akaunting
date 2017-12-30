@@ -92,7 +92,6 @@ class AppConfigurer {
 		return $requirements;
 	}
 
-
 	/**
 	 * Create a default .env file.
 	 *
@@ -109,6 +108,10 @@ class AppConfigurer {
 			[
 				'key'       => 'APP_ENV',
 				'value'     => 'production',
+			],
+			[
+				'key'       => 'APP_LOCALE',
+				'value'     => 'en-GB',
 			],
 			[
 				'key'       => 'APP_INSTALLED',
@@ -345,6 +348,10 @@ class AppConfigurer {
 	{
 		// Update .env file
 		DotenvEditor::setKeys([
+			[
+				'key'       => 'APP_LOCALE',
+				'value'     => session('locale'),
+			],
 			[
 				'key'       => 'APP_INSTALLED',
 				'value'     => 'true',
