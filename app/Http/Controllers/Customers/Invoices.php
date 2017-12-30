@@ -12,8 +12,6 @@ use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
-use Auth;
-
 use App\Utilities\Modules;
 
 class Invoices extends Controller
@@ -27,19 +25,7 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with('status')->where('customer_id', '=', Auth::user()->customer->id)->paginate();
-
-        foreach ($invoices as $invoice) {
-            $paid = 0;
-
-            foreach ($invoice->payments as $item) {
-                $item->default_currency_code = $invoice->currency_code;
-
-                $paid += $item->getDynamicConvertedAmount();
-            }
-
-            $invoice->amount = $invoice->amount - $paid;
-        }
+        $invoices = Invoice::with('status')->accrued()->where('customer_id', auth()->user()->customer->id)->paginate();
 
         $status = collect(InvoiceStatus::all()->pluck('name', 'code'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.statuses', 2)]), '');
@@ -94,7 +80,7 @@ class Invoices extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  int  $invoice_id
+     * @param  Invoice  $invoice
      *
      * @return Response
      */
@@ -126,7 +112,7 @@ class Invoices extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  int  $invoice_id
+     * @param  Invoice  $invoice
      *
      * @return Response
      */

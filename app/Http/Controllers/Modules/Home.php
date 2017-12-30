@@ -19,9 +19,15 @@ class Home extends Controller
     {
         $this->checkApiToken();
 
-        $paid = $this->getPaidModules();
-        $new = $this->getNewModules();
-        $free = $this->getFreeModules();
+        $data = [
+            'query' => [
+                'limit' => 4
+            ]
+        ];
+
+        $paid = $this->getPaidModules($data);
+        $new = $this->getNewModules($data);
+        $free = $this->getFreeModules($data);
 
         return view('modules.home.index', compact('paid', 'new', 'free'));
     }

@@ -87,7 +87,7 @@ return [
         'symbol'              => '$',
         'symbol_first'        => true,
         'decimal_mark'        => '.',
-        'thousands_separator' => ',',
+        'thousands_separator' => ' ',
     ],
 
     'AWG' => [

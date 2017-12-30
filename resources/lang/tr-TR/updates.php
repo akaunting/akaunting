@@ -4,7 +4,7 @@ return [
 
     'installed_version'     => 'Yüklü Sürüm',
     'latest_version'        => 'En Son Sürüm',
-    'update'                => 'Akaunting için Güncelleştirme: sürüm',
+    'update'                => ':version sürümüne güncelle',
     'changelog'             => 'Değişiklik Kaydı',
     'check'                 => 'Yenile',
     'new_core'              => 'Akaunting\'in güncel bir versiyonu mevcut.',

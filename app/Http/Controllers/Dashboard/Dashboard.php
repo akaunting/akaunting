@@ -12,6 +12,7 @@ use App\Models\Income\InvoicePayment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
+use Charts;
 use Date;
 
 class Dashboard extends Controller
@@ -19,6 +20,10 @@ class Dashboard extends Controller
     use Currencies;
 
     public $today;
+
+    public $income_donut = ['colors' => [], 'labels' => [], 'values' => []];
+
+    public $expense_donut = ['colors' => [], 'labels' => [], 'values' => []];
 
     /**
      * Display a listing of the resource.
@@ -28,174 +33,46 @@ class Dashboard extends Controller
     public function index()
     {
         $this->today = Date::today();
-        $month_days = $this->today->daysInMonth;
 
-        /*
-         * Cash Flow
-         */
+        list($total_incomes, $total_expenses, $total_profit) = $this->getTotals();
 
-        // Daily
-        $day = array();
+        $cashflow = $this->getCashFlow();
 
-        for ($j = $month_days; $j > -1; $j--) {
-            $day[$month_days - $j] = date("d M", strtotime("-$j day"));
-        }
+        list($donut_incomes, $donut_expenses) = $this->getDonuts();
 
-        $daily_income = $this->getCashFlow('income', 'daily');
-        $daily_expense = $this->getCashFlow('expense', 'daily');
+        $accounts = Account::enabled()->take(6)->get();
 
-        $daily_profit = $this->getProfit($daily_income, $daily_expense);
+        $latest_incomes = $this->getLatestIncomes();
 
-        // Monthly
-        $month = array();
+        $latest_expenses = $this->getLatestExpenses();
 
-        for ($j = 12; $j >= 0; $j--) {
-            $month[12 - $j] = date("F-Y", strtotime(" -$j month"));
-        }
+        return view('dashboard.dashboard.index', compact(
+            'total_incomes',
+            'total_expenses',
+            'total_profit',
+            'cashflow',
+            'donut_incomes',
+            'donut_expenses',
+            'accounts',
+            'latest_incomes',
+            'latest_expenses'
+        ));
+    }
 
-        $monthly_income = $this->getCashFlow('income', 'monthly');
-        $monthly_expense = $this->getCashFlow('expense', 'monthly');
+    public function cashFlow()
+    {
+        $this->today = Date::today();
 
-        $monthly_profit = $this->getProfit($monthly_income, $monthly_expense);
+        $content = $this->getCashFlow()->render();
 
-        $cash_flow = [
-            'daily' => [
-                'date'    => json_encode($day),
-                'income'  => json_encode(array_values($daily_income)),
-                'expense' => json_encode(array_values($daily_expense)),
-                'profit'  => json_encode(array_values($daily_profit))
-            ],
-            'monthly' => [
-                'date'    => json_encode($month),
-                'income'  => json_encode(array_values($monthly_income)),
-                'expense' => json_encode(array_values($monthly_expense)),
-                'profit'  => json_encode(array_values($monthly_profit))
-            ],
-        ];
+        //return response()->setContent($content)->send();
 
-        /*
-         * Totals & Pie Charts
-         */
+        echo $content;
+    }
 
-        $incomes = $expenses = array();
-
-        $incomes_amount = $expenses_amount = 0;
-
-        // Invoices
-        $invoices = Invoice::with('payments')->accrued()->get();
-        list($invoice_paid_amount, $open_invoice, $overdue_invoice) = $this->getTotals($invoices, 'invoice');
-
-        $incomes_amount += $invoice_paid_amount;
-
-        // Bills
-        $bills = Bill::with('payments')->accrued()->get();
-        list($bill_paid_amount, $open_bill, $overdue_bill) = $this->getTotals($bills, 'bill');
-
-        $expenses_amount += $bill_paid_amount;
-
-        // Add to Incomes By Category
-        $incomes[] = array(
-            'amount'    => money($invoice_paid_amount, setting('general.default_currency'), true)->format(),
-            'value'     => (int) $invoice_paid_amount,
-            'color'     => '#00c0ef',
-            'highlight' => '#00c0ef',
-            'label'     => trans_choice('general.invoices', 2)
-        );
-
-        // Add to Expenses By Category
-        $expenses[] = array(
-            'amount'    => money($bill_paid_amount, setting('general.default_currency'), true)->format(),
-            'value'     => (int) $bill_paid_amount,
-            'color'     => '#dd4b39',
-            'highlight' => '#dd4b39',
-            'label'     => trans_choice('general.bills', 2)
-        );
-
-        // Revenues & Payments
-        $categories = Category::orWhere('type', 'income')->orWhere('type', 'expense')->enabled()->get();
-
-        foreach ($categories as $category) {
-            switch ($category->type) {
-                case 'income':
-                    $revenues = $category->revenues;
-
-                    $amount = 0;
-
-                    if ($revenues) {
-                        foreach ($revenues as $revenue) {
-                            $amount += $revenue->getConvertedAmount();
-                        }
-
-                        $incomes[] = array(
-                            'amount'    => money($amount, setting('general.default_currency'), true)->format(),
-                            'value'     => (int) $amount,
-                            'color'     => $category->color,
-                            'highlight' => $category->color,
-                            'label'     => $category->name
-                        );
-                    } else {
-                        $incomes[] = array(
-                            'amount'    => money(0, setting('general.default_currency'), true)->format(),
-                            'value'     => (int) 0,
-                            'color'     => $category->color,
-                            'highlight' => $category->color,
-                            'label'     => $category->name
-                        );
-                    }
-
-                    $incomes_amount += $amount;
-                    break;
-                case 'expense':
-                    $payments = $category->payments;
-
-                    $amount = 0;
-
-                    if ($payments) {
-                        foreach ($payments as $payment) {
-                            $amount += $payment->getConvertedAmount();
-                        }
-
-                        $expenses[] = array(
-                            'amount'    => money($amount, setting('general.default_currency'), true)->format(),
-                            'value'     => (int) $amount,
-                            'color'     => $category->color,
-                            'highlight' => $category->color,
-                            'label'     => $category->name
-                        );
-                    } else {
-                        $expenses[] = array(
-                            'amount'    => money(0, setting('general.default_currency'), true)->format(),
-                            'value'     => (int) 0,
-                            'color'     => $category->color,
-                            'highlight' => $category->color,
-                            'label'     => $category->name
-                        );
-                    }
-
-                    $expenses_amount += $amount;
-                    break;
-            }
-        }
-
-        if (empty($incomes_amount)) {
-            foreach ($incomes as $key => $income) {
-                $incomes[$key]['amount'] = money(0, setting('general.default_currency'), true)->format();
-                $incomes[$key]['value'] = (int) 100 / count($incomes);
-            }
-        }
-
-        // Incomes Pie Chart
-        $income_graph = json_encode($incomes);
-
-        if (empty($expenses_amount)) {
-            foreach ($expenses as $key => $expense) {
-                $expenses[$key]['amount'] = money(0, setting('general.default_currency'), true)->format();
-                $expenses[$key]['value'] = (int) 100 / count($expenses);
-            }
-        }
-
-        // Expenses Pie Chart
-        $expense_graph = json_encode($expenses);
+    private function getTotals()
+    {
+        list($incomes_amount, $open_invoice, $overdue_invoice, $expenses_amount, $open_bill, $overdue_bill) = $this->calculateAmounts();
 
         $incomes_progress = 100;
 
@@ -241,44 +118,175 @@ class Dashboard extends Controller
             'progress'      => $total_progress
         );
 
-        /*
-         * Accounts
-         */
-
-        $accounts = Account::enabled()->get();
-
-        /*
-         * Latest Incomes
-         */
-
-        $latest_incomes = collect(Invoice::accrued()->latest()->take(10)->get());
-        $latest_incomes = $latest_incomes->merge(Revenue::latest()->take(10)->get())->take(5)->sortByDesc('invoiced_at');
-
-        /*
-         * Latest Expenses
-         */
-
-        $latest_expenses = collect(Bill::accrued()->latest()->take(10)->get());
-        $latest_expenses = $latest_expenses->merge(Payment::latest()->take(10)->get())->take(5)->sortByDesc('billed_at');
-
-        return view('dashboard.dashboard.index', compact(
-            'total_incomes',
-            'total_expenses',
-            'total_profit',
-            'cash_flow',
-            'incomes',
-            'incomes_amount',
-            'income_graph',
-            'expenses',
-            'expenses_amount',
-            'expense_graph',
-            'accounts',
-            'latest_incomes',
-            'latest_expenses'
-        ));
+        return array($total_incomes, $total_expenses, $total_profit);
     }
 
-    private function getCashFlow($type, $period)
+    private function getCashFlow()
+    {
+        $start = Date::parse(request('start', $this->today->startOfYear()->format('Y-m-d')));
+        $end = Date::parse(request('end', $this->today->endOfYear()->format('Y-m-d')));
+        $period = request('period', 'month');
+
+        $start_month = $start->month;
+        $end_month = $end->month;
+
+        // Monthly
+        $labels = array();
+
+        $s = clone $start;
+
+        for ($j = $end_month; $j >= $start_month; $j--) {
+            $labels[$end_month - $j] = $s->format('M Y');
+
+            if ($period == 'month') {
+                $s->addMonth();
+            } else {
+                $s->addMonths(3);
+                $j -= 2;
+            }
+        }
+
+        $income = $this->calculateCashFlowTotals('income', $start, $end, $period);
+        $expense = $this->calculateCashFlowTotals('expense', $start, $end, $period);
+
+        $profit = $this->calculateCashFlowProfit($income, $expense);
+
+        $chart = Charts::multi('line', 'chartjs')
+            ->dimensions(0, 300)
+            ->colors(['#6da252', '#00c0ef', '#F56954'])
+            ->dataset(trans_choice('general.profits', 1), $profit)
+            ->dataset(trans_choice('general.incomes', 1), $income)
+            ->dataset(trans_choice('general.expenses', 1), $expense)
+            ->labels($labels)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.multi.line');
+
+        return $chart;
+    }
+
+    private function getDonuts()
+    {
+        // Show donut prorated if there is no income
+        if (array_sum($this->income_donut['values']) == 0) {
+            foreach ($this->income_donut['values'] as $key => $value) {
+                $this->income_donut['values'][$key] = 1;
+            }
+        }
+
+        // Get 6 categories by amount
+        $colors = $labels = [];
+        $values = collect($this->income_donut['values'])->sort()->reverse()->take(6)->all();
+        foreach ($values as $id => $val) {
+            $colors[$id] = $this->income_donut['colors'][$id];
+            $labels[$id] = $this->income_donut['labels'][$id];
+        }
+
+        $donut_incomes = Charts::create('donut', 'chartjs')
+            ->colors($colors)
+            ->labels($labels)
+            ->values($values)
+            ->dimensions(0, 160)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.donut');
+
+        // Show donut prorated if there is no expense
+        if (array_sum($this->expense_donut['values']) == 0) {
+            foreach ($this->expense_donut['values'] as $key => $value) {
+                $this->expense_donut['values'][$key] = 1;
+            }
+        }
+
+        // Get 6 categories by amount
+        $colors = $labels = [];
+        $values = collect($this->expense_donut['values'])->sort()->reverse()->take(6)->all();
+        foreach ($values as $id => $val) {
+            $colors[$id] = $this->expense_donut['colors'][$id];
+            $labels[$id] = $this->expense_donut['labels'][$id];
+        }
+
+        $donut_expenses = Charts::create('donut', 'chartjs')
+            ->colors($colors)
+            ->labels($labels)
+            ->values($values)
+            ->dimensions(0, 160)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.donut');
+
+        return array($donut_incomes, $donut_expenses);
+    }
+
+    private function getLatestIncomes()
+    {
+        $latest = collect(Invoice::accrued()->latest()->take(10)->get());
+        $latest = $latest->merge(Revenue::latest()->take(10)->get())->take(5)->sortByDesc('invoiced_at');
+
+        return $latest;
+    }
+
+    private function getLatestExpenses()
+    {
+        $latest = collect(Bill::accrued()->latest()->take(10)->get());
+        $latest = $latest->merge(Payment::latest()->take(10)->get())->take(5)->sortByDesc('billed_at');
+
+        return $latest;
+    }
+
+    private function calculateAmounts()
+    {
+        $incomes_amount = $expenses_amount = 0;
+
+        // Invoices
+        $invoices = Invoice::with('payments')->accrued()->get();
+        list($invoice_paid_amount, $open_invoice, $overdue_invoice) = $this->calculateTotals($invoices, 'invoice');
+
+        $incomes_amount += $invoice_paid_amount;
+
+        // Add to Incomes By Category
+        $this->addToIncomeDonut('#00c0ef', $invoice_paid_amount, trans_choice('general.invoices', 2));
+
+        // Bills
+        $bills = Bill::with('payments')->accrued()->get();
+        list($bill_paid_amount, $open_bill, $overdue_bill) = $this->calculateTotals($bills, 'bill');
+
+        $expenses_amount += $bill_paid_amount;
+
+        // Add to Expenses By Category
+        $this->addToExpenseDonut('#dd4b39', $bill_paid_amount, trans_choice('general.bills', 2));
+
+        // Revenues & Payments
+        $categories = Category::orWhere('type', 'income')->orWhere('type', 'expense')->enabled()->get();
+
+        foreach ($categories as $category) {
+            switch ($category->type) {
+                case 'income':
+                    $amount = 0;
+
+                    foreach ($category->revenues as $revenue) {
+                        $amount += $revenue->getConvertedAmount();
+                    }
+
+                    $this->addToIncomeDonut($category->color, $amount, $category->name);
+
+                    $incomes_amount += $amount;
+                    break;
+                case 'expense':
+                    $amount = 0;
+
+                    foreach ($category->payments as $payment) {
+                        $amount += $payment->getConvertedAmount();
+                    }
+
+                    $this->addToExpenseDonut($category->color, $amount, $category->name);
+
+                    $expenses_amount += $amount;
+                    break;
+            }
+        }
+
+        return array($incomes_amount, $open_invoice, $overdue_invoice, $expenses_amount, $open_bill, $overdue_bill);
+    }
+
+    private function calculateCashFlowTotals($type, $start, $end, $period)
     {
         $totals = array();
 
@@ -290,64 +298,77 @@ class Dashboard extends Controller
             $m2 = '\App\Models\Expense\BillPayment';
         }
 
-        switch ($period) {
-            case 'yearly':
-                $f1 = 'subYear';
-                $f2 = 'addYear';
+        $date_format = 'Y-m';
 
-                $date_format = 'Y';
-                break;
-            case 'monthly':
-                $f1 = 'subYear';
-                $f2 = 'addMonth';
-
-                $date_format = 'Y-m';
-                break;
-            default:
-            case 'daily':
-                $f1 = 'subMonth';
-                $f2 = 'addDay';
-
-                $date_format = 'Y-m-d';
-                break;
+        if ($period == 'month') {
+            $n = 1;
+            $start_date = $start->format($date_format);
+            $end_date = $end->format($date_format);
+            $next_date = $start_date;
+        } else {
+            $n = 3;
+            $start_date = $start->quarter;
+            $end_date = $end->quarter;
+            $next_date = $start_date;
         }
 
-        $now = Date::now();
-        $sub = Date::now()->$f1();
+        $s = clone $start;
 
-        $start_date = $sub->format($date_format);
-        $end_date = $now->format($date_format);
-        $next_date = $start_date;
-
-        $totals[$start_date] = 0;
-
-        do {
-            $next_date = Date::parse($next_date)->$f2()->format($date_format);
-
+        //$totals[$start_date] = 0;
+        while ($next_date <= $end_date) {
             $totals[$next_date] = 0;
-        } while ($next_date < $end_date);
 
-        $items_1 = $m1::whereBetween('paid_at', [$sub, $now])->get();
+            if ($period == 'month') {
+                $next_date = $s->addMonths($n)->format($date_format);
+            } else {
+                if (isset($totals[4])) {
+                    break;
+                }
 
-        $this->setCashFlowTotals($totals, $items_1, $date_format);
+                $next_date = $s->addMonths($n)->quarter;
+            }
+        }
 
-        $items_2 = $m2::whereBetween('paid_at', [$sub, $now])->get();
+        $items_1 = $m1::whereBetween('paid_at', [$start, $end])->get();
 
-        $this->setCashFlowTotals($totals, $items_2, $date_format);
+        $this->setCashFlowTotals($totals, $items_1, $date_format, $period);
+
+        $items_2 = $m2::whereBetween('paid_at', [$start, $end])->get();
+
+        $this->setCashFlowTotals($totals, $items_2, $date_format, $period);
 
         return $totals;
     }
 
-    private function setCashFlowTotals(&$totals, $items, $date_format)
+    private function setCashFlowTotals(&$totals, $items, $date_format, $period)
     {
         foreach ($items as $item) {
-            $i = Date::parse($item->paid_at)->format($date_format);
+            if ($period == 'month') {
+                $i = Date::parse($item->paid_at)->format($date_format);
+            } else {
+                $i = Date::parse($item->paid_at)->quarter;
+            }
 
             $totals[$i] += $item->getConvertedAmount();
         }
     }
 
-    private function getTotals($items, $type)
+    private function calculateCashFlowProfit($incomes, $expenses)
+    {
+        $profit = [];
+
+        foreach ($incomes as $key => $income) {
+            if ($income > 0 && $income > $expenses[$key]) {
+                $profit[$key] = $income - $expenses[$key];
+            } else {
+                $profit[$key] = 0;
+            }
+        }
+
+        return $profit;
+    }
+
+    private function calculateTotals($items, $type)
     {
         $paid = $open = $overdue = 0;
 
@@ -380,18 +401,17 @@ class Dashboard extends Controller
         return array($paid, $open, $overdue);
     }
 
-    private function getProfit($incomes, $expenses)
+    private function addToIncomeDonut($color, $amount, $text)
     {
-        $profit = [];
+        $this->income_donut['colors'][] = $color;
+        $this->income_donut['labels'][] = money($amount, setting('general.default_currency'), true)->format() . ' - ' . $text;
+        $this->income_donut['values'][] = (int) $amount;
+    }
 
-        foreach ($incomes as $key => $income) {
-            if ($income > 0 && $income > $expenses[$key]) {
-                $profit[$key] = $income - $expenses[$key];
-            } else {
-                $profit[$key] = 0;
-            }
-        }
-
-        return $profit;
+    private function addToExpenseDonut($color, $amount, $text)
+    {
+        $this->expense_donut['colors'][] = $color;
+        $this->expense_donut['labels'][] = money($amount, setting('general.default_currency'), true)->format() . ' - ' . $text;
+        $this->expense_donut['values'][] = (int) $amount;
     }
 }

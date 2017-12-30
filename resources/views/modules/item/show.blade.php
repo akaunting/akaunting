@@ -5,137 +5,155 @@
 @section('content')
     @include('partials.modules.bar')
 
-    <div class="col-md-12 no-padding-left">
-        <div class="col-md-8 no-padding-left">
-            <div class="content-header no-padding-left">
-                <h3>{{ $module->name }}</h3>
-            </div>
-
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">{{ trans('general.description') }}</a></li>
-                    @if ($module->installation)
-                    <li class=""><a href="#installation" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.installation') }}</a></li>
-                    @endif
-                    @if ($module->faq)
-                    <li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.faq') }}</a></li>
-                    @endif
-                    @if ($module->changelog)
-                    <li class=""><a href="#changelog" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.changelog') }}</a></li>
-                    @endif
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="description">
-                        {!! $module->description !!}
-                    </div>
-                    @if ($module->installation)
-                    <div class="tab-pane" id="installation">
-                        {!! $module->installation !!}
-                    </div>
-                    @endif
-                    @if ($module->faq)
-                    <div class="tab-pane" id="faq">
-                        {!! $module->faq !!}
-                    </div>
-                    @endif
-                    @if ($module->changelog)
-                    <div class="tab-pane" id="changelog">
-                        {!! $module->changelog !!}
-                    </div>
-                    @endif
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-8 no-padding-left">
+                <div class="content-header no-padding-left">
+                    <h3>{{ $module->name }}</h3>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-md-4 no-padding-right">
-            <div class="content-header no-padding-left">
-                <h3>{{ trans_choice('general.actions', 1) }}</h3>
-            </div>
-
-            <div class="box box-success">
-                <div class="box-body">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <th>Price</th>
-                                <td class="text-right">
-                                    @if ($module->price == '0.0000')
-                                        {{ trans('modules.free') }}
-                                    @else
-                                        {{ $module->price . ' / month' }}
-                                    @endif
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.box-body -->
-
-                <div class="box-footer">
-                    @if ($installed)
-                        <a href="{{ url('apps/' . $module->slug . '/uninstall') }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
-                        @if ($enable)
-                            <a href="{{ url('apps/' . $module->slug . '/disable') }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
-                        @else
-                            <a href="{{ url('apps/' . $module->slug . '/enable') }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">{{ trans('general.description') }}</a></li>
+                        @if ($module->installation)
+                        <li class=""><a href="#installation" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.installation') }}</a></li>
                         @endif
-                    @else
-                        @if ($module->install)
-                        <a href="{{ $module->action_url }}" class="btn btn-success btn-block" id="install-module">
-                            {{ trans('modules.install') }}
-                        </a>
-                        @else
-                        <a href="{{ $module->action_url }}" class="btn btn-success btn-block" target="_blank">
-                            {{ trans('modules.buy_now') }}
-                        </a>
+                        @if ($module->faq)
+                        <li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.faq') }}</a></li>
                         @endif
-                    @endif
+                        @if ($module->changelog)
+                        <li class=""><a href="#changelog" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.changelog') }}</a></li>
+                        @endif
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="description">
+                            {!! $module->description !!}
+                        </div>
+                        @if ($module->installation)
+                        <div class="tab-pane" id="installation">
+                            {!! $module->installation !!}
+                        </div>
+                        @endif
+                        @if ($module->faq)
+                        <div class="tab-pane" id="faq">
+                            {!! $module->faq !!}
+                        </div>
+                        @endif
+                        @if ($module->changelog)
+                        <div class="tab-pane" id="changelog">
+                            {!! $module->changelog !!}
+                        </div>
+                        @endif
+                    </div>
                 </div>
-                <!-- /.box-footer -->
-            </div>
-            <!-- /.box -->
-
-            <div class="content-header no-padding-left">
-                <h3>About</h3>
             </div>
 
-            <div class="box box-success">
-                <div class="box-body">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <th>Vendor</th>
-                                <td class="text-right"><a href="{{ url('apps/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a></td>
-                            </tr>
-                            <tr>
-                                <th>Version</th>
-                                <td class="text-right">{{ $module->version }}</td>
-                            </tr>
-                            <tr>
-                                <th>Added</th>
-                                <td class="text-right">{{ Date::parse($module->created_at)->format($date_format) }}</td>
-                            </tr>
-                            <tr>
-                                <th>Updated</th>
-                                <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
-                            </tr>
-                            <tr>
-                                <th>Compatibility</th>
-                                <td class="text-right">{{ $module->compatibility }}</td>
-                            </tr>
-                            <tr>
-                                <th>Category</th>
-                                <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="col-md-4">
+                <div class="content-header no-padding-left">
+                    <h3>{{ trans_choice('general.actions', 1) }}</h3>
                 </div>
-                <!-- /.box-body -->
+
+                <div class="box box-success">
+                    <div class="box-body">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Price</th>
+                                    <td class="text-right">
+                                        @if ($module->price == '0.0000')
+                                            {{ trans('modules.free') }}
+                                        @else
+                                            {{ $module->price . ' / month' }}
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        @if ($installed)
+                            @permission('delete-modules-item')
+                            <a href="{{ url('apps/' . $module->slug . '/uninstall') }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
+                            @endpermission
+                            @permission('update-modules-item')
+                            @if ($enable)
+                                <a href="{{ url('apps/' . $module->slug . '/disable') }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
+                            @else
+                                <a href="{{ url('apps/' . $module->slug . '/enable') }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
+                            @endif
+                            @endpermission
+                        @else
+                            @permission('create-modules-item')
+                            @if ($module->install)
+                            <a href="{{ $module->action_url }}" class="btn btn-success btn-block" id="install-module">
+                                {{ trans('modules.install') }}
+                            </a>
+                            @else
+                            <a href="{{ $module->action_url }}" class="btn btn-success btn-block" target="_blank">
+                                {{ trans('modules.buy_now') }}
+                            </a>
+                            @endif
+                            @endpermission
+                        @endif
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!-- /.box -->
+
+                <div class="content-header no-padding-left">
+                    <h3>{{ trans('modules.about') }}</h3>
+                </div>
+
+                <div class="box box-success">
+                    <div class="box-body">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>{{ trans_choice('general.vendors', 1) }}</th>
+                                    <td class="text-right"><a href="{{ url('apps/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a></td>
+                                </tr>
+                                <tr>
+                                    <th>{{ trans('footer.version') }}</th>
+                                    <td class="text-right">{{ $module->version }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ trans('modules.added') }}</th>
+                                    <td class="text-right">{{ Date::parse($module->created_at)->format($date_format) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ trans('modules.updated') }}</th>
+                                    <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ trans('modules.compatibility') }}</th>
+                                    <td class="text-right">{{ $module->compatibility }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ trans_choice('general.categories', 1) }}</th>
+                                    <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
             </div>
-            <!-- /.box -->
         </div>
     </div>
 @endsection
+
+@push('css')
+    <style type="text/css">
+    .nav-tabs-custom img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+    </style>
+@endpush
 
 @push('scripts')
     <script type="text/javascript">

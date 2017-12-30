@@ -7,6 +7,7 @@ use App\Models\Expense\Bill;
 use App\Models\Expense\BillPayment;
 use App\Models\Expense\Payment;
 use App\Models\Setting\Category;
+use Charts;
 use Date;
 
 class ExpenseSummary extends Controller
@@ -90,10 +91,19 @@ class ExpenseSummary extends Controller
             $this->setAmount($expenses_graph, $totals, $expenses, $payments, 'payment', 'paid_at');
         }
 
+        // Expenses chart
+        $chart = Charts::multi('line', 'chartjs')
+            ->dimensions(0, 300)
+            ->colors(['#F56954'])
+            ->dataset(trans_choice('general.expenses', 1), $expenses_graph)
+            ->labels($dates)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.multi.line');
+
         // Expenses Graph
         $expenses_graph = json_encode($expenses_graph);
 
-        return view('reports.expense_summary.index', compact('dates', 'categories', 'expenses', 'expenses_graph', 'totals'));
+        return view('reports.expense_summary.index', compact('chart', 'dates', 'categories', 'expenses', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$expenses, $items, $type, $date_field)

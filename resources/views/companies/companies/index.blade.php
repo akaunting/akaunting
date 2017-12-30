@@ -62,7 +62,7 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ url('companies/companies/' . $item->id . '/set') }}">{{ trans('general.change') }}</a></li>
+                                    <li><a href="{{ url('companies/companies/' . $item->id . '/set') }}">{{ trans('general.switch') }}</a></li>
                                     <li><a href="{{ url('companies/companies/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
                                     @permission('delete-companies-companies')
                                     <li>{!! Form::deleteLink($item, 'companies/companies', '', 'company_name') !!}</li>

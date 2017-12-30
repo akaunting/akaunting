@@ -13,9 +13,9 @@ trait Currencies
         $default = new Currency(setting('general.default_currency', 'USD'));
 
         if ($format) {
-            $money = Money::$code($amount, true)->convert($default, $rate)->format();
+            $money = Money::$code($amount, true)->convert($default, (double) $rate)->format();
         } else {
-            $money = Money::$code($amount)->convert($default, $rate)->getAmount();
+            $money = Money::$code($amount)->convert($default, (double) $rate)->getAmount();
         }
 
         return $money;
@@ -28,9 +28,9 @@ trait Currencies
         $code = new Currency($code);
 
         if ($format) {
-            $money = Money::$default($amount, true)->convert($code, $rate)->format();
+            $money = Money::$default($amount, true)->convert($code, (double) $rate)->format();
         } else {
-            $money = Money::$default($amount)->convert($code, $rate)->getAmount();
+            $money = Money::$default($amount)->convert($code, (double) $rate)->getAmount();
         }
 
         return $money;
@@ -41,9 +41,9 @@ trait Currencies
         $code = new Currency($code);
 
         if ($format) {
-            $money = Money::$default($amount, true)->convert($code, $rate)->format();
+            $money = Money::$default($amount, true)->convert($code, (double) $rate)->format();
         } else {
-            $money = Money::$default($amount)->convert($code, $rate)->getAmount();
+            $money = Money::$default($amount)->convert($code, (double) $rate)->getAmount();
         }
 
         return $money;

@@ -23,14 +23,19 @@ return [
     'histories'         => '歷史記錄',
     'payments'          => '付款方式',
     'add_payment'       => '新增付款方式',
+    'mark_received'     => '標記已收到',
     'download_pdf'      => '下載 PDF格式',
     'send_mail'         => '傳送電子郵件',
 
     'status' => [
-        'new'           => '新增',
-        'updated'       => '更新',
+        'draft'         => '草稿',
+        'received'      => '已收到',
         'partial'       => '部分',
         'paid'          => '已付款',
+    ],
+
+    'messages' => [
+        'received'      => '成功標記帳單為已收到！',
     ],
 
 ];

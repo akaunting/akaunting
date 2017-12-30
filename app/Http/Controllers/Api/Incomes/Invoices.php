@@ -79,7 +79,7 @@ class Invoices extends ApiController
                     $item_sku = $item_object->sku;
 
                     // Decrease stock (item sold)
-                    $item_object->quantity--;
+                    $item_object->quantity -= $item['quantity'];
                     $item_object->save();
 
                     // Notify users if out of stock
@@ -109,7 +109,7 @@ class Invoices extends ApiController
                 }
 
                 $invoice_item['item_id'] = $item_id;
-                $invoice_item['name'] = $item['name'];
+                $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
                 $invoice_item['price'] = $item['price'];
@@ -212,7 +212,7 @@ class Invoices extends ApiController
                 }
 
                 $invoice_item['item_id'] = $item_id;
-                $invoice_item['name'] = $item['name'];
+                $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
                 $invoice_item['price'] = $item['price'];

@@ -10,29 +10,33 @@ return [
     'free'                  => 'رایگان',
     'install'               => 'نصب',
     'buy_now'               => 'خرید',
-    'faq'                   => 'سوالات متداول',
-    'changelog'             => 'تغییرات',
-    'installed'             => 'نصب شده',
-    'uninstalled'           => 'حذف',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">دریافت Token</a>.',
+    'no_apps'               => 'در این بخش هیچ نرم افزاری وجود ندارد.',
+    'developer'             => 'آیا شما یک توسعه دهنده هستید؟<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">با مراجعه به سایت فروشگاهی می توانید نرم افزار های خود را بسیازید و بفروشید.</a>',
 
-    'enabled'               => ':module فعال',
-    'disabled'              => ':module غیرفعال',
+    'about'                 => 'درباره ما',
 
-    'installation' => [
-        'header'            => 'نصب ماژول',
-        'start'             => 'نصب :module',
-        'download'          => 'دریافت فایل :module',
-        'unzip'             => 'استخراج فایل :module.',
-        'install'           => 'بارگذاری فایل :module',
+    'added'                 => 'اضافه شد',
+    'updated'               => 'به روز رسانی شده',
+    'compatibility'         => 'سازگاری',
+
+    'installed'             => ':module نصب شد',
+    'uninstalled'           => ':module حذف شد',
+    //'updated'               => ':module updated',
+    'enabled'               => ':module فعال شد',
+    'disabled'              => ':module غیر فعال شد',
+
+    'tab' => [
+        'installation'      => 'نصب',
+        'faq'               => 'سوالات متداول',
+        'changelog'         => 'تغییرات',
     ],
 
-    'history' => [
-        'installed'         => 'نصب :module',
-        'uninstalled'       => 'حذف :module',
-        'updated'           => ':module بروز شد',
-        'enabled'           => ':module فعال شد',
-        'disabled'          => ':module غیر فعال شد',
+    'installation' => [
+        'header'            => 'محل نصب نرم افزار',
+        'download'          => 'دریافت فایل :module',
+        'unzip'             => 'استخراج فایل :module.',
+        'install'           => 'نصب فایل های :module .',
     ],
 
     'button' => [

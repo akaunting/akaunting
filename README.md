@@ -25,7 +25,7 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
   * Install [Composer](https://getcomposer.org/download)
   * Download the [repository](https://github.com/akaunting/akaunting/archive/master.zip) and unzip into your server
   * Open and point your command line to the directory you unzipped Akaunting
-  * Run the following commands separately: `composer install` , `composer dump-autoload`
+  * Run the following command: `composer install`
   * Finally, launch the [installer](https://akaunting.com/docs/installation)
 
 ## Docker
@@ -57,7 +57,7 @@ Please, be very clear on your commit messages and pull requests, empty pull requ
 
 When contributing code to Akaunting, you must follow the PSR coding standards. The golden rule is: Imitate the existing Akaunting code.
 
-Please note that this project is released with a [Contributor Code of Conduct](https://akaunting.com/code-of-conduct). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://akaunting.com/conduct). By participating in this project you agree to abide by its terms.
 
 ## Translation
 

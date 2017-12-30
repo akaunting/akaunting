@@ -43,7 +43,7 @@
                 @foreach($vendors as $item)
                     <tr>
                         <td><a href="{{ url('expenses/vendors/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
-                        <td class="hidden-xs">{{ $item->email }}</td>
+                        <td class="hidden-xs">{{ !empty($item->email) ? $item->email : trans('general.na') }}</td>
                         <td>{{ $item->phone }}</td>
                         <td class="hidden-xs">
                             @if ($item->enabled)

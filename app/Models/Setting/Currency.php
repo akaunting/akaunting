@@ -14,7 +14,7 @@ class Currency extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'code', 'rate', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'code', 'rate', 'enabled', 'precision', 'symbol', 'symbol_first', 'decimal_mark', 'thousands_separator'];
 
     /**
      * Sortable columns.

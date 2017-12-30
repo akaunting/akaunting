@@ -7,6 +7,7 @@ use App\Models\Income\Invoice;
 use App\Models\Income\InvoicePayment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
+use Charts;
 use Date;
 
 class IncomeSummary extends Controller
@@ -90,10 +91,16 @@ class IncomeSummary extends Controller
             $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
         }
 
-        // Incomes Graph
-        $incomes_graph = json_encode($incomes_graph);
+        // Incomes chart
+        $chart = Charts::multi('line', 'chartjs')
+            ->dimensions(0, 300)
+            ->colors(['#00c0ef'])
+            ->dataset(trans_choice('general.incomes', 1), $incomes_graph)
+            ->labels($dates)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.multi.line');
 
-        return view('reports.income_summary.index', compact('dates', 'categories', 'incomes', 'incomes_graph', 'totals'));
+        return view('reports.income_summary.index', compact('chart', 'dates', 'categories', 'incomes', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)

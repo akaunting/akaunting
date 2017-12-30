@@ -52,7 +52,9 @@ class InvoiceReminder extends Command
             $days = explode(',', $company->schedule_invoice_days);
 
             foreach ($days as $day) {
-                $this->remind(trim($day), $company);
+                $day = (int) trim($day);
+
+                $this->remind($day, $company);
             }
         }
     }
@@ -67,7 +69,9 @@ class InvoiceReminder extends Command
 
         foreach ($invoices as $invoice) {
             // Notify the customer
-            $invoice->customer->notify(new Notification($invoice));
+            if ($invoice->customer && !empty($invoice->customer_email)) {
+                $invoice->customer->notify(new Notification($invoice));
+            }
 
             // Notify all users assigned to this company
             foreach ($company->users as $user) {
@@ -79,5 +83,4 @@ class InvoiceReminder extends Command
             }
         }
     }
-
 }

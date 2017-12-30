@@ -52,7 +52,9 @@ class BillReminder extends Command
             $days = explode(',', $company->schedule_bill_days);
 
             foreach ($days as $day) {
-                $this->remind(trim($day), $company);
+                $day = (int) trim($day);
+
+                $this->remind($day, $company);
             }
         }
     }
@@ -76,5 +78,4 @@ class BillReminder extends Command
             }
         }
     }
-
 }

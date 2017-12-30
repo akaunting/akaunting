@@ -15,7 +15,7 @@
             <div class="col-xs-5 invoice-company">
                 <address>
                     <strong>{{ setting('general.company_name') }}</strong><br>
-                    {{ setting('general.company_address') }}<br>
+                    {!! nl2br(setting('general.company_address')) !!}<br>
                     @if (setting('general.company_tax_number'))
                         {{ trans('general.tax_number') }}: {{ setting('general.company_tax_number') }}<br>
                     @endif
@@ -33,7 +33,7 @@
                 {{ trans('bills.bill_from') }}
                 <address>
                     <strong>{{ $bill->vendor_name }}</strong><br>
-                    {{ $bill->vendor_address }}<br>
+                    {!! nl2br($bill->vendor_address) !!}<br>
                     @if ($bill->vendor_tax_number)
                         {{ trans('general.tax_number') }}: {{ $bill->vendor_tax_number }}<br>
                     @endif

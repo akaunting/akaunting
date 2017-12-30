@@ -247,13 +247,16 @@ class Items extends Controller
 
         if ($input_items) {
             foreach ($input_items as $key => $item) {
+                $price = (double) $item['price'];
+                $quantity = (int) $item['quantity'];
+
                 $item_tax_total= 0;
-                $item_sub_total = ($item['price'] * $item['quantity']);
+                $item_sub_total = ($price * $quantity);
 
                 if (!empty($item['tax_id'])) {
                     $tax = Tax::find($item['tax_id']);
 
-                    $item_tax_total = (($item['price'] * $item['quantity']) / 100) * $tax->rate;
+                    $item_tax_total = (($price * $quantity) / 100) * $tax->rate;
                 }
 
                 $sub_total += $item_sub_total;

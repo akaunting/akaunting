@@ -46,6 +46,10 @@ class Customers extends Controller
     public function store(Request $request)
     {
         if (empty($request->input('create_user'))) {
+            if (empty($request['email'])) {
+                $request['email'] = '';
+            }
+
             Customer::create($request->all());
         } else {
             // Check if user exist
@@ -61,10 +65,14 @@ class Customers extends Controller
             }
 
             // Create user first
-            $user = User::create($request->all());
+            $data = $request->all();
+            $data['locale'] = setting('general.default_locale', 'en-GB');
+
+            $user = User::create($data);
             $user->roles()->attach(['3']);
             $user->companies()->attach([session('company_id')]);
 
+            // Finally create customer
             $request['user_id'] = $user->id;
 
             Customer::create($request->all());
@@ -108,6 +116,11 @@ class Customers extends Controller
 
         foreach ($rows as $row) {
             $data = $row->toArray();
+
+            if (empty($data['email'])) {
+                $data['email'] = '';
+            }
+
             $data['company_id'] = session('company_id');
 
             Customer::create($data);
@@ -145,6 +158,10 @@ class Customers extends Controller
     public function update(Customer $customer, Request $request)
     {
         if (empty($request->input('create_user'))) {
+            if (empty($request['email'])) {
+                $request['email'] = '';
+            }
+
             $customer->update($request->all());
         } else {
             // Check if user exist
@@ -216,6 +233,10 @@ class Customers extends Controller
 
     public function customer(Request $request)
     {
+        if (empty($request['email'])) {
+            $request['email'] = '';
+        }
+
         $customer = Customer::create($request->all());
 
         return response()->json($customer);

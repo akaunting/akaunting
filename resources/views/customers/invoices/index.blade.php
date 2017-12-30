@@ -2,12 +2,6 @@
 
 @section('title', trans_choice('general.invoices', 2))
 
-@permission('create-customers-invoices')
-@section('new_button')
-<span class="new-button"><a href="{{ url('customers/invoices/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-@endsection
-@endpermission
-
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
@@ -45,7 +39,7 @@
                         <td class="text-right">@money($item->amount, $item->currency_code, true)</td>
                         <td class="text-right">{{ Date::parse($item->invoiced_at)->format($date_format) }}</td>
                         <td class="text-right">{{ Date::parse($item->due_at)->format($date_format) }}</td>
-                        <td class="text-center">{{ $item->status->name }}</td>
+                        <td class="text-center"><span class="label {{ $item->status->label }}">{{ $item->status->name }}</span></td>
                     </tr>
                 @endforeach
                 </tbody>

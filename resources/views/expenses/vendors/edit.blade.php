@@ -14,7 +14,7 @@
         <div class="box-body">
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
-            {{ Form::textGroup('email', trans('general.email'), 'envelope') }}
+            {{ Form::textGroup('email', trans('general.email'), 'envelope', []) }}
 
             {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use Date;
 use Illuminate\View\View;
 
 class Index
@@ -15,9 +16,18 @@ class Index
     public function compose(View $view)
     {
         $limits = ['10' => '10', '25' => '25', '50' => '50', '100' => '100'];
-        
-        $years = ['2017' => '2017', '2016' => '2016', '2015' => '2015', '2014' => '2014'];
 
-        $view->with(['limits' => $limits, 'years' => $years]);
+        $now = Date::now();
+
+        $this_year = $now->year;
+
+        $years = [];
+        $y = $now->addYears(5);
+        for ($i = 0; $i < 10; $i++) {
+            $years[$y->year] = $y->year;
+            $y->subYear();
+        }
+
+        $view->with(['limits' => $limits, 'this_year' => $this_year, 'years' => $years]);
     }
 }

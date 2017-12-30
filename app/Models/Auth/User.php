@@ -59,16 +59,6 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Income\Customer', 'user_id', 'id');
     }
 
-    public function invoices()
-    {
-        return $this->hasMany('App\Models\Income\Invoice', 'customer_id', 'id');
-    }
-
-    public function revenues()
-    {
-        return $this->hasMany('App\Models\Income\Revenue', 'customer_id', 'id');
-    }
-
     /**
      * Always capitalize the name when we retrieve it
      */

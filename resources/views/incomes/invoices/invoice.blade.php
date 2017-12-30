@@ -6,16 +6,14 @@
     <section class="invoice">
         <div class="row invoice-header">
             <div class="col-xs-7">
-                @if (setting('general.invoice_logo'))
-                <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
-                @else
-                <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
+                @if ($logo)
+                <img src="{{ $logo }}" class="invoice-logo" />
                 @endif
             </div>
             <div class="col-xs-5 invoice-company">
                 <address>
                     <strong>{{ setting('general.company_name') }}</strong><br>
-                    {{ setting('general.company_address') }}<br>
+                    {!! nl2br(setting('general.company_address')) !!}<br>
                     @if (setting('general.company_tax_number'))
                         {{ trans('general.tax_number') }}: {{ setting('general.company_tax_number') }}<br>
                     @endif
@@ -33,7 +31,7 @@
                 {{ trans('invoices.bill_to') }}
                 <address>
                     <strong>{{ $invoice->customer_name }}</strong><br>
-                    {{ $invoice->customer_address }}<br>
+                    {!! nl2br($invoice->customer_address) !!}<br>
                     @if ($invoice->customer_tax_number)
                         {{ trans('general.tax_number') }}: {{ $invoice->customer_tax_number }}<br>
                     @endif

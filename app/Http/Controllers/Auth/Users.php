@@ -243,6 +243,7 @@ class Users extends Controller
     public function autocomplete(ARequest $request)
     {
         $user = false;
+        $data = false;
 
         $column = $request['column'];
         $value = $request['value'];
@@ -250,7 +251,7 @@ class Users extends Controller
         if (!empty($column) && !empty($value)) {
             switch ($column) {
                 case 'id':
-                    $user = User::find();
+                    $user = User::find((int) $value);
                     break;
                 case 'email':
                     $user = User::where('email', $value)->first();
@@ -258,12 +259,16 @@ class Users extends Controller
                 default:
                     $user = User::where($column, $value)->first();
             }
+
+            $data = $user;
+        } elseif (!empty($column) && empty($value)) {
+            $data = trans('validation.required', ['attribute' => $column]);
         }
 
         return response()->json([
-            'errors'  => ($user) ? false: true,
-            'success' => ($user) ? true: false,
-            'data'    => $user
+            'errors'  => ($user) ? false : true,
+            'success' => ($user) ? true : false,
+            'data'    => $data
         ]);
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Expense\Bill;
 use App\Models\Expense\BillPayment;
 use App\Models\Expense\Payment;
 use App\Models\Setting\Category;
+use Charts;
 use Date;
 
 class IncomeExpenseSummary extends Controller
@@ -21,7 +22,7 @@ class IncomeExpenseSummary extends Controller
      */
     public function index()
     {
-        $dates = $totals = $compares = $compares_graph = $categories = [];
+        $dates = $totals = $compares = $profit_graph = $categories = [];
 
         $status = request('status');
 
@@ -49,7 +50,7 @@ class IncomeExpenseSummary extends Controller
         for ($j = 1; $j <= 12; $j++) {
             $dates[$j] = Date::parse($year . '-' . $j)->format('F');
 
-            $compares_graph[Date::parse($year . '-' . $j)->format('F-Y')] = 0;
+            $profit_graph[Date::parse($year . '-' . $j)->format('F-Y')] = 0;
 
             // Totals
             $totals[$dates[$j]] = array(
@@ -100,50 +101,56 @@ class IncomeExpenseSummary extends Controller
         switch ($status) {
             case 'paid':
                 $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
-                $this->setAmount($compares_graph, $totals, $compares, $invoices, 'invoice', 'paid_at');
+                $this->setAmount($profit_graph, $totals, $compares, $invoices, 'invoice', 'paid_at');
                 break;
             case 'upcoming':
                 $invoices = Invoice::accrued()->monthsOfYear('due_at')->get();
-                $this->setAmount($compares_graph, $totals, $compares, $invoices, 'invoice', 'due_at');
+                $this->setAmount($profit_graph, $totals, $compares, $invoices, 'invoice', 'due_at');
                 break;
             default:
                 $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
-                $this->setAmount($compares_graph, $totals, $compares, $invoices, 'invoice', 'invoiced_at');
+                $this->setAmount($profit_graph, $totals, $compares, $invoices, 'invoice', 'invoiced_at');
                 break;
         }
 
         // Revenues
         if ($status != 'upcoming') {
             $revenues = Revenue::monthsOfYear('paid_at')->get();
-            $this->setAmount($compares_graph, $totals, $compares, $revenues, 'revenue', 'paid_at');
+            $this->setAmount($profit_graph, $totals, $compares, $revenues, 'revenue', 'paid_at');
         }
 
         // Bills
         switch ($status) {
             case 'paid':
                 $bills = BillPayment::monthsOfYear('paid_at')->get();
-                $this->setAmount($compares_graph, $totals, $compares, $bills, 'bill', 'paid_at');
+                $this->setAmount($profit_graph, $totals, $compares, $bills, 'bill', 'paid_at');
                 break;
             case 'upcoming':
                 $bills = Bill::accrued()->monthsOfYear('due_at')->get();
-                $this->setAmount($compares_graph, $totals, $compares, $bills, 'bill', 'due_at');
+                $this->setAmount($profit_graph, $totals, $compares, $bills, 'bill', 'due_at');
                 break;
             default:
                 $bills = Bill::accrued()->monthsOfYear('billed_at')->get();
-                $this->setAmount($compares_graph, $totals, $compares, $bills, 'bill', 'billed_at');
+                $this->setAmount($profit_graph, $totals, $compares, $bills, 'bill', 'billed_at');
                 break;
         }
         
         // Payments
         if ($status != 'upcoming') {
             $payments = Payment::monthsOfYear('paid_at')->get();
-            $this->setAmount($compares_graph, $totals, $compares, $payments, 'payment', 'paid_at');
+            $this->setAmount($profit_graph, $totals, $compares, $payments, 'payment', 'paid_at');
         }
 
-        // Incomes Graph
-        $compares_graph = json_encode($compares_graph);
+        // Profit chart
+        $chart = Charts::multi('line', 'chartjs')
+            ->dimensions(0, 300)
+            ->colors(['#6da252'])
+            ->dataset(trans_choice('general.profits', 1), $profit_graph)
+            ->labels($dates)
+            ->credits(false)
+            ->view('vendor.consoletvs.charts.chartjs.multi.line');
 
-        return view('reports.income_expense_summary.index', compact('dates', 'income_categories', 'expense_categories', 'compares', 'compares_graph', 'totals'));
+        return view('reports.income_expense_summary.index', compact('chart', 'dates', 'income_categories', 'expense_categories', 'compares', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$compares, $items, $type, $date_field)

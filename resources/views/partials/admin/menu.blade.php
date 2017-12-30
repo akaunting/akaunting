@@ -9,7 +9,7 @@
             <div class="pull-left info">
                 <p>{{ str_limit(setting('general.company_name'), 22) }}</p>
                 @permission('read-companies-companies')
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span> &nbsp;{{ trans('general.change') }}</a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span> &nbsp;{{ trans('general.switch') }}</a>
                 <ul class="dropdown-menu">
                     @foreach($companies as $com)
                     <li><a href="{{ url('companies/companies/'. $com->id .'/set') }}">{{ str_limit($com->company_name, 18) }}</a></li>

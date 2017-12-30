@@ -47,26 +47,28 @@
                     <tr>
                         <td><a href="{{ url('incomes/revenues/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
                         <td>@money($item->amount, $item->currency_code, true)</td>
-                        <td class="hidden-xs">{{ !empty($item->customer->name) ? $item->customer->name : 'N/A'}}</td>
+                        <td class="hidden-xs">{{ !empty($item->customer->name) ? $item->customer->name : trans('general.na') }}</td>
                         <td class="hidden-xs">{{ $item->category->name }}</td>
                         <td class="hidden-xs">{{ $item->account->name }}</td>
                         <td class="text-center">
+                            @if ($item->category->id != $transfer_cat_id)
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('incomes/revenues/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    <li class="divider"></li>
                                     @permission('create-incomes-revenues')
-                                    <li><a href="{{ url('incomes/revenues/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     <li class="divider"></li>
+                                    <li><a href="{{ url('incomes/revenues/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     @endpermission
                                     @permission('delete-incomes-revenues')
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'incomes/revenues') !!}</li>
                                     @endpermission
                                 </ul>
                             </div>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

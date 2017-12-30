@@ -15,10 +15,8 @@
                 @include('partials.modules.item')
             @endforeach
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12 no-padding-left">
+        <div class="col-md-12">
             <div class="content-header no-padding-left">
                 <h3>{{ trans('modules.new') }}</h3>
             </div>
@@ -27,10 +25,8 @@
                 @include('partials.modules.item')
             @endforeach
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12 no-padding-left">
+        <div class="col-md-12">
             <div class="content-header no-padding-left">
                 <h3>{{ trans('modules.top_free') }}</h3>
             </div>

@@ -15,6 +15,7 @@ Route::group(['middleware' => 'language'], function () {
 
         Route::group(['middleware' => ['adminmenu', 'permission:read-admin-panel']], function () {
             Route::get('/', 'Dashboard\Dashboard@index');
+            Route::get('dashboard/dashboard/cashflow', 'Dashboard\Dashboard@cashFlow');
 
             Route::group(['prefix' => 'search'], function () {
                 Route::get('search/search', 'Search\Search@search');
@@ -104,6 +105,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::group(['prefix' => 'settings'], function () {
                 Route::resource('categories', 'Settings\Categories');
                 Route::get('currencies/currency', 'Settings\Currencies@currency');
+                Route::get('currencies/config', 'Settings\Currencies@config');
                 Route::resource('currencies', 'Settings\Currencies');
                 Route::get('settings', 'Settings\Settings@edit');
                 Route::patch('settings', 'Settings\Settings@update');
@@ -149,6 +151,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('invoices', 'Customers\Invoices');
                 Route::resource('payments', 'Customers\Payments');
                 Route::resource('transactions', 'Customers\Transactions');
+                Route::get('profile/read-invoices', 'Customers\Profile@readOverdueInvoices');
+                Route::resource('profile', 'Customers\Profile');
 
                 Route::get('logout', 'Auth\Login@destroy')->name('customer_logout');
             });

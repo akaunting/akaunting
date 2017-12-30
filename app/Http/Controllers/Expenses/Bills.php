@@ -37,7 +37,7 @@ class Bills extends Controller
      */
     public function index()
     {
-        $bills = Bill::with(['vendor', 'status', 'items', 'payments', 'histories'])->collect();
+        $bills = Bill::with(['vendor', 'status', 'items', 'payments', 'histories'])->collect(['billed_at'=> 'desc']);
 
         $vendors = collect(Vendor::enabled()->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
@@ -156,7 +156,7 @@ class Bills extends Controller
                     $item_sku = $item_object->sku;
 
                     // Increase stock (item bought)
-                    $item_object->quantity++;
+                    $item_object->quantity += $item['quantity'];
                     $item_object->save();
                 }
 
@@ -171,7 +171,7 @@ class Bills extends Controller
                 }
 
                 $bill_item['item_id'] = $item['item_id'];
-                $bill_item['name'] = $item['name'];
+                $bill_item['name'] = str_limit($item['name'], 180, '');
                 $bill_item['sku'] = $item_sku;
                 $bill_item['quantity'] = $item['quantity'];
                 $bill_item['price'] = $item['price'];
@@ -396,7 +396,7 @@ class Bills extends Controller
                 }
 
                 $bill_item['item_id'] = $item['item_id'];
-                $bill_item['name'] = $item['name'];
+                $bill_item['name'] = str_limit($item['name'], 180, '');
                 $bill_item['sku'] = $item_sku;
                 $bill_item['quantity'] = $item['quantity'];
                 $bill_item['price'] = $item['price'];
@@ -603,17 +603,11 @@ class Bills extends Controller
 
         $bill = Bill::find($request['bill_id']);
 
-        if ($request['currency_code'] == $bill->currency_code) {
-            if ($request['amount'] > $bill->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+        $total_amount = $bill->amount;
 
-                return response()->json($message);
-            } elseif ($request['amount'] == $bill->amount) {
-                $bill->bill_status_code = 'paid';
-            } else {
-                $bill->bill_status_code = 'partial';
-            }
-        } else {
+        $amount = (double) $request['amount'];
+
+        if ($request['currency_code'] != $bill->currency_code) {
             $request_bill = new Bill();
 
             $request_bill->amount = (float) $request['amount'];
@@ -621,16 +615,24 @@ class Bills extends Controller
             $request_bill->currency_rate = $currency->rate;
 
             $amount = $request_bill->getConvertedAmount();
+        }
 
-            if ($amount > $bill->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+        if ($bill->payments()->count()) {
+            $total_amount -= $bill->payments()->paid();
+        }
 
-                return response()->json($message);
-            } elseif ($amount == $bill->amount) {
-                $bill->bill_status_code = 'paid';
-            } else {
-                $bill->bill_status_code = 'partial';
-            }
+        if ($amount > $total_amount) {
+            $message = trans('messages.error.payment_add');
+
+            return response()->json([
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+            ]);
+        } elseif ($amount == $total_amount) {
+            $bill->bill_status_code = 'paid';
+        } else {
+            $bill->bill_status_code = 'partial';
         }
 
         $bill->save();
@@ -640,15 +642,19 @@ class Bills extends Controller
         $request['status_code'] = $bill->bill_status_code;
         $request['notify'] = 0;
 
-        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
-        $request['description'] = $desc_date . ' ' . $desc_amount;
+        $desc_amount = money((float) $request['amount'], (string) $request['currency_code'], true)->format();
+
+        $request['description'] = $desc_amount . ' ' . trans_choice('general.payments', 1);
 
         BillHistory::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
 
-        return response()->json($message);
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => $message,
+        ]);
     }
 
     /**
@@ -660,12 +666,22 @@ class Bills extends Controller
      */
     public function paymentDestroy(BillPayment $payment)
     {
+        $bill = Bill::find($payment->bill_id);
+
+        if ($bill->payments()->count() > 1) {
+            $bill->bill_status_code = 'partial';
+        } else {
+            $bill->bill_status_code = 'draft';
+        }
+
+        $bill->save();
+
         $payment->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.bills', 1)]);
 
         flash($message)->success();
 
-        return redirect('expenses/bills');
+        return redirect()->back();
     }
 }

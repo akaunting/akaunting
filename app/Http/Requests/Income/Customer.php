@@ -23,7 +23,11 @@ class Customer extends Request
      */
     public function rules()
     {
+        $email = '';
         $required = '';
+
+        // Get company id
+        $company_id = $this->request->get('company_id');
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
@@ -36,12 +40,13 @@ class Customer extends Request
             $required = 'required|';
         }
 
-        // Get company id
-        $company_id = $this->request->get('company_id');
+        if (!empty($this->request->get('email'))) {
+            $email = 'email|unique:customers,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL';
+        }
 
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:customers,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
+            'email' => $email,
             'currency_code' => 'required|string',
             'password' => $required . 'confirmed',
         ];

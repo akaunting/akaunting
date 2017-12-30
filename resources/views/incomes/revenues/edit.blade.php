@@ -17,7 +17,7 @@
 
             {{ Form::textGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
 
-            {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('general.accounts', 1)) }}
+            {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts) }}
 
             <div class="form-group col-md-6 {{ $errors->has('currency_code') ? 'has-error' : ''}}">
                 {!! Form::label('currency_code', trans_choice('general.currencies', 1), ['class' => 'control-label']) !!}
@@ -35,7 +35,7 @@
 
             {{ Form::selectGroup('customer_id', trans_choice('general.customers', 1), 'user', $customers, null, []) }}
 
-            {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, null) }}
+            {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods) }}
 
             {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o',[]) }}
 

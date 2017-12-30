@@ -10,29 +10,33 @@ return [
     'free'                  => 'FALAS',
     'install'               => 'Instalo',
     'buy_now'               => 'Bli Tani',
-    'faq'                   => 'Pyetësori',
-    'changelog'             => 'Ndryshimet',
-    'installed'             => 'Instaluar',
-    'uninstalled'           => 'Çinstaluar',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Kliko këtu</a>për të marrë shenjën tuaj API.',
+    'no_apps'               => 'Në këtë kategori akoma nuk ka aplikacione.',
+    'developer'             => 'A jeni një zhvillues?<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Këtu</a> mund të mësoni si të krijoni një aplikacion dhe të filloni shitjen sot!',
 
+    'about'                 => 'Rreth nesh',
+
+    'added'                 => 'Shtuar',
+    'updated'               => 'Përditësuar',
+    'compatibility'         => 'Pajtueshmëri',
+
+    'installed'             => ':module instaluar',
+    'uninstalled'           => ':module çinstaluar',
+    //'updated'               => ':module updated',
     'enabled'               => ':module i aktivizuar',
     'disabled'              => ':module i çaktivizuar',
 
-    'installation' => [
-        'header'            => 'Instalim Moduli',
-        'start'             => ':module instalimi.',
-        'download'          => 'Shkarkimi i :module skedarit.',
-        'unzip'             => 'Ekstraktimi i :module skedarit.',
-        'install'           => 'Ngarkimi i :module skedarit.',
+    'tab' => [
+        'installation'      => 'Instalim',
+        'faq'               => 'Pyetësori',
+        'changelog'         => 'Ndryshimet',
     ],
 
-    'history' => [
-        'installed'         => ':module instaluar',
-        'uninstalled'       => ':module çinstalo',
-        'updated'           => ':module i përditësuar',
-        'enabled'           => ':module i aktivizuar',
-        'disabled'          => ':module i çaktivizuar',
+    'installation' => [
+        'header'            => 'Instalim Aplikacioni',
+        'download'          => 'Shkarkimi i :module skedarit.',
+        'unzip'             => 'Ekstraktimi i :module skedarit.',
+        'install'           => 'Instalim i :module skedareve.',
     ],
 
     'button' => [

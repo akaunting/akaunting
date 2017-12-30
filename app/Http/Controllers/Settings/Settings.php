@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Banking\Account;
+use App\Models\Company\Company;
 use App\Models\Setting\Currency;
-use App\Models\Setting\Tax;
 use App\Models\Setting\Setting;
+use App\Models\Setting\Tax;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
-
 use App\Utilities\Modules;
+use DotenvEditor;
 
 class Settings extends Controller
 {
@@ -90,6 +91,8 @@ class Settings extends Controller
         
         $skip_keys = ['company_id', '_method', '_token'];
         $file_keys = ['company_logo', 'invoice_logo'];
+
+        $companies = Company::all()->count();
         
         foreach ($fields as $key => $value) {
             // Don't process unwanted keys
@@ -105,6 +108,17 @@ class Settings extends Controller
                 if (empty($value)) {
                     continue;
                 }
+            }
+
+            // Change default locale if only 1 company
+            if (($key == 'default_locale') && ($companies == 1)) {
+                // Update .env file
+                DotenvEditor::setKeys([
+                    [
+                        'key'       => 'APP_LOCALE',
+                        'value'     => $value,
+                    ],
+                ])->save();
             }
 
             setting()->set('general.' . $key, $value);

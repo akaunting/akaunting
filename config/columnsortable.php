@@ -15,7 +15,7 @@ return [
             'class' => 'fa fa-sort-amount'
         ],
         'numeric' => [
-            'rows' => ['created_at', 'updated_at', 'paid_at', 'invoiced_at', 'due_at', 'id', 'quantity', 'rate',  'number', 'invoice_number', 'bill_number'],
+            'rows' => ['created_at', 'updated_at', 'paid_at', 'invoiced_at', 'billed_at', 'due_at', 'id', 'quantity', 'rate',  'number', 'invoice_number', 'bill_number'],
             'class' => 'fa fa-sort-numeric'
         ],
     ],

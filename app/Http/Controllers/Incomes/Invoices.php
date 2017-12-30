@@ -30,6 +30,8 @@ use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
+use Image;
+use Storage;
 
 class Invoices extends Controller
 {
@@ -42,7 +44,7 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with(['customer', 'status', 'items', 'payments', 'histories'])->collect();
+        $invoices = Invoice::with(['customer', 'status', 'items', 'payments', 'histories'])->collect(['invoice_number'=> 'desc']);
 
         $customers = collect(Customer::enabled()->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.customers', 2)]), '');
@@ -162,7 +164,7 @@ class Invoices extends Controller
                     $item_sku = $item_object->sku;
 
                     // Decrease stock (item sold)
-                    $item_object->quantity--;
+                    $item_object->quantity -= $item['quantity'];
                     $item_object->save();
 
                     // Notify users if out of stock
@@ -188,7 +190,7 @@ class Invoices extends Controller
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
-                $invoice_item['name'] = $item['name'];
+                $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
                 $invoice_item['price'] = $item['price'];
@@ -386,7 +388,7 @@ class Invoices extends Controller
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
-                $invoice_item['name'] = $item['name'];
+                $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
                 $invoice_item['price'] = $item['price'];
@@ -487,9 +489,15 @@ class Invoices extends Controller
      */
     public function emailInvoice(Invoice $invoice)
     {
+        if (empty($invoice->customer_email)) {
+            return redirect()->back();
+        }
+
         $invoice = $this->prepareInvoice($invoice);
 
-        $html = view($invoice->template_path, compact('invoice'))->render();
+        $logo = $this->getLogo();
+
+        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -531,7 +539,9 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        return view($invoice->template_path, compact('invoice'));
+        $logo = $this->getLogo();
+
+        return view($invoice->template_path, compact('invoice', 'logo'));
     }
 
     /**
@@ -545,7 +555,9 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        $html = view($invoice->template_path, compact('invoice'))->render();
+        $logo = $this->getLogo();
+
+        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -576,18 +588,23 @@ class Invoices extends Controller
 
         $amount = $invoice->amount - $paid;
 
-        $request = new PaymentRequest();
+        if (!empty($amount)) {
+            $request = new PaymentRequest();
 
-        $request['company_id'] = $invoice->company_id;
-        $request['invoice_id'] = $invoice->id;
-        $request['account_id'] = setting('general.default_account');
-        $request['payment_method'] = setting('general.default_payment_method');
-        $request['currency_code'] = $invoice->currency_code;
-        $request['amount'] = $amount;
-        $request['paid_at'] = Date::now();
-        $request['_token'] = csrf_token();
+            $request['company_id'] = $invoice->company_id;
+            $request['invoice_id'] = $invoice->id;
+            $request['account_id'] = setting('general.default_account');
+            $request['payment_method'] = setting('general.default_payment_method', 'offlinepayment.cash.1');
+            $request['currency_code'] = $invoice->currency_code;
+            $request['amount'] = $amount;
+            $request['paid_at'] = Date::now();
+            $request['_token'] = csrf_token();
 
-        $this->payment($request);
+            $this->payment($request);
+        } else {
+            $invoice->invoice_status_code = 'paid';
+            $invoice->save();
+        }
 
         return redirect()->back();
     }
@@ -616,17 +633,11 @@ class Invoices extends Controller
 
         $invoice = Invoice::find($request['invoice_id']);
 
-        if ($request['currency_code'] == $invoice->currency_code) {
-            if ($request['amount'] > $invoice->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+        $total_amount = $invoice->amount;
 
-                return response()->json($message);
-            } elseif ($request['amount'] == $invoice->amount) {
-                $invoice->invoice_status_code = 'paid';
-            } else {
-                $invoice->invoice_status_code = 'partial';
-            }
-        } else {
+        $amount = (double) $request['amount'];
+
+        if ($request['currency_code'] != $invoice->currency_code) {
             $request_invoice = new Invoice();
 
             $request_invoice->amount = (float) $request['amount'];
@@ -634,16 +645,24 @@ class Invoices extends Controller
             $request_invoice->currency_rate = $currency->rate;
 
             $amount = $request_invoice->getConvertedAmount();
+        }
 
-            if ($amount > $invoice->amount) {
-                $message = trans('messages.error.added', ['type' => trans_choice('general.payment', 1)]);
+        if ($invoice->payments()->count()) {
+            $total_amount -= $invoice->payments()->paid();
+        }
 
-                return response()->json($message);
-            } elseif ($amount == $invoice->amount) {
-                $invoice->invoice_status_code = 'paid';
-            } else {
-                $invoice->invoice_status_code = 'partial';
-            }
+        if ($amount > $total_amount) {
+            $message = trans('messages.error.payment_add');
+
+            return response()->json([
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+            ]);
+        } elseif ($amount == $total_amount) {
+            $invoice->invoice_status_code = 'paid';
+        } else {
+            $invoice->invoice_status_code = 'partial';
         }
 
         $invoice->save();
@@ -653,15 +672,19 @@ class Invoices extends Controller
         $request['status_code'] = $invoice->invoice_status_code;
         $request['notify'] = 0;
 
-        $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
-        $request['description'] = $desc_date . ' ' . $desc_amount;
+        $desc_amount = money((float) $request['amount'], (string) $request['currency_code'], true)->format();
+
+        $request['description'] = $desc_amount . ' ' . trans_choice('general.payments', 1);
 
         InvoiceHistory::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
 
-        return response()->json($message);
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => $message,
+        ]);
     }
 
     /**
@@ -673,13 +696,25 @@ class Invoices extends Controller
      */
     public function paymentDestroy(InvoicePayment $payment)
     {
+        $invoice = Invoice::find($payment->invoice_id);
+
+        if ($invoice->payments()->paid() == $invoice->amount) {
+            $invoice->invoice_status_code = 'paid';
+        } elseif ($invoice->payments()->count() > 1) {
+            $invoice->invoice_status_code = 'partial';
+        } else {
+            $invoice->invoice_status_code = 'draft';
+        }
+
+        $invoice->save();
+
         $payment->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
 
         flash($message)->success();
 
-        return redirect('incomes/invoices');
+        return redirect()->back();
     }
 
     protected function prepareInvoice(Invoice $invoice)
@@ -742,5 +777,32 @@ class Invoices extends Controller
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
         ]);
+    }
+
+    protected function getLogo()
+    {
+        $logo = '';
+
+        if (setting('general.invoice_logo')) {
+            $file = session('company_id') . '/' . setting('general.invoice_logo');
+        } else {
+            $file = session('company_id') . '/' . setting('general.company_logo');
+        }
+
+        $path = Storage::path($file);
+        if (!is_file($path)) {
+            return $logo;
+        }
+
+        $image = Image::make($path)->encode()->getEncoded();
+        if (empty($image)) {
+            return $logo;
+        }
+
+        $extension = File::extension($path);
+
+        $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
+
+        return $logo;
     }
 }

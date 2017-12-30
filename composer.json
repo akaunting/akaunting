@@ -16,6 +16,7 @@
         "barryvdh/laravel-dompdf": "0.*",
         "barryvdh/laravel-ide-helper": "2.3.*",
         "bkwld/cloner": "3.2.*",
+        "consoletvs/charts": "4.6.*",
         "dingo/api": "1.0.0-beta8",
         "guzzlehttp/guzzle": "6.3.*",
         "intervention/image": "2.3.*",
@@ -53,27 +54,28 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "composer dump-autoload",
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
             "php artisan clear-compiled",
-            "php artisan optimize"
+            "php artisan optimize",
+            "composer dump-autoload"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
             "php artisan clear-compiled",
-            "php artisan optimize"
+            "php artisan optimize",
+            "composer dump-autoload"
         ],
         "post-create-project-cmd": [
-            "composer dump-autoload",
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
             "php artisan clear-compiled",
-            "php artisan optimize"
+            "php artisan optimize",
+            "composer dump-autoload"
         ]
     },
     "config": {
