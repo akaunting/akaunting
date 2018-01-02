@@ -134,7 +134,7 @@ class Bills extends Controller
         if ($request->file('attachment')) {
             $media = $this->getMedia($request->file('attachment'), 'revenues');
 
-            $invoice->attachMedia($media, 'attachment');
+            $bill->attachMedia($media, 'attachment');
         }
 
         $taxes = [];
@@ -458,7 +458,7 @@ class Bills extends Controller
         if ($request->file('attachment')) {
             $media = $this->getMedia($request->file('attachment'), 'bills');
 
-            $bill->syncMedia($media, 'attachment');
+            $bill->attachMedia($media, 'attachment');
         }
 
         // Added bill total total

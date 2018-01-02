@@ -85,7 +85,7 @@ class Revenues extends Controller
         if ($request->file('attachment')) {
             $media = $this->getMedia($request->file('attachment'), 'revenues');
 
-            $revenue->syncMedia($media, 'attachment');
+            $revenue->attachMedia($media, 'attachment');
         }
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
@@ -184,7 +184,7 @@ class Revenues extends Controller
         if ($request->file('attachment')) {
             $media = $this->getMedia($request->file('attachment'), 'revenues');
 
-            $revenue->syncMedia($media, 'attachment');
+            $revenue->attachMedia($media, 'attachment');
         }
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.revenues', 1)]);

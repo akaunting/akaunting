@@ -182,7 +182,7 @@ class Payments extends Controller
         if ($request->file('attachment')) {
             $media = $this->getMedia($request->file('attachment'), 'payments');
 
-            $payment->syncMedia($media, 'attachment');
+            $payment->attachMedia($media, 'attachment');
         }
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.payments', 1)]);

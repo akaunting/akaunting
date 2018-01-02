@@ -144,7 +144,7 @@ class Items extends Controller
         if ($request->file('picture')) {
             $media = $this->getMedia($request->file('picture'), 'items');
 
-            $item->syncMedia($media, 'picture');
+            $item->attachMedia($media, 'picture');
         }
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.items', 1)]);
