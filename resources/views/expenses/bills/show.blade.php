@@ -167,6 +167,26 @@
                             @endpermission
                         </ul>
                     </div>
+
+                    @if($bill->attachment)
+                        <span class="attachment">
+                            <a href="{{ url('uploads/' . $bill->attachment->id . '/download') }}">
+                                <span id="download-attachment" class="text-primary">
+                                    <i class="fa fa-file-{{ $bill->attachment->aggregate_type }}-o"></i> {{ $bill->attachment->basename }}
+                                </span>
+                            </a>
+                            {!! Form::open([
+                                'id' => 'attachment-' . $bill->attachment->id,
+                                'method' => 'DELETE',
+                                'url' => [url('uploads/' . $bill->attachment->id)],
+                                'style' => 'display:inline'
+                            ]) !!}
+                            <a id="remove-attachment" href="javascript:void();">
+                                <span class="text-danger"><i class="fa fa fa-times"></i></span>
+                            </a>
+                            {!! Form::close() !!}
+                        </span>
+                    @endif
                 </div>
             </div>
         </div>
@@ -403,6 +423,11 @@
 
                 $('#email-modal').modal('show');
             });
+            @if($bill->attachment)
+            $(document).on('click', '#remove-attachment', function (e) {
+                confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+            });
+            @endif
         });
 
         function addPayment() {

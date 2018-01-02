@@ -216,7 +216,6 @@
                 attachment_html += '        </span>';
                 attachment_html += '    </a>';
                 attachment_html += '    {!! Form::open(['id' => 'attachment-' . $invoice->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $invoice->attachment->id)], 'style' => 'display:inline']) !!}';
-                attachment_html += '    {{ Form::hidden('id', $invoice->id) }}';
                 attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
                 attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
                 attachment_html += '    </a>';
@@ -224,6 +223,10 @@
                 attachment_html += '</span>';
 
                 $('.fancy-file .fake-file').append(attachment_html);
+
+                $(document).on('click', '#remove-attachment', function (e) {
+                    confirmDelete("#attachment-{!! $invoice->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $invoice->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+                });
             @endif
 
             var autocomplete_path = "{{ url('items/items/autocomplete') }}";

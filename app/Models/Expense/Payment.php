@@ -7,10 +7,11 @@ use App\Traits\Currencies;
 use App\Traits\DateTime;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
+use Plank\Mediable\Mediable;
 
 class Payment extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence;
+    use Cloneable, Currencies, DateTime, Eloquence, Mediable;
 
     protected $table = 'payments';
 
@@ -90,5 +91,19 @@ class Payment extends Model
     public static function scopeLatest($query)
     {
         return $query->orderBy('paid_at', 'desc');
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getAttachmentAttribute()
+    {
+        if (!$this->hasMedia('attachment')) {
+            return false;
+        }
+
+        return $this->getMedia('attachment')->last();
     }
 }

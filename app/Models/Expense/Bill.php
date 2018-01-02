@@ -7,10 +7,11 @@ use App\Traits\Currencies;
 use App\Traits\DateTime;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
+use Plank\Mediable\Mediable;
 
 class Bill extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence;
+    use Cloneable, Currencies, DateTime, Eloquence, Mediable;
 
     protected $table = 'bills';
 
@@ -127,5 +128,19 @@ class Bill extends Model
     public function setCurrencyRateAttribute($value)
     {
         $this->attributes['currency_rate'] = (double) $value;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getAttachmentAttribute()
+    {
+        if (!$this->hasMedia('attachment')) {
+            return false;
+        }
+
+        return $this->getMedia('attachment')->last();
     }
 }

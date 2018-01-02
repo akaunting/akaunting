@@ -92,8 +92,31 @@
             $('#attachment').fancyfile({
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
-                placeholder : '<?php echo $revenue->attachment; ?>'
+                @if($revenue->attachment)
+                placeholder : '<?php echo $revenue->attachment->basename; ?>'
+                @endif
             });
+
+            @if($revenue->attachment)
+                attachment_html  = '<span class="attachment">';
+                attachment_html += '    <a href="{{ url('uploads/' . $revenue->attachment->id . '/download') }}">';
+                attachment_html += '        <span id="download-attachment" class="text-primary">';
+                attachment_html += '            <i class="fa fa-file-{{ $revenue->attachment->aggregate_type }}-o"></i> {{ $revenue->attachment->basename }}';
+                attachment_html += '        </span>';
+                attachment_html += '    </a>';
+                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $revenue->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $revenue->attachment->id)], 'style' => 'display:inline']) !!}';
+                attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
+                attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
+                attachment_html += '    </a>';
+                attachment_html += '    {!! Form::close() !!}';
+                attachment_html += '</span>';
+
+                $('.fancy-file .fake-file').append(attachment_html);
+
+                $(document).on('click', '#remove-attachment', function (e) {
+                    confirmDelete("#attachment-{!! $revenue->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $revenue->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+                });
+            @endif
 
             $(document).on('change', '#account_id', function (e) {
                 $.ajax({

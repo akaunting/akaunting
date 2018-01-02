@@ -5,10 +5,11 @@ namespace App\Models\Expense;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use Plank\Mediable\Mediable;
 
 class BillPayment extends Model
 {
-    use Currencies, DateTime;
+    use Currencies, DateTime, Mediable;
 
     protected $table = 'bill_payments';
 
@@ -77,5 +78,19 @@ class BillPayment extends Model
     public function scopePaid($query)
     {
         return $query->sum('amount');
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getAttachmentAttribute()
+    {
+        if (!$this->hasMedia('attachment')) {
+            return false;
+        }
+
+        return $this->getMedia('attachment')->last();
     }
 }

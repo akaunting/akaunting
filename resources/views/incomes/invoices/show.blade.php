@@ -192,7 +192,6 @@
                                 'url' => [url('uploads/' . $invoice->attachment->id)],
                                 'style' => 'display:inline'
                             ]) !!}
-                            {{ Form::hidden('id', $invoice->id) }}
                             <a id="remove-attachment" href="javascript:void();">
                                 <span class="text-danger"><i class="fa fa fa-times"></i></span>
                             </a>
