@@ -181,7 +181,7 @@
 
                     @if($invoice->attachment)
                         <span class="attachment">
-                            <a href="{{ url('uploads/invoices/' . $invoice->attachment->basename . '/download') }}">
+                            <a href="{{ url('uploads/' . $invoice->attachment->id . '/download') }}">
                                 <span id="download-attachment" class="text-primary">
                                     <i class="fa fa-file-{{ $invoice->attachment->aggregate_type }}-o"></i> {{ $invoice->attachment->basename }}
                                 </span>
