@@ -30,8 +30,14 @@ trait Uploads
         return $path;
     }
 
-    public function getMedia($file, $folder, $company_id = null)
+    public function getMedia($file, $folder = 'settings', $company_id = null)
     {
+        $path = '';
+
+        if (!$file || !$file->isValid()) {
+            return $path;
+        }
+
         if (!$company_id) {
             $company_id = session('company_id');
         }

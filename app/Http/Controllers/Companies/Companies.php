@@ -59,9 +59,16 @@ class Companies extends Controller
         setting()->set('general.company_email', $request->get('company_email'));
         setting()->set('general.company_address', $request->get('company_address'));
 
-        $logo_path = $this->getUploadedFilePath($request->file('company_logo'), 'settings', $company->id);
-        if ($logo_path) {
-            setting()->set('general.company_logo', $logo_path);
+        if ($request->file('company_logo')) {
+            $logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
+
+            if ($logo) {
+                $company->attachMedia($logo, 'logo');
+
+                $logo_path = $logo->directory . '/' . $logo->basename;
+
+                setting()->set('general.company_logo', $logo_path);
+            }
         }
 
         setting()->set('general.default_currency', $request->get('default_currency'));
@@ -135,9 +142,16 @@ class Companies extends Controller
         setting()->set('general.company_email', $request->get('company_email'));
         setting()->set('general.company_address', $request->get('company_address'));
 
-        $logo_path = $this->getUploadedFilePath($request->file('company_logo'), 'settings', $company->id);
-        if ($logo_path) {
-            setting()->set('general.company_logo', $logo_path);
+        if ($request->file('company_logo')) {
+            $logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
+
+            if ($logo) {
+                $company->attachMedia($logo, 'logo');
+
+                $logo_path = $logo->directory . '/' . $logo->basename;
+
+                setting()->set('general.company_logo', $logo_path);
+            }
         }
 
         setting()->set('general.default_payment_method', 'offlinepayment.cash.1');
