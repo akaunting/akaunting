@@ -56,7 +56,7 @@ class Items extends Controller
         $item = Item::create($request->input());
 
         // Upload picture
-        if ($media) {
+        if ($request->file('picture')) {
             $media = $this->getMedia($request->file('picture'), 'items');
 
             $item->attachMedia($media, 'picture');
@@ -141,7 +141,7 @@ class Items extends Controller
         $item->update($request->input());
 
         // Upload picture
-        if ($media) {
+        if ($request->file('picture')) {
             $media = $this->getMedia($request->file('picture'), 'items');
 
             $item->syncMedia($media, 'picture');

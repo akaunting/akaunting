@@ -36,10 +36,8 @@ trait Uploads
             $company_id = session('company_id');
         }
 
-        $path = config('filesystems.disks.uploads.root') . '/' . $company_id . '/' . $folder;
+        $path = $company_id . '/' . $folder;
 
-        config(['filesystems.disks.uploads.root' => $path]);
-
-        return MediaUploader::fromSource($file)->upload();
+        return MediaUploader::fromSource($file)->toDirectory($path)->upload();
     }
 }

@@ -9,8 +9,8 @@
 Route::group(['middleware' => 'language'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'uploads'], function () {
-            Route::get('{folder}/{file}', 'Common\Uploads@get');
-            Route::get('{folder}/{file}/download', 'Common\Uploads@download');
+            Route::get('{id}', 'Common\Uploads@get');
+            Route::get('{id}/download', 'Common\Uploads@download');
             Route::delete('{id}', 'Common\Uploads@destroy');
         });
 

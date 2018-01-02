@@ -416,7 +416,7 @@ class Invoices extends Controller
         if ($request->file('attachment')) {
             $media = $this->getMedia($request->file('attachment'), 'invoices');
 
-            $invoice->syncMedia($media, 'attachment');
+            $invoice->attachMedia($media, 'attachment');
         }
 
         // Delete previous invoice totals

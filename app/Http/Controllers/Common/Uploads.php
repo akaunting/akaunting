@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use App\Models\Common\Media;
 use Storage;
+use File;
 
 class Uploads extends Controller
 {
@@ -15,10 +16,12 @@ class Uploads extends Controller
      * @param  $file
      * @return boolean|Response
      */
-    public function get($folder, $file)
+    public function get($id)
     {
+        $media = Media::find($id);
+
         // Get file path
-        if (!$path = $this->getPath($folder, $file)) {
+        if (!$path = $this->getPath($media)) {
             return false;
         }
 
@@ -32,10 +35,12 @@ class Uploads extends Controller
      * @param  $file
      * @return boolean|Response
      */
-    public function download($folder, $file)
+    public function download($id)
     {
+        $media = Media::find($id);
+
         // Get file path
-        if (!$path = $this->getPath($folder, $file)) {
+        if (!$path = $this->getPath($media)) {
             return false;
         }
 
@@ -49,20 +54,22 @@ class Uploads extends Controller
      * @param  $file
      * @return callable
      */
-    public function destroy($folder, $id)
+    public function destroy($id)
     {
         $media = Media::find($id);
 
         // Get file path
-        /*if (!$path = $this->getPath($folder, $id)) {
-            $message = trans('messages.warning.deleted', ['name' => $file, 'text' => $file]);
+        if (!$path = $this->getPath($media)) {
+            $message = trans('messages.warning.deleted', ['name' => $media->basename, 'text' => $media->basename]);
 
             flash($message)->warning();
 
             return back();
-        }*/
+        }
 
         $media->delete(); //will not delete files
+
+        File::delete($path);
 
         return back();
     }
@@ -74,14 +81,13 @@ class Uploads extends Controller
      * @param  $file
      * @return boolean|string
      */
-    protected function getPath($folder, $file)
+    protected function getPath($media)
     {
-        // Add company id
-        if ($folder != 'users') {
-            $folder = session('company_id') . '/' . $folder;
-        }
+        $path = $media->basename;
 
-        $path = $folder . '/' . $file;
+        if (!empty($media->directory)) {
+            $path = $media->directory . '/' . $media->basename;
+        }
 
         if (!Storage::exists($path)) {
             return false;

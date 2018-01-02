@@ -189,7 +189,7 @@
                             {!! Form::open([
                                 'id' => 'attachment-' . $invoice->attachment->id,
                                 'method' => 'DELETE',
-                                'url' => [url('uploads/invoices/' . $invoice->attachment->id)],
+                                'url' => [url('uploads/' . $invoice->attachment->id)],
                                 'style' => 'display:inline'
                             ]) !!}
                             {{ Form::hidden('id', $invoice->id) }}
