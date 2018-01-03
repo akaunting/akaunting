@@ -6,7 +6,6 @@ use App\Notifications\Auth\Reset;
 use Date;
 use EloquentFilter\Filterable;
 use GuzzleHttp\Exception\RequestException;
-use Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -126,7 +125,7 @@ class User extends Authenticatable
      */
     public function setPasswordAttribute($value)
     {
-        $this->attributes['password'] = Hash::make($value);
+        $this->attributes['password'] = bcrypt($value);
     }
 
     /**
