@@ -141,7 +141,7 @@ class Invoices extends Controller
 
         // Upload attachment
         if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'revenues');
+            $media = $this->getMedia($request->file('attachment'), 'invoices');
 
             $invoice->attachMedia($media, 'attachment');
         }

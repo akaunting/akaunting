@@ -65,9 +65,7 @@ class Companies extends Controller
             if ($logo) {
                 $company->attachMedia($logo, 'logo');
 
-                $logo_path = $logo->directory . '/' . $logo->basename;
-
-                setting()->set('general.company_logo', $logo_path);
+                setting()->set('general.company_logo', $logo->id);
             }
         }
 
@@ -148,9 +146,7 @@ class Companies extends Controller
             if ($logo) {
                 $company->attachMedia($logo, 'logo');
 
-                $logo_path = $logo->directory . '/' . $logo->basename;
-
-                setting()->set('general.company_logo', $logo_path);
+                setting()->set('general.company_logo', $logo->id);
             }
         }
 

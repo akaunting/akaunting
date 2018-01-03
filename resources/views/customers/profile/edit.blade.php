@@ -62,7 +62,11 @@
             $('#picture').fancyfile({
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
+                @if($user->picture)
                 placeholder : '<?php echo $user->picture; ?>'
+                @else
+                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                @endif
             });
         });
     </script>

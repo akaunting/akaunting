@@ -206,6 +206,8 @@
                 style : 'btn-default',
                 @if($bill->attachment)
                 placeholder : '<?php echo $bill->attachment->basename; ?>'
+                @else
+                placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 

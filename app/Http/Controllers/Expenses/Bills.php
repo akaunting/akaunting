@@ -132,7 +132,7 @@ class Bills extends Controller
 
         // Upload attachment
         if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'revenues');
+            $media = $this->getMedia($request->file('attachment'), 'bills');
 
             $bill->attachMedia($media, 'attachment');
         }
@@ -597,13 +597,6 @@ class Bills extends Controller
 
         $bill = Bill::find($request['bill_id']);
 
-        // Upload attachment
-        if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'payments');
-
-            $bill->attachMedia($media, 'attachment');
-        }
-
         $total_amount = $bill->amount;
 
         $amount = (double) $request['amount'];
@@ -639,6 +632,13 @@ class Bills extends Controller
         $bill->save();
 
         $bill_payment = BillPayment::create($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'bills');
+
+            $bill_payment->attachMedia($media, 'attachment');
+        }
 
         $request['status_code'] = $bill->bill_status_code;
         $request['notify'] = 0;

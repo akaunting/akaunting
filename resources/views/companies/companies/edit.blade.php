@@ -63,6 +63,8 @@
                 style : 'btn-default',
                 @if($company->logo)
                 placeholder : '<?php echo $company->logo->basename; ?>'
+                @else
+                placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 

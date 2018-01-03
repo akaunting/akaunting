@@ -8,6 +8,7 @@ use App\Models\Banking\Account;
 use App\Models\Company\Company;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Setting;
+use App\Models\Common\Media;
 use App\Models\Setting\Tax;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
@@ -26,10 +27,19 @@ class Settings extends Controller
     public function edit()
     {
         /*$setting = Setting::all()->pluck('value', 'key');*/
-        $setting = Setting::all()->map(function($s) {
+        $setting = Setting::all()->map(function ($s) {
             $s->key = str_replace('general.', '', $s->key);
+
             return $s;
         })->pluck('value', 'key');
+
+        $company_logo = $setting->pull('company_logo');
+
+        $setting['company_logo'] = Media::find($company_logo);
+
+        $invoice_logo = $setting->pull('invoice_logo');
+
+        $setting['invoice_logo'] = Media::find($invoice_logo);
 
         $timezones = $this->getTimezones();
 
@@ -88,7 +98,13 @@ class Settings extends Controller
     {
         $fields = $request->all();
         $company_id = $request->get('company_id');
-        
+
+        if (empty($company_id)) {
+            $company_id = session('company_id');
+        }
+
+        $company = Company::find($company_id);
+
         $skip_keys = ['company_id', '_method', '_token'];
         $file_keys = ['company_logo', 'invoice_logo'];
 
@@ -102,7 +118,14 @@ class Settings extends Controller
 
             // Process file uploads
             if (in_array($key, $file_keys)) {
-                $value = $this->getUploadedFilePath($request->file($key), 'settings');
+                // Upload attachment
+                if ($request->file($key)) {
+                    $media = $this->getMedia($request->file($key), 'settings');
+
+                    $company->attachMedia($media, $key);
+
+                    $value = $media->id;
+                }
 
                 // Prevent reset
                 if (empty($value)) {
@@ -133,5 +156,4 @@ class Settings extends Controller
 
         return redirect('settings/settings');
     }
-
 }

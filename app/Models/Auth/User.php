@@ -12,12 +12,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Kyslik\ColumnSortable\Sortable;
+use Plank\Mediable\Mediable;
 use Request;
 use Route;
 
 class User extends Authenticatable
 {
-    use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable;
+    use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable, Mediable;
 
     protected $table = 'users';
 
@@ -88,7 +89,11 @@ class User extends Authenticatable
             }
         }
 
-        return $value;
+        if (!$this->hasMedia('picture')) {
+            return false;
+        }
+
+        return $this->getMedia('picture')->last();
     }
 
     /**

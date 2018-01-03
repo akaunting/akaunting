@@ -6,10 +6,11 @@ use App\Models\Model;
 use App\Traits\Currencies;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
+use Plank\Mediable\Mediable;
 
 class Item extends Model
 {
-    use Cloneable, Currencies, Eloquence;
+    use Cloneable, Currencies, Eloquence, Mediable;
 
     protected $table = 'items';
 
@@ -110,5 +111,19 @@ class Item extends Model
         return $query->join('categories', 'categories.id', '=', 'items.category_id')
             ->orderBy('name', $direction)
             ->select('items.*');
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getPictureAttribute()
+    {
+        if (!$this->hasMedia('picture')) {
+            return false;
+        }
+
+        return $this->getMedia('picture')->last();
     }
 }

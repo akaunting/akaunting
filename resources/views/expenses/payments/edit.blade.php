@@ -94,6 +94,8 @@
             style : 'btn-default',
             @if($payment->attachment)
             placeholder : '<?php echo $payment->attachment->basename; ?>'
+            @else
+            placeholder : '{{ trans('general.form.no_file_selected') }}'
             @endif
         });
 
