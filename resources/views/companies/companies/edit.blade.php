@@ -61,21 +61,21 @@
             $('#company_logo').fancyfile({
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
-                @if($company->logo)
-                placeholder : '<?php echo $company->logo->basename; ?>'
+                @if($company->company_logo)
+                placeholder : '<?php echo $company->company_logo->basename; ?>'
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
-            @if($company->logo)
+            @if($company->company_logo)
                 attachment_html  = '<span class="attachment">';
-                attachment_html += '    <a href="{{ url('uploads/' . $company->logo->id . '/download') }}">';
+                attachment_html += '    <a href="{{ url('uploads/' . $company->company_logo->id . '/download') }}">';
                 attachment_html += '        <span id="download-attachment" class="text-primary">';
-                attachment_html += '            <i class="fa fa-file-{{ $company->logo->aggregate_type }}-o"></i> {{ $company->logo->basename }}';
+                attachment_html += '            <i class="fa fa-file-{{ $company->company_logo->aggregate_type }}-o"></i> {{ $company->company_logo->basename }}';
                 attachment_html += '        </span>';
                 attachment_html += '    </a>';
-                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $company->logo->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $company->logo->id)], 'style' => 'display:inline']) !!}';
+                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $company->company_logo->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $company->company_logo->id)], 'style' => 'display:inline']) !!}';
                 attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
                 attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
                 attachment_html += '    </a>';
@@ -85,7 +85,7 @@
                 $('.fancy-file .fake-file').append(attachment_html);
 
                 $(document).on('click', '#remove-attachment', function (e) {
-                    confirmDelete("#attachment-{!! $company->logo->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $company->logo->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+                    confirmDelete("#attachment-{!! $company->company_logo->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $company->company_logo->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
                 });
             @endif
         });

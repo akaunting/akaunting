@@ -60,12 +60,12 @@ class Companies extends Controller
         setting()->set('general.company_address', $request->get('company_address'));
 
         if ($request->file('company_logo')) {
-            $logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
+            $company_logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
 
-            if ($logo) {
-                $company->attachMedia($logo, 'logo');
+            if ($company_logo) {
+                $company->attachMedia($company_logo, 'company_logo');
 
-                setting()->set('general.company_logo', $logo->id);
+                setting()->set('general.company_logo', $company_logo->id);
             }
         }
 
@@ -141,12 +141,12 @@ class Companies extends Controller
         setting()->set('general.company_address', $request->get('company_address'));
 
         if ($request->file('company_logo')) {
-            $logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
+            $company_logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
 
-            if ($logo) {
-                $company->attachMedia($logo, 'logo');
+            if ($company_logo) {
+                $company->attachMedia($company_logo, 'company_logo');
 
-                setting()->set('general.company_logo', $logo->id);
+                setting()->set('general.company_logo', $company_logo->id);
             }
         }
 

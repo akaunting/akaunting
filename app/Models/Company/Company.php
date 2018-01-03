@@ -236,12 +236,12 @@ class Company extends Eloquent
      *
      * @return string
      */
-    public function getLogoAttribute()
+    public function getCompanyLogoAttribute()
     {
-        if (!$this->hasMedia('logo')) {
+        if (!$this->hasMedia('company_logo')) {
             return false;
         }
 
-        return $this->getMedia('logo')->last();
+        return $this->getMedia('company_logo')->last();
     }
 }
