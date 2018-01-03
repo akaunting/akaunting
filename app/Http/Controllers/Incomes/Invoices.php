@@ -20,6 +20,7 @@ use App\Models\Item\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
+use App\Models\Common\Media;
 use App\Notifications\Income\Invoice as Notification;
 use App\Notifications\Item\Item as ItemNotification;
 use App\Traits\Currencies;
@@ -784,18 +785,26 @@ class Invoices extends Controller
     {
         $logo = '';
 
+        $media_id = setting('general.company_logo');
+
         if (setting('general.invoice_logo')) {
-            $file = session('company_id') . '/' . setting('general.invoice_logo');
-        } else {
-            $file = session('company_id') . '/' . setting('general.company_logo');
+            $media_id = setting('general.invoice_logo');
         }
 
-        $path = Storage::path($file);
+        $media = Media::find($media_id);
+
+        if (empty($media)) {
+            return $logo;
+        }
+
+        $path = Storage::path($media->getDiskPath());
+
         if (!is_file($path)) {
             return $logo;
         }
 
         $image = Image::make($path)->encode()->getEncoded();
+
         if (empty($image)) {
             return $logo;
         }

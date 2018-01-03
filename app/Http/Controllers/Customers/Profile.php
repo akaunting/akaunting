@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Profile as Request;
 use App\Models\Auth\User;
+use App\Traits\Uploads;
 
 class Profile extends Controller
 {
+    use Uploads;
 
     public function index()
     {
@@ -42,12 +44,6 @@ class Profile extends Controller
     {
         $user = auth()->user();
 
-        // Upload picture
-        $picture = $request->file('picture');
-        if ($picture && $picture->isValid()) {
-            $request['picture'] = $picture->store('users');
-        }
-
         // Do not reset password if not entered/changed
         if (empty($request['password'])) {
             unset($request['password']);
@@ -56,6 +52,13 @@ class Profile extends Controller
 
         // Update user
         $user->update($request->input());
+
+        // Upload picture
+        if ($request->file('picture')) {
+            $media = $this->getMedia($request->file('picture'), 'users');
+
+            $user->attachMedia($media, 'picture');
+        }
 
         // Update customer
         $user->customer->update($request->input());
