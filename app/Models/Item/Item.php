@@ -118,8 +118,12 @@ class Item extends Model
      *
      * @return string
      */
-    public function getPictureAttribute()
+    public function getPictureAttribute($value)
     {
+        if (!empty($value)) {
+            return $value;
+        }
+
         if (!$this->hasMedia('picture')) {
             return false;
         }

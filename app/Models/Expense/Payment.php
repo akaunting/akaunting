@@ -98,8 +98,12 @@ class Payment extends Model
      *
      * @return string
      */
-    public function getAttachmentAttribute()
+    public function getAttachmentAttribute($value)
     {
+        if (!empty($value)) {
+            return $value;
+        }
+
         if (!$this->hasMedia('attachment')) {
             return false;
         }
