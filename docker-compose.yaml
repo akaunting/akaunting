@@ -11,6 +11,7 @@ services:
       MYSQL_PASSWORD: akaunting_password
   web:
     image: akaunting
+    build: ./
     ## Uncomment if you wish to use this configuration as development environment.
     # volumes:
     #   - ../:/var/www/html

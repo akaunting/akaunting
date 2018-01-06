@@ -36,15 +36,12 @@ It is possible to containerise Akaunting using the [`docker-compose`](docker/doc
 # Make sure you the dependencies are installed
 composer install && composer dump-autoload
 
-# Build the app
-docker-compose -f docker/docker-compose.build.yaml build
-
 # Run the app
 docker-compose up
 ```
 
 You can then access Akaunting via http://localhost, follow the first steps and setup your db connection
-* Server: db
+* Server: mysql
 * User: root
 * Password: *like you set it in the docker-compose.yml*
 * Database: akaunting
