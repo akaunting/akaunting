@@ -74,13 +74,18 @@
 
                     <div class="box-footer">
                         @if ($installed)
+                            @permission('delete-modules-item')
                             <a href="{{ url('apps/' . $module->slug . '/uninstall') }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
+                            @endpermission
+                            @permission('update-modules-item')
                             @if ($enable)
                                 <a href="{{ url('apps/' . $module->slug . '/disable') }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
                             @else
                                 <a href="{{ url('apps/' . $module->slug . '/enable') }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
                             @endif
+                            @endpermission
                         @else
+                            @permission('create-modules-item')
                             @if ($module->install)
                             <a href="{{ $module->action_url }}" class="btn btn-success btn-block" id="install-module">
                                 {{ trans('modules.install') }}
@@ -90,6 +95,7 @@
                                 {{ trans('modules.buy_now') }}
                             </a>
                             @endif
+                            @endpermission
                         @endif
                     </div>
                     <!-- /.box-footer -->

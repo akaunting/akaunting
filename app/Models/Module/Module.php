@@ -17,4 +17,16 @@ class Module extends Model
      * @var array
      */
     protected $fillable = ['company_id', 'alias', 'status'];
+
+    /**
+     * Scope alias.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $alias
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAlias($query, $alias)
+    {
+        return $query->where('alias', $alias);
+    }
 }

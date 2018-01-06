@@ -2,18 +2,32 @@
 
 namespace App\Http\Controllers\Modules;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
 use App\Traits\Modules;
 use Artisan;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
 class Item extends Controller
 {
     use Modules;
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @param  Route  $route
+     */
+    public function __construct(Route $route)
+    {
+        parent::__construct($route);
+
+        // Add CRUD permission check
+        $this->middleware('permission:create-modules-item')->only(['install']);
+        $this->middleware('permission:update-modules-item')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:delete-modules-item')->only(['uninstall']);
+    }
 
     /**
      * Show the form for viewing the specified resource.
@@ -31,7 +45,7 @@ class Item extends Controller
 
         $module = $this->getModule($alias);
 
-        $check = Module::where('alias', $alias)->first();
+        $check = Module::alias($alias)->first();
 
         if ($check) {
             $installed = true;
@@ -154,7 +168,7 @@ class Item extends Controller
 
         $json = $this->uninstallModule($alias);
 
-        $module = Module::where('alias', $alias)->first();
+        $module = Module::alias($alias)->first();
 
         $data = array(
             'company_id' => session('company_id'),
@@ -181,7 +195,7 @@ class Item extends Controller
 
         $json = $this->updateModule($alias);
 
-        $module = Module::where('alias', $alias)->first();
+        $module = Module::alias($alias)->first();
 
         $data = array(
             'company_id' => session('company_id'),
@@ -206,7 +220,7 @@ class Item extends Controller
 
         $json = $this->enableModule($alias);
 
-        $module = Module::where('alias', $alias)->first();
+        $module = Module::alias($alias)->first();
 
         $data = array(
             'company_id' => session('company_id'),
@@ -235,7 +249,7 @@ class Item extends Controller
 
         $json = $this->disableModule($alias);
 
-        $module = Module::where('alias', $alias)->first();
+        $module = Module::alias($alias)->first();
 
         $data = array(
             'company_id' => session('company_id'),

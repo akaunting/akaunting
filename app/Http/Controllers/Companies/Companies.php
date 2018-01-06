@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Companies;
 
+use App\Events\CompanySwitched;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\Company as Request;
 use App\Models\Company\Company;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
-use Auth;
-use Redirect;
-use Setting;
 
 class Companies extends Controller
 {
@@ -51,26 +49,26 @@ class Companies extends Controller
      */
     public function store(Request $request)
     {
-        Setting::forgetAll();
+        setting()->forgetAll();
 
         // Create company
         $company = Company::create($request->input());
 
         // Create settings
-        Setting::set('general.company_name', $request->get('company_name'));
-        Setting::set('general.company_email', $request->get('company_email'));
-        Setting::set('general.company_address', $request->get('company_address'));
+        setting()->set('general.company_name', $request->get('company_name'));
+        setting()->set('general.company_email', $request->get('company_email'));
+        setting()->set('general.company_address', $request->get('company_address'));
 
         $logo_path = $this->getUploadedFilePath($request->file('company_logo'), 'settings', $company->id);
         if ($logo_path) {
-            Setting::set('general.company_logo', $logo_path);
+            setting()->set('general.company_logo', $logo_path);
         }
 
-        Setting::set('general.default_currency', $request->get('default_currency'));
-        Setting::set('general.default_locale', session('locale'));
+        setting()->set('general.default_currency', $request->get('default_currency'));
+        setting()->set('general.default_locale', session('locale'));
 
-        Setting::setExtraColumns(['company_id' => $company->id]);
-        Setting::save();
+        setting()->setExtraColumns(['company_id' => $company->id]);
+        setting()->save();
 
         // Redirect
         $message = trans('messages.success.added', ['type' => trans_choice('general.companies', 1)]);
@@ -90,7 +88,13 @@ class Companies extends Controller
     public function edit(Company $company)
     {
         // Check if user can edit company
-        $this->authorizeUserOrRedirect($company);
+        if (!$this->isUserCompany($company)) {
+            $message = trans('companies.error.not_user_company');
+
+            flash($message)->error();
+
+            return redirect('companies/companies');
+        }
 
         $company->setSettings();
 
@@ -110,30 +114,36 @@ class Companies extends Controller
     public function update(Company $company, Request $request)
     {
         // Check if user can update company
-        $this->authorizeUserOrRedirect($company);
+        if (!$this->isUserCompany($company)) {
+            $message = trans('companies.error.not_user_company');
+
+            flash($message)->error();
+
+            return redirect('companies/companies');
+        }
 
         // Update company
         $company->update($request->input());
 
         // Get the company settings
-        Setting::forgetAll();
-        Setting::setExtraColumns(['company_id' => $company->id]);
-        Setting::load(true);
+        setting()->forgetAll();
+        setting()->setExtraColumns(['company_id' => $company->id]);
+        setting()->load(true);
         
         // Update settings
-        Setting::set('general.company_name', $request->get('company_name'));
-        Setting::set('general.company_email', $request->get('company_email'));
-        Setting::set('general.company_address', $request->get('company_address'));
+        setting()->set('general.company_name', $request->get('company_name'));
+        setting()->set('general.company_email', $request->get('company_email'));
+        setting()->set('general.company_address', $request->get('company_address'));
 
         $logo_path = $this->getUploadedFilePath($request->file('company_logo'), 'settings', $company->id);
         if ($logo_path) {
-            Setting::set('general.company_logo', $logo_path);
+            setting()->set('general.company_logo', $logo_path);
         }
 
-        Setting::set('general.default_payment_method', 'offlinepayment.cash.1');
-        Setting::set('general.default_currency', $request->get('default_currency'));
+        setting()->set('general.default_payment_method', 'offlinepayment.cash.1');
+        setting()->set('general.default_currency', $request->get('default_currency'));
 
-        Setting::save();
+        setting()->save();
 
         // Redirect
         $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 1)]);
@@ -182,9 +192,10 @@ class Companies extends Controller
         // Check if user can manage company
         if ($this->isUserCompany($company)) {
             session(['company_id' => $company->id]);
+
+            event(new CompanySwitched($company));
         }
 
-        //return redirect('/');
         return redirect()->back();
     }
 
@@ -197,32 +208,12 @@ class Companies extends Controller
      */
     public function isUserCompany(Company $company)
     {
-        $companies = Auth::user()->companies()->pluck('id')->toArray();
+        $companies = auth()->user()->companies()->pluck('id')->toArray();
 
         if (in_array($company->id, $companies)) {
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Check user company permission and redirect if not
-     *
-     * @param  Company  $company
-     *
-     * @return boolean
-     */
-    public function authorizeUserOrRedirect(Company $company)
-    {
-        if ($this->isUserCompany($company)) {
-            return true;
-        }
-
-        $message = trans('companies.error.not_user_company');
-
-        flash($message)->error();
-
-        Redirect::away(url('companies/companies'))->send();
     }
 }

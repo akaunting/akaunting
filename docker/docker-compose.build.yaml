@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     image: akaunting
-    build: .
+    build: ../
     ports:
       - "80:80"
     links:

@@ -28,9 +28,9 @@
                 <thead>
                     <tr>
                         <th class="col-md-2">@sortablelink('paid_at', trans('general.date'))</th>
-                        <th class="col-md-2">@sortablelink('account.name', trans('accounts.account_name'))</th>
+                        <th class="col-md-2">@sortablelink('account_name', trans('accounts.account_name'))</th>
                         <th class="col-md-2">@sortablelink('type', trans_choice('general.types', 1))</th>
-                        <th class="col-md-2">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
+                        <th class="col-md-2">@sortablelink('category_name', trans_choice('general.categories', 1))</th>
                         <th class="col-md-2">@sortablelink('description', trans('general.description'))</th>
                         <th class="col-md-2">@sortablelink('amount', trans('general.amount'))</th>
                     </tr>

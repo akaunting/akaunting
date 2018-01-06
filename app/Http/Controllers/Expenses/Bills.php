@@ -171,7 +171,7 @@ class Bills extends Controller
                 }
 
                 $bill_item['item_id'] = $item['item_id'];
-                $bill_item['name'] = $item['name'];
+                $bill_item['name'] = str_limit($item['name'], 180, '');
                 $bill_item['sku'] = $item_sku;
                 $bill_item['quantity'] = $item['quantity'];
                 $bill_item['price'] = $item['price'];
@@ -396,7 +396,7 @@ class Bills extends Controller
                 }
 
                 $bill_item['item_id'] = $item['item_id'];
-                $bill_item['name'] = $item['name'];
+                $bill_item['name'] = str_limit($item['name'], 180, '');
                 $bill_item['sku'] = $item_sku;
                 $bill_item['quantity'] = $item['quantity'];
                 $bill_item['price'] = $item['price'];

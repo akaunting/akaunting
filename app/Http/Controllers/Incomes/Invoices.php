@@ -190,7 +190,7 @@ class Invoices extends Controller
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
-                $invoice_item['name'] = $item['name'];
+                $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
                 $invoice_item['price'] = $item['price'];
@@ -388,7 +388,7 @@ class Invoices extends Controller
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
-                $invoice_item['name'] = $item['name'];
+                $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
                 $invoice_item['price'] = $item['price'];
