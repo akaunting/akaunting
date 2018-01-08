@@ -4,6 +4,7 @@ namespace App\Listeners\Updates;
 
 use App\Events\UpdateFinished;
 use App\Models\Setting\Currency;
+use Artisan;
 
 class Version113 extends Listener
 {
@@ -24,6 +25,9 @@ class Version113 extends Listener
             return;
         }
 
+        // Update database
+        Artisan::call('migrate', ['--force' => true]);
+
         // Update currencies
         $currencies = Currency::all();
 
@@ -36,8 +40,5 @@ class Version113 extends Listener
 
             $currency->save();
         }
-
-        // Update database
-        Artisan::call('migrate', ['--force' => true]);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Setting\Currency;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Artisan;
 
 class Version117 extends Listener
 {
