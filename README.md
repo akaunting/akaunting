@@ -34,7 +34,7 @@ It is possible to containerise Akaunting using the [`docker-compose`](docker/doc
 
 ```
 # Make sure you the dependencies are installed
-composer install && composer dump-autoload
+composer install
 
 # Build the app
 docker-compose -f docker/docker-compose.build.yaml build
