@@ -20,7 +20,7 @@ class BillPayment extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'bill_id', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'description', 'payment_method', 'reference', 'attachment'];
+    protected $fillable = ['company_id', 'bill_id', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'description', 'payment_method', 'reference'];
 
     public function account()
     {

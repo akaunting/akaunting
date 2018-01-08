@@ -111,9 +111,6 @@ class Updates extends Controller
         // Clear cache after update
         Artisan::call('cache:clear');
 
-        // Update database
-        Artisan::call('migrate', ['--force' => true]);
-
         event(new UpdateFinished($alias, $old, $new));
 
         flash(trans('updates.success'))->success();

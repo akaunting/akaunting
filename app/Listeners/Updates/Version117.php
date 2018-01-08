@@ -5,11 +5,14 @@ namespace App\Listeners\Updates;
 use App\Events\UpdateFinished;
 use App\Models\Setting\Currency;
 
-class Version116 extends Listener
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+
+class Version117 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.1.6';
+    const VERSION = '1.1.7';
 
     /**
      * Handle the event.
@@ -23,6 +26,37 @@ class Version116 extends Listener
         if (!$this->check($event)) {
             return;
         }
+
+        Schema::create('media', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('disk', 32);
+            $table->string('directory');
+            $table->string('filename');
+            $table->string('extension', 32);
+            $table->string('mime_type', 128);
+            $table->string('aggregate_type', 32);
+            $table->integer('size')->unsigned();
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->index(['disk', 'directory']);
+            $table->unique(['disk', 'directory', 'filename', 'extension']);
+            $table->index('aggregate_type');
+        });
+
+        Schema::create('mediables', function (Blueprint $table) {
+            $table->integer('media_id')->unsigned();
+            $table->string('mediable_type');
+            $table->integer('mediable_id')->unsigned();
+            $table->string('tag');
+            $table->integer('order')->unsigned();
+
+            $table->primary(['media_id', 'mediable_type', 'mediable_id', 'tag']);
+            $table->index(['mediable_id', 'mediable_type']);
+            $table->index('tag');
+            $table->index('order');
+            $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
+        });
 
         $migrations = [
             '\App\Models\Auth\User'             => 'picture',
@@ -52,5 +86,8 @@ class Version116 extends Listener
                 }
             }
         }
+
+        // Update database
+        Artisan::call('migrate', ['--force' => true]);
     }
 }

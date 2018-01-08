@@ -37,5 +37,7 @@ class Version113 extends Listener
             $currency->save();
         }
 
+        // Update database
+        Artisan::call('migrate', ['--force' => true]);
     }
 }
