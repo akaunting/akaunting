@@ -5,10 +5,11 @@ namespace App\Models\Income;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use Plank\Mediable\Mediable;
 
 class InvoicePayment extends Model
 {
-    use Currencies, DateTime;
+    use Currencies, DateTime, Mediable;
 
     protected $table = 'invoice_payments';
 
@@ -19,7 +20,7 @@ class InvoicePayment extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_id', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'description', 'payment_method', 'reference', 'attachment'];
+    protected $fillable = ['company_id', 'invoice_id', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'description', 'payment_method', 'reference'];
 
     public function account()
     {
@@ -77,5 +78,23 @@ class InvoicePayment extends Model
     public function scopePaid($query)
     {
         return $query->sum('amount');
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getAttachmentAttribute($value)
+    {
+        if (!empty($value)) {
+            return $value;
+        }
+
+        if (!$this->hasMedia('attachment')) {
+            return false;
+        }
+
+        return $this->getMedia('attachment')->last();
     }
 }

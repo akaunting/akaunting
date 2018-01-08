@@ -178,6 +178,26 @@
                             @endpermission
                         </ul>
                     </div>
+
+                    @if($invoice->attachment)
+                        <span class="attachment">
+                            <a href="{{ url('uploads/' . $invoice->attachment->id . '/download') }}">
+                                <span id="download-attachment" class="text-primary">
+                                    <i class="fa fa-file-{{ $invoice->attachment->aggregate_type }}-o"></i> {{ $invoice->attachment->basename }}
+                                </span>
+                            </a>
+                            {!! Form::open([
+                                'id' => 'attachment-' . $invoice->attachment->id,
+                                'method' => 'DELETE',
+                                'url' => [url('uploads/' . $invoice->attachment->id)],
+                                'style' => 'display:inline'
+                            ]) !!}
+                            <a id="remove-attachment" href="javascript:void();">
+                                <span class="text-danger"><i class="fa fa fa-times"></i></span>
+                            </a>
+                            {!! Form::close() !!}
+                        </span>
+                    @endif
                 </div>
             </div>
         </section>
@@ -414,6 +434,11 @@
 
                 $('#email-modal').modal('show');
             });
+            @if($invoice->attachment)
+            $(document).on('click', '#remove-attachment', function (e) {
+                confirmDelete("#attachment-{!! $invoice->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $invoice->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+            });
+            @endif
         });
 
         function addPayment() {

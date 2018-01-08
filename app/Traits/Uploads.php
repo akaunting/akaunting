@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use MediaUploader;
+
 trait Uploads
 {
 
@@ -26,5 +28,22 @@ trait Uploads
         $path = $folder . '/' . $file_name;
 
         return $path;
+    }
+
+    public function getMedia($file, $folder = 'settings', $company_id = null)
+    {
+        $path = '';
+
+        if (!$file || !$file->isValid()) {
+            return $path;
+        }
+
+        if (!$company_id) {
+            $company_id = session('company_id');
+        }
+
+        $path = $company_id . '/' . $folder;
+
+        return MediaUploader::fromSource($file)->toDirectory($path)->upload();
     }
 }

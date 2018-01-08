@@ -7,11 +7,14 @@ use App\Http\Requests\Auth\User as Request;
 use Illuminate\Http\Request as ARequest;
 use App\Models\Auth\User;
 use App\Models\Auth\Role;
+use App\Traits\Uploads;
 
 use Auth;
 
 class Users extends Controller
 {
+    use Uploads;
+
     /**
      * Display a listing of the resource.
      *
@@ -34,11 +37,12 @@ class Users extends Controller
      */
     public function create()
     {
-        $roles = Role::all()->reject(function($r) {
+        $roles = Role::all()->reject(function ($r) {
             return $r->hasPermission('read-customer-panel');
         });
 
         $companies = Auth::user()->companies()->get()->sortBy('name');
+
         foreach ($companies as $company) {
             $company->setSettings();
         }
@@ -55,14 +59,15 @@ class Users extends Controller
      */
     public function store(Request $request)
     {
-        // Upload picture
-        $picture = $request->file('picture');
-        if ($picture && $picture->isValid()) {
-            $request['picture'] = $picture->store('uploads/users');
-        }
-        
         // Create user
         $user = User::create($request->input());
+
+        // Upload picture
+        if ($request->file('picture')) {
+            $media = $this->getMedia($request->file('picture'), 'users');
+
+            $user->attachMedia($media, 'picture');
+        }
 
         // Attach roles
         $user->roles()->attach($request['roles']);
@@ -88,17 +93,18 @@ class Users extends Controller
     {
         if ($user->customer) {
             // Show only roles with customer permission
-            $roles = Role::all()->reject(function($r) {
+            $roles = Role::all()->reject(function ($r) {
                 return !$r->hasPermission('read-customer-panel');
             });
         } else {
             // Don't show roles with customer permission
-            $roles = Role::all()->reject(function($r) {
+            $roles = Role::all()->reject(function ($r) {
                 return $r->hasPermission('read-customer-panel');
             });
         }
 
         $companies = Auth::user()->companies()->get()->sortBy('name');
+
         foreach ($companies as $company) {
             $company->setSettings();
         }
@@ -116,12 +122,6 @@ class Users extends Controller
      */
     public function update(User $user, Request $request)
     {
-        // Upload picture
-        $picture = $request->file('picture');
-        if ($picture && $picture->isValid()) {
-            $request['picture'] = $picture->store('users');
-        }
-
         // Do not reset password if not entered/changed
         if (empty($request['password'])) {
             unset($request['password']);
@@ -130,6 +130,13 @@ class Users extends Controller
 
         // Update user
         $user->update($request->input());
+
+        // Upload picture
+        if ($request->file('picture')) {
+            $media = $this->getMedia($request->file('picture'), 'users');
+
+            $user->attachMedia($media, 'picture');
+        }
 
         // Sync roles
         $user->roles()->sync($request['roles']);

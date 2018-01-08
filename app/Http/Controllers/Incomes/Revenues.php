@@ -79,13 +79,14 @@ class Revenues extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'revenues');
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
+        $revenue = Revenue::create($request->input());
 
-        Revenue::create($request->input());
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'revenues');
+
+            $revenue->attachMedia($media, 'attachment');
+        }
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
 
@@ -177,13 +178,14 @@ class Revenues extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'revenues');
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $revenue->update($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'revenues');
+
+            $revenue->attachMedia($media, 'attachment');
+        }
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.revenues', 1)]);
 

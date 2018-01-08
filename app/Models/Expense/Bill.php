@@ -7,10 +7,11 @@ use App\Traits\Currencies;
 use App\Traits\DateTime;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
+use Plank\Mediable\Mediable;
 
 class Bill extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence;
+    use Cloneable, Currencies, DateTime, Eloquence, Mediable;
 
     protected $table = 'bills';
 
@@ -21,7 +22,7 @@ class Bill extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'bill_number', 'order_number', 'bill_status_code', 'billed_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'vendor_id', 'vendor_name', 'vendor_email', 'vendor_tax_number', 'vendor_phone', 'vendor_address', 'notes', 'attachment'];
+    protected $fillable = ['company_id', 'bill_number', 'order_number', 'bill_status_code', 'billed_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'vendor_id', 'vendor_name', 'vendor_email', 'vendor_tax_number', 'vendor_phone', 'vendor_address', 'notes'];
 
     /**
      * Sortable columns.
@@ -127,5 +128,23 @@ class Bill extends Model
     public function setCurrencyRateAttribute($value)
     {
         $this->attributes['currency_rate'] = (double) $value;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getAttachmentAttribute($value)
+    {
+        if (!empty($value)) {
+            return $value;
+        }
+
+        if (!$this->hasMedia('attachment')) {
+            return false;
+        }
+
+        return $this->getMedia('attachment')->last();
     }
 }

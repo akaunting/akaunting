@@ -7,10 +7,11 @@ use App\Traits\Currencies;
 use App\Traits\DateTime;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
+use Plank\Mediable\Mediable;
 
 class Revenue extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence;
+    use Cloneable, Currencies, DateTime, Eloquence, Mediable;
 
     protected $table = 'revenues';
 
@@ -19,7 +20,7 @@ class Revenue extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'customer_id', 'description', 'category_id', 'payment_method', 'reference', 'attachment'];
+    protected $fillable = ['company_id', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'customer_id', 'description', 'category_id', 'payment_method', 'reference'];
 
     /**
      * Sortable columns.
@@ -96,5 +97,23 @@ class Revenue extends Model
     public function scopeLatest($query)
     {
         return $query->orderBy('paid_at', 'desc');
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getAttachmentAttribute($value)
+    {
+        if (!empty($value)) {
+            return $value;
+        }
+
+        if (!$this->hasMedia('attachment')) {
+            return false;
+        }
+
+        return $this->getMedia('attachment')->last();
     }
 }

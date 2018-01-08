@@ -53,13 +53,14 @@ class Items extends Controller
      */
     public function store(Request $request)
     {
-        // Upload picture
-        $picture_path = $this->getUploadedFilePath($request->file('picture'), 'items');
-        if ($picture_path) {
-            $request['picture'] = $picture_path;
-        }
+        $item = Item::create($request->input());
 
-        Item::create($request->input());
+        // Upload picture
+        if ($request->file('picture')) {
+            $media = $this->getMedia($request->file('picture'), 'items');
+
+            $item->attachMedia($media, 'picture');
+        }
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.items', 1)]);
 
@@ -137,13 +138,14 @@ class Items extends Controller
      */
     public function update(Item $item, Request $request)
     {
-        // Upload picture
-        $picture_path = $this->getUploadedFilePath($request->file('picture'), 'items');
-        if ($picture_path) {
-            $request['picture'] = $picture_path;
-        }
-
         $item->update($request->input());
+
+        // Upload picture
+        if ($request->file('picture')) {
+            $media = $this->getMedia($request->file('picture'), 'items');
+
+            $item->attachMedia($media, 'picture');
+        }
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.items', 1)]);
 

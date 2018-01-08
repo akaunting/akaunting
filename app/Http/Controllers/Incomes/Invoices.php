@@ -20,6 +20,7 @@ use App\Models\Item\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
+use App\Models\Common\Media;
 use App\Notifications\Income\Invoice as Notification;
 use App\Notifications\Item\Item as ItemNotification;
 use App\Traits\Currencies;
@@ -137,16 +138,17 @@ class Invoices extends Controller
 
         $request['amount'] = 0;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $invoice = Invoice::create($request->input());
 
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'invoices');
+
+            $invoice->attachMedia($media, 'attachment');
+        }
+
         $taxes = [];
+
         $tax_total = 0;
         $sub_total = 0;
 
@@ -349,13 +351,6 @@ class Invoices extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
@@ -417,6 +412,13 @@ class Invoices extends Controller
         $request['amount'] = $sub_total + $tax_total;
 
         $invoice->update($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'invoices');
+
+            $invoice->attachMedia($media, 'attachment');
+        }
 
         // Delete previous invoice totals
         InvoiceTotal::where('invoice_id', $invoice->id)->delete();
@@ -624,13 +626,6 @@ class Invoices extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'invoices');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $invoice = Invoice::find($request['invoice_id']);
 
         $total_amount = $invoice->amount;
@@ -668,6 +663,13 @@ class Invoices extends Controller
         $invoice->save();
 
         $invoice_payment = InvoicePayment::create($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'invoices');
+
+            $invoice_payment->attachMedia($media, 'attachment');
+        }
 
         $request['status_code'] = $invoice->invoice_status_code;
         $request['notify'] = 0;
@@ -783,18 +785,26 @@ class Invoices extends Controller
     {
         $logo = '';
 
+        $media_id = setting('general.company_logo');
+
         if (setting('general.invoice_logo')) {
-            $file = session('company_id') . '/' . setting('general.invoice_logo');
-        } else {
-            $file = session('company_id') . '/' . setting('general.company_logo');
+            $media_id = setting('general.invoice_logo');
         }
 
-        $path = Storage::path($file);
+        $media = Media::find($media_id);
+
+        if (empty($media)) {
+            return $logo;
+        }
+
+        $path = Storage::path($media->getDiskPath());
+
         if (!is_file($path)) {
             return $logo;
         }
 
         $image = Image::make($path)->encode()->getEncoded();
+
         if (empty($image)) {
             return $logo;
         }

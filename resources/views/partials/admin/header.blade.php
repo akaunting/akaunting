@@ -166,7 +166,7 @@
                             @if (setting('general.use_gravatar', '0') == '1')
                                 <img src="{{ $user->picture }}" class="user-image" alt="User Image">
                             @else
-                                <img src="{{ Storage::url($user->picture) }}" class="user-image" alt="User Image">
+                                <img src="{{ Storage::url($user->picture->id) }}" class="user-image" alt="User Image">
                             @endif
                         @else
                             <i class="fa fa-user-o"></i>
@@ -182,7 +182,7 @@
                                 @if (setting('general.use_gravatar', '0') == '1')
                                     <img src="{{ $user->picture }}" class="img-circle" alt="User Image">
                                 @else
-                                    <img src="{{ Storage::url($user->picture) }}" class="img-circle" alt="User Image">
+                                    <img src="{{ Storage::url($user->picture->id) }}" class="img-circle" alt="User Image">
                                 @endif
                             @else
                                 <i class="fa fa-4 fa-user-o" style="color: #fff; font-size: 7em;"></i>

@@ -7,10 +7,11 @@ use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
+use Plank\Mediable\Mediable;
 
 class Company extends Eloquent
 {
-    use Filterable, SoftDeletes, Sortable;
+    use Filterable, SoftDeletes, Sortable, Mediable;
 
     protected $table = 'companies';
 
@@ -228,5 +229,23 @@ class Company extends Eloquent
             ->where('key', 'general.company_email')
             ->orderBy('value', $direction)
             ->select('companies.*');
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getCompanyLogoAttribute($value)
+    {
+        if (!empty($value)) {
+            return $value;
+        }
+
+        if (!$this->hasMedia('company_logo')) {
+            return false;
+        }
+
+        return $this->getMedia('company_logo')->last();
     }
 }

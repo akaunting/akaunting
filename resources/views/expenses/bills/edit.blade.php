@@ -204,8 +204,33 @@
             $('#attachment').fancyfile({
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
-                placeholder : '<?php echo $bill->attachment; ?>'
+                @if($bill->attachment)
+                placeholder : '<?php echo $bill->attachment->basename; ?>'
+                @else
+                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                @endif
             });
+
+            @if($bill->attachment)
+                attachment_html  = '<span class="attachment">';
+                attachment_html += '    <a href="{{ url('uploads/' . $bill->attachment->id . '/download') }}">';
+                attachment_html += '        <span id="download-attachment" class="text-primary">';
+                attachment_html += '            <i class="fa fa-file-{{ $bill->attachment->aggregate_type }}-o"></i> {{ $bill->attachment->basename }}';
+                attachment_html += '        </span>';
+                attachment_html += '    </a>';
+                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $bill->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $bill->attachment->id)], 'style' => 'display:inline']) !!}';
+                attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
+                attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
+                attachment_html += '    </a>';
+                attachment_html += '    {!! Form::close() !!}';
+                attachment_html += '</span>';
+
+                $('.fancy-file .fake-file').append(attachment_html);
+
+                $(document).on('click', '#remove-attachment', function (e) {
+                    confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+                });
+            @endif
 
             var autocomplete_path = "{{ url('items/items/autocomplete') }}";
 

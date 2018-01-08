@@ -203,6 +203,7 @@ return [
         Nwidart\Menus\MenusServiceProvider::class,
         Nwidart\Modules\LaravelModulesServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
+        Plank\Mediable\MediableServiceProvider::class,
 
     ],
 
@@ -238,6 +239,7 @@ return [
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
+        'MediaUploader' => Plank\Mediable\MediaUploaderFacade::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,

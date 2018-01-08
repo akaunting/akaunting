@@ -128,16 +128,17 @@ class Bills extends Controller
 
         $request['amount'] = 0;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'bills');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $bill = Bill::create($request->input());
 
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'bills');
+
+            $bill->attachMedia($media, 'attachment');
+        }
+
         $taxes = [];
+
         $tax_total = 0;
         $sub_total = 0;
 
@@ -357,13 +358,6 @@ class Bills extends Controller
 
         $request['amount'] = 0;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'bills');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
@@ -459,6 +453,13 @@ class Bills extends Controller
         $request['amount'] += $sub_total + $tax_total;
 
         $bill->update($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'bills');
+
+            $bill->attachMedia($media, 'attachment');
+        }
 
         // Added bill total total
         $bill_total = [
@@ -594,13 +595,6 @@ class Bills extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        // Upload attachment
-        $attachment_path = $this->getUploadedFilePath($request->file('attachment'), 'revenues');
-
-        if ($attachment_path) {
-            $request['attachment'] = $attachment_path;
-        }
-
         $bill = Bill::find($request['bill_id']);
 
         $total_amount = $bill->amount;
@@ -638,6 +632,13 @@ class Bills extends Controller
         $bill->save();
 
         $bill_payment = BillPayment::create($request->input());
+
+        // Upload attachment
+        if ($request->file('attachment')) {
+            $media = $this->getMedia($request->file('attachment'), 'bills');
+
+            $bill_payment->attachMedia($media, 'attachment');
+        }
 
         $request['status_code'] = $bill->bill_status_code;
         $request['notify'] = 0;
