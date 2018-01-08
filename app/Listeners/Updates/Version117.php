@@ -3,10 +3,7 @@
 namespace App\Listeners\Updates;
 
 use App\Events\UpdateFinished;
-use App\Models\Setting\Currency;
-
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use MediaUploader;
 use Artisan;
 
 class Version117 extends Listener
@@ -28,36 +25,7 @@ class Version117 extends Listener
             return;
         }
 
-        Schema::create('media', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('disk', 32);
-            $table->string('directory');
-            $table->string('filename');
-            $table->string('extension', 32);
-            $table->string('mime_type', 128);
-            $table->string('aggregate_type', 32);
-            $table->integer('size')->unsigned();
-            $table->timestamps();
-            $table->softDeletes();
-
-            $table->index(['disk', 'directory']);
-            $table->unique(['disk', 'directory', 'filename', 'extension']);
-            $table->index('aggregate_type');
-        });
-
-        Schema::create('mediables', function (Blueprint $table) {
-            $table->integer('media_id')->unsigned();
-            $table->string('mediable_type');
-            $table->integer('mediable_id')->unsigned();
-            $table->string('tag');
-            $table->integer('order')->unsigned();
-
-            $table->primary(['media_id', 'mediable_type', 'mediable_id', 'tag']);
-            $table->index(['mediable_id', 'mediable_type']);
-            $table->index('tag');
-            $table->index('order');
-            $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
-        });
+        $data = [];
 
         $migrations = [
             '\App\Models\Auth\User'             => 'picture',
@@ -77,6 +45,15 @@ class Version117 extends Listener
                 $items = $model::all();
             }
 
+            $data[basename($model)] = $items;
+        }
+
+        // Update database
+        Artisan::call('migrate', ['--force' => true]);
+
+        foreach ($migrations as $model => $name) {
+            $items = $data[basename($model)];
+
             foreach ($items as $item) {
                 if ($item->$name) {
                     $path = explode('uploads/', $item->$name);
@@ -87,8 +64,5 @@ class Version117 extends Listener
                 }
             }
         }
-
-        // Update database
-        Artisan::call('migrate', ['--force' => true]);
     }
 }
