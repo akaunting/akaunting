@@ -1,0 +1,7 @@
+version: '3'
+services:
+  web:
+    image: akaunting
+    build: ../
+    ports:
+      - "80:80"

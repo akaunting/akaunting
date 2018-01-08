@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\BillReminder::class,
         Commands\InvoiceReminder::class,
         Commands\ModuleInstall::class,
+        Commands\ConfigureApp::class,
     ];
 
     /**

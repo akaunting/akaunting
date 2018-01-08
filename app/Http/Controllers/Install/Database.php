@@ -3,123 +3,56 @@
 namespace App\Http\Controllers\Install;
 
 use Artisan;
-use Config;
-use DB;
-use DotenvEditor;
 use App\Http\Requests\Install\Database as Request;
+use App\Utilities\AppConfigurer;
 use Illuminate\Routing\Controller;
 
-class Database extends Controller
-{
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('install.database.create');
-    }
+class Database extends Controller {
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create() {
+		return view( 'install.database.create' );
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     *
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        // Check database connection
-        if (!$this->canConnect($request)) {
-            $message = trans('install.error.connection');
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  Request $request
+	 *
+	 * @return Response
+	 */
+	public function store( Request $request ) {
+		$host = $request['hostname'];
+		$port     = env( 'DB_PORT', '3306' );
+		$database = $request['database'];
+		$username = $request['username'];
+		$password = $request['password'];
 
-            flash($message)->error()->important();
+		// Check database connection
+		if ( ! AppConfigurer::isDbValid($host,$port,$database,$username,$password) ) {
+			$message = trans( 'install.error.connection' );
 
-            return redirect('install/database')->withInput();
-        }
+			flash( $message )->error()->important();
 
-        // Set database details
-        $this->saveVariables($request);
+			return redirect( 'install/database' )->withInput();
+		}
 
-        // Try to increase the maximum execution time
-        set_time_limit(300); // 5 minutes
+		// Set database details
+		AppConfigurer::saveDbVariables($host, $port, $database, $username, $password);
 
-        // Create tables
-        Artisan::call('migrate', ['--force' => true]);
+		// Try to increase the maximum execution time
+		set_time_limit( 300 ); // 5 minutes
 
-        // Create Roles
-        Artisan::call('db:seed', ['--class' => 'Database\Seeds\Roles', '--force' => true]);
+		// Create tables
+		Artisan::call( 'migrate', [ '--force' => true ] );
 
-        return redirect('install/settings');
-    }
+		// Create Roles
+		Artisan::call( 'db:seed', [ '--class' => 'Database\Seeds\Roles', '--force' => true ] );
 
-    private function canConnect($request)
-    {
-        Config::set('database.connections.install_test', [
-            'host'      => $request['hostname'],
-            'database'  => $request['database'],
-            'username'  => $request['username'],
-            'password'  => $request['password'],
-            'driver'    => env('DB_CONNECTION', 'mysql'),
-            'port'      => env('DB_PORT', '3306'),
-            'charset'   => env('DB_CHARSET', 'utf8mb4'),
-        ]);
+		return redirect( 'install/settings' );
+	}
 
-        try {
-            DB::connection('install_test')->getPdo();
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        // Purge test connection
-        DB::purge('install_test');
-
-        return true;
-    }
-
-    private function saveVariables($request)
-    {
-        $prefix = strtolower(str_random(3) . '_');
-
-        // Save to file
-        DotenvEditor::setKeys([
-            [
-              'key'       => 'DB_HOST',
-              'value'     => $request['hostname'],
-            ],
-            [
-              'key'       => 'DB_DATABASE',
-              'value'     => $request['database'],
-            ],
-            [
-              'key'       => 'DB_USERNAME',
-              'value'     => $request['username'],
-            ],
-            [
-              'key'       => 'DB_PASSWORD',
-              'value'     => $request['password'],
-            ],
-            [
-              'key'       => 'DB_PREFIX',
-              'value'     => $prefix,
-            ],
-        ])->save();
-
-        $con = env('DB_CONNECTION', 'mysql');
-
-        // Change current connection
-        $db = Config::get('database.connections.' . $con);
-
-        $db['host'] = $request['hostname'];
-        $db['database'] = $request['database'];
-        $db['username'] = $request['username'];
-        $db['password'] = $request['password'];
-        $db['prefix'] = $prefix;
-
-        Config::set('database.connections.' . $con, $db);
-
-        DB::purge($con);
-        DB::reconnect($con);
-    }
 }
