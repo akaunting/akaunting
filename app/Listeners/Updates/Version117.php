@@ -4,6 +4,7 @@ namespace App\Listeners\Updates;
 
 use App\Events\UpdateFinished;
 use MediaUploader;
+use Storage;
 use Artisan;
 
 class Version117 extends Listener
@@ -48,6 +49,9 @@ class Version117 extends Listener
             $data[basename($model)] = $items;
         }
 
+        // Clear cache after update
+        Artisan::call('cache:clear');
+
         // Update database
         Artisan::call('migrate', ['--force' => true]);
 
@@ -58,7 +62,36 @@ class Version117 extends Listener
                 if ($item->$name) {
                     $path = explode('uploads/', $item->$name);
 
-                    $media = MediaUploader::importPath(config('mediable.default_disk'), $path[1]);
+                    $path = end($path);
+
+                    if (!empty($item->company_id) && (strpos($path, $item->company_id . '/') === false)) {
+                        $path = $item->company_id . '/' . $path;
+                    }
+
+                    if (!empty($path) && Storage::exists($path)) {
+                        $media = MediaUploader::importPath(config('mediable.default_disk'), $path);
+
+                        $item->attachMedia($media, $name);
+                    }
+                }
+            }
+        }
+
+        $settings['company_logo'] = \App\Models\Setting\Setting::where('key', '=', 'general.company_logo')->get();
+        $settings['invoice_logo'] = \App\Models\Setting\Setting::where('key', '=', 'general.invoice_logo')->get();
+
+        foreach ($settings as $name => $item) {
+            if ($item->value) {
+                $path = explode('uploads/', $item->value);
+
+                $path = end($path);
+
+                if (!empty($item->company_id) && (strpos($path, $item->company_id . '/') === false)) {
+                    $path = $item->company_id . '/' . $path;
+                }
+
+                if (!empty($path) && Storage::exists($path)) {
+                    $media = MediaUploader::importPath(config('mediable.default_disk'), $path);
 
                     $item->attachMedia($media, $name);
                 }
