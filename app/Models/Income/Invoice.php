@@ -146,11 +146,9 @@ class Invoice extends Model
      */
     public function getAttachmentAttribute($value)
     {
-        if (!empty($value)) {
+        if (!empty($value) && !$this->hasMedia('attachment')) {
             return $value;
-        }
-
-        if (!$this->hasMedia('attachment')) {
+        } elseif (!$this->hasMedia('attachment')) {
             return false;
         }
 

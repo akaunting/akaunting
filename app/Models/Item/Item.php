@@ -120,11 +120,9 @@ class Item extends Model
      */
     public function getPictureAttribute($value)
     {
-        if (!empty($value)) {
+        if (!empty($value) && !$this->hasMedia('picture')) {
             return $value;
-        }
-
-        if (!$this->hasMedia('picture')) {
+        } elseif (!$this->hasMedia('picture')) {
             return false;
         }
 

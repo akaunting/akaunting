@@ -3,6 +3,8 @@
 namespace App\Listeners\Updates;
 
 use App\Events\UpdateFinished;
+use App\Models\Auth\Role;
+use App\Models\Auth\Permission;
 use MediaUploader;
 use Storage;
 use Artisan;
@@ -24,6 +26,26 @@ class Version117 extends Listener
         // Check if should listen
         if (!$this->check($event)) {
             return;
+        }
+
+        // Create permission
+        $permission = Permission::firstOrCreate([
+            'name' => 'delete-common-uploads',
+            'display_name' => 'Delete Common Uploads',
+            'description' => 'Delete Common Uploads',
+        ]);
+
+        // Attach permission to roles
+        $roles = Role::all();
+
+        foreach ($roles as $role) {
+            $allowed = ['admin'];
+
+            if (!in_array($role->name, $allowed)) {
+                continue;
+            }
+
+            $role->attachPermission($permission);
         }
 
         $data = [];
@@ -77,23 +99,39 @@ class Version117 extends Listener
             }
         }
 
-        $settings['company_logo'] = \App\Models\Setting\Setting::where('key', '=', 'general.company_logo')->get();
-        $settings['invoice_logo'] = \App\Models\Setting\Setting::where('key', '=', 'general.invoice_logo')->get();
+        $settings['company_logo'] = \App\Models\Setting\Setting::where('key', '=', 'general.company_logo')->where('company_id', '<>', '0')->get();
+        $settings['invoice_logo'] = \App\Models\Setting\Setting::where('key', '=', 'general.invoice_logo')->where('company_id', '<>', '0')->get();
 
-        foreach ($settings as $name => $item) {
-            if ($item->value) {
-                $path = explode('uploads/', $item->value);
+        foreach ($settings as $name => $items) {
+            foreach ($items as $item) {
+                if ($item->value) {
+                    $path = explode('uploads/', $item->value);
 
-                $path = end($path);
+                    $path = end($path);
 
-                if (!empty($item->company_id) && (strpos($path, $item->company_id . '/') === false)) {
-                    $path = $item->company_id . '/' . $path;
-                }
+                    if (!empty($item->company_id) && (strpos($path, $item->company_id . '/') === false)) {
+                        $path = $item->company_id . '/' . $path;
+                    }
 
-                if (!empty($path) && Storage::exists($path)) {
-                    $media = MediaUploader::importPath(config('mediable.default_disk'), $path);
+                    if (!empty($path) && Storage::exists($path)) {
+                        $company = \App\Models\Company\Company::find($item->company_id);
 
-                    $item->attachMedia($media, $name);
+                        $media = \App\Models\Common\Media::where('filename', '=',  pathinfo(basename($path), PATHINFO_FILENAME))->first();
+
+                        if ($company && !$media) {
+                            $media = MediaUploader::importPath(config('mediable.default_disk'), $path);
+
+                            $company->attachMedia($media, $name);
+
+                            $item->update(['value' => $media->id]);
+                        } elseif ($media) {
+                            $item->update(['value' => $media->id]);
+                        } else {
+                            $item->update(['value' => '']);
+                        }
+                    } else {
+                        $item->update(['value' => '']);
+                    }
                 }
             }
         }
