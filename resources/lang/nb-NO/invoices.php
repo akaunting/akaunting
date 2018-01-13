@@ -1,0 +1,49 @@
+<?php
+
+return [
+
+    'invoice_number'    => 'Fakturanummer',
+    'invoice_date'      => 'Fakturadato',
+    'total_price'       => 'Totalpris',
+    'due_date'          => 'Forfallsdato',
+    'order_number'      => 'Ordrenummer',
+    'bill_to'           => 'Faktura til',
+
+    'quantity'          => 'Antall',
+    'price'             => 'Pris',
+    'sub_total'         => 'Sum',
+    'tax_total'         => 'Totalt mva',
+    'total'             => 'Totalt',
+
+    'item_name'         => 'Enhetsnavn | Enhetsnavn',
+
+    'payment_due'       => 'Forfallsdato',
+    'paid'              => 'Betalt',
+    'histories'         => 'Historikk',
+    'payments'          => 'Betalinger',
+    'add_payment'       => 'Legg til betaling',
+    'mark_paid'         => 'Merk som betalt',
+    'mark_sent'         => 'Merk som sendt',
+    'download_pdf'      => 'Last ned PDF',
+    'send_mail'         => 'Send e-post',
+
+    'status' => [
+        'draft'         => 'Utkast',
+        'sent'          => 'Sendt',
+        'viewed'        => 'Åpnet',
+        'approved'      => 'Godkjent',
+        'partial'       => 'Delvis',
+        'paid'          => 'Betalt',
+    ],
+
+    'messages' => [
+        'email_sent'    => 'E-post med faktura har blitt sendt.',
+        'marked_sent'   => 'Faktura merket som sendt.',
+    ],
+
+    'notification' => [
+        'message'       => 'Du mottar denne e-posten fordi du har en kommende faktura, pålydende  :amount, til :costumer.',
+        'button'        => 'Betal nå',
+    ],
+
+];
