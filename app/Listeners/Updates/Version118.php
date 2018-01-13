@@ -5,15 +5,16 @@ namespace App\Listeners\Updates;
 use App\Events\UpdateFinished;
 use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
+use Illuminate\Support\Facades\Schema;
 use MediaUploader;
 use Storage;
 use Artisan;
 
-class Version117 extends Listener
+class Version118 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.1.7';
+    const VERSION = '1.1.8';
 
     /**
      * Handle the event.
@@ -28,24 +29,34 @@ class Version117 extends Listener
             return;
         }
 
+        if (Schema::hasTable('mediables')) {
+            return;
+        }
+
+        if (Schema::hasTable('media')) {
+            Schema::drop('media');
+        }
+
         // Create permission
-        $permission = Permission::firstOrCreate([
-            'name' => 'delete-common-uploads',
-            'display_name' => 'Delete Common Uploads',
-            'description' => 'Delete Common Uploads',
-        ]);
+        if (!Permission::where('name', 'delete-common-uploads')->first()->value('id')) {
+            $permission = Permission::firstOrCreate([
+                'name' => 'delete-common-uploads',
+                'display_name' => 'Delete Common Uploads',
+                'description' => 'Delete Common Uploads',
+            ]);
 
-        // Attach permission to roles
-        $roles = Role::all();
+            // Attach permission to roles
+            $roles = Role::all();
 
-        foreach ($roles as $role) {
             $allowed = ['admin'];
 
-            if (!in_array($role->name, $allowed)) {
-                continue;
-            }
+            foreach ($roles as $role) {
+                if (!in_array($role->name, $allowed)) {
+                    continue;
+                }
 
-            $role->attachPermission($permission);
+                $role->attachPermission($permission);
+            }
         }
 
         $data = [];
