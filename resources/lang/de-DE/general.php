@@ -50,6 +50,7 @@ return [
     'na'                    => 'N/V',
     'daily'                 => 'Täglich',
     'monthly'               => 'Monatlich',
+    'quarterly'             => 'Vierteljährlich',
     'yearly'                => 'Jährlich',
     'add'                   => 'Hinzufügen',
     'add_new'               => 'Neu anlegen',
@@ -74,6 +75,7 @@ return [
     'reference'             => 'Referenz',
     'attachment'            => 'Anhang',
     'change'                => 'Ändern',
+    'switch'                => 'Wechseln',
     'color'                 => 'Farbe',
     'save'                  => 'Speichern',
     'cancel'                => 'Abbrechen',
@@ -90,7 +92,7 @@ return [
     'created'               => 'Erstellt',
     'id'                    => 'ID',
     'more_actions'          => 'Weitere Aktionen',
-    'duplicate'             => 'Duplikat',
+    'duplicate'             => 'Duplizieren',
 
     'title' => [
         'new'               => 'Neu :type',

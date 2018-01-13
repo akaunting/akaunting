@@ -6,6 +6,6 @@ return [
     'user_created'          => 'Benutzer angelegt',
 
     'error' => [
-        'email'             => 'Diese Email wurde bereits benutzt.'
+        'email'             => 'Diese Email ist bereits in Benutzung.'
     ]
 ];
