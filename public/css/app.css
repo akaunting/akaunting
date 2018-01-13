@@ -255,7 +255,7 @@ div.required .control-label:not(span):after, td.required:after {
     background-image: url('../img/login.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: top center;
     height: 100%;
     width: 100%;
     padding: 5% 0;
@@ -267,8 +267,9 @@ div.required .control-label:not(span):after, td.required:after {
 }
 
 .user-panel > .image > img {
-    height: 45px;
-    width: 45px;
+    height: auto;
+    max-height: 45px;
+    width: 100%;
 }
 
 .main-header .add-new.nav.navbar-nav i {
@@ -401,6 +402,10 @@ ul.add-new.nav.navbar-nav.pull-left {
     padding-right: 0;
 }
 
+.invoice {
+    border: none !important;
+}
+
 .invoice-header {
     padding-bottom: 9px;
     margin: 10px 0 20px 0;
@@ -414,7 +419,15 @@ ul.add-new.nav.navbar-nav.pull-left {
 .invoice-logo {
     max-width: 430px;
     max-height: 120px;
+    margin-left: -15px;
+    margin-bottom: 20px;
 }
+
+/* future add legend to bottom of print & PDF invoice, like disclaimer */
+.invoice-legend {
+    font-size: 10px;
+}
+/* future add legend to bottom of print & PDF invoice, like disclaimer */
 
 .login-box-footer {
     text-align: center;
@@ -473,6 +486,10 @@ ul.add-new.nav.navbar-nav.pull-left {
 
     .dropdown.add-new-menu.open .dropdown-menu {
         background-color: #ffffff;
+    }
+
+    .invoice-company {
+        padding-left: 0;
     }
 }
 
