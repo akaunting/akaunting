@@ -115,7 +115,7 @@ return [
     |
     */
 
-    'allowed'       => ['en-GB', 'ar-SA', 'cs-CZ', 'de-DE', 'es-ES', 'fa-IR', 'fr-FR', 'hr-HR', 'it-IT', 'nl-NL', 'pt-BR', 'ru-RU', 'sq-AL', 'tr-TR', 'vi-VN', 'zh-TW'],
+    'allowed'       => ['en-GB', 'ar-SA', 'cs-CZ', 'de-DE', 'es-ES', 'fa-IR', 'fr-FR', 'hr-HR', 'id-ID', 'it-IT', 'nl-NL', 'pt-BR', 'ru-RU', 'sq-AL', 'tr-TR', 'vi-VN', 'zh-TW'],
 
     /*
     |--------------------------------------------------------------------------
