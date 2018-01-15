@@ -10,11 +10,11 @@ use MediaUploader;
 use Storage;
 use Artisan;
 
-class Version118 extends Listener
+class Version119 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.1.8';
+    const VERSION = '1.1.9';
 
     /**
      * Handle the event.
@@ -38,7 +38,7 @@ class Version118 extends Listener
         }
 
         // Create permission
-        if (!Permission::where('name', 'delete-common-uploads')->first()->value('id')) {
+        if (!Permission::where('name', 'delete-common-uploads')->first()) {
             $permission = Permission::firstOrCreate([
                 'name' => 'delete-common-uploads',
                 'display_name' => 'Delete Common Uploads',
