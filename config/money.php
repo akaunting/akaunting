@@ -503,7 +503,7 @@ return [
         'precision'           => 2,
         'subunit'             => 100,
         'symbol'              => '€',
-        'symbol_first'        => true,
+        'symbol_first'        => false,
         'decimal_mark'        => ',',
         'thousands_separator' => '.',
     ],
