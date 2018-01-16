@@ -236,14 +236,8 @@ class Company extends Eloquent
      *
      * @return string
      */
-    public function getCompanyLogoAttribute($value)
+    public function getCompanyLogoAttribute()
     {
-        if (!empty($value) && !$this->hasMedia('company_logo')) {
-            return $value;
-        } elseif (!$this->hasMedia('company_logo')) {
-            return false;
-        }
-
         return $this->getMedia('company_logo')->last();
     }
 }

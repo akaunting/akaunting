@@ -92,20 +92,30 @@ class Version119 extends Listener
             $items = $data[basename($model)];
 
             foreach ($items as $item) {
-                if ($item->$name) {
-                    $path = explode('uploads/', $item->$name);
+                if (!$item->$name) {
+                    continue;
+                }
 
-                    $path = end($path);
+                $path = explode('uploads/', $item->$name);
 
-                    if (!empty($item->company_id) && (strpos($path, $item->company_id . '/') === false)) {
-                        $path = $item->company_id . '/' . $path;
-                    }
+                $path = end($path);
 
-                    if (!empty($path) && Storage::exists($path)) {
-                        $media = MediaUploader::importPath(config('mediable.default_disk'), $path);
+                if (!empty($item->company_id) && (strpos($path, $item->company_id . '/') === false)) {
+                    $path = $item->company_id . '/' . $path;
+                }
 
+                if (!empty($path) && Storage::exists($path)) {
+                    $media = \App\Models\Common\Media::where('filename', '=', pathinfo(basename($path), PATHINFO_FILENAME))->first();
+
+                    if ($media) {
                         $item->attachMedia($media, $name);
+
+                        continue;
                     }
+
+                    $media = MediaUploader::importPath(config('mediable.default_disk'), $path);
+
+                    $item->attachMedia($media, $name);
                 }
             }
         }
@@ -115,34 +125,36 @@ class Version119 extends Listener
 
         foreach ($settings as $name => $items) {
             foreach ($items as $item) {
-                if ($item->value) {
-                    $path = explode('uploads/', $item->value);
+                if (!$item->value) {
+                    continue;
+                }
 
-                    $path = end($path);
+                $path = explode('uploads/', $item->value);
 
-                    if (!empty($item->company_id) && (strpos($path, $item->company_id . '/') === false)) {
-                        $path = $item->company_id . '/' . $path;
-                    }
+                $path = end($path);
 
-                    if (!empty($path) && Storage::exists($path)) {
-                        $company = \App\Models\Company\Company::find($item->company_id);
+                if (!empty($item->company_id) && (strpos($path, $item->company_id . '/') === false)) {
+                    $path = $item->company_id . '/' . $path;
+                }
 
-                        $media = \App\Models\Common\Media::where('filename', '=',  pathinfo(basename($path), PATHINFO_FILENAME))->first();
+                if (!empty($path) && Storage::exists($path)) {
+                    $company = \App\Models\Company\Company::find($item->company_id);
 
-                        if ($company && !$media) {
-                            $media = MediaUploader::importPath(config('mediable.default_disk'), $path);
+                    $media = \App\Models\Common\Media::where('filename', '=', pathinfo(basename($path), PATHINFO_FILENAME))->first();
 
-                            $company->attachMedia($media, $name);
+                    if ($company && !$media) {
+                        $media = MediaUploader::importPath(config('mediable.default_disk'), $path);
 
-                            $item->update(['value' => $media->id]);
-                        } elseif ($media) {
-                            $item->update(['value' => $media->id]);
-                        } else {
-                            $item->update(['value' => '']);
-                        }
+                        $company->attachMedia($media, $name);
+
+                        $item->update(['value' => $media->id]);
+                    } elseif ($media) {
+                        $item->update(['value' => $media->id]);
                     } else {
                         $item->update(['value' => '']);
                     }
+                } else {
+                    $item->update(['value' => '']);
                 }
             }
         }

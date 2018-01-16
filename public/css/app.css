@@ -538,3 +538,8 @@ ul.add-new.nav.navbar-nav.pull-left {
     margin-top: 25px;
     margin-bottom: 10px;
 }
+
+span.picture, span.attachment {
+    margin-left: 10px;
+    vertical-align: middle;
+}
