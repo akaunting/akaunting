@@ -23,7 +23,7 @@ return [
     'payments'          => 'Zahlungen',
     'add_payment'       => 'Zahlung hinzufügen',
     'mark_paid'         => 'Als bezahlt markieren',
-    'mark_sent'         => 'Als versendet markieren',
+    'mark_sent'         => 'Als gesendet markieren',
     'download_pdf'      => 'PDF herunterladen',
     'send_mail'         => 'E-Mail senden',
 

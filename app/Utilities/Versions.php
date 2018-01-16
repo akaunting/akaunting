@@ -71,13 +71,6 @@ class Versions
 
         $data['core'] = static::getLatestVersion($url);
 
-        // API token required for modules
-        if (!setting('general.api_token')) {
-            Cache::put('versions', $data, Date::now()->addHour(6));
-
-            return $data;
-        }
-
         // Then modules
         foreach ($modules as $module) {
             $alias = $module->get('alias');
