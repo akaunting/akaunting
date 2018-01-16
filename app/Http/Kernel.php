@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
         'api.company' => \App\Http\Middleware\ApiCompany::class,
         'install' => \App\Http\Middleware\CanInstall::class,
+        'formatcurrency' => \App\Http\Middleware\FormatCurrency::class,
     ];
 }

@@ -29,7 +29,7 @@ Route::group(['middleware' => 'language'], function () {
 
             Route::group(['prefix' => 'items'], function () {
                 Route::get('items/autocomplete', 'Items\Items@autocomplete');
-                Route::post('items/totalItem', 'Items\Items@totalItem');
+                Route::post('items/totalItem', 'Items\Items@totalItem')->middleware('formatcurrency');
                 Route::get('items/{item}/duplicate', 'Items\Items@duplicate');
                 Route::post('items/import', 'Items\Items@import');
                 Route::resource('items', 'Items\Items');
