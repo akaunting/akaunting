@@ -217,16 +217,26 @@ class Dashboard extends Controller
 
     private function getLatestIncomes()
     {
-        $latest = collect(Invoice::accrued()->latest()->take(10)->get());
-        $latest = $latest->merge(Revenue::latest()->take(10)->get())->take(5)->sortByDesc('invoiced_at');
+        $invoices = collect(Invoice::orderBy('invoiced_at', 'desc')->accrued()->take(10)->get())->each(function ($item) {
+            $item->paid_at = $item->invoiced_at;
+        });
+
+        $revenues = collect(Revenue::orderBy('paid_at', 'desc')->take(10)->get());
+
+        $latest = $revenues->merge($invoices)->take(5)->sortByDesc('paid_at');
 
         return $latest;
     }
 
     private function getLatestExpenses()
     {
-        $latest = collect(Bill::accrued()->latest()->take(10)->get());
-        $latest = $latest->merge(Payment::latest()->take(10)->get())->take(5)->sortByDesc('billed_at');
+        $bills = collect(Bill::orderBy('billed_at', 'desc')->accrued()->take(10)->get())->each(function ($item) {
+            $item->paid_at = $item->billed_at;
+        });
+
+        $payments = collect(Payment::orderBy('paid_at', 'desc')->take(10)->get());
+
+        $latest = $payments->merge($bills)->take(5)->sortByDesc('paid_at');
 
         return $latest;
     }
