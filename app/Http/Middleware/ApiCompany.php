@@ -30,6 +30,10 @@ class ApiCompany
         // Set company id
         session(['company_id' => $company_id]);
 
+        // Set the company settings
+        setting()->setExtraColumns(['company_id' => $company_id]);
+        setting()->load(true);
+
         return $next($request);
     }
 
