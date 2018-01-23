@@ -205,8 +205,10 @@ function confirmDelete(form_id, title, message, button_cancel, button_delete) {
     html += '              <p></p>';
     html += '          </div>';
     html += '          <div class="modal-footer">';
-    html += '              <button type="button" class="btn btn-default" data-dismiss="modal">' + button_cancel + '</button>';
-    html += '              <button type="button" class="btn btn-danger" onclick="$(\'' + form_id + '\').submit();">' + button_delete + '</button>';
+    html += '              <div class="pull-left">';
+    html += '                  <button type="button" class="btn btn-danger" onclick="$(\'' + form_id + '\').submit();">' + button_delete + '</button>';
+    html += '                  <button type="button" class="btn btn-default" data-dismiss="modal">' + button_cancel + '</button>';
+    html += '              </div>';
     html += '          </div>';
     html += '      </div>';
     html += '  </div>';
