@@ -18,6 +18,7 @@
         "bkwld/cloner": "3.2.*",
         "consoletvs/charts": "4.6.*",
         "dingo/api": "1.0.0-beta8",
+        "fideloper/proxy": "3.3.*",
         "guzzlehttp/guzzle": "6.3.*",
         "intervention/image": "2.3.*",
         "jackiedo/dotenv-editor": "1.*",
@@ -30,10 +31,10 @@
         "maatwebsite/excel": "2.1.*",
         "nwidart/laravel-menus": "0.5.*",
         "nwidart/laravel-modules": "1.*",
+        "plank/laravel-mediable": "2.5.*",
         "santigarcor/laratrust": "4.0.*",
         "sofa/eloquence": "5.4.*",
-        "tucker-eric/eloquentfilter": "1.1.*",
-        "plank/laravel-mediable": "2.5.*"
+        "tucker-eric/eloquentfilter": "1.1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "1.6.*"

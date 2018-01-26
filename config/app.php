@@ -193,6 +193,7 @@ return [
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         EloquentFilter\ServiceProvider::class,
+        Fideloper\Proxy\TrustedProxyServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jackiedo\DotenvEditor\DotenvEditorServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
