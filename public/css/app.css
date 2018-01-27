@@ -252,14 +252,14 @@ div.required .control-label:not(span):after, td.required:after {
 }
 
 .login-page {
-    background-image: url('../img/login.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    background: url('../img/login.jpg') no-repeat center center fixed;
     height: 100%;
     width: 100%;
     padding: 5% 0;
-    position: fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 .login-logo img {
