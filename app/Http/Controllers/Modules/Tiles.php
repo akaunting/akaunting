@@ -17,7 +17,7 @@ class Tiles extends Controller
      *
      * @return Response
      */
-    public function category($alias)
+    public function categoryModules($alias)
     {
         $this->checkApiToken();
 
@@ -34,7 +34,7 @@ class Tiles extends Controller
      *
      * @return Response
      */
-    public function paid()
+    public function paidModules()
     {
         $this->checkApiToken();
 
@@ -49,7 +49,7 @@ class Tiles extends Controller
      *
      * @return Response
      */
-    public function new()
+    public function newModules()
     {
         $this->checkApiToken();
 
@@ -64,7 +64,7 @@ class Tiles extends Controller
      *
      * @return Response
      */
-    public function free()
+    public function freeModules()
     {
         $this->checkApiToken();
 

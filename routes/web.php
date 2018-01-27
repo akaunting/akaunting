@@ -118,10 +118,10 @@ Route::group(['middleware' => 'language'], function () {
             Route::group(['prefix' => 'apps'], function () {
                 Route::resource('token', 'Modules\Token');
                 Route::resource('home', 'Modules\Home');
-                Route::get('categories/{alias}', 'Modules\Tiles@category');
-                Route::get('paid', 'Modules\Tiles@paid');
-                Route::get('new', 'Modules\Tiles@new');
-                Route::get('free', 'Modules\Tiles@free');
+                Route::get('categories/{alias}', 'Modules\Tiles@categoryModules');
+                Route::get('paid', 'Modules\Tiles@paidModules');
+                Route::get('new', 'Modules\Tiles@newModules');
+                Route::get('free', 'Modules\Tiles@freeModules');
                 Route::post('steps', 'Modules\Item@steps');
                 Route::post('download', 'Modules\Item@download');
                 Route::post('unzip', 'Modules\Item@unzip');

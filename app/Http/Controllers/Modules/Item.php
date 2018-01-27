@@ -40,8 +40,8 @@ class Item extends Controller
     {
         $this->checkApiToken();
 
-        $installed = false;
         $enable = false;
+        $installed = false;
 
         $module = $this->getModule($alias);
 
@@ -69,29 +69,29 @@ class Item extends Controller
     {
         $this->checkApiToken();
 
-        $json = array();
-        $json['step'] = array();
+        $json = [];
+        $json['step'] = [];
 
         $name = $request['name'];
         $version = $request['version'];
 
         // Download
-        $json['step'][] = array(
+        $json['step'][] = [
             'text' => trans('modules.installation.download', ['module' => $name]),
             'url'  => url('apps/download')
-        );
+        ];
 
         // Unzip
-        $json['step'][] = array(
+        $json['step'][] = [
             'text' => trans('modules.installation.unzip', ['module' => $name]),
             'url'  => url('apps/unzip')
-        );
+        ];
 
         // Download
-        $json['step'][] = array(
+        $json['step'][] = [
             'text' => trans('modules.installation.install', ['module' => $name]),
             'url'  => url('apps/install')
-        );
+        ];
 
         return response()->json($json);
     }
@@ -170,13 +170,13 @@ class Item extends Controller
 
         $module = Module::alias($alias)->first();
 
-        $data = array(
+        $data = [
             'company_id' => session('company_id'),
             'module_id' => $module->id,
             'category' => $json['data']['category'],
             'version' => $json['data']['version'],
             'description' => trans('modules.uninstalled', ['module' => $json['data']['name']]),
-        );
+        ];
 
         ModuleHistory::create($data);
 
@@ -197,13 +197,13 @@ class Item extends Controller
 
         $module = Module::alias($alias)->first();
 
-        $data = array(
+        $data = [
             'company_id' => session('company_id'),
             'module_id' => $module->id,
             'category' => $json['data']['category'],
             'version' => $json['data']['version'],
             'description' => trans_choice('modules.updated', $json['data']['name']),
-        );
+        ];
 
         ModuleHistory::create($data);
 
@@ -222,13 +222,13 @@ class Item extends Controller
 
         $module = Module::alias($alias)->first();
 
-        $data = array(
+        $data = [
             'company_id' => session('company_id'),
             'module_id' => $module->id,
             'category' => $json['data']['category'],
             'version' => $json['data']['version'],
             'description' => trans('modules.enabled', ['module' => $json['data']['name']]),
-        );
+        ];
 
         $module->status = 1;
 
@@ -251,13 +251,13 @@ class Item extends Controller
 
         $module = Module::alias($alias)->first();
 
-        $data = array(
+        $data = [
             'company_id' => session('company_id'),
             'module_id' => $module->id,
             'category' => $json['data']['category'],
             'version' => $json['data']['version'],
             'description' => trans('modules.disabled', ['module' => $json['data']['name']]),
-        );
+        ];
 
         $module->status = 0;
 
