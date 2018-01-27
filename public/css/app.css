@@ -263,8 +263,12 @@ div.required .control-label:not(span):after, td.required:after {
 }
 
 .user-panel {
-    position: inherit;
     min-height: 50px;
+}
+
+.user-panel .pull-left.info.open {
+    position: fixed;
+    z-index: 9999;
 }
 
 .user-panel > .image > img {
