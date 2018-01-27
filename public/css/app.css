@@ -203,10 +203,6 @@ div.required .control-label:not(span):after, td.required:after {
     /*width: 370px !important;*/
 }
 
-.user-panel {
-    position: inherit;
-}
-
 .navbar-custom-menu .navbar-nav > li > a > i {
     line-height: 20px;
 }
@@ -266,9 +262,15 @@ div.required .control-label:not(span):after, td.required:after {
     width: 70px;
 }
 
+.user-panel {
+    position: inherit;
+    min-height: 50px;
+}
+
 .user-panel > .image > img {
-    height: 45px;
-    width: 45px;
+    height: auto;
+    max-height: 45px;
+    width: 100%;
 }
 
 .main-header .add-new.nav.navbar-nav i {
