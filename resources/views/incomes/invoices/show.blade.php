@@ -8,14 +8,14 @@
             <span class="badge bg-aqua">{{ $invoice->status->name }}</span>
 
             <div class="row invoice-header">
-                <div class="col-xs-7">
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
                     @if (setting('general.invoice_logo'))
                     <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
                     @else
                     <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
                     @endif
                 </div>
-                <div class="col-xs-5 invoice-company">
+                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 invoice-company">
                     <address>
                         <strong>{{ setting('general.company_name') }}</strong><br>
                         {!! nl2br(setting('general.company_address')) !!}<br>
@@ -32,7 +32,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xs-7">
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
                     {{ trans('invoices.bill_to') }}
                     <address>
                         <strong>{{ $invoice->customer_name }}</strong><br>
@@ -47,7 +47,7 @@
                         {{ $invoice->customer_email }}
                     </address>
                 </div>
-                <div class="col-xs-5">
+                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                     <div class="table-responsive">
                         <table class="table no-border">
                             <tbody>
@@ -76,35 +76,37 @@
             </div>
 
             <div class="row">
-                <div class="col-xs-12 table-responsive">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <th>{{ trans_choice('general.items', 1) }}</th>
-                                <th class="text-center">{{ trans('invoices.quantity') }}</th>
-                                <th class="text-right">{{ trans('invoices.price') }}</th>
-                                <th class="text-right">{{ trans('invoices.total') }}</th>
-                            </tr>
-                            @foreach($invoice->items as $item)
-                            <tr>
-                                <td>
-                                    {{ $item->name }}
-                                    @if ($item->sku)
-                                        <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
-                                    @endif
-                                </td>
-                                <td class="text-center">{{ $item->quantity }}</td>
-                                <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
-                                <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>{{ trans_choice('general.items', 1) }}</th>
+                                    <th class="text-center">{{ trans('invoices.quantity') }}</th>
+                                    <th class="text-right">{{ trans('invoices.price') }}</th>
+                                    <th class="text-right">{{ trans('invoices.total') }}</th>
+                                </tr>
+                                @foreach($invoice->items as $item)
+                                <tr>
+                                    <td>
+                                        {{ $item->name }}
+                                        @if ($item->sku)
+                                            <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">{{ $item->quantity }}</td>
+                                    <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
+                                    <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-7">
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
                 @if ($invoice->notes)
                     <p class="lead">{{ trans_choice('general.notes', 2) }}</p>
 
@@ -113,7 +115,7 @@
                     </p>
                 @endif
                 </div>
-                <div class="col-xs-5">
+                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
@@ -204,7 +206,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <div class="box box-default collapsed-box">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('invoices.histories') }}</h3>
@@ -239,7 +241,7 @@
             </div>
         </div>
 
-        <div class="col-xs-6">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <div class="box box-default collapsed-box">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('invoices.payments') }}</h3>
