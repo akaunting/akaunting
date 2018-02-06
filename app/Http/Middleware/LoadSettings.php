@@ -17,7 +17,7 @@ class LoadSettings
     {
         $company_id = session('company_id');
 
-        if (empty($company_id)) {
+        if (empty($company_id) || !env('APP_INSTALLED')) {
             return $next($request);
         }
 
