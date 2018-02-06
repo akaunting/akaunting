@@ -111,5 +111,6 @@ return [
         ],
         'no_file_selected'  => 'No file selected...',
     ],
-
+  'Item not found' => 'Item not found',
+  'Sorry this item has been deleted or you followed bad URL.' => 'Sorry this item has been deleted or you followed bad URL.',
 ];

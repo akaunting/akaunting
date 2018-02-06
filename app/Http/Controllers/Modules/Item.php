@@ -44,7 +44,9 @@ class Item extends Controller
         $installed = false;
 
         $module = $this->getModule($alias);
-
+        if (!$module) {
+            return $this->itemNotfound();
+        }
         $check = Module::alias($alias)->first();
 
         if ($check) {
