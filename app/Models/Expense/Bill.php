@@ -29,7 +29,7 @@ class Bill extends Model
      *
      * @var array
      */
-    public $sortable = ['bill_number', 'vendor_name', 'amount', 'status.name', 'billed_at', 'due_at'];
+    public $sortable = ['bill_number', 'vendor_name', 'amount', 'status.name', 'billed_at', 'due_at', 'bill_status_code'];
 
     /**
      * Searchable rules.
