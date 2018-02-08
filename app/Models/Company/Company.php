@@ -7,11 +7,11 @@ use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
-use Plank\Mediable\Mediable;
+use App\Traits\Media;
 
 class Company extends Eloquent
 {
-    use Filterable, SoftDeletes, Sortable, Mediable;
+    use Filterable, SoftDeletes, Sortable, Media;
 
     protected $table = 'companies';
 

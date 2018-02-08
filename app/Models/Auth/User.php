@@ -11,13 +11,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Kyslik\ColumnSortable\Sortable;
-use Plank\Mediable\Mediable;
+use App\Traits\Media;
 use Request;
 use Route;
 
 class User extends Authenticatable
 {
-    use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable, Mediable;
+    use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable, Media;
 
     protected $table = 'users';
 

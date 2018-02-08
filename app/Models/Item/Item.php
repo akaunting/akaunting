@@ -6,11 +6,11 @@ use App\Models\Model;
 use App\Traits\Currencies;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use Plank\Mediable\Mediable;
+use App\Traits\Media;
 
 class Item extends Model
 {
-    use Cloneable, Currencies, Eloquence, Mediable;
+    use Cloneable, Currencies, Eloquence, Media;
 
     protected $table = 'items';
 

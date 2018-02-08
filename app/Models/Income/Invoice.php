@@ -8,11 +8,11 @@ use App\Traits\DateTime;
 use App\Traits\Incomes;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use Plank\Mediable\Mediable;
+use App\Traits\Media;
 
 class Invoice extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Mediable;
+    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media;
 
     protected $table = 'invoices';
 

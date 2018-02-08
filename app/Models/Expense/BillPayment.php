@@ -5,11 +5,11 @@ namespace App\Models\Expense;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use Plank\Mediable\Mediable;
+use App\Traits\Media;
 
 class BillPayment extends Model
 {
-    use Currencies, DateTime, Mediable;
+    use Currencies, DateTime, Media;
 
     protected $table = 'bill_payments';
 
