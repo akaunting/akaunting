@@ -50,7 +50,7 @@ class Invoice extends TransformerAbstract
 
     /**
      * @param  Model $model
-     * @return mixed
+     * @return \League\Fractal\Resource\Item
      */
     public function includeCurrency(Model $model)
     {
