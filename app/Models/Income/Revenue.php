@@ -15,6 +15,8 @@ class Revenue extends Model
 
     protected $table = 'revenues';
 
+    protected $dates = ['deleted_at', 'paid_at'];
+
     /**
      * Attributes that should be mass-assignable.
      *

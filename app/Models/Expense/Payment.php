@@ -15,6 +15,8 @@ class Payment extends Model
 
     protected $table = 'payments';
 
+    protected $dates = ['deleted_at', 'paid_at'];
+
     /**
      * Attributes that should be mass-assignable.
      *
