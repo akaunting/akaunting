@@ -27,6 +27,11 @@ class BillPayment extends Model
         return $this->belongsTo('App\Models\Banking\Account');
     }
 
+    public function currency()
+    {
+        return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
+    }
+
     public function bill()
     {
         return $this->belongsTo('App\Models\Expense\Bill');
