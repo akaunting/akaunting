@@ -329,6 +329,9 @@ class AppConfigurer {
 
 	public static function createUser($email, $password, $locale)
 	{
+		if (empty($locale)) {
+			$locale = 'en-GB';
+		}
 		// Create the user
 		$user = User::create([
 			'name' => '',
