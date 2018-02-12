@@ -40,7 +40,9 @@ class ModuleInstall extends Command
         $model = Module::create($request);
 
         $module = LaravelModule::findByAlias($model->alias);
-
+        if (!$module) {
+            return;
+        }
         // Add history
         $data = [
             'company_id' => $this->argument('company_id'),

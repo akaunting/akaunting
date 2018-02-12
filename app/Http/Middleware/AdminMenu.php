@@ -156,7 +156,7 @@ class AdminMenu
                         $m = LaravelModule::findByAlias($module->alias);
 
                         // Check if the module has settings
-                        if (empty($m->get('settings'))) {
+                        if (!$m || empty($m->get('settings'))) {
                             continue;
                         }
 
