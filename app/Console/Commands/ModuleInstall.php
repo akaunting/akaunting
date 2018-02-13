@@ -36,7 +36,12 @@ class ModuleInstall extends Command
             'alias' => strtolower($this->argument('alias')),
             'status' => '1',
         ];
-
+        # don't duplicate
+        $model = Module::where(['company_id' => $request['company_id'],'alias' => $request['alias']])->first();
+        if ($model) {
+            $this->info('Module already installed!');
+            return;
+        }
         $model = Module::create($request);
 
         $module = LaravelModule::findByAlias($model->alias);
