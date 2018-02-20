@@ -10,7 +10,6 @@ namespace App\Utilities;
 
 use Config;
 use DB;
-use DotenvEditor;
 use App\Models\Auth\User;
 use App\Models\Company\Company;
 use File;
@@ -99,129 +98,14 @@ class AppConfigurer {
 	 */
 	public static function createDefaultEnvFile()
 	{
-		// App
-		DotenvEditor::setKeys([
-			[
-				'key'       => 'APP_NAME',
-				'value'     => 'Akaunting',
-			],
-			[
-				'key'       => 'APP_ENV',
-				'value'     => 'production',
-			],
-			[
-				'key'       => 'APP_LOCALE',
-				'value'     => 'en-GB',
-			],
-			[
-				'key'       => 'APP_INSTALLED',
-				'value'     => 'false',
-			],
-			[
-				'key'       => 'APP_KEY',
-				'value'     => 'base64:'.base64_encode(random_bytes(32)),
-			],
-			[
-				'key'       => 'APP_DEBUG',
-				'value'     => 'true',
-			],
-			[
-				'key'       => 'APP_LOG_LEVEL',
-				'value'     => 'debug',
-			],
-			[
-				'key'       => 'APP_URL',
-				'value'     => url('/'),
-			],
-		]);
+	    // Rename file
+	    File::move(base_path('.env.example'), base_path('.env'));
 
-		DotenvEditor::addEmpty();
-
-		// Database
-		DotenvEditor::setKeys([
-			[
-				'key'       => 'DB_CONNECTION',
-				'value'     => 'mysql',
-			],
-			[
-				'key'       => 'DB_HOST',
-				'value'     => 'localhost',
-			],
-			[
-				'key'       => 'DB_PORT',
-				'value'     => '3306',
-			],
-			[
-				'key'       => 'DB_DATABASE',
-				'value'     => '',
-			],
-			[
-				'key'       => 'DB_USERNAME',
-				'value'     => '',
-			],
-			[
-				'key'       => 'DB_PASSWORD',
-				'value'     => '',
-			],
-			[
-				'key'       => 'DB_PREFIX',
-				'value'     => '',
-			],
-		]);
-
-		DotenvEditor::addEmpty();
-
-		// Drivers
-		DotenvEditor::setKeys([
-			[
-				'key'       => 'BROADCAST_DRIVER',
-				'value'     => 'log',
-			],
-			[
-				'key'       => 'CACHE_DRIVER',
-				'value'     => 'file',
-			],
-			[
-				'key'       => 'SESSION_DRIVER',
-				'value'     => 'file',
-			],
-			[
-				'key'       => 'QUEUE_DRIVER',
-				'value'     => 'database',
-			],
-		]);
-
-		DotenvEditor::addEmpty();
-
-		// Mail
-		DotenvEditor::setKeys([
-			[
-				'key'       => 'MAIL_DRIVER',
-				'value'     => 'mail',
-			],
-			[
-				'key'       => 'MAIL_HOST',
-				'value'     => 'localhost',
-			],
-			[
-				'key'       => 'MAIL_PORT',
-				'value'     => '2525',
-			],
-			[
-				'key'       => 'MAIL_USERNAME',
-				'value'     => 'null',
-			],
-			[
-				'key'       => 'MAIL_PASSWORD',
-				'value'     => 'null',
-			],
-			[
-				'key'       => 'MAIL_ENCRYPTION',
-				'value'     => 'null',
-			],
-		]);
-
-		DotenvEditor::save();
+        // Update .env file
+	    self::updateEnv([
+	        'APP_KEY'   =>  'base64:'.base64_encode(random_bytes(32)),
+	        'APP_URL'   =>  url('/'),
+        ]);
 	}
 
 	/**
@@ -264,33 +148,15 @@ class AppConfigurer {
 	{
 		$prefix = strtolower(str_random(3) . '_');
 
-		// Save to file
-		DotenvEditor::setKeys([
-			[
-				'key'       => 'DB_HOST',
-				'value'     => $host,
-			],
-			[
-				'key'       => 'DB_PORT',
-				'value'     => $port,
-			],
-			[
-				'key'       => 'DB_DATABASE',
-				'value'     => $database,
-			],
-			[
-				'key'       => 'DB_USERNAME',
-				'value'     => $username,
-			],
-			[
-				'key'       => 'DB_PASSWORD',
-				'value'     => $password,
-			],
-			[
-				'key'       => 'DB_PREFIX',
-				'value'     => $prefix,
-			],
-		])->save();
+        // Update .env file
+        self::updateEnv([
+            'DB_HOST'       =>  $host,
+            'DB_PORT'       =>  $port,
+            'DB_DATABASE'   =>  $database,
+            'DB_USERNAME'   =>  $username,
+            'DB_PASSWORD'   =>  $password,
+            'DB_PREFIX'     =>  $prefix,
+        ]);
 
 		$con = env('DB_CONNECTION', 'mysql');
 
@@ -347,20 +213,11 @@ class AppConfigurer {
 	public static function finalTouches()
 	{
 		// Update .env file
-		DotenvEditor::setKeys([
-			[
-				'key'       => 'APP_LOCALE',
-				'value'     => session('locale'),
-			],
-			[
-				'key'       => 'APP_INSTALLED',
-				'value'     => 'true',
-			],
-			[
-				'key'       => 'APP_DEBUG',
-				'value'     => 'false',
-			],
-		])->save();
+        self::updateEnv([
+            'APP_LOCALE'    =>  session('locale'),
+            'APP_INSTALLED' =>  'true',
+            'APP_DEBUG'     =>  'false',
+        ]);
 
 		// Rename the robots.txt file
 		try {
@@ -369,4 +226,34 @@ class AppConfigurer {
 			// nothing to do
 		}
 	}
+
+    public static function updateEnv($data)
+    {
+        if (empty($data) || !is_array($data)) {
+            return false;
+        }
+
+        $env = file_get_contents(base_path('.env'));
+
+        $env = explode("\n", $env);
+
+        foreach ($data as $data_key => $data_value) {
+            foreach ($env as $env_key => $env_value) {
+                $entry = explode('=', $env_value, 2);
+
+                // Check if new or old key
+                if ($entry[0] == $data_key) {
+                    $env[$env_key] = $data_key . '=' . $data_value;
+                } else {
+                    $env[$env_key] = $env_value;
+                }
+            }
+        }
+
+        $env = implode("\n", $env);
+
+        file_put_contents(base_path('.env'), $env);
+
+        return true;
+    }
 }
