@@ -19,72 +19,72 @@ use File;
 class Installer
 {
 
-	public static function checkServerRequirements()
-	{
-		$requirements = array();
+    public static function checkServerRequirements()
+    {
+        $requirements = array();
 
-		if (ini_get('safe_mode')) {
-			$requirements[] = trans('install.requirements.disabled', ['feature' => 'Safe Mode']);
-		}
+        if (ini_get('safe_mode')) {
+            $requirements[] = trans('install.requirements.disabled', ['feature' => 'Safe Mode']);
+        }
 
-		if (ini_get('register_globals')) {
-			$requirements[] = trans('install.requirements.disabled', ['feature' => 'Register Globals']);
-		}
+        if (ini_get('register_globals')) {
+            $requirements[] = trans('install.requirements.disabled', ['feature' => 'Register Globals']);
+        }
 
-		if (ini_get('magic_quotes_gpc')) {
-			$requirements[] = trans('install.requirements.disabled', ['feature' => 'Magic Quotes']);
-		}
+        if (ini_get('magic_quotes_gpc')) {
+            $requirements[] = trans('install.requirements.disabled', ['feature' => 'Magic Quotes']);
+        }
 
-		if (!ini_get('file_uploads')) {
-			$requirements[] = trans('install.requirements.enabled', ['feature' => 'File Uploads']);
-		}
+        if (!ini_get('file_uploads')) {
+            $requirements[] = trans('install.requirements.enabled', ['feature' => 'File Uploads']);
+        }
 
-		if (!class_exists('PDO')) {
-			$requirements[] = trans('install.requirements.extension', ['extension' => 'MySQL PDO']);
-		}
+        if (!class_exists('PDO')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'MySQL PDO']);
+        }
 
-		if (!extension_loaded('openssl')) {
-			$requirements[] = trans('install.requirements.extension', ['extension' => 'OpenSSL']);
-		}
+        if (!extension_loaded('openssl')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'OpenSSL']);
+        }
 
-		if (!extension_loaded('tokenizer')) {
-			$requirements[] = trans('install.requirements.extension', ['extension' => 'Tokenizer']);
-		}
+        if (!extension_loaded('tokenizer')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'Tokenizer']);
+        }
 
-		if (!extension_loaded('mbstring')) {
-			$requirements[] = trans('install.requirements.extension', ['extension' => 'mbstring']);
-		}
+        if (!extension_loaded('mbstring')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'mbstring']);
+        }
 
-		if (!extension_loaded('curl')) {
-			$requirements[] = trans('install.requirements.extension', ['extension' => 'cURL']);
-		}
+        if (!extension_loaded('curl')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'cURL']);
+        }
 
-		if (!extension_loaded('xml')) {
-			$requirements[] = trans('install.requirements.extension', ['extension' => 'XML']);
-		}
+        if (!extension_loaded('xml')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'XML']);
+        }
 
-		if (!extension_loaded('zip')) {
-			$requirements[] = trans('install.requirements.extension', ['extension' => 'ZIP']);
-		}
+        if (!extension_loaded('zip')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'ZIP']);
+        }
 
-		if (!is_writable(base_path('storage/app'))) {
-			$requirements[] = trans('install.requirements.directory', ['directory' => 'storage/app']);
-		}
+        if (!is_writable(base_path('storage/app'))) {
+            $requirements[] = trans('install.requirements.directory', ['directory' => 'storage/app']);
+        }
 
-		if (!is_writable(base_path('storage/app/uploads'))) {
-			$requirements[] = trans('install.requirements.directory', ['directory' => 'storage/app/uploads']);
-		}
+        if (!is_writable(base_path('storage/app/uploads'))) {
+            $requirements[] = trans('install.requirements.directory', ['directory' => 'storage/app/uploads']);
+        }
 
-		if (!is_writable(base_path('storage/framework'))) {
-			$requirements[] = trans('install.requirements.directory', ['directory' => 'storage/framework']);
-		}
+        if (!is_writable(base_path('storage/framework'))) {
+            $requirements[] = trans('install.requirements.directory', ['directory' => 'storage/framework']);
+        }
 
-		if (!is_writable(base_path('storage/logs'))) {
-			$requirements[] = trans('install.requirements.directory', ['directory' => 'storage/logs']);
-		}
+        if (!is_writable(base_path('storage/logs'))) {
+            $requirements[] = trans('install.requirements.directory', ['directory' => 'storage/logs']);
+        }
 
-		return $requirements;
-	}
+        return $requirements;
+    }
 
     /**
      * Create a default .env file.
