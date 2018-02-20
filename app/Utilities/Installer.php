@@ -1,28 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vcarmignac
- * Date: 30/12/17
- * Time: 4:29 AM
- */
 
 namespace App\Utilities;
 
-use Config;
-use DB;
 use App\Models\Auth\User;
 use App\Models\Company\Company;
+use Artisan;
+use Config;
+use DB;
 use File;
-use Setting;
 
 /**
- * Class AppConfigurer
+ * Class Installer
  *
- * Contains all of the Business logic to configure the app. Either through the CLI or the `/install` web UI.
+ * Contains all of the Business logic to install the app. Either through the CLI or the `/install` web UI.
  *
  * @package App\Utilities
  */
-class AppConfigurer {
+class Installer
+{
 
 	public static function checkServerRequirements()
 	{
@@ -99,14 +94,37 @@ class AppConfigurer {
 	public static function createDefaultEnvFile()
 	{
 	    // Rename file
-	    File::move(base_path('.env.example'), base_path('.env'));
+        if (is_file(base_path('.env.example'))) {
+            File::move(base_path('.env.example'), base_path('.env'));
+        }
 
         // Update .env file
-	    self::updateEnv([
+        static::updateEnv([
 	        'APP_KEY'   =>  'base64:'.base64_encode(random_bytes(32)),
 	        'APP_URL'   =>  url('/'),
         ]);
 	}
+
+	public static function createDbTables($host, $port, $database, $username, $password)
+    {
+        if (!static::isDbValid($host, $port, $database, $username, $password)) {
+            return false;
+        }
+
+        // Set database details
+        static::saveDbVariables($host, $port, $database, $username, $password);
+
+        // Try to increase the maximum execution time
+        set_time_limit(300); // 5 minutes
+
+        // Create tables
+        Artisan::call('migrate', ['--force' => true]);
+
+        // Create Roles
+        Artisan::call('db:seed', ['--class' => 'Database\Seeds\Roles', '--force' => true]);
+
+        return true;
+    }
 
 	/**
 	 * Check if the database exists and is accessible.
@@ -121,7 +139,8 @@ class AppConfigurer {
 	 *
 	 * @return bool
 	 */
-	public static function isDbValid($host, $port, $database, $username, $password){
+	public static function isDbValid($host, $port, $database, $username, $password)
+    {
 		Config::set('database.connections.install_test', [
 			'host'      => $host,
 			'port'      => $port,
@@ -149,7 +168,7 @@ class AppConfigurer {
 		$prefix = strtolower(str_random(3) . '_');
 
         // Update .env file
-        self::updateEnv([
+        static::updateEnv([
             'DB_HOST'       =>  $host,
             'DB_PORT'       =>  $port,
             'DB_DATABASE'   =>  $database,
@@ -175,7 +194,7 @@ class AppConfigurer {
 		DB::reconnect($con);
 	}
 
-	public static function createCompany($companyName, $companyEmail, $locale)
+	public static function createCompany($name, $email, $locale)
 	{
 		// Create company
 		$company = Company::create([
@@ -183,14 +202,14 @@ class AppConfigurer {
 		]);
 
 		// Set settings
-		Setting::set([
-			'general.company_name'          => $companyName,
-			'general.company_email'         => $companyEmail,
+		setting()->set([
+			'general.company_name'          => $name,
+			'general.company_email'         => $email,
 			'general.default_currency'      => 'USD',
 			'general.default_locale'        => $locale,
 		]);
-		Setting::setExtraColumns(['company_id' => $company->id]);
-		Setting::save();
+        setting()->setExtraColumns(['company_id' => $company->id]);
+        setting()->save();
 	}
 
 	public static function createUser($email, $password, $locale)
@@ -213,7 +232,7 @@ class AppConfigurer {
 	public static function finalTouches()
 	{
 		// Update .env file
-        self::updateEnv([
+        static::updateEnv([
             'APP_LOCALE'    =>  session('locale'),
             'APP_INSTALLED' =>  'true',
             'APP_DEBUG'     =>  'false',
@@ -229,7 +248,7 @@ class AppConfigurer {
 
     public static function updateEnv($data)
     {
-        if (empty($data) || !is_array($data)) {
+        if (empty($data) || !is_array($data) || !is_file(base_path('.env'))) {
             return false;
         }
 

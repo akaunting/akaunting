@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Install;
 
+use App\Utilities\Installer;
 use File;
-use App\Utilities\AppConfigurer;
 use Illuminate\Routing\Controller;
 
 class Requirements extends Controller
@@ -16,12 +16,12 @@ class Requirements extends Controller
     public function show()
     {
         // Check requirements
-        $requirements = AppConfigurer::checkServerRequirements();
+        $requirements = Installer::checkServerRequirements();
 
         if (empty($requirements)) {
             // Create the .env file
             if (!File::exists(base_path('.env'))) {
-	            AppConfigurer::createDefaultEnvFile();
+                Installer::createDefaultEnvFile();
             }
 
             redirect('install/language')->send();
