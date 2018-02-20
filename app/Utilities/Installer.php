@@ -86,26 +86,26 @@ class Installer
 		return $requirements;
 	}
 
-	/**
-	 * Create a default .env file.
-	 *
-	 * @return void
-	 */
+    /**
+     * Create a default .env file.
+     *
+     * @return void
+     */
 	public static function createDefaultEnvFile()
 	{
-	    // Rename file
+        // Rename file
         if (is_file(base_path('.env.example'))) {
             File::move(base_path('.env.example'), base_path('.env'));
         }
 
         // Update .env file
         static::updateEnv([
-	        'APP_KEY'   =>  'base64:'.base64_encode(random_bytes(32)),
-	        'APP_URL'   =>  url('/'),
+            'APP_KEY'   =>  'base64:'.base64_encode(random_bytes(32)),
+            'APP_URL'   =>  url('/'),
         ]);
 	}
 
-	public static function createDbTables($host, $port, $database, $username, $password)
+    public static function createDbTables($host, $port, $database, $username, $password)
     {
         if (!static::isDbValid($host, $port, $database, $username, $password)) {
             return false;
@@ -126,46 +126,46 @@ class Installer
         return true;
     }
 
-	/**
-	 * Check if the database exists and is accessible.
-	 *
-	 * @param $host
-	 * @param $port
-	 * @param $database
-	 * @param $host
-	 * @param $database
-	 * @param $username
-	 * @param $password
-	 *
-	 * @return bool
-	 */
-	public static function isDbValid($host, $port, $database, $username, $password)
+    /**
+     * Check if the database exists and is accessible.
+     *
+     * @param $host
+     * @param $port
+     * @param $database
+     * @param $host
+     * @param $database
+     * @param $username
+     * @param $password
+     *
+     * @return bool
+     */
+    public static function isDbValid($host, $port, $database, $username, $password)
     {
-		Config::set('database.connections.install_test', [
-			'host'      => $host,
-			'port'      => $port,
-			'database'  => $database,
-			'username'  => $username,
-			'password'  => $password,
-			'driver'    => env('DB_CONNECTION', 'mysql'),
-			'charset'   => env('DB_CHARSET', 'utf8mb4'),
-		]);
+        Config::set('database.connections.install_test', [
+            'host'      => $host,
+            'port'      => $port,
+            'database'  => $database,
+            'username'  => $username,
+            'password'  => $password,
+            'driver'    => env('DB_CONNECTION', 'mysql'),
+            'charset'   => env('DB_CHARSET', 'utf8mb4'),
+        ]);
 
-		try {
-			DB::connection('install_test')->getPdo();
-		} catch (\Exception $e) {;
-			return false;
-		}
+        try {
+            DB::connection('install_test')->getPdo();
+        } catch (\Exception $e) {;
+            return false;
+        }
 
-		// Purge test connection
-		DB::purge('install_test');
+        // Purge test connection
+        DB::purge('install_test');
 
-		return true;
-	}
+        return true;
+    }
 
-	public static function saveDbVariables($host, $port, $database, $username, $password)
-	{
-		$prefix = strtolower(str_random(3) . '_');
+    public static function saveDbVariables($host, $port, $database, $username, $password)
+    {
+        $prefix = strtolower(str_random(3) . '_');
 
         // Update .env file
         static::updateEnv([
@@ -177,74 +177,74 @@ class Installer
             'DB_PREFIX'     =>  $prefix,
         ]);
 
-		$con = env('DB_CONNECTION', 'mysql');
+        $con = env('DB_CONNECTION', 'mysql');
 
-		// Change current connection
-		$db = Config::get('database.connections.' . $con);
+        // Change current connection
+        $db = Config::get('database.connections.' . $con);
 
-		$db['host'] = $host;
-		$db['database'] = $database;
-		$db['username'] = $username;
-		$db['password'] = $password;
-		$db['prefix'] = $prefix;
+        $db['host'] = $host;
+        $db['database'] = $database;
+        $db['username'] = $username;
+        $db['password'] = $password;
+        $db['prefix'] = $prefix;
 
-		Config::set('database.connections.' . $con, $db);
+        Config::set('database.connections.' . $con, $db);
 
-		DB::purge($con);
-		DB::reconnect($con);
-	}
+        DB::purge($con);
+        DB::reconnect($con);
+    }
 
-	public static function createCompany($name, $email, $locale)
-	{
-		// Create company
-		$company = Company::create([
-			'domain' => '',
-		]);
+    public static function createCompany($name, $email, $locale)
+    {
+        // Create company
+        $company = Company::create([
+            'domain' => '',
+        ]);
 
-		// Set settings
-		setting()->set([
-			'general.company_name'          => $name,
-			'general.company_email'         => $email,
-			'general.default_currency'      => 'USD',
-			'general.default_locale'        => $locale,
-		]);
+        // Set settings
+        setting()->set([
+            'general.company_name'          => $name,
+            'general.company_email'         => $email,
+            'general.default_currency'      => 'USD',
+            'general.default_locale'        => $locale,
+        ]);
         setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->save();
-	}
+    }
 
-	public static function createUser($email, $password, $locale)
-	{
-		// Create the user
-		$user = User::create([
-			'name' => '',
-			'email' => $email,
-			'password' => $password,
-			'locale' => $locale,
-		]);
+    public static function createUser($email, $password, $locale)
+    {
+        // Create the user
+        $user = User::create([
+            'name' => '',
+            'email' => $email,
+            'password' => $password,
+            'locale' => $locale,
+        ]);
 
-		// Attach admin role
-		$user->roles()->attach('1');
+        // Attach admin role
+        $user->roles()->attach('1');
 
-		// Attach company
-		$user->companies()->attach('1');
-	}
+        // Attach company
+        $user->companies()->attach('1');
+    }
 
-	public static function finalTouches()
-	{
-		// Update .env file
+    public static function finalTouches()
+    {
+        // Update .env file
         static::updateEnv([
             'APP_LOCALE'    =>  session('locale'),
             'APP_INSTALLED' =>  'true',
             'APP_DEBUG'     =>  'false',
         ]);
 
-		// Rename the robots.txt file
-		try {
-			File::move(base_path('robots.txt.dist'), base_path('robots.txt'));
-		} catch (\Exception $e) {
-			// nothing to do
-		}
-	}
+        // Rename the robots.txt file
+        try {
+            File::move(base_path('robots.txt.dist'), base_path('robots.txt'));
+        } catch (\Exception $e) {
+            // nothing to do
+        }
+    }
 
     public static function updateEnv($data)
     {
