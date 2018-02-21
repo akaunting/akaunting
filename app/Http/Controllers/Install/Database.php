@@ -16,7 +16,7 @@ class Database extends Controller
      */
     public function create()
     {
-        return view( 'install.database.create' );
+        return view('install.database.create');
     }
 
     /**
@@ -29,7 +29,7 @@ class Database extends Controller
     public function store(Request $request)
     {
         $host = $request['hostname'];
-        $port     = env( 'DB_PORT', '3306' );
+        $port     = env('DB_PORT', '3306');
         $database = $request['database'];
         $username = $request['username'];
         $password = $request['password'];
@@ -38,11 +38,11 @@ class Database extends Controller
         if (!Installer::createDbTables($host, $port, $database, $username, $password)) {
             $message = trans('install.error.connection');
 
-            flash( $message )->error()->important();
+            flash($message)->error()->important();
 
-            return redirect( 'install/database' )->withInput();
+            return redirect('install/database')->withInput();
         }
 
-        return redirect('install/settings' );
+        return redirect('install/settings');
     }
 }
