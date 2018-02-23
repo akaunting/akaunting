@@ -4,17 +4,16 @@ namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
 use App\Models\Common\Media;
-use Storage;
 use File;
+use Storage;
 
 class Uploads extends Controller
 {
     /**
      * Get the specified resource.
      *
-     * @param  $folder
-     * @param  $file
-     * @return boolean|Response
+     * @param  $id
+     * @return mixed
      */
     public function get($id)
     {
@@ -31,9 +30,8 @@ class Uploads extends Controller
     /**
      * Download the specified resource.
      *
-     * @param  $folder
-     * @param  $file
-     * @return boolean|Response
+     * @param  $id
+     * @return mixed
      */
     public function download($id)
     {
@@ -50,8 +48,7 @@ class Uploads extends Controller
     /**
      * Destroy the specified resource.
      *
-     * @param  $folder
-     * @param  $file
+     * @param  $id
      * @return callable
      */
     public function destroy($id)
@@ -77,8 +74,7 @@ class Uploads extends Controller
     /**
      * Get the full path of resource.
      *
-     * @param  $folder
-     * @param  $file
+     * @param  $media
      * @return boolean|string
      */
     protected function getPath($media)
@@ -86,6 +82,13 @@ class Uploads extends Controller
         $path = $media->basename;
 
         if (!empty($media->directory)) {
+            $folders = explode('/', $media->directory);
+
+            // Check if company can access media
+            if ($folders[0] != session('company_id')) {
+                return false;
+            }
+
             $path = $media->directory . '/' . $media->basename;
         }
 
