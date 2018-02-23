@@ -1,6 +1,6 @@
 # Akaunting™
 
-![Latest Stable Version](https://img.shields.io/github/release/akaunting/akaunting.svg) ![Total Downloads](https://img.shields.io/github/downloads/akaunting/akaunting/total.svg) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/akaunting/localized.svg)](https://crowdin.com/project/akaunting)
+ ![Latest Stable Version](https://img.shields.io/github/release/akaunting/akaunting.svg) ![Total Downloads](https://img.shields.io/github/downloads/akaunting/akaunting/total.svg) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/akaunting/localized.svg)](https://crowdin.com/project/akaunting) [![Backers on Open Collective](https://opencollective.com/akaunting/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/akaunting/sponsors/badge.svg)](#sponsors)
 
 Akaunting is a free, open source and online accounting software designed for small businesses and freelancers. It is built with modern technologies such as Laravel, Bootstrap, jQuery, RESTful API etc. Thanks to its modular structure, Akaunting provides an awesome App Store for users and developers.
 
@@ -76,6 +76,36 @@ If you discover any security related issues, please email security@akaunting.com
 - [Denis Duliçi](https://github.com/denisdulici)
 - [Cüneyt Şentürk](https://github.com/cuneytsenturk)
 - [All Contributors](../../contributors)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/akaunting/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/akaunting#backer)]
+
+<a href="https://opencollective.com/akaunting#backers" target="_blank"><img src="https://opencollective.com/akaunting/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/akaunting#sponsor)]
+
+<a href="https://opencollective.com/akaunting/sponsor/0/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/1/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/2/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/3/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/4/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/5/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/6/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/7/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/8/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/akaunting/sponsor/9/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/9/avatar.svg"></a>
+
+
 
 ## License
 
