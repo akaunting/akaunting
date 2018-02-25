@@ -50,6 +50,9 @@ class Invoice extends Notification
             ->line(trans('invoices.notification.message', ['amount' => money($this->invoice->amount, $this->invoice->currency_code, true), 'customer' => $this->invoice->customer_name]))
             ->action(trans('invoices.notification.button'), url('customers/invoices', $this->invoice->id, true));
 
+        // Override per company as Laravel doesn't read config
+        $message->from(config('mail.from.address'), config('mail.from.name'));
+
         // Attach the PDF file if available
         if (isset($this->invoice->pdf_path)) {
             $message->attach($this->invoice->pdf_path, [
