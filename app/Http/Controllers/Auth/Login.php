@@ -70,7 +70,7 @@ class Login extends Controller
 
         // Check if is customer
         if ($user->customer) {
-            return redirect('customers');
+            return redirect()->intended('customers');
         }
 
         return redirect('/');
