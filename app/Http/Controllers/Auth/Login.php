@@ -70,7 +70,14 @@ class Login extends Controller
 
         // Check if is customer
         if ($user->customer) {
-            return redirect()->intended('customers');
+            $path = session('url.intended', 'customers');
+
+            // Path must start with 'customers' prefix
+            if ($path == env('APP_URL')) {
+                $path = 'customers';
+            }
+
+            return redirect($path);
         }
 
         return redirect('/');
