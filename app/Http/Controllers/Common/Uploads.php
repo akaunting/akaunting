@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Common\Media;
 use File;
 use Storage;
@@ -51,7 +52,7 @@ class Uploads extends Controller
      * @param  $id
      * @return callable
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $media = Media::find($id);
 
@@ -67,6 +68,17 @@ class Uploads extends Controller
         $media->delete(); //will not delete files
 
         File::delete($path);
+
+        if (!empty($request->input('page'))) {
+            switch ($request->input('page')) {
+                case 'setting':
+                    setting()->set($request->input('key'), '');
+
+                    setting()->save();
+                    break;
+                default;
+            }
+        }
 
         return back();
     }

@@ -549,3 +549,7 @@ span.picture, span.attachment {
     margin-left: 10px;
     vertical-align: middle;
 }
+
+.form-group.col-md-6 input.fake-input.form-control{
+    min-width: 150px;
+}
