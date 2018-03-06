@@ -73,7 +73,7 @@ class Login extends Controller
             $path = session('url.intended', 'customers');
 
             // Path must start with 'customers' prefix
-            if ($path == env('APP_URL')) {
+            if (!str_contains($path, 'customers')) {
                 $path = 'customers';
             }
 
