@@ -793,14 +793,14 @@ class Invoices extends Controller
 
         $media = Media::find($media_id);
 
-        if (empty($media)) {
-            return $logo;
-        }
+        if (!empty($media)) {
+            $path = Storage::path($media->getDiskPath());
 
-        $path = Storage::path($media->getDiskPath());
-
-        if (!is_file($path)) {
-            return $logo;
+            if (!is_file($path)) {
+                return $logo;
+            }
+        } else {
+            $path = asset('public/img/company.png');
         }
 
         $image = Image::make($path)->encode()->getEncoded();

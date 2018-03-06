@@ -10,9 +10,11 @@
             <div class="row invoice-header">
                 <div class="col-xs-7">
                     @if (setting('general.invoice_logo'))
-                        <img src="{{ asset(setting('general.invoice_logo')) }}" class="invoice-logo" />
+                        <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
+                    @elseif (setting('general.company_logo'))
+                        <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
                     @else
-                        <img src="{{ asset(setting('general.company_logo')) }}" class="invoice-logo" />
+                        <img src="{{ asset('public/img/company.png') }}" class="invoice-logo" />
                     @endif
                 </div>
                 <div class="col-xs-5 invoice-company">
@@ -95,7 +97,7 @@
                                 </td>
                                 <td class="text-center">{{ $item->quantity }}</td>
                                 <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
-                                <td class="text-right">@money($item->total - $item->tax, $invoice->currency_code, true)</td>
+                                <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -117,24 +119,25 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            <tr>
-                                <th>{{ trans('invoices.sub_total') }}:</th>
-                                <td class="text-right">@money($invoice->sub_total, $invoice->currency_code, true)</td>
-                            </tr>
-                            <tr>
-                                <th>{{ trans('invoices.tax_total') }}:</th>
-                                <td class="text-right">@money($invoice->tax_total, $invoice->currency_code, true)</td>
-                            </tr>
-                            @if ($invoice->paid)
-                                <tr>
-                                    <th>{{ trans('invoices.paid') }}:</th>
-                                    <td class="text-right">@money('-' . $invoice->paid, $invoice->currency_code, true)</td>
-                                </tr>
-                            @endif
-                            <tr>
-                                <th>{{ trans('invoices.total') }}:</th>
-                                <td class="text-right">@money($invoice->grand_total, $invoice->currency_code, true)</td>
-                            </tr>
+                            @foreach($invoice->totals as $total)
+                                @if($total->code != 'total')
+                                    <tr>
+                                        <th>{{ trans($total['name']) }}:</th>
+                                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                                    </tr>
+                                @else
+                                    @if ($invoice->paid)
+                                        <tr class="text-success">
+                                            <th>{{ trans('invoices.paid') }}:</th>
+                                            <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
+                                        </tr>
+                                    @endif
+                                    <tr>
+                                        <th>{{ trans($total['name']) }}:</th>
+                                        <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
+                                    </tr>
+                                @endif
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -143,10 +146,10 @@
 
             <div class="box-footer row no-print">
                 <div class="col-md-10">
-                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-default">
+                    <a href="{{ url('customers/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-default">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
-                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
+                    <a href="{{ url('customers/invoices/' . $invoice->id . '/pdf') }}" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
                         <i class="fa fa-file-pdf-o"></i>&nbsp; {{ trans('general.download') }}
                     </a>
                 </div>

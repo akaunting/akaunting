@@ -3,16 +3,21 @@
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
+use App\Events\InvoicePrinting;
 use App\Models\Banking\Account;
 use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceStatus;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
+use App\Models\Common\Media;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
 use App\Utilities\Modules;
+use File;
+use Image;
+use Storage;
 
 class Invoices extends Controller
 {
@@ -42,14 +47,7 @@ class Invoices extends Controller
      */
     public function show(Invoice $invoice)
     {
-        $sub_total = 0;
-        $tax_total = 0;
         $paid = 0;
-
-        foreach ($invoice->items as $item) {
-            $sub_total += ($item->price * $item->quantity);
-            $tax_total += ($item->tax * $item->quantity);
-        }
 
         foreach ($invoice->payments as $item) {
             $item->default_currency_code = $invoice->currency_code;
@@ -57,10 +55,7 @@ class Invoices extends Controller
             $paid += $item->getDynamicConvertedAmount();
         }
 
-        $invoice->sub_total = $sub_total;
-        $invoice->tax_total = $tax_total;
         $invoice->paid = $paid;
-        $invoice->grand_total = (($sub_total + $tax_total) - $paid);
 
         $accounts = Account::enabled()->pluck('name', 'id');
 
@@ -86,27 +81,11 @@ class Invoices extends Controller
      */
     public function printInvoice(Invoice $invoice)
     {
-        $sub_total = 0;
-        $tax_total = 0;
-        $paid = 0;
+        $invoice = $this->prepareInvoice($invoice);
 
-        foreach ($invoice->items as $item) {
-            $sub_total += ($item->price * $item->quantity);
-            $tax_total += ($item->tax * $item->quantity);
-        }
+        $logo = $this->getLogo();
 
-        foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
-
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $invoice->sub_total = $sub_total;
-        $invoice->tax_total = $tax_total;
-        $invoice->paid = $paid;
-        $invoice->grand_total = (($sub_total + $tax_total) - $paid);
-
-        return view('customers.invoices.invoice', compact('invoice'));
+        return view($invoice->template_path, compact('invoice', 'logo'));
     }
 
     /**
@@ -118,14 +97,25 @@ class Invoices extends Controller
      */
     public function pdfInvoice(Invoice $invoice)
     {
-        $sub_total = 0;
-        $tax_total = 0;
-        $paid = 0;
+        $invoice = $this->prepareInvoice($invoice);
 
-        foreach ($invoice->items as $item) {
-            $sub_total += ($item->price * $item->quantity);
-            $tax_total += ($item->tax * $item->quantity);
-        }
+        $logo = $this->getLogo();
+
+        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = 'invoice_' . time() . '.pdf';
+
+        return $pdf->download($file_name);
+    }
+
+    protected function prepareInvoice(Invoice $invoice)
+    {
+        $paid = 0;
 
         foreach ($invoice->payments as $item) {
             $item->default_currency_code = $invoice->currency_code;
@@ -133,18 +123,47 @@ class Invoices extends Controller
             $paid += $item->getDynamicConvertedAmount();
         }
 
-        $invoice->sub_total = $sub_total;
-        $invoice->tax_total = $tax_total;
         $invoice->paid = $paid;
-        $invoice->grand_total = (($sub_total + $tax_total) - $paid);
 
-        $html = view('incomes.invoices.invoice', compact('invoice'))->render();
+        $invoice->template_path = 'incomes.invoices.invoice';
 
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($html);
+        event(new InvoicePrinting($invoice));
 
-        $file_name = 'invoice_'.time().'.pdf';
+        return $invoice;
+    }
 
-        return $pdf->download($file_name);
+    protected function getLogo()
+    {
+        $logo = '';
+
+        $media_id = setting('general.company_logo');
+
+        if (setting('general.invoice_logo')) {
+            $media_id = setting('general.invoice_logo');
+        }
+
+        $media = Media::find($media_id);
+
+        if (!empty($media)) {
+            $path = Storage::path($media->getDiskPath());
+
+            if (!is_file($path)) {
+                return $logo;
+            }
+        } else {
+            $path = asset('public/img/company.png');
+        }
+
+        $image = Image::make($path)->encode()->getEncoded();
+
+        if (empty($image)) {
+            return $logo;
+        }
+
+        $extension = File::extension($path);
+
+        $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
+
+        return $logo;
     }
 }
