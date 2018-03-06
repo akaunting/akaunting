@@ -10,29 +10,33 @@ return [
     'free'                  => 'БЕСПЛАТНО',
     'install'               => 'Установить',
     'buy_now'               => 'Купить сейчас',
-    'faq'                   => 'ЧаВо',
-    'changelog'             => 'История изменений',
-    'installed'             => 'Установлено',
-    'uninstalled'           => 'Деинсталлировано',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Нажмите здесь</a> чтобы получить Ваш API ключ.',
+    'no_apps'               => 'There are no apps in this category, yet.',
+    'developer'             => 'Are you a developer? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Here</a> you can learn how to create an app and start selling today!',
 
-    'enabled'               => ':module модуль включен',
-    'disabled'              => ':module модуль отключен',
+    'about'                 => 'About',
 
-    'installation' => [
-        'header'            => 'Установка модуля',
-        'start'             => 'Установка :module модуля.',
-        'download'          => 'Скачивание :module модуля.',
-        'unzip'             => 'Распаковка :module модуля.',
-        'install'           => 'Загрузка :module модуля.',
+    'added'                 => 'Added',
+    'updated'               => 'Updated',
+    'compatibility'         => 'Compatibility',
+
+    'installed'             => ':module installed',
+    'uninstalled'           => ':module uninstalled',
+    //'updated'               => ':module updated',
+    'enabled'               => ':module enabled',
+    'disabled'              => ':module disabled',
+
+    'tab' => [
+        'installation'      => 'Installation',
+        'faq'               => 'FAQ',
+        'changelog'         => 'Changelog',
     ],
 
-    'history' => [
-        'installed'         => ':module установлен',
-        'uninstalled'       => ':module удалён',
-        'updated'           => ':module обновлён',
-        'enabled'           => ':module включен',
-        'disabled'          => ':module отключен',
+    'installation' => [
+        'header'            => 'App Installation',
+        'download'          => 'Скачивание :module модуля.',
+        'unzip'             => 'Распаковка :module модуля.',
+        'install'           => 'Installing :module files.',
     ],
 
     'button' => [

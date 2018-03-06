@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'E-post med faktura har blitt sendt.',
-        'marked_sent'   => 'Faktura merket som sendt.',
+        'email_sent'     => 'E-post med faktura har blitt sendt.',
+        'marked_sent'    => 'Faktura merket som sendt.',
+        'email_required' => 'E-postadresse må fylles inn.',
     ],
 
     'notification' => [

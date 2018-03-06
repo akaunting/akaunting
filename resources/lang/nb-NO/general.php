@@ -93,6 +93,11 @@ return [
     'id'                    => 'Id',
     'more_actions'          => 'Flere handlinger',
     'duplicate'             => 'Duplikat',
+    'unpaid'                => 'Ubetalt',
+    'paid'                  => 'Betalt',
+    'overdue'               => 'Forfalt',
+    'partially'             => 'Delvis',
+    'partially_paid'        => 'Delvis betalt',
 
     'title' => [
         'new'               => 'Ny :type',

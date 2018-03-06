@@ -5,12 +5,12 @@ return [
     'code'                  => 'Código',
     'rate'                  => 'Taxa',
     'default'               => 'Moeda Padrão',
-    'decimal_mark'          => 'Decimal Mark',
-    'thousands_separator'   => 'Thousands Separator',
-    'precision'             => 'Precision',
+    'decimal_mark'          => 'Separador de decimal',
+    'thousands_separator'   => 'Separador de milha',
+    'precision'             => 'Precisão',
     'symbol' => [
-        'symbol'            => 'Symbol',
-        'position'          => 'Symbol Position',
+        'symbol'            => 'Símbolo',
+        'position'          => 'Posição do símbolo',
         'before'            => 'Before Amount',
         'after'             => 'After Amount',
     ]

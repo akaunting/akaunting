@@ -4,6 +4,6 @@ return [
 
     'version'               => 'Verze',
     'powered'               => 'Powered By Akaunting',
-    'software'              => 'Svobodný účetní software',
+    'software'              => 'Učetní software zdarma',
 
 ];

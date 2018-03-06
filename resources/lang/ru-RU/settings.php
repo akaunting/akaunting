@@ -24,10 +24,10 @@ return [
     ],
     'invoice' => [
         'tab'               => 'Квитанция',
-        'prefix'            => 'Префикс квитанции',
-        'digit'             => 'Номер квитанции',
-        'start'             => 'Стартовый номер квитанции',
-        'logo'              => 'Логотип квитанции',
+        'prefix'            => 'Number Prefix',
+        'digit'             => 'Number Digit',
+        'next'              => 'Next Number',
+        'logo'              => 'Logo',
     ],
     'default' => [
         'tab'               => 'Умолчания',

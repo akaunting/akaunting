@@ -23,14 +23,19 @@ return [
     'histories'         => 'Истории',
     'payments'          => 'Платежи',
     'add_payment'       => 'Добавить платёж',
+    'mark_received'     => 'Mark Received',
     'download_pdf'      => 'Скачать PDF',
     'send_mail'         => 'Отправить E-mail',
 
     'status' => [
-        'new'           => 'Добавить',
-        'updated'       => 'Обновлено',
+        'draft'         => 'Draft',
+        'received'      => 'Received',
         'partial'       => 'Частично',
         'paid'          => 'Оплачено',
+    ],
+
+    'messages' => [
+        'received'      => 'Bill marked as received successfully!',
     ],
 
 ];

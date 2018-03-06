@@ -93,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Më shumë Veprime',
     'duplicate'             => 'Dublo',
+    'unpaid'                => 'I papaguar',
+    'paid'                  => 'I paguar',
+    'overdue'               => 'I vonuar',
+    'partially'             => 'Pjesërisht',
+    'partially_paid'        => 'I paguar pjesërisht',
 
     'title' => [
         'new'               => 'I ri :type',

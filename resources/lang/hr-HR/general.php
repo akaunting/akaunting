@@ -93,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Više radnji',
     'duplicate'             => 'Dupliciraj',
+    'unpaid'                => 'Unpaid',
+    'paid'                  => 'Paid',
+    'overdue'               => 'Overdue',
+    'partially'             => 'Partially',
+    'partially_paid'        => 'Partially Paid',
 
     'title' => [
         'new'               => 'Novo - :type',

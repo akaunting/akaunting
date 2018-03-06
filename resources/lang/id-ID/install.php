@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => 'PHP 5.6.4 atau yang lebih baru perlu digunakan!',
         'enabled'           => ':fitur perlu diaktifkan!',
         'disabled'          => ':fitur perlu dinonaktifkan!',
         'extension'         => ':ekstensi ekstensi perlu dimuat!',

@@ -10,29 +10,33 @@ return [
     'free'                  => 'MIỄN PHÍ',
     'install'               => 'Cài đặt',
     'buy_now'               => 'Mua ngay',
-    'faq'                   => 'CÂU HỎI THƯỜNG GẶP',
-    'changelog'             => 'Nhật ký thay đổi',
-    'installed'             => 'Đã cài đặt',
-    'uninstalled'           => 'Đã gỡ cài đặt',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Click vào đây</a> để lấy API token của bạn.',
+    'no_apps'               => 'There are no apps in this category, yet.',
+    'developer'             => 'Are you a developer? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Here</a> you can learn how to create an app and start selling today!',
 
-    'enabled'               => ':module app được kích hoạt',
-    'disabled'              => ':module app được vô hiệu',
+    'about'                 => 'About',
 
-    'installation' => [
-        'header'            => 'Cài đặt Module',
-        'start'             => ':module đang cài đặt.',
-        'download'          => 'Đang tải tập tin :module.',
-        'unzip'             => 'Đang giải nén tập tin :module.',
-        'install'           => 'Đang tải lên tập tin :module.',
+    'added'                 => 'Added',
+    'updated'               => 'Updated',
+    'compatibility'         => 'Compatibility',
+
+    'installed'             => ':module installed',
+    'uninstalled'           => ':module uninstalled',
+    //'updated'               => ':module updated',
+    'enabled'               => ':module enabled',
+    'disabled'              => ':module disabled',
+
+    'tab' => [
+        'installation'      => 'Installation',
+        'faq'               => 'FAQ',
+        'changelog'         => 'Changelog',
     ],
 
-    'history' => [
-        'installed'         => ':module đã được cài đặt',
-        'uninstalled'       => ':module gỡ cài đặt',
-        'updated'           => ':module được cập nhật',
-        'enabled'           => ':module được kích hoạt',
-        'disabled'          => ':module được vô hiệu',
+    'installation' => [
+        'header'            => 'App Installation',
+        'download'          => 'Đang tải tập tin :module.',
+        'unzip'             => 'Đang giải nén tập tin :module.',
+        'install'           => 'Installing :module files.',
     ],
 
     'button' => [

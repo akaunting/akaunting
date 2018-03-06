@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Fakturační email byl úspěšně odeslán!',
-        'marked_sent'   => 'Faktura byla úspěšně označena jako odeslaná!',
+        'email_sent'     => 'Fakturační email byl úspěšně odeslán!',
+        'marked_sent'    => 'Faktura byla úspěšně označena jako odeslaná!',
+        'email_required' => 'Zákazník nemá uvedenou emailovou adresu!',
     ],
 
     'notification' => [

@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => 'Vyžaduji PHP 5.6.4 a vyšší!',
         'enabled'           => 'Musíš povolit :feature!',
         'disabled'          => 'Musiš vypnout :feature!',
         'extension'         => 'Musíš zavést rozšíření:extension!',

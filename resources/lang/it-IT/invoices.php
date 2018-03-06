@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'La mail è stata inviata con successo.',
-        'marked_sent'   => 'La mail è stata contrassegnata con successo come inviata.',
+        'email_sent'     => 'La mail è stata inviata con successo.',
+        'marked_sent'    => 'La mail è stata contrassegnata con successo come inviata.',
+        'email_required' => 'Nessun indirizzo email per questo cliente!',
     ],
 
     'notification' => [

@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'El email de la factura se ha enviado correctamente!',
-        'marked_sent'   => 'Factura marcada como enviada con éxito!',
+        'email_sent'     => 'El email de la factura se ha enviado correctamente!',
+        'marked_sent'    => 'Factura marcada como enviada con éxito!',
+        'email_required' => 'Ninguna dirección de correo electrónico para este cliente!',
     ],
 
     'notification' => [

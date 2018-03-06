@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Email faktur telah berhasil dikirim!',
-        'marked_sent'   => 'Faktur ditandai sebagai berhasil dikirim!',
+        'email_sent'     => 'Email faktur telah berhasil dikirim!',
+        'marked_sent'    => 'Faktur ditandai sebagai berhasil dikirim!',
+        'email_required' => 'No email address for this customer!',
     ],
 
     'notification' => [

@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'E-mail računa je uspješno poslan!',
-        'marked_sent'   => 'Račun je uspješno označen kao poslan!',
+        'email_sent'     => 'E-mail računa je uspješno poslan!',
+        'marked_sent'    => 'Račun je uspješno označen kao poslan!',
+        'email_required' => 'No email address for this customer!',
     ],
 
     'notification' => [
