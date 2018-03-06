@@ -93,6 +93,11 @@ return [
     'id'                    => '編號',
     'more_actions'          => '更多動作',
     'duplicate'             => '複製',
+    'unpaid'                => '未付款',
+    'paid'                  => '已付款',
+    'overdue'               => '已逾期',
+    'partially'             => '部分',
+    'partially_paid'        => '部分付款',
 
     'title' => [
         'new'               => '新增 :type',

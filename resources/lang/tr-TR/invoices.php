@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Fatura emaili başarı ile gönderildi!',
-        'marked_sent'   => 'Fatura başarıyla gönderilmiş olarak işaretlendi!',
+        'email_sent'     => 'Fatura emaili başarı ile gönderildi!',
+        'marked_sent'    => 'Fatura başarıyla gönderilmiş olarak işaretlendi!',
+        'email_required' => 'Bu müşteri için e-posta adresi yok!',
     ],
 
     'notification' => [

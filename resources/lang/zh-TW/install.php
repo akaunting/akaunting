@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => '請使用 PHP 5.6.4 或更新的版本！',
         'enabled'           => ':feature 必須啟動！',
         'disabled'          => ':feature 必須關閉！',
         'extension'         => ':extension 必須載入！',

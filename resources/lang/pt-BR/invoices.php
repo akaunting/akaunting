@@ -23,7 +23,7 @@ return [
     'payments'          => 'Pagamentos',
     'add_payment'       => 'Novo Pagamento',
     'mark_paid'         => 'Mark Paid',
-    'mark_sent'         => 'Mark Sent',
+    'mark_sent'         => 'Marcar Como Enviada',
     'download_pdf'      => 'Baixar em PDF',
     'send_mail'         => 'Enviar E-mail',
 
@@ -37,13 +37,14 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Invoice email has been sent successfully!',
-        'marked_sent'   => 'Invoice marked as sent successfully!',
+        'email_sent'     => 'Invoice email has been sent successfully!',
+        'marked_sent'    => 'Fatura marcada como enviada com sucesso!',
+        'email_required' => 'No email address for this customer!',
     ],
 
     'notification' => [
         'message'       => 'You are receiving this email because you have an upcoming :amount invoice to :customer customer.',
-        'button'        => 'Pay Now',
+        'button'        => 'Pagar agora',
     ],
 
 ];

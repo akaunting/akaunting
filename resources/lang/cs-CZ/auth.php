@@ -10,7 +10,7 @@ return [
     'forgot_password'       => 'Zapoměl jsem heslo',
     'reset_password'        => 'Reset hesla',
     'enter_email'           => 'Zadejte svou emailovou adresu',
-    'current_email'         => 'Aktuální emai',
+    'current_email'         => 'Aktuální email',
     'reset'                 => 'Resetovat',
     'never'                 => 'nikdy',
     'password' => [

@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => '¡Se requiere PHP 5.6.4 o superior!',
         'enabled'           => '¡:feature nencesita estar habilitado!',
         'disabled'          => '¡:feature debe estar deshabilitado!',
         'extension'         => '¡La extensión :extension debe estar cargada!',

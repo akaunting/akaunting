@@ -10,7 +10,7 @@ return [
         'imported'          => ':type importado!',
     ],
     'error' => [
-        'payment_add'       => 'Error: No puede agregar pago! Usted debe comprobar cantidad agregada.',
+        'payment_add'       => 'Error: No puede agregar pagos! Usted debe marcar agregar importe.',
         'not_user_company'  => 'Error: No tiene permisos para administrar esta empresa!',
         'customer'          => 'Error: No se puede crear el usuario! :name usa esta dirección de correo electrónico.',
         'no_file'           => 'Error: Ningún archivo seleccionado!',

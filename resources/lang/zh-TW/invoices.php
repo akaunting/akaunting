@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => '成功傳送帳單郵件！',
-        'marked_sent'   => '成功標記帳單為已傳送！',
+        'email_sent'     => '成功傳送帳單郵件！',
+        'marked_sent'    => '成功標記帳單為已傳送！',
+        'email_required' => '此客戶沒有電子郵件地址！',
     ],
 
     'notification' => [

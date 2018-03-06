@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => 'Hệ thống yêu cầu cài đặt phiên bản PHP từ 5.6.4 trở lên!',
         'enabled'           => ':feature cần phải được kích hoạt!',
         'disabled'          => ':feature cần phải được vô hiệu hoá!',
         'extension'         => ':extension extension cần phải được cài đặt!',

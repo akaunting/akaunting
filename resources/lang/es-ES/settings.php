@@ -25,7 +25,7 @@ return [
     'invoice' => [
         'tab'               => 'Factura',
         'prefix'            => 'Prefijo de número',
-        'digit'             => 'Número de cifras',
+        'digit'             => 'Número de dígitos',
         'next'              => 'Siguiente número',
         'logo'              => 'Logo',
     ],

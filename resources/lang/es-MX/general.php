@@ -93,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Más Acciones',
     'duplicate'             => 'Duplicar',
+    'unpaid'                => 'Unpaid',
+    'paid'                  => 'Paid',
+    'overdue'               => 'Overdue',
+    'partially'             => 'Partially',
+    'partially_paid'        => 'Partially Paid',
 
     'title' => [
         'new'               => 'Nuevo :type',

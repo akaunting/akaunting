@@ -93,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Diğer İşlemler',
     'duplicate'             => 'Çoğalt',
+    'unpaid'                => 'Ödenmemiş',
+    'paid'                  => 'Ödenmiş',
+    'overdue'               => 'Gecikmiş',
+    'partially'             => 'Kısmen',
+    'partially_paid'        => 'Kısmen Ödenmiş',
 
     'title' => [
         'new'               => 'Yeni :type',

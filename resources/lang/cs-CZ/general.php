@@ -93,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Další akce',
     'duplicate'             => 'Duplikovat',
+    'unpaid'                => 'Neuhrazeno',
+    'paid'                  => 'Uhrazeno',
+    'overdue'               => 'Po splatnosti',
+    'partially'             => 'Částečně',
+    'partially_paid'        => 'Částečně zaplaceno',
 
     'title' => [
         'new'               => 'Nová(ý) :type',

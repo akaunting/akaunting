@@ -23,7 +23,7 @@ return [
     'payments'          => 'Zahlungen',
     'add_payment'       => 'Zahlung hinzufügen',
     'mark_paid'         => 'Als bezahlt markieren',
-    'mark_sent'         => 'Als gesendet markieren',
+    'mark_sent'         => 'Als versendet markieren',
     'download_pdf'      => 'PDF herunterladen',
     'send_mail'         => 'E-Mail senden',
 
@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Rechnungsemail wurde erfolgreich versendet!',
-        'marked_sent'   => 'Rechnung als erfolgreich versendet markiert!',
+        'email_sent'     => 'Rechnungsemail wurde erfolgreich versendet!',
+        'marked_sent'    => 'Rechnung als erfolgreich versendet markiert!',
+        'email_required' => 'No email address for this customer!',
     ],
 
     'notification' => [

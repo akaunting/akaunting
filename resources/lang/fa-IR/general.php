@@ -93,6 +93,11 @@ return [
     'id'                    => 'شناسه',
     'more_actions'          => 'اقدامات بیشتر',
     'duplicate'             => 'تکراری',
+    'unpaid'                => 'پرداخت نشده',
+    'paid'                  => 'پرداخت شده',
+    'overdue'               => 'سر رسید شده',
+    'partially'             => 'جزئی',
+    'partially_paid'        => 'پرداخت جزئی',
 
     'title' => [
         'new'               => ':type جدید',

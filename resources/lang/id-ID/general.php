@@ -93,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Tindakan Lainnya',
     'duplicate'             => 'Duplikat',
+    'unpaid'                => 'Unpaid',
+    'paid'                  => 'Paid',
+    'overdue'               => 'Overdue',
+    'partially'             => 'Partially',
+    'partially_paid'        => 'Partially Paid',
 
     'title' => [
         'new'               => 'Baru :jenis',

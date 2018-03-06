@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Emaili i faturës është dërguar me sukses!',
-        'marked_sent'   => 'Fatura shënohet si e dërguar me sukses!',
+        'email_sent'     => 'Emaili i faturës është dërguar me sukses!',
+        'marked_sent'    => 'Fatura shënohet si e dërguar me sukses!',
+        'email_required' => 'Ska adresë e-mail për këtë klient!',
     ],
 
     'notification' => [

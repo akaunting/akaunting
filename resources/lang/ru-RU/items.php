@@ -7,4 +7,9 @@ return [
     'purchase_price'        => 'Цена покупки',
     'sku'                   => 'SKU',
 
+    'notification' => [
+        'message'       => 'You are receiving this email because the :name is running out of stock.',
+        'button'        => 'View Now',
+    ],
+
 ];

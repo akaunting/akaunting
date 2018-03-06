@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => 'Potrebno je koristiti PHP 5.6.4 ili višu verziju!',
         'enabled'           => ':feature mora biti omogućeno!',
         'disabled'          => ':feature mora biti onemogućeno!',
         'extension'         => ':extension proširenje treba biti učitano!',
