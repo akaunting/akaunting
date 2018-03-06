@@ -6,10 +6,8 @@
     <section class="bill">
         <div class="row invoice-header">
             <div class="col-xs-7">
-                @if (setting('general.invoice_logo'))
-                    <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
-                @else
-                    <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
+                @if ($logo)
+                    <img src="{{ $logo }}" class="invoice-logo" />
                 @endif
             </div>
             <div class="col-xs-5 invoice-company">

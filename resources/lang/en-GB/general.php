@@ -26,6 +26,7 @@ return [
     'companies'             => 'Company|Companies',
     'profits'               => 'Profit|Profits',
     'taxes'                 => 'Tax|Taxes',
+    'logos'                 => 'Logo|Logos',
     'pictures'              => 'Picture|Pictures',
     'types'                 => 'Type|Types',
     'payment_methods'       => 'Payment Method|Payment Methods',

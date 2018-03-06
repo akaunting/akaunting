@@ -5,10 +5,11 @@ namespace App\Models\Expense;
 use App\Models\Model;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
+use App\Traits\Media;
 
 class Vendor extends Model
 {
-    use Cloneable, Eloquence;
+    use Cloneable, Eloquence, Media;
 
     protected $table = 'vendors';
 
@@ -52,5 +53,21 @@ class Vendor extends Model
     public function currency()
     {
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getLogoAttribute($value)
+    {
+        if (!empty($value) && !$this->hasMedia('logo')) {
+            return $value;
+        } elseif (!$this->hasMedia('logo')) {
+            return false;
+        }
+
+        return $this->getMedia('logo')->last();
     }
 }

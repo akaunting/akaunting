@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Expenses;
 
 use App\Events\BillCreated;
+//use App\Events\BillPrinting;
 use App\Events\BillUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Bill as Request;
@@ -19,12 +20,16 @@ use App\Models\Item\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
+use App\Models\Common\Media;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
 use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
+use File;
+use Image;
+use Storage;
 
 class Bills extends Controller
 {
@@ -394,10 +399,10 @@ class Bills extends Controller
             $bill->attachMedia($media, 'attachment');
         }
 
-        // Delete previous invoice totals
+        // Delete previous bill totals
         BillTotal::where('bill_id', $bill->id)->delete();
 
-        // Add invoice totals
+        // Add bill totals
         $this->addTotals($bill, $request, $taxes, $sub_total, $tax_total);
 
         // Fire the event to make it extendible
@@ -465,17 +470,11 @@ class Bills extends Controller
      */
     public function printBill(Bill $bill)
     {
-        $paid = 0;
+        $bill = $this->prepareBill($bill);
 
-        foreach ($bill->payments as $item) {
-            $item->default_currency_code = $bill->currency_code;
+        $logo = $this->getLogo($bill);
 
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $bill->paid = $paid;
-
-        return view('expenses.bills.bill', compact('bill'));
+        return view($bill->template_path, compact('bill', 'logo'));
     }
 
     /**
@@ -487,22 +486,16 @@ class Bills extends Controller
      */
     public function pdfBill(Bill $bill)
     {
-        $paid = 0;
+        $bill = $this->prepareBill($bill);
 
-        foreach ($bill->payments as $item) {
-            $item->default_currency_code = $bill->currency_code;
+        $logo = $this->getLogo($bill);
 
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $bill->paid = $paid;
-
-        $html = view('expenses.bills.bill', compact('bill'))->render();
+        $html = view($bill->template_path, compact('bill', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file_name = 'bill_'.time().'.pdf';
+        $file_name = 'bill_' . time() . '.pdf';
 
         return $pdf->download($file_name);
     }
@@ -615,6 +608,25 @@ class Bills extends Controller
         return redirect()->back();
     }
 
+    protected function prepareBill(Bill $bill)
+    {
+        $paid = 0;
+
+        foreach ($bill->payments as $item) {
+            $item->default_currency_code = $bill->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $bill->paid = $paid;
+
+        $bill->template_path = 'expenses.bills.bill';
+
+        //event(new BillPrinting($bill));
+
+        return $bill;
+    }
+
     protected function addTotals($bill, $request, $taxes, $sub_total, $tax_total)
     {
         $sort_order = 1;
@@ -658,26 +670,26 @@ class Bills extends Controller
         ]);
     }
 
-    protected function getLogo()
+    protected function getLogo($bill)
     {
         $logo = '';
 
         $media_id = setting('general.company_logo');
 
-        if (setting('general.invoice_logo')) {
-            $media_id = setting('general.invoice_logo');
+        if (isset($bill->vendor->logo) && !empty($bill->vendor->logo->id)) {
+            $media_id = $bill->vendor->logo->id;
         }
 
         $media = Media::find($media_id);
 
-        if (empty($media)) {
-            return $logo;
-        }
+        if (!empty($media)) {
+            $path = Storage::path($media->getDiskPath());
 
-        $path = Storage::path($media->getDiskPath());
-
-        if (!is_file($path)) {
-            return $logo;
+            if (!is_file($path)) {
+                return $logo;
+            }
+        } else {
+            $path = asset('public/img/company.png');
         }
 
         $image = Image::make($path)->encode()->getEncoded();

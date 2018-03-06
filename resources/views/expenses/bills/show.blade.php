@@ -9,10 +9,10 @@
 
             <div class="row invoice-header">
                 <div class="col-xs-7">
-                    @if (setting('general.invoice_logo'))
-                        <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
+                    @if (isset($bill->vendor->logo) && !empty($bill->vendor->logo->id))
+                        <img src="{{ Storage::url($bill->vendor->logo->id) }}" class="invoice-logo" />
                     @else
-                        <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
+                        <img src="{{ asset('public/img/company.png') }}" class="invoice-logo" />
                     @endif
                 </div>
                 <div class="col-xs-5 invoice-company">
