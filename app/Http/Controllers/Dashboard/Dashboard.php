@@ -339,7 +339,7 @@ class Dashboard extends Controller
             }
         }
 
-        $items_1 = $m1::whereBetween('paid_at', [$start, $end])->get();
+        $items_1 = $m1::whereBetween('paid_at', [$start, $end])->isNotTransfer()->get();
 
         $this->setCashFlowTotals($totals, $items_1, $date_format, $period);
 

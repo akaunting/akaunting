@@ -3,6 +3,7 @@
 namespace App\Models\Expense;
 
 use App\Models\Model;
+use App\Models\Setting\Category;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use Bkwld\Cloner\Cloneable;
@@ -66,6 +67,28 @@ class Payment extends Model
     public function transfers()
     {
         return $this->hasMany('App\Models\Banking\Transfer');
+    }
+
+    /**
+     * Get only transfers.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsTransfer($query)
+    {
+        return $query->where('category_id', '=', Category::transfer());
+    }
+
+    /**
+     * Skip transfers.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsNotTransfer($query)
+    {
+        return $query->where('category_id', '<>', Category::transfer());
     }
 
     /**
