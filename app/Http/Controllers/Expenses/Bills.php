@@ -180,6 +180,9 @@ class Bills extends Controller
                 $bill_item['tax_id'] = $tax_id;
                 $bill_item['total'] = $item['price'] * $item['quantity'];
 
+                BillItem::create($bill_item);
+
+                // Set taxes
                 if (isset($tax_object)) {
                     if (array_key_exists($tax_object->id, $taxes)) {
                         $taxes[$tax_object->id]['amount'] += $tax;
@@ -191,10 +194,11 @@ class Bills extends Controller
                     }
                 }
 
+                // Calculate totals
                 $tax_total += $tax;
                 $sub_total += $bill_item['total'];
 
-                BillItem::create($bill_item);
+                unset($tax_object);
             }
         }
 
@@ -202,43 +206,8 @@ class Bills extends Controller
 
         $bill->update($request->input());
 
-        // Added bill total sub total
-        BillTotal::create([
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'sub_total',
-            'name' => 'bills.sub_total',
-            'amount' => $sub_total,
-            'sort_order' => 1,
-        ]);
-
-        $sort_order = 2;
-
-        // Added bill total taxes
-        if ($taxes) {
-            foreach ($taxes as $tax) {
-                BillTotal::create([
-                    'company_id' => $request['company_id'],
-                    'bill_id' => $bill->id,
-                    'code' => 'tax',
-                    'name' => $tax['name'],
-                    'amount' => $tax['amount'],
-                    'sort_order' => $sort_order,
-                ]);
-
-                $sort_order++;
-            }
-        }
-
-        // Added bill total total
-        BillTotal::create([
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'total',
-            'name' => 'bills.total',
-            'amount' => $sub_total + $tax_total,
-            'sort_order' => $sort_order,
-        ]);
+        // Add bill totals
+        $this->addTotals($bill, $request, $taxes, $sub_total, $tax_total);
 
         // Add bill history
         BillHistory::create([
@@ -356,8 +325,6 @@ class Bills extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        $request['amount'] = 0;
-
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
@@ -416,41 +383,7 @@ class Bills extends Controller
             }
         }
 
-        BillTotal::where('bill_id', $bill->id)->delete();
-
-        // Added bill total sub total
-        $bill_sub_total = [
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'sub_total',
-            'name' => 'bills.sub_total',
-            'amount' => $sub_total,
-            'sort_order' => 1,
-        ];
-
-        BillTotal::create($bill_sub_total);
-
-        $sort_order = 2;
-
-        // Added bill total taxes
-        if ($taxes) {
-            foreach ($taxes as $tax) {
-                $bill_tax_total = [
-                    'company_id' => $request['company_id'],
-                    'bill_id' => $bill->id,
-                    'code' => 'tax',
-                    'name' => $tax['name'],
-                    'amount' => $tax['amount'],
-                    'sort_order' => $sort_order,
-                ];
-
-                BillTotal::create($bill_tax_total);
-
-                $sort_order++;
-            }
-        }
-
-        $request['amount'] += $sub_total + $tax_total;
+        $request['amount'] = $sub_total + $tax_total;
 
         $bill->update($request->input());
 
@@ -461,17 +394,11 @@ class Bills extends Controller
             $bill->attachMedia($media, 'attachment');
         }
 
-        // Added bill total total
-        $bill_total = [
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'total',
-            'name' => 'bills.total',
-            'amount' => $sub_total + $tax_total,
-            'sort_order' => $sort_order,
-        ];
+        // Delete previous invoice totals
+        BillTotal::where('bill_id', $bill->id)->delete();
 
-        BillTotal::create($bill_total);
+        // Add invoice totals
+        $this->addTotals($bill, $request, $taxes, $sub_total, $tax_total);
 
         // Fire the event to make it extendible
         event(new BillUpdated($bill));
@@ -669,7 +596,9 @@ class Bills extends Controller
     {
         $bill = Bill::find($payment->bill_id);
 
-        if ($bill->payments()->count() > 1) {
+        if ($bill->payments()->paid() == $bill->amount) {
+            $bill->bill_status_code = 'paid';
+        } elseif ($bill->payments()->count() > 1) {
             $bill->bill_status_code = 'partial';
         } else {
             $bill->bill_status_code = 'draft';
@@ -684,5 +613,83 @@ class Bills extends Controller
         flash($message)->success();
 
         return redirect()->back();
+    }
+
+    protected function addTotals($bill, $request, $taxes, $sub_total, $tax_total)
+    {
+        $sort_order = 1;
+
+        // Added bill total sub total
+        BillTotal::create([
+            'company_id' => $request['company_id'],
+            'bill_id' => $bill->id,
+            'code' => 'sub_total',
+            'name' => 'bills.sub_total',
+            'amount' => $sub_total,
+            'sort_order' => $sort_order,
+        ]);
+
+        $sort_order++;
+
+        // Added bill total taxes
+        if ($taxes) {
+            foreach ($taxes as $tax) {
+                BillTotal::create([
+                    'company_id' => $request['company_id'],
+                    'bill_id' => $bill->id,
+                    'code' => 'tax',
+                    'name' => $tax['name'],
+                    'amount' => $tax['amount'],
+                    'sort_order' => $sort_order,
+                ]);
+
+                $sort_order++;
+            }
+        }
+
+        // Added bill total total
+        BillTotal::create([
+            'company_id' => $request['company_id'],
+            'bill_id' => $bill->id,
+            'code' => 'total',
+            'name' => 'bills.total',
+            'amount' => $sub_total + $tax_total,
+            'sort_order' => $sort_order,
+        ]);
+    }
+
+    protected function getLogo()
+    {
+        $logo = '';
+
+        $media_id = setting('general.company_logo');
+
+        if (setting('general.invoice_logo')) {
+            $media_id = setting('general.invoice_logo');
+        }
+
+        $media = Media::find($media_id);
+
+        if (empty($media)) {
+            return $logo;
+        }
+
+        $path = Storage::path($media->getDiskPath());
+
+        if (!is_file($path)) {
+            return $logo;
+        }
+
+        $image = Image::make($path)->encode()->getEncoded();
+
+        if (empty($image)) {
+            return $logo;
+        }
+
+        $extension = File::extension($path);
+
+        $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
+
+        return $logo;
     }
 }
