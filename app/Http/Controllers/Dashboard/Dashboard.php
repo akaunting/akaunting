@@ -221,7 +221,7 @@ class Dashboard extends Controller
             $item->paid_at = $item->invoiced_at;
         });
 
-        $revenues = collect(Revenue::orderBy('paid_at', 'desc')->take(10)->get());
+        $revenues = collect(Revenue::orderBy('paid_at', 'desc')->isNotTransfer()->take(10)->get());
 
         $latest = $revenues->merge($invoices)->take(5)->sortByDesc('paid_at');
 
@@ -234,7 +234,7 @@ class Dashboard extends Controller
             $item->paid_at = $item->billed_at;
         });
 
-        $payments = collect(Payment::orderBy('paid_at', 'desc')->take(10)->get());
+        $payments = collect(Payment::orderBy('paid_at', 'desc')->isNotTransfer()->take(10)->get());
 
         $latest = $payments->merge($bills)->take(5)->sortByDesc('paid_at');
 
