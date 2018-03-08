@@ -94,15 +94,15 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/akaunting#sponsor)]
 
 [![Sponsor 0](https://opencollective.com/akaunting/sponsor/0/avatar.svg)](https://opencollective.com/akaunting/sponsor/0/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/1/avatar.svg)](https://opencollective.com/akaunting/sponsor/1/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/2/avatar.svg)](https://opencollective.com/akaunting/sponsor/2/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/3/avatar.svg)](https://opencollective.com/akaunting/sponsor/3/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/4/avatar.svg)](https://opencollective.com/akaunting/sponsor/4/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/5/avatar.svg)](https://opencollective.com/akaunting/sponsor/5/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/6/avatar.svg)](https://opencollective.com/akaunting/sponsor/6/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/7/avatar.svg)](https://opencollective.com/akaunting/sponsor/7/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/8/avatar.svg)](https://opencollective.com/akaunting/sponsor/8/website)
-[![Sponsor 0](https://opencollective.com/akaunting/sponsor/9/avatar.svg)](https://opencollective.com/akaunting/sponsor/9/website)
+[![Sponsor 1](https://opencollective.com/akaunting/sponsor/1/avatar.svg)](https://opencollective.com/akaunting/sponsor/1/website)
+[![Sponsor 2](https://opencollective.com/akaunting/sponsor/2/avatar.svg)](https://opencollective.com/akaunting/sponsor/2/website)
+[![Sponsor 3](https://opencollective.com/akaunting/sponsor/3/avatar.svg)](https://opencollective.com/akaunting/sponsor/3/website)
+[![Sponsor 4](https://opencollective.com/akaunting/sponsor/4/avatar.svg)](https://opencollective.com/akaunting/sponsor/4/website)
+[![Sponsor 5](https://opencollective.com/akaunting/sponsor/5/avatar.svg)](https://opencollective.com/akaunting/sponsor/5/website)
+[![Sponsor 6](https://opencollective.com/akaunting/sponsor/6/avatar.svg)](https://opencollective.com/akaunting/sponsor/6/website)
+[![Sponsor 7](https://opencollective.com/akaunting/sponsor/7/avatar.svg)](https://opencollective.com/akaunting/sponsor/7/website)
+[![Sponsor 8](https://opencollective.com/akaunting/sponsor/8/avatar.svg)](https://opencollective.com/akaunting/sponsor/8/website)
+[![Sponsor 9](https://opencollective.com/akaunting/sponsor/9/avatar.svg)](https://opencollective.com/akaunting/sponsor/9/website)
 
 ## License
 
