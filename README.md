@@ -6,8 +6,9 @@ Akaunting is a free, open source and online accounting software designed for sma
 
 * [Home](https://akaunting.com) - The house of Akaunting
 * [Blog](https://akaunting.com/blog) - Get the latest news
-* [Forum](https://akaunting.com/forum) - Join the community
-* [Documentation](https://akaunting.com/docs) - Learn more about Akaunting
+* [Forum](https://akaunting.com/forum) - Ask for support
+* [Documentation](https://akaunting.com/docs) - Learn how to use
+* [Translations](https://crowdin.com/project/akaunting) - Akaunting in your language
 
 ## Requirements
 
@@ -46,7 +47,7 @@ docker-compose up
 docker exec -it CONTAINER_ID /bin/sh
 ```
 
-## docker-compose examples
+#### Examples
 In the `docker/` folder you'll find some example file to run the image with several databases. 
 
 ## Contributing
@@ -80,32 +81,28 @@ If you discover any security related issues, please email security@akaunting.com
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="graphs/contributors"><img src="https://opencollective.com/akaunting/contributors.svg?width=890&button=false" /></a>
-
+[![Contributors](https://opencollective.com/akaunting/contributors.svg?width=890&button=false)](../../contributors)
 
 ## Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/akaunting#backer)]
 
-<a href="https://opencollective.com/akaunting#backers" target="_blank"><img src="https://opencollective.com/akaunting/backers.svg?width=890"></a>
-
+[![Backers](https://opencollective.com/akaunting/backers.svg?width=890)](https://opencollective.com/akaunting#backers)
 
 ## Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/akaunting#sponsor)]
 
-<a href="https://opencollective.com/akaunting/sponsor/0/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/1/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/2/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/3/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/4/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/5/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/6/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/7/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/8/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/akaunting/sponsor/9/website" target="_blank"><img src="https://opencollective.com/akaunting/sponsor/9/avatar.svg"></a>
-
-
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/0/avatar.svg)](https://opencollective.com/akaunting/sponsor/0/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/1/avatar.svg)](https://opencollective.com/akaunting/sponsor/1/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/2/avatar.svg)](https://opencollective.com/akaunting/sponsor/2/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/3/avatar.svg)](https://opencollective.com/akaunting/sponsor/3/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/4/avatar.svg)](https://opencollective.com/akaunting/sponsor/4/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/5/avatar.svg)](https://opencollective.com/akaunting/sponsor/5/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/6/avatar.svg)](https://opencollective.com/akaunting/sponsor/6/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/7/avatar.svg)](https://opencollective.com/akaunting/sponsor/7/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/8/avatar.svg)](https://opencollective.com/akaunting/sponsor/8/website)
+[![Sponsor 0](https://opencollective.com/akaunting/sponsor/9/avatar.svg)](https://opencollective.com/akaunting/sponsor/9/website)
 
 ## License
 
