@@ -111,6 +111,16 @@ class Invoice extends Model
         return $query->where('invoice_status_code', '<>', 'draft');
     }
 
+    public function scopePaid($query)
+    {
+        return $query->where('invoice_status_code', '=', 'paid');
+    }
+
+    public function scopeNotPaid($query)
+    {
+        return $query->where('invoice_status_code', '<>', 'paid');
+    }
+
     public function onCloning($src, $child = null)
     {
         $this->invoice_status_code = 'draft';

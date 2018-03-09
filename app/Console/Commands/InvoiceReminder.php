@@ -73,7 +73,7 @@ class InvoiceReminder extends Command
         $date = Date::today()->subDays($day)->toDateString();
 
         // Get upcoming bills
-        $invoices = Invoice::with('customer')->accrued()->due($date)->get();
+        $invoices = Invoice::with('customer')->accrued()->notPaid()->due($date)->get();
 
         foreach ($invoices as $invoice) {
             // Notify the customer
