@@ -73,7 +73,7 @@ class BillReminder extends Command
         $date = Date::today()->addDays($day)->toDateString();
 
         // Get upcoming bills
-        $bills = Bill::with('vendor')->due($date)->get();
+        $bills = Bill::with('vendor')->accrued()->due($date)->get();
 
         foreach ($bills as $bill) {
             // Notify all users assigned to this company

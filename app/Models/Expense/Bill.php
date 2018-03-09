@@ -100,7 +100,7 @@ class Bill extends Model
 
     public function scopeAccrued($query)
     {
-        return $query->where('bill_status_code', '!=', 'new');
+        return $query->where('bill_status_code', '<>', 'draft');
     }
 
     public function onCloning($src, $child = null)
