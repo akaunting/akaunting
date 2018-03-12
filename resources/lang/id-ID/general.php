@@ -59,7 +59,7 @@ return [
     'delete'                => 'Hapus',
     'send'                  => 'Mengirim',
     'download'              => 'Unduh',
-    'delete_confirm'        => 'Konfirmasi hapus :nama :jenis?',
+    'delete_confirm'        => 'Löschen bestätigen :name :type?',
     'name'                  => 'Nama',
     'email'                 => 'E-mail',
     'tax_number'            => 'Nomor Pajak',
@@ -87,7 +87,7 @@ return [
     'filter'                => 'Menyaring',
     'help'                  => 'Bantuan',
     'all'                   => 'Semuanya',
-    'all_type'              => 'Semua :jenis',
+    'all_type'              => 'Semua :type',
     'upcoming'              => 'Mendatang',
     'created'               => 'Dibuat',
     'id'                    => 'ID',
@@ -100,13 +100,13 @@ return [
     'partially_paid'        => 'Partially Paid',
 
     'title' => [
-        'new'               => 'Baru :jenis',
-        'edit'              => 'Sunting :jenis',
+        'new'               => 'Baru :type',
+        'edit'              => 'Sunting :type',
     ],
     'form' => [
-        'enter'             => 'Masukkan :bidang',
+        'enter'             => 'Masukkan :field',
         'select' => [
-            'field'         => '-Pilih :bidang -',
+            'field'         => '-Pilih :field -',
             'file'          => 'Pilih Berkas',
         ],
         'no_file_selected'  => 'Tidak ada Berkas yang dipilih...',

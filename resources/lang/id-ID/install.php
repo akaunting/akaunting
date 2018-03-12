@@ -17,10 +17,10 @@ return [
     ],
 
     'requirements' => [
-        'enabled'           => ':fitur perlu diaktifkan!',
-        'disabled'          => ':fitur perlu dinonaktifkan!',
-        'extension'         => ':ekstensi ekstensi perlu dimuat!',
-        'directory'         => ':direktori direktori perlu ditulis!',
+        'enabled'           => ':feature perlu diaktifkan!',
+        'disabled'          => ':feature perlu dinonaktifkan!',
+        'extension'         => ':extension ekstensi perlu dimuat!',
+        'directory'         => ':directory direktori perlu ditulis!',
     ],
 
     'database' => [

@@ -20,11 +20,11 @@ return [
     'updated'               => 'Mempebarui',
     'compatibility'         => 'Kesesuaian',
 
-    'installed'             => ':modul terpasang',
-    'uninstalled'           => ':modul dihapus',
+    'installed'             => ':module terpasang',
+    'uninstalled'           => ':module dihapus',
     //'updated'               => ':module updated',
-    'enabled'               => ':modul diaktifkan',
-    'disabled'              => ':modul dinonaktifkan',
+    'enabled'               => ':module diaktifkan',
+    'disabled'              => ':module dinonaktifkan',
 
     'tab' => [
         'installation'      => 'Instalasi',
@@ -36,7 +36,7 @@ return [
         'header'            => 'Instalasi Aplikasi',
         'download'          => 'Mengunduh :module file.',
         'unzip'             => 'Mengekstrak :module file.',
-        'install'           => 'Instalasi :berkas modul.',
+        'install'           => 'Instalasi :module.',
     ],
 
     'button' => [

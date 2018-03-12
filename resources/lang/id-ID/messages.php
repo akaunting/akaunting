@@ -7,7 +7,7 @@ return [
         'updated'           => ':type diperbaharui!',
         'deleted'           => ':type dihapus!',
         'duplicated'        => ':type duplikat!',
-        'imported'          => ':jenis diimpor!',
+        'imported'          => ':type diimpor!',
     ],
     'error' => [
         'payment_add'       => 'Kesalahan: Anda tidak dapat menambahkan pembayaran! Anda harus memeriksa jumlah tambah.',
