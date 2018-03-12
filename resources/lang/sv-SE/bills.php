@@ -1,0 +1,41 @@
+<?php
+
+return [
+
+    'bill_number'       => 'Fakturanummer',
+    'bill_date'         => 'Leverantörsfakturadatum',
+    'total_price'       => 'Summa pris',
+    'due_date'          => 'Förfallodatum',
+    'order_number'      => 'Ordernummer',
+    'bill_from'         => 'Faktura från',
+
+    'quantity'          => 'Antal',
+    'price'             => 'Pris',
+    'sub_total'         => 'Delsumma',
+    'tax_total'         => 'Summa moms',
+    'total'             => 'Summa',
+
+    'item_name'         => 'Artikelnamn | Artikelnamn',
+
+    'payment_due'       => 'Betalning',
+    'amount_due'        => 'Fordran',
+    'paid'              => 'Betald',
+    'histories'         => 'Historia',
+    'payments'          => 'Betalningar',
+    'add_payment'       => 'Lägg till betalning',
+    'mark_received'     => 'Markerad som mottagen',
+    'download_pdf'      => 'Ladda ner PDF',
+    'send_mail'         => 'Skicka E-post',
+
+    'status' => [
+        'draft'         => 'Utkast',
+        'received'      => 'Mottagen',
+        'partial'       => 'Delvis',
+        'paid'          => 'Betald',
+    ],
+
+    'messages' => [
+        'received'      => 'Faktura markerad som mottagen!',
+    ],
+
+];
