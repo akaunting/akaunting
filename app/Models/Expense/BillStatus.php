@@ -34,6 +34,9 @@ class BillStatus extends Model
             case 'paid':
                 $label = 'label-success';
                 break;
+            case 'delete':
+                $label = 'label-danger';
+                break;
             case 'partial':
             case 'received':
                 $label = 'label-warning';

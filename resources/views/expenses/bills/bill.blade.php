@@ -113,10 +113,23 @@
                     <table class="table">
                         <tbody>
                         @foreach($bill->totals as $total)
-                        <tr>
-                            <th>{{ trans($total['name']) }}:</th>
-                            <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
-                        </tr>
+                            @if ($total->code != 'total')
+                                <tr>
+                                    <th>{{ trans($total['name']) }}:</th>
+                                    <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
+                                </tr>
+                            @else
+                                @if ($bill->paid)
+                                    <tr class="text-success">
+                                        <th>{{ trans('invoices.paid') }}:</th>
+                                        <td class="text-right">- @money($bill->paid, $bill->currency_code, true)</td>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <th>{{ trans($total['name']) }}:</th>
+                                    <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
+                                </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>

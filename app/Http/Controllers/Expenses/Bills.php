@@ -594,12 +594,21 @@ class Bills extends Controller
         } elseif ($bill->payments()->count() > 1) {
             $bill->bill_status_code = 'partial';
         } else {
-            $bill->bill_status_code = 'draft';
+            $bill->bill_status_code = 'received';
         }
 
         $bill->save();
 
         $payment->delete();
+
+        // Add invoice history
+        BillHistory::create([
+            'company_id' => $bill->company_id,
+            'invoice_id' => $bill->id,
+            'status_code' => 'delete',
+            'notify' => 0,
+            'description' => trans('general.delete') . ' ' . $payment->description,
+        ]);
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.bills', 1)]);
 

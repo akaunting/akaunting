@@ -474,8 +474,20 @@ class Invoices extends Controller
      */
     public function markSent(Invoice $invoice)
     {
-        $invoice->invoice_status_code = 'sent';
-        $invoice->save();
+        if ($invoice->invoice_status_code != 'partial') {
+            $invoice->invoice_status_code = 'sent';
+
+            $invoice->save();
+        }
+
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => $invoice->company_id,
+            'invoice_id' => $invoice->id,
+            'status_code' => 'sent',
+            'notify' => 0,
+            'description' => trans('invoices.mark_sent'),
+        ]);
 
         flash(trans('invoices.messages.marked_sent'))->success();
 
@@ -522,8 +534,20 @@ class Invoices extends Controller
         unset($invoice->pdf_path);
 
         // Mark invoice as sent
-        $invoice->invoice_status_code = 'sent';
-        $invoice->save();
+        if ($invoice->invoice_status_code != 'partial') {
+            $invoice->invoice_status_code = 'sent';
+
+            $invoice->save();
+        }
+
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => $invoice->company_id,
+            'invoice_id' => $invoice->id,
+            'status_code' => 'sent',
+            'notify' => 1,
+            'description' => trans('invoices.send_mail'),
+        ]);
 
         flash(trans('invoices.messages.email_sent'))->success();
 
@@ -705,12 +729,21 @@ class Invoices extends Controller
         } elseif ($invoice->payments()->count() > 1) {
             $invoice->invoice_status_code = 'partial';
         } else {
-            $invoice->invoice_status_code = 'draft';
+            $invoice->invoice_status_code = 'sent';
         }
 
         $invoice->save();
 
         $payment->delete();
+
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => $invoice->company_id,
+            'invoice_id' => $invoice->id,
+            'status_code' => 'delete',
+            'notify' => 0,
+            'description' => trans('general.delete') . ' ' . $payment->description,
+        ]);
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
 
