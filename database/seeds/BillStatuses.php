@@ -45,11 +45,6 @@ class BillStatuses extends Seeder
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('bills.status.delete'),
-                'code' => 'delete',
-            ],
-            [
-                'company_id' => $company_id,
                 'name' => trans('bills.status.paid'),
                 'code' => 'paid',
             ],

@@ -55,11 +55,6 @@ class InvoiceStatuses extends Seeder
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('invoices.status.delete'),
-                'code' => 'delete',
-            ],
-            [
-                'company_id' => $company_id,
                 'name' => trans('invoices.status.paid'),
                 'code' => 'paid',
             ],
