@@ -33,6 +33,7 @@ return [
         'viewed'        => 'Viewed',
         'approved'      => 'Approved',
         'partial'       => 'Partial',
+        'delete'        => 'Delete',
         'paid'          => 'Paid',
     ],
 

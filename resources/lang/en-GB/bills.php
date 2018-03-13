@@ -31,6 +31,7 @@ return [
         'draft'         => 'Draft',
         'received'      => 'Received',
         'partial'       => 'Partial',
+        'delete'        => 'Delete',
         'paid'          => 'Paid',
     ],
 
