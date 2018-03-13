@@ -167,6 +167,8 @@
                             @permission('update-incomes-invoices')
                             @if($invoice->invoice_status_code == 'draft')
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a></li>
+                            @else
+                            <li><a href="javascript:void(0);" class="disabled"><span class="text-disabled">{{ trans('invoices.mark_sent') }}</span></a></li>
                             @endif
                             @endpermission
                             @if($invoice->customer_email)

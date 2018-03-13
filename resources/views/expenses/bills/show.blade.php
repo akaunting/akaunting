@@ -156,7 +156,11 @@
                             @if($bill->status->code != 'paid')
                             <li><a href="#" id="button-payment">{{ trans('bills.add_payment') }}</a></li>
                             @permission('update-expenses-bills')
+                            @if($bill->bill_status_code == 'draft')
                             <li><a href="{{ url('expenses/bills/' . $bill->id . '/received') }}">{{ trans('bills.mark_received') }}</a></li>
+                            @else
+                            <li><a href="javascript:void(0);" class="disabled"><span class="text-disabled">{{ trans('bills.mark_received') }}</span></a></li>
+                            @endif
                             @endpermission
                             <li class="divider"></li>
                             @endif
