@@ -165,7 +165,7 @@
                             <li class="divider"></li>
                             @endif
                             @permission('update-incomes-invoices')
-                            @if($invoice->invoice_status_code != 'partial')
+                            @if($invoice->invoice_status_code == 'draft')
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a></li>
                             @endif
                             @endpermission

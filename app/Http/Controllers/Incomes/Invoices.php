@@ -474,11 +474,9 @@ class Invoices extends Controller
      */
     public function markSent(Invoice $invoice)
     {
-        if ($invoice->invoice_status_code != 'partial') {
-            $invoice->invoice_status_code = 'sent';
+        $invoice->invoice_status_code = 'sent';
 
-            $invoice->save();
-        }
+        $invoice->save();
 
         // Add invoice history
         InvoiceHistory::create([
