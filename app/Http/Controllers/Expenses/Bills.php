@@ -599,8 +599,6 @@ class Bills extends Controller
 
         $bill->save();
 
-        $payment->delete();
-
         // Add invoice history
         BillHistory::create([
             'company_id' => $bill->company_id,
@@ -609,6 +607,8 @@ class Bills extends Controller
             'notify' => 0,
             'description' => trans('general.delete') . ' ' . $payment->description,
         ]);
+
+        $payment->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.bills', 1)]);
 

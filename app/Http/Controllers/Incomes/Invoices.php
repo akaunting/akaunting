@@ -734,8 +734,6 @@ class Invoices extends Controller
 
         $invoice->save();
 
-        $payment->delete();
-
         // Add invoice history
         InvoiceHistory::create([
             'company_id' => $invoice->company_id,
@@ -744,6 +742,8 @@ class Invoices extends Controller
             'notify' => 0,
             'description' => trans('general.delete') . ' ' . $payment->description,
         ]);
+
+        $payment->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
 
