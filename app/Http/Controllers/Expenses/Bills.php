@@ -589,9 +589,7 @@ class Bills extends Controller
     {
         $bill = Bill::find($payment->bill_id);
 
-        if ($bill->payments()->paid() == $bill->amount) {
-            $bill->bill_status_code = 'paid';
-        } elseif ($bill->payments()->count() > 1) {
+        if ($bill->payments()->count() > 1) {
             $bill->bill_status_code = 'partial';
         } else {
             $bill->bill_status_code = 'received';
@@ -599,13 +597,18 @@ class Bills extends Controller
 
         $bill->save();
 
+        $desc_amount = money((float) $payment->amount, (string) $payment->currency_code, true)->format();
+
+        $description = trans('general.delete') . ' ';
+        $description .= $desc_amount . ' ' . trans_choice('general.payments', 1);
+
         // Add invoice history
         BillHistory::create([
             'company_id' => $bill->company_id,
             'invoice_id' => $bill->id,
             'status_code' => 'delete',
             'notify' => 0,
-            'description' => trans('general.delete') . ' ' . $payment->description,
+            'description' => $description,
         ]);
 
         $payment->delete();

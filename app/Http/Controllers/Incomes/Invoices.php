@@ -722,9 +722,7 @@ class Invoices extends Controller
     {
         $invoice = Invoice::find($payment->invoice_id);
 
-        if ($invoice->payments()->paid() == $invoice->amount) {
-            $invoice->invoice_status_code = 'paid';
-        } elseif ($invoice->payments()->count() > 1) {
+        if ($invoice->payments()->count() > 1) {
             $invoice->invoice_status_code = 'partial';
         } else {
             $invoice->invoice_status_code = 'sent';
@@ -732,13 +730,18 @@ class Invoices extends Controller
 
         $invoice->save();
 
+        $desc_amount = money((float) $payment->amount, (string) $payment->currency_code, true)->format();
+
+        $description = trans('general.delete') . ' ';
+        $description .= $desc_amount . ' ' . trans_choice('general.payments', 1);
+
         // Add invoice history
         InvoiceHistory::create([
             'company_id' => $invoice->company_id,
             'invoice_id' => $invoice->id,
             'status_code' => 'delete',
             'notify' => 0,
-            'description' => trans('general.delete') . ' ' . $payment->description,
+            'description' => $description,
         ]);
 
         $payment->delete();
