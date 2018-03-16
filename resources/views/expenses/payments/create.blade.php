@@ -130,11 +130,11 @@
         modal += '                          <input class="form-control" placeholder="{{ trans('general.name') }}" required="required" name="name" type="text" id="name">';
         modal += '                      </div>';
         modal += '                  </div>';
-        modal += '                  <div class="form-group col-md-6 required">';
+        modal += '                  <div class="form-group col-md-6">';
         modal += '                      <label for="email" class="control-label">{{ trans('general.email') }}</label>';
         modal += '                      <div class="input-group">';
         modal += '                          <div class="input-group-addon"><i class="fa fa-envelope"></i></div>';
-        modal += '                          <input class="form-control" placeholder="{{ trans('general.email') }}" required="required" name="email" type="text" id="email">';
+        modal += '                          <input class="form-control" placeholder="{{ trans('general.email') }}" name="email" type="text" id="email">';
         modal += '                      </div>';
         modal += '                  </div>';
         modal += '                  <div class="form-group col-md-6">';
