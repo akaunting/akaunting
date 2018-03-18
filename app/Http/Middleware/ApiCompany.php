@@ -17,7 +17,7 @@ class ApiCompany
     {
         $company_id = $request->get('company_id');
 
-        if (empty($company_id)) {
+        if (empty($company_id) || !env('APP_INSTALLED')) {
             return $next($request);
         }
 

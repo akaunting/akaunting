@@ -99,7 +99,7 @@ class Settings extends Controller
         $fields = $request->all();
         $company_id = $request->get('company_id');
 
-        if (empty($company_id)) {
+        if (empty($company_id) || !env('APP_INSTALLED')) {
             $company_id = session('company_id');
         }
 

@@ -71,4 +71,9 @@ class Controller extends BaseController
 
         redirect('apps/token/create')->send();
     }
+
+    public function itemNotfound($request = null)
+    {
+        return view('common.404-item');
+    }
 }
