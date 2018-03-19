@@ -21,7 +21,7 @@
         "fideloper/proxy": "3.3.*",
         "guzzlehttp/guzzle": "6.3.*",
         "intervention/image": "2.3.*",
-        "jenssegers/date": "3.2.*",
+        "jenssegers/date": "3.3.*",
         "kyslik/column-sortable": "5.4.*",
         "laracasts/flash": "3.0.*",
         "laravel/framework": "5.4.*",
