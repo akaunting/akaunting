@@ -36,11 +36,22 @@ class ModuleInstall extends Command
             'alias' => strtolower($this->argument('alias')),
             'status' => '1',
         ];
-
+        # don't duplicate
+        $model = Module::where(['company_id' => $request['company_id'],'alias' => $request['alias']])->first();
+        if ($model) {
+            // could be useful if module got it's own install event scenarios
+            event(new ModuleInstalled($model->alias,$this));
+            $this->info('Module already installed!');
+            return;
+        }
         $model = Module::create($request);
 
         $module = LaravelModule::findByAlias($model->alias);
-
+        if (!$module) {
+            $this->info('Module file Not found!');
+            return;
+        }
+        
         // Add history
         $data = [
             'company_id' => $this->argument('company_id'),
@@ -56,7 +67,7 @@ class ModuleInstall extends Command
         $this->call('migrate', ['--force' => true]);
 
         // Trigger event
-        event(new ModuleInstalled($model->alias));
+        event(new ModuleInstalled($model->alias,$this));
 
         $this->info('Module installed!');
     }
