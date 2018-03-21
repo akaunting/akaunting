@@ -38,7 +38,7 @@
                         <th class="col-md-1">@sortablelink('amount', trans('general.amount'))</th>
                         <th class="col-md-2">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
                         <th class="col-md-2">@sortablelink('due_at', trans('invoices.due_date'))</th>
-                        <th class="col-md-1">@sortablelink('status.name', trans_choice('general.statuses', 1))</th>
+                        <th class="col-md-1">@sortablelink('invoice_status_code', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>

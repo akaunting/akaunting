@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Hoá đơn email đã được gửi thành công!',
-        'marked_sent'   => 'Hóa đơn được đánh dấu là đã gửi thành công!',
+        'email_sent'     => 'Hoá đơn email đã được gửi thành công!',
+        'marked_sent'    => 'Hóa đơn được đánh dấu là đã gửi thành công!',
+        'email_required' => 'No email address for this customer!',
     ],
 
     'notification' => [

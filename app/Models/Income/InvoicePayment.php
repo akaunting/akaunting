@@ -5,11 +5,11 @@ namespace App\Models\Income;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use Plank\Mediable\Mediable;
+use App\Traits\Media;
 
 class InvoicePayment extends Model
 {
-    use Currencies, DateTime, Mediable;
+    use Currencies, DateTime, Media;
 
     protected $table = 'invoice_payments';
 
@@ -25,6 +25,11 @@ class InvoicePayment extends Model
     public function account()
     {
         return $this->belongsTo('App\Models\Banking\Account');
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
     public function invoice()

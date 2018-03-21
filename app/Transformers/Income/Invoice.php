@@ -7,6 +7,7 @@ use App\Transformers\Income\InvoiceHistories;
 use App\Transformers\Income\InvoiceItems;
 use App\Transformers\Income\InvoicePayments;
 use App\Transformers\Income\InvoiceStatus;
+use App\Transformers\Setting\Currency;
 use App\Models\Income\Invoice as Model;
 use League\Fractal\TransformerAbstract;
 
@@ -15,7 +16,7 @@ class Invoice extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['customer', 'status', 'items', 'payments', 'histories'];
+    protected $defaultIncludes = ['currency', 'customer', 'histories', 'items', 'payments', 'status'];
 
     /**
      * @param Model $model
@@ -48,30 +49,21 @@ class Invoice extends TransformerAbstract
     }
 
     /**
+     * @param  Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeCurrency(Model $model)
+    {
+        return $this->item($model->currency, new Currency());
+    }
+
+    /**
      * @param Model $model
      * @return \League\Fractal\Resource\Item
      */
     public function includeCustomer(Model $model)
     {
         return $this->item($model->customer, new Customer());
-    }
-
-    /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeStatus(Model $model)
-    {
-        return $this->item($model->status, new InvoiceStatus());
-    }
-
-    /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Collection
-     */
-    public function includeItems(Model $model)
-    {
-        return $this->collection($model->items, new InvoiceItems());
     }
 
     /**
@@ -87,8 +79,26 @@ class Invoice extends TransformerAbstract
      * @param Model $model
      * @return \League\Fractal\Resource\Collection
      */
+    public function includeItems(Model $model)
+    {
+        return $this->collection($model->items, new InvoiceItems());
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includePayments(Model $model)
     {
         return $this->collection($model->payments, new InvoicePayments());
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeStatus(Model $model)
+    {
+        return $this->item($model->status, new InvoiceStatus());
     }
 }

@@ -15,9 +15,9 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\CompanySeed::class,
         Commands\BillReminder::class,
+        Commands\Install::class,
         Commands\InvoiceReminder::class,
         Commands\ModuleInstall::class,
-        Commands\ConfigureApp::class,
     ];
 
     /**

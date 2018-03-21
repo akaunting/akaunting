@@ -3,6 +3,7 @@
 namespace App\Transformers\Expense;
 
 use App\Transformers\Banking\Account;
+use App\Transformers\Setting\Currency;
 use App\Models\Expense\BillPayment as Model;
 use League\Fractal\TransformerAbstract;
 
@@ -11,7 +12,7 @@ class BillPayments extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['account'];
+    protected $defaultIncludes = ['account', 'currency'];
 
     /**
      * @param Model $model
@@ -44,5 +45,14 @@ class BillPayments extends TransformerAbstract
     public function includeAccount(Model $model)
     {
         return $this->item($model->account, new Account());
+    }
+
+    /**
+     * @param  Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeCurrency(Model $model)
+    {
+        return $this->item($model->currency, new Currency());
     }
 }

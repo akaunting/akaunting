@@ -36,15 +36,19 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\RedirectIfNotInstalled::class,
-            \App\Http\Middleware\LoadSettings::class,
-            \App\Http\Middleware\LoadCurrencies::class,
             \App\Http\Middleware\AddXHeader::class,
+            'company.settings',
+            'company.currencies',
         ],
 
         'api' => [
+            'api.auth',
             'throttle:60,1',
             'bindings',
             'api.company',
+            'permission:read-api',
+            'company.settings',
+            'company.currencies',
         ],
     ];
 
@@ -69,5 +73,7 @@ class Kernel extends HttpKernel
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
         'api.company' => \App\Http\Middleware\ApiCompany::class,
         'install' => \App\Http\Middleware\CanInstall::class,
+        'company.settings' => \App\Http\Middleware\LoadSettings::class,
+        'company.currencies' => \App\Http\Middleware\LoadCurrencies::class,
     ];
 }

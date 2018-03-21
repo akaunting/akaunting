@@ -50,6 +50,7 @@ return [
     'na'                    => 'N. v. t',
     'daily'                 => 'Dagelijks',
     'monthly'               => 'Maandelijks',
+    'quarterly'             => 'Quarterly',
     'yearly'                => 'Jaarlijks',
     'add'                   => 'Toevoegen',
     'add_new'               => 'Nieuw aanmaken',
@@ -74,6 +75,7 @@ return [
     'reference'             => 'Referentie',
     'attachment'            => 'Bijlage',
     'change'                => 'Wijzigen',
+    'switch'                => 'Switch',
     'color'                 => 'Kleur',
     'save'                  => 'Opslaan',
     'cancel'                => 'Annuleren',
@@ -91,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Meer acties',
     'duplicate'             => 'Dupliceren',
+    'unpaid'                => 'Unpaid',
+    'paid'                  => 'Paid',
+    'overdue'               => 'Overdue',
+    'partially'             => 'Partially',
+    'partially_paid'        => 'Partially Paid',
 
     'title' => [
         'new'               => 'Nieuw: type',

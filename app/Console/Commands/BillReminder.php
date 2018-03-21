@@ -5,8 +5,8 @@ namespace App\Console\Commands;
 use App\Models\Company\Company;
 use App\Models\Expense\Bill;
 use App\Notifications\Expense\Bill as Notification;
-
-use Jenssegers\Date\Date;
+use App\Utilities\Overrider;
+use Date;
 use Illuminate\Console\Command;
 
 class BillReminder extends Command
@@ -27,8 +27,6 @@ class BillReminder extends Command
     
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -46,6 +44,13 @@ class BillReminder extends Command
         $companies = Company::all();
 
         foreach ($companies as $company) {
+            // Set company id
+            session(['company_id' => $company->id]);
+
+            // Override settings and currencies
+            Overrider::load('settings');
+            Overrider::load('currencies');
+
             $company->setSettings();
 
             //$days = explode(',', setting('general.schedule_bill_days', '1,3'));
@@ -57,6 +62,9 @@ class BillReminder extends Command
                 $this->remind($day, $company);
             }
         }
+
+        // Unset company_id
+        session()->forget('company_id');
     }
 
     protected function remind($day, $company)
@@ -65,7 +73,7 @@ class BillReminder extends Command
         $date = Date::today()->addDays($day)->toDateString();
 
         // Get upcoming bills
-        $bills = Bill::companyId($company->id)->due($date)->with('vendor')->get();
+        $bills = Bill::with('vendor')->accrued()->notPaid()->due($date)->get();
 
         foreach ($bills as $bill) {
             // Notify all users assigned to this company

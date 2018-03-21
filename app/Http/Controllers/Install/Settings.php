@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Install;
 
 use App\Http\Requests\Install\Setting as Request;
-use App\Utilities\AppConfigurer;
+use App\Utilities\Installer;
 use Illuminate\Routing\Controller;
 
 class Settings extends Controller
@@ -28,19 +28,13 @@ class Settings extends Controller
     public function store(Request $request)
     {
         // Create company
-	    $companyName = $request['company_name'];
-	    $companyEmail= $request['company_email'];
-	    $locale= session('locale');
-	    AppConfigurer::createCompany($companyName, $companyEmail, $locale);
+        Installer::createCompany($request->get('company_name'), $request->get('company_email'), session('locale'));
 
         // Create user
-	    $adminEmail = $request['user_email'];
-	    $adminPassword = $request['user_password'];
-	    $locale= session('locale');
-	    AppConfigurer::createUser($adminEmail, $adminPassword, $locale);
+        Installer::createUser($request->get('user_email'), $request->get('user_password'), session('locale'));
 
         // Make the final touches
-	    AppConfigurer::finalTouches();
+        Installer::finalTouches();
 
         // Redirect to dashboard
         return redirect('auth/login');

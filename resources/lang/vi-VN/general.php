@@ -50,6 +50,7 @@ return [
     'na'                    => 'N/A',
     'daily'                 => 'Hàng ngày',
     'monthly'               => 'Hàng tháng',
+    'quarterly'             => 'Quarterly',
     'yearly'                => 'Hàng Năm',
     'add'                   => 'Thêm',
     'add_new'               => 'Thêm mới',
@@ -74,6 +75,7 @@ return [
     'reference'             => 'Tham chiếu',
     'attachment'            => 'Đính kèm',
     'change'                => 'Thay đổi',
+    'switch'                => 'Switch',
     'color'                 => 'Màu',
     'save'                  => 'Lưu',
     'cancel'                => 'Huỷ',
@@ -91,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Thao tác khác',
     'duplicate'             => 'Bản sao',
+    'unpaid'                => 'Unpaid',
+    'paid'                  => 'Paid',
+    'overdue'               => 'Overdue',
+    'partially'             => 'Partially',
+    'partially_paid'        => 'Partially Paid',
 
     'title' => [
         'new'               => 'Thêm loại :type',

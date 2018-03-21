@@ -39,7 +39,7 @@
                         <th class="col-md-1">@sortablelink('amount', trans('general.amount'))</th>
                         <th class="col-md-2">@sortablelink('billed_at', trans('bills.bill_date'))</th>
                         <th class="col-md-2">@sortablelink('due_at', trans('bills.due_date'))</th>
-                        <th class="col-md-1">@sortablelink('status.name', trans_choice('general.statuses', 1))</th>
+                        <th class="col-md-1">@sortablelink('bill_status_code', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>

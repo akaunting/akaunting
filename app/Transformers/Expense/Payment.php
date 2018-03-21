@@ -5,6 +5,7 @@ namespace App\Transformers\Expense;
 use App\Transformers\Banking\Account;
 use App\Transformers\Expense\Vendor;
 use App\Transformers\Setting\Category;
+use App\Transformers\Setting\Currency;
 use App\Models\Expense\Payment as Model;
 use League\Fractal\TransformerAbstract;
 
@@ -13,7 +14,7 @@ class Payment extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['account', 'vendor', 'category'];
+    protected $defaultIncludes = ['account', 'category', 'currency', 'vendor'];
 
     /**
      * @param  Model $model
@@ -51,6 +52,24 @@ class Payment extends TransformerAbstract
 
     /**
      * @param  Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeCategory(Model $model)
+    {
+        return $this->item($model->category, new Category());
+    }
+
+    /**
+     * @param  Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeCurrency(Model $model)
+    {
+        return $this->item($model->currency, new Currency());
+    }
+
+    /**
+     * @param  Model $model
      * @return mixed
      */
     public function includeVendor(Model $model)
@@ -60,14 +79,5 @@ class Payment extends TransformerAbstract
         }
 
         return $this->item($model->vendor, new Vendor());
-    }
-
-    /**
-     * @param  Model $model
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeCategory(Model $model)
-    {
-        return $this->item($model->category, new Category());
     }
 }

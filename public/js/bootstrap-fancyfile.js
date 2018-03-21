@@ -101,7 +101,7 @@
     $.fn.fancyfile.defaults = {
         container   : '<div class="fancy-file"><div class="fake-file"></div></div>',
         fakeInput   : '<input class="fake-input form-control" type="text" />',
-        fakeButton  : '<button class="btn"></button>',
+        fakeButton  : '<button type="button" class="btn"></button>',
         text        : 'Select File',
         icon        : '<i class="icon-file glyphicon glyphicon-file"></i>',
         style       : '',

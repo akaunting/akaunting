@@ -11,8 +11,8 @@ return [
     'symbol' => [
         'symbol'            => 'Símbolo',
         'position'          => 'Posición de Símbolo',
-        'before'            => 'Importe Anterior',
-        'after'             => 'Importe Posterior',
+        'before'            => 'Antes del importe',
+        'after'             => 'Despues del importe',
     ]
 
 ];

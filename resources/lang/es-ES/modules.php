@@ -28,7 +28,7 @@ return [
 
     'tab' => [
         'installation'      => 'Instalación',
-        'faq'               => 'Preguntas frecuentes',
+        'faq'               => 'P+F',
         'changelog'         => 'Historial de cambios',
     ],
 

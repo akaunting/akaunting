@@ -475,7 +475,17 @@ class Invoices extends Controller
     public function markSent(Invoice $invoice)
     {
         $invoice->invoice_status_code = 'sent';
+
         $invoice->save();
+
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => $invoice->company_id,
+            'invoice_id' => $invoice->id,
+            'status_code' => 'sent',
+            'notify' => 0,
+            'description' => trans('invoices.mark_sent'),
+        ]);
 
         flash(trans('invoices.messages.marked_sent'))->success();
 
@@ -522,8 +532,20 @@ class Invoices extends Controller
         unset($invoice->pdf_path);
 
         // Mark invoice as sent
-        $invoice->invoice_status_code = 'sent';
-        $invoice->save();
+        if ($invoice->invoice_status_code != 'partial') {
+            $invoice->invoice_status_code = 'sent';
+
+            $invoice->save();
+        }
+
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => $invoice->company_id,
+            'invoice_id' => $invoice->id,
+            'status_code' => 'sent',
+            'notify' => 1,
+            'description' => trans('invoices.send_mail'),
+        ]);
 
         flash(trans('invoices.messages.email_sent'))->success();
 
@@ -700,15 +722,28 @@ class Invoices extends Controller
     {
         $invoice = Invoice::find($payment->invoice_id);
 
-        if ($invoice->payments()->paid() == $invoice->amount) {
-            $invoice->invoice_status_code = 'paid';
-        } elseif ($invoice->payments()->count() > 1) {
-            $invoice->invoice_status_code = 'partial';
-        } else {
-            $invoice->invoice_status_code = 'draft';
+        $status = 'sent';
+
+        if ($invoice->payments()->count() > 1) {
+            $status = 'partial';
         }
 
+        $invoice->invoice_status_code = $status;
+
         $invoice->save();
+
+        $desc_amount = money((float) $payment->amount, (string) $payment->currency_code, true)->format();
+
+        $description = $desc_amount . ' ' . trans_choice('general.payments', 1);
+
+        // Add invoice history
+        InvoiceHistory::create([
+            'company_id' => $invoice->company_id,
+            'invoice_id' => $invoice->id,
+            'status_code' => $status,
+            'notify' => 0,
+            'description' => trans('messages.success.deleted', ['type' => $description]),
+        ]);
 
         $payment->delete();
 
@@ -793,14 +828,14 @@ class Invoices extends Controller
 
         $media = Media::find($media_id);
 
-        if (empty($media)) {
-            return $logo;
-        }
+        if (!empty($media)) {
+            $path = Storage::path($media->getDiskPath());
 
-        $path = Storage::path($media->getDiskPath());
-
-        if (!is_file($path)) {
-            return $logo;
+            if (!is_file($path)) {
+                return $logo;
+            }
+        } else {
+            $path = asset('public/img/company.png');
         }
 
         $image = Image::make($path)->encode()->getEncoded();

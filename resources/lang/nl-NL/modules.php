@@ -10,29 +10,33 @@ return [
     'free'                  => 'GRATIS',
     'install'               => 'Installeren',
     'buy_now'               => 'Koop Nu',
-    'faq'                   => 'Veelgestelde vragen',
-    'changelog'             => 'Wijzigingen',
-    'installed'             => 'Geïnstalleerd',
-    'uninstalled'           => 'Gedeinstalleerd',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Klik hier</a> om uw API token.',
+    'no_apps'               => 'There are no apps in this category, yet.',
+    'developer'             => 'Are you a developer? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Here</a> you can learn how to create an app and start selling today!',
 
-    'enabled'               => ': module app ingeschakeld',
-    'disabled'              => ': module app uitgeschakeld',
+    'about'                 => 'About',
 
-    'installation' => [
-        'header'            => 'Installatie van de module',
-        'start'             => ': het installeren van de module.',
-        'download'          => 'Download: module bestand.',
-        'unzip'             => 'Uitpakken: module bestanden.',
-        'install'           => 'Uploaden: module bestanden.',
+    'added'                 => 'Added',
+    'updated'               => 'Updated',
+    'compatibility'         => 'Compatibility',
+
+    'installed'             => ':module installed',
+    'uninstalled'           => ':module uninstalled',
+    //'updated'               => ':module updated',
+    'enabled'               => ':module enabled',
+    'disabled'              => ':module disabled',
+
+    'tab' => [
+        'installation'      => 'Installation',
+        'faq'               => 'FAQ',
+        'changelog'         => 'Changelog',
     ],
 
-    'history' => [
-        'installed'         => ': module geïnstalleerd',
-        'uninstalled'       => ': module verwijderen',
-        'updated'           => ': module bijgewerkt',
-        'enabled'           => ': module ingeschakeld',
-        'disabled'          => ': module uitgeschakeld',
+    'installation' => [
+        'header'            => 'App Installation',
+        'download'          => 'Download: module bestand.',
+        'unzip'             => 'Uitpakken: module bestanden.',
+        'install'           => 'Installing :module files.',
     ],
 
     'button' => [

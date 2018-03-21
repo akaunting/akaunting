@@ -10,9 +10,11 @@
             <div class="row invoice-header">
                 <div class="col-xs-7">
                     @if (setting('general.invoice_logo'))
-                    <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
+                        <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
+                    @elseif (setting('general.company_logo'))
+                        <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
                     @else
-                    <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
+                        <img src="{{ asset('public/img/company.png') }}" class="invoice-logo" />
                     @endif
                 </div>
                 <div class="col-xs-5 invoice-company">
@@ -163,7 +165,11 @@
                             <li class="divider"></li>
                             @endif
                             @permission('update-incomes-invoices')
+                            @if($invoice->invoice_status_code == 'draft')
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a></li>
+                            @else
+                            <li><a href="javascript:void(0);" class="disabled"><span class="text-disabled">{{ trans('invoices.mark_sent') }}</span></a></li>
+                            @endif
                             @endpermission
                             @if($invoice->customer_email)
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/email') }}">{{ trans('invoices.send_mail') }}</a></li>

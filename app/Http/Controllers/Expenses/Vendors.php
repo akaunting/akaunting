@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Vendor as Request;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Currency;
+use App\Traits\Uploads;
 use App\Utilities\ImportFile;
 
 class Vendors extends Controller
 {
+    use Uploads;
 
     /**
      * Display a listing of the resource.
@@ -48,7 +50,14 @@ class Vendors extends Controller
             $request['email'] = '';
         }
 
-        Vendor::create($request->all());
+        $vendor = Vendor::create($request->all());
+
+        // Upload logo
+        if ($request->file('logo')) {
+            $media = $this->getMedia($request->file('logo'), 'vendors');
+
+            $vendor->attachMedia($media, 'logo');
+        }
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
 
@@ -134,6 +143,13 @@ class Vendors extends Controller
         }
 
         $vendor->update($request->all());
+
+        // Upload logo
+        if ($request->file('logo')) {
+            $media = $this->getMedia($request->file('logo'), 'vendors');
+
+            $vendor->attachMedia($media, 'logo');
+        }
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.vendors', 1)]);
 

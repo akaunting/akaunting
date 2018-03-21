@@ -5,8 +5,8 @@ namespace App\Console\Commands;
 use App\Models\Company\Company;
 use App\Models\Income\Invoice;
 use App\Notifications\Income\Invoice as Notification;
-
-use Jenssegers\Date\Date;
+use App\Utilities\Overrider;
+use Date;
 use Illuminate\Console\Command;
 
 class InvoiceReminder extends Command
@@ -27,8 +27,6 @@ class InvoiceReminder extends Command
     
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -46,6 +44,13 @@ class InvoiceReminder extends Command
         $companies = Company::all();
 
         foreach ($companies as $company) {
+            // Set company id
+            session(['company_id' => $company->id]);
+
+            // Override settings and currencies
+            Overrider::load('settings');
+            Overrider::load('currencies');
+
             $company->setSettings();
 
             //$days = explode(',', config('general.schedule_invoice_days', '1,3'));
@@ -57,6 +62,9 @@ class InvoiceReminder extends Command
                 $this->remind($day, $company);
             }
         }
+
+        // Unset company_id
+        session()->forget('company_id');
     }
 
     protected function remind($day, $company)
@@ -65,7 +73,7 @@ class InvoiceReminder extends Command
         $date = Date::today()->subDays($day)->toDateString();
 
         // Get upcoming bills
-        $invoices = Invoice::companyId($company->id)->due($date)->with('customer')->get();
+        $invoices = Invoice::with('customer')->accrued()->notPaid()->due($date)->get();
 
         foreach ($invoices as $invoice) {
             // Notify the customer

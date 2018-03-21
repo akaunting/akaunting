@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => 'پی اچ پی 5.6.4 یا بالاتر نیاز به استفاده شود!',
         'enabled'           => ':feature باید فعال باشد!',
         'disabled'          => ':feature باید غیر فعال باشد!',
         'extension'         => ':extension باید بارگذاری شود!',

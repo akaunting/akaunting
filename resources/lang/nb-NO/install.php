@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => 'PHP 5.6.4 eller nyere er påkrevd.',
         'enabled'           => ':feature må være aktivert.',
         'disabled'          => ':feature må være deaktivert.',
         'extension'         => ':extension utvidelse må være lastet.',

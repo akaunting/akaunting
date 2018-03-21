@@ -6,10 +6,8 @@
     <section class="bill">
         <div class="row invoice-header">
             <div class="col-xs-7">
-                @if (setting('general.invoice_logo'))
-                    <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
-                @else
-                    <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
+                @if ($logo)
+                    <img src="{{ $logo }}" class="invoice-logo" />
                 @endif
             </div>
             <div class="col-xs-5 invoice-company">
@@ -115,10 +113,23 @@
                     <table class="table">
                         <tbody>
                         @foreach($bill->totals as $total)
-                        <tr>
-                            <th>{{ trans($total['name']) }}:</th>
-                            <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
-                        </tr>
+                            @if ($total->code != 'total')
+                                <tr>
+                                    <th>{{ trans($total['name']) }}:</th>
+                                    <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
+                                </tr>
+                            @else
+                                @if ($bill->paid)
+                                    <tr class="text-success">
+                                        <th>{{ trans('invoices.paid') }}:</th>
+                                        <td class="text-right">- @money($bill->paid, $bill->currency_code, true)</td>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <th>{{ trans($total['name']) }}:</th>
+                                    <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
+                                </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>

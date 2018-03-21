@@ -7,6 +7,7 @@ use App\Transformers\Expense\BillItems;
 use App\Transformers\Expense\BillPayments;
 use App\Transformers\Expense\BillStatus;
 use App\Transformers\Expense\Vendor;
+use App\Transformers\Setting\Currency;
 use App\Models\Expense\Bill as Model;
 use League\Fractal\TransformerAbstract;
 
@@ -15,7 +16,7 @@ class Bill extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['vendor', 'status', 'items', 'payments', 'histories'];
+    protected $defaultIncludes = ['currency', 'histories', 'items', 'payments', 'status', 'vendor'];
 
     /**
      * @param Model $model
@@ -48,30 +49,12 @@ class Bill extends TransformerAbstract
     }
 
     /**
-     * @param Model $model
+     * @param  Model $model
      * @return \League\Fractal\Resource\Item
      */
-    public function includeVendor(Model $model)
+    public function includeCurrency(Model $model)
     {
-        return $this->item($model->vendor, new Vendor());
-    }
-
-    /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeStatus(Model $model)
-    {
-        return $this->item($model->status, new BillStatus());
-    }
-
-    /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Collection
-     */
-    public function includeItems(Model $model)
-    {
-        return $this->collection($model->items, new BillItems());
+        return $this->item($model->currency, new Currency());
     }
 
     /**
@@ -87,8 +70,35 @@ class Bill extends TransformerAbstract
      * @param Model $model
      * @return \League\Fractal\Resource\Collection
      */
+    public function includeItems(Model $model)
+    {
+        return $this->collection($model->items, new BillItems());
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includePayments(Model $model)
     {
         return $this->collection($model->payments, new BillPayments());
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeStatus(Model $model)
+    {
+        return $this->item($model->status, new BillStatus());
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeVendor(Model $model)
+    {
+        return $this->item($model->vendor, new Vendor());
     }
 }

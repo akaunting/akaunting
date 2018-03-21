@@ -17,7 +17,6 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => 'PHP sürümünüz 5.6.4 veya üstü olmalıdır!',
         'enabled'           => ':feature etkin olmalıdır!',
         'disabled'          => ':feature devre dışı bırakılmalıdır!',
         'extension'         => ':extension eklentisi yüklenmelidir!',

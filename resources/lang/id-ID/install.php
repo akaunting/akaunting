@@ -17,11 +17,10 @@ return [
     ],
 
     'requirements' => [
-        'php_version'       => 'PHP 5.6.4 atau yang lebih baru perlu digunakan!',
-        'enabled'           => ':fitur perlu diaktifkan!',
-        'disabled'          => ':fitur perlu dinonaktifkan!',
-        'extension'         => ':ekstensi ekstensi perlu dimuat!',
-        'directory'         => ':direktori direktori perlu ditulis!',
+        'enabled'           => ':feature perlu diaktifkan!',
+        'disabled'          => ':feature perlu dinonaktifkan!',
+        'extension'         => ':extension ekstensi perlu dimuat!',
+        'directory'         => ':directory direktori perlu ditulis!',
     ],
 
     'database' => [

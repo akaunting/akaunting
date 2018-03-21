@@ -5,6 +5,7 @@ namespace App\Transformers\Income;
 use App\Transformers\Banking\Account;
 use App\Transformers\Income\Customer;
 use App\Transformers\Setting\Category;
+use App\Transformers\Setting\Currency;
 use App\Models\Income\Revenue as Model;
 use League\Fractal\TransformerAbstract;
 
@@ -13,7 +14,7 @@ class Revenue extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['account', 'customer', 'category'];
+    protected $defaultIncludes = ['account', 'category', 'currency', 'customer'];
 
     /**
      * @param  Model $model
@@ -51,6 +52,24 @@ class Revenue extends TransformerAbstract
 
     /**
      * @param  Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeCategory(Model $model)
+    {
+        return $this->item($model->category, new Category());
+    }
+
+    /**
+     * @param  Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeCurrency(Model $model)
+    {
+        return $this->item($model->currency, new Currency());
+    }
+
+    /**
+     * @param  Model $model
      * @return mixed
      */
     public function includeCustomer(Model $model)
@@ -60,14 +79,5 @@ class Revenue extends TransformerAbstract
         }
 
         return $this->item($model->customer, new Customer());
-    }
-
-    /**
-     * @param  Model $model
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeCategory(Model $model)
-    {
-        return $this->item($model->category, new Category());
     }
 }

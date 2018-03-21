@@ -1,10 +1,4 @@
 <?php
-/**
- * @package     Akaunting
- * @copyright   2018 Akaunting. All rights reserved.
- * @license     GNU GPL version 3; see LICENSE.txt
- * @link        https://akaunting.com
- */
 
 Route::group(['middleware' => 'language'], function () {
     Route::group(['middleware' => 'auth'], function () {
@@ -68,6 +62,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('customers/currency', 'Incomes\Customers@currency');
                 Route::get('customers/{customer}/duplicate', 'Incomes\Customers@duplicate');
                 Route::post('customers/customer', 'Incomes\Customers@customer');
+                Route::post('customers/field', 'Incomes\Customers@field');
                 Route::post('customers/import', 'Incomes\Customers@import');
                 Route::resource('customers', 'Incomes\Customers');
             });

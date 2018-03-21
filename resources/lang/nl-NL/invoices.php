@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'Factuur e-mail is succesvol verzonden!',
-        'marked_sent'   => 'Factuur e-mail is succesvol verzonden!',
+        'email_sent'     => 'Factuur e-mail is succesvol verzonden!',
+        'marked_sent'    => 'Factuur e-mail is succesvol verzonden!',
+        'email_required' => 'No email address for this customer!',
     ],
 
     'notification' => [

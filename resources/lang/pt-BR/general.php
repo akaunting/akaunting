@@ -50,6 +50,7 @@ return [
     'na'                    => 'N/A',
     'daily'                 => 'Diariamente',
     'monthly'               => 'Mensal',
+    'quarterly'             => 'Quarterly',
     'yearly'                => 'Anual',
     'add'                   => 'Adicionar',
     'add_new'               => 'Adicionar novo',
@@ -74,6 +75,7 @@ return [
     'reference'             => 'Referência',
     'attachment'            => 'Anexo',
     'change'                => 'Alterar',
+    'switch'                => 'Switch',
     'color'                 => 'Cor',
     'save'                  => 'Salvar',
     'cancel'                => 'Cancelar',
@@ -91,6 +93,11 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Mais ações',
     'duplicate'             => 'Duplicar',
+    'unpaid'                => 'Unpaid',
+    'paid'                  => 'Paid',
+    'overdue'               => 'Overdue',
+    'partially'             => 'Partially',
+    'partially_paid'        => 'Partially Paid',
 
     'title' => [
         'new'               => 'Novo :type',

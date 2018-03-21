@@ -10,6 +10,7 @@ return [
         'imported'          => ':type imported!',
     ],
     'error' => [
+        'payment_add'       => 'Error: You can not add payment! You should check add amount.',
         'not_user_company'  => 'Lỗi: Bạn không được phép để quản lý công ty này!',
         'customer'          => 'Lỗi: Bạn có thể không tạo người dùng! :name đã sử dụng địa chỉ email này.',
         'no_file'           => 'Error: No file selected!',

@@ -3,6 +3,7 @@
 namespace App\Transformers\Income;
 
 use App\Transformers\Banking\Account;
+use App\Transformers\Setting\Currency;
 use App\Models\Income\InvoicePayment as Model;
 use League\Fractal\TransformerAbstract;
 
@@ -11,7 +12,7 @@ class InvoicePayments extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['account'];
+    protected $defaultIncludes = ['account', 'currency'];
 
     /**
      * @param Model $model
@@ -44,5 +45,14 @@ class InvoicePayments extends TransformerAbstract
     public function includeAccount(Model $model)
     {
         return $this->item($model->account, new Account());
+    }
+
+    /**
+     * @param  Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeCurrency(Model $model)
+    {
+        return $this->item($model->currency, new Currency());
     }
 }

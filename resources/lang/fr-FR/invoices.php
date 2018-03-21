@@ -37,7 +37,14 @@ return [
     ],
 
     'messages' => [
-        'marked_sent'   => 'Facture marquée comme envoyée avec succès !',
+        'email_sent'     => 'La facture a été envoyé avec succès !',
+        'marked_sent'    => 'Facture marquée comme envoyée avec succès !',
+        'email_required' => 'Ce client ne possède pas d\'email !',
+    ],
+
+    'notification' => [
+        'message'       => 'Vous recevez cet email car une facture d\'un montant de :amount pour le client :customer arrive à échéance.',
+        'button'        => 'Payer maintenant',
     ],
 
 ];

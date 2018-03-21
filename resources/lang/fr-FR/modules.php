@@ -10,29 +10,33 @@ return [
     'free'                  => 'GRATUIT',
     'install'               => 'Installation',
     'buy_now'               => 'Acheter maintenant',
-    'faq'                   => 'FAQ',
-    'changelog'             => 'Notes de version',
-    'installed'             => 'Installé',
-    'uninstalled'           => 'Désinstallé',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Cliquez ici</a> pour obtenir votre jeton de l\'API.',
+    'no_apps'               => 'Il n’y a pas encore d\'application dans cette catégorie.',
+    'developer'             => 'Vous êtes développeur ? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank"> ici</a> vous pouvez apprendre à créer une application et commencer à la vendre  !',
 
-    'enabled'               => ':module app activé',
-    'disabled'              => ':module app désactivé',
+    'about'                 => 'A propos',
 
-    'installation' => [
-        'header'            => 'Installation d\'un module',
-        'start'             => 'installation de :module.',
-        'download'          => 'Téléchargement du :module.',
-        'unzip'             => 'Extraction des fichiers :module.',
-        'install'           => 'Envoi des fichiers :module.',
+    'added'                 => 'Ajouté',
+    'updated'               => 'Mis à jour',
+    'compatibility'         => 'Compatibilité',
+
+    'installed'             => ':module installé',
+    'uninstalled'           => ':module désinstallé',
+    //'updated'               => ':module updated',
+    'enabled'               => ':module activé',
+    'disabled'              => ':module désactivé',
+
+    'tab' => [
+        'installation'      => 'Installation',
+        'faq'               => 'FAQ',
+        'changelog'         => 'Historique des modifications',
     ],
 
-    'history' => [
-        'installed'         => ':module installé',
-        'uninstalled'       => ':module désinstallé',
-        'updated'           => ':module mis à jour',
-        'enabled'           => ':module activé',
-        'disabled'          => ':module désactivé',
+    'installation' => [
+        'header'            => 'Installation d\'une application',
+        'download'          => 'Téléchargement du :module.',
+        'unzip'             => 'Extraction des fichiers :module.',
+        'install'           => 'Installation des fichiers du module :module.',
     ],
 
     'button' => [

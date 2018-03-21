@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Incomes;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Income\Customer as Request;
+use Illuminate\Http\Request as FRequest;
 use App\Models\Auth\User;
 use App\Models\Income\Customer;
 use App\Models\Setting\Currency;
@@ -240,5 +241,29 @@ class Customers extends Controller
         $customer = Customer::create($request->all());
 
         return response()->json($customer);
+    }
+
+    public function field(FRequest $request)
+    {
+        $html = '';
+
+        if ($request['fields']) {
+            foreach ($request['fields'] as $field) {
+                switch ($field) {
+                    case 'password':
+                        $html .= \Form::passwordGroup('password', trans('auth.password.current'), 'key', [], null, 'col-md-6 password');
+                        break;
+                    case 'password_confirmation':
+                        $html .= \Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], null, 'col-md-6 password');
+                        break;
+                }
+            }
+        }
+
+        $json = [
+            'html' => $html
+        ];
+
+        return response()->json($json);
     }
 }

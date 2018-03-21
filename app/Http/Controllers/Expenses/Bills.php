@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Expenses;
 
 use App\Events\BillCreated;
+//use App\Events\BillPrinting;
 use App\Events\BillUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Bill as Request;
@@ -19,12 +20,16 @@ use App\Models\Item\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
+use App\Models\Common\Media;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
 use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
+use File;
+use Image;
+use Storage;
 
 class Bills extends Controller
 {
@@ -180,6 +185,9 @@ class Bills extends Controller
                 $bill_item['tax_id'] = $tax_id;
                 $bill_item['total'] = $item['price'] * $item['quantity'];
 
+                BillItem::create($bill_item);
+
+                // Set taxes
                 if (isset($tax_object)) {
                     if (array_key_exists($tax_object->id, $taxes)) {
                         $taxes[$tax_object->id]['amount'] += $tax;
@@ -191,10 +199,11 @@ class Bills extends Controller
                     }
                 }
 
+                // Calculate totals
                 $tax_total += $tax;
                 $sub_total += $bill_item['total'];
 
-                BillItem::create($bill_item);
+                unset($tax_object);
             }
         }
 
@@ -202,43 +211,8 @@ class Bills extends Controller
 
         $bill->update($request->input());
 
-        // Added bill total sub total
-        BillTotal::create([
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'sub_total',
-            'name' => 'bills.sub_total',
-            'amount' => $sub_total,
-            'sort_order' => 1,
-        ]);
-
-        $sort_order = 2;
-
-        // Added bill total taxes
-        if ($taxes) {
-            foreach ($taxes as $tax) {
-                BillTotal::create([
-                    'company_id' => $request['company_id'],
-                    'bill_id' => $bill->id,
-                    'code' => 'tax',
-                    'name' => $tax['name'],
-                    'amount' => $tax['amount'],
-                    'sort_order' => $sort_order,
-                ]);
-
-                $sort_order++;
-            }
-        }
-
-        // Added bill total total
-        BillTotal::create([
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'total',
-            'name' => 'bills.total',
-            'amount' => $sub_total + $tax_total,
-            'sort_order' => $sort_order,
-        ]);
+        // Add bill totals
+        $this->addTotals($bill, $request, $taxes, $sub_total, $tax_total);
 
         // Add bill history
         BillHistory::create([
@@ -356,8 +330,6 @@ class Bills extends Controller
         $request['currency_code'] = $currency->code;
         $request['currency_rate'] = $currency->rate;
 
-        $request['amount'] = 0;
-
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
@@ -416,41 +388,7 @@ class Bills extends Controller
             }
         }
 
-        BillTotal::where('bill_id', $bill->id)->delete();
-
-        // Added bill total sub total
-        $bill_sub_total = [
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'sub_total',
-            'name' => 'bills.sub_total',
-            'amount' => $sub_total,
-            'sort_order' => 1,
-        ];
-
-        BillTotal::create($bill_sub_total);
-
-        $sort_order = 2;
-
-        // Added bill total taxes
-        if ($taxes) {
-            foreach ($taxes as $tax) {
-                $bill_tax_total = [
-                    'company_id' => $request['company_id'],
-                    'bill_id' => $bill->id,
-                    'code' => 'tax',
-                    'name' => $tax['name'],
-                    'amount' => $tax['amount'],
-                    'sort_order' => $sort_order,
-                ];
-
-                BillTotal::create($bill_tax_total);
-
-                $sort_order++;
-            }
-        }
-
-        $request['amount'] += $sub_total + $tax_total;
+        $request['amount'] = $sub_total + $tax_total;
 
         $bill->update($request->input());
 
@@ -461,17 +399,11 @@ class Bills extends Controller
             $bill->attachMedia($media, 'attachment');
         }
 
-        // Added bill total total
-        $bill_total = [
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'total',
-            'name' => 'bills.total',
-            'amount' => $sub_total + $tax_total,
-            'sort_order' => $sort_order,
-        ];
+        // Delete previous bill totals
+        BillTotal::where('bill_id', $bill->id)->delete();
 
-        BillTotal::create($bill_total);
+        // Add bill totals
+        $this->addTotals($bill, $request, $taxes, $sub_total, $tax_total);
 
         // Fire the event to make it extendible
         event(new BillUpdated($bill));
@@ -538,17 +470,11 @@ class Bills extends Controller
      */
     public function printBill(Bill $bill)
     {
-        $paid = 0;
+        $bill = $this->prepareBill($bill);
 
-        foreach ($bill->payments as $item) {
-            $item->default_currency_code = $bill->currency_code;
+        $logo = $this->getLogo($bill);
 
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $bill->paid = $paid;
-
-        return view('expenses.bills.bill', compact('bill'));
+        return view($bill->template_path, compact('bill', 'logo'));
     }
 
     /**
@@ -560,22 +486,16 @@ class Bills extends Controller
      */
     public function pdfBill(Bill $bill)
     {
-        $paid = 0;
+        $bill = $this->prepareBill($bill);
 
-        foreach ($bill->payments as $item) {
-            $item->default_currency_code = $bill->currency_code;
+        $logo = $this->getLogo($bill);
 
-            $paid += $item->getDynamicConvertedAmount();
-        }
-
-        $bill->paid = $paid;
-
-        $html = view('expenses.bills.bill', compact('bill'))->render();
+        $html = view($bill->template_path, compact('bill', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file_name = 'bill_'.time().'.pdf';
+        $file_name = 'bill_' . time() . '.pdf';
 
         return $pdf->download($file_name);
     }
@@ -669,13 +589,28 @@ class Bills extends Controller
     {
         $bill = Bill::find($payment->bill_id);
 
+        $status = 'received';
+
         if ($bill->payments()->count() > 1) {
             $bill->bill_status_code = 'partial';
-        } else {
-            $bill->bill_status_code = 'draft';
         }
 
+        $bill->bill_status_code = $status;
+
         $bill->save();
+
+        $desc_amount = money((float) $payment->amount, (string) $payment->currency_code, true)->format();
+
+        $description = $desc_amount . ' ' . trans_choice('general.payments', 1);
+
+        // Add invoice history
+        BillHistory::create([
+            'company_id' => $bill->company_id,
+            'invoice_id' => $bill->id,
+            'status_code' => $status,
+            'notify' => 0,
+            'description' => trans('messages.success.deleted', ['type' => $description]),
+        ]);
 
         $payment->delete();
 
@@ -684,5 +619,102 @@ class Bills extends Controller
         flash($message)->success();
 
         return redirect()->back();
+    }
+
+    protected function prepareBill(Bill $bill)
+    {
+        $paid = 0;
+
+        foreach ($bill->payments as $item) {
+            $item->default_currency_code = $bill->currency_code;
+
+            $paid += $item->getDynamicConvertedAmount();
+        }
+
+        $bill->paid = $paid;
+
+        $bill->template_path = 'expenses.bills.bill';
+
+        //event(new BillPrinting($bill));
+
+        return $bill;
+    }
+
+    protected function addTotals($bill, $request, $taxes, $sub_total, $tax_total)
+    {
+        $sort_order = 1;
+
+        // Added bill total sub total
+        BillTotal::create([
+            'company_id' => $request['company_id'],
+            'bill_id' => $bill->id,
+            'code' => 'sub_total',
+            'name' => 'bills.sub_total',
+            'amount' => $sub_total,
+            'sort_order' => $sort_order,
+        ]);
+
+        $sort_order++;
+
+        // Added bill total taxes
+        if ($taxes) {
+            foreach ($taxes as $tax) {
+                BillTotal::create([
+                    'company_id' => $request['company_id'],
+                    'bill_id' => $bill->id,
+                    'code' => 'tax',
+                    'name' => $tax['name'],
+                    'amount' => $tax['amount'],
+                    'sort_order' => $sort_order,
+                ]);
+
+                $sort_order++;
+            }
+        }
+
+        // Added bill total total
+        BillTotal::create([
+            'company_id' => $request['company_id'],
+            'bill_id' => $bill->id,
+            'code' => 'total',
+            'name' => 'bills.total',
+            'amount' => $sub_total + $tax_total,
+            'sort_order' => $sort_order,
+        ]);
+    }
+
+    protected function getLogo($bill)
+    {
+        $logo = '';
+
+        $media_id = setting('general.company_logo');
+
+        if (isset($bill->vendor->logo) && !empty($bill->vendor->logo->id)) {
+            $media_id = $bill->vendor->logo->id;
+        }
+
+        $media = Media::find($media_id);
+
+        if (!empty($media)) {
+            $path = Storage::path($media->getDiskPath());
+
+            if (!is_file($path)) {
+                return $logo;
+            }
+        } else {
+            $path = asset('public/img/company.png');
+        }
+
+        $image = Image::make($path)->encode()->getEncoded();
+
+        if (empty($image)) {
+            return $logo;
+        }
+
+        $extension = File::extension($path);
+
+        $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
+
+        return $logo;
     }
 }

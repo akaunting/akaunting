@@ -8,11 +8,11 @@ use App\Traits\DateTime;
 use App\Traits\Incomes;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use Plank\Mediable\Mediable;
+use App\Traits\Media;
 
 class Invoice extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Mediable;
+    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media;
 
     protected $table = 'invoices';
 
@@ -37,7 +37,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    public $sortable = ['invoice_number', 'customer_name', 'amount', 'status' , 'invoiced_at', 'due_at'];
+    public $sortable = ['invoice_number', 'customer_name', 'amount', 'status' , 'invoiced_at', 'due_at', 'invoice_status_code'];
 
     /**
      * Searchable rules.
@@ -108,7 +108,17 @@ class Invoice extends Model
 
     public function scopeAccrued($query)
     {
-        return $query->where('invoice_status_code', '!=', 'draft');
+        return $query->where('invoice_status_code', '<>', 'draft');
+    }
+
+    public function scopePaid($query)
+    {
+        return $query->where('invoice_status_code', '=', 'paid');
+    }
+
+    public function scopeNotPaid($query)
+    {
+        return $query->where('invoice_status_code', '<>', 'paid');
     }
 
     public function onCloning($src, $child = null)

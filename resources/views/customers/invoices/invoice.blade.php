@@ -6,10 +6,8 @@
     <section class="invoice">
         <div class="row invoice-header">
             <div class="col-xs-7">
-                @if (setting('general.invoice_logo'))
-                    <img src="{{ asset(setting('general.invoice_logo')) }}" class="invoice-logo" />
-                @else
-                    <img src="{{ asset(setting('general.company_logo')) }}" class="invoice-logo" />
+                @if ($logo)
+                    <img src="{{ $logo }}" class="invoice-logo" />
                 @endif
             </div>
             <div class="col-xs-5 invoice-company">
@@ -92,7 +90,7 @@
                             </td>
                             <td class="text-center">{{ $item->quantity }}</td>
                             <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
-                            <td class="text-right">@money($item->total - $item->tax, $invoice->currency_code, true)</td>
+                            <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -114,24 +112,25 @@
                 <div class="table-responsive">
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <th style="max-width: 214px">{{ trans('invoices.sub_total') }}:</th>
-                            <td class="text-right">@money($invoice->sub_total, $invoice->currency_code, true)</td>
-                        </tr>
-                        <tr>
-                            <th>{{ trans('invoices.tax_total') }}:</th>
-                            <td class="text-right">@money($invoice->tax_total, $invoice->currency_code, true)</td>
-                        </tr>
-                        @if($invoice->paid)
-                            <tr>
-                                <th>{{ trans('invoices.paid') }}:</th>
-                                <td class="text-right">@money('-' . $invoice->paid, $invoice->currency_code, true)</td>
-                            </tr>
-                        @endif
-                        <tr>
-                            <th>{{ trans('invoices.total') }}:</th>
-                            <td class="text-right">@money($invoice->grand_total, $invoice->currency_code, true)</td>
-                        </tr>
+                        @foreach($invoice->totals as $total)
+                            @if($total->code != 'total')
+                                <tr>
+                                    <th>{{ trans($total['name']) }}:</th>
+                                    <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                                </tr>
+                            @else
+                                @if ($invoice->paid)
+                                    <tr class="text-success">
+                                        <th>{{ trans('invoices.paid') }}:</th>
+                                        <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <th>{{ trans($total['name']) }}:</th>
+                                    <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
+                                </tr>
+                            @endif
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

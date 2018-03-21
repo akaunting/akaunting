@@ -221,6 +221,9 @@
                 company_logo_html += '    <a id="remove-company_logo" href="javascript:void();">';
                 company_logo_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
                 company_logo_html += '    </a>';
+                company_logo_html += '    <input type="hidden" name="page" value="setting" />';
+                company_logo_html += '    <input type="hidden" name="key" value="general.company_logo" />';
+                company_logo_html += '    <input type="hidden" name="value" value="{{ $setting['company_logo']->id }}" />';
                 company_logo_html += '    {!! Form::close() !!}';
                 company_logo_html += '</span>';
     
@@ -252,6 +255,9 @@
                 invoice_logo_html += '    <a id="remove-invoice_logo" href="javascript:void();">';
                 invoice_logo_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
                 invoice_logo_html += '    </a>';
+                invoice_logo_html += '    <input type="hidden" name="page" value="setting" />';
+                invoice_logo_html += '    <input type="hidden" name="key" value="general.invoice_logo" />';
+                invoice_logo_html += '    <input type="hidden" name="value" value="{{ $setting['invoice_logo']->id }}" />';
                 invoice_logo_html += '    {!! Form::close() !!}';
                 invoice_logo_html += '</span>';
 

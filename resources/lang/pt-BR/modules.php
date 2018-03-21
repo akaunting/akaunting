@@ -10,29 +10,33 @@ return [
     'free'                  => 'Gratis',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar Agora',
-    'faq'                   => 'FAQ',
-    'changelog'             => 'Changelog',
-    'installed'             => 'Instalado',
-    'uninstalled'           => 'Desinstalado',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Clique aqui</a> para obter o token de sua API.',
+    'no_apps'               => 'There are no apps in this category, yet.',
+    'developer'             => 'Are you a developer? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Here</a> you can learn how to create an app and start selling today!',
 
-    'enabled'               => ':module app enabled',
-    'disabled'              => ':module app disabled',
+    'about'                 => 'About',
 
-    'installation' => [
-        'header'            => 'Instalação do Módulo',
-        'start'             => 'Instalando :module.',
-        'download'          => 'Baixando arquivos do módulo :module.',
-        'unzip'             => 'Extraindo arquivos do módulo :module.',
-        'install'           => 'Atualizando arquivos do módulo :module.',
+    'added'                 => 'Added',
+    'updated'               => 'Updated',
+    'compatibility'         => 'Compatibility',
+
+    'installed'             => ':module installed',
+    'uninstalled'           => ':module uninstalled',
+    //'updated'               => ':module updated',
+    'enabled'               => ':module enabled',
+    'disabled'              => ':module disabled',
+
+    'tab' => [
+        'installation'      => 'Installation',
+        'faq'               => 'FAQ',
+        'changelog'         => 'Changelog',
     ],
 
-    'history' => [
-        'installed'         => ':module instalado',
-        'uninstalled'       => ':module removido',
-        'updated'           => ':module atualizado',
-        'enabled'           => ':module ativado',
-        'disabled'          => ':module desativado',
+    'installation' => [
+        'header'            => 'App Installation',
+        'download'          => 'Baixando arquivos do módulo :module.',
+        'unzip'             => 'Extraindo arquivos do módulo :module.',
+        'install'           => 'Installing :module files.',
     ],
 
     'button' => [

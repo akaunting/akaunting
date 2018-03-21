@@ -43,9 +43,14 @@ class Item extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        $message = (new MailMessage)
             ->line(trans('items.notification.message', ['name' => $this->item->name]))
             ->action(trans('items.notification.button'), url('items/items', $this->item->id, true));
+
+        // Override per company as Laravel doesn't read config
+        $message->from(config('mail.from.address'), config('mail.from.name'));
+
+        return $message;
     }
 
     /**

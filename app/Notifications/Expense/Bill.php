@@ -46,9 +46,14 @@ class Bill extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        $message = (new MailMessage)
             ->line('You are receiving this email because you have an upcoming ' . money($this->bill->amount, $this->bill->currency_code, true) . ' bill to ' . $this->bill->vendor_name . ' vendor.')
             ->action('Add Payment', url('expenses/bills', $this->bill->id, true));
+
+        // Override per company as Laravel doesn't read config
+        $message->from(config('mail.from.address'), config('mail.from.name'));
+
+        return $message;
     }
 
     /**

@@ -12,8 +12,8 @@ use App\Models\Common\Media;
 use App\Models\Setting\Tax;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
+use App\Utilities\Installer;
 use App\Utilities\Modules;
-use DotenvEditor;
 
 class Settings extends Controller
 {
@@ -136,12 +136,9 @@ class Settings extends Controller
             // Change default locale if only 1 company
             if (($key == 'default_locale') && ($companies == 1)) {
                 // Update .env file
-                DotenvEditor::setKeys([
-                    [
-                        'key'       => 'APP_LOCALE',
-                        'value'     => $value,
-                    ],
-                ])->save();
+                Installer::updateEnv([
+                    'APP_LOCALE'    =>  $value
+                ]);
             }
 
             setting()->set('general.' . $key, $value);

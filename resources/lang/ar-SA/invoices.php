@@ -37,8 +37,9 @@ return [
     ],
 
     'messages' => [
-        'email_sent'    => 'تم ارسال الفاتورة بنجاح!',
-        'marked_sent'   => 'تم تحديد الفاتورة كفاتورة مرسلة بنجاح!',
+        'email_sent'     => 'تم ارسال الفاتورة بنجاح!',
+        'marked_sent'    => 'تم تحديد الفاتورة كفاتورة مرسلة بنجاح!',
+        'email_required' => 'No email address for this customer!',
     ],
 
     'notification' => [

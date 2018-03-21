@@ -21,7 +21,6 @@
         "fideloper/proxy": "3.3.*",
         "guzzlehttp/guzzle": "6.3.*",
         "intervention/image": "2.3.*",
-        "jackiedo/dotenv-editor": "1.*",
         "jenssegers/date": "3.2.*",
         "kyslik/column-sortable": "5.4.*",
         "laracasts/flash": "3.0.*",
