@@ -669,7 +669,7 @@ class Invoices extends Controller
         }
 
         if ($amount > $total_amount) {
-            $message = trans('messages.error.payment_add');
+            $message = trans('messages.error.over_payment');
 
             return response()->json([
                 'success' => false,
