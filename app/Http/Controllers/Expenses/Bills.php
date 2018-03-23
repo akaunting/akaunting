@@ -589,13 +589,11 @@ class Bills extends Controller
     {
         $bill = Bill::find($payment->bill_id);
 
-        $status = 'received';
-
         if ($bill->payments()->count() > 1) {
             $bill->bill_status_code = 'partial';
+        } else {
+            $bill->bill_status_code = 'received';
         }
-
-        $bill->bill_status_code = $status;
 
         $bill->save();
 
@@ -603,11 +601,11 @@ class Bills extends Controller
 
         $description = $desc_amount . ' ' . trans_choice('general.payments', 1);
 
-        // Add invoice history
+        // Add bill history
         BillHistory::create([
             'company_id' => $bill->company_id,
-            'invoice_id' => $bill->id,
-            'status_code' => $status,
+            'bill_id' => $bill->id,
+            'status_code' => $bill->bill_status_code,
             'notify' => 0,
             'description' => trans('messages.success.deleted', ['type' => $description]),
         ]);

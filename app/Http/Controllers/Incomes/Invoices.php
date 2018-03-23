@@ -722,13 +722,11 @@ class Invoices extends Controller
     {
         $invoice = Invoice::find($payment->invoice_id);
 
-        $status = 'sent';
-
         if ($invoice->payments()->count() > 1) {
-            $status = 'partial';
+            $invoice->invoice_status_code = 'partial';
+        } else {
+            $invoice->invoice_status_code = 'sent';
         }
-
-        $invoice->invoice_status_code = $status;
 
         $invoice->save();
 
@@ -740,7 +738,7 @@ class Invoices extends Controller
         InvoiceHistory::create([
             'company_id' => $invoice->company_id,
             'invoice_id' => $invoice->id,
-            'status_code' => $status,
+            'status_code' => $invoice->invoice_status_code,
             'notify' => 0,
             'description' => trans('messages.success.deleted', ['type' => $description]),
         ]);
