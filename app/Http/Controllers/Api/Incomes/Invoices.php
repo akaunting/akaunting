@@ -36,11 +36,18 @@ class Invoices extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Invoice  $invoice
+     * @param  $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show(Invoice $invoice)
+    public function show($id)
     {
+        // Check if we're querying by id or number
+        if (is_numeric($id)) {
+            $invoice = Invoice::find($id);
+        } else {
+            $invoice = Invoice::where('invoice_number', $id)->first();
+        }
+
         return $this->response->item($invoice, new Transformer());
     }
 
