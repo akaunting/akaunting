@@ -37,8 +37,8 @@
                         <th class="col-md-3">@sortablelink('name', trans('general.name'))</th>
                         <th class="col-md-1 hidden-xs">@sortablelink('category', trans_choice('general.categories', 1))</th>
                         <th class="col-md-1 hidden-xs">@sortablelink('quantity', trans_choice('items.quantities', 1))</th>
-                        <th class="col-md-2">@sortablelink('sale_price', trans('items.sales_price'))</th>
-                        <th class="col-md-2 hidden-xs">@sortablelink('purchase_price', trans('items.purchase_price'))</th>
+                        <th class="col-md-2 text-right amount-space">@sortablelink('sale_price', trans('items.sales_price'))</th>
+                        <th class="col-md-2 hidden-xs text-right amount-space">@sortablelink('purchase_price', trans('items.purchase_price'))</th>
                         <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
@@ -50,8 +50,8 @@
                         <td><a href="{{ url('items/items/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
                         <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
                         <td class="hidden-xs">{{ $item->quantity }}</td>
-                        <td>{{ money($item->sale_price, setting('general.default_currency'), true) }}</td>
-                        <td class="hidden-xs">{{ money($item->purchase_price, setting('general.default_currency'), true) }}</td>
+                        <td class="text-right amount-space">{{ money($item->sale_price, setting('general.default_currency'), true) }}</td>
+                        <td class="hidden-xs text-right amount-space">{{ money($item->purchase_price, setting('general.default_currency'), true) }}</td>
                         <td class="hidden-xs">
                             @if ($item->enabled)
                                 <span class="label label-success">{{ trans('general.enabled') }}</span>
