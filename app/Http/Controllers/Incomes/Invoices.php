@@ -702,7 +702,7 @@ class Invoices extends Controller
 
         InvoiceHistory::create($request->input());
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
+        $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
         return response()->json([
             'success' => true,
