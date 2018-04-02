@@ -220,9 +220,9 @@
                             <tbody>
                             @foreach($bill->histories as $history)
                                 <tr>
-                                    <td>{{ Date::parse($bill->created_at)->format($date_format) }}</td>
-                                    <td>{{ $bill->status->name }}</td>
-                                    <td>{{ $bill->description }}</td>
+                                    <td>{{ Date::parse($history->created_at)->format($date_format) }}</td>
+                                    <td>{{ $history->status->name }}</td>
+                                    <td>{{ $history->description }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
