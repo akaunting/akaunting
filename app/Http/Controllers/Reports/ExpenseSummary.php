@@ -91,6 +91,15 @@ class ExpenseSummary extends Controller
             $this->setAmount($expenses_graph, $totals, $expenses, $payments, 'payment', 'paid_at');
         }
 
+        // Check if it's a print or normal request
+        if (request('print')) {
+            $chart_template = 'vendor.consoletvs.charts.chartjs.multi.line_print';
+            $view_template = 'reports.expense_summary.print';
+        } else {
+            $chart_template = 'vendor.consoletvs.charts.chartjs.multi.line';
+            $view_template = 'reports.expense_summary.index';
+        }
+
         // Expenses chart
         $chart = Charts::multi('line', 'chartjs')
             ->dimensions(0, 300)
@@ -98,12 +107,12 @@ class ExpenseSummary extends Controller
             ->dataset(trans_choice('general.expenses', 1), $expenses_graph)
             ->labels($dates)
             ->credits(false)
-            ->view('vendor.consoletvs.charts.chartjs.multi.line');
+            ->view($chart_template);
 
         // Expenses Graph
         $expenses_graph = json_encode($expenses_graph);
 
-        return view('reports.expense_summary.index', compact('chart', 'dates', 'categories', 'expenses', 'totals'));
+        return view($view_template, compact('chart', 'dates', 'categories', 'expenses', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$expenses, $items, $type, $date_field)

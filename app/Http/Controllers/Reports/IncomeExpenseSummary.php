@@ -141,6 +141,15 @@ class IncomeExpenseSummary extends Controller
             $this->setAmount($profit_graph, $totals, $compares, $payments, 'payment', 'paid_at');
         }
 
+        // Check if it's a print or normal request
+        if (request('print')) {
+            $chart_template = 'vendor.consoletvs.charts.chartjs.multi.line_print';
+            $view_template = 'reports.income_expense_summary.print';
+        } else {
+            $chart_template = 'vendor.consoletvs.charts.chartjs.multi.line';
+            $view_template = 'reports.income_expense_summary.index';
+        }
+
         // Profit chart
         $chart = Charts::multi('line', 'chartjs')
             ->dimensions(0, 300)
@@ -148,9 +157,9 @@ class IncomeExpenseSummary extends Controller
             ->dataset(trans_choice('general.profits', 1), $profit_graph)
             ->labels($dates)
             ->credits(false)
-            ->view('vendor.consoletvs.charts.chartjs.multi.line');
+            ->view($chart_template);
 
-        return view('reports.income_expense_summary.index', compact('chart', 'dates', 'income_categories', 'expense_categories', 'compares', 'totals'));
+        return view($view_template, compact('chart', 'dates', 'income_categories', 'expense_categories', 'compares', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$compares, $items, $type, $date_field)
