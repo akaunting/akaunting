@@ -515,6 +515,10 @@ ul.add-new.nav.navbar-nav.pull-left {
     opacity: 0.4;
 }
 
+.print-width {
+    max-width: 1500px;
+}
+
 /*
 .tooltip > .tooltip-inner {
     background-color: #6da252;

@@ -2,6 +2,10 @@
 
 @section('title', trans('reports.summary.expense'))
 
+@section('new_button')
+<span class="new-button"><a href="{{ url('reports/expense-summary') }}?print=1&status={{ request('status') }}&year={{ request('year', $this_year) }}" target="_blank" class="btn btn-success btn-sm"><span class="fa fa-print"></span> &nbsp;{{ trans('general.print') }}</a></span>
+@endsection
+
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
@@ -17,55 +21,8 @@
         </div>
         {!! Form::close() !!}
     </div>
-    <div class="box-body">
-        {!! $chart->render() !!}
 
-        <hr>
-
-        <div class="table table-responsive">
-            <table class="table table-bordered table-striped table-hover" id="tbl-report-expenses">
-                <thead>
-                <tr>
-                    <th>{{ trans_choice('general.categories', 1) }}</th>
-                    @foreach($dates as $date)
-                    <th class="text-right">{{ $date }}</th>
-                    @endforeach
-                </tr>
-                </thead>
-                <tbody>
-                @if ($expenses)
-                @foreach($expenses as $category_id =>  $category)
-                    <tr>
-                        <td>{{ $categories[$category_id] }}</td>
-                        @foreach($category as $item)
-                        <td class="text-right">@money($item['amount'], $item['currency_code'], true)</td>
-                        @endforeach
-                    </tr>
-                @endforeach
-                @else
-                    <tr>
-                        <td colspan="4">
-                            <h5 class="text-center">{{ trans('general.no_records') }}</h5>
-                        </td>
-                    </tr>
-                @endif
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>{{ trans_choice('general.totals', 1) }}</th>
-                        @foreach($totals as $total)
-                        <th class="text-right">@money($total['amount'], $total['currency_code'], true)</th>
-                        @endforeach
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-    <!-- /.box-body -->
+    @include('reports.expense_summary.body')
 </div>
 <!-- /.box -->
 @endsection
-
-@push('js')
-{!! Charts::assets() !!}
-@endpush
