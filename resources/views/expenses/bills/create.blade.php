@@ -197,7 +197,7 @@
                 $(this).typeahead({
                     minLength: 3,
                     displayText:function (data) {
-                        return data.name;
+                        return data.name + ' (' + data.sku + ')';
                     },
                     source: function (query, process) {
                         $.ajax({
