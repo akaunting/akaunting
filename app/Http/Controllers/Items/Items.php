@@ -195,9 +195,10 @@ class Items extends Controller
 
         $currency = Currency::where('code', $currency_code)->first();
 
-        $filter_data = array(
-            'name' => $query
-        );
+        $filter_data = [
+            'name' => $query,
+            'sku' => $query,
+        ];
 
         $items = Item::getItems($filter_data);
 

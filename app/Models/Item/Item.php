@@ -87,13 +87,15 @@ class Item extends Model
             return Item::all();
         }
 
-        $query = Item::select('id as item_id', 'name', 'sale_price', 'purchase_price', 'tax_id');
+        $query = Item::select('id as item_id', 'name', 'sku', 'sale_price', 'purchase_price', 'tax_id');
 
         $query->where('quantity', '>', '0');
 
-        foreach ($filter_data as $key => $value) {
-            $query->where($key, 'LIKE', "%" . $value  . "%");
-        }
+        $query->where(function ($query) use ($filter_data) {
+            foreach ($filter_data as $key => $value) {
+                $query->orWhere($key, 'LIKE', "%" . $value  . "%");
+            }
+        });
 
         return $query->get();
     }

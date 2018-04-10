@@ -159,6 +159,7 @@ class Bills extends Controller
                 if (!empty($item['item_id'])) {
                     $item_object = Item::find($item['item_id']);
 
+                    $item['name'] = $item_object->name;
                     $item_sku = $item_object->sku;
 
                     // Increase stock (item bought)
@@ -348,6 +349,7 @@ class Bills extends Controller
                 if (!empty($item['item_id'])) {
                     $item_object = Item::find($item['item_id']);
 
+                    $item['name'] = $item_object->name;
                     $item_sku = $item_object->sku;
                 }
 
