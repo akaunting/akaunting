@@ -63,7 +63,9 @@ class Categories extends Controller
      */
     public function edit(Category $category)
     {
-        return view('settings.categories.edit', compact('category'));
+        $transfer_id = Category::transfer();
+
+        return view('settings.categories.edit', compact('category', 'transfer_id'));
     }
 
     /**
