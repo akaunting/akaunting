@@ -115,7 +115,7 @@ class IncomeExpenseSummary extends Controller
 
         // Revenues
         if ($status != 'upcoming') {
-            $revenues = Revenue::monthsOfYear('paid_at')->get();
+            $revenues = Revenue::monthsOfYear('paid_at')->isNotTransfer()->get();
             $this->setAmount($profit_graph, $totals, $compares, $revenues, 'revenue', 'paid_at');
         }
 
@@ -137,7 +137,7 @@ class IncomeExpenseSummary extends Controller
         
         // Payments
         if ($status != 'upcoming') {
-            $payments = Payment::monthsOfYear('paid_at')->get();
+            $payments = Payment::monthsOfYear('paid_at')->isNotTransfer()->get();
             $this->setAmount($profit_graph, $totals, $compares, $payments, 'payment', 'paid_at');
         }
 

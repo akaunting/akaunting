@@ -87,7 +87,7 @@ class IncomeSummary extends Controller
 
         // Revenues
         if ($status != 'upcoming') {
-            $revenues = Revenue::monthsOfYear('paid_at')->get();
+            $revenues = Revenue::monthsOfYear('paid_at')->isNotTransfer()->get();
             $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
         }
 

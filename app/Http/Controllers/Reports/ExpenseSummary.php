@@ -87,7 +87,7 @@ class ExpenseSummary extends Controller
 
         // Payments
         if ($status != 'upcoming') {
-            $payments = Payment::monthsOfYear('paid_at')->get();
+            $payments = Payment::monthsOfYear('paid_at')->isNotTransfer()->get();
             $this->setAmount($expenses_graph, $totals, $expenses, $payments, 'payment', 'paid_at');
         }
 
