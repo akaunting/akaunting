@@ -107,6 +107,8 @@ class ProfitLoss extends Controller
             'currency_rate' => 1
         ];
 
+        $gross['income'] = $gross['expense'] = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 'total' => 0];
+
         foreach ($income_categories as $category_id => $category_name) {
             $compares['income'][$category_id]['total'] = [
                 'category_id' => $category_id,
@@ -186,7 +188,7 @@ class ProfitLoss extends Controller
             $view_template = 'reports.profit_loss.index';
         }
 
-        return view($view_template, compact('dates', 'income_categories', 'expense_categories', 'compares', 'totals'));
+        return view($view_template, compact('dates', 'income_categories', 'expense_categories', 'compares', 'totals', 'gross'));
     }
 
     private function setAmount(&$totals, &$compares, $items, $type, $date_field)
