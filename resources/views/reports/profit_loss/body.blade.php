@@ -1,6 +1,6 @@
 <div class="box-body">
     <div class="table table-responsive">
-        <table class="table" id="tbl-payments">
+        <table class="table" id="tbl-profit-loss">
             <thead>
             <tr>
                 <th class="col-md-2">&nbsp;</th>
