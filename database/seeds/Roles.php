@@ -61,6 +61,7 @@ class Roles extends Seeder
                 'reports-income-summary' => 'r',
                 'reports-expense-summary' => 'r',
                 'reports-income-expense-summary' => 'r',
+                'reports-profit-loss' => 'r',
             ],
             'manager' => [
                 'admin-panel' => 'r',
@@ -87,6 +88,7 @@ class Roles extends Seeder
                 'reports-income-summary' => 'r',
                 'reports-expense-summary' => 'r',
                 'reports-income-expense-summary' => 'r',
+                'reports-profit-loss' => 'r',
             ],
             'customer' => [
                 'customer-panel' => 'r',
