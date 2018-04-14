@@ -10,7 +10,6 @@ return [
     'profit_loss'           => 'Profit & Loss',
     'gross_profit'          => 'Gross Profit',
     'net_profit'            => 'Net Profit',
-    'less_expenses'         => 'Less Expenses',
     'total_expenses'        => 'Total Expenses',
 
     'summary' => [
