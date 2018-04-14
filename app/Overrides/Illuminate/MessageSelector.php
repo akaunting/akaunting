@@ -116,6 +116,7 @@ class MessageSelector
             case 'bo':
             case 'dz':
             case 'id':
+            case 'id-ID':
             case 'ja':
             case 'jv':
             case 'ka':
@@ -126,14 +127,18 @@ class MessageSelector
             case 'th':
             case 'tr':
             case 'vi':
+            case 'vi-VN':
             case 'zh':
+            case 'zh-TW':
                 return 0;
                 break;
             case 'af':
             case 'bn':
             case 'bg':
+            case 'bg-BG':
             case 'ca':
             case 'da':
+            case 'da-DK':
             case 'de':
             case 'de-DE':
             case 'el':
@@ -145,6 +150,7 @@ class MessageSelector
             case 'eo':
             case 'es':
             case 'es-ES':
+            case 'es-MX':
             case 'et':
             case 'eu':
             case 'fa':
@@ -167,8 +173,10 @@ class MessageSelector
             case 'mr':
             case 'nah':
             case 'nb':
+            case 'nb-NO':
             case 'ne':
             case 'nl':
+            case 'nl-NL':
             case 'nn':
             case 'no':
             case 'om':
@@ -179,7 +187,9 @@ class MessageSelector
             case 'pt':
             case 'so':
             case 'sq':
+            case 'sq-AL':
             case 'sv':
+            case 'sv-SE':
             case 'sw':
             case 'ta':
             case 'te':
@@ -207,11 +217,14 @@ class MessageSelector
             case 'be':
             case 'bs':
             case 'hr':
+            case 'hr-HR':
             case 'ru':
+            case 'ru-RU':
             case 'sr':
             case 'uk':
                 return (($number % 10 == 1) && ($number % 100 != 11)) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
             case 'cs':
+            case 'cs-CZ':
             case 'sk':
                 return ($number == 1) ? 0 : ((($number >= 2) && ($number <= 4)) ? 1 : 2);
             case 'ga':
@@ -233,6 +246,7 @@ class MessageSelector
             case 'ro':
                 return ($number == 1) ? 0 : ((($number == 0) || (($number % 100 > 0) && ($number % 100 < 20))) ? 1 : 2);
             case 'ar':
+            case 'ar-SA':
                 return ($number == 0) ? 0 : (($number == 1) ? 1 : (($number == 2) ? 2 : ((($number % 100 >= 3) && ($number % 100 <= 10)) ? 3 : ((($number % 100 >= 11) && ($number % 100 <= 99)) ? 4 : 5))));
             default:
                 return 0;
