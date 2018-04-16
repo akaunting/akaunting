@@ -66,26 +66,26 @@ class TaxSummary extends Controller
         switch ($status) {
             case 'paid':
                 // Invoices
-                $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
+                $invoices = InvoicePayment::with(['invoice', 'invoice.totals'])->monthsOfYear('paid_at')->get();
                 $this->setAmount($incomes, $totals, $invoices, 'invoice', 'paid_at');
                 // Bills
-                $bills = BillPayment::monthsOfYear('paid_at')->get();
+                $bills = BillPayment::with(['bill', 'bill.totals'])->monthsOfYear('paid_at')->get();
                 $this->setAmount($expenses, $totals, $bills, 'bill', 'paid_at');
                 break;
             case 'upcoming':
                 // Invoices
-                $invoices = Invoice::accrued()->monthsOfYear('due_at')->get();
+                $invoices = Invoice::with(['totals'])->accrued()->monthsOfYear('due_at')->get();
                 $this->setAmount($incomes, $totals, $invoices, 'invoice', 'due_at');
                 // Bills
-                $bills = Bill::accrued()->monthsOfYear('due_at')->get();
+                $bills = Bill::with(['totals'])->accrued()->monthsOfYear('due_at')->get();
                 $this->setAmount($expenses, $totals, $bills, 'bill', 'due_at');
                 break;
             default:
                 // Invoices
-                $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
+                $invoices = Invoice::with(['totals'])->accrued()->monthsOfYear('invoiced_at')->get();
                 $this->setAmount($incomes, $totals, $invoices, 'invoice', 'invoiced_at');
                 // Bills
-                $bills = Bill::accrued()->monthsOfYear('billed_at')->get();
+                $bills = Bill::with(['totals'])->accrued()->monthsOfYear('billed_at')->get();
                 $this->setAmount($expenses, $totals, $bills, 'bill', 'billed_at');
                 break;
         }
@@ -106,11 +106,7 @@ class TaxSummary extends Controller
             $date = Date::parse($row->$date_field)->format('M');
 
             if ($date_field == 'paid_at') {
-                if (!$row->invoice instanceof Invoice) {
-                    continue;
-                }
-
-                $row_totals = $row->invoice->totals;
+                $row_totals = $row->$type->totals;
             } else {
                 $row_totals = $row->totals;
             }

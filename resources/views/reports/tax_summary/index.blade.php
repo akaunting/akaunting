@@ -13,7 +13,7 @@
         <div class="pull-left" style="margin-left: 5px">
             <a href="{{ url('reports/tax-summary') }}?year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == '') bg-green @else bg-default @endif">{{ trans('general.all') }}</span></a>
             <a href="{{ url('reports/tax-summary') }}?status=paid&year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == 'paid') bg-green @else bg-default @endif">{{ trans('invoices.paid') }}</span></a>
-            <a href="{{ url('reports/tax-summary') }}?status=upcoming&year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == 'upcoming') bg-green @else bg-default @endif">{{ trans('dashboard.receivables') }}</span></a>
+            <a href="{{ url('reports/tax-summary') }}?status=upcoming&year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == 'upcoming') bg-green @else bg-default @endif">{{ trans('general.upcoming') }}</span></a>
         </div>
         {!! Form::open(['url' => 'reports/tax-summary', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-right">
