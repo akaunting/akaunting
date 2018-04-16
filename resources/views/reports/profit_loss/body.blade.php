@@ -11,7 +11,7 @@
                 </tr>
             </thead>
         </table>
-        <table class="table" style="margin-top: 40px">
+        <table class="table table-hover" style="margin-top: 40px">
             <thead>
                 <tr>
                     <th class="col-sm-2" colspan="6">{{ trans_choice('general.incomes', 1) }}</th>
@@ -27,15 +27,17 @@
                         @endforeach
                     </tr>
                 @endforeach
+            </tbody>
+            <tfoot>
                 <tr>
                     <th class="col-sm-2">{{ trans('reports.gross_profit') }}</th>
                     @foreach($gross['income'] as $item)
                         <th class="col-sm-2 text-right">@money($item, setting('general.default_currency'), true)</th>
                     @endforeach
                 </tr>
-            </tbody>
+            </tfoot>
         </table>
-        <table class="table" style="margin-top: 40px">
+        <table class="table table-hover" style="margin-top: 40px">
             <thead>
                 <tr>
                     <th class="col-sm-2" colspan="6">{{ trans_choice('general.expenses', 2) }}</th>
@@ -51,13 +53,15 @@
                         @endforeach
                     </tr>
                 @endforeach
+            </tbody>
+            <tfoot>
                 <tr>
                     <th class="col-sm-2">{{ trans('reports.total_expenses') }}</th>
                     @foreach($gross['expense'] as $item)
                         <th class="col-sm-2 text-right">@money($item, setting('general.default_currency'), true)</th>
                     @endforeach
                 </tr>
-            </tbody>
+            </tfoot>
         </table>
         <table class="table" style="margin-top: 40px">
             <tbody>
