@@ -25,8 +25,17 @@ class Version120 extends Listener
             return;
         }
 
-        // Create permission
-        $permission = Permission::firstOrCreate([
+        $permissions = [];
+
+        // Create tax summary permission
+        $permissions[] = Permission::firstOrCreate([
+            'name' => 'read-reports-tax-summary',
+            'display_name' => 'Read Reports Tax Summary',
+            'description' => 'Read Reports Tax Summary',
+        ]);
+
+        // Create profit loss permission
+        $permissions[] = Permission::firstOrCreate([
             'name' => 'read-reports-profit-loss',
             'display_name' => 'Read Reports Profit Loss',
             'description' => 'Read Reports Profit Loss',
@@ -42,7 +51,9 @@ class Version120 extends Listener
                 continue;
             }
 
-            $role->attachPermission($permission);
+            foreach ($permissions as $permission) {
+                $role->attachPermission($permission);
+            }
         }
     }
 }
