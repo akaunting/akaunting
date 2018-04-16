@@ -14,7 +14,7 @@
         <div class="box-body">
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
-            {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
+            {{ Form::numberGroup('rate', trans('taxes.rate'), 'percent') }}
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
         </div>

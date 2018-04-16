@@ -16,7 +16,7 @@
 
             {{ Form::selectGroup('to_account_id', trans('transfers.to_account'), 'university', $accounts) }}
 
-            {{ Form::textGroup('amount', trans('general.amount'), 'money') }}
+            {{ Form::numberGroup('amount', trans('general.amount'), 'money') }}
 
             {{ Form::textGroup('transferred_at', trans('general.date'), 'calendar',['id' => 'transferred_at', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => ''], Date::now()->toDateString()) }}
 

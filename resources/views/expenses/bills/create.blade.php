@@ -55,10 +55,10 @@
                                 <input name="item[{{ $item_row }}][item_id]" type="hidden" id="item-id-{{ $item_row }}">
                             </td>
                             <td>
-                                <input class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="text" id="item-quantity-{{ $item_row }}">
+                                <input class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="number" id="item-quantity-{{ $item_row }}">
                             </td>
                             <td>
-                                <input class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
+                                <input class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="number" id="item-price-{{ $item_row }}">
                             </td>
                             <td>
                                 {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, setting('general.default_tax'), ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
@@ -127,10 +127,10 @@
             html += '      <input name="item[' + item_row + '][item_id]" type="hidden" id="item-id-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
-            html += '      <input class="form-control text-center" required="required" name="item[' + item_row + '][quantity]" type="text" id="item-quantity-' + item_row + '">';
+            html += '      <input class="form-control text-center" required="required" name="item[' + item_row + '][quantity]" type="number" id="item-quantity-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
-            html += '      <input class="form-control text-right" required="required" name="item[' + item_row + '][price]" type="text" id="item-price-' + item_row + '">';
+            html += '      <input class="form-control text-right" required="required" name="item[' + item_row + '][price]" type="number" id="item-price-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
             html += '      <select class="form-control select2" name="item[' + item_row + '][tax_id]" id="item-tax-' + item_row + '">';
@@ -255,7 +255,7 @@
                 url: '{{ url("items/items/totalItem") }}',
                 type: 'POST',
                 dataType: 'JSON',
-                data: $('#currency_code, #items input[type=\'text\'],#items input[type=\'hidden\'], #items textarea, #items select'),
+                data: $('#currency_code, #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 success: function(data) {
                     if (data) {
