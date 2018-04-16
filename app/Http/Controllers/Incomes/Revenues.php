@@ -43,6 +43,16 @@ class Revenues extends Controller
     }
 
     /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect('incomes/revenues');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response

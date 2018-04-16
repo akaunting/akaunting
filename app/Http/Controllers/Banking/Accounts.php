@@ -23,6 +23,16 @@ class Accounts extends Controller
     }
 
     /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect('banking/accounts');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
