@@ -111,7 +111,13 @@ class AdminMenu
             }
 
             // Reports
-            if ($user->can(['read-reports-income-summary', 'read-reports-expense-summary', 'read-reports-income-expense-summary', 'read-reports-profit-loss'])) {
+            if ($user->can([
+                'read-reports-income-summary',
+                'read-reports-expense-summary',
+                'read-reports-income-expense-summary',
+                'read-reports-tax-summary',
+                'read-reports-profit-loss',
+            ])) {
                 $menu->dropdown(trans_choice('general.reports', 2), function ($sub) use($user, $attr) {
                     if ($user->can('read-reports-income-summary')) {
                         $sub->url('reports/income-summary', trans('reports.summary.income'), 1, $attr);
@@ -125,8 +131,12 @@ class AdminMenu
                         $sub->url('reports/income-expense-summary', trans('reports.summary.income_expense'), 3, $attr);
                     }
 
+                    if ($user->can('read-reports-tax-summary')) {
+                        $sub->url('reports/tax-summary', trans('reports.summary.tax'), 4, $attr);
+                    }
+
                     if ($user->can('read-reports-profit-loss')) {
-                        $sub->url('reports/profit-loss', trans('reports.profit_loss'), 4, $attr);
+                        $sub->url('reports/profit-loss', trans('reports.profit_loss'), 5, $attr);
                     }
                 }, 6, [
                     'title' => trans_choice('general.reports', 2),

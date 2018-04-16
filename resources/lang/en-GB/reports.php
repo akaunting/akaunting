@@ -11,11 +11,13 @@ return [
     'gross_profit'          => 'Gross Profit',
     'net_profit'            => 'Net Profit',
     'total_expenses'        => 'Total Expenses',
+    'net'                   => 'NET',
 
     'summary' => [
         'income'            => 'Income Summary',
         'expense'           => 'Expense Summary',
         'income_expense'    => 'Income vs Expense',
+        'tax'               => 'Tax Summary',
     ],
 
     'quarter' => [
