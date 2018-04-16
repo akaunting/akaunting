@@ -87,7 +87,9 @@ class Invoices extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
+        $taxes = Tax::enabled()->get()->pluck('title', 'name');
+
+        return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'taxes'));
     }
 
     /**
@@ -103,7 +105,7 @@ class Invoices extends Controller
 
         $items = Item::enabled()->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         $number = $this->getNextInvoiceNumber();
 
@@ -322,7 +324,7 @@ class Invoices extends Controller
 
         $items = Item::enabled()->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'items', 'taxes'));
     }
@@ -511,7 +513,11 @@ class Invoices extends Controller
 
         $logo = $this->getLogo();
 
-        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
+        $taxes = collect(Tax::enabled()->get())->each(function ($item) {
+            $item->title = $item->name . ' (' . $item->rate . '%)';
+        })->pluck('title', 'name');
+
+        $html = view($invoice->template_path, compact('invoice', 'logo', 'taxes'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -567,7 +573,9 @@ class Invoices extends Controller
 
         $logo = $this->getLogo();
 
-        return view($invoice->template_path, compact('invoice', 'logo'));
+        $taxes = Tax::enabled()->get()->pluck('title', 'name');
+
+        return view($invoice->template_path, compact('invoice', 'logo', 'taxes'));
     }
 
     /**
@@ -583,7 +591,9 @@ class Invoices extends Controller
 
         $logo = $this->getLogo();
 
-        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
+        $taxes = Tax::enabled()->get()->pluck('title', 'name');
+
+        $html = view($invoice->template_path, compact('invoice', 'logo', 'taxes'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);

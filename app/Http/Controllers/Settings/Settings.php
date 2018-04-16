@@ -47,7 +47,7 @@ class Settings extends Controller
 
         $currencies = Currency::enabled()->pluck('name', 'code');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -56,7 +56,7 @@ class Settings extends Controller
             'd F Y' => '31 December 2017',
             'd m Y' => '31 12 2017',
             'm d Y' => '12 31 2017',
-            'Y m d' => '2017 12 31'
+            'Y m d' => '2017 12 31',
         ];
 
         $date_separators = [
@@ -71,7 +71,12 @@ class Settings extends Controller
             'mail' => trans('settings.email.php'),
             'smtp' => trans('settings.email.smtp.name'),
             'sendmail' => trans('settings.email.sendmail'),
-            'log' => trans('settings.email.log')
+            'log' => trans('settings.email.log'),
+        ];
+
+        $percent_positions = [
+            'before' => trans('settings.localisation.percent.before'),
+            'after' => trans('settings.localisation.percent.after'),
         ];
 
         return view('settings.settings.edit', compact(
@@ -83,7 +88,8 @@ class Settings extends Controller
             'payment_methods',
             'date_formats',
             'date_separators',
-            'email_protocols'
+            'email_protocols',
+            'percent_positions'
         ));
     }
 

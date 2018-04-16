@@ -84,7 +84,9 @@ class Bills extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('expenses.bills.show', compact('bill', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
+        $taxes = Tax::enabled()->get()->pluck('title', 'name');
+
+        return view('expenses.bills.show', compact('bill', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods', 'taxes'));
     }
 
     /**
@@ -100,7 +102,7 @@ class Bills extends Controller
 
         $items = Item::enabled()->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         return view('expenses.bills.create', compact('vendors', 'currencies', 'items', 'taxes'));
     }
@@ -301,7 +303,7 @@ class Bills extends Controller
 
         $items = Item::enabled()->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         return view('expenses.bills.edit', compact('bill', 'vendors', 'currencies', 'items', 'taxes'));
     }
@@ -476,7 +478,9 @@ class Bills extends Controller
 
         $logo = $this->getLogo($bill);
 
-        return view($bill->template_path, compact('bill', 'logo'));
+        $taxes = Tax::enabled()->get()->pluck('title', 'name');
+
+        return view($bill->template_path, compact('bill', 'logo', 'taxes'));
     }
 
     /**
@@ -492,7 +496,9 @@ class Bills extends Controller
 
         $logo = $this->getLogo($bill);
 
-        $html = view($bill->template_path, compact('bill', 'logo'))->render();
+        $taxes = Tax::enabled()->get()->pluck('title', 'name');
+
+        $html = view($bill->template_path, compact('bill', 'logo', 'taxes'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);

@@ -49,7 +49,7 @@ class Items extends Controller
     {
         $categories = Category::enabled()->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         return view('items.items.create', compact('categories', 'taxes'));
     }
@@ -133,7 +133,7 @@ class Items extends Controller
     {
         $categories = Category::enabled()->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         return view('items.items.edit', compact('item', 'categories', 'taxes'));
     }
