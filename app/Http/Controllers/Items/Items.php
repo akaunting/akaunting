@@ -282,9 +282,7 @@ class Items extends Controller
 
                 $tax_total += $item_tax_total;
 
-                $total = $item_sub_total + $item_tax_total;
-
-                $items[$key] = money($total, $currency_code, true)->format();
+                $items[$key] = money($item_sub_total, $currency_code, true)->format();
             }
         }
 
