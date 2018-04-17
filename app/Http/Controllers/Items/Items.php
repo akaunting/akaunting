@@ -246,6 +246,7 @@ class Items extends Controller
     {
         $input_items = request('item');
         $currency_code = request('currency_code');
+        $discount = request('discount');
 
         if (empty($currency_code)) {
             $currency_code = setting('general.default_currency');
@@ -273,6 +274,12 @@ class Items extends Controller
                 }
 
                 $sub_total += $item_sub_total;
+
+                // Apply discount to tax
+                if ($discount) {
+                    $item_tax_total = $item_tax_total - ($item_tax_total * ($discount / 100));
+                }
+
                 $tax_total += $item_tax_total;
 
                 $total = $item_sub_total + $item_tax_total;
@@ -286,6 +293,11 @@ class Items extends Controller
         $json->sub_total = money($sub_total, $currency_code, true)->format();
 
         $json->tax_total = money($tax_total, $currency_code, true)->format();
+
+        // Apply discount to total
+        if ($discount) {
+            $sub_total = $sub_total - ($sub_total * ($discount / 100));
+        }
 
         $grand_total = $sub_total + $tax_total;
 

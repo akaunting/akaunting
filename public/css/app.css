@@ -563,3 +563,10 @@ span.picture, span.attachment {
 .form-group.col-md-6 input.fake-input.form-control{
     min-width: 150px;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

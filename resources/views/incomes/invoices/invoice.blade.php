@@ -114,17 +114,10 @@
                         <tbody>
                         @foreach ($invoice->totals as $total)
                             @if ($total->code != 'total')
-                                @if (($total->code == 'tax') && isset($taxes[$total->name]))
-                                    <tr>
-                                        <th>{{ $taxes[$total->name] }}:</th>
-                                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
-                                    </tr>
-                                @else
-                                    <tr>
-                                        <th>{{ trans($total->name) }}:</th>
-                                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
-                                    </tr>
-                                @endif
+                                <tr>
+                                    <th>{{ trans($total->name) }}:</th>
+                                    <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                                </tr>
                             @else
                                 @if ($invoice->paid)
                                     <tr class="text-success">
