@@ -15,6 +15,13 @@ class Bill extends Model
 
     protected $table = 'bills';
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['attachment', 'discount'];
+
     protected $dates = ['deleted_at', 'billed_at', 'due_at'];
 
     /**
@@ -154,5 +161,27 @@ class Bill extends Model
         }
 
         return $this->getMedia('attachment')->last();
+    }
+
+    /**
+     * Get the discount percentage.
+     *
+     * @return string
+     */
+    public function getDiscountAttribute()
+    {
+        $discount = 0;
+
+        foreach ($this->totals as $total) {
+            if ($total->code != 'discount') {
+                continue;
+            }
+
+            $discount = number_format((($total->amount * 100) / $this->amount), 0);
+
+            break;
+        }
+
+        return $discount;
     }
 }

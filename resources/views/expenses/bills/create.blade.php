@@ -77,6 +77,15 @@
                             <td class="text-right"><span id="sub-total">0</span></td>
                         </tr>
                         <tr>
+                            <td class="text-right" style="vertical-align: middle;" colspan="5"><strong>{{ trans('bills.discount') }}</strong></td>
+                            <td class="text-right">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-percent"></i></div>
+                                    {!! Form::number('discount', null, ['class' => 'form-control text-right']) !!}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="text-right" colspan="5"><strong>{{ trans_choice('general.taxes', 1) }}</strong></td>
                             <td class="text-right"><span id="tax-total">0</span></td>
                         </tr>
@@ -255,7 +264,7 @@
                 url: '{{ url("items/items/totalItem") }}',
                 type: 'POST',
                 dataType: 'JSON',
-                data: $('#currency_code, #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
+                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 success: function(data) {
                     if (data) {

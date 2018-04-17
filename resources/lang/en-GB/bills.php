@@ -12,6 +12,7 @@ return [
     'quantity'          => 'Quantity',
     'price'             => 'Price',
     'sub_total'         => 'Subtotal',
+    'discount'          => 'Discount',
     'tax_total'         => 'Tax Total',
     'total'             => 'Total',
 

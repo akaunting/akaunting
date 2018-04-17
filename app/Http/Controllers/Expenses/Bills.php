@@ -84,9 +84,7 @@ class Bills extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'name');
-
-        return view('expenses.bills.show', compact('bill', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods', 'taxes'));
+        return view('expenses.bills.show', compact('bill', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
     }
 
     /**
@@ -148,6 +146,8 @@ class Bills extends Controller
 
         $tax_total = 0;
         $sub_total = 0;
+        $discount_total = 0;
+        $discount = $request['discount'];
 
         $bill_item = [];
         $bill_item['company_id'] = $request['company_id'];
@@ -177,6 +177,11 @@ class Bills extends Controller
                     $tax_id = $item['tax_id'];
 
                     $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
+
+                    // Apply discount to tax
+                    if ($discount) {
+                        $tax = $tax - ($tax * ($discount / 100));
+                    }
                 }
 
                 $bill_item['item_id'] = $item['item_id'];
@@ -210,12 +215,21 @@ class Bills extends Controller
             }
         }
 
-        $request['amount'] += $sub_total + $tax_total;
+        $s_total = $sub_total;
+
+        // Apply discount to total
+        if ($discount) {
+            $s_discount = $s_total * ($discount / 100);
+            $discount_total += $s_discount;
+            $s_total = $s_total - $s_discount;
+        }
+
+        $request['amount'] = $s_total + $tax_total;
 
         $bill->update($request->input());
 
         // Add bill totals
-        $this->addTotals($bill, $request, $taxes, $sub_total, $tax_total);
+        $this->addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Add bill history
         BillHistory::create([
@@ -336,6 +350,8 @@ class Bills extends Controller
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
+        $discount_total = 0;
+        $discount = $request['discount'];
 
         $bill_item = [];
         $bill_item['company_id'] = $request['company_id'];
@@ -363,6 +379,11 @@ class Bills extends Controller
                     $tax_id = $item['tax_id'];
 
                     $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
+
+                    // Apply discount to tax
+                    if ($discount) {
+                        $tax = $tax - ($tax * ($discount / 100));
+                    }
                 }
 
                 $bill_item['item_id'] = $item['item_id'];
@@ -392,7 +413,16 @@ class Bills extends Controller
             }
         }
 
-        $request['amount'] = $sub_total + $tax_total;
+        $s_total = $sub_total;
+
+        // Apply discount to total
+        if ($discount) {
+            $s_discount = $s_total * ($discount / 100);
+            $discount_total += $s_discount;
+            $s_total = $s_total - $s_discount;
+        }
+
+        $request['amount'] = $s_total + $tax_total;
 
         $bill->update($request->input());
 
@@ -407,7 +437,8 @@ class Bills extends Controller
         BillTotal::where('bill_id', $bill->id)->delete();
 
         // Add bill totals
-        $this->addTotals($bill, $request, $taxes, $sub_total, $tax_total);
+        $bill->totals()->delete();
+        $this->addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Fire the event to make it extendible
         event(new BillUpdated($bill));
@@ -478,9 +509,7 @@ class Bills extends Controller
 
         $logo = $this->getLogo($bill);
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'name');
-
-        return view($bill->template_path, compact('bill', 'logo', 'taxes'));
+        return view($bill->template_path, compact('bill', 'logo'));
     }
 
     /**
@@ -496,9 +525,7 @@ class Bills extends Controller
 
         $logo = $this->getLogo($bill);
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'name');
-
-        $html = view($bill->template_path, compact('bill', 'logo', 'taxes'))->render();
+        $html = view($bill->template_path, compact('bill', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -646,11 +673,11 @@ class Bills extends Controller
         return $bill;
     }
 
-    protected function addTotals($bill, $request, $taxes, $sub_total, $tax_total)
+    protected function addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total)
     {
         $sort_order = 1;
 
-        // Added bill total sub total
+        // Added bill sub total
         BillTotal::create([
             'company_id' => $request['company_id'],
             'bill_id' => $bill->id,
@@ -662,7 +689,24 @@ class Bills extends Controller
 
         $sort_order++;
 
-        // Added bill total taxes
+        // Added bill discount
+        if ($discount_total) {
+            BillTotal::create([
+                'company_id' => $request['company_id'],
+                'bill_id' => $bill->id,
+                'code' => 'discount',
+                'name' => 'bills.discount',
+                'amount' => $discount_total,
+                'sort_order' => $sort_order,
+            ]);
+
+            // This is for total
+            $sub_total = $sub_total - $discount_total;
+        }
+
+        $sort_order++;
+
+        // Added bill taxes
         if ($taxes) {
             foreach ($taxes as $tax) {
                 BillTotal::create([
@@ -678,7 +722,7 @@ class Bills extends Controller
             }
         }
 
-        // Added bill total total
+        // Added bill total
         BillTotal::create([
             'company_id' => $request['company_id'],
             'bill_id' => $bill->id,

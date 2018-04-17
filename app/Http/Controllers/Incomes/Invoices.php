@@ -87,9 +87,7 @@ class Invoices extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'name');
-
-        return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'taxes'));
+        return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
     }
 
     /**
@@ -153,6 +151,8 @@ class Invoices extends Controller
 
         $tax_total = 0;
         $sub_total = 0;
+        $discount_total = 0;
+        $discount = $request['discount'];
 
         $invoice_item = [];
         $invoice_item['company_id'] = $request['company_id'];
@@ -192,6 +192,11 @@ class Invoices extends Controller
                     $tax_id = $item['tax_id'];
 
                     $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
+
+                    // Apply discount to tax
+                    if ($discount) {
+                        $tax = $tax - ($tax * ($discount / 100));
+                    }
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
@@ -225,12 +230,21 @@ class Invoices extends Controller
             }
         }
 
-        $request['amount'] = $sub_total + $tax_total;
+        $s_total = $sub_total;
+
+        // Apply discount to total
+        if ($discount) {
+            $s_discount = $s_total * ($discount / 100);
+            $discount_total += $s_discount;
+            $s_total = $s_total - $s_discount;
+        }
+
+        $request['amount'] = $s_total + $tax_total;
 
         $invoice->update($request->input());
 
         // Add invoice totals
-        $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
+        $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Add invoice history
         InvoiceHistory::create([
@@ -357,6 +371,8 @@ class Invoices extends Controller
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
+        $discount_total = 0;
+        $discount = $request['discount'];
 
         $invoice_item = [];
         $invoice_item['company_id'] = $request['company_id'];
@@ -384,6 +400,11 @@ class Invoices extends Controller
                     $tax_id = $item['tax_id'];
 
                     $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
+
+                    // Apply discount to tax
+                    if ($discount) {
+                        $tax = $tax - ($tax * ($discount / 100));
+                    }
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
@@ -413,7 +434,16 @@ class Invoices extends Controller
             }
         }
 
-        $request['amount'] = $sub_total + $tax_total;
+        $s_total = $sub_total;
+
+        // Apply discount to total
+        if ($discount) {
+            $s_discount = $s_total * ($discount / 100);
+            $discount_total += $s_discount;
+            $s_total = $s_total - $s_discount;
+        }
+
+        $request['amount'] = $s_total + $tax_total;
 
         $invoice->update($request->input());
 
@@ -428,7 +458,8 @@ class Invoices extends Controller
         InvoiceTotal::where('invoice_id', $invoice->id)->delete();
 
         // Add invoice totals
-        $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
+        $invoice->totals()->delete();
+        $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Fire the event to make it extendible
         event(new InvoiceUpdated($invoice));
@@ -513,11 +544,7 @@ class Invoices extends Controller
 
         $logo = $this->getLogo();
 
-        $taxes = collect(Tax::enabled()->get())->each(function ($item) {
-            $item->title = $item->name . ' (' . $item->rate . '%)';
-        })->pluck('title', 'name');
-
-        $html = view($invoice->template_path, compact('invoice', 'logo', 'taxes'))->render();
+        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -573,9 +600,7 @@ class Invoices extends Controller
 
         $logo = $this->getLogo();
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'name');
-
-        return view($invoice->template_path, compact('invoice', 'logo', 'taxes'));
+        return view($invoice->template_path, compact('invoice', 'logo'));
     }
 
     /**
@@ -591,9 +616,7 @@ class Invoices extends Controller
 
         $logo = $this->getLogo();
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'name');
-
-        $html = view($invoice->template_path, compact('invoice', 'logo', 'taxes'))->render();
+        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -783,11 +806,11 @@ class Invoices extends Controller
         return $invoice;
     }
 
-    protected function addTotals($invoice, $request, $taxes, $sub_total, $tax_total)
+    protected function addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total)
     {
         $sort_order = 1;
 
-        // Added invoice total sub total
+        // Added invoice sub total
         InvoiceTotal::create([
             'company_id' => $request['company_id'],
             'invoice_id' => $invoice->id,
@@ -799,7 +822,24 @@ class Invoices extends Controller
 
         $sort_order++;
 
-        // Added invoice total taxes
+        // Added invoice discount
+        if ($discount_total) {
+            InvoiceTotal::create([
+                'company_id' => $request['company_id'],
+                'invoice_id' => $invoice->id,
+                'code' => 'discount',
+                'name' => 'invoices.discount',
+                'amount' => $discount_total,
+                'sort_order' => $sort_order,
+            ]);
+
+            // This is for total
+            $sub_total = $sub_total - $discount_total;
+        }
+
+        $sort_order++;
+
+        // Added invoice taxes
         if ($taxes) {
             foreach ($taxes as $tax) {
                 InvoiceTotal::create([
@@ -815,7 +855,7 @@ class Invoices extends Controller
             }
         }
 
-        // Added invoice total total
+        // Added invoice total
         InvoiceTotal::create([
             'company_id' => $request['company_id'],
             'invoice_id' => $invoice->id,
