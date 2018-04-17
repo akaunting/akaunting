@@ -4,7 +4,7 @@ return [
 
     'company' => [
         'name'              => 'Naam',
-        'email'             => 'Email',
+        'email'             => 'E-mail',
         'phone'             => 'Telefoonnummer',
         'address'           => 'Adres',
         'logo'              => 'Logo',
@@ -16,11 +16,16 @@ return [
             'separator'     => 'Datumscheidingsteken',
             'dash'          => 'Streepje (-)',
             'dot'           => 'Punt (.)',
-            'comma'         => 'Komma \',\'',
+            'comma'         => 'Komma (,)',
             'slash'         => 'Slash (/)',
             'space'         => 'Ruimte()',
         ],
         'timezone'          => 'Tijdzone',
+        'percent' => [
+            'title'         => 'Locatie procentteken (%)',
+            'before'        => 'Voor getal',
+            'after'         => 'Na getal',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Factuur',
@@ -34,7 +39,7 @@ return [
         'account'           => 'Standaard account',
         'currency'          => 'Standaard Valuta',
         'tax'               => 'Standaard Btw-tarief',
-        'payment'           => 'Standaard betalingsmethode',
+        'payment'           => 'Standaard betaalmethode',
         'language'          => 'Standaard Taal',
     ],
     'email' => [

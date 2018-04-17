@@ -2,8 +2,8 @@
 
 return [
 
-    'bill_number'       => 'Faktuur nummer',
-    'bill_date'         => 'Faktuurdatum',
+    'bill_number'       => 'Factuurnummer',
+    'bill_date'         => 'Factuurdatum',
     'total_price'       => 'Totale prijs',
     'due_date'          => 'Vervaldatum',
     'order_number'      => 'Ordernummer',
@@ -12,6 +12,7 @@ return [
     'quantity'          => 'Hoeveelheid',
     'price'             => 'Prijs',
     'sub_total'         => 'Subtotaal',
+    'discount'          => 'Korting',
     'tax_total'         => 'Totaal Btw',
     'total'             => 'Totaal',
 
@@ -35,7 +36,7 @@ return [
     ],
 
     'messages' => [
-        'received'      => 'Faktuur gemarkeerd als succesvol ontvangen!',
+        'received'      => 'Factuur gemarkeerd als succesvol ontvangen!',
     ],
 
 ];

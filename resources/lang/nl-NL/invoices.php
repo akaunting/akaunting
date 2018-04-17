@@ -12,6 +12,7 @@ return [
     'quantity'          => 'Hoeveelheid',
     'price'             => 'Prijs',
     'sub_total'         => 'Subtotaal',
+    'discount'          => 'Korting',
     'tax_total'         => 'Totaal Btw',
     'total'             => 'Totaal',
 
