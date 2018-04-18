@@ -170,18 +170,16 @@ class Bill extends Model
      */
     public function getDiscountAttribute()
     {
-        $discount = 0;
+        $percent = 0;
 
-        foreach ($this->totals as $total) {
-            if ($total->code != 'discount') {
-                continue;
-            }
+        $discount = $this->totals()->where('code', 'discount')->value('amount');
 
-            $discount = number_format((($total->amount * 100) / $this->amount), 0);
+        if ($discount) {
+            $sub_total = $this->totals()->where('code', 'sub_total')->value('amount');
 
-            break;
+            $percent = number_format((($discount * 100) / $sub_total), 0);
         }
 
-        return $discount;
+        return $percent;
     }
 }
