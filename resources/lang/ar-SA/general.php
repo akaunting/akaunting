@@ -93,11 +93,11 @@ return [
     'id'                    => 'الرقم المعرفى',
     'more_actions'          => 'المزيد من الاجراءات',
     'duplicate'             => 'تكرار',
-    'unpaid'                => 'Unpaid',
-    'paid'                  => 'Paid',
-    'overdue'               => 'Overdue',
-    'partially'             => 'Partially',
-    'partially_paid'        => 'Partially Paid',
+    'unpaid'                => 'غير مدفوع',
+    'paid'                  => 'مدفوع',
+    'overdue'               => 'متأخر',
+    'partially'             => 'جزئي',
+    'partially_paid'        => 'مدفوع جزئيا',
 
     'title' => [
         'new'               => 'جديد : نوع',
