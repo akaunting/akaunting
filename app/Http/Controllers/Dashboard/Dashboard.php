@@ -359,6 +359,10 @@ class Dashboard extends Controller
                 $i = Date::parse($item->paid_at)->quarter;
             }
 
+            if (!isset($totals[$i])) {
+                continue;
+            }
+
             $totals[$i] += $item->getConvertedAmount();
         }
     }
