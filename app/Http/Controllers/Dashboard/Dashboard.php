@@ -243,52 +243,63 @@ class Dashboard extends Controller
 
     private function calculateAmounts()
     {
-        $incomes_amount = $expenses_amount = 0;
+        $incomes_amount = $open_invoice = $overdue_invoice = 0;
+        $expenses_amount = $open_bill = $overdue_bill = 0;
 
-        // Invoices
-        $invoices = Invoice::with('payments')->accrued()->get();
-        list($invoice_paid_amount, $open_invoice, $overdue_invoice) = $this->calculateTotals($invoices, 'invoice');
-
-        $incomes_amount += $invoice_paid_amount;
-
-        // Add to Incomes By Category
-        $this->addToIncomeDonut('#00c0ef', $invoice_paid_amount, trans_choice('general.invoices', 2));
-
-        // Bills
-        $bills = Bill::with('payments')->accrued()->get();
-        list($bill_paid_amount, $open_bill, $overdue_bill) = $this->calculateTotals($bills, 'bill');
-
-        $expenses_amount += $bill_paid_amount;
-
-        // Add to Expenses By Category
-        $this->addToExpenseDonut('#dd4b39', $bill_paid_amount, trans_choice('general.bills', 2));
-
-        // Revenues & Payments
-        $categories = Category::orWhere('type', 'income')->orWhere('type', 'expense')->enabled()->get();
+        // Get categories
+        $categories = Category::with(['bills', 'invoices', 'payments', 'revenues'])->orWhere('type', 'income')->orWhere('type', 'expense')->enabled()->get();
 
         foreach ($categories as $category) {
             switch ($category->type) {
                 case 'income':
                     $amount = 0;
 
+                    // Revenues
                     foreach ($category->revenues as $revenue) {
                         $amount += $revenue->getConvertedAmount();
                     }
 
+                    $incomes_amount += $amount;
+
+                    // Invoices
+                    $invoices = $category->invoices()->accrued()->get();
+                    foreach ($invoices as $invoice) {
+                        list($paid, $open, $overdue) = $this->calculateInvoiceBillTotals($invoice, 'invoice');
+
+                        $incomes_amount += $paid;
+                        $open_invoice += $open;
+                        $overdue_invoice += $overdue;
+
+                        $amount += $paid;
+                    }
+
                     $this->addToIncomeDonut($category->color, $amount, $category->name);
 
-                    $incomes_amount += $amount;
                     break;
                 case 'expense':
                     $amount = 0;
 
+                    // Payments
                     foreach ($category->payments as $payment) {
                         $amount += $payment->getConvertedAmount();
                     }
 
+                    $expenses_amount += $amount;
+
+                    // Bills
+                    $bills = $category->bills()->accrued()->get();
+                    foreach ($bills as $bill) {
+                        list($paid, $open, $overdue) = $this->calculateInvoiceBillTotals($bill, 'bill');
+
+                        $expenses_amount += $paid;
+                        $open_bill += $open;
+                        $overdue_bill += $overdue;
+
+                        $amount += $paid;
+                    }
+
                     $this->addToExpenseDonut($category->color, $amount, $category->name);
 
-                    $expenses_amount += $amount;
                     break;
             }
         }
@@ -382,22 +393,19 @@ class Dashboard extends Controller
         return $profit;
     }
 
-    private function calculateTotals($items, $type)
+    private function calculateInvoiceBillTotals($item, $type)
     {
         $paid = $open = $overdue = 0;
 
         $today = $this->today->toDateString();
 
-        foreach ($items as $item) {
-            $paid += $item->getConvertedAmount();
+        $paid += $item->getConvertedAmount();
 
-            $code_field = $type . '_status_code';
+        $code_field = $type . '_status_code';
 
-            if ($item->$code_field == 'paid') {
-                continue;
-            }
-
+        if ($item->$code_field != 'paid') {
             $payments = 0;
+
             if ($item->$code_field == 'partial') {
                 foreach ($item->payments as $payment) {
                     $payments += $payment->getConvertedAmount();

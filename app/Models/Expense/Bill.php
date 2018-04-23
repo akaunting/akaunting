@@ -60,6 +60,11 @@ class Bill extends Model
      */
     protected $cloneable_relations = ['items', 'totals'];
 
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Setting\Category');
+    }
+
     public function vendor()
     {
         return $this->belongsTo('App\Models\Expense\Vendor');

@@ -105,9 +105,11 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
+        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+
         $number = $this->getNextInvoiceNumber();
 
-        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'number'));
+        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'categories', 'number'));
     }
 
     /**
@@ -340,7 +342,9 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
-        return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'items', 'taxes'));
+        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+
+        return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'items', 'taxes', 'categories'));
     }
 
     /**

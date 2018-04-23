@@ -97,6 +97,9 @@
                 </table>
             </div>
         </div>
+
+        {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder-open-o', $categories) }}
+
         {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
 
         {{ Form::fileGroup('attachment', trans('general.attachment')) }}
@@ -189,6 +192,10 @@
 
             $("#currency_code").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
+            });
+
+            $("#category_id").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
             });
 
             $('#attachment').fancyfile({

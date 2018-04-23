@@ -39,6 +39,7 @@ class Invoice extends Request
             'invoiced_at' => 'required|date',
             'due_at' => 'required|date',
             'currency_code' => 'required|string',
+            'category_id' => 'required|integer',
             'attachment' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
         ];
     }

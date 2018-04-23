@@ -61,6 +61,11 @@ class Invoice extends Model
      */
     protected $cloneable_relations = ['items', 'totals'];
 
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Setting\Category');
+    }
+
     public function customer()
     {
         return $this->belongsTo('App\Models\Income\Customer');
