@@ -37,6 +37,7 @@ return [
     'updates'               => 'Update|Updates',
     'numbers'               => 'Number|Numbers',
     'statuses'              => 'Status|Statuses',
+    'others'                => 'Other|Others',
 
     'dashboard'             => 'Dashboard',
     'banking'               => 'Banking',

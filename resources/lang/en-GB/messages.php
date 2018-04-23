@@ -14,6 +14,7 @@ return [
         'not_user_company'  => 'Error: You are not allowed to manage this company!',
         'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Error: No file selected!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
     ],
     'warning' => [
         'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',

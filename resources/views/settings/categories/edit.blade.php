@@ -14,11 +14,11 @@
         <div class="box-body">
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
-            @if ($category->id == $transfer_id)
-                {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', ['expense' => 'Expense', 'income' => 'Income', 'item' => 'Item', 'other' => 'Other'], null, ['required' => 'required', 'disabled' => 'disabled']) }}
-                <input type="hidden" name="type" value="other" />
+            @if ($type_disabled)
+                {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, null, ['required' => 'required', 'disabled' => 'disabled']) }}
+                <input type="hidden" name="type" value="{{ $category->type }}" />
             @else
-                {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', ['expense' => 'Expense', 'income' => 'Income', 'item' => 'Item', 'other' => 'Other']) }}
+                {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types) }}
             @endif
 
             <div class="form-group col-md-6 required {{ $errors->has('color') ? 'has-error' : ''}}">
