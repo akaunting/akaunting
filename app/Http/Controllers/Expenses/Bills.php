@@ -102,7 +102,9 @@ class Bills extends Controller
 
         $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
-        return view('expenses.bills.create', compact('vendors', 'currencies', 'items', 'taxes'));
+        $categories = Category::enabled()->type('expense')->pluck('name', 'id');
+
+        return view('expenses.bills.create', compact('vendors', 'currencies', 'items', 'taxes', 'categories'));
     }
 
     /**
@@ -319,7 +321,9 @@ class Bills extends Controller
 
         $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
-        return view('expenses.bills.edit', compact('bill', 'vendors', 'currencies', 'items', 'taxes'));
+        $categories = Category::enabled()->type('expense')->pluck('name', 'id');
+
+        return view('expenses.bills.edit', compact('bill', 'vendors', 'currencies', 'items', 'taxes', 'categories'));
     }
 
     /**

@@ -23,12 +23,7 @@ class ExpenseSummary extends Controller
 
         $status = request('status');
 
-        //if ($filter != 'upcoming') {
-            $categories = Category::enabled()->type('expense')->pluck('name', 'id')->toArray();
-        //}
-
-        // Add Bill in Categories
-        $categories[0] = trans_choice('general.bills', 2);
+        $categories = Category::enabled()->type('expense')->pluck('name', 'id')->toArray();
 
         // Get year
         $year = request('year');
@@ -44,15 +39,6 @@ class ExpenseSummary extends Controller
 
             // Totals
             $totals[$dates[$j]] = array(
-                'amount' => 0,
-                'currency_code' => setting('general.default_currency'),
-                'currency_rate' => 1
-            );
-
-            // Bill
-            $expenses[0][$dates[$j]] = array(
-                'category_id' => 0,
-                'name' => trans_choice('general.bills', 1),
                 'amount' => 0,
                 'currency_code' => setting('general.default_currency'),
                 'currency_rate' => 1
@@ -109,9 +95,6 @@ class ExpenseSummary extends Controller
             ->credits(false)
             ->view($chart_template);
 
-        // Expenses Graph
-        $expenses_graph = json_encode($expenses_graph);
-
         return view($view_template, compact('chart', 'dates', 'categories', 'expenses', 'totals'));
     }
 
@@ -120,13 +103,7 @@ class ExpenseSummary extends Controller
         foreach ($items as $item) {
             $date = Date::parse($item->$date_field)->format('F');
 
-            if ($type == 'bill') {
-                $category_id = 0;
-            } else {
-                $category_id = $item->category_id;
-            }
-
-            if (!isset($expenses[$category_id])) {
+            if (!isset($expenses[$item->category_id])) {
                 continue;
             }
 
@@ -139,9 +116,9 @@ class ExpenseSummary extends Controller
                 }
             }
 
-            $expenses[$category_id][$date]['amount'] += $amount;
-            $expenses[$category_id][$date]['currency_code'] = $item->currency_code;
-            $expenses[$category_id][$date]['currency_rate'] = $item->currency_rate;
+            $expenses[$item->category_id][$date]['amount'] += $amount;
+            $expenses[$item->category_id][$date]['currency_code'] = $item->currency_code;
+            $expenses[$item->category_id][$date]['currency_rate'] = $item->currency_rate;
 
             $graph[Date::parse($item->$date_field)->format('F-Y')] += $amount;
 

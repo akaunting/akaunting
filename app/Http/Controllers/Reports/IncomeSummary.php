@@ -23,12 +23,7 @@ class IncomeSummary extends Controller
 
         $status = request('status');
 
-        //if ($filter != 'upcoming') {
-            $categories = Category::enabled()->type('income')->pluck('name', 'id')->toArray();
-        //}
-
-        // Add Invoice in Categories
-        $categories[0] = trans_choice('general.invoices', 2);
+        $categories = Category::enabled()->type('income')->pluck('name', 'id')->toArray();
 
         // Get year
         $year = request('year');
@@ -44,15 +39,6 @@ class IncomeSummary extends Controller
 
             // Totals
             $totals[$dates[$j]] = array(
-                'amount' => 0,
-                'currency_code' => setting('general.default_currency'),
-                'currency_rate' => 1
-            );
-
-            // Invoice
-            $incomes[0][$dates[$j]] = array(
-                'category_id' => 0,
-                'name' => trans_choice('general.invoices', 1),
                 'amount' => 0,
                 'currency_code' => setting('general.default_currency'),
                 'currency_rate' => 1
@@ -117,13 +103,7 @@ class IncomeSummary extends Controller
         foreach ($items as $item) {
             $date = Date::parse($item->$date_field)->format('F');
 
-            if ($type == 'invoice') {
-                $category_id = 0;
-            } else {
-                $category_id = $item->category_id;
-            }
-
-            if (!isset($incomes[$category_id])) {
+            if (!isset($incomes[$item->category_id])) {
                 continue;
             }
 
@@ -136,9 +116,9 @@ class IncomeSummary extends Controller
                 }
             }
 
-            $incomes[$category_id][$date]['amount'] += $amount;
-            $incomes[$category_id][$date]['currency_code'] = $item->currency_code;
-            $incomes[$category_id][$date]['currency_rate'] = $item->currency_rate;
+            $incomes[$item->category_id][$date]['amount'] += $amount;
+            $incomes[$item->category_id][$date]['currency_code'] = $item->currency_code;
+            $incomes[$item->category_id][$date]['currency_rate'] = $item->currency_rate;
 
             $graph[Date::parse($item->$date_field)->format('F-Y')] += $amount;
 
