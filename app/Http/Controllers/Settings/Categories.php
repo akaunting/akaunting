@@ -171,4 +171,11 @@ class Categories extends Controller
 
         return redirect('settings/categories');
     }
+
+    public function category(Request $request)
+    {
+        $category = Category::create($request->all());
+
+        return response()->json($category);
+    }
 }

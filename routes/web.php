@@ -101,6 +101,7 @@ Route::group(['middleware' => 'language'], function () {
             });
 
             Route::group(['prefix' => 'settings'], function () {
+                Route::post('categories/category', 'Settings\Categories@category');
                 Route::resource('categories', 'Settings\Categories');
                 Route::get('currencies/currency', 'Settings\Currencies@currency');
                 Route::get('currencies/config', 'Settings\Currencies@config');
