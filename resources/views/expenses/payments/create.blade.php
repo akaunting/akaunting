@@ -34,7 +34,7 @@
                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
                     {!! Form::select('vendor_id', $vendors, null, array_merge(['id' => 'vendor_id', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)])])) !!}
                     <span class="input-group-btn">
-                    <button type="button" onclick="createVendor();" class="btn btn-primary">{{ trans('general.add_new') }}</button>
+                    <button type="button" onclick="createVendor();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
                 </span>
                 </div>
             </div>

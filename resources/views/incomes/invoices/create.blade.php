@@ -13,9 +13,9 @@
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
                 {!! Form::select('customer_id', $customers, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)])])) !!}
-                <span class="input-group-btn">
-                    <button type="button" onclick="createCustomer();" class="btn btn-primary">{{ trans('general.add_new') }}</button>
-                </span>
+                <div class="input-group-btn">
+                    <button type="button" onclick="createCustomer();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
+                </div>
             </div>
             {!! $errors->first('customer_id', '<p class="help-block">:message</p>') !!}
         </div>
