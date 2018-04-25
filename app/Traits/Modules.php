@@ -12,6 +12,25 @@ use ZipArchive;
 trait Modules
 {
 
+    public function checkToken($token)
+    {
+        $data = [
+            'form_params' => [
+                'token' => $token,
+            ]
+        ];
+
+        $response = $this->getRemote('token/check', 'POST', $data);
+
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody());
+
+            return ($result->success) ? true : false;
+        }
+
+        return false;
+    }
+
     public function getModules()
     {
         $response = $this->getRemote('apps/items');
