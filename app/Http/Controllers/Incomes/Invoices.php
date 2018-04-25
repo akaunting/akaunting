@@ -107,9 +107,17 @@ class Invoices extends Controller
 
         $categories = Category::enabled()->type('income')->pluck('name', 'id');
 
+        $recurrings = [
+            '0' => trans('general.no'),
+            '1' => trans('recurring.weekly'),
+            '2' => trans('recurring.monthly'),
+            '3' => trans('recurring.yearly'),
+            '4' => trans('recurring.custom'),
+        ];
+
         $number = $this->getNextInvoiceNumber();
 
-        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'categories', 'number'));
+        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'categories', 'recurrings', 'number'));
     }
 
     /**

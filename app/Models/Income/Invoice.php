@@ -66,19 +66,14 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\Setting\Category');
     }
 
-    public function customer()
-    {
-        return $this->belongsTo('App\Models\Income\Customer');
-    }
-
     public function currency()
     {
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function status()
+    public function customer()
     {
-        return $this->belongsTo('App\Models\Income\InvoiceStatus', 'invoice_status_code', 'code');
+        return $this->belongsTo('App\Models\Income\Customer');
     }
 
     public function items()
@@ -86,9 +81,9 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
 
-    public function totals()
+    public function histories()
     {
-        return $this->hasMany('App\Models\Income\InvoiceTotal');
+        return $this->hasMany('App\Models\Income\InvoiceHistory');
     }
 
     public function payments()
@@ -96,9 +91,19 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoicePayment');
     }
 
-    public function histories()
+    public function recurrings()
     {
-        return $this->hasMany('App\Models\Income\InvoiceHistory');
+        return $this->morphMany('App\Models\Common\Recurring', 'recurrable');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Models\Income\InvoiceStatus', 'invoice_status_code', 'code');
+    }
+
+    public function totals()
+    {
+        return $this->hasMany('App\Models\Income\InvoiceTotal');
     }
 
     public function scopeDue($query, $date)
