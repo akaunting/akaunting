@@ -12,7 +12,7 @@
                     {!! Form::label('sale_price', trans('modules.api_token'), ['class' => 'control-label']) !!}
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                        {!! Form::text('api_token', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_token')])]) !!}
+                        {!! Form::text('api_token', setting('general.api_token', null), ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_token')])]) !!}
                     </div>
                     {!! $errors->first('api_token', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -24,7 +24,7 @@
         <!-- /.box-body -->
 
         <div class="box-footer">
-            {{ Form::saveButtons('apps/token') }}
+            {{ Form::saveButtons('apps/home') }}
         </div>
 
         {!! Form::close() !!}
