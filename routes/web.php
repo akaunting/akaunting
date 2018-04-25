@@ -120,6 +120,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('paid', 'Modules\Tiles@paidModules');
                 Route::get('new', 'Modules\Tiles@newModules');
                 Route::get('free', 'Modules\Tiles@freeModules');
+                Route::get('search', 'Modules\Tiles@searchModules');
                 Route::post('steps', 'Modules\Item@steps');
                 Route::post('download', 'Modules\Item@download');
                 Route::post('unzip', 'Modules\Item@unzip');
