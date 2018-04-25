@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Modules;
 use App\Http\Controllers\Controller;
 use App\Traits\Modules;
 use Illuminate\Routing\Route;
+use Illuminate\Http\Request;
 
 class Tiles extends Controller
 {
@@ -72,5 +73,28 @@ class Tiles extends Controller
         $modules = $this->getFreeModules();
 
         return view('modules.tiles.index', compact('title', 'modules'));
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function searchModules(Request $request)
+    {
+        $this->checkApiToken();
+
+        $keyword = $request['keyword'];
+
+        $data = [
+            'query' => [
+                'keyword' => $keyword,
+            ]
+        ];
+
+        $title = trans('modules.search');
+        $modules = $this->getSearchModules($data);
+
+        return view('modules.tiles.index', compact('title', 'modules', 'keyword'));
     }
 }

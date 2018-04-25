@@ -108,6 +108,17 @@ trait Modules
         return [];
     }
 
+    public function getSearchModules($data = [])
+    {
+        $response = $this->getRemote('apps/search', 'GET', $data);
+
+        if ($response->getStatusCode() == 200) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
     public function getCoreVersion()
     {
         $data['query'] = Info::all();
