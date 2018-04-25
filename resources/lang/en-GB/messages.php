@@ -15,6 +15,7 @@ return [
         'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Error: No file selected!',
         'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',

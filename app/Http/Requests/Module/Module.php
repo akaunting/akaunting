@@ -3,22 +3,22 @@
 namespace App\Http\Requests\Module;
 
 use App\Http\Requests\Request;
-use Illuminate\Validation\Factory as ValidationFactory;
 use App\Traits\Modules;
+use Illuminate\Validation\Factory as ValidationFactory;
 
 class Module extends Request
 {
     use Modules;
 
-    public function __construct(ValidationFactory $validationFactory)
+    public function __construct(ValidationFactory $validation)
     {
 
-        $validationFactory->extend(
+        $validation->extend(
             'check',
             function ($attribute, $value, $parameters) {
                 return $this->checkToken($value);
             },
-            trans('modules.invalid_token')
+            trans('messages.error.invalid_token')
         );
 
     }

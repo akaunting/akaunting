@@ -4,7 +4,6 @@ return [
 
     'title'                 => 'API Token',
     'api_token'             => 'Token',
-    'invalid_token'         => 'Sorry, it invalid token validation!',
     'top_paid'              => 'Top Paid',
     'new'                   => 'New',
     'top_free'              => 'Top Free',
