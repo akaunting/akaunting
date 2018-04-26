@@ -110,6 +110,8 @@
             {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
         </div>
 
+        {{ Form::selectGroup('recurring_id', trans('recurring.recurring'), 'refresh', $recurrings, 0, []) }}
+
         {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
 
         {{ Form::fileGroup('attachment', trans('general.attachment')) }}
@@ -208,6 +210,10 @@
 
             $("#category_id").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
+            });
+
+            $("#recurring_id").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans('recurring.recurring')]) }}"
             });
 
             $('#attachment').fancyfile({
