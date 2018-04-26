@@ -25,7 +25,7 @@
                 @if ($module->price == '0.0000')
                     {{ trans('modules.free') }}
                 @else
-                    {{ $module->price . ' / month' }}
+                    {{ $module->price }}
                 @endif
             </div>
         </div>
