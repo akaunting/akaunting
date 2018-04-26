@@ -578,10 +578,10 @@ input[type="number"] {
 }
 
 .form-small #account_id, .form-small .select2.select2-container {
-    width: 70% !important;
+    width: 90% !important;
     float: left;
 }
 
 .form-small #currency {
-    width: 30%;
+    width: 10%;
 }
