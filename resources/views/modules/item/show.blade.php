@@ -59,20 +59,15 @@
 
                 <div class="box box-success">
                     <div class="box-body">
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <th>Price</th>
-                                    <td class="text-right">
-                                        @if ($module->price == '0.0000')
-                                            {{ trans('modules.free') }}
-                                        @else
-                                            {{ $module->price . ' / month' }}
-                                        @endif
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="text-center">
+                            <div style="margin: 10px; font-size: 24px;">
+                                @if ($module->price == '0.0000')
+                                    {{ trans('modules.free') }}
+                                @else
+                                    {{ $module->price }}
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
 
