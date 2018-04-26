@@ -12,16 +12,16 @@
 
         {{ Form::numberGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
 
-        {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('general.accounts', 1)) }}
-
-        <div class="form-group col-md-6 {{ $errors->has('currency_code') ? 'has-error' : ''}}">
-            {!! Form::label('currency_code', trans_choice('general.currencies', 1), ['class' => 'control-label']) !!}
+        <div class="form-group col-md-6 form-small">
+            {!! Form::label('account_id', trans_choice('general.accounts', 1), ['class' => 'control-label']) !!}
             <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-exchange"></i></div>
-                {!! Form::text('currency', $currencies[$account_currency_code], ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
-                {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+                <div class="input-group-addon"><i class="fa fa-university"></i></div>
+                {!! Form::select('account_id', $accounts, setting('general.accounts', 1), array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)])])) !!}
+                <div class="input-group-append">
+                    {!! Form::text('currency', $currencies[$account_currency_code], ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
+                    {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+                </div>
             </div>
-            {!! $errors->first('currency_code', '<p class="help-block">:message</p>') !!}
         </div>
 
         {{ Form::textareaGroup('description', trans('general.description')) }}
