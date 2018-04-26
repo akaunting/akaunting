@@ -59,7 +59,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $cloneable_relations = ['items', 'totals'];
+    protected $cloneable_relations = ['items', 'recurring', 'totals'];
 
     public function category()
     {
@@ -91,9 +91,9 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoicePayment');
     }
 
-    public function recurrings()
+    public function recurring()
     {
-        return $this->morphMany('App\Models\Common\Recurring', 'recurrable');
+        return $this->morphOne('App\Models\Common\Recurring', 'recurrable');
     }
 
     public function status()

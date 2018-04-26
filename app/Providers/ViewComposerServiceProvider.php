@@ -39,6 +39,11 @@ class ViewComposerServiceProvider extends ServiceProvider
             'modules.*', 'App\Http\ViewComposers\Modules'
         );
 
+        // Add recurring
+        View::composer(
+            ['partials.form.recurring',], 'App\Http\ViewComposers\Recurring'
+        );
+
         // Add logo
         View::composer(
             ['incomes.invoices.invoice', 'expenses.bills.bill'], 'App\Http\ViewComposers\Logo'

@@ -45,6 +45,13 @@ class Revenue extends Model
         'notes'          => 2,
     ];
 
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    protected $cloneable_relations = ['recurring'];
+
     public function user()
     {
         return $this->belongsTo('App\Models\Auth\User', 'customer_id', 'id');
@@ -68,6 +75,11 @@ class Revenue extends Model
     public function customer()
     {
         return $this->belongsTo('App\Models\Income\Customer');
+    }
+
+    public function recurring()
+    {
+        return $this->morphOne('App\Models\Common\Recurring', 'recurrable');
     }
 
     public function transfers()

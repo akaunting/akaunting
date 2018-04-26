@@ -58,16 +58,11 @@ class Bill extends Model
      *
      * @var array
      */
-    protected $cloneable_relations = ['items', 'totals'];
+    protected $cloneable_relations = ['items', 'recurring', 'totals'];
 
     public function category()
     {
         return $this->belongsTo('App\Models\Setting\Category');
-    }
-
-    public function vendor()
-    {
-        return $this->belongsTo('App\Models\Expense\Vendor');
     }
 
     public function currency()
@@ -75,9 +70,9 @@ class Bill extends Model
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function status()
+    public function histories()
     {
-        return $this->belongsTo('App\Models\Expense\BillStatus', 'bill_status_code', 'code');
+        return $this->hasMany('App\Models\Expense\BillHistory');
     }
 
     public function items()
@@ -85,19 +80,29 @@ class Bill extends Model
         return $this->hasMany('App\Models\Expense\BillItem');
     }
 
-    public function totals()
-    {
-        return $this->hasMany('App\Models\Expense\BillTotal');
-    }
-
     public function payments()
     {
         return $this->hasMany('App\Models\Expense\BillPayment');
     }
 
-    public function histories()
+    public function recurring()
     {
-        return $this->hasMany('App\Models\Expense\BillHistory');
+        return $this->morphOne('App\Models\Common\Recurring', 'recurrable');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Models\Expense\BillStatus', 'bill_status_code', 'code');
+    }
+
+    public function totals()
+    {
+        return $this->hasMany('App\Models\Expense\BillTotal');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo('App\Models\Expense\Vendor');
     }
 
     public function scopeDue($query, $date)

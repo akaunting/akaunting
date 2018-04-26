@@ -113,9 +113,11 @@
                 </div>
             </div>
 
+            {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
+
             {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder-open-o', $categories) }}
 
-            {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
+            {{ Form::recurring('edit', $invoice) }}
 
             {{ Form::fileGroup('attachment', trans('general.attachment')) }}
         </div>

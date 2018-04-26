@@ -19,7 +19,7 @@ class CreateRecurringsTable extends Migration
             $table->string('frequency');
             $table->integer('interval')->default(1);
             $table->date('started_at');
-            $table->integer('count')->default(1);
+            $table->integer('count')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

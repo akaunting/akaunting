@@ -242,6 +242,20 @@ class Bills extends Controller
             'description' => trans('messages.success.added', ['type' => $bill->bill_number]),
         ]);
 
+        // Recurring
+        if ($request->get('recurring_frequency') != 'no') {
+            $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
+            $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
+
+            $bill->recurring()->create([
+                'company_id' => session('company_id'),
+                'frequency' => $frequency,
+                'interval' => $interval,
+                'started_at' => $request['billed_at'],
+                'count' => (int) $request['recurring_count'],
+            ]);
+        }
+
         // Fire the event to make it extendible
         event(new BillCreated($bill));
 
@@ -443,6 +457,28 @@ class Bills extends Controller
         // Add bill totals
         $bill->totals()->delete();
         $this->addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total);
+
+        // Recurring
+        if ($request->get('recurring_frequency') != 'no') {
+            $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
+            $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
+
+            if ($bill->has('recurring')->count()) {
+                $function = 'update';
+            } else {
+                $function = 'create';
+            }
+
+            $bill->recurring()->$function([
+                'company_id' => session('company_id'),
+                'frequency' => $frequency,
+                'interval' => $interval,
+                'started_at' => $request['billed_at'],
+                'count' => (int) $request['recurring_count'],
+            ]);
+        } else {
+            $bill->recurring()->delete();
+        }
 
         // Fire the event to make it extendible
         event(new BillUpdated($bill));

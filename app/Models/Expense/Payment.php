@@ -44,14 +44,16 @@ class Payment extends Model
         'description'  ,
     ];
 
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    protected $cloneable_relations = ['recurring'];
+
     public function account()
     {
         return $this->belongsTo('App\Models\Banking\Account');
-    }
-
-    public function currency()
-    {
-        return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
     public function category()
@@ -59,14 +61,24 @@ class Payment extends Model
         return $this->belongsTo('App\Models\Setting\Category');
     }
 
-    public function vendor()
+    public function currency()
     {
-        return $this->belongsTo('App\Models\Expense\Vendor');
+        return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
+    }
+
+    public function recurring()
+    {
+        return $this->morphOne('App\Models\Common\Recurring', 'recurrable');
     }
 
     public function transfers()
     {
         return $this->hasMany('App\Models\Banking\Transfer');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo('App\Models\Expense\Vendor');
     }
 
     /**
