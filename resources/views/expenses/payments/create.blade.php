@@ -116,7 +116,7 @@
                 dataType: 'JSON',
                 data: 'account_id=' + $(this).val(),
                 success: function(data) {
-                    $('#currency').val(data.currency_name);
+                    $('#currency').val(data.currency_code);
                     $('#currency_code').val(data.currency_code);
                 }
             });
