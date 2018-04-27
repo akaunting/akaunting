@@ -13,7 +13,7 @@
     }
 @endphp
 
-<div class="col-md-6" style="padding-left: 0; padding-right: 0;">
+<div class="col-md-6 input-group-recurring" style="padding-left: 0; padding-right: 0;">
     <div class="form-group col-md-12 {{ $errors->has('recurring_frequency') ? 'has-error' : ''}}">
         {!! Form::label('recurring_frequency', trans('recurring.recurring'), ['class' => 'control-label']) !!}
         <div class="input-group">
