@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\Install::class,
         Commands\InvoiceReminder::class,
         Commands\ModuleInstall::class,
+        Commands\RecurringCheck::class,
     ];
 
     /**

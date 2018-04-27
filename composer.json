@@ -32,6 +32,7 @@
         "nwidart/laravel-modules": "1.*",
         "plank/laravel-mediable": "2.5.*",
         "santigarcor/laratrust": "4.0.*",
+        "simshaun/recurr": "3.0.*",
         "sofa/eloquence": "5.4.*",
         "tucker-eric/eloquentfilter": "1.1.*"
     },
