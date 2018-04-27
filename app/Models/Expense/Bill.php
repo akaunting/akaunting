@@ -5,13 +5,14 @@ namespace App\Models\Expense;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Media;
+use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use App\Traits\Media;
 
 class Bill extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Media;
+    use Cloneable, Currencies, DateTime, Eloquence, Media, Recurring;
 
     protected $table = 'bills';
 

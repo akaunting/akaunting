@@ -97,18 +97,7 @@ class Payments extends Controller
         }
 
         // Recurring
-        if ($request->get('recurring_frequency') != 'no') {
-            $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-            $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
-
-            $payment->recurring()->create([
-                'company_id' => session('company_id'),
-                'frequency' => $frequency,
-                'interval' => $interval,
-                'started_at' => $request['paid_at'],
-                'count' => (int) $request['recurring_count'],
-            ]);
-        }
+        $payment->createRecurring();
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
@@ -210,26 +199,7 @@ class Payments extends Controller
         }
 
         // Recurring
-        if ($request->get('recurring_frequency') != 'no') {
-            $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-            $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
-
-            if ($payment->has('recurring')->count()) {
-                $function = 'update';
-            } else {
-                $function = 'create';
-            }
-
-            $payment->recurring()->$function([
-                'company_id' => session('company_id'),
-                'frequency' => $frequency,
-                'interval' => $interval,
-                'started_at' => $request['paid_at'],
-                'count' => (int) $request['recurring_count'],
-            ]);
-        } else {
-            $payment->recurring()->delete();
-        }
+        $payment->updateRecurring();
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.payments', 1)]);
 

@@ -1,12 +1,12 @@
 @php
-    if (($page == 'create') || !$model->has('recurring')->count()) {
+    if (($page == 'create') || ($model->has('recurring')->count() > 0)) {
         $frequency = 'no';
         $interval = 1;
         $custom_frequency = 'monthly';
         $count = 0;
     } else {
         $r = $model->recurring;
-        $frequency = $r->frequency;
+        $frequency = ($r->interval != 1) ? 'custom' : $r->frequency;
         $interval = $r->interval;
         $custom_frequency = $r->frequency;
         $count = $r->count;

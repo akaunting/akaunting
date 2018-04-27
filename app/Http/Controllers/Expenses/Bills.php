@@ -243,18 +243,7 @@ class Bills extends Controller
         ]);
 
         // Recurring
-        if ($request->get('recurring_frequency') != 'no') {
-            $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-            $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
-
-            $bill->recurring()->create([
-                'company_id' => session('company_id'),
-                'frequency' => $frequency,
-                'interval' => $interval,
-                'started_at' => $request['billed_at'],
-                'count' => (int) $request['recurring_count'],
-            ]);
-        }
+        $bill->createRecurring();
 
         // Fire the event to make it extendible
         event(new BillCreated($bill));
@@ -459,26 +448,7 @@ class Bills extends Controller
         $this->addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Recurring
-        if ($request->get('recurring_frequency') != 'no') {
-            $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-            $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
-
-            if ($bill->has('recurring')->count()) {
-                $function = 'update';
-            } else {
-                $function = 'create';
-            }
-
-            $bill->recurring()->$function([
-                'company_id' => session('company_id'),
-                'frequency' => $frequency,
-                'interval' => $interval,
-                'started_at' => $request['billed_at'],
-                'count' => (int) $request['recurring_count'],
-            ]);
-        } else {
-            $bill->recurring()->delete();
-        }
+        $bill->updateRecurring();
 
         // Fire the event to make it extendible
         event(new BillUpdated($bill));

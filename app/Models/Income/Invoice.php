@@ -6,13 +6,14 @@ use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
+use App\Traits\Media;
+use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use App\Traits\Media;
 
 class Invoice extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media;
+    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media, Recurring;
 
     protected $table = 'invoices';
 

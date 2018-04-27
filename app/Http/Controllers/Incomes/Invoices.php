@@ -261,18 +261,7 @@ class Invoices extends Controller
         $this->increaseNextInvoiceNumber();
 
         // Recurring
-        if ($request->get('recurring_frequency') != 'no') {
-            $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-            $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
-
-            $invoice->recurring()->create([
-                'company_id' => session('company_id'),
-                'frequency' => $frequency,
-                'interval' => $interval,
-                'started_at' => $request['invoiced_at'],
-                'count' => (int) $request['recurring_count'],
-            ]);
-        }
+        $invoice->createRecurring();
 
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));
@@ -480,26 +469,7 @@ class Invoices extends Controller
         $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Recurring
-        if ($request->get('recurring_frequency') != 'no') {
-            $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-            $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
-
-            if ($invoice->has('recurring')->count()) {
-                $function = 'update';
-            } else {
-                $function = 'create';
-            }
-
-            $invoice->recurring()->$function([
-                'company_id' => session('company_id'),
-                'frequency' => $frequency,
-                'interval' => $interval,
-                'started_at' => $request['invoiced_at'],
-                'count' => (int) $request['recurring_count'],
-            ]);
-        } else {
-            $invoice->recurring()->delete();
-        }
+        $invoice->updateRecurring();
 
         // Fire the event to make it extendible
         event(new InvoiceUpdated($invoice));
