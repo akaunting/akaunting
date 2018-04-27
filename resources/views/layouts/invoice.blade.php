@@ -1,4 +1,4 @@
-<html>
+<html lang="{{ setting('general.default_locale') }}">
     @include('partials.invoice.head')
 
     <body onload="window.print();">

@@ -1,4 +1,4 @@
-<html>
+<html lang="{{ setting('general.default_locale') }}">
     @include('partials.auth.head')
 
     <body class="hold-transition login-page">
