@@ -39,13 +39,15 @@ trait Recurring
         $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
         $started_at = $request->get('paid_at') ?: ($request->get('invoiced_at') ?: $request->get('billed_at'));
 
-        if ($this->has('recurring')->count()) {
+        $recurring = $this->recurring();
+
+        if ($recurring->count()) {
             $function = 'update';
         } else {
             $function = 'create';
         }
 
-        $this->recurring()->$function([
+        $recurring->$function([
             'company_id' => session('company_id'),
             'frequency' => $frequency,
             'interval' => $interval,

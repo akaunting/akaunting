@@ -585,3 +585,8 @@ input[type="number"] {
 .form-small #currency {
     width: 10%;
 }
+
+.input-group-recurring {
+    padding-left: 0;
+    padding-right: 0;
+}
