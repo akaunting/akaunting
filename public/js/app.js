@@ -187,7 +187,10 @@ $(document).ready(function () {
         }
     });
 
-    $("#recurring_frequency").select2();
+    if ($('#recurring_frequency').length == 0) {
+        $("#recurring_frequency").select2();
+        $('#recurring_frequency').trigger('change');
+    }
 
     $(document).on('change', '.input-group-recurring #recurring_frequency', function (e) {
         var value = $(this).val();
