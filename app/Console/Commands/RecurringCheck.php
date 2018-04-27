@@ -53,7 +53,7 @@ class RecurringCheck extends Command
      */
     public function handle()
     {
-        $today = Date::today();
+        $this->today = Date::today();
 
         // Get all companies
         $companies = Company::all();
@@ -76,7 +76,7 @@ class RecurringCheck extends Command
                 $current = Date::parse($schedule->current()->getStart());
 
                 // Check if should recur today
-                if ($today->ne($current)) {
+                if ($this->today->ne($current)) {
                     continue;
                 }
 
@@ -97,7 +97,12 @@ class RecurringCheck extends Command
                         break;
                     case 'Payment':
                     case 'Revenue':
-                        $model->duplicate();
+                        // Create new record
+                        $clone = $model->duplicate();
+
+                        // Update date
+                        $clone->paid_at = $this->today->format('Y-m-d');
+                        $clone->save();
                         break;
                 }
             }
@@ -109,7 +114,16 @@ class RecurringCheck extends Command
 
     protected function recurInvoice($company, $model)
     {
+        // Create new record
         $clone = $model->duplicate();
+
+        // Days between invoiced and due date
+        $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
+
+        // Update dates
+        $clone->invoiced_at = $this->today->format('Y-m-d');
+        $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
+        $clone->save();
 
         // Add invoice history
         InvoiceHistory::create([
@@ -140,7 +154,16 @@ class RecurringCheck extends Command
 
     protected function recurBill($company, $model)
     {
+        // Create new record
         $clone = $model->duplicate();
+
+        // Days between invoiced and due date
+        $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
+
+        // Update dates
+        $clone->billed_at = $this->today->format('Y-m-d');
+        $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
+        $clone->save();
 
         // Add bill history
         BillHistory::create([
