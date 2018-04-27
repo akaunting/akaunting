@@ -1,4 +1,4 @@
-<html>
+<html lang="{{ setting('general.default_locale') }}">
     @include('partials.customer.head')
 
     <body class="hold-transition skin-green-light sidebar-mini fixed">

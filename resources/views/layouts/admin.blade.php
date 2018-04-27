@@ -1,4 +1,4 @@
-<html>
+<html lang="{{ setting('general.default_locale') }}">
     @include('partials.admin.head')
 
     <body class="hold-transition {{ setting('general.admin_theme', 'skin-green-light') }} sidebar-mini fixed">
