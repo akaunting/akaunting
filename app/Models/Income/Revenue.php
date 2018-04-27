@@ -80,7 +80,7 @@ class Revenue extends Model
 
     public function recurring()
     {
-        return $this->morphOne('App\Models\Common\Recurring', 'recurrable');
+        return $this->morphOne('App\Models\Common\Recurring', 'recurable');
     }
 
     public function transfers()

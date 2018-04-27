@@ -7,20 +7,20 @@ use App\Models\Model;
 class Recurring extends Model
 {
 
-    protected $table = 'recurrings';
+    protected $table = 'recurring';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'recurrable_id', 'recurrable_type', 'frequency', 'interval', 'started_at', 'count'];
+    protected $fillable = ['company_id', 'recurable_id', 'recurable_type', 'frequency', 'interval', 'started_at', 'count'];
 
 
     /**
      * Get all of the owning recurrable models.
      */
-    public function recurrable()
+    public function recurable()
     {
         return $this->morphTo();
     }

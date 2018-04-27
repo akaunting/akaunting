@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRecurringsTable extends Migration
+class CreateRecurringTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreateRecurringsTable extends Migration
      */
     public function up()
     {
-        Schema::create('recurrings', function (Blueprint $table) {
+        Schema::create('recurring', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id');
-            $table->morphs('recurrable');
+            $table->morphs('recurable');
             $table->string('frequency');
             $table->integer('interval')->default(1);
             $table->date('started_at');
@@ -32,6 +32,6 @@ class CreateRecurringsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('recurrings');
+        Schema::drop('recurring');
     }
 }
