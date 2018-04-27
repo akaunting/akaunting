@@ -187,9 +187,9 @@ $(document).ready(function () {
         }
     });
 
-    if ($('#recurring_frequency').length == 0) {
-        $("#recurring_frequency").select2();
-        $('#recurring_frequency').trigger('change');
+    if ($('.input-group-recurring #recurring_frequency').length == 0) {
+        $(".input-group-recurring #recurring_frequency").select2();
+        $('.input-group-recurring #recurring_frequency').trigger('change');
     }
 
     $(document).on('change', '.input-group-recurring #recurring_frequency', function (e) {
@@ -208,7 +208,7 @@ $(document).ready(function () {
             recurring_count.removeClass('hidden');
 
             $("#recurring_custom_frequency").select2();
-        } else if(value == 'no' || value == '') {
+        } else if (value == 'no' || value == '') {
             recurring_frequency.removeClass('col-md-10').removeClass('col-md-4').addClass('col-md-12');
 
             recurring_interval.addClass('hidden');
