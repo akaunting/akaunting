@@ -61,7 +61,7 @@
                                 <input class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="number" id="item-price-{{ $item_row }}">
                             </td>
                             <td>
-                                {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, setting('general.default_tax'), ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
+                                {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, setting('general.default_tax'), ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control tax-select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
                             </td>
                             <td class="text-right" style="vertical-align: middle;">
                                 <span id="item-total-{{ $item_row }}">0</span>
@@ -98,6 +98,8 @@
             </div>
         </div>
 
+        {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
+
         <div class="form-group col-md-6 required {{ $errors->has('category_id') ? 'has-error' : ''}}">
             {!! Form::label('category_id', trans_choice('general.categories', 1), ['class' => 'control-label']) !!}
             <div class="input-group">
@@ -110,7 +112,7 @@
             {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
         </div>
 
-        {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
+        {{ Form::recurring('create') }}
 
         {{ Form::fileGroup('attachment', trans('general.attachment')) }}
     </div>
@@ -194,7 +196,7 @@
                 autoclose: true
             });
 
-            $(".select2").select2({
+            $(".tax-select2").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
             });
 

@@ -260,6 +260,9 @@ class Invoices extends Controller
         // Update next invoice number
         $this->increaseNextInvoiceNumber();
 
+        // Recurring
+        $invoice->createRecurring();
+
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));
 
@@ -465,6 +468,9 @@ class Invoices extends Controller
         $invoice->totals()->delete();
         $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
+        // Recurring
+        $invoice->updateRecurring();
+
         // Fire the event to make it extendible
         event(new InvoiceUpdated($invoice));
 
@@ -546,9 +552,7 @@ class Invoices extends Controller
 
         $invoice = $this->prepareInvoice($invoice);
 
-        $logo = $this->getLogo();
-
-        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
+        $html = view($invoice->template_path, compact('invoice'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -602,9 +606,7 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        $logo = $this->getLogo();
-
-        return view($invoice->template_path, compact('invoice', 'logo'));
+        return view($invoice->template_path, compact('invoice'));
     }
 
     /**
@@ -618,9 +620,7 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        $logo = $this->getLogo();
-
-        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
+        $html = view($invoice->template_path, compact('invoice'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -868,40 +868,5 @@ class Invoices extends Controller
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
         ]);
-    }
-
-    protected function getLogo()
-    {
-        $logo = '';
-
-        $media_id = setting('general.company_logo');
-
-        if (setting('general.invoice_logo')) {
-            $media_id = setting('general.invoice_logo');
-        }
-
-        $media = Media::find($media_id);
-
-        if (!empty($media)) {
-            $path = Storage::path($media->getDiskPath());
-
-            if (!is_file($path)) {
-                return $logo;
-            }
-        } else {
-            $path = asset('public/img/company.png');
-        }
-
-        $image = Image::make($path)->encode()->getEncoded();
-
-        if (empty($image)) {
-            return $logo;
-        }
-
-        $extension = File::extension($path);
-
-        $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
-
-        return $logo;
     }
 }

@@ -62,6 +62,10 @@ class FormServiceProvider extends ServiceProvider
         Form::component('saveButtons', 'partials.form.save_buttons', [
             'cancel', 'col' => 'col-md-12',
         ]);
+
+        Form::component('recurring', 'partials.form.recurring', [
+            'page', 'model' => null,
+        ]);
     }
 
     /**

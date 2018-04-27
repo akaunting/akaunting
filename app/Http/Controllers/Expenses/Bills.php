@@ -242,6 +242,9 @@ class Bills extends Controller
             'description' => trans('messages.success.added', ['type' => $bill->bill_number]),
         ]);
 
+        // Recurring
+        $bill->createRecurring();
+
         // Fire the event to make it extendible
         event(new BillCreated($bill));
 
@@ -444,6 +447,9 @@ class Bills extends Controller
         $bill->totals()->delete();
         $this->addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
+        // Recurring
+        $bill->updateRecurring();
+
         // Fire the event to make it extendible
         event(new BillUpdated($bill));
 
@@ -511,9 +517,7 @@ class Bills extends Controller
     {
         $bill = $this->prepareBill($bill);
 
-        $logo = $this->getLogo($bill);
-
-        return view($bill->template_path, compact('bill', 'logo'));
+        return view($bill->template_path, compact('bill'));
     }
 
     /**
@@ -527,9 +531,7 @@ class Bills extends Controller
     {
         $bill = $this->prepareBill($bill);
 
-        $logo = $this->getLogo($bill);
-
-        $html = view($bill->template_path, compact('bill', 'logo'))->render();
+        $html = view($bill->template_path, compact('bill'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -735,40 +737,5 @@ class Bills extends Controller
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
         ]);
-    }
-
-    protected function getLogo($bill)
-    {
-        $logo = '';
-
-        $media_id = setting('general.company_logo');
-
-        if (isset($bill->vendor->logo) && !empty($bill->vendor->logo->id)) {
-            $media_id = $bill->vendor->logo->id;
-        }
-
-        $media = Media::find($media_id);
-
-        if (!empty($media)) {
-            $path = Storage::path($media->getDiskPath());
-
-            if (!is_file($path)) {
-                return $logo;
-            }
-        } else {
-            $path = asset('public/img/company.png');
-        }
-
-        $image = Image::make($path)->encode()->getEncoded();
-
-        if (empty($image)) {
-            return $logo;
-        }
-
-        $extension = File::extension($path);
-
-        $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
-
-        return $logo;
     }
 }

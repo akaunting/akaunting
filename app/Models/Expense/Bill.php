@@ -5,13 +5,14 @@ namespace App\Models\Expense;
 use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Media;
+use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use App\Traits\Media;
 
 class Bill extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Media;
+    use Cloneable, Currencies, DateTime, Eloquence, Media, Recurring;
 
     protected $table = 'bills';
 
@@ -58,16 +59,11 @@ class Bill extends Model
      *
      * @var array
      */
-    protected $cloneable_relations = ['items', 'totals'];
+    protected $cloneable_relations = ['items', 'recurring', 'totals'];
 
     public function category()
     {
         return $this->belongsTo('App\Models\Setting\Category');
-    }
-
-    public function vendor()
-    {
-        return $this->belongsTo('App\Models\Expense\Vendor');
     }
 
     public function currency()
@@ -75,9 +71,9 @@ class Bill extends Model
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function status()
+    public function histories()
     {
-        return $this->belongsTo('App\Models\Expense\BillStatus', 'bill_status_code', 'code');
+        return $this->hasMany('App\Models\Expense\BillHistory');
     }
 
     public function items()
@@ -85,19 +81,29 @@ class Bill extends Model
         return $this->hasMany('App\Models\Expense\BillItem');
     }
 
-    public function totals()
-    {
-        return $this->hasMany('App\Models\Expense\BillTotal');
-    }
-
     public function payments()
     {
         return $this->hasMany('App\Models\Expense\BillPayment');
     }
 
-    public function histories()
+    public function recurring()
     {
-        return $this->hasMany('App\Models\Expense\BillHistory');
+        return $this->morphOne('App\Models\Common\Recurring', 'recurable');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Models\Expense\BillStatus', 'bill_status_code', 'code');
+    }
+
+    public function totals()
+    {
+        return $this->hasMany('App\Models\Expense\BillTotal');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo('App\Models\Expense\Vendor');
     }
 
     public function scopeDue($query, $date)

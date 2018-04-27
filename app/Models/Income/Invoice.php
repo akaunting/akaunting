@@ -6,13 +6,14 @@ use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
+use App\Traits\Media;
+use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use App\Traits\Media;
 
 class Invoice extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media;
+    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media, Recurring;
 
     protected $table = 'invoices';
 
@@ -59,16 +60,11 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $cloneable_relations = ['items', 'totals'];
+    protected $cloneable_relations = ['items', 'recurring', 'totals'];
 
     public function category()
     {
         return $this->belongsTo('App\Models\Setting\Category');
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo('App\Models\Income\Customer');
     }
 
     public function currency()
@@ -76,9 +72,9 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function status()
+    public function customer()
     {
-        return $this->belongsTo('App\Models\Income\InvoiceStatus', 'invoice_status_code', 'code');
+        return $this->belongsTo('App\Models\Income\Customer');
     }
 
     public function items()
@@ -86,9 +82,9 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
 
-    public function totals()
+    public function histories()
     {
-        return $this->hasMany('App\Models\Income\InvoiceTotal');
+        return $this->hasMany('App\Models\Income\InvoiceHistory');
     }
 
     public function payments()
@@ -96,9 +92,19 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoicePayment');
     }
 
-    public function histories()
+    public function recurring()
     {
-        return $this->hasMany('App\Models\Income\InvoiceHistory');
+        return $this->morphOne('App\Models\Common\Recurring', 'recurable');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Models\Income\InvoiceStatus', 'invoice_status_code', 'code');
+    }
+
+    public function totals()
+    {
+        return $this->hasMany('App\Models\Income\InvoiceTotal');
     }
 
     public function scopeDue($query, $date)

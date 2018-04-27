@@ -24,6 +24,17 @@
                 </div>
             </div>
 
+            <div class="form-group col-md-6">
+                {!! Form::label('vendor_id', trans_choice('general.vendors', 1), ['class' => 'control-label']) !!}
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                    {!! Form::select('vendor_id', $vendors, null, array_merge(['id' => 'vendor_id', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)])])) !!}
+                    <span class="input-group-btn">
+                    <button type="button" onclick="createVendor();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
+                </span>
+                </div>
+            </div>
+
             {{ Form::textareaGroup('description', trans('general.description')) }}
 
             <div class="form-group col-md-6 required {{ $errors->has('category_id') ? 'has-error' : ''}}">
@@ -38,16 +49,7 @@
                 {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
             </div>
 
-            <div class="form-group col-md-6">
-                {!! Form::label('vendor_id', trans_choice('general.vendors', 1), ['class' => 'control-label']) !!}
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                    {!! Form::select('vendor_id', $vendors, null, array_merge(['id' => 'vendor_id', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)])])) !!}
-                    <span class="input-group-btn">
-                    <button type="button" onclick="createVendor();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
-                </span>
-                </div>
-            </div>
+            {{ Form::recurring('create') }}
 
             {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, setting('general.default_payment_method')) }}
 

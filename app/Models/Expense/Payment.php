@@ -6,13 +6,14 @@ use App\Models\Model;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Media;
+use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use App\Traits\Media;
 
 class Payment extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Media;
+    use Cloneable, Currencies, DateTime, Eloquence, Media, Recurring;
 
     protected $table = 'payments';
 
@@ -44,14 +45,16 @@ class Payment extends Model
         'description'  ,
     ];
 
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    protected $cloneable_relations = ['recurring'];
+
     public function account()
     {
         return $this->belongsTo('App\Models\Banking\Account');
-    }
-
-    public function currency()
-    {
-        return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
     public function category()
@@ -59,14 +62,24 @@ class Payment extends Model
         return $this->belongsTo('App\Models\Setting\Category');
     }
 
-    public function vendor()
+    public function currency()
     {
-        return $this->belongsTo('App\Models\Expense\Vendor');
+        return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
+    }
+
+    public function recurring()
+    {
+        return $this->morphOne('App\Models\Common\Recurring', 'recurable');
     }
 
     public function transfers()
     {
         return $this->hasMany('App\Models\Banking\Transfer');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo('App\Models\Expense\Vendor');
     }
 
     /**

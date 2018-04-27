@@ -98,6 +98,9 @@ class Revenues extends Controller
             $revenue->attachMedia($media, 'attachment');
         }
 
+        // Recurring
+        $revenue->createRecurring();
+
         $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
 
         flash($message)->success();
@@ -196,6 +199,9 @@ class Revenues extends Controller
 
             $revenue->attachMedia($media, 'attachment');
         }
+
+        // Recurring
+        $revenue->updateRecurring();
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.revenues', 1)]);
 

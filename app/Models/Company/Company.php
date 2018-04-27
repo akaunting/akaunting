@@ -106,6 +106,11 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Expense\Payment');
     }
 
+    public function recurring()
+    {
+        return $this->hasMany('App\Models\Common\Recurring');
+    }
+
     public function revenues()
     {
         return $this->hasMany('App\Models\Income\Revenue');
