@@ -3,6 +3,18 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('content')
+    @if ($invoice->recurring()->count())
+        <div class="callout callout-info">
+            <h4>{{ trans('recurring.recurring') }}</h4>
+
+            <p>{{ trans('recurring.message', [
+                    'type' => mb_strtolower(trans_choice('general.invoices', 1)),
+                    'date' => $invoice->recurring->schedule()->next()->getStart()->format($date_format)
+                ]) }}
+            </p>
+        </div>
+    @endif
+
     <div class="box box-success">
         <section class="invoice">
             <span class="badge bg-aqua">{{ $invoice->status->name }}</span>

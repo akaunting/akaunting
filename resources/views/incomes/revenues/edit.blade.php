@@ -3,6 +3,18 @@
 @section('title', trans('general.title.edit', ['type' => trans_choice('general.revenues', 1)]))
 
 @section('content')
+    @if ($revenue->recurring()->count())
+        <div class="callout callout-info">
+            <h4>{{ trans('recurring.recurring') }}</h4>
+
+            <p>{{ trans('recurring.message', [
+                    'type' => mb_strtolower(trans_choice('general.revenues', 1)),
+                    'date' => $revenue->recurring->schedule()->next()->getStart()->format($date_format)
+                ]) }}
+            </p>
+        </div>
+    @endif
+
     <!-- Default box -->
     <div class="box box-success">
         {!! Form::model($revenue, [

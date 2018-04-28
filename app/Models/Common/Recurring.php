@@ -3,6 +3,11 @@
 namespace App\Models\Common;
 
 use App\Models\Model;
+use DateTime;
+use DateTimeZone;
+use Recurr\Rule;
+use Recurr\Transformer\ArrayTransformer;
+use Recurr\Transformer\ArrayTransformerConfig;
 
 class Recurring extends Model
 {
@@ -23,5 +28,31 @@ class Recurring extends Model
     public function recurable()
     {
         return $this->morphTo();
+    }
+
+    public function schedule()
+    {
+        $config = new ArrayTransformerConfig();
+        $config->enableLastDayOfMonthFix();
+
+        $transformer = new ArrayTransformer();
+        $transformer->setConfig($config);
+
+        return $transformer->transform($this->rule());
+    }
+
+    public function rule()
+    {
+        // 0 means infinite
+        $count = ($this->count == 0) ? 999 : $this->count;
+
+        $rule = (new Rule())
+            ->setStartDate(new DateTime($this->started_at, new DateTimeZone(setting('general.timezone'))))
+            ->setTimezone(setting('general.timezone'))
+            ->setFreq(strtoupper($this->frequency))
+            ->setInterval($this->interval)
+            ->setCount($count);
+
+        return $rule;
     }
 }

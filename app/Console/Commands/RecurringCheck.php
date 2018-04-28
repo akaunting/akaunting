@@ -71,9 +71,7 @@ class RecurringCheck extends Command
             $recurring = $company->recurring();
 
             foreach ($recurring as $recur) {
-                $schedule = $this->schedule($recur);
-
-                $current = Date::parse($schedule->current()->getStart());
+                $current = Date::parse($recur->schedule()->current()->getStart()->format('Y-m-d'));
 
                 // Check if should recur today
                 if ($this->today->ne($current)) {
@@ -182,28 +180,5 @@ class RecurringCheck extends Command
 
             $user->notify(new BillNotification($clone));
         }
-    }
-
-    protected function schedule($recur)
-    {
-        $config = new ArrayTransformerConfig();
-        $config->enableLastDayOfMonthFix();
-
-        $transformer = new ArrayTransformer();
-        $transformer->setConfig($config);
-
-        return $transformer->transform($this->rule($recur));
-    }
-
-    protected function rule($recur)
-    {
-        $rule = (new Rule())
-            ->setStartDate($recur->started_at)
-            ->setTimezone(setting('general.timezone'))
-            ->setFreq(strtoupper($recur->frequency))
-            ->setInterval($recur->interval)
-            ->setCount($recur->count);
-
-        return $rule;
     }
 }
