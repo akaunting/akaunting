@@ -1,4 +1,4 @@
-<html lang="{{ setting('general.default_locale') }}">
+<html>
     @include('partials.install.head')
 
     <body class="hold-transition">
