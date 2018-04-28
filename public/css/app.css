@@ -586,6 +586,11 @@ input[type="number"] {
     width: 10%;
 }
 
+.input-group-recurring {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
 .popover-content, .discount.box-body, .discount.box-footer {
     padding-left: 0 !important;
     padding-right: 0 !important;
