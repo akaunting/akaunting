@@ -77,12 +77,12 @@
                             <td class="text-right"><span id="sub-total">0</span></td>
                         </tr>
                         <tr>
-                            <td class="text-right" style="vertical-align: middle;" colspan="5"><strong>{{ trans('bills.discount') }}</strong></td>
+                            <td class="text-right" style="vertical-align: middle;" colspan="5">
+                                <a href="javascript:void(0)" id="discount-text" rel="popover">{{ trans('bills.add_discount') }}</a>
+                            </td>
                             <td class="text-right">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-percent"></i></div>
-                                    {!! Form::number('discount', null, ['class' => 'form-control text-right']) !!}
-                                </div>
+                                <span id="discount-total"></span>
+                                {!! Form::hidden('discount', null, ['id' => 'discount', 'class' => 'form-control text-right']) !!}
                             </td>
                         </tr>
                         <tr>
@@ -256,6 +256,58 @@
                 });
             });
 
+            $('a[rel=popover]').popover({
+                html: 'true',
+                placement: 'bottom',
+                title: '{{ trans('bills.discount') }}',
+                content: function () {
+
+                    html  = '<div class="discount box-body">';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="input-group" id="input-discount">';
+                    html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
+                    html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="discount-description">';
+                    html += '           {{ trans('bills.discount_desc') }}';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '</div>';
+                    html += '<div class="discount box-footer">';
+                    html += '    <div class="col-md-12">';
+                    html += '        <div class="form-group no-margin">';
+                    html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
+                    html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
+                    html += '       </div>';
+                    html += '    </div>';
+                    html += '</div>';
+
+                    return html;
+                }
+            });
+
+            $(document).on('keyup', '#pre-discount', function(e){
+                e.preventDefault();
+
+                $('#discount').val($(this).val());
+
+                totalItem();
+            });
+
+            $(document).on('click', '#save-discount', function(){
+                $('a[rel=popover]').trigger('click');
+            });
+
+            $(document).on('click', '#cancel-discount', function(){
+                $('#discount').val('');
+
+                totalItem();
+
+                $('a[rel=popover]').trigger('click');
+            });
+
             $(document).on('change', '#currency_code, #items tbody select', function(){
                 totalItem();
             });
@@ -293,7 +345,10 @@
                             $('#item-total-' + key).html(value);
                         });
 
+                        $('#discount-text').text(data.discount_text);
+
                         $('#sub-total').html(data.sub_total);
+                        $('#discount-total').html(data.discount_total);
                         $('#tax-total').html(data.tax_total);
                         $('#grand-total').html(data.grand_total);
                     }
