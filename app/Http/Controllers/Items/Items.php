@@ -290,10 +290,16 @@ class Items extends Controller
 
         $json->sub_total = money($sub_total, $currency_code, true)->format();
 
+        $json->discount_text= trans('invoices.add_discount');
+        $json->discount_total = '';
+
         $json->tax_total = money($tax_total, $currency_code, true)->format();
 
         // Apply discount to total
         if ($discount) {
+            $json->discount_text= trans('invoices.show_discount', ['discount' => $discount]);
+            $json->discount_total = money($sub_total * ($discount / 100), $currency_code, true)->format();
+
             $sub_total = $sub_total - ($sub_total * ($discount / 100));
         }
 
