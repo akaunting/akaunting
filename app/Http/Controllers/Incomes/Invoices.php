@@ -205,10 +205,10 @@ class Invoices extends Controller
                 $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
-                $invoice_item['price'] = $item['price'];
+                $invoice_item['price'] = (double) $item['price'];
                 $invoice_item['tax'] = $tax;
                 $invoice_item['tax_id'] = $tax_id;
-                $invoice_item['total'] = $item['price'] * $item['quantity'];
+                $invoice_item['total'] = (double) $item['price'] * $item['quantity'];
 
                 InvoiceItem::create($invoice_item);
 
@@ -418,10 +418,10 @@ class Invoices extends Controller
                 $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
                 $invoice_item['quantity'] = $item['quantity'];
-                $invoice_item['price'] = $item['price'];
+                $invoice_item['price'] = (double) $item['price'];
                 $invoice_item['tax'] = $tax;
                 $invoice_item['tax_id'] = $tax_id;
-                $invoice_item['total'] = $item['price'] * $item['quantity'];
+                $invoice_item['total'] = (double) $item['price'] * $item['quantity'];
 
                 if (isset($tax_object)) {
                     if (array_key_exists($tax_object->id, $taxes)) {
