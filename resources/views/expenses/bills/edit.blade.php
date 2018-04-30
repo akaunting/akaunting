@@ -21,7 +21,7 @@
             {{ Form::textGroup('order_number', trans('bills.order_number'), 'shopping-cart',[]) }}
 
             <div class="form-group col-md-12">
-                {!! Form::label('items', trans_choice('general.items', 1), ['class' => 'control-label']) !!}
+                {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'control-label']) !!}
                 <div class="table-responsive">
                     <table class="table table-bordered" id="items">
                         <thead>
@@ -46,10 +46,10 @@
                                     <input value="{{ $item->item_id }}" name="item[{{ $item_row }}][item_id]" type="hidden" id="item-id-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    <input value="{{ $item->quantity }}" class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="number" id="item-quantity-{{ $item_row }}">
+                                    <input value="{{ $item->quantity }}" class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="text" id="item-quantity-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    <input value="{{ $item->price }}" class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="number" id="item-price-{{ $item_row }}">
+                                    <input value="{{ $item->price }}" class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
                                 </td>
                                 <td>
                                     {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, $item->tax_id, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.enter', ['field' => trans_choice('general.taxes', 1)])]) !!}
@@ -70,10 +70,10 @@
                                     <input name="item[{{ $item_row }}][item_id]" type="hidden" id="item-id-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    <input class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="number" id="item-quantity-{{ $item_row }}">
+                                    <input class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="text" id="item-quantity-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    <input class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="number" id="item-price-{{ $item_row }}">
+                                    <input class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
                                 </td>
                                 <td>
                                     {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, null, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control tax-select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
@@ -159,10 +159,10 @@
             html += '      <input name="item[' + item_row + '][item_id]" type="hidden" id="item-id-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
-            html += '      <input class="form-control text-center" required="required" name="item[' + item_row + '][quantity]" type="number" id="item-quantity-' + item_row + '">';
+            html += '      <input class="form-control text-center" required="required" name="item[' + item_row + '][quantity]" type="text" id="item-quantity-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
-            html += '      <input class="form-control text-right" required="required" name="item[' + item_row + '][price]" type="number" id="item-price-' + item_row + '">';
+            html += '      <input class="form-control text-right" required="required" name="item[' + item_row + '][price]" type="text" id="item-price-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
             html += '      <select class="form-control select2" name="item[' + item_row + '][tax_id]" id="item-tax-' + item_row + '">';
