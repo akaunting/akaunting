@@ -27,7 +27,7 @@
         <div class="box-body">
             {{ Form::textGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => ''], Date::parse($payment->paid_at)->toDateString()) }}
 
-            {{ Form::numberGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
+            {{ Form::textGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
 
             <div class="form-group col-md-6 form-small">
                 {!! Form::label('account_id', trans_choice('general.accounts', 1), ['class' => 'control-label']) !!}

@@ -19,9 +19,9 @@
 
         {{ Form::textareaGroup('description', trans('general.description')) }}
 
-        {{ Form::numberGroup('sale_price', trans('items.sales_price'), 'money') }}
+        {{ Form::textGroup('sale_price', trans('items.sales_price'), 'money') }}
 
-        {{ Form::numberGroup('purchase_price', trans('items.purchase_price'), 'money') }}
+        {{ Form::textGroup('purchase_price', trans('items.purchase_price'), 'money') }}
 
         {{ Form::textGroup('quantity', trans_choice('items.quantities', 1), 'cubes') }}
 

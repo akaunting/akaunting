@@ -262,7 +262,7 @@ class Items extends Controller
         if ($input_items) {
             foreach ($input_items as $key => $item) {
                 $price = (double) $item['price'];
-                $quantity = (int) $item['quantity'];
+                $quantity = (double) $item['quantity'];
 
                 $item_tax_total= 0;
                 $item_sub_total = ($price * $quantity);

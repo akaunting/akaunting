@@ -18,6 +18,7 @@
         "bkwld/cloner": "3.2.*",
         "consoletvs/charts": "4.6.*",
         "dingo/api": "1.0.0-beta8",
+        "doctrine/dbal": "2.5.*",
         "fideloper/proxy": "3.3.*",
         "guzzlehttp/guzzle": "6.3.*",
         "intervention/image": "2.3.*",
