@@ -490,6 +490,7 @@ class Invoices extends Controller
      */
     public function destroy(Invoice $invoice)
     {
+        $invoice->recurring()->delete();
         $invoice->delete();
 
         /*

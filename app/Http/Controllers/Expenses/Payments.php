@@ -222,6 +222,7 @@ class Payments extends Controller
             return redirect('expenses/payments');
         }
 
+        $payment->recurring()->delete();
         $payment->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.payments', 1)]);

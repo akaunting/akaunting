@@ -3,13 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Company\Company;
-use App\Models\Common\Recurring;
-use App\Models\Expense\Bill;
 use App\Models\Expense\BillHistory;
-use App\Models\Expense\Payment;
-use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceHistory;
-use App\Models\Income\Revenue;
 use App\Notifications\Expense\Bill as BillNotification;
 use App\Notifications\Income\Invoice as InvoiceNotification;
 use App\Traits\Incomes;
@@ -68,9 +63,7 @@ class RecurringCheck extends Command
 
             $company->setSettings();
 
-            $recurring = $company->recurring();
-
-            foreach ($recurring as $recur) {
+            foreach ($company->recurring as $recur) {
                 $current = Date::parse($recur->schedule()->current()->getStart()->format('Y-m-d'));
 
                 // Check if should recur today
@@ -78,29 +71,30 @@ class RecurringCheck extends Command
                     continue;
                 }
 
-                $type = end(explode('\\', $recur->recurable_type));
-
-                $model = $type::find($recur->recurable_id);
+                $model = $recur->recurable;
 
                 if (!$model) {
                     continue;
                 }
 
-                switch ($type) {
-                    case 'Bill':
+                switch ($recur->recurable_type) {
+                    case 'App\Models\Expense\Bill':
                         $this->recurBill($company, $model);
                         break;
-                    case 'Invoice':
+                    case 'App\Models\Income\Invoice':
                         $this->recurInvoice($company, $model);
                         break;
-                    case 'Payment':
-                    case 'Revenue':
+                    case 'App\Models\Expense\Payment':
+                    case 'App\Models\Income\Revenue':
+                        $model->cloneable_relations = [];
+
                         // Create new record
                         $clone = $model->duplicate();
 
-                        // Update date
+                        $clone->parent_id = $model->id;
                         $clone->paid_at = $this->today->format('Y-m-d');
                         $clone->save();
+
                         break;
                 }
             }
@@ -112,8 +106,13 @@ class RecurringCheck extends Command
 
     protected function recurInvoice($company, $model)
     {
+        $model->cloneable_relations = ['items', 'totals'];
+
         // Create new record
         $clone = $model->duplicate();
+
+        // Set original invoice id
+        $clone->parent_id = $model->id;
 
         // Days between invoiced and due date
         $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
@@ -152,8 +151,13 @@ class RecurringCheck extends Command
 
     protected function recurBill($company, $model)
     {
+        $model->cloneable_relations = ['items', 'totals'];
+
         // Create new record
         $clone = $model->duplicate();
+
+        // Set original bill id
+        $clone->parent_id = $model->id;
 
         // Days between invoiced and due date
         $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));

@@ -469,6 +469,7 @@ class Bills extends Controller
      */
     public function destroy(Bill $bill)
     {
+        $bill->recurring()->delete();
         $bill->delete();
 
         /*

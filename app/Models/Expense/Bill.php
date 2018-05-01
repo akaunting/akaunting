@@ -30,7 +30,7 @@ class Bill extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'bill_number', 'order_number', 'bill_status_code', 'billed_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'vendor_id', 'vendor_name', 'vendor_email', 'vendor_tax_number', 'vendor_phone', 'vendor_address', 'notes', 'category_id'];
+    protected $fillable = ['company_id', 'bill_number', 'order_number', 'bill_status_code', 'billed_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'vendor_id', 'vendor_name', 'vendor_email', 'vendor_tax_number', 'vendor_phone', 'vendor_address', 'notes', 'category_id', 'parent_id'];
 
     /**
      * Sortable columns.
@@ -59,7 +59,7 @@ class Bill extends Model
      *
      * @var array
      */
-    protected $cloneable_relations = ['items', 'recurring', 'totals'];
+    public $cloneable_relations = ['items', 'recurring', 'totals'];
 
     public function category()
     {

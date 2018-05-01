@@ -172,6 +172,8 @@ class Revenues extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
+        $a = $revenue->recurring->schedule()->next();
+
         return view('incomes.revenues.edit', compact('revenue', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
     }
 
@@ -224,6 +226,7 @@ class Revenues extends Controller
             return redirect('incomes/revenues');
         }
 
+        $revenue->recurring()->delete();
         $revenue->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.revenues', 1)]);

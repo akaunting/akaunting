@@ -23,7 +23,7 @@ class Recurring extends Model
 
 
     /**
-     * Get all of the owning recurrable models.
+     * Get all of the owning recurable models.
      */
     public function recurable()
     {
