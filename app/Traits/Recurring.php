@@ -2,6 +2,12 @@
 
 namespace App\Traits;
 
+use DateTime;
+use DateTimeZone;
+use Recurr\Rule;
+use Recurr\Transformer\ArrayTransformer;
+use Recurr\Transformer\ArrayTransformerConfig;
+
 trait Recurring
 {
 
@@ -54,5 +60,93 @@ trait Recurring
             'started_at' => $started_at,
             'count' => (int) $request['recurring_count'],
         ]);
+    }
+
+    public function current()
+    {
+        if (!$schedule = $this->schedule()) {
+            return false;
+        }
+
+        return $schedule->current()->getStart();
+    }
+
+    public function next()
+    {
+        if (!$schedule = $this->schedule()) {
+            return false;
+        }
+
+        if (!$next = $schedule->next()) {
+            return false;
+        }
+
+        return $next->getStart();
+    }
+
+    public function first()
+    {
+        if (!$schedule = $this->schedule()) {
+            return false;
+        }
+
+        return $schedule->first()->getStart();
+    }
+
+    public function last()
+    {
+        if (!$schedule = $this->schedule()) {
+            return false;
+        }
+
+        return $schedule->last()->getStart();
+    }
+
+    public function schedule()
+    {
+        $config = new ArrayTransformerConfig();
+        $config->enableLastDayOfMonthFix();
+
+        $transformer = new ArrayTransformer();
+        $transformer->setConfig($config);
+
+        return $transformer->transform($this->getRule());
+    }
+
+    public function getRule()
+    {
+        $rule = (new Rule())
+            ->setStartDate($this->getRuleStartDate())
+            ->setTimezone($this->getRuleTimeZone())
+            ->setFreq($this->getRuleFrequency())
+            ->setInterval($this->interval);
+
+        // 0 means infinite
+        if ($this->count != 0) {
+            $rule->setCount($this->getRuleCount());
+        }
+
+        return $rule;
+    }
+
+    public function getRuleStartDate()
+    {
+        return new DateTime($this->started_at, new DateTimeZone($this->getRuleTimeZone()));
+    }
+
+    public function getRuleTimeZone()
+    {
+        return setting('general.timezone');
+    }
+
+    public function getRuleCount()
+    {
+        // Fix for humans
+        return $this->count + 1;
+    }
+
+    public function getRuleFrequency()
+    {
+        return strtoupper($this->frequency);
     }
 }

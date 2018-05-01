@@ -64,10 +64,14 @@ class RecurringCheck extends Command
             $company->setSettings();
 
             foreach ($company->recurring as $recur) {
-                $current = Date::parse($recur->schedule()->current()->getStart()->format('Y-m-d'));
+                if (!$current = $recur->current()) {
+                    continue;
+                }
+
+                $current_date = Date::parse($current->format('Y-m-d'));
 
                 // Check if should recur today
-                if ($this->today->ne($current)) {
+                if ($this->today->ne($current_date)) {
                     continue;
                 }
 

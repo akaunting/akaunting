@@ -3,13 +3,13 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('content')
-    @if ($invoice->recurring()->count())
+    @if (($recurring = $invoice->recurring) && ($next = $recurring->next()))
         <div class="callout callout-info">
             <h4>{{ trans('recurring.recurring') }}</h4>
 
             <p>{{ trans('recurring.message', [
                     'type' => mb_strtolower(trans_choice('general.invoices', 1)),
-                    'date' => $invoice->recurring->schedule()->next()->getStart()->format($date_format)
+                    'date' => $next->format($date_format)
                 ]) }}
             </p>
         </div>

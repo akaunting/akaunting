@@ -3,13 +3,13 @@
 @section('title', trans_choice('general.bills', 1) . ': ' . $bill->bill_number)
 
 @section('content')
-    @if ($bill->recurring()->count())
+    @if (($recurring = $invoice->recurring) && ($next = $recurring->next()))
         <div class="callout callout-info">
             <h4>{{ trans('recurring.recurring') }}</h4>
 
             <p>{{ trans('recurring.message', [
                     'type' => mb_strtolower(trans_choice('general.bills', 1)),
-                    'date' => $bill->recurring->schedule()->next()->getStart()->format($date_format)
+                    'date' => $next->format($date_format)
                 ]) }}
             </p>
         </div>
