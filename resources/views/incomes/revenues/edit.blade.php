@@ -70,6 +70,7 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
@@ -84,7 +85,8 @@
             //Date picker
             $('#paid_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
             $("#account_id").select2({

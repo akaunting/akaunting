@@ -69,83 +69,85 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-<script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-<link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')
-<script type="text/javascript">
-    $(document).ready(function(){
-        //Date picker
-        $('#paid_at').datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true
-        });
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //Date picker
+            $('#paid_at').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
+            });
 
-        $("#account_id").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
-        });
+            $("#account_id").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
+            });
 
-        $("#category_id").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
-        });
+            $("#category_id").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
+            });
 
-        $("#vendor_id").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)]) }}"
-        });
+            $("#vendor_id").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)]) }}"
+            });
 
-        $("#payment_method").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)]) }}"
-        });
+            $("#payment_method").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)]) }}"
+            });
 
-        $('#attachment').fancyfile({
-            text  : '{{ trans('general.form.select.file') }}',
-            style : 'btn-default',
+            $('#attachment').fancyfile({
+                text  : '{{ trans('general.form.select.file') }}',
+                style : 'btn-default',
+                @if($payment->attachment)
+                placeholder : '<?php echo $payment->attachment->basename; ?>'
+                @else
+                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                @endif
+            });
+
             @if($payment->attachment)
-            placeholder : '<?php echo $payment->attachment->basename; ?>'
-            @else
-            placeholder : '{{ trans('general.form.no_file_selected') }}'
+                attachment_html  = '<span class="attachment">';
+                attachment_html += '    <a href="{{ url('uploads/' . $payment->attachment->id . '/download') }}">';
+                attachment_html += '        <span id="download-attachment" class="text-primary">';
+                attachment_html += '            <i class="fa fa-file-{{ $payment->attachment->aggregate_type }}-o"></i> {{ $payment->attachment->basename }}';
+                attachment_html += '        </span>';
+                attachment_html += '    </a>';
+                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $payment->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $payment->attachment->id)], 'style' => 'display:inline']) !!}';
+                attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
+                attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
+                attachment_html += '    </a>';
+                attachment_html += '    {!! Form::close() !!}';
+                attachment_html += '</span>';
+
+                $('.fancy-file .fake-file').append(attachment_html);
+
+                $(document).on('click', '#remove-attachment', function (e) {
+                    confirmDelete("#attachment-{!! $payment->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $payment->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+                });
             @endif
-        });
 
-        @if($payment->attachment)
-            attachment_html  = '<span class="attachment">';
-            attachment_html += '    <a href="{{ url('uploads/' . $payment->attachment->id . '/download') }}">';
-            attachment_html += '        <span id="download-attachment" class="text-primary">';
-            attachment_html += '            <i class="fa fa-file-{{ $payment->attachment->aggregate_type }}-o"></i> {{ $payment->attachment->basename }}';
-            attachment_html += '        </span>';
-            attachment_html += '    </a>';
-            attachment_html += '    {!! Form::open(['id' => 'attachment-' . $payment->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $payment->attachment->id)], 'style' => 'display:inline']) !!}';
-            attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
-            attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-            attachment_html += '    </a>';
-            attachment_html += '    {!! Form::close() !!}';
-            attachment_html += '</span>';
-
-            $('.fancy-file .fake-file').append(attachment_html);
-
-            $(document).on('click', '#remove-attachment', function (e) {
-                confirmDelete("#attachment-{!! $payment->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $payment->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-            });
-        @endif
-
-        $(document).on('change', '#account_id', function (e) {
-            $.ajax({
-                url: '{{ url("settings/currencies/currency") }}',
-                type: 'GET',
-                dataType: 'JSON',
-                data: 'account_id=' + $(this).val(),
-                success: function(data) {
-                    $('#currency').val(data.currency_code);
-                    $('#currency_code').val(data.currency_code);
-                }
+            $(document).on('change', '#account_id', function (e) {
+                $.ajax({
+                    url: '{{ url("settings/currencies/currency") }}',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    data: 'account_id=' + $(this).val(),
+                    success: function(data) {
+                        $('#currency').val(data.currency_code);
+                        $('#currency_code').val(data.currency_code);
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 @endpush

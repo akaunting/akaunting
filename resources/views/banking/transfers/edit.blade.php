@@ -41,6 +41,7 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
 @endpush
 
 @push('css')
@@ -53,7 +54,8 @@
             //Date picker
             $('#transferred_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
             $("#from_account_id").select2({
