@@ -43,8 +43,12 @@
                     <tr>
                         <td>
                             <a href="{{ url('auth/users/' . $item->id . '/edit') }}">
+                                @if (setting('general.use_gravatar', '0') == '1')
+                                    <img src="{{ $item->picture }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                @else
                                 @if ($item->picture)
-                                <img src="{{ Storage::url($item->picture->id) }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                    <img src="{{ Storage::url($item->picture->id) }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                @endif
                                 @endif
                                 {{ $item->name }}
                             </a>
