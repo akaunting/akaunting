@@ -18,7 +18,7 @@ return [
 
     'item_name'         => 'Item Name|Item Names',
 
-    'show_discount'     => ':discount % Discount',
+    'show_discount'     => ':discount% Discount',
     'add_discount'      => 'Add Discount',
     'discount_desc'     => 'of subtotal',
 
