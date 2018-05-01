@@ -601,6 +601,6 @@ input[type="number"] {
     margin-left: -20px;
 }
 
-.user.user-menu, .user.user-menu a {
+.user.user-menu, .user.user-menu a.dropdown-toggle {
     min-height: 50px;
 }
