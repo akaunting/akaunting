@@ -9,6 +9,8 @@ use App\Models\Company\Company;
 use App\Models\Expense\Bill;
 use App\Models\Income\Invoice;
 use App\Models\Setting\Category;
+use DB;
+use Schema;
 use Artisan;
 
 class Version120 extends Listener
@@ -36,6 +38,8 @@ class Version120 extends Listener
         Artisan::call('migrate', ['--force' => true]);
 
         $this->updateInvoicesAndBills();
+
+        $this->changeQuantityColumn();
     }
 
     protected function updatePermissions()
@@ -104,6 +108,30 @@ class Version120 extends Listener
                 $bill->category_id = $bill_category->id;
                 $bill->save();
             }
+        }
+    }
+
+    protected function changeQuantityColumn()
+    {
+        $connection = env('DB_CONNECTION');
+
+        if ($connection == 'mysql') {
+            $tables = [
+                env('DB_PREFIX') . 'invoice_items',
+                env('DB_PREFIX') . 'bill_items'
+            ];
+
+            foreach ($tables as $table) {
+                DB::statement("ALTER TABLE `$table` MODIFY `quantity` DOUBLE(7,2) NOT NULL");
+            }
+        } else {
+            Schema::table('invoice_items', function ($table) {
+                $table->decimal('quantity', 7, 2)->change();
+            });
+
+            Schema::table('bill_items', function ($table) {
+                $table->decimal('quantity', 7, 2)->change();
+            });
         }
     }
 }
