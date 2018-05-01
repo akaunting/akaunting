@@ -600,3 +600,7 @@ input[type="number"] {
     margin-top: 6px;
     margin-left: -20px;
 }
+
+.user.user-menu, .user.user-menu a.dropdown-toggle {
+    min-height: 50px;
+}
