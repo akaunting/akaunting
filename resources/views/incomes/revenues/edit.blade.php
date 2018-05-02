@@ -3,7 +3,7 @@
 @section('title', trans('general.title.edit', ['type' => trans_choice('general.revenues', 1)]))
 
 @section('content')
-    @if (($recurring = $invoice->recurring) && ($next = $recurring->next()))
+    @if (($recurring = $revenue->recurring) && ($next = $recurring->next()))
         <div class="callout callout-info">
             <h4>{{ trans('recurring.recurring') }}</h4>
 
