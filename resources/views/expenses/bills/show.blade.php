@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.bills', 1) . ': ' . $bill->bill_number)
 
 @section('content')
-    @if (($recurring = $invoice->recurring) && ($next = $recurring->next()))
+    @if (($recurring = $bill->recurring) && ($next = $recurring->next()))
         <div class="callout callout-info">
             <h4>{{ trans('recurring.recurring') }}</h4>
 
