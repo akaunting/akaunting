@@ -13,6 +13,13 @@ class InvoiceTotal extends Model
     protected $table = 'invoice_totals';
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['title'];
+
+    /**
      * Attributes that should be mass-assignable.
      *
      * @var array
@@ -40,39 +47,40 @@ class InvoiceTotal extends Model
      *
      * @return string
      */
-    public function getNameAttribute($value)
+    public function getTitleAttribute()
     {
-        $name = $value;
+        $title = $this->name;
 
         $percent = 0;
 
-        // Discount
-        if ($this->code == 'discount') {
-            $name = trans($name);
-            $percent = $this->invoice->discount;
-        }
+        switch ($this->code) {
+            case 'discount':
+                $title = trans($title);
+                $percent = $this->invoice->discount;
 
-        // Tax
-        if ($this->code == 'tax') {
-            $rate = Tax::where('name', $name)->value('rate');
+                break;
+            case 'tax':
+                $rate = Tax::where('name', $title)->value('rate');
 
-            if (!empty($rate)) {
-                $percent = $rate;
-            }
+                if (!empty($rate)) {
+                    $percent = $rate;
+                }
+
+                break;
         }
 
         if (!empty($percent)) {
-            $name .= ' (';
+            $title .= ' (';
 
             if (setting('general.percent_position', 'after') == 'after') {
-                $name .= $percent . '%';
+                $title .= $percent . '%';
             } else {
-                $name .= '%' . $percent;
+                $title .= '%' . $percent;
             }
 
-            $name .= ')';
+            $title .= ')';
         }
 
-        return $name;
+        return $title;
     }
 }

@@ -132,7 +132,7 @@
                                 @foreach ($bill->totals as $total)
                                 @if ($total->code != 'total')
                                     <tr>
-                                        <th>{{ trans($total->name) }}:</th>
+                                        <th>{{ trans($total->title) }}:</th>
                                         <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
                                     </tr>
                                 @else
