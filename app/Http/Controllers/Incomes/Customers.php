@@ -64,9 +64,7 @@ class Customers extends Controller
             $payments = 0;
 
             foreach ($item->payments as $payment) {
-                $payment->category       = new \stdClass();
-                $payment->category->id   = 0;
-                $payment->category->name = trans_choice('general.invoices', 2);
+                $payment->category = $item->category;
 
                 $invoice_payments[] = $payment;
 
