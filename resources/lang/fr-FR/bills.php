@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Quantité',
     'price'             => 'Prix',
     'sub_total'         => 'Sous-total',
+    'discount'          => 'Remise',
     'tax_total'         => 'Taxe totale',
     'total'             => 'Total',
 
     'item_name'         => 'Nom de marchandise|Noms des marchandises',
+
+    'show_discount'     => ':discount % de remise',
+    'add_discount'      => 'Ajouter une remise',
+    'discount_desc'     => 'du sous-total',
 
     'payment_due'       => 'Paiement dû',
     'amount_due'        => 'Montant dû',

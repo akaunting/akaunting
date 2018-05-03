@@ -21,6 +21,11 @@ return [
             'space'         => 'Mellanslag ( )',
         ],
         'timezone'          => 'Tidszon',
+        'percent' => [
+            'title'         => 'Procent (%) Ställning',
+            'before'        => 'Innan nummret',
+            'after'         => 'Efter nummret',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Faktura',

@@ -21,6 +21,11 @@ return [
             'space'         => 'Razmak ( )',
         ],
         'timezone'          => 'Vremenska zona',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Ispred broja',
+            'after'         => 'Nakon broja',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Faktura',

@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; Προηγούμενο',
+    'previous'              => '&laquo; Προηγούμενη',
     'next'                  => 'Επόμενη &raquo;',
-    'showing'               => 'Απεικόνιση :πρώτο σε :τελευταίο από :συνολικό :είδος',
+    'showing'               => 'Εμφάνιση :first έως :last από :total :type',
 
 ];

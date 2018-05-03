@@ -21,6 +21,11 @@ return [
             'space'         => 'Espaço ( )',
         ],
         'timezone'          => 'Fuso Horário',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Faturas',

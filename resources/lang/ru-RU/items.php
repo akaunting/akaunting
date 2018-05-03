@@ -8,8 +8,8 @@ return [
     'sku'                   => 'SKU',
 
     'notification' => [
-        'message'       => 'You are receiving this email because the :name is running out of stock.',
-        'button'        => 'View Now',
+        'message'       => 'Вы получили это письмо, потому что :name заканчивается.',
+        'button'        => 'Просмотреть сейчас',
     ],
 
 ];

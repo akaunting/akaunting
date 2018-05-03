@@ -26,6 +26,7 @@ return [
     'companies'             => 'Perusahaan | Perusahaan',
     'profits'               => 'Keuntungan | Keuntungan',
     'taxes'                 => 'Pajak | Pajak',
+    'logos'                 => 'Logo|Logos',
     'pictures'              => 'Gambar | Gambar',
     'types'                 => 'Jenis | Jenis',
     'payment_methods'       => 'Metode Pembayaran | Metode Pembayaran',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'Pembaruan|Pembaruan',
     'numbers'               => 'Nomor | Nomor',
     'statuses'              => 'Status | Status',
+    'others'                => 'Other|Others',
 
     'dashboard'             => 'Dasbor',
     'banking'               => 'Perbankan',

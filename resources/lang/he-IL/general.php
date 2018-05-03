@@ -42,7 +42,7 @@ return [
     'dashboard'             => 'לוח מחוונים',
     'banking'               => 'בנקאות',
     'general'               => 'כללי',
-    'no_records'            => 'לא רשומות.',
+    'no_records'            => 'אין רשומות.',
     'date'                  => 'תאריך',
     'amount'                => 'כמות',
     'enabled'               => 'מאופשר',

@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Količina',
     'price'             => 'Cijena',
     'sub_total'         => 'Podzbroj',
+    'discount'          => 'Popust',
     'tax_total'         => 'Porez Ukupno',
     'total'             => 'Ukupno',
 
     'item_name'         => 'Ime stavke|Imena stavaka',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Dospijeća plaćanja',
     'paid'              => 'Plaćeno',

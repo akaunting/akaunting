@@ -8,6 +8,7 @@ return [
     'new'                   => 'جدید',
     'top_free'              => 'بهترین رایگان',
     'free'                  => 'رایگان',
+    'search'                => 'Search',
     'install'               => 'نصب',
     'buy_now'               => 'خرید',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">دریافت Token</a>.',

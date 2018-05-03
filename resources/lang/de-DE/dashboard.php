@@ -18,7 +18,7 @@ return [
     'incomes_by_category'       => 'Einkommen nach Kategorie',
     'expenses_by_category'      => 'Ausgaben nach Kategorie',
     'account_balance'           => 'Kontostand',
-    'latest_incomes'            => 'Neustes Einkommen',
+    'latest_incomes'            => 'Neuestes Einkommen',
     'latest_expenses'           => 'Letzte Ausgaben',
 
 ];

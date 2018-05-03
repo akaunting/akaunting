@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Hoeveelheid',
     'price'             => 'Prijs',
     'sub_total'         => 'Subtotaal',
+    'discount'          => 'Discount',
     'tax_total'         => 'Totaal Btw',
     'total'             => 'Totaal',
 
     'item_name'         => 'Item naam',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Te betalen voor',
     'paid'              => 'Betaald',

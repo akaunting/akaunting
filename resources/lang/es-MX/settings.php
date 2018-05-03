@@ -21,6 +21,11 @@ return [
             'space'         => 'Espacio ( )',
         ],
         'timezone'          => 'Zona Horaria',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Factura',

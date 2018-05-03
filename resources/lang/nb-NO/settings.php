@@ -21,6 +21,11 @@ return [
             'space'         => 'Mellomrom ( )',
         ],
         'timezone'          => 'Tidssone',
+        'percent' => [
+            'title'         => 'Prosentplassering (%)',
+            'before'        => 'Før nummer',
+            'after'         => 'Etter nummer',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Faktura',

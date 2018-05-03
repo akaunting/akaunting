@@ -21,6 +21,11 @@ return [
             'space'         => 'Spasi ( )',
         ],
         'timezone'          => 'Zona Waktu',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Faktur',

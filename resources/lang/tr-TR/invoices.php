@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Adet',
     'price'             => 'Fiyat',
     'sub_total'         => 'Ara Toplam',
+    'discount'          => 'İndirim',
     'tax_total'         => 'Vergi Toplamı',
     'total'             => 'Toplam',
 
     'item_name'         => 'Öğe Adı | Öğe Adları',
+
+    'show_discount'     => '%:discount İndirim',
+    'add_discount'      => 'İndirim Ekle',
+    'discount_desc'     => 'ara toplam üzerinden',
 
     'payment_due'       => 'Son Ödeme Tarihi',
     'paid'              => 'Ödenmiş',

@@ -8,6 +8,7 @@ return [
     'new'                   => 'Novo',
     'top_free'              => 'Najbolje besplatno',
     'free'                  => 'BESPLATNO',
+    'search'                => 'Search',
     'install'               => 'Instaliraj',
     'buy_now'               => 'Kupi odmah',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Kliknite ovdje</a> da biste dobili svoj API token.',

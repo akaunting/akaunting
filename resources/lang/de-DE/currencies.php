@@ -2,8 +2,8 @@
 
 return [
 
-    'code'                  => 'Code',
-    'rate'                  => 'Preis',
+    'code'                  => 'Kürzel',
+    'rate'                  => 'Kurs',
     'default'               => 'Standardwährung',
     'decimal_mark'          => 'Dezimaltrennzeichen',
     'thousands_separator'   => 'Tausendertrennzeichen',

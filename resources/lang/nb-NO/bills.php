@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Antall',
     'price'             => 'Pris',
     'sub_total'         => 'Sum',
+    'discount'          => 'Rabatt',
     'tax_total'         => 'Mva',
     'total'             => 'Totalt',
 
     'item_name'         => 'Enhetsnavn | Enhetsnavn',
+
+    'show_discount'     => ':discount% rabatt',
+    'add_discount'      => 'Legg til rabatt',
+    'discount_desc'     => 'av delsum',
 
     'payment_due'       => 'Forfallsdato',
     'amount_due'        => 'Forfallsbeløp',

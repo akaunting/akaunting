@@ -21,6 +21,11 @@ return [
             'space'         => 'فضا ( )',
         ],
         'timezone'          => 'منطقه زمانی',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'فاکتور',

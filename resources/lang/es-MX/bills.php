@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Cantidad',
     'price'             => 'Precio',
     'sub_total'         => 'Subtotal',
+    'discount'          => 'Discount',
     'tax_total'         => 'Total de Impuestos',
     'total'             => 'Total ',
 
     'item_name'         => 'Nombre del producto/servicio | Nombres de los productos/servicos',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Vencimiento del Pago',
     'amount_due'        => 'Importe Vencido',

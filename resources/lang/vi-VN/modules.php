@@ -8,6 +8,7 @@ return [
     'new'                   => 'Mới',
     'top_free'              => 'Top miễn phí',
     'free'                  => 'MIỄN PHÍ',
+    'search'                => 'Search',
     'install'               => 'Cài đặt',
     'buy_now'               => 'Mua ngay',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Click vào đây</a> để lấy API token của bạn.',

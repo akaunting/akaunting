@@ -21,6 +21,11 @@ return [
             'space'         => '空格 ( )',
         ],
         'timezone'          => '時區',
+        'percent' => [
+            'title'         => '百分比 (%) 位置',
+            'before'        => '編號之前',
+            'after'         => '編號之後',
+        ],
     ],
     'invoice' => [
         'tab'               => '訂單',

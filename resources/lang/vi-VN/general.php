@@ -26,6 +26,7 @@ return [
     'companies'             => 'Công ty | Công ty',
     'profits'               => 'Lợi nhuận | Lợi nhuận',
     'taxes'                 => 'Thuế | Thuế',
+    'logos'                 => 'Logo|Logos',
     'pictures'              => 'Hình ảnh | Hình ảnh',
     'types'                 => 'Loại | Loại',
     'payment_methods'       => 'Phương thức thanh toán | Phương thức thanh toán',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'Cập Nhật | Cập Nhật',
     'numbers'               => 'Số | Số',
     'statuses'              => 'Tình trạng | Trạng thái',
+    'others'                => 'Other|Others',
 
     'dashboard'             => 'Bảng điều khiển',
     'banking'               => 'Ngân hàng',

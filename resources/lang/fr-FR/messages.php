@@ -10,10 +10,12 @@ return [
         'imported'          => ':type importé !',
     ],
     'error' => [
-        'payment_add'       => 'Erreur : Vous ne pouvez pas ajouter ce paiement ! Vérifiez le montant.',
+        'over_payment'      => 'Erreur : le paiement n\'a pas été ajouté ! Le montant est supérieur au total.',
         'not_user_company'  => 'Erreur : Vous n’êtes pas autorisé à gérer cette société !',
-        'customer'          => 'Erreur : Vous ne pouvez pas créer cet utilisateur ! :name utilise cette adresse.',
+        'customer'          => 'Erreur : Utilisateur non créé ! :name utilise déjà cette adresse email.',
         'no_file'           => 'Erreur : Aucun fichier sélectionné !',
+        'last_category'     => 'Erreur : impossible de supprimer la dernière catégorie de type :type !',
+        'invalid_token'     => 'Erreur : le token est invalide !',
     ],
     'warning' => [
         'deleted'           => 'Avertissement : Vous n’êtes pas autorisé à supprimer <b>:name</b> parce qu’il est associé à :texte.',

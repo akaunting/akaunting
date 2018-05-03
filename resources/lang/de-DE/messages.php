@@ -10,10 +10,12 @@ return [
         'imported'          => ':type importiert!',
     ],
     'error' => [
-        'payment_add'       => 'Fehler: Sie können die Zahlung nicht hinzufügen. Überprüfen Sie die Einträge und fügen sie einen Betrag hinzu.',
+        'over_payment'      => 'Fehler: Zahlung wurde nicht hinzugefügt! Betrag überschreitet die Gesamtsumme.',
         'not_user_company'  => 'Fehler: Sie haben nicht die Berechtigung um diese Firma zu verwalten!',
-        'customer'          => 'Fehler: Sie können diesen Benutzer nicht erstellen! Die Email wird durch :name bereits genutzt.',
+        'customer'          => 'Fehler: User wurde nicht angelegt! :name benutzt schon diese Email-Adresse.',
         'no_file'           => 'Fehler: Keine Datei ausgewählt!',
+        'last_category'     => 'Fehler: Kann die letzte Kategorie :type nicht löschen!',
+        'invalid_token'     => 'Fehler: Der eingegebene Token ist ungültig!',
     ],
     'warning' => [
         'deleted'           => 'Warnung: Sie dürfen <b>:name</b> nicht löschen, da :text dazu in Bezug steht.',

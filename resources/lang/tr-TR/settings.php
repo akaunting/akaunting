@@ -21,6 +21,11 @@ return [
             'space'         => 'Boşluk ( )',
         ],
         'timezone'          => 'Saat dilimi',
+        'percent' => [
+            'title'         => 'Yüzde (%) Konumu',
+            'before'        => 'Sayıdan Önce',
+            'after'         => 'Sayıdan Sonra',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Fatura',

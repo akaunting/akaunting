@@ -12,10 +12,15 @@ return [
     'quantity'          => 'تعداد',
     'price'             => 'قيمت',
     'sub_total'         => 'جمع کل',
+    'discount'          => 'Discount',
     'tax_total'         => 'مجموع مالیات',
     'total'             => 'مجموع',
 
     'item_name'         => 'نام آیتم | نام آیتم ها',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'سررسید پرداخت',
     'amount_due'        => 'مقدار سررسید',

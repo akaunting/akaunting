@@ -12,10 +12,15 @@ return [
     'quantity'          => '數量',
     'price'             => '售價',
     'sub_total'         => '小計',
+    'discount'          => '折扣',
     'tax_total'         => '稅額',
     'total'             => '總計',
 
     'item_name'         => '產品名稱 | 產品名稱',
+
+    'show_discount'     => ':discount% 折扣',
+    'add_discount'      => '新增折扣',
+    'discount_desc'     => '小計',
 
     'payment_due'       => '付款到期日',
     'paid'              => '已付款',

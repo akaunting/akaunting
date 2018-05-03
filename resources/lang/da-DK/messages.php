@@ -14,6 +14,8 @@ return [
         'not_user_company'  => 'Fejl: Du har ikke tilladelse til at kontrollere denne virksomhed!',
         'customer'          => 'Fejl: Brugeren ikke oprettet! :name bruger allerede denne e-mail.',
         'no_file'           => 'Fejl: Ingen fil valgt!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'Advarsel: Du har ikke tilladelse tiil at slette <b>:name</b> fordi den er :text relateret.',

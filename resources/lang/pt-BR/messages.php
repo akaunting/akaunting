@@ -10,10 +10,12 @@ return [
         'imported'          => ':type imported!',
     ],
     'error' => [
-        'payment_add'       => 'Error: You can not add payment! You should check add amount.',
+        'over_payment'      => 'Error: Payment not added! Amount passes the total.',
         'not_user_company'  => 'Erro: você não tem permissão para gerenciar esta empresa!',
-        'customer'          => 'Error: You can not created user! :name use this email address.',
+        'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Error: No file selected!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',

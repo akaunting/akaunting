@@ -37,6 +37,7 @@ return [
     'updates'               => 'Актуализация | Актуализации',
     'numbers'               => 'Номер | Числа',
     'statuses'              => 'Статус | Статуси',
+    'others'                => 'Other|Others',
 
     'dashboard'             => 'Табло',
     'banking'               => 'Банкиране',

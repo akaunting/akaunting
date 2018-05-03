@@ -10,10 +10,12 @@ return [
         'imported'          => ':type uvezen!',
     ],
     'error' => [
-        'payment_add'       => 'Pogreška: Nije moguće dodati plaćanje! Trebali bi provjeriti dodani iznos.',
+        'over_payment'      => 'Error: Payment not added! Amount passes the total.',
         'not_user_company'  => 'Pogreška: Nije vam dozvoljeno upravljanje ovom tvrtkom!',
-        'customer'          => 'Pogreška: Nije moguće kreirati korisnika! :name koristite ovu e-mail adresu.',
+        'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Pogreška: Nije odabrana nijedna datoteka!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'Upozorenje: Nije vam dozvoljeno izbrisati <b>:name</b> jer postoji poveznica s :text.',

@@ -8,6 +8,7 @@ return [
     'new'                   => 'Nouveau',
     'top_free'              => 'Top gratuit',
     'free'                  => 'GRATUIT',
+    'search'                => 'Rechercher',
     'install'               => 'Installation',
     'buy_now'               => 'Acheter maintenant',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Cliquez ici</a> pour obtenir votre jeton de l\'API.',

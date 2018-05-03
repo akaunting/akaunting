@@ -26,6 +26,7 @@ return [
     'companies'             => 'Foretak | Foretak',
     'profits'               => 'Fortjeneste | Fortjenester',
     'taxes'                 => 'Avgift | Avgifter',
+    'logos'                 => 'Logo|Logoer',
     'pictures'              => 'Bilde | Bilder',
     'types'                 => 'Type | Typer',
     'payment_methods'       => 'Betalingsmåte | Betalingsmåter',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'Oppdatering | Oppdateringer',
     'numbers'               => 'Nummer | Nummer',
     'statuses'              => 'Status | Statuser',
+    'others'                => 'Annen | Andre',
 
     'dashboard'             => 'Kontrollpanel',
     'banking'               => 'Bank',

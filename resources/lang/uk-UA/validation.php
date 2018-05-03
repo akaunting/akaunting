@@ -14,9 +14,9 @@ return [
     */
 
     'accepted'             => 'Ви повинні прийняти :attribute.',
-    'active_url'           => 'Поле :attribute не правильний URL.',
+    'active_url'           => ':attribute не правильний URL.',
     'after'                => 'Поле :attribute має містити дату не раніше :date.',
-    'after_or_equal'       => 'Поле :attribute має містити дату не раніше або дорівнювати :date.',
+    'after_or_equal'       => ':attribute має містити дату не раніше або дорівнювати :date.',
     'alpha'                => 'Поле :attribute має містити лише літери.',
     'alpha_dash'           => 'Поле :attribute має містити лише літери, цифри та підкреслення.',
     'alpha_num'            => 'Поле :attribute має містити лише літери та цифри.',
@@ -36,7 +36,7 @@ return [
     'different'            => 'Поля :attribute та :other повинні бути різними.',
     'digits'               => 'Довжина цифрового поля :attribute повинна дорівнювати :digits.',
     'digits_between'       => 'Довжина цифрового поля :attribute повинна бути від :min до :max.',
-    'dimensions'           => 'Поле :attribute містить неприпустимі розміри зображення.',
+    'dimensions'           => ':attribute містить неприпустимі розміри зображення.',
     'distinct'             => 'Поле :attribute містить значення, яке дублюється.',
     'email'                => 'Поле :attribute повинне містити коректну електронну адресу.',
     'exists'               => 'Вибране для :attribute значення не коректне.',
@@ -72,10 +72,10 @@ return [
     'required_with'        => 'Поле :attribute є обов\'язковим для заповнення, коли :values вказано.',
     'required_with_all'    => 'Поле :attribute є обов\'язковим для заповнення, коли :values вказано.',
     'required_without'     => 'Поле :attribute є обов\'язковим для заповнення, коли :values не вказано.',
-    'required_without_all' => 'Поле :attribute є обов\'язковим для заповнення, коли :values вказано.',
+    'required_without_all' => ':attribute є обов\'язковим для заповнення, коли :values вказано.',
     'same'                 => 'Поля :attribute та :other мають співпадати.',
     'size'                 => [
-        'numeric' => 'Поле :attribute має бути довжиною :size.',
+        'numeric' => ':attribute має бути довжиною :size.',
         'file'    => 'Файл в полі :attribute має бути розміром :size кілобайт.',
         'string'  => 'Текст в полі :attribute повинен містити :size символів.',
         'array'   => 'Поле :attribute повинне містити :size елементів.',

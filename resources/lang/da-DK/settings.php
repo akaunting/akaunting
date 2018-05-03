@@ -21,6 +21,11 @@ return [
             'space'         => 'Mellemrum ( )',
         ],
         'timezone'          => 'Tidszone',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Faktura',

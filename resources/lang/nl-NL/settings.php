@@ -21,6 +21,11 @@ return [
             'space'         => 'Ruimte()',
         ],
         'timezone'          => 'Tijdzone',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Factuur',

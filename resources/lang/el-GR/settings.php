@@ -21,6 +21,11 @@ return [
             'space'         => 'Κενό ( )',
         ],
         'timezone'          => 'Ζώνη ώρας',
+        'percent' => [
+            'title'         => 'Θέση συμβόλου ποσοστού (%)',
+            'before'        => 'Πριν από τον αριθμό',
+            'after'         => 'Μετά από τον αριθμό',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Τιμολόγιο',
@@ -45,7 +50,7 @@ return [
             'host'          => 'Διακομιστής SMTP',
             'port'          => 'Θύρα SMTP',
             'username'      => 'Όνομα Χρήστη SMTP',
-            'password'      => 'Κωδικός πρόσβασης SMTP',
+            'password'      => 'Συνθηματικό SMTP',
             'encryption'    => 'Ασφάλεια SMTP',
             'none'          => 'Κανένα',
         ],

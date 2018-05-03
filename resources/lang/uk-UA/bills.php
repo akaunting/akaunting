@@ -3,7 +3,7 @@
 return [
 
     'bill_number'       => 'Номер рахунку',
-    'bill_date'         => 'Дата',
+    'bill_date'         => 'Дата рахунку',
     'total_price'       => 'Загальна сума',
     'due_date'          => 'Термін дії',
     'order_number'      => 'Номер замовлення',
@@ -12,14 +12,19 @@ return [
     'quantity'          => 'Кількість',
     'price'             => 'Ціна',
     'sub_total'         => 'Всього',
+    'discount'          => 'Знижка',
     'tax_total'         => 'Всього пдв',
     'total'             => 'Всього',
 
     'item_name'         => 'Назва товару',
 
+    'show_discount'     => ': знижка % Знижка',
+    'add_discount'      => 'Додати знижку',
+    'discount_desc'     => 'Підсумок',
+
     'payment_due'       => 'Очікуваний платіж',
-    'amount_due'        => 'Сума боргу',
-    'paid'              => 'Оплачений',
+    'amount_due'        => 'Заборгованість',
+    'paid'              => 'Оплачено',
     'histories'         => 'Історії',
     'payments'          => 'Платежі',
     'add_payment'       => 'Додати платіж',

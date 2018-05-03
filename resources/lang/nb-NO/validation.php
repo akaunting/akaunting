@@ -20,7 +20,7 @@ return [
     'alpha'                => ':attribute kan bare inneholde bokstaver.',
     'alpha_dash'           => ':attribute kan bare inneholde bokstaver, tall og bindestreker.',
     'alpha_num'            => ':attribute kan bare inneholde bokstaver og tall.',
-    'array'                => ':attribute må være en \'array\'.',
+    'array'                => ':attribute må være en kommaseparert liste.',
     'before'               => ':attribute må være en dato før :date.',
     'before_or_equal'      => ':attribute må være en dato før eller samme som :date.',
     'between'              => [

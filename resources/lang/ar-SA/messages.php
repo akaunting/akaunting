@@ -10,10 +10,12 @@ return [
         'imported'          => ':نوع تم الاستيراد!',
     ],
     'error' => [
-        'payment_add'       => 'خطأ: لا يمكنك إضافة الدفع! يجب عليك التحقق من إضافة المبلغ.',
+        'over_payment'      => 'Error: Payment not added! Amount passes the total.',
         'not_user_company'  => 'خطأ: غير مسموح لك بادرة هذة الشركة!',
-        'customer'          => 'خطأ:غير مسموح لك باضافة مستخدم! :اسم استخدام هذا البريد الالكترونية.',
+        'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'خطأ: لم يتم تحديد ملف!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'تحذير: غير مسموح لك بحذف <b>:اسم</b> لأن هذا : مرتبط ب.',

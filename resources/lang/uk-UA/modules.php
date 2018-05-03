@@ -4,10 +4,11 @@ return [
 
     'title'                 => 'API маркер',
     'api_token'             => 'Маркер',
-    'top_paid'              => 'Топ оплат',
+    'top_paid'              => 'Топ Paid',
     'new'                   => 'Нове',
     'top_free'              => 'Топ безкоштовних',
     'free'                  => 'БЕЗКОШТОВНО',
+    'search'                => 'Пошук',
     'install'               => 'Встановити',
     'buy_now'               => 'Купити зараз',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">натисніть тут</a> щоб отримати ваш API маркер.',
@@ -20,11 +21,11 @@ return [
     'updated'               => 'Оновлено',
     'compatibility'         => 'Сумiснiсть',
 
-    'installed'             => ': модуль встановлено',
-    'uninstalled'           => ': модуль видалено',
+    'installed'             => ':module встановлено',
+    'uninstalled'           => ':module видалено',
     //'updated'               => ':module updated',
-    'enabled'               => ': модуль увімкнено',
-    'disabled'              => ': модуль вимкнено',
+    'enabled'               => ':module увімкнено',
+    'disabled'              => ':module вимкнено',
 
     'tab' => [
         'installation'      => 'Встановлення',
@@ -35,8 +36,8 @@ return [
     'installation' => [
         'header'            => 'Встановлення додатку',
         'download'          => 'Завантаження: файл модуля.',
-        'unzip'             => 'Вилучення: файли модуля.',
-        'install'           => 'Установка: файли модуля.',
+        'unzip'             => 'Вилучення файлів :module.',
+        'install'           => 'Установка файлів : module .',
     ],
 
     'button' => [

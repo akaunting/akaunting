@@ -37,6 +37,7 @@ return [
     'updates'               => 'Opdatering|Opdateringer',
     'numbers'               => 'Nummer|Numre',
     'statuses'              => 'Status|Statusser',
+    'others'                => 'Other|Others',
 
     'dashboard'             => 'Oversigt',
     'banking'               => 'Bank',

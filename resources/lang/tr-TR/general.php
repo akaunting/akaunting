@@ -26,6 +26,7 @@ return [
     'companies'             => 'Şirket|Şirketler',
     'profits'               => 'Kar|Kar',
     'taxes'                 => 'Vergi Oranı|Vergi Oranları',
+    'logos'                 => 'Logo|Logolar',
     'pictures'              => 'Resim|Resimler',
     'types'                 => 'Tip|Tipler',
     'payment_methods'       => 'Ödeme Yöntemi|Ödeme Yöntemleri',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'Güncelleme|Güncellemeler',
     'numbers'               => 'Sayı|Sayılar',
     'statuses'              => 'Durum|Durumlar',
+    'others'                => 'Diğer|Diğerleri',
 
     'dashboard'             => 'Kontrol Paneli',
     'banking'               => 'Banka',

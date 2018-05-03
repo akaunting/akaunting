@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Ποσότητα',
     'price'             => 'Τιμή',
     'sub_total'         => 'Μερικό Σύνολο',
+    'discount'          => 'Έκπτωση',
     'tax_total'         => 'Συνολικό ΦΠΑ',
     'total'             => 'Σύνολο',
 
     'item_name'         => 'Όνομα/ονόματα Αντικειμένου',
+
+    'show_discount'     => ':discount % Έκπτωση',
+    'add_discount'      => 'Προσθήκη έκπτωσης',
+    'discount_desc'     => 'του μερικού συνόλου',
 
     'payment_due'       => 'Πληρωτέο ποσό',
     'amount_due'        => 'Οφειλόμενο ποσό',

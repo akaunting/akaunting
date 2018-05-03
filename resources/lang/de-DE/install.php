@@ -38,7 +38,7 @@ return [
     ],
 
     'error' => [
-        'connection'        => 'Fehler: Konnte keine Verbindung zur Datenbank hergestellt werden! Stellen Sie sicher, dass die Angaben korrekt sind.',
+        'connection'        => 'Fehler: Es konnte keine Verbindung zur Datenbank hergestellt werden! Stellen Sie sicher, dass die Angaben korrekt sind.',
     ],
 
 ];

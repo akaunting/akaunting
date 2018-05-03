@@ -26,6 +26,7 @@ return [
     'companies'             => 'Entreprise|Entreprises',
     'profits'               => 'Bénéfice|Bénéfices',
     'taxes'                 => 'Taxe|Taxes',
+    'logos'                 => 'Logo|Logos',
     'pictures'              => 'Photo|Photos',
     'types'                 => 'Type|Types',
     'payment_methods'       => 'Mode de paiement|Modes de paiement',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'Mise à jour|Mises à jour',
     'numbers'               => 'Numéro|Numéros',
     'statuses'              => 'Statut | Statuts',
+    'others'                => 'Autre|Autres',
 
     'dashboard'             => 'Tableau de bord',
     'banking'               => 'Banque',

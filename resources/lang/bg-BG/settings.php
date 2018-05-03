@@ -21,6 +21,11 @@ return [
             'space'         => 'Празно място ( )',
         ],
         'timezone'          => 'Часова зона',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Фактура',

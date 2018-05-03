@@ -10,10 +10,12 @@ return [
         'imported'          => ':type diimpor!',
     ],
     'error' => [
-        'payment_add'       => 'Kesalahan: Anda tidak dapat menambahkan pembayaran! Anda harus memeriksa jumlah tambah.',
+        'over_payment'      => 'Error: Payment not added! Amount passes the total.',
         'not_user_company'  => 'Kesalahan: Anda tidak diperbolehkan mengelola perusahaan ini!',
-        'customer'          => 'Kesalahan: Anda tidak dapat membuat pengguna! :nama pergunakan alama email ini.',
+        'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Kesalahan: Tidak ada file dipilih!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'PeringatanL: Anda tidak boleh menghapus <b>:name</b> karena memiliki :text terkaitan.',

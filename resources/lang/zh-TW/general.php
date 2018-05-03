@@ -26,6 +26,7 @@ return [
     'companies'             => '公司 | 公司',
     'profits'               => '利潤 | 利潤',
     'taxes'                 => '稅額 | 稅額',
+    'logos'                 => '標誌 | 標誌',
     'pictures'              => '圖片 | 圖片',
     'types'                 => '類型 | 類型',
     'payment_methods'       => '付款方式 | 付款方式',
@@ -36,6 +37,7 @@ return [
     'updates'               => '更新 | 更新',
     'numbers'               => '編號 | 編號',
     'statuses'              => '狀態 | 狀態',
+    'others'                => '其他 | 其他',
 
     'dashboard'             => '控制面板',
     'banking'               => '銀行',

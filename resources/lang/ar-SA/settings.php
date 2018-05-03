@@ -21,6 +21,11 @@ return [
             'space'         => 'مسافة ( )',
         ],
         'timezone'          => 'التوقيت',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'فاتورة الشراء',

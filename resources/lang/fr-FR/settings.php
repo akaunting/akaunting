@@ -21,6 +21,11 @@ return [
             'space'         => 'Espace ( )',
         ],
         'timezone'          => 'Fuseau horaire',
+        'percent' => [
+            'title'         => 'Position du signe "pourcentage" (%)',
+            'before'        => 'Avant le nombre',
+            'after'         => 'Après le nombre',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Facture',

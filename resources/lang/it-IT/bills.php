@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Quantità',
     'price'             => 'Prezzo',
     'sub_total'         => 'Subtotale',
+    'discount'          => 'Discount',
     'tax_total'         => 'Totale imposta',
     'total'             => 'Totale',
 
     'item_name'         => 'Nome dell\'articolo|Nomi degli articoli',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Scadenza pagamento',
     'amount_due'        => 'Importo dovuto',
