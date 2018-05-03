@@ -21,6 +21,11 @@ return [
             'space'         => 'Leerzeichen ( )',
         ],
         'timezone'          => 'Zeitzone',
+        'percent' => [
+            'title'         => 'Position des Prozent (%)',
+            'before'        => 'Vor der Zahl',
+            'after'         => 'Nach der Zahl',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Rechnung',
@@ -34,7 +39,7 @@ return [
         'account'           => 'Standardkonto',
         'currency'          => 'Standardwährung',
         'tax'               => 'Standard-Steuersatz',
-        'payment'           => 'Standard-Zahlungsart',
+        'payment'           => 'Standard-Zahlungsmethode',
         'language'          => 'Standardsprache',
     ],
     'email' => [
@@ -42,7 +47,7 @@ return [
         'php'               => 'PHP-Mail',
         'smtp' => [
             'name'          => 'SMTP',
-            'host'          => 'SMTP Host',
+            'host'          => 'SMTP Server',
             'port'          => 'SMTP-Port',
             'username'      => 'SMTP Benutzername',
             'password'      => 'SMTP-Passwort',
@@ -55,9 +60,9 @@ return [
     ],
     'scheduling' => [
         'tab'               => 'Zeitpläne',
-        'send_invoice'      => 'Rechnung Erinnerung senden',
-        'invoice_days'      => 'Senden nach Überfälligkeit von',
-        'send_bill'         => 'Rechnungserinnerung senden',
+        'send_invoice'      => 'Erinnerung für Kundenrechnung senden',
+        'invoice_days'      => 'Senden nach Fälligkeit (Tage)',
+        'send_bill'         => 'Erinnerung für Ausgabenrechung senden',
         'bill_days'         => 'Senden vor Fälligkeit (Tage)',
         'cron_command'      => 'Cron-Befehl',
         'schedule_time'     => 'Stunde (Laufzeit)',
@@ -73,8 +78,8 @@ return [
     'system' => [
         'tab'               => 'System',
         'session' => [
-            'lifetime'      => 'Die Sitzungsdauer (Minuten)',
-            'handler'       => 'Session-Handler',
+            'lifetime'      => 'Sitzungsdauer (Minuten)',
+            'handler'       => 'Session-Verwaltung',
             'file'          => 'Datei',
             'database'      => 'Datenbank',
         ],

@@ -12,10 +12,15 @@ return [
     'quantity'          => 'الكمية',
     'price'             => 'السعر',
     'sub_total'         => 'المبلغ الاجمالى',
+    'discount'          => 'Discount',
     'tax_total'         => 'اجمالى الضريبة',
     'total'             => 'اجمالى',
 
     'item_name'         => 'اسم الصنف | اسماء الصنف',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'استحقاق الدفع',
     'amount_due'        => 'استحقاق المبلغ',

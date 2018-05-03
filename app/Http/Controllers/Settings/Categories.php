@@ -20,10 +20,24 @@ class Categories extends Controller
 
         $transfer_id = Category::transfer();
 
-        $types = collect(['expense' => 'Expense', 'income' => 'Income', 'item' => 'Item', 'other' => 'Other'])
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
+        $types = collect([
+            'expense' => trans_choice('general.expenses', 1),
+            'income' => trans_choice('general.incomes', 1),
+            'item' => trans_choice('general.items', 1),
+            'other' => trans_choice('general.others', 1),
+        ])->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
 
         return view('settings.categories.index', compact('categories', 'types', 'transfer_id'));
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect('settings/categories');
     }
 
     /**
@@ -33,7 +47,14 @@ class Categories extends Controller
      */
     public function create()
     {
-        return view('settings.categories.create');
+        $types = [
+            'expense' => trans_choice('general.expenses', 1),
+            'income' => trans_choice('general.incomes', 1),
+            'item' => trans_choice('general.items', 1),
+            'other' => trans_choice('general.others', 1),
+        ];
+
+        return view('settings.categories.create', compact('types'));
     }
 
     /**
@@ -63,7 +84,16 @@ class Categories extends Controller
      */
     public function edit(Category $category)
     {
-        return view('settings.categories.edit', compact('category'));
+        $types = [
+            'expense' => trans_choice('general.expenses', 1),
+            'income' => trans_choice('general.incomes', 1),
+            'item' => trans_choice('general.items', 1),
+            'other' => trans_choice('general.others', 1),
+        ];
+
+        $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
+
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled'));
     }
 
     /**
@@ -78,7 +108,9 @@ class Categories extends Controller
     {
         $relationships = $this->countRelationships($category, [
             'items' => 'items',
+            'invoices' => 'invoices',
             'revenues' => 'revenues',
+            'bills' => 'bills',
             'payments' => 'payments',
         ]);
 
@@ -108,16 +140,22 @@ class Categories extends Controller
      */
     public function destroy(Category $category)
     {
-        $relationships = $this->countRelationships($category, [
-            'items' => 'items',
-            'revenues' => 'revenues',
-            'payments' => 'payments',
-        ]);
+        // Can not delete the last category by type
+        if (Category::where('type', $category->type)->count() == 1) {
+            $message = trans('messages.error.last_category', ['type' => strtolower(trans_choice('general.' . $category->type . 's', 1))]);
 
-        // Can't delete transfer category
-        if ($category->id == Category::transfer()) {
+            flash($message)->warning();
+
             return redirect('settings/categories');
         }
+
+        $relationships = $this->countRelationships($category, [
+            'items' => 'items',
+            'invoices' => 'invoices',
+            'revenues' => 'revenues',
+            'bills' => 'bills',
+            'payments' => 'payments',
+        ]);
 
         if (empty($relationships)) {
             $category->delete();
@@ -132,5 +170,12 @@ class Categories extends Controller
         }
 
         return redirect('settings/categories');
+    }
+
+    public function category(Request $request)
+    {
+        $category = Category::create($request->all());
+
+        return response()->json($category);
     }
 }

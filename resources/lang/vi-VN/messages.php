@@ -10,10 +10,12 @@ return [
         'imported'          => ':type imported!',
     ],
     'error' => [
-        'payment_add'       => 'Error: You can not add payment! You should check add amount.',
+        'over_payment'      => 'Error: Payment not added! Amount passes the total.',
         'not_user_company'  => 'Lỗi: Bạn không được phép để quản lý công ty này!',
-        'customer'          => 'Lỗi: Bạn có thể không tạo người dùng! :name đã sử dụng địa chỉ email này.',
+        'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Error: No file selected!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'Chú ý: Bạn không được phép xoá <b>:name</b> này bởi vì nó có :text liên quan.',

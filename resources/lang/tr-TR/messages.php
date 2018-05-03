@@ -10,10 +10,12 @@ return [
         'imported'          => ':type içe aktarıldı!',
     ],
     'error' => [
-        'payment_add'       => 'Hata: Ödeme eklenmedi. Ödeme tutarını kontrol ediniz.',
+        'over_payment'      => 'Hata: Ödeme eklenmedi. Girilen tutar toplamı geçiyor.',
         'not_user_company'  => 'Hata: Bu şirketi yönetme yetkiniz yok!',
-        'customer'          => 'Hata: :name bu email adresini kullanmaktadır.',
+        'customer'          => 'Hata: Kullanıcı oluşturulamadı. :name bu e-posta adresini kullanmaktadır.',
         'no_file'           => 'Hata: Dosya seçilmedi!',
+        'last_category'     => 'Hata: Son :type kategorisini silemezsiniz!',
+        'invalid_token'     => 'Hata: Girilen token yanlış!',
     ],
     'warning' => [
         'deleted'           => 'Uyarı: <b>:name</b> silinemez çünkü :text ile ilişkilidir.',

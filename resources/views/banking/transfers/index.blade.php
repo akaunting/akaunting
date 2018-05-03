@@ -35,7 +35,7 @@
                     <th class="col-md-3">@sortablelink('payment.paid_at', trans('general.date'))</th>
                     <th class="col-md-3">@sortablelink('payment.name', trans('transfers.from_account'))</th>
                     <th class="col-md-3">@sortablelink('revenue.name', trans('transfers.to_account'))</th>
-                    <th class="col-md-3">@sortablelink('payment.amount', trans('general.amount'))</th>
+                    <th class="col-md-3 text-right amount-space">@sortablelink('payment.amount', trans('general.amount'))</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@
                         <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
                         <td>{{ $item->from_account }}</td>
                         <td>{{ $item->to_account }}</td>
-                        <td>@money($item->amount, $item->currency_code, true)</td>
+                        <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
                     </tr>
                 @endforeach
                 </tbody>

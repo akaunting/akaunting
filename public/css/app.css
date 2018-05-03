@@ -505,8 +505,18 @@ ul.add-new.nav.navbar-nav.pull-left {
     }
 }
 
+@media only screen and (min-width : 768px) {
+    .amount-space {
+        padding-right: 30px !important;
+    }
+}
+
 .text-disabled {
     opacity: 0.4;
+}
+
+.print-width {
+    max-width: 1500px;
 }
 
 /*
@@ -552,4 +562,45 @@ span.picture, span.attachment {
 
 .form-group.col-md-6 input.fake-input.form-control{
     min-width: 150px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.btn-icon {
+    height: 34px;
+}
+
+.form-small #account_id, .form-small .select2.select2-container {
+    width: 90% !important;
+    float: left;
+}
+
+.form-small #currency {
+    width: 10%;
+}
+
+.input-group-recurring {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.popover-content, .discount.box-body, .discount.box-footer {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.discount-description {
+    margin-top: 6px;
+    margin-left: -20px;
+}
+
+.user.user-menu, .user.user-menu a.dropdown-toggle {
+    min-height: 50px;
 }

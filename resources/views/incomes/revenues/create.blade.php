@@ -12,21 +12,17 @@
 
         {{ Form::textGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
 
-        {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('general.accounts', 1)) }}
-
-        <div class="form-group col-md-6 {{ $errors->has('currency_code') ? 'has-error' : ''}}">
-            {!! Form::label('currency_code', trans_choice('general.currencies', 1), ['class' => 'control-label']) !!}
+        <div class="form-group col-md-6 form-small">
+            {!! Form::label('account_id', trans_choice('general.accounts', 1), ['class' => 'control-label']) !!}
             <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-exchange"></i></div>
-                {!! Form::text('currency', $currencies[$account_currency_code], ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
-                {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+                <div class="input-group-addon"><i class="fa fa-university"></i></div>
+                {!! Form::select('account_id', $accounts, setting('general.accounts', 1), array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)])])) !!}
+                <div class="input-group-append">
+                    {!! Form::text('currency', $account_currency_code, ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
+                    {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+                </div>
             </div>
-            {!! $errors->first('currency_code', '<p class="help-block">:message</p>') !!}
         </div>
-
-        {{ Form::textareaGroup('description', trans('general.description')) }}
-
-        {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder-open-o', $categories) }}
 
         <div class="form-group col-md-6">
             {!! Form::label('customer_id', trans_choice('general.customers', 1), ['class' => 'control-label']) !!}
@@ -34,10 +30,26 @@
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
                 {!! Form::select('customer_id', $customers, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)])])) !!}
                 <span class="input-group-btn">
-                    <button type="button" onclick="createCustomer();" class="btn btn-primary">{{ trans('general.add_new') }}</button>
+                    <button type="button" onclick="createCustomer();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
                 </span>
             </div>
         </div>
+
+        {{ Form::textareaGroup('description', trans('general.description')) }}
+
+        <div class="form-group col-md-6 required {{ $errors->has('category_id') ? 'has-error' : ''}}">
+            {!! Form::label('category_id', trans_choice('general.categories', 1), ['class' => 'control-label']) !!}
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-folder-open-o"></i></div>
+                {!! Form::select('category_id', $categories, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)])])) !!}
+                <div class="input-group-btn">
+                    <button type="button" onclick="createCategory();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+            {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
+        </div>
+
+        {{ Form::recurring('create') }}
 
         {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, setting('general.default_payment_method')) }}
 
@@ -58,12 +70,15 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
 @endpush
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
 @endpush
 
 @push('scripts')
@@ -72,7 +87,8 @@
             //Date picker
             $('#paid_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
             $("#account_id").select2({
@@ -104,7 +120,7 @@
                     dataType: 'JSON',
                     data: 'account_id=' + $(this).val(),
                     success: function(data) {
-                        $('#currency').val(data.currency_name);
+                        $('#currency').val(data.currency_code);
                         $('#currency_code').val(data.currency_code);
                     }
                 });
@@ -130,11 +146,11 @@
             modal += '                          <input class="form-control" placeholder="{{ trans('general.name') }}" required="required" name="name" type="text" id="name">';
             modal += '                      </div>';
             modal += '                  </div>';
-            modal += '                  <div class="form-group col-md-6 required">';
+            modal += '                  <div class="form-group col-md-6">';
             modal += '                      <label for="email" class="control-label">{{ trans('general.email') }}</label>';
             modal += '                      <div class="input-group">';
             modal += '                          <div class="input-group-addon"><i class="fa fa-envelope"></i></div>';
-            modal += '                          <input class="form-control" placeholder="{{ trans('general.email') }}" required="required" name="email" type="text" id="email">';
+            modal += '                          <input class="form-control" placeholder="{{ trans('general.email') }}" name="email" type="text" id="email">';
             modal += '                      </div>';
             modal += '                  </div>';
             modal += '                  <div class="form-group col-md-6">';
@@ -219,6 +235,90 @@
                     if (error.responseJSON.currency_code) {
                         $("select[name='currency_code']").parent().parent().addClass('has-error');
                         $("select[name='currency_code']").parent().after('<p class="help-block">' + error.responseJSON.currency_code + '</p>');
+                    }
+                }
+            });
+        });
+
+        function createCategory() {
+            $('#modal-create-category').remove();
+
+            modal  = '<div class="modal fade" id="modal-create-category" style="display: none;">';
+            modal += '  <div class="modal-dialog  modal-lg">';
+            modal += '      <div class="modal-content">';
+            modal += '          <div class="modal-header">';
+            modal += '              <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.categories', 1)]) }}</h4>';
+            modal += '          </div>';
+            modal += '          <div class="modal-body">';
+            modal += '              {!! Form::open(['id' => 'form-create-category', 'role' => 'form']) !!}';
+            modal += '              <div class="row">';
+            modal += '                  <div class="form-group col-md-6 required">';
+            modal += '                      <label for="name" class="control-label">{{ trans('general.name') }}</label>';
+            modal += '                      <div class="input-group">';
+            modal += '                          <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>';
+            modal += '                          <input class="form-control" placeholder="{{ trans('general.name') }}" required="required" name="name" type="text" id="name">';
+            modal += '                      </div>';
+            modal += '                  </div>';
+            modal += '                  <div class="form-group col-md-6 required">';
+            modal += '                      <label for="color" class="control-label">{{ trans('general.color') }}</label>';
+            modal += '                      <div  id="category-color-picker" class="input-group colorpicker-component">';
+            modal += '                          <div class="input-group-addon"><i></i></div>';
+            modal += '                          <input class="form-control" value="#00a65a" placeholder="{{ trans('general.color') }}" required="required" name="color" type="text" id="color">';
+            modal += '                      </div>';
+            modal += '                  </div>';
+            modal += '                  {!! Form::hidden('type', 'income', []) !!}';
+            modal += '                  {!! Form::hidden('enabled', '1', []) !!}';
+            modal += '              </div>';
+            modal += '              {!! Form::close() !!}';
+            modal += '          </div>';
+            modal += '          <div class="modal-footer">';
+            modal += '              <div class="pull-left">';
+            modal += '              {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-create-category', 'class' => 'btn btn-success']) !!}';
+            modal += '              <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</button>';
+            modal += '              </div>';
+            modal += '          </div>';
+            modal += '      </div>';
+            modal += '  </div>';
+            modal += '</div>';
+
+            $('body').append(modal);
+
+            $('#category-color-picker').colorpicker();
+
+            $('#modal-create-category').modal('show');
+        }
+
+        $(document).on('click', '#button-create-category', function (e) {
+            $('#modal-create-category .modal-header').before('<span id="span-loading" style="position: absolute; height: 100%; width: 100%; z-index: 99; background: #6da252; opacity: 0.4;"><i class="fa fa-spinner fa-spin" style="font-size: 10em !important;margin-left: 35%;margin-top: 8%;"></i></span>');
+
+            $.ajax({
+                url: '{{ url("settings/categories/category") }}',
+                type: 'POST',
+                dataType: 'JSON',
+                data: $("#form-create-category").serialize(),
+                beforeSend: function () {
+                    $(".form-group").removeClass("has-error");
+                    $(".help-block").remove();
+                },
+                success: function(data) {
+                    $('#span-loading').remove();
+
+                    $('#modal-create-category').modal('hide');
+
+                    $("#category_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                    $("#category_id").select2('refresh');
+                },
+                error: function(error, textStatus, errorThrown) {
+                    $('#span-loading').remove();
+
+                    if (error.responseJSON.name) {
+                        $("input[name='name']").parent().parent().addClass('has-error');
+                        $("input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');
+                    }
+
+                    if (error.responseJSON.color) {
+                        $("input[name='color']").parent().parent().addClass('has-error');
+                        $("input[name='color']").parent().after('<p class="help-block">' + error.responseJSON.color + '</p>');
                     }
                 }
             });

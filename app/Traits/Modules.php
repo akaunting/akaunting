@@ -12,6 +12,25 @@ use ZipArchive;
 trait Modules
 {
 
+    public function checkToken($token)
+    {
+        $data = [
+            'form_params' => [
+                'token' => $token,
+            ]
+        ];
+
+        $response = $this->getRemote('token/check', 'POST', $data);
+
+        if ($response->getStatusCode() == 200) {
+            $result = json_decode($response->getBody());
+
+            return ($result->success) ? true : false;
+        }
+
+        return false;
+    }
+
     public function getModules()
     {
         $response = $this->getRemote('apps/items');
@@ -81,6 +100,17 @@ trait Modules
     public function getFreeModules($data = [])
     {
         $response = $this->getRemote('apps/free', 'GET', $data);
+
+        if ($response->getStatusCode() == 200) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getSearchModules($data = [])
+    {
+        $response = $this->getRemote('apps/search', 'GET', $data);
 
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getBody())->data;
@@ -290,6 +320,7 @@ trait Modules
             'Authorization' => 'Bearer ' . setting('general.api_token'),
             'Accept'        => 'application/json',
             'Referer'       => env('APP_URL'),
+            'Akaunting'     => version('short'),
         ];
 
         $data['http_errors'] = false;

@@ -8,6 +8,7 @@ return [
     'new'                   => 'Yeni',
     'top_free'              => 'Popüler Ücretsiz',
     'free'                  => 'Ücretsiz',
+    'search'                => 'Arama',
     'install'               => 'Yükle',
     'buy_now'               => 'Şimdi Satın Al',
     'token_link'            => 'API token almak için <a href="https://akaunting.com/tokens" target="_blank">buraya tıklayın</a>.',

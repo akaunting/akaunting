@@ -27,6 +27,10 @@ class FormServiceProvider extends ServiceProvider
             'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6',
         ]);
 
+        Form::component('numberGroup', 'partials.form.number_group', [
+            'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6',
+        ]);
+
         Form::component('selectGroup', 'partials.form.select_group', [
             'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6',
         ]);
@@ -57,6 +61,10 @@ class FormServiceProvider extends ServiceProvider
 
         Form::component('saveButtons', 'partials.form.save_buttons', [
             'cancel', 'col' => 'col-md-12',
+        ]);
+
+        Form::component('recurring', 'partials.form.recurring', [
+            'page', 'model' => null,
         ]);
     }
 

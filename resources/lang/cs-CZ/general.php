@@ -26,6 +26,7 @@ return [
     'companies'             => 'Společnost | Společnosti',
     'profits'               => 'Zisk | Zisky',
     'taxes'                 => 'Daň | Daně',
+    'logos'                 => 'Logo|Logos',
     'pictures'              => 'Obrázek | Obrázky',
     'types'                 => 'Typ | Typy',
     'payment_methods'       => 'Způsob platby | Způsoby platby',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'Aktualizace | Aktualizace',
     'numbers'               => 'Číslo | Čísla',
     'statuses'              => 'Stav | Stav',
+    'others'                => 'Other|Others',
 
     'dashboard'             => 'Ovládací panel',
     'banking'               => 'Bankovnictví',

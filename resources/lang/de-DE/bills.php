@@ -12,19 +12,24 @@ return [
     'quantity'          => 'Menge',
     'price'             => 'Preis',
     'sub_total'         => 'Zwischensumme',
+    'discount'          => 'Rabatt',
     'tax_total'         => 'Steuern Gesamt',
     'total'             => 'Gesamt',
 
-    'item_name'         => 'Artikel-Name | Artikel-Name',
+    'item_name'         => 'Artikel-Name|Artikel-Namen',
+
+    'show_discount'     => ':discount % Rabatt',
+    'add_discount'      => 'füge Rabatt hinzu',
+    'discount_desc'     => 'Zwischensumme',
 
     'payment_due'       => 'Fälligkeit der Zahlung',
-    'amount_due'        => 'Summe bis',
+    'amount_due'        => 'Fälliger Betrag',
     'paid'              => 'Bezahlt',
     'histories'         => 'Historie',
     'payments'          => 'Zahlungen',
     'add_payment'       => 'Zahlung hinzufügen',
     'mark_received'     => 'Als erhalten markieren',
-    'download_pdf'      => 'PDF herunterladen',
+    'download_pdf'      => 'Als PDF herunterladen',
     'send_mail'         => 'E-Mail senden',
 
     'status' => [

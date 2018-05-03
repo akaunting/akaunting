@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Số lượng',
     'price'             => 'Đơn giá',
     'sub_total'         => 'Tổng phụ',
+    'discount'          => 'Discount',
     'tax_total'         => 'Tổng thuế',
     'total'             => 'Tổng số',
 
     'item_name'         => 'Tên mục | Tên mục',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Hạn thanh toán',
     'paid'              => 'Đã thanh toán',

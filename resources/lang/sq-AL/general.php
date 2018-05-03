@@ -26,6 +26,7 @@ return [
     'companies'             => 'Kompania | Kompanitë',
     'profits'               => 'Fitimi | Fitimet',
     'taxes'                 => 'Tatim | Tatimet',
+    'logos'                 => 'Logo | Logot',
     'pictures'              => 'Foto | Fotografitë',
     'types'                 => 'Lloji | Llojet',
     'payment_methods'       => 'Metoda e Pagesës | Metodat e Pagesës',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'Përditësimi | Përditësimet',
     'numbers'               => 'Numri | Numrat',
     'statuses'              => 'Statusi | Statuset',
+    'others'                => 'Other|Others',
 
     'dashboard'             => 'Paneli Kryesor',
     'banking'               => 'Veprime Bankare',

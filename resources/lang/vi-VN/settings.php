@@ -21,6 +21,11 @@ return [
             'space'         => 'Khoảng trắng ( )',
         ],
         'timezone'          => 'Múi giờ',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Hoá đơn',

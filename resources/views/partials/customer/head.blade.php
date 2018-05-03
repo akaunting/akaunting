@@ -19,15 +19,15 @@
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
     @else
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=1.0') }}">
+        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=1.2') }}">
     @endif
     <!-- Data Tables -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datatables/dataTables.bootstrap.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
     <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=1.0') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=1.0') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=1.2') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=1.2') }}">
     
     <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
 

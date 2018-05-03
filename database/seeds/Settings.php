@@ -30,6 +30,7 @@ class Settings extends Seeder
             'general.date_format'               => 'd M Y',
             'general.date_separator'            => 'space',
             'general.timezone'                  => 'Europe/London',
+            'general.percent_position'          => 'after',
             'general.invoice_number_prefix'     => 'INV-',
             'general.invoice_number_digit'      => '5',
             'general.invoice_number_next'       => '1',

@@ -10,10 +10,12 @@ return [
         'imported'          => ':type 已匯入！',
     ],
     'error' => [
-        'payment_add'       => '錯誤：您不能新增付款！您需要檢查新增金額。',
+        'over_payment'      => '錯誤：未加入付款方式！數量超過總計。',
         'not_user_company'  => '錯誤：您不允許管理此公司！',
-        'customer'          => '錯誤：您不能使用此電子郵件建立使用者 :name ！',
+        'customer'          => '錯誤：未建立使用者！:name已經使用此電子郵件。',
         'no_file'           => '錯誤：沒有選擇檔案！',
+        'last_category'     => '錯誤：無法刪除最後一個 :type 分類！',
+        'invalid_token'     => '錯誤：token輸入錯誤！',
     ],
     'warning' => [
         'deleted'           => '警告：由於和 :text 相關，你不能刪除<b>:name</b>。',

@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Expenses;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Vendor as Request;
+use App\Models\Expense\Bill;
+use App\Models\Expense\Payment;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
 use App\Utilities\ImportFile;
+use Date;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class Vendors extends Controller
 {
@@ -23,6 +29,78 @@ class Vendors extends Controller
         $vendors = Vendor::collect();
 
         return view('expenses.vendors.index', compact('vendors'));
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  Vendor  $vendor
+     *
+     * @return Response
+     */
+    public function show(Vendor $vendor)
+    {
+        $amounts = [
+            'paid' => 0,
+            'open' => 0,
+            'overdue' => 0,
+        ];
+
+        $counts = [
+            'bills' => 0,
+            'payments' => 0,
+        ];
+
+        // Handle bills
+        $bills = Bill::with(['status', 'payments'])->where('vendor_id', $vendor->id)->get();
+
+        $counts['bills'] = $bills->count();
+
+        $bill_payments = [];
+
+        $today = Date::today()->toDateString();
+
+        foreach ($bills as $item) {
+            $payments = 0;
+
+            foreach ($item->payments as $payment) {
+                $payment->category = $item->category;
+
+                $bill_payments[] = $payment;
+
+                $amount = $payment->getConvertedAmount();
+
+                $amounts['paid'] += $amount;
+
+                $payments += $amount;
+            }
+
+            if ($item->bill_status_code == 'paid') {
+                continue;
+            }
+
+            // Check if it's open or overdue invoice
+            if ($item->due_at > $today) {
+                $amounts['open'] += $item->getConvertedAmount() - $payments;
+            } else {
+                $amounts['overdue'] += $item->getConvertedAmount() - $payments;
+            }
+        }
+
+        // Handle payments
+        $payments = Payment::with(['account', 'category'])->where('vendor_id', $vendor->id)->get();
+
+        $counts['payments'] = $payments->count();
+
+        // Prepare data
+        $items = collect($payments)->each(function ($item) use (&$amounts) {
+            $amounts['paid'] += $item->getConvertedAmount();
+        });
+
+        $limit = request('limit', setting('general.list_limit', '25'));
+        $transactions = $this->paginate($items->merge($bill_payments)->sortByDesc('paid_at'), $limit);
+
+        return view('expenses.vendors.show', compact('vendor', 'counts', 'amounts', 'transactions'));
     }
 
     /**
@@ -205,5 +283,24 @@ class Vendors extends Controller
         $vendor = Vendor::create($request->all());
 
         return response()->json($vendor);
+    }
+
+    /**
+     * Generate a pagination collection.
+     *
+     * @param array|Collection      $items
+     * @param int   $perPage
+     * @param int   $page
+     * @param array $options
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

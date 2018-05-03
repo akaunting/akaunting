@@ -8,6 +8,7 @@ return [
     'new'                   => 'Nuevo',
     'top_free'              => 'Top Gratis',
     'free'                  => 'GRATIS',
+    'search'                => 'Search',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar Ahora',
     'token_link'            => 'Haga <a href="https://akaunting.com/tokens" target="_blank">Haga click aquí</a> para obtener su token de API.',

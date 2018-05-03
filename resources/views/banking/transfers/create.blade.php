@@ -12,7 +12,7 @@
 
             {{ Form::selectGroup('to_account_id', trans('transfers.to_account'), 'university', $accounts) }}
 
-            {{ Form::textGroup('amount', trans('general.amount'), 'money') }}
+            {{ Form::numberGroup('amount', trans('general.amount'), 'money') }}
 
             {{ Form::textGroup('transferred_at', trans('general.date'), 'calendar',['id' => 'transferred_at', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => ''], Date::now()->toDateString()) }}
 
@@ -35,6 +35,7 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
 @endpush
 
 @push('css')
@@ -47,7 +48,8 @@
             //Date picker
             $('#transferred_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
             $("#from_account_id").select2({

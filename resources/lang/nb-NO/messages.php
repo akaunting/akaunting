@@ -10,10 +10,12 @@ return [
         'imported'          => ':type importert.',
     ],
     'error' => [
-        'payment_add'       => 'Feil: Du kan ikke legge til betaling. Du må krysse av for legg til beløp.',
+        'over_payment'      => 'Feil: Betaling ble ikke lagt til. Beløpet overstiger total.',
         'not_user_company'  => 'Feil: Du ikke kan administrere dette foretaket.',
-        'customer'          => 'Feil: Du kan ikke opprette bruker. :name bruker allerede denne e-postadressen.',
+        'customer'          => 'Feil: Bruker ble ikke opprettet. :name bruker allerede denne e-postadressen.',
         'no_file'           => 'Feil: Ingen fil er valgt.',
+        'last_category'     => 'Feil: Kan ikke slette siste :type kategori.',
+        'invalid_token'     => 'Feil: Angitt token er ugyldig.',
     ],
     'warning' => [
         'deleted'           => 'Advarsel: Du har ikke mulighet til å slette <b>:name</b> fordi kontoen har :text relatert.',

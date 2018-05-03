@@ -4,11 +4,17 @@ namespace App\Http\Controllers\Incomes;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Income\Customer as Request;
-use Illuminate\Http\Request as FRequest;
 use App\Models\Auth\User;
 use App\Models\Income\Customer;
+use App\Models\Income\Invoice;
+use App\Models\Income\Revenue;
 use App\Models\Setting\Currency;
 use App\Utilities\ImportFile;
+use Date;
+use Illuminate\Http\Request as FRequest;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class Customers extends Controller
 {
@@ -23,6 +29,78 @@ class Customers extends Controller
         $customers = Customer::collect();
 
         return view('incomes.customers.index', compact('customers', 'emails'));
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  Customer  $customer
+     *
+     * @return Response
+     */
+    public function show(Customer $customer)
+    {
+        $amounts = [
+            'paid' => 0,
+            'open' => 0,
+            'overdue' => 0,
+        ];
+
+        $counts = [
+            'invoices' => 0,
+            'revenues' => 0,
+        ];
+
+        // Handle invoices
+        $invoices = Invoice::with(['status', 'payments'])->where('customer_id', $customer->id)->get();
+
+        $counts['invoices'] = $invoices->count();
+
+        $invoice_payments = [];
+
+        $today = Date::today()->toDateString();
+
+        foreach ($invoices as $item) {
+            $payments = 0;
+
+            foreach ($item->payments as $payment) {
+                $payment->category = $item->category;
+
+                $invoice_payments[] = $payment;
+
+                $amount = $payment->getConvertedAmount();
+
+                $amounts['paid'] += $amount;
+
+                $payments += $amount;
+            }
+
+            if ($item->invoice_status_code == 'paid') {
+                continue;
+            }
+
+            // Check if it's open or overdue invoice
+            if ($item->due_at > $today) {
+                $amounts['open'] += $item->getConvertedAmount() - $payments;
+            } else {
+                $amounts['overdue'] += $item->getConvertedAmount() - $payments;
+            }
+        }
+
+        // Handle revenues
+        $revenues = Revenue::with(['account', 'category'])->where('customer_id', $customer->id)->get();
+
+        $counts['revenues'] = $revenues->count();
+
+        // Prepare data
+        $items = collect($revenues)->each(function ($item) use (&$amounts) {
+            $amounts['paid'] += $item->getConvertedAmount();
+        });
+
+        $limit = request('limit', setting('general.list_limit', '25'));
+        $transactions = $this->paginate($items->merge($invoice_payments)->sortByDesc('paid_at'), $limit);
+
+        return view('incomes.customers.show', compact('customer', 'counts', 'amounts', 'transactions'));
     }
 
     /**
@@ -265,5 +343,24 @@ class Customers extends Controller
         ];
 
         return response()->json($json);
+    }
+
+    /**
+     * Generate a pagination collection.
+     *
+     * @param array|Collection      $items
+     * @param int   $perPage
+     * @param int   $page
+     * @param array $options
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

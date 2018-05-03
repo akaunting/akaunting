@@ -41,6 +41,16 @@ class Payments extends Controller
     }
 
     /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect('expenses/payments');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
@@ -85,6 +95,9 @@ class Payments extends Controller
         if ($media) {
             $payment->attachMedia($media, 'attachment');
         }
+
+        // Recurring
+        $payment->createRecurring();
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
@@ -185,6 +198,9 @@ class Payments extends Controller
             $payment->attachMedia($media, 'attachment');
         }
 
+        // Recurring
+        $payment->updateRecurring();
+
         $message = trans('messages.success.updated', ['type' => trans_choice('general.payments', 1)]);
 
         flash($message)->success();
@@ -206,6 +222,7 @@ class Payments extends Controller
             return redirect('expenses/payments');
         }
 
+        $payment->recurring()->delete();
         $payment->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.payments', 1)]);

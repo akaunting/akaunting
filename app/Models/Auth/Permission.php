@@ -65,6 +65,6 @@ class Permission extends LaratrustPermission
         $input = $request->input();
         $limit = $request->get('limit', setting('general.list_limit', '25'));
 
-        return $this->filter($input)->sortable($sort)->paginate($limit);
+        return $query->filter($input)->sortable($sort)->paginate($limit);
     }
 }

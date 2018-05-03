@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Kuantitas',
     'price'             => 'Harga',
     'sub_total'         => 'Subtotal',
+    'discount'          => 'Discount',
     'tax_total'         => 'Total Pajak',
     'total'             => 'Total',
 
     'item_name'         => 'Nama Item | Nama Item',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Tanggal Pembayaran',
     'paid'              => 'Dibayar',

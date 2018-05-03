@@ -26,6 +26,7 @@ return [
     'companies'             => 'شرکت | شرکت ها',
     'profits'               => 'سود | سود',
     'taxes'                 => 'مالیات | مالیات',
+    'logos'                 => 'لوگو | لوگوها',
     'pictures'              => 'عکس | تصاویر',
     'types'                 => 'نوع | انواع',
     'payment_methods'       => 'روش پرداخت | روش های پرداخت',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'به روز رسانی | به روز رسانی',
     'numbers'               => 'شماره | تعداد',
     'statuses'              => 'وضعیت | وضعیت',
+    'others'                => 'Other|Others',
 
     'dashboard'             => 'پیشخوان',
     'banking'               => 'بانکداری',

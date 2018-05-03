@@ -8,6 +8,7 @@ return [
     'new'                   => '新增',
     'top_free'              => '最佳免費',
     'free'                  => '免費',
+    'search'                => '搜尋',
     'install'               => '安裝',
     'buy_now'               => '現在購買',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">點這裡</a>取得您的 API token.',

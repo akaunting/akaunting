@@ -22,9 +22,19 @@ class Category extends Model
      */
     public $sortable = ['name', 'type', 'enabled'];
 
-    public function revenues()
+    public function bills()
     {
-        return $this->hasMany('App\Models\Income\Revenue');
+        return $this->hasMany('App\Models\Expense\Bill');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\Income\Invoice');
+    }
+
+    public function items()
+    {
+        return $this->hasMany('App\Models\Item\Item');
     }
 
     public function payments()
@@ -32,9 +42,9 @@ class Category extends Model
         return $this->hasMany('App\Models\Expense\Payment');
     }
 
-    public function items()
+    public function revenues()
     {
-        return $this->hasMany('App\Models\Item\Item');
+        return $this->hasMany('App\Models\Income\Revenue');
     }
 
     /**

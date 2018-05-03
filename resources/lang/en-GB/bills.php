@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Quantity',
     'price'             => 'Price',
     'sub_total'         => 'Subtotal',
+    'discount'          => 'Discount',
     'tax_total'         => 'Tax Total',
     'total'             => 'Total',
 
     'item_name'         => 'Item Name|Item Names',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Payment Due',
     'amount_due'        => 'Amount Due',

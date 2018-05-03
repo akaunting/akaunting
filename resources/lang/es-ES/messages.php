@@ -10,10 +10,12 @@ return [
         'imported'          => ':type importado!',
     ],
     'error' => [
-        'payment_add'       => 'Error: No puede agregar pagos! Usted debe marcar agregar importe.',
+        'over_payment'      => 'Error: Pago no añadido! Importe mayor que el total.',
         'not_user_company'  => 'Error: No tiene permisos para administrar esta empresa!',
-        'customer'          => 'Error: No se puede crear el usuario! :name usa esta dirección de correo electrónico.',
+        'customer'          => 'Error: Usuario no creado! :name ya utiliza esta dirección de correo electrónico.',
         'no_file'           => 'Error: Ningún archivo seleccionado!',
+        'last_category'     => 'Error: No puede eliminar la última :type categoría!',
+        'invalid_token'     => 'Error: El token introducido es inválido!',
     ],
     'warning' => [
         'deleted'           => 'Advertencia: No puede borrar <b>:name</b> porque tiene :text relacionado.',

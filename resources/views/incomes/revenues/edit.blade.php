@@ -3,6 +3,18 @@
 @section('title', trans('general.title.edit', ['type' => trans_choice('general.revenues', 1)]))
 
 @section('content')
+    @if (($recurring = $revenue->recurring) && ($next = $recurring->next()))
+        <div class="callout callout-info">
+            <h4>{{ trans('recurring.recurring') }}</h4>
+
+            <p>{{ trans('recurring.message', [
+                    'type' => mb_strtolower(trans_choice('general.revenues', 1)),
+                    'date' => $next->format($date_format)
+                ]) }}
+            </p>
+        </div>
+    @endif
+
     <!-- Default box -->
     <div class="box box-success">
         {!! Form::model($revenue, [
@@ -17,23 +29,25 @@
 
             {{ Form::textGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
 
-            {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts) }}
-
-            <div class="form-group col-md-6 {{ $errors->has('currency_code') ? 'has-error' : ''}}">
-                {!! Form::label('currency_code', trans_choice('general.currencies', 1), ['class' => 'control-label']) !!}
+            <div class="form-group col-md-6 form-small">
+                {!! Form::label('account_id', trans_choice('general.accounts', 1), ['class' => 'control-label']) !!}
                 <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-exchange"></i></div>
-                    {!! Form::text('currency', $currencies[$account_currency_code], ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
-                    {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+                    <div class="input-group-addon"><i class="fa fa-university"></i></div>
+                    {!! Form::select('account_id', $accounts, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)])])) !!}
+                    <div class="input-group-append">
+                        {!! Form::text('currency', $account_currency_code, ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
+                        {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+                    </div>
                 </div>
-                {!! $errors->first('currency_code', '<p class="help-block">:message</p>') !!}
             </div>
+
+            {{ Form::selectGroup('customer_id', trans_choice('general.customers', 1), 'user', $customers, null, []) }}
 
             {{ Form::textareaGroup('description', trans('general.description')) }}
 
             {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder-open-o', $categories) }}
 
-            {{ Form::selectGroup('customer_id', trans_choice('general.customers', 1), 'user', $customers, null, []) }}
+            {{ Form::recurring('edit', $revenue) }}
 
             {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods) }}
 
@@ -56,6 +70,7 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
@@ -70,7 +85,8 @@
             //Date picker
             $('#paid_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
             $("#account_id").select2({
@@ -127,7 +143,7 @@
                     dataType: 'JSON',
                     data: 'account_id=' + $(this).val(),
                     success: function(data) {
-                        $('#currency').val(data.currency_name);
+                        $('#currency').val(data.currency_code);
                         $('#currency_code').val(data.currency_code);
                     }
                 });

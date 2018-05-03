@@ -10,10 +10,12 @@ return [
         'imported'          => ':type importuar!',
     ],
     'error' => [
-        'payment_add'       => 'Gabim: Ju nuk mund të shtoni pagesa! Ju duhet të kontrolloni shtimin e shumës.',
+        'over_payment'      => 'Gabim: Pagesa nuk u shtua! Shuma kalon totalin.',
         'not_user_company'  => 'Gabim: Nuk ju lejohet të menaxhoni këtë kompani!',
-        'customer'          => 'Gabim: Ju nuk mund të krijoni përdorues! :name përdor këtë adresë e-maili.',
+        'customer'          => 'Gabim: Përdoruesi nuk u krijua! :name tashmë përdor këtë adresë e-maili.',
         'no_file'           => 'Gabim: Asnjë skedar i përzgjedhur!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'Njoftim: <b>:name</b> nuk mund të fshihet sepse ka :text të lidhur.',

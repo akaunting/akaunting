@@ -2,6 +2,10 @@
 
 @section('title', trans_choice('general.modules', 2))
 
+@section('new_button')
+    <span class="new-button"><a href="{{ url('apps/token/create') }}" class="btn btn-success btn-sm"><span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_token') }}</a></span>
+@endsection
+
 @section('content')
     @include('partials.modules.bar')
 

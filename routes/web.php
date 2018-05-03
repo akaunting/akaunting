@@ -96,9 +96,12 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('income-summary', 'Reports\IncomeSummary');
                 Route::resource('expense-summary', 'Reports\ExpenseSummary');
                 Route::resource('income-expense-summary', 'Reports\IncomeExpenseSummary');
+                Route::resource('tax-summary', 'Reports\TaxSummary');
+                Route::resource('profit-loss', 'Reports\ProfitLoss');
             });
 
             Route::group(['prefix' => 'settings'], function () {
+                Route::post('categories/category', 'Settings\Categories@category');
                 Route::resource('categories', 'Settings\Categories');
                 Route::get('currencies/currency', 'Settings\Currencies@currency');
                 Route::get('currencies/config', 'Settings\Currencies@config');
@@ -117,6 +120,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('paid', 'Modules\Tiles@paidModules');
                 Route::get('new', 'Modules\Tiles@newModules');
                 Route::get('free', 'Modules\Tiles@freeModules');
+                Route::get('search', 'Modules\Tiles@searchModules');
                 Route::post('steps', 'Modules\Item@steps');
                 Route::post('download', 'Modules\Item@download');
                 Route::post('unzip', 'Modules\Item@unzip');

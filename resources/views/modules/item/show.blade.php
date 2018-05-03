@@ -2,6 +2,10 @@
 
 @section('title', trans_choice('general.modules', 2))
 
+@section('new_button')
+    <span class="new-button"><a href="{{ url('apps/token/create') }}" class="btn btn-success btn-sm"><span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_token') }}</a></span>
+@endsection
+
 @section('content')
     @include('partials.modules.bar')
 
@@ -55,20 +59,15 @@
 
                 <div class="box box-success">
                     <div class="box-body">
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <th>Price</th>
-                                    <td class="text-right">
-                                        @if ($module->price == '0.0000')
-                                            {{ trans('modules.free') }}
-                                        @else
-                                            {{ $module->price . ' / month' }}
-                                        @endif
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="text-center">
+                            <div style="margin: 10px; font-size: 24px;">
+                                @if ($module->price == '0.0000')
+                                    {{ trans('modules.free') }}
+                                @else
+                                    {{ $module->price }}
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
 

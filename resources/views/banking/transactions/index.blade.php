@@ -32,7 +32,7 @@
                         <th class="col-md-2">@sortablelink('type', trans_choice('general.types', 1))</th>
                         <th class="col-md-2">@sortablelink('category_name', trans_choice('general.categories', 1))</th>
                         <th class="col-md-2">@sortablelink('description', trans('general.description'))</th>
-                        <th class="col-md-2">@sortablelink('amount', trans('general.amount'))</th>
+                        <th class="col-md-2 text-right amount-space">@sortablelink('amount', trans('general.amount'))</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
                         <td>{{ $item->type }}</td>
                         <td>{{ $item->category_name }}</td>
                         <td>{{ $item->description }}</td>
-                        <td>@money($item->amount, $item->currency_code, true)</td>
+                        <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
                     </tr>
                 @endforeach
                 </tbody>

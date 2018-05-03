@@ -13,9 +13,9 @@
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
                 {!! Form::select('customer_id', $customers, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)])])) !!}
-                <span class="input-group-btn">
-                    <button type="button" onclick="createCustomer();" class="btn btn-primary">{{ trans('general.add_new') }}</button>
-                </span>
+                <div class="input-group-btn">
+                    <button type="button" onclick="createCustomer();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
+                </div>
             </div>
             {!! $errors->first('customer_id', '<p class="help-block">:message</p>') !!}
         </div>
@@ -31,7 +31,7 @@
         {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart', []) }}
 
         <div class="form-group col-md-12">
-            {!! Form::label('items', 'Items', ['class' => 'control-label']) !!}
+            {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'control-label']) !!}
             <div class="table-responsive">
                 <table class="table table-bordered" id="items">
                     <thead>
@@ -51,7 +51,7 @@
                                 <button type="button" onclick="$(this).tooltip('destroy'); $('#item-row-{{ $item_row }}').remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
                             </td>
                             <td>
-                                <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('invoices.item_name', 1)]) }}" name="item[{{ $item_row }}][name]" type="text" id="item-name-{{ $item_row }}">
+                                <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('invoices.item_name', 1)]) }}" name="item[{{ $item_row }}][name]" type="text" id="item-name-{{ $item_row }}" autocomplete="off">
                                 <input name="item[{{ $item_row }}][item_id]" type="hidden" id="item-id-{{ $item_row }}">
                             </td>
                             <td>
@@ -61,7 +61,7 @@
                                 <input class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
                             </td>
                             <td>
-                                {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, setting('general.default_tax'), ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
+                                {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, setting('general.default_tax'), ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control tax-select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
                             </td>
                             <td class="text-right" style="vertical-align: middle;">
                                 <span id="item-total-{{ $item_row }}">0</span>
@@ -77,6 +77,15 @@
                             <td class="text-right"><span id="sub-total">0</span></td>
                         </tr>
                         <tr>
+                            <td class="text-right" style="vertical-align: middle;" colspan="5">
+                                <a href="javascript:void(0)" id="discount-text" rel="popover">{{ trans('invoices.add_discount') }}</a>
+                            </td>
+                            <td class="text-right">
+                                <span id="discount-total"></span>
+                                {!! Form::hidden('discount', null, ['id' => 'discount', 'class' => 'form-control text-right']) !!}
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="text-right" colspan="5"><strong>{{ trans_choice('general.taxes', 1) }}</strong></td>
                             <td class="text-right"><span id="tax-total">0</span></td>
                         </tr>
@@ -88,7 +97,22 @@
                 </table>
             </div>
         </div>
+
         {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
+
+        <div class="form-group col-md-6 required {{ $errors->has('category_id') ? 'has-error' : ''}}">
+            {!! Form::label('category_id', trans_choice('general.categories', 1), ['class' => 'control-label']) !!}
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-folder-open-o"></i></div>
+                {!! Form::select('category_id', $categories, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)])])) !!}
+                <div class="input-group-btn">
+                    <button type="button" onclick="createCategory();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+            {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
+        </div>
+
+        {{ Form::recurring('create') }}
 
         {{ Form::fileGroup('attachment', trans('general.attachment')) }}
     </div>
@@ -105,13 +129,16 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
 @endpush
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
 @endpush
 
 @push('scripts')
@@ -124,7 +151,7 @@
             html += '      <button type="button" onclick="$(this).tooltip(\'destroy\'); $(\'#item-row-' + item_row + '\').remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>';
             html += '  </td>';
             html += '  <td>';
-            html += '      <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('invoices.item_name', 1)]) }}" name="item[' + item_row + '][name]" type="text" id="item-name-' + item_row + '">';
+            html += '      <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('invoices.item_name', 1)]) }}" name="item[' + item_row + '][name]" type="text" id="item-name-' + item_row + '" autocomplete="off">';
             html += '      <input name="item[' + item_row + '][item_id]" type="hidden" id="item-id-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
@@ -161,16 +188,18 @@
             //Date picker
             $('#invoiced_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
             //Date picker
             $('#due_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
-            $(".select2").select2({
+            $(".tax-select2").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
             });
 
@@ -180,6 +209,10 @@
 
             $("#currency_code").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
+            });
+
+            $("#category_id").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
             });
 
             $('#attachment').fancyfile({
@@ -198,7 +231,7 @@
                 $(this).typeahead({
                     minLength: 3,
                     displayText:function (data) {
-                        return data.name;
+                        return data.name + ' (' + data.sku + ')';
                     },
                     source: function (query, process) {
                         $.ajax({
@@ -227,8 +260,56 @@
                 });
             });
 
-            $(document).on('change', '#currency_code, #items tbody select', function(){
+            $('a[rel=popover]').popover({
+                html: 'true',
+                placement: 'bottom',
+                title: '{{ trans('invoices.discount') }}',
+                content: function () {
+
+                    html  = '<div class="discount box-body">';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="input-group" id="input-discount">';
+                    html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
+                    html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="discount-description">';
+                    html += '           {{ trans('invoices.discount_desc') }}';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '</div>';
+                    html += '<div class="discount box-footer">';
+                    html += '    <div class="col-md-12">';
+                    html += '        <div class="form-group no-margin">';
+                    html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
+                    html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
+                    html += '       </div>';
+                    html += '    </div>';
+                    html += '</div>';
+
+                    return html;
+                }
+            });
+
+            $(document).on('keyup', '#pre-discount', function(e){
+                e.preventDefault();
+
+                $('#discount').val($(this).val());
+
                 totalItem();
+            });
+
+            $(document).on('click', '#save-discount', function(){
+                $('a[rel=popover]').trigger('click');
+            });
+
+            $(document).on('click', '#cancel-discount', function(){
+                $('#discount').val('');
+
+                totalItem();
+
+                $('a[rel=popover]').trigger('click');
             });
 
             $(document).on('keyup', '#items tbody .form-control', function(){
@@ -256,7 +337,7 @@
                 url: '{{ url("items/items/totalItem") }}',
                 type: 'POST',
                 dataType: 'JSON',
-                data: $('#currency_code, #items input[type=\'text\'],#items input[type=\'hidden\'], #items textarea, #items select'),
+                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 success: function(data) {
                     if (data) {
@@ -264,7 +345,10 @@
                             $('#item-total-' + key).html(value);
                         });
 
+                        $('#discount-text').text(data.discount_text);
+
                         $('#sub-total').html(data.sub_total);
+                        $('#discount-total').html(data.discount_total);
                         $('#tax-total').html(data.tax_total);
                         $('#grand-total').html(data.grand_total);
                     }
@@ -380,6 +464,90 @@
                     if (error.responseJSON.currency_code) {
                         $("select[name='currency_code']").parent().parent().addClass('has-error');
                         $("select[name='currency_code']").parent().after('<p class="help-block">' + error.responseJSON.currency_code + '</p>');
+                    }
+                }
+            });
+        });
+
+        function createCategory() {
+            $('#modal-create-category').remove();
+
+            modal  = '<div class="modal fade" id="modal-create-category" style="display: none;">';
+            modal += '  <div class="modal-dialog  modal-lg">';
+            modal += '      <div class="modal-content">';
+            modal += '          <div class="modal-header">';
+            modal += '              <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.categories', 1)]) }}</h4>';
+            modal += '          </div>';
+            modal += '          <div class="modal-body">';
+            modal += '              {!! Form::open(['id' => 'form-create-category', 'role' => 'form']) !!}';
+            modal += '              <div class="row">';
+            modal += '                  <div class="form-group col-md-6 required">';
+            modal += '                      <label for="name" class="control-label">{{ trans('general.name') }}</label>';
+            modal += '                      <div class="input-group">';
+            modal += '                          <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>';
+            modal += '                          <input class="form-control" placeholder="{{ trans('general.name') }}" required="required" name="name" type="text" id="name">';
+            modal += '                      </div>';
+            modal += '                  </div>';
+            modal += '                  <div class="form-group col-md-6 required">';
+            modal += '                      <label for="color" class="control-label">{{ trans('general.color') }}</label>';
+            modal += '                      <div  id="category-color-picker" class="input-group colorpicker-component">';
+            modal += '                          <div class="input-group-addon"><i></i></div>';
+            modal += '                          <input class="form-control" value="#00a65a" placeholder="{{ trans('general.color') }}" required="required" name="color" type="text" id="color">';
+            modal += '                      </div>';
+            modal += '                  </div>';
+            modal += '                  {!! Form::hidden('type', 'income', []) !!}';
+            modal += '                  {!! Form::hidden('enabled', '1', []) !!}';
+            modal += '              </div>';
+            modal += '              {!! Form::close() !!}';
+            modal += '          </div>';
+            modal += '          <div class="modal-footer">';
+            modal += '              <div class="pull-left">';
+            modal += '              {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-create-category', 'class' => 'btn btn-success']) !!}';
+            modal += '              <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</button>';
+            modal += '              </div>';
+            modal += '          </div>';
+            modal += '      </div>';
+            modal += '  </div>';
+            modal += '</div>';
+
+            $('body').append(modal);
+
+            $('#category-color-picker').colorpicker();
+
+            $('#modal-create-category').modal('show');
+        }
+
+        $(document).on('click', '#button-create-category', function (e) {
+            $('#modal-create-category .modal-header').before('<span id="span-loading" style="position: absolute; height: 100%; width: 100%; z-index: 99; background: #6da252; opacity: 0.4;"><i class="fa fa-spinner fa-spin" style="font-size: 10em !important;margin-left: 35%;margin-top: 8%;"></i></span>');
+
+            $.ajax({
+                url: '{{ url("settings/categories/category") }}',
+                type: 'POST',
+                dataType: 'JSON',
+                data: $("#form-create-category").serialize(),
+                beforeSend: function () {
+                    $(".form-group").removeClass("has-error");
+                    $(".help-block").remove();
+                },
+                success: function(data) {
+                    $('#span-loading').remove();
+
+                    $('#modal-create-category').modal('hide');
+
+                    $("#category_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                    $("#category_id").select2('refresh');
+                },
+                error: function(error, textStatus, errorThrown) {
+                    $('#span-loading').remove();
+
+                    if (error.responseJSON.name) {
+                        $("input[name='name']").parent().parent().addClass('has-error');
+                        $("input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');
+                    }
+
+                    if (error.responseJSON.color) {
+                        $("input[name='color']").parent().parent().addClass('has-error');
+                        $("input[name='color']").parent().after('<p class="help-block">' + error.responseJSON.color + '</p>');
                     }
                 }
             });

@@ -21,6 +21,11 @@ return [
             'space'         => 'Space ( )',
         ],
         'timezone'          => 'Time Zone',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Invoice',

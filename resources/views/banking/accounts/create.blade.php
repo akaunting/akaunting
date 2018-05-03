@@ -14,7 +14,7 @@
 
             {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, setting('general.default_currency')) }}
 
-            {{ Form::textGroup('opening_balance', trans('accounts.opening_balance'), 'money', ['required' => 'required'], 0) }}
+            {{ Form::numberGroup('opening_balance', trans('accounts.opening_balance'), 'money', ['required' => 'required'], 0) }}
 
             {{ Form::textGroup('bank_name', trans('accounts.bank_name'), 'university', []) }}
 

@@ -47,6 +47,8 @@
                         {{ Form::selectGroup('date_separator', trans('settings.localisation.date.separator'), 'minus', $date_separators, null, []) }}
 
                         {{ Form::selectGroup('timezone', trans('settings.localisation.timezone'), 'globe', $timezones, null, []) }}
+
+                        {{ Form::selectGroup('percent_position', trans('settings.localisation.percent.title'), 'percent', $percent_positions, null, []) }}
                     </div>
 
                     <div class="tab-pane tab-margin" id="invoice">
@@ -162,6 +164,10 @@
 
             $("#timezone").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans('settings.localisation.timezone')]) }}"
+            });
+
+            $("#percent_position").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans('settings.localisation.percent.title')]) }}"
             });
 
             $("#default_account").select2({

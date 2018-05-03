@@ -21,13 +21,18 @@ return [
             'space'         => 'Пробел ( )',
         ],
         'timezone'          => 'Часовой пояс',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Квитанция',
-        'prefix'            => 'Number Prefix',
-        'digit'             => 'Number Digit',
-        'next'              => 'Next Number',
-        'logo'              => 'Logo',
+        'prefix'            => 'Номерной префикс',
+        'digit'             => 'Цифрой префикс',
+        'next'              => 'Следующий номер',
+        'logo'              => 'Логотип',
     ],
     'default' => [
         'tab'               => 'Умолчания',

@@ -36,11 +36,18 @@ class Invoices extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Invoice  $invoice
+     * @param  $id
      * @return \Dingo\Api\Http\Response
      */
-    public function show(Invoice $invoice)
+    public function show($id)
     {
+        // Check if we're querying by id or number
+        if (is_numeric($id)) {
+            $invoice = Invoice::find($id);
+        } else {
+            $invoice = Invoice::where('invoice_number', $id)->first();
+        }
+
         return $this->response->item($invoice, new Transformer());
     }
 
@@ -76,6 +83,7 @@ class Invoices extends ApiController
 
                     $item_id = $item['item_id'];
 
+                    $item['name'] = $item_object->name;
                     $item_sku = $item_object->sku;
 
                     // Decrease stock (item sold)
@@ -194,6 +202,7 @@ class Invoices extends ApiController
 
                     $item_id = $item['item_id'];
 
+                    $item['name'] = $item_object->name;
                     $item_sku = $item_object->sku;
                 } elseif (!empty($item['sku'])) {
                     $item_sku = $item['sku'];

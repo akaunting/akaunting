@@ -10,10 +10,12 @@ return [
         'imported'          => ':type importováno!',
     ],
     'error' => [
-        'payment_add'       => 'Chyba: Nelze přidat platbu! Měli byste přidat částku.',
+        'over_payment'      => 'Error: Payment not added! Amount passes the total.',
         'not_user_company'  => 'Chyba: nemůžeš provádět správu společností!',
-        'customer'          => 'Chyba: Nemůžeš vytvořit uživatele! :name používá tento email.',
+        'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Chyba: Nebyl vybrán žádný soubor!',
+        'last_category'     => 'Error: Can not delete the last :type category!',
+        'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
         'deleted'           => 'Upozornění: Nemůžeš odstranit <b>:name</b> protože je spojená s :text.',

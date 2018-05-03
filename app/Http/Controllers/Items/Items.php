@@ -31,6 +31,16 @@ class Items extends Controller
     }
 
     /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect('items/items');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
@@ -39,7 +49,7 @@ class Items extends Controller
     {
         $categories = Category::enabled()->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         return view('items.items.create', compact('categories', 'taxes'));
     }
@@ -123,7 +133,7 @@ class Items extends Controller
     {
         $categories = Category::enabled()->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
         return view('items.items.edit', compact('item', 'categories', 'taxes'));
     }
@@ -195,9 +205,10 @@ class Items extends Controller
 
         $currency = Currency::where('code', $currency_code)->first();
 
-        $filter_data = array(
-            'name' => $query
-        );
+        $filter_data = [
+            'name' => $query,
+            'sku' => $query,
+        ];
 
         $items = Item::getItems($filter_data);
 
@@ -235,6 +246,7 @@ class Items extends Controller
     {
         $input_items = request('item');
         $currency_code = request('currency_code');
+        $discount = request('discount');
 
         if (empty($currency_code)) {
             $currency_code = setting('general.default_currency');
@@ -250,7 +262,7 @@ class Items extends Controller
         if ($input_items) {
             foreach ($input_items as $key => $item) {
                 $price = (double) $item['price'];
-                $quantity = (int) $item['quantity'];
+                $quantity = (double) $item['quantity'];
 
                 $item_tax_total= 0;
                 $item_sub_total = ($price * $quantity);
@@ -262,11 +274,15 @@ class Items extends Controller
                 }
 
                 $sub_total += $item_sub_total;
+
+                // Apply discount to tax
+                if ($discount) {
+                    $item_tax_total = $item_tax_total - ($item_tax_total * ($discount / 100));
+                }
+
                 $tax_total += $item_tax_total;
 
-                $total = $item_sub_total + $item_tax_total;
-
-                $items[$key] = money($total, $currency_code, true)->format();
+                $items[$key] = money($item_sub_total, $currency_code, true)->format();
             }
         }
 
@@ -274,7 +290,18 @@ class Items extends Controller
 
         $json->sub_total = money($sub_total, $currency_code, true)->format();
 
+        $json->discount_text= trans('invoices.add_discount');
+        $json->discount_total = '';
+
         $json->tax_total = money($tax_total, $currency_code, true)->format();
+
+        // Apply discount to total
+        if ($discount) {
+            $json->discount_text= trans('invoices.show_discount', ['discount' => $discount]);
+            $json->discount_total = money($sub_total * ($discount / 100), $currency_code, true)->format();
+
+            $sub_total = $sub_total - ($sub_total * ($discount / 100));
+        }
 
         $grand_total = $sub_total + $tax_total;
 

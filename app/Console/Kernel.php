@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\Install::class,
         Commands\InvoiceReminder::class,
         Commands\ModuleInstall::class,
+        Commands\RecurringCheck::class,
     ];
 
     /**
@@ -35,6 +36,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('reminder:invoice')->dailyAt(setting('general.schedule_time', '09:00'));
         $schedule->command('reminder:bill')->dailyAt(setting('general.schedule_time', '09:00'));
+        $schedule->command('recurring:check')->dailyAt(setting('general.schedule_time', '09:00'));
     }
 
     /**

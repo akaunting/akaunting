@@ -20,7 +20,7 @@
 
             {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart',[]) }}
             <div class="form-group col-md-12">
-                {!! Form::label('items', 'Items', ['class' => 'control-label']) !!}
+                {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'control-label']) !!}
                 <div class="table-responsive">
                     <table class="table table-bordered" id="items">
                         <thead>
@@ -51,7 +51,7 @@
                                     <input value="{{ $item->price }}" class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, $item->tax_id, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.enter', ['field' => trans_choice('general.taxes', 1)])]) !!}
+                                    {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, $item->tax_id, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control tax-select2', 'placeholder' => trans('general.form.enter', ['field' => trans_choice('general.taxes', 1)])]) !!}
                                 </td>
                                 <td class="text-right" style="vertical-align: middle;">
                                     <span id="item-total-{{ $item_row }}">@money($item->total, $invoice->currency_code, true)</span>
@@ -65,7 +65,7 @@
                                     <button type="button" onclick="$(this).tooltip('destroy'); $('#item-row-{{ $item_row }}').remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
                                 </td>
                                 <td>
-                                    <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('invoices.item_name', 1)]) }}" name="item[{{ $item_row }}][name]" type="text" id="item-name-{{ $item_row }}">
+                                    <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('invoices.item_name', 1)]) }}" name="item[{{ $item_row }}][name]" type="text" id="item-name-{{ $item_row }}" autocomplete="off">
                                     <input name="item[{{ $item_row }}][item_id]" type="hidden" id="item-id-{{ $item_row }}">
                                 </td>
                                 <td>
@@ -92,6 +92,15 @@
                                 <td class="text-right"><span id="sub-total">0</span></td>
                             </tr>
                             <tr>
+                                <td class="text-right" style="vertical-align: middle;" colspan="5">
+                                    <a href="javascript:void(0)" id="discount-text" rel="popover">{{ trans('invoices.add_discount') }}</a>
+                                </td>
+                                <td class="text-right">
+                                    <span id="discount-total"></span>
+                                    {!! Form::hidden('discount', null, ['id' => 'discount', 'class' => 'form-control text-right']) !!}
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="text-right" colspan="5"><strong>{{ trans_choice('general.taxes', 1) }}</strong></td>
                                 <td class="text-right"><span id="tax-total">0</span></td>
                             </tr>
@@ -103,7 +112,12 @@
                     </table>
                 </div>
             </div>
+
             {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
+
+            {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder-open-o', $categories) }}
+
+            {{ Form::recurring('edit', $invoice) }}
 
             {{ Form::fileGroup('attachment', trans('general.attachment')) }}
         </div>
@@ -121,6 +135,7 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 @endpush
@@ -140,7 +155,7 @@
             html += '      <button type="button" onclick="$(this).tooltip(\'destroy\'); $(\'#item-row-' + item_row + '\').remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>';
             html += '  </td>';
             html += '  <td>';
-            html += '      <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('invoices.item_name', 1)]) }}" name="item[' + item_row + '][name]" type="text" id="item-name-' + item_row + '">';
+            html += '      <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('invoices.item_name', 1)]) }}" name="item[' + item_row + '][name]" type="text" id="item-name-' + item_row + '" autocomplete="off">';
             html += '      <input name="item[' + item_row + '][item_id]" type="hidden" id="item-id-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
@@ -179,16 +194,18 @@
             //Date picker
             $('#invoiced_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
             //Date picker
             $('#due_at').datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
-            $(".select2").select2({
+            $(".tax-select2").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
             });
 
@@ -198,6 +215,10 @@
 
             $("#currency_code").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
+            });
+
+            $("#category_id").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
             });
 
             $('#attachment').fancyfile({
@@ -241,7 +262,7 @@
                 $(this).typeahead({
                     minLength: 3,
                     displayText:function (data) {
-                        return data.name;
+                        return data.name + ' (' + data.sku + ')';
                     },
                     source: function (query, process) {
                         $.ajax({
@@ -268,6 +289,58 @@
                         totalItem();
                     }
                 });
+            });
+
+            $('a[rel=popover]').popover({
+                html: 'true',
+                placement: 'bottom',
+                title: '{{ trans('invoices.discount') }}',
+                content: function () {
+
+                    html  = '<div class="discount box-body">';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="input-group" id="input-discount">';
+                    html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
+                    html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="discount-description">';
+                    html += '           {{ trans('invoices.discount_desc') }}';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '</div>';
+                    html += '<div class="discount box-footer">';
+                    html += '    <div class="col-md-12">';
+                    html += '        <div class="form-group no-margin">';
+                    html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
+                    html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
+                    html += '       </div>';
+                    html += '    </div>';
+                    html += '</div>';
+
+                    return html;
+                }
+            });
+
+            $(document).on('keyup', '#pre-discount', function(e){
+                e.preventDefault();
+
+                $('#discount').val($(this).val());
+
+                totalItem();
+            });
+
+            $(document).on('click', '#save-discount', function(){
+                $('a[rel=popover]').trigger('click');
+            });
+
+            $(document).on('click', '#cancel-discount', function(){
+                $('#discount').val('');
+
+                totalItem();
+
+                $('a[rel=popover]').trigger('click');
             });
 
             $(document).on('change', '#currency_code, #items tbody select', function(){
@@ -299,7 +372,7 @@
                 url: '{{ url("items/items/totalItem") }}',
                 type: 'POST',
                 dataType: 'JSON',
-                data: $('#currency_code, #items input[type=\'text\'],#items input[type=\'hidden\'], #items textarea, #items select'),
+                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 success: function(data) {
                     if (data) {
@@ -307,7 +380,10 @@
                             $('#item-total-' + key).html(value);
                         });
 
+                        $('#discount-text').text(data.discount_text);
+
                         $('#sub-total').html(data.sub_total);
+                        $('#discount-total').html(data.discount_total);
                         $('#tax-total').html(data.tax_total);
                         $('#grand-total').html(data.grand_total);
                     }

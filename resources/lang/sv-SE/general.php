@@ -26,6 +26,7 @@ return [
     'companies'             => 'Företag | Företag',
     'profits'               => 'Vinst | Vinster',
     'taxes'                 => 'Moms | Moms',
+    'logos'                 => 'Logotyp | Logotyper',
     'pictures'              => 'Bild | Bilder',
     'types'                 => 'Typ | Typer',
     'payment_methods'       => 'Betalningsmetod | Betalningsmetoder',
@@ -36,6 +37,7 @@ return [
     'updates'               => 'Uppdatering | Uppdateringar',
     'numbers'               => 'Siffra | Siffror',
     'statuses'              => 'Status | Statusar',
+    'others'                => 'Andra | Andra',
 
     'dashboard'             => 'Översikt',
     'banking'               => 'Banktjänster',

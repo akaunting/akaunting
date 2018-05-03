@@ -45,7 +45,7 @@ class CreateBillsTable extends Migration
             $table->integer('item_id')->nullable();
             $table->string('name');
             $table->string('sku')->nullable();
-            $table->integer('quantity');
+            $table->double('quantity', 7, 2);
             $table->double('price', 15, 4);
             $table->double('total', 15, 4);
             $table->float('tax', 15, 4)->default('0.0000');

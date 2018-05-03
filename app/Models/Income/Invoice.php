@@ -6,13 +6,14 @@ use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
+use App\Traits\Media;
+use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use App\Traits\Media;
 
 class Invoice extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media;
+    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media, Recurring;
 
     protected $table = 'invoices';
 
@@ -21,7 +22,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $appends = ['attachment'];
+    protected $appends = ['attachment', 'discount'];
 
     protected $dates = ['deleted_at', 'invoiced_at', 'due_at'];
 
@@ -30,7 +31,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_number', 'order_number', 'invoice_status_code', 'invoiced_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'customer_id', 'customer_name', 'customer_email', 'customer_tax_number', 'customer_phone', 'customer_address', 'notes'];
+    protected $fillable = ['company_id', 'invoice_number', 'order_number', 'invoice_status_code', 'invoiced_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'customer_id', 'customer_name', 'customer_email', 'customer_tax_number', 'customer_phone', 'customer_address', 'notes', 'category_id', 'parent_id'];
 
     /**
      * Sortable columns.
@@ -59,11 +60,11 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $cloneable_relations = ['items', 'totals'];
+    public $cloneable_relations = ['items', 'recurring', 'totals'];
 
-    public function customer()
+    public function category()
     {
-        return $this->belongsTo('App\Models\Income\Customer');
+        return $this->belongsTo('App\Models\Setting\Category');
     }
 
     public function currency()
@@ -71,9 +72,9 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function status()
+    public function customer()
     {
-        return $this->belongsTo('App\Models\Income\InvoiceStatus', 'invoice_status_code', 'code');
+        return $this->belongsTo('App\Models\Income\Customer');
     }
 
     public function items()
@@ -81,9 +82,9 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
 
-    public function totals()
+    public function histories()
     {
-        return $this->hasMany('App\Models\Income\InvoiceTotal');
+        return $this->hasMany('App\Models\Income\InvoiceHistory');
     }
 
     public function payments()
@@ -91,9 +92,19 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoicePayment');
     }
 
-    public function histories()
+    public function recurring()
     {
-        return $this->hasMany('App\Models\Income\InvoiceHistory');
+        return $this->morphOne('App\Models\Common\Recurring', 'recurable');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Models\Income\InvoiceStatus', 'invoice_status_code', 'code');
+    }
+
+    public function totals()
+    {
+        return $this->hasMany('App\Models\Income\InvoiceTotal');
     }
 
     public function scopeDue($query, $date)
@@ -163,5 +174,25 @@ class Invoice extends Model
         }
 
         return $this->getMedia('attachment')->last();
+    }
+
+    /**
+     * Get the discount percentage.
+     *
+     * @return string
+     */
+    public function getDiscountAttribute()
+    {
+        $percent = 0;
+
+        $discount = $this->totals()->where('code', 'discount')->value('amount');
+
+        if ($discount) {
+            $sub_total = $this->totals()->where('code', 'sub_total')->value('amount');
+
+            $percent = number_format((($discount * 100) / $sub_total), 0);
+        }
+
+        return $percent;
     }
 }

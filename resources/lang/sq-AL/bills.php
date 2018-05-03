@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Sasia',
     'price'             => 'Çmimi',
     'sub_total'         => 'Nëntotali',
+    'discount'          => 'Discount',
     'tax_total'         => 'Tatimi Gjithsej',
     'total'             => 'Totali',
 
     'item_name'         => 'Emri i Artikullit | Emrat e Artikullit',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Pagesa e Duhur',
     'amount_due'        => 'Shuma e Duhur',

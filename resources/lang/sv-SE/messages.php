@@ -10,10 +10,12 @@ return [
         'imported'          => ':type uppdaterad!',
     ],
     'error' => [
-        'payment_add'       => 'Fel: Du kan inte lägga till betalning! Du bör kontrollera lägg till beloppet.',
+        'over_payment'      => 'Fel: Betalning inte tillagd! Belopp överskrider totalen.',
         'not_user_company'  => 'Fel: Du får inte hantera detta företag!',
-        'customer'          => 'Fel: Du kan inte skapat användare! :name använder denna e-postadress.',
+        'customer'          => 'Fel: Användaren inte skapad! :name använder redan denna e-postadress.',
         'no_file'           => 'Fel: Ingen fil har valts!',
+        'last_category'     => 'Fel: Kan inte ta bort sista :type kategorin!',
+        'invalid_token'     => 'Fel: Den symbolen som angetts är ogiltigt!',
     ],
     'warning' => [
         'deleted'           => 'Varning: Du får inte ta bort <b>:name</b> eftersom den har :text relaterade.',

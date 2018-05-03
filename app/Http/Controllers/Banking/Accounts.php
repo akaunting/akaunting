@@ -23,6 +23,16 @@ class Accounts extends Controller
     }
 
     /**
+     * Show the form for viewing the specified resource.
+     *
+     * @return Response
+     */
+    public function show()
+    {
+        return redirect('banking/accounts');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
@@ -84,19 +94,34 @@ class Accounts extends Controller
      */
     public function update(Account $account, Request $request)
     {
-        $account->update($request->all());
-
-        // Set default account
-        if ($request['default_account']) {
-            setting()->set('general.default_account', $account->id);
-            setting()->save();
+        // Check if we can disable it
+        if (!$request['enabled']) {
+            if ($account->id == setting('general.default_account')) {
+                $relationships[] = strtolower(trans_choice('general.companies', 1));
+            }
         }
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.accounts', 1)]);
+        if (empty($relationships)) {
+            $account->update($request->all());
 
-        flash($message)->success();
+            // Set default account
+            if ($request['default_account']) {
+                setting()->set('general.default_account', $account->id);
+                setting()->save();
+            }
 
-        return redirect('banking/accounts');
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.accounts', 1)]);
+
+            flash($message)->success();
+
+            return redirect('banking/accounts');
+        } else {
+            $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
+
+            flash($message)->warning();
+
+            return redirect('banking/accounts/' . $account->id . '/edit');
+        }
     }
 
     /**
@@ -114,6 +139,10 @@ class Accounts extends Controller
             'invoice_payments' => 'invoices',
             'revenues' => 'revenues',
         ]);
+
+        if ($account->id == setting('general.default_account')) {
+            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        }
 
         if (empty($relationships)) {
             $account->delete();

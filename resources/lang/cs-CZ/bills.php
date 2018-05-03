@@ -12,10 +12,15 @@ return [
     'quantity'          => 'Množství',
     'price'             => 'Cena',
     'sub_total'         => 'Mezisoučet',
+    'discount'          => 'Discount',
     'tax_total'         => 'Dph celkem',
     'total'             => 'Celkem',
 
     'item_name'         => 'Jméno položky | Jméno položek',
+
+    'show_discount'     => ':discount% Discount',
+    'add_discount'      => 'Add Discount',
+    'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Splatnost platby',
     'amount_due'        => 'Dlužná částka',

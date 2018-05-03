@@ -23,12 +23,7 @@ class IncomeSummary extends Controller
 
         $status = request('status');
 
-        //if ($filter != 'upcoming') {
-            $categories = Category::enabled()->type('income')->pluck('name', 'id')->toArray();
-        //}
-
-        // Add Invoice in Categories
-        $categories[0] = trans_choice('general.invoices', 2);
+        $categories = Category::enabled()->type('income')->pluck('name', 'id')->toArray();
 
         // Get year
         $year = request('year');
@@ -44,15 +39,6 @@ class IncomeSummary extends Controller
 
             // Totals
             $totals[$dates[$j]] = array(
-                'amount' => 0,
-                'currency_code' => setting('general.default_currency'),
-                'currency_rate' => 1
-            );
-
-            // Invoice
-            $incomes[0][$dates[$j]] = array(
-                'category_id' => 0,
-                'name' => trans_choice('general.invoices', 1),
                 'amount' => 0,
                 'currency_code' => setting('general.default_currency'),
                 'currency_rate' => 1
@@ -87,8 +73,17 @@ class IncomeSummary extends Controller
 
         // Revenues
         if ($status != 'upcoming') {
-            $revenues = Revenue::monthsOfYear('paid_at')->get();
+            $revenues = Revenue::monthsOfYear('paid_at')->isNotTransfer()->get();
             $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
+        }
+
+        // Check if it's a print or normal request
+        if (request('print')) {
+            $chart_template = 'vendor.consoletvs.charts.chartjs.multi.line_print';
+            $view_template = 'reports.income_summary.print';
+        } else {
+            $chart_template = 'vendor.consoletvs.charts.chartjs.multi.line';
+            $view_template = 'reports.income_summary.index';
         }
 
         // Incomes chart
@@ -98,9 +93,9 @@ class IncomeSummary extends Controller
             ->dataset(trans_choice('general.incomes', 1), $incomes_graph)
             ->labels($dates)
             ->credits(false)
-            ->view('vendor.consoletvs.charts.chartjs.multi.line');
+            ->view($chart_template);
 
-        return view('reports.income_summary.index', compact('chart', 'dates', 'categories', 'incomes', 'totals'));
+        return view($view_template, compact('chart', 'dates', 'categories', 'incomes', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)
@@ -108,13 +103,7 @@ class IncomeSummary extends Controller
         foreach ($items as $item) {
             $date = Date::parse($item->$date_field)->format('F');
 
-            if ($type == 'invoice') {
-                $category_id = 0;
-            } else {
-                $category_id = $item->category_id;
-            }
-
-            if (!isset($incomes[$category_id])) {
+            if (!isset($incomes[$item->category_id])) {
                 continue;
             }
 
@@ -127,9 +116,9 @@ class IncomeSummary extends Controller
                 }
             }
 
-            $incomes[$category_id][$date]['amount'] += $amount;
-            $incomes[$category_id][$date]['currency_code'] = $item->currency_code;
-            $incomes[$category_id][$date]['currency_rate'] = $item->currency_rate;
+            $incomes[$item->category_id][$date]['amount'] += $amount;
+            $incomes[$item->category_id][$date]['currency_code'] = $item->currency_code;
+            $incomes[$item->category_id][$date]['currency_rate'] = $item->currency_rate;
 
             $graph[Date::parse($item->$date_field)->format('F-Y')] += $amount;
 

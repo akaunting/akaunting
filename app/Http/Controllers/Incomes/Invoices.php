@@ -103,11 +103,13 @@ class Invoices extends Controller
 
         $items = Item::enabled()->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+
+        $categories = Category::enabled()->type('income')->pluck('name', 'id');
 
         $number = $this->getNextInvoiceNumber();
 
-        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'number'));
+        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'categories', 'number'));
     }
 
     /**
@@ -151,6 +153,8 @@ class Invoices extends Controller
 
         $tax_total = 0;
         $sub_total = 0;
+        $discount_total = 0;
+        $discount = $request['discount'];
 
         $invoice_item = [];
         $invoice_item['company_id'] = $request['company_id'];
@@ -163,6 +167,7 @@ class Invoices extends Controller
                 if (!empty($item['item_id'])) {
                     $item_object = Item::find($item['item_id']);
 
+                    $item['name'] = $item_object->name;
                     $item_sku = $item_object->sku;
 
                     // Decrease stock (item sold)
@@ -188,17 +193,22 @@ class Invoices extends Controller
 
                     $tax_id = $item['tax_id'];
 
-                    $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
+                    $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
+
+                    // Apply discount to tax
+                    if ($discount) {
+                        $tax = $tax - ($tax * ($discount / 100));
+                    }
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
                 $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
-                $invoice_item['quantity'] = $item['quantity'];
-                $invoice_item['price'] = $item['price'];
+                $invoice_item['quantity'] = (double) $item['quantity'];
+                $invoice_item['price'] = (double) $item['price'];
                 $invoice_item['tax'] = $tax;
                 $invoice_item['tax_id'] = $tax_id;
-                $invoice_item['total'] = $item['price'] * $item['quantity'];
+                $invoice_item['total'] = (double) $item['price'] * (double) $item['quantity'];
 
                 InvoiceItem::create($invoice_item);
 
@@ -222,12 +232,21 @@ class Invoices extends Controller
             }
         }
 
-        $request['amount'] = $sub_total + $tax_total;
+        $s_total = $sub_total;
+
+        // Apply discount to total
+        if ($discount) {
+            $s_discount = $s_total * ($discount / 100);
+            $discount_total += $s_discount;
+            $s_total = $s_total - $s_discount;
+        }
+
+        $request['amount'] = $s_total + $tax_total;
 
         $invoice->update($request->input());
 
         // Add invoice totals
-        $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
+        $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Add invoice history
         InvoiceHistory::create([
@@ -240,6 +259,9 @@ class Invoices extends Controller
 
         // Update next invoice number
         $this->increaseNextInvoiceNumber();
+
+        // Recurring
+        $invoice->createRecurring();
 
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));
@@ -321,9 +343,11 @@ class Invoices extends Controller
 
         $items = Item::enabled()->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->pluck('name', 'id');
+        $taxes = Tax::enabled()->get()->pluck('title', 'id');
 
-        return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'items', 'taxes'));
+        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+
+        return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'items', 'taxes', 'categories'));
     }
 
     /**
@@ -354,6 +378,8 @@ class Invoices extends Controller
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
+        $discount_total = 0;
+        $discount = $request['discount'];
 
         $invoice_item = [];
         $invoice_item['company_id'] = $request['company_id'];
@@ -369,6 +395,7 @@ class Invoices extends Controller
                 if (!empty($item['item_id'])) {
                     $item_object = Item::find($item['item_id']);
 
+                    $item['name'] = $item_object->name;
                     $item_sku = $item_object->sku;
                 }
 
@@ -379,17 +406,22 @@ class Invoices extends Controller
 
                     $tax_id = $item['tax_id'];
 
-                    $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
+                    $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
+
+                    // Apply discount to tax
+                    if ($discount) {
+                        $tax = $tax - ($tax * ($discount / 100));
+                    }
                 }
 
                 $invoice_item['item_id'] = $item['item_id'];
                 $invoice_item['name'] = str_limit($item['name'], 180, '');
                 $invoice_item['sku'] = $item_sku;
-                $invoice_item['quantity'] = $item['quantity'];
-                $invoice_item['price'] = $item['price'];
+                $invoice_item['quantity'] = (double) $item['quantity'];
+                $invoice_item['price'] = (double) $item['price'];
                 $invoice_item['tax'] = $tax;
                 $invoice_item['tax_id'] = $tax_id;
-                $invoice_item['total'] = $item['price'] * $item['quantity'];
+                $invoice_item['total'] = (double) $item['price'] * (double) $item['quantity'];
 
                 if (isset($tax_object)) {
                     if (array_key_exists($tax_object->id, $taxes)) {
@@ -409,7 +441,16 @@ class Invoices extends Controller
             }
         }
 
-        $request['amount'] = $sub_total + $tax_total;
+        $s_total = $sub_total;
+
+        // Apply discount to total
+        if ($discount) {
+            $s_discount = $s_total * ($discount / 100);
+            $discount_total += $s_discount;
+            $s_total = $s_total - $s_discount;
+        }
+
+        $request['amount'] = $s_total + $tax_total;
 
         $invoice->update($request->input());
 
@@ -424,7 +465,11 @@ class Invoices extends Controller
         InvoiceTotal::where('invoice_id', $invoice->id)->delete();
 
         // Add invoice totals
-        $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
+        $invoice->totals()->delete();
+        $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
+
+        // Recurring
+        $invoice->updateRecurring();
 
         // Fire the event to make it extendible
         event(new InvoiceUpdated($invoice));
@@ -445,6 +490,7 @@ class Invoices extends Controller
      */
     public function destroy(Invoice $invoice)
     {
+        $invoice->recurring()->delete();
         $invoice->delete();
 
         /*
@@ -507,9 +553,7 @@ class Invoices extends Controller
 
         $invoice = $this->prepareInvoice($invoice);
 
-        $logo = $this->getLogo();
-
-        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
+        $html = view($invoice->template_path, compact('invoice'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -563,9 +607,7 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        $logo = $this->getLogo();
-
-        return view($invoice->template_path, compact('invoice', 'logo'));
+        return view($invoice->template_path, compact('invoice'));
     }
 
     /**
@@ -579,9 +621,7 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        $logo = $this->getLogo();
-
-        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
+        $html = view($invoice->template_path, compact('invoice'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -669,7 +709,7 @@ class Invoices extends Controller
         }
 
         if ($amount > $total_amount) {
-            $message = trans('messages.error.payment_add');
+            $message = trans('messages.error.over_payment');
 
             return response()->json([
                 'success' => false,
@@ -702,7 +742,7 @@ class Invoices extends Controller
 
         InvoiceHistory::create($request->input());
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
+        $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
         return response()->json([
             'success' => true,
@@ -722,13 +762,11 @@ class Invoices extends Controller
     {
         $invoice = Invoice::find($payment->invoice_id);
 
-        $status = 'sent';
-
         if ($invoice->payments()->count() > 1) {
-            $status = 'partial';
+            $invoice->invoice_status_code = 'partial';
+        } else {
+            $invoice->invoice_status_code = 'sent';
         }
-
-        $invoice->invoice_status_code = $status;
 
         $invoice->save();
 
@@ -740,7 +778,7 @@ class Invoices extends Controller
         InvoiceHistory::create([
             'company_id' => $invoice->company_id,
             'invoice_id' => $invoice->id,
-            'status_code' => $status,
+            'status_code' => $invoice->invoice_status_code,
             'notify' => 0,
             'description' => trans('messages.success.deleted', ['type' => $description]),
         ]);
@@ -773,11 +811,11 @@ class Invoices extends Controller
         return $invoice;
     }
 
-    protected function addTotals($invoice, $request, $taxes, $sub_total, $tax_total)
+    protected function addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total)
     {
         $sort_order = 1;
 
-        // Added invoice total sub total
+        // Added invoice sub total
         InvoiceTotal::create([
             'company_id' => $request['company_id'],
             'invoice_id' => $invoice->id,
@@ -789,7 +827,24 @@ class Invoices extends Controller
 
         $sort_order++;
 
-        // Added invoice total taxes
+        // Added invoice discount
+        if ($discount_total) {
+            InvoiceTotal::create([
+                'company_id' => $request['company_id'],
+                'invoice_id' => $invoice->id,
+                'code' => 'discount',
+                'name' => 'invoices.discount',
+                'amount' => $discount_total,
+                'sort_order' => $sort_order,
+            ]);
+
+            // This is for total
+            $sub_total = $sub_total - $discount_total;
+        }
+
+        $sort_order++;
+
+        // Added invoice taxes
         if ($taxes) {
             foreach ($taxes as $tax) {
                 InvoiceTotal::create([
@@ -805,7 +860,7 @@ class Invoices extends Controller
             }
         }
 
-        // Added invoice total total
+        // Added invoice total
         InvoiceTotal::create([
             'company_id' => $request['company_id'],
             'invoice_id' => $invoice->id,
@@ -814,40 +869,5 @@ class Invoices extends Controller
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
         ]);
-    }
-
-    protected function getLogo()
-    {
-        $logo = '';
-
-        $media_id = setting('general.company_logo');
-
-        if (setting('general.invoice_logo')) {
-            $media_id = setting('general.invoice_logo');
-        }
-
-        $media = Media::find($media_id);
-
-        if (!empty($media)) {
-            $path = Storage::path($media->getDiskPath());
-
-            if (!is_file($path)) {
-                return $logo;
-            }
-        } else {
-            $path = asset('public/img/company.png');
-        }
-
-        $image = Image::make($path)->encode()->getEncoded();
-
-        if (empty($image)) {
-            return $logo;
-        }
-
-        $extension = File::extension($path);
-
-        $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
-
-        return $logo;
     }
 }

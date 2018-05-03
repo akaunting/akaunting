@@ -186,6 +186,11 @@ $(document).ready(function () {
             disable_input.trigger('change');
         }
     });
+
+    if (document.getElementById('recurring_frequency')) {
+        $(".input-group-recurring #recurring_frequency").select2();
+        $('.input-group-recurring #recurring_frequency').trigger('change');
+    }
 });
 
 function confirmDelete(form_id, title, message, button_cancel, button_delete) {
@@ -248,4 +253,35 @@ $(document).on('click', '.popup', function(e) {
             $('#modal-popup').modal('show');
         }
     });
+});
+
+$(document).on('change', '.input-group-recurring #recurring_frequency', function (e) {
+    var value = $(this).val();
+
+    var recurring_frequency = $('#recurring_frequency').parent().parent();
+    var recurring_interval = $('#recurring_interval').parent();
+    var recurring_custom_frequency = $('#recurring_custom_frequency').parent();
+    var recurring_count = $('#recurring_count').parent();
+
+    if (value == 'custom') {
+        recurring_frequency.removeClass('col-md-12').removeClass('col-md-12').addClass('col-md-4');
+
+        recurring_interval.removeClass('hidden');
+        recurring_custom_frequency.removeClass('hidden');
+        recurring_count.removeClass('hidden');
+
+        $("#recurring_custom_frequency").select2();
+    } else if (value == 'no' || value == '') {
+        recurring_frequency.removeClass('col-md-10').removeClass('col-md-4').addClass('col-md-12');
+
+        recurring_interval.addClass('hidden');
+        recurring_custom_frequency.addClass('hidden');
+        recurring_count.addClass('hidden');
+    } else {
+        recurring_frequency.removeClass('col-md-12').removeClass('col-md-4').addClass('col-md-10');
+
+        recurring_interval.addClass('hidden');
+        recurring_custom_frequency.addClass('hidden');
+        recurring_count.removeClass('hidden');
+    }
 });

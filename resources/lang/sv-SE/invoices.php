@@ -4,7 +4,7 @@ return [
 
     'invoice_number'    => 'Fakturanummer',
     'invoice_date'      => 'Fakturadatum',
-    'total_price'       => 'Totalbelopp',
+    'total_price'       => 'Summa pris',
     'due_date'          => 'Förfallodatum',
     'order_number'      => 'Ordernummer',
     'bill_to'           => 'Fakturera till',
@@ -12,14 +12,19 @@ return [
     'quantity'          => 'Antal',
     'price'             => 'Pris',
     'sub_total'         => 'Delsumma',
+    'discount'          => 'Rabatt',
     'tax_total'         => 'Summa Skatt',
-    'total'             => 'Summa',
+    'total'             => 'Totalt',
 
     'item_name'         => 'Artikelnamn | Artikelnamn',
 
+    'show_discount'     => ':discount % Rabatt',
+    'add_discount'      => 'Lägg till rabatt',
+    'discount_desc'     => 'av delsumman',
+
     'payment_due'       => 'Betalning',
     'paid'              => 'Betald',
-    'histories'         => 'Hävda',
+    'histories'         => 'Historia',
     'payments'          => 'Betalningar',
     'add_payment'       => 'Lägg till betalning',
     'mark_paid'         => 'Markera som betald',

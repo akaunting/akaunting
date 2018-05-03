@@ -21,6 +21,11 @@ return [
             'space'         => 'Hapësirë ( )',
         ],
         'timezone'          => 'Zona Kohore',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Faturë',

@@ -3,6 +3,18 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('content')
+    @if (($recurring = $invoice->recurring) && ($next = $recurring->next()))
+        <div class="callout callout-info">
+            <h4>{{ trans('recurring.recurring') }}</h4>
+
+            <p>{{ trans('recurring.message', [
+                    'type' => mb_strtolower(trans_choice('general.invoices', 1)),
+                    'date' => $next->format($date_format)
+                ]) }}
+            </p>
+        </div>
+    @endif
+
     <div class="box box-success">
         <section class="invoice">
             <span class="badge bg-aqua">{{ $invoice->status->name }}</span>
@@ -119,10 +131,10 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                @foreach($invoice->totals as $total)
-                                @if($total->code != 'total')
+                                @foreach ($invoice->totals as $total)
+                                @if ($total->code != 'total')
                                     <tr>
-                                        <th>{{ trans($total['name']) }}:</th>
+                                        <th>{{ trans($total->title) }}:</th>
                                         <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
                                     </tr>
                                 @else
@@ -133,7 +145,7 @@
                                         </tr>
                                     @endif
                                     <tr>
-                                        <th>{{ trans($total['name']) }}:</th>
+                                        <th>{{ trans($total->name) }}:</th>
                                         <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
                                     </tr>
                                 @endif

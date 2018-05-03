@@ -34,8 +34,8 @@
                 <thead>
                     <tr>
                         <th class="col-md-2">@sortablelink('invoice_number', trans_choice('general.numbers', 1))</th>
-                        <th class="col-md-3">@sortablelink('customer_name', trans_choice('general.customers', 1))</th>
-                        <th class="col-md-1">@sortablelink('amount', trans('general.amount'))</th>
+                        <th class="col-md-2">@sortablelink('customer_name', trans_choice('general.customers', 1))</th>
+                        <th class="col-md-2 text-right amount-space">@sortablelink('amount', trans('general.amount'))</th>
                         <th class="col-md-2">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
                         <th class="col-md-2">@sortablelink('due_at', trans('invoices.due_date'))</th>
                         <th class="col-md-1">@sortablelink('invoice_status_code', trans_choice('general.statuses', 1))</th>
@@ -47,7 +47,7 @@
                     <tr>
                         <td><a href="{{ url('incomes/invoices/' . $item->id . ' ') }}">{{ $item->invoice_number }}</a></td>
                         <td>{{ $item->customer_name }}</td>
-                        <td>@money($item->amount, $item->currency_code, true)</td>
+                        <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
                         <td>{{ Date::parse($item->invoiced_at)->format($date_format) }}</td>
                         <td>{{ Date::parse($item->due_at)->format($date_format) }}</td>
                         <td><span class="label {{ $item->status->label }}">{{ $item->status->name }}</span></td>

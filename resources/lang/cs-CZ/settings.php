@@ -21,6 +21,11 @@ return [
             'space'         => 'Mezera ( )',
         ],
         'timezone'          => 'Časové pásmo',
+        'percent' => [
+            'title'         => 'Percent (%) Position',
+            'before'        => 'Before Number',
+            'after'         => 'After Number',
+        ],
     ],
     'invoice' => [
         'tab'               => 'Faktura',
