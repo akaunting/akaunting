@@ -13,13 +13,17 @@ class Modules
 
     public static function getPaymentMethods($type = null)
     {
+        $company_id = session('company_id');
 
-        $payment_methods = Cache::get('payment_methods.admin');
+        $cache_admin = 'payment_methods.' . $company_id . '.admin';
+        $cache_customer = 'payment_methods.' . $company_id . '.customer';
+
+        $payment_methods = Cache::get($cache_admin);
 
         $customer = auth()->user()->customer;
 
         if ($customer && $type != 'all') {
-            $payment_methods = Cache::get('payment_methods.customer');
+            $payment_methods = Cache::get($cache_customer);
         }
 
         if (!empty($payment_methods)) {
@@ -61,9 +65,9 @@ class Modules
         }
 
         if ($customer) {
-            Cache::put('payment_methods.customer', $payment_methods, Date::now()->addHour(6));
+            Cache::put($cache_customer, $payment_methods, Date::now()->addHour(6));
         } else {
-            Cache::put('payment_methods.admin', $payment_methods, Date::now()->addHour(6));
+            Cache::put($cache_admin, $payment_methods, Date::now()->addHour(6));
         }
 
         return ($payment_methods) ? $payment_methods : [];
