@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Cash',
-    'categories_uncat'      => 'Uncategorised',
     'categories_deposit'    => 'Deposit',
     'categories_sales'      => 'Sales',
     'currencies_usd'        => 'US Dollar',

@@ -51,7 +51,7 @@ class Categories extends Seeder
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.categories_uncat'),
+                'name' => trans_choice('general.others', 1),
                 'type' => 'expense',
                 'color' => '#d2d6de',
                 'enabled' => '1'
