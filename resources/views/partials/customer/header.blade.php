@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="#" class="logo">
+    <a href="{{ env('APP_URL') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><img src="{{ !empty($company->company_logo) ? Storage::url($company->company_logo) : asset('public/img/company.png') }}" class="logo-image-mini" width="25"  alt="{{ $company->company_name }}"></span>
         <!-- logo for regular state and mobile devices -->
