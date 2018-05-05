@@ -26,7 +26,7 @@ class Transfers extends Controller
     {
         $request = request();
 
-        $items = Transfer::with(['payment', 'revenue', 'account'])->collect('payment.paid_at');
+        $items = Transfer::with(['payment', 'payment.account', 'revenue', 'revenue.account'])->collect('payment.paid_at');
 
         $accounts = collect(Account::enabled()->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
