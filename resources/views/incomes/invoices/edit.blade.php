@@ -165,7 +165,7 @@
             html += '      <input class="form-control text-right" required="required" name="item[' + item_row + '][price]" type="text" id="item-price-' + item_row + '">';
             html += '  </td>';
             html += '  <td>';
-            html += '      <select class="form-control select2" name="item[' + item_row + '][tax_id]" id="item-tax-' + item_row + '">';
+            html += '      <select class="form-control tax-select2" name="item[' + item_row + '][tax_id]" id="item-tax-' + item_row + '">';
             html += '         <option selected="selected" value="">{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}</option>';
             @foreach($taxes as $tax_key => $tax_value)
             html += '         <option value="{{ $tax_key }}">{{ $tax_value }}</option>';
@@ -181,7 +181,7 @@
 
             $('[data-toggle="tooltip"]').tooltip('hide');
 
-            $('#item-row-' + item_row + ' .select2').select2({
+            $('#item-row-' + item_row + ' .tax-select2').select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
             });
 
