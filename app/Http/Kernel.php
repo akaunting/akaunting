@@ -41,6 +41,22 @@ class Kernel extends HttpKernel
             'company.currencies',
         ],
 
+        'admin' => [
+            'web',
+            'language',
+            'auth',
+            'adminmenu',
+            'permission:read-admin-panel',
+        ],
+
+        'customer' => [
+            'web',
+            'language',
+            'auth',
+            'customermenu',
+            'permission:read-customer-panel',
+        ],
+
         'api' => [
             'api.auth',
             'throttle:60,1',
