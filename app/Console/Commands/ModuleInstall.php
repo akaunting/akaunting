@@ -41,9 +41,11 @@ class ModuleInstall extends Command
 
         $module = LaravelModule::findByAlias($model->alias);
 
+        $company_id = $this->argument('company_id');
+
         // Add history
         $data = [
-            'company_id' => $this->argument('company_id'),
+            'company_id' => $company_id,
             'module_id' => $model->id,
             'category' => $module->get('category'),
             'version' => $module->get('version'),
@@ -56,7 +58,7 @@ class ModuleInstall extends Command
         $this->call('migrate', ['--force' => true]);
 
         // Trigger event
-        event(new ModuleInstalled($model->alias));
+        event(new ModuleInstalled($model->alias, $company_id));
 
         $this->info('Module installed!');
     }
