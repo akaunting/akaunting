@@ -14,11 +14,16 @@ class Controller extends BaseController
 
     /**
      * Instantiate a new controller instance.
-     *
-     * @param  Route  $route
      */
-    public function __construct(Route $route)
+    public function __construct()
     {
+        // No need to check for permission in console
+        if (app()->runningInConsole()) {
+            return;
+        }
+
+        $route = app(Route::class);
+
         // Get the controller array
         $arr = array_reverse(explode('\\', explode('@', $route->getAction()['uses'])[0]));
 

@@ -8,7 +8,6 @@ use App\Models\Module\ModuleHistory;
 use App\Traits\Modules;
 use Artisan;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 
 class Item extends Controller
 {
@@ -16,13 +15,9 @@ class Item extends Controller
 
     /**
      * Instantiate a new controller instance.
-     *
-     * @param  Route  $route
      */
-    public function __construct(Route $route)
+    public function __construct()
     {
-        parent::__construct($route);
-
         // Add CRUD permission check
         $this->middleware('permission:create-modules-item')->only(['install']);
         $this->middleware('permission:update-modules-item')->only(['update', 'enable', 'disable']);
