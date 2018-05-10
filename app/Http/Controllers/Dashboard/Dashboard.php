@@ -77,7 +77,7 @@ class Dashboard extends Controller
         $incomes_progress = 100;
 
         if (!empty($open_invoice) && !empty($overdue_invoice)) {
-            $incomes_progress = (int) 100 - (100 * ($open_invoice / $overdue_invoice));
+            $incomes_progress = (int) ($open_invoice * 100) / ($open_invoice + $overdue_invoice);
         }
 
         // Totals
@@ -91,7 +91,7 @@ class Dashboard extends Controller
         $expenses_progress = 100;
 
         if (!empty($open_bill) && !empty($overdue_bill)) {
-            $expenses_progress = (int) 100 - (100 * ($open_bill / $overdue_bill));
+            $expenses_progress = (int) ($open_bill * 100) / ($open_bill + $overdue_bill);
         }
 
         $total_expenses = array(
@@ -108,7 +108,7 @@ class Dashboard extends Controller
         $total_progress = 100;
 
         if (!empty($open_profit) && !empty($overdue_profit)) {
-            $total_progress = (int) 100 - (100 * ($open_profit / $overdue_profit));
+            $total_progress = (int) ($open_profit * 100) / ($open_profit + $overdue_profit);
         }
 
         $total_profit = array(
