@@ -16,7 +16,7 @@
 
             {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes) }}
 
-            {{ Form::numberGroup('rate', trans('currencies.rate'), 'money') }}
+            {{ Form::textGroup('rate', trans('currencies.rate'), 'money') }}
 
             {{ Form::numberGroup('precision', trans('currencies.precision'), 'bullseye') }}
 
