@@ -25,7 +25,12 @@
                 @if ($module->price == '0.0000')
                     {{ trans('modules.free') }}
                 @else
-                    {{ $module->price }}
+                    @if (isset($module->special_price))
+                        <del>{{ $module->price }}</del>
+                        {{ $module->special_price }}
+                    @else
+                        {{ $module->price }}
+                    @endif
                 @endif
             </div>
         </div>
