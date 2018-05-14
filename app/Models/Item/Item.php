@@ -15,6 +15,13 @@ class Item extends Model
     protected $table = 'items';
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['item_id'];
+
+    /**
      * Attributes that should be mass-assignable.
      *
      * @var array
@@ -81,23 +88,41 @@ class Item extends Model
         $this->attributes['purchase_price'] = (double) $value;
     }
 
-    public static function getItems($filter_data = array())
+    /**
+     * Get the item id.
+     *
+     * @return string
+     */
+    public function getItemIdAttribute()
     {
-        if (empty($filter_data)) {
-            return Item::all();
-        }
+        return $this->id;
+    }
 
-        $query = Item::select('id as item_id', 'name', 'sku', 'sale_price', 'purchase_price', 'tax_id');
-
-        $query->where('quantity', '>', '0');
-
-        $query->where(function ($query) use ($filter_data) {
-            foreach ($filter_data as $key => $value) {
+    /**
+     * Scope autocomplete.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param array $filter
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAutocomplete($query, $filter)
+    {
+        return $query->where(function ($query) use ($filter) {
+            foreach ($filter as $key => $value) {
                 $query->orWhere($key, 'LIKE', "%" . $value  . "%");
             }
         });
+    }
 
-        return $query->get();
+    /**
+     * Scope quantity.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeQuantity($query)
+    {
+        return $query->where('quantity', '>', '0');
     }
 
     /**

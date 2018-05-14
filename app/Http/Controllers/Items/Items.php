@@ -205,12 +205,16 @@ class Items extends Controller
 
         $currency = Currency::where('code', $currency_code)->first();
 
-        $filter_data = [
+        $autocomplete = Item::autocomplete([
             'name' => $query,
             'sku' => $query,
-        ];
+        ]);
 
-        $items = Item::getItems($filter_data);
+        if ($type == 'invoice') {
+            $autocomplete->quantity();
+        }
+
+        $items = $autocomplete->get();
 
         if ($items) {
             foreach ($items as $item) {
