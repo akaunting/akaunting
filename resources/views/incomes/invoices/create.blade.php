@@ -265,7 +265,6 @@
                 placement: 'bottom',
                 title: '{{ trans('invoices.discount') }}',
                 content: function () {
-
                     html  = '<div class="discount box-body">';
                     html += '    <div class="col-md-6">';
                     html += '        <div class="input-group" id="input-discount">';
@@ -310,6 +309,10 @@
                 totalItem();
 
                 $('a[rel=popover]').trigger('click');
+            });
+
+            $(document).on('change', '#currency_code, #items tbody select', function(){
+                totalItem();
             });
 
             $(document).on('keyup', '#items tbody .form-control', function(){

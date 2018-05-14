@@ -264,7 +264,6 @@
                 placement: 'bottom',
                 title: '{{ trans('bills.discount') }}',
                 content: function () {
-
                     html  = '<div class="discount box-body">';
                     html += '    <div class="col-md-6">';
                     html += '        <div class="input-group" id="input-discount">';
