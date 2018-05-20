@@ -26,11 +26,4 @@ class ImportFile extends ExcelFile
         return $path;
     }
 
-    public function getFilters()
-    {
-        return [
-            'chunk'
-        ];
-    }
-
 }
