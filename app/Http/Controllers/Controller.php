@@ -30,8 +30,13 @@ class Controller extends BaseController
         $controller = '';
 
         // Add folder
-        if ($arr[1] != 'controllers') {
+        if (strtolower($arr[1]) != 'controllers') {
             $controller .= kebab_case($arr[1]) . '-';
+        }
+
+        // Add module
+        if (isset($arr[3]) && isset($arr[4]) && (strtolower($arr[4]) == 'modules')) {
+            $controller .= kebab_case($arr[3]) . '-';
         }
 
         // Add file
