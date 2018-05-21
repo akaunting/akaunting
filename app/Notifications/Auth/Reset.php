@@ -46,8 +46,8 @@ class Reset extends Notification
         setting(['general.company_name' => config('app.name')]);
 
         return (new MailMessage)
-            ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', url('auth/reset', $this->token, true))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->line(trans('auth.notification.message_1'))
+            ->action(trans('auth.notification.button'), url('auth/reset', $this->token, true))
+            ->line(trans('auth.notification.message_2'));
     }
 }

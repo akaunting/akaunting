@@ -27,4 +27,10 @@ return [
     'disabled'              => 'This account is disabled. Please, contact the system administrator.',
     'throttle'              => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    'notification' => [
+        'message_1'     => 'You are receiving this email because we received a password reset request for your account.',
+        'message_2'     => 'If you did not request a password reset, no further action is required.',
+        'button'        => 'Reset Password',
+    ],
+
 ];
