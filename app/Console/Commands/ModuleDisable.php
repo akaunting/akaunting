@@ -10,36 +10,38 @@ use Symfony\Component\Console\Input\InputArgument;
 class ModuleDisable extends Command
 {
     /**
-    * The console command name.
-    *
-    * @var string
-    */
-    protected $name = 'module:disable {alias} {company_id}';
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'module:disable {alias} {company_id}';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Disable the specified module.';
 
     /**
-    * Execute the console command.
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
         $alias = $this->argument('alias');
         $company_id = $this->argument('company_id');
 
-        $model = Module::alias($alias)->companyId($company_id)->get();
+        $model = Module::alias($alias)->companyId($company_id)->first();
 
         if (!$model) {
             $this->info("Module [{$alias}] not found.");
             return;
         }
 
-        if ($model->enabled == 1) {
-            $model->enabled = 0;
+        if ($model->status == 1) {
+            $model->status = 0;
             $model->save();
 
             $module = $this->laravel['modules']->findByAlias($alias);
