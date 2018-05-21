@@ -2,19 +2,19 @@
 
 return [
 
-    'recurring'             => 'Recurring',
-    'every'                 => 'Every',
-    'period'                => 'Period',
-    'times'                 => 'Times',
-    'daily'                 => 'Daily',
-    'weekly'                => 'Weekly',
-    'monthly'               => 'Monthly',
-    'yearly'                => 'Yearly',
-    'custom'                => 'Custom',
-    'days'                  => 'Day(s)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'recurring'             => 'Tilbagevendende',
+    'every'                 => 'Hver',
+    'period'                => 'Periode',
+    'times'                 => 'Tid',
+    'daily'                 => 'Daglig',
+    'weekly'                => 'Ugentlig',
+    'monthly'               => 'Månedlig',
+    'yearly'                => 'Årlig',
+    'custom'                => 'Tilpasset',
+    'days'                  => 'Dag(e)',
+    'weeks'                 => 'Uge(r)',
+    'months'                => 'Måned(er)',
+    'years'                 => 'År',
+    'message'               => 'Dette er en tilbagevendende :type og den næste vil blive autogenereret den :date',
 
 ];

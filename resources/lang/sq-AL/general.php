@@ -37,7 +37,7 @@ return [
     'updates'               => 'Përditësimi | Përditësimet',
     'numbers'               => 'Numri | Numrat',
     'statuses'              => 'Statusi | Statuset',
-    'others'                => 'Other|Others',
+    'others'                => 'Tjetër | Të tjera',
 
     'dashboard'             => 'Paneli Kryesor',
     'banking'               => 'Veprime Bankare',

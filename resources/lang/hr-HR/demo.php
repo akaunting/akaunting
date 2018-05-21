@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Gotovina',
-    'categories_uncat'      => 'Nekategorizirano',
     'categories_deposit'    => 'Depozit',
     'categories_sales'      => 'Prodaje',
     'currencies_usd'        => 'Američki dolar',

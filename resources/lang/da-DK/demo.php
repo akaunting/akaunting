@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Kontant',
-    'categories_uncat'      => 'Ikke kategoriseret',
     'categories_deposit'    => 'Indsæt',
     'categories_sales'      => 'Salg',
     'currencies_usd'        => 'Amerikanske Dollar',

@@ -26,7 +26,7 @@ return [
     'companies'             => 'Tvrtka|Tvrtke',
     'profits'               => 'Dobit|Dobiti',
     'taxes'                 => 'Porez|Porezi',
-    'logos'                 => 'Logo|Logos',
+    'logos'                 => 'Logo|Logoi',
     'pictures'              => 'Slika|Slike',
     'types'                 => 'Tip|Tipovi',
     'payment_methods'       => 'Način plaćanja|Načini plaćanja',
@@ -37,7 +37,7 @@ return [
     'updates'               => 'Ažuriranje|Ažuriranja',
     'numbers'               => 'Broj|Brojevi',
     'statuses'              => 'Status|Statusi',
-    'others'                => 'Other|Others',
+    'others'                => 'Ostalo|Ostali',
 
     'dashboard'             => 'Nadzorna ploča',
     'banking'               => 'Bankarstvo',
@@ -97,7 +97,7 @@ return [
     'duplicate'             => 'Dupliciraj',
     'unpaid'                => 'Neplaćeno',
     'paid'                  => 'Plaćeno',
-    'overdue'               => 'Overdue',
+    'overdue'               => 'Dospjelo',
     'partially'             => 'Djelomično',
     'partially_paid'        => 'Djelomično plaćeno',
 

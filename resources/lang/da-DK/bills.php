@@ -12,15 +12,15 @@ return [
     'quantity'          => 'Antal',
     'price'             => 'Pris',
     'sub_total'         => 'Subtotal',
-    'discount'          => 'Discount',
+    'discount'          => 'Rabat',
     'tax_total'         => 'Moms i alt',
     'total'             => 'I alt',
 
     'item_name'         => 'Punkt navn | Varenavne',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Rabat',
+    'add_discount'      => 'Tilføj rabat',
+    'discount_desc'     => 'subtotal',
 
     'payment_due'       => 'Betalingsfrist',
     'amount_due'        => 'Forfaldent beløb',

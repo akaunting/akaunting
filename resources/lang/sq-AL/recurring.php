@@ -2,19 +2,19 @@
 
 return [
 
-    'recurring'             => 'Recurring',
-    'every'                 => 'Every',
-    'period'                => 'Period',
-    'times'                 => 'Times',
-    'daily'                 => 'Daily',
-    'weekly'                => 'Weekly',
-    'monthly'               => 'Monthly',
-    'yearly'                => 'Yearly',
-    'custom'                => 'Custom',
-    'days'                  => 'Day(s)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'recurring'             => 'Periodik',
+    'every'                 => 'Çdo',
+    'period'                => 'Periudhë',
+    'times'                 => 'Kohët',
+    'daily'                 => 'Ditore',
+    'weekly'                => 'Javore',
+    'monthly'               => 'Mujore',
+    'yearly'                => 'Vjetore',
+    'custom'                => 'Special',
+    'days'                  => 'Ditë(t)',
+    'weeks'                 => 'Javë(t)',
+    'months'                => 'Muaj(t)',
+    'years'                 => 'Vit(e)',
+    'message'               => 'Ky është një :type i periodik dhe :type i ardhshëm do të gjenerohet automatikisht në :date',
 
 ];

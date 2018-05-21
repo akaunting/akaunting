@@ -14,8 +14,8 @@ return [
         'not_user_company'  => 'Gabim: Nuk ju lejohet të menaxhoni këtë kompani!',
         'customer'          => 'Gabim: Përdoruesi nuk u krijua! :name tashmë përdor këtë adresë e-maili.',
         'no_file'           => 'Gabim: Asnjë skedar i përzgjedhur!',
-        'last_category'     => 'Error: Can not delete the last :type category!',
-        'invalid_token'     => 'Error: The token entered is invalid!',
+        'last_category'     => 'Gabim: Nuk mund të fshihet :type kategoria e fundit!',
+        'invalid_token'     => 'Gabim: Marku i dhënë është i pavlefshëm!',
     ],
     'warning' => [
         'deleted'           => 'Njoftim: <b>:name</b> nuk mund të fshihet sepse ka :text të lidhur.',

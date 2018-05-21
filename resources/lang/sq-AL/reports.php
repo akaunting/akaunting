@@ -7,24 +7,24 @@ return [
     'this_quarter'          => 'Këtë Tremujor',
     'previous_quarter'      => 'Tremujor i Kaluar',
     'last_12_months'        => '12 Muajt e Fundit',
-    'profit_loss'           => 'Profit & Loss',
-    'gross_profit'          => 'Gross Profit',
-    'net_profit'            => 'Net Profit',
-    'total_expenses'        => 'Total Expenses',
-    'net'                   => 'NET',
+    'profit_loss'           => 'Fitimi & Humbje',
+    'gross_profit'          => 'Fitimi Bruto',
+    'net_profit'            => 'Fitimi Neto',
+    'total_expenses'        => 'Shpenzimet Totale',
+    'net'                   => 'NETO',
 
     'summary' => [
         'income'            => 'Përmbledhje e të Ardhurave',
         'expense'           => 'Përmbledhje e Shpenzimeve',
         'income_expense'    => 'Të Ardhurat vs Shpenzimet',
-        'tax'               => 'Tax Summary',
+        'tax'               => 'Përmbledhje e Taksave',
     ],
 
     'quarter' => [
         '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Oct-Dec',
+        '2'                 => 'Prill-Qer',
+        '3'                 => 'Korr-Shta',
+        '4'                 => 'Tet-Dhje',
     ],
 
 ];

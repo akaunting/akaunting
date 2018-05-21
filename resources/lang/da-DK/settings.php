@@ -22,9 +22,9 @@ return [
         ],
         'timezone'          => 'Tidszone',
         'percent' => [
-            'title'         => 'Percent (%) Position',
-            'before'        => 'Before Number',
-            'after'         => 'After Number',
+            'title'         => 'Procent (%) Position',
+            'before'        => 'Før nummer',
+            'after'         => 'Efter nummer',
         ],
     ],
     'invoice' => [

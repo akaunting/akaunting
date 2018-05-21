@@ -8,7 +8,7 @@ return [
     'new'                   => 'I ri',
     'top_free'              => 'Më të mirët Falas',
     'free'                  => 'FALAS',
-    'search'                => 'Search',
+    'search'                => 'Kërko',
     'install'               => 'Instalo',
     'buy_now'               => 'Bli Tani',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Kliko këtu</a>për të marrë shenjën tuaj API.',

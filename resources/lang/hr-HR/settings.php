@@ -22,7 +22,7 @@ return [
         ],
         'timezone'          => 'Vremenska zona',
         'percent' => [
-            'title'         => 'Percent (%) Position',
+            'title'         => 'Pozicija postotka (%)',
             'before'        => 'Ispred broja',
             'after'         => 'Nakon broja',
         ],

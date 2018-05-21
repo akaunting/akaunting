@@ -18,9 +18,9 @@ return [
 
     'item_name'         => 'Naziv stavke|Nazivi stavaka',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% popusta',
+    'add_discount'      => 'Dodaj popust',
+    'discount_desc'     => 'od podzbroja',
 
     'payment_due'       => 'Dospijeća plaćanja',
     'amount_due'        => 'Dospjeli iznos',

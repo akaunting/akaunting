@@ -18,9 +18,9 @@ return [
 
     'item_name'         => 'Ime stavke|Imena stavaka',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% popusta',
+    'add_discount'      => 'Dodaj popust',
+    'discount_desc'     => 'od podzbroja',
 
     'payment_due'       => 'Dospijeća plaćanja',
     'paid'              => 'Plaćeno',
@@ -44,7 +44,7 @@ return [
     'messages' => [
         'email_sent'     => 'E-mail računa je uspješno poslan!',
         'marked_sent'    => 'Račun je uspješno označen kao poslan!',
-        'email_required' => 'No email address for this customer!',
+        'email_required' => 'Nema e-mail adrese za ovog kupca!',
     ],
 
     'notification' => [

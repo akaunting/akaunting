@@ -22,9 +22,9 @@ return [
         ],
         'timezone'          => 'Zona Kohore',
         'percent' => [
-            'title'         => 'Percent (%) Position',
-            'before'        => 'Before Number',
-            'after'         => 'After Number',
+            'title'         => 'Pozicioni Përqindja (%)',
+            'before'        => 'Para Numrit',
+            'after'         => 'Pas Numrit',
         ],
     ],
     'invoice' => [
