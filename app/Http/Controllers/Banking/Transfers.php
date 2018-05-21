@@ -37,13 +37,11 @@ class Transfers extends Controller
             $revenue = $item->revenue;
             $payment = $item->payment;
 
-            $data_name = [
+            $name = trans('transfers.messages.delete', [
                 'from' => $payment->account->name,
                 'to' => $revenue->account->name,
                 'amount' => money($payment->amount, $payment->currency_code, true)
-            ];
-
-            $name = trans('transfers.delete_transfer', $data_name);
+            ]);
 
             $transfers[] = (object)[
                 'id' => $item->id,

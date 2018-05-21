@@ -105,6 +105,7 @@ return [
         'new'               => 'New :type',
         'edit'              => 'Edit :type',
     ],
+
     'form' => [
         'enter'             => 'Enter :field',
         'select' => [
