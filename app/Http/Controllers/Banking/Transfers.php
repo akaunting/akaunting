@@ -34,10 +34,20 @@ class Transfers extends Controller
         $transfers = array();
 
         foreach ($items as $item) {
-            $payment = $item->payment;
             $revenue = $item->revenue;
+            $payment = $item->payment;
+
+            $data_name = [
+                'from' => $payment->account->name,
+                'to' => $revenue->account->name,
+                'amount' => money($payment->amount, $payment->currency_code, true)
+            ];
+
+            $name = trans('transfers.delete_transfer', $data_name);
 
             $transfers[] = (object)[
+                'id' => $item->id,
+                'name' => $name,
                 'from_account' => $payment->account->name,
                 'to_account' => $revenue->account->name,
                 'amount' => $payment->amount,
@@ -162,10 +172,10 @@ class Transfers extends Controller
      *
      * @return Response
      */
-    public function edit(Request $request)
+    public function edit(Transfer $transfer)
     {
-        $payment = Payment::findOrFail($request['payment_id']);
-        $revenue = Revenue::findOrFail($request['revenue_id']);
+        $payment = Payment::findOrFail($transfer->payment_id);
+        $revenue = Revenue::findOrFail($transfer->revenue_id);
 
         $transfer['from_account_id'] = $payment->account_id;
         $transfer['to_account_id'] = $revenue->account_id;
@@ -175,7 +185,7 @@ class Transfers extends Controller
         $transfer['payment_method'] = $revenue->payment_method;
         $transfer['reference'] = $revenue->reference;
 
-        $accounts = Account::listArray();
+        $accounts = Account::enabled()->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -198,6 +208,7 @@ class Transfers extends Controller
         $revenue_currency_code = Account::where('id', $request['to_account_id'])->pluck('currency_code')->first();
 
         $payment = Payment::findOrFail($transfer->payment_id);
+        $revenue = Revenue::findOrFail($transfer->revenue_id);
 
         $request['account_id'] = $request['from_account_id'];
         $request['paid_at'] = $request['transferred_at'];
@@ -208,8 +219,6 @@ class Transfers extends Controller
         $request['attachment'] = '';
 
         $payment->update($request->all());
-
-        $revenue = Revenue::findOrFail($transfer->income_id);
 
         $transfer = new Transfer();
 
@@ -255,8 +264,8 @@ class Transfers extends Controller
      */
     public function destroy(Transfer $transfer)
     {
-        $payment = Payment::findOrFail($transfer['payment_id']);
-        $revenue = Revenue::findOrFail($transfer['revenue_id']);
+        $payment = Payment::findOrFail($transfer->payment_id);
+        $revenue = Revenue::findOrFail($transfer->revenue_id);
 
         $transfer->delete();
         $payment->delete();
