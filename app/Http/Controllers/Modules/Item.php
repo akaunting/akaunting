@@ -7,6 +7,7 @@ use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
 use App\Traits\Modules;
 use Artisan;
+use Module as LModule;
 use Illuminate\Http\Request;
 
 class Item extends Controller
@@ -147,8 +148,6 @@ class Item extends Controller
         $json = $this->installModule($path);
 
         if ($json['success']) {
-            Artisan::call('module:install', ['alias' => $json['data']['alias'], 'company_id' => session('company_id')]);
-
             $message = trans('modules.installed', ['module' => $json['data']['name']]);
 
             flash($message)->success();
@@ -265,5 +264,26 @@ class Item extends Controller
         flash($message)->success();
 
         return redirect('apps/' . $alias)->send();
+    }
+
+    /**
+     * Final actions post update.
+     *
+     * @param  $alias
+     * @param  $old
+     * @param  $new
+     * @return Response
+     */
+    public function post($alias)
+    {
+        Artisan::call('module:install', ['alias' => $alias, 'company_id' => session('company_id')]);
+
+        $module = LModule::findByAlias($alias);
+
+        $message = trans('modules.installed', ['module' => $module->get('name')]);
+
+        flash($message)->success();
+
+        return redirect('apps/' . $alias);
     }
 }

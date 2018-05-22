@@ -241,7 +241,7 @@ trait Modules
 
         return [
             'success' => true,
-            'installed' => true,
+            'installed' => url("apps/post/" . $module->alias),
             'errors' => false,
             'data' => $data,
         ];

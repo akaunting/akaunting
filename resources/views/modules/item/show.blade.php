@@ -231,7 +231,7 @@
                             }
 
                             if (json['installed']) {
-                                window.location = '{{ url("apps/" . $module->slug) }}';
+                                window.location = json['installed'];
                             }
                         },
                         error: function(xhr, ajaxOptions, thrownError) {

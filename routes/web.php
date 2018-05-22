@@ -125,6 +125,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('download', 'Modules\Item@download');
                 Route::post('unzip', 'Modules\Item@unzip');
                 Route::post('install', 'Modules\Item@install');
+                Route::get('post/{alias}', 'Modules\Item@post');
                 Route::get('{alias}/uninstall', 'Modules\Item@uninstall');
                 Route::get('{alias}/enable', 'Modules\Item@enable');
                 Route::get('{alias}/disable', 'Modules\Item@disable');

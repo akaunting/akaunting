@@ -137,7 +137,7 @@ class Updater
                     $data['core'] = $version;
                 }
             } else {
-                $module = Module::get($alias);
+                $module = Module::findByAlias($alias);
 
                 // Up-to-date
                 if (version_compare($module->get('version'), $version) == 0) {
