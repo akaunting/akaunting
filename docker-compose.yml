@@ -1,7 +1,7 @@
 version: '3'
 services:
   mysql:
-    image: mysql
+    image: mysql:5
     ports:
       - 3306:3306
     environment:
@@ -11,9 +11,9 @@ services:
       MYSQL_PASSWORD: akaunting_password
   web:
     image: akaunting
-    ## Uncomment if you wish to use this configuration as development environment.
-    # volumes:
-    #   - ../:/var/www/html
+    build: ./
+    volumes:
+      - ./:/var/www/html
     ports:
       - 8080:80
     environment:
