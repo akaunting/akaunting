@@ -5,6 +5,11 @@
         <h1>
             @yield('title')
             @yield('new_button')
+            @if ($suggestion_modules)
+                @foreach($suggestion_modules as $suggestion_module)
+                    <span class="new-button"><a href="{{ url($suggestion_module->action_url) }}" target="_blank" class="btn btn-default btn-sm"><span class="fa fa-rocket"></span> &nbsp;{{ $suggestion_module->name }}</a></span>
+                @endforeach
+            @endif
         </h1>
     </section>
 
