@@ -5,7 +5,7 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 use App\Traits\Modules;
 use Route;
-use Module;
+use App\Models\Module\Module;
 
 class Suggestions
 {
@@ -30,7 +30,9 @@ class Suggestions
                 $suggestion_modules = $suggestions->modules;
 
                 foreach ($suggestion_modules as $key => $module) {
-                    if (Module::findByAlias($module->alias)) {
+                    $installed = Module::where('company_id', '=', session('company_id'))->where('alias', '=', $module->alias)->first();
+
+                    if ($installed) {
                         unset($suggestion_modules[$key]);
                     }
                 }
