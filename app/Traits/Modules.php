@@ -6,6 +6,7 @@ use App\Utilities\Info;
 use Artisan;
 use File;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Module;
 use ZipArchive;
 
@@ -22,7 +23,7 @@ trait Modules
 
         $response = $this->getRemote('token/check', 'POST', $data);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             $result = json_decode($response->getBody());
 
             return ($result->success) ? true : false;
@@ -35,7 +36,7 @@ trait Modules
     {
         $response = $this->getRemote('apps/items');
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
         }
 
@@ -46,7 +47,7 @@ trait Modules
     {
         $response = $this->getRemote('apps/' . $alias);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
         }
 
@@ -57,7 +58,7 @@ trait Modules
     {
         $response = $this->getRemote('apps/categories');
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
         }
 
@@ -68,7 +69,7 @@ trait Modules
     {
         $response = $this->getRemote('apps/categories/' . $alias);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
         }
 
@@ -79,7 +80,7 @@ trait Modules
     {
         $response = $this->getRemote('apps/paid', 'GET', $data);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
         }
 
@@ -90,7 +91,7 @@ trait Modules
     {
         $response = $this->getRemote('apps/new', 'GET', $data);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
         }
 
@@ -101,7 +102,7 @@ trait Modules
     {
         $response = $this->getRemote('apps/free', 'GET', $data);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
         }
 
@@ -112,7 +113,7 @@ trait Modules
     {
         $response = $this->getRemote('apps/search', 'GET', $data);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
         }
 
@@ -125,7 +126,7 @@ trait Modules
 
         $response = $this->getRemote('core/version', 'GET', $data);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             return $response->json();
         }
 
@@ -136,7 +137,7 @@ trait Modules
     {
         $response = $this->getRemote($path);
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             $file = $response->getBody()->getContents();
 
             $path = 'temp-' . md5(mt_rand());
@@ -327,7 +328,11 @@ trait Modules
 
         $data = array_merge($data, $headers);
 
-        $result = $client->request($method, $path, $data);
+        try {
+            $result = $client->request($method, $path, $data);
+        } catch (RequestException $e) {
+            $result = false;
+        }
 
         return $result;
     }

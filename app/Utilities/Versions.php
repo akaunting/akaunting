@@ -6,6 +6,7 @@ use App\Traits\SiteApi;
 use Cache;
 use Date;
 use Parsedown;
+use GuzzleHttp\Exception\RequestException;
 
 class Versions
 {
@@ -90,7 +91,12 @@ class Versions
     {
         $latest = '0.0.0';
 
-        $response = static::getRemote($url, ['timeout' => 30, 'referer' => true]);
+        $response = static::getRemote($url, ['timeout' => 1, 'referer' => true]);
+
+        // Exception
+        if ($response instanceof RequestException) {
+            return $latest;
+        }
 
         // Bad response
         if ($response->getStatusCode() != 200) {

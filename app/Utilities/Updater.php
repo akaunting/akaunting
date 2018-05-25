@@ -10,6 +10,7 @@ use Date;
 use File;
 use Module;
 use ZipArchive;
+use GuzzleHttp\Exception\RequestException;
 
 class Updater
 {
@@ -106,6 +107,11 @@ class Updater
         }
 
         $response = static::getRemote($url, ['timeout' => 30, 'track_redirects' => true]);
+
+        // Exception
+        if ($response instanceof RequestException) {
+            return false;
+        }
 
         if ($response->getStatusCode() == 200) {
             $file = $response->getBody()->getContents();

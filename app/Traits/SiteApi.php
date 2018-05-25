@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 trait SiteApi
 {
@@ -23,7 +24,11 @@ trait SiteApi
 
         $data = array_merge($data, $headers);
 
-        $result = $client->get($url, $data);
+        try {
+            $result = $client->get($url, $data);
+        } catch (RequestException $e) {
+            $result = $e;
+        }
 
         return $result;
     }
