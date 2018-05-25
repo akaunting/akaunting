@@ -21,6 +21,7 @@ class Updater
         Cache::forget('modules');
         Cache::forget('updates');
         Cache::forget('versions');
+        Cache::forget('suggestions');
 
         return true;
     }

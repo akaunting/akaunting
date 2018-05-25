@@ -9,6 +9,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Module;
 use ZipArchive;
+use Cache;
+use Date;
 
 trait Modules
 {
@@ -309,6 +311,53 @@ trait Modules
             'errors' => false,
             'data'   => $data
         ];
+    }
+
+    public function loadSuggestions()
+    {
+        // Get data from cache
+        $data = Cache::get('suggestions');
+
+        if (!empty($data)) {
+            return $data;
+        }
+
+        $data = [];
+
+        $url = 'apps/suggestions';
+
+        $response = $this->getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
+
+        // Bad response
+        if ($response->getStatusCode() != 200) {
+            return false;
+        }
+
+        $suggestions = json_decode($response->getBody())->data;
+
+        foreach ($suggestions as $suggestion) {
+            $data[$suggestion->path] = $suggestion;
+        }
+
+        Cache::put('suggestions', $data, Date::now()->addHour(6));
+
+        return $data;
+    }
+
+    public function getSuggestions($path)
+    {
+        // Get data from cache
+        $data = Cache::get('suggestions');
+
+        if (empty($data)) {
+            $data = $this->loadSuggestions();
+        }
+
+        if (array_key_exists($path, $data)) {
+            return $data[$path];
+        }
+
+        return false;
     }
 
     protected function getRemote($path, $method = 'GET', $data = array())

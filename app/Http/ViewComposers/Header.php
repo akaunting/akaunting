@@ -5,9 +5,12 @@ namespace App\Http\ViewComposers;
 use Auth;
 use App\Utilities\Updater;
 use Illuminate\View\View;
+use App\Traits\Modules;
 
 class Header
 {
+    use Modules;
+
     /**
      * Bind data to the view.
      *
@@ -56,6 +59,8 @@ class Header
         }
 
         $updates = count(Updater::all());
+
+        $this->loadSuggestions();
 
         $view->with([
             'user' => $user,
