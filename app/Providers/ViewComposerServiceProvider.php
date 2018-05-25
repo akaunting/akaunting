@@ -19,6 +19,11 @@ class ViewComposerServiceProvider extends ServiceProvider
             '*', 'App\Http\ViewComposers\All'
         );
 
+        // Suggestions
+        View::composer(
+            '*', 'App\Http\ViewComposers\Suggestions'
+        );
+
         // Add company info to menu
         View::composer(
             ['partials.admin.menu', 'partials.customer.menu'], 'App\Http\ViewComposers\Menu'
