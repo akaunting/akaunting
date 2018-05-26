@@ -169,12 +169,12 @@ class AdminMenu
                     foreach ($modules as $module) {
                         $m = LaravelModule::findByAlias($module->alias);
 
-                        // Check if the module has settings
-                        if (empty($m->get('settings'))) {
+                        // Check if the module exists and has settings
+                        if (!$m || empty($m->get('settings'))) {
                             continue;
                         }
 
-                        $sub->url('settings/apps/' . $m->getAlias(), title_case(str_replace('_', ' ', snake_case($m->getName()))), $position, $attr);
+                        $sub->url('settings/apps/' . $module->alias, title_case(str_replace('_', ' ', snake_case($m->getName()))), $position, $attr);
 
                         $position++;
                     }
