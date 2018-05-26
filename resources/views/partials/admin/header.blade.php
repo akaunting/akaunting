@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="{{ env('APP_URL') }}" class="logo">
+    <a href="{{ url('/') }}" class="logo">
         @if (setting('general.admin_theme', 'skin-green-light') == 'skin-green-light')
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><img src="{{ asset('public/img/akaunting-logo-white.png') }}" class="logo-image-mini" width="25" alt="Akaunting Logo"></span>
