@@ -8,7 +8,7 @@
             @if ($suggestion_modules)
                 @foreach($suggestion_modules as $s_module)
                     <span class="new-button">
-                        <a href="{{ url($s_module->action_url) }}" class="btn btn-default btn-sm" target="{{ url($s_module->action_target) }}"><span class="fa fa-rocket"></span> &nbsp;{{ $s_module->name }}</a>
+                        <a href="{{ url($s_module->action_url) }}" class="btn btn-default btn-sm" target="{{ $s_module->action_target }}"><span class="fa fa-rocket"></span> &nbsp;{{ $s_module->name }}</a>
                     </span>
                 @endforeach
             @endif
