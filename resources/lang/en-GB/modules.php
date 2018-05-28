@@ -40,6 +40,10 @@ return [
         'install'           => 'Installing :module files.',
     ],
 
+    'badge' => [
+        'installed' => 'Installed',
+    ],
+
     'button' => [
         'uninstall'         => 'Uninstall',
         'disable'           => 'Disable',
