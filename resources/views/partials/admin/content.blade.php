@@ -6,13 +6,9 @@
             @yield('title')
             @yield('new_button')
             @if ($suggestion_modules)
-                @foreach($suggestion_modules as $suggestion_module)
+                @foreach($suggestion_modules as $s_module)
                     <span class="new-button">
-                        @if(strpos($suggestion_module->action_url,'https://akaunting.com/apps') !== false)
-                            <a href="{{ url($suggestion_module->action_url) }}" target="_blank" class="btn btn-default btn-sm"><span class="fa fa-rocket"></span> &nbsp;{{ $suggestion_module->name }}</a>
-                        @else
-                            <a href="{{ url($suggestion_module->action_url) }}" class="btn btn-default btn-sm"><span class="fa fa-rocket"></span> &nbsp;{{ $suggestion_module->name }}</a>
-                        @endif
+                        <a href="{{ url($s_module->action_url) }}" class="btn btn-default btn-sm" target="{{ url($s_module->action_target) }}"><span class="fa fa-rocket"></span> &nbsp;{{ $s_module->name }}</a>
                     </span>
                 @endforeach
             @endif

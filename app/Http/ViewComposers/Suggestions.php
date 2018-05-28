@@ -19,7 +19,12 @@ class Suggestions
      */
     public function compose(View $view)
     {
-        $suggestion_module = false;
+        // No need to add suggestions in console
+        if (app()->runningInConsole()) {
+            return;
+        }
+
+        $modules = false;
 
         $path = Route::current()->uri();
 
@@ -40,11 +45,11 @@ class Suggestions
                 if ($suggestion_modules) {
                     shuffle($suggestion_modules);
 
-                    $suggestion_module[] = $suggestion_modules[0];
+                    $modules[] = $suggestion_modules[0];
                 }
             }
         }
 
-        $view->with(['suggestion_modules' => $suggestion_module]);
+        $view->with(['suggestion_modules' => $modules]);
     }
 }
