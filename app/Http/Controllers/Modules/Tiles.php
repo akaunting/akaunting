@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
 use App\Traits\Modules;
+use App\Models\Module\Module;
 use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,9 @@ class Tiles extends Controller
 
         $title = $data->category->name;
         $modules = $data->modules;
+        $installed = Module::all()->pluck('status', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules'));
+        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -41,8 +43,9 @@ class Tiles extends Controller
 
         $title = trans('modules.top_paid');
         $modules = $this->getPaidModules();
+        $installed = Module::all()->pluck('status', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules'));
+        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -56,8 +59,9 @@ class Tiles extends Controller
 
         $title = trans('modules.new');
         $modules = $this->getNewModules();
+        $installed = Module::all()->pluck('status', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules'));
+        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -71,8 +75,9 @@ class Tiles extends Controller
 
         $title = trans('modules.top_free');
         $modules = $this->getFreeModules();
+        $installed = Module::all()->pluck('status', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules'));
+        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
 
     /**
@@ -94,7 +99,8 @@ class Tiles extends Controller
 
         $title = trans('modules.search');
         $modules = $this->getSearchModules($data);
+        $installed = Module::all()->pluck('status', 'alias')->toArray();
 
-        return view('modules.tiles.index', compact('title', 'modules', 'keyword'));
+        return view('modules.tiles.index', compact('title', 'modules', 'keyword', 'installed'));
     }
 }

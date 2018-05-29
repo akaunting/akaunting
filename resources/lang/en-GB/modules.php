@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'API Token',
     'api_token'             => 'Token',
+    'my_apps'               => 'My Apps',
     'top_paid'              => 'Top Paid',
     'new'                   => 'New',
     'top_free'              => 'Top Free',
@@ -40,9 +41,18 @@ return [
         'install'           => 'Installing :module files.',
     ],
 
+    'badge' => [
+        'installed' => 'Installed',
+    ],
+
     'button' => [
         'uninstall'         => 'Uninstall',
         'disable'           => 'Disable',
         'enable'            => 'Enable',
+    ],
+
+    'my' => [
+        'purchased' => 'Purchased',
+        'installed' => 'Installed',
     ],
 ];

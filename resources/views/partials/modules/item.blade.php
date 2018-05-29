@@ -2,6 +2,17 @@
     <div class="box box-success">
         <div class="box-header with-border">
             <h3 class="box-title"><a href="{{ url('apps/' . $module->slug) }}">{{ $module->name }}</a></h3>
+
+            @if (isset($installed[$module->slug]))
+                @php $color = 'bg-green'; @endphp
+
+                @if (!$installed[$module->slug])
+                    @php $color = 'bg-yellow'; @endphp
+                @endif
+                <span class="module-installed">
+                    <small class="label {{ $color }}">{{ trans('modules.badge.installed') }}</small>
+                </span>
+            @endif
             <!-- /.box-tools -->
         </div>
         <!-- /.box-header -->

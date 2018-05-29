@@ -7,7 +7,7 @@ use App\Traits\Modules;
 use App\Models\Module\Module;
 use Illuminate\Routing\Route;
 
-class Home extends Controller
+class My extends Controller
 {
     use Modules;
 
@@ -20,17 +20,10 @@ class Home extends Controller
     {
         $this->checkApiToken();
 
-        $data = [
-            'query' => [
-                'limit' => 4
-            ]
-        ];
-
-        $paid = $this->getPaidModules($data);
-        $new = $this->getNewModules($data);
-        $free = $this->getFreeModules($data);
+        $purchased = $this->getMyModules();
+        $modules = $this->getInstalledModules();
         $installed = Module::all()->pluck('status', 'alias')->toArray();
 
-        return view('modules.home.index', compact('paid', 'new', 'free', 'installed'));
+        return view('modules.my.index', compact('purchased', 'modules', 'installed'));
     }
 }

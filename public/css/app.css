@@ -604,3 +604,10 @@ input[type="number"] {
 .user.user-menu, .user.user-menu a.dropdown-toggle {
     min-height: 50px;
 }
+
+.module-installed {
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    margin-left: 10px;
+}
