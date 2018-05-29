@@ -167,6 +167,10 @@ class AdminMenu
                     $modules = Module::all();
                     $position = 5;
                     foreach ($modules as $module) {
+                        if (!$module->status) {
+                            continue;
+                        }
+
                         $m = LaravelModule::findByAlias($module->alias);
 
                         // Check if the module exists and has settings
