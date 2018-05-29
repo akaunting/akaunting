@@ -13,30 +13,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="content-header no-padding-left">
-                <h3>{{ trans('modules.top_paid') }}</h3>
+                <h3>{{ trans('modules.my.purchased') }}</h3>
             </div>
 
-            @foreach ($paid as $module)
+            @foreach ($purchased as $module)
                 @include('partials.modules.item')
             @endforeach
         </div>
 
         <div class="col-md-12">
             <div class="content-header no-padding-left">
-                <h3>{{ trans('modules.new') }}</h3>
+                <h3>{{ trans('modules.my.installed') }}</h3>
             </div>
 
-            @foreach ($new as $module)
-                @include('partials.modules.item')
-            @endforeach
-        </div>
-
-        <div class="col-md-12">
-            <div class="content-header no-padding-left">
-                <h3>{{ trans('modules.top_free') }}</h3>
-            </div>
-
-            @foreach ($free as $module)
+            @foreach ($modules as $module)
                 @include('partials.modules.item')
             @endforeach
         </div>

@@ -78,6 +78,45 @@ trait Modules
         return [];
     }
 
+    public function getMyModules($data = [])
+    {
+        $response = $this->getRemote('apps/my', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getInstalledModules($data = [])
+    {
+        $company_id = session('company_id');
+
+        $cache = 'installed.' . $company_id . '.module';
+
+        $installed = Cache::get($cache);
+
+        if ($installed) {
+            return $installed;
+        }
+
+        $installed = [];
+        $modules = Module::all();
+
+        foreach ($modules as $module) {
+            $result = $this->getModule($module->alias);
+
+            if ($result) {
+                $installed[] = $result;
+            }
+        }
+
+        Cache::put($cache, $installed, Date::now()->addHour(6));
+
+        return $installed;
+    }
+
     public function getPaidModules($data = [])
     {
         $response = $this->getRemote('apps/paid', 'GET', $data);

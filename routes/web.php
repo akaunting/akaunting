@@ -116,6 +116,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::group(['prefix' => 'apps'], function () {
                 Route::resource('token', 'Modules\Token');
                 Route::resource('home', 'Modules\Home');
+                Route::resource('my', 'Modules\My');
                 Route::get('categories/{alias}', 'Modules\Tiles@categoryModules');
                 Route::get('paid', 'Modules\Tiles@paidModules');
                 Route::get('new', 'Modules\Tiles@newModules');
