@@ -51,6 +51,18 @@ class Item extends Controller
             }
         }
 
+        if (request()->get('utm_source')) {
+            $parameters = request()->all();
+
+            $character = '?';
+
+            if (strpos($module->action_url, '?') !== false) {
+                $character = '&';
+            }
+
+            $module->action_url .= $character . http_build_query($parameters);
+        }
+
         return view('modules.item.show', compact('module', 'about', 'installed', 'enable'));
     }
 
