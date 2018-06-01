@@ -18,9 +18,9 @@ return [
 
     'item_name'         => 'Nombre del producto/servicio | Nombres de los productos/servicos',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Descuento',
+    'add_discount'      => 'Agregar Descuento',
+    'discount_desc'     => 'de subtotal',
 
     'payment_due'       => 'Vencimiento del Pago',
     'amount_due'        => 'Importe Vencido',

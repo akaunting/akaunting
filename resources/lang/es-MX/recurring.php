@@ -2,19 +2,19 @@
 
 return [
 
-    'recurring'             => 'Recurring',
-    'every'                 => 'Every',
-    'period'                => 'Period',
-    'times'                 => 'Times',
-    'daily'                 => 'Daily',
-    'weekly'                => 'Weekly',
-    'monthly'               => 'Monthly',
-    'yearly'                => 'Yearly',
-    'custom'                => 'Custom',
-    'days'                  => 'Day(s)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'recurring'             => 'Recurrente',
+    'every'                 => 'Cada',
+    'period'                => 'Periodo',
+    'times'                 => 'Veces',
+    'daily'                 => 'Diario',
+    'weekly'                => 'Semanal',
+    'monthly'               => 'Mensual',
+    'yearly'                => 'Anual',
+    'custom'                => 'Personalizado',
+    'days'                  => 'Dia(s)',
+    'weeks'                 => 'Semana(s)',
+    'months'                => 'Mes(es)',
+    'years'                 => 'Año(s)',
+    'message'               => 'Esto esta recurrente :type y el proximo :type sera generado automaticamente el at :date',
 
 ];
