@@ -60,7 +60,9 @@ class Header
 
         $updates = count(Updater::all());
 
-        $this->loadSuggestions();
+        if (!env('APP_INSTALLED', false)) {
+            $this->loadSuggestions();
+        }
 
         $view->with([
             'user' => $user,
