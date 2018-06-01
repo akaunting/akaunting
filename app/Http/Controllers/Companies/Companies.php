@@ -217,7 +217,7 @@ class Companies extends Controller
             event(new CompanySwitched($company));
         }
 
-        return redirect()->back();
+        return redirect('/');
     }
 
     /**
