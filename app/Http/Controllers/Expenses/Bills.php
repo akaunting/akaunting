@@ -577,7 +577,7 @@ class Bills extends Controller
             $total_amount -= $bill->payments()->paid();
         }
 
-        if ($amount > $total_amount) {
+        if (round($amount,$currency->precision) > round($total_amount,$currency->precision)) {
             $message = trans('messages.error.over_payment');
 
             return response()->json([
@@ -585,7 +585,7 @@ class Bills extends Controller
                 'error' => true,
                 'message' => $message,
             ]);
-        } elseif ($amount == $total_amount) {
+        } elseif (round($amount,$currency->precision) == round($total_amount,$currency->precision)) {
             $bill->bill_status_code = 'paid';
         } else {
             $bill->bill_status_code = 'partial';
