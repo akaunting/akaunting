@@ -56,6 +56,7 @@ class Roles extends Seeder
                 'modules-tiles' => 'r',
                 'modules-item' => 'c,r,u,d',
                 'modules-token' => 'c,u',
+                'modules-my' => 'r',
                 'install-updates' => 'r,u',
                 'notifications' => 'r,u',
                 'reports-income-summary' => 'r',

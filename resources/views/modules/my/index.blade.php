@@ -16,9 +16,23 @@
                 <h3>{{ trans('modules.my.purchased') }}</h3>
             </div>
 
-            @foreach ($purchased as $module)
-                @include('partials.modules.item')
-            @endforeach
+            @if ($purchased)
+                @foreach ($purchased as $module)
+                    @include('partials.modules.item')
+                @endforeach
+            @else
+                <div class="box box-success">
+                    <div class="box-body">
+                        <p class="col-md-12" style="margin-top: 15px">
+                            {{ trans('modules.no_apps') }}
+                        </p>
+                        <p class="col-md-12" style="margin-top: 20px">
+                            <small>{!! trans('modules.developer') !!}</small>
+                        </p>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            @endif
         </div>
 
         <div class="col-md-12">
@@ -26,9 +40,23 @@
                 <h3>{{ trans('modules.my.installed') }}</h3>
             </div>
 
-            @foreach ($modules as $module)
-                @include('partials.modules.item')
-            @endforeach
+            @if ($modules)
+                @foreach ($modules as $module)
+                    @include('partials.modules.item')
+                @endforeach
+            @else
+                <div class="box box-success">
+                    <div class="box-body">
+                        <p class="col-md-12" style="margin-top: 15px">
+                            {{ trans('modules.no_apps') }}
+                        </p>
+                        <p class="col-md-12" style="margin-top: 20px">
+                            <small>{!! trans('modules.developer') !!}</small>
+                        </p>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            @endif
         </div>
     </div>
 @endsection
