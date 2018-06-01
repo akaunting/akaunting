@@ -18,9 +18,9 @@ return [
 
     'item_name'         => 'Nombre del producto/servicio | Nombres de los productos/servicos',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Descuento',
+    'add_discount'      => 'Agregar Descuento',
+    'discount_desc'     => 'de subtotal',
 
     'payment_due'       => 'Vencimiento del Pago',
     'paid'              => 'Pagado',
@@ -44,11 +44,11 @@ return [
     'messages' => [
         'email_sent'     => '¡El correo electrónico de la factura se ha enviado correctamente!',
         'marked_sent'    => '¡Factura marcada como enviada con éxito!',
-        'email_required' => 'No email address for this customer!',
+        'email_required' => 'No se encontro una direccion de correo para este cliente!',
     ],
 
     'notification' => [
-        'message'       => 'Estimado :cliente, usted está recibiendo este correo electrónico debido a que tiene una factura pendiente de pago por la cantidad de :amount, es de suma importancia que se contacte de inmediato con nosotros. Evite la suspensión de los servicios que tiene contratados o la entrega de los productos solicitados, además de posibles recargos y gastos de cobranza.',
+        'message'       => 'Estimado :customer, usted está recibiendo este correo electrónico debido a que tiene una factura pendiente de pago por la cantidad de :amount, es de suma importancia que se contacte de inmediato con nosotros. Evite la suspensión de los servicios que tiene contratados o la entrega de los productos solicitados, además de posibles recargos y gastos de cobranza.',
         'button'        => 'Realizar el Pago Ahora',
     ],
 

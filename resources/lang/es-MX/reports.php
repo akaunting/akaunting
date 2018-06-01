@@ -7,24 +7,24 @@ return [
     'this_quarter'          => 'Este Trimestre',
     'previous_quarter'      => 'Trimestre Anterior',
     'last_12_months'        => 'Últimos 12 Meses',
-    'profit_loss'           => 'Profit & Loss',
-    'gross_profit'          => 'Gross Profit',
-    'net_profit'            => 'Net Profit',
-    'total_expenses'        => 'Total Expenses',
-    'net'                   => 'NET',
+    'profit_loss'           => 'Perdidas y Ganancias',
+    'gross_profit'          => 'Ganancia Bruta',
+    'net_profit'            => 'Ganancia Neta',
+    'total_expenses'        => 'Total Fastos',
+    'net'                   => 'Neto',
 
     'summary' => [
         'income'            => 'Resumen de Ingresos',
         'expense'           => 'Resumen de Gastos',
         'income_expense'    => 'Ingresos vs Gastos',
-        'tax'               => 'Tax Summary',
+        'tax'               => 'Resumen de Impuestos',
     ],
 
     'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
+        '1'                 => 'Ene-Mar',
+        '2'                 => 'Abr-Jun',
         '3'                 => 'Jul-Sep',
-        '4'                 => 'Oct-Dec',
+        '4'                 => 'Oct-Dic',
     ],
 
 ];

@@ -708,7 +708,7 @@ class Invoices extends Controller
             $total_amount -= $invoice->payments()->paid();
         }
 
-        if ($amount > $total_amount) {
+        if (round($amount,$currency->precision) > round($total_amount,$currency->precision)) {
             $message = trans('messages.error.over_payment');
 
             return response()->json([
@@ -716,7 +716,7 @@ class Invoices extends Controller
                 'error' => true,
                 'message' => $message,
             ]);
-        } elseif ($amount == $total_amount) {
+        } elseif (round($amount,$currency->precision) == round($total_amount,$currency->precision)) {
             $invoice->invoice_status_code = 'paid';
         } else {
             $invoice->invoice_status_code = 'partial';
