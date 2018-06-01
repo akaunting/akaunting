@@ -5,12 +5,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'uploads'], function () {
             Route::get('{id}', 'Common\Uploads@get');
             Route::get('{id}/download', 'Common\Uploads@download');
-            Route::delete('{id}', 'Common\Uploads@destroy');
         });
 
         Route::group(['middleware' => ['adminmenu', 'permission:read-admin-panel']], function () {
             Route::get('/', 'Dashboard\Dashboard@index');
             Route::get('dashboard/dashboard/cashflow', 'Dashboard\Dashboard@cashFlow');
+
+            Route::group(['prefix' => 'uploads'], function () {
+                Route::delete('{id}', 'Common\Uploads@destroy');
+            });
 
             Route::group(['prefix' => 'search'], function () {
                 Route::get('search/search', 'Search\Search@search');

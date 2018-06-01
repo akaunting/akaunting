@@ -25,8 +25,10 @@ class Version126 extends Listener
             return;
         }
 
+        $permissions = [];
+
         // Create permission
-        $permission = Permission::firstOrCreate([
+        $permissions[] = Permission::firstOrCreate([
             'name' => 'read-modules-my',
             'display_name' => 'Read Modules My',
             'description' => 'Read Modules My',
@@ -42,7 +44,9 @@ class Version126 extends Listener
                 continue;
             }
 
-            $role->attachPermission($permission);
+            foreach ($permissions as $permission) {
+                $role->attachPermission($permission);
+            }
         }
     }
 }
