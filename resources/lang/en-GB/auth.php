@@ -13,14 +13,17 @@ return [
     'current_email'         => 'Current Email',
     'reset'                 => 'Reset',
     'never'                 => 'never',
+    
     'password' => [
         'current'           => 'Password',
         'current_confirm'   => 'Password Confirmation',
         'new'               => 'New Password',
         'new_confirm'       => 'New Password Confirmation',
     ],
+    
     'error' => [
-        'self_delete'       => 'Error: Can not delete yourself!'
+        'self_delete'       => 'Error: Can not delete yourself!',
+        'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
     ],
 
     'failed'                => 'These credentials do not match our records.',
