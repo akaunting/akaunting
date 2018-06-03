@@ -17,7 +17,7 @@ class Login
     public function handle(ILogin $event)
     {
         // Get first company
-        $company = $event->user->companies()->first();
+        $company = $event->user->companies()->enabled()->first();
         
         // Logout if no company assigned
         if (!$company) {

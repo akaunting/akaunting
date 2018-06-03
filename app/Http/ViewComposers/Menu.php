@@ -2,7 +2,6 @@
 
 namespace App\Http\ViewComposers;
 
-use Auth;
 use Illuminate\View\View;
 use anlutro\LaravelSettings\Facade as Settingg;
 
@@ -17,17 +16,16 @@ class Menu
     public function compose(View $view)
     {
         $customer = null;
-        $company_id = session('company_id');
+        $user = auth()->user();
 
         // Get all companies
-        $companies = Auth::user()->companies()->limit(10)->get()->sortBy('name');
-        foreach ($companies as $com) {
+        $companies = $user->companies()->enabled()->limit(10)->get()->each(function ($com) {
             $com->setSettings();
-        }
+        })->sortBy('name');
 
         // Get customer
-        if (Auth::user()->customer) {
-            $customer = Auth::user();
+        if ($user->customer) {
+            $customer = $user;
         }
 
         $view->with(['companies' => $companies, 'customer' => $customer]);
