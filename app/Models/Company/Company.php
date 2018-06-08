@@ -205,6 +205,18 @@ class Company extends Eloquent
     }
 
     /**
+     * Scope to only include companies of a given enabled value.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $value
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEnabled($query, $value = 1)
+    {
+        return $query->where('enabled', $value);
+    }
+
+    /**
      * Sort by company name
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

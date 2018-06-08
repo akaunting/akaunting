@@ -16,9 +16,19 @@ class Login
      */
     public function handle(ILogin $event)
     {
-        // Set company id
-        $company = $event->user->companies()->first();
+        // Get first company
+        $company = $event->user->companies()->enabled()->first();
+        
+        // Logout if no company assigned
+        if (!$company) {
+            auth()->logout();
+            
+            flash(trans('auth.error.no_company'))->error();
+            
+            return redirect('auth/login');
+        }
 
+        // Set company id
         session(['company_id' => $company->id]);
 
         // Save user login time

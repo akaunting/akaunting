@@ -53,7 +53,11 @@ class BillReminder extends Command
 
             $company->setSettings();
 
-            //$days = explode(',', setting('general.schedule_bill_days', '1,3'));
+            // Don't send reminders if disabled
+            if (!$company->send_bill_reminder) {
+                continue;
+            }
+
             $days = explode(',', $company->schedule_bill_days);
 
             foreach ($days as $day) {

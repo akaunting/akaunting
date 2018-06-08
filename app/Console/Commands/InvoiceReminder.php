@@ -53,7 +53,11 @@ class InvoiceReminder extends Command
 
             $company->setSettings();
 
-            //$days = explode(',', config('general.schedule_invoice_days', '1,3'));
+            // Don't send reminders if disabled
+            if (!$company->send_invoice_reminder) {
+                continue;
+            }
+
             $days = explode(',', $company->schedule_invoice_days);
 
             foreach ($days as $day) {
