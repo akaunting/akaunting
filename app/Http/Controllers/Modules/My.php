@@ -22,7 +22,7 @@ class My extends Controller
 
         $purchased = $this->getMyModules();
         $modules = $this->getInstalledModules();
-        $installed = Module::all()->pluck('status', 'alias')->toArray();
+        $installed = Module::where('company_id', '=', session('company_id'))->pluck('status', 'alias')->toArray();
 
         return view('modules.my.index', compact('purchased', 'modules', 'installed'));
     }

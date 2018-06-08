@@ -8,6 +8,7 @@ use File;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Module;
+use App\Models\Module\Module as MModule;
 use ZipArchive;
 use Cache;
 use Date;
@@ -103,8 +104,13 @@ trait Modules
 
         $installed = [];
         $modules = Module::all();
+        $installed_modules = MModule::where('company_id', '=', session('company_id'))->pluck('status', 'alias')->toArray();
 
         foreach ($modules as $module) {
+            if (!array_key_exists($module->alias, $installed_modules)) {
+                continue;
+            }
+
             $result = $this->getModule($module->alias);
 
             if ($result) {
