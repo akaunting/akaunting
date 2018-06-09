@@ -139,12 +139,9 @@ class Settings extends Controller
                 }
             }
 
-            // Change default locale if only 1 company
-            if (($key == 'default_locale') && ($companies == 1)) {
-                // Update .env file
-                Installer::updateEnv([
-                    'APP_LOCALE'    =>  $value
-                ]);
+            // If only 1 company
+            if ($companies == 1) {
+                $this->oneCompany($key, $value);
             }
 
             setting()->set('general.' . $key, $value);
@@ -158,5 +155,23 @@ class Settings extends Controller
         flash($message)->success();
 
         return redirect('settings/settings');
+    }
+
+    protected function oneCompany($key, $value)
+    {
+        switch ($key) {
+            case 'default_locale':
+                // Change default locale
+                Installer::updateEnv([
+                    'APP_LOCALE' => $value
+                ]);
+                break;
+            case 'session_handler':
+                // Change session handler
+                Installer::updateEnv([
+                    'SESSION_DRIVER' => $value
+                ]);
+                break;
+        }
     }
 }
