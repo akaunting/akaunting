@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 use App\Models\Expense\Bill;
 use App\Notifications\Expense\Bill as Notification;
 use App\Utilities\Overrider;

@@ -236,7 +236,7 @@ class Users extends Controller
         // Mark item notifications as read
         foreach ($user->unreadNotifications as $notification) {
             // Not an item notification
-            if ($notification->getAttribute('type') != 'App\Notifications\Item\Item') {
+            if ($notification->getAttribute('type') != 'App\Notifications\Common\Item') {
                 continue;
             }
 

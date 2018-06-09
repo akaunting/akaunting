@@ -11,9 +11,9 @@ use App\Models\Income\InvoiceHistory;
 use App\Models\Income\InvoiceItem;
 use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceTotal;
-use App\Models\Item\Item;
+use App\Models\Common\Item;
 use App\Models\Setting\Tax;
-use App\Notifications\Item\Item as ItemNotification;
+use App\Notifications\Common\Item as ItemNotification;
 use App\Transformers\Income\Invoice as Transformer;
 use Dingo\Api\Routing\Helpers;
 

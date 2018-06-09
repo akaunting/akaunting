@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Company\Company as Model;
+use App\Models\Common\Company as Model;
 use Artisan;
 use Auth;
 

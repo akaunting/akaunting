@@ -3,7 +3,7 @@
 namespace App\Listeners\Updates;
 
 use App\Events\UpdateFinished;
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillStatus;
 

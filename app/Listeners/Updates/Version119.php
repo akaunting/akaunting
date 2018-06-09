@@ -63,7 +63,7 @@ class Version119 extends Listener
 
         $migrations = [
             '\App\Models\Auth\User'             => 'picture',
-            '\App\Models\Item\Item'             => 'picture',
+            '\App\Models\Common\Item'             => 'picture',
             '\App\Models\Expense\Bill'          => 'attachment',
             '\App\Models\Expense\BillPayment'   => 'attachment',
             '\App\Models\Expense\Payment'       => 'attachment',
@@ -138,7 +138,7 @@ class Version119 extends Listener
                 }
 
                 if (!empty($path) && Storage::exists($path)) {
-                    $company = \App\Models\Company\Company::find($item->company_id);
+                    $company = \App\Models\Common\Company::find($item->company_id);
 
                     $media = \App\Models\Common\Media::where('filename', '=', pathinfo(basename($path), PATHINFO_FILENAME))->first();
 

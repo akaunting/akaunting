@@ -8,15 +8,15 @@
             </div>
             <div class="pull-left info">
                 <p>{{ str_limit(setting('general.company_name'), 22) }}</p>
-                @permission('read-companies-companies')
+                @permission('read-common-companies')
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span> &nbsp;{{ trans('general.switch') }}</a>
                 <ul class="dropdown-menu">
                     @foreach($companies as $com)
-                    <li><a href="{{ url('companies/companies/'. $com->id .'/set') }}">{{ str_limit($com->company_name, 18) }}</a></li>
+                    <li><a href="{{ url('common/companies/'. $com->id .'/set') }}">{{ str_limit($com->company_name, 18) }}</a></li>
                     @endforeach
-                    @permission('update-companies-companies')
+                    @permission('update-common-companies')
                     <li role="separator" class="divider"></li>
-                    <li><a href="{{ url('companies/companies') }}">{{ trans('companies.manage') }}</a></li>
+                    <li><a href="{{ url('common/companies') }}">{{ trans('companies.manage') }}</a></li>
                     @endpermission
                 </ul>
                 @endpermission

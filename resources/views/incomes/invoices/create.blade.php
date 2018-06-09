@@ -221,7 +221,7 @@
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
             });
 
-            var autocomplete_path = "{{ url('items/items/autocomplete') }}";
+            var autocomplete_path = "{{ url('common/items/autocomplete') }}";
 
             $(document).on('click', '.form-control.typeahead', function() {
                 input_id = $(this).attr('id').split('-');
@@ -337,7 +337,7 @@
 
         function totalItem() {
             $.ajax({
-                url: '{{ url("items/items/totalItem") }}',
+                url: '{{ url("common/items/totalItem") }}',
                 type: 'POST',
                 dataType: 'JSON',
                 data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),

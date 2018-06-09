@@ -11,7 +11,7 @@ use App\Models\Expense\BillHistory;
 use App\Models\Expense\BillItem;
 use App\Models\Expense\BillPayment;
 use App\Models\Expense\BillStatus;
-use App\Models\Item\Item;
+use App\Models\Common\Item;
 use App\Models\Setting\Tax;
 use App\Transformers\Expense\Bill as Transformer;
 use Dingo\Api\Routing\Helpers;

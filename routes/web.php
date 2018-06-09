@@ -8,28 +8,24 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         Route::group(['middleware' => ['adminmenu', 'permission:read-admin-panel']], function () {
-            Route::get('/', 'Dashboard\Dashboard@index');
-            Route::get('dashboard/dashboard/cashflow', 'Dashboard\Dashboard@cashFlow');
+            Route::get('/', 'Common\Dashboard@index');
 
             Route::group(['prefix' => 'uploads'], function () {
                 Route::delete('{id}', 'Common\Uploads@destroy');
             });
 
-            Route::group(['prefix' => 'search'], function () {
-                Route::get('search/search', 'Search\Search@search');
-                Route::resource('search', 'Search\Search');
-            });
-
             Route::group(['prefix' => 'common'], function () {
+                Route::get('companies/{company}/set', 'Common\Companies@set');
+                Route::resource('companies', 'Common\Companies');
+                Route::get('dashboard/cashflow', 'Common\Dashboard@cashFlow');
                 Route::get('import/{group}/{type}', 'Common\Import@create');
-            });
-
-            Route::group(['prefix' => 'items'], function () {
-                Route::get('items/autocomplete', 'Items\Items@autocomplete');
-                Route::post('items/totalItem', 'Items\Items@totalItem');
-                Route::get('items/{item}/duplicate', 'Items\Items@duplicate');
-                Route::post('items/import', 'Items\Items@import');
-                Route::resource('items', 'Items\Items');
+                Route::get('items/autocomplete', 'Common\Items@autocomplete');
+                Route::post('items/totalItem', 'Common\Items@totalItem');
+                Route::get('items/{item}/duplicate', 'Common\Items@duplicate');
+                Route::post('items/import', 'Common\Items@import');
+                Route::resource('items', 'Common\Items');
+                Route::get('search/search', 'Common\Search@search');
+                Route::resource('search', 'Common\Search');
             });
 
             Route::group(['prefix' => 'auth'], function () {
@@ -41,11 +37,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('users', 'Auth\Users');
                 Route::resource('roles', 'Auth\Roles');
                 Route::resource('permissions', 'Auth\Permissions');
-            });
-
-            Route::group(['prefix' => 'companies'], function () {
-                Route::get('companies/{company}/set', 'Companies\Companies@set');
-                Route::resource('companies', 'Companies\Companies');
             });
 
             Route::group(['prefix' => 'incomes'], function () {

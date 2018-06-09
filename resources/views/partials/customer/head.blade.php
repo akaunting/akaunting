@@ -62,7 +62,7 @@
     <script src="{{ asset('public/js/app.js?v=1.0') }}"></script>
 
     <script type="text/javascript"><!--
-        var url_search = '{{ url("search/search/search") }}';
+        var url_search = '{{ url("common/search/search") }}';
     //--></script>
 
     @stack('js')

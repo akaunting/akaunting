@@ -2,8 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Company\Company;
-
+use App\Models\Common\Company;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider
