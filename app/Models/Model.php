@@ -35,7 +35,7 @@ class Model extends Eloquent
      */
     public function company()
     {
-        return $this->belongsTo('App\Models\Company\Company');
+        return $this->belongsTo('App\Models\Common\Company');
     }
 
     /**

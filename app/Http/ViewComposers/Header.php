@@ -51,7 +51,7 @@ class Header
                     $invoices[$data['invoice_id']] = $data['amount'];
                     $notifications++;
                     break;
-                case 'App\Notifications\Item\Item':
+                case 'App\Notifications\Common\Item':
                     $items[$data['item_id']] = $data['name'];
                     $notifications++;
                     break;

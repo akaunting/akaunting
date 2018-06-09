@@ -43,7 +43,7 @@ class Controller extends BaseController
         $controller .= kebab_case($arr[0]);
 
         // Skip ACL
-        $skip = ['dashboard-dashboard', 'customers-dashboard'];
+        $skip = ['common-dashboard', 'customers-dashboard'];
         if (in_array($controller, $skip)) {
             return;
         }

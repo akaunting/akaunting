@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Banking\Account;
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Setting;
 use App\Models\Common\Media;

@@ -3,7 +3,7 @@
 namespace App\Utilities;
 
 use App\Models\Auth\User;
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 use Artisan;
 use Config;
 use DB;

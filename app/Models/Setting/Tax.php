@@ -32,7 +32,7 @@ class Tax extends Model
 
     public function items()
     {
-        return $this->hasMany('App\Models\Item\Item');
+        return $this->hasMany('App\Models\Common\Item');
     }
 
     public function bill_items()

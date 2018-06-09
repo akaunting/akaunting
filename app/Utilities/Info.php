@@ -3,7 +3,7 @@
 namespace App\Utilities;
 
 use DB;
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 
 class Info
 {

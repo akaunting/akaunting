@@ -16,7 +16,7 @@ use App\Models\Expense\BillItem;
 use App\Models\Expense\BillTotal;
 use App\Models\Expense\BillHistory;
 use App\Models\Expense\BillPayment;
-use App\Models\Item\Item;
+use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
