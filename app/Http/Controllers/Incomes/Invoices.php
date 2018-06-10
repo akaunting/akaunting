@@ -623,7 +623,7 @@ class Invoices extends Controller
 
         $html = view($invoice->template_path, compact('invoice'))->render();
 
-        $pdf = \App::make('dompdf.wrapper');
+        $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
         //$pdf->setPaper('A4', 'portrait');
