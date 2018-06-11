@@ -45,7 +45,6 @@ class Version127 extends Listener
             File::deleteDirectory(app_path('Filters/' . ucfirst($dir)));
             File::deleteDirectory(app_path('Http/Controllers/' . ucfirst($dir)));
             File::deleteDirectory(app_path('Http/Requests/' . ucfirst(str_singular($dir))));
-            File::deleteDirectory(app_path('Transformers/' . ucfirst(str_singular($dir))));
             File::deleteDirectory(resource_path('views/' . $dir));
         }
     }
