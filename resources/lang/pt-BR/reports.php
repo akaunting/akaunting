@@ -2,16 +2,16 @@
 
 return [
 
-    'this_year'             => 'This Year',
-    'previous_year'         => 'Previous Year',
-    'this_quarter'          => 'This Quarter',
-    'previous_quarter'      => 'Previous Quarter',
-    'last_12_months'        => 'Last 12 Months',
-    'profit_loss'           => 'Profit & Loss',
-    'gross_profit'          => 'Gross Profit',
-    'net_profit'            => 'Net Profit',
-    'total_expenses'        => 'Total Expenses',
-    'net'                   => 'NET',
+    'this_year'             => 'Este ano',
+    'previous_year'         => 'Ano anterior',
+    'this_quarter'          => 'Este trimestre',
+    'previous_quarter'      => 'Trimestre anterior',
+    'last_12_months'        => 'Últimos 12 meses',
+    'profit_loss'           => 'Lucro & Perda',
+    'gross_profit'          => 'Lucro bruto',
+    'net_profit'            => 'Lucro líquido',
+    'total_expenses'        => 'Despesas totais',
+    'net'                   => 'Líquido',
 
     'summary' => [
         'income'            => 'Resumo de Venda',

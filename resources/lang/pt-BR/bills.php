@@ -12,14 +12,14 @@ return [
     'quantity'          => 'Quantidade',
     'price'             => 'Preço',
     'sub_total'         => 'Subtotal',
-    'discount'          => 'Discount',
+    'discount'          => 'Desconto',
     'tax_total'         => 'Taxa',
     'total'             => 'Total',
 
     'item_name'         => 'Nome(s) do(s) Item(s)',
 
     'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
+    'add_discount'      => 'Adicionar Desconto',
     'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Valor Devido',

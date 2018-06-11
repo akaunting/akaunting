@@ -36,8 +36,8 @@ return [
     'languages'             => 'Idioma|Idiomas',
     'updates'               => 'Atualização|Atualizações',
     'numbers'               => 'Número|Números',
-    'statuses'              => 'Status|Statuses',
-    'others'                => 'Other|Others',
+    'statuses'              => 'Status|Status',
+    'others'                => 'Outro|Outros',
 
     'dashboard'             => 'Painel',
     'banking'               => 'Banco',
@@ -52,10 +52,10 @@ return [
     'na'                    => 'N/A',
     'daily'                 => 'Diariamente',
     'monthly'               => 'Mensal',
-    'quarterly'             => 'Quarterly',
+    'quarterly'             => 'Trimestral',
     'yearly'                => 'Anual',
-    'add'                   => 'Adicionar',
-    'add_new'               => 'Adicionar novo',
+    'add'                   => 'Inserir',
+    'add_new'               => 'Inserir',
     'show'                  => 'Visualizar',
     'edit'                  => 'Editar',
     'delete'                => 'Excluir',
@@ -89,7 +89,7 @@ return [
     'filter'                => 'Filtar',
     'help'                  => 'Ajuda',
     'all'                   => 'Todos',
-    'all_type'              => 'All :type',
+    'all_type'              => 'Todos :type',
     'upcoming'              => 'Próximos',
     'created'               => 'Criado',
     'id'                    => 'ID',
@@ -102,7 +102,7 @@ return [
     'partially_paid'        => 'Partially Paid',
 
     'title' => [
-        'new'               => 'Novo :type',
+        'new'               => 'Inserir :type',
         'edit'              => 'Editar :type',
     ],
     'form' => [
