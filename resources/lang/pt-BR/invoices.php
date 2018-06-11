@@ -27,7 +27,7 @@ return [
     'histories'         => 'Histórico',
     'payments'          => 'Pagamentos',
     'add_payment'       => 'Novo Pagamento',
-    'mark_paid'         => 'Mark Paid',
+    'mark_paid'         => 'Marcar como paga',
     'mark_sent'         => 'Marcar Como Enviada',
     'download_pdf'      => 'Baixar em PDF',
     'send_mail'         => 'Enviar E-mail',
