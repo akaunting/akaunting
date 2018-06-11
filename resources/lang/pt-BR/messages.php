@@ -3,11 +3,13 @@
 return [
 
     'success' => [
-        'added'             => ':type adicionado!',
-        'updated'           => ':type atualizado!',
-        'deleted'           => ':type excluído!',
-        'duplicated'        => ':type duplicado!',
-        'imported'          => ':type importado!',
+        'added'             => ':type adicionado(a)!',
+        'updated'           => ':type atualizado(a)!',
+        'deleted'           => ':type excluído(a)!',
+        'duplicated'        => ':type duplicado(a)!',
+        'imported'          => ':type importado(a)!',
+        'enabled'           => ':type habilitado(a)!',
+        'disabled'          => ':type desabilitado(a)!',
     ],
     'error' => [
         'over_payment'      => 'Erro: Pagamento não adicionado! Quantidade ultrapassa o total.',

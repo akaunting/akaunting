@@ -62,7 +62,7 @@ return [
     'delete'                => 'Excluir',
     'send'                  => 'Enviar',
     'download'              => 'Baixar',
-    'delete_confirm'        => 'Confirma a exclusão :name :type?',
+    'delete_confirm'        => 'Confirma a exclusão do(a) :type :name?',
     'name'                  => 'Nome',
     'email'                 => 'E-mail',
     'tax_number'            => 'Número de identificação fisca',
