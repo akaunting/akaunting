@@ -125,6 +125,56 @@ class Accounts extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Account  $account
+     *
+     * @return Response
+     */
+    public function enable(Account $account)
+    {
+        $account->enabled = 1;
+        $account->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.accounts', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('accounts.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Account  $account
+     *
+     * @return Response
+     */
+    public function disable(Account $account)
+    {
+        if ($account->id == setting('general.default_account')) {
+            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        }
+
+        if (empty($relationships)) {
+            $account->enabled = 0;
+            $account->save();
+
+            $message = trans('messages.success.disabled', ['type' => trans_choice('general.accounts', 1)]);
+
+            flash($message)->success();
+        } else {
+            $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
+
+            flash($message)->warning();
+
+            return redirect()->route('accounts.index');
+        }
+
+        return redirect()->route('accounts.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Account  $account

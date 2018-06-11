@@ -60,13 +60,17 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('expenses/vendors/' . $item->id) }}">{{ trans('general.show') }}</a></li>
-                                    <li><a href="{{ url('expenses/vendors/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    <li class="divider"></li>
+                                    <li><a href="{{ url('expenses/vendors/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>@if ($item->enabled)
+                                    <li><a href="{{ route('vendors.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                                    @else
+                                    <li><a href="{{ route('vendors.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                    @endif
                                     @permission('create-expenses-vendors')
-                                    <li><a href="{{ url('expenses/vendors/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     <li class="divider"></li>
+                                    <li><a href="{{ url('expenses/vendors/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     @endpermission
                                     @permission('delete-expenses-vendors')
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'expenses/vendors') !!}</li>
                                     @endpermission
                                 </ul>

@@ -243,6 +243,44 @@ class Vendors extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Vendor  $vendor
+     *
+     * @return Response
+     */
+    public function enable(Vendor $vendor)
+    {
+        $vendor->enabled = 1;
+        $vendor->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.vendors', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('vendors.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Vendor  $vendor
+     *
+     * @return Response
+     */
+    public function disable(Vendor $vendor)
+    {
+        $vendor->enabled = 0;
+        $vendor->save();
+
+        $message = trans('messages.success.disabled', ['type' => trans_choice('general.vendors', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('vendors.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Vendor  $vendor

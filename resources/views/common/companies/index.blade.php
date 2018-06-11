@@ -63,10 +63,17 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     @if ($item->enabled)
-                                    <li><a href="{{ url('common/companies/' . $item->id . '/set') }}">{{ trans('general.switch') }}</a></li>
+                                    <li><a href="{{ route('companies.switch', $item->id) }}">{{ trans('general.switch') }}</a></li>
+                                    <li class="divider"></li>
                                     @endif
                                     <li><a href="{{ url('common/companies/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @if ($item->enabled)
+                                    <li><a href="{{ route('companies.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                                    @else
+                                    <li><a href="{{ route('companies.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                    @endif
                                     @permission('delete-common-companies')
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'common/companies', '', 'company_name') !!}</li>
                                     @endpermission
                                 </ul>

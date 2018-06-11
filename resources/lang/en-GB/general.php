@@ -101,6 +101,8 @@ return [
     'partially'             => 'Partially',
     'partially_paid'        => 'Partially Paid',
     'export'                => 'Export',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
 
     'title' => [
         'new'               => 'New :type',

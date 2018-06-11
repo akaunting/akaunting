@@ -175,6 +175,53 @@ class Companies extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Company  $company
+     *
+     * @return Response
+     */
+    public function enable(Company $company)
+    {
+        $company->enabled = 1;
+        $company->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.companies', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('companies.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Company  $company
+     *
+     * @return Response
+     */
+    public function disable(Company $company)
+    {
+        // Check if user can update company
+        if (!$this->isUserCompany($company)) {
+            $message = trans('companies.error.not_user_company');
+
+            flash($message)->error();
+
+            return redirect()->route('companies.index');
+        }
+
+        $company->enabled = 0;
+        $company->save();
+
+        $message = trans('messages.success.disabled', ['type' => trans_choice('general.companies', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('companies.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Company  $company

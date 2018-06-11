@@ -50,8 +50,8 @@ class Controller extends BaseController
 
         // Add CRUD permission check
         $this->middleware('permission:create-' . $controller)->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-' . $controller)->only(['index', 'show', 'edit']);
-        $this->middleware('permission:update-' . $controller)->only(['update']);
+        $this->middleware('permission:read-' . $controller)->only(['index', 'show', 'edit', 'export']);
+        $this->middleware('permission:update-' . $controller)->only(['update', 'enable', 'disable']);
         $this->middleware('permission:delete-' . $controller)->only('destroy');
     }
 
