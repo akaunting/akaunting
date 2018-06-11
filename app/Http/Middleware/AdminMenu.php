@@ -41,9 +41,9 @@ class AdminMenu
             ]);
 
             // Items
-            if ($user->can('read-items-items')) {
+            if ($user->can('read-common-items')) {
                 $menu->add([
-                    'url' => 'items/items',
+                    'url' => 'common/items',
                     'title' => trans_choice('general.items', 2),
                     'icon' => 'fa fa-cubes',
                     'order' => 2,

@@ -420,6 +420,7 @@ ul.add-new.nav.navbar-nav.pull-left {
 .invoice-logo {
     max-width: 430px;
     max-height: 120px;
+    margin-left: -15px;
 }
 
 .login-box-footer {
@@ -479,6 +480,10 @@ ul.add-new.nav.navbar-nav.pull-left {
 
     .dropdown.add-new-menu.open .dropdown-menu {
         background-color: #ffffff;
+    }
+
+    .invoice-company {
+        padding-left: 0;
     }
 }
 
@@ -610,4 +615,8 @@ input[type="number"] {
     top: 50%;
     margin-top: -5px;
     margin-left: 10px;
+}
+
+.invoice, .bill {
+    border: none !important;
 }

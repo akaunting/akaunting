@@ -4,7 +4,7 @@ namespace Database\Seeds;
 
 use App\Models\Model;
 use App\Models\Auth\User;
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 use Jenssegers\Date\Date;
 use Illuminate\Database\Seeder;
 use Setting;

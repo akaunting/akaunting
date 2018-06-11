@@ -49,7 +49,6 @@ class Overrider
         }
 
         // Session
-        config(['session.driver' => setting('general.session_handler', 'file')]);
         config(['session.lifetime' => setting('general.session_lifetime', '30')]);
 
         // Locale

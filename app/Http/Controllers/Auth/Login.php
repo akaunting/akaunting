@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class Login extends Controller
@@ -61,7 +60,7 @@ class Login extends Controller
 
         // Check if user is enabled
         if (!$user->enabled) {
-            auth()->logout();
+            $this->logout();
 
             flash(trans('auth.disabled'))->error();
 
@@ -85,8 +84,19 @@ class Login extends Controller
 
     public function destroy()
     {
-        auth()->logout();
+        $this->logout();
 
         return redirect('auth/login');
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        // Session destroy is required if stored in database
+        if (env('SESSION_DRIVER') == 'database') {
+            $request = app('Illuminate\Http\Request');
+            $request->session()->getHandler()->destroy($request->session()->getId());
+        }
     }
 }

@@ -8,28 +8,29 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         Route::group(['middleware' => ['adminmenu', 'permission:read-admin-panel']], function () {
-            Route::get('/', 'Dashboard\Dashboard@index');
-            Route::get('dashboard/dashboard/cashflow', 'Dashboard\Dashboard@cashFlow');
+            Route::get('/', 'Common\Dashboard@index');
 
             Route::group(['prefix' => 'uploads'], function () {
                 Route::delete('{id}', 'Common\Uploads@destroy');
             });
 
-            Route::group(['prefix' => 'search'], function () {
-                Route::get('search/search', 'Search\Search@search');
-                Route::resource('search', 'Search\Search');
-            });
-
             Route::group(['prefix' => 'common'], function () {
-                Route::get('import/{group}/{type}', 'Common\Import@create');
-            });
-
-            Route::group(['prefix' => 'items'], function () {
-                Route::get('items/autocomplete', 'Items\Items@autocomplete');
-                Route::post('items/totalItem', 'Items\Items@totalItem');
-                Route::get('items/{item}/duplicate', 'Items\Items@duplicate');
-                Route::post('items/import', 'Items\Items@import');
-                Route::resource('items', 'Items\Items');
+                Route::get('companies/{company}/set', 'Common\Companies@set')->name('companies.switch');
+                Route::get('companies/{company}/enable', 'Common\Companies@enable')->name('companies.enable');
+                Route::get('companies/{company}/disable', 'Common\Companies@disable')->name('companies.disable');
+                Route::resource('companies', 'Common\Companies');
+                Route::get('dashboard/cashflow', 'Common\Dashboard@cashFlow')->name('dashboard.cashflow');
+                Route::get('import/{group}/{type}', 'Common\Import@create')->name('import.create');
+                Route::get('items/autocomplete', 'Common\Items@autocomplete')->name('items.autocomplete');
+                Route::post('items/totalItem', 'Common\Items@totalItem')->name('items.total');
+                Route::get('items/{item}/duplicate', 'Common\Items@duplicate')->name('items.duplicate');
+                Route::post('items/import', 'Common\Items@import')->name('items.import');
+                Route::get('items/export', 'Common\Items@export')->name('items.export');
+                Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
+                Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
+                Route::resource('items', 'Common\Items');
+                Route::get('search/search', 'Common\Search@search')->name('search.search');
+                Route::resource('search', 'Common\Search');
             });
 
             Route::group(['prefix' => 'auth'], function () {
@@ -38,14 +39,11 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('users/{user}/read-bills', 'Auth\Users@readUpcomingBills');
                 Route::get('users/{user}/read-invoices', 'Auth\Users@readOverdueInvoices');
                 Route::get('users/{user}/read-items', 'Auth\Users@readItemsOutOfStock');
+                Route::get('users/{user}/enable', 'Auth\Users@enable')->name('users.enable');
+                Route::get('users/{user}/disable', 'Auth\Users@disable')->name('users.disable');
                 Route::resource('users', 'Auth\Users');
                 Route::resource('roles', 'Auth\Roles');
                 Route::resource('permissions', 'Auth\Permissions');
-            });
-
-            Route::group(['prefix' => 'companies'], function () {
-                Route::get('companies/{company}/set', 'Companies\Companies@set');
-                Route::resource('companies', 'Companies\Companies');
             });
 
             Route::group(['prefix' => 'incomes'], function () {
@@ -57,16 +55,21 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('invoices/{invoice}/duplicate', 'Incomes\Invoices@duplicate');
                 Route::post('invoices/payment', 'Incomes\Invoices@payment');
                 Route::delete('invoices/payment/{payment}', 'Incomes\Invoices@paymentDestroy');
-                Route::post('invoices/import', 'Incomes\Invoices@import');
+                Route::post('invoices/import', 'Incomes\Invoices@import')->name('invoices.import');
+                Route::get('invoices/export', 'Incomes\Invoices@export')->name('invoices.export');
                 Route::resource('invoices', 'Incomes\Invoices');
                 Route::get('revenues/{revenue}/duplicate', 'Incomes\Revenues@duplicate');
-                Route::post('revenues/import', 'Incomes\Revenues@import');
+                Route::post('revenues/import', 'Incomes\Revenues@import')->name('revenues.import');
+                Route::get('revenues/export', 'Incomes\Revenues@export')->name('revenues.export');
                 Route::resource('revenues', 'Incomes\Revenues');
                 Route::get('customers/currency', 'Incomes\Customers@currency');
                 Route::get('customers/{customer}/duplicate', 'Incomes\Customers@duplicate');
                 Route::post('customers/customer', 'Incomes\Customers@customer');
                 Route::post('customers/field', 'Incomes\Customers@field');
-                Route::post('customers/import', 'Incomes\Customers@import');
+                Route::post('customers/import', 'Incomes\Customers@import')->name('customers.import');
+                Route::get('customers/export', 'Incomes\Customers@export')->name('customers.export');
+                Route::get('customers/{customer}/enable', 'Incomes\Customers@enable')->name('customers.enable');
+                Route::get('customers/{customer}/disable', 'Incomes\Customers@disable')->name('customers.disable');
                 Route::resource('customers', 'Incomes\Customers');
             });
 
@@ -77,19 +80,26 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('bills/{bill}/duplicate', 'Expenses\Bills@duplicate');
                 Route::post('bills/payment', 'Expenses\Bills@payment');
                 Route::delete('bills/payment/{payment}', 'Expenses\Bills@paymentDestroy');
-                Route::post('bills/import', 'Expenses\Bills@import');
+                Route::post('bills/import', 'Expenses\Bills@import')->name('bills.import');
+                Route::get('bills/export', 'Expenses\Bills@export')->name('bills.export');
                 Route::resource('bills', 'Expenses\Bills');
                 Route::get('payments/{payment}/duplicate', 'Expenses\Payments@duplicate');
-                Route::post('payments/import', 'Expenses\Payments@import');
+                Route::post('payments/import', 'Expenses\Payments@import')->name('payments.import');
+                Route::get('payments/export', 'Expenses\Payments@export')->name('payments.export');
                 Route::resource('payments', 'Expenses\Payments');
                 Route::get('vendors/currency', 'Expenses\Vendors@currency');
                 Route::get('vendors/{vendor}/duplicate', 'Expenses\Vendors@duplicate');
                 Route::post('vendors/vendor', 'Expenses\Vendors@vendor');
-                Route::post('vendors/import', 'Expenses\Vendors@import');
+                Route::post('vendors/import', 'Expenses\Vendors@import')->name('vendors.import');
+                Route::get('vendors/export', 'Expenses\Vendors@export')->name('vendors.export');
+                Route::get('vendors/{vendor}/enable', 'Expenses\Vendors@enable')->name('vendors.enable');
+                Route::get('vendors/{vendor}/disable', 'Expenses\Vendors@disable')->name('vendors.disable');
                 Route::resource('vendors', 'Expenses\Vendors');
             });
 
             Route::group(['prefix' => 'banking'], function () {
+                Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
+                Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
                 Route::resource('accounts', 'Banking\Accounts');
                 Route::resource('transactions', 'Banking\Transactions');
                 Route::resource('transfers', 'Banking\Transfers');
@@ -105,12 +115,18 @@ Route::group(['middleware' => 'language'], function () {
 
             Route::group(['prefix' => 'settings'], function () {
                 Route::post('categories/category', 'Settings\Categories@category');
+                Route::get('categories/{category}/enable', 'Settings\Categories@enable')->name('categories.enable');
+                Route::get('categories/{category}/disable', 'Settings\Categories@disable')->name('categories.disable');
                 Route::resource('categories', 'Settings\Categories');
                 Route::get('currencies/currency', 'Settings\Currencies@currency');
                 Route::get('currencies/config', 'Settings\Currencies@config');
+                Route::get('currencies/{currency}/enable', 'Settings\Currencies@enable')->name('currencies.enable');
+                Route::get('currencies/{currency}/disable', 'Settings\Currencies@disable')->name('currencies.disable');
                 Route::resource('currencies', 'Settings\Currencies');
                 Route::get('settings', 'Settings\Settings@edit');
                 Route::patch('settings', 'Settings\Settings@update');
+                Route::get('taxes/{tax}/enable', 'Settings\Taxes@enable')->name('taxes.enable');
+                Route::get('taxes/{tax}/disable', 'Settings\Taxes@disable')->name('taxes.disable');
                 Route::resource('taxes', 'Settings\Taxes');
                 Route::get('apps/{alias}', 'Settings\Modules@edit');
                 Route::patch('apps/{alias}', 'Settings\Modules@update');
@@ -143,6 +159,9 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('updates/post/{alias}/{old}/{new}', 'Install\Updates@post');
                 Route::resource('updates', 'Install\Updates');
             });
+
+            /* @deprecated */
+            Route::post('items/items/totalItem', 'Common\Items@totalItem');
         });
 
         Route::group(['middleware' => ['customermenu', 'permission:read-customer-panel']], function () {

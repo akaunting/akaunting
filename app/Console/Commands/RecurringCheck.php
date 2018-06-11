@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 use App\Models\Expense\BillHistory;
 use App\Models\Income\InvoiceHistory;
 use App\Notifications\Expense\Bill as BillNotification;

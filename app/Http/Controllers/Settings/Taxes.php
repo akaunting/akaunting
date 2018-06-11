@@ -105,6 +105,58 @@ class Taxes extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Tax  $tax
+     *
+     * @return Response
+     */
+    public function enable(Tax $tax)
+    {
+        $tax->enabled = 1;
+        $tax->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.tax_rates', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('taxes.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Tax  $tax
+     *
+     * @return Response
+     */
+    public function disable(Tax $tax)
+    {
+        $relationships = $this->countRelationships($tax, [
+            'items' => 'items',
+            'invoice_items' => 'invoices',
+            'bill_items' => 'bills',
+        ]);
+
+        if (empty($relationships)) {
+            $tax->enabled = 0;
+            $tax->save();
+
+            $message = trans('messages.success.disabled', ['type' => trans_choice('general.tax_rates', 1)]);
+
+            flash($message)->success();
+        } else {
+            $message = trans('messages.warning.disabled', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
+
+            flash($message)->warning();
+
+            return redirect()->route('taxes.index');
+        }
+
+        return redirect()->route('taxes.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Tax  $tax

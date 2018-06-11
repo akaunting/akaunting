@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 use App\Models\Income\Invoice;
 use App\Notifications\Income\Invoice as Notification;
 use App\Utilities\Overrider;

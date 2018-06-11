@@ -191,19 +191,25 @@ class Customers extends Controller
      */
     public function import(ImportFile $import)
     {
-        $rows = $import->all();
-
-        foreach ($rows as $row) {
-            $data = $row->toArray();
-
-            if (empty($data['email'])) {
-                $data['email'] = '';
+        // Loop through all sheets
+        $import->each(function ($sheet) {
+            if ($sheet->getTitle() != 'customers') {
+                return;
             }
 
-            $data['company_id'] = session('company_id');
+            // Loop through all rows
+            $sheet->each(function ($row) {
+                $data = $row->toArray();
 
-            Customer::create($data);
-        }
+                if (empty($data['email'])) {
+                    $data['email'] = '';
+                }
+
+                $data['company_id'] = session('company_id');
+
+                Customer::create($data);
+            });
+        });
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 2)]);
 
@@ -273,6 +279,44 @@ class Customers extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Customer  $customer
+     *
+     * @return Response
+     */
+    public function enable(Customer $customer)
+    {
+        $customer->enabled = 1;
+        $customer->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.customers', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('customers.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Customer  $customer
+     *
+     * @return Response
+     */
+    public function disable(Customer $customer)
+    {
+        $customer->enabled = 0;
+        $customer->save();
+
+        $message = trans('messages.success.disabled', ['type' => trans_choice('general.customers', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('customers.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Customer  $customer
@@ -299,6 +343,22 @@ class Customers extends Controller
         }
 
         return redirect('incomes/customers');
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        \Excel::create('customers', function($excel) {
+            $excel->sheet('customers', function($sheet) {
+                $sheet->fromModel(Customer::filter(request()->input())->get()->makeHidden([
+                    'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
+                ]));
+            });
+        })->download('xlsx');
     }
 
     public function currency()

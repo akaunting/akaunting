@@ -171,19 +171,25 @@ class Vendors extends Controller
      */
     public function import(ImportFile $import)
     {
-        $rows = $import->all();
-
-        foreach ($rows as $row) {
-            $data = $row->toArray();
-
-            if (empty($data['email'])) {
-                $data['email'] = '';
+        // Loop through all sheets
+        $import->each(function ($sheet) {
+            if ($sheet->getTitle() != 'vendors') {
+                return;
             }
 
-            $data['company_id'] = session('company_id');
+            // Loop through all rows
+            $sheet->each(function ($row) {
+                $data = $row->toArray();
 
-            Vendor::create($data);
-        }
+                if (empty($data['email'])) {
+                    $data['email'] = '';
+                }
+
+                $data['company_id'] = session('company_id');
+
+                Vendor::create($data);
+            });
+        });
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
 
@@ -237,6 +243,44 @@ class Vendors extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Vendor  $vendor
+     *
+     * @return Response
+     */
+    public function enable(Vendor $vendor)
+    {
+        $vendor->enabled = 1;
+        $vendor->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.vendors', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('vendors.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Vendor  $vendor
+     *
+     * @return Response
+     */
+    public function disable(Vendor $vendor)
+    {
+        $vendor->enabled = 0;
+        $vendor->save();
+
+        $message = trans('messages.success.disabled', ['type' => trans_choice('general.vendors', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('vendors.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Vendor  $vendor
@@ -263,6 +307,22 @@ class Vendors extends Controller
         }
 
         return redirect('expenses/vendors');
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        \Excel::create('vendors', function($excel) {
+            $excel->sheet('vendors', function($sheet) {
+                $sheet->fromModel(Vendor::filter(request()->input())->get()->makeHidden([
+                    'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
+                ]));
+            });
+        })->download('xlsx');
     }
 
     public function currency()

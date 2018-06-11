@@ -2,12 +2,13 @@
 
 @section('title', trans_choice('general.customers', 2))
 
-@permission('create-incomes-customers')
 @section('new_button')
+@permission('create-incomes-customers')
 <span class="new-button"><a href="{{ url('incomes/customers/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-<span><a href="{{ url('common/import/incomes/customers') }}" class="btn btn-success btn-sm"><span class="fa fa-download"></span> &nbsp;{{ trans('import.import') }}</a></span>
-@endsection
+<span><a href="{{ url('common/import/incomes/customers') }}" class="btn btn-default btn-sm"><span class="fa fa-download"></span> &nbsp;{{ trans('import.import') }}</a></span>
 @endpermission
+<span><a href="{{ route('customers.export', request()->input()) }}" class="btn btn-default btn-sm"><span class="fa fa-upload"></span> &nbsp;{{ trans('general.export') }}</a></span>
+@endsection
 
 @section('content')
 <!-- Default box -->
@@ -60,12 +61,17 @@
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('incomes/customers/' . $item->id) }}">{{ trans('general.show') }}</a></li>
                                     <li><a href="{{ url('incomes/customers/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    <li class="divider"></li>
+                                    @if ($item->enabled)
+                                    <li><a href="{{ route('customers.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                                    @else
+                                    <li><a href="{{ route('customers.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                    @endif
                                     @permission('create-incomes-customers')
-                                    <li><a href="{{ url('incomes/customers/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     <li class="divider"></li>
+                                    <li><a href="{{ url('incomes/customers/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     @endpermission
                                     @permission('delete-incomes-customers')
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'incomes/customers') !!}</li>
                                     @endpermission
                                 </ul>

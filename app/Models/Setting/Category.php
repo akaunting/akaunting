@@ -34,7 +34,7 @@ class Category extends Model
 
     public function items()
     {
-        return $this->hasMany('App\Models\Item\Item');
+        return $this->hasMany('App\Models\Common\Item');
     }
 
     public function payments()

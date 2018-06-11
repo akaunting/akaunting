@@ -26,7 +26,7 @@ class BillItem extends Model
 
     public function item()
     {
-        return $this->belongsTo('App\Models\Item\Item');
+        return $this->belongsTo('App\Models\Common\Item');
     }
 
     public function tax()

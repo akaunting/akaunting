@@ -24,6 +24,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Updates\Version119',
             'App\Listeners\Updates\Version120',
             'App\Listeners\Updates\Version126',
+            'App\Listeners\Updates\Version127',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',

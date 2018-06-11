@@ -3,7 +3,7 @@
 namespace App\Listeners\Updates;
 
 use App\Events\UpdateFinished;
-use App\Models\Company\Company;
+use App\Models\Common\Company;
 use Artisan;
 
 class Version109 extends Listener

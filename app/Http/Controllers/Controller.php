@@ -43,15 +43,15 @@ class Controller extends BaseController
         $controller .= kebab_case($arr[0]);
 
         // Skip ACL
-        $skip = ['dashboard-dashboard', 'customers-dashboard'];
+        $skip = ['common-dashboard', 'customers-dashboard'];
         if (in_array($controller, $skip)) {
             return;
         }
 
         // Add CRUD permission check
         $this->middleware('permission:create-' . $controller)->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-' . $controller)->only(['index', 'show', 'edit']);
-        $this->middleware('permission:update-' . $controller)->only(['update']);
+        $this->middleware('permission:read-' . $controller)->only(['index', 'show', 'edit', 'export']);
+        $this->middleware('permission:update-' . $controller)->only(['update', 'enable', 'disable']);
         $this->middleware('permission:delete-' . $controller)->only('destroy');
     }
 

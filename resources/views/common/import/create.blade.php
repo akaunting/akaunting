@@ -9,7 +9,7 @@
         <div class="box-body">
             <div class="col-md-12">
                 <div class="alert alert-info alert-important">
-                    {!! trans('import.message', ['link' => url('public/files/import/' . $type . '.csv')]) !!}
+                    {!! trans('import.message', ['link' => url('public/files/import/' . $type . '.xlsx')]) !!}
                 </div>
             </div>
             <div class="form-group col-md-12 required {{ $errors->has('import') ? 'has-error' : '' }}" style="min-height: 59px">

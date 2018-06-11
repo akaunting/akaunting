@@ -16,13 +16,13 @@ use App\Models\Income\InvoiceItem;
 use App\Models\Income\InvoiceTotal;
 use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceStatus;
-use App\Models\Item\Item;
+use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Models\Common\Media;
 use App\Notifications\Income\Invoice as Notification;
-use App\Notifications\Item\Item as ItemNotification;
+use App\Notifications\Common\Item as ItemNotification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
@@ -312,14 +312,44 @@ class Invoices extends Controller
      */
     public function import(ImportFile $import)
     {
-        $rows = $import->all();
+        // Loop through all sheets
+        $import->each(function ($sheet) {
+            $class = '\App\Models\Income\\' . str_singular(studly_case($sheet->getTitle()));
 
-        foreach ($rows as $row) {
-            $data = $row->toArray();
-            $data['company_id'] = session('company_id');
+            if (!class_exists($class)) {
+                return;
+            }
 
-            Invoice::create($data);
-        }
+            $sheet->each(function ($row) use ($sheet, $class) {
+                $data = $row->toArray();
+                $data['company_id'] = session('company_id');
+
+                switch ($sheet->getTitle()) {
+                    case 'invoices':
+                        if (empty($data['customer_email'])) {
+                            $data['customer_email'] = '';
+                        }
+                        break;
+                    case 'invoice_items':
+                        if (empty($data['tax_id'])) {
+                            $data['tax_id'] = '0';
+                        }
+                        break;
+                    case 'invoice_histories':
+                        if (empty($data['notify'])) {
+                            $data['notify'] = '0';
+                        }
+                        break;
+                    case 'invoice_totals':
+                        if (empty($data['amount'])) {
+                            $data['amount'] = '0';
+                        }
+                        break;
+                }
+
+                $class::create($data);
+            });
+        });
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 2)]);
 
@@ -512,6 +542,35 @@ class Invoices extends Controller
     }
 
     /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        \Excel::create('invoices', function($excel) {
+            $invoices = Invoice::with(['items', 'payments', 'totals'])->filter(request()->input())->get();
+
+            $excel->sheet('invoices', function($sheet) use ($invoices) {
+                $sheet->fromModel($invoices->makeHidden([
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'payments', 'totals', 'media'
+                ]));
+            });
+
+            $tables = ['items', 'histories', 'payments', 'totals'];
+            foreach ($tables as $table) {
+                $excel->sheet('invoice_' . $table, function($sheet) use ($invoices, $table) {
+                    $invoices->each(function ($bill) use ($sheet, $table) {
+                        $sheet->fromModel($bill->$table->makeHidden([
+                            'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
+                        ]));
+                    });
+                });
+            }
+        })->download('xlsx');
+    }
+
+    /**
      * Mark the invoice as sent.
      *
      * @param  Invoice $invoice
@@ -623,7 +682,7 @@ class Invoices extends Controller
 
         $html = view($invoice->template_path, compact('invoice'))->render();
 
-        $pdf = \App::make('dompdf.wrapper');
+        $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
         //$pdf->setPaper('A4', 'portrait');
