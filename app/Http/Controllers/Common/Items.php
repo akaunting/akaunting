@@ -37,7 +37,7 @@ class Items extends Controller
      */
     public function show()
     {
-        return redirect('common/items');
+        return redirect()->route('items.index');
     }
 
     /**
@@ -76,7 +76,7 @@ class Items extends Controller
 
         flash($message)->success();
 
-        return redirect('common/items');
+        return redirect()->route('items.index');
     }
 
     /**
@@ -94,7 +94,7 @@ class Items extends Controller
 
         flash($message)->success();
 
-        return redirect('common/items/' . $clone->id . '/edit');
+        return redirect()->route('items.edit', $item->id);
     }
 
     /**
@@ -106,20 +106,26 @@ class Items extends Controller
      */
     public function import(ImportFile $import)
     {
-        $rows = $import->all();
+        // Loop through all sheets
+        $import->each(function ($sheet) {
+            if ($sheet->getTitle() != 'items') {
+                return;
+            }
 
-        foreach ($rows as $row) {
-            $data = $row->toArray();
-            $data['company_id'] = session('company_id');
+            // Loop through all rows
+            $sheet->each(function ($row) {
+                $data = $row->toArray();
+                $data['company_id'] = session('company_id');
 
-            Item::create($data);
-        }
+                Item::create($data);
+            });
+        });
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 2)]);
 
         flash($message)->success();
 
-        return redirect('common/items');
+        return redirect()->route('items.index');
     }
 
     /**
@@ -161,7 +167,7 @@ class Items extends Controller
 
         flash($message)->success();
 
-        return redirect('common/items');
+        return redirect()->route('items.index');
     }
 
     /**
@@ -190,7 +196,23 @@ class Items extends Controller
             flash($message)->warning();
         }
 
-        return redirect('common/items');
+        return redirect()->route('items.index');
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        \Excel::create('items', function($excel) {
+            $excel->sheet('items', function($sheet) {
+                $sheet->fromModel(Item::filter(request()->input())->get()->makeHidden([
+                    'id', 'company_id', 'item_id', 'created_at', 'updated_at', 'deleted_at'
+                ]));
+            });
+        })->download('xlsx');
     }
 
     public function autocomplete()

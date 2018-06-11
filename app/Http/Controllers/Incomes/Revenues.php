@@ -135,14 +135,20 @@ class Revenues extends Controller
      */
     public function import(ImportFile $import)
     {
-        $rows = $import->all();
+        // Loop through all sheets
+        $import->each(function ($sheet) {
+            if ($sheet->getTitle() != 'revenues') {
+                return;
+            }
 
-        foreach ($rows as $row) {
-            $data = $row->toArray();
-            $data['company_id'] = session('company_id');
+            // Loop through all rows
+            $sheet->each(function ($row) {
+                $data = $row->toArray();
+                $data['company_id'] = session('company_id');
 
-            Revenue::create($data);
-        }
+                Revenue::create($data);
+            });
+        });
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
 
@@ -232,5 +238,21 @@ class Revenues extends Controller
         flash($message)->success();
 
         return redirect('incomes/revenues');
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        \Excel::create('revenues', function($excel) {
+            $excel->sheet('revenues', function($sheet) {
+                $sheet->fromModel(Revenue::filter(request()->input())->get()->makeHidden([
+                    'id', 'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at'
+                ]));
+            });
+        })->download('xlsx');
     }
 }

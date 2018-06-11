@@ -15,16 +15,17 @@ Route::group(['middleware' => 'language'], function () {
             });
 
             Route::group(['prefix' => 'common'], function () {
-                Route::get('companies/{company}/set', 'Common\Companies@set');
+                Route::get('companies/{company}/set', 'Common\Companies@set')->name('companies.switch');
                 Route::resource('companies', 'Common\Companies');
-                Route::get('dashboard/cashflow', 'Common\Dashboard@cashFlow');
-                Route::get('import/{group}/{type}', 'Common\Import@create');
-                Route::get('items/autocomplete', 'Common\Items@autocomplete');
-                Route::post('items/totalItem', 'Common\Items@totalItem');
-                Route::get('items/{item}/duplicate', 'Common\Items@duplicate');
-                Route::post('items/import', 'Common\Items@import');
+                Route::get('dashboard/cashflow', 'Common\Dashboard@cashFlow')->name('dashboard.cashflow');
+                Route::get('import/{group}/{type}', 'Common\Import@create')->name('import.create');
+                Route::get('items/autocomplete', 'Common\Items@autocomplete')->name('items.autocomplete');
+                Route::post('items/totalItem', 'Common\Items@totalItem')->name('items.total');
+                Route::get('items/{item}/duplicate', 'Common\Items@duplicate')->name('items.duplicate');
+                Route::post('items/import', 'Common\Items@import')->name('items.import');
+                Route::get('items/export', 'Common\Items@export')->name('items.export');
                 Route::resource('items', 'Common\Items');
-                Route::get('search/search', 'Common\Search@search');
+                Route::get('search/search', 'Common\Search@search')->name('search.search');
                 Route::resource('search', 'Common\Search');
             });
 
@@ -48,16 +49,19 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('invoices/{invoice}/duplicate', 'Incomes\Invoices@duplicate');
                 Route::post('invoices/payment', 'Incomes\Invoices@payment');
                 Route::delete('invoices/payment/{payment}', 'Incomes\Invoices@paymentDestroy');
-                Route::post('invoices/import', 'Incomes\Invoices@import');
+                Route::post('invoices/import', 'Incomes\Invoices@import')->name('invoices.import');
+                Route::get('invoices/export', 'Incomes\Invoices@export')->name('invoices.export');
                 Route::resource('invoices', 'Incomes\Invoices');
                 Route::get('revenues/{revenue}/duplicate', 'Incomes\Revenues@duplicate');
-                Route::post('revenues/import', 'Incomes\Revenues@import');
+                Route::post('revenues/import', 'Incomes\Revenues@import')->name('revenues.import');
+                Route::get('revenues/export', 'Incomes\Revenues@export')->name('revenues.export');
                 Route::resource('revenues', 'Incomes\Revenues');
                 Route::get('customers/currency', 'Incomes\Customers@currency');
                 Route::get('customers/{customer}/duplicate', 'Incomes\Customers@duplicate');
                 Route::post('customers/customer', 'Incomes\Customers@customer');
                 Route::post('customers/field', 'Incomes\Customers@field');
-                Route::post('customers/import', 'Incomes\Customers@import');
+                Route::post('customers/import', 'Incomes\Customers@import')->name('customers.import');
+                Route::get('customers/export', 'Incomes\Customers@export')->name('customers.export');
                 Route::resource('customers', 'Incomes\Customers');
             });
 
@@ -68,15 +72,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('bills/{bill}/duplicate', 'Expenses\Bills@duplicate');
                 Route::post('bills/payment', 'Expenses\Bills@payment');
                 Route::delete('bills/payment/{payment}', 'Expenses\Bills@paymentDestroy');
-                Route::post('bills/import', 'Expenses\Bills@import');
+                Route::post('bills/import', 'Expenses\Bills@import')->name('bills.import');
+                Route::get('bills/export', 'Expenses\Bills@export')->name('bills.export');
                 Route::resource('bills', 'Expenses\Bills');
                 Route::get('payments/{payment}/duplicate', 'Expenses\Payments@duplicate');
-                Route::post('payments/import', 'Expenses\Payments@import');
+                Route::post('payments/import', 'Expenses\Payments@import')->name('payments.import');
+                Route::get('payments/export', 'Expenses\Payments@export')->name('payments.export');
                 Route::resource('payments', 'Expenses\Payments');
                 Route::get('vendors/currency', 'Expenses\Vendors@currency');
                 Route::get('vendors/{vendor}/duplicate', 'Expenses\Vendors@duplicate');
                 Route::post('vendors/vendor', 'Expenses\Vendors@vendor');
-                Route::post('vendors/import', 'Expenses\Vendors@import');
+                Route::post('vendors/import', 'Expenses\Vendors@import')->name('vendors.import');
+                Route::get('vendors/export', 'Expenses\Vendors@export')->name('vendors.export');
                 Route::resource('vendors', 'Expenses\Vendors');
             });
 
@@ -134,6 +141,9 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('updates/post/{alias}/{old}/{new}', 'Install\Updates@post');
                 Route::resource('updates', 'Install\Updates');
             });
+
+            /* @deprecated */
+            Route::post('items/items/totalItem', 'Common\Items@totalItem');
         });
 
         Route::group(['middleware' => ['customermenu', 'permission:read-customer-panel']], function () {

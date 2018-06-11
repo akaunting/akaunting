@@ -5,7 +5,7 @@
 @section('content')
     <!-- Default box -->
     <div class="box box-success">
-        {!! Form::open(['url' => 'common/items', 'files' => true, 'role' => 'form']) !!}
+        {!! Form::open(['route' => 'items.store', 'files' => true, 'role' => 'form']) !!}
 
         <div class="box-body">
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}

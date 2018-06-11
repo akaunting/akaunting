@@ -133,14 +133,20 @@ class Payments extends Controller
      */
     public function import(ImportFile $import)
     {
-        $rows = $import->all();
+        // Loop through all sheets
+        $import->each(function ($sheet) {
+            if ($sheet->getTitle() != 'payments') {
+                return;
+            }
 
-        foreach ($rows as $row) {
-            $data = $row->toArray();
-            $data['company_id'] = session('company_id');
+            // Loop through all rows
+            $sheet->each(function ($row) {
+                $data = $row->toArray();
+                $data['company_id'] = session('company_id');
 
-            Payment::create($data);
-        }
+                Payment::create($data);
+            });
+        });
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 2)]);
 
@@ -230,5 +236,21 @@ class Payments extends Controller
         flash($message)->success();
 
         return redirect('expenses/payments');
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        \Excel::create('payments', function($excel) {
+            $excel->sheet('payments', function($sheet) {
+                $sheet->fromModel(Payment::filter(request()->input())->get()->makeHidden([
+                    'id', 'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at'
+                ]));
+            });
+        })->download('xlsx');
     }
 }
