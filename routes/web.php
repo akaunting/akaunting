@@ -16,6 +16,8 @@ Route::group(['middleware' => 'language'], function () {
 
             Route::group(['prefix' => 'common'], function () {
                 Route::get('companies/{company}/set', 'Common\Companies@set')->name('companies.switch');
+                Route::get('companies/{company}/enable', 'Common\Companies@enable')->name('companies.enable');
+                Route::get('companies/{company}/disable', 'Common\Companies@disable')->name('companies.disable');
                 Route::resource('companies', 'Common\Companies');
                 Route::get('dashboard/cashflow', 'Common\Dashboard@cashFlow')->name('dashboard.cashflow');
                 Route::get('import/{group}/{type}', 'Common\Import@create')->name('import.create');
@@ -66,6 +68,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('customers/field', 'Incomes\Customers@field');
                 Route::post('customers/import', 'Incomes\Customers@import')->name('customers.import');
                 Route::get('customers/export', 'Incomes\Customers@export')->name('customers.export');
+                Route::get('customers/{customer}/enable', 'Incomes\Customers@enable')->name('customers.enable');
+                Route::get('customers/{customer}/disable', 'Incomes\Customers@disable')->name('customers.disable');
                 Route::resource('customers', 'Incomes\Customers');
             });
 
@@ -88,10 +92,14 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('vendors/vendor', 'Expenses\Vendors@vendor');
                 Route::post('vendors/import', 'Expenses\Vendors@import')->name('vendors.import');
                 Route::get('vendors/export', 'Expenses\Vendors@export')->name('vendors.export');
+                Route::get('vendors/{vendor}/enable', 'Expenses\Vendors@enable')->name('vendors.enable');
+                Route::get('vendors/{vendor}/disable', 'Expenses\Vendors@disable')->name('vendors.disable');
                 Route::resource('vendors', 'Expenses\Vendors');
             });
 
             Route::group(['prefix' => 'banking'], function () {
+                Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
+                Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
                 Route::resource('accounts', 'Banking\Accounts');
                 Route::resource('transactions', 'Banking\Transactions');
                 Route::resource('transfers', 'Banking\Transfers');
@@ -117,6 +125,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('currencies', 'Settings\Currencies');
                 Route::get('settings', 'Settings\Settings@edit');
                 Route::patch('settings', 'Settings\Settings@update');
+                Route::get('taxes/{tax}/enable', 'Settings\Taxes@enable')->name('taxes.enable');
+                Route::get('taxes/{tax}/disable', 'Settings\Taxes@disable')->name('taxes.disable');
                 Route::resource('taxes', 'Settings\Taxes');
                 Route::get('apps/{alias}', 'Settings\Modules@edit');
                 Route::patch('apps/{alias}', 'Settings\Modules@update');

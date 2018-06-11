@@ -279,6 +279,44 @@ class Customers extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Customer  $customer
+     *
+     * @return Response
+     */
+    public function enable(Customer $customer)
+    {
+        $customer->enabled = 1;
+        $customer->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.customers', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('customers.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Customer  $customer
+     *
+     * @return Response
+     */
+    public function disable(Customer $customer)
+    {
+        $customer->enabled = 0;
+        $customer->save();
+
+        $message = trans('messages.success.disabled', ['type' => trans_choice('general.customers', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('customers.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Customer  $customer

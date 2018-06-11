@@ -58,7 +58,13 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('banking/accounts/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @if ($item->enabled)
+                                    <li><a href="{{ route('accounts.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                                    @else
+                                    <li><a href="{{ route('accounts.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                    @endif
                                     @permission('delete-banking-accounts')
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'banking/accounts') !!}</li>
                                     @endpermission
                                 </ul>
