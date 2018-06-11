@@ -291,14 +291,44 @@ class Bills extends Controller
      */
     public function import(ImportFile $import)
     {
-        $rows = $import->all();
+        // Loop through all sheets
+        $import->each(function ($sheet) {
+            $class = '\App\Models\Expense\\' . str_singular(studly_case($sheet->getTitle()));
 
-        foreach ($rows as $row) {
-            $data = $row->toArray();
-            $data['company_id'] = session('company_id');
+            if (!class_exists($class)) {
+                return;
+            }
 
-            Bill::create($data);
-        }
+            $sheet->each(function ($row) use ($sheet, $class) {
+                $data = $row->toArray();
+                $data['company_id'] = session('company_id');
+
+                switch ($sheet->getTitle()) {
+                    case 'bills':
+                        if (empty($data['vendor_email'])) {
+                            $data['vendor_email'] = '';
+                        }
+                        break;
+                    case 'bill_items':
+                        if (empty($data['tax_id'])) {
+                            $data['tax_id'] = '0';
+                        }
+                        break;
+                    case 'bill_histories':
+                        if (empty($data['notify'])) {
+                            $data['notify'] = '0';
+                        }
+                        break;
+                    case 'bill_totals':
+                        if (empty($data['amount'])) {
+                            $data['amount'] = '0';
+                        }
+                        break;
+                }
+
+                $class::create($data);
+            });
+        });
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.bills', 2)]);
 
@@ -488,6 +518,35 @@ class Bills extends Controller
         flash($message)->success();
 
         return redirect('expenses/bills');
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        \Excel::create('bills', function($excel) {
+            $bills = Bill::with(['items', 'payments', 'totals'])->filter(request()->input())->get();
+
+            $excel->sheet('invoices', function($sheet) use ($bills) {
+                $sheet->fromModel($bills->makeHidden([
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'payments', 'totals', 'media'
+                ]));
+            });
+
+            $tables = ['items', 'histories', 'payments', 'totals'];
+            foreach ($tables as $table) {
+                $excel->sheet('bill_' . $table, function($sheet) use ($bills, $table) {
+                    $bills->each(function ($bill) use ($sheet, $table) {
+                        $sheet->fromModel($bill->$table->makeHidden([
+                            'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
+                        ]));
+                    });
+                });
+            }
+        })->download('xlsx');
     }
 
     /**

@@ -2,18 +2,19 @@
 
 @section('title', trans_choice('general.items', 2))
 
-@permission('create-common-items')
 @section('new_button')
-<span class="new-button"><a href="{{ url('common/items/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-<span><a href="{{ url('common/import/common/items') }}" class="btn btn-success btn-sm"><span class="fa fa-download"></span> &nbsp;{{ trans('import.import') }}</a></span>
-@endsection
+@permission('create-common-items')
+<span class="new-button"><a href="{{ route('items.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+<span><a href="{{ route('import.create', ['common', 'items']) }}" class="btn btn-default btn-sm"><span class="fa fa-download"></span> &nbsp;{{ trans('import.import') }}</a></span>
 @endpermission
+<span><a href="{{ route('items.export', request()->input()) }}" class="btn btn-default btn-sm"><span class="fa fa-upload"></span> &nbsp;{{ trans('general.export') }}</a></span>
+@endsection
 
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
     <div class="box-header with-border">
-        {!! Form::open(['url' => 'common/items', 'role' => 'form', 'method' => 'GET']) !!}
+        {!! Form::open(['route' => 'items.index', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-left">
             <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
@@ -47,7 +48,7 @@
                 @foreach($items as $item)
                     <tr>
                         <td class="hidden-xs"><img src="{{ $item->picture ? Storage::url($item->picture->id) : asset('public/img/akaunting-logo-green.png') }}" class="img-thumbnail" width="50" alt="{{ $item->name }}"></td>
-                        <td><a href="{{ url('common/items/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
+                        <td><a href="{{ route('items.edit', $item->id) }}">{{ $item->name }}</a></td>
                         <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
                         <td class="hidden-xs">{{ $item->quantity }}</td>
                         <td class="text-right amount-space">{{ money($item->sale_price, setting('general.default_currency'), true) }}</td>
@@ -65,10 +66,10 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ url('common/items/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    <li><a href="{{ route('items.edit', $item->id) }}">{{ trans('general.edit') }}</a></li>
                                     <li class="divider"></li>
                                     @permission('create-common-items')
-                                    <li><a href="{{ url('common/items/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
+                                    <li><a href="{{ route('items.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a></li>
                                     <li class="divider"></li>
                                     @endpermission
                                     @permission('delete-common-items')

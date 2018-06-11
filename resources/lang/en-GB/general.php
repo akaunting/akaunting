@@ -100,6 +100,7 @@ return [
     'overdue'               => 'Overdue',
     'partially'             => 'Partially',
     'partially_paid'        => 'Partially Paid',
+    'export'                => 'Export',
 
     'title' => [
         'new'               => 'New :type',

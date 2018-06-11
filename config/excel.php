@@ -476,7 +476,7 @@ return array(
         | When set to true, it will return a sheet collection instead.
         |
         */
-        'force_sheets_collection' => false,
+        'force_sheets_collection' => true,
 
         /*
         |--------------------------------------------------------------------------
