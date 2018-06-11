@@ -59,6 +59,11 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('settings/categories/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @if ($item->enabled)
+                                    <li><a href="{{ route('categories.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                                    @else
+                                    <li><a href="{{ route('categories.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                    @endif
                                     @if ($item->id != $transfer_id)
                                     @permission('delete-settings-categories')
                                     <li class="divider"></li>

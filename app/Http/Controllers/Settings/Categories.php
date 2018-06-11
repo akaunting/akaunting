@@ -132,6 +132,60 @@ class Categories extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Category  $category
+     *
+     * @return Response
+     */
+    public function enable(Category $category)
+    {
+        $category->enabled = 1;
+        $category->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.categories', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('categories.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Category  $category
+     *
+     * @return Response
+     */
+    public function disable(Category $category)
+    {
+        $relationships = $this->countRelationships($category, [
+            'items' => 'items',
+            'invoices' => 'invoices',
+            'revenues' => 'revenues',
+            'bills' => 'bills',
+            'payments' => 'payments',
+        ]);
+
+        if (empty($relationships)) {
+            $category->enabled = 0;
+            $category->save();
+
+            $message = trans('messages.success.disabled', ['type' => trans_choice('general.categories', 1)]);
+
+            flash($message)->success();
+        } else {
+            $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+
+            flash($message)->warning();
+
+            return redirect()->route('categories.index');
+        }
+
+        return redirect()->route('categories.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Category  $category

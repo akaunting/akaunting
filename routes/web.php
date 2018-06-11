@@ -24,6 +24,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('items/{item}/duplicate', 'Common\Items@duplicate')->name('items.duplicate');
                 Route::post('items/import', 'Common\Items@import')->name('items.import');
                 Route::get('items/export', 'Common\Items@export')->name('items.export');
+                Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
+                Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
                 Route::resource('items', 'Common\Items');
                 Route::get('search/search', 'Common\Search@search')->name('search.search');
                 Route::resource('search', 'Common\Search');
@@ -35,6 +37,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('users/{user}/read-bills', 'Auth\Users@readUpcomingBills');
                 Route::get('users/{user}/read-invoices', 'Auth\Users@readOverdueInvoices');
                 Route::get('users/{user}/read-items', 'Auth\Users@readItemsOutOfStock');
+                Route::get('users/{user}/enable', 'Auth\Users@enable')->name('users.enable');
+                Route::get('users/{user}/disable', 'Auth\Users@disable')->name('users.disable');
                 Route::resource('users', 'Auth\Users');
                 Route::resource('roles', 'Auth\Roles');
                 Route::resource('permissions', 'Auth\Permissions');
@@ -103,9 +107,13 @@ Route::group(['middleware' => 'language'], function () {
 
             Route::group(['prefix' => 'settings'], function () {
                 Route::post('categories/category', 'Settings\Categories@category');
+                Route::get('categories/{category}/enable', 'Settings\Categories@enable')->name('categories.enable');
+                Route::get('categories/{category}/disable', 'Settings\Categories@disable')->name('categories.disable');
                 Route::resource('categories', 'Settings\Categories');
                 Route::get('currencies/currency', 'Settings\Currencies@currency');
                 Route::get('currencies/config', 'Settings\Currencies@config');
+                Route::get('currencies/{currency}/enable', 'Settings\Currencies@enable')->name('currencies.enable');
+                Route::get('currencies/{currency}/disable', 'Settings\Currencies@disable')->name('currencies.disable');
                 Route::resource('currencies', 'Settings\Currencies');
                 Route::get('settings', 'Settings\Settings@edit');
                 Route::patch('settings', 'Settings\Settings@update');

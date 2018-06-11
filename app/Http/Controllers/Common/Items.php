@@ -171,6 +171,44 @@ class Items extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Item  $item
+     *
+     * @return Response
+     */
+    public function enable(Item $item)
+    {
+        $item->enabled = 1;
+        $item->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.items', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('items.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Item  $item
+     *
+     * @return Response
+     */
+    public function disable(Item $item)
+    {
+        $item->enabled = 0;
+        $item->save();
+
+        $message = trans('messages.success.disabled', ['type' => trans_choice('general.items', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('items.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Item  $item

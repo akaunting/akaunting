@@ -171,6 +171,65 @@ class Currencies extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  Currency  $currency
+     *
+     * @return Response
+     */
+    public function enable(Currency $currency)
+    {
+        $currency->enabled = 1;
+        $currency->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.currencies', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('currencies.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Currency  $currency
+     *
+     * @return Response
+     */
+    public function disable(Currency $currency)
+    {
+        $relationships = $this->countRelationships($currency, [
+            'accounts' => 'accounts',
+            'customers' => 'customers',
+            'invoices' => 'invoices',
+            'revenues' => 'revenues',
+            'bills' => 'bills',
+            'payments' => 'payments',
+        ]);
+
+        if ($currency->code == setting('general.default_currency')) {
+            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        }
+
+        if (empty($relationships)) {
+            $currency->enabled = 0;
+            $currency->save();
+
+            $message = trans('messages.success.disabled', ['type' => trans_choice('general.currencies', 1)]);
+
+            flash($message)->success();
+        } else {
+            $message = trans('messages.warning.disabled', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
+
+            flash($message)->warning();
+
+            return redirect()->route('currencies.index');
+        }
+
+        return redirect()->route('currencies.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Currency  $currency

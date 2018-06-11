@@ -152,6 +152,44 @@ class Users extends Controller
     }
 
     /**
+     * Enable the specified resource.
+     *
+     * @param  User  $user
+     *
+     * @return Response
+     */
+    public function enable(User $user)
+    {
+        $user->enabled = 1;
+        $user->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.users', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('users.index');
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  User  $user
+     *
+     * @return Response
+     */
+    public function disable(User $user)
+    {
+        $user->enabled = 0;
+        $user->save();
+
+        $message = trans('messages.success.disabled', ['type' => trans_choice('general.users', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('users.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  User  $user

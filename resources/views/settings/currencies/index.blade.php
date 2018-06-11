@@ -56,7 +56,13 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('settings/currencies/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @if ($item->enabled)
+                                    <li><a href="{{ route('currencies.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                                    @else
+                                    <li><a href="{{ route('currencies.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                    @endif
                                     @permission('delete-settings-currencies')
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'settings/currencies') !!}</li>
                                     @endpermission
                                 </ul>

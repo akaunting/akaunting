@@ -67,12 +67,17 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ route('items.edit', $item->id) }}">{{ trans('general.edit') }}</a></li>
-                                    <li class="divider"></li>
+                                    @if ($item->enabled)
+                                        <li><a href="{{ route('items.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                                    @else
+                                        <li><a href="{{ route('items.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                    @endif
                                     @permission('create-common-items')
-                                    <li><a href="{{ route('items.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a></li>
                                     <li class="divider"></li>
+                                    <li><a href="{{ route('items.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a></li>
                                     @endpermission
                                     @permission('delete-common-items')
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'common/items') !!}</li>
                                     @endpermission
                                 </ul>
