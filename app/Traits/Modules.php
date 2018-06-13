@@ -398,7 +398,7 @@ trait Modules
             $data = $this->loadSuggestions();
         }
 
-        if (array_key_exists($path, $data)) {
+        if (!empty($data) && array_key_exists($path, $data)) {
             return $data[$path];
         }
 
