@@ -19,8 +19,8 @@ class Users extends ModelFilter
         return $this->where('name', 'LIKE', '%' . $query . '%')->orWhere('email', 'LIKE', '%' . $query . '%');
     }
 
-    public function role($roles)
+    public function role($id)
     {
-        return $this->where('user_roles.role_id', $roles);
+        return $this->related('roles', 'role_id', $id);
     }
 }
