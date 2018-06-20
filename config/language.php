@@ -115,7 +115,7 @@ return [
     |
     */
 
-    'allowed'       => ['en-GB', 'ar-SA', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'es-MX', 'fa-IR', 'fr-FR', 'he-IL', 'hr-HR', 'id-ID', 'it-IT', 'nb-NO', 'nl-NL', 'pt-BR', 'ro-RO', 'ru-RU', 'sq-AL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-TW'],
+    'allowed'       => ['en-GB', 'ar-SA', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'es-ES', 'es-MX', 'fa-IR', 'fr-FR', 'he-IL', 'hr-HR', 'id-ID', 'it-IT', 'nb-NO', 'nl-NL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sq-AL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-TW'],
 
     /*
     |--------------------------------------------------------------------------
