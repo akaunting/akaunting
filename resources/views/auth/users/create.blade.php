@@ -32,7 +32,7 @@
                 {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1)) }}
             @endif
 
-            @permission('read-companies-companies')
+            @permission('read-common-companies')
             {{ Form::checkboxGroup('companies', trans_choice('general.companies', 2), $companies, 'company_name') }}
             @endpermission
 
