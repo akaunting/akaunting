@@ -3,11 +3,13 @@
 return [
 
     'success' => [
-        'added'             => ': type toegevoegd!',
-        'updated'           => ': type bijgewerkt!',
-        'deleted'           => ': type verwijderd!',
-        'duplicated'        => ': type gedupliceerd!',
+        'added'             => ':type toegevoegd!',
+        'updated'           => ':type bijgewerkt!',
+        'deleted'           => ':type verwijderd!',
+        'duplicated'        => ':type gedupliceerd!',
         'imported'          => ':type imported!',
+        'enabled'           => ':type enabled!',
+        'disabled'          => ':type disabled!',
     ],
     'error' => [
         'over_payment'      => 'Error: Payment not added! Amount passes the total.',
@@ -18,8 +20,8 @@ return [
         'invalid_token'     => 'Error: The token entered is invalid!',
     ],
     'warning' => [
-        'deleted'           => 'Waarschuwing: U bent niet toegestaan te verwijderen <b>: naam</b> omdat er: tekst gerelateerde.',
-        'disabled'          => 'Waarschuwing: U mag niet uitschakelen <b>: naam</b> omdat er: tekst gerelateerde.',
+        'deleted'           => 'Waarschuwing: U bent niet toegestaan te verwijderen <b>:name</b> omdat er :text gerelateerde.',
+        'disabled'          => 'Waarschuwing: U mag niet uitschakelen <b>:name</b> omdat er :text gerelateerde.',
     ],
 
 ];

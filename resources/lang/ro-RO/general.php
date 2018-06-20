@@ -100,11 +100,15 @@ return [
     'overdue'               => 'Intarziat',
     'partially'             => 'Partial',
     'partially_paid'        => 'Platit Partial',
+    'export'                => 'Export',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
 
     'title' => [
         'new'               => ':type nou',
         'edit'              => 'Editeaza :type',
     ],
+
     'form' => [
         'enter'             => 'Introduceţi :field',
         'select' => [

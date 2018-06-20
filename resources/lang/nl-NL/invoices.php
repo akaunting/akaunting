@@ -48,7 +48,7 @@ return [
     ],
 
     'notification' => [
-        'message'       => 'U ontvangt deze e-mail omdat voor: factuur bedrag: klant klant.',
+        'message'       => 'U ontvangt deze e-mail omdat voor :amount bedrag :customer klant.',
         'button'        => 'Betaal nu',
     ],
 

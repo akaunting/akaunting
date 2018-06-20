@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Contant',
-    'categories_uncat'      => 'Ongecategoriseerd',
     'categories_deposit'    => 'Storting',
     'categories_sales'      => 'Verkoop',
     'currencies_usd'        => 'Amerikaanse Dollar',

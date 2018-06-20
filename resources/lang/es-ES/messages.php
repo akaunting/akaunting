@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type borrado!',
         'duplicated'        => ': type duplicado!',
         'imported'          => ':type importado!',
+        'enabled'           => ':type habilitado!',
+        'disabled'          => ':type deshabilitado!',
     ],
     'error' => [
         'over_payment'      => 'Error: Pago no añadido! Importe mayor que el total.',

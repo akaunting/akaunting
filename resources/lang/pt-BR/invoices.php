@@ -12,22 +12,22 @@ return [
     'quantity'          => 'Quantidade',
     'price'             => 'Preço',
     'sub_total'         => 'Subtotal',
-    'discount'          => 'Discount',
+    'discount'          => 'Desconto',
     'tax_total'         => 'Valor da taxa',
     'total'             => 'Total',
 
     'item_name'         => 'Item|Itens',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% desconto',
+    'add_discount'      => 'Adicionar desconto',
+    'discount_desc'     => 'subtotal',
 
     'payment_due'       => 'Pagamento vencido',
     'paid'              => 'Pago',
     'histories'         => 'Histórico',
     'payments'          => 'Pagamentos',
     'add_payment'       => 'Novo Pagamento',
-    'mark_paid'         => 'Mark Paid',
+    'mark_paid'         => 'Marcar como pago',
     'mark_sent'         => 'Marcar Como Enviada',
     'download_pdf'      => 'Baixar em PDF',
     'send_mail'         => 'Enviar E-mail',
@@ -42,13 +42,13 @@ return [
     ],
 
     'messages' => [
-        'email_sent'     => 'Invoice email has been sent successfully!',
+        'email_sent'     => 'O e-mail foi enviado com sucesso!',
         'marked_sent'    => 'Fatura marcada como enviada com sucesso!',
-        'email_required' => 'No email address for this customer!',
+        'email_required' => 'Nenhum endereço de e-mail para este cliente!',
     ],
 
     'notification' => [
-        'message'       => 'You are receiving this email because you have an upcoming :amount invoice to :customer customer.',
+        'message'       => 'Você está recebendo este e-mail porque tem :amount fatura a vencer.',
         'button'        => 'Pagar agora',
     ],
 

@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type διεγράφη!',
         'duplicated'        => ':type αντιγράφηκε!',
         'imported'          => ':type εισήχθη!',
+        'enabled'           => ':type ενεργοποιήθηκε!',
+        'disabled'          => ':type απενεργοποιήθηκε!',
     ],
     'error' => [
         'over_payment'      => 'Σφάλμα: Η πληρωμή δεν προστέθηκε! Το ποσό ξεπερνάει το σύνολο.',

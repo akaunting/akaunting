@@ -2,19 +2,20 @@
 
 return [
 
-    'recurring'             => 'Recurring',
-    'every'                 => 'Every',
-    'period'                => 'Period',
-    'times'                 => 'Times',
-    'daily'                 => 'Daily',
-    'weekly'                => 'Weekly',
-    'monthly'               => 'Monthly',
-    'yearly'                => 'Yearly',
-    'custom'                => 'Custom',
-    'days'                  => 'Day(s)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'recurring'             => 'Định kỳ',
+    'every'                 => 'Mỗi',
+    'period'                => 'Kỳ',
+    'times'                 => 'Lần',
+    'daily'                 => 'Hàng ngày',
+    'weekly'                => 'Hàng tuần',
+    'monthly'               => 'Hàng tháng',
+    'yearly'                => 'Hàng năm',
+    'custom'                => 'Tùy chỉnh',
+    'days'                  => 'Ngày',
+    'weeks'                 => 'Tuần',
+    'months'                => 'Tháng',
+    'years'                 => 'Năm',
+    'message'               => 'Đây là một :type định kỳ và lần :type tiếp theo sẽ được tự động tạo ra vào :date
+',
 
 ];

@@ -38,7 +38,7 @@ return [
     'digits_between'       => ':attribute moet tussen de :min en :max aantal karakters lang zijn.',
     'dimensions'           => 'De: kenmerk heeft ongeldige afbeelding afmetingen.',
     'distinct'             => 'De: kenmerkveld is een dubbele waarde.',
-    'email'                => 'De: kenmerk moet een geldig e-mailadres.',
+    'email'                => 'De :attribute moet een geldig e-mailadres.',
     'exists'               => 'Het geselecteerde kenmerk :attribute is ongeldig.',
     'file'                 => 'De: kenmerk moet een bestand.',
     'filled'               => 'De: kenmerkveld moet een waarde hebben.',
@@ -75,7 +75,7 @@ return [
     'required_without_all' => 'De: kenmerkveld is vereist wanneer geen van: waarden aanwezig zijn.',
     'same'                 => 'De: kenmerk en: andere moet overeenkomen.',
     'size'                 => [
-        'numeric' => 'De: kenmerk moet: grootte.',
+        'numeric' => 'De :attribute moet :size.',
         'file'    => 'De: kenmerk moet: grootte van kilobytes.',
         'string'  => 'De: kenmerk moet: het formaat van tekens.',
         'array'   => 'De: kenmerk moet bevatten: het formaat van objecten.',

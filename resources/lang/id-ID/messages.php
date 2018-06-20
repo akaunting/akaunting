@@ -8,14 +8,16 @@ return [
         'deleted'           => ':type dihapus!',
         'duplicated'        => ':type duplikat!',
         'imported'          => ':type diimpor!',
+        'enabled'           => ':type enabled!',
+        'disabled'          => ':type disabled!',
     ],
     'error' => [
         'over_payment'      => 'Error: Payment not added! Amount passes the total.',
         'not_user_company'  => 'Kesalahan: Anda tidak diperbolehkan mengelola perusahaan ini!',
-        'customer'          => 'Error: User not created! :name already uses this email address.',
+        'customer'          => 'Galat: Pengguna tidak dibuat! :name telah menggunakan alamat email ini.',
         'no_file'           => 'Kesalahan: Tidak ada file dipilih!',
         'last_category'     => 'Error: Can not delete the last :type category!',
-        'invalid_token'     => 'Error: The token entered is invalid!',
+        'invalid_token'     => 'Galat: Token yang dimasukkan tidak sah!',
     ],
     'warning' => [
         'deleted'           => 'PeringatanL: Anda tidak boleh menghapus <b>:name</b> karena memiliki :text terkaitan.',

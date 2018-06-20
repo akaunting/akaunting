@@ -12,15 +12,15 @@ return [
     'quantity'          => 'Cantidad',
     'price'             => 'Precio',
     'sub_total'         => 'Subtotal',
-    'discount'          => 'Discount',
+    'discount'          => 'Descuento',
     'tax_total'         => 'Total de Impuestos',
     'total'             => 'Total ',
 
     'item_name'         => 'Nombre del producto/servicio | Nombres de los productos/servicos',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Descuento',
+    'add_discount'      => 'Agregar Descuento',
+    'discount_desc'     => 'de subtotal',
 
     'payment_due'       => 'Vencimiento del Pago',
     'paid'              => 'Pagado',
@@ -44,7 +44,7 @@ return [
     'messages' => [
         'email_sent'     => '¡El correo electrónico de la factura se ha enviado correctamente!',
         'marked_sent'    => '¡Factura marcada como enviada con éxito!',
-        'email_required' => 'No email address for this customer!',
+        'email_required' => 'No se encontró una dirección de correo para este cliente!',
     ],
 
     'notification' => [

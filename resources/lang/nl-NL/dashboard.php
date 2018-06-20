@@ -9,7 +9,7 @@ return [
     'total_expenses'            => 'Totale uitgaven',
     'payables'                  => 'Schulden',
     'open_bills'                => 'Open rekeningen',
-    'overdue_bills'             => 'Openstaande fakturen',
+    'overdue_bills'             => 'Openstaande facturen',
     'total_profit'              => 'Totale winst',
     'open_profit'               => 'Open winst',
     'overdue_profit'            => 'Achterstallige winst',

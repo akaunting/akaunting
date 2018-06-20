@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Bar',
-    'categories_uncat'      => 'Unkategorisiert',
     'categories_deposit'    => 'Einzahlen',
     'categories_sales'      => 'Verkäufe',
     'currencies_usd'        => 'US-Dollar',

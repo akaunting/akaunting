@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type şters!',
         'duplicated'        => ':type duplicat!',
         'imported'          => ':type importat!',
+        'enabled'           => ':type activat!',
+        'disabled'          => ':type dezactivat!',
     ],
     'error' => [
         'over_payment'      => 'Eroare: Plata nu a fost adaugata. Suma depaseste totalul.',

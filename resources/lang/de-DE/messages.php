@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type gelöscht!',
         'duplicated'        => ':type dupliziert!',
         'imported'          => ':type importiert!',
+        'enabled'           => ':type aktiviert!',
+        'disabled'          => ':type deaktiviert!',
     ],
     'error' => [
         'over_payment'      => 'Fehler: Zahlung wurde nicht hinzugefügt! Betrag überschreitet die Gesamtsumme.',

@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'API token',
     'api_token'             => 'Token',
+    'my_apps'               => 'Uygulamalarım',
     'top_paid'              => 'Popüler Ücretli',
     'new'                   => 'Yeni',
     'top_free'              => 'Popüler Ücretsiz',
@@ -40,9 +41,18 @@ return [
         'install'           => ':module uygulamanın dosyaları yükleniyor.',
     ],
 
+    'badge' => [
+        'installed' => 'Yüklü',
+    ],
+
     'button' => [
         'uninstall'         => 'Kaldır',
         'disable'           => 'Devre Dışı Bırak',
         'enable'            => 'Etkinleştir',
+    ],
+
+    'my' => [
+        'purchased' => 'Satın Alınmış',
+        'installed' => 'Yüklü',
     ],
 ];

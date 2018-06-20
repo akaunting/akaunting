@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'API-Token',
     'api_token'             => 'Token',
+    'my_apps'               => 'My Apps',
     'top_paid'              => 'Top betaald',
     'new'                   => 'Nieuw',
     'top_free'              => 'Top gratis',
@@ -35,14 +36,23 @@ return [
 
     'installation' => [
         'header'            => 'App Installation',
-        'download'          => 'Download: module bestand.',
-        'unzip'             => 'Uitpakken: module bestanden.',
+        'download'          => 'Download :module bestand.',
+        'unzip'             => 'Uitpakken :module bestanden.',
         'install'           => 'Installing :module files.',
+    ],
+
+    'badge' => [
+        'installed' => 'Installed',
     ],
 
     'button' => [
         'uninstall'         => 'Verwijderen',
         'disable'           => 'Uitgeschakeld',
         'enable'            => 'Activeren',
+    ],
+
+    'my' => [
+        'purchased' => 'Purchased',
+        'installed' => 'Installed',
     ],
 ];

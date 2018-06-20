@@ -12,14 +12,14 @@ return [
     'quantity'          => 'Kuantitas',
     'price'             => 'Harga',
     'sub_total'         => 'Subtotal',
-    'discount'          => 'Discount',
+    'discount'          => 'Diskon',
     'tax_total'         => 'Total Pajak',
     'total'             => 'Total',
 
     'item_name'         => 'Nama Item | Nama Item',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
+    'show_discount'     => 'Diskon :discount%',
+    'add_discount'      => 'Tambahkan diskon',
     'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Tanggal Pembayaran',
@@ -44,7 +44,7 @@ return [
     'messages' => [
         'email_sent'     => 'Email faktur telah berhasil dikirim!',
         'marked_sent'    => 'Faktur ditandai sebagai berhasil dikirim!',
-        'email_required' => 'No email address for this customer!',
+        'email_required' => 'Tidak ada alamat email untuk pelanggan ini!',
     ],
 
     'notification' => [
