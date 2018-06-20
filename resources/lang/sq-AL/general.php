@@ -100,11 +100,15 @@ return [
     'overdue'               => 'I vonuar',
     'partially'             => 'Pjesërisht',
     'partially_paid'        => 'I paguar pjesërisht',
+    'export'                => 'Eksporto',
+    'enable'                => 'Aktivizo',
+    'disable'               => 'Çaktivizo',
 
     'title' => [
         'new'               => 'I ri :type',
         'edit'              => 'Modifiko :type',
     ],
+
     'form' => [
         'enter'             => 'Shkruaj :field',
         'select' => [

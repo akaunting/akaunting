@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type fshirë!',
         'duplicated'        => ':type dubluar!',
         'imported'          => ':type importuar!',
+        'enabled'           => ':type aktivizuar!',
+        'disabled'          => ':type çaktivizuar!',
     ],
     'error' => [
         'over_payment'      => 'Gabim: Pagesa nuk u shtua! Shuma kalon totalin.',

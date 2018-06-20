@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Μετρητά',
-    'categories_uncat'      => 'Χωρίς κατηγοριοποίηση',
     'categories_deposit'    => 'Κατάθεση',
     'categories_sales'      => 'Πωλήσεις',
     'currencies_usd'        => 'Δολάριο ΗΠΑ',

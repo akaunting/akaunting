@@ -4,6 +4,6 @@ return [
 
     'import'                => 'Importieren',
     'title'                 => ':type importieren',
-    'message'               => 'Erlaubte Datei-Typen: CSV, XLS. Bitte, <a target="_blank" href=":link"><strong>laden</strong></a> Sie eine Beispiel-Datei.',
+    'message'               => 'Erlaubte Datei-Typen: XLS, XLSX. Bitte, <a target="_blank" href=":link"><strong>hier</strong></a> die Beispieldatei herunterladen.',
 
 ];

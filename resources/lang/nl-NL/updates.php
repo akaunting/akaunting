@@ -4,7 +4,7 @@ return [
 
     'installed_version'     => 'Geïnstalleerde versie',
     'latest_version'        => 'Nieuwste versie',
-    'update'                => 'Bijwerken van Akaunting aan: versie versie',
+    'update'                => 'Bijwerken van Akaunting aan :version versie',
     'changelog'             => 'Wijzigingen',
     'check'                 => 'Controleren',
     'new_core'              => 'Er is een bijgewerkte versie van Akaunting beschikbaar.',

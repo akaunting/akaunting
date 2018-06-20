@@ -37,7 +37,7 @@ return [
     'updates'               => 'Actualización | Actualizaciones',
     'numbers'               => 'Número | Números',
     'statuses'              => 'Estado|Estados',
-    'others'                => 'Other|Others',
+    'others'                => 'Otro|Otros',
 
     'dashboard'             => 'Panel de Control',
     'banking'               => 'Bancos',
@@ -95,16 +95,20 @@ return [
     'id'                    => 'ID',
     'more_actions'          => 'Más Acciones',
     'duplicate'             => 'Duplicar',
-    'unpaid'                => 'Unpaid',
-    'paid'                  => 'Paid',
-    'overdue'               => 'Overdue',
-    'partially'             => 'Partially',
-    'partially_paid'        => 'Partially Paid',
+    'unpaid'                => 'No Pagada',
+    'paid'                  => 'Pagada',
+    'overdue'               => 'Vencida',
+    'partially'             => 'Parcial',
+    'partially_paid'        => 'Pagada Parcialmente',
+    'export'                => 'Export',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
 
     'title' => [
         'new'               => 'Nuevo :type',
         'edit'              => 'Editar :type',
     ],
+
     'form' => [
         'enter'             => 'Ingrese :field',
         'select' => [

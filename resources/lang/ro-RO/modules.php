@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'Token API',
     'api_token'             => 'Token',
+    'my_apps'               => 'Aplicatiile Mele',
     'top_paid'              => 'Cel mai bine platit',
     'new'                   => 'Nou',
     'top_free'              => 'Top gratuit',
@@ -40,9 +41,18 @@ return [
         'install'           => 'Instalare fisiere :module.',
     ],
 
+    'badge' => [
+        'installed' => 'Instalat',
+    ],
+
     'button' => [
         'uninstall'         => 'Dezinstalează',
         'disable'           => 'Dezactivează',
         'enable'            => 'Activează',
+    ],
+
+    'my' => [
+        'purchased' => 'Cumparat',
+        'installed' => 'Instalat',
     ],
 ];

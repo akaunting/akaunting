@@ -17,10 +17,10 @@ return [
     ],
 
     'requirements' => [
-        'enabled'           => ': functie moet worden ingeschakeld!',
-        'disabled'          => ': functie moet worden uitgeschakeld!',
-        'extension'         => ': extension uitbreiding moet worden geladen!',
-        'directory'         => ': folder map moet schrijfbaar zijn!',
+        'enabled'           => ':feature moet worden ingeschakeld!',
+        'disabled'          => ':feature moet worden uitgeschakeld!',
+        'extension'         => ':extension uitbreiding moet worden geladen!',
+        'directory'         => ':directory map moet schrijfbaar zijn!',
     ],
 
     'database' => [

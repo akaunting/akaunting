@@ -22,9 +22,9 @@ return [
         ],
         'timezone'          => 'Múi giờ',
         'percent' => [
-            'title'         => 'Percent (%) Position',
-            'before'        => 'Before Number',
-            'after'         => 'After Number',
+            'title'         => 'Vị trí ký hiệu %',
+            'before'        => 'Trước số',
+            'after'         => 'Sau số',
         ],
     ],
     'invoice' => [

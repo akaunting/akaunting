@@ -100,11 +100,15 @@ return [
     'overdue'               => 'Überfällig',
     'partially'             => 'Teilweise',
     'partially_paid'        => 'Teilweise bezahlt',
+    'export'                => 'Exportieren',
+    'enable'                => 'Aktivieren',
+    'disable'               => 'Deaktivieren',
 
     'title' => [
         'new'               => 'Neu :type',
         'edit'              => 'Bearbeiten :type',
     ],
+
     'form' => [
         'enter'             => 'Geben Sie :field an',
         'select' => [

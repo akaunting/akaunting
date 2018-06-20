@@ -2,29 +2,29 @@
 
 return [
 
-    'this_year'             => 'This Year',
-    'previous_year'         => 'Previous Year',
-    'this_quarter'          => 'This Quarter',
-    'previous_quarter'      => 'Previous Quarter',
-    'last_12_months'        => 'Last 12 Months',
-    'profit_loss'           => 'Profit & Loss',
-    'gross_profit'          => 'Gross Profit',
-    'net_profit'            => 'Net Profit',
-    'total_expenses'        => 'Total Expenses',
+    'this_year'             => 'Năm nay',
+    'previous_year'         => 'Năm trước',
+    'this_quarter'          => 'Quý này',
+    'previous_quarter'      => 'Quý trước',
+    'last_12_months'        => '12 tháng gần nhất',
+    'profit_loss'           => 'Lãi lỗ',
+    'gross_profit'          => 'Lợi nhuận gộp',
+    'net_profit'            => 'Lợi nhuận ròng',
+    'total_expenses'        => 'Tổng chi phí',
     'net'                   => 'NET',
 
     'summary' => [
         'income'            => 'Tổng hợp thu nhập',
         'expense'           => 'Tổng hợp chi phí',
         'income_expense'    => 'Thu nhập vs Chi phí',
-        'tax'               => 'Tax Summary',
+        'tax'               => 'Tổng hợp thuế',
     ],
 
     'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Oct-Dec',
+        '1'                 => 'Quý I',
+        '2'                 => 'Quý II',
+        '3'                 => 'Quý III',
+        '4'                 => 'Quý IV',
     ],
 
 ];

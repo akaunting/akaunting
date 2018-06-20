@@ -100,11 +100,15 @@ return [
     'overdue'               => 'Overdue',
     'partially'             => 'Partially',
     'partially_paid'        => 'Partially Paid',
+    'export'                => 'Export',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
 
     'title' => [
         'new'               => 'Thêm loại :type',
         'edit'              => 'Chỉnh sửa loại :type',
     ],
+
     'form' => [
         'enter'             => 'Nhập trường :field',
         'select' => [

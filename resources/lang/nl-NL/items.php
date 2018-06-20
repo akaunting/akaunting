@@ -8,7 +8,7 @@ return [
     'sku'                   => 'SKU',
 
     'notification' => [
-        'message'       => 'U ontvangt deze e-mail omdat : naam draait niet op voorraad.',
+        'message'       => 'U ontvangt deze e-mail omdat :name draait niet op voorraad.',
         'button'        => 'Bekijk nu',
     ],
 

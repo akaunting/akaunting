@@ -100,11 +100,15 @@ return [
     'overdue'               => 'Gecikmiş',
     'partially'             => 'Kısmen',
     'partially_paid'        => 'Kısmen Ödenmiş',
+    'export'                => 'Dışa Aktar',
+    'enable'                => 'Etkinleştir',
+    'disable'               => 'Devre Dışı Bırak',
 
     'title' => [
         'new'               => 'Yeni :type',
         'edit'              => ':type Düzenle',
     ],
+
     'form' => [
         'enter'             => ':field Girin',
         'select' => [

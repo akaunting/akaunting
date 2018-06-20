@@ -12,14 +12,14 @@ return [
     'quantity'          => 'Jumlah',
     'price'             => 'Harga',
     'sub_total'         => 'Subtotal',
-    'discount'          => 'Discount',
+    'discount'          => 'Diskon',
     'tax_total'         => 'Total Pajak',
     'total'             => 'Total',
 
     'item_name'         => 'Nama Barang | Nama Barang',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
+    'show_discount'     => 'Diskon :discount%',
+    'add_discount'      => 'Tambahkan diskon',
     'discount_desc'     => 'of subtotal',
 
     'payment_due'       => 'Pembayaran Jatuh Tempo',

@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Tiền mặt',
-    'categories_uncat'      => 'Chưa phân loại',
     'categories_deposit'    => 'Tiền gửi',
     'categories_sales'      => 'Bán hàng',
     'currencies_usd'        => 'Đô-la Mỹ',

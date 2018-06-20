@@ -22,9 +22,9 @@ return [
         ],
         'timezone'          => 'Zona Horaria',
         'percent' => [
-            'title'         => 'Percent (%) Position',
-            'before'        => 'Before Number',
-            'after'         => 'After Number',
+            'title'         => 'Posición Porcentaje (%)',
+            'before'        => 'Antes del Número',
+            'after'         => 'Después del número',
         ],
     ],
     'invoice' => [

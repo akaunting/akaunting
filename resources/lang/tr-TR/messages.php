@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type silindi!',
         'duplicated'        => ':type çoğaltıldı!',
         'imported'          => ':type içe aktarıldı!',
+        'enabled'           => ':type etkinleştirildi!',
+        'disabled'          => ':type devre dışı bırakıldı!',
     ],
     'error' => [
         'over_payment'      => 'Hata: Ödeme eklenmedi. Girilen tutar toplamı geçiyor.',
