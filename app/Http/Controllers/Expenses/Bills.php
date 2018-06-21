@@ -528,7 +528,7 @@ class Bills extends Controller
     public function export()
     {
         \Excel::create('bills', function($excel) {
-            $bills = Bill::with(['items', 'payments', 'totals'])->filter(request()->input())->get();
+            $bills = Bill::with(['items', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
 
             $excel->sheet('invoices', function($sheet) use ($bills) {
                 $sheet->fromModel($bills->makeHidden([
