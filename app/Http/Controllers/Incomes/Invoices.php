@@ -560,11 +560,21 @@ class Invoices extends Controller
             $tables = ['items', 'histories', 'payments', 'totals'];
             foreach ($tables as $table) {
                 $excel->sheet('invoice_' . $table, function($sheet) use ($invoices, $table) {
-                    $invoices->each(function ($bill) use ($sheet, $table) {
-                        $sheet->fromModel($bill->$table->makeHidden([
-                            'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
-                        ]));
-                    });
+                    $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at'];
+
+                    $i = 1;
+                    foreach ($invoices as $invoice) {
+                        $model = $invoice->$table->makeHidden($hidden_fields);
+
+                        if ($i == 1) {
+                            $sheet->fromModel($model, null, 'A1', false);
+                        } else {
+                            // Don't put multiple heading columns
+                            $sheet->fromModel($model, null, 'A1', false, false);
+                        }
+
+                        $i++;
+                    }
                 });
             }
         })->download('xlsx');
