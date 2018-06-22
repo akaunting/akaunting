@@ -11,7 +11,6 @@ services:
       MYSQL_PASSWORD: akaunting_password
   web:
     image: akaunting
-    build: ./
     volumes:
       - ./:/var/www/html
     ports:
