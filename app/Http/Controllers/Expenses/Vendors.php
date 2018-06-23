@@ -9,6 +9,7 @@ use App\Models\Expense\Payment;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use Date;
 use Illuminate\Pagination\Paginator;
@@ -124,10 +125,6 @@ class Vendors extends Controller
      */
     public function store(Request $request)
     {
-        if (empty($request['email'])) {
-            $request['email'] = '';
-        }
-
         $vendor = Vendor::create($request->all());
 
         // Upload logo
@@ -171,25 +168,9 @@ class Vendors extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            if ($sheet->getTitle() != 'vendors') {
-                return;
-            }
-
-            // Loop through all rows
-            $sheet->each(function ($row) {
-                $data = $row->toArray();
-
-                if (empty($data['email'])) {
-                    $data['email'] = '';
-                }
-
-                $data['company_id'] = session('company_id');
-
-                Vendor::create($data);
-            });
-        });
+        if (!Import::createFromFile($import, 'Expense\Vendor')) {
+            return redirect('common/import/expenses/vendors');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
 
@@ -222,10 +203,6 @@ class Vendors extends Controller
      */
     public function update(Vendor $vendor, Request $request)
     {
-        if (empty($request['email'])) {
-            $request['email'] = '';
-        }
-
         $vendor->update($request->all());
 
         // Upload logo
@@ -336,10 +313,6 @@ class Vendors extends Controller
 
     public function vendor(Request $request)
     {
-        if (empty($request['email'])) {
-            $request['email'] = '';
-        }
-
         $vendor = Vendor::create($request->all());
 
         return response()->json($vendor);

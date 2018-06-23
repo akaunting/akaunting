@@ -34,11 +34,15 @@ class Invoice extends Request
         $company_id = $this->request->get('company_id');
 
         return [
-            'customer_id' => 'required|integer',
             'invoice_number' => 'required|string|unique:invoices,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
+            'invoice_status_code' => 'required|string',
             'invoiced_at' => 'required|date',
             'due_at' => 'required|date',
+            'amount' => 'required',
             'currency_code' => 'required|string',
+            'currency_rate' => 'required',
+            'customer_id' => 'required|integer',
+            'customer_name' => 'required|string',
             'category_id' => 'required|integer',
             'attachment' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
         ];

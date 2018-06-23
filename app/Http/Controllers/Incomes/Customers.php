@@ -9,6 +9,7 @@ use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Currency;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use Date;
 use Illuminate\Http\Request as FRequest;
@@ -125,10 +126,6 @@ class Customers extends Controller
     public function store(Request $request)
     {
         if (empty($request->input('create_user'))) {
-            if (empty($request['email'])) {
-                $request['email'] = '';
-            }
-
             Customer::create($request->all());
         } else {
             // Check if user exist
@@ -191,25 +188,9 @@ class Customers extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            if ($sheet->getTitle() != 'customers') {
-                return;
-            }
-
-            // Loop through all rows
-            $sheet->each(function ($row) {
-                $data = $row->toArray();
-
-                if (empty($data['email'])) {
-                    $data['email'] = '';
-                }
-
-                $data['company_id'] = session('company_id');
-
-                Customer::create($data);
-            });
-        });
+        if (!Import::createFromFile($import, 'Income\Customer')) {
+            return redirect('common/import/incomes/customers');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 2)]);
 
@@ -243,10 +224,6 @@ class Customers extends Controller
     public function update(Customer $customer, Request $request)
     {
         if (empty($request->input('create_user'))) {
-            if (empty($request['email'])) {
-                $request['email'] = '';
-            }
-
             $customer->update($request->all());
         } else {
             // Check if user exist
@@ -372,10 +349,6 @@ class Customers extends Controller
 
     public function customer(Request $request)
     {
-        if (empty($request['email'])) {
-            $request['email'] = '';
-        }
-
         $customer = Customer::create($request->all());
 
         return response()->json($customer);
