@@ -28,6 +28,7 @@ class Payment extends Request
             'paid_at' => 'required|date',
             'amount' => 'required',
             'currency_code' => 'required|string',
+            'currency_rate' => 'required',
             'category_id' => 'required|integer',
             'payment_method' => 'required|string',
             'attachment' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
