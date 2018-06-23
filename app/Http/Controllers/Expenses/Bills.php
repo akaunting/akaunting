@@ -298,9 +298,7 @@ class Bills extends Controller
         $import->each(function ($sheet) use (&$success) {
             $slug = 'Expense\\' . str_singular(studly_case($sheet->getTitle()));
 
-            $success = Import::createFromSheet($sheet, $slug);
-
-            if (!$success) {
+            if (!$success = Import::createFromSheet($sheet, $slug)) {
                 return false;
             }
         });

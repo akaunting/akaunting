@@ -13,21 +13,9 @@ class Import
 
         // Loop through all sheets
         $import->each(function ($sheet) use (&$success, $slug) {
-            $model = '\App\Models\\' . $slug;
-            $request = '\App\Http\Requests\\' . $slug;
-
-            if (!class_exists($model) || !class_exists($request)) {
+            if (!$success = static::createFromSheet($sheet, $slug)) {
                 return false;
             }
-
-            $tmp = explode('\\', $slug);
-            $file_name = str_plural(strtolower($tmp[1]));
-
-            if ($sheet->getTitle() != $file_name) {
-                return false;
-            }
-
-            $success = static::createFromSheet($sheet, $slug);
         });
 
         return $success;
