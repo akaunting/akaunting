@@ -24,6 +24,7 @@ use App\Models\Common\Media;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
@@ -291,44 +292,22 @@ class Bills extends Controller
      */
     public function import(ImportFile $import)
     {
+        $success = true;
+
         // Loop through all sheets
-        $import->each(function ($sheet) {
-            $class = '\App\Models\Expense\\' . str_singular(studly_case($sheet->getTitle()));
+        $import->each(function ($sheet) use (&$success) {
+            $slug = 'Expense\\' . str_singular(studly_case($sheet->getTitle()));
 
-            if (!class_exists($class)) {
-                return;
+            $success = Import::createFromSheet($sheet, $slug);
+
+            if (!$success) {
+                return false;
             }
-
-            $sheet->each(function ($row) use ($sheet, $class) {
-                $data = $row->toArray();
-                $data['company_id'] = session('company_id');
-
-                switch ($sheet->getTitle()) {
-                    case 'bills':
-                        if (empty($data['vendor_email'])) {
-                            $data['vendor_email'] = '';
-                        }
-                        break;
-                    case 'bill_items':
-                        if (empty($data['tax_id'])) {
-                            $data['tax_id'] = '0';
-                        }
-                        break;
-                    case 'bill_histories':
-                        if (empty($data['notify'])) {
-                            $data['notify'] = '0';
-                        }
-                        break;
-                    case 'bill_totals':
-                        if (empty($data['amount'])) {
-                            $data['amount'] = '0';
-                        }
-                        break;
-                }
-
-                $class::create($data);
-            });
         });
+
+        if (!$success) {
+            return redirect('common/import/expenses/bills');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.bills', 2)]);
 

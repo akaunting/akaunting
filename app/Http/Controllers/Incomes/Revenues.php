@@ -12,6 +12,7 @@ use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 
@@ -135,20 +136,9 @@ class Revenues extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            if ($sheet->getTitle() != 'revenues') {
-                return;
-            }
-
-            // Loop through all rows
-            $sheet->each(function ($row) {
-                $data = $row->toArray();
-                $data['company_id'] = session('company_id');
-
-                Revenue::create($data);
-            });
-        });
+        if (!Import::createFromFile($import, 'Income\Revenue')) {
+            return redirect('common/import/incomes/revenues');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
 

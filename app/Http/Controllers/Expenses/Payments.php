@@ -10,6 +10,7 @@ use App\Models\Expense\Vendor;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 
@@ -133,20 +134,9 @@ class Payments extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            if ($sheet->getTitle() != 'payments') {
-                return;
-            }
-
-            // Loop through all rows
-            $sheet->each(function ($row) {
-                $data = $row->toArray();
-                $data['company_id'] = session('company_id');
-
-                Payment::create($data);
-            });
-        });
+        if (!Import::createFromFile($import, 'Expense\Payment')) {
+            return redirect('common/import/expenses/payments');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.payments', 2)]);
 

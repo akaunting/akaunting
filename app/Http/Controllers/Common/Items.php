@@ -9,6 +9,7 @@ use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Uploads;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 
 class Items extends Controller
@@ -106,20 +107,9 @@ class Items extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            if ($sheet->getTitle() != 'items') {
-                return;
-            }
-
-            // Loop through all rows
-            $sheet->each(function ($row) {
-                $data = $row->toArray();
-                $data['company_id'] = session('company_id');
-
-                Item::create($data);
-            });
-        });
+        if (!Import::createFromFile($import, 'Common\Item')) {
+            return redirect('common/import/common/items');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 2)]);
 
