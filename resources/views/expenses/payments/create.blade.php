@@ -87,6 +87,7 @@
             //Date picker
             $('#paid_at').datepicker({
                 format: 'yyyy-mm-dd',
+                weekStart: 1,
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'
             });
