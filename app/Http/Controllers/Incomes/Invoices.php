@@ -530,14 +530,14 @@ class Invoices extends Controller
 
             $excel->sheet('invoices', function($sheet) use ($invoices) {
                 $sheet->fromModel($invoices->makeHidden([
-                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'payments', 'totals', 'media'
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media'
                 ]));
             });
 
             $tables = ['items', 'histories', 'payments', 'totals'];
             foreach ($tables as $table) {
                 $excel->sheet('invoice_' . $table, function($sheet) use ($invoices, $table) {
-                    $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at'];
+                    $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];
 
                     $i = 1;
                     foreach ($invoices as $invoice) {
