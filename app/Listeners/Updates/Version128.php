@@ -9,7 +9,7 @@ class Version128 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.2.0';
+    const VERSION = '1.2.8';
 
     /**
      * Handle the event.
