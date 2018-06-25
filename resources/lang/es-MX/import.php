@@ -4,6 +4,6 @@ return [
 
     'import'                => 'Importar',
     'title'                 => 'Importar :type',
-    'message'               => 'Allowed file types: XLS, XLSX. Please, <a target="_blank" href=":link"><strong>download</strong></a> the sample file.',
+    'message'               => 'Tipos de archivos permitidos: XLS, XLSX. Por favor, <a target="_blank" href=":link"><strong>descarga</strong></a> el archivo de ejemplo.',
 
 ];

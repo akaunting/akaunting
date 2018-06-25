@@ -4,7 +4,7 @@ return [
 
     'title'                 => 'Token de API',
     'api_token'             => 'Token',
-    'my_apps'               => 'My Apps',
+    'my_apps'               => 'Mis Apps',
     'top_paid'              => 'Más Pagado',
     'new'                   => 'Nuevo',
     'top_free'              => 'Top Gratis',
@@ -42,7 +42,7 @@ return [
     ],
 
     'badge' => [
-        'installed' => 'Installed',
+        'installed' => 'Instalado',
     ],
 
     'button' => [
@@ -52,7 +52,7 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Purchased',
-        'installed' => 'Installed',
+        'purchased' => 'Comprado',
+        'installed' => 'Instalado',
     ],
 ];

@@ -100,9 +100,9 @@ return [
     'overdue'               => 'Vencida',
     'partially'             => 'Parcial',
     'partially_paid'        => 'Pagada Parcialmente',
-    'export'                => 'Export',
-    'enable'                => 'Enable',
-    'disable'               => 'Disable',
+    'export'                => 'Exportar',
+    'enable'                => 'Activar',
+    'disable'               => 'Desactivar',
 
     'title' => [
         'new'               => 'Nuevo :type',
