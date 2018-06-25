@@ -344,6 +344,11 @@ class Customers extends Controller
 
         $customer = Customer::find($customer_id);
 
+        // Get currency object
+        $currency = Currency::where('code', $customer->currency_code)->first();
+
+        $customer->currency_rate = $currency->rate;
+
         return response()->json($customer);
     }
 

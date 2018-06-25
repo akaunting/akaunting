@@ -117,25 +117,6 @@ class Bills extends Controller
      */
     public function store(Request $request)
     {
-        // Get vendor object
-        $vendor = Vendor::findOrFail($request['vendor_id']);
-
-        $request['vendor_name'] = $vendor->name;
-        $request['vendor_email'] = $vendor->email;
-        $request['vendor_tax_number'] = $vendor->tax_number;
-        $request['vendor_phone'] = $vendor->phone;
-        $request['vendor_address'] = $vendor->address;
-
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
-        $request['bill_status_code'] = 'draft';
-
-        $request['amount'] = 0;
-
         $bill = Bill::create($request->input());
 
         // Upload attachment
@@ -346,21 +327,6 @@ class Bills extends Controller
      */
     public function update(Bill $bill, Request $request)
     {
-        // Get vendor object
-        $vendor = Vendor::findOrFail($request['vendor_id']);
-
-        $request['vendor_name'] = $vendor->name;
-        $request['vendor_email'] = $vendor->email;
-        $request['vendor_tax_number'] = $vendor->tax_number;
-        $request['vendor_phone'] = $vendor->phone;
-        $request['vendor_address'] = $vendor->address;
-
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;

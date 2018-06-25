@@ -122,25 +122,6 @@ class Invoices extends Controller
      */
     public function store(Request $request)
     {
-        // Get customer object
-        $customer = Customer::findOrFail($request['customer_id']);
-
-        $request['customer_name'] = $customer->name;
-        $request['customer_email'] = $customer->email;
-        $request['customer_tax_number'] = $customer->tax_number;
-        $request['customer_phone'] = $customer->phone;
-        $request['customer_address'] = $customer->address;
-
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
-        $request['invoice_status_code'] = 'draft';
-
-        $request['amount'] = 0;
-
         $invoice = Invoice::create($request->input());
 
         // Upload attachment
@@ -367,21 +348,6 @@ class Invoices extends Controller
      */
     public function update(Invoice $invoice, Request $request)
     {
-        // Get customer object
-        $customer = Customer::findOrFail($request['customer_id']);
-
-        $request['customer_name'] = $customer->name;
-        $request['customer_email'] = $customer->email;
-        $request['customer_tax_number'] = $customer->tax_number;
-        $request['customer_phone'] = $customer->phone;
-        $request['customer_address'] = $customer->address;
-
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;

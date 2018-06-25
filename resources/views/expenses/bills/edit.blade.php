@@ -121,6 +121,15 @@
             {{ Form::recurring('edit', $bill) }}
 
             {{ Form::fileGroup('attachment', trans('general.attachment'),[]) }}
+
+            {{ Form::hidden('vendor_name', null, ['id' => 'vendor_name']) }}
+            {{ Form::hidden('vendor_email', null, ['id' => 'vendor_email']) }}
+            {{ Form::hidden('vendor_tax_number', null, ['id' => 'vendor_tax_number']) }}
+            {{ Form::hidden('vendor_phone', null, ['id' => 'vendor_phone']) }}
+            {{ Form::hidden('vendor_address', null, ['id' => 'vendor_address']) }}
+            {{ Form::hidden('currency_rate', null, ['id' => 'currency_rate']) }}
+            {{ Form::hidden('bill_status_code', null, ['id' => 'bill_status_code']) }}
+            {{ Form::hidden('amount', null, ['id' => 'amount']) }}
         </div>
         <!-- /.box-body -->
 
@@ -360,7 +369,14 @@
                     dataType: 'JSON',
                     data: 'vendor_id=' + $(this).val(),
                     success: function(data) {
+                        $('#vendor_name').val(data.name);
+                        $('#vendor_email').val(data.email);
+                        $('#vendor_tax_number').val(data.tax_number);
+                        $('#vendor_phone').val(data.phone);
+                        $('#vendor_address').val(data.address);
+
                         $('#currency_code').val(data.currency_code);
+                        $('#currency_rate').val(data.currency_rate);
 
                         // This event Select2 Stylesheet
                         $('#currency_code').trigger('change');

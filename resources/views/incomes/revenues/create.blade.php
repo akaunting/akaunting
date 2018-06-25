@@ -20,6 +20,7 @@
                 <div class="input-group-append">
                     {!! Form::text('currency', $account_currency_code, ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
                     {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::hidden('currency_rate', '', ['id' => 'currency_rate']) !!}
                 </div>
             </div>
         </div>
@@ -84,6 +85,8 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function(){
+            $('#account_id').trigger('change');
+
             //Date picker
             $('#paid_at').datepicker({
                 format: 'yyyy-mm-dd',
@@ -113,18 +116,20 @@
                 style : 'btn-default',
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
             });
+        });
 
-            $(document).on('change', '#account_id', function (e) {
-                $.ajax({
-                    url: '{{ url("settings/currencies/currency") }}',
-                    type: 'GET',
-                    dataType: 'JSON',
-                    data: 'account_id=' + $(this).val(),
-                    success: function(data) {
-                        $('#currency').val(data.currency_code);
-                        $('#currency_code').val(data.currency_code);
-                    }
-                });
+        $(document).on('change', '#account_id', function (e) {
+            $.ajax({
+                url: '{{ url("banking/accounts/currency") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: 'account_id=' + $(this).val(),
+                success: function(data) {
+                    $('#currency').val(data.currency_code);
+
+                    $('#currency_code').val(data.currency_code);
+                    $('#currency_rate').val(data.currency_rate);
+                }
             });
         });
 

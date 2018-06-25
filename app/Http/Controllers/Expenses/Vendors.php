@@ -308,6 +308,11 @@ class Vendors extends Controller
 
         $vendor = Vendor::find($vendor_id);
 
+        // Get currency object
+        $currency = Currency::where('code', $vendor->currency_code)->first();
+
+        $vendor->currency_rate = $currency->rate;
+
         return response()->json($vendor);
     }
 

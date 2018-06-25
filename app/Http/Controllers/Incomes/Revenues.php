@@ -84,12 +84,6 @@ class Revenues extends Controller
      */
     public function store(Request $request)
     {
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
         $revenue = Revenue::create($request->input());
 
         // Upload attachment
@@ -181,12 +175,6 @@ class Revenues extends Controller
      */
     public function update(Revenue $revenue, Request $request)
     {
-        // Get currency
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
         $revenue->update($request->input());
 
         // Upload attachment

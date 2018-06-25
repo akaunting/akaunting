@@ -115,6 +115,15 @@
         {{ Form::recurring('create') }}
 
         {{ Form::fileGroup('attachment', trans('general.attachment')) }}
+
+        {{ Form::hidden('customer_name', '', ['id' => 'customer_name']) }}
+        {{ Form::hidden('customer_email', '', ['id' => 'customer_email']) }}
+        {{ Form::hidden('customer_tax_number', '', ['id' => 'customer_tax_number']) }}
+        {{ Form::hidden('customer_phone', '', ['id' => 'customer_phone']) }}
+        {{ Form::hidden('customer_address', '', ['id' => 'customer_address']) }}
+        {{ Form::hidden('currency_rate', '', ['id' => 'currency_rate']) }}
+        {{ Form::hidden('invoice_status_code', 'draft', ['id' => 'invoice_status_code']) }}
+        {{ Form::hidden('amount', '0', ['id' => 'amount']) }}
     </div>
     <!-- /.box-body -->
 
@@ -328,7 +337,13 @@
                     dataType: 'JSON',
                     data: 'customer_id=' + $(this).val(),
                     success: function(data) {
+                        $('#customer_name').val(data.name);
+                        $('#customer_email').val(data.email);
+                        $('#customer_tax_number').val(data.tax_number);
+                        $('#customer_phone').val(data.phone);
+                        $('#customer_address').val(data.address);
                         $('#currency_code').val(data.currency_code);
+                        $('#currency_rate').val(data.currency_rate);
 
                         // This event Select2 Stylesheet
                         $('#currency_code').trigger('change');
@@ -451,6 +466,8 @@
                     $('#modal-create-customer').modal('hide');
 
                     $("#customer_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                    $('#customer_id').trigger('change');
+
                     $("#customer_id").select2('refresh');
                 },
                 error: function(error, textStatus, errorThrown) {

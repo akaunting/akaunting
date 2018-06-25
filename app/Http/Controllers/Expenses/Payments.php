@@ -82,12 +82,6 @@ class Payments extends Controller
      */
     public function store(Request $request)
     {
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
         $payment = Payment::create($request->input());
 
         // Upload attachment
@@ -179,12 +173,6 @@ class Payments extends Controller
      */
     public function update(Payment $payment, Request $request)
     {
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
         $payment->update($request->input());
 
         // Upload attachment

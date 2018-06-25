@@ -115,6 +115,15 @@
         {{ Form::recurring('create') }}
 
         {{ Form::fileGroup('attachment', trans('general.attachment'),[]) }}
+
+        {{ Form::hidden('vendor_name', '', ['id' => 'vendor_name']) }}
+        {{ Form::hidden('vendor_email', '', ['id' => 'vendor_email']) }}
+        {{ Form::hidden('vendor_tax_number', '', ['id' => 'vendor_tax_number']) }}
+        {{ Form::hidden('vendor_phone', '', ['id' => 'vendor_phone']) }}
+        {{ Form::hidden('vendor_address', '', ['id' => 'vendor_address']) }}
+        {{ Form::hidden('currency_rate', '', ['id' => 'currency_rate']) }}
+        {{ Form::hidden('bill_status_code', 'draft', ['id' => 'bill_status_code']) }}
+        {{ Form::hidden('amount', '0', ['id' => 'amount']) }}
     </div>
     <!-- /.box-body -->
 
@@ -327,7 +336,14 @@
                     dataType: 'JSON',
                     data: 'vendor_id=' + $(this).val(),
                     success: function(data) {
+                        $('#vendor_name').val(data.name);
+                        $('#vendor_email').val(data.email);
+                        $('#vendor_tax_number').val(data.tax_number);
+                        $('#vendor_phone').val(data.phone);
+                        $('#vendor_address').val(data.address);
+
                         $('#currency_code').val(data.currency_code);
+                        $('#currency_rate').val(data.currency_rate);
 
                         // This event Select2 Stylesheet
                         $('#currency_code').trigger('change');
@@ -452,6 +468,7 @@
                     $('#modal-create-vendor').modal('hide');
 
                     $("#vendor_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                    $('#vendor_id').trigger('change');
                     $("#vendor_id").select2('refresh');
                 },
                 error: function(error, textStatus, errorThrown) {

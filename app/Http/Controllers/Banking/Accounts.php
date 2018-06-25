@@ -208,4 +208,18 @@ class Accounts extends Controller
 
         return redirect('banking/accounts');
     }
+
+    public function currency()
+    {
+        $account_id = request('account_id');
+
+        $account = Account::find($account_id);
+
+        // Get currency object
+        $currency = Currency::where('code', $account->currency_code)->first();
+
+        $account->currency_rate = $currency->rate;
+
+        return response()->json($account);
+    }
 }
