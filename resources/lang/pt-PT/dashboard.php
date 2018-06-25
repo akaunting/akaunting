@@ -8,7 +8,7 @@ return [
     'overdue_invoices'          => 'Faturas Vencidas',
     'total_expenses'            => 'Despesas totais',
     'payables'                  => 'A Pagar',
-    'open_bills'                => 'Contas Abertas',
+    'open_bills'                => 'Contas em Aberto',
     'overdue_bills'             => 'Contas Vencidas',
     'total_profit'              => 'Lucro Total',
     'open_profit'               => 'Lucro em Aberto',
@@ -17,7 +17,7 @@ return [
     'no_profit_loss'            => 'Sem perda de lucro',
     'incomes_by_category'       => 'Rendimento por Categoria',
     'expenses_by_category'      => 'Despesa por Categoria',
-    'account_balance'           => 'Saldo da Conta',
+    'account_balance'           => 'Saldo da(s) Conta(s)',
     'latest_incomes'            => 'Últimas Receitas',
     'latest_expenses'           => 'Últimas Despesas',
 
