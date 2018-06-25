@@ -5,11 +5,11 @@ namespace App\Http\ViewComposers;
 use Auth;
 use App\Utilities\Updater;
 use Illuminate\View\View;
-use App\Traits\Modules;
+use App\Traits\Modules as RemoteModules;
 
 class Header
 {
-    use Modules;
+    use RemoteModules;
 
     /**
      * Bind data to the view.
@@ -60,9 +60,7 @@ class Header
 
         $updates = count(Updater::all());
 
-        if (!env('APP_INSTALLED', false)) {
-            $this->loadSuggestions();
-        }
+        $this->loadSuggestions();
 
         $view->with([
             'user' => $user,

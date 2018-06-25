@@ -20,7 +20,7 @@ class Suggestions
     public function compose(View $view)
     {
         // No need to add suggestions in console
-        if (app()->runningInConsole() || !env('APP_INSTALLED', false)) {
+        if (app()->runningInConsole() || !env('APP_INSTALLED')) {
             return;
         }
 
