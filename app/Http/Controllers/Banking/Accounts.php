@@ -213,6 +213,10 @@ class Accounts extends Controller
     {
         $account_id = request('account_id');
 
+        if (empty($account_id)) {
+            $account_id = setting('general.default_account');
+        }
+
         $account = Account::find($account_id);
 
         // Get currency object
