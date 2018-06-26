@@ -67,6 +67,10 @@ class Installer
             $requirements[] = trans('install.requirements.extension', ['extension' => 'ZIP']);
         }
 
+        if (!extension_loaded('fileinfo')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'FileInfo']);
+        }
+
         if (!is_writable(base_path('storage/app'))) {
             $requirements[] = trans('install.requirements.directory', ['directory' => 'storage/app']);
         }
