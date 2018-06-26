@@ -86,7 +86,7 @@ class Updates extends Controller
             return redirect('install/updates/post/' . $alias . '/' . version('short') . '/' . $version);
         }
 
-        flash(trans('updates.error'))->error();
+        flash(trans('updates.error'))->error()->important();
 
         return redirect()->back();
     }
@@ -103,7 +103,7 @@ class Updates extends Controller
     {
         // Check if the file mirror was successful
         if (($alias == 'core') && (version('short') != $new)) {
-            flash(trans('updates.error'))->error();
+            flash(trans('updates.error'))->error()->important();
 
             return redirect('install/updates');
         }
