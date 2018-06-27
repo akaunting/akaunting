@@ -10,6 +10,8 @@ use Illuminate\Validation\Factory as ValidationFactory;
 class Request extends FormRequest
 {
 
+    private $currency_code;
+
     public function __construct(ValidationFactory $validation)
     {
         $validation->extend(
@@ -22,11 +24,12 @@ class Request extends FormRequest
                     $currency = true;
                 }
 
+                $this->currency_code = $currency_code;
+
                 return $currency;
             },
-            trans('validation.custom.invalid_currency', ['attribute' => $currency_code])
+            trans('validation.custom.invalid_currency', ['attribute' => $this->currency_code])
         );
-
     }
 
     /**
