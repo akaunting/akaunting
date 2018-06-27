@@ -27,7 +27,7 @@ class InvoicePayment extends Request
             'account_id' => 'required|integer',
             'paid_at' => 'required|date',
             'amount' => 'required',
-            'currency_code' => 'required|string',
+            'currency_code' => 'required|string|currency',
             'payment_method' => 'required|string',
             'attachment' => 'mimes:jpeg,jpg,png,pdf',
         ];

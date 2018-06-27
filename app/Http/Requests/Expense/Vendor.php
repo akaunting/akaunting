@@ -42,7 +42,7 @@ class Vendor extends Request
         return [
             'name' => 'required|string',
             'email' => $email,
-            'currency_code' => 'required|string',
+            'currency_code' => 'required|string|currency',
         ];
     }
 }
