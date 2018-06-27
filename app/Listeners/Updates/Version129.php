@@ -5,11 +5,11 @@ namespace App\Listeners\Updates;
 use App\Events\UpdateFinished;
 use Artisan;
 
-class Version128 extends Listener
+class Version129 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.2.8';
+    const VERSION = '1.2.9';
 
     /**
      * Handle the event.
