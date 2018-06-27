@@ -218,10 +218,24 @@ class Accounts extends Controller
         }
 
         $account = Account::find($account_id);
+        
+        $currency_code = $account->currency_code;
+
+        $currency = false;
+        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+
+        if (array_key_exists($currency_code, $currencies)) {
+            $currency = true;
+        }
+
+        if (!$currency) { 
+            $currency_code = setting('general.default_currency');
+        }
 
         // Get currency object
-        $currency = Currency::where('code', $account->currency_code)->first();
+        $currency = Currency::where('code', $currency_code)->first();
 
+        $account->currency_code = $currency_code;
         $account->currency_rate = $currency->rate;
 
         return response()->json($account);

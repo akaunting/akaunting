@@ -344,9 +344,23 @@ class Customers extends Controller
 
         $customer = Customer::find($customer_id);
 
-        // Get currency object
-        $currency = Currency::where('code', $customer->currency_code)->first();
+        $currency_code = $customer->currency_code;
 
+        $currency = false;
+        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+
+        if (array_key_exists($currency_code, $currencies)) {
+            $currency = true;
+        }
+
+        if (!$currency) { 
+            $currency_code = setting('general.default_currency');
+        }
+
+        // Get currency object
+        $currency = Currency::where('code', $currency_code)->first();
+
+        $customer->currency_code = $currency_code;
         $customer->currency_rate = $currency->rate;
 
         return response()->json($customer);
