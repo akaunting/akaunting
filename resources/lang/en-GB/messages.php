@@ -18,7 +18,8 @@ return [
         'no_file'           => 'Error: No file selected!',
         'last_category'     => 'Error: Can not delete the last :type category!',
         'invalid_token'     => 'Error: The token entered is invalid!',
-        'import_failed'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
+        'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
+        'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],
     'warning' => [
         'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',

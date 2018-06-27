@@ -296,9 +296,21 @@ class Invoices extends Controller
     {
         $success = true;
 
+        $allowed_sheets = ['invoices', 'invoice_items', 'invoice_histories', 'invoice_payments', 'invoice_totals'];
+
         // Loop through all sheets
-        $import->each(function ($sheet) use (&$success) {
-            $slug = 'Income\\' . str_singular(studly_case($sheet->getTitle()));
+        $import->each(function ($sheet) use (&$success, $allowed_sheets) {
+            $sheet_title = $sheet->getTitle();
+
+            if (!in_array($sheet_title, $allowed_sheets)) {
+                $message = trans('messages.error.import_sheet');
+
+                flash($message)->error()->important();
+
+                return false;
+            }
+
+            $slug = 'Income\\' . str_singular(studly_case($sheet_title));
 
             if (!$success = Import::createFromSheet($sheet, $slug)) {
                 return false;

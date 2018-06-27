@@ -13,6 +13,14 @@ class Import
 
         // Loop through all sheets
         $import->each(function ($sheet) use (&$success, $slug) {
+            if (!static::isValidSheetName($sheet, $slug)) {
+                $message = trans('messages.error.import_sheet');
+
+                flash($message)->error()->important();
+
+                return false;
+            }
+
             if (!$success = static::createFromSheet($sheet, $slug)) {
                 return false;
             }
@@ -46,7 +54,7 @@ class Import
 
                 $model::create($data);
             } catch (ValidationException $e) {
-                $message = trans('messages.error.import_failed', [
+                $message = trans('messages.error.import_column', [
                     'message' => $e->validator->errors()->first(),
                     'sheet' => $sheet->getTitle(),
                     'line' => $index + 2,
@@ -69,4 +77,18 @@ class Import
         return $success;
     }
 
+    public static function isValidSheetName($sheet, $slug)
+    {
+        $t = explode('\\', $slug);
+
+        if (empty($t[1])) {
+            return false;
+        }
+
+        if ($sheet->getTitle() != str_plural(snake_case($t[1]))) {
+            return false;
+        }
+
+        return true;
+    }
 }
