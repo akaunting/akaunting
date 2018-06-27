@@ -60,7 +60,7 @@ class Search extends Controller
                     'name'  => $item->name,
                     'type'  => trans_choice('general.items', 1),
                     'color' => '#f5bd65',
-                    'href'  => url('items/items/' . $item->id . '/edit'),
+                    'href'  => url('common/items/' . $item->id . '/edit'),
                 ];
             }
         }
