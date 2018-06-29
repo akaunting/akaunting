@@ -1,17 +1,13 @@
-# No directory listings
+# Prevent Directory Listing
 <IfModule autoindex>
-  IndexIgnore *
+	IndexIgnore *
 </IfModule>
 
 <IfModule mod_rewrite.c>
+    # Prevent Directory Listing
     <IfModule mod_negotiation.c>
-        Options -MultiViews
+        Options -MultiViews -Indexes
     </IfModule>
-
-    Options +FollowSymlinks
-
-    # Prevent Directory listing
-    Options -Indexes
 
     RewriteEngine On
 
