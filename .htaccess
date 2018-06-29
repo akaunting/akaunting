@@ -1,3 +1,8 @@
+# No directory listings
+<IfModule autoindex>
+  IndexIgnore *
+</IfModule>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews
