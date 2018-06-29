@@ -25,7 +25,7 @@ class Items extends Controller
     {
         $items = Item::with('category')->collect();
 
-        $categories = Category::enabled()->type('item')->pluck('name', 'id')
+        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id')
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
 
         return view('common.items.index', compact('items', 'categories'));
@@ -48,9 +48,9 @@ class Items extends Controller
      */
     public function create()
     {
-        $categories = Category::enabled()->type('item')->pluck('name', 'id');
+        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
         return view('common.items.create', compact('categories', 'taxes'));
     }
@@ -127,9 +127,9 @@ class Items extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::enabled()->type('item')->pluck('name', 'id');
+        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
         return view('common.items.edit', compact('item', 'categories', 'taxes'));
     }

@@ -27,13 +27,13 @@ class Payments extends Controller
     {
         $payments = Payment::with(['vendor', 'account', 'category'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $vendors = collect(Vendor::enabled()->pluck('name', 'id'))
+        $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
 
-        $categories = collect(Category::enabled()->type('expense')->pluck('name', 'id'))
+        $categories = collect(Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
 
-        $accounts = collect(Account::enabled()->pluck('name', 'id'))
+        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
 
         $transfer_cat_id = Category::transfer();
@@ -58,15 +58,15 @@ class Payments extends Controller
      */
     public function create()
     {
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
 
-        $vendors = Vendor::enabled()->pluck('name', 'id');
+        $vendors = Vendor::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('expense')->pluck('name', 'id');
+        $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -148,15 +148,15 @@ class Payments extends Controller
      */
     public function edit(Payment $payment)
     {
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
         $account_currency_code = Account::where('id', $payment->account_id)->pluck('currency_code')->first();
 
-        $vendors = Vendor::enabled()->pluck('name', 'id');
+        $vendors = Vendor::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('expense')->pluck('name', 'id');
+        $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 

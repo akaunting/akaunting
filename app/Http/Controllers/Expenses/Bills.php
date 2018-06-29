@@ -45,7 +45,7 @@ class Bills extends Controller
     {
         $bills = Bill::with(['vendor', 'status', 'items', 'payments', 'histories'])->collect(['billed_at'=> 'desc']);
 
-        $vendors = collect(Vendor::enabled()->pluck('name', 'id'))
+        $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
 
         $statuses = collect(BillStatus::all()->pluck('name', 'code'))
@@ -73,15 +73,15 @@ class Bills extends Controller
 
         $bill->paid = $paid;
 
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
 
-        $vendors = Vendor::enabled()->pluck('name', 'id');
+        $vendors = Vendor::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -95,15 +95,15 @@ class Bills extends Controller
      */
     public function create()
     {
-        $vendors = Vendor::enabled()->pluck('name', 'id');
+        $vendors = Vendor::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
-        $items = Item::enabled()->pluck('name', 'id');
+        $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        $categories = Category::enabled()->type('expense')->pluck('name', 'id');
+        $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
         return view('expenses.bills.create', compact('vendors', 'currencies', 'items', 'taxes', 'categories'));
     }
@@ -316,15 +316,15 @@ class Bills extends Controller
      */
     public function edit(Bill $bill)
     {
-        $vendors = Vendor::enabled()->pluck('name', 'id');
+        $vendors = Vendor::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
-        $items = Item::enabled()->pluck('name', 'id');
+        $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        $categories = Category::enabled()->type('expense')->pluck('name', 'id');
+        $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
         return view('expenses.bills.edit', compact('bill', 'vendors', 'currencies', 'items', 'taxes', 'categories'));
     }

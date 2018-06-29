@@ -28,7 +28,7 @@ class Transfers extends Controller
 
         $items = Transfer::with(['payment', 'payment.account', 'revenue', 'revenue.account'])->collect('payment.paid_at');
 
-        $accounts = collect(Account::enabled()->pluck('name', 'id'))
+        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
 
         $transfers = array();
@@ -97,7 +97,7 @@ class Transfers extends Controller
      */
     public function create()
     {
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -183,7 +183,7 @@ class Transfers extends Controller
         $transfer['payment_method'] = $revenue->payment_method;
         $transfer['reference'] = $revenue->reference;
 
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 

@@ -29,13 +29,13 @@ class Revenues extends Controller
     {
         $revenues = Revenue::with(['account', 'category', 'customer'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $customers = collect(Customer::enabled()->pluck('name', 'id'))
+        $customers = collect(Customer::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.customers', 2)]), '');
 
-        $categories = collect(Category::enabled()->type('income')->pluck('name', 'id'))
+        $categories = collect(Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
 
-        $accounts = collect(Account::enabled()->pluck('name', 'id'))
+        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
 
         $transfer_cat_id = Category::transfer();
@@ -60,15 +60,15 @@ class Revenues extends Controller
      */
     public function create()
     {
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
 
-        $customers = Customer::enabled()->pluck('name', 'id');
+        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -150,15 +150,15 @@ class Revenues extends Controller
      */
     public function edit(Revenue $revenue)
     {
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
         $account_currency_code = Account::where('id', $revenue->account_id)->pluck('currency_code')->first();
 
-        $customers = Customer::enabled()->pluck('name', 'id');
+        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 

@@ -48,7 +48,7 @@ class Invoices extends Controller
     {
         $invoices = Invoice::with(['customer', 'status', 'items', 'payments', 'histories'])->collect(['invoice_number'=> 'desc']);
 
-        $customers = collect(Customer::enabled()->pluck('name', 'id'))
+        $customers = collect(Customer::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.customers', 2)]), '');
 
         $status = collect(InvoiceStatus::all()->pluck('name', 'code'))
@@ -76,15 +76,15 @@ class Invoices extends Controller
 
         $invoice->paid = $paid;
 
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
 
-        $customers = Customer::enabled()->pluck('name', 'id');
+        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -98,15 +98,15 @@ class Invoices extends Controller
      */
     public function create()
     {
-        $customers = Customer::enabled()->pluck('name', 'id');
+        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
-        $items = Item::enabled()->pluck('name', 'id');
+        $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $number = $this->getNextInvoiceNumber();
 
@@ -337,15 +337,15 @@ class Invoices extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        $customers = Customer::enabled()->pluck('name', 'id');
+        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
-        $items = Item::enabled()->pluck('name', 'id');
+        $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'items', 'taxes', 'categories'));
     }
