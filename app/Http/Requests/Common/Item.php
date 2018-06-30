@@ -39,8 +39,10 @@ class Item extends Request
             'sale_price' => 'required',
             'purchase_price' => 'required',
             'quantity' => 'required|integer',
+            'tax_id' => 'integer',
+            'category_id' => 'integer',
+            'enabled' => 'integer',
             'picture' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
-            'enabled' => 'required',
         ];
     }
 }
