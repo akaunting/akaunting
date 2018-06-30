@@ -28,6 +28,7 @@ class Account extends Request
             'number' => 'required|string',
             'currency_code' => 'required|string|currency',
             'opening_balance' => 'required',
+            'enabled' => 'integer|boolean',
         ];
     }
 }

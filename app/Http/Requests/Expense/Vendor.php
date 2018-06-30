@@ -40,11 +40,11 @@ class Vendor extends Request
         }
 
         return [
-            'user_id' => 'integer',
+            'user_id' => 'nullable|integer',
             'name' => 'required|string',
             'email' => $email,
             'currency_code' => 'required|string|currency',
-            'enabled' => 'integer',
+            'enabled' => 'integer|boolean',
         ];
     }
 }

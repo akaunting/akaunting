@@ -37,8 +37,9 @@ class Currency extends Request
             'name' => 'required|string',
             'code' => 'required|string|unique:currencies,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
             'rate' => 'required',
-            'enabled' => 'boolean',
+            'enabled' => 'integer|boolean',
             'default_currency' => 'boolean',
+            'symbol_first' => 'nullable|boolean',
         ];
     }
 }
