@@ -18,6 +18,8 @@ return [
         'no_file'           => 'Fehler: Keine Datei ausgewählt!',
         'last_category'     => 'Fehler: Kann die letzte Kategorie :type nicht löschen!',
         'invalid_token'     => 'Fehler: Der eingegebene Token ist ungültig!',
+        'import_column'     => 'Fehler: :message Name des Blattes: :sheet. Zeilennummer: :line.',
+        'import_sheet'      => 'Fehler: Name des Blattes ist nicht gültig. Bitte die Beispieldatei überprüfen.',
     ],
     'warning' => [
         'deleted'           => 'Warnung: Sie dürfen <b>:name</b> nicht löschen, da :text dazu in Bezug steht.',

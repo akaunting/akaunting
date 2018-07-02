@@ -101,8 +101,8 @@ return [
     'partially'             => 'Partial',
     'partially_paid'        => 'Platit Partial',
     'export'                => 'Export',
-    'enable'                => 'Enable',
-    'disable'               => 'Disable',
+    'enable'                => 'Activeaza',
+    'disable'               => 'Dezactiveaza',
 
     'title' => [
         'new'               => ':type nou',

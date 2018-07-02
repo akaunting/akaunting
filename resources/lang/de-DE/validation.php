@@ -101,6 +101,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'eigene Nachricht',
         ],
+        'invalid_currency' => 'Das :attribute Kürzel ist ungültig.',
     ],
 
     /*

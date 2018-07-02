@@ -101,6 +101,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'Özel Mesaj',
         ],
+        'invalid_currency' => ':attribute geçersiz bir döviz kuru kodu.',
     ],
 
     /*

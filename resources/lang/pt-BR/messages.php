@@ -18,6 +18,8 @@ return [
         'no_file'           => 'Erro: Nenhum arquivo selecionado!',
         'last_category'     => 'Erro: Não foi possível excluir a última :type categoria!',
         'invalid_token'     => 'Erro: O símbolo inserido é inválido!',
+        'import_column'     => 'Erro: :message Planilha: :sheet. Número da linha: :line.',
+        'import_sheet'      => 'Erro: Planilha não é válida. Por favor, verifique o arquivo de exemplo.',
     ],
     'warning' => [
         'deleted'           => 'Aviso: Você não têm permissão para excluir <b>:name</b>, porque possui o :text relacionado.',
