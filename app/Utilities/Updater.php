@@ -114,7 +114,7 @@ class Updater
             return false;
         }
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && ($response->getStatusCode() == 200)) {
             $file = $response->getBody()->getContents();
         }
 
