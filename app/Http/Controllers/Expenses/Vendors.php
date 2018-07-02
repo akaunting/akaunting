@@ -304,21 +304,26 @@ class Vendors extends Controller
 
     public function currency()
     {
-        $vendor_id = request('vendor_id');
+        $vendor_id = (int) request('vendor_id');
 
+        if (empty($vendor_id)) {
+            return response()->json([]);
+        }
+        
         $vendor = Vendor::find($vendor_id);
 
-        $currency_code = $vendor->currency_code;
-
-        $currency = false;
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
-
-        if (array_key_exists($currency_code, $currencies)) {
-            $currency = true;
+        if (empty($vendor)) {
+            return response()->json([]);
         }
 
-        if (!$currency) { 
-            $currency_code = setting('general.default_currency');
+        $currency_code = setting('general.default_currency');
+
+        if (isset($vendor->currency_code)) {
+            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+
+            if (array_key_exists($vendor->currency_code, $currencies)) {
+                $currency_code = $vendor->currency_code;
+            }
         }
 
         // Get currency object

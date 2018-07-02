@@ -340,21 +340,26 @@ class Customers extends Controller
 
     public function currency()
     {
-        $customer_id = request('customer_id');
+        $customer_id = (int) request('customer_id');
+
+        if (empty($customer_id)) {
+            return response()->json([]);
+        }
 
         $customer = Customer::find($customer_id);
 
-        $currency_code = $customer->currency_code;
-
-        $currency = false;
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
-
-        if (array_key_exists($currency_code, $currencies)) {
-            $currency = true;
+        if (empty($customer)) {
+            return response()->json([]);
         }
 
-        if (!$currency) { 
-            $currency_code = setting('general.default_currency');
+        $currency_code = setting('general.default_currency');
+
+        if (isset($customer->currency_code)) {
+            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+
+            if (array_key_exists($customer->currency_code, $currencies)) {
+                $currency_code = $customer->currency_code;
+            }
         }
 
         // Get currency object

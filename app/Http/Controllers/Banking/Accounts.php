@@ -211,25 +211,26 @@ class Accounts extends Controller
 
     public function currency()
     {
-        $account_id = request('account_id');
+        $account_id = (int) request('account_id');
 
         if (empty($account_id)) {
-            $account_id = setting('general.default_account');
+            return response()->json([]);
         }
 
         $account = Account::find($account_id);
-        
-        $currency_code = $account->currency_code;
 
-        $currency = false;
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
-
-        if (array_key_exists($currency_code, $currencies)) {
-            $currency = true;
+        if (empty($account)) {
+            return response()->json([]);
         }
 
-        if (!$currency) { 
-            $currency_code = setting('general.default_currency');
+        $currency_code = setting('general.default_currency');
+
+        if (isset($account->currency_code)) {
+            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+
+            if (array_key_exists($account->currency_code, $currencies)) {
+                $currency_code = $account->currency_code;
+            }
         }
 
         // Get currency object
