@@ -22,7 +22,7 @@ class Modules extends Controller
             return $s;
         })->pluck('value', 'key');
 
-        $module = Module::get($alias);
+        $module = Module::findByAlias($alias);
 
         return view('settings.modules.edit', compact('setting', 'module'));
     }

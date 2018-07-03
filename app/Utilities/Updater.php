@@ -70,7 +70,7 @@ class Updater
             }
         } else {
             // Get module instance
-            $module = Module::get($alias);
+            $module = Module::findByAlias($alias);
             $model = Model::where('alias', $alias)->first();
 
             // Move all files/folders from temp path
