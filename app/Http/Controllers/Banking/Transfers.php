@@ -128,26 +128,25 @@ class Transfers extends Controller
 
         $payment = Payment::create($request->all());
 
-        $transfer = new Transfer();
+        // Convert amount if not same currency
+        if ($payment_currency_code != $revenue_currency_code) {
+            $transfer = new Transfer();
 
-        $transfer->default_currency_code = $payment_currency_code;
-        $transfer->amount = $request['amount'];
-        $transfer->currency_code = $revenue_currency_code;
-        $transfer->currency_rate = $currencies[$revenue_currency_code];
+            $transfer->default_currency_code = $payment_currency_code;
+            $transfer->amount = $request['amount'];
+            $transfer->currency_code = $revenue_currency_code;
+            $transfer->currency_rate = $currencies[$revenue_currency_code];
 
-        $amount = $transfer->getDynamicConvertedAmount();
+            $amount = $transfer->getDynamicConvertedAmount();
+        } else {
+            $amount = $request['amount'];
+        }
 
         $request['account_id'] = $request['to_account_id'];
-        // paid_at
         $request['amount'] = $amount;
         $request['currency_code'] = $revenue_currency_code;
         $request['currency_rate'] = $currencies[$revenue_currency_code];
         $request['customer_id'] = '0';
-        // description
-        // category_id
-        // payment_method
-        // reference
-        // attachment
 
         $revenue = Revenue::create($request->all());
 
@@ -218,27 +217,26 @@ class Transfers extends Controller
 
         $payment->update($request->all());
 
-        $transfer = new Transfer();
+        // Convert amount if not same currency
+        if ($payment_currency_code != $revenue_currency_code) {
+            $transfer = new Transfer();
 
-        $transfer->default_currency_code = $payment_currency_code;
-        $transfer->amount = $request['amount'];
-        $transfer->currency_code = $revenue_currency_code;
-        $transfer->currency_rate = $currencies[$revenue_currency_code];
+            $transfer->default_currency_code = $payment_currency_code;
+            $transfer->amount = $request['amount'];
+            $transfer->currency_code = $revenue_currency_code;
+            $transfer->currency_rate = $currencies[$revenue_currency_code];
 
-        $amount = $transfer->getDynamicConvertedAmount();
+            $amount = $transfer->getDynamicConvertedAmount();
+        } else {
+            $amount = $request['amount'];
+        }
 
         $request['account_id'] = $request['to_account_id'];
-        // paid_at
         $request['amount'] = $amount;
         $request['currency_code'] = $revenue_currency_code;
         $request['currency_rate'] = $currencies[$revenue_currency_code];
         $request['customer_id'] = '0';
-        // description
-        // category_id
-        // payment_method
-        // reference
-        // attachment
-
+        
         $revenue->update($request->all());
 
         $request['payment_id'] = $payment->id;
