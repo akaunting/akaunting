@@ -99,7 +99,7 @@ class Versions
         }
 
         // Bad response
-        if ($response->getStatusCode() != 200) {
+        if (!$response || ($response->getStatusCode() != 200)) {
             return $latest;
         }
 
