@@ -103,7 +103,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
                 Route::resource('accounts', 'Banking\Accounts');
                 Route::resource('transactions', 'Banking\Transactions');
-                Route::resource('transfers', 'Banking\Transfers');
+                Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['transfer.dateformat']]);
             });
 
             Route::group(['prefix' => 'reports'], function () {

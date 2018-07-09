@@ -11,6 +11,7 @@ use App\Models\Expense\Payment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
+use Date;
 
 use App\Utilities\Modules;
 
@@ -26,7 +27,7 @@ class Transfers extends Controller
     {
         $request = request();
 
-        $items = Transfer::with(['payment', 'payment.account', 'revenue', 'revenue.account'])->collect('payment.paid_at');
+        $items = Transfer::with(['payment', 'payment.account', 'revenue', 'revenue.account'])->collect(['payment.paid_at' => 'desc']);
 
         $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
@@ -118,42 +119,59 @@ class Transfers extends Controller
         $payment_currency_code = Account::where('id', $request['from_account_id'])->pluck('currency_code')->first();
         $revenue_currency_code = Account::where('id', $request['to_account_id'])->pluck('currency_code')->first();
 
-        $request['account_id'] = $request['from_account_id'];
-        $request['paid_at'] = $request['transferred_at'];
-        $request['currency_code'] = $payment_currency_code;
-        $request['currency_rate'] = $currencies[$payment_currency_code];
-        $request['vendor_id'] = '0';
-        $request['category_id'] = Category::transfer(); // Transfer Category ID
-        $request['attachment'] = '';
+        $payment_request = [
+            'company_id' => $request['company_id'],
+            'account_id' => $request['from_account_id'],
+            'paid_at' => $request['transferred_at'],
+            'amount' => $request['amount'],
+            'currency_code' => $payment_currency_code,
+            'currency_rate' => $currencies[$payment_currency_code],
+            'vendor_id' => 0,
+            'description' => $request['description'],
+            'category_id' => Category::transfer(), // Transfer Category ID
+            'payment_method' => $request['payment_method'],
+            'reference' => $request['reference'],
+        ];
 
-        $payment = Payment::create($request->all());
+        $payment = Payment::create($payment_request);
 
         // Convert amount if not same currency
         if ($payment_currency_code != $revenue_currency_code) {
-            $transfer = new Transfer();
+            $transfer_amount = new Transfer();
 
-            $transfer->default_currency_code = $payment_currency_code;
-            $transfer->amount = $request['amount'];
-            $transfer->currency_code = $revenue_currency_code;
-            $transfer->currency_rate = $currencies[$revenue_currency_code];
+            $transfer_amount->default_currency_code = $payment_currency_code;
+            $transfer_amount->amount = $request['amount'];
+            $transfer_amount->currency_code = $revenue_currency_code;
+            $transfer_amount->currency_rate = $currencies[$revenue_currency_code];
 
-            $amount = $transfer->getDynamicConvertedAmount();
+            $amount = $transfer_amount->getDynamicConvertedAmount();
         } else {
             $amount = $request['amount'];
         }
 
-        $request['account_id'] = $request['to_account_id'];
-        $request['amount'] = $amount;
-        $request['currency_code'] = $revenue_currency_code;
-        $request['currency_rate'] = $currencies[$revenue_currency_code];
-        $request['customer_id'] = '0';
+        $revenue_request = [
+            'company_id' => $request['company_id'],
+            'account_id' => $request['to_account_id'],
+            'paid_at' => $request['transferred_at'],
+            'amount' => $amount,
+            'currency_code' => $revenue_currency_code,
+            'currency_rate' => $currencies[$revenue_currency_code],
+            'customer_id' => 0,
+            'description' => $request['description'],
+            'category_id' => Category::transfer(), // Transfer Category ID
+            'payment_method' => $request['payment_method'],
+            'reference' => $request['reference'],
+        ];
 
-        $revenue = Revenue::create($request->all());
+        $revenue = Revenue::create($revenue_request);
 
-        $request['payment_id'] = $payment->id;
-        $request['revenue_id'] = $revenue->id;
+        $transfer_request = [
+            'company_id' => $request['company_id'],
+            'payment_id' => $payment->id,
+            'revenue_id' => $revenue->id,
+        ];
 
-        Transfer::create($request->all());
+        Transfer::create($transfer_request);
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.transfers', 1)]);
 
@@ -176,11 +194,11 @@ class Transfers extends Controller
 
         $transfer['from_account_id'] = $payment->account_id;
         $transfer['to_account_id'] = $revenue->account_id;
-        $transfer['transferred_at'] = $revenue->deposited_at;
-        $transfer['description'] = $revenue->description;
-        $transfer['amount'] = $revenue->amount;
-        $transfer['payment_method'] = $revenue->payment_method;
-        $transfer['reference'] = $revenue->reference;
+        $transfer['transferred_at'] = Date::parse($payment->paid_at)->format('Y-m-d');
+        $transfer['description'] = $payment->description;
+        $transfer['amount'] = $payment->amount;
+        $transfer['payment_method'] = $payment->payment_method;
+        $transfer['reference'] = $payment->reference;
 
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -207,42 +225,59 @@ class Transfers extends Controller
         $payment = Payment::findOrFail($transfer->payment_id);
         $revenue = Revenue::findOrFail($transfer->revenue_id);
 
-        $request['account_id'] = $request['from_account_id'];
-        $request['paid_at'] = $request['transferred_at'];
-        $request['currency_code'] = $payment_currency_code;
-        $request['currency_rate'] = $currencies[$payment_currency_code];
-        $request['vendor_id'] = '0';
-        $request['category_id'] = Category::transfer(); // Transfer Category ID
-        $request['attachment'] = '';
+        $payment_request = [
+            'company_id' => $request['company_id'],
+            'account_id' => $request['from_account_id'],
+            'paid_at' => $request['transferred_at'],
+            'amount' => $request['amount'],
+            'currency_code' => $payment_currency_code,
+            'currency_rate' => $currencies[$payment_currency_code],
+            'vendor_id' => 0,
+            'description' => $request['description'],
+            'category_id' => Category::transfer(), // Transfer Category ID
+            'payment_method' => $request['payment_method'],
+            'reference' => $request['reference'],
+        ];
 
-        $payment->update($request->all());
+        $payment->update($payment_request);
 
         // Convert amount if not same currency
         if ($payment_currency_code != $revenue_currency_code) {
-            $transfer = new Transfer();
+            $transfer_amount = new Transfer();
 
-            $transfer->default_currency_code = $payment_currency_code;
-            $transfer->amount = $request['amount'];
-            $transfer->currency_code = $revenue_currency_code;
-            $transfer->currency_rate = $currencies[$revenue_currency_code];
+            $transfer_amount->default_currency_code = $payment_currency_code;
+            $transfer_amount->amount = $request['amount'];
+            $transfer_amount->currency_code = $revenue_currency_code;
+            $transfer_amount->currency_rate = $currencies[$revenue_currency_code];
 
-            $amount = $transfer->getDynamicConvertedAmount();
+            $amount = $transfer_amount->getDynamicConvertedAmount();
         } else {
             $amount = $request['amount'];
         }
 
-        $request['account_id'] = $request['to_account_id'];
-        $request['amount'] = $amount;
-        $request['currency_code'] = $revenue_currency_code;
-        $request['currency_rate'] = $currencies[$revenue_currency_code];
-        $request['customer_id'] = '0';
-        
-        $revenue->update($request->all());
+        $revenue_request = [
+            'company_id' => $request['company_id'],
+            'account_id' => $request['to_account_id'],
+            'paid_at' => $request['transferred_at'],
+            'amount' => $amount,
+            'currency_code' => $revenue_currency_code,
+            'currency_rate' => $currencies[$revenue_currency_code],
+            'customer_id' => 0,
+            'description' => $request['description'],
+            'category_id' => Category::transfer(), // Transfer Category ID
+            'payment_method' => $request['payment_method'],
+            'reference' => $request['reference'],
+        ];
 
-        $request['payment_id'] = $payment->id;
-        $request['revenue_id'] = $revenue->id;
+        $revenue->update($revenue_request);
 
-        $transfer->update($request->all());
+        $transfer_request = [
+            'company_id' => $request['company_id'],
+            'payment_id' => $payment->id,
+            'revenue_id' => $revenue->id,
+        ];
+
+        $transfer->update($transfer_request);
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.transfers', 1)]);
 
@@ -263,9 +298,9 @@ class Transfers extends Controller
         $payment = Payment::findOrFail($transfer->payment_id);
         $revenue = Revenue::findOrFail($transfer->revenue_id);
 
-        $transfer->delete();
         $payment->delete();
         $revenue->delete();
+        $transfer->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.transfers', 1)]);
 

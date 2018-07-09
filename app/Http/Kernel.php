@@ -95,5 +95,6 @@ class Kernel extends HttpKernel
         'invoice.dateformat' => \App\Http\Middleware\InvoiceDateFormat::class,
         'payment.dateformat' => \App\Http\Middleware\PaymentDateFormat::class,
         'revenue.dateformat' => \App\Http\Middleware\RevenueDateFormat::class,
+        'transfer.dateformat' => \App\Http\Middleware\TransferDateFormat::class,
     ];
 }
