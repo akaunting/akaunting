@@ -10,6 +10,9 @@
         <div class="box-body">
             {{ Form::textGroup('paid_at', trans('general.date'), 'calendar',['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => ''], Date::now()->toDateString()) }}
 
+            {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+            {!! Form::hidden('currency_rate', '', ['id' => 'currency_rate']) !!}
+
             {{ Form::textGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
 
             <div class="form-group col-md-6 form-small">
@@ -19,8 +22,6 @@
                     {!! Form::select('account_id', $accounts, setting('general.default_account'), array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)])])) !!}
                     <div class="input-group-append">
                         {!! Form::text('currency', $account_currency_code, ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
-                        {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
-                        {!! Form::hidden('currency_rate', '', ['id' => 'currency_rate']) !!}
                     </div>
                 </div>
             </div>
@@ -170,7 +171,7 @@
             modal += '                      <label for="email" class="control-label">{{ trans_choice('general.currencies', 1) }}</label>';
             modal += '                      <div class="input-group">';
             modal += '                          <div class="input-group-addon"><i class="fa fa-exchange"></i></div>';
-            modal += '                          <select class="form-control" required="required" id="currency_code" name="currency_code">';
+            modal += '                          <select class="form-control" required="required" id="vendor_currency_code" name="currency_code">';
             modal += '                              <option value="">{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}</option>';
             @foreach($currencies as $currency_code => $currency_name)
                     modal += '                              <option value="{{ $currency_code }}" {{ (setting('general.default_currency') == $currency_code) ? 'selected' : '' }}>{{ $currency_name }}</option>';
@@ -198,7 +199,7 @@
 
             $('body').append(modal);
 
-            $("#modal-create-vendor #currency_code").select2({
+            $("#modal-create-vendor #vendor_currency_code").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
             });
 
@@ -229,18 +230,18 @@
                     $('#span-loading').remove();
 
                     if (error.responseJSON.name) {
-                        $("input[name='name']").parent().parent().addClass('has-error');
-                        $("input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');
+                        $("#modal-create-vendor input[name='name']").parent().parent().addClass('has-error');
+                        $("#modal-create-vendor input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');
                     }
 
                     if (error.responseJSON.email) {
-                        $("input[name='email']").parent().parent().addClass('has-error');
-                        $("input[name='email']").parent().after('<p class="help-block">' + error.responseJSON.email + '</p>');
+                        $("#modal-create-vendor input[name='email']").parent().parent().addClass('has-error');
+                        $("#modal-create-vendor input[name='email']").parent().after('<p class="help-block">' + error.responseJSON.email + '</p>');
                     }
 
                     if (error.responseJSON.currency_code) {
-                        $("select[name='currency_code']").parent().parent().addClass('has-error');
-                        $("select[name='currency_code']").parent().after('<p class="help-block">' + error.responseJSON.currency_code + '</p>');
+                        $("#modal-create-vendor select[name='currency_code']").parent().parent().addClass('has-error');
+                        $("#modal-create-vendor select[name='currency_code']").parent().after('<p class="help-block">' + error.responseJSON.currency_code + '</p>');
                     }
                 }
             });
@@ -318,13 +319,13 @@
                     $('#span-loading').remove();
 
                     if (error.responseJSON.name) {
-                        $("input[name='name']").parent().parent().addClass('has-error');
-                        $("input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');
+                        $("#modal-create-category input[name='name']").parent().parent().addClass('has-error');
+                        $("#modal-create-category input[name='name']").parent().after('<p class="help-block">' + error.responseJSON.name + '</p>');
                     }
 
                     if (error.responseJSON.color) {
-                        $("input[name='color']").parent().parent().addClass('has-error');
-                        $("input[name='color']").parent().after('<p class="help-block">' + error.responseJSON.color + '</p>');
+                        $("#modal-create-category input[name='color']").parent().parent().addClass('has-error');
+                        $("#modal-create-category input[name='color']").parent().after('<p class="help-block">' + error.responseJSON.color + '</p>');
                     }
                 }
             });
