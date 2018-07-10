@@ -17,7 +17,11 @@
 
     <div class="box box-success">
         <section class="invoice">
-            <span class="badge bg-aqua">{{ $invoice->status->name }}</span>
+            <div id="badge">
+                <div class="arrow-up"></div>
+                <div class="label {{ $invoice->status->label }}">{{ $invoice->status->name }}</div>
+                <div class="arrow-right"></div>
+            </div>
 
             <div class="row invoice-header">
                 <div class="col-xs-7">
@@ -158,10 +162,10 @@
 
             <div class="box-footer row no-print">
                 <div class="col-md-12">
-                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/edit') }}" class="btn btn-primary">
+                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/edit') }}" class="btn btn-default">
                         <i class="fa fa-pencil-square-o"></i>&nbsp; {{ trans('general.edit') }}
                     </a>
-                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-default">
+                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-success">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
                     <div class="btn-group dropup">

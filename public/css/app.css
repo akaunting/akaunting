@@ -620,3 +620,45 @@ input[type="number"] {
 .invoice, .bill {
     border: none !important;
 }
+
+#badge div.label {
+    margin-top: 15px;
+    width: 180px;
+    margin-right: -30px;
+    position: absolute;
+    right: 0;
+    font-size: 14px;
+    z-index: 99;
+    -moz-transform: rotate(40deg);
+    -webkit-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    -o-transform: rotate(40deg);
+    transform: rotate(40deg);
+    border-radius: 0;
+}
+
+#badge .arrow-up {
+    position: absolute;
+    right: 0;
+    margin-right: 100px;
+    z-index: 999;
+    margin-top: -50px;
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 25px solid #ecf0f5;
+}
+
+#badge .arrow-right {
+    position: absolute;
+    margin-top: 55px;
+    z-index: 999;
+    margin-right: -23px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #ecf0f5;
+}
