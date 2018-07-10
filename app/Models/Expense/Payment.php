@@ -112,7 +112,7 @@ class Payment extends Model
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) $value;
+        $this->attributes['amount'] = (double) money($value, $this->attributes['currency_code'])->getAmount();
     }
 
     /**

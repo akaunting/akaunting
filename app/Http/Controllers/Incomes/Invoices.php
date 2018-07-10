@@ -754,7 +754,20 @@ class Invoices extends Controller
 
         $invoice->save();
 
-        $invoice_payment = InvoicePayment::create($request->input());
+        $invoice_payment_request = [
+            'company_id'     => $request['company_id'],
+            'invoice_id'     => $request['invoice_id'],
+            'account_id'     => $request['account_id'],
+            'paid_at'        => $request['paid_at'],
+            'amount'         => $request['amount'],
+            'currency_code'  => $request['currency_code'],
+            'currency_rate'  => $request['currency_rate'],
+            'description'    => $request['description'],
+            'payment_method' => $request['payment_method'],
+            'reference'      => $request['reference']
+        ];
+
+        $invoice_payment = InvoicePayment::create($invoice_payment_request);
 
         // Upload attachment
         if ($request->file('attachment')) {

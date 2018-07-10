@@ -60,7 +60,7 @@ class BillPayment extends Model
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) $value;
+        $this->attributes['amount'] = (double) money($value, $this->account->currency_code)->getAmount();
     }
 
     /**

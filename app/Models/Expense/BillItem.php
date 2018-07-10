@@ -42,7 +42,7 @@ class BillItem extends Model
      */
     public function setPriceAttribute($value)
     {
-        $this->attributes['price'] = (double) $value;
+        $this->attributes['price'] = (double) money($value, $this->bill->currency_code)->getAmount();
     }
 
     /**
@@ -53,6 +53,17 @@ class BillItem extends Model
      */
     public function setTotalAttribute($value)
     {
-        $this->attributes['total'] = (double) $value;
+        $this->attributes['total'] = (double) money($value, $this->bill->currency_code)->getAmount();
+    }
+
+    /**
+     * Convert tax to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setTaxAttribute($value)
+    {
+        $this->attributes['tax'] = (double) money($value, $this->bill->currency_code)->getAmount();
     }
 }

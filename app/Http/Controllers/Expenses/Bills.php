@@ -617,7 +617,20 @@ class Bills extends Controller
 
         $bill->save();
 
-        $bill_payment = BillPayment::create($request->input());
+        $bill_payment_request = [
+            'company_id'     => $request['company_id'],
+            'bill_id'        => $request['bill_id'],
+            'account_id'     => $request['account_id'],
+            'paid_at'        => $request['paid_at'],
+            'amount'         => $request['amount'],
+            'currency_code'  => $request['currency_code'],
+            'currency_rate'  => $request['currency_rate'],
+            'description'    => $request['description'],
+            'payment_method' => $request['payment_method'],
+            'reference'      => $request['reference']
+        ];
+
+        $bill_payment = BillPayment::create($bill_payment_request);
 
         // Upload attachment
         if ($request->file('attachment')) {

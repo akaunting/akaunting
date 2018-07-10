@@ -642,12 +642,12 @@ input[type="number"] {
     right: 0;
     margin-right: 100px;
     z-index: 999;
-    margin-top: -50px;
+    margin-top: -43px;
     width: 0;
     height: 0;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
-    border-bottom: 25px solid #ecf0f5;
+    border-bottom: 19px solid #ecf0f5;
 }
 
 #badge .arrow-right {
