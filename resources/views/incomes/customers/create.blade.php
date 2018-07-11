@@ -136,7 +136,15 @@
                             }
 
                             if (json['success']) {
-                                $('input[name="password_confirmation"]').after('<input name="user_id" type="hidden" value="' + json['data']['id'] + '" id="user-id">');
+                                unselect();
+                                $('input[name="email"]').parent().parent().addClass('has-error');
+                                $('input[name="email"]').parent().after('<p class="help-block">{{ trans('customers.error.email') }}</p>');
+                                $('input[name="email"]').focus();
+
+                                $('.box-footer .btn').attr('disabled', false);
+                                $('.loading').remove();
+
+                                return false;
                             }
                         }
                     });
