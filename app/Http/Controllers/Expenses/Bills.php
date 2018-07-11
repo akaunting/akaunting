@@ -601,6 +601,16 @@ class Bills extends Controller
             $total_amount -= $bill->payments()->paid();
         }
 
+        // For amount cover integer
+        $multiplier = 1;
+
+        for ($i = 0; $i < $currency->precision; $i++) {
+            $multiplier *= 10;
+        }
+        
+        $amount *=  $multiplier;
+        $total_amount *=  $multiplier;
+
         if ($amount > $total_amount) {
             $message = trans('messages.error.over_payment');
 
