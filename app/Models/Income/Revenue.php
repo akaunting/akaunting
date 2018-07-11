@@ -10,6 +10,7 @@ use App\Traits\Media;
 use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
+use Date;
 
 class Revenue extends Model
 {

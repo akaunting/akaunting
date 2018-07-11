@@ -6,6 +6,7 @@ use App\Models\Model;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
+use Date;
 
 class InvoicePayment extends Model
 {
