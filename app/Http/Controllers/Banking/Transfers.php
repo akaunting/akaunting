@@ -123,9 +123,9 @@ class Transfers extends Controller
             'company_id' => $request['company_id'],
             'account_id' => $request['from_account_id'],
             'paid_at' => $request['transferred_at'],
-            'amount' => $request['amount'],
             'currency_code' => $payment_currency_code,
             'currency_rate' => $currencies[$payment_currency_code],
+            'amount' => $request['amount'],
             'vendor_id' => 0,
             'description' => $request['description'],
             'category_id' => Category::transfer(), // Transfer Category ID
@@ -153,9 +153,9 @@ class Transfers extends Controller
             'company_id' => $request['company_id'],
             'account_id' => $request['to_account_id'],
             'paid_at' => $request['transferred_at'],
-            'amount' => $amount,
             'currency_code' => $revenue_currency_code,
             'currency_rate' => $currencies[$revenue_currency_code],
+            'amount' => $amount,
             'customer_id' => 0,
             'description' => $request['description'],
             'category_id' => Category::transfer(), // Transfer Category ID
@@ -229,9 +229,9 @@ class Transfers extends Controller
             'company_id' => $request['company_id'],
             'account_id' => $request['from_account_id'],
             'paid_at' => $request['transferred_at'],
-            'amount' => $request['amount'],
             'currency_code' => $payment_currency_code,
             'currency_rate' => $currencies[$payment_currency_code],
+            'amount' => $request['amount'],
             'vendor_id' => 0,
             'description' => $request['description'],
             'category_id' => Category::transfer(), // Transfer Category ID
@@ -259,9 +259,9 @@ class Transfers extends Controller
             'company_id' => $request['company_id'],
             'account_id' => $request['to_account_id'],
             'paid_at' => $request['transferred_at'],
-            'amount' => $amount,
             'currency_code' => $revenue_currency_code,
             'currency_rate' => $currencies[$revenue_currency_code],
+            'amount' => $amount,
             'customer_id' => 0,
             'description' => $request['description'],
             'category_id' => Category::transfer(), // Transfer Category ID

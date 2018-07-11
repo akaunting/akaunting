@@ -91,10 +91,5 @@ class Kernel extends HttpKernel
         'install' => \App\Http\Middleware\CanInstall::class,
         'company.settings' => \App\Http\Middleware\LoadSettings::class,
         'company.currencies' => \App\Http\Middleware\LoadCurrencies::class,
-        'bill.dateformat' => \App\Http\Middleware\BillDateFormat::class,
-        'invoice.dateformat' => \App\Http\Middleware\InvoiceDateFormat::class,
-        'payment.dateformat' => \App\Http\Middleware\PaymentDateFormat::class,
-        'revenue.dateformat' => \App\Http\Middleware\RevenueDateFormat::class,
-        'transfer.dateformat' => \App\Http\Middleware\TransferDateFormat::class,
     ];
 }

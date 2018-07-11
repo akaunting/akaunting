@@ -53,15 +53,15 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('invoices/{invoice}/print', 'Incomes\Invoices@printInvoice');
                 Route::get('invoices/{invoice}/pdf', 'Incomes\Invoices@pdfInvoice');
                 Route::get('invoices/{invoice}/duplicate', 'Incomes\Invoices@duplicate');
-                Route::post('invoices/payment', 'Incomes\Invoices@payment')->middleware('invoice.dateformat')->name('invoice.payment');
+                Route::post('invoices/payment', 'Incomes\Invoices@payment')->name('invoice.payment');
                 Route::delete('invoices/payment/{payment}', 'Incomes\Invoices@paymentDestroy');
                 Route::post('invoices/import', 'Incomes\Invoices@import')->name('invoices.import');
                 Route::get('invoices/export', 'Incomes\Invoices@export')->name('invoices.export');
-                Route::resource('invoices', 'Incomes\Invoices', ['middleware' => ['invoice.dateformat']]);
+                Route::resource('invoices', 'Incomes\Invoices');
                 Route::get('revenues/{revenue}/duplicate', 'Incomes\Revenues@duplicate');
                 Route::post('revenues/import', 'Incomes\Revenues@import')->name('revenues.import');
                 Route::get('revenues/export', 'Incomes\Revenues@export')->name('revenues.export');
-                Route::resource('revenues', 'Incomes\Revenues', ['middleware' => ['revenue.dateformat']]);
+                Route::resource('revenues', 'Incomes\Revenues');
                 Route::get('customers/currency', 'Incomes\Customers@currency');
                 Route::get('customers/{customer}/duplicate', 'Incomes\Customers@duplicate');
                 Route::post('customers/customer', 'Incomes\Customers@customer');
@@ -78,15 +78,15 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('bills/{bill}/print', 'Expenses\Bills@printBill');
                 Route::get('bills/{bill}/pdf', 'Expenses\Bills@pdfBill');
                 Route::get('bills/{bill}/duplicate', 'Expenses\Bills@duplicate');
-                Route::post('bills/payment', 'Expenses\Bills@payment')->middleware('bill.dateformat')->name('bill.payment');
+                Route::post('bills/payment', 'Expenses\Bills@payment')->name('bill.payment');
                 Route::delete('bills/payment/{payment}', 'Expenses\Bills@paymentDestroy');
                 Route::post('bills/import', 'Expenses\Bills@import')->name('bills.import');
                 Route::get('bills/export', 'Expenses\Bills@export')->name('bills.export');
-                Route::resource('bills', 'Expenses\Bills', ['middleware' => ['bill.dateformat']]);
+                Route::resource('bills', 'Expenses\Bills');
                 Route::get('payments/{payment}/duplicate', 'Expenses\Payments@duplicate');
                 Route::post('payments/import', 'Expenses\Payments@import')->name('payments.import');
                 Route::get('payments/export', 'Expenses\Payments@export')->name('payments.export');
-                Route::resource('payments', 'Expenses\Payments', ['middleware' => ['payment.dateformat']]);
+                Route::resource('payments', 'Expenses\Payments');
                 Route::get('vendors/currency', 'Expenses\Vendors@currency');
                 Route::get('vendors/{vendor}/duplicate', 'Expenses\Vendors@duplicate');
                 Route::post('vendors/vendor', 'Expenses\Vendors@vendor');
@@ -103,7 +103,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
                 Route::resource('accounts', 'Banking\Accounts');
                 Route::resource('transactions', 'Banking\Transactions');
-                Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['transfer.dateformat']]);
+                Route::resource('transfers', 'Banking\Transfers');
             });
 
             Route::group(['prefix' => 'reports'], function () {

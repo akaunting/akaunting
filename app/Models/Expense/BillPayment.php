@@ -86,6 +86,17 @@ class BillPayment extends Model
     }
 
     /**
+     * Convert paid_at to datetime.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPaidAtAttribute($value)
+    {
+        $this->attributes['paid_at'] = $value . ' ' . Date::now()->format('H:i:s');
+    }
+
+    /**
      * Get the current balance.
      *
      * @return string
