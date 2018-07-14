@@ -2,6 +2,7 @@
 
 namespace Database\Seeds;
 
+use App\Models\Common\Company;
 use App\Models\Model;
 use App\Models\Banking\Account;
 use Setting;
@@ -25,7 +26,7 @@ class Accounts extends Seeder
 
     private function create()
     {
-        $company_id = $this->command->argument('company');
+        $company_id = Company::first()->id;
 
         $rows = [
             [

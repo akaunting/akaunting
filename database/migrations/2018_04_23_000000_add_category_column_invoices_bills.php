@@ -12,11 +12,11 @@ class AddCategoryColumnInvoicesBills extends Migration
     public function up()
     {
         Schema::table('invoices', function ($table) {
-            $table->integer('category_id');
+            $table->integer('category_id')->nullable();
         });
 
         Schema::table('bills', function ($table) {
-            $table->integer('category_id');
+            $table->integer('category_id')->nullable();
         });
     }
 
