@@ -25,7 +25,7 @@ class Settings extends Seeder
 
     private function create()
     {
-		$company_id = Company::first()->id;
+		$company_id = $this->command->argument('company');
 
         Setting::set([
             'general.date_format'               => 'd M Y',

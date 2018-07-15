@@ -37,12 +37,8 @@ class Info
         return phpversion();
     }
 
-    public static function mysqlVersion()
-    {
-    	if(\App::environment() === "testing") {
-    		return DB::selectOne('select sqlite_version() as mversion')->mversion;
-		}
-
-        return DB::selectOne('select version() as mversion')->mversion;
-    }
+	public static function mysqlVersion()
+	{
+		return DB::selectOne('select version() as mversion')->mversion;
+	}
 }

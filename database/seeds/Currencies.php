@@ -26,7 +26,7 @@ class Currencies extends Seeder
 
     private function create()
     {
-		$company_id = Company::first()->id;
+		$company_id = $this->command->argument('company');
 
         $rows = [
             [

@@ -26,21 +26,13 @@ class AddCurrencyColumns extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::table('currencies', function ($table) {
-            $table->dropColumn('precision');
-        });
+	{
 		Schema::table('currencies', function ($table) {
+			$table->dropColumn('precision');
 			$table->dropColumn('symbol');
-		});
-		Schema::table('currencies', function ($table) {
 			$table->dropColumn('symbol_first');
-		});
-		Schema::table('currencies', function ($table) {
 			$table->dropColumn('decimal_mark');
-		});
-		Schema::table('currencies', function ($table) {
 			$table->dropColumn('thousands_separator');
 		});
-    }
+	}
 }

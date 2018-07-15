@@ -10,10 +10,6 @@ use Illuminate\Database\Seeder;
 
 class Roles extends Seeder
 {
-	public function __construct()
-	{
-	}
-
 	/**
      * Run the database seeds.
      *
