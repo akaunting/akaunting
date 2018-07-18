@@ -11,12 +11,22 @@ class AddCategoryColumnInvoicesBills extends Migration
      */
     public function up()
     {
-        Schema::table('invoices', function ($table) {
-            $table->integer('category_id');
+        $driver = Schema::connection($this->getConnection())->getConnection()->getDriverName();
+
+        Schema::table('invoices', function ($table) use($driver) {
+            if($driver === 'sqlite'){
+                $table->integer('category_id')->default();
+            }else{
+                $table->integer('category_id');
+            }
         });
 
-        Schema::table('bills', function ($table) {
-            $table->integer('category_id');
+        Schema::table('bills', function ($table) use($driver) {
+            if($driver === 'sqlite'){
+                $table->integer('category_id')->default();
+            }else{
+                $table->integer('category_id');
+            }
         });
     }
 
