@@ -691,7 +691,7 @@ class Invoices extends Controller
             $request['payment_method'] = setting('general.default_payment_method', 'offlinepayment.cash.1');
             $request['currency_code'] = $invoice->currency_code;
             $request['amount'] = $amount;
-            $request['paid_at'] = Date::now();
+            $request['paid_at'] = Date::now()->format('Y-m-d');
             $request['_token'] = csrf_token();
 
             $this->payment($request);

@@ -66,9 +66,15 @@ class Bills extends Controller
         $paid = 0;
 
         foreach ($bill->payments as $item) {
-            $item->default_currency_code = $bill->currency_code;
+            $amount = $item->amount;
 
-            $paid += $item->getDynamicConvertedAmount();
+            if ($bill->currency_code != $item->currency_code) {
+                $item->default_currency_code = $bill->currency_code;
+
+                $amount = $item->getDynamicConvertedAmount();
+            }
+
+            $paid += $amount;
         }
 
         $bill->paid = $paid;
@@ -607,7 +613,7 @@ class Bills extends Controller
         for ($i = 0; $i < $currency->precision; $i++) {
             $multiplier *= 10;
         }
-        
+
         $amount *=  $multiplier;
         $total_amount *=  $multiplier;
 
@@ -713,9 +719,15 @@ class Bills extends Controller
         $paid = 0;
 
         foreach ($bill->payments as $item) {
-            $item->default_currency_code = $bill->currency_code;
+            $amount = $item->amount;
 
-            $paid += $item->getDynamicConvertedAmount();
+            if ($bill->currency_code != $item->currency_code) {
+                $item->default_currency_code = $bill->currency_code;
+
+                $amount = $item->getDynamicConvertedAmount();
+            }
+
+            $paid += $amount;
         }
 
         $bill->paid = $paid;
