@@ -347,7 +347,7 @@
                 html += '                   {!! Form::label('paid_at', trans('general.date'), ['class' => 'control-label']) !!}';
                 html += '                   <div class="input-group">';
                 html += '                       <div class="input-group-addon"><i class="fa fa-calendar"></i></div>';
-                html += '                       {!! Form::text('paid_at', \Carbon\Carbon::now()->toDateString(), ['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '']) !!}';
+                html += '                       {!! Form::text('paid_at', \Carbon\Carbon::now()->toDateString(), ['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off']) !!}';
                 html += '                   </div>';
                 html += '               </div>';
                 html += '               <div class="form-group col-md-6 required">';
@@ -404,7 +404,9 @@
 
                 $('#paid_at').datepicker({
                     format: 'yyyy-mm-dd',
-                    autoclose: true
+                    weekStart: 1,
+                    autoclose: true,
+                    language: '{{ language()->getShortCode() }}'
                 });
 
                 $("#account_id").select2({
