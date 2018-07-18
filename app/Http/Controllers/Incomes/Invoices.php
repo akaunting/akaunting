@@ -675,9 +675,15 @@ class Invoices extends Controller
         $paid = 0;
 
         foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
+            $amount = $item->amount;
 
-            $paid += $item->getDynamicConvertedAmount();
+            if ($invoice->currency_code != $item->currency_code) {
+                $item->default_currency_code = $invoice->currency_code;
+
+                $amount = $item->getDynamicConvertedAmount();
+            }
+
+            $paid += $amount;
         }
 
         $amount = $invoice->amount - $paid;
