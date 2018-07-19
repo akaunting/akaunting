@@ -103,6 +103,12 @@ class TaxSummary extends Controller
     private function setAmount(&$items, &$totals, $rows, $type, $date_field)
     {
         foreach ($rows as $row) {
+            if ($row['table'] == 'bill_payments' || $row['table'] == 'invoice_payments') {
+                $type_row = $row->$type;
+
+                $row->category_id = $type_row->category_id;
+            }
+
             $date = Date::parse($row->$date_field)->format('M');
 
             if ($date_field == 'paid_at') {
