@@ -662,3 +662,14 @@ input[type="number"] {
     border-bottom: 20px solid transparent;
     border-left: 20px solid #ecf0f5;
 }
+
+@-moz-document url-prefix() {
+    .show-calendar .calendar-table .table-condensed > tbody > tr > td,
+    .show-calendar .calendar-table .table-condensed > tbody > tr > th,
+    .show-calendar .calendar-table .table-condensed > tfoot > tr > td,
+    .show-calendar .calendar-table .table-condensed > tfoot > tr > th,
+    .show-calendar .calendar-table .table-condensed > thead > tr > td,
+    .show-calendar .calendar-table .table-condensed > thead > tr > th  {
+        padding: 0;
+    }
+}
