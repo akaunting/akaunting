@@ -39,6 +39,11 @@ class Info
 
     public static function mysqlVersion()
     {
-        return DB::selectOne('select version() as mversion')->mversion;
+        if(env('DB_CONNECTION') === 'mysql')
+        {
+            return DB::selectOne('select version() as mversion')->mversion;
+        }
+
+        return "N/A";
     }
 }
