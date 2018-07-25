@@ -101,6 +101,12 @@ class IncomeSummary extends Controller
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)
     {
         foreach ($items as $item) {
+            if ($item['table'] == 'invoice_payments') {
+                $invoice = $item->invoice;
+
+                $item->category_id = $invoice->category_id;
+            }
+
             $date = Date::parse($item->$date_field)->format('F');
 
             if (!isset($incomes[$item->category_id])) {

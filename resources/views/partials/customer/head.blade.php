@@ -26,7 +26,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
     <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=1.2') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=1.2.12') }}">
     <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=1.2') }}">
     
     <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">

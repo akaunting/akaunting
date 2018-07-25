@@ -675,9 +675,15 @@ class Invoices extends Controller
         $paid = 0;
 
         foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
+            $amount = $item->amount;
 
-            $paid += $item->getDynamicConvertedAmount();
+            if ($invoice->currency_code != $item->currency_code) {
+                $item->default_currency_code = $invoice->currency_code;
+
+                $amount = $item->getDynamicConvertedAmount();
+            }
+
+            $paid += $amount;
         }
 
         $amount = $invoice->amount - $paid;
@@ -691,7 +697,7 @@ class Invoices extends Controller
             $request['payment_method'] = setting('general.default_payment_method', 'offlinepayment.cash.1');
             $request['currency_code'] = $invoice->currency_code;
             $request['amount'] = $amount;
-            $request['paid_at'] = Date::now();
+            $request['paid_at'] = Date::now()->format('Y-m-d');
             $request['_token'] = csrf_token();
 
             $this->payment($request);

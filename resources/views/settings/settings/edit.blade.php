@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="tab-pane tab-margin" id="localisation">
-                        {{ Form::selectGroup('date_format', trans('settings.localisation.date.format'), 'calendar', $date_formats, null, []) }}
+                        {{ Form::selectGroup('date_format', trans('settings.localisation.date.format'), 'calendar', $date_formats, null, ['autocomplete' => 'off']) }}
 
                         {{ Form::selectGroup('date_separator', trans('settings.localisation.date.separator'), 'minus', $date_separators, null, []) }}
 
