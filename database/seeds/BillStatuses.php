@@ -2,6 +2,7 @@
 
 namespace Database\Seeds;
 
+use App\Models\Common\Company;
 use App\Models\Model;
 use App\Models\Expense\BillStatus;
 
@@ -25,7 +26,7 @@ class BillStatuses extends Seeder
 
     private function create()
     {
-        $company_id = $this->command->argument('company');
+		$company_id = $this->command->argument('company');
 
         $rows = [
             [

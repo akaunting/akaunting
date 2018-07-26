@@ -36,7 +36,7 @@ class Info
     {
         return phpversion();
     }
-
+  
     public static function mysqlVersion()
     {
         if(env('DB_CONNECTION') === 'mysql')

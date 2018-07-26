@@ -2,6 +2,7 @@
 
 namespace Database\Seeds;
 
+use App\Models\Common\Company;
 use App\Models\Model;
 use App\Models\Banking\Account;
 use Setting;
