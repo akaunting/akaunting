@@ -2,10 +2,8 @@
 
 namespace Database\Seeds;
 
-use App\Models\Common\Company;
 use App\Models\Model;
 use App\Models\Setting\Currency;
-
 use Illuminate\Database\Seeder;
 
 class Currencies extends Seeder
@@ -26,7 +24,7 @@ class Currencies extends Seeder
 
     private function create()
     {
-		$company_id = $this->command->argument('company');
+        $company_id = $this->command->argument('company');
 
         $rows = [
             [

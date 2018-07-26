@@ -2,7 +2,6 @@
 
 namespace Database\Seeds;
 
-use App\Models\Common\Company;
 use App\Models\Model;
 use Illuminate\Database\Seeder;
 use Setting;
@@ -25,7 +24,7 @@ class Settings extends Seeder
 
     private function create()
     {
-		$company_id = $this->command->argument('company');
+        $company_id = $this->command->argument('company');
 
         Setting::set([
             'general.date_format'               => 'd M Y',

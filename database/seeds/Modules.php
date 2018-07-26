@@ -2,10 +2,8 @@
 
 namespace Database\Seeds;
 
-use App\Models\Common\Company;
 use App\Models\Model;
 use Artisan;
-
 use Illuminate\Database\Seeder;
 
 class Modules extends Seeder
@@ -26,7 +24,7 @@ class Modules extends Seeder
 
     private function create()
     {
-		$company_id = $this->command->argument('company');
+        $company_id = $this->command->argument('company');
 
         Artisan::call('module:install', ['alias' => 'offlinepayment', 'company_id' => $company_id]);
         Artisan::call('module:install', ['alias' => 'paypalstandard', 'company_id' => $company_id]);
