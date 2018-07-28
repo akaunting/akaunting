@@ -37,7 +37,7 @@ return [
     'updates'               => 'تحديث|تحديثات',
     'numbers'               => 'رقم|أرقام',
     'statuses'              => 'حالة|حالات',
-    'others'                => 'Other|Others',
+    'others'                => 'أخرى|أخرى',
 
     'dashboard'             => 'لوحة التحكم',
     'banking'               => 'الخدمات المصرفية',
@@ -51,9 +51,9 @@ return [
     'no'                    => 'لا',
     'na'                    => 'غير متاح',
     'daily'                 => 'يومي',
-    'monthly'               => 'شهرى',
+    'monthly'               => 'شهري',
     'quarterly'             => 'ربع سنوي',
-    'yearly'                => 'سنوى',
+    'yearly'                => 'سنوي',
     'add'                   => 'إضافة',
     'add_new'               => 'إضافة جديد',
     'show'                  => 'عرض',
@@ -61,7 +61,7 @@ return [
     'delete'                => 'حذف',
     'send'                  => 'إرسال',
     'download'              => 'تنزيل',
-    'delete_confirm'        => 'تأكيد الحذف :الاسم :type؟',
+    'delete_confirm'        => 'تأكيد حذف :type؟',
     'name'                  => 'الاسم',
     'email'                 => 'البريد الالكتروني',
     'tax_number'            => 'رقم الضريبة',
@@ -89,7 +89,7 @@ return [
     'filter'                => 'تصفية البحث',
     'help'                  => 'مساعدة',
     'all'                   => 'الكل',
-    'all_type'              => 'الكل :type',
+    'all_type'              => 'جميع :type',
     'upcoming'              => 'القادمة',
     'created'               => 'تم إنشاؤه',
     'id'                    => 'رقم الهوية',
@@ -102,7 +102,7 @@ return [
     'partially_paid'        => 'مدفوع جزئياً',
 
     'title' => [
-        'new'               => 'جديد :type',
+        'new'               => 'إضافة :type',
         'edit'              => 'تعديل :type',
     ],
     'form' => [
