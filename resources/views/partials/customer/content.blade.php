@@ -24,7 +24,7 @@
 
         @yield('content')
 
-        @stack('content_content_start')
+        @stack('content_content_end')
     </section>
     <!-- /.content -->
 
