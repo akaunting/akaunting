@@ -1,3 +1,5 @@
+@stack('header_start')
+
 <header class="main-header">
     <!-- Logo -->
     <a href="{{ url('/') }}" class="logo">
@@ -18,10 +20,8 @@
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
         </a>
+
         <ul class="add-new nav navbar-nav pull-left">
             <!-- Notifications: style can be found in dropdown.less -->
             <li class="dropdown add-new-menu">
@@ -86,8 +86,12 @@
             </li>
         </ul>
 
+        @stack('header_navbar_left')
+
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                @stack('header_navbar_right')
+
                 @permission('read-notifications')
                 <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu">
@@ -232,3 +236,5 @@
         </div>
     </nav>
 </header>
+
+@stack('header_end')
