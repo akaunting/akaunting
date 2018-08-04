@@ -7,6 +7,10 @@
     @endpush
 
     <body onload="window.print();" class="print-width">
+        @stack('body_start')
+
         @yield('content')
+
+        @stack('body_end')
     </body>
 </html>
