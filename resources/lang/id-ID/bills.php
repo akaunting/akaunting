@@ -5,7 +5,7 @@ return [
     'bill_number'       => 'Nomor Tagihan',
     'bill_date'         => 'Tanggal Tagihan',
     'total_price'       => 'Total Harga',
-    'due_date'          => 'Batas Waktu',
+    'due_date'          => 'Tanggal Jatuh Tempo',
     'order_number'      => 'Nomor Pesanan',
     'bill_from'         => 'Tagihan Dari',
 
@@ -20,7 +20,7 @@ return [
 
     'show_discount'     => 'Diskon :discount%',
     'add_discount'      => 'Tambahkan diskon',
-    'discount_desc'     => 'of subtotal',
+    'discount_desc'     => 'dari subtotal',
 
     'payment_due'       => 'Pembayaran Jatuh Tempo',
     'amount_due'        => 'Jumlah Jatuh Tempo',
@@ -35,12 +35,12 @@ return [
     'status' => [
         'draft'         => 'Konsep',
         'received'      => 'Diterima',
-        'partial'       => 'Parsial',
+        'partial'       => 'Sebagian',
         'paid'          => 'Dibayar',
     ],
 
     'messages' => [
-        'received'      => 'Tagihan ditandai sebagai bentuk berhasil diterima!',
+        'received'      => 'Bill ditandai sebagai berhasil diterima!',
     ],
 
 ];

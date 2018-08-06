@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'В брой',
-    'categories_uncat'      => 'Некатегоризирани',
     'categories_deposit'    => 'Депозит',
     'categories_sales'      => 'Продажби',
     'currencies_usd'        => 'Американски долар',

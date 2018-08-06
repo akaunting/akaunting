@@ -13,18 +13,27 @@ return [
     'current_email'         => 'Trenutni E-mail',
     'reset'                 => 'Resetiranje',
     'never'                 => 'nikad',
+    
     'password' => [
         'current'           => 'Lozinka',
         'current_confirm'   => 'Potvrda lozinke',
         'new'               => 'Nova lozinka',
         'new_confirm'       => 'Potvrda nove lozinke',
     ],
+    
     'error' => [
-        'self_delete'       => 'Pogreška: Nije moguće izbrisati sebe!'
+        'self_delete'       => 'Pogreška: Nije moguće izbrisati sebe!',
+        'no_company'        => 'Pogleška: Nema dodijeljene tvrtke za vaš račun. Obratite se administratoru sustava.',
     ],
 
     'failed'                => 'Ove vjerodajnice ne odgovaraju našim zapisima.',
     'disabled'              => 'Ovaj račun je onemogućen. Molimo vas da se obratite administratoru sustava.',
     'throttle'              => 'Previše pokušaja prijave. Molim Vas pokušajte ponovno za :seconds sekundi.',
+
+    'notification' => [
+        'message_1'     => 'Primili ste ovaj e-mail jer smo zaprimili zahtjev za resetiranje lozinke za vaš račun.',
+        'message_2'     => 'Ako nisi zatražio poništavanje lozinke, nikakve daljnje radnje nisu potrebne.',
+        'button'        => 'Resetiranje lozinke',
+    ],
 
 ];

@@ -3,6 +3,6 @@
 return [
 
     'rate'                  => 'Tarief',
-    'rate_percent'          => 'Percentage (%)',
+    'rate_percent'          => 'Tarief (%)',
 
 ];

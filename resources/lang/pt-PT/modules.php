@@ -5,7 +5,7 @@ return [
     'title'                 => 'Token de API',
     'api_token'             => 'Token',
     'my_apps'               => 'Minhas Aplicações',
-    'top_paid'              => 'Melhores Pagamentos',
+    'top_paid'              => 'Melhores Pagos',
     'new'                   => 'Novo',
     'top_free'              => 'Melhores Grátis',
     'free'                  => 'GRÁTIS',

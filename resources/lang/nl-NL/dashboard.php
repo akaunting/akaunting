@@ -2,23 +2,23 @@
 
 return [
 
-    'total_incomes'             => 'Totaal inkomsten',
-    'receivables'               => 'Vorderingen',
+    'total_incomes'             => 'Totale inkomsten',
+    'receivables'               => 'Debiteuren',
     'open_invoices'             => 'Openstaande facturen',
     'overdue_invoices'          => 'Vervallen facturen',
     'total_expenses'            => 'Totale uitgaven',
     'payables'                  => 'Schulden',
-    'open_bills'                => 'Open rekeningen',
-    'overdue_bills'             => 'Openstaande facturen',
+    'open_bills'                => 'Openstaande rekeningen',
+    'overdue_bills'             => 'Vervallen facturen',
     'total_profit'              => 'Totale winst',
-    'open_profit'               => 'Open winst',
+    'open_profit'               => 'Openstaande winst',
     'overdue_profit'            => 'Achterstallige winst',
-    'cash_flow'                 => 'Cash-Flow',
-    'no_profit_loss'            => 'Geen winst-verlies',
+    'cash_flow'                 => 'Geldstroom',
+    'no_profit_loss'            => 'Geen winstderving',
     'incomes_by_category'       => 'Inkomsten per categorie',
-    'expenses_by_category'      => 'Kosten per categorie',
-    'account_balance'           => 'Betalingsbalans',
-    'latest_incomes'            => 'Nieuwste inkomens',
+    'expenses_by_category'      => 'Uitgaves per categorie',
+    'account_balance'           => 'Rekeningsaldo',
+    'latest_incomes'            => 'Laatste inkomsten',
     'latest_expenses'           => 'Nieuwste uitgaven',
 
 ];

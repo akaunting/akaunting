@@ -4,6 +4,6 @@ return [
 
     'import'                => 'استيراد',
     'title'                 => 'استيراد : النوع',
-    'message'               => 'مسموح بأنواع الملفات: CSV, XLS. Please, <a target="_blank" href=":رابط"><strong>تحميل</strong></a> مثال.',
+    'message'               => 'Allowed file types: XLS, XLSX. Please, <a target="_blank" href=":link"><strong>download</strong></a> the sample file.',
 
 ];

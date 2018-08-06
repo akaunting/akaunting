@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'رمز API',
     'api_token'             => 'رمز الوصول',
+    'my_apps'               => 'My Apps',
     'top_paid'              => 'أعلى المدفوعات',
     'new'                   => 'جديد',
     'top_free'              => 'المجانيات الأعلى',
@@ -40,9 +41,18 @@ return [
         'install'           => 'تثبيت: ملفات القسم.',
     ],
 
+    'badge' => [
+        'installed' => 'Installed',
+    ],
+
     'button' => [
         'uninstall'         => 'الغاء التثبيت',
         'disable'           => 'الغاء التفعيل',
         'enable'            => 'تفعيل',
+    ],
+
+    'my' => [
+        'purchased' => 'Purchased',
+        'installed' => 'Installed',
     ],
 ];

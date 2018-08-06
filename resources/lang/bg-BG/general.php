@@ -8,7 +8,7 @@ return [
     'revenues'              => 'Приходи | Приходи',
     'customers'             => 'Клиент | Клиенти',
     'expenses'              => 'Разход| Разходи',
-    'bills'                 => 'Сметка| Сметки',
+    'bills'                 => 'Фактура| Фактура',
     'payments'              => 'Плащане | Плащания',
     'vendors'               => 'Доставчик | Доставчици',
     'accounts'              => 'Сметка | Сметки',
@@ -37,7 +37,7 @@ return [
     'updates'               => 'Актуализация | Актуализации',
     'numbers'               => 'Номер | Числа',
     'statuses'              => 'Статус | Статуси',
-    'others'                => 'Other|Others',
+    'others'                => 'Други|други',
 
     'dashboard'             => 'Табло',
     'banking'               => 'Банкиране',
@@ -100,11 +100,15 @@ return [
     'overdue'               => 'Прослочени',
     'partially'             => 'Частичен',
     'partially_paid'        => 'Частично платено',
+    'export'                => 'Експорт',
+    'enable'                => 'Включи',
+    'disable'               => 'Изключи',
 
     'title' => [
         'new'               => 'Нов :type',
         'edit'              => 'Редактирай :type',
     ],
+
     'form' => [
         'enter'             => 'Въведи :field',
         'select' => [

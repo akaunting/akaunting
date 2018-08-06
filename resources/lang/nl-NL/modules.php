@@ -4,55 +4,55 @@ return [
 
     'title'                 => 'API-Token',
     'api_token'             => 'Token',
-    'my_apps'               => 'My Apps',
+    'my_apps'               => 'Mijn Apps',
     'top_paid'              => 'Top betaald',
     'new'                   => 'Nieuw',
     'top_free'              => 'Top gratis',
     'free'                  => 'GRATIS',
-    'search'                => 'Search',
-    'install'               => 'Installeren',
+    'search'                => 'Zoeken',
+    'install'               => 'Installeer',
     'buy_now'               => 'Koop Nu',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Klik hier</a> om uw API token.',
-    'no_apps'               => 'There are no apps in this category, yet.',
-    'developer'             => 'Are you a developer? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Here</a> you can learn how to create an app and start selling today!',
+    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Klik hier</a> om uw API-token te bemachtigen.',
+    'no_apps'               => 'Er zijn nog geen Apps in deze categorie.',
+    'developer'             => 'Bent u een ontwikkelaar? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> kunt u lezen hoe u vandaag nog een app kan ontwikkelen en verkopen!',
 
-    'about'                 => 'About',
+    'about'                 => 'Over ons',
 
-    'added'                 => 'Added',
-    'updated'               => 'Updated',
-    'compatibility'         => 'Compatibility',
+    'added'                 => 'Toegevoegd',
+    'updated'               => 'Bijgewerkt',
+    'compatibility'         => 'Compatibiliteit',
 
-    'installed'             => ':module installed',
-    'uninstalled'           => ':module uninstalled',
+    'installed'             => ':module geïnstalleerd',
+    'uninstalled'           => ':module verwijderd',
     //'updated'               => ':module updated',
-    'enabled'               => ':module enabled',
-    'disabled'              => ':module disabled',
+    'enabled'               => ':module ingeschakeld',
+    'disabled'              => ':module uitgeschakeld',
 
     'tab' => [
-        'installation'      => 'Installation',
-        'faq'               => 'FAQ',
-        'changelog'         => 'Changelog',
+        'installation'      => 'Installatie',
+        'faq'               => 'Veelgestelde vragen',
+        'changelog'         => 'Wijzigingslogboek',
     ],
 
     'installation' => [
-        'header'            => 'App Installation',
-        'download'          => 'Download :module bestand.',
-        'unzip'             => 'Uitpakken :module bestanden.',
-        'install'           => 'Installing :module files.',
+        'header'            => 'App installatie',
+        'download'          => ':module bestand aan het downloaden.',
+        'unzip'             => 'Aan het uitpakken van :module bestanden.',
+        'install'           => ':module bestanden installeren.',
     ],
 
     'badge' => [
-        'installed' => 'Installed',
+        'installed' => 'Geïnstalleerd',
     ],
 
     'button' => [
         'uninstall'         => 'Verwijderen',
-        'disable'           => 'Uitgeschakeld',
+        'disable'           => 'Uitschakelen',
         'enable'            => 'Activeren',
     ],
 
     'my' => [
-        'purchased' => 'Purchased',
-        'installed' => 'Installed',
+        'purchased' => 'Gekocht',
+        'installed' => 'Geïnstalleerd',
     ],
 ];

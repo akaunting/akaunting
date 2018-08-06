@@ -101,6 +101,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'kustomisasi-pesan',
         ],
+        'invalid_currency' => 'The :attribute code is invalid.',
     ],
 
     /*
