@@ -160,28 +160,6 @@ class Bill extends Model
     }
 
     /**
-     * Convert billed_at to datetime.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setBilledAtAttribute($value)
-    {
-        $this->attributes['billed_at'] = $value . ' ' . Date::now()->format('H:i:s');
-    }
-
-    /**
-     * Convert due_at to datetime.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setDueAtAttribute($value)
-    {
-        $this->attributes['due_at'] = $value . ' ' . Date::now()->format('H:i:s');
-    }
-
-    /**
      * Get the current balance.
      *
      * @return string

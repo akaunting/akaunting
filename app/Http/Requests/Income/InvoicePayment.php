@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Income;
 
 use App\Http\Requests\Request;
+use Date;
 
 class InvoicePayment extends Request
 {
@@ -31,5 +32,14 @@ class InvoicePayment extends Request
             'payment_method' => 'required|string',
             'attachment' => 'mimes:jpeg,jpg,png,pdf',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        if ($validator->errors()->count()) {
+            $paid_at = Date::parse($this->request->get('paid_at'))->format('Y-m-d');
+
+            $this->request->set('paid_at', $paid_at);
+        }
     }
 }

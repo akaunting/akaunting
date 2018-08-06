@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Income;
 
 use App\Http\Requests\Request;
+use Date;
 
 class Invoice extends Request
 {
@@ -46,5 +47,17 @@ class Invoice extends Request
             'category_id' => 'required|integer',
             'attachment' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        if ($validator->errors()->count()) {
+            // Set date
+            $invoiced_at = Date::parse($this->request->get('invoiced_at'))->format('Y-m-d');
+            $due_at = Date::parse($this->request->get('due_at'))->format('Y-m-d');
+
+            $this->request->set('invoiced_at', $invoiced_at);
+            $this->request->set('due_at', $due_at);
+        }
     }
 }

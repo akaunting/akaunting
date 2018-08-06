@@ -133,17 +133,6 @@ class Revenue extends Model
         $this->attributes['currency_rate'] = (double) $value;
     }
 
-    /**
-     * Convert paid_at to datetime.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setPaidAtAttribute($value)
-    {
-        $this->attributes['paid_at'] = $value . ' ' . Date::now()->format('H:i:s');
-    }
-
     public function scopeLatest($query)
     {
         return $query->orderBy('paid_at', 'desc');

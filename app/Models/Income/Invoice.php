@@ -162,28 +162,6 @@ class Invoice extends Model
     }
 
     /**
-     * Convert invoiced_at to datetime.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setInvoicedAtAttribute($value)
-    {
-        $this->attributes['invoiced_at'] = $value . ' ' . Date::now()->format('H:i:s');
-    }
-
-    /**
-     * Convert due_at to datetime.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setDueAtAttribute($value)
-    {
-        $this->attributes['due_at'] = $value . ' ' . Date::now()->format('H:i:s');
-    }
-
-    /**
      * Get the current balance.
      *
      * @return string
