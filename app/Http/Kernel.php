@@ -95,5 +95,9 @@ class Kernel extends HttpKernel
         'dateformat.due_at' => \App\Http\Middleware\DateFormatDueAt::class,
         'dateformat.billed_at' => \App\Http\Middleware\DateFormatBilledAt::class,
         'dateformat.invoiced_at' => \App\Http\Middleware\DateFormatInvoicedAt::class,
+        'money.amount' => \App\Http\Middleware\MoneyAmount::class,
+        'money.price' => \App\Http\Middleware\MoneyPrice::class,
+        'money.total' => \App\Http\Middleware\MoneyTax::class,
+        'money.tax' => \App\Http\Middleware\MoneyTotal::class,
     ];
 }

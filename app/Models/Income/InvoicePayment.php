@@ -61,7 +61,7 @@ class InvoicePayment extends Model
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) money($value, $this->account->currency_code)->getAmount();
+        $this->attributes['amount'] = (double) $value;
     }
 
     /**

@@ -142,6 +142,7 @@ class Bills extends Controller
         $bill_item = [];
         $bill_item['company_id'] = $request['company_id'];
         $bill_item['bill_id'] = $bill->id;
+        $bill_item['currency_code'] = $request['currency_code'];
 
         if ($request['item']) {
             foreach ($request['item'] as $item) {
@@ -214,7 +215,9 @@ class Bills extends Controller
             $s_total = $s_total - $s_discount;
         }
 
-        $request['amount'] = $s_total + $tax_total;
+        $amount = $s_total + $tax_total;
+
+        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
 
         $bill->update($request->input());
 
@@ -354,6 +357,7 @@ class Bills extends Controller
         $bill_item = [];
         $bill_item['company_id'] = $request['company_id'];
         $bill_item['bill_id'] = $bill->id;
+        $bill_item['currency_code'] = $request['currency_code'];
 
         if ($request['item']) {
             BillItem::where('bill_id', $bill->id)->delete();
@@ -420,7 +424,9 @@ class Bills extends Controller
             $s_total = $s_total - $s_discount;
         }
 
-        $request['amount'] = $s_total + $tax_total;
+        $amount = $s_total + $tax_total;
+
+        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
 
         $bill->update($request->input());
 
@@ -488,10 +494,10 @@ class Bills extends Controller
      */
     public function export()
     {
-        \Excel::create('bills', function($excel) {
+        \Excel::create('bills', function ($excel) {
             $bills = Bill::with(['items', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
 
-            $excel->sheet('invoices', function($sheet) use ($bills) {
+            $excel->sheet('invoices', function ($sheet) use ($bills) {
                 $sheet->fromModel($bills->makeHidden([
                     'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media'
                 ]));
@@ -499,10 +505,11 @@ class Bills extends Controller
 
             $tables = ['items', 'histories', 'payments', 'totals'];
             foreach ($tables as $table) {
-                $excel->sheet('bill_' . $table, function($sheet) use ($bills, $table) {
+                $excel->sheet('bill_' . $table, function ($sheet) use ($bills, $table) {
                     $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];
 
                     $i = 1;
+
                     foreach ($bills as $bill) {
                         $model = $bill->$table->makeHidden($hidden_fields);
 
@@ -750,6 +757,7 @@ class Bills extends Controller
             'code' => 'sub_total',
             'name' => 'bills.sub_total',
             'amount' => $sub_total,
+            'currency_code' => $bill->currency_code,
             'sort_order' => $sort_order,
         ]);
 
@@ -763,6 +771,7 @@ class Bills extends Controller
                 'code' => 'discount',
                 'name' => 'bills.discount',
                 'amount' => $discount_total,
+                'currency_code' => $bill->currency_code,
                 'sort_order' => $sort_order,
             ]);
 
@@ -781,6 +790,7 @@ class Bills extends Controller
                     'code' => 'tax',
                     'name' => $tax['name'],
                     'amount' => $tax['amount'],
+                    'currency_code' => $bill->currency_code,
                     'sort_order' => $sort_order,
                 ]);
 
@@ -795,6 +805,7 @@ class Bills extends Controller
             'code' => 'total',
             'name' => 'bills.total',
             'amount' => $sub_total + $tax_total,
+            'currency_code' => $bill->currency_code,
             'sort_order' => $sort_order,
         ]);
     }
