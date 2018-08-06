@@ -10,7 +10,7 @@ return [
     'weekly'                => 'Wekelijks',
     'monthly'               => 'Maandelijks',
     'yearly'                => 'Jaarlijks',
-    'custom'                => 'Aangepaste',
+    'custom'                => 'Aangepast',
     'days'                  => 'Dag(en)',
     'weeks'                 => 'Week/weken',
     'months'                => 'Maand(en)',

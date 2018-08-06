@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Vernieuwen',
 
     'steps' => [
-        'requirements'      => 'Vraag uw hostingprovider om de fouten op te lossen!',
+        'requirements'      => 'Vraag uw hostingprovider om de fout(en) op te lossen!',
         'language'          => 'Stap 1/3: Taalkeuze',
         'database'          => 'Stap 2/3: Database Installatie',
         'settings'          => 'Stap 3/3: Gegevens van Bedrijf en Beheerder',

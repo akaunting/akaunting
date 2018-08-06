@@ -42,14 +42,14 @@ return [
     ],
 
     'messages' => [
-        'email_sent'     => 'Factuur e-mail is succesvol verzonden!',
-        'marked_sent'    => 'Factuur e-mail is succesvol verzonden!',
-        'email_required' => 'Geen e-mailadrs van deze klant!',
+        'email_sent'     => 'Factuur is succesvol per e-mail verzonden!',
+        'marked_sent'    => 'Factuur is succesvol als verzonden gemarkeerd!',
+        'email_required' => 'Er is geen e-mailadres bekend van deze klant!',
     ],
 
     'notification' => [
-        'message'       => 'U ontvangt deze e-mail omdat u een :amount aanstaande factuur heeft voor klant: customer.',
-        'button'        => 'Betaal nu',
+        'message'       => 'U ontvangt deze e-mail omdat u :amount aanstaande factuur heeft voor klant :customer.',
+        'button'        => 'Nu betalen',
     ],
 
 ];

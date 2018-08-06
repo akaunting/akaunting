@@ -6,6 +6,6 @@ return [
     'user_created'          => 'Gebruiker aangemaakt',
 
     'error' => [
-        'email'             => 'Deze e-mail is al reeds geregistreerd.'
+        'email'             => 'Dit e-mailadres is al reeds geregistreerd.'
     ]
 ];
