@@ -11,9 +11,9 @@ return [
     'free'                  => 'GRATIS',
     'search'                => 'Zoeken',
     'install'               => 'Installeer',
-    'buy_now'               => 'Koop Nu',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Klik hier</a> om uw API-token te bemachtigen.',
-    'no_apps'               => 'Er zijn nog geen Apps in deze categorie.',
+    'buy_now'               => 'Nu kopen',
+    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Klik hier</a> om uw API-token te bemachtigen.',
+    'no_apps'               => 'Er zijn nog geen Apps in deze categorie beschikbaar.',
     'developer'             => 'Bent u een ontwikkelaar? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> kunt u lezen hoe u vandaag nog een app kan ontwikkelen en verkopen!',
 
     'about'                 => 'Over ons',
@@ -30,15 +30,15 @@ return [
 
     'tab' => [
         'installation'      => 'Installatie',
-        'faq'               => 'Veelgestelde vragen',
+        'faq'               => 'Veelgestelde vragen (FAQ)',
         'changelog'         => 'Wijzigingslogboek',
     ],
 
     'installation' => [
         'header'            => 'App installatie',
         'download'          => ':module bestand aan het downloaden.',
-        'unzip'             => 'Aan het uitpakken van :module bestanden.',
-        'install'           => ':module bestanden installeren.',
+        'unzip'             => 'Bezig met uitpakken van :module bestanden.',
+        'install'           => 'Bezit met installatie van :module bestanden.',
     ],
 
     'badge' => [

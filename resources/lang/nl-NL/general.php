@@ -17,7 +17,7 @@ return [
     'reports'               => 'Rapport|Rapporten',
     'settings'              => 'Instelling|Instellingen',
     'categories'            => 'Categorie|Categorieën',
-    'currencies'            => 'Valuta|Valuta \'s',
+    'currencies'            => 'Valuta|Valuta\'s',
     'tax_rates'             => 'BTW-tarief|Belastingtarieven',
     'users'                 => 'Gebruiker|Gebruikers',
     'roles'                 => 'Rol|Rollen',
@@ -49,7 +49,7 @@ return [
     'disabled'              => 'Uitgeschakeld',
     'yes'                   => 'Ja',
     'no'                    => 'Nee',
-    'na'                    => 'N. v. t',
+    'na'                    => 'N.v.t.',
     'daily'                 => 'Dagelijks',
     'monthly'               => 'Maandelijks',
     'quarterly'             => 'Per kwartaal',
@@ -105,8 +105,8 @@ return [
     'disable'               => 'Uitschakelen',
 
     'title' => [
-        'new'               => 'Nieuw :type',
-        'edit'              => 'Bewerken :type',
+        'new'               => 'Nieuwe :type',
+        'edit'              => ':type bewerken',
     ],
 
     'form' => [

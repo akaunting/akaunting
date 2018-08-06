@@ -9,8 +9,8 @@ return [
     'remember_me'           => 'Onthoud mijn gegevens',
     'forgot_password'       => 'Ik ben mijn wachtwoord vergeten',
     'reset_password'        => 'Wachtwoord resetten',
-    'enter_email'           => 'Vul uw e-mailadres in',
-    'current_email'         => 'Huidige E-mailadres',
+    'enter_email'           => 'Voer uw e-mailadres in',
+    'current_email'         => 'Huidig E-mailadres',
     'reset'                 => 'Resetten',
     'never'                 => 'nooit',
     
@@ -22,12 +22,12 @@ return [
     ],
     
     'error' => [
-        'self_delete'       => 'Fout: u kan uzelf niet verwijderen!',
+        'self_delete'       => 'Fout: u kunt uzelf niet verwijderen!',
         'no_company'        => 'Fout: U heeft geen bedrijf gekoppeld aan uw account. Neem alstublieft contact op met de applicatiebeheerder.',
     ],
 
     'failed'                => 'Deze gegevens komen niet overeen met onze administratie.',
-    'disabled'              => 'Deze account is uitgeschakeld. Neem alstublieft contact op met de applicatiebeheerder.',
+    'disabled'              => 'Dit account is uitgeschakeld. Neem alstublieft contact op met de applicatiebeheerder.',
     'throttle'              => 'Te veel inlogpogingen. Probeer het met :seconds seconden opnieuw.',
 
     'notification' => [
