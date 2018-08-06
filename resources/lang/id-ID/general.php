@@ -100,9 +100,9 @@ return [
     'overdue'               => 'Jatuh tempo',
     'partially'             => 'Sebagian',
     'partially_paid'        => 'Sebagian dibayar',
-    'export'                => 'Export',
-    'enable'                => 'Enable',
-    'disable'               => 'Disable',
+    'export'                => 'Ekspor',
+    'enable'                => 'Aktif',
+    'disable'               => 'Nonaktif',
 
     'title' => [
         'new'               => 'Baru :type',

@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Osvježi',
 
     'steps' => [
-        'requirements'      => 'Molimo da zadovoljite sljedeće uvjete!',
+        'requirements'      => 'Please, ask your hosting provider to fix the errors!',
         'language'          => 'Korak 1/3: Odabir jezika',
         'database'          => 'Korak 2/3: Postavka baze podataka',
         'settings'          => 'Korak 3/3: Tvrtka i admin detalji',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature mora biti omogućeno!',
         'disabled'          => ':feature mora biti onemogućeno!',
-        'extension'         => ':extension proširenje treba biti učitano!',
+        'extension'         => ':extension extension needs to be installed and loaded!',
         'directory'         => ':directory direktorij mora biti omogućen za zapisivanje!',
     ],
 

@@ -6,7 +6,7 @@ return [
     'to_account'            => 'Naar Account',
 
     'messages' => [
-        'delete'            => ':from to :to (:amount)',
+        'delete'            => ':from tot :to (:amount)',
     ],
 
 ];

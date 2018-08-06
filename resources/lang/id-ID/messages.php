@@ -18,6 +18,8 @@ return [
         'no_file'           => 'Kesalahan: Tidak ada file dipilih!',
         'last_category'     => 'Error: Can not delete the last :type category!',
         'invalid_token'     => 'Galat: Token yang dimasukkan tidak sah!',
+        'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
+        'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],
     'warning' => [
         'deleted'           => 'PeringatanL: Anda tidak boleh menghapus <b>:name</b> karena memiliki :text terkaitan.',

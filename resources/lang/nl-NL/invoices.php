@@ -3,34 +3,34 @@
 return [
 
     'invoice_number'    => 'Factuurnummer',
-    'invoice_date'      => 'Factuurdatum',
-    'total_price'       => 'Totale prijs',
+    'invoice_date'      => 'Factuur datum',
+    'total_price'       => 'Totaalprijs',
     'due_date'          => 'Vervaldatum',
-    'order_number'      => 'Ordernummer',
+    'order_number'      => 'Bestelnummer',
     'bill_to'           => 'Factuur voor',
 
-    'quantity'          => 'Hoeveelheid',
+    'quantity'          => 'Aantal',
     'price'             => 'Prijs',
     'sub_total'         => 'Subtotaal',
-    'discount'          => 'Discount',
-    'tax_total'         => 'Totaal Btw',
+    'discount'          => 'Korting',
+    'tax_total'         => 'Totaal BTW',
     'total'             => 'Totaal',
 
-    'item_name'         => 'Item naam',
+    'item_name'         => 'Artikelnaam|Artikelnamen',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Korting',
+    'add_discount'      => 'Korting toevoegen',
+    'discount_desc'     => 'van subtotaal',
 
     'payment_due'       => 'Te betalen voor',
     'paid'              => 'Betaald',
     'histories'         => 'Geschiedenis',
     'payments'          => 'Betalingen',
-    'add_payment'       => 'Toevoegen van betaling',
-    'mark_paid'         => 'Markeer betaald',
-    'mark_sent'         => 'Markeer als verstuurd',
+    'add_payment'       => 'Een betaling toevoegen',
+    'mark_paid'         => 'Als betaald markeren',
+    'mark_sent'         => 'Als verstuurd markeren',
     'download_pdf'      => 'PDF downloaden',
-    'send_mail'         => 'Verstuur e-mail',
+    'send_mail'         => 'E-mail versturen',
 
     'status' => [
         'draft'         => 'Concept',
@@ -44,11 +44,11 @@ return [
     'messages' => [
         'email_sent'     => 'Factuur e-mail is succesvol verzonden!',
         'marked_sent'    => 'Factuur e-mail is succesvol verzonden!',
-        'email_required' => 'No email address for this customer!',
+        'email_required' => 'Geen e-mailadrs van deze klant!',
     ],
 
     'notification' => [
-        'message'       => 'U ontvangt deze e-mail omdat voor :amount bedrag :customer klant.',
+        'message'       => 'U ontvangt deze e-mail omdat u een :amount aanstaande factuur heeft voor klant: customer.',
         'button'        => 'Betaal nu',
     ],
 

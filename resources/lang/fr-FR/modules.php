@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'Jeton de l\'API',
     'api_token'             => 'Jeton',
+    'my_apps'               => 'Mes applications',
     'top_paid'              => 'Top payant',
     'new'                   => 'Nouveau',
     'top_free'              => 'Top gratuit',
@@ -40,9 +41,18 @@ return [
         'install'           => 'Installation des fichiers du module :module.',
     ],
 
+    'badge' => [
+        'installed' => 'Installées',
+    ],
+
     'button' => [
         'uninstall'         => 'Désinstaller',
         'disable'           => 'Désactiver',
         'enable'            => 'Activer',
+    ],
+
+    'my' => [
+        'purchased' => 'Achetées',
+        'installed' => 'Installées',
     ],
 ];

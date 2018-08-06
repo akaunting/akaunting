@@ -2,7 +2,7 @@
 
 return [
 
-    'allow_login'           => 'Permettre l\'accès à la connexion ?',
+    'allow_login'           => 'Permettre la connexion ?',
     'user_created'          => 'Utilisateur créé',
 
     'error' => [

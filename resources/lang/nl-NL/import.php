@@ -2,8 +2,8 @@
 
 return [
 
-    'import'                => 'Import',
-    'title'                 => 'Import :type',
-    'message'               => 'Allowed file types: XLS, XLSX. Please, <a target="_blank" href=":link"><strong>download</strong></a> the sample file.',
+    'import'                => 'Importeren',
+    'title'                 => 'Importeren :type',
+    'message'               => 'Toegestane bestandstypen: XLS, XLSX. <a target="_blank href=":link"><strong>Download</strong></a> het voorbeeldbestand.',
 
 ];

@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'نقدي',
-    'categories_uncat'      => 'غير مدرج ب فئة',
     'categories_deposit'    => 'ايداع',
     'categories_sales'      => 'بيع',
     'currencies_usd'        => 'دولار امريكي',

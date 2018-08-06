@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type supprimé !',
         'duplicated'        => ':type dupliqué !',
         'imported'          => ':type importé !',
+        'enabled'           => ':type activé !',
+        'disabled'          => ':type désactivé !',
     ],
     'error' => [
         'over_payment'      => 'Erreur : le paiement n\'a pas été ajouté ! Le montant est supérieur au total.',
@@ -16,6 +18,8 @@ return [
         'no_file'           => 'Erreur : Aucun fichier sélectionné !',
         'last_category'     => 'Erreur : impossible de supprimer la dernière catégorie de type :type !',
         'invalid_token'     => 'Erreur : le token est invalide !',
+        'import_column'     => 'Erreur : :message Nom de la feuille : :sheet. Numéro de ligne : :line.',
+        'import_sheet'      => 'Erreur : Le nom de la feuille n\'est pas valide. Veuillez télécharger le modèle de fichier.',
     ],
     'warning' => [
         'deleted'           => 'Avertissement : Vous n’êtes pas autorisé à supprimer <b>:name</b> parce qu’il est associé à :texte.',

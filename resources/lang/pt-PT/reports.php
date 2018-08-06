@@ -17,7 +17,7 @@ return [
         'income'            => 'Resumo das Receitas',
         'expense'           => 'Resumo das Despesas',
         'income_expense'    => 'Receita vs Despesa',
-        'tax'               => 'Resumo de imposto',
+        'tax'               => 'Resumo do imposto',
     ],
 
     'quarter' => [

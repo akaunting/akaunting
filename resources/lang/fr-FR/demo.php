@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Espèce',
-    'categories_uncat'      => 'Non classé',
     'categories_deposit'    => 'Déposer',
     'categories_sales'      => 'Ventes',
     'currencies_usd'        => 'Dollar US',

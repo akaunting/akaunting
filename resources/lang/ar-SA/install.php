@@ -6,7 +6,7 @@ return [
     'refresh'               => 'تحديث',
 
     'steps' => [
-        'requirements'      => 'برجاء, قم بالخطوات التالية!',
+        'requirements'      => 'Please, ask your hosting provider to fix the errors!',
         'language'          => 'الخطوة 1/3 : أختيار اللغة',
         'database'          => 'الخطوة 2/3 : اعداد قاعدة البيانات',
         'settings'          => 'الخطوة 3/3 : الشركة و تفاصيل مدير النظام',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':هذة الميزة تحتاج الى تفعيل!',
         'disabled'          => ': هذة الميزة تحتاج الى الغاء التفعيل!',
-        'extension'         => ': ملحق اضافى يحتاج إلى أن يتم تحميل!',
+        'extension'         => ':extension extension needs to be installed and loaded!',
         'directory'         => ': الدليل يجب أن يكون قابل للكتابة!',
     ],
 

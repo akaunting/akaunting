@@ -8,7 +8,7 @@ return [
     'previous_quarter'      => 'Trimestre anterior',
     'last_12_months'        => 'Últimos 12 meses',
     'profit_loss'           => 'Receitas & Despesas',
-    'gross_profit'          => 'Total',
+    'gross_profit'          => 'Lucro Bruto',
     'net_profit'            => 'Lucro líquido',
     'total_expenses'        => 'Total Despesas',
     'net'                   => 'Líquido',

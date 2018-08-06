@@ -100,11 +100,15 @@ return [
     'overdue'               => 'مبلغ متأخر',
     'partially'             => 'جزئي',
     'partially_paid'        => 'مدفوع جزئياً',
+    'export'                => 'Export',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
 
     'title' => [
         'new'               => 'جديد :type',
         'edit'              => 'تعديل :type',
     ],
+
     'form' => [
         'enter'             => 'إدخال :field',
         'select' => [

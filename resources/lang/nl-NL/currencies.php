@@ -4,15 +4,15 @@ return [
 
     'code'                  => 'Code',
     'rate'                  => 'Tarief',
-    'default'               => 'Standaard Valuta',
-    'decimal_mark'          => 'Decimal Mark',
-    'thousands_separator'   => 'Thousands Separator',
-    'precision'             => 'Precision',
+    'default'               => 'Standaardvaluta',
+    'decimal_mark'          => 'Decimaalscheidingsteken',
+    'thousands_separator'   => 'Duizenden scheidingsteken',
+    'precision'             => 'Precisie',
     'symbol' => [
-        'symbol'            => 'Symbol',
-        'position'          => 'Symbol Position',
-        'before'            => 'Before Amount',
-        'after'             => 'After Amount',
+        'symbol'            => 'Symbool',
+        'position'          => 'Symboolpositie',
+        'before'            => 'Voor Totaal',
+        'after'             => 'Na Totaal',
     ]
 
 ];

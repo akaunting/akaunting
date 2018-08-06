@@ -4,11 +4,12 @@ return [
 
     'title'                 => 'API Token',
     'api_token'             => 'Token',
+    'my_apps'               => 'Моите приложения',
     'top_paid'              => 'Топ платени',
     'new'                   => 'Нов',
     'top_free'              => 'Топ безплатни',
     'free'                  => 'БЕЗПЛАТНО',
-    'search'                => 'Search',
+    'search'                => 'Търси',
     'install'               => 'Инсталирай',
     'buy_now'               => 'Купете сега',
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Натиснете тук</a> за да получите Вашия API token.',
@@ -40,9 +41,18 @@ return [
         'install'           => 'Инсталиране :module файлове.',
     ],
 
+    'badge' => [
+        'installed' => 'Инсталирано',
+    ],
+
     'button' => [
         'uninstall'         => 'Деинсталирай',
         'disable'           => 'Изключи',
         'enable'            => 'Активирай',
+    ],
+
+    'my' => [
+        'purchased' => 'Закупени',
+        'installed' => 'Инсталирани',
     ],
 ];
