@@ -137,10 +137,25 @@ class Transfers extends Controller
 
         // Convert amount if not same currency
         if ($payment_currency_code != $revenue_currency_code) {
+            $default_currency = setting('general.default_currency', 'USD');
+
+            $default_amount = $request['amount'];
+
+            if ($default_currency != $payment_currency_code) {
+                $default_amount_model = new Transfer();
+
+                $default_amount_model->default_currency_code = $default_currency;
+                $default_amount_model->amount = $request['amount'];
+                $default_amount_model->currency_code = $payment_currency_code;
+                $default_amount_model->currency_rate = $currencies[$payment_currency_code];
+
+                $default_amount = $default_amount_model->getDivideConvertedAmount();
+            }
+
             $transfer_amount = new Transfer();
 
             $transfer_amount->default_currency_code = $payment_currency_code;
-            $transfer_amount->amount = $request['amount'];
+            $transfer_amount->amount = $default_amount;
             $transfer_amount->currency_code = $revenue_currency_code;
             $transfer_amount->currency_rate = $currencies[$revenue_currency_code];
 
@@ -243,10 +258,25 @@ class Transfers extends Controller
 
         // Convert amount if not same currency
         if ($payment_currency_code != $revenue_currency_code) {
+            $default_currency = setting('general.default_currency', 'USD');
+
+            $default_amount = $request['amount'];
+
+            if ($default_currency != $payment_currency_code) {
+                $default_amount_model = new Transfer();
+
+                $default_amount_model->default_currency_code = $default_currency;
+                $default_amount_model->amount = $request['amount'];
+                $default_amount_model->currency_code = $payment_currency_code;
+                $default_amount_model->currency_rate = $currencies[$payment_currency_code];
+
+                $default_amount = $default_amount_model->getDivideConvertedAmount();
+            }
+
             $transfer_amount = new Transfer();
 
             $transfer_amount->default_currency_code = $payment_currency_code;
-            $transfer_amount->amount = $request['amount'];
+            $transfer_amount->amount = $default_amount;
             $transfer_amount->currency_code = $revenue_currency_code;
             $transfer_amount->currency_rate = $currencies[$revenue_currency_code];
 

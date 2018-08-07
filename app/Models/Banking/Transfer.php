@@ -49,4 +49,14 @@ class Transfer extends Model
     {
         return $this->dynamicConvert($this->default_currency_code, $this->amount, $this->currency_code, $this->currency_rate, $format);
     }
+
+    public function getReverseConvertedAmount($format = false)
+    {
+        return $this->reverseConvert($this->amount, $this->currency_code, $this->currency_rate, $format);
+    }
+
+    public function getDivideConvertedAmount($format = false)
+    {
+        return $this->divide($this->amount, $this->currency_code, $this->currency_rate, $format);
+    }
 }
