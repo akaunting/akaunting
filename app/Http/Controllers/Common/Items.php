@@ -234,8 +234,8 @@ class Items extends Controller
      */
     public function export()
     {
-        \Excel::create('items', function($excel) {
-            $excel->sheet('items', function($sheet) {
+        \Excel::create('items', function ($excel) {
+            $excel->sheet('items', function ($sheet) {
                 $sheet->fromModel(Item::filter(request()->input())->get()->makeHidden([
                     'id', 'company_id', 'item_id', 'created_at', 'updated_at', 'deleted_at'
                 ]));
@@ -315,7 +315,7 @@ class Items extends Controller
 
         if ($input_items) {
             foreach ($input_items as $key => $item) {
-                $price = (double) $item['price'];
+                $price = money($item['price'], $currency_code)->getAmount();
                 $quantity = (double) $item['quantity'];
 
                 $item_tax_total= 0;

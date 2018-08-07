@@ -229,7 +229,9 @@ class Invoices extends Controller
             $s_total = $s_total - $s_discount;
         }
 
-        $request['amount'] = $s_total + $tax_total;
+        $amount = $s_total + $tax_total;
+
+        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
 
         $invoice->update($request->input());
 
@@ -441,7 +443,9 @@ class Invoices extends Controller
             $s_total = $s_total - $s_discount;
         }
 
-        $request['amount'] = $s_total + $tax_total;
+        $amount = $s_total + $tax_total;
+
+        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
 
         $invoice->update($request->input());
 
@@ -524,6 +528,7 @@ class Invoices extends Controller
                     $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];
 
                     $i = 1;
+
                     foreach ($invoices as $invoice) {
                         $model = $invoice->$table->makeHidden($hidden_fields);
 
@@ -750,7 +755,7 @@ class Invoices extends Controller
         for ($i = 0; $i < $currency->precision; $i++) {
             $multiplier *= 10;
         }
-        
+
         $amount *=  $multiplier;
         $total_amount *=  $multiplier;
 
