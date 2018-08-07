@@ -8,6 +8,7 @@
     {!! Form::open(['url' => 'expenses/bills', 'files' => true, 'role' => 'form']) !!}
 
     <div class="box-body">
+        @stack('vendor_id_input_start')
         <div class="form-group col-md-6 required {{ $errors->has('vendor_id') ? 'has-error' : ''}}">
             {!! Form::label('vendor_id', trans_choice('general.vendors', 1), ['class' => 'control-label']) !!}
             <div class="input-group">
@@ -19,6 +20,7 @@
             </div>
             {!! $errors->first('vendor_id', '<p class="help-block">:message</p>') !!}
         </div>
+        @stack('vendor_id_input_end')
 
         {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, setting('general.default_currency')) }}
 

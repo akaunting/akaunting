@@ -24,9 +24,11 @@
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
 
-            <div  id="customer-create-user" class="form-group col-md-12 margin-top">
+            @stack('create_user_input_start')
+            <div id="customer-create-user" class="form-group col-md-12 margin-top">
                 <strong>{{ trans('customers.allow_login') }}</strong> &nbsp;  {{ Form::checkbox('create_user', '1', null, ['id' => 'create_user']) }}
             </div>
+            @stack('create_user_input_end')
         </div>
         <!-- /.box-body -->
 

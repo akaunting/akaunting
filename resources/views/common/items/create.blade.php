@@ -22,6 +22,7 @@
 
             {{ Form::selectGroup('tax_id', trans_choice('general.taxes', 1), 'percent', $taxes, setting('general.default_tax'), []) }}
 
+            @stack('category_id_input_start')
             <div class="form-group col-md-6 required {{ $errors->has('category_id') ? 'has-error' : ''}}">
                 {!! Form::label('category_id', trans_choice('general.categories', 1), ['class' => 'control-label']) !!}
                 <div class="input-group">
@@ -33,6 +34,7 @@
                 </div>
                 {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
             </div>
+            @stack('category_id_input_end')
 
             {{ Form::fileGroup('picture', trans_choice('general.pictures', 1)) }}
 

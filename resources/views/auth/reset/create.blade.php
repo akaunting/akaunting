@@ -9,6 +9,7 @@
 
     <input type="hidden" name="token" value="{{ $token }}">
 
+    @stack('email_input_start')
     <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
         <input name="email" type="email" class="form-control" placeholder="{{ trans('auth.current_email') }}" value="{{ $email or old('email') }}" required autofocus>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -18,7 +19,9 @@
             </span>
         @endif
     </div>
+    @stack('email_input_end')
 
+    @stack('password_input_start')
     <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
         <input name="password" type="password" class="form-control" placeholder="{{ trans('auth.password.new') }}" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -28,7 +31,9 @@
             </span>
         @endif
     </div>
+    @stack('password_input_end')
 
+    @stack('password_confirmation_input_start')
     <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
         <input name="password_confirmation" type="password" class="form-control" placeholder="{{ trans('auth.password.new_confirm') }}" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -38,6 +43,7 @@
             </span>
         @endif
     </div>
+    @stack('password_confirmation_input_end')
 
     <div class="row">
         <!-- /.col -->
