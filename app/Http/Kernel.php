@@ -92,9 +92,6 @@ class Kernel extends HttpKernel
         'company.settings' => \App\Http\Middleware\LoadSettings::class,
         'company.currencies' => \App\Http\Middleware\LoadCurrencies::class,
         'dateformat' => \App\Http\Middleware\DateFormat::class,
-        'money.amount' => \App\Http\Middleware\MoneyAmount::class,
-        'money.price' => \App\Http\Middleware\MoneyPrice::class,
-        'money.total' => \App\Http\Middleware\MoneyTax::class,
-        'money.tax' => \App\Http\Middleware\MoneyTotal::class,
+        'money' => \App\Http\Middleware\Money::class,
     ];
 }

@@ -42,7 +42,7 @@ class InvoiceItem extends Model
      */
     public function setPriceAttribute($value)
     {
-        $this->attributes['price'] = (double) money($value, $this->invoice->currency_code)->getAmount();
+        $this->attributes['price'] = (double) $value;
     }
 
     /**
@@ -53,7 +53,7 @@ class InvoiceItem extends Model
      */
     public function setTotalAttribute($value)
     {
-        $this->attributes['total'] = (double) money($value, $this->invoice->currency_code)->getAmount();
+        $this->attributes['total'] = (double) $value;
     }
 
     /**
@@ -64,6 +64,6 @@ class InvoiceItem extends Model
      */
     public function setTaxAttribute($value)
     {
-        $this->attributes['tax'] = (double) money($value, $this->invoice->currency_code)->getAmount();
+        $this->attributes['tax'] = (double) $value;
     }
 }

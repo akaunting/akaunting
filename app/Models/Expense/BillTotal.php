@@ -39,7 +39,7 @@ class BillTotal extends Model
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) money($value, $this->bill->currency_code)->getAmount();
+        $this->attributes['amount'] = (double) $value;
     }
 
     /**

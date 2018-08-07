@@ -39,7 +39,7 @@ class InvoiceTotal extends Model
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) money($value, $this->invoice->currency_code)->getAmount();
+        $this->attributes['amount'] = (double) $value;
     }
 
     /**
