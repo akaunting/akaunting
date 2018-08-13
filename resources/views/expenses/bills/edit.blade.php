@@ -310,7 +310,7 @@
             });
 
             $('a[rel=popover]').popover({
-                html: 'true',
+                html: true,
                 placement: 'bottom',
                 title: '{{ trans('bills.discount') }}',
                 content: function () {
