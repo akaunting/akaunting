@@ -64,13 +64,15 @@ class Payments extends Controller
 
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
 
+        $currency = Currency::where('code', '=', $account_currency_code)->first();
+
         $vendors = Vendor::enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('expenses.payments.create', compact('accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
+        return view('expenses.payments.create', compact('accounts', 'currencies', 'account_currency_code', 'currency', 'vendors', 'categories', 'payment_methods'));
     }
 
     /**
@@ -154,13 +156,15 @@ class Payments extends Controller
 
         $account_currency_code = Account::where('id', $payment->account_id)->pluck('currency_code')->first();
 
+        $currency = Currency::where('code', '=', $account_currency_code)->first();
+
         $vendors = Vendor::enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('expenses.payments.edit', compact('payment', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
+        return view('expenses.payments.edit', compact('payment', 'accounts', 'currencies', 'account_currency_code', 'currency', 'vendors', 'categories', 'payment_methods'));
     }
 
     /**

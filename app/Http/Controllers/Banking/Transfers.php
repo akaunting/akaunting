@@ -102,7 +102,9 @@ class Transfers extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('banking.transfers.create', compact('accounts', 'payment_methods'));
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('banking.transfers.create', compact('accounts', 'payment_methods', 'currency'));
     }
 
     /**
@@ -219,7 +221,9 @@ class Transfers extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods'));
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currency'));
     }
 
     /**

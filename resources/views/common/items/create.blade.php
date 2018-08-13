@@ -67,6 +67,33 @@
         var text_no = '{{ trans('general.no') }}';
 
         $(document).ready(function(){
+            $("#sale_price").maskMoney({
+                thousands : '{{ $currency->thousands_separator }}',
+                decimal : '{{ $currency->decimal_mark }}',
+                precision : {{ $currency->precision }},
+                allowZero : true,
+                @if($currency->symbol_first)
+                prefix : '{{ $currency->symbol }}'
+                @else
+                suffix : '{{ $currency->symbol }}'
+                @endif
+            });
+
+            $("#purchase_price").maskMoney({
+                thousands : '{{ $currency->thousands_separator }}',
+                decimal : '{{ $currency->decimal_mark }}',
+                precision : {{ $currency->precision }},
+                allowZero : true,
+                @if($currency->symbol_first)
+                prefix : '{{ $currency->symbol }}'
+                @else
+                suffix : '{{ $currency->symbol }}'
+                @endif
+            });
+
+            $("#sale_price").focusout();
+            $("#purchase_price").focusout();
+
             $('#enabled_1').trigger('click');
 
             $('#name').focus();

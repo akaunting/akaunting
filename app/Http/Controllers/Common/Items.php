@@ -52,7 +52,9 @@ class Items extends Controller
 
         $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        return view('common.items.create', compact('categories', 'taxes'));
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('common.items.create', compact('categories', 'taxes', 'currency'));
     }
 
     /**
@@ -131,7 +133,9 @@ class Items extends Controller
 
         $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        return view('common.items.edit', compact('item', 'categories', 'taxes'));
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('common.items.edit', compact('item', 'categories', 'taxes', 'currency'));
     }
 
     /**
@@ -234,8 +238,8 @@ class Items extends Controller
      */
     public function export()
     {
-        \Excel::create('items', function ($excel) {
-            $excel->sheet('items', function ($sheet) {
+        \Excel::create('items', function($excel) {
+            $excel->sheet('items', function($sheet) {
                 $sheet->fromModel(Item::filter(request()->input())->get()->makeHidden([
                     'id', 'company_id', 'item_id', 'created_at', 'updated_at', 'deleted_at'
                 ]));
@@ -315,7 +319,7 @@ class Items extends Controller
 
         if ($input_items) {
             foreach ($input_items as $key => $item) {
-                $price = money($item['price'], $currency_code)->getAmount();
+                $price = (double) $item['price'];
                 $quantity = (double) $item['quantity'];
 
                 $item_tax_total= 0;

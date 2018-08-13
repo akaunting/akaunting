@@ -66,13 +66,15 @@ class Revenues extends Controller
 
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
 
+        $currency = Currency::where('code', '=', $account_currency_code)->first();
+
         $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('incomes.revenues.create', compact('accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
+        return view('incomes.revenues.create', compact('accounts', 'currencies', 'account_currency_code', 'currency', 'customers', 'categories', 'payment_methods'));
     }
 
     /**
@@ -156,13 +158,15 @@ class Revenues extends Controller
 
         $account_currency_code = Account::where('id', $revenue->account_id)->pluck('currency_code')->first();
 
+        $currency = Currency::where('code', '=', $account_currency_code)->first();
+
         $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('incomes.revenues.edit', compact('revenue', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
+        return view('incomes.revenues.edit', compact('revenue', 'accounts', 'currencies', 'account_currency_code', 'currency', 'customers', 'categories', 'payment_methods'));
     }
 
     /**

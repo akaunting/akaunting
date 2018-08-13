@@ -288,13 +288,9 @@ class Currencies extends Controller
 
         $code = request('code');
 
-        if ($code) {
-            $currency = config('money.' . $code);
-            $currency['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
+        // Get currency object
+        $currency = Currency::where('code', $code)->first();
 
-            $json = (object) $currency;
-        }
-
-        return response()->json($json);
+        return response()->json($currency);
     }
 }

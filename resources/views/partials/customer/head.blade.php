@@ -60,6 +60,8 @@
 
     <!-- Select2 -->
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.js') }}"></script>
+    <!-- Mask Money -->
+    <script src="{{ asset('public/js/jquery/jquery.maskMoney.js') }}"></script>
 
     <script src="{{ asset('public/js/app.js?v=1.0') }}"></script>
 

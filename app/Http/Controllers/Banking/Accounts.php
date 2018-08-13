@@ -40,8 +40,10 @@ class Accounts extends Controller
     public function create()
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
-        
-        return view('banking.accounts.create', compact('currencies'));
+
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('banking.accounts.create', compact('currencies', 'currency'));
     }
 
     /**
@@ -80,8 +82,10 @@ class Accounts extends Controller
         $currencies = Currency::enabled()->pluck('name', 'code');
 
         $account->default_account = ($account->id == setting('general.default_account')) ?: 1;
-        
-        return view('banking.accounts.edit', compact('account', 'currencies'));
+
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('banking.accounts.edit', compact('account', 'currencies', 'currency'));
     }
 
     /**
@@ -238,6 +242,12 @@ class Accounts extends Controller
 
         $account->currency_code = $currency_code;
         $account->currency_rate = $currency->rate;
+
+        $account->thousands_separator = $currency->thousands_separator;
+        $account->decimal_mark = $currency->decimal_mark;
+        $account->precision = (int) $currency->precision;
+        $account->symbol_first = $currency->symbol_first;
+        $account->symbol = $currency->symbol;
 
         return response()->json($account);
     }

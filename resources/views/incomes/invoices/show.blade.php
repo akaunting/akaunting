@@ -422,7 +422,7 @@
 
             $(document).on('change', '#account_id', function (e) {
                 $.ajax({
-                    url: '{{ url("settings/currencies/currency") }}',
+                    url: '{{ url("banking/accounts/currency") }}',
                     type: 'GET',
                     dataType: 'JSON',
                     data: 'account_id=' + $(this).val(),
