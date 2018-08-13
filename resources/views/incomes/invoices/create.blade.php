@@ -187,7 +187,10 @@
             $('[data-toggle="tooltip"]').tooltip('hide');
 
             $('#item-row-' + item_row + ' .tax-select2').select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                placeholder: {
+                    id: '-1', // the value of the option
+                    text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                }
             });
 
             item_row++;
@@ -211,7 +214,10 @@
             });
 
             $(".tax-select2").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                placeholder: {
+                    id: '-1', // the value of the option
+                    text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                }
             });
 
             $("#customer_id").select2({

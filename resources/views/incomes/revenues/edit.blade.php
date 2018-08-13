@@ -103,7 +103,10 @@
             });
 
             $("#customer_id").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)]) }}"
+                placeholder: {
+                    id: '-1', // the value of the option
+                    text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)]) }}"
+                }
             });
 
             $("#payment_method").select2({

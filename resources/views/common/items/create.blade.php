@@ -72,7 +72,10 @@
             $('#name').focus();
 
             $("#tax_id").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                placeholder: {
+                    id: '-1', // the value of the option
+                    text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                }
             });
 
             $("#category_id").select2({
