@@ -270,16 +270,15 @@ class Currencies extends Controller
     {
         $json = new \stdClass();
 
-        $account_id = request('account_id');
+        $code = request('code');
 
-        if ($account_id) {
-            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        // Get currency object
+        $currency = Currency::where('code', $code)->first();
 
-            $json->currency_code = Account::where('id', $account_id)->pluck('currency_code')->first();
-            $json->currency_name = $currencies[$json->currency_code];
-        }
+        // it should be integer for amount mask
+        $currency->precision = (int) $currency->precision;
 
-        return response()->json($json);
+        return response()->json($currency);
     }
 
     public function config()
@@ -288,9 +287,13 @@ class Currencies extends Controller
 
         $code = request('code');
 
-        // Get currency object
-        $currency = Currency::where('code', $code)->first();
+        if ($code) {
+            $currency = config('money.' . $code);
+            $currency['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
 
-        return response()->json($currency);
+            $json = (object) $currency;
+        }
+
+        return response()->json($json);
     }
 }

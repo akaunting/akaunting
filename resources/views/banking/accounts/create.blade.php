@@ -80,6 +80,8 @@
 
                     opening_balance = $('#opening_balance').maskMoney('unmasked')[0];
 
+                    alert(opening_balance);
+
                     $("#opening_balance").maskMoney({
                         thousands : data.thousands_separator,
                         decimal : data.decimal_mark,
@@ -91,7 +93,7 @@
 
                     $('#opening_balance').val(opening_balance);
 
-                    $('#opening_balance').trigger('focus');
+                    $('#opening_balance').trigger('focusout');
                 }
             });
         });

@@ -93,7 +93,7 @@
 
                     $('#opening_balance').val(opening_balance);
 
-                    $('#opening_balance').trigger('focus');
+                    $('#opening_balance').trigger('focusout');
                 }
             });
         });
