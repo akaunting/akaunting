@@ -27,7 +27,7 @@ class Categories extends Controller
      */
     public function create()
     {
-        $html = view('modals.categories.create')->render();
+        $html = view('modals.categories.create', compact('currencies'))->render();
 
         return response()->json([
             'success' => true,
