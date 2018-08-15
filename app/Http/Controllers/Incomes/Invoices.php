@@ -513,10 +513,10 @@ class Invoices extends Controller
      */
     public function export()
     {
-        \Excel::create('invoices', function($excel) {
+        \Excel::create('invoices', function ($excel) {
             $invoices = Invoice::with(['items', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
 
-            $excel->sheet('invoices', function($sheet) use ($invoices) {
+            $excel->sheet('invoices', function ($sheet) use ($invoices) {
                 $sheet->fromModel($invoices->makeHidden([
                     'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media'
                 ]));

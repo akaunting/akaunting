@@ -32,6 +32,7 @@
 
             {{ Form::textGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
 
+            @stack('account_id_input_start')
             <div class="form-group col-md-6 form-small">
                 {!! Form::label('account_id', trans_choice('general.accounts', 1), ['class' => 'control-label']) !!}
                 <div class="input-group">
@@ -42,6 +43,7 @@
                     </div>
                 </div>
             </div>
+            @stack('account_id_input_end')
 
             {{ Form::selectGroup('customer_id', trans_choice('general.customers', 1), 'user', $customers, null, []) }}
 

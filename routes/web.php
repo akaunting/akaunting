@@ -161,6 +161,12 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('updates', 'Install\Updates');
             });
 
+            Route::group(['prefix' => 'modals'], function () {
+                Route::resource('categories', 'Modals\Categories');
+                Route::resource('customers', 'Modals\Customers');
+                Route::resource('vendors', 'Modals\Vendors');
+            });
+
             /* @deprecated */
             Route::post('items/items/totalItem', 'Common\Items@totalItem');
         });
