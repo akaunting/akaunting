@@ -80,8 +80,6 @@
 
                     opening_balance = $('#opening_balance').maskMoney('unmasked')[0];
 
-                    alert(opening_balance);
-
                     $("#opening_balance").maskMoney({
                         thousands : data.thousands_separator,
                         decimal : data.decimal_mark,
