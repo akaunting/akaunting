@@ -73,10 +73,10 @@
                 dataType: 'JSON',
                 data: 'code=' + $(this).val(),
                 success: function(data) {
-                    $('#currency').val(data.currency_code);
+                    $('#currency').val(data.code);
 
-                    $('#currency_code').val(data.currency_code);
-                    $('#currency_rate').val(data.currency_rate);
+                    $('#currency_code').val(data.code);
+                    $('#currency_rate').val(data.rate);
 
                     opening_balance = $('#opening_balance').maskMoney('unmasked')[0];
 

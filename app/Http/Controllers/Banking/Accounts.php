@@ -240,6 +240,7 @@ class Accounts extends Controller
         // Get currency object
         $currency = Currency::where('code', $currency_code)->first();
 
+        $account->currency_name = $currency->name;
         $account->currency_code = $currency_code;
         $account->currency_rate = $currency->rate;
 
