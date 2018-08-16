@@ -8,6 +8,7 @@ use App\Events\InvoiceUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Income\Invoice as Request;
 use App\Http\Requests\Income\InvoicePayment as PaymentRequest;
+use Illuminate\Http\Request as ItemRequest;
 use App\Models\Banking\Account;
 use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
@@ -524,7 +525,7 @@ class Invoices extends Controller
 
             $tables = ['items', 'histories', 'payments', 'totals'];
             foreach ($tables as $table) {
-                $excel->sheet('invoice_' . $table, function($sheet) use ($invoices, $table) {
+                $excel->sheet('invoice_' . $table, function ($sheet) use ($invoices, $table) {
                     $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];
 
                     $i = 1;
@@ -854,6 +855,31 @@ class Invoices extends Controller
         flash($message)->success();
 
         return redirect()->back();
+    }
+
+    public function addItem(ItemRequest $request)
+    {
+        if ($request['item_row']) {
+            $item_row = $request['item_row'];
+
+            $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+
+            $html = view('incomes.invoices.item', compact('item_row', 'taxes'))->render();
+
+            return response()->json([
+                'success' => true,
+                'error'   => false,
+                'message' => 'null',
+                'html'    => $html,
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'error'   => true,
+            'message' => trans('issue'),
+            'html'    => 'null',
+        ]);
     }
 
     protected function prepareInvoice(Invoice $invoice)
