@@ -79,6 +79,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('bills/{bill}/print', 'Expenses\Bills@printBill');
                 Route::get('bills/{bill}/pdf', 'Expenses\Bills@pdfBill');
                 Route::get('bills/{bill}/duplicate', 'Expenses\Bills@duplicate');
+                Route::get('bills/addItem', 'Expenses\Bills@addItem')->name('bill.add.item');
                 Route::post('bills/payment', 'Expenses\Bills@payment')->middleware(['dateformat', 'money'])->name('bill.payment');
                 Route::delete('bills/payment/{payment}', 'Expenses\Bills@paymentDestroy');
                 Route::post('bills/import', 'Expenses\Bills@import')->name('bills.import');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modals;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\Category as Request;
+use Illuminate\Http\Request as CRequest;
 use App\Models\Setting\Category;
 
 class Categories extends Controller
@@ -25,9 +26,11 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(CRequest $request)
     {
-        $html = view('modals.categories.create', compact('currencies'))->render();
+        $type = $request['type'];
+
+        $html = view('modals.categories.create', compact('currencies', 'type'))->render();
 
         return response()->json([
             'success' => true,

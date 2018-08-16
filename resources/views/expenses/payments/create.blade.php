@@ -194,6 +194,7 @@
                 url: '{{ url("modals/categories/create") }}',
                 type: 'GET',
                 dataType: 'JSON',
+                data: {type: 'expense'},
                 success: function(json) {
                     if (json['success']) {
                         $('body').append(json['html']);

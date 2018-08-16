@@ -20,7 +20,7 @@
                     </div>
                     @stack('color_input_end')
 
-                    {!! Form::hidden('type', 'income', []) !!}
+                    {!! Form::hidden('type', $type, []) !!}
                     {!! Form::hidden('enabled', '1', []) !!}
                 </div>
                 {!! Form::close() !!}

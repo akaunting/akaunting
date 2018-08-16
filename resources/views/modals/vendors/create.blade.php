@@ -60,6 +60,7 @@
                 $('#modal-create-vendor').modal('hide');
 
                 $("#vendor_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('#vendor_id').trigger('change');
                 $("#vendor_id").select2('refresh');
             },
             error: function(error, textStatus, errorThrown) {

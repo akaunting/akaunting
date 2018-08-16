@@ -8,6 +8,7 @@ use App\Events\BillUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Bill as Request;
 use App\Http\Requests\Expense\BillPayment as PaymentRequest;
+use Illuminate\Http\Request as ItemRequest;
 use App\Models\Banking\Account;
 use App\Models\Expense\BillStatus;
 use App\Models\Expense\Vendor;
@@ -717,6 +718,31 @@ class Bills extends Controller
         flash($message)->success();
 
         return redirect()->back();
+    }
+
+    public function addItem(ItemRequest $request)
+    {
+        if ($request['item_row']) {
+            $item_row = $request['item_row'];
+
+            $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+
+            $html = view('expenses.bills.item', compact('item_row', 'taxes'))->render();
+
+            return response()->json([
+                'success' => true,
+                'error'   => false,
+                'message' => 'null',
+                'html'    => $html,
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'error'   => true,
+            'message' => trans('issue'),
+            'html'    => 'null',
+        ]);
     }
 
     protected function prepareBill(Bill $bill)

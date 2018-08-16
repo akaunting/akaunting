@@ -60,6 +60,7 @@
                 $('#modal-create-customer').modal('hide');
 
                 $("#customer_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('#customer_id').trigger('change');
                 $("#customer_id").select2('refresh');
             },
             error: function(error, textStatus, errorThrown) {
