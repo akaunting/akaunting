@@ -19,6 +19,8 @@ class Money
             $amount = $request->get('amount');
             $bill_number = $request->get('bill_number');
             $invoice_number = $request->get('invoice_number');
+            $sale_price = $request->get('sale_price');
+            $purchase_price = $request->get('purchase_price');
             $currency_code = $request->get('currency_code');
 
             if (empty($currency_code)) {
@@ -41,6 +43,18 @@ class Money
 
                     $request->request->set('item', $items);
                 }
+            }
+
+            if (isset($sale_price)) {
+                $sale_price = money($sale_price, $currency_code)->getAmount();
+
+                $request->request->set('sale_price', $sale_price);
+            }
+
+            if (isset($purchase_price)) {
+                $purchase_price = money($purchase_price, $currency_code)->getAmount();
+
+                $request->request->set('purchase_price', $purchase_price);
             }
         }
 

@@ -28,7 +28,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('items/export', 'Common\Items@export')->name('items.export');
                 Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
                 Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
-                Route::resource('items', 'Common\Items');
+                Route::resource('items', 'Common\Items', ['middleware' => ['money']]);
                 Route::get('search/search', 'Common\Search@search')->name('search.search');
                 Route::resource('search', 'Common\Search');
             });
