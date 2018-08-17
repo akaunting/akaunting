@@ -53,7 +53,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('invoices/{invoice}/print', 'Incomes\Invoices@printInvoice');
                 Route::get('invoices/{invoice}/pdf', 'Incomes\Invoices@pdfInvoice');
                 Route::get('invoices/{invoice}/duplicate', 'Incomes\Invoices@duplicate');
-                Route::get('invoices/addItem', 'Incomes\Invoices@addItem')->name('invoice.add.item');
+                Route::get('invoices/addItem', 'Incomes\Invoices@addItem')->middleware(['money'])->name('invoice.add.item');
                 Route::post('invoices/payment', 'Incomes\Invoices@payment')->middleware(['dateformat', 'money'])->name('invoice.payment');
                 Route::delete('invoices/payment/{payment}', 'Incomes\Invoices@paymentDestroy');
                 Route::post('invoices/import', 'Incomes\Invoices@import')->name('invoices.import');
@@ -167,6 +167,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('categories', 'Modals\Categories');
                 Route::resource('customers', 'Modals\Customers');
                 Route::resource('vendors', 'Modals\Vendors');
+                Route::resource('invoices/{invoice}/payment', 'Modals\InvoicePayments', ['middleware' => ['dateformat', 'money']]);
             });
 
             /* @deprecated */

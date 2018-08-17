@@ -59,7 +59,7 @@
         var text_no = '{{ trans('general.no') }}';
 
         $(document).ready(function(){
-            $("#sale_price").maskMoney({
+            /*$("#sale_price").maskMoney({
                 thousands : '{{ $currency->thousands_separator }}',
                 decimal : '{{ $currency->decimal_mark }}',
                 precision : {{ $currency->precision }},
@@ -84,7 +84,7 @@
             });
 
             $("#sale_price").focusout();
-            $("#purchase_price").focusout();
+            $("#purchase_price").focusout();*/
 
             $("#tax_id").select2({
                 placeholder: {

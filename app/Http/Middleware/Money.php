@@ -45,6 +45,7 @@ class Money
                 }
             }
 
+            /* check item price use money
             if (isset($sale_price)) {
                 $sale_price = money($sale_price, $currency_code)->getAmount();
 
@@ -56,6 +57,7 @@ class Money
 
                 $request->request->set('purchase_price', $purchase_price);
             }
+            */
         }
 
         return $next($request);

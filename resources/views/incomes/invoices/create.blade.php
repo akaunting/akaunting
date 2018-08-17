@@ -165,7 +165,7 @@
                 url: '{{ url("incomes/invoices/addItem") }}',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {item_row: item_row},
+                data: {item_row: item_row, currency_code : $('#currency_code').val()},
                 success: function(json) {
                     if (json['success']) {
                         $('#items tbody #addItem').before(json['html']);
@@ -180,6 +180,19 @@
                             }
                         });
 
+                        var currency = json['data']['currency'];
+
+                        $("#item-price-" + item_row).maskMoney({
+                            thousands : currency.thousands_separator,
+                            decimal : currency.decimal_mark,
+                            precision : currency.precision,
+                            allowZero : true,
+                            prefix : (currency.symbol_first) ? currency.symbol : '',
+                            suffix : (currency.symbol_first) ? '' : currency.symbol
+                        });
+
+                        $("#item-price-" + item_row).trigger('focusout');
+
                         item_row++;
                     }
                 }
@@ -187,6 +200,20 @@
         });
 
         $(document).ready(function(){
+            $(".input-price").maskMoney({
+                thousands : '{{ $currency->thousands_separator }}',
+                decimal : '{{ $currency->decimal_mark }}',
+                precision : {{ $currency->precision }},
+                allowZero : true,
+                @if($currency->symbol_first)
+                prefix : '{{ $currency->symbol }}'
+                @else
+                suffix : '{{ $currency->symbol }}'
+                @endif
+            });
+
+            $('.input-price').trigger('focusout');
+
             //Date picker
             $('#invoiced_at').datepicker({
                 format: 'yyyy-mm-dd',
@@ -338,8 +365,26 @@
                         $('#customer_tax_number').val(data.tax_number);
                         $('#customer_phone').val(data.phone);
                         $('#customer_address').val(data.address);
+
                         $('#currency_code').val(data.currency_code);
                         $('#currency_rate').val(data.currency_rate);
+
+                        $('.input-price').each(function(){
+                            amount = $(this).maskMoney('unmasked')[0];
+
+                            $(this).maskMoney({
+                                thousands : data.thousands_separator,
+                                decimal : data.decimal_mark,
+                                precision : data.precision,
+                                allowZero : true,
+                                prefix : (data.symbol_first) ? data.symbol : '',
+                                suffix : (data.symbol_first) ? '' : data.symbol
+                            });
+
+                            $(this).val(amount);
+
+                            $(this).trigger('focusout');
+                        });
 
                         // This event Select2 Stylesheet
                         $('#currency_code').trigger('change');

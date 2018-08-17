@@ -69,16 +69,35 @@ class Invoices extends Controller
     {
         $paid = 0;
 
-        foreach ($invoice->payments as $item) {
-            $amount = $item->amount;
+        // Get Invoice Payments
+        if ($invoice->payments->count()) {
+            $_currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
-            if ($invoice->currency_code != $item->currency_code) {
-                $item->default_currency_code = $invoice->currency_code;
+            foreach ($invoice->payments as $item) {
+                $default_amount = $item->amount;
 
-                $amount = $item->getDynamicConvertedAmount();
+                if ($invoice->currency_code != $item->currency_code) {
+                    $default_amount_model = new InvoicePayment();
+
+                    $default_amount_model->default_currency_code = $invoice->currency_code;
+                    $default_amount_model->amount = $default_amount;
+                    $default_amount_model->currency_code = $item->currency_code;
+                    $default_amount_model->currency_rate = $_currencies[$item->currency_code];
+
+                    $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+                }
+
+                $convert_amount = new InvoicePayment();
+
+                $convert_amount->default_currency_code = $item->currency_code;
+                $convert_amount->amount = $default_amount;
+                $convert_amount->currency_code = $invoice->currency_code;
+                $convert_amount->currency_rate = $_currencies[$invoice->currency_code];
+
+                $amount = (double) $convert_amount->getDynamicConvertedAmount();
+
+                $paid += $amount;
             }
-
-            $paid += $amount;
         }
 
         $invoice->paid = $paid;
@@ -109,6 +128,8 @@ class Invoices extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
+        $currency = Currency::where('code', '=', setting('general.default_currency'))->first();
+
         $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
@@ -117,7 +138,7 @@ class Invoices extends Controller
 
         $number = $this->getNextInvoiceNumber();
 
-        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'categories', 'number'));
+        return view('incomes.invoices.create', compact('customers', 'currencies', 'currency', 'items', 'taxes', 'categories', 'number'));
     }
 
     /**
@@ -864,11 +885,19 @@ class Invoices extends Controller
 
             $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
+            $currency = Currency::where('code', '=', $request['currency_code'])->first();
+
+            // it should be integer for amount mask
+            $currency->precision = (int) $currency->precision;
+
             $html = view('incomes.invoices.item', compact('item_row', 'taxes'))->render();
 
             return response()->json([
                 'success' => true,
                 'error'   => false,
+                'data'    => [
+                    'currency' => $currency
+                ],
                 'message' => 'null',
                 'html'    => $html,
             ]);
@@ -877,6 +906,7 @@ class Invoices extends Controller
         return response()->json([
             'success' => false,
             'error'   => true,
+            'data'    => 'null',
             'message' => trans('issue'),
             'html'    => 'null',
         ]);
