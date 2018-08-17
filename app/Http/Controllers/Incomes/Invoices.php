@@ -371,13 +371,15 @@ class Invoices extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
+        $currency = Currency::where('code', '=', setting('general.default_currency'))->first();
+
         $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
         $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
-        return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'items', 'taxes', 'categories'));
+        return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }
 
     /**
