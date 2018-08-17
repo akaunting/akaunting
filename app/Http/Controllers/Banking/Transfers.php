@@ -217,11 +217,12 @@ class Transfers extends Controller
         $transfer['payment_method'] = $payment->payment_method;
         $transfer['reference'] = $payment->reference;
 
+        $account = Account::find($payment->account_id);
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+        $currency = Currency::where('code', '=', $account->currency_code)->first();
 
         return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currency'));
     }

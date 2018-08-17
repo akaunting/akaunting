@@ -103,9 +103,9 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('accounts/currency', 'Banking\Accounts@currency')->name('accounts.currency');
                 Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
                 Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
-                Route::resource('accounts', 'Banking\Accounts');
+                Route::resource('accounts', 'Banking\Accounts', ['middleware' => ['dateformat', 'money']]);
                 Route::resource('transactions', 'Banking\Transactions');
-                Route::resource('transfers', 'Banking\Transfers');
+                Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['dateformat', 'money']]);
             });
 
             Route::group(['prefix' => 'reports'], function () {
