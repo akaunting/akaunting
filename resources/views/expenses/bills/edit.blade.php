@@ -161,6 +161,19 @@
                             }
                         });
 
+                        var currency = json['data']['currency'];
+
+                        $("#item-price-" + item_row).maskMoney({
+                            thousands : currency.thousands_separator,
+                            decimal : currency.decimal_mark,
+                            precision : currency.precision,
+                            allowZero : true,
+                            prefix : (currency.symbol_first) ? currency.symbol : '',
+                            suffix : (currency.symbol_first) ? '' : currency.symbol
+                        });
+
+                        $("#item-price-" + item_row).trigger('focusout');
+
                         item_row++;
                     }
                 }
@@ -168,6 +181,20 @@
         });
 
         $(document).ready(function(){
+            $(".input-price").maskMoney({
+                thousands : '{{ $currency->thousands_separator }}',
+                decimal : '{{ $currency->decimal_mark }}',
+                precision : {{ $currency->precision }},
+                allowZero : true,
+                @if($currency->symbol_first)
+                prefix : '{{ $currency->symbol }}'
+                @else
+                suffix : '{{ $currency->symbol }}'
+                @endif
+            });
+
+            $('.input-price').trigger('focusout');
+
             totalItem();
 
             //Date picker
@@ -216,24 +243,24 @@
             });
 
             @if($bill->attachment)
-                attachment_html  = '<span class="attachment">';
-                attachment_html += '    <a href="{{ url('uploads/' . $bill->attachment->id . '/download') }}">';
-                attachment_html += '        <span id="download-attachment" class="text-primary">';
-                attachment_html += '            <i class="fa fa-file-{{ $bill->attachment->aggregate_type }}-o"></i> {{ $bill->attachment->basename }}';
-                attachment_html += '        </span>';
-                attachment_html += '    </a>';
-                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $bill->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $bill->attachment->id)], 'style' => 'display:inline']) !!}';
-                attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
-                attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-                attachment_html += '    </a>';
-                attachment_html += '    {!! Form::close() !!}';
-                attachment_html += '</span>';
+            attachment_html  = '<span class="attachment">';
+            attachment_html += '    <a href="{{ url('uploads/' . $bill->attachment->id . '/download') }}">';
+            attachment_html += '        <span id="download-attachment" class="text-primary">';
+            attachment_html += '            <i class="fa fa-file-{{ $bill->attachment->aggregate_type }}-o"></i> {{ $bill->attachment->basename }}';
+            attachment_html += '        </span>';
+            attachment_html += '    </a>';
+            attachment_html += '    {!! Form::open(['id' => 'attachment-' . $bill->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $bill->attachment->id)], 'style' => 'display:inline']) !!}';
+            attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
+            attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
+            attachment_html += '    </a>';
+            attachment_html += '    {!! Form::close() !!}';
+            attachment_html += '</span>';
 
-                $('.fancy-file .fake-file').append(attachment_html);
+            $('.fancy-file .fake-file').append(attachment_html);
 
-                $(document).on('click', '#remove-attachment', function (e) {
-                    confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-                });
+            $(document).on('click', '#remove-attachment', function (e) {
+                confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+            });
             @endif
 
             var autocomplete_path = "{{ url('common/items/autocomplete') }}";
@@ -349,6 +376,23 @@
 
                         $('#currency_code').val(data.currency_code);
                         $('#currency_rate').val(data.currency_rate);
+
+                        $('.input-price').each(function(){
+                            amount = $(this).maskMoney('unmasked')[0];
+
+                            $(this).maskMoney({
+                                thousands : data.thousands_separator,
+                                decimal : data.decimal_mark,
+                                precision : data.precision,
+                                allowZero : true,
+                                prefix : (data.symbol_first) ? data.symbol : '',
+                                suffix : (data.symbol_first) ? '' : data.symbol
+                            });
+
+                            $(this).val(amount);
+
+                            $(this).trigger('focusout');
+                        });
 
                         // This event Select2 Stylesheet
                         $('#currency_code').trigger('change');

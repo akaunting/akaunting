@@ -66,16 +66,35 @@ class Bills extends Controller
     {
         $paid = 0;
 
-        foreach ($bill->payments as $item) {
-            $amount = $item->amount;
+        // Get Bill Payments
+        if ($bill->payments->count()) {
+            $_currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
-            if ($bill->currency_code != $item->currency_code) {
-                $item->default_currency_code = $bill->currency_code;
+            foreach ($bill->payments as $item) {
+                $default_amount = $item->amount;
 
-                $amount = $item->getDynamicConvertedAmount();
+                if ($bill->currency_code != $item->currency_code) {
+                    $default_amount_model = new InvoicePayment();
+
+                    $default_amount_model->default_currency_code = $bill->currency_code;
+                    $default_amount_model->amount = $default_amount;
+                    $default_amount_model->currency_code = $item->currency_code;
+                    $default_amount_model->currency_rate = $_currencies[$item->currency_code];
+
+                    $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+                }
+
+                $convert_amount = new InvoicePayment();
+
+                $convert_amount->default_currency_code = $item->currency_code;
+                $convert_amount->amount = $default_amount;
+                $convert_amount->currency_code = $bill->currency_code;
+                $convert_amount->currency_rate = $_currencies[$bill->currency_code];
+
+                $amount = (double) $convert_amount->getDynamicConvertedAmount();
+
+                $paid += $amount;
             }
-
-            $paid += $amount;
         }
 
         $bill->paid = $paid;
@@ -106,13 +125,15 @@ class Bills extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
+        $currency = Currency::where('code', '=', setting('general.default_currency'))->first();
+
         $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
         $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
-        return view('expenses.bills.create', compact('vendors', 'currencies', 'items', 'taxes', 'categories'));
+        return view('expenses.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }
 
     /**
@@ -329,13 +350,15 @@ class Bills extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
+        $currency = Currency::where('code', '=', $bill->currency_code)->first();
+
         $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
         $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
-        return view('expenses.bills.edit', compact('bill', 'vendors', 'currencies', 'items', 'taxes', 'categories'));
+        return view('expenses.bills.edit', compact('bill', 'vendors', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }
 
     /**
@@ -727,11 +750,19 @@ class Bills extends Controller
 
             $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
+            $currency = Currency::where('code', '=', $request['currency_code'])->first();
+
+            // it should be integer for amount mask
+            $currency->precision = (int) $currency->precision;
+
             $html = view('expenses.bills.item', compact('item_row', 'taxes'))->render();
 
             return response()->json([
                 'success' => true,
                 'error'   => false,
+                'data'    => [
+                    'currency' => $currency
+                ],
                 'message' => 'null',
                 'html'    => $html,
             ]);
@@ -740,6 +771,7 @@ class Bills extends Controller
         return response()->json([
             'success' => false,
             'error'   => true,
+            'data'    => 'null',
             'message' => trans('issue'),
             'html'    => 'null',
         ]);
