@@ -21,6 +21,7 @@ class Money
             $invoice_number = $request->get('invoice_number');
             $sale_price = $request->get('sale_price');
             $purchase_price = $request->get('purchase_price');
+            $opening_balance = $request->get('opening_balance');
             $currency_code = $request->get('currency_code');
 
             if (empty($currency_code)) {
@@ -43,6 +44,12 @@ class Money
 
                     $request->request->set('item', $items);
                 }
+            }
+
+            if (isset($opening_balance)) {
+                $opening_balance = money($opening_balance, $currency_code)->getAmount();
+
+                $request->request->set('opening_balance', $opening_balance);
             }
 
             /* check item price use money

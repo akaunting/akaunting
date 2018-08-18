@@ -83,7 +83,7 @@ class Accounts extends Controller
 
         $account->default_account = ($account->id == setting('general.default_account')) ?: 1;
 
-        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+        $currency = Currency::where('code', '=', $account->currency_code)->first();
 
         return view('banking.accounts.edit', compact('account', 'currencies', 'currency'));
     }

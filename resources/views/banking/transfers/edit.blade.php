@@ -25,6 +25,9 @@
             {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, null) }}
 
             {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
+
+            {!! Form::hidden('currency_code', $currency->code, ['id' => 'currency_code']) !!}
+            {!! Form::hidden('currency_rate', $currency->rate, ['id' => 'currency_rate']) !!}
         </div>
         <!-- /.box-body -->
 
