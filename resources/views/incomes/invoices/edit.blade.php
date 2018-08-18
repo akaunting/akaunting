@@ -293,6 +293,7 @@
                         $('#item-tax-' + item_id).val(data.tax_id);
 
                         // This event Select2 Stylesheet
+                        $('#item-price-' + item_id).trigger('focusout');
                         $('#item-tax-' + item_id).trigger('change');
 
                         $('#item-total-' + item_id).html(data.total);
@@ -402,6 +403,7 @@
         });
 
         function totalItem() {
+
             $.ajax({
                 url: '{{ url("common/items/totalItem") }}',
                 type: 'POST',
@@ -420,6 +422,23 @@
                         $('#discount-total').html(data.discount_total);
                         $('#tax-total').html(data.tax_total);
                         $('#grand-total').html(data.grand_total);
+
+                        $('.input-price').each(function(){
+                            amount = $(this).maskMoney('unmasked')[0];
+
+                            $(this).maskMoney({
+                                thousands : data.thousands_separator,
+                                decimal : data.decimal_mark,
+                                precision : data.precision,
+                                allowZero : true,
+                                prefix : (data.symbol_first) ? data.symbol : '',
+                                suffix : (data.symbol_first) ? '' : data.symbol
+                            });
+
+                            $(this).val(amount);
+
+                            $(this).trigger('focusout');
+                        });
                     }
                 }
             });

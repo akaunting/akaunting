@@ -23,6 +23,7 @@ class Money
             $purchase_price = $request->get('purchase_price');
             $opening_balance = $request->get('opening_balance');
             $currency_code = $request->get('currency_code');
+            $items = $request->get('item');
 
             if (empty($currency_code)) {
                 $currency_code = setting('general.default_currency');
@@ -34,9 +35,7 @@ class Money
                 $request->request->set('amount', $amount);
             }
 
-            if (isset($bill_number) || isset($invoice_number)) {
-                $items = $request->get('item');
-
+            if (isset($bill_number) || isset($invoice_number) || !empty($items)) {
                 if (!empty($items)) {
                     foreach ($items as $key => $item) {
                         $items[$key]['price'] = money($item['price'], $currency_code)->getAmount();

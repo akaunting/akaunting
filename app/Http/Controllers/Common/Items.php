@@ -365,6 +365,19 @@ class Items extends Controller
 
         $json->grand_total = money($grand_total, $currency_code, true)->format();
 
+        // Get currency object
+        $currency = Currency::where('code', $currency_code)->first();
+
+        $json->currency_name = $currency->name;
+        $json->currency_code = $currency_code;
+        $json->currency_rate = $currency->rate;
+
+        $json->thousands_separator = $currency->thousands_separator;
+        $json->decimal_mark = $currency->decimal_mark;
+        $json->precision = (int) $currency->precision;
+        $json->symbol_first = $currency->symbol_first;
+        $json->symbol = $currency->symbol;
+
         return response()->json($json);
     }
 
