@@ -373,6 +373,11 @@
                         $('#currency_rate').val(data.currency_rate);
 
                         $('.input-price').each(function(){
+                            input_price_id = $(this).attr('id');
+                            input_currency_id = input_price_id.replace('price', 'currency');
+
+                            $('#' + input_currency_id).val(data.currency_code);
+
                             amount = $(this).maskMoney('unmasked')[0];
 
                             $(this).maskMoney({

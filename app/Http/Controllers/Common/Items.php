@@ -280,8 +280,8 @@ class Items extends Controller
                     $item_tax_price = ($item->sale_price / 100) * $tax->rate;
                 }
 
-                $item->sale_price = $this->convertPrice($item->sale_price, $currency_code, $currency->rate);
-                $item->purchase_price = $this->convertPrice($item->purchase_price, $currency_code, $currency->rate);
+                //$item->sale_price = $this->convertPrice($item->sale_price, $currency_code, $currency->rate);
+                //$item->purchase_price = $this->convertPrice($item->purchase_price, $currency_code, $currency->rate);
 
                 switch ($type) {
                     case 'bill':
