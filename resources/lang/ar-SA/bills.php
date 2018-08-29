@@ -4,33 +4,33 @@ return [
 
     'bill_number'       => 'رقم فاتورة الشراء',
     'bill_date'         => 'تاريخ فاتورة الشراء',
-    'total_price'       => 'السعر الاجمالى',
+    'total_price'       => 'السعر الإجمالي',
     'due_date'          => 'تاريخ التسليم',
     'order_number'      => 'رقم الطلب',
     'bill_from'         => 'فاتورة الشراء من',
 
     'quantity'          => 'الكمية',
     'price'             => 'السعر',
-    'sub_total'         => 'المبلغ الاجمالى',
-    'discount'          => 'Discount',
-    'tax_total'         => 'اجمالى الضريبة',
-    'total'             => 'اجمالى',
+    'sub_total'         => 'المبلغ الإجمالي',
+    'discount'          => 'خصم',
+    'tax_total'         => 'إجمالي الضريبة',
+    'total'             => 'المجموع',
 
-    'item_name'         => 'اسم الصنف | اسماء الصنف',
+    'item_name'         => 'اسم الصنف|أسماء الأصناف',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => 'خصم :discount%',
+    'add_discount'      => 'إضافة خصم',
+    'discount_desc'     => 'من المجموع الجزئي',
 
     'payment_due'       => 'استحقاق الدفع',
     'amount_due'        => 'استحقاق المبلغ',
     'paid'              => 'مدفوع',
     'histories'         => 'سجلات',
     'payments'          => 'المدفوعات',
-    'add_payment'       => 'اضافة مدفوعات',
-    'mark_received'     => 'تظليل كمستلم',
+    'add_payment'       => 'إضافة مدفوعات',
+    'mark_received'     => 'تحديد كمستلم',
     'download_pdf'      => 'تحميل PDF',
-    'send_mail'         => 'أرسال بريد الكتروني',
+    'send_mail'         => 'إرسال بريد إلكتروني',
 
     'status' => [
         'draft'         => 'مسودة',
@@ -40,7 +40,7 @@ return [
     ],
 
     'messages' => [
-        'received'      => 'تم تحويل فاتورة الشراء الى فاتورة مستلمة بنجاح!',
+        'received'      => 'تم تحويل فاتورة الشراء إلى فاتورة مستلمة بنجاح!',
     ],
 
 ];

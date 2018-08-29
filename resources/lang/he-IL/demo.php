@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'מזומנים',
-    'categories_uncat'      => 'ללא קטגוריה',
     'categories_deposit'    => 'פיקדון',
     'categories_sales'      => 'מכירות',
     'currencies_usd'        => 'דולר אמריקאי',

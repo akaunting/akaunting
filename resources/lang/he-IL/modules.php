@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'אסימון API',
     'api_token'             => 'אסימון',
+    'my_apps'               => 'My Apps',
     'top_paid'              => 'תשלומים מובילים',
     'new'                   => 'חדש',
     'top_free'              => 'מובילים חינם',
@@ -40,9 +41,18 @@ return [
         'install'           => 'מתקין קבצים :module.',
     ],
 
+    'badge' => [
+        'installed' => 'Installed',
+    ],
+
     'button' => [
         'uninstall'         => 'הסרה',
         'disable'           => 'השבת',
         'enable'            => 'אפשר',
+    ],
+
+    'my' => [
+        'purchased' => 'Purchased',
+        'installed' => 'Installed',
     ],
 ];

@@ -6,7 +6,7 @@ return [
     'refresh'               => 'רענן',
 
     'steps' => [
-        'requirements'      => 'בבקשה, לעמוד בדרישות הבאות!',
+        'requirements'      => 'בבקשה, בקש מספק האחסון שלך לתקן את השגיאות!',
         'language'          => 'שלב 1/3: בחירת שפה',
         'database'          => 'שלב 2/3: הגדרות מסד נתונים',
         'settings'          => 'שלב 3/3: פרטי החברה והמנהל',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature צריך להיות פעיל!',
         'disabled'          => ':feature צריך להיות כבוי!',
-        'extension'         => ':extension סיומת צריך להיות טעון!',
+        'extension'         => ':extension extension needs to be installed and loaded!',
         'directory'         => ':directory צריכה להיות writable!',
     ],
 

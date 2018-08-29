@@ -4,15 +4,15 @@ return [
 
     'profile'               => 'الملف الشخصي',
     'logout'                => 'تسجيل خروج',
-    'login'                 => 'تسجيل الدخول',
-    'login_to'              => 'تسجيل الدخول لبدء جلسة العمل الخاصة بك',
+    'login'                 => 'تسجيل دخول',
+    'login_to'              => 'تسجيل دخول لبدء جلسة العمل الخاصة بك',
     'remember_me'           => 'تذكرني',
     'forgot_password'       => 'نسيت كلمة المرور',
     'reset_password'        => 'إعادة تعيين كلمة المرور',
     'enter_email'           => 'أدخل عنوان بريدك الإلكتروني',
     'current_email'         => 'البريد الإلكتروني الحالي',
     'reset'                 => 'إعادة تعيين',
-    'never'                 => 'أبدا',
+    'never'                 => 'أبداً',
     
     'password' => [
         'current'           => 'كلمة المرور',
@@ -23,16 +23,16 @@ return [
     
     'error' => [
         'self_delete'       => 'خطأ: لا يمكن حذف نفسك!',
-        'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
+        'no_company'        => 'خطأ: لم يتم تعيين أية شركة إلى حسابك، من فضلك تواصل مع مسؤول النظام.',
     ],
 
     'failed'                => 'بيانات الاعتماد هذه غير متطابقة مع البيانات المسجلة لدينا.',
-    'disabled'              => 'هذا الحساب غير مفعل. رجاءا, تواصل مع مدير النظام.',
-    'throttle'              => 'عدد كبير جدا من محاولات تسجيل الدخول. الرجاء إعادة المحاولة في غضون :seconds ثانية.',
+    'disabled'              => 'هذا الحساب غير مفعّل. من فضلك تواصل مع مسؤول النظام.',
+    'throttle'              => 'عدد كبير جداً من محاولات تسجيل الدخول. يرجى إعادة المحاولة خلال :seconds ثواني.',
 
     'notification' => [
-        'message_1'     => 'You are receiving this email because we received a password reset request for your account.',
-        'message_2'     => 'If you did not request a password reset, no further action is required.',
+        'message_1'     => 'تم إرسال هذه الرسالة لإبلاغك بوجود طلب إعادة كلمة المرور على الحساب الخاص بك.',
+        'message_2'     => 'لا داعي لاتخاذ أي إجراء إذا لم تقم بطلب إعادة كلمة المرور.',
         'button'        => 'إعادة تعيين كلمة المرور',
     ],
 

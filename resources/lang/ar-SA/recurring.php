@@ -2,19 +2,19 @@
 
 return [
 
-    'recurring'             => 'Recurring',
-    'every'                 => 'Every',
-    'period'                => 'Period',
-    'times'                 => 'التوقيت',
+    'recurring'             => 'متكرر',
+    'every'                 => 'كل',
+    'period'                => 'فترة',
+    'times'                 => 'عدد المرات',
     'daily'                 => 'يومي',
     'weekly'                => 'أسبوعي',
-    'monthly'               => 'شهرى',
-    'yearly'                => 'سنوى',
+    'monthly'               => 'شهري',
+    'yearly'                => 'سنوي',
     'custom'                => 'مُخصّص',
     'days'                  => 'يوم (أيام)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'weeks'                 => 'أسبوع (أسابيع)',
+    'months'                => 'شهر (أشهر)',
+    'years'                 => 'سنة (سنوات)',
+    'message'               => 'هذه :type متكررة و :type التالية سيتم إنشاؤها تلقائياً في تاريخ :date',
 
 ];
