@@ -142,11 +142,13 @@
         var item_row = '{{ $item_row }}';
 
         $(document).on('click', '#button-add-item', function (e) {
+            var currency_code = $('#currency_code').val();
+
             $.ajax({
                 url: '{{ url("incomes/invoices/addItem") }}',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {item_row: item_row},
+                data: {item_row: item_row, currency_code : currency_code},
                 success: function(json) {
                     if (json['success']) {
                         $('#items tbody #addItem').before(json['html']);
@@ -403,12 +405,11 @@
         });
 
         function totalItem() {
-
             $.ajax({
                 url: '{{ url("common/items/totalItem") }}',
                 type: 'POST',
                 dataType: 'JSON',
-                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
+                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'], #items input[type=\'number\'], #items input[type=\'hidden\'], #items textarea, #items select'),
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 success: function(data) {
                     if (data) {
@@ -424,6 +425,11 @@
                         $('#grand-total').html(data.grand_total);
 
                         $('.input-price').each(function(){
+                            input_price_id = $(this).attr('id');
+                            input_currency_id = input_price_id.replace('price', 'currency');
+
+                            $('#' + input_currency_id).val(data.currency_code);
+
                             amount = $(this).maskMoney('unmasked')[0];
 
                             $(this).maskMoney({

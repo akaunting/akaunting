@@ -161,11 +161,13 @@
         var item_row = '{{ $item_row }}';
 
         $(document).on('click', '#button-add-item', function (e) {
+            var currency_code = $('#currency_code').val();
+
             $.ajax({
                 url: '{{ url("incomes/invoices/addItem") }}',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {item_row: item_row, currency_code : $('#currency_code').val()},
+                data: {item_row: item_row, currency_code : currency_code},
                 success: function(json) {
                     if (json['success']) {
                         $('#items tbody #addItem').before(json['html']);
@@ -371,6 +373,11 @@
                         $('#currency_rate').val(data.currency_rate);
 
                         $('.input-price').each(function(){
+                            input_price_id = $(this).attr('id');
+                            input_currency_id = input_price_id.replace('price', 'currency');
+
+                            $('#' + input_currency_id).val(data.currency_code);
+
                             amount = $(this).maskMoney('unmasked')[0];
 
                             $(this).maskMoney({
