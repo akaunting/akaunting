@@ -373,11 +373,6 @@
                         $('#currency_rate').val(data.currency_rate);
 
                         $('.input-price').each(function(){
-                            input_price_id = $(this).attr('id');
-                            input_currency_id = input_price_id.replace('price', 'currency');
-
-                            $('#' + input_currency_id).val(data.currency_code);
-
                             amount = $(this).maskMoney('unmasked')[0];
 
                             $(this).maskMoney({
@@ -408,13 +403,6 @@
                 dataType: 'JSON',
                 data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                before: function () {
-                    $('.input-price').each(function(){
-                        amount = $(this).maskMoney('unmasked')[0];
-
-                        $(this).val(amount);
-                    });
-                },
                 success: function(data) {
                     if (data) {
                         $.each( data.items, function( key, value ) {
@@ -429,6 +417,11 @@
                         $('#grand-total').html(data.grand_total);
 
                         $('.input-price').each(function(){
+                            input_price_id = $(this).attr('id');
+                            input_currency_id = input_price_id.replace('price', 'currency');
+
+                            $('#' + input_currency_id).val(data.currency_code);
+
                             amount = $(this).maskMoney('unmasked')[0];
 
                             $(this).maskMoney({

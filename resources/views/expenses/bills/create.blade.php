@@ -161,11 +161,13 @@
         var item_row = '{{ $item_row }}';
 
         $(document).on('click', '#button-add-item', function (e) {
+            var currency_code = $('#currency_code').val();
+ 
             $.ajax({
                 url: '{{ url("expenses/bills/addItem") }}',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {item_row: item_row, currency_code : $('#currency_code').val()},
+                data: {item_row: item_row, currency_code : currency_code},
                 success: function(json) {
                     if (json['success']) {
                         $('#items tbody #addItem').before(json['html']);
@@ -285,6 +287,7 @@
                         $('#item-tax-' + item_id).val(data.tax_id);
 
                         // This event Select2 Stylesheet
+                        $('#item-price-' + item_id).trigger('focusout');
                         $('#item-tax-' + item_id).trigger('change');
 
                         $('#item-total-' + item_id).html(data.total);
@@ -412,6 +415,28 @@
                         $('#discount-total').html(data.discount_total);
                         $('#tax-total').html(data.tax_total);
                         $('#grand-total').html(data.grand_total);
+
+                        $('.input-price').each(function(){
+                            input_price_id = $(this).attr('id');
+                            input_currency_id = input_price_id.replace('price', 'currency');
+
+                            $('#' + input_currency_id).val(data.currency_code);
+
+                            amount = $(this).maskMoney('unmasked')[0];
+
+                            $(this).maskMoney({
+                                thousands : data.thousands_separator,
+                                decimal : data.decimal_mark,
+                                precision : data.precision,
+                                allowZero : true,
+                                prefix : (data.symbol_first) ? data.symbol : '',
+                                suffix : (data.symbol_first) ? '' : data.symbol
+                            });
+
+                            $(this).val(amount);
+
+                            $(this).trigger('focusout');
+                        });
                     }
                 }
             });
