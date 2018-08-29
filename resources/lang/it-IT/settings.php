@@ -22,9 +22,9 @@ return [
         ],
         'timezone'          => 'Fuso Orario',
         'percent' => [
-            'title'         => 'Percent (%) Position',
-            'before'        => 'Before Number',
-            'after'         => 'After Number',
+            'title'         => 'Percentuale (%) Posizione',
+            'before'        => 'Prima del Numero',
+            'after'         => 'Dopo il Numero',
         ],
     ],
     'invoice' => [

@@ -3,7 +3,7 @@
 return [
 
     'import'                => 'استيراد',
-    'title'                 => 'استيراد : النوع',
-    'message'               => 'Allowed file types: XLS, XLSX. Please, <a target="_blank" href=":link"><strong>download</strong></a> the sample file.',
+    'title'                 => 'استيراد :type',
+    'message'               => 'أنواع الملفات المسموحة: XLS, XLSX. من فضلك قم <a target="_blank" href=":link"><strong>بتحميل</strong></a> ملفاً لرؤية مثال على ذلك.',
 
 ];

@@ -81,7 +81,7 @@ class Accounts extends Controller
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
 
-        $account->default_account = ($account->id == setting('general.default_account')) ?: 1;
+        $account->default_account = ($account->id == setting('general.default_account')) ? 1 : 0;
 
         $currency = Currency::where('code', '=', $account->currency_code)->first();
 

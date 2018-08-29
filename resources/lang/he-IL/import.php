@@ -4,6 +4,6 @@ return [
 
     'import'                => 'ייבוא',
     'title'                 => 'ייבוא :type',
-    'message'               => 'סוגי קבצים מותרים: CSV, XLS. אנא, <a target="_blank" href=":link"><strong>הורד</strong></a> את קובץ ההדגמה.',
+    'message'               => 'Allowed file types: XLS, XLSX. Please, <a target="_blank" href=":link"><strong>download</strong></a> the sample file.',
 
 ];

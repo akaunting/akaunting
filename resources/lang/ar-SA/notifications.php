@@ -2,9 +2,9 @@
 
 return [
 
-    'whoops'              => 'Whoops!',
-    'hello'               => 'Hello!',
-    'salutation'          => 'Regards,<br> :company_name',
-    'subcopy'             => 'If you’re having trouble clicking the ":text" button, copy and paste the URL below into your web browser: [:url](:url)',
+    'whoops'              => 'المعذرة...',
+    'hello'               => 'مرحباً!',
+    'salutation'          => 'مع التحية،<br> :company_name',
+    'subcopy'             => 'إذا كنت تواجه مشكلة في الضغط على زر ":text"، يمكنك نسخ ولصق الرابط أدناه إلى المتصفح الخاص بك: [:url](:url)',
 
 ];

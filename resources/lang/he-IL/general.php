@@ -100,11 +100,15 @@ return [
     'overdue'               => 'באיחור',
     'partially'             => 'חלקי',
     'partially_paid'        => 'תשלום חלקי',
+    'export'                => 'Export',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
 
     'title' => [
         'new'               => ':type חדש',
         'edit'              => 'עריכת :type',
     ],
+
     'form' => [
         'enter'             => 'הכנס :field',
         'select' => [
