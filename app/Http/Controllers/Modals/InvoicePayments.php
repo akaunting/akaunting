@@ -39,13 +39,13 @@ class InvoicePayments extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $currency = Currency::where('code', setting('general.default_currency'))->first();
-
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
+
+        $currency = Currency::where('code', $account_currency_code)->first();
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $invoice->paid = $this->getPaid($invoice);
+        $paid = $this->getPaid($invoice);
 
         // Get Invoice Totals
         foreach ($invoice->totals as $invoice_total) {
@@ -88,7 +88,9 @@ class InvoicePayments extends Controller
 
         $default_amount = (double) $request['amount'];
 
-        if ($invoice->currency_code != $request['currency_code']) {
+        if ($invoice->currency_code == $request['currency_code']) {
+            $amount = $default_amount;
+        } else {
             $default_amount_model = new InvoicePayment();
 
             $default_amount_model->default_currency_code = $invoice->currency_code;
@@ -97,16 +99,16 @@ class InvoicePayments extends Controller
             $default_amount_model->currency_rate         = $currencies[$request['currency_code']];
 
             $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+            $convert_amount = new InvoicePayment();
+
+            $convert_amount->default_currency_code = $request['currency_code'];
+            $convert_amount->amount = $default_amount;
+            $convert_amount->currency_code = $invoice->currency_code;
+            $convert_amount->currency_rate = $currencies[$invoice->currency_code];
+
+            $amount = (double) $convert_amount->getDynamicConvertedAmount();
         }
-
-        $convert_amount = new InvoicePayment();
-
-        $convert_amount->default_currency_code = $request['currency_code'];
-        $convert_amount->amount = $default_amount;
-        $convert_amount->currency_code = $invoice->currency_code;
-        $convert_amount->currency_rate = $currencies[$invoice->currency_code];
-
-        $amount = (double) $convert_amount->getDynamicConvertedAmount();
 
         if ($invoice->payments()->count()) {
             $total_amount -= $this->getPaid($invoice);
@@ -134,18 +136,18 @@ class InvoicePayments extends Controller
                 $error_amount_model->currency_rate         = $currencies[$invoice->currency_code];
 
                 $error_amount = (double) $error_amount_model->getDivideConvertedAmount();
+
+                $convert_amount = new InvoicePayment();
+
+                $convert_amount->default_currency_code = $invoice->currency_code;
+                $convert_amount->amount = $error_amount;
+                $convert_amount->currency_code = $request['currency_code'];
+                $convert_amount->currency_rate = $currencies[$request['currency_code']];
+
+                $error_amount = (double) $convert_amount->getDynamicConvertedAmount();
             }
 
-            $convert_amount = new InvoicePayment();
-
-            $convert_amount->default_currency_code = $invoice->currency_code;
-            $convert_amount->amount = $error_amount;
-            $convert_amount->currency_code = $request['currency_code'];
-            $convert_amount->currency_rate = $currencies[$request['currency_code']];
-
-            $error_amount = (double) $convert_amount->getDynamicConvertedAmount();
-
-            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $request['currency_code'], true)]);
+            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $request['currency_code'],true)]);
 
             return response()->json([
                 'success' => false,
@@ -217,7 +219,9 @@ class InvoicePayments extends Controller
             foreach ($invoice->payments as $item) {
                 $default_amount = $item->amount;
 
-                if ($invoice->currency_code != $item->currency_code) {
+                if ($invoice->currency_code == $item->currency_code) {
+                    $amount = (double) $default_amount;
+                } else {
                     $default_amount_model = new InvoicePayment();
 
                     $default_amount_model->default_currency_code = $invoice->currency_code;
@@ -226,16 +230,16 @@ class InvoicePayments extends Controller
                     $default_amount_model->currency_rate = $_currencies[$item->currency_code];
 
                     $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+                    $convert_amount = new InvoicePayment();
+
+                    $convert_amount->default_currency_code = $item->currency_code;
+                    $convert_amount->amount = $default_amount;
+                    $convert_amount->currency_code = $invoice->currency_code;
+                    $convert_amount->currency_rate = $_currencies[$invoice->currency_code];
+
+                    $amount = (double) $convert_amount->getDynamicConvertedAmount();
                 }
-
-                $convert_amount = new InvoicePayment();
-
-                $convert_amount->default_currency_code = $item->currency_code;
-                $convert_amount->amount = $default_amount;
-                $convert_amount->currency_code = $invoice->currency_code;
-                $convert_amount->currency_rate = $_currencies[$invoice->currency_code];
-
-                $amount = (double) $convert_amount->getDynamicConvertedAmount();
 
                 $paid += $amount;
             }

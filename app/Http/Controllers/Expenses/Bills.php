@@ -755,7 +755,7 @@ class Bills extends Controller
             // it should be integer for amount mask
             $currency->precision = (int) $currency->precision;
 
-            $html = view('expenses.bills.item', compact('item_row', 'taxes'))->render();
+            $html = view('expenses.bills.item', compact('item_row', 'taxes', 'currency'))->render();
 
             return response()->json([
                 'success' => true,

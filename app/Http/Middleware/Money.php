@@ -38,7 +38,11 @@ class Money
             if (isset($bill_number) || isset($invoice_number) || !empty($items)) {
                 if (!empty($items)) {
                     foreach ($items as $key => $item) {
-                        $items[$key]['price'] = money($item['price'], $currency_code)->getAmount();
+                        if (isset($item['currency']) && $item['currency'] != $currency_code) {
+                            $items[$key]['price'] = money($item['price'], $item['currency'])->getAmount();
+                        } else {
+                            $items[$key]['price'] = money($item['price'], $currency_code)->getAmount();
+                        }
                     }
 
                     $request->request->set('item', $items);

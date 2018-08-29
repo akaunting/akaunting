@@ -25,6 +25,7 @@
     <td>
         @stack('price_input_start')
         <input value="{{ empty($item) ? '' : $item->price }}" class="form-control text-right input-price" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
+        <input value="{{ $currency->code }}" name="item[{{ $item_row }}][currency]" type="hidden" id="item-currency-{{ $item_row }}">
         @stack('price_input_end')
     </td>
     @stack('price_td_end')
