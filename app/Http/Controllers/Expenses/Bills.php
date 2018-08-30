@@ -74,7 +74,7 @@ class Bills extends Controller
                 $default_amount = $item->amount;
 
                 if ($bill->currency_code != $item->currency_code) {
-                    $default_amount_model = new InvoicePayment();
+                    $default_amount_model = new BillPayment();
 
                     $default_amount_model->default_currency_code = $bill->currency_code;
                     $default_amount_model->amount = $default_amount;
@@ -84,7 +84,7 @@ class Bills extends Controller
                     $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
                 }
 
-                $convert_amount = new InvoicePayment();
+                $convert_amount = new BillPayment();
 
                 $convert_amount->default_currency_code = $item->currency_code;
                 $convert_amount->amount = $default_amount;

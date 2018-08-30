@@ -101,4 +101,9 @@ class BillPayment extends Model
 
         return $this->getMedia('attachment')->last();
     }
+
+    public function getDivideConvertedAmount($format = false)
+    {
+        return $this->divide($this->amount, $this->currency_code, $this->currency_rate, $format);
+    }
 }

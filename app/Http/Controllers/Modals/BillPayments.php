@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Modals;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Expsense\BillPayment as Request;
+use App\Http\Requests\Expense\BillPayment as Request;
 use App\Models\Expense\Bill;
 use App\Models\Banking\Account;
 use App\Models\Expense\BillPayment;
