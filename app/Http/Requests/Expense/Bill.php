@@ -39,7 +39,7 @@ class Bill extends Request
             'bill_status_code' => 'required|string',
             'billed_at' => 'required|date',
             'due_at' => 'required|date',
-            'amount' => 'required|amount',
+            'amount' => 'required',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required',
             'vendor_id' => 'required|integer',
