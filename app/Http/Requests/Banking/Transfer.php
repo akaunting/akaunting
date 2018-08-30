@@ -26,7 +26,7 @@ class Transfer extends Request
         return [
             'from_account_id' => 'required|integer',
             'to_account_id' => 'required|integer',
-            'amount' => 'required',
+            'amount' => 'required|amount',
             'transferred_at' => 'required|date',
             'payment_method' => 'required|string',
         ];

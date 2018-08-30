@@ -39,7 +39,7 @@ class Invoice extends Request
             'invoice_status_code' => 'required|string',
             'invoiced_at' => 'required|date',
             'due_at' => 'required|date',
-            'amount' => 'required',
+            'amount' => 'required|amount',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required',
             'customer_id' => 'required|integer',

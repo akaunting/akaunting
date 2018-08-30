@@ -26,7 +26,7 @@ class InvoiceTotal extends Request
         return [
             'invoice_id' => 'required|integer',
             'name' => 'required|string',
-            'amount' => 'required',
+            'amount' => 'required|amount',
             'sort_order' => 'required|integer',
         ];
     }

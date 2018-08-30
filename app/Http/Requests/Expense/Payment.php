@@ -27,7 +27,7 @@ class Payment extends Request
         return [
             'account_id' => 'required|integer',
             'paid_at' => 'required|date',
-            'amount' => 'required',
+            'amount' => 'required|amount',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required',
             'vendor_id' => 'nullable|integer',
