@@ -88,7 +88,9 @@ class BillPayments extends Controller
 
         $default_amount = (double) $request['amount'];
 
-        if ($bill->currency_code != $request['currency_code']) {
+        if ($bill->currency_code == $request['currency_code']) {
+            $amount = $default_amount;
+        } else {
             $default_amount_model = new BillPayment();
 
             $default_amount_model->default_currency_code = $bill->currency_code;
@@ -97,16 +99,16 @@ class BillPayments extends Controller
             $default_amount_model->currency_rate         = $currencies[$request['currency_code']];
 
             $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+            $convert_amount = new BillPayment();
+
+            $convert_amount->default_currency_code = $request['currency_code'];
+            $convert_amount->amount = $default_amount;
+            $convert_amount->currency_code = $bill->currency_code;
+            $convert_amount->currency_rate = $currencies[$bill->currency_code];
+
+            $amount = (double) $convert_amount->getDynamicConvertedAmount();
         }
-
-        $convert_amount = new BillPayment();
-
-        $convert_amount->default_currency_code = $request['currency_code'];
-        $convert_amount->amount = $default_amount;
-        $convert_amount->currency_code = $bill->currency_code;
-        $convert_amount->currency_rate = $currencies[$bill->currency_code];
-
-        $amount = (double) $convert_amount->getDynamicConvertedAmount();
 
         if ($bill->payments()->count()) {
             $total_amount -= $this->getPaid($bill);
@@ -134,16 +136,16 @@ class BillPayments extends Controller
                 $error_amount_model->currency_rate         = $currencies[$bill->currency_code];
 
                 $error_amount = (double) $error_amount_model->getDivideConvertedAmount();
+
+                $convert_amount = new BillPayment();
+
+                $convert_amount->default_currency_code = $bill->currency_code;
+                $convert_amount->amount = $error_amount;
+                $convert_amount->currency_code = $request['currency_code'];
+                $convert_amount->currency_rate = $currencies[$request['currency_code']];
+
+                $error_amount = (double) $convert_amount->getDynamicConvertedAmount();
             }
-
-            $convert_amount = new BillPayment();
-
-            $convert_amount->default_currency_code = $bill->currency_code;
-            $convert_amount->amount = $error_amount;
-            $convert_amount->currency_code = $request['currency_code'];
-            $convert_amount->currency_rate = $currencies[$request['currency_code']];
-
-            $error_amount = (double) $convert_amount->getDynamicConvertedAmount();
 
             $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $request['currency_code'], true)]);
 
@@ -215,9 +217,11 @@ class BillPayments extends Controller
             $_currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
             foreach ($bill->payments as $item) {
-                $default_amount = $item->amount;
+                $default_amount = (double) $item->amount;
 
-                if ($bill->currency_code != $item->currency_code) {
+                if ($bill->currency_code == $item->currency_code) {
+                    $amount = $default_amount;
+                } else {
                     $default_amount_model = new BillPayment();
 
                     $default_amount_model->default_currency_code = $bill->currency_code;
@@ -226,16 +230,16 @@ class BillPayments extends Controller
                     $default_amount_model->currency_rate = $_currencies[$item->currency_code];
 
                     $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+                    $convert_amount = new BillPayment();
+
+                    $convert_amount->default_currency_code = $item->currency_code;
+                    $convert_amount->amount = $default_amount;
+                    $convert_amount->currency_code = $bill->currency_code;
+                    $convert_amount->currency_rate = $_currencies[$bill->currency_code];
+
+                    $amount = (double) $convert_amount->getDynamicConvertedAmount();
                 }
-
-                $convert_amount = new BillPayment();
-
-                $convert_amount->default_currency_code = $item->currency_code;
-                $convert_amount->amount = $default_amount;
-                $convert_amount->currency_code = $bill->currency_code;
-                $convert_amount->currency_rate = $_currencies[$bill->currency_code];
-
-                $amount = (double) $convert_amount->getDynamicConvertedAmount();
 
                 $paid += $amount;
             }
