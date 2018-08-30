@@ -19,7 +19,7 @@
         <section class="invoice">
             <div id="badge">
                 <div class="arrow-up"></div>
-                <div class="label {{ $invoice->status->label }}">{{ $invoice->status->name }}</div>
+                <div class="label {{ $invoice->status->label }}">{{ trans('invoices.status.' . $invoice->status->code) }}</div>
                 <div class="arrow-right"></div>
             </div>
 

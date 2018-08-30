@@ -19,7 +19,7 @@
         <div class="bill">
             <div id="badge">
                 <div class="arrow-up"></div>
-                <div class="label {{ $bill->status->label }}">{{ $bill->status->name }}</div>
+                <div class="label {{ $bill->status->label }}">{{ trans('bills.status.' . $bill->status->code) }}</div>
                 <div class="arrow-right"></div>
             </div>
 

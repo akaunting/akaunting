@@ -39,7 +39,7 @@
                         <td class="text-right">@money($item->amount, $item->currency_code, true)</td>
                         <td class="text-right">{{ Date::parse($item->invoiced_at)->format($date_format) }}</td>
                         <td class="text-right">{{ Date::parse($item->due_at)->format($date_format) }}</td>
-                        <td class="text-center"><span class="label {{ $item->status->label }}">{{ $item->status->name }}</span></td>
+                        <td class="text-center"><span class="label {{ $item->status->label }}">{{ trans('invoices.status.' . $item->status->code) }}</span></td>
                     </tr>
                 @endforeach
                 </tbody>
