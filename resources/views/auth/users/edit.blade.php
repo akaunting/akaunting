@@ -30,7 +30,6 @@
                 <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-picture-o"></i></div>
                     {!! Form::text('fake_picture', null, ['id' => 'fake_picture', 'class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => trans('settings.appearance.use_gravatar')]) !!}
-                    {!! Form::hidden('picture', null, ['id' => 'picture', 'class' => 'form-control']) !!}
                 </div>
             </div>
             @stack('picture_input_end')
