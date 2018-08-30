@@ -126,8 +126,8 @@ class Currencies extends Controller
      */
     public function update(Currency $currency, Request $request)
     {
-        // Check if we can disable it
-        if (!$request['enabled']) {
+        // Check if we can disable or change the code
+        if (!$request['enabled'] || ($currency->code != $request['code'])) {
             $relationships = $this->countRelationships($currency, [
                 'accounts' => 'accounts',
                 'customers' => 'customers',
