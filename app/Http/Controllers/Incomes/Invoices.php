@@ -8,8 +8,8 @@ use App\Events\InvoiceUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Income\Invoice as Request;
 use App\Http\Requests\Income\InvoicePayment as PaymentRequest;
-use Illuminate\Http\Request as ItemRequest;
 use App\Models\Banking\Account;
+use App\Models\Common\Media;
 use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceHistory;
@@ -21,7 +21,6 @@ use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
-use App\Models\Common\Media;
 use App\Notifications\Income\Invoice as Notification;
 use App\Notifications\Common\Item as ItemNotification;
 use App\Traits\Currencies;
@@ -33,6 +32,7 @@ use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
+use Illuminate\Http\Request as ItemRequest;
 use Image;
 use Storage;
 
@@ -405,7 +405,7 @@ class Invoices extends Controller
         $invoice_item['invoice_id'] = $invoice->id;
 
         if ($request['item']) {
-            InvoiceItem::where('invoice_id', $invoice->id)->delete();
+            $this->deleteRelationships($invoice, 'items');
 
             foreach ($request['item'] as $item) {
                 unset($tax_object);
@@ -483,10 +483,9 @@ class Invoices extends Controller
         }
 
         // Delete previous invoice totals
-        InvoiceTotal::where('invoice_id', $invoice->id)->delete();
+        $this->deleteRelationships($invoice, 'totals');
 
         // Add invoice totals
-        $invoice->totals()->delete();
         $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Recurring
@@ -511,19 +510,8 @@ class Invoices extends Controller
      */
     public function destroy(Invoice $invoice)
     {
-        $invoice->recurring()->delete();
+        $this->deleteRelationships($invoice, ['items', 'histories', 'payments', 'recurring', 'totals']);
         $invoice->delete();
-
-        /*
-        $invoice->items->delete();
-        $invoice->payments->delete();
-        $invoice->histories->delete();
-        */
-
-        InvoiceItem::where('invoice_id', $invoice->id)->delete();
-        InvoiceTotal::where('invoice_id', $invoice->id)->delete();
-        InvoicePayment::where('invoice_id', $invoice->id)->delete();
-        InvoiceHistory::where('invoice_id', $invoice->id)->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
 
