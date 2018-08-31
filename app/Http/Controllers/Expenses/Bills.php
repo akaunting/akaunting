@@ -8,8 +8,8 @@ use App\Events\BillUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Bill as Request;
 use App\Http\Requests\Expense\BillPayment as PaymentRequest;
-use Illuminate\Http\Request as ItemRequest;
 use App\Models\Banking\Account;
+use App\Models\Common\Media;
 use App\Models\Expense\BillStatus;
 use App\Models\Expense\Vendor;
 use App\Models\Expense\Bill;
@@ -21,7 +21,6 @@ use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
-use App\Models\Common\Media;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
@@ -30,6 +29,7 @@ use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
+use Illuminate\Http\Request as ItemRequest;
 use Image;
 use Storage;
 
@@ -384,7 +384,7 @@ class Bills extends Controller
         $bill_item['bill_id'] = $bill->id;
 
         if ($request['item']) {
-            BillItem::where('bill_id', $bill->id)->delete();
+            $this->deleteRelationships($bill, 'items');
 
             foreach ($request['item'] as $item) {
                 unset($tax_object);
@@ -462,10 +462,9 @@ class Bills extends Controller
         }
 
         // Delete previous bill totals
-        BillTotal::where('bill_id', $bill->id)->delete();
+        $this->deleteRelationships($bill, 'totals');
 
         // Add bill totals
-        $bill->totals()->delete();
         $this->addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Recurring
@@ -490,19 +489,8 @@ class Bills extends Controller
      */
     public function destroy(Bill $bill)
     {
-        $bill->recurring()->delete();
+        $this->deleteRelationships($bill, ['items', 'histories', 'payments', 'recurring', 'totals']);
         $bill->delete();
-
-        /*
-        $bill->items->delete();
-        $bill->payments->delete();
-        $bill->histories->delete();
-        */
-
-        BillItem::where('bill_id', $bill->id)->delete();
-        BillTotal::where('bill_id', $bill->id)->delete();
-        BillPayment::where('bill_id', $bill->id)->delete();
-        BillHistory::where('bill_id', $bill->id)->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.bills', 1)]);
 

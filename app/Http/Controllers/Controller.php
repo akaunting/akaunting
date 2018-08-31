@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Route;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Route;
 
 class Controller extends BaseController
 {
@@ -80,5 +81,28 @@ class Controller extends BaseController
         }
 
         redirect('apps/token/create')->send();
+    }
+
+    /**
+     * Mass delete relationships with events being fired.
+     *
+     * @param  $model
+     * @param  $tables
+     *
+     * @return void
+     */
+    public function deleteRelationships($model, $tables)
+    {
+        foreach ((array) $tables as $table) {
+            $items = $model->$table->all();
+
+            if ($items instanceof Collection) {
+                $items = $items->all();
+            }
+
+            foreach ((array) $items as $item) {
+                $item->delete();
+            }
+        }
     }
 }
