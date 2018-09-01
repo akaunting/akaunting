@@ -87,14 +87,18 @@ class Controller extends BaseController
      * Mass delete relationships with events being fired.
      *
      * @param  $model
-     * @param  $tables
+     * @param  $relationships
      *
      * @return void
      */
-    public function deleteRelationships($model, $tables)
+    public function deleteRelationships($model, $relationships)
     {
-        foreach ((array) $tables as $table) {
-            $items = $model->$table->all();
+        foreach ((array) $relationships as $relationship) {
+            if (empty($model->$relationship)) {
+                continue;
+            }
+
+            $items = $model->$relationship->all();
 
             if ($items instanceof Collection) {
                 $items = $items->all();
