@@ -352,8 +352,24 @@
                 totalItem();
             });
 
+           var focus = false;
+    
+            $(document).on('focusin', '#items .input-price', function(){
+                focus = true;
+            });
+
+            $(document).on('blur', '#items .input-price', function(){
+                if (focus) {
+                    totalItem();
+
+                    focus = false;
+                }
+            });
+
             $(document).on('keyup', '#items tbody .form-control', function(){
-                totalItem();
+                if (!$(this).hasClass('input-price')) {
+                    totalItem();
+                }
             });
 
             $(document).on('change', '#customer_id', function (e) {
