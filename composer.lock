@@ -66,16 +66,16 @@
         },
         {
             "name": "akaunting/money",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/money.git",
-                "reference": "201967d36cbc60f327909ef77c6af99b826d12bc"
+                "reference": "d56221b2cbf4771c50da0c2e0273869cc659ed2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/money/zipball/201967d36cbc60f327909ef77c6af99b826d12bc",
-                "reference": "201967d36cbc60f327909ef77c6af99b826d12bc",
+                "url": "https://api.github.com/repos/akaunting/money/zipball/d56221b2cbf4771c50da0c2e0273869cc659ed2e",
+                "reference": "d56221b2cbf4771c50da0c2e0273869cc659ed2e",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +123,7 @@
                 "laravel",
                 "money"
             ],
-            "time": "2018-07-14T23:12:51+00:00"
+            "time": "2018-09-01T11:56:07+00:00"
         },
         {
             "name": "akaunting/setting",
