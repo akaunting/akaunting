@@ -40,6 +40,10 @@ class Bill extends Request
             'billed_at' => 'required|date',
             'due_at' => 'required|date',
             'amount' => 'required',
+            'item.*.name' => 'required|string',
+            'item.*.quantity' => 'required',
+            'item.*.price' => 'required|amount',
+            'item.*.currency' => 'required|string|currency',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required',
             'vendor_id' => 'required|integer',
@@ -59,5 +63,16 @@ class Bill extends Request
             $this->request->set('billed_at', $billed_at);
             $this->request->set('due_at', $due_at);
         }
+    }
+
+    public function messages()
+    {
+        return [
+            'item.*.name.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('general.name'))]),
+            'item.*.quantity.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('bills.quantity'))]),
+            'item.*.price.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('bills.price'))]),
+            'item.*.currency.required' => trans('validation.custom.invalid_currency'),
+            'item.*.currency.string' => trans('validation.custom.invalid_currency'),
+        ];
     }
 }

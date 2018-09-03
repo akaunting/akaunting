@@ -40,6 +40,10 @@ class Invoice extends Request
             'invoiced_at' => 'required|date',
             'due_at' => 'required|date',
             'amount' => 'required',
+            'item.*.name' => 'required|string',
+            'item.*.quantity' => 'required',
+            'item.*.price' => 'required|amount',
+            'item.*.currency' => 'required|string|currency',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required',
             'customer_id' => 'required|integer',
@@ -59,5 +63,16 @@ class Invoice extends Request
             $this->request->set('invoiced_at', $invoiced_at);
             $this->request->set('due_at', $due_at);
         }
+    }
+
+    public function messages()
+    {
+        return [
+            'item.*.name.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('general.name'))]),
+            'item.*.quantity.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('invoices.quantity'))]),
+            'item.*.price.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('invoices.price'))]),
+            'item.*.currency.required' => trans('validation.custom.invalid_currency'),
+            'item.*.currency.string' => trans('validation.custom.invalid_currency'),
+        ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Common\Item as Request;
+use App\Http\Requests\Common\TotalItem as TRequest;
 use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
@@ -300,11 +301,11 @@ class Items extends Controller
         return response()->json($items);
     }
 
-    public function totalItem()
+    public function totalItem(TRequest $request)
     {
-        $input_items = request('item');
-        $currency_code = request('currency_code');
-        $discount = request('discount');
+        $input_items = $request->input('item');
+        $currency_code = $request->input('currency_code');
+        $discount = $request->input('discount');
 
         if (empty($currency_code)) {
             $currency_code = setting('general.default_currency');

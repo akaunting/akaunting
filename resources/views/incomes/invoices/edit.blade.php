@@ -47,15 +47,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php $item_row = 0; ?>
-                        @foreach($invoice->items as $item)
-                            @include('incomes.invoices.item')
-                            <?php $item_row++; ?>
-                        @endforeach
-                        @if (empty($invoice->items))
-                            @include('incomes.invoices.item')
-                        @endif
-                            <?php $item_row++; ?>
+                            @php $item_row = 0; @endphp
+                            @if(old('item'))
+                                @foreach(old('item') as $old_item)
+                                    @php $item = (object) $old_item; @endphp
+                                    @include('incomes.invoices.item')
+                                    @php $item_row++; @endphp
+                                @endforeach
+                            @else
+                                @foreach($invoice->items as $item)
+                                    @include('incomes.invoices.item')
+                                    @php $item_row++; @endphp
+                                @endforeach
+                                @if (empty($invoice->items))
+                                    @include('incomes.invoices.item')
+                                @endif
+                            @endif
+                            @php $item_row++; @endphp
                             @stack('add_item_td_start')
                             <tr id="addItem">
                                 <td class="text-center"><button type="button" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-xs btn-primary" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i></button></td>
@@ -104,14 +112,14 @@
 
             {{ Form::fileGroup('attachment', trans('general.attachment')) }}
 
-            {{ Form::hidden('customer_name', null, ['id' => 'customer_name']) }}
-            {{ Form::hidden('customer_email', null, ['id' => 'customer_email']) }}
-            {{ Form::hidden('customer_tax_number', null, ['id' => 'customer_tax_number']) }}
-            {{ Form::hidden('customer_phone', null, ['id' => 'customer_phone']) }}
-            {{ Form::hidden('customer_address', null, ['id' => 'customer_address']) }}
-            {{ Form::hidden('currency_rate', null, ['id' => 'currency_rate']) }}
-            {{ Form::hidden('invoice_status_code', null, ['id' => 'invoice_status_code']) }}
-            {{ Form::hidden('amount', null, ['id' => 'amount']) }}
+            {{ Form::hidden('customer_name', old('customer_name', null), ['id' => 'customer_name']) }}
+            {{ Form::hidden('customer_email', old('customer_email', null), ['id' => 'customer_email']) }}
+            {{ Form::hidden('customer_tax_number', old('customer_tax_number', null), ['id' => 'customer_tax_number']) }}
+            {{ Form::hidden('customer_phone', old('customer_phone', null), ['id' => 'customer_phone']) }}
+            {{ Form::hidden('customer_address', old('customer_address', null), ['id' => 'customer_address']) }}
+            {{ Form::hidden('currency_rate', old('currency_rate', null), ['id' => 'currency_rate']) }}
+            {{ Form::hidden('invoice_status_code', old('invoice_status_code', null), ['id' => 'invoice_status_code']) }}
+            {{ Form::hidden('amount', old('amount', null), ['id' => 'amount']) }}
         </div>
         <!-- /.box-body -->
 
@@ -423,6 +431,10 @@
                     }
                 });
             });
+
+            @if(old('item'))
+                totalItem();
+            @endif
         });
 
         function totalItem() {

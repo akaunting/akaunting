@@ -59,9 +59,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $item_row = 0; ?>
-                        @include('expenses.bills.item')
-                        <?php $item_row++; ?>
+                        @php $item_row = 0; @endphp
+                        @if(old('item'))
+                            @foreach(old('item') as $old_item)
+                                @php $item = (object) $old_item; @endphp
+                                @include('expenses.bills.item')
+                                @php $item_row++; @endphp
+                            @endforeach
+                        @else
+                            @include('expenses.bills.item')
+                        @endif
+                        @php $item_row++; @endphp
                         @stack('add_item_td_start')
                         <tr id="addItem">
                             <td class="text-center"><button type="button" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-xs btn-primary" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i></button></td>
@@ -122,14 +130,14 @@
 
         {{ Form::fileGroup('attachment', trans('general.attachment'),[]) }}
 
-        {{ Form::hidden('vendor_name', '', ['id' => 'vendor_name']) }}
-        {{ Form::hidden('vendor_email', '', ['id' => 'vendor_email']) }}
-        {{ Form::hidden('vendor_tax_number', '', ['id' => 'vendor_tax_number']) }}
-        {{ Form::hidden('vendor_phone', '', ['id' => 'vendor_phone']) }}
-        {{ Form::hidden('vendor_address', '', ['id' => 'vendor_address']) }}
-        {{ Form::hidden('currency_rate', '', ['id' => 'currency_rate']) }}
-        {{ Form::hidden('bill_status_code', 'draft', ['id' => 'bill_status_code']) }}
-        {{ Form::hidden('amount', '0', ['id' => 'amount']) }}
+        {{ Form::hidden('vendor_name', old('vendor_name'), ['id' => 'vendor_name']) }}
+        {{ Form::hidden('vendor_email', old('vendor_email'), ['id' => 'vendor_email']) }}
+        {{ Form::hidden('vendor_tax_number', old('vendor_tax_number'), ['id' => 'vendor_tax_number']) }}
+        {{ Form::hidden('vendor_phone', old('vendor_phone'), ['id' => 'vendor_phone']) }}
+        {{ Form::hidden('vendor_address', old('vendor_address'), ['id' => 'vendor_address']) }}
+        {{ Form::hidden('currency_rate', old('currency_rate'), ['id' => 'currency_rate']) }}
+        {{ Form::hidden('bill_status_code', old('bill_status_code', 'draft'), ['id' => 'bill_status_code']) }}
+        {{ Form::hidden('amount', old('amount', '0'), ['id' => 'amount']) }}
     </div>
     <!-- /.box-body -->
 
@@ -162,7 +170,7 @@
 
         $(document).on('click', '#button-add-item', function (e) {
             var currency_code = $('#currency_code').val();
- 
+
             $.ajax({
                 url: '{{ url("expenses/bills/addItem") }}',
                 type: 'GET',
@@ -415,6 +423,10 @@
                     }
                 });
             });
+
+            @if(old('item'))
+                totalItem();
+            @endif
         });
 
         function totalItem() {

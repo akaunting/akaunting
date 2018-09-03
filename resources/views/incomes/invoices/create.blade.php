@@ -59,9 +59,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $item_row = 0; ?>
-                        @include('incomes.invoices.item')
-                        <?php $item_row++; ?>
+                        @php $item_row = 0; @endphp
+                        @if(old('item'))
+                            @foreach(old('item') as $old_item)
+                                @php $item = (object) $old_item; @endphp
+                                @include('incomes.invoices.item')
+                                @php $item_row++; @endphp
+                            @endforeach
+                        @else
+                            @include('incomes.invoices.item')
+                        @endif
+                        @php $item_row++; @endphp
                         @stack('add_item_td_start')
                         <tr id="addItem">
                             <td class="text-center"><button type="button" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-xs btn-primary" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i></button></td>
@@ -122,14 +130,14 @@
 
         {{ Form::fileGroup('attachment', trans('general.attachment')) }}
 
-        {{ Form::hidden('customer_name', '', ['id' => 'customer_name']) }}
-        {{ Form::hidden('customer_email', '', ['id' => 'customer_email']) }}
-        {{ Form::hidden('customer_tax_number', '', ['id' => 'customer_tax_number']) }}
-        {{ Form::hidden('customer_phone', '', ['id' => 'customer_phone']) }}
-        {{ Form::hidden('customer_address', '', ['id' => 'customer_address']) }}
-        {{ Form::hidden('currency_rate', '', ['id' => 'currency_rate']) }}
-        {{ Form::hidden('invoice_status_code', 'draft', ['id' => 'invoice_status_code']) }}
-        {{ Form::hidden('amount', '0', ['id' => 'amount']) }}
+        {{ Form::hidden('customer_name', old('customer_name'), ['id' => 'customer_name']) }}
+        {{ Form::hidden('customer_email', old('customer_email'), ['id' => 'customer_email']) }}
+        {{ Form::hidden('customer_tax_number', old('customer_tax_number'), ['id' => 'customer_tax_number']) }}
+        {{ Form::hidden('customer_phone', old('customer_phone'), ['id' => 'customer_phone']) }}
+        {{ Form::hidden('customer_address', old('customer_address'), ['id' => 'customer_address']) }}
+        {{ Form::hidden('currency_rate', old('currency_rate'), ['id' => 'currency_rate']) }}
+        {{ Form::hidden('invoice_status_code', old('invoice_status_code', 'draft'), ['id' => 'invoice_status_code']) }}
+        {{ Form::hidden('amount', old('amount', '0'), ['id' => 'amount']) }}
     </div>
     <!-- /.box-body -->
 
@@ -415,6 +423,10 @@
                     }
                 });
             });
+
+            @if(old('item'))
+                totalItem();
+            @endif
         });
 
         function totalItem() {
