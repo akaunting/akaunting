@@ -21,13 +21,13 @@
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
     @else
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=1.2') }}">
+        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=' . version('short')) }}">
     @endif
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
     <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=1.2.12') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=1.2') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}">
+    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=' . version('short')) }}">
     
     <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
     
@@ -57,7 +57,7 @@
     <!-- Mask Money -->
     <script src="{{ asset('public/js/jquery/jquery.maskMoney.js') }}"></script>
 
-    <script src="{{ asset('public/js/app.js?v=1.0') }}"></script>
+    <script src="{{ asset('public/js/app.js?v=' . version('short')) }}"></script>
 
     <script type="text/javascript"><!--
         var url_search = '{{ url("common/search/search") }}';

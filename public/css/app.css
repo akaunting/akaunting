@@ -356,7 +356,7 @@ div.required .control-label:not(span):after, td.required:after {
     width: 150px;
 }
 
-.ajax-search {
+.live-search {
     padding: 5px;
 }
 
@@ -369,16 +369,16 @@ div.required .control-label:not(span):after, td.required:after {
     background-color : #00A65A !important;
 }
 
-#result-search li a:hover .ajax-search .name {
+#result-search li a:hover .live-search .name {
     color: #FFFFFF !important;
 }
 
-.ajax-search .name {
+.live-search .name {
     font-size: 14px;
     font-weight: bold;
 }
 
-.ajax-search .type {
+.live-search .type {
     font-size: 12px;
 }
 

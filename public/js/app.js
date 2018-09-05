@@ -23,11 +23,11 @@ $(document).ready(function () {
 
             // Show
             this.show = function () {
-                var pos = $('#search').position();
+                var pos = $('#live-search').position();
 
                 $(this).parent().parent().siblings('ul.dropdown-menu').css({
-                    top : pos.top + $('#search').height(),
-                    width: $('#search').width(),
+                    top : pos.top + $('#live-search').height(),
+                    width: $('#live-search').width(),
                     left: pos.left
                 });
 
@@ -62,7 +62,7 @@ $(document).ready(function () {
                     for (i = 0; i < count; i++) {
                         html += '<li data-value="' + json[i]['type'] + '-' + json[i]['id'] + '">';
                         html += '   <a href="' + json[i]['href'] + '">';
-                        html += '       <div class="ajax-search">';
+                        html += '       <div class="live-search">';
                         html += '           <div class="row">';
                         html += '               <div class="name" style="color: ' + json[i]['color'] + ';">' + json[i]['name'] + '</div>';
                         html += '               <span class="type">' + json[i]['type'] + '</span>';
@@ -87,7 +87,7 @@ $(document).ready(function () {
         });
     };
 
-    $('input[name=\'search\']').liveSearch({
+    $('input[name=\'live-search\']').liveSearch({
         'source': function (request, response) {
             if (request != '' && request.length > 2) {
                 $.ajax({
@@ -108,7 +108,7 @@ $(document).ready(function () {
                     }
                 });
             } else {
-                $('#search > .dropdown-menu').hide();
+                $('#live-search > .dropdown-menu').hide();
             }
         }
     });
