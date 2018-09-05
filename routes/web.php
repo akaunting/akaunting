@@ -164,9 +164,33 @@ Route::group(['middleware' => 'language'], function () {
             });
 
             Route::group(['prefix' => 'modals'], function () {
-                Route::resource('categories', 'Modals\Categories');
-                Route::resource('customers', 'Modals\Customers');
-                Route::resource('vendors', 'Modals\Vendors');
+                Route::resource('categories', 'Modals\Categories', ['names' => [
+                    'index' => 'modals.categories.index',
+                    'create' => 'modals.categories.create',
+                    'store' => 'modals.categories.store',
+                    'show' => 'modals.categories.show',
+                    'edit' => 'modals.categories.edit',
+                    'update' => 'modals.categories.update',
+                    'destroy' => 'modals.categories.destroy',
+                ]]);
+                Route::resource('customers', 'Modals\Customers', ['names' => [
+                    'index' => 'modals.customers.index',
+                    'create' => 'modals.customers.create',
+                    'store' => 'modals.customers.store',
+                    'show' => 'modals.customers.show',
+                    'edit' => 'modals.customers.edit',
+                    'update' => 'modals.customers.update',
+                    'destroy' => 'modals.customers.destroy',
+                ]]);
+                Route::resource('vendors', 'Modals\Vendors', ['names' => [
+                    'index' => 'modals.vendors.index',
+                    'create' => 'modals.vendors.create',
+                    'store' => 'modals.vendors.store',
+                    'show' => 'modals.vendors.show',
+                    'edit' => 'modals.vendors.edit',
+                    'update' => 'modals.vendors.update',
+                    'destroy' => 'modals.vendors.destroy',
+                ]]);
                 Route::resource('invoices/{invoice}/payment', 'Modals\InvoicePayments', ['middleware' => ['dateformat', 'money']]);
                 Route::resource('bills/{bill}/payment', 'Modals\BillPayments', ['middleware' => ['dateformat', 'money']]);
             });
