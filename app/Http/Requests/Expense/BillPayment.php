@@ -26,7 +26,7 @@ class BillPayment extends Request
     {
         return [
             'account_id' => 'required|integer',
-            'paid_at' => 'required|date',
+            'paid_at' => 'required|date_format:Y-m-d H:i:s',
             'amount' => 'required|amount',
             'currency_code' => 'required|string|currency',
             'payment_method' => 'required|string',
