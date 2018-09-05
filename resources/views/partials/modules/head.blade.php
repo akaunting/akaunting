@@ -21,14 +21,14 @@
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
     @else
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=1.0.7') }}">
+        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=' . version('short')) }}">
     @endif
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
     <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=1.2.12') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=1.0.7') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/modules.css?v=1.0.7') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}">
+    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=' . version('short')) }}">
+    <link rel="stylesheet" href="{{ asset('public/css/modules.css?v=' . version('short')) }}">
     
     <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
     
@@ -57,7 +57,7 @@
     <!-- Select2 -->
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.js') }}"></script>
 
-    <script src="{{ asset('public/js/app.js?v=1.0') }}"></script>
+    <script src="{{ asset('public/js/app.js?v=' . version('short')) }}"></script>
 
     <script type="text/javascript"><!--
         var url_search = '{{ url("common/search/search") }}';
@@ -66,14 +66,14 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('select[name=\'category\']').on('change', function() {
-                url = '{{ url('apps/categories') }}';
+                url = '{{ url("apps/categories") }}';
 
                 var value = $(this).val();
 
                 if (value) {
                     url += '/' + encodeURIComponent(value);
                 } else {
-                    url = '{{ url('apps/home') }}';
+                    url = '{{ url("apps/home") }}';
                 }
 
                 location = url;

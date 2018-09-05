@@ -21,7 +21,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/_all-skins.min.css') }}">
     <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=1.2.12') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}">
 
     <style type="text/css">
         * {
@@ -49,7 +49,7 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('vendor/almasaeed2010/adminlte/dist/js/app.min.js') }}"></script>
 
-    <script src="{{ asset('public/js/app.js') }}"></script>
+    <script src="{{ asset('public/js/app.js?v=' . version('short')) }}"></script>
 
     @stack('js')
 
