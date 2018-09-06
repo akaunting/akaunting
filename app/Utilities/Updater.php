@@ -107,7 +107,7 @@ class Updater
             $url = 'apps/' . $alias . '/download/' . $version . '/' . $info['akaunting'] . '/' . $info['token'];
         }
 
-        $response = static::getRemote($url, ['timeout' => 30, 'track_redirects' => true]);
+        $response = static::getRemote($url, ['timeout' => 50, 'track_redirects' => true]);
 
         // Exception
         if ($response instanceof RequestException) {
