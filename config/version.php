@@ -16,9 +16,9 @@ return [
 
     'status'    =>  'Stable',
 
-    'date'      =>  '1-September-2018',
+    'date'      =>  '6-September-2018',
 
-    'time'      =>  '15:30',
+    'time'      =>  '12:00',
 
     'zone'      =>  'GMT +3',
 
