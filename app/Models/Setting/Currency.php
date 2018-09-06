@@ -73,4 +73,74 @@ class Currency extends Model
     {
         $this->attributes['rate'] = (double) $value;
     }
+
+    /**
+     * Get the current precision.
+     *
+     * @return string
+     */
+    public function getPrecisionAttribute($value)
+    {
+        if (empty($value)) {
+            return config('money.' . $this->code . '.precision');
+        }
+
+        return $value;
+    }
+
+    /**
+     * Get the current symbol.
+     *
+     * @return string
+     */
+    public function getSymbolAttribute($value)
+    {
+        if (empty($value)) {
+            return config('money.' . $this->code . '.symbol');
+        }
+
+        return $value;
+    }
+
+    /**
+     * Get the current symbol_first.
+     *
+     * @return string
+     */
+    public function getSymbolFirstAttribute($value)
+    {
+        if (empty($value)) {
+            return config('money.' . $this->code . '.symbol_first');
+        }
+
+        return $value;
+    }
+
+    /**
+     * Get the current decimal_mark.
+     *
+     * @return string
+     */
+    public function getDecimalMarkAttribute($value)
+    {
+        if (empty($value)) {
+            return config('money.' . $this->code . '.decimal_mark');
+        }
+
+        return $value;
+    }
+
+    /**
+     * Get the current thousands_separator.
+     *
+     * @return string
+     */
+    public function getThousandsSeparatorAttribute($value)
+    {
+        if (empty($value)) {
+            return config('money.' . $this->code . '.thousands_separator');
+        }
+
+        return $value;
+    }
 }
