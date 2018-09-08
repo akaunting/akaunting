@@ -22,7 +22,7 @@ class Index
         $this_year = $now->year;
 
         $years = [];
-        $y = $now->addYears(5);
+        $y = $now->addYears(2);
         for ($i = 0; $i < 10; $i++) {
             $years[$y->year] = $y->year;
             $y->subYear();
