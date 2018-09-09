@@ -5,7 +5,11 @@
 @section('content')
     <div class="box box-success">
         <section class="invoice">
-            <span class="badge bg-aqua">{{ $invoice->status->name }}</span>
+            <div id="badge">
+                <div class="arrow-up"></div>
+                <div class="label {{ $invoice->status->label }}">{{ trans('invoices.status.' . $invoice->status->code) }}</div>
+                <div class="arrow-right"></div>
+            </div>
 
             <div class="row invoice-header">
                 <div class="col-xs-7">

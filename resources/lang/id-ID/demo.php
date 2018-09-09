@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Kas',
-    'categories_uncat'      => 'Tak Berkategori',
     'categories_deposit'    => 'Deposit',
     'categories_sales'      => 'Penjualan',
     'currencies_usd'        => 'Dolar Amerika',

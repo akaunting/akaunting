@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Income\Invoice as Request;
 use App\Http\Requests\Income\InvoicePayment as PaymentRequest;
 use App\Models\Banking\Account;
+use App\Models\Common\Media;
 use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceHistory;
@@ -20,17 +21,18 @@ use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
-use App\Models\Common\Media;
 use App\Notifications\Income\Invoice as Notification;
 use App\Notifications\Common\Item as ItemNotification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
 use App\Traits\Uploads;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
+use Illuminate\Http\Request as ItemRequest;
 use Image;
 use Storage;
 
@@ -47,7 +49,7 @@ class Invoices extends Controller
     {
         $invoices = Invoice::with(['customer', 'status', 'items', 'payments', 'histories'])->collect(['invoice_number'=> 'desc']);
 
-        $customers = collect(Customer::enabled()->pluck('name', 'id'))
+        $customers = collect(Customer::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.customers', 2)]), '');
 
         $status = collect(InvoiceStatus::all()->pluck('name', 'code'))
@@ -67,23 +69,50 @@ class Invoices extends Controller
     {
         $paid = 0;
 
-        foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
+        // Get Invoice Payments
+        if ($invoice->payments->count()) {
+            $_currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
-            $paid += $item->getDynamicConvertedAmount();
+            foreach ($invoice->payments as $item) {
+                $default_amount = $item->amount;
+
+                if ($invoice->currency_code == $item->currency_code) {
+                    $amount = (double)$default_amount;
+                } else {
+                    $default_amount_model = new InvoicePayment();
+
+                    $default_amount_model->default_currency_code = $invoice->currency_code;
+                    $default_amount_model->amount = $default_amount;
+                    $default_amount_model->currency_code = $item->currency_code;
+                    $default_amount_model->currency_rate = $_currencies[$item->currency_code];
+
+                    $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+                    $convert_amount = new InvoicePayment();
+
+                    $convert_amount->default_currency_code = $item->currency_code;
+                    $convert_amount->amount = $default_amount;
+                    $convert_amount->currency_code = $invoice->currency_code;
+                    $convert_amount->currency_rate = $_currencies[$invoice->currency_code];
+
+                    $amount = (double) $convert_amount->getDynamicConvertedAmount();
+                }
+
+                $paid += $amount;
+            }
         }
 
         $invoice->paid = $paid;
 
-        $accounts = Account::enabled()->pluck('name', 'id');
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
 
-        $customers = Customer::enabled()->pluck('name', 'id');
+        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -97,19 +126,21 @@ class Invoices extends Controller
      */
     public function create()
     {
-        $customers = Customer::enabled()->pluck('name', 'id');
+        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
-        $items = Item::enabled()->pluck('name', 'id');
+        $currency = Currency::where('code', '=', setting('general.default_currency'))->first();
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
 
         $number = $this->getNextInvoiceNumber();
 
-        return view('incomes.invoices.create', compact('customers', 'currencies', 'items', 'taxes', 'categories', 'number'));
+        return view('incomes.invoices.create', compact('customers', 'currencies', 'currency', 'items', 'taxes', 'categories', 'number'));
     }
 
     /**
@@ -121,25 +152,6 @@ class Invoices extends Controller
      */
     public function store(Request $request)
     {
-        // Get customer object
-        $customer = Customer::findOrFail($request['customer_id']);
-
-        $request['customer_name'] = $customer->name;
-        $request['customer_email'] = $customer->email;
-        $request['customer_tax_number'] = $customer->tax_number;
-        $request['customer_phone'] = $customer->phone;
-        $request['customer_address'] = $customer->address;
-
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
-        $request['invoice_status_code'] = 'draft';
-
-        $request['amount'] = 0;
-
         $invoice = Invoice::create($request->input());
 
         // Upload attachment
@@ -241,7 +253,9 @@ class Invoices extends Controller
             $s_total = $s_total - $s_discount;
         }
 
-        $request['amount'] = $s_total + $tax_total;
+        $amount = $s_total + $tax_total;
+
+        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
 
         $invoice->update($request->input());
 
@@ -312,44 +326,32 @@ class Invoices extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            $class = '\App\Models\Income\\' . str_singular(studly_case($sheet->getTitle()));
+        $success = true;
 
-            if (!class_exists($class)) {
-                return;
+        $allowed_sheets = ['invoices', 'invoice_items', 'invoice_histories', 'invoice_payments', 'invoice_totals'];
+
+        // Loop through all sheets
+        $import->each(function ($sheet) use (&$success, $allowed_sheets) {
+            $sheet_title = $sheet->getTitle();
+
+            if (!in_array($sheet_title, $allowed_sheets)) {
+                $message = trans('messages.error.import_sheet');
+
+                flash($message)->error()->important();
+
+                return false;
             }
 
-            $sheet->each(function ($row) use ($sheet, $class) {
-                $data = $row->toArray();
-                $data['company_id'] = session('company_id');
+            $slug = 'Income\\' . str_singular(studly_case($sheet_title));
 
-                switch ($sheet->getTitle()) {
-                    case 'invoices':
-                        if (empty($data['customer_email'])) {
-                            $data['customer_email'] = '';
-                        }
-                        break;
-                    case 'invoice_items':
-                        if (empty($data['tax_id'])) {
-                            $data['tax_id'] = '0';
-                        }
-                        break;
-                    case 'invoice_histories':
-                        if (empty($data['notify'])) {
-                            $data['notify'] = '0';
-                        }
-                        break;
-                    case 'invoice_totals':
-                        if (empty($data['amount'])) {
-                            $data['amount'] = '0';
-                        }
-                        break;
-                }
-
-                $class::create($data);
-            });
+            if (!$success = Import::createFromSheet($sheet, $slug)) {
+                return false;
+            }
         });
+
+        if (!$success) {
+            return redirect('common/import/incomes/invoices');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 2)]);
 
@@ -367,17 +369,19 @@ class Invoices extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        $customers = Customer::enabled()->pluck('name', 'id');
+        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
-        $items = Item::enabled()->pluck('name', 'id');
+        $currency = Currency::where('code', '=', $invoice->currency_code)->first();
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'items', 'taxes', 'categories'));
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
+
+        return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }
 
     /**
@@ -390,21 +394,6 @@ class Invoices extends Controller
      */
     public function update(Invoice $invoice, Request $request)
     {
-        // Get customer object
-        $customer = Customer::findOrFail($request['customer_id']);
-
-        $request['customer_name'] = $customer->name;
-        $request['customer_email'] = $customer->email;
-        $request['customer_tax_number'] = $customer->tax_number;
-        $request['customer_phone'] = $customer->phone;
-        $request['customer_address'] = $customer->address;
-
-        // Get currency object
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
         $taxes = [];
         $tax_total = 0;
         $sub_total = 0;
@@ -416,7 +405,7 @@ class Invoices extends Controller
         $invoice_item['invoice_id'] = $invoice->id;
 
         if ($request['item']) {
-            InvoiceItem::where('invoice_id', $invoice->id)->delete();
+            $this->deleteRelationships($invoice, 'items');
 
             foreach ($request['item'] as $item) {
                 unset($tax_object);
@@ -480,7 +469,9 @@ class Invoices extends Controller
             $s_total = $s_total - $s_discount;
         }
 
-        $request['amount'] = $s_total + $tax_total;
+        $amount = $s_total + $tax_total;
+
+        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
 
         $invoice->update($request->input());
 
@@ -492,10 +483,9 @@ class Invoices extends Controller
         }
 
         // Delete previous invoice totals
-        InvoiceTotal::where('invoice_id', $invoice->id)->delete();
+        $this->deleteRelationships($invoice, 'totals');
 
         // Add invoice totals
-        $invoice->totals()->delete();
         $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Recurring
@@ -520,19 +510,8 @@ class Invoices extends Controller
      */
     public function destroy(Invoice $invoice)
     {
-        $invoice->recurring()->delete();
+        $this->deleteRelationships($invoice, ['items', 'histories', 'payments', 'recurring', 'totals']);
         $invoice->delete();
-
-        /*
-        $invoice->items->delete();
-        $invoice->payments->delete();
-        $invoice->histories->delete();
-        */
-
-        InvoiceItem::where('invoice_id', $invoice->id)->delete();
-        InvoiceTotal::where('invoice_id', $invoice->id)->delete();
-        InvoicePayment::where('invoice_id', $invoice->id)->delete();
-        InvoiceHistory::where('invoice_id', $invoice->id)->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
 
@@ -548,23 +527,34 @@ class Invoices extends Controller
      */
     public function export()
     {
-        \Excel::create('invoices', function($excel) {
-            $invoices = Invoice::with(['items', 'payments', 'totals'])->filter(request()->input())->get();
+        \Excel::create('invoices', function ($excel) {
+            $invoices = Invoice::with(['items', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
 
-            $excel->sheet('invoices', function($sheet) use ($invoices) {
+            $excel->sheet('invoices', function ($sheet) use ($invoices) {
                 $sheet->fromModel($invoices->makeHidden([
-                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'payments', 'totals', 'media'
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media'
                 ]));
             });
 
             $tables = ['items', 'histories', 'payments', 'totals'];
             foreach ($tables as $table) {
-                $excel->sheet('invoice_' . $table, function($sheet) use ($invoices, $table) {
-                    $invoices->each(function ($bill) use ($sheet, $table) {
-                        $sheet->fromModel($bill->$table->makeHidden([
-                            'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
-                        ]));
-                    });
+                $excel->sheet('invoice_' . $table, function ($sheet) use ($invoices, $table) {
+                    $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];
+
+                    $i = 1;
+
+                    foreach ($invoices as $invoice) {
+                        $model = $invoice->$table->makeHidden($hidden_fields);
+
+                        if ($i == 1) {
+                            $sheet->fromModel($model, null, 'A1', false);
+                        } else {
+                            // Don't put multiple heading columns
+                            $sheet->fromModel($model, null, 'A1', false, false);
+                        }
+
+                        $i++;
+                    }
                 });
             }
         })->download('xlsx');
@@ -704,9 +694,15 @@ class Invoices extends Controller
         $paid = 0;
 
         foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
+            $amount = $item->amount;
 
-            $paid += $item->getDynamicConvertedAmount();
+            if ($invoice->currency_code != $item->currency_code) {
+                $item->default_currency_code = $invoice->currency_code;
+
+                $amount = $item->getDynamicConvertedAmount();
+            }
+
+            $paid += $amount;
         }
 
         $amount = $invoice->amount - $paid;
@@ -720,7 +716,7 @@ class Invoices extends Controller
             $request['payment_method'] = setting('general.default_payment_method', 'offlinepayment.cash.1');
             $request['currency_code'] = $invoice->currency_code;
             $request['amount'] = $amount;
-            $request['paid_at'] = Date::now();
+            $request['paid_at'] = Date::now()->format('Y-m-d');
             $request['_token'] = csrf_token();
 
             $this->payment($request);
@@ -767,6 +763,16 @@ class Invoices extends Controller
             $total_amount -= $invoice->payments()->paid();
         }
 
+        // For amount cover integer
+        $multiplier = 1;
+
+        for ($i = 0; $i < $currency->precision; $i++) {
+            $multiplier *= 10;
+        }
+
+        $amount *=  $multiplier;
+        $total_amount *=  $multiplier;
+
         if ($amount > $total_amount) {
             $message = trans('messages.error.over_payment');
 
@@ -783,7 +789,20 @@ class Invoices extends Controller
 
         $invoice->save();
 
-        $invoice_payment = InvoicePayment::create($request->input());
+        $invoice_payment_request = [
+            'company_id'     => $request['company_id'],
+            'invoice_id'     => $request['invoice_id'],
+            'account_id'     => $request['account_id'],
+            'paid_at'        => $request['paid_at'],
+            'amount'         => $request['amount'],
+            'currency_code'  => $request['currency_code'],
+            'currency_rate'  => $request['currency_rate'],
+            'description'    => $request['description'],
+            'payment_method' => $request['payment_method'],
+            'reference'      => $request['reference']
+        ];
+
+        $invoice_payment = InvoicePayment::create($invoice_payment_request);
 
         // Upload attachment
         if ($request->file('attachment')) {
@@ -851,14 +870,54 @@ class Invoices extends Controller
         return redirect()->back();
     }
 
+    public function addItem(ItemRequest $request)
+    {
+        if ($request['item_row']) {
+            $item_row = $request['item_row'];
+
+            $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+
+            $currency = Currency::where('code', '=', $request['currency_code'])->first();
+
+            // it should be integer for amount mask
+            $currency->precision = (int) $currency->precision;
+
+            $html = view('incomes.invoices.item', compact('item_row', 'taxes', 'currency'))->render();
+
+            return response()->json([
+                'success' => true,
+                'error'   => false,
+                'data'    => [
+                    'currency' => $currency
+                ],
+                'message' => 'null',
+                'html'    => $html,
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'error'   => true,
+            'data'    => 'null',
+            'message' => trans('issue'),
+            'html'    => 'null',
+        ]);
+    }
+
     protected function prepareInvoice(Invoice $invoice)
     {
         $paid = 0;
 
         foreach ($invoice->payments as $item) {
-            $item->default_currency_code = $invoice->currency_code;
+            $amount = $item->amount;
 
-            $paid += $item->getDynamicConvertedAmount();
+            if ($invoice->currency_code != $item->currency_code) {
+                $item->default_currency_code = $invoice->currency_code;
+
+                $amount = $item->getDynamicConvertedAmount();
+            }
+
+            $paid += $amount;
         }
 
         $invoice->paid = $paid;

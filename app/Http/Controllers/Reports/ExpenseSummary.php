@@ -101,6 +101,12 @@ class ExpenseSummary extends Controller
     private function setAmount(&$graph, &$totals, &$expenses, $items, $type, $date_field)
     {
         foreach ($items as $item) {
+            if ($item['table'] == 'bill_payments') {
+                $bill = $item->bill;
+
+                $item->category_id = $bill->category_id;
+            }
+
             $date = Date::parse($item->$date_field)->format('F');
 
             if (!isset($expenses[$item->category_id])) {

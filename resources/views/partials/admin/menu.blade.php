@@ -1,3 +1,5 @@
+@stack('menu_start')
+
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -24,10 +26,10 @@
         </div>
         <!-- search form -->
         <form action="#" method="get" id="form-search" class="sidebar-form">
-            <div id="search" class="input-group">
-                <input type="text" name="search" value="<?php //echo $search; ?>" id="input-search" class="form-control" placeholder="Search...">
+            <div id="live-search" class="input-group">
+                <input type="text" name="live-search" value="<?php //echo $search; ?>" id="input-search" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
-                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    <button type="submit" name="live-search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
                 </span>
             </div>
         </form>
@@ -37,3 +39,5 @@
     </section>
     <!-- /.sidebar -->
 </aside>
+
+@stack('menu_end')

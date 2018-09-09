@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type silindi!',
         'duplicated'        => ':type çoğaltıldı!',
         'imported'          => ':type içe aktarıldı!',
+        'enabled'           => ':type etkinleştirildi!',
+        'disabled'          => ':type devre dışı bırakıldı!',
     ],
     'error' => [
         'over_payment'      => 'Hata: Ödeme eklenmedi. Girilen tutar toplamı geçiyor.',
@@ -16,6 +18,8 @@ return [
         'no_file'           => 'Hata: Dosya seçilmedi!',
         'last_category'     => 'Hata: Son :type kategorisini silemezsiniz!',
         'invalid_token'     => 'Hata: Girilen token yanlış!',
+        'import_column'     => 'Hata: :message Sayfa ismi: :sheet. Satır numarası: :line.',
+        'import_sheet'      => 'Hata: Sayfa ismi geçersiz. Lütfen, örnek dosyaya bakın.',
     ],
     'warning' => [
         'deleted'           => 'Uyarı: <b>:name</b> silinemez çünkü :text ile ilişkilidir.',

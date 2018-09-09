@@ -1,4 +1,6 @@
 <head>
+    @stack('head_start')
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -19,13 +21,13 @@
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
     @else
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=1.2') }}">
+        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=' . version('short')) }}">
     @endif
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
     <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=1.2') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=1.2') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}">
+    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=' . version('short')) }}">
     
     <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
     
@@ -50,11 +52,12 @@
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/fastclick/fastclick.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('vendor/almasaeed2010/adminlte/dist/js/app.min.js') }}"></script>
-
     <!-- Select2 -->
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.js') }}"></script>
+    <!-- Mask Money -->
+    <script src="{{ asset('public/js/jquery/jquery.maskMoney.js') }}"></script>
 
-    <script src="{{ asset('public/js/app.js?v=1.0') }}"></script>
+    <script src="{{ asset('public/js/app.js?v=' . version('short')) }}"></script>
 
     <script type="text/javascript"><!--
         var url_search = '{{ url("common/search/search") }}';
@@ -63,4 +66,6 @@
     @stack('js')
 
     @stack('scripts')
+
+    @stack('head_end')
 </head>

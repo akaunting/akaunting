@@ -7,24 +7,24 @@ return [
     'this_quarter'          => 'Текущото тримесечие',
     'previous_quarter'      => 'Предходното тримесечие',
     'last_12_months'        => 'Последните 12 месеца',
-    'profit_loss'           => 'Profit & Loss',
-    'gross_profit'          => 'Gross Profit',
-    'net_profit'            => 'Net Profit',
-    'total_expenses'        => 'Total Expenses',
-    'net'                   => 'NET',
+    'profit_loss'           => 'Печалба & загуба',
+    'gross_profit'          => 'Брутна печалба',
+    'net_profit'            => 'Нетна печалба',
+    'total_expenses'        => 'Общо разходи',
+    'net'                   => 'НЕТНО',
 
     'summary' => [
         'income'            => 'Приходи',
         'expense'           => 'Разходи',
         'income_expense'    => 'Приходи срещу разходи',
-        'tax'               => 'Tax Summary',
+        'tax'               => 'Данъчни Резюме',
     ],
 
     'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Oct-Dec',
+        '1'                 => 'Ян-Мар',
+        '2'                 => 'Април-юни',
+        '3'                 => 'Юли-септември',
+        '4'                 => 'Октомври-декември',
     ],
 
 ];

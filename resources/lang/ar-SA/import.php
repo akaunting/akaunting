@@ -3,7 +3,7 @@
 return [
 
     'import'                => 'استيراد',
-    'title'                 => 'استيراد : النوع',
-    'message'               => 'مسموح بأنواع الملفات: CSV, XLS. Please, <a target="_blank" href=":رابط"><strong>تحميل</strong></a> مثال.',
+    'title'                 => 'استيراد :type',
+    'message'               => 'أنواع الملفات المسموحة: XLS, XLSX. من فضلك قم <a target="_blank" href=":link"><strong>بتحميل</strong></a> ملفاً لرؤية مثال على ذلك.',
 
 ];

@@ -100,11 +100,15 @@ return [
     'overdue'               => 'Dospjelo',
     'partially'             => 'Djelomično',
     'partially_paid'        => 'Djelomično plaćeno',
+    'export'                => 'Izvoz',
+    'enable'                => 'Omogući',
+    'disable'               => 'Onemogući',
 
     'title' => [
         'new'               => 'Novo - :type',
         'edit'              => 'Uređivanje - :type',
     ],
+
     'form' => [
         'enter'             => 'Unos - :type',
         'select' => [

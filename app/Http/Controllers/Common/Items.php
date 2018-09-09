@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Common\Item as Request;
+use App\Http\Requests\Common\TotalItem as TRequest;
 use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Uploads;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 
 class Items extends Controller
@@ -24,7 +26,7 @@ class Items extends Controller
     {
         $items = Item::with('category')->collect();
 
-        $categories = Category::enabled()->type('item')->pluck('name', 'id')
+        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id')
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
 
         return view('common.items.index', compact('items', 'categories'));
@@ -47,11 +49,13 @@ class Items extends Controller
      */
     public function create()
     {
-        $categories = Category::enabled()->type('item')->pluck('name', 'id');
+        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        return view('common.items.create', compact('categories', 'taxes'));
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('common.items.create', compact('categories', 'taxes', 'currency'));
     }
 
     /**
@@ -106,20 +110,9 @@ class Items extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            if ($sheet->getTitle() != 'items') {
-                return;
-            }
-
-            // Loop through all rows
-            $sheet->each(function ($row) {
-                $data = $row->toArray();
-                $data['company_id'] = session('company_id');
-
-                Item::create($data);
-            });
-        });
+        if (!Import::createFromFile($import, 'Common\Item')) {
+            return redirect('common/import/common/items');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 2)]);
 
@@ -137,11 +130,13 @@ class Items extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::enabled()->type('item')->pluck('name', 'id');
+        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-        return view('common.items.edit', compact('item', 'categories', 'taxes'));
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('common.items.edit', compact('item', 'categories', 'taxes', 'currency'));
     }
 
     /**
@@ -286,8 +281,8 @@ class Items extends Controller
                     $item_tax_price = ($item->sale_price / 100) * $tax->rate;
                 }
 
-                $item->sale_price = $this->convertPrice($item->sale_price, $currency_code, $currency->rate);
-                $item->purchase_price = $this->convertPrice($item->purchase_price, $currency_code, $currency->rate);
+                //$item->sale_price = $this->convertPrice($item->sale_price, $currency_code, $currency->rate);
+                //$item->purchase_price = $this->convertPrice($item->purchase_price, $currency_code, $currency->rate);
 
                 switch ($type) {
                     case 'bill':
@@ -306,11 +301,11 @@ class Items extends Controller
         return response()->json($items);
     }
 
-    public function totalItem()
+    public function totalItem(TRequest $request)
     {
-        $input_items = request('item');
-        $currency_code = request('currency_code');
-        $discount = request('discount');
+        $input_items = $request->input('item');
+        $currency_code = $request->input('currency_code');
+        $discount = $request->input('discount');
 
         if (empty($currency_code)) {
             $currency_code = setting('general.default_currency');
@@ -370,6 +365,19 @@ class Items extends Controller
         $grand_total = $sub_total + $tax_total;
 
         $json->grand_total = money($grand_total, $currency_code, true)->format();
+
+        // Get currency object
+        $currency = Currency::where('code', $currency_code)->first();
+
+        $json->currency_name = $currency->name;
+        $json->currency_code = $currency_code;
+        $json->currency_rate = $currency->rate;
+
+        $json->thousands_separator = $currency->thousands_separator;
+        $json->decimal_mark = $currency->decimal_mark;
+        $json->precision = (int) $currency->precision;
+        $json->symbol_first = $currency->symbol_first;
+        $json->symbol = $currency->symbol;
 
         return response()->json($json);
     }

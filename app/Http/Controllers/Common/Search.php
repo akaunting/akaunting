@@ -60,7 +60,7 @@ class Search extends Controller
                     'name'  => $item->name,
                     'type'  => trans_choice('general.items', 1),
                     'color' => '#f5bd65',
-                    'href'  => url('items/items/' . $item->id . '/edit'),
+                    'href'  => url('common/items/' . $item->id . '/edit'),
                 ];
             }
         }
@@ -90,7 +90,7 @@ class Search extends Controller
                     'name'  => $customer->name,
                     'type'  => trans_choice('general.customers', 1),
                     'color' => '#03d876',
-                    'href'  => url('incomes/customers/' . $customer->id . '/edit'),
+                    'href'  => url('incomes/customers/' . $customer->id),
                 ];
             }
         }
@@ -120,7 +120,7 @@ class Search extends Controller
                     'name'  => $vendor->name,
                     'type'  => trans_choice('general.vendors', 1),
                     'color' => '#ff8373',
-                    'href'  => url('expenses/vendors/' . $vendor->id . '/edit'),
+                    'href'  => url('expenses/vendors/' . $vendor->id),
                 ];
             }
         }

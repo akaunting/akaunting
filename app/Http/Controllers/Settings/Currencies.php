@@ -126,8 +126,8 @@ class Currencies extends Controller
      */
     public function update(Currency $currency, Request $request)
     {
-        // Check if we can disable it
-        if (!$request['enabled']) {
+        // Check if we can disable or change the code
+        if (!$request['enabled'] || ($currency->code != $request['code'])) {
             $relationships = $this->countRelationships($currency, [
                 'accounts' => 'accounts',
                 'customers' => 'customers',
@@ -270,16 +270,15 @@ class Currencies extends Controller
     {
         $json = new \stdClass();
 
-        $account_id = request('account_id');
+        $code = request('code');
 
-        if ($account_id) {
-            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+        // Get currency object
+        $currency = Currency::where('code', $code)->first();
 
-            $json->currency_code = Account::where('id', $account_id)->pluck('currency_code')->first();
-            $json->currency_name = $currencies[$json->currency_code];
-        }
+        // it should be integer for amount mask
+        $currency->precision = (int) $currency->precision;
 
-        return response()->json($json);
+        return response()->json($currency);
     }
 
     public function config()

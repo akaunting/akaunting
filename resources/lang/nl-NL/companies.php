@@ -7,7 +7,7 @@ return [
     'manage'                => 'Bedrijven Beheren',
     'all'                   => 'Alle bedrijven',
     'error' => [
-        'delete_active'     => 'Fout: Kan niet verwijderen van actieve bedrijf, gelieve, het eerste veranderen!',
+        'delete_active'     => 'Fout: Kan een actief bedrijf niet verwijderen. U zult dat eerst moeten aanpassen!',
     ],
 
 ];

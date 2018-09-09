@@ -1,4 +1,6 @@
 <head>
+    @stack('head_start')
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -17,8 +19,8 @@
     <!-- AdminLTE Skins -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
     <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}">
+    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=' . version('short')) }}">
     
     <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
 
@@ -42,9 +44,11 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('vendor/almasaeed2010/adminlte/dist/js/app.min.js') }}"></script>
 
-    <script src="{{ asset('public/js/app.js') }}"></script>
+    <script src="{{ asset('public/js/app.js?v=' . version('short')) }}"></script>
 
     @stack('js')
 
     @stack('scripts')
+
+    @stack('head_end')
 </head>

@@ -95,7 +95,7 @@ class Model extends Eloquent
     }
 
     /**
-     * Scope to only include active currencies.
+     * Scope to only include active models.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -103,5 +103,16 @@ class Model extends Eloquent
     public function scopeEnabled($query)
     {
         return $query->where('enabled', 1);
+    }
+
+    /**
+     * Scope to only include passive models.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDisabled($query)
+    {
+        return $query->where('enabled', 0);
     }
 }

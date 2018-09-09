@@ -13,6 +13,6 @@ $text = $text ? $text : $page;
     'type'    => 'button',
     'class'   => 'btn btn-danger btn-xs',
     'title'   => trans('general.delete'),
-    'onclick' => 'confirmDelete("' . '#' . str_singular($page) . '-' . $item->$id . '", "' . trans_choice('general.' . $text, 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $item->$value . '</strong>', 'type' => strtolower(trans_choice('general.' . $text, 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
+    'onclick' => 'confirmDelete("' . '#' . str_singular($page) . '-' . $item->$id . '", "' . trans_choice('general.' . $text, 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $item->$value . '</strong>', 'type' => mb_strtolower(trans_choice('general.' . $text, 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
 )) !!}
 {!! Form::close() !!}

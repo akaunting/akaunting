@@ -41,6 +41,10 @@ class Item extends Controller
 
         $module = $this->getModule($alias);
 
+        if (empty($module)) {
+            return redirect('apps/home')->send();
+        }
+
         $check = Module::alias($alias)->first();
 
         if ($check) {

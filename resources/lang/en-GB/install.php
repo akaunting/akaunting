@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Refresh',
 
     'steps' => [
-        'requirements'      => 'Please, meet the following requirements!',
+        'requirements'      => 'Please, ask your hosting provider to fix the errors!',
         'language'          => 'Step 1/3 : Language Selection',
         'database'          => 'Step 2/3 : Database Setup',
         'settings'          => 'Step 3/3 : Company and Admin Details',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature needs to be enabled!',
         'disabled'          => ':feature needs to be disabled!',
-        'extension'         => ':extension extension needs to be loaded!',
+        'extension'         => ':extension extension needs to be installed and loaded!',
         'directory'         => ':directory directory needs to be writable!',
     ],
 

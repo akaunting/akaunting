@@ -9,6 +9,7 @@ use App\Models\Expense\Payment;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use Date;
 use Illuminate\Pagination\Paginator;
@@ -124,10 +125,6 @@ class Vendors extends Controller
      */
     public function store(Request $request)
     {
-        if (empty($request['email'])) {
-            $request['email'] = '';
-        }
-
         $vendor = Vendor::create($request->all());
 
         // Upload logo
@@ -171,25 +168,9 @@ class Vendors extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            if ($sheet->getTitle() != 'vendors') {
-                return;
-            }
-
-            // Loop through all rows
-            $sheet->each(function ($row) {
-                $data = $row->toArray();
-
-                if (empty($data['email'])) {
-                    $data['email'] = '';
-                }
-
-                $data['company_id'] = session('company_id');
-
-                Vendor::create($data);
-            });
-        });
+        if (!Import::createFromFile($import, 'Expense\Vendor')) {
+            return redirect('common/import/expenses/vendors');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
 
@@ -222,10 +203,6 @@ class Vendors extends Controller
      */
     public function update(Vendor $vendor, Request $request)
     {
-        if (empty($request['email'])) {
-            $request['email'] = '';
-        }
-
         $vendor->update($request->all());
 
         // Upload logo
@@ -327,19 +304,39 @@ class Vendors extends Controller
 
     public function currency()
     {
-        $vendor_id = request('vendor_id');
+        $vendor_id = (int) request('vendor_id');
 
+        if (empty($vendor_id)) {
+            return response()->json([]);
+        }
+        
         $vendor = Vendor::find($vendor_id);
+
+        if (empty($vendor)) {
+            return response()->json([]);
+        }
+
+        $currency_code = setting('general.default_currency');
+
+        if (isset($vendor->currency_code)) {
+            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+
+            if (array_key_exists($vendor->currency_code, $currencies)) {
+                $currency_code = $vendor->currency_code;
+            }
+        }
+
+        // Get currency object
+        $currency = Currency::where('code', $currency_code)->first();
+
+        $vendor->currency_code = $currency_code;
+        $vendor->currency_rate = $currency->rate;
 
         return response()->json($vendor);
     }
 
     public function vendor(Request $request)
     {
-        if (empty($request['email'])) {
-            $request['email'] = '';
-        }
-
         $vendor = Vendor::create($request->all());
 
         return response()->json($vendor);

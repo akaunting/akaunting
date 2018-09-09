@@ -101,6 +101,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'Mesazh Privat',
         ],
+        'invalid_currency' => 'Kodi :attribute është i pavlefshëm.',
     ],
 
     /*

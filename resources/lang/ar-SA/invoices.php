@@ -4,52 +4,52 @@ return [
 
     'invoice_number'    => 'رقم فاتورة البيع',
     'invoice_date'      => 'تاريخ فاتورة البيع',
-    'total_price'       => 'اجمالى السعر',
+    'total_price'       => 'السعر الإجمالي',
     'due_date'          => 'تاريخ الاستحقاق',
     'order_number'      => 'رقم الطلب',
-    'bill_to'           => 'فاتورة الشراء الى',
+    'bill_to'           => 'فاتورة الشراء إلى',
 
     'quantity'          => 'الكمية',
     'price'             => 'السعر',
-    'sub_total'         => 'المبلغ الاجمالى',
-    'discount'          => 'Discount',
-    'tax_total'         => 'اجمالى الضريبة',
-    'total'             => 'الاجمالى',
+    'sub_total'         => 'المجموع الجزئي',
+    'discount'          => 'الخصم',
+    'tax_total'         => 'إجمالي الضريبة',
+    'total'             => 'الإجمالي',
 
-    'item_name'         => 'اسم الصنف | اسماء الاصناف',
+    'item_name'         => 'اسم الصنف|أسماء الأصناف',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => 'خصم :discount%',
+    'add_discount'      => 'إضافة خصم',
+    'discount_desc'     => 'من المجموع الجزئي',
 
     'payment_due'       => 'استحقاق الدفع',
     'paid'              => 'مدفوع',
     'histories'         => 'سجلات',
-    'payments'          => 'مدفوعات',
-    'add_payment'       => 'اضافة مدفوعات',
+    'payments'          => 'المدفوعات',
+    'add_payment'       => 'إضافة مدفوعات',
     'mark_paid'         => 'التحديد كمدفوع',
-    'mark_sent'         => 'تحديد للارسال',
+    'mark_sent'         => 'التحديد كمرسل',
     'download_pdf'      => 'تحميل PDF',
-    'send_mail'         => 'ارسال بريد الكتروني',
+    'send_mail'         => 'إرسال بريد إلكتروني',
 
     'status' => [
         'draft'         => 'مسودة',
-        'sent'          => 'ارسال',
+        'sent'          => 'تم الإرسال',
         'viewed'        => 'المشاهدات',
-        'approved'      => 'تم الموافقة',
-        'partial'       => 'جزئى',
+        'approved'      => 'تمت الموافقة',
+        'partial'       => 'جزئي',
         'paid'          => 'مدفوع',
     ],
 
     'messages' => [
-        'email_sent'     => 'تم ارسال الفاتورة بنجاح!',
+        'email_sent'     => 'تم إرسال الفاتورة بنجاح!',
         'marked_sent'    => 'تم تحديد الفاتورة كفاتورة مرسلة بنجاح!',
-        'email_required' => 'No email address for this customer!',
+        'email_required' => 'لا يوجد عنوان البريد إلكتروني لهذا العميل!',
     ],
 
     'notification' => [
-        'message'       => 'قمت باستلام هذة الرسالة لأنك مدين : بمبلغ الفاتورة الى : العميل عميل.',
-        'button'        => 'ادفع الآن',
+        'message'       => 'قمت باستلام هذه الرسالة لأنه لديك فاتورة قادمة بقيمة :amount للعميل :customer.',
+        'button'        => 'الدفع الآن',
     ],
 
 ];

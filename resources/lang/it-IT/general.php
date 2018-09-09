@@ -37,7 +37,7 @@ return [
     'updates'               => 'Aggiornamento|Aggiornamenti',
     'numbers'               => 'Numero|Numeri',
     'statuses'              => 'Stato|Stati',
-    'others'                => 'Other|Others',
+    'others'                => 'Altro|Altri',
 
     'dashboard'             => 'Cruscotto',
     'banking'               => 'Banca',
@@ -100,11 +100,15 @@ return [
     'overdue'               => 'In Ritardo',
     'partially'             => 'Parzialmente',
     'partially_paid'        => 'Parzialmente Pagato',
+    'export'                => 'Esporta',
+    'enable'                => 'Attiva',
+    'disable'               => 'Disattiva',
 
     'title' => [
         'new'               => 'Nuovo :type',
         'edit'              => 'Modifica :type',
     ],
+
     'form' => [
         'enter'             => 'Immettere :field',
         'select' => [

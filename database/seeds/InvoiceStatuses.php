@@ -4,7 +4,6 @@ namespace Database\Seeds;
 
 use App\Models\Model;
 use App\Models\Income\InvoiceStatus;
-
 use Illuminate\Database\Seeder;
 
 class InvoiceStatuses extends Seeder

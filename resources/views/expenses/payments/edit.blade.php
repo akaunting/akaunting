@@ -25,10 +25,14 @@
         ]) !!}
 
         <div class="box-body">
-            {{ Form::textGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => ''], Date::parse($payment->paid_at)->toDateString()) }}
+            {{ Form::textGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::parse($payment->paid_at)->toDateString()) }}
+
+            {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+            {!! Form::hidden('currency_rate', null, ['id' => 'currency_rate']) !!}
 
             {{ Form::textGroup('amount', trans('general.amount'), 'money', ['required' => 'required', 'autofocus' => 'autofocus']) }}
 
+            @stack('account_id_input_start')
             <div class="form-group col-md-6 form-small">
                 {!! Form::label('account_id', trans_choice('general.accounts', 1), ['class' => 'control-label']) !!}
                 <div class="input-group">
@@ -36,10 +40,10 @@
                     {!! Form::select('account_id', $accounts, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)])])) !!}
                     <div class="input-group-append">
                         {!! Form::text('currency', $account_currency_code, ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
-                        {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
                     </div>
                 </div>
             </div>
+            @stack('account_id_input_end')
 
             {{ Form::selectGroup('vendor_id', trans_choice('general.vendors', 1), 'user', $vendors, null, []) }}
 
@@ -82,9 +86,26 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function(){
+            $("#amount").maskMoney({
+                thousands : '{{ $currency->thousands_separator }}',
+                decimal : '{{ $currency->decimal_mark }}',
+                precision : {{ $currency->precision }},
+                allowZero : true,
+                @if($currency->symbol_first)
+                prefix : '{{ $currency->symbol }}'
+                @else
+                suffix : '{{ $currency->symbol }}'
+                @endif
+            });
+
+            $('#amount').trigger('focus');
+
+            $('#account_id').trigger('change');
+
             //Date picker
             $('#paid_at').datepicker({
                 format: 'yyyy-mm-dd',
+                weekStart: 1,
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'
             });
@@ -98,7 +119,10 @@
             });
 
             $("#vendor_id").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)]) }}"
+                placeholder: {
+                    id: '-1', // the value of the option
+                    text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)]) }}"
+                }
             });
 
             $("#payment_method").select2({
@@ -135,18 +159,35 @@
                     confirmDelete("#attachment-{!! $payment->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $payment->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
                 });
             @endif
+        });
 
-            $(document).on('change', '#account_id', function (e) {
-                $.ajax({
-                    url: '{{ url("settings/currencies/currency") }}',
-                    type: 'GET',
-                    dataType: 'JSON',
-                    data: 'account_id=' + $(this).val(),
-                    success: function(data) {
-                        $('#currency').val(data.currency_code);
-                        $('#currency_code').val(data.currency_code);
-                    }
-                });
+        $(document).on('change', '#account_id', function (e) {
+            $.ajax({
+                url: '{{ url("banking/accounts/currency") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: 'account_id=' + $(this).val(),
+                success: function(data) {
+                    $('#currency').val(data.currency_code);
+
+                    $('#currency_code').val(data.currency_code);
+                    $('#currency_rate').val(data.currency_rate);
+
+                    amount = $('#amount').maskMoney('unmasked')[0];
+
+                    $("#amount").maskMoney({
+                        thousands : data.thousands_separator,
+                        decimal : data.decimal_mark,
+                        precision : data.precision,
+                        allowZero : true,
+                        prefix : (data.symbol_first) ? data.symbol : '',
+                        suffix : (data.symbol_first) ? '' : data.symbol
+                    });
+
+                    $('#amount').val(amount);
+
+                    $('#amount').trigger('focus');
+                }
             });
         });
     </script>

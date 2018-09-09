@@ -373,8 +373,13 @@ trait Modules
 
         $response = $this->getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
 
+        // Exception
+        if ($response instanceof RequestException) {
+            return false;
+        }
+
         // Bad response
-        if ($response->getStatusCode() != 200) {
+        if (!$response || ($response->getStatusCode() != 200)) {
             return false;
         }
 

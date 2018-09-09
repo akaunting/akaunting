@@ -3,13 +3,13 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Traits\Modules;
+use App\Traits\Modules as RemoteModules;
 use Route;
 use App\Models\Module\Module;
 
 class Suggestions
 {
-    use Modules;
+    use RemoteModules;
 
     /**
      * Bind data to the view.
@@ -20,7 +20,7 @@ class Suggestions
     public function compose(View $view)
     {
         // No need to add suggestions in console
-        if (app()->runningInConsole() || !env('APP_INSTALLED', false)) {
+        if (app()->runningInConsole() || !env('APP_INSTALLED')) {
             return;
         }
 

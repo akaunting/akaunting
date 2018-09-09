@@ -101,6 +101,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'mensaje personalizado',
         ],
+        'invalid_currency' => 'El código de :attribute es incorrecto.',
     ],
 
     /*

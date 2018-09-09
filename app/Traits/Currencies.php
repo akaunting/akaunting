@@ -21,6 +21,17 @@ trait Currencies
         return $money;
     }
 
+    public function divide($amount, $code, $rate, $format = false)
+    {
+        if ($format) {
+            $money = Money::$code($amount, true)->divide((double) $rate)->format();
+        } else {
+            $money = Money::$code($amount)->divide((double) $rate)->getAmount();
+        }
+
+        return $money;
+    }
+
     public function reverseConvert($amount, $code, $rate, $format = false)
     {
         $default = setting('general.default_currency', 'USD');

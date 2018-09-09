@@ -51,7 +51,7 @@
                         <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
                         <td>{{ Date::parse($item->invoiced_at)->format($date_format) }}</td>
                         <td>{{ Date::parse($item->due_at)->format($date_format) }}</td>
-                        <td><span class="label {{ $item->status->label }}">{{ $item->status->name }}</span></td>
+                        <td><span class="label {{ $item->status->label }}">{{ trans('invoices.status.' . $item->status->code) }}</span></td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">

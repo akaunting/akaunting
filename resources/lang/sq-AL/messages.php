@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type fshirë!',
         'duplicated'        => ':type dubluar!',
         'imported'          => ':type importuar!',
+        'enabled'           => ':type aktivizuar!',
+        'disabled'          => ':type çaktivizuar!',
     ],
     'error' => [
         'over_payment'      => 'Gabim: Pagesa nuk u shtua! Shuma kalon totalin.',
@@ -16,6 +18,8 @@ return [
         'no_file'           => 'Gabim: Asnjë skedar i përzgjedhur!',
         'last_category'     => 'Gabim: Nuk mund të fshihet :type kategoria e fundit!',
         'invalid_token'     => 'Gabim: Marku i dhënë është i pavlefshëm!',
+        'import_column'     => 'Gabim: :message Fleta name: :sheet. Rreshti number: :line.',
+        'import_sheet'      => 'Gabim: Emri i fletës nuk është i vlefshëm. Ju lutem, kontrolloni skedarin e mostrës.',
     ],
     'warning' => [
         'deleted'           => 'Njoftim: <b>:name</b> nuk mund të fshihet sepse ka :text të lidhur.',

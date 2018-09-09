@@ -55,4 +55,15 @@ class BillItem extends Model
     {
         $this->attributes['total'] = (double) $value;
     }
+
+    /**
+     * Convert tax to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setTaxAttribute($value)
+    {
+        $this->attributes['tax'] = (double) $value;
+    }
 }

@@ -2,19 +2,19 @@
 
 return [
 
-    'recurring'             => 'Recurring',
-    'every'                 => 'Every',
-    'period'                => 'Period',
-    'times'                 => 'Times',
-    'daily'                 => 'Daily',
-    'weekly'                => 'Weekly',
-    'monthly'               => 'Monthly',
-    'yearly'                => 'Yearly',
-    'custom'                => 'Custom',
-    'days'                  => 'Day(s)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'recurring'             => 'Terugkerende',
+    'every'                 => 'Elke',
+    'period'                => 'Periode',
+    'times'                 => 'Tijden',
+    'daily'                 => 'Dagelijks',
+    'weekly'                => 'Wekelijks',
+    'monthly'               => 'Maandelijks',
+    'yearly'                => 'Jaarlijks',
+    'custom'                => 'Aangepast',
+    'days'                  => 'Dag(en)',
+    'weeks'                 => 'Week/weken',
+    'months'                => 'Maand(en)',
+    'years'                 => 'Jaar/jaren',
+    'message'               => 'Dit is een terugkerende :type en de volgende :type zal automatisch worden gegenereerd op :date',
 
 ];

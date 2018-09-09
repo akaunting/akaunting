@@ -37,13 +37,13 @@ class Transactions extends Controller
         $type = $request->get('type');
 
         if ($type != 'income') {
-            $this->addTransactions(Payment::collect('paid_at'), trans_choice('general.expenses', 1));
-            $this->addTransactions(BillPayment::collect('paid_at'), trans_choice('general.expenses', 1), trans_choice('general.bills', 1));
+            $this->addTransactions(Payment::collect(['paid_at'=> 'desc']), trans_choice('general.expenses', 1));
+            $this->addTransactions(BillPayment::collect(['paid_at'=> 'desc']), trans_choice('general.expenses', 1), trans_choice('general.bills', 1));
         }
 
         if ($type != 'expense') {
-            $this->addTransactions(Revenue::collect('paid_at'), trans_choice('general.incomes', 1));
-            $this->addTransactions(InvoicePayment::collect('paid_at'), trans_choice('general.incomes', 1), trans_choice('general.invoices', 1));
+            $this->addTransactions(Revenue::collect(['paid_at'=> 'desc']), trans_choice('general.incomes', 1));
+            $this->addTransactions(InvoicePayment::collect(['paid_at'=> 'desc']), trans_choice('general.incomes', 1), trans_choice('general.invoices', 1));
         }
 
         $transactions = $this->getTransactions($request);

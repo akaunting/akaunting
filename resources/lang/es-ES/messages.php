@@ -8,6 +8,8 @@ return [
         'deleted'           => ':type borrado!',
         'duplicated'        => ': type duplicado!',
         'imported'          => ':type importado!',
+        'enabled'           => ':type habilitado!',
+        'disabled'          => ':type deshabilitado!',
     ],
     'error' => [
         'over_payment'      => 'Error: Pago no añadido! Importe mayor que el total.',
@@ -16,6 +18,8 @@ return [
         'no_file'           => 'Error: Ningún archivo seleccionado!',
         'last_category'     => 'Error: No puede eliminar la última :type categoría!',
         'invalid_token'     => 'Error: El token introducido es inválido!',
+        'import_column'     => 'Error: :message nombre de la hoja :sheet. Número de línea: :line.',
+        'import_sheet'      => 'Error: Nombre de la hoja no es válido. Por favor, verifique el archivo de ejemplo.',
     ],
     'warning' => [
         'deleted'           => 'Advertencia: No puede borrar <b>:name</b> porque tiene :text relacionado.',

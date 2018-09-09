@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Aktualisieren',
 
     'steps' => [
-        'requirements'      => 'Bitte, erfüllen Sie die folgenden Anforderungen!',
+        'requirements'      => 'Bitte wenden Sie sich an Ihren Hosting-Dienstleister um die Fehler beheben zu lassen!',
         'language'          => 'Schritt 1/3: Sprachauswahl',
         'database'          => 'Schritt 2/3: Datenbank-Setup',
         'settings'          => 'Schritt 3/3: Unternehmen und Admin-Details',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature muss aktiviert sein!',
         'disabled'          => ':feature muss deaktiviert sein!',
-        'extension'         => ':extension Erweiterung muss geladen sein!',
+        'extension'         => ':extension Erweiterung muss installiert und geladen sein!',
         'directory'         => ':directory Verzeichnis muss schreibbar sein!',
     ],
 

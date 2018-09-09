@@ -9,6 +9,7 @@ use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Currency;
+use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use Date;
 use Illuminate\Http\Request as FRequest;
@@ -125,10 +126,6 @@ class Customers extends Controller
     public function store(Request $request)
     {
         if (empty($request->input('create_user'))) {
-            if (empty($request['email'])) {
-                $request['email'] = '';
-            }
-
             Customer::create($request->all());
         } else {
             // Check if user exist
@@ -191,25 +188,9 @@ class Customers extends Controller
      */
     public function import(ImportFile $import)
     {
-        // Loop through all sheets
-        $import->each(function ($sheet) {
-            if ($sheet->getTitle() != 'customers') {
-                return;
-            }
-
-            // Loop through all rows
-            $sheet->each(function ($row) {
-                $data = $row->toArray();
-
-                if (empty($data['email'])) {
-                    $data['email'] = '';
-                }
-
-                $data['company_id'] = session('company_id');
-
-                Customer::create($data);
-            });
-        });
+        if (!Import::createFromFile($import, 'Income\Customer')) {
+            return redirect('common/import/incomes/customers');
+        }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 2)]);
 
@@ -243,10 +224,6 @@ class Customers extends Controller
     public function update(Customer $customer, Request $request)
     {
         if (empty($request->input('create_user'))) {
-            if (empty($request['email'])) {
-                $request['email'] = '';
-            }
-
             $customer->update($request->all());
         } else {
             // Check if user exist
@@ -363,19 +340,46 @@ class Customers extends Controller
 
     public function currency()
     {
-        $customer_id = request('customer_id');
+        $customer_id = (int) request('customer_id');
+
+        if (empty($customer_id)) {
+            return response()->json([]);
+        }
 
         $customer = Customer::find($customer_id);
+
+        if (empty($customer)) {
+            return response()->json([]);
+        }
+
+        $currency_code = setting('general.default_currency');
+
+        if (isset($customer->currency_code)) {
+            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+
+            if (array_key_exists($customer->currency_code, $currencies)) {
+                $currency_code = $customer->currency_code;
+            }
+        }
+
+        // Get currency object
+        $currency = Currency::where('code', $currency_code)->first();
+
+        $customer->currency_name = $currency->name;
+        $customer->currency_code = $currency_code;
+        $customer->currency_rate = $currency->rate;
+
+        $customer->thousands_separator = $currency->thousands_separator;
+        $customer->decimal_mark = $currency->decimal_mark;
+        $customer->precision = (int) $currency->precision;
+        $customer->symbol_first = $currency->symbol_first;
+        $customer->symbol = $currency->symbol;
 
         return response()->json($customer);
     }
 
     public function customer(Request $request)
     {
-        if (empty($request['email'])) {
-            $request['email'] = '';
-        }
-
         $customer = Customer::create($request->all());
 
         return response()->json($customer);

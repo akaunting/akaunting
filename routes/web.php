@@ -22,13 +22,13 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('dashboard/cashflow', 'Common\Dashboard@cashFlow')->name('dashboard.cashflow');
                 Route::get('import/{group}/{type}', 'Common\Import@create')->name('import.create');
                 Route::get('items/autocomplete', 'Common\Items@autocomplete')->name('items.autocomplete');
-                Route::post('items/totalItem', 'Common\Items@totalItem')->name('items.total');
+                Route::post('items/totalItem', 'Common\Items@totalItem')->middleware(['money'])->name('items.total');
                 Route::get('items/{item}/duplicate', 'Common\Items@duplicate')->name('items.duplicate');
                 Route::post('items/import', 'Common\Items@import')->name('items.import');
                 Route::get('items/export', 'Common\Items@export')->name('items.export');
                 Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
                 Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
-                Route::resource('items', 'Common\Items');
+                Route::resource('items', 'Common\Items', ['middleware' => ['money']]);
                 Route::get('search/search', 'Common\Search@search')->name('search.search');
                 Route::resource('search', 'Common\Search');
             });
@@ -53,15 +53,16 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('invoices/{invoice}/print', 'Incomes\Invoices@printInvoice');
                 Route::get('invoices/{invoice}/pdf', 'Incomes\Invoices@pdfInvoice');
                 Route::get('invoices/{invoice}/duplicate', 'Incomes\Invoices@duplicate');
-                Route::post('invoices/payment', 'Incomes\Invoices@payment');
+                Route::get('invoices/addItem', 'Incomes\Invoices@addItem')->middleware(['money'])->name('invoice.add.item');
+                Route::post('invoices/payment', 'Incomes\Invoices@payment')->middleware(['dateformat', 'money'])->name('invoice.payment');
                 Route::delete('invoices/payment/{payment}', 'Incomes\Invoices@paymentDestroy');
                 Route::post('invoices/import', 'Incomes\Invoices@import')->name('invoices.import');
                 Route::get('invoices/export', 'Incomes\Invoices@export')->name('invoices.export');
-                Route::resource('invoices', 'Incomes\Invoices');
+                Route::resource('invoices', 'Incomes\Invoices', ['middleware' => ['dateformat', 'money']]);
                 Route::get('revenues/{revenue}/duplicate', 'Incomes\Revenues@duplicate');
                 Route::post('revenues/import', 'Incomes\Revenues@import')->name('revenues.import');
                 Route::get('revenues/export', 'Incomes\Revenues@export')->name('revenues.export');
-                Route::resource('revenues', 'Incomes\Revenues');
+                Route::resource('revenues', 'Incomes\Revenues', ['middleware' => ['dateformat', 'money']]);
                 Route::get('customers/currency', 'Incomes\Customers@currency');
                 Route::get('customers/{customer}/duplicate', 'Incomes\Customers@duplicate');
                 Route::post('customers/customer', 'Incomes\Customers@customer');
@@ -78,15 +79,16 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('bills/{bill}/print', 'Expenses\Bills@printBill');
                 Route::get('bills/{bill}/pdf', 'Expenses\Bills@pdfBill');
                 Route::get('bills/{bill}/duplicate', 'Expenses\Bills@duplicate');
-                Route::post('bills/payment', 'Expenses\Bills@payment');
+                Route::get('bills/addItem', 'Expenses\Bills@addItem')->middleware(['money'])->name('bill.add.item');
+                Route::post('bills/payment', 'Expenses\Bills@payment')->middleware(['dateformat', 'money'])->name('bill.payment');
                 Route::delete('bills/payment/{payment}', 'Expenses\Bills@paymentDestroy');
                 Route::post('bills/import', 'Expenses\Bills@import')->name('bills.import');
                 Route::get('bills/export', 'Expenses\Bills@export')->name('bills.export');
-                Route::resource('bills', 'Expenses\Bills');
+                Route::resource('bills', 'Expenses\Bills', ['middleware' => ['dateformat', 'money']]);
                 Route::get('payments/{payment}/duplicate', 'Expenses\Payments@duplicate');
                 Route::post('payments/import', 'Expenses\Payments@import')->name('payments.import');
                 Route::get('payments/export', 'Expenses\Payments@export')->name('payments.export');
-                Route::resource('payments', 'Expenses\Payments');
+                Route::resource('payments', 'Expenses\Payments', ['middleware' => ['dateformat', 'money']]);
                 Route::get('vendors/currency', 'Expenses\Vendors@currency');
                 Route::get('vendors/{vendor}/duplicate', 'Expenses\Vendors@duplicate');
                 Route::post('vendors/vendor', 'Expenses\Vendors@vendor');
@@ -98,11 +100,12 @@ Route::group(['middleware' => 'language'], function () {
             });
 
             Route::group(['prefix' => 'banking'], function () {
+                Route::get('accounts/currency', 'Banking\Accounts@currency')->name('accounts.currency');
                 Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
                 Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
-                Route::resource('accounts', 'Banking\Accounts');
+                Route::resource('accounts', 'Banking\Accounts', ['middleware' => ['dateformat', 'money']]);
                 Route::resource('transactions', 'Banking\Transactions');
-                Route::resource('transfers', 'Banking\Transfers');
+                Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['dateformat', 'money']]);
             });
 
             Route::group(['prefix' => 'reports'], function () {
@@ -158,6 +161,38 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('updates/update/{alias}/{version}', 'Install\Updates@update');
                 Route::get('updates/post/{alias}/{old}/{new}', 'Install\Updates@post');
                 Route::resource('updates', 'Install\Updates');
+            });
+
+            Route::group(['prefix' => 'modals'], function () {
+                Route::resource('categories', 'Modals\Categories', ['names' => [
+                    'index' => 'modals.categories.index',
+                    'create' => 'modals.categories.create',
+                    'store' => 'modals.categories.store',
+                    'show' => 'modals.categories.show',
+                    'edit' => 'modals.categories.edit',
+                    'update' => 'modals.categories.update',
+                    'destroy' => 'modals.categories.destroy',
+                ]]);
+                Route::resource('customers', 'Modals\Customers', ['names' => [
+                    'index' => 'modals.customers.index',
+                    'create' => 'modals.customers.create',
+                    'store' => 'modals.customers.store',
+                    'show' => 'modals.customers.show',
+                    'edit' => 'modals.customers.edit',
+                    'update' => 'modals.customers.update',
+                    'destroy' => 'modals.customers.destroy',
+                ]]);
+                Route::resource('vendors', 'Modals\Vendors', ['names' => [
+                    'index' => 'modals.vendors.index',
+                    'create' => 'modals.vendors.create',
+                    'store' => 'modals.vendors.store',
+                    'show' => 'modals.vendors.show',
+                    'edit' => 'modals.vendors.edit',
+                    'update' => 'modals.vendors.update',
+                    'destroy' => 'modals.vendors.destroy',
+                ]]);
+                Route::resource('invoices/{invoice}/payment', 'Modals\InvoicePayments', ['middleware' => ['dateformat', 'money']]);
+                Route::resource('bills/{bill}/payment', 'Modals\BillPayments', ['middleware' => ['dateformat', 'money']]);
             });
 
             /* @deprecated */

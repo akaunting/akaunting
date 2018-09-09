@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'API Token',
     'api_token'             => 'Token',
+    'my_apps'               => 'Moje aplikacije',
     'top_paid'              => 'Najbolje plaćeni',
     'new'                   => 'Novo',
     'top_free'              => 'Najbolje besplatno',
@@ -40,9 +41,18 @@ return [
         'install'           => 'Instalacija :module datoteka.',
     ],
 
+    'badge' => [
+        'installed' => 'Instalirano',
+    ],
+
     'button' => [
         'uninstall'         => 'Deinstaliraj',
         'disable'           => 'Onemogući',
         'enable'            => 'Omogući',
+    ],
+
+    'my' => [
+        'purchased' => 'Kupljeno',
+        'installed' => 'Instalirano',
     ],
 ];

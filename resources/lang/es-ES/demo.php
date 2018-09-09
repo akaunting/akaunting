@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Efectivo',
-    'categories_uncat'      => 'Sin categoría',
     'categories_deposit'    => 'Depósito',
     'categories_sales'      => 'Ventas',
     'currencies_usd'        => 'Dólar EEUU',

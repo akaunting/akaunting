@@ -6,13 +6,13 @@ return [
     'rate'                  => 'Taxa',
     'default'               => 'Moeda Padrão',
     'decimal_mark'          => 'Separador de decimal',
-    'thousands_separator'   => 'Separador de milha',
+    'thousands_separator'   => 'Separador de milhar',
     'precision'             => 'Precisão',
     'symbol' => [
         'symbol'            => 'Símbolo',
         'position'          => 'Posição do símbolo',
-        'before'            => 'Before Amount',
-        'after'             => 'After Amount',
+        'before'            => 'Antes do valor',
+        'after'             => 'Depois do valor',
     ]
 
 ];

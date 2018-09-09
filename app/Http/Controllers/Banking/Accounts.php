@@ -40,8 +40,10 @@ class Accounts extends Controller
     public function create()
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
-        
-        return view('banking.accounts.create', compact('currencies'));
+
+        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+
+        return view('banking.accounts.create', compact('currencies', 'currency'));
     }
 
     /**
@@ -79,9 +81,11 @@ class Accounts extends Controller
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
 
-        $account->default_account = ($account->id == setting('general.default_account')) ?: 1;
-        
-        return view('banking.accounts.edit', compact('account', 'currencies'));
+        $account->default_account = ($account->id == setting('general.default_account')) ? 1 : 0;
+
+        $currency = Currency::where('code', '=', $account->currency_code)->first();
+
+        return view('banking.accounts.edit', compact('account', 'currencies', 'currency'));
     }
 
     /**
@@ -207,5 +211,45 @@ class Accounts extends Controller
         }
 
         return redirect('banking/accounts');
+    }
+
+    public function currency()
+    {
+        $account_id = (int) request('account_id');
+
+        if (empty($account_id)) {
+            return response()->json([]);
+        }
+
+        $account = Account::find($account_id);
+
+        if (empty($account)) {
+            return response()->json([]);
+        }
+
+        $currency_code = setting('general.default_currency');
+
+        if (isset($account->currency_code)) {
+            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+
+            if (array_key_exists($account->currency_code, $currencies)) {
+                $currency_code = $account->currency_code;
+            }
+        }
+
+        // Get currency object
+        $currency = Currency::where('code', $currency_code)->first();
+
+        $account->currency_name = $currency->name;
+        $account->currency_code = $currency_code;
+        $account->currency_rate = $currency->rate;
+
+        $account->thousands_separator = $currency->thousands_separator;
+        $account->decimal_mark = $currency->decimal_mark;
+        $account->precision = (int) $currency->precision;
+        $account->symbol_first = $currency->symbol_first;
+        $account->symbol = $currency->symbol;
+
+        return response()->json($account);
     }
 }

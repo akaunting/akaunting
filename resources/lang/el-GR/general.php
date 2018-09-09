@@ -100,11 +100,15 @@ return [
     'overdue'               => 'Εκπρόθεσμο',
     'partially'             => 'Μερικό',
     'partially_paid'        => 'Μερικώς εξοφλημένα',
+    'export'                => 'Εξαγωγή',
+    'enable'                => 'Ενεργοποίηση',
+    'disable'               => 'Απενεργοποίηση',
 
     'title' => [
         'new'               => 'Νέο :type',
         'edit'              => 'Επεξεργασία :type',
     ],
+
     'form' => [
         'enter'             => 'Πληκτρολογήστε :field',
         'select' => [

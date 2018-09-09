@@ -17,7 +17,9 @@
         </div>
         {!! Form::open(['url' => 'reports/income-summary', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-right">
+            @stack('year_input_start')
             {!! Form::select('year', $years, request('year', $this_year), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
+            @stack('year_input_end')
         </div>
         {!! Form::close() !!}
     </div>

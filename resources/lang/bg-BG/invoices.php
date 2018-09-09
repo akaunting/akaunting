@@ -12,15 +12,15 @@ return [
     'quantity'          => 'Количество',
     'price'             => 'Цена',
     'sub_total'         => 'Междинна сума',
-    'discount'          => 'Discount',
+    'discount'          => 'Отстъпка',
     'tax_total'         => 'Общо данък',
     'total'             => 'Общо',
 
     'item_name'         => 'Име на артикул | Имена на артикули',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% отстъпка',
+    'add_discount'      => 'Добави отстъпка',
+    'discount_desc'     => 'на междинна сума',
 
     'payment_due'       => 'Дължимото плащане',
     'paid'              => 'Платен',

@@ -4,11 +4,12 @@ return [
 
     'title'                 => 'Token de API',
     'api_token'             => 'Token',
+    'my_apps'               => 'Mis Apps',
     'top_paid'              => 'Más Pagado',
     'new'                   => 'Nuevo',
     'top_free'              => 'Top Gratis',
     'free'                  => 'GRATIS',
-    'search'                => 'Search',
+    'search'                => 'Buscar',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar Ahora',
     'token_link'            => 'Haga <a href="https://akaunting.com/tokens" target="_blank">Haga click aquí</a> para obtener su token de API.',
@@ -40,9 +41,18 @@ return [
         'install'           => 'Instalando archivos de :module .',
     ],
 
+    'badge' => [
+        'installed' => 'Instalado',
+    ],
+
     'button' => [
         'uninstall'         => 'Desinstalar',
         'disable'           => 'Deshabilitar',
         'enable'            => 'Habilitar',
+    ],
+
+    'my' => [
+        'purchased' => 'Comprado',
+        'installed' => 'Instalado',
     ],
 ];

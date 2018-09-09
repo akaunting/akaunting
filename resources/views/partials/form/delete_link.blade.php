@@ -15,6 +15,6 @@ $name = addslashes($item->$value);
     'type'    => 'button',
     'class'   => 'delete-link',
     'title'   => trans('general.delete'),
-    'onclick' => 'confirmDelete("' . '#' . str_singular($page) . '-' . $item->$id . '", "' . trans_choice('general.' . $text, 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $name . '</strong>', 'type' => strtolower(trans_choice('general.' . $text, 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
+    'onclick' => 'confirmDelete("' . '#' . str_singular($page) . '-' . $item->$id . '", "' . trans_choice('general.' . $text, 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $name . '</strong>', 'type' => mb_strtolower(trans_choice('general.' . $text, 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
 )) !!}
 {!! Form::close() !!}

@@ -2,7 +2,7 @@
 
 return [
 
-    'total_incomes'             => 'סה"כ ההכנסות',
+    'total_incomes'             => 'סה"כ הכנסות',
     'receivables'               => 'חשבונות חייבים',
     'open_invoices'             => 'חשבוניות פתוחות',
     'overdue_invoices'          => 'חשבוניות שפרעונן חלף',

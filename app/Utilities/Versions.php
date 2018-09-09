@@ -91,7 +91,7 @@ class Versions
     {
         $latest = '0.0.0';
 
-        $response = static::getRemote($url, ['timeout' => 1, 'referer' => true]);
+        $response = static::getRemote($url, ['timeout' => 10, 'referer' => true]);
 
         // Exception
         if ($response instanceof RequestException) {
@@ -99,7 +99,7 @@ class Versions
         }
 
         // Bad response
-        if ($response->getStatusCode() != 200) {
+        if (!$response || ($response->getStatusCode() != 200)) {
             return $latest;
         }
 

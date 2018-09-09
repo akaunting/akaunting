@@ -5,7 +5,6 @@ namespace Database\Seeds;
 use App\Models\Model;
 use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
-
 use Illuminate\Database\Seeder;
 
 class Roles extends Seeder

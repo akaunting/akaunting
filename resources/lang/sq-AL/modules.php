@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'Shenjë API',
     'api_token'             => 'Shenjë',
+    'my_apps'               => 'Aplikacionet e Mia',
     'top_paid'              => 'Më të paguarat',
     'new'                   => 'I ri',
     'top_free'              => 'Më të mirët Falas',
@@ -40,9 +41,18 @@ return [
         'install'           => 'Instalim i :module skedareve.',
     ],
 
+    'badge' => [
+        'installed' => 'Instaluar',
+    ],
+
     'button' => [
         'uninstall'         => 'Çinstalo',
         'disable'           => 'Çaktivizo',
         'enable'            => 'Aktivizo',
+    ],
+
+    'my' => [
+        'purchased' => 'Blerë',
+        'installed' => 'Instaluar',
     ],
 ];

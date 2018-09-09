@@ -45,10 +45,12 @@ class Customer extends Request
         }
 
         return [
+            'user_id' => 'nullable|integer',
             'name' => 'required|string',
             'email' => $email,
-            'currency_code' => 'required|string',
+            'currency_code' => 'required|string|currency',
             'password' => $required . 'confirmed',
+            'enabled' => 'integer|boolean',
         ];
     }
 }

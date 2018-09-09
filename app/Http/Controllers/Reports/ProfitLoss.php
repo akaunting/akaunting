@@ -155,6 +155,12 @@ class ProfitLoss extends Controller
     private function setAmount(&$totals, &$compares, $items, $type, $date_field)
     {
         foreach ($items as $item) {
+            if ($item['table'] == 'bill_payments' || $item['table'] == 'invoice_payments') {
+                $type_item = $item->$type;
+
+                $item->category_id = $type_item->category_id;
+            }
+
             $date = Date::parse($item->$date_field)->quarter;
 
             $group = (($type == 'invoice') || ($type == 'revenue')) ? 'income' : 'expense';
