@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use Date;
 use Illuminate\Validation\ValidationException;
 
 class Import
@@ -44,6 +45,18 @@ class Import
         $sheet->each(function ($row, $index) use ($sheet, &$success, $model, $request) {
             $data = $row->toArray();
 
+            // Fix the date fields
+            $date_fields = ['paid_at', 'due_at', 'billed_at', 'invoiced_at'];
+            foreach ($date_fields as $date_field) {
+                if (empty($data[$date_field])) {
+                    continue;
+                }
+
+                $new_date = Date::parse($data[$date_field])->format('Y-m-d') . ' ' . Date::now()->format('H:i:s');
+
+                $data[$date_field] = $new_date;
+            }
+            
             // Set the line values so that request class could validate
             request()->merge($data);
 

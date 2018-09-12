@@ -16,42 +16,19 @@ class DateFormat
      */
     public function handle($request, Closure $next)
     {
-        if ($request->method() == 'POST' || $request->method() == 'PATCH') {
-            $paid_at = $request->get('paid_at');
-            $due_at = $request->get('due_at');
-            $billed_at = $request->get('billed_at');
-            $invoiced_at = $request->get('invoiced_at');
+        if (($request->method() == 'POST') || ($request->method() == 'PATCH')) {
+            $fields = ['paid_at', 'due_at', 'billed_at', 'invoiced_at'];
 
-            if (!empty($paid_at)) {
-                $paid_at = Date::parse($paid_at)->format('Y-m-d');
+            foreach ($fields as $field) {
+                $date = $request->get($field);
 
-                $date_time = $paid_at . ' ' . Date::now()->format('H:i:s');
+                if (empty($date)) {
+                    continue;
+                }
 
-                $request->request->set('paid_at', $date_time);
-            }
+                $new_date = Date::parse($date)->format('Y-m-d')  . ' ' . Date::now()->format('H:i:s');
 
-            if (!empty($due_at)) {
-                $due_at = Date::parse($due_at)->format('Y-m-d');
-
-                $date_time = $due_at . ' ' . Date::now()->format('H:i:s');
-
-                $request->request->set('due_at', $date_time);
-            }
-
-            if (!empty($billed_at)) {
-                $billed_at = Date::parse($billed_at)->format('Y-m-d');
-
-                $date_time = $billed_at . ' ' . Date::now()->format('H:i:s');
-
-                $request->request->set('billed_at', $date_time);
-            }
-
-            if (!empty($invoiced_at)) {
-                $invoiced_at = Date::parse($invoiced_at)->format('Y-m-d');
-
-                $date_time = $invoiced_at . ' ' . Date::now()->format('H:i:s');
-
-                $request->request->set('invoiced_at', $date_time);
+                $request->request->set($field, $new_date);
             }
         }
 
