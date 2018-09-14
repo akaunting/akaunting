@@ -32,6 +32,7 @@ return [
         'installation'      => 'Installation',
         'faq'               => 'FAQ',
         'changelog'         => 'Changelog',
+        'reviews'            => 'Reviews',
     ],
 
     'installation' => [
@@ -55,4 +56,11 @@ return [
         'purchased' => 'Purchased',
         'installed' => 'Installed',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Add a Review'
+        ],
+        'na' => 'There are no reviews.'
+    ]
 ];

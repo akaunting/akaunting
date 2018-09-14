@@ -15,6 +15,15 @@
             <div class="col-md-8 no-padding-left">
                 <div class="content-header no-padding-left">
                     <h3>{{ $module->name }}</h3>
+
+                    <div class="pull-right rating">
+                        @for($i = 1; $i <= $module->vote; $i++)
+                            <i class="fa fa-star fa-lg"></i>
+                        @endfor
+                        @for($i = $module->vote; $i < 5; $i++)
+                            <i class="fa fa-star-o fa-lg"></i>
+                        @endfor
+                    </div>
                 </div>
 
                 <div class="nav-tabs-custom">
@@ -29,6 +38,7 @@
                         @if ($module->changelog)
                         <li class=""><a href="#changelog" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.changelog') }}</a></li>
                         @endif
+                        <li><a href="#review" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.reviews') }} @if ($module->total_review) ({{ $module->total_review }}) @endif</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="description">
@@ -49,6 +59,45 @@
                             {!! $module->changelog !!}
                         </div>
                         @endif
+                        <div class="tab-pane" id="review">
+                            <div id="reviews" class="clearfix">
+                                @if($module->reviews)
+                                    @foreach($module->reviews as $review)
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <img class="img-circle img-bordered-sm" src="{{ $review->thumb }}" alt="user image">
+                                            <span class="username">
+                                              {{ $review->author }}
+                                              <span class="pull-right">
+                                                  @for($i = 1; $i <= $review->rating; $i++)
+                                                      <i class="fa fa-star"></i>
+                                                  @endfor
+                                                  @for($i = $review->rating; $i < 5; $i++)
+                                                      <i class="fa fa-star-o"></i>
+                                                  @endfor
+                                              </span>
+                                            </span>
+                                            <span class="description">{{  \Carbon\Carbon::parse($review->created_at)->format('F d, Y \a\t G:ia') }}</span>
+                                        </div>
+                                        <!-- /.user-block -->
+                                        <p>
+                                            {!! nl2br($review->text) !!}
+                                        </p>
+                                    </div>
+                                    @endforeach
+                                @else
+                                    {{ trans('modules.reviews.na') }}
+                                @endif
+                            </div>
+
+                            <hr>
+
+                            @if (!empty($module->review_action))
+                                <a href="{{ $module->review_action }}" class="btn btn-success" target="_blank">
+                                    {{ trans('modules.reviews.button.add') }}
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
