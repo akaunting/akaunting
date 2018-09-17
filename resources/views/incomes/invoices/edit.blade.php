@@ -5,7 +5,7 @@
 @section('content')
     <!-- Default box -->
     <div class="box box-success">
-        {!! Form::model($invoice, ['method' => 'PATCH', 'files' => true, 'url' => ['incomes/invoices', $invoice->id], 'role' => 'form']) !!}
+        {!! Form::model($invoice, ['method' => 'PATCH', 'files' => true, 'url' => ['incomes/invoices', $invoice->id], 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
         <div class="box-body">
             {{ Form::selectGroup('customer_id', trans_choice('general.customers', 1), 'user', $customers, config('general.customers')) }}

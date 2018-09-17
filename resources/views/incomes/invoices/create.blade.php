@@ -5,7 +5,7 @@
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
-    {!! Form::open(['url' => 'incomes/invoices', 'files' => true, 'role' => 'form']) !!}
+    {!! Form::open(['url' => 'incomes/invoices', 'files' => true, 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
     <div class="box-body">
         @stack('customer_id_input_start')

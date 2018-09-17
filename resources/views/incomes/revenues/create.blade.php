@@ -5,7 +5,7 @@
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
-    {!! Form::open(['url' => 'incomes/revenues', 'files' => true, 'role' => 'form']) !!}
+    {!! Form::open(['url' => 'incomes/revenues', 'files' => true, 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
     <div class="box-body">
         {{ Form::textGroup('paid_at', trans('general.date'), 'calendar',['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}

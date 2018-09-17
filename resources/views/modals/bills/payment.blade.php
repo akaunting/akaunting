@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="modal-message"></div>
-                {!! Form::open(['id' => 'form-add-payment', 'role' => 'form']) !!}
+                {!! Form::open(['id' => 'form-add-payment', 'role' => 'form', 'class' => 'form-loading-button']) !!}
                 <div class="row">
                     {{ Form::textGroup('paid_at', trans('general.date'), 'calendar',['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
 
@@ -38,7 +38,7 @@
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-add-payment', 'class' => 'btn btn-success']) !!}
+                    {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-add-payment', 'class' => 'btn btn-success button-submit', 'data-loading-text' => trans('general.loading')]) !!}
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</button>
                 </div>
             </div>

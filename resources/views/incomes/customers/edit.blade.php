@@ -8,7 +8,8 @@
     {!! Form::model($customer, [
         'method' => 'PATCH',
         'url' => ['incomes/customers', $customer->id],
-        'role' => 'form'
+        'role' => 'form',
+        'class' => 'form-loading-button'
     ]) !!}
 
     <div class="box-body">

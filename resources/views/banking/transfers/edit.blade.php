@@ -8,7 +8,8 @@
         {!! Form::model($transfer, [
             'method' => 'PATCH',
             'url' => ['banking/transfers', $transfer->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">

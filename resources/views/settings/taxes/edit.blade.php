@@ -8,7 +8,8 @@
         {!! Form::model($tax, [
             'method' => 'PATCH',
             'url' => ['settings/taxes', $tax->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">

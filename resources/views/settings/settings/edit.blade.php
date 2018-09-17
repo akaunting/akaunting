@@ -8,7 +8,7 @@
         {!! Form::model($setting, [
             'method' => 'PATCH',
             'url' => ['settings/settings'],
-            'class' => 'setting-form',
+            'class' => 'setting-form form-loading-button'
             'files' => true,
             'role' => 'form'
         ]) !!}
