@@ -5,7 +5,7 @@
 @section('content')
     <!-- Default box -->
     <div class="box box-success">
-        {!! Form::open(['url' => 'banking/transfers', 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'banking/transfers', 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
         <div class="box-body">
             {{ Form::selectGroup('from_account_id', trans('transfers.from_account'), 'university', $accounts) }}

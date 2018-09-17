@@ -81,6 +81,7 @@ return [
     'color'                 => 'Colour',
     'save'                  => 'Save',
     'cancel'                => 'Cancel',
+    'loading'               => 'Loading...',
     'from'                  => 'From',
     'to'                    => 'To',
     'print'                 => 'Print',

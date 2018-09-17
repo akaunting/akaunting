@@ -21,7 +21,8 @@
             'method' => 'PATCH',
             'files' => true,
             'url' => ['incomes/revenues', $revenue->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">

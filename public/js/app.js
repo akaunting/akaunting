@@ -191,6 +191,12 @@ $(document).ready(function () {
         $(".input-group-recurring #recurring_frequency").select2();
         $('.input-group-recurring #recurring_frequency').trigger('change');
     }
+
+    $('.form-loading-button').submit(function( event ) {
+        $('.button-submit').button('loading');
+
+        return true;
+    });
 });
 
 function confirmDelete(form_id, title, message, button_cancel, button_delete) {

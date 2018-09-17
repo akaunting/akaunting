@@ -8,7 +8,8 @@
         {!! Form::model($role, [
             'method' => 'PATCH',
             'url' => ['auth/roles', $role->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">

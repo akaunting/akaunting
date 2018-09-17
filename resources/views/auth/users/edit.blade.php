@@ -9,7 +9,8 @@
             'method' => 'PATCH',
             'files' => true,
             'url' => ['auth/users', $user->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">

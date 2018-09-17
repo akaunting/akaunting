@@ -21,7 +21,8 @@
             'method' => 'PATCH',
             'files' => true,
             'url' => ['expenses/payments', $payment->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">
