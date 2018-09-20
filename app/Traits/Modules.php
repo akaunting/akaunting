@@ -57,6 +57,17 @@ trait Modules
         return [];
     }
 
+    public function getModuleReviews($alias, $data = [])
+    {
+        $response = $this->getRemote('apps/' . $alias . '/reviews', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
     public function getCategories()
     {
         $response = $this->getRemote('apps/categories');
