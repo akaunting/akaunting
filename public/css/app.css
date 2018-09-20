@@ -677,3 +677,11 @@ input[type="number"] {
 .pull-right.rating {
     margin-top: -30px;
 }
+
+.pager {
+    margin: inherit !important;
+}
+
+.pager li>a, .pager li>span {
+    border-radius: 3px !important;
+}

@@ -61,32 +61,8 @@
                         @endif
                         <div class="tab-pane" id="review">
                             <div id="reviews" class="clearfix">
-                                @if($module->reviews)
-                                    @foreach($module->reviews as $review)
-                                    <div class="post">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="{{ $review->thumb }}" alt="user image">
-                                            <span class="username">
-                                              {{ $review->author }}
-                                              <span class="pull-right">
-                                                  @for($i = 1; $i <= $review->rating; $i++)
-                                                      <i class="fa fa-star"></i>
-                                                  @endfor
-                                                  @for($i = $review->rating; $i < 5; $i++)
-                                                      <i class="fa fa-star-o"></i>
-                                                  @endfor
-                                              </span>
-                                            </span>
-                                            <span class="description">{{  \Carbon\Carbon::parse($review->created_at)->format('F d, Y \a\t G:ia') }}</span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        <p>
-                                            {!! nl2br($review->text) !!}
-                                        </p>
-                                    </div>
-                                    @endforeach
-                                @else
-                                    {{ trans('modules.reviews.na') }}
+                                @if(!$module->reviews)
+                                {{ trans('modules.reviews.na') }}
                                 @endif
                             </div>
 
@@ -216,6 +192,10 @@
         var path = '';
 
         $(document).ready(function() {
+            @if($module->reviews)
+            getReviews('', '1');
+            @endif
+
             $('#install-module').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -245,6 +225,16 @@
                     }
                 });
             });
+        });
+
+        $(document).on('click', '#reviews .pagination li a', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            path = $(this).attr('href');
+            page = $(this).data('page');
+
+            getReviews(path, page);
         });
 
         function next() {
@@ -319,6 +309,28 @@
             $('body').append(modal);
 
             $('#modal-installation').modal('show');
+        }
+
+        function getReviews(path, page) {
+            $.ajax({
+                url: '{{ url("apps/" . $module->slug . "/reviews") }}',
+                type: 'post',
+                dataType: 'json',
+                data: {path: path, page: page},
+                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                beforeSend: function() {
+                    $('#reviews').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
+                },
+                complete : function() {
+                    $('#loading').remove();
+                },
+                success: function(json) {
+                    if (json['success']) {
+                        $('#reviews #review-items').remove();
+                        $('#reviews').append(json['html']);
+                    }
+                }
+            });
         }
     </script>
 @endpush
