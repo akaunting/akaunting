@@ -68,9 +68,9 @@ trait Modules
         return [];
     }
 
-    public function getModulesByCategory($alias)
+    public function getModulesByCategory($alias, $data = [])
     {
-        $response = $this->getRemote('apps/categories/' . $alias);
+        $response = $this->getRemote('apps/categories/' . $alias, 'GET', $data);
 
         if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
