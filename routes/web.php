@@ -21,6 +21,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('companies', 'Common\Companies');
                 Route::get('dashboard/cashflow', 'Common\Dashboard@cashFlow')->name('dashboard.cashflow');
                 Route::get('import/{group}/{type}', 'Common\Import@create')->name('import.create');
+                Route::get('export/{group}/{type}', 'Common\Export@download');
                 Route::get('items/autocomplete', 'Common\Items@autocomplete')->name('items.autocomplete');
                 Route::post('items/totalItem', 'Common\Items@totalItem')->middleware(['money'])->name('items.total');
                 Route::get('items/{item}/duplicate', 'Common\Items@duplicate')->name('items.duplicate');
