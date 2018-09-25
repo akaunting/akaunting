@@ -38,7 +38,7 @@
         "tucker-eric/eloquentfilter": "1.1.*"
     },
     "require-dev": {
-        "fzaninotto/faker": "1.6.*",
+        "fzaninotto/faker": "1.8.*",
         "phpunit/phpunit": "5.7.*"
     },
     "autoload": {
