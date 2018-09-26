@@ -105,7 +105,7 @@ return [
     'enable'                => 'Enable',
     'disable'               => 'Disable',
     'select_all'            => 'Select All',
-    'remove_selections'     => 'Remove Selections',
+    'unselect_all'          => 'Unselect All',
     'title' => [
         'new'               => 'New :type',
         'edit'              => 'Edit :type',
