@@ -29,9 +29,21 @@ class Roles extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
+        $names = $permissions = [];
+        $allPermissions = Permission::all();
 
-        return view('auth.roles.create', compact('permissions'));
+        foreach ($allPermissions as $permission) {
+            // permission code explode - and get permission type
+            $n = explode('-', $permission->name);
+
+            if (!in_array($n[0], $names)) {
+                $names[] = $n[0];
+            }
+
+            $permissions[$n[0]][] = $permission;
+        }
+
+        return view('auth.roles.create', compact('names', 'permissions'));
     }
 
     /**
@@ -66,11 +78,23 @@ class Roles extends Controller
     public function edit(Role $role)
     {
         //$permissions = Permission::all()->sortBy('display_name');
-        $permissions = Permission::all();
+        $names = $permissions = [];
+        $allPermissions = Permission::all();
 
         $rolePermissions = $role->permissions->pluck('id', 'id')->toArray();
 
-        return view('auth.roles.edit', compact('role', 'permissions', 'rolePermissions'));
+        foreach ($allPermissions as $permission) {
+            // permission code explode - and get permission type
+            $n = explode('-', $permission->name);
+
+            if (!in_array($n[0], $names)) {
+                $names[] = $n[0];
+            }
+
+            $permissions[$n[0]][] = $permission;
+        }
+
+        return view('auth.roles.edit', compact('role', 'names', 'permissions', 'rolePermissions'));
     }
 
     /**

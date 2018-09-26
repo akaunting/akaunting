@@ -678,10 +678,54 @@ input[type="number"] {
     margin-top: -30px;
 }
 
-.pager {
-    margin: inherit !important;
+#role-permissions .form-group.col-md-12 .col-md-3 {
+    overflow: hidden;
 }
 
-.pager li>a, .pager li>span {
-    border-radius: 3px !important;
+.input-checkbox {
+    white-space: nowrap;
+}
+
+.input-checkbox:after {
+    content: "";
+    position: absolute;
+    right: -10px;
+    height: 25px;
+    width: 25px;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 1)));
+    background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 1));
+}
+
+#role-permissions .permission-select-button {
+    cursor: pointer;
+}
+
+#role-permissions .permission-unselect-button {
+    cursor: pointer;
+}
+
+#role-permissions .nav-tabs-custom {
+    margin-top: 15px;
+    box-shadow: 0 1px 0px rgba(0,0,0,0.1);
+}
+
+#role-permissions .nav-tabs-custom .nav.nav-tabs {
+    border-style: unset;
+}
+
+#role-permissions .nav-tabs-custom .tab-content {
+    padding: 0px;
+}
+
+#role-permissions .nav-tabs-custom .tab-content .tab-pane {
+    block-size: 0;
+}
+
+#role-permissions .nav-tabs-custom .tab-content .tab-pane .permission-button-group {
+    padding: 15px 0 0 30px;
+}
+
+#role-permissions .nav-tabs-custom .tab-content .form-group.col-md-12 .col-md-3 .input-checkbox {
+    font-weight: normal;
 }

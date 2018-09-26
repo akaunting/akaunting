@@ -104,7 +104,8 @@ return [
     'export'                => 'Export',
     'enable'                => 'Enable',
     'disable'               => 'Disable',
-
+    'select_all'            => 'Select All',
+    'remove_selections'     => 'Remove Selections',
     'title' => [
         'new'               => 'New :type',
         'edit'              => 'Edit :type',
