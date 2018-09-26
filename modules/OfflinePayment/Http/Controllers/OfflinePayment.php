@@ -7,6 +7,7 @@ use App\Events\InvoicePaid;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\Customer\InvoicePayment as PaymentRequest;
 use App\Http\Requests\Customer\InvoiceConfirm as ConfirmRequest;
 
@@ -42,6 +43,27 @@ class OfflinePayment extends Controller
             'description' => $gateway['description'],
             'redirect' => false,
             'html' => $html,
+        ]);
+    }
+
+    public function confirm(Invoice $invoice, Request $request)
+    {
+        $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+
+        flash($message)->success();
+
+        $request_invoice_paid = [
+            'amount' => $invoice->amount,
+            'currency_code' => $invoice->currency_code,
+            'currency_rate' => $invoice->currency_rate,
+            'payment_method' => $request['payment_method'],
+        ];
+
+        event(new InvoicePaid($invoice, $request_invoice_paid));
+
+        return response()->json([
+            'error' => false,
+            'success' => true,
         ]);
     }
 }
