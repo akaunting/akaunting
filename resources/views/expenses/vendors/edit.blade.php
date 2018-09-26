@@ -31,6 +31,9 @@
             {{ Form::fileGroup('logo', trans_choice('general.logos', 1)) }}
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+
+            {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
+
         </div>
         <!-- /.box-body -->
 

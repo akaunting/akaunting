@@ -39,6 +39,11 @@
                         <li class="list-group-item">
                             <b>{{ trans('general.tax_number') }}</b> <a class="pull-right">{{ $customer->tax_number }}</a>
                         </li>
+                        @if ($customer->refence)
+                        <li class="list-group-item">
+                            <b>{{ trans('general.reference') }}</b> <a class="pull-right">{{ $customer->refence }}</a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
                 <!-- /.box-body -->
