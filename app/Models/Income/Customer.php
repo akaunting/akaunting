@@ -18,7 +18,7 @@ class Customer extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'user_id', 'name', 'email', 'tax_number', 'phone', 'address', 'website', 'currency_code', 'enabled'];
+    protected $fillable = ['company_id', 'user_id', 'name', 'email', 'tax_number', 'phone', 'address', 'website', 'currency_code', 'reference', 'enabled'];
 
     /**
      * Sortable columns.
