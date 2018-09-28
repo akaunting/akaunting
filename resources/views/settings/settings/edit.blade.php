@@ -8,9 +8,9 @@
         {!! Form::model($setting, [
             'method' => 'PATCH',
             'url' => ['settings/settings'],
-            'class' => 'setting-form form-loading-button'
+            'class' => 'setting-form form-loading-button',
             'files' => true,
-            'role' => 'form'
+            'role' => 'form',
         ]) !!}
 
         <div class="col-sm-12">
@@ -210,7 +210,7 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($setting['company_logo'])
-                placeholder : '<?php echo $setting['company_logo']->basename; ?>'
+                placeholder : '<?php echo $setting['company_logo']->basename; ?>',
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
@@ -244,7 +244,7 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($setting['invoice_logo'])
-                placeholder : '<?php echo $setting['invoice_logo']->basename; ?>'
+                placeholder : '<?php echo $setting['invoice_logo']->basename; ?>',
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
