@@ -210,9 +210,9 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($setting['company_logo'])
-                placeholder : '<?php echo $setting['company_logo']->basename; ?>',
+                placeholder : '{{ $setting['company_logo']->basename }}',
                 @else
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                placeholder : '{{ trans('general.form.no_file_selected') }}',
                 @endif
             });
 
@@ -244,9 +244,9 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($setting['invoice_logo'])
-                placeholder : '<?php echo $setting['invoice_logo']->basename; ?>',
+                placeholder : '{{ $setting['invoice_logo']->basename }}',
                 @else
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                placeholder : '{{ trans('general.form.no_file_selected') }}',
                 @endif
             });
 
