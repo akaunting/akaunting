@@ -10,42 +10,46 @@ class CustomersTest extends FeatureTestCase
 {
 	public function testItShouldCreateOnlyCustomerWithoutUser()
 	{
-		$customer = $this->getCustomerData();
 		$this->loginAs()
-			->post(route("customers.store"), $customer)
+			->post(route('customers.store'), $this->getCustomerRequest())
 			->assertStatus(302)
-			->assertRedirect(route("customers.index"));
-		$this->assertFlashLevel("success");
+			->assertRedirect(route('customers.index'));
+
+		$this->assertFlashLevel('success');
 	}
 
 	public function testItShouldCreateCustomerWithUser()
 	{
-		$customerWithUser = $this->getCustomerDataWithUser();
+        $customer = $this->getCustomerRequestWithUser();
 
 		$this->loginAs()
-			->post(route("customers.store"), $customerWithUser)
+			->post(route('customers.store'), $customer)
 			->assertStatus(302)
-			->assertRedirect(route("customers.index"));
-		$this->assertFlashLevel("success");
+			->assertRedirect(route('customers.index'));
 
-		$user = User::where("email", $customerWithUser["email"])->first();
+		$this->assertFlashLevel('success');
+
+		$user = User::where('email', $customer['email'])->first();
+		
 		$this->assertNotNull($user);
-		$this->assertEquals($customerWithUser["email"], $user->email);
+		$this->assertEquals($customer['email'], $user->email);
 	}
 
 	public function testItShouldNotCreateCustomerWithExistsUser()
 	{
-		$customerWithUser = $this->getCustomerDataWithUser();
-		User::create($customerWithUser);
+        $customer = $this->getCustomerRequestWithUser();
+
+		User::create($customer);
 
 		$this->loginAs()
-			->post(route('customers.store'), $customerWithUser)
+			->post(route('customers.store'), $customer)
 			->assertSessionHasErrors(['email']);
 	}
 
 	public function testItShouldBeSeeTheCustomersPage()
 	{
-		$customer = Customer::create($this->getCustomerData());
+		$customer = Customer::create($this->getCustomerRequest());
+
 		$this
 			->loginAs()
 			->get(route('customers.index'))
@@ -55,7 +59,8 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldBeSeeTheEditCustomersPage()
 	{
-		$customer = Customer::create($this->getCustomerData());
+		$customer = Customer::create($this->getCustomerRequest());
+
 		$this
 			->loginAs()
 			->get(route('customers.edit', ['customer' => $customer->id]))
@@ -66,21 +71,24 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldUpdateTheCustomer()
 	{
-		$customerData = $this->getCustomerData();
-		$customer = Customer::create($customerData);
-		$customerData["name"] = $this->faker->name;
+		$request = $this->getCustomerRequest();
+
+		$customer = Customer::create($request);
+
+        $request['name'] = $this->faker->name;
 
 		$this
 			->loginAs()
-			->patch(route('customers.update', $customer->id), $customerData)
+			->patch(route('customers.update', $customer->id), $request)
 			->assertStatus(302)
 			->assertRedirect(route('customers.index'));
+
 		$this->assertFlashLevel('success');
 	}
 
 	public function testItShouldDeleteTheCustomer()
 	{
-		$customer = Customer::create($this->getCustomerData());
+		$customer = Customer::create($this->getCustomerRequest());
 
 		$this->loginAs()
 			->delete(route('customers.destroy', $customer->id))
@@ -97,8 +105,7 @@ class CustomersTest extends FeatureTestCase
 		//TODO : This will write after done invoice and revenues tests.
 	}
 
-	// Helpers
-	private function getCustomerData()
+	private function getCustomerRequest()
 	{
 		return [
 			'company_id' => $this->company->id,
@@ -113,11 +120,11 @@ class CustomersTest extends FeatureTestCase
 		];
 	}
 
-	private function getCustomerDataWithUser()
+	private function getCustomerRequestWithUser()
 	{
 		$password = $this->faker->password;
 
-		return $this->getCustomerData() + [
+		return $this->getCustomerRequest() + [
 				'create_user' => 1,
 				'locale' => 'en-GB',
 				'password' => $password,

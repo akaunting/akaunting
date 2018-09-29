@@ -4,7 +4,6 @@ namespace Database\Seeds;
 
 use App\Models\Model;
 use App\Models\Setting\Tax;
-
 use Illuminate\Database\Seeder;
 
 class Taxes extends Seeder
