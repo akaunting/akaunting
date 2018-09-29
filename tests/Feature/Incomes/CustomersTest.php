@@ -8,6 +8,22 @@ use Tests\Feature\FeatureTestCase;
 
 class CustomersTest extends FeatureTestCase
 {
+	public function testItShouldSeeCustomerListPage()
+	{
+		$this->loginAs()
+			->get(route('customers.index'))
+			->assertStatus(200)
+			->assertSeeText(trans_choice('general.customers', 2));
+	}
+
+	public function testItShouldSeeCustomerCreatePage()
+	{
+		$this->loginAs()
+			->get(route('customers.create'))
+			->assertStatus(200)
+			->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.customers', 1)]));
+	}
+    
 	public function testItShouldCreateOnlyCustomerWithoutUser()
 	{
 		$this->loginAs()
@@ -46,30 +62,28 @@ class CustomersTest extends FeatureTestCase
 			->assertSessionHasErrors(['email']);
 	}
 
-	public function testItShouldBeSeeTheCustomersPage()
+	public function testItShouldSeeCustomerDetailPage()
 	{
 		$customer = Customer::create($this->getCustomerRequest());
 
-		$this
-			->loginAs()
-			->get(route('customers.index'))
+		$this->loginAs()
+			->get(route('customers.show', ['customer' => $customer->id]))
 			->assertStatus(200)
 			->assertSee($customer->email);
 	}
 
-	public function testItShouldBeSeeTheEditCustomersPage()
+	public function testItShouldSeeCustomerUpdatePage()
 	{
 		$customer = Customer::create($this->getCustomerRequest());
 
-		$this
-			->loginAs()
+		$this->loginAs()
 			->get(route('customers.edit', ['customer' => $customer->id]))
 			->assertStatus(200)
 			->assertSee($customer->email)
 			->assertSee($customer->name);
 	}
 
-	public function testItShouldUpdateTheCustomer()
+	public function testItShouldUpdateCustomer()
 	{
 		$request = $this->getCustomerRequest();
 
@@ -77,8 +91,7 @@ class CustomersTest extends FeatureTestCase
 
         $request['name'] = $this->faker->name;
 
-		$this
-			->loginAs()
+		$this->loginAs()
 			->patch(route('customers.update', $customer->id), $request)
 			->assertStatus(302)
 			->assertRedirect(route('customers.index'));
@@ -86,7 +99,7 @@ class CustomersTest extends FeatureTestCase
 		$this->assertFlashLevel('success');
 	}
 
-	public function testItShouldDeleteTheCustomer()
+	public function testItShouldDeleteCustomer()
 	{
 		$customer = Customer::create($this->getCustomerRequest());
 
@@ -99,7 +112,7 @@ class CustomersTest extends FeatureTestCase
 
 	}
 
-	public function testItShouldNotDeleteIfItHaveRelations()
+	public function testItShouldNotDeleteCustomerIfHasRelations()
 	{
 		$this->assertTrue(true);
 		//TODO : This will write after done invoice and revenues tests.
@@ -111,11 +124,11 @@ class CustomersTest extends FeatureTestCase
 			'company_id' => $this->company->id,
 			'name' => $this->faker->name,
 			'email' => $this->faker->email,
-			'tax_number' => $this->faker->buildingNumber,
+			'tax_number' => $this->faker->randomNumber(9),
 			'phone' => $this->faker->phoneNumber,
-			'address' => $this->faker->streetAddress,
+			'address' => $this->faker->address,
 			'website' => 'www.akaunting.com',
-			'currency_code' => $this->company->currencies()->first()->code,
+			'currency_code' => $this->company->currencies()->enabled()->first()->code,
 			'enabled' => $this->faker->boolean ? 1 : 0
 		];
 	}
