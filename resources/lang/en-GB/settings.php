@@ -66,6 +66,8 @@ return [
         'bill_days'         => 'Send Before Due Days',
         'cron_command'      => 'Cron Command',
         'schedule_time'     => 'Hour To Run',
+        'send_item_reminder'=> 'Item Reminder',
+        'item_stocks'       => 'Send Item Stock',
     ],
     'appearance' => [
         'tab'               => 'Appearance',

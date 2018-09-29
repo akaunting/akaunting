@@ -23,6 +23,7 @@ use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Notifications\Income\Invoice as Notification;
 use App\Notifications\Common\Item as ItemNotification;
+use App\Notifications\Common\ItemReminder as ItemReminderNotification;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
@@ -185,6 +186,22 @@ class Invoices extends Controller
                     // Decrease stock (item sold)
                     $item_object->quantity -= $item['quantity'];
                     $item_object->save();
+
+                    if (setting('general.send_item_reminder')) {
+                        $item_stocks = explode(',', setting('general.schedule_item_stocks'));
+
+                        foreach ($item_stocks as $item_stock) {
+                            if ($item_object->quantity == $item_stock) {
+                                foreach ($item_object->company->users as $user) {
+                                    if (!$user->can('read-notifications')) {
+                                        continue;
+                                    }
+
+                                    $user->notify(new ItemReminderNotification($item_object));
+                                }
+                            }
+                        }
+                    }
 
                     // Notify users if out of stock
                     if ($item_object->quantity == 0) {

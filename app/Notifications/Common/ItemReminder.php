@@ -5,7 +5,7 @@ namespace App\Notifications\Common;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Item extends Notification
+class ItemReminder extends Notification
 {
     /**
      * The item model.
@@ -44,7 +44,7 @@ class Item extends Notification
     public function toMail($notifiable)
     {
         $message = (new MailMessage)
-            ->line(trans('items.notification.message.out_of_stock', ['name' => $this->item->name]))
+            ->line(trans('items.notification.message.reminder', ['name' => $this->item->name]))
             ->action(trans('items.notification.button'), url('items/items', $this->item->id, true));
 
         // Override per company as Laravel doesn't read config
