@@ -11,15 +11,16 @@ env:
 
 sqlite:
   adapter: sqlite3
-  database: ":memory:"
+  database: ':memory:'
   timeout: 500
 
 before_install:
   # turn off XDebug
   - phpenv config-rm xdebug.ini || return
 
-install:
-  - composer install
+before_script:
+  - cp .env.testing .env
+  - composer install --no-interaction
 
 script:
   - vendor/bin/phpunit
