@@ -41,6 +41,8 @@ class Settings extends Seeder
             'general.schedule_invoice_days'     => '1,3,5,10',
             'general.send_bill_reminder'        => '0',
             'general.schedule_bill_days'        => '10,5,3,1',
+            'general.item_stocks'               => '0',
+            'general.send_item_reminder'        => '3,5,7',
             'general.schedule_time'             => '09:00',
             'general.admin_theme'               => 'skin-green-light',
             'general.list_limit'                => '25',
