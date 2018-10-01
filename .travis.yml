@@ -7,8 +7,12 @@ php:
   - '7.2'
 
 before_script:
-  - composer self-update
+  - cp .env.travis .env
+  - mysql -e 'CREATE DATABASE akaunting;'
   - composer install --no-interaction
+  - php artisan migrate --force
+  - php artisan db:seed --class=Database\Seeds\TestCompany
+  - php artisan company:seed company 1
 
 script:
   - vendor/bin/phpunit
