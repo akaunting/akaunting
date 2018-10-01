@@ -6,13 +6,20 @@ php:
   - '7.1'
   - '7.2'
 
-before_script:
-  - cp .env.travis .env
-  - mysql -e 'CREATE DATABASE akaunting;'
-  - composer install --no-interaction
-  - php artisan migrate --force
-  - php artisan db:seed --class=Database\Seeds\TestCompany
-  - php artisan company:seed company 1
+env:
+  - DB=sqlite
+
+sqlite:
+  adapter: sqlite3
+  database: ":memory:"
+  timeout: 500
+
+before_install:
+  # turn off XDebug
+  - phpenv config-rm xdebug.ini || return
+
+install:
+  - composer install
 
 script:
   - vendor/bin/phpunit
