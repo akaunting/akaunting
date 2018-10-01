@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - '5.6'
+  - '7.0'
+  - '7.1'
+  - '7.2'
+
+before_script:
+  - composer self-update
+  - composer install --no-interaction
+
+script:
+  - vendor/bin/phpunit
