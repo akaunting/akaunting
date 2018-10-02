@@ -134,8 +134,6 @@ class Updates extends Controller
      */
     public function steps(Request $request)
     {
-        $this->checkApiToken();
-
         $json = [];
         $json['step'] = [];
 
@@ -213,7 +211,7 @@ class Updates extends Controller
         $uploaded = is_int(file_put_contents($file, $data)) ? true : false;
 
         if (!$uploaded) {
-            return false;
+            $status = false;
 
             $message = trans('modules.errors.upload', ['module' => $request['name']]);
         }
