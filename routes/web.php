@@ -140,6 +140,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('home', 'Modules\Home');
                 Route::resource('my', 'Modules\My');
                 Route::get('categories/{alias}', 'Modules\Tiles@categoryModules');
+                Route::get('vendors/{alias}', 'Modules\Tiles@vendorModules');
                 Route::get('paid', 'Modules\Tiles@paidModules');
                 Route::get('new', 'Modules\Tiles@newModules');
                 Route::get('free', 'Modules\Tiles@freeModules');

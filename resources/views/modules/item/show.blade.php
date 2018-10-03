@@ -142,7 +142,7 @@
                             <tbody>
                                 <tr>
                                     <th>{{ trans_choice('general.vendors', 1) }}</th>
-                                    <td class="text-right"><a href="{{ url('apps/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a></td>
+                                    <td class="text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                                 </tr>
                                 <tr>
                                     <th>{{ trans('footer.version') }}</th>
