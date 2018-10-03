@@ -20,6 +20,7 @@
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
             {!! Form::select('customer', $customers, request('customer'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::select('status', $status, request('status'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::dateRange('order_number', trans('invoices.order_number'), 'shopping-cart', []) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
