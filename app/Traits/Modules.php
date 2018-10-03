@@ -90,6 +90,28 @@ trait Modules
         return [];
     }
 
+    public function getVendors()
+    {
+        $response = $this->getRemote('apps/vendors');
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getModulesByVendor($alias, $data = [])
+    {
+        $response = $this->getRemote('apps/vendors/' . $alias, 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
     public function getMyModules($data = [])
     {
         $response = $this->getRemote('apps/my', 'GET', $data);

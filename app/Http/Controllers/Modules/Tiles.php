@@ -43,6 +43,34 @@ class Tiles extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
+     * @param  $alias
+     *
+     * @return Response
+     */
+    public function vendorModules($alias)
+    {
+        $this->checkApiToken();
+
+        $page = request('page', 1);
+
+        $request = [
+            'query' => [
+                'page' => $page,
+            ]
+        ];
+
+        $data = $this->getModulesByVendor($alias, $request);
+
+        $title = $data->vendor->name;
+        $modules = $data->modules;
+        $installed = Module::all()->pluck('status', 'alias')->toArray();
+
+        return view('modules.tiles.index', compact('title', 'modules', 'installed'));
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
      * @return Response
      */
     public function paidModules()
