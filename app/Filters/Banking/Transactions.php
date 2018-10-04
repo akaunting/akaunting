@@ -28,4 +28,13 @@ class Transactions extends ModelFilter
 
         return $this->where('category_id', $category_id);
     }
+
+    public function date($date)
+    {
+        $dates = explode('_', $date);
+        $dates[0] .= ' 00:00:00';
+        $dates[1] .= ' 23:59:59';
+
+        return $this->whereBetween('paid_at', $dates);
+    }
 }

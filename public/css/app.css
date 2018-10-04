@@ -46,6 +46,7 @@
 
 .btn-filter {
     margin-bottom: 1px;
+    vertical-align: top;
 }
 
 .setting-buttons {
@@ -728,4 +729,10 @@ input[type="number"] {
 
 #role-permissions .nav-tabs-custom .tab-content .form-group.col-md-12 .col-md-3 .input-checkbox {
     font-weight: normal;
+}
+
+.btn-filter.date-range-btn {
+    background-color: inherit;
+    border-radius: 0px;
+    vertical-align: top;
 }

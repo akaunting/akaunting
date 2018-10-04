@@ -33,4 +33,13 @@ class Revenues extends ModelFilter
     {
         return $this->where('account_id', $account);
     }
+
+    public function date($date)
+    {
+        $dates = explode('_', $date);
+        $dates[0] .= ' 00:00:00';
+        $dates[1] .= ' 23:59:59';
+
+        return $this->whereBetween('paid_at', $dates);
+    }
 }
