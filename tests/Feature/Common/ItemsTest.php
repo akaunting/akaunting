@@ -62,7 +62,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldDeleteItem()
 	{
-		$item = factory(Item::class)->create();
+		$item = Item::create($this->getItemRequest());
 
 		$this->loginAs()
 			->delete(route('items.destroy', ['item' => $item]))
