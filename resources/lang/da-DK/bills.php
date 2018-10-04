@@ -30,10 +30,10 @@ return [
     'add_payment'       => 'Tilføj betaling',
     'mark_received'     => 'Modtagelse godkendt',
     'download_pdf'      => 'Download som PDF',
-    'send_mail'         => 'Send e-mail',
+    'send_mail'         => 'Send E-mail',
 
     'status' => [
-        'draft'         => 'Udkast',
+        'draft'         => 'Kladde',
         'received'      => 'Modtaget',
         'partial'       => 'Delvis',
         'paid'          => 'Betalt',
