@@ -291,3 +291,22 @@ $(document).on('change', '.input-group-recurring #recurring_frequency', function
         recurring_count.removeClass('hidden');
     }
 });
+
+function convertDateFormat(date, split_character) {
+    var result = [];
+    var formats = {
+        'd': 'DD',
+        'M': 'MMM',
+        'Y': 'YYYY',
+        'F': 'MMMM',
+        'm': 'MM'
+    };
+
+    dates = date.split(split_character);
+
+    dates.forEach(function(value) {
+        result.push(formats[value]);
+    });
+
+    return result.join(split_character);
+}

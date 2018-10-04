@@ -66,6 +66,10 @@ class FormServiceProvider extends ServiceProvider
         Form::component('recurring', 'partials.form.recurring', [
             'page', 'model' => null,
         ]);
+
+        Form::component('dateRange', 'partials.form.date_range', [
+            'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6',
+        ]);
     }
 
     /**

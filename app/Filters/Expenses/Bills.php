@@ -28,4 +28,13 @@ class Bills extends ModelFilter
     {
         return $this->where('bill_status_code', $status);
     }
+
+    public function billDate($date)
+    {
+        $dates = explode('_', $date);
+        $dates[0] .= ' 00:00:00';
+        $dates[1] .= ' 23:59:59';
+
+        return $this->whereBetween('billed_at', $dates);
+    }
 }

@@ -28,4 +28,13 @@ class Invoices extends ModelFilter
     {
         return $this->where('invoice_status_code', $status);
     }
+
+    public function invoiceDate($date)
+    {
+        $dates = explode('_', $date);
+        $dates[0] .= ' 00:00:00';
+        $dates[1] .= ' 23:59:59';
+
+        return $this->whereBetween('invoiced_at', $dates);
+    }
 }
