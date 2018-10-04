@@ -120,4 +120,11 @@ return [
         'no_file_selected'  => 'No file selected...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

@@ -12,12 +12,12 @@
         $('.date-range-btn').daterangepicker(
             {
                 ranges   : {
-                    'Today'       : [moment(), moment()],
-                    'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    '{{ trans("general.date_range.today") }}'       : [moment(), moment()],
+                    '{{ trans("general.date_range.yesterday") }}'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '{{ trans("general.date_range.last_days", ["day" => "7"]) }}' : [moment().subtract(6, 'days'), moment()],
+                    '{{ trans("general.date_range.last_days", ["day" => "30"]) }}': [moment().subtract(29, 'days'), moment()],
+                    '{{ trans("general.date_range.this_month") }}'  : [moment().startOf('month'), moment().endOf('month')],
+                    '{{ trans("general.date_range.last_month") }}'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                 },
                 startDate: moment().subtract(29, 'days'),
                 endDate  : moment()
