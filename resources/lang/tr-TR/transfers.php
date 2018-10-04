@@ -6,7 +6,7 @@ return [
     'to_account'            => 'Alan Hesap',
 
     'messages' => [
-        'delete'            => ':from hesabıdan :to hesabına (:amount)',
+        'delete'            => ':from hesabından :to hesabına (:amount)',
     ],
 
 ];
