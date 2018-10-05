@@ -10,9 +10,9 @@ return [
         'imported'          => ':type importeret!',
     ],
     'error' => [
-        'over_payment'      => 'Fejl: Betaling ikke tilføjet! Beløbet overskrider total porisen.',
+        'over_payment'      => 'Fejl: Betaling ikke tilføjet! Beløbet overskrider total prisen.',
         'not_user_company'  => 'Fejl: Du har ikke tilladelse til at kontrollere denne virksomhed!',
-        'customer'          => 'Fejl: Brugeren ikke oprettet! :name bruger allerede denne e-mail.',
+        'customer'          => 'Fejl: Brugeren ikke oprettet! :name bruger allerede denne E-mail.',
         'no_file'           => 'Fejl: Ingen fil valgt!',
         'last_category'     => 'Fejl: Kan ikke slette sidste :type kategori!',
         'invalid_token'     => 'Fejl: Token indtastet er ugyldig!',
