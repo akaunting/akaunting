@@ -69,11 +69,11 @@ return [
     ],
     'appearance' => [
         'tab'               => 'Udseende',
-        'theme'             => 'Theme',
+        'theme'             => 'Tema',
         'light'             => 'Lys',
         'dark'              => 'Mørk',
         'list_limit'        => 'Poster pr. side',
-        'use_gravatar'      => 'Bruge Gravatar',
+        'use_gravatar'      => 'Brug Gravatar',
     ],
     'system' => [
         'tab'               => 'System',

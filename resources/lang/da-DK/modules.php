@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'API Token',
     'api_token'             => 'Token',
+    'my_apps'               => 'Mine apps',
     'top_paid'              => 'Top betalt',
     'new'                   => 'Ny',
     'top_free'              => 'Top gratis',
@@ -31,18 +32,48 @@ return [
         'installation'      => 'Installation',
         'faq'               => 'FAQ',
         'changelog'         => 'Ændringslog',
+        'reviews'           => 'Anmeldelser',
     ],
 
     'installation' => [
         'header'            => 'App installation',
         'download'          => 'Downloading :modul filen.',
         'unzip'             => 'Udpakker :module filer.',
+        'file_copy'         => 'Kopier filer for :module',
+        'migrate'           => 'Anvender :module opdateringer.',
+        'finish'            => 'Opdatering blev installeret korrekt. Du vil blive omdirigeret til updaterings centeret. ',
         'install'           => 'Installere :module filer.',
     ],
+
+    'errors' => [
+        'download' => ':module kan ikke hentes!',
+        'upload' => 'Det hentede :module kan ikke blive gemt!',
+        'unzip' => ':module kan ikke udpakkes!',
+        'file_copy' => ':module filer kan ikke kopieres!',
+        'migrate' => ':module migrering fejlede!',
+        'migrate core' => ':module kan ikke opdateres, da det allerede er nyeste udgave.',
+    ],
+
+    'badge' => [
+        'installed' => 'Installeret',
+    ],
+
 
     'button' => [
         'uninstall'         => 'Afinstaller',
         'disable'           => 'Deaktiver',
         'enable'            => 'Aktivér',
     ],
+
+    'my' => [
+        'purchased' => 'Købt',
+        'installed' => 'Installeret',
+    ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Tilføj anmeldelse'
+        ],
+        'na' => 'Der er ingen anmeldelser.'
+    ]
 ];

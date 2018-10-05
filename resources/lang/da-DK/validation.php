@@ -101,6 +101,8 @@ return [
         'attribute-name' => [
             'rule-name' => 'brugerdefineret besked',
         ],
+        'invalid_currency' => 'Koden :attribute er ugyldig.',
+        'invalid_amount'   => 'Beløbet :attribute er ugyldig.',
     ],
 
     /*

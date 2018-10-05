@@ -8,7 +8,7 @@ return [
     'sku'                   => 'Varenummer',
 
     'notification' => [
-        'message'       => 'Du modtager denne e-mail, fordi følgende vare snart ikke er på lager længere. :name.',
+        'message'       => 'Du modtager denne E-mail, fordi følgende vare snart ikke er på lager længere. :name.',
         'button'        => 'Vis nu',
     ],
 

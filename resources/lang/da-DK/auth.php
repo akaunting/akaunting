@@ -12,7 +12,7 @@ return [
     'enter_email'           => 'Indtast din mailadresse',
     'current_email'         => 'Nuværende E-mail',
     'reset'                 => 'Nulstil',
-    'never'                 => 'aldrig',
+    'never'                 => 'Aldrig',
     'password' => [
         'current'           => 'Adgangskode',
         'current_confirm'   => 'Bekræft adgangskode',
@@ -20,11 +20,11 @@ return [
         'new_confirm'       => 'Bekræftelse af ny adgangskode',
     ],
     'error' => [
-        'self_delete'       => 'Fejl: du Kan ikke slette dig selv!'
+        'self_delete'       => 'Fejl: Du kan ikke slette dig selv!'
     ],
 
     'failed'                => 'Disse legitimationsoplysninger passer ikke i vores database.',
     'disabled'              => 'Denne konto er deaktiveret. Kontakt systemadministratoren.',
-    'throttle'              => 'For mange login forsøg. Prøv igen i :seconds sekunder.',
+    'throttle'              => 'For mange login forsøg. Prøv igen om :seconds sekunder.',
 
 ];
