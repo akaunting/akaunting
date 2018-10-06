@@ -16,7 +16,7 @@
                 <h3>{{ trans('modules.top_paid') }}</h3>
             </div>
 
-            @foreach ($paid->data as $module)
+            @foreach ($paid as $module)
                 @include('partials.modules.item')
             @endforeach
         </div>
@@ -26,7 +26,7 @@
                 <h3>{{ trans('modules.new') }}</h3>
             </div>
 
-            @foreach ($new->data as $module)
+            @foreach ($new as $module)
                 @include('partials.modules.item')
             @endforeach
         </div>
@@ -36,7 +36,7 @@
                 <h3>{{ trans('modules.top_free') }}</h3>
             </div>
 
-            @foreach ($free->data as $module)
+            @foreach ($free as $module)
                 @include('partials.modules.item')
             @endforeach
         </div>
