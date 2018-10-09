@@ -41,6 +41,14 @@ return [
         'paid'          => 'Paid',
     ],
 
+    'taxes' => [
+        'position' => 'Position',
+        'positions' => [
+            'before' => 'Before Subtotal (GST)',
+            'after' => 'After Subtotal (PST)',
+        ],
+    ],
+
     'messages' => [
         'email_sent'     => 'Invoice email has been sent successfully!',
         'marked_sent'    => 'Invoice marked as sent successfully!',
