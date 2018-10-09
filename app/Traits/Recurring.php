@@ -13,7 +13,7 @@ trait Recurring
     {
         $request = request();
 
-        if ($request->get('recurring_frequency') == 'no') {
+        if ($request->get('recurring_frequency', 'no') == 'no') {
             return;
         }
 
@@ -34,7 +34,7 @@ trait Recurring
     {
         $request = request();
 
-        if ($request->get('recurring_frequency') == 'no') {
+        if ($request->get('recurring_frequency', 'no') == 'no') {
             $this->recurring()->delete();
             return;
         }
