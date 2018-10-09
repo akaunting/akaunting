@@ -243,10 +243,10 @@ class Invoices extends Controller
 
                 // Set taxes
                 if (isset($tax_object)) {
-                    if (array_key_exists($tax_object->id, $taxes)) {
-                        $taxes[$tax_object->id]['amount'] += $tax;
+                    if (isset($taxes['VAT']) && array_key_exists($tax_object->id, $taxes['VAT'])) {
+                        $taxes['VAT'][$tax_object->id]['amount'] += $tax;
                     } else {
-                        $taxes[$tax_object->id] = [
+                        $taxes['VAT'][$tax_object->id] = [
                             'name' => $tax_object->name,
                             'amount' => $tax
                         ];
@@ -261,6 +261,30 @@ class Invoices extends Controller
             }
         }
 
+        if ($request['multiple_tax']) {
+            foreach ($request['multiple_tax'] as $multiple_tax) {
+                if ($multiple_tax['position'] != 'GST') {
+                    continue;
+                }
+
+                $multible_tax_object = Tax::find($multiple_tax['tax_id']);
+
+                $multiple_tax_amount = ($sub_total / 100) * $multible_tax_object->rate;
+
+                if (isset($taxes['GST']) && array_key_exists($multible_tax_object->id, $taxes['GST'])) {
+                    $taxes['GST'][$multible_tax_object->id]['amount'] += $multiple_tax_amount;
+                } else {
+                    $taxes['GST'][$multible_tax_object->id] = [
+                        'id' => $multible_tax_object->id,
+                        'name' => $multible_tax_object->name,
+                        'amount' => $multiple_tax_amount
+                    ];
+                }
+
+                $sub_total += $multiple_tax_amount;
+            }
+        }
+
         $s_total = $sub_total;
 
         // Apply discount to total
@@ -268,6 +292,30 @@ class Invoices extends Controller
             $s_discount = $s_total * ($discount / 100);
             $discount_total += $s_discount;
             $s_total = $s_total - $s_discount;
+        }
+
+        if ($request['multiple_tax']) {
+            foreach ($request['multiple_tax'] as $multiple_tax) {
+                if ($multiple_tax['position'] != 'PST') {
+                    continue;
+                }
+
+                $multible_tax_object = Tax::find($multiple_tax['tax_id']);
+
+                $multiple_tax_amount = ($s_total / 100) * $multible_tax_object->rate;
+
+                if (isset($taxes['PST']) && array_key_exists($multible_tax_object->id, $taxes['PST'])) {
+                    $taxes['PST'][$multible_tax_object->id]['amount'] += $multiple_tax_amount;
+                } else {
+                    $taxes['PST'][$multible_tax_object->id] = [
+                        'id' => $multible_tax_object->id,
+                        'name' => $multible_tax_object->name,
+                        'amount' => $multiple_tax_amount
+                    ];
+                }
+
+                $tax_total += $multiple_tax_amount;
+            }
         }
 
         $amount = $s_total + $tax_total;
@@ -460,10 +508,10 @@ class Invoices extends Controller
                 $invoice_item['total'] = (double) $item['price'] * (double) $item['quantity'];
 
                 if (isset($tax_object)) {
-                    if (array_key_exists($tax_object->id, $taxes)) {
-                        $taxes[$tax_object->id]['amount'] += $tax;
+                    if (isset($taxes['VAT']) && array_key_exists($tax_object->id, $taxes['VAT'])) {
+                        $taxes['VAT'][$tax_object->id]['amount'] += $tax;
                     } else {
-                        $taxes[$tax_object->id] = [
+                        $taxes['VAT'][$tax_object->id] = [
                             'name' => $tax_object->name,
                             'amount' => $tax
                         ];
@@ -477,6 +525,30 @@ class Invoices extends Controller
             }
         }
 
+        if ($request['multiple_tax']) {
+            foreach ($request['multiple_tax'] as $multiple_tax) {
+                if ($multiple_tax['position'] != 'GST') {
+                    continue;
+                }
+
+                $multible_tax_object = Tax::find($multiple_tax['tax_id']);
+
+                $multiple_tax_amount = ($sub_total / 100) * $multible_tax_object->rate;
+
+                if (isset($taxes['GST']) && array_key_exists($multible_tax_object->id, $taxes['GST'])) {
+                    $taxes['GST'][$multible_tax_object->id]['amount'] += $multiple_tax_amount;
+                } else {
+                    $taxes['GST'][$multible_tax_object->id] = [
+                        'id' => $multible_tax_object->id,
+                        'name' => $multible_tax_object->name,
+                        'amount' => $multiple_tax_amount
+                    ];
+                }
+
+                $sub_total += $multiple_tax_amount;
+            }
+        }
+
         $s_total = $sub_total;
 
         // Apply discount to total
@@ -484,6 +556,30 @@ class Invoices extends Controller
             $s_discount = $s_total * ($discount / 100);
             $discount_total += $s_discount;
             $s_total = $s_total - $s_discount;
+        }
+
+        if ($request['multiple_tax']) {
+            foreach ($request['multiple_tax'] as $multiple_tax) {
+                if ($multiple_tax['position'] != 'PST') {
+                    continue;
+                }
+
+                $multible_tax_object = Tax::find($multiple_tax['tax_id']);
+
+                $multiple_tax_amount = ($s_total / 100) * $multible_tax_object->rate;
+
+                if (isset($taxes['PST']) && array_key_exists($multible_tax_object->id, $taxes['PST'])) {
+                    $taxes['PST'][$multible_tax_object->id]['amount'] += $multiple_tax_amount;
+                } else {
+                    $taxes['PST'][$multible_tax_object->id] = [
+                        'id' => $multible_tax_object->id,
+                        'name' => $multible_tax_object->name,
+                        'amount' => $multiple_tax_amount
+                    ];
+                }
+
+                $tax_total += $multiple_tax_amount;
+            }
         }
 
         $amount = $s_total + $tax_total;
@@ -950,6 +1046,21 @@ class Invoices extends Controller
     {
         $sort_order = 1;
 
+        if (isset($taxes['GST'])) {
+            foreach ($taxes['GST'] as $tax) {
+                InvoiceTotal::create([
+                    'company_id' => $request['company_id'],
+                    'invoice_id' => $invoice->id,
+                    'code' => 'gst-' . $tax['id'],
+                    'name' => $tax['name'],
+                    'amount' => $tax['amount'],
+                    'sort_order' => $sort_order,
+                ]);
+
+                $sort_order++;
+            }
+        }
+
         // Added invoice sub total
         InvoiceTotal::create([
             'company_id' => $request['company_id'],
@@ -975,13 +1086,28 @@ class Invoices extends Controller
 
             // This is for total
             $sub_total = $sub_total - $discount_total;
+
+            $sort_order++;
         }
 
-        $sort_order++;
+        if (isset($taxes['PST'])) {
+            foreach ($taxes['PST'] as $tax) {
+                InvoiceTotal::create([
+                    'company_id' => $request['company_id'],
+                    'invoice_id' => $invoice->id,
+                    'code' => 'pst-' . $tax['id'],
+                    'name' => $tax['name'],
+                    'amount' => $tax['amount'],
+                    'sort_order' => $sort_order,
+                ]);
+
+                $sort_order++;
+            }
+        }
 
         // Added invoice taxes
-        if ($taxes) {
-            foreach ($taxes as $tax) {
+        if (isset($taxes['VAT'])) {
+            foreach ($taxes['VAT'] as $tax) {
                 InvoiceTotal::create([
                     'company_id' => $request['company_id'],
                     'invoice_id' => $invoice->id,

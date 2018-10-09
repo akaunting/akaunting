@@ -345,6 +345,22 @@ class Items extends Controller
             }
         }
 
+        if ($request['multiple_tax']) {
+            foreach ($request['multiple_tax'] as $tax_row => $multiple_tax) {
+                if ($multiple_tax['position'] != 'GST') {
+                    continue;
+                }
+
+                $multible_tax_object = Tax::find($multiple_tax['tax_id']);
+
+                $multiple_tax_amount = ($sub_total / 100) * $multible_tax_object->rate;
+
+                $sub_total += $multiple_tax_amount;
+
+                $taxes['multiple-tax-' . $tax_row . '-total'] = money($multiple_tax_amount, $currency_code, true)->format();
+            }
+        }
+
         $json->items = $items;
 
         $json->sub_total = money($sub_total, $currency_code, true)->format();
@@ -362,9 +378,31 @@ class Items extends Controller
             $sub_total = $sub_total - ($sub_total * ($discount / 100));
         }
 
+        if ($request['multiple_tax']) {
+            foreach ($request['multiple_tax'] as $tax_row => $multiple_tax) {
+                if ($multiple_tax['position'] != 'PST') {
+                    continue;
+                }
+
+                $multible_tax_object = Tax::find($multiple_tax['tax_id']);
+
+                $multiple_tax_amount = ($sub_total / 100) * $multible_tax_object->rate;
+
+                $tax_total += $multiple_tax_amount;
+
+                $taxes['multiple-tax-' . $tax_row . '-total'] = money($multiple_tax_amount, $currency_code, true)->format();
+            }
+        }
+
         $grand_total = $sub_total + $tax_total;
 
         $json->grand_total = money($grand_total, $currency_code, true)->format();
+
+        $json->multible_taxes = false;
+
+        if (!empty($taxes)) {
+            $json->multible_taxes = $taxes;
+        }
 
         // Get currency object
         $currency = Currency::where('code', $currency_code)->first();

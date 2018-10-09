@@ -47,7 +47,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $item_row = 0; @endphp
+                            @php $item_row = 0; $tax_row = 0; @endphp
                             @if(old('item'))
                                 @foreach(old('item') as $old_item)
                                     @php $item = (object) $old_item; @endphp
@@ -70,14 +70,32 @@
                                 <td class="text-right" colspan="5"></td>
                             </tr>
                             @stack('add_item_td_end')
+                            @foreach($bill->totals as $bill_total)
+                                @if(strpos($bill_total, 'gst') === false)
+                                @php continue; @endphp
+                                @endif
+                                @php $tax_code = explode('-', $bill_total->code); @endphp
+                                <tr>
+                                    <td class="text-right" colspan="5">
+                                        <button type="button" onclick="$(this).tooltip('destroy'); $(this).parent().parent().remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                        <strong>{{ $bill_total->name }}</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <input name="multiple_tax[{{ $tax_row }}][position]" value="GST" type="hidden" id="input-position-multiple-tax-{{ $tax_row }}">
+                                        <input name="multiple_tax[{{ $tax_row }}][tax_id]" value="{{ $tax_code[1] }}" type="hidden" id="input-tax-id-multiple-tax-{{ $tax_row }}">
+                                        <span id="multiple-tax-{{ $tax_row }}-total">0</span>
+                                    </td>
+                                </tr>
+                                @php $tax_row++; @endphp
+                            @endforeach
                             @stack('sub_total_td_start')
-                            <tr>
+                            <tr id="tr-subtotal">
                                 <td class="text-right" colspan="5"><strong>{{ trans('bills.sub_total') }}</strong></td>
                                 <td class="text-right"><span id="sub-total">0</span></td>
                             </tr>
                             @stack('sub_total_td_end')
                             @stack('add_discount_td_start')
-                            <tr>
+                            <tr id="tr-discount">
                                 <td class="text-right" style="vertical-align: middle;" colspan="5">
                                     <a href="javascript:void(0)" id="discount-text" rel="popover">{{ trans('bills.add_discount') }}</a>
                                 </td>
@@ -87,14 +105,35 @@
                                 </td>
                             </tr>
                             @stack('add_discount_td_end')
+                            @foreach($bill->totals as $bill_total)
+                                @if(strpos($bill_total, 'pst') === false)
+                                    @php continue; @endphp
+                                @endif
+                                @php $tax_code = explode('-', $bill_total->code); @endphp
+                                <tr>
+                                    <td class="text-right" colspan="5">
+                                        <button type="button" onclick="$(this).tooltip('destroy'); $(this).parent().parent().remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                        <strong>{{ $bill_total->name }}</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <input name="multiple_tax[{{ $tax_row }}][position]" value="PST" type="hidden" id="input-position-multiple-tax-{{ $tax_row }}">
+                                        <input name="multiple_tax[{{ $tax_row }}][tax_id]" value="{{ $tax_code[1] }}" type="hidden" id="input-tax-id-multiple-tax-{{ $tax_row }}">
+                                        <span id="multiple-tax-{{ $tax_row }}-total">0</span>
+                                    </td>
+                                </tr>
+                                @php $tax_row++; @endphp
+                            @endforeach
                             @stack('tax_total_td_start')
-                            <tr>
-                                <td class="text-right" colspan="5"><strong>{{ trans_choice('general.taxes', 1) }}</strong></td>
+                            <tr id="tr-tax">
+                                <td class="text-right" colspan="5">
+                                    <button type="button" id="button-tax" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-xs btn-primary" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i></button>
+                                    <strong>{{ trans_choice('general.taxes', 1) }}</strong>
+                                </td>
                                 <td class="text-right"><span id="tax-total">0</span></td>
                             </tr>
                             @stack('tax_total_td_end')
                             @stack('grand_total_td_start')
-                            <tr>
+                            <tr id="tr-total">
                                 <td class="text-right" colspan="5"><strong>{{ trans('bills.total') }}</strong></td>
                                 <td class="text-right"><span id="grand-total">0</span></td>
                             </tr>
@@ -366,6 +405,115 @@
                 $('a[rel=popover]').trigger('click');
             });
 
+            $('#button-tax').popover({
+                html: true,
+                placement: 'left',
+                title: '{{ trans('bills.tax') }}',
+                content: function () {
+                    html  = '<div class="tax box-body">';
+                    html += '   <div class="col-md-12">';
+                    html += '       {!! Form::label('position', trans('bills.taxes.position'), ['class' => 'control-label']) !!}';
+                    html += '       <div class="input-group" id="input-tax">';
+                    html += '           <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                    html += '           {!! Form::select('position', ['GST' => trans('bills.taxes.positions.before'), 'PST' => trans('bills.taxes.positions.after')], null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans('bills.taxes.position')])])) !!}';
+                    html += '       </div>';
+                    html += '   </div>';
+                    html += '   <div class="col-md-12">';
+                    html += '       {!! Form::label('tax_id', trans_choice('general.taxes', 1), ['class' => 'control-label']) !!}';
+                    html += '       <div class="input-group" id="input-tax-id">';
+                    html += '           <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                    html += '           <select class="form-control" id="tax_id" name="tax_id">';
+                    html += '               <option selected="selected" value="">{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}</option>';
+                    @foreach($taxes as $tax_id => $tax_title)
+                            html += '               <option value="{{ $tax_id }}">{{ $tax_title }}</option>';
+                    @endforeach
+                            html += '               <option value="add-new">+ {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</option>';
+                    html += '           </select>';
+                    html += '       </div>';
+                    html += '   </div>';
+                    html += '</div>';
+                    html += '<div class="tax box-footer">';
+                    html += '   <div class="col-md-12">';
+                    html += '       <div class="form-group no-margin">';
+                    html += '           {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-tax','class' => 'btn btn-success']) !!}';
+                    html += '           <a href="javascript:void(0)" id="cancel-tax" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
+                    html += '       </div>';
+                    html += '   </div>';
+                    html += '</div>';
+
+                    return html;
+                }
+            });
+
+            $(document).on('change', '#tax_id', function(e){
+                e.preventDefault();
+
+                if ($(this).val() == 'add-new') {
+                    html  = '   <div class="col-md-12">';
+                    html += '       {!! Form::label('name', trans('general.name'), ['class' => 'control-label']) !!}';
+                    html += '       <div class="input-group">';
+                    html += '           <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>';
+                    html += '           {!! Form::text('name', null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.enter', ['field' => trans('general.name')])])) !!}';
+                    html += '       </div>';
+                    html += '   </div>';
+                    html += '   <div class="col-md-12">';
+                    html += '       {!! Form::label('rate', trans('taxes.rate'), ['class' => 'control-label']) !!}';
+                    html += '       <div class="input-group">';
+                    html += '           <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                    html += '           {!! Form::text('rate', null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.enter', ['field' => trans('taxes.rate')])])) !!}';
+                    html += '       </div>';
+                    html += '   </div>';
+
+                    $('.tax.box-body').append(html);
+                } else {
+                    $('.tax.box-body #name').parent().parent().remove();
+                    $('.tax.box-body #rate').parent().parent().remove();
+                }
+            });
+
+            $(document).on('click', '#save-tax', function(){
+                position = $('.tax.box-body #position').val();
+                tax_id = $('.tax.box-body #tax_id').val();
+
+                html = '';
+
+                if (tax_id == 'add-new') {
+
+                } else {
+                    html  = '<tr id="tr-multiple-tax-' + tax_row + '">';
+                    html += '   <td class="text-right" colspan="5">';
+                    html += '       <button type="button" onclick="$(this).tooltip(\'destroy\'); $(this).parent().parent().remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>';
+                    html += '       <strong>' + $(".tax.box-body #tax_id option:selected").text() + '</strong>';
+                    html += '   </td>';
+                    html += '   <td class="text-right">';
+                    html += '       <input name="multiple_tax[' + tax_row + '][position]" value="' + position + '" type="hidden" id="input-position-multiple-tax-' + tax_row + '">';
+                    html += '       <input name="multiple_tax[' + tax_row + '][tax_id]" value="' + tax_id + '" type="hidden" id="input-tax-id-multiple-tax-' + tax_row + '">';
+                    html += '       <span id="multiple-tax-' + tax_row + '-total">0</span>';
+                    html += '   </td>';
+                    html += '</tr>';
+                }
+
+                if (position == 'GST') {
+                    $('#tr-subtotal').before(html);
+                } else {
+                    $('#tr-discount').after(html);
+                }
+
+                tax_row++;
+
+                $('#button-tax').trigger('click');
+
+                totalItem();
+            });
+
+            $(document).on('click', '#cancel-tax', function(){
+                $('#discount').val('');
+
+                totalItem();
+
+                $('#button-tax').trigger('click');
+            });
+
             $(document).on('change', '#currency_code, #items tbody select', function(){
                 totalItem();
             });
@@ -458,6 +606,12 @@
                         $('#discount-total').html(data.discount_total);
                         $('#tax-total').html(data.tax_total);
                         $('#grand-total').html(data.grand_total);
+
+                        if (data.multible_taxes) {
+                            $.each( data.multible_taxes, function( key, value ) {
+                                $('#' + key).html(value);
+                            });
+                        }
 
                         $('.input-price').each(function(){
                             input_price_id = $(this).attr('id');

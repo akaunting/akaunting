@@ -39,6 +39,14 @@ return [
         'paid'          => 'Paid',
     ],
 
+    'taxes' => [
+        'position' => 'Position',
+        'positions' => [
+            'before' => 'Before Subtotal (GST)',
+            'after' => 'After Subtotal (PST)',
+        ],
+    ],
+
     'messages' => [
         'received'      => 'Bill marked as received successfully!',
     ],
