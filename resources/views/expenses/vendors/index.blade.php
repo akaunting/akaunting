@@ -33,7 +33,7 @@
             <table class="table table-striped table-hover" id="tbl-vendors">
                 <thead>
                     <tr>
-                        <th class="col-md-5">@sortablelink('name', trans('general.name'))</th>
+                        <th class="col-md-4">@sortablelink('name', trans('general.name'))</th>
                         <th class="col-md-3 hidden-xs">@sortablelink('email', trans('general.email'))</th>
                         <th class="col-md-2">@sortablelink('phone', trans('general.phone'))</th>
                         <th class="col-md-1 hidden-xs">@sortablelink('amount', trans('general.amount'))</th>
