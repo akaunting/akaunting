@@ -64,4 +64,11 @@ class Customer extends Model
     {
         $this->user_id = null;
     }
+
+    public function getAmountAttribute()
+    {
+        $invoice_total = $this->invoices()->notPaid()->sum('amount');
+
+        return  $invoice_total;
+    }
 }

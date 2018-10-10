@@ -70,4 +70,11 @@ class Vendor extends Model
 
         return $this->getMedia('logo')->last();
     }
+
+    public function getAmountAttribute()
+    {
+        $invoice_total = $this->bills()->notPaid()->sum('amount');
+
+        return  $invoice_total;
+    }
 }
