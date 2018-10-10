@@ -4,12 +4,13 @@ namespace App\Models\Income;
 
 use App\Models\Model;
 use Bkwld\Cloner\Cloneable;
+use App\Traits\Currencies;
 use Illuminate\Notifications\Notifiable;
 use Sofa\Eloquence\Eloquence;
 
 class Customer extends Model
 {
-    use Cloneable, Eloquence, Notifiable;
+    use Cloneable, Currencies, Eloquence, Notifiable;
 
     protected $table = 'customers';
 
@@ -68,13 +69,15 @@ class Customer extends Model
     public function getUnpaidAttribute()
     {
         $amount = 0;
+
         $invoices = $this->invoices()->accrued()->notPaid()->get();
 
         foreach ($invoices as $invoice) {
-
             $invoice_amount = $invoice->amount - $invoice->paid;
+
             $amount += $this->dynamicConvert(setting('general.default_currency'), $invoice_amount, $invoice->currency_code, $invoice->currency_rate, false);
         }
+
         return $amount;
     }
 }

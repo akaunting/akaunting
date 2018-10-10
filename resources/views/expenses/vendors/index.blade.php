@@ -36,7 +36,7 @@
                         <th class="col-md-3">@sortablelink('name', trans('general.name'))</th>
                         <th class="col-md-3 hidden-xs">@sortablelink('email', trans('general.email'))</th>
                         <th class="col-md-2">@sortablelink('phone', trans('general.phone'))</th>
-                        <th class="col-md-2 hidden-xs">@sortablelink('outstanding', trans('general.outstanding'))</th>
+                        <th class="col-md-2 hidden-xs">@sortablelink('unpaid', trans('general.unpaid'))</th>
                         <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
