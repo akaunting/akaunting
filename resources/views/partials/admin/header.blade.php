@@ -159,7 +159,7 @@
                 @endpermission
                 <!-- Updates: style can be found in dropdown.less -->
                 <li class="hidden-xs">
-                    <a href="{{ url('https://akaunting.com/docs') }}" target="_blank" title="{{ trans('general.help') }}">
+                    <a href="{{ url(trans('header.docs_link')) }}" target="_blank" title="{{ trans('general.help') }}">
                         <i class="fa fa-life-ring"></i>
                     </a>
                 </li>
