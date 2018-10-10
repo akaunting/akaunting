@@ -17,9 +17,11 @@
             </div>
 
             @if ($modules)
-                @foreach ($modules->data as $module)
+                @foreach ($modules as $module)
                     @include('partials.modules.item')
                 @endforeach
+
+                {{-- $modules is array, not the object so pagination does not work
                 <div class="col-md-12 no-padding-left">
                     <ul class="pager nomargin">
                         @if ($modules->current_page < $modules->last_page)
@@ -30,6 +32,7 @@
                         @endif
                     </ul>
                 </div>
+                --}}
             @else
                 <div class="box box-success">
                     <div class="box-body">
