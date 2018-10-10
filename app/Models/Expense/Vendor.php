@@ -71,10 +71,16 @@ class Vendor extends Model
         return $this->getMedia('logo')->last();
     }
 
-    public function getAmountAttribute()
+    public function getUnpaidAttribute()
     {
-        $invoice_total = $this->bills()->notPaid()->sum('amount');
+        $amount = 0;
+        $bills = $this->bills()->accrued()->notPaid()->get();
 
-        return  $invoice_total;
+        foreach ($bills as $bill) {
+
+            $bill_amount = $bill->amount - $bill->paid;
+            $amount += $this->dynamicConvert(setting('general.default_currency'), $bill_amount, $bill->currency_code, $bill->currency_rate, false);
+        }
+        return $amount;
     }
 }

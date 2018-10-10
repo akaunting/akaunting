@@ -65,10 +65,16 @@ class Customer extends Model
         $this->user_id = null;
     }
 
-    public function getAmountAttribute()
+    public function getUnpaidAttribute()
     {
-        $invoice_total = $this->invoices()->notPaid()->sum('amount');
+        $amount = 0;
+        $invoices = $this->invoices()->accrued()->notPaid()->get();
 
-        return  $invoice_total;
+        foreach ($invoices as $invoice) {
+
+            $invoice_amount = $invoice->amount - $invoice->paid;
+            $amount += $this->dynamicConvert(setting('general.default_currency'), $invoice_amount, $invoice->currency_code, $invoice->currency_rate, false);
+        }
+        return $amount;
     }
 }
