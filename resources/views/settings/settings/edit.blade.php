@@ -98,6 +98,10 @@
 
                         {{ Form::textGroup('schedule_bill_days', trans('settings.scheduling.bill_days'), 'calendar-check-o', []) }}
 
+                        {{ Form::radioGroup('send_item_reminder', trans('settings.scheduling.send_item_reminder')) }}
+
+                        {{ Form::textGroup('schedule_item_stocks', trans('settings.scheduling.item_stocks'), 'cubes', []) }}
+
                         <div class="col-sm-6">
                             <label for="cron_command" class="control-label">{{ trans('settings.scheduling.cron_command') }}</label>
                             <pre>php /path-to-akaunting/artisan schedule:run >> /dev/null 2>&1</pre>
