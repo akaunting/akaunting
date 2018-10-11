@@ -2,100 +2,15 @@
 
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
-@push('css')
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        color: #000;
-    }
-    table {
-        width: 100%;
-    }
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-    .row {
-        font-size: 0; /* prevent whitespace from stuffing up inline-block column layouts */
-    }
-    .col-58 {
-        display: inline-block;
-        width: 58%;
-        vertical-align: top;
-    }
-    .col-42 {
-        display: inline-block;
-        width: 42%;
-        vertical-align: top;
-    }
-    .text {
-        font-size: 16px;
-    }
-    .text-right {
-        text-align: right;
-    }
-    .text-center {
-        text-align: center;
-    }
-    .text-success {
-        color: #28a745;
-    }
-    .invoice-header {
-        padding-bottom: 9px;
-        margin: 10px 0 20px 0;
-        border-bottom: 1px solid #eee;
-    }
-    .invoice-company {
-        padding-left: 23px;
-    }
-    .invoice-logo {
-        max-width: 430px;
-        max-height: 120px;
-    }
-    .invoice-lines {
-        margin: 30px 0;
-        border-collapse: collapse;
-        table-layout: fixed;
-        border: 1px solid #ccc;
-    }
-    .invoice-lines thead tr {
-        background-color: #eee;
-    }
-    .invoice-lines tbody td {
-        border-bottom: 1px solid #ccc;
-    }
-    .invoice-lines .item {
-        width: 40%;
-    }
-    .invoice-lines .quantity {
-        width: 20%;
-        text-align: center;
-    }
-    .invoice-lines .price {
-        width: 20%:;
-        text-align: right;
-    }
-    .invoice-lines .total {
-        width: 20%;
-        text-align: right;
-    }
-    .notes {
-        font-size: 14px;
-    }
-</style>
-@endpush
-
 @section('content')
-<div class="row invoice-header">
+<div class="row header">
     <div class="col-58">
         @if ($logo)
-        <img src="{{ $logo }}" class="invoice-logo">
+        <img src="{{ $logo }}" class="logo" />
         @endif
     </div>
     <div class="col-42">
-        <div class="text invoice-company">
+        <div class="text company">
             <strong>{{ setting('general.company_name') }}</strong><br>
             {!! nl2br(setting('general.company_address')) !!}<br>
             @if (setting('general.company_tax_number'))
@@ -154,7 +69,7 @@
     </div>
 </div>
 
-<table class="invoice-lines">
+<table class="lines">
     <thead>
         <tr>
             <th class="item">{{ trans_choice('general.items', 1) }}</th>
@@ -165,17 +80,17 @@
     </thead>
     <tbody>
         @foreach($invoice->items as $item)
-            <tr>
-                <td class="item">
-                    {{ $item->name }}
-                    @if ($item->sku)
-                        <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
-                    @endif
-                </td>
-                <td class="quantity">{{ $item->quantity }}</td>
-                <td class="price">@money($item->price, $invoice->currency_code, true)</td>
-                <td class="total">@money($item->total, $invoice->currency_code, true)</td>
-            </tr>
+        <tr>
+            <td class="item">
+                {{ $item->name }}
+                @if ($item->sku)
+                    <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
+                @endif
+            </td>
+            <td class="quantity">{{ $item->quantity }}</td>
+            <td class="price">@money($item->price, $invoice->currency_code, true)</td>
+            <td class="total">@money($item->total, $invoice->currency_code, true)</td>
+        </tr>
         @endforeach
     </tbody>
 </table>
@@ -183,10 +98,10 @@
 <div class="row">
     <div class="col-58">
         @if ($invoice->notes)
-            <table class="text" style="page-break-inside: avoid;">
-                <tr><th>{{ trans_choice('general.notes', 2) }}</th></tr>
-                <tr><td>{{ $invoice->notes }}</td></tr>
-            </table>
+        <table class="text" style="page-break-inside: avoid;">
+            <tr><th>{{ trans_choice('general.notes', 2) }}</th></tr>
+            <tr><td>{{ $invoice->notes }}</td></tr>
+        </table>
         @endif
     </div>
     <div class="col-42">

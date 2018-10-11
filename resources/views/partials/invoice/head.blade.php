@@ -9,6 +9,8 @@
 
     <title>@yield('title') - @setting('general.company_name')</title>
 
+    <link rel="stylesheet" href="{{ asset('public/css/invoice.css?v=' . version('short')) }}">
+
     @stack('css')
 
     @stack('stylesheet')
