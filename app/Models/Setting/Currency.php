@@ -81,7 +81,7 @@ class Currency extends Model
      */
     public function getPrecisionAttribute($value)
     {
-        if (empty($value)) {
+        if (is_null($value)) {
             return config('money.' . $this->code . '.precision');
         }
 
@@ -95,7 +95,7 @@ class Currency extends Model
      */
     public function getSymbolAttribute($value)
     {
-        if (empty($value)) {
+        if (is_null($value)) {
             return config('money.' . $this->code . '.symbol');
         }
 
@@ -109,7 +109,7 @@ class Currency extends Model
      */
     public function getSymbolFirstAttribute($value)
     {
-        if (empty($value)) {
+        if (is_null($value)) {
             return config('money.' . $this->code . '.symbol_first');
         }
 
@@ -123,7 +123,7 @@ class Currency extends Model
      */
     public function getDecimalMarkAttribute($value)
     {
-        if (empty($value)) {
+        if (is_null($value)) {
             return config('money.' . $this->code . '.decimal_mark');
         }
 
@@ -137,7 +137,7 @@ class Currency extends Model
      */
     public function getThousandsSeparatorAttribute($value)
     {
-        if (empty($value)) {
+        if (is_null($value)) {
             return config('money.' . $this->code . '.thousands_separator');
         }
 
