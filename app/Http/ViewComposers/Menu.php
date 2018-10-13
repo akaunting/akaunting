@@ -3,7 +3,6 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use anlutro\LaravelSettings\Facade as Settingg;
 
 class Menu
 {
