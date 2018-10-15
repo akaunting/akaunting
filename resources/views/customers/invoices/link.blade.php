@@ -2,6 +2,10 @@
 
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
+@section('new_button')
+    <span class="new-button"><a href="{{ url('customers') }}" class="btn btn-default btn-sm"><span class="fa fa-user-o"></span> &nbsp;{{ trans('invoices.all_invoices') }}</a></span>
+@endsection
+
 @section('content')
     <div class="box box-success">
         <section class="invoice">
