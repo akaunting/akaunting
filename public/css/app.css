@@ -736,3 +736,7 @@ input[type="number"] {
     border-radius: 0px;
     vertical-align: top;
 }
+
+.link .content-wrapper, .link  .right-side, .link  .main-footer {
+    margin-left: inherit;
+}
