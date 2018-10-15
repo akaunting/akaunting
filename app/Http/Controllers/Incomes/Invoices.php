@@ -36,6 +36,7 @@ use File;
 use Illuminate\Http\Request as ItemRequest;
 use Image;
 use Storage;
+use SignedUrl;
 
 class Invoices extends Controller
 {
@@ -117,7 +118,9 @@ class Invoices extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
+        $customer_share = SignedUrl::sign(url('links/invoices/' . $invoice->id));
+
+        return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'customer_share'));
     }
 
     /**

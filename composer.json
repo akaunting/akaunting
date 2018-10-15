@@ -10,6 +10,7 @@
         "akaunting/language": "1.0.*",
         "akaunting/money": "1.0.*",
         "akaunting/setting": "1.0.*",
+        "akaunting/signed-url": "1.0.*",
         "akaunting/version": "1.0.*",
         "almasaeed2010/adminlte": "2.3.*",
         "barryvdh/laravel-debugbar": "2.3.*",
