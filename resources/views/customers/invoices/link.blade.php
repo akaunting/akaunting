@@ -150,10 +150,10 @@
 
             <div class="box-footer row no-print">
                 <div class="col-md-10">
-                    <a href="{{ url('customers/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-default">
+                    <a href="{{ $print_action }}" target="_blank" class="btn btn-default">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
-                    <a href="{{ url('customers/invoices/' . $invoice->id . '/pdf') }}" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
+                    <a href="{{ $pdf_action }}" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
                         <i class="fa fa-file-pdf-o"></i>&nbsp; {{ trans('general.download') }}
                     </a>
                 </div>
@@ -162,6 +162,7 @@
                     @if($invoice->invoice_status_code != 'paid')
                         @if ($payment_methods)
                             {!! Form::select('payment_method', $payment_methods, null, array_merge(['id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])])) !!}
+                            {!! Form::select('payment_method_actions', $payment_actions, null, array_merge(['id' => 'payment-method-actions', 'class' => 'form-control hidden'])) !!}
                             {!! Form::hidden('invoice_id', $invoice->id, []) !!}
                         @else
 
@@ -182,9 +183,13 @@
 
                 gateway = payment_method.split('.');
 
+                $('#payment-method-actions').val(gateway[0]);
+
+                var url = $('#payment-method-actions').find('option:selected').text();
+
                 $.ajax({
-                    url: '{{ url("customers/invoices/" . $invoice->id) }}/' + gateway[0],
-                    type: 'GET',
+                    url: url,
+                    type: 'POST',
                     dataType: 'JSON',
                     data: $('.box-footer input, .box-footer select'),
                     headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },

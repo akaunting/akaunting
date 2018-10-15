@@ -20,6 +20,7 @@ use File;
 use Illuminate\Http\Request;
 use Image;
 use Storage;
+use SignedUrl;
 
 class Invoices extends Controller
 {
@@ -183,6 +184,8 @@ class Invoices extends Controller
 
     public function link(Invoice $invoice, Request $request)
     {
+        session(['company_id' => $invoice->company_id]);
+
         $paid = 0;
 
         foreach ($invoice->payments as $item) {
@@ -211,6 +214,19 @@ class Invoices extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('customers.invoices.link', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
+        $payment_actions = [];
+
+        foreach ($payment_methods as $payment_method_key => $payment_method_value) {
+            $codes = explode('.', $payment_method_key);
+
+            if (!isset($payment_actions[$codes[0]])) {
+                $payment_actions[$codes[0]] = SignedUrl::sign(url('links/invoices/' . $invoice->id . '/' . $codes[0]), 1);
+            }
+        }
+
+        $print_action = SignedUrl::sign(url('links/invoices/' . $invoice->id . '/print'), 1);
+        $pdf_action = SignedUrl::sign(url('links/invoices/' . $invoice->id . '/pdf'), 1);
+
+        return view('customers.invoices.link', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'payment_actions', 'print_action', 'pdf_action'));
     }
 }
