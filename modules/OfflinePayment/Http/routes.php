@@ -11,3 +11,10 @@ Route::group(['middleware' => ['web', 'auth', 'language', 'customermenu', 'permi
     Route::get('invoices/{invoice}/offlinepayment', 'OfflinePayment@show');
     Route::post('invoices/{invoice}/offlinepayment/confirm', 'OfflinePayment@confirm');
 });
+
+Route::group(['middleware' => ['web', 'language'], 'prefix' => 'links', 'namespace' => 'Modules\OfflinePayment\Http\Controllers'], function () {
+    Route::group(['middleware' => 'signed-url'], function () {
+        Route::post('invoices/{invoice}/offlinepayment', 'OfflinePayment@link');
+        Route::post('invoices/{invoice}/offlinepayment/confirm', 'OfflinePayment@confirm');
+    });
+});
