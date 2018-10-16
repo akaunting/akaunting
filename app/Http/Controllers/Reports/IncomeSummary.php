@@ -59,14 +59,17 @@ class IncomeSummary extends Controller
         switch ($status) {
             case 'paid':
                 $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
+                $this->setRecurring($invoices, 'paid_at');
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'paid_at');
                 break;
             case 'upcoming':
                 $invoices = Invoice::accrued()->monthsOfYear('due_at')->get();
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'due_at');
+                $this->setRecurring($invoices, 'due_at');
                 break;
             default:
                 $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
+                $this->setRecurring($invoices, 'invoiced_at');
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'invoiced_at');
                 break;
         }
@@ -96,6 +99,45 @@ class IncomeSummary extends Controller
             ->view($chart_template);
 
         return view($view_template, compact('chart', 'dates', 'categories', 'incomes', 'totals'));
+    }
+
+    private function setRecurring(&$invoices, $date)
+    {
+        foreach ($invoices as $invoice) {
+            if ($invoice['table'] == 'invoice_payments') {
+                $item  = $invoice->invoice;
+                $item->category_id = $invoice->category_id;
+
+                $invoice = $item;
+            }
+
+            if (!empty($invoice->parent_id)) {
+                continue;
+            }
+
+            if ($invoice->recurring) {
+                $recurred_invoices = Invoice::where('parent_id', $invoice->id)->accrued()->monthsOfYear($date)->get();
+
+                foreach ($invoice->recurring->schedule() as $recurr) {
+                    if ($recurred_invoices->count() > $recurr->getIndex()) {
+                        continue;
+                    }
+
+                    if ($recurr->getStart()->format('Y') != Date::now()->format('Y')) {
+                        continue;
+                    }
+
+                    $recurr_invoice = clone $invoice;
+
+                    $recurr_invoice->parent_id = $invoice->id;
+                    $recurr_invoice->created_at = $recurr->getStart()->format('Y-m-d');
+                    $recurr_invoice->invoiced_at = $recurr->getStart()->format('Y-m-d');
+                    $recurr_invoice->due_at = $recurr->getEnd()->format('Y-m-d');
+
+                    $invoices->push($recurr_invoice);
+                }
+            }
+        }
     }
 
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)

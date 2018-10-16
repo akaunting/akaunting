@@ -59,14 +59,17 @@ class ExpenseSummary extends Controller
         switch ($status) {
             case 'paid':
                 $bills = BillPayment::monthsOfYear('paid_at')->get();
+                $this->setRecurring($bills, 'paid_at');
                 $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'paid_at');
                 break;
             case 'upcoming':
                 $bills = Bill::accrued()->monthsOfYear('due_at')->get();
+                $this->setRecurring($bills, 'due_at');
                 $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'due_at');
                 break;
             default:
                 $bills = Bill::accrued()->monthsOfYear('billed_at')->get();
+                $this->setRecurring($bills, 'billed_at');
                 $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'billed_at');
                 break;
         }
@@ -96,6 +99,45 @@ class ExpenseSummary extends Controller
             ->view($chart_template);
 
         return view($view_template, compact('chart', 'dates', 'categories', 'expenses', 'totals'));
+    }
+
+    private function setRecurring(&$bills, $date)
+    {
+        foreach ($bills as $bill) {
+            if ($bill['table'] == 'bill_payments') {
+                $item  = $bill->bill;
+                $item->category_id = $bill->category_id;
+
+                $bill = $item;
+            }
+
+            if (!empty($bill->parent_id)) {
+                continue;
+            }
+
+            if ($bill->recurring) {
+                $recurred_bills = Bill::where('parent_id', $bill->id)->accrued()->monthsOfYear($date)->get();
+
+                foreach ($bill->recurring->schedule() as $recurr) {
+                    if ($recurred_bills->count() > $recurr->getIndex()) {
+                        continue;
+                    }
+
+                    if ($recurr->getStart()->format('Y') != Date::now()->format('Y')) {
+                        continue;
+                    }
+
+                    $recurr_bill = clone $bill;
+
+                    $recurr_bill->parent_id = $bill->id;
+                    $recurr_bill->created_at = $recurr->getStart()->format('Y-m-d');
+                    $recurr_bill->invoiced_at = $recurr->getStart()->format('Y-m-d');
+                    $recurr_bill->due_at = $recurr->getEnd()->format('Y-m-d');
+
+                    $bills->push($recurr_bill);
+                }
+            }
+        }
     }
 
     private function setAmount(&$graph, &$totals, &$expenses, $items, $type, $date_field)
