@@ -74,14 +74,17 @@ class IncomeExpenseSummary extends Controller
         switch ($status) {
             case 'paid':
                 $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
+                $this->setRecurring($invoices, 'paid_at', 'invoice');
                 $this->setAmount($profit_graph, $totals, $compares, $invoices, 'invoice', 'paid_at');
                 break;
             case 'upcoming':
                 $invoices = Invoice::accrued()->monthsOfYear('due_at')->get();
+                $this->setRecurring($invoices, 'due_at', 'invoice');
                 $this->setAmount($profit_graph, $totals, $compares, $invoices, 'invoice', 'due_at');
                 break;
             default:
                 $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
+                $this->setRecurring($invoices, 'invoiced_at', 'invoice');
                 $this->setAmount($profit_graph, $totals, $compares, $invoices, 'invoice', 'invoiced_at');
                 break;
         }
@@ -96,14 +99,17 @@ class IncomeExpenseSummary extends Controller
         switch ($status) {
             case 'paid':
                 $bills = BillPayment::monthsOfYear('paid_at')->get();
+                $this->setRecurring($bills, 'paid_at', 'bill');
                 $this->setAmount($profit_graph, $totals, $compares, $bills, 'bill', 'paid_at');
                 break;
             case 'upcoming':
                 $bills = Bill::accrued()->monthsOfYear('due_at')->get();
+                $this->setRecurring($bills, 'due_at', 'bill');
                 $this->setAmount($profit_graph, $totals, $compares, $bills, 'bill', 'due_at');
                 break;
             default:
                 $bills = Bill::accrued()->monthsOfYear('billed_at')->get();
+                $this->setRecurring($bills, 'billed_at', 'bill');
                 $this->setAmount($profit_graph, $totals, $compares, $bills, 'bill', 'billed_at');
                 break;
         }
@@ -133,6 +139,50 @@ class IncomeExpenseSummary extends Controller
             ->view($chart_template);
 
         return view($view_template, compact('chart', 'dates', 'income_categories', 'expense_categories', 'compares', 'totals'));
+    }
+
+    private function setRecurring(&$items, $date, $type)
+    {
+        foreach ($items as $item) {
+            if ($item['table'] == 'bill_payments' || $item['table'] == 'invoice_payments') {
+                $type_item = $item->$type;
+
+                $item->category_id = $type_item->category_id;
+
+                $item = $type_item;
+            }
+
+            if (!empty($item->parent_id)) {
+                continue;
+            }
+
+            if ($item->recurring) {
+                if ($type == 'invoice') {
+                    $recurred_items = Invoice::where('parent_id', $item->id)->accrued()->monthsOfYear($date)->get();
+                } else {
+                    $recurred_items = Bill::where('parent_id', $item->id)->accrued()->monthsOfYear($date)->get();
+                }
+
+                foreach ($item->recurring->schedule() as $recurr) {
+                    if ($recurred_items->count() > $recurr->getIndex()) {
+                        continue;
+                    }
+
+                    if ($recurr->getStart()->format('Y') != Date::now()->format('Y')) {
+                        continue;
+                    }
+
+                    $recurr_item = clone $item;
+
+                    $recurr_item->parent_id = $item->id;
+                    $recurr_item->created_at = $recurr->getStart()->format('Y-m-d');
+                    $recurr_item->invoiced_at = $recurr->getStart()->format('Y-m-d');
+                    $recurr_item->due_at = $recurr->getEnd()->format('Y-m-d');
+
+                    $items->push($recurr_item);
+                }
+            }
+        }
     }
 
     private function setAmount(&$graph, &$totals, &$compares, $items, $type, $date_field)
