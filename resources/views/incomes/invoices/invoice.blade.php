@@ -72,9 +72,9 @@
 <table class="lines">
     <thead>
         <tr>
-            <th class="item">{{ trans_choice('general.items', 1) }}</th>
-            <th class="quantity">{{ trans('invoices.quantity') }}</th>
-            <th class="price">{{ trans('invoices.price') }}</th>
+            <th class="item">{{ trans_choice($text_override['items'], 2) }}</th>
+            <th class="quantity">{{ trans($text_override['quantity']) }}</th>
+            <th class="price">{{ trans($text_override['price']) }}</th>
             <th class="total">{{ trans('invoices.total') }}</th>
         </tr>
     </thead>

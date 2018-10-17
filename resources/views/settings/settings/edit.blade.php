@@ -58,6 +58,12 @@
 
                         {{ Form::textGroup('invoice_number_next', trans('settings.invoice.next'), 'chevron-right', []) }}
 
+                        {{ Form::invoice_text('invoice_item', trans('settings.invoice.item_name'), 'font', $item_names, null, [], 'invoice_item_input', null) }}
+
+                        {{ Form::invoice_text('invoice_price', trans('settings.invoice.price_name'), 'font', $price_names, null, [], 'invoice_price_input', null) }}
+
+                        {{ Form::invoice_text('invoice_quantity', trans('settings.invoice.quantity_name'), 'font', $quantity_names, null, [], 'invoice_quantity_input', null) }}
+
                         {{ Form::fileGroup('invoice_logo', trans('settings.invoice.logo')) }}
                     </div>
 
