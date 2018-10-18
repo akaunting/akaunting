@@ -197,6 +197,8 @@ $(document).ready(function () {
 
         return true;
     });
+
+    $('.input-group-invoice-text select').select2();
 });
 
 function confirmDelete(form_id, title, message, button_cancel, button_delete) {
@@ -289,6 +291,22 @@ $(document).on('change', '.input-group-recurring #recurring_frequency', function
         recurring_interval.addClass('hidden');
         recurring_custom_frequency.addClass('hidden');
         recurring_count.removeClass('hidden');
+    }
+});
+
+$(document).on('change', '.input-group-invoice-text select', function () {
+    var invoice_text_custom = $(this).parent().parent().parent().find('input');
+
+    if ($(this).val() == 'custom') {
+        $(this).parent().parent().removeClass('col-md-12').addClass('col-md-6');
+
+        invoice_text_custom.parent().removeClass('hidden');
+
+        $(this).select2();
+    } else {
+        $(this).parent().parent().removeClass('col-md-6').addClass('col-md-12');
+
+        invoice_text_custom.parent().addClass('hidden');
     }
 });
 
