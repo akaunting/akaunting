@@ -98,9 +98,9 @@
                     <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <th>{{ trans_choice('general.items', 1) }}</th>
-                                <th class="text-center">{{ trans('invoices.quantity') }}</th>
-                                <th class="text-right">{{ trans('invoices.price') }}</th>
+                                <th>{{ trans_choice($text_override['items'], 2) }}</th>
+                                <th class="text-center">{{ trans($text_override['quantity']) }}</th>
+                                <th class="text-right">{{ trans($text_override['price']) }}</th>
                                 <th class="text-right">{{ trans('invoices.total') }}</th>
                             </tr>
                             @foreach($invoice->items as $item)

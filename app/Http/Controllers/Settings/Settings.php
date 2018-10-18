@@ -67,6 +67,24 @@ class Settings extends Controller
             'space' => trans('settings.localisation.date.space'),
         ];
 
+        $item_names = [
+            'settings.invoice.item' => trans('settings.invoice.item'),
+            'settings.invoice.product' => trans('settings.invoice.product'),
+            'settings.invoice.service' =>  trans('settings.invoice.service'),
+            'custom' => trans('settings.invoice.custom'),
+        ];
+
+        $price_names = [
+            'settings.invoice.price' => trans('settings.invoice.price'),
+            'settings.invoice.rate' => trans('settings.invoice.rate'),
+            'custom' => trans('settings.invoice.custom'),
+        ];
+
+        $quantity_names = [
+            'settings.invoice.quantity' => trans('settings.invoice.quantity'),
+            'custom' => trans('settings.invoice.custom'),
+        ];
+
         $email_protocols = [
             'mail' => trans('settings.email.php'),
             'smtp' => trans('settings.email.smtp.name'),
@@ -88,6 +106,9 @@ class Settings extends Controller
             'payment_methods',
             'date_formats',
             'date_separators',
+            'item_names',
+            'price_names',
+            'quantity_names',
             'email_protocols',
             'percent_positions'
         ));

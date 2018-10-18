@@ -21,7 +21,7 @@
             {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart',[]) }}
 
             <div class="form-group col-md-12">
-                {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'control-label']) !!}
+                {!! Form::label('items', trans_choice($text_override['items'], 2), ['class' => 'control-label']) !!}
                 <div class="table-responsive">
                     <table class="table table-bordered" id="items">
                         <thead>
@@ -33,10 +33,10 @@
                                 <th width="40%" class="text-left">{{ trans('general.name') }}</th>
                                 @stack('name_th_end')
                                 @stack('quantity_th_start')
-                                <th width="5%" class="text-center">{{ trans('invoices.quantity') }}</th>
+                                <th width="5%" class="text-center">{{ trans($text_override['quantity']) }}</th>
                                 @stack('quantity_th_end')
                                 @stack('price_th_start')
-                                <th width="10%" class="text-right">{{ trans('invoices.price') }}</th>
+                                <th width="10%" class="text-right">{{ trans($text_override['price']) }}</th>
                                 @stack('price_th_end')
                                 @stack('taxes_th_start')
                                 <th width="15%" class="text-right">{{ trans_choice('general.taxes', 1) }}</th>

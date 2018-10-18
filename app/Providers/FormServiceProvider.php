@@ -67,6 +67,10 @@ class FormServiceProvider extends ServiceProvider
             'page', 'model' => null,
         ]);
 
+        Form::component('invoice_text', 'partials.form.invoice_text', [
+            'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'input_name', 'input_value', 'col' => 'col-md-6',
+        ]);
+
         Form::component('dateRange', 'partials.form.date_range', [
             'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6',
         ]);
