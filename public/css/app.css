@@ -740,3 +740,8 @@ input[type="number"] {
 .link .content-wrapper, .link  .right-side, .link  .main-footer {
     margin-left: inherit;
 }
+
+.col-md-6.input-group-invoice-text {
+    padding-left: 0;
+    padding-right: 0;
+}
