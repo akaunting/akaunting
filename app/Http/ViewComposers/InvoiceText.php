@@ -15,25 +15,21 @@ class InvoiceText
      */
     public function compose(View $view)
     {
-        $text_override = [
-            'items' => trans_choice('general.items', 2),
-            'quantity' => trans('invoices.quantity'),
-            'price' => trans('invoices.price'),
-        ];
+        $text_override = [];
 
-        $text_items = setting('general.invoice_item');
+        $text_items = setting('general.invoice_item', trans_choice('general.items', 2));
 
         if ($text_items == 'custom') {
             $text_items = setting('general.invoice_item_input');
         }
 
-        $text_quantity = setting('general.invoice_quantity');
+        $text_quantity = setting('general.invoice_quantity', trans('invoices.quantity'));
 
         if ($text_quantity == 'custom') {
             $text_quantity = setting('general.invoice_quantity_input');
         }
 
-        $text_price = setting('general.invoice_price');
+        $text_price = setting('general.invoice_price', trans('invoices.price'));
 
         if ($text_price == 'custom') {
             $text_price = setting('general.invoice_price_input');
