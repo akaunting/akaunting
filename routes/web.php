@@ -202,6 +202,15 @@ Route::group(['middleware' => 'language'], function () {
                 ]]);
                 Route::resource('invoices/{invoice}/payment', 'Modals\InvoicePayments', ['middleware' => ['dateformat', 'money']]);
                 Route::resource('bills/{bill}/payment', 'Modals\BillPayments', ['middleware' => ['dateformat', 'money']]);
+                Route::resource('taxes', 'Modals\Taxes', ['names' => [
+                    'index' => 'modals.taxes.index',
+                    'create' => 'modals.taxes.create',
+                    'store' => 'modals.taxes.store',
+                    'show' => 'modals.taxes.show',
+                    'edit' => 'modals.taxes.edit',
+                    'update' => 'modals.taxes.update',
+                    'destroy' => 'modals.taxes.destroy',
+                ]]);
             });
 
             /* @deprecated */
