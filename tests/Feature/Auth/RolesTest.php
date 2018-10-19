@@ -27,11 +27,8 @@ class RolesTest extends FeatureTestCase
 
     public function testItShouldCreateRole()
     {
-         $r = route('roles.store');
-         $rr = $this->getRoleRequest();
-
         $this->loginAs()
-            ->post($r, $rr)
+            ->post(route('roles.store'), $this->getRoleRequest())
             ->assertStatus(302)
             ->assertRedirect(route('roles.index'));
 
@@ -78,13 +75,11 @@ class RolesTest extends FeatureTestCase
 
     private function getRoleRequest()
     {
-        $permissions = array(0=>'93', 1=>'94', 2=>'95', 3=>'97', 4=>'99', 5=>'100', 6=>'96', 7=>'98', 8=>'101');
-
         return [
             'name' => $this->faker->text(5),
             'display_name' => $this->faker->text(5),
             'description' => $this->faker->text(5),
-            'permissions' => $permissions,
+            'permissions' => Permission::take(10)->pluck('id')->toArray(),
         ];
     }
 }
