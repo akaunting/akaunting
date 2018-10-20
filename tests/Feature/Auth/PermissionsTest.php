@@ -76,7 +76,7 @@ class PermissionsTest extends FeatureTestCase
     private function getPermissionRequest()
     {
         return [
-            'name' => $this->faker->text(5),
+            'name' => $this->faker->name,
             'display_name' => $this->faker->text(5),
             'description' => $this->faker->text(5),
         ];

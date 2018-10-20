@@ -78,7 +78,7 @@ class ItemsTest extends FeatureTestCase
 
         return [
             'company_id' => $this->company->id,
-            'name' => $this->faker->text(15),
+            'name' => $this->faker->name,
             'sku' => $this->faker->unique()->ean8,
             'picture' => $picture,
             'description' => $this->faker->text(100),
