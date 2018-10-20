@@ -248,6 +248,14 @@
                 placeholder: {
                     id: '-1', // the value of the option
                     text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                language: {
+                    noResults: function () {
+                        return '<span id="tax-add-new"><i class="fa fa-plus"> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                    }
                 }
             });
 
@@ -267,6 +275,24 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
+            });
+
+            $(document).on('click', '#tax-add-new', function(e){
+                tax_name = $('.select2-search__field').val();
+
+                $('#modal-create-tax').remove();
+
+                $.ajax({
+                    url: '{{ url("modals/taxes/create") }}',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    data: {name: tax_name},
+                    success: function(json) {
+                        if (json['success']) {
+                            $('body').append(json['html']);
+                        }
+                    }
+                });
             });
 
             var autocomplete_path = "{{ url('common/items/autocomplete') }}";
