@@ -56,7 +56,7 @@ class Category extends Model
      */
     public function scopeType($query, $type)
     {
-        return $query->where('type', $type);
+        return $query->whereIn('type', (array) $type);
     }
 
     /**
