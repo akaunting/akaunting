@@ -169,7 +169,6 @@ class Bills extends Controller
 
         if ($request['item']) {
             foreach ($request['item'] as $item) {
-                unset($tax_object);
                 $item_sku = '';
 
                 if (!empty($item['item_id'])) {
@@ -183,18 +182,32 @@ class Bills extends Controller
                     $item_object->save();
                 }
 
-                $tax = $tax_id = 0;
+                $item_tax = 0;
+                $item_taxes = [];
+                $bill_item_taxes = [];
 
                 if (!empty($item['tax_id'])) {
-                    $tax_object = Tax::find($item['tax_id']);
+                    foreach ($item['tax_id'] as $tax_id) {
+                        $tax_object = Tax::find($tax_id);
 
-                    $tax_id = $item['tax_id'];
+                        $item_taxes[] = $tax_id;
 
-                    $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
+                        $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
 
-                    // Apply discount to tax
-                    if ($discount) {
-                        $tax = $tax - ($tax * ($discount / 100));
+                        // Apply discount to tax
+                        if ($discount) {
+                            $tax = $tax - ($tax * ($discount / 100));
+                        }
+
+                        $bill_item_taxes[] = [
+                            'company_id' => $request['company_id'],
+                            'bill_id' => $bill->id,
+                            'tax_id' => $tax_id,
+                            'name' => $tax_object->name,
+                            'amount' => $tax,
+                        ];
+
+                        $item_tax += $tax;
                     }
                 }
 
@@ -203,29 +216,33 @@ class Bills extends Controller
                 $bill_item['sku'] = $item_sku;
                 $bill_item['quantity'] = (double) $item['quantity'];
                 $bill_item['price'] = (double) $item['price'];
-                $bill_item['tax'] = $tax;
-                $bill_item['tax_id'] = $tax_id;
+                $bill_item['tax'] = $item_tax;
+                $bill_item['tax_id'] = 0;//$tax_id;
                 $bill_item['total'] = (double) $item['price'] * (double) $item['quantity'];
 
-                BillItem::create($bill_item);
+                $bill_item_created = BillItem::create($bill_item);
 
-                // Set taxes
-                if (isset($tax_object)) {
-                    if (isset($taxes) && array_key_exists($tax_object->id, $taxes)) {
-                        $taxes[$tax_object->id]['amount'] += $tax;
-                    } else {
-                        $taxes[$tax_object->id] = [
-                            'name' => $tax_object->name,
-                            'amount' => $tax
-                        ];
+                if ($bill_item_taxes) {
+                    foreach ($bill_item_taxes as $bill_item_tax) {
+                        $bill_item_tax['invoice_item_id'] = $bill_item_created->id;
+
+                        BillItemTax::create($bill_item_tax);
+
+                        // Set taxes
+                        if (isset($taxes) && array_key_exists($bill_item_tax['tax_id'], $taxes)) {
+                            $taxes[$bill_item_tax['tax_id']]['amount'] += $bill_item_tax['amount'];
+                        } else {
+                            $taxes[$bill_item_tax['tax_id']] = [
+                                'name' => $bill_item_tax['name'],
+                                'amount' => $bill_item_tax['amount']
+                            ];
+                        }
                     }
                 }
 
                 // Calculate totals
-                $tax_total += $tax;
+                $tax_total += $item_tax;
                 $sub_total += $bill_item['total'];
-
-                unset($tax_object);
             }
         }
 
@@ -398,18 +415,32 @@ class Bills extends Controller
                     $item_sku = $item_object->sku;
                 }
 
-                $tax = $tax_id = 0;
+                $item_tax = 0;
+                $item_taxes = [];
+                $bill_item_taxes = [];
 
                 if (!empty($item['tax_id'])) {
-                    $tax_object = Tax::find($item['tax_id']);
+                    foreach ($item['tax_id'] as $tax_id) {
+                        $tax_object = Tax::find($tax_id);
 
-                    $tax_id = $item['tax_id'];
+                        $item_taxes[] = $tax_id;
 
-                    $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
+                        $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
 
-                    // Apply discount to tax
-                    if ($discount) {
-                        $tax = $tax - ($tax * ($discount / 100));
+                        // Apply discount to tax
+                        if ($discount) {
+                            $tax = $tax - ($tax * ($discount / 100));
+                        }
+
+                        $bill_item_taxes[] = [
+                            'company_id' => $request['company_id'],
+                            'bill_id' => $bill->id,
+                            'tax_id' => $tax_id,
+                            'name' => $tax_object->name,
+                            'amount' => $tax,
+                        ];
+
+                        $item_tax += $tax;
                     }
                 }
 
@@ -418,25 +449,32 @@ class Bills extends Controller
                 $bill_item['sku'] = $item_sku;
                 $bill_item['quantity'] = (double) $item['quantity'];
                 $bill_item['price'] = (double) $item['price'];
-                $bill_item['tax'] = $tax;
-                $bill_item['tax_id'] = $tax_id;
+                $bill_item['tax'] = $item_tax;
+                $bill_item['tax_id'] = 0;//$tax_id;
                 $bill_item['total'] = (double) $item['price'] * (double) $item['quantity'];
 
-                if (isset($tax_object)) {
-                    if (isset($taxes) && array_key_exists($tax_object->id, $taxes)) {
-                        $taxes[$tax_object->id]['amount'] += $tax;
-                    } else {
-                        $taxes[$tax_object->id] = [
-                            'name' => $tax_object->name,
-                            'amount' => $tax
-                        ];
-                    }
-                }
-
-                $tax_total += $tax;
+                $tax_total += $item_tax;
                 $sub_total += $bill_item['total'];
 
-                BillItem::create($bill_item);
+                $bill_item_created = BillItem::create($bill_item);
+
+                if ($bill_item_taxes) {
+                    foreach ($bill_item_taxes as $bill_item_tax) {
+                        $bill_item_tax['invoice_item_id'] = $bill_item_created->id;
+
+                        BillItemTax::create($bill_item_tax);
+
+                        // Set taxes
+                        if (isset($taxes) && array_key_exists($bill_item_tax['tax_id'], $taxes)) {
+                            $taxes[$bill_item_tax['tax_id']]['amount'] += $bill_item_tax['amount'];
+                        } else {
+                            $taxes[$bill_item_tax['tax_id']] = [
+                                'name' => $bill_item_tax['name'],
+                                'amount' => $bill_item_tax['amount']
+                            ];
+                        }
+                    }
+                }
             }
         }
 

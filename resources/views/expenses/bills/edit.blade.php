@@ -112,7 +112,7 @@
 
             {{ Form::recurring('edit', $bill) }}
 
-            {{ Form::fileGroup('attachment', trans('general.attachment'),[]) }}
+            {{ Form::fileGroup('attachment', trans('general.attachment')) }}
 
             {{ Form::hidden('vendor_name', old('customer_name', null), ['id' => 'vendor_name']) }}
             {{ Form::hidden('vendor_email', old('vendor_email', null), ['id' => 'vendor_email']) }}
@@ -170,6 +170,14 @@
                             placeholder: {
                                 id: '-1', // the value of the option
                                 text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                            },
+                            escapeMarkup: function (markup) {
+                                return markup;
+                            },
+                            language: {
+                                noResults: function () {
+                                    return '<span id="tax-add-new"><i class="fa fa-plus"> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                                }
                             }
                         });
 
@@ -187,6 +195,24 @@
                         $("#item-price-" + item_row).trigger('focusout');
 
                         item_row++;
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#tax-add-new', function(e){
+            tax_name = $('.select2-search__field').val();
+
+            $('#modal-create-tax').remove();
+
+            $.ajax({
+                url: '{{ url("modals/taxes/create") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: {name: tax_name},
+                success: function(json) {
+                    if (json['success']) {
+                        $('body').append(json['html']);
                     }
                 }
             });
@@ -231,6 +257,14 @@
                 placeholder: {
                     id: '-1', // the value of the option
                     text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                language: {
+                    noResults: function () {
+                        return '<span id="tax-add-new"><i class="fa fa-plus"> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                    }
                 }
             });
 
@@ -373,7 +407,6 @@
             });
 
            var focus = false;
-    
             $(document).on('focusin', '#items .input-price', function(){
                 focus = true;
             });
@@ -446,7 +479,7 @@
                 url: '{{ url("common/items/totalItem") }}',
                 type: 'POST',
                 dataType: 'JSON',
-                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'], #items input[type=\'number\'], #items input[type=\'hidden\'], #items textarea, #items select'),
+                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'], #items input[type=\'number\'], #items input[type=\'hidden\'], #items textarea, #items select').serialize(),
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 success: function(data) {
                     if (data) {
