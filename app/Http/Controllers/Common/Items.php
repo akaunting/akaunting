@@ -323,22 +323,25 @@ class Items extends Controller
                 $price = (double) $item['price'];
                 $quantity = (double) $item['quantity'];
 
-                $item_tax_total= 0;
+                $item_tax_total = 0;
                 $item_sub_total = ($price * $quantity);
 
                 if (!empty($item['tax_id'])) {
-                    $tax = Tax::find($item['tax_id']);
+                    foreach ($item['tax_id'] as $tax_id) {
+                        $tax = Tax::find($tax_id);
 
-                    $item_tax_total = (($price * $quantity) / 100) * $tax->rate;
+                        $item_tax = (($price * $quantity) / 100) * $tax->rate;
+
+                        // Apply discount to tax
+                        if ($discount) {
+                            $item_tax = $item_tax - ($item_tax * ($discount / 100));
+                        }
+
+                        $item_tax_total += $item_tax;
+                    }
                 }
 
                 $sub_total += $item_sub_total;
-
-                // Apply discount to tax
-                if ($discount) {
-                    $item_tax_total = $item_tax_total - ($item_tax_total * ($discount / 100));
-                }
-
                 $tax_total += $item_tax_total;
 
                 $items[$key] = money($item_sub_total, $currency_code, true)->format();

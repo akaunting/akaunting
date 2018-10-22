@@ -765,3 +765,11 @@ input[type="number"] {
     border-color: #6da252;
     border-radius: 0;
 }
+
+#tax-add-new {
+    padding: 6px 12px;
+}
+
+#items .select2-search__field {
+    padding-left: 15px;
+}
