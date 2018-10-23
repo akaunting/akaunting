@@ -1,6 +1,6 @@
 @stack('footer_start')
 
-<footer class="main-footer">
+<footer class="main-footer no-margin">
     <div class="pull-right hidden-xs">
         <b>{{ trans('footer.version') }}</b> {{ version('short') }}
     </div>

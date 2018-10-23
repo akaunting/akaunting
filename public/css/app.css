@@ -775,27 +775,34 @@ input[type="number"] {
 }
 
 .stepwizard-step p {
-    margin-top: 0px;
+    margin-top: 5px;
+    font-size: 16px;
     color:#666;
 }
+
 .stepwizard-row {
     display: table-row;
 }
+
 .stepwizard {
     display: table;
     width: 100%;
     position: relative;
+    margin-top: 20px;
 }
+
 .stepwizard-step button[disabled] {
     /*opacity: 1 !important;
     filter: alpha(opacity=100) !important;*/
 }
+
 .stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {
     opacity:1 !important;
     color:#bbb;
 }
+
 .stepwizard-row:before {
-    top: 14px;
+    top: 26px;
     bottom: 0;
     position: absolute;
     content:" ";
@@ -804,17 +811,23 @@ input[type="number"] {
     background-color: #ccc;
     z-index: 0;
 }
+
 .stepwizard-step {
     display: table-cell;
     text-align: center;
     position: relative;
 }
+
+.btn-circle.btn-success {
+    color: #fff;
+}
+
 .btn-circle {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     text-align: center;
-    padding: 6px 0;
-    font-size: 12px;
-    line-height: 1.428571429;
-    border-radius: 15px;
+    padding: 0px 0;
+    font-size: 30px;
+    line-height: 1.428571;
+    border-radius: 30px;
 }

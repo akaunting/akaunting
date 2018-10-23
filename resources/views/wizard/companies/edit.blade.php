@@ -4,9 +4,8 @@
 
 @section('content')
 <!-- Default box -->
-<div class="box box-success">
-    {!! Form::model($company, ['method' => 'PATCH', 'files' => true, 'url' => ['wizard/companies', $company->id], 'role' => 'form', 'class' => 'form-loading-button']) !!}
-    <div class="box-header">
+<div class="box box-solid">
+    <div class="box-body">
         <div class="stepwizard">
             <div class="stepwizard-row setup-panel">
                 <div class="stepwizard-step col-xs-3">
@@ -14,19 +13,25 @@
                     <p><small>{{ trans_choice('general.companies', 1) }}</small></p>
                 </div>
                 <div class="stepwizard-step col-xs-3">
-                    <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">2</button>
                     <p><small>{{ trans_choice('general.currencies', 2) }}</small></p>
                 </div>
                 <div class="stepwizard-step col-xs-3">
-                    <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
                     <p><small>{{ trans_choice('general.taxes', 2) }}</small></p>
                 </div>
                 <div class="stepwizard-step col-xs-3">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-                    <p><small>{{ trans_choice('general.companies', 1) }}</small></p>
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
+                    <p><small>{{ trans_choice('general.finish', 1) }}</small></p>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="box box-success">
+    {!! Form::model($company, ['method' => 'PATCH', 'files' => true, 'url' => ['wizard/companies', $company->id], 'role' => 'form', 'class' => 'form-loading-button']) !!}
+    <div class="box-header with-border">
+        <h3 class="box-title">{{ trans_choice('general.companies', 1) }}</h3>
     </div>
 
     <div class="box-body">
@@ -42,6 +47,7 @@
             <p>
                 {!! trans('modules.token_link') !!}
             </p>
+            </br>
         </div>
 
         {{ Form::textGroup('company_tax_number', trans('general.tax_number'), 'percent', []) }}
@@ -55,9 +61,12 @@
     <!-- /.box-body -->
 
     <div class="box-footer">
-        {{ Form::saveButtons('wizard/companies') }}
-
-        {!! Form::button('<span class="fa fa-share"></span> &nbsp;' . trans('general.skip'), ['type' => 'button', 'class' => 'btn btn-default  pull-right', 'data-loading-text' => trans('general.loading')]) !!}
+        <div class="col-md-12">
+            <div class="form-group no-margin">
+                {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success  button-submit', 'data-loading-text' => trans('general.loading')]) !!}
+                {!! Form::button('<span class="fa fa-share"></span> &nbsp;' . trans('general.skip'), ['type' => 'button', 'class' => 'btn btn-default', 'data-loading-text' => trans('general.loading')]) !!}
+            </div>
+        </div>
     </div>
     <!-- /.box-footer -->
 
@@ -79,7 +88,6 @@
     var text_no = '{{ trans('general.no') }}';
 
     $(document).ready(function () {
-
         var navListItems = $('div.setup-panel div a'),
             allWells = $('.setup-content'),
             allNextBtn = $('.nextBtn');

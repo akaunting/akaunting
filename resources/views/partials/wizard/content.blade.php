@@ -1,7 +1,7 @@
 @stack('content_start')
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper no-margin" style="">
+<div class="content-wrapper no-margin">
     @stack('content_wrapper_start')
 
     <!-- Content Header (Page header) -->
