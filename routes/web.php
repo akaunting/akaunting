@@ -7,6 +7,23 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('{id}/download', 'Common\Uploads@download');
         });
 
+        Route::group(['middleware' => 'permission:read-admin-panel'], function () {
+            Route::group(['prefix' => 'wizard'], function () {
+                Route::get('/', 'Wizard\Companies@edit');
+                Route::get('companies', 'Wizard\Companies@edit');
+                Route::post('companies', 'Wizard\Companies@update');
+
+                Route::get('currencies', 'Wizard\Currencies@create');
+                Route::post('language', 'Wizard\Currencies@store');
+
+                Route::get('taxes', 'Wizard\Taxes@create');
+                Route::post('taxes', 'Wizard\Taxes@store');
+
+                Route::get('finish', 'Wizard\Finish@create');
+                Route::post('finish', 'Wizard\Finish@store');
+            });
+        });
+
         Route::group(['middleware' => ['adminmenu', 'permission:read-admin-panel']], function () {
             Route::get('/', 'Common\Dashboard@index');
 

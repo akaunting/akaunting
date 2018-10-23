@@ -31,7 +31,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         // Add notifications to header
         View::composer(
-            ['partials.admin.header', 'partials.customer.header'], 'App\Http\ViewComposers\Header'
+            ['partials.wizard.header', 'partials.admin.header', 'partials.customer.header'], 'App\Http\ViewComposers\Header'
         );
 
         // Add limits to index
