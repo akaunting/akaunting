@@ -323,41 +323,28 @@ class Items extends Controller
                 $price = (double) $item['price'];
                 $quantity = (double) $item['quantity'];
 
-                $item_tax_total= 0;
+                $item_tax_total = 0;
                 $item_sub_total = ($price * $quantity);
 
                 if (!empty($item['tax_id'])) {
-                    $tax = Tax::find($item['tax_id']);
+                    foreach ($item['tax_id'] as $tax_id) {
+                        $tax = Tax::find($tax_id);
 
-                    $item_tax_total = (($price * $quantity) / 100) * $tax->rate;
+                        $item_tax = (($price * $quantity) / 100) * $tax->rate;
+
+                        // Apply discount to tax
+                        if ($discount) {
+                            $item_tax = $item_tax - ($item_tax * ($discount / 100));
+                        }
+
+                        $item_tax_total += $item_tax;
+                    }
                 }
 
                 $sub_total += $item_sub_total;
-
-                // Apply discount to tax
-                if ($discount) {
-                    $item_tax_total = $item_tax_total - ($item_tax_total * ($discount / 100));
-                }
-
                 $tax_total += $item_tax_total;
 
                 $items[$key] = money($item_sub_total, $currency_code, true)->format();
-            }
-        }
-
-        if ($request['multiple_tax']) {
-            foreach ($request['multiple_tax'] as $tax_row => $multiple_tax) {
-                if ($multiple_tax['position'] != 'GST') {
-                    continue;
-                }
-
-                $multible_tax_object = Tax::find($multiple_tax['tax_id']);
-
-                $multiple_tax_amount = ($sub_total / 100) * $multible_tax_object->rate;
-
-                $sub_total += $multiple_tax_amount;
-
-                $taxes['multiple-tax-' . $tax_row . '-total'] = money($multiple_tax_amount, $currency_code, true)->format();
             }
         }
 
@@ -378,31 +365,9 @@ class Items extends Controller
             $sub_total = $sub_total - ($sub_total * ($discount / 100));
         }
 
-        if ($request['multiple_tax']) {
-            foreach ($request['multiple_tax'] as $tax_row => $multiple_tax) {
-                if ($multiple_tax['position'] != 'PST') {
-                    continue;
-                }
-
-                $multible_tax_object = Tax::find($multiple_tax['tax_id']);
-
-                $multiple_tax_amount = ($sub_total / 100) * $multible_tax_object->rate;
-
-                $tax_total += $multiple_tax_amount;
-
-                $taxes['multiple-tax-' . $tax_row . '-total'] = money($multiple_tax_amount, $currency_code, true)->format();
-            }
-        }
-
         $grand_total = $sub_total + $tax_total;
 
         $json->grand_total = money($grand_total, $currency_code, true)->format();
-
-        $json->multible_taxes = false;
-
-        if (!empty($taxes)) {
-            $json->multible_taxes = $taxes;
-        }
 
         // Get currency object
         $currency = Currency::where('code', $currency_code)->first();
