@@ -39,12 +39,12 @@ class Transactions extends Controller
 
         if ($type != 'income') {
             $this->addTransactions(Payment::collect(['paid_at'=> 'desc']), trans_choice('general.expenses', 1));
-            $this->addTransactions(BillPayment::collect(['paid_at'=> 'desc']), trans_choice('general.expenses', 1), trans_choice('general.bills', 1));
+            $this->addTransactions(BillPayment::collect(['paid_at'=> 'desc']), trans_choice('general.expenses', 1));
         }
 
         if ($type != 'expense') {
             $this->addTransactions(Revenue::collect(['paid_at'=> 'desc']), trans_choice('general.incomes', 1));
-            $this->addTransactions(InvoicePayment::collect(['paid_at'=> 'desc']), trans_choice('general.incomes', 1), trans_choice('general.invoices', 1));
+            $this->addTransactions(InvoicePayment::collect(['paid_at'=> 'desc']), trans_choice('general.incomes', 1));
         }
 
         $transactions = $this->getTransactions($request);
@@ -57,27 +57,29 @@ class Transactions extends Controller
      *
      * @param $items
      * @param $type
-     * @param $category
      */
-    protected function addTransactions($items, $type, $category = null)
+    protected function addTransactions($items, $type)
     {
         foreach ($items as $item) {
-            $data = [
+            if (!empty($item->category)) {
+                $category_name = $item->category->name;
+            } else {
+                if ($type == trans_choice('general.incomes', 1)) {
+                    $category_name = $item->invoice->category->name;
+                } else {
+                    $category_name = $item->bill->category->name;
+                }
+            }
+
+            $this->transactions[] = (object) [
                 'paid_at'           => $item->paid_at,
                 'account_name'      => $item->account->name,
                 'type'              => $type,
                 'description'       => $item->description,
                 'amount'            => $item->amount,
                 'currency_code'     => $item->currency_code,
+                'category_name'     => $category_name,
             ];
-
-            if (!is_null($category)) {
-                $data['category_name'] = $category;
-            } else {
-                $data['category_name'] = $item->category->name;
-            }
-
-            $this->transactions[] = (object) $data;
         }
     }
 
