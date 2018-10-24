@@ -10,5 +10,11 @@
         </div>
 
         @stack('body_end')
+
+        <script type="text/javascript">
+            $('#wizard-skip').on('click', function() {
+                $('#wizard-loading').html('<span class="wizard-loading-bar"><span class="wizard-loading-spin"><i class="fa fa-spinner fa-spin"></i></span></span>');
+            });
+        </script>
     </body>
 </html>

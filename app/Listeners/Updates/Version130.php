@@ -46,7 +46,7 @@ class Version130 extends Listener
         // Set new Item Reminder settings
         setting(['general.send_item_reminder' => '0']);
         setting(['general.schedule_item_stocks' => '3,5,7']);
-        setting(['general.wizard' => '0']);
+        setting(['general.wizard' => '1']);
 
         setting()->save();
     }

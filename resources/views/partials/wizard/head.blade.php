@@ -34,6 +34,40 @@
     @stack('css')
 
     @stack('stylesheet')
+    <style type="text/css">
+        .wizard-loading-bar {
+            font-size: 35px;
+            position: absolute;
+            z-index: 999999;
+            width: 100%;
+            height: 100%;
+            background: rgb(136, 136, 136);
+            opacity: 0.2;
+            -moz-border-radius-bottomleft: 1px;
+            -moz-border-radius-bottomright: 1px;
+            border-bottom-left-radius: 1px;
+            border-bottom-right-radius: 1px;font-size: 35px;
+            position: absolute;
+            z-index: 999999;
+            width: 100%;
+            height: 100%;
+            background: rgb(136, 136, 136);
+            opacity: 0.2;
+            -moz-border-radius-bottomleft: 1px;
+            -moz-border-radius-bottomright: 1px;
+            border-bottom-left-radius: 1px;
+            border-bottom-right-radius: 1px;
+        }
+
+        .wizard-loading-spin {
+            font-size: 100px;
+            position: absolute;
+            margin: auto;
+            color: #fff;
+            padding: 8% 40%;
+            z-index: 9999;
+        }
+    </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

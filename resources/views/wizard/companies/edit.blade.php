@@ -30,6 +30,8 @@
 </div>
 
 <div class="box box-success">
+    <div id="wizard-loading"></div>
+
     {!! Form::model($company, ['method' => 'PATCH', 'files' => true, 'url' => ['wizard/companies'], 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
     <div class="box-header with-border">
@@ -67,7 +69,7 @@
         <div class="col-md-12">
             <div class="form-group no-margin">
                 {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success  button-submit', 'data-loading-text' => trans('general.loading')]) !!}
-                <a href="{{ url('wizard/currencies') }}" class="btn btn-default"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
+                <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-default"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
             </div>
         </div>
     </div>

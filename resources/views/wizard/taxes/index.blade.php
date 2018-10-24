@@ -30,6 +30,8 @@
 </div>
 
 <div class="box box-success">
+    <div id="wizard-loading"></div>
+
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans_choice('general.taxes', 1) }}</h3>
         <span class="new-button"><a href="{{ url('settings/taxes/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
@@ -96,7 +98,7 @@
     <div class="box-footer">
         <div class="col-md-12">
             <div class="form-group no-margin">
-                <a href="{{ url('wizard/finish') }}" class="btn btn-default"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
+                <a href="{{ url('wizard/finish') }}" id="wizard-skip" class="btn btn-default"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
             </div>
         </div>
     </div>
