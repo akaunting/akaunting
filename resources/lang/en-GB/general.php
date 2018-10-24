@@ -109,6 +109,7 @@ return [
     'disable'               => 'Disable',
     'select_all'            => 'Select All',
     'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
     'title' => [
         'new'               => 'New :type',
         'edit'              => 'Edit :type',

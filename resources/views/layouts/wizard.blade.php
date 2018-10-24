@@ -6,11 +6,7 @@
 
         <!-- Site wrapper -->
         <div class="wrapper">
-            @include('partials.wizard.header')
-
             @include('partials.wizard.content')
-
-            @include('partials.wizard.footer')
         </div>
 
         @stack('body_end')

@@ -16,7 +16,7 @@ class Currencies extends Controller
      *
      * @return Response
      */
-    public function edit()
+    public function index()
     {
         if (setting('general.wizard', false)) {
             return redirect('/');
@@ -24,7 +24,30 @@ class Currencies extends Controller
 
         $currencies = Currency::all();
 
-        return view('wizard.currencies.edit', compact('currencies'));
+        return view('wizard.currencies.index', compact('currencies'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  Currency  $currency
+     *
+     * @return Response
+     */
+    public function edit(Currency $currency)
+    {
+        if (setting('general.wizard', false)) {
+            return redirect('/');
+        }
+
+        $html = view('wizard.currencies.edit', compact('currency'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => 'null',
+            'html' => $html,
+        ]);
     }
 
     /**
@@ -78,6 +101,119 @@ class Currencies extends Controller
             flash($message)->warning();
 
             return redirect('settings/currencies/' . $currency->id . '/edit');
+        }
+    }
+
+    /**
+     * Enable the specified resource.
+     *
+     * @param  Currency  $currency
+     *
+     * @return Response
+     */
+    public function enable(Currency $currency)
+    {
+        $currency->enabled = 1;
+        $currency->save();
+
+        $message = trans('messages.success.enabled', ['type' => trans_choice('general.currencies', 1)]);
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => $message,
+            'data' => $currency,
+        ]);
+    }
+
+    /**
+     * Disable the specified resource.
+     *
+     * @param  Currency  $currency
+     *
+     * @return Response
+     */
+    public function disable(Currency $currency)
+    {
+        $relationships = $this->countRelationships($currency, [
+            'accounts' => 'accounts',
+            'customers' => 'customers',
+            'invoices' => 'invoices',
+            'revenues' => 'revenues',
+            'bills' => 'bills',
+            'payments' => 'payments',
+        ]);
+
+        if ($currency->code == setting('general.default_currency')) {
+            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        }
+
+        if (empty($relationships)) {
+            $currency->enabled = 0;
+            $currency->save();
+
+            $message = trans('messages.success.disabled', ['type' => trans_choice('general.currencies', 1)]);
+
+            return response()->json([
+                'success' => true,
+                'error' => false,
+                'message' => $message,
+                'data' => $currency,
+            ]);
+        } else {
+            $message = trans('messages.warning.disabled', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
+
+            return response()->json([
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+                'data' => $currency,
+            ]);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Currency  $currency
+     *
+     * @return Response
+     */
+    public function destroy(Currency $currency)
+    {
+        $relationships = $this->countRelationships($currency, [
+            'accounts' => 'accounts',
+            'customers' => 'customers',
+            'invoices' => 'invoices',
+            'revenues' => 'revenues',
+            'bills' => 'bills',
+            'payments' => 'payments',
+        ]);
+
+        if ($currency->code == setting('general.default_currency')) {
+            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        }
+
+        if (empty($relationships)) {
+            $currency->delete();
+
+            $message = trans('messages.success.deleted', ['type' => trans_choice('general.currencies', 1)]);
+
+            return response()->json([
+                'success' => true,
+                'error' => false,
+                'message' => $message,
+                'data' => $currency,
+            ]);
+        } else {
+            $message = trans('messages.warning.deleted', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
+
+            return response()->json([
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+                'data' => $currency,
+            ]);
         }
     }
 }

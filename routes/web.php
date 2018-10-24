@@ -9,18 +9,25 @@ Route::group(['middleware' => 'language'], function () {
 
         Route::group(['middleware' => 'permission:read-admin-panel'], function () {
             Route::group(['prefix' => 'wizard'], function () {
-                Route::get('/', 'Wizard\Companies@edit');
-                Route::get('skip', 'Wizard\Companies@skip');
-                Route::get('companies', 'Wizard\Companies@edit');
-                Route::patch('companies', 'Wizard\Companies@update');
+                Route::get('/', 'Wizard\Companies@edit')->name('wizard.index');
+                Route::get('companies', 'Wizard\Companies@edit')->name('wizard.companies.edit');
+                Route::patch('companies', 'Wizard\Companies@update')->name('wizard.companies.update');
 
-                Route::get('currencies', 'Wizard\Currencies@edit');
-                Route::post('currencies', 'Wizard\Currencies@update');
+                Route::get('currencies', 'Wizard\Currencies@index')->name('wizard.currencies.index');
+                Route::get('currencies/{currency}/edit', 'Wizard\Currencies@edit')->name('wizard.currencies.edit');
+                Route::get('currencies/{currency}/enable', 'Wizard\Currencies@enable')->name('wizard.currencies.enable');
+                Route::get('currencies/{currency}/disable', 'Wizard\Currencies@disable')->name('wizard.currencies.disable');
+                Route::get('currencies/{currency}/delete', 'Wizard\Currencies@destroy')->name('wizard.currencies.delete');
+                Route::post('currencies/{currency}', 'Wizard\Currencies@update')->name('wizard.currencies.index');
 
-                Route::get('taxes', 'Wizard\Taxes@edit');
-                Route::post('taxes', 'Wizard\Taxes@update');
+                Route::get('taxes', 'Wizard\Taxes@index')->name('wizard.taxes.index');
+                Route::get('taxes/{tax}/edit', 'Wizard\Taxes@edit')->name('wizard.taxes.edit');
+                Route::get('taxes/{tax}/enable', 'Wizard\Taxes@enable')->name('wizard.taxes.enable');
+                Route::get('taxes/{tax}/disable', 'Wizard\Taxes@disable')->name('wizard.taxes.disable');
+                Route::get('taxes/{tax}/delete', 'Wizard\Taxes@destroy')->name('wizard.taxes.delete');
+                Route::post('taxes/{tax}', 'Wizard\Taxes@update')->name('wizard.taxes.index');
 
-                Route::get('finish', 'Wizard\Finish@index');
+                Route::get('finish', 'Wizard\Finish@index')->name('wizard.finish.index');
             });
         });
 

@@ -78,21 +78,4 @@ class Companies extends Controller
 
         return redirect('wizard/currencies');
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     *
-     * @return Response
-     */
-    public function skip()
-    {
-        setting()->set('general.wizard', true);
-
-        // Save all settings
-        setting()->save();
-
-        return redirect('/');
-    }
 }
