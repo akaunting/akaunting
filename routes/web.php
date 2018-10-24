@@ -10,17 +10,17 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['middleware' => 'permission:read-admin-panel'], function () {
             Route::group(['prefix' => 'wizard'], function () {
                 Route::get('/', 'Wizard\Companies@edit');
+                Route::get('skip', 'Wizard\Companies@skip');
                 Route::get('companies', 'Wizard\Companies@edit');
-                Route::post('companies', 'Wizard\Companies@update');
+                Route::patch('companies', 'Wizard\Companies@update');
 
-                Route::get('currencies', 'Wizard\Currencies@create');
-                Route::post('language', 'Wizard\Currencies@store');
+                Route::get('currencies', 'Wizard\Currencies@edit');
+                Route::post('currencies', 'Wizard\Currencies@update');
 
-                Route::get('taxes', 'Wizard\Taxes@create');
-                Route::post('taxes', 'Wizard\Taxes@store');
+                Route::get('taxes', 'Wizard\Taxes@edit');
+                Route::post('taxes', 'Wizard\Taxes@update');
 
-                Route::get('finish', 'Wizard\Finish@create');
-                Route::post('finish', 'Wizard\Finish@store');
+                Route::get('finish', 'Wizard\Finish@index');
             });
         });
 

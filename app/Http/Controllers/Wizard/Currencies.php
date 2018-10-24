@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Wizard;
 
-use Akaunting\Money\Currency as MoneyCurrency;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\Currency as Request;
 use App\Models\Banking\Account;
@@ -17,27 +16,15 @@ class Currencies extends Controller
      *
      * @return Response
      */
-    public function edit(Currency $currency)
+    public function edit()
     {
-        // Get current currencies
-        $current = Currency::pluck('code')->toArray();
-
-        // Prepare codes
-        $codes = array();
-        $currencies = MoneyCurrency::getCurrencies();
-        foreach ($currencies as $key => $item) {
-            // Don't show if already available
-            if (($key != $currency->code) && in_array($key, $current)) {
-                continue;
-            }
-
-            $codes[$key] = $key;
+        if (setting('general.wizard', false)) {
+            //return redirect('/');
         }
 
-        // Set default currency
-        $currency->default_currency = ($currency->code == setting('general.default_currency')) ? 1 : 0;
+        $currencies = Currency::all();
 
-        return view('settings.currencies.edit', compact('currency', 'codes'));
+        return view('wizard.currencies.edit', compact('currencies'));
     }
 
     /**

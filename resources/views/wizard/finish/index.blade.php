@@ -17,11 +17,11 @@
                     <p><small>{{ trans_choice('general.currencies', 2) }}</small></p>
                 </div>
                 <div class="stepwizard-step col-xs-3">
-                    <a href="#step-3" type="button" class="btn btn-success btn-circle">3</a>
+                    <a href="{{ url('wizard/taxes') }}" type="button" class="btn btn-default btn-circle">3</a>
                     <p><small>{{ trans_choice('general.taxes', 2) }}</small></p>
                 </div>
                 <div class="stepwizard-step col-xs-3">
-                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
+                    <a href="#step-4" type="button" class="btn btn-success btn-circle">4</a>
                     <p><small>{{ trans_choice('general.finish', 1) }}</small></p>
                 </div>
             </div>
@@ -33,7 +33,7 @@
     {!! Form::model([], ['method' => 'PATCH', 'files' => true, 'url' => ['wizard/taxes'], 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
     <div class="box-header with-border">
-        <h3 class="box-title">{{ trans_choice('general.taxes', 1) }}</h3>
+        <h3 class="box-title">{{ trans('general.finish') }}</h3>
     </div>
     <!-- /.box-header -->
 

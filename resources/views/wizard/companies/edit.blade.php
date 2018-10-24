@@ -28,11 +28,14 @@
         </div>
     </div>
 </div>
+
 <div class="box box-success">
-    {!! Form::model($company, ['method' => 'PATCH', 'files' => true, 'url' => ['wizard/companies', $company->id], 'role' => 'form', 'class' => 'form-loading-button']) !!}
+    {!! Form::model($company, ['method' => 'PATCH', 'files' => true, 'url' => ['wizard/companies'], 'role' => 'form', 'class' => 'form-loading-button']) !!}
+
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans_choice('general.companies', 1) }}</h3>
     </div>
+    <!-- /.box-header -->
 
     <div class="box-body">
         <div class="col-md-12 {!! (!setting('general.api_token', null)) ?: 'hidden' !!}">
@@ -64,7 +67,7 @@
         <div class="col-md-12">
             <div class="form-group no-margin">
                 {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success  button-submit', 'data-loading-text' => trans('general.loading')]) !!}
-                {!! Form::button('<span class="fa fa-share"></span> &nbsp;' . trans('general.skip'), ['type' => 'button', 'class' => 'btn btn-default', 'data-loading-text' => trans('general.loading')]) !!}
+                <a href="{{ url('wizard/skip') }}" class="btn btn-default"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
             </div>
         </div>
     </div>
@@ -87,48 +90,6 @@
     var text_yes = '{{ trans('general.yes') }}';
     var text_no = '{{ trans('general.no') }}';
 
-    $(document).ready(function () {
-        var navListItems = $('div.setup-panel div a'),
-            allWells = $('.setup-content'),
-            allNextBtn = $('.nextBtn');
-
-        allWells.hide();
-
-        navListItems.click(function (e) {
-            e.preventDefault();
-            var $target = $($(this).attr('href')),
-                $item = $(this);
-
-            if (!$item.hasClass('disabled')) {
-                navListItems.removeClass('btn-success').addClass('btn-default');
-                $item.addClass('btn-success');
-                allWells.hide();
-                $target.show();
-                $target.find('input:eq(0)').focus();
-            }
-        });
-
-        allNextBtn.click(function () {
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                curInputs = curStep.find("input[type='text'],input[type='url']"),
-                isValid = true;
-
-            $(".form-group").removeClass("has-error");
-            for (var i = 0; i < curInputs.length; i++) {
-                if (!curInputs[i].validity.valid) {
-                    isValid = false;
-                    $(curInputs[i]).closest(".form-group").addClass("has-error");
-                }
-            }
-
-            if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
-        });
-
-        $('div.setup-panel div a.btn-success').trigger('click');
-    });
-
     $(document).ready(function() {
         $('#company_logo').fancyfile({
             text  : '{{ trans('general.form.select.file') }}',
@@ -142,7 +103,7 @@
 
         @if($company->company_logo)
         company_logo_html  = '<span class="company_logo">';
-        company_logo_html += '    <a href="{{ url('uploads/' . $company['company_logo']->id . '/download') }}">';
+        company_logo_html += '    <a href="{{ url('uploads/' . $company->company_logo->id . '/download') }}">';
         company_logo_html += '        <span id="download-company_logo" class="text-primary">';
         company_logo_html += '            <i class="fa fa-file-{{ $company->company_logo->aggregate_type }}-o"></i> {{ $company->company_logo->basename }}';
         company_logo_html += '        </span>';
@@ -157,7 +118,7 @@
         company_logo_html += '    {!! Form::close() !!}';
         company_logo_html += '</span>';
 
-        $('#company .fancy-file .fake-file').append(company_logo_html);
+        $('.form-group.col-md-6 .fancy-file .fake-file').append(company_logo_html);
 
         $(document).on('click', '#remove-company_logo', function (e) {
             confirmDelete("#company_logo-{!! $company->company_logo->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $company->company_logo->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");

@@ -264,6 +264,11 @@ class Companies extends Controller
             event(new CompanySwitched($company));
         }
 
+        // Check wizard
+        if (!setting('general.wizard', false)) {
+            return redirect('wizard');
+        }
+
         return redirect('/');
     }
 

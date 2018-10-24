@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Wizard;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Wizard\Company as Request;
 use App\Models\Common\Company;
+use App\Traits\Uploads;
 
 class Companies extends Controller
 {
+    use Uploads;
+
     /**
      * Show the form for creating a new resource.
      *
@@ -14,15 +18,15 @@ class Companies extends Controller
      */
     public function edit()
     {
-        if (setting(setting('general.wizard', false))) {
-            return redirect('/');
+        if (setting('general.wizard', false)) {
+            //return redirect('/');
         }
 
         $company = Company::find(session('company_id'));
 
         $company->setSettings();
 
-        return view('wizard.companies.edit', compact('company', 'currencies'));
+        return view('wizard.companies.edit', compact('company'));
     }
 
     /**
@@ -33,34 +37,43 @@ class Companies extends Controller
      *
      * @return Response
      */
-    public function update(Company $company, Request $request)
+    public function update(Request $request)
     {
-        // Update company
-        $company->update($request->input());
+        // Company
+        $company = Company::find(session('company_id'));
 
-        // Get the company settings
-        setting()->forgetAll();
-        setting()->setExtraColumns(['company_id' => $company->id]);
-        setting()->load(true);
+        $fields = $request->all();
 
-        // Update settings
-        setting()->set('general.company_name', $request->get('company_name'));
-        setting()->set('general.company_email', $request->get('company_email'));
-        setting()->set('general.company_address', $request->get('company_address'));
+        $skip_keys = ['company_id', '_method', '_token'];
+        $file_keys = ['company_logo', 'invoice_logo'];
 
-        if ($request->file('company_logo')) {
-            $company_logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
-
-            if ($company_logo) {
-                $company->attachMedia($company_logo, 'company_logo');
-
-                setting()->set('general.company_logo', $company_logo->id);
+        foreach ($fields as $key => $value) {
+            // Don't process unwanted keys
+            if (in_array($key, $skip_keys)) {
+                continue;
             }
+
+            // Process file uploads
+            if (in_array($key, $file_keys)) {
+                // Upload attachment
+                if ($request->file($key)) {
+                    $media = $this->getMedia($request->file($key), 'settings');
+
+                    $company->attachMedia($media, $key);
+
+                    $value = $media->id;
+                }
+
+                // Prevent reset
+                if (empty($value)) {
+                    continue;
+                }
+            }
+
+            setting()->set('general.' . $key, $value);
         }
 
-        setting()->set('general.default_payment_method', 'offlinepayment.cash.1');
-        setting()->set('general.default_currency', $request->get('default_currency'));
-
+        // Save all settings
         setting()->save();
 
         // Redirect
@@ -68,6 +81,23 @@ class Companies extends Controller
 
         flash($message)->success();
 
-        return redirect('common/companies');
+        return redirect('wizard/currencies');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     *
+     * @return Response
+     */
+    public function skip()
+    {
+        setting()->set('general.wizard', true);
+
+        // Save all settings
+        setting()->save();
+
+        return redirect('/');
     }
 }
