@@ -31,7 +31,7 @@ return [
     'mark_sent'         => 'Mark Sent',
     'download_pdf'      => 'Download PDF',
     'send_mail'         => 'Send Email',
-    'all_invoices'      => 'Login to for all invoices',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Draft',
