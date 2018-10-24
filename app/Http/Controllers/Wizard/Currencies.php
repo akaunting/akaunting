@@ -19,7 +19,7 @@ class Currencies extends Controller
     public function edit()
     {
         if (setting('general.wizard', false)) {
-            //return redirect('/');
+            return redirect('/');
         }
 
         $currencies = Currency::all();

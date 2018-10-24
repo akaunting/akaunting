@@ -17,9 +17,13 @@ class Taxes extends Controller
      */
     public function edit()
     {
-        $tax = [];
+        if (setting(setting('general.wizard', false))) {
+            return redirect('/');
+        }
 
-        return view('wizard.taxes.edit', compact('tax'));
+        $taxes = Tax::all();
+
+        return view('wizard.taxes.edit', compact('taxes'));
     }
 
     /**

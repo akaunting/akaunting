@@ -15,13 +15,14 @@ class Finish extends Controller
     public function index()
     {
         if (setting(setting('general.wizard', false))) {
-            //return redirect('/');
+            return redirect('/');
         }
 
-        $company = Company::find(session('company_id'));
+        setting()->set('general.wizard', true);
 
-        $company->setSettings();
+        // Save all settings
+        setting()->save();
 
-        return view('wizard.finish.index', compact('company', 'currencies'));
+        return view('wizard.finish.index', compact(''));
     }
 }

@@ -19,7 +19,7 @@ class Companies extends Controller
     public function edit()
     {
         if (setting('general.wizard', false)) {
-            //return redirect('/');
+            return redirect('/');
         }
 
         $company = Company::find(session('company_id'));
@@ -75,11 +75,6 @@ class Companies extends Controller
 
         // Save all settings
         setting()->save();
-
-        // Redirect
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 1)]);
-
-        flash($message)->success();
 
         return redirect('wizard/currencies');
     }

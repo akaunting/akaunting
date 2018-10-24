@@ -30,34 +30,7 @@
 </div>
 
 <div class="box box-success">
-    {!! Form::model([], ['method' => 'PATCH', 'files' => true, 'url' => ['wizard/taxes'], 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
-    <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('general.finish') }}</h3>
-    </div>
-    <!-- /.box-header -->
-
-    <div class="box-body">
-
-        {{ Form::textGroup('company_tax_number', trans('general.tax_number'), 'percent', []) }}
-
-        {{ Form::textGroup('company_phone', trans('settings.company.phone'), 'phone', []) }}
-
-        {{ Form::textareaGroup('company_address', trans('settings.company.address')) }}
-    </div>
-    <!-- /.box-body -->
-
-    <div class="box-footer">
-        <div class="col-md-12">
-            <div class="form-group no-margin">
-                {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success  button-submit', 'data-loading-text' => trans('general.loading')]) !!}
-                <a href="{{ url('wizard/skip') }}" class="btn btn-default"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
-            </div>
-        </div>
-    </div>
-    <!-- /.box-footer -->
-
-    {!! Form::close() !!}
 </div>
 @endsection
 
