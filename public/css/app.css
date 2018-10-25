@@ -747,13 +747,14 @@ input[type="number"] {
 }
 
 #items .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #6da252;
-    border: 1px solid #6da252;
+    background-color: #f4f4f4;
+    color: #444;
+    border: 1px solid #ddd;
     margin-bottom: 5px;
 }
 
 #items .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    color: #fffdfd;
+    color: #444;
 }
 
 #items span.select2.select2-container.select2-container--default .select2-selection.select2-selection--multiple {
