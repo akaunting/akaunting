@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Wizard;
 
+use Akaunting\Money\Currency as MoneyCurrency;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\Currency as Request;
 use App\Models\Banking\Account;
@@ -28,6 +29,70 @@ class Currencies extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        // Get current currencies
+        $current = Currency::pluck('code')->toArray();
+
+        // Prepare codes
+        $codes = array();
+        $currencies = MoneyCurrency::getCurrencies();
+        foreach ($currencies as $key => $item) {
+            // Don't show if already available
+            if (in_array($key, $current)) {
+                continue;
+            }
+
+            $codes[$key] = $key;
+        }
+
+        $html = view('wizard.currencies.create', compact('codes'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => 'null',
+            'html' => $html,
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     *
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        // Force the rate to be 1 for default currency
+        if ($request['default_currency']) {
+            $request['rate'] = '1';
+        }
+
+        $currency = Currency::create($request->all());
+
+        // Update default currency setting
+        if ($request['default_currency']) {
+            setting()->set('general.default_currency', $request['code']);
+            setting()->save();
+        }
+
+        $message = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => $message,
+            'data' => $currency,
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Currency  $currency
@@ -40,7 +105,24 @@ class Currencies extends Controller
             return redirect('/');
         }
 
-        $html = view('wizard.currencies.edit', compact('currency'))->render();
+        // Get current currencies
+        $current = Currency::pluck('code')->toArray();
+
+        // Prepare codes
+        $codes = array();
+        $currencies = MoneyCurrency::getCurrencies();
+        foreach ($currencies as $key => $item) {
+            // Don't show if already available
+            if (($key != $currency->code) && in_array($key, $current)) {
+                continue;
+            }
+
+            $codes[$key] = $key;
+        }
+
+        $item = $currency;
+
+        $html = view('wizard.currencies.edit', compact('item', 'codes'))->render();
 
         return response()->json([
             'success' => true,
@@ -92,15 +174,21 @@ class Currencies extends Controller
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.currencies', 1)]);
 
-            flash($message)->success();
-
-            return redirect('settings/currencies');
+            return response()->json([
+                'success' => true,
+                'error' => false,
+                'message' => $message,
+                'data' => $currency,
+            ]);
         } else {
             $message = trans('messages.warning.disabled', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
 
-            flash($message)->warning();
-
-            return redirect('settings/currencies/' . $currency->id . '/edit');
+            return response()->json([
+                'success' => true,
+                'error' => false,
+                'message' => $message,
+                'data' => $currency,
+            ]);
         }
     }
 

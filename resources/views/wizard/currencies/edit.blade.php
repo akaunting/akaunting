@@ -1,38 +1,32 @@
-<tr>
-    <td><a href="javascript:void(0);" data-href="{{ url('wizard/currencies/' . $item->id . '/edit') }}" class="currency-edit">{{ $item->name }}</a></td>
-    <td class="hidden-xs">{{ $item->code }}</td>
-    <td>{{ $item->rate }}</td>
+<tr id="currency-edit">
+    <td>
+        {{ Form::textGroup('name', trans('general.name'), 'id-card-o', [], $item->name, '') }}
+    </td>
     <td class="hidden-xs">
-        @if ($item->enabled)
-            <span class="label label-success">{{ trans('general.enabled') }}</span>
-        @else
-            <span class="label label-danger">{{ trans('general.disabled') }}</span>
-        @endif
+        {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, $item->code, [], '') }}
+    </td>
+    <td>
+        {{ Form::textGroup('rate', trans('currencies.rate'), 'money', [], $item->rate, '') }}
+    </td>
+    <td class="hidden-xs">
+        {{ Form::radioGroup('enabled', trans('general.enabled'), trans('general.yes'), trans('general.no'), [], 'col-md-12') }}
     </td>
     <td class="text-center">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
-                <i class="fa fa-ellipsis-h"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="javascript:void(0);" data-href="{{ url('wizard/currencies/' . $item->id . '/edit') }}" class="currency-edit">{{ trans('general.edit') }}</a></li>
-                @if ($item->enabled)
-                    <li><a href="javascript:void(0);" data-href="{{ url('wizard/currencies/' . $item->id . '/disable') }}" class="currency-disable">{{ trans('general.disable') }}</a></li>
-                @else
-                    <li><a href="javascript:void(0);" data-href="{{ url('wizard/currencies/' . $item->id . '/enable') }}" class="currency-enable">{{ trans('general.enable') }}</a></li>
-                @endif
-                @permission('delete-settings-currencies')
-                <li class="divider"></li>
-                <li>
-                    {!! Form::button(trans('general.delete'), array(
-                        'type'    => 'button',
-                        'class'   => 'delete-link',
-                        'title'   => trans('general.delete'),
-                        'onclick' => 'confirmDelete("' . '#currencies-' . $item->id . '", "' . trans_choice('general.currencies', 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans_choice('general.currencies', 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
-                    )) !!}
-                </li>
-                @endpermission
-            </ul>
-        </div>
+        {!! Form::button('<span class="fa fa-save"></span>', ['type' => 'button', 'class' => 'btn btn-success  currency-updated', 'data-loading-text' => trans('general.loading'), 'data-href' => url('wizard/currencies/' . $item->id), 'style' => 'padding: 9px 14px; margin-top: 10px;']) !!}
+    </td>
+    <td class="hidden">
+        {{ Form::numberGroup('precision', trans('currencies.precision'), 'bullseye', [], $item->precision) }}
+
+        {{ Form::textGroup('symbol', trans('currencies.symbol.symbol'), 'font', [], $item->symbol, '') }}
+
+        {{ Form::selectGroup('symbol_first', trans('currencies.symbol.position'), 'text-width', ['1' => trans('currencies.symbol.before'), '0' => trans('currencies.symbol.after')], $item->symbol_first) }}
+
+        {{ Form::textGroup('decimal_mark', trans('currencies.decimal_mark'), 'columns', [], $item->decimal_mark, '') }}
+
+        {{ Form::textGroup('thousands_separator', trans('currencies.thousands_separator'), 'columns', [], $item->thousands_separator) }}
+
+        {{ Form::radioGroup('default_currency', trans('currencies.default')) }}
+
+        {{ Form::hidden('id', $item->id) }}
     </td>
 </tr>

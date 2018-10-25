@@ -34,7 +34,7 @@
 
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans_choice('general.currencies', 1) }}</h3>
-        <span class="new-button"><a href="{{ url('settings/currencies/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <span class="new-button"><a href="javascript:void(0);" data-href="{{ url('wizard/currencies/create') }}" class="btn btn-success btn-sm currency-create"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
     </div>
     <!-- /.box-header -->
 
@@ -43,17 +43,17 @@
             <table class="table table-striped table-hover" id="tbl-currencies">
                 <thead>
                 <tr>
-                    <th class="col-md-5">@sortablelink('name', trans('general.name'))</th>
+                    <th class="col-md-4">@sortablelink('name', trans('general.name'))</th>
                     <th class="col-md-3 hidden-xs">@sortablelink('code', trans('currencies.code'))</th>
                     <th class="col-md-2">@sortablelink('rate', trans('currencies.rate'))</th>
-                    <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
+                    <th class="col-md-2 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                     <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($currencies as $item)
                     <tr id="currency-{{ $item->id }}" data-href="{{ url('wizard/currencies/' . $item->id . '/delete') }}">
-                        <td class="currency-name"><a href="javascript:void(0);" data-href="{{ url('wizard/currencies/' . $item->id . '/edit') }}" class="currency-edit">{{ $item->name }}</a></td>
+                        <td class="currency-name"><a href="javascript:void(0);" data-id="{{ $item->id }}" data-href="{{ url('wizard/currencies/' . $item->id . '/edit') }}" class="currency-edit">{{ $item->name }}</a></td>
                         <td class="currency-code hidden-xs">{{ $item->code }}</td>
                         <td class="currency-rate">{{ $item->rate }}</td>
                         <td class="currency-status hidden-xs">
@@ -69,7 +69,7 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="javascript:void(0);" data-href="{{ url('wizard/currencies/' . $item->id . '/edit') }}" class="currency-edit">{{ trans('general.edit') }}</a></li>
+                                    <li><a href="javascript:void(0);" data-id="{{ $item->id }}" data-href="{{ url('wizard/currencies/' . $item->id . '/edit') }}" class="currency-edit">{{ trans('general.edit') }}</a></li>
                                     @if ($item->enabled)
                                         <li><a href="javascript:void(0);" data-href="{{ url('wizard/currencies/' . $item->id . '/disable') }}" class="currency-disable">{{ trans('general.disable') }}</a></li>
                                     @else
@@ -110,7 +110,13 @@
 
 @push('scripts')
 <script type="text/javascript">
-    $(document).on('click', '.currency-edit', function (e) {
+    var text_yes = '{{ trans('general.yes') }}';
+    var text_no = '{{ trans('general.no') }}';
+
+    $(document).on('click', '.currency-create', function (e) {
+        $('#currency-create').remove();
+        $('#currency-edit').remove();
+
         data_href = $(this).data('href');
 
         $.ajax({
@@ -119,7 +125,153 @@
             dataType: 'JSON',
             success: function(json) {
                 if (json['success']) {
-                    $('body').append(json['html']);
+                    $('#tbl-currencies tbody').append(json['html']);
+
+                    $("#code").select2({
+                        placeholder: "{{ trans('general.form.select.field', ['field' => trans('currencies.code')]) }}"
+                    });
+
+                    $('.currency-enabled-radio-group #enabled_1').trigger('click');
+
+                    $('#name').focus();
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.currency-submit', function (e) {
+        $(this).html('<span class="fa fa-spinner fa-pulse"></span>');
+        $('.help-block').remove();
+
+        data_href = $(this).data('href');
+
+        $.ajax({
+            url: '{{ url("wizard/currencies") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: $('#tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'text\'], #tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'hidden\'], #tbl-currencies textarea, #tbl-currencies select').serialize(),
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+            success: function(json) {
+                $('.currency-submit').html('<span class="fa fa-save"></span>');
+
+                if (json['success']) {
+                    currency = json['data'];
+                    $('#currency-create').remove();
+                    $('#currency-edit').remove();
+
+                    html  = '<tr id="currency-' + currency.id + '" data-href="wizard/currencies/' + currency.id + '/delete">';
+                    html += '   <td class="currency-name">';
+                    html += '       <a href="javascript:void(0);" data-id="' + currency.id + '" data-href="wizard/currencies/' + currency.id + '/edit" class="currency-edit">' + currency.name + '</a>';
+                    html += '   </td>';
+                    html += '   <td class="currency-code hidden-xs">' + currency.code + '</td>';
+                    html += '   <td class="currency-rate">' + currency.rate + '</td>';
+                    html += '   <td class="currency-status hidden-xs">';
+                    html += '       <span class="label label-success">Enabled</span>';
+                    html += '   </td>';
+                    html += '   <td class="currency-action text-center">';
+                    html += '       <div class="btn-group">';
+                    html += '           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">';
+                    html += '               <i class="fa fa-ellipsis-h"></i>';
+                    html += '           </button>';
+                    html += '           <ul class="dropdown-menu dropdown-menu-right">';
+                    html += '               <li><a href="javascript:void(0);" data-id="' + currency.id + '" data-href="wizard/currencies/' + currency.id + '/edit" class="currency-edit">{{ trans('general.edit') }}</a></li>';
+                    html += '               <li><a href="javascript:void(0);" data-href="wizard/currencies/' + currency.id + '/disable" class="currency-disable">{{ trans('general.disable') }}</a></li>';
+                    html += '               <li class="divider"></li>';
+                    html += '               <li>';
+                    html += '                   <button type="button" class="delete-link" title="{{ trans('general.delete') }}" onclick="confirmCurrency("#currency-' + currency.id + '", "{{ trans_choice('general.currencies', 2) }}", "{{ trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans_choice('general.currencies', 1))]) }}", "{{ trans('general.cancel') }}", "{{ trans('general.delete') }}")">{{ trans('general.delete') }}</button>';
+                    html += '               </li>';
+                    html += '           </ul>';
+                    html += '       </div>';
+                    html += '   </td>';
+                    html += '</tr>';
+
+                    $('#tbl-currencies tbody').append(html);
+                }
+            },
+            error: function(data){
+                $('.currency-submit').html('<span class="fa fa-save"></span>');
+
+                var errors = data.responseJSON;
+
+                if (typeof errors !== 'undefined') {
+                    if (errors.name) {
+                        $('#tbl-currencies #name').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.name + '</p>');
+                    }
+
+                    if (errors.code) {
+                        $('#tbl-currencies #code').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.code + '</p>');
+                    }
+
+                    if (errors.rate) {
+                        $('#tbl-currencies #rate').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.rate + '</p>');
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.currency-edit', function (e) {
+        $('#currency-create').remove();
+        $('#currency-edit').remove();
+
+        data_href = $(this).data('href');
+        data_id = $(this).data('id');
+
+        $.ajax({
+            url: data_href,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(json) {
+                if (json['success']) {
+                    $('#currency-' + data_id).after(json['html']);
+
+                    $("#code").select2({
+                        placeholder: "{{ trans('general.form.select.field', ['field' => trans('currencies.code')]) }}"
+                    });
+
+                    $('.currency-enabled-radio-group #enabled_1').trigger();
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.currency-updated', function (e) {
+        $(this).html('<span class="fa fa-spinner fa-pulse"></span>');
+        $('.help-block').remove();
+
+        data_href = $(this).data('href');
+
+        $.ajax({
+            url: data_href,
+            type: 'PATCH',
+            dataType: 'JSON',
+            data: $('#tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'text\'], #tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'hidden\'], #tbl-currencies textarea, #tbl-currencies select').serialize(),
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+            success: function(json) {
+                $('.currency-updated').html('<span class="fa fa-save"></span>');
+
+                if (json['success']) {
+                    $('#currency-create').remove();
+                    $('#currency-edit').remove();
+                }
+            },
+            error: function(data){
+                $('.currency-updated').html('<span class="fa fa-save"></span>');
+
+                var errors = data.responseJSON;
+
+                if (typeof errors !== 'undefined') {
+                    if (errors.name) {
+                        $('#tbl-currencies #name').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.name + '</p>');
+                    }
+
+                    if (errors.code) {
+                        $('#tbl-currencies #code').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.code + '</p>');
+                    }
+
+                    if (errors.rate) {
+                        $('#tbl-currencies #rate').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.rate + '</p>');
+                    }
                 }
             }
         });
@@ -155,6 +307,25 @@
                 if (json['success']) {
                     currency_tr.find('.currency-status').html('<span class="label label-success">{{ trans('general.enabled') }}</span>');
                 }
+            }
+        });
+    });
+
+    $(document).on('change', '#code', function (e) {
+        $.ajax({
+            url: '{{ url("settings/currencies/config") }}',
+            type: 'GET',
+            dataType: 'JSON',
+            data: 'code=' + $(this).val(),
+            success: function(data) {
+                $('#precision').val(data.precision);
+                $('#symbol').val(data.symbol);
+                $('#symbol_first').val(data.symbol_first);
+                $('#decimal_mark').val(data.decimal_mark);
+                $('#thousands_separator').val(data.thousands_separator);
+
+                // This event Select2 Stylesheet
+                $('#symbol_first').trigger('change');
             }
         });
     });
