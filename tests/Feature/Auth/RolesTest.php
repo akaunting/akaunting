@@ -76,7 +76,7 @@ class RolesTest extends FeatureTestCase
     private function getRoleRequest()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->text(5),
             'display_name' => $this->faker->text(5),
             'description' => $this->faker->text(5),
             'permissions' => Permission::take(10)->pluck('id')->toArray(),
