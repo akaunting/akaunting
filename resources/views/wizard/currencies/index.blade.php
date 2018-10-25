@@ -149,7 +149,7 @@
             url: '{{ url("wizard/currencies") }}',
             type: 'POST',
             dataType: 'JSON',
-            data: $('#tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'text\'], #tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'hidden\'], #tbl-currencies textarea, #tbl-currencies select').serialize(),
+            data: $('#tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'text\'], #tbl-currencies input[type=\'radio\'], #tbl-currencies input[type=\'hidden\'], #tbl-currencies textarea, #tbl-currencies select').serialize(),
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
             success: function(json) {
                 $('.currency-submit').html('<span class="fa fa-save"></span>');
@@ -245,7 +245,7 @@
             url: data_href,
             type: 'PATCH',
             dataType: 'JSON',
-            data: $('#tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'text\'], #tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'hidden\'], #tbl-currencies textarea, #tbl-currencies select').serialize(),
+            data: $('#tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'text\'], #tbl-currencies input[type=\'radio\'], #tbl-currencies input[type=\'hidden\'], #tbl-currencies textarea, #tbl-currencies select').serialize(),
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
             success: function(json) {
                 $('.currency-updated').html('<span class="fa fa-save"></span>');

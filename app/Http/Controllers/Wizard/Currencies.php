@@ -35,6 +35,10 @@ class Currencies extends Controller
      */
     public function create()
     {
+        if (setting(setting('general.wizard', false))) {
+            return redirect('/');
+        }
+
         // Get current currencies
         $current = Currency::pluck('code')->toArray();
 

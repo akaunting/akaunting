@@ -34,7 +34,7 @@
 
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans_choice('general.taxes', 1) }}</h3>
-        <span class="new-button"><a href="{{ url('settings/taxes/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <span class="new-button"><a href="javascript:void(0);" data-href="{{ url('wizard/taxes/create') }}" class="btn btn-success btn-sm tax-create"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
     </div>
     <!-- /.box-header -->
 
@@ -44,15 +44,15 @@
                 <thead>
                 <tr>
                     <th class="col-md-5">@sortablelink('name', trans('general.name'))</th>
-                    <th class="col-md-5">@sortablelink('rate', trans('taxes.rate_percent'))</th>
-                    <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
+                    <th class="col-md-4">@sortablelink('rate', trans('taxes.rate_percent'))</th>
+                    <th class="col-md-2 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                     <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($taxes as $item)
                     <tr id="tax-{{ $item->id }}" data-href="{{ url('wizard/taxes/' . $item->id . '/delete') }}">
-                        <td class="tax-name"><a href="javascript:void(0);" data-href="{{ url('wizard/taxes/' . $item->id . '/edit') }}" class="tax-edit">{{ $item->name }}</a></td>
+                        <td class="tax-name"><a href="javascript:void(0);" data-id="{{ $item->id }}" data-href="{{ url('wizard/taxes/' . $item->id . '/edit') }}" class="tax-edit">{{ $item->name }}</a></td>
                         <td class="tax-rate">{{ $item->rate }}</td>
                         <td class="tax-status hidden-xs">
                             @if ($item->enabled)
@@ -109,7 +109,13 @@
 
 @push('scripts')
 <script type="text/javascript">
-    $(document).on('click', '.tax-edit', function (e) {
+    var text_yes = '{{ trans('general.yes') }}';
+    var text_no = '{{ trans('general.no') }}';
+
+    $(document).on('click', '.tax-create', function (e) {
+        $('#tax-create').remove();
+        $('#tax-edit').remove();
+
         data_href = $(this).data('href');
 
         $.ajax({
@@ -118,7 +124,152 @@
             dataType: 'JSON',
             success: function(json) {
                 if (json['success']) {
-                    $('body').append(json['html']);
+                    $('#tbl-taxes tbody').append(json['html']);
+
+                    $("#code").select2({
+                        placeholder: "{{ trans('general.form.select.field', ['field' => trans('taxes.code')]) }}"
+                    });
+
+                    $('.tax-enabled-radio-group #enabled_1').trigger('click');
+
+                    $('#name').focus();
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.tax-submit', function (e) {
+        $(this).html('<span class="fa fa-spinner fa-pulse"></span>');
+        $('.help-block').remove();
+
+        data_href = $(this).data('href');
+
+        $.ajax({
+            url: '{{ url("wizard/taxes") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: $('#tbl-taxes input[type=\'number\'], #tbl-taxes input[type=\'text\'], #tbl-taxes input[type=\'radio\'], #tbl-taxes input[type=\'hidden\'], #tbl-taxes textarea, #tbl-taxes select').serialize(),
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+            success: function(json) {
+                $('.tax-submit').html('<span class="fa fa-save"></span>');
+
+                if (json['success']) {
+                    tax = json['data'];
+                    $('#tax-create').remove();
+                    $('#tax-edit').remove();
+
+                    html  = '<tr id="tax-' + tax.id + '" data-href="wizard/taxes/' + tax.id + '/delete">';
+                    html += '   <td class="tax-name">';
+                    html += '       <a href="javascript:void(0);" data-id="' + tax.id + '" data-href="wizard/taxes/' + tax.id + '/edit" class="tax-edit">' + tax.name + '</a>';
+                    html += '   </td>';
+                    html += '   <td class="tax-rate">' + tax.rate + '</td>';
+                    html += '   <td class="tax-status hidden-xs">';
+                    html += '       <span class="label label-success">Enabled</span>';
+                    html += '   </td>';
+                    html += '   <td class="tax-action text-center">';
+                    html += '       <div class="btn-group">';
+                    html += '           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">';
+                    html += '               <i class="fa fa-ellipsis-h"></i>';
+                    html += '           </button>';
+                    html += '           <ul class="dropdown-menu dropdown-menu-right">';
+                    html += '               <li><a href="javascript:void(0);" data-id="' + tax.id + '" data-href="wizard/taxes/' + tax.id + '/edit" class="tax-edit">{{ trans('general.edit') }}</a></li>';
+                    html += '               <li><a href="javascript:void(0);" data-href="wizard/taxes/' + tax.id + '/disable" class="tax-disable">{{ trans('general.disable') }}</a></li>';
+                    html += '               <li class="divider"></li>';
+                    html += '               <li>';
+                    html += '                   <button type="button" class="delete-link" title="{{ trans('general.delete') }}" onclick="confirmCurrency("#tax-' + tax.id + '", "{{ trans_choice('general.taxes', 2) }}", "{{ trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans_choice('general.taxes', 1))]) }}", "{{ trans('general.cancel') }}", "{{ trans('general.delete') }}")">{{ trans('general.delete') }}</button>';
+                    html += '               </li>';
+                    html += '           </ul>';
+                    html += '       </div>';
+                    html += '   </td>';
+                    html += '</tr>';
+
+                    $('#tbl-taxes tbody').append(html);
+                }
+            },
+            error: function(data){
+                $('.tax-submit').html('<span class="fa fa-save"></span>');
+
+                var errors = data.responseJSON;
+
+                if (typeof errors !== 'undefined') {
+                    if (errors.name) {
+                        $('#tbl-taxes #name').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.name + '</p>');
+                    }
+
+                    if (errors.code) {
+                        $('#tbl-taxes #code').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.code + '</p>');
+                    }
+
+                    if (errors.rate) {
+                        $('#tbl-taxes #rate').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.rate + '</p>');
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.tax-edit', function (e) {
+        $('#tax-create').remove();
+        $('#tax-edit').remove();
+
+        data_href = $(this).data('href');
+        data_id = $(this).data('id');
+
+        $.ajax({
+            url: data_href,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(json) {
+                if (json['success']) {
+                    $('#tax-' + data_id).after(json['html']);
+
+                    $("#code").select2({
+                        placeholder: "{{ trans('general.form.select.field', ['field' => trans('taxes.code')]) }}"
+                    });
+
+                    $('.tax-enabled-radio-group #enabled_1').trigger();
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.tax-updated', function (e) {
+        $(this).html('<span class="fa fa-spinner fa-pulse"></span>');
+        $('.help-block').remove();
+
+        data_href = $(this).data('href');
+
+        $.ajax({
+            url: data_href,
+            type: 'PATCH',
+            dataType: 'JSON',
+            data: $('#tbl-taxes input[type=\'number\'], #tbl-taxes input[type=\'text\'], #tbl-taxes input[type=\'radio\'], #tbl-taxes input[type=\'hidden\'], #tbl-taxes textarea, #tbl-taxes select').serialize(),
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+            success: function(json) {
+                $('.tax-updated').html('<span class="fa fa-save"></span>');
+
+                if (json['success']) {
+                    $('#tax-create').remove();
+                    $('#tax-edit').remove();
+                }
+            },
+            error: function(data){
+                $('.tax-updated').html('<span class="fa fa-save"></span>');
+
+                var errors = data.responseJSON;
+
+                if (typeof errors !== 'undefined') {
+                    if (errors.name) {
+                        $('#tbl-taxes #name').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.name + '</p>');
+                    }
+
+                    if (errors.code) {
+                        $('#tbl-taxes #code').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.code + '</p>');
+                    }
+
+                    if (errors.rate) {
+                        $('#tbl-taxes #rate').parent().after('<p class="help-block" style="color: #ca1313;">' + errors.rate + '</p>');
+                    }
                 }
             }
         });
@@ -158,7 +309,26 @@
         });
     });
 
-    function confirmTax(tr_id, title, message, button_cancel, button_delete) {
+    $(document).on('change', '#code', function (e) {
+        $.ajax({
+            url: '{{ url("settings/taxes/config") }}',
+            type: 'GET',
+            dataType: 'JSON',
+            data: 'code=' + $(this).val(),
+            success: function(data) {
+                $('#precision').val(data.precision);
+                $('#symbol').val(data.symbol);
+                $('#symbol_first').val(data.symbol_first);
+                $('#decimal_mark').val(data.decimal_mark);
+                $('#thousands_separator').val(data.thousands_separator);
+
+                // This event Select2 Stylesheet
+                $('#symbol_first').trigger('change');
+            }
+        });
+    });
+
+    function confirmCurrency(tr_id, title, message, button_cancel, button_delete) {
         $('#confirm-modal').remove();
 
         var html  = '';
@@ -176,7 +346,7 @@
         html += '          </div>';
         html += '          <div class="modal-footer">';
         html += '              <div class="pull-left">';
-        html += '                  <button type="button" class="btn btn-danger" onclick="deleteTax(\'' + tr_id + '\');">' + button_delete + '</button>';
+        html += '                  <button type="button" class="btn btn-danger" onclick="deleteCurrency(\'' + tr_id + '\');">' + button_delete + '</button>';
         html += '                  <button type="button" class="btn btn-default" data-dismiss="modal">' + button_cancel + '</button>';
         html += '              </div>';
         html += '          </div>';
@@ -189,7 +359,7 @@
         $('#confirm-modal').modal('show');
     }
 
-    function deleteTax(tr_id) {
+    function deleteCurrency(tr_id) {
         data_href = $(tr_id).data('href');
 
         $.ajax({

@@ -11,8 +11,6 @@ class Taxes extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Tax  $tax
-     *
      * @return Response
      */
     public function index()
@@ -24,6 +22,48 @@ class Taxes extends Controller
         $taxes = Tax::all();
 
         return view('wizard.taxes.index', compact('taxes'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        if (setting(setting('general.wizard', false))) {
+            return redirect('/');
+        }
+
+        $html = view('wizard.taxes.create', compact('codes'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => 'null',
+            'html' => $html,
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     *
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $tax = Tax::create($request->all());
+
+        $message = trans('messages.success.added', ['type' => trans_choice('general.tax_rates', 1)]);
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'message' => $message,
+            'data' => $tax,
+        ]);
     }
 
     /**
@@ -39,9 +79,9 @@ class Taxes extends Controller
             return redirect('/');
         }
 
-        $taxes = Tax::all();
+        $item = $tax;
 
-        return view('wizard.taxes.edit', compact('taxes'));
+        return view('wizard.taxes.edit', compact('item'));
     }
 
     /**
@@ -65,15 +105,21 @@ class Taxes extends Controller
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.tax_rates', 1)]);
 
-            flash($message)->success();
-
-            return redirect('settings/taxes');
+            return response()->json([
+                'success' => true,
+                'error' => false,
+                'message' => $message,
+                'data' => $tax,
+            ]);
         } else {
             $message = trans('messages.warning.disabled', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
 
-            flash($message)->warning();
-
-            return redirect('settings/taxes/' . $tax->id . '/edit');
+            return response()->json([
+                'success' => true,
+                'error' => false,
+                'message' => $message,
+                'data' => $tax,
+            ]);
         }
     }
 
