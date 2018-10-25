@@ -41,6 +41,13 @@ class Kernel extends HttpKernel
             'company.currencies',
         ],
 
+        'wizard' => [
+            'web',
+            'language',
+            'auth',
+            'permission:read-admin-panel',
+        ],
+
         'admin' => [
             'web',
             'language',

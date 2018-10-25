@@ -198,7 +198,9 @@ $(document).ready(function () {
         return true;
     });
 
-    $('.input-group-invoice-text select').select2();
+    if (document.getElementsByClassName('input-group-invoice-text').length) {
+        $('.input-group-invoice-text select').select2();
+    }
 });
 
 function confirmDelete(form_id, title, message, button_cancel, button_delete) {

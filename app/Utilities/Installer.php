@@ -157,7 +157,7 @@ class Installer
 
         try {
             DB::connection('install_test')->getPdo();
-        } catch (\Exception $e) {;
+        } catch (\Exception $e) {
             return false;
         }
 

@@ -200,6 +200,17 @@ trait Modules
         return [];
     }
 
+    public function getFeaturedModules($data = [])
+    {
+        $response = $this->getRemote('apps/featured', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
     public function getCoreVersion()
     {
         $data['query'] = Info::all();
