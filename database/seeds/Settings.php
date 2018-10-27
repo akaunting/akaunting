@@ -51,7 +51,8 @@ class Settings extends Seeder
             'general.session_lifetime'          => '30',
             'general.file_size'                 => '2',
             'general.file_types'                => 'pdf,jpeg,jpg,png',
-            'offlinepayment.methods'           => '[{"code":"offlinepayment.cash.1","name":"Cash","order":"1","description":null},{"code":"offlinepayment.bank_transfer.2","name":"Bank Transfer","order":"2","description":null}]',
+            'general.wizard'                    => '0',
+            'offlinepayment.methods'            => '[{"code":"offlinepayment.cash.1","name":"Cash","order":"1","description":null},{"code":"offlinepayment.bank_transfer.2","name":"Bank Transfer","order":"2","description":null}]',
         ]);
     }
 }

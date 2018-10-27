@@ -31,7 +31,7 @@
             <table class="table table-striped table-hover" id="tbl-reconciliations">
                 <thead>
                     <tr>
-                        <th class="col-md-2">@sortablelink('created_at', trans('general.create_date'))</th>
+                        <th class="col-md-2">@sortablelink('created_at', trans('general.created_date'))</th>
                         <th class="col-md-3">@sortablelink('account_id', trans_choice('general.accounts', 1))</th>
                         <th class="col-md-3 hidden-xs">{{ trans('general.period') }}</th>
                         <th class="col-md-2 text-right amount-space">@sortablelink('closing_balance', trans('reconciliations.closing_balance'))</th>

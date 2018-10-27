@@ -39,6 +39,8 @@
                         {{ Form::textareaGroup('company_address', trans('settings.company.address')) }}
 
                         {{ Form::fileGroup('company_logo', trans('settings.company.logo')) }}
+
+                        {!! Form::hidden('wizard', null, ['id' => 'wizard']) !!}
                     </div>
 
                     <div class="tab-pane tab-margin" id="localisation">
