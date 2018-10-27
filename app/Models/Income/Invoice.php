@@ -3,6 +3,7 @@
 namespace App\Models\Income;
 
 use App\Models\Model;
+use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
@@ -23,7 +24,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $appends = ['attachment', 'discount'];
+    protected $appends = ['attachment', 'discount', 'paid'];
 
     protected $dates = ['deleted_at', 'invoiced_at', 'due_at'];
 
@@ -55,6 +56,8 @@ class Invoice extends Model
         'customer_address' => 1,
         'notes'            => 2,
     ];
+
+    protected $reconciled_amount = [];
 
     /**
      * Clonable relationships.
@@ -200,5 +203,56 @@ class Invoice extends Model
         }
 
         return $percent;
+    }
+
+    /**
+     * Get the paid amount.
+     *
+     * @return string
+     */
+    public function getPaidAttribute()
+    {
+        $paid = 0;
+        $reconciled = $reconciled_amount = 0;
+
+        if ($this->payments->count()) {
+            $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+
+            foreach ($this->payments as $item) {
+                if ($this->currency_code == $item->currency_code) {
+                    $amount = (double) $item->amount;
+                } else {
+                    $default_model = new InvoicePayment();
+                    $default_model->default_currency_code = $this->currency_code;
+                    $default_model->amount = $item->amount;
+                    $default_model->currency_code = $item->currency_code;
+                    $default_model->currency_rate = $currencies[$item->currency_code];
+
+                    $default_amount = (double) $default_model->getDivideConvertedAmount();
+
+                    $convert_model = new InvoicePayment();
+                    $convert_model->default_currency_code = $item->currency_code;
+                    $convert_model->amount = $default_amount;
+                    $convert_model->currency_code = $this->currency_code;
+                    $convert_model->currency_rate = $currencies[$this->currency_code];
+
+                    $amount = (double) $convert_model->getDynamicConvertedAmount();
+                }
+
+                $paid += $amount;
+
+                if ($item->reconciled) {
+                    $reconciled_amount = +$amount;
+                }
+            }
+        }
+
+        if ($this->amount == $reconciled_amount) {
+            $reconciled = 1;
+        }
+
+        $this->setAttribute('reconciled', $reconciled);
+
+        return $paid;
     }
 }

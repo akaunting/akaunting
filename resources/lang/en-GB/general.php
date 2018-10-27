@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Number|Numbers',
     'statuses'              => 'Status|Statuses',
     'others'                => 'Other|Others',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Dashboard',
     'banking'               => 'Banking',
@@ -106,6 +110,13 @@ return [
     'disable'               => 'Disable',
     'select_all'            => 'Select All',
     'unselect_all'          => 'Unselect All',
+    'create_date'           => 'Create Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
+
     'title' => [
         'new'               => 'New :type',
         'edit'              => 'Edit :type',

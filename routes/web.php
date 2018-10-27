@@ -106,6 +106,9 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('accounts', 'Banking\Accounts', ['middleware' => ['dateformat', 'money']]);
                 Route::resource('transactions', 'Banking\Transactions');
                 Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['dateformat', 'money']]);
+                Route::post('reconciliations/calculate', 'Banking\Reconciliations@calculate')->middleware(['money']);
+                Route::patch('reconciliations/calculate', 'Banking\Reconciliations@calculate')->middleware(['money']);
+                Route::resource('reconciliations', 'Banking\Reconciliations', ['middleware' => ['dateformat', 'money']]);
             });
 
             Route::group(['prefix' => 'reports'], function () {
