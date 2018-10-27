@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', trans_choice('general.accounts', 2))
+@section('title', trans_choice('general.reconciliations', 2))
 
-@permission('create-banking-accounts')
+@permission('create-banking-reconciliations')
 @section('new_button')
-<span class="new-button"><a href="{{ url('banking/accounts/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+<span class="new-button"><a href="{{ route('reconciliations.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
 @endsection
 @endpermission
 
@@ -12,10 +12,10 @@
 <!-- Default box -->
 <div class="box box-success">
     <div class="box-header with-border">
-        {!! Form::open(['url' => 'banking/accounts', 'role' => 'form', 'method' => 'GET']) !!}
+        {!! Form::open(['url' => 'banking/reconciliations', 'role' => 'form', 'method' => 'GET']) !!}
         <div class="pull-left">
             <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
-            {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
+            {!! Form::select('account', $accounts, request('account'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
@@ -28,27 +28,29 @@
 
     <div class="box-body">
         <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-accounts">
+            <table class="table table-striped table-hover" id="tbl-reconciliations">
                 <thead>
                     <tr>
-                        <th class="col-md-4">@sortablelink('name', trans('general.name'))</th>
-                        <th class="col-md-3 hidden-xs">@sortablelink('number', trans('accounts.number'))</th>
-                        <th class="col-md-3 text-right amount-space">@sortablelink('opening_balance', trans('accounts.current_balance'))</th>
+                        <th class="col-md-2">@sortablelink('created_at', trans('general.created_date'))</th>
+                        <th class="col-md-3">@sortablelink('account_id', trans_choice('general.accounts', 1))</th>
+                        <th class="col-md-3 hidden-xs">{{ trans('general.period') }}</th>
+                        <th class="col-md-2 text-right amount-space">@sortablelink('closing_balance', trans('reconciliations.closing_balance'))</th>
                         <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($accounts as $item)
+                @foreach($reconciliations as $item)
                     <tr>
-                        <td><a href="{{ route('accounts.edit', $item->id) }}">{{ $item->name }}</a></td>
-                        <td class="hidden-xs">{{ $item->number }}</td>
-                        <td class="text-right amount-space">@money($item->balance, $item->currency_code, true)</td>
+                        <td><a href="{{ route('reconciliations.edit', $item->id) }}">{{ Date::parse($item->created_at)->format($date_format) }}</a></td>
+                        <td>{{ $item->account->name }}</td>
+                        <td class="hidden-xs">{{ Date::parse($item->started_at)->format($date_format) }} - {{ Date::parse($item->ended_at)->format($date_format) }}</td>
+                        <td class="text-right amount-space">@money($item->closing_balance, $item->account->currency_code, true)</td>
                         <td class="hidden-xs">
-                            @if ($item->enabled)
-                                <span class="label label-success">{{ trans('general.enabled') }}</span>
+                            @if ($item->reconciled)
+                                <span class="label label-success">{{ trans('reconciliations.reconciled') }}</span>
                             @else
-                                <span class="label label-danger">{{ trans('general.disabled') }}</span>
+                                <span class="label label-danger">{{ trans('reconciliations.unreconciled') }}</span>
                             @endif
                         </td>
                         <td class="text-center">
@@ -57,15 +59,10 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ route('accounts.edit', $item->id) }}">{{ trans('general.edit') }}</a></li>
-                                    @if ($item->enabled)
-                                    <li><a href="{{ route('accounts.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
-                                    @else
-                                    <li><a href="{{ route('accounts.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
-                                    @endif
-                                    @permission('delete-banking-accounts')
+                                    <li><a href="{{ route('reconciliations.edit', $item->id) }}">{{ trans('general.edit') }}</a></li>
+                                    @permission('delete-banking-reconciliations')
                                     <li class="divider"></li>
-                                    <li>{!! Form::deleteLink($item, 'banking/accounts') !!}</li>
+                                    <li>{!! Form::deleteLink($item, 'banking/reconciliations') !!}</li>
                                     @endpermission
                                 </ul>
                             </div>
@@ -79,7 +76,7 @@
     <!-- /.box-body -->
 
     <div class="box-footer">
-        @include('partials.admin.pagination', ['items' => $accounts, 'type' => 'accounts'])
+        @include('partials.admin.pagination', ['items' => $reconciliations, 'type' => 'reconciliations'])
     </div>
     <!-- /.box-footer -->
 </div>

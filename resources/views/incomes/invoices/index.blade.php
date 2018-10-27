@@ -60,14 +60,18 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('incomes/invoices/' . $item->id) }}">{{ trans('general.show') }}</a></li>
+                                    @if ($item->paid && !$item->reconciled)
                                     <li><a href="{{ url('incomes/invoices/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    @endif
                                     @permission('create-incomes-invoices')
                                     <li class="divider"></li>
                                     <li><a href="{{ url('incomes/invoices/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     @endpermission
-                                    <li class="divider"></li>
                                     @permission('delete-incomes-invoices')
+                                    @if (!$item->reconciled)
+                                    <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'incomes/invoices') !!}</li>
+                                    @endif
                                     @endpermission
                                 </ul>
                             </div>

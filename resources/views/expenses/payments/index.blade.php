@@ -47,7 +47,11 @@
                 <tbody>
                 @foreach($payments as $item)
                     <tr>
+                        @if ($item->reconciled)
+                        <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
+                        @else
                         <td><a href="{{ url('expenses/payments/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
+                        @endif
                         <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
                         <td class="hidden-xs">{{ !empty($item->vendor->name) ? $item->vendor->name : trans('general.na') }}</td>
                         <td class="hidden-xs">{{ $item->category->name }}</td>
@@ -59,14 +63,18 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
+                                    @if (!$item->reconciled)
                                     <li><a href="{{ url('expenses/payments/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    @permission('create-expenses-payments')
                                     <li class="divider"></li>
+                                    @endif
+                                    @permission('create-expenses-payments')
                                     <li><a href="{{ url('expenses/payments/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     @endpermission
                                     @permission('delete-expenses-payments')
+                                    @if (!$item->reconciled)
                                     <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'expenses/payments') !!}</li>
+                                    @endif
                                     @endpermission
                                 </ul>
                             </div>

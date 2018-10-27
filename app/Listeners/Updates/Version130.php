@@ -49,6 +49,52 @@ class Version130 extends Listener
         setting(['general.wizard' => '1']);
 
         setting()->save();
+
+        $this->updatePermissions();
+
+        // Update database
+        Artisan::call('migrate', ['--force' => true]);
+    }
+
+    protected function updatePermissions()
+    {
+        $permissions = [];
+
+        $permissions[] = Permission::firstOrCreate([
+            'name' => 'read-banking-reconciliations',
+            'display_name' => 'Read Banking Reconciliations',
+            'description' => 'Read Banking Reconciliations',
+        ]);
+        $permissions[] = Permission::firstOrCreate([
+            'name' => 'create-banking-reconciliations',
+            'display_name' => 'Create Banking Reconciliations',
+            'description' => 'Create Banking Reconciliations',
+        ]);
+        $permissions[] = Permission::firstOrCreate([
+            'name' => 'update-banking-reconciliations',
+            'display_name' => 'Update Banking Reconciliations',
+            'description' => 'Update Banking Reconciliations',
+        ]);
+        $permissions[] = Permission::firstOrCreate([
+            'name' => 'delete-banking-reconciliations',
+            'display_name' => 'Delete Banking Reconciliations',
+            'description' => 'Delete Banking Reconciliations',
+        ]);
+
+        // Attach permission to roles
+        $roles = Role::all();
+
+        foreach ($roles as $role) {
+            $allowed = ['admin', 'manager'];
+
+            if (!in_array($role->name, $allowed)) {
+                continue;
+            }
+
+            foreach ($permissions as $permission) {
+                $role->attachPermission($permission);
+            }
+        }
     }
 
     protected function getPermissions()

@@ -515,6 +515,9 @@ ul.add-new.nav.navbar-nav.pull-left {
     .amount-space {
         padding-right: 30px !important;
     }
+    .amount-space-left {
+        padding-left: 30px !important;
+    }
 }
 
 .text-disabled {

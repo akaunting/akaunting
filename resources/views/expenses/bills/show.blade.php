@@ -160,9 +160,11 @@
 
             <div class="box-footer row no-print">
                 <div class="col-xs-12">
+                    @if(!$bill->reconciled)
                     <a href="{{ url('expenses/bills/' . $bill->id . '/edit') }}" class="btn btn-default">
                         <i class="fa fa-pencil-square-o"></i>&nbsp; {{ trans('general.edit') }}
                     </a>
+                    @endif
                     <a href="{{ url('expenses/bills/' . $bill->id . '/print') }}" target="_blank" class="btn btn-success">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
@@ -170,7 +172,9 @@
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-circle-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
                         <ul class="dropdown-menu" role="menu">
                             @if($bill->status->code != 'paid')
+                            @if(empty($bill->paid) || ($bill->paid != $bill->amount))
                             <li><a href="#" id="button-payment">{{ trans('bills.add_payment') }}</a></li>
+                            @endif
                             @permission('update-expenses-bills')
                             @if($bill->bill_status_code == 'draft')
                             <li><a href="{{ url('expenses/bills/' . $bill->id . '/received') }}">{{ trans('bills.mark_received') }}</a></li>
@@ -181,9 +185,11 @@
                             <li class="divider"></li>
                             @endif
                             <li><a href="{{ url('expenses/bills/' . $bill->id . '/pdf') }}">{{ trans('bills.download_pdf') }}</a></li>
-                            <li class="divider"></li>
                             @permission('delete-expenses-bills')
+                            @if(!$bill->reconciled)
+                            <li class="divider"></li>
                             <li>{!! Form::deleteLink($bill, 'expenses/bills') !!}</li>
+                            @endif
                             @endpermission
                         </ul>
                     </div>
@@ -276,6 +282,11 @@
                                     <td>@money($payment->amount, $payment->currency_code, true)</td>
                                     <td>{{ $payment->account->name }}</td>
                                     <td>
+                                        @if ($payment->reconciled)
+                                        <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="{{ trans('reconciliations.reconciled') }}">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        @else
                                         <a href="{{ url('expenses/bills/' . $payment->id) }}" class="btn btn-info btn-xs hidden"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
                                         <a href="{{ url('expenses/bills/' . $payment->id . '/edit') }}" class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
                                         {!! Form::open([
@@ -291,6 +302,7 @@
                                             'onclick' => 'confirmDelete("' . '#bill-payment-' . $payment->id . '", "' . trans_choice('general.payments', 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . Date::parse($payment->paid_at)->format($date_format) . ' - ' . money($payment->amount, $payment->currency_code, true) . ' - ' . $payment->account->name . '</strong>', 'type' => strtolower(trans_choice('general.revenues', 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
                                         )) !!}
                                         {!! Form::close() !!}
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

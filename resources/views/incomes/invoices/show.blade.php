@@ -162,9 +162,11 @@
 
             <div class="box-footer row no-print">
                 <div class="col-md-12">
+                    @if(!$invoice->reconciled)
                     <a href="{{ url('incomes/invoices/' . $invoice->id . '/edit') }}" class="btn btn-default">
                         <i class="fa fa-pencil-square-o"></i>&nbsp; {{ trans('general.edit') }}
                     </a>
+                    @endif
                     <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-success">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
@@ -178,7 +180,7 @@
                             @permission('update-incomes-invoices')
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pay') }}">{{ trans('invoices.mark_paid') }}</a></li>
                             @endpermission
-                            @if(empty($invoice->payments()->count()) || (!empty($invoice->payments()->count()) && $invoice->paid != $invoice->amount))
+                            @if(empty($invoice->paid) || ($invoice->paid != $invoice->amount))
                             <li><a href="#" id="button-payment">{{ trans('invoices.add_payment') }}</a></li>
                             @endif
                             <li class="divider"></li>
@@ -197,9 +199,11 @@
                             @endif
                             <li class="divider"></li>
                             <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}">{{ trans('invoices.download_pdf') }}</a></li>
-                            <li class="divider"></li>
                             @permission('delete-incomes-invoices')
+                            @if(!$invoice->reconciled)
+                            <li class="divider"></li>
                             <li>{!! Form::deleteLink($invoice, 'incomes/invoices') !!}</li>
+                            @endif
                             @endpermission
                         </ul>
                     </div>
@@ -292,6 +296,11 @@
                                     <td>@money($payment->amount, $payment->currency_code, true)</td>
                                     <td>{{ $payment->account->name }}</td>
                                     <td>
+                                        @if ($payment->reconciled)
+                                        <button type="button" class="btn btn-default btn-xs">
+                                            <i class="fa fa-check"></i> {{ trans('reconciliations.reconciled') }}
+                                        </button>
+                                        @else
                                         <a href="{{ url('incomes/invoices/' . $payment->id . '') }}" class="btn btn-info btn-xs hidden"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
                                         <a href="{{ url('incomes/revenues/' . $payment->id . '/edit') }}" class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
                                         {!! Form::open([
@@ -307,6 +316,7 @@
                                             'onclick' => 'confirmDelete("' . '#invoice-payment-' . $payment->id . '", "' . trans_choice('general.payments', 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . Date::parse($payment->paid_at)->format($date_format) . ' - ' . money($payment->amount, $payment->currency_code, true) . ' - ' . $payment->account->name . '</strong>', 'type' => strtolower(trans_choice('general.revenues', 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
                                         )) !!}
                                         {!! Form::close() !!}
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

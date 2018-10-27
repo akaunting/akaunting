@@ -77,6 +77,9 @@
                                         @permission('create-banking-transfers')
                                         <li><a href="{{ url('banking/transfers/create') }}">{{ trans_choice('general.transfers', 1) }}</a></li>
                                         @endpermission
+                                        @permission('create-banking-reconciliations')
+                                        <li><a href="{{ url('banking/reconciliations/create') }}">{{ trans_choice('general.reconciliations', 1) }}</a></li>
+                                        @endpermission
                                     </ul>
                                 </li>
                             </ul>

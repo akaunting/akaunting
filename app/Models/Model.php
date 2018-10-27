@@ -115,4 +115,16 @@ class Model extends Eloquent
     {
         return $query->where('enabled', 0);
     }
+
+    /**
+     * Scope to only include reconciled models.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $value
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeReconciled($query, $value = 1)
+    {
+        return $query->where('reconciled', $value);
+    }
 }

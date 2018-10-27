@@ -70,43 +70,6 @@ class Invoices extends Controller
      */
     public function show(Invoice $invoice)
     {
-        $paid = 0;
-
-        // Get Invoice Payments
-        if ($invoice->payments->count()) {
-            $_currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
-
-            foreach ($invoice->payments as $item) {
-                $default_amount = $item->amount;
-
-                if ($invoice->currency_code == $item->currency_code) {
-                    $amount = (double)$default_amount;
-                } else {
-                    $default_amount_model = new InvoicePayment();
-
-                    $default_amount_model->default_currency_code = $invoice->currency_code;
-                    $default_amount_model->amount = $default_amount;
-                    $default_amount_model->currency_code = $item->currency_code;
-                    $default_amount_model->currency_rate = $_currencies[$item->currency_code];
-
-                    $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
-
-                    $convert_amount = new InvoicePayment();
-
-                    $convert_amount->default_currency_code = $item->currency_code;
-                    $convert_amount->amount = $default_amount;
-                    $convert_amount->currency_code = $invoice->currency_code;
-                    $convert_amount->currency_rate = $_currencies[$invoice->currency_code];
-
-                    $amount = (double) $convert_amount->getDynamicConvertedAmount();
-                }
-
-                $paid += $amount;
-            }
-        }
-
-        $invoice->paid = $paid;
-
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
