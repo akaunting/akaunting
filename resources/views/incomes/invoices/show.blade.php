@@ -80,7 +80,7 @@
                             @if($invoice->status->code != 'paid' && empty($invoice->payments()->count()))
                                 {{ trans_choice('general.statuses', 1) . ': ' . trans('invoices.messages.status.paid.await') }}
                             @else
-                                {{ trans_choice('general.statuses', 1) . ': ' . trans('invoices.messages.status.paid.partial') }}
+                                {{ trans_choice('general.statuses', 1) . ': ' . trans('general.partially_paid') }}
                             @endif
 
                             @permission('update-incomes-invoices')

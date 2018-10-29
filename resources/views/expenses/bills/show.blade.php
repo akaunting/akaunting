@@ -69,7 +69,7 @@
                                 @if($bill->status->code != 'paid' && empty($bill->payments()->count()))
                                     {{ trans_choice('general.statuses', 1) . ': ' . trans('bills.messages.status.paid.await') }}
                                 @else
-                                    {{ trans_choice('general.statuses', 1) . ': ' . trans('bills.messages.status.paid.partial') }}
+                                    {{ trans_choice('general.statuses', 1) . ': ' . trans('general.partially_paid') }}
                                 @endif
 
                                 @if(empty($bill->payments()->count()) || (!empty($bill->payments()->count()) && $bill->paid != $bill->amount))

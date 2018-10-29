@@ -56,7 +56,6 @@ return [
             ],
             'paid'      => [
                 'await'     => 'Awaiting payment',
-                'partial'   => 'Partial paid',
             ],
         ],
     ],
