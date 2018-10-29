@@ -52,7 +52,7 @@ return [
             'created'   => 'Created on :date',
             'send'      => [
                 'draft'     => 'Not sent',
-                'sent'      => 'Send on :date',
+                'sent'      => 'Sent on :date',
             ],
             'paid'      => [
                 'await'     => 'Awaiting payment',
