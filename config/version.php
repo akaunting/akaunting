@@ -4,7 +4,7 @@ return [
 
     'name'      =>  'Akaunting',
 
-    'code'      =>  'Recurring',
+    'code'      =>  'Reconciliation',
 
     'major'     =>  '1',
 
@@ -14,11 +14,11 @@ return [
 
     'build'     =>  '',
 
-    'status'    =>  'Dev',
+    'status'    =>  'RC',
 
-    'date'      =>  '17-September-2018',
+    'date'      =>  '29-October-2018',
 
-    'time'      =>  '12:30',
+    'time'      =>  '17:30',
 
     'zone'      =>  'GMT +3',
 
