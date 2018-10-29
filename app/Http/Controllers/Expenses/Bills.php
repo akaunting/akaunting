@@ -14,6 +14,7 @@ use App\Models\Expense\BillStatus;
 use App\Models\Expense\Vendor;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillItem;
+use App\Models\Expense\BillItemTax;
 use App\Models\Expense\BillTotal;
 use App\Models\Expense\BillHistory;
 use App\Models\Expense\BillPayment;
@@ -187,7 +188,7 @@ class Bills extends Controller
 
                 if ($bill_item_taxes) {
                     foreach ($bill_item_taxes as $bill_item_tax) {
-                        $bill_item_tax['invoice_item_id'] = $bill_item_created->id;
+                        $bill_item_tax['bill_item_id'] = $bill_item_created->id;
 
                         BillItemTax::create($bill_item_tax);
 
@@ -423,7 +424,7 @@ class Bills extends Controller
 
                 if ($bill_item_taxes) {
                     foreach ($bill_item_taxes as $bill_item_tax) {
-                        $bill_item_tax['invoice_item_id'] = $bill_item_created->id;
+                        $bill_item_tax['bill_item_id'] = $bill_item_created->id;
 
                         BillItemTax::create($bill_item_tax);
 
@@ -511,7 +512,7 @@ class Bills extends Controller
         \Excel::create('bills', function ($excel) {
             $bills = Bill::with(['items', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
 
-            $excel->sheet('invoices', function ($sheet) use ($bills) {
+            $excel->sheet('bills', function ($sheet) use ($bills) {
                 $sheet->fromModel($bills->makeHidden([
                     'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media'
                 ]));

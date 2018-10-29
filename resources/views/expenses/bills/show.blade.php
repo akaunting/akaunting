@@ -15,6 +15,74 @@
         </div>
     @endif
 
+    @if ($bill->status->code == 'draft')
+        <div class="callout callout-warning">
+            <p>{!! trans('invoices.messages.draft') !!}</p>
+        </div>
+    @endif
+
+    @if ($bill->status->code != 'paid')
+        <div class="row show-invoice">
+            <div class="col-md-12 no-padding-right">
+                <ul class="timeline">
+                    <li>
+                        <i class="fa fa-plus bg-blue"></i>
+
+                        <div class="timeline-item">
+                            <h3 class="timeline-header">{{ trans('general.title.create', ['type' => trans_choice('general.bills', 1)]) }}</h3>
+
+                            <div class="timeline-body">
+                                {{ trans_choice('general.statuses', 1) . ': ' . trans('bills.messages.status.created', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}
+
+                                <a href="{{ url('expenses/bills/' . $bill->id . '/edit') }}" class="btn btn-default btn-xs">
+                                    {{ trans('general.edit') }}
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope bg-orange"></i>
+
+                        <div class="timeline-item">
+                            <h3 class="timeline-header">{{ trans('general.title.send', ['type' => trans_choice('general.bills', 1)]) }}</h3>
+
+                            <div class="timeline-body">
+                                @if ($bill->status->code == 'draft')
+                                    {{ trans_choice('general.statuses', 1) . ': ' . trans('bills.messages.status.receive.draft') }}
+
+                                    @permission('update-expenses-bills')
+                                        <a href="{{ url('expenses/bills/' . $bill->id . '/received') }}" class="btn btn-warning btn-xs">{{ trans('bills.mark_received') }}</a>
+                                    @endpermission
+                                @else
+                                    {{ trans_choice('general.statuses', 1) . ': ' . trans('bills.messages.status.receive.received', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}
+                                @endif
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-money bg-green"></i>
+
+                        <div class="timeline-item">
+                            <h3 class="timeline-header">{{ trans('general.title.get', ['type' => trans('general.paid')]) }}</h3>
+
+                            <div class="timeline-body">
+                                @if($bill->status->code != 'paid' && empty($bill->payments()->count()))
+                                    {{ trans_choice('general.statuses', 1) . ': ' . trans('bills.messages.status.paid.await') }}
+                                @else
+                                    {{ trans_choice('general.statuses', 1) . ': ' . trans('general.partially_paid') }}
+                                @endif
+
+                                @if(empty($bill->payments()->count()) || (!empty($bill->payments()->count()) && $bill->paid != $bill->amount))
+                                    <a href="#" id="button-payment" class="btn btn-success btn-xs">{{ trans('bills.add_payment') }}</a>
+                                @endif
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    @endif
+
     <div class="box box-success">
         <div class="bill">
             <div id="badge">

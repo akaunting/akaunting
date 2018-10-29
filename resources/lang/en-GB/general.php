@@ -124,6 +124,9 @@ return [
     'title' => [
         'new'               => 'New :type',
         'edit'              => 'Edit :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
 
     'form' => [
