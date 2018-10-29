@@ -831,3 +831,11 @@ input[type="number"] {
     line-height: 1.428571;
     border-radius: 30px;
 }
+
+.row.show-invoice .timeline>li {
+    margin-right: 0;
+}
+
+.row.show-invoice .timeline>li a:first-child {
+    margin-left: 10px;
+}

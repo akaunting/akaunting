@@ -15,6 +15,88 @@
         </div>
     @endif
 
+    @if ($invoice->status->code == 'draft')
+    <div class="callout callout-warning">
+        <p>{!! trans('invoices.messages.draft') !!}</p>
+    </div>
+    @endif
+
+    @if ($invoice->status->code != 'paid')
+    <div class="row show-invoice">
+        <div class="col-md-12 no-padding-right">
+            <ul class="timeline">
+                <li>
+                    <i class="fa fa-plus bg-blue"></i>
+
+                    <div class="timeline-item">
+                        <h3 class="timeline-header">{{ trans('general.title.create', ['type' => trans_choice('general.invoices', 1)]) }}</h3>
+
+                        <div class="timeline-body">
+                            {{ trans_choice('general.statuses', 1) . ': ' . trans('invoices.messages.status.created', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}
+
+                            <a href="{{ url('incomes/invoices/' . $invoice->id . '/edit') }}" class="btn btn-default btn-xs">
+                                {{ trans('general.edit') }}
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa fa-envelope bg-orange"></i>
+
+                    <div class="timeline-item">
+                        <h3 class="timeline-header">{{ trans('general.title.send', ['type' => trans_choice('general.invoices', 1)]) }}</h3>
+
+                        <div class="timeline-body">
+                            @if ($invoice->status->code != 'sent' && $invoice->status->code != 'partial')
+                                {{ trans_choice('general.statuses', 1) . ': ' . trans('invoices.messages.status.send.draft') }}
+
+                                @permission('update-incomes-invoices')
+                                @if($invoice->invoice_status_code == 'draft')
+                                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}" class="btn btn-default btn-xs">{{ trans('invoices.mark_sent') }}</a>
+                                @else
+                                    <a href="javascript:void(0);" class="disabled btn btn-default btn-xs"><span class="text-disabled"> {{ trans('invoices.mark_sent') }}</span></a>
+                                @endif
+                                @endpermission
+                                @if($invoice->customer_email)
+                                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/email') }}" class="btn btn-warning btn-xs">{{ trans('invoices.send_mail') }}</a>
+                                @else
+                                    <a href="javascript:void(0);" class="btn btn-warning btn-xs green-tooltip disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
+                                        <span class="text-disabled">{{ trans('invoices.send_mail') }}</span>
+                                    </a>
+                                @endif
+                            @else
+                                {{ trans_choice('general.statuses', 1) . ': ' . trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}
+                            @endif
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa fa-money bg-green"></i>
+
+                    <div class="timeline-item">
+                        <h3 class="timeline-header">{{ trans('general.title.get', ['type' => trans('general.paid')]) }}</h3>
+
+                        <div class="timeline-body">
+                            @if($invoice->status->code != 'paid' && empty($invoice->payments()->count()))
+                                {{ trans_choice('general.statuses', 1) . ': ' . trans('invoices.messages.status.paid.await') }}
+                            @else
+                                {{ trans_choice('general.statuses', 1) . ': ' . trans('invoices.messages.status.paid.partial') }}
+                            @endif
+
+                            @permission('update-incomes-invoices')
+                            <a href="{{ url('incomes/invoices/' . $invoice->id . '/pay') }}" class="btn btn-default btn-xs">{{ trans('invoices.mark_paid') }}</a>
+                            @endpermission
+                            @if(empty($invoice->payments()->count()) || (!empty($invoice->payments()->count()) && $invoice->paid != $invoice->amount))
+                                <a href="#" id="button-payment" class="btn btn-success btn-xs">{{ trans('invoices.add_payment') }}</a>
+                            @endif
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    @endif
+
     <div class="box box-success">
         <section class="invoice">
             <div id="badge">

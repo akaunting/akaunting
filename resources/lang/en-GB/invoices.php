@@ -46,6 +46,19 @@ return [
         'email_sent'     => 'Invoice email has been sent successfully!',
         'marked_sent'    => 'Invoice marked as sent successfully!',
         'email_required' => 'No email address for this customer!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts once it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Send on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+                'partial'   => 'Partial paid',
+            ],
+        ],
     ],
 
     'notification' => [
