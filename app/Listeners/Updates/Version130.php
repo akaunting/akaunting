@@ -26,23 +26,6 @@ class Version130 extends Listener
             return;
         }
 
-        $permissions = $this->getPermissions();
-
-        // Attach permission to roles
-        $roles = Role::all();
-
-        foreach ($roles as $role) {
-            $allowed = ['admin'];
-
-            if (!in_array($role->name, $allowed)) {
-                continue;
-            }
-
-            foreach ($permissions as $permission) {
-                $role->attachPermission($permission);
-            }
-        }
-
         // Set new Item Reminder settings
         setting(['general.send_item_reminder' => '0']);
         setting(['general.schedule_item_stocks' => '3,5,7']);
@@ -60,48 +43,32 @@ class Version130 extends Listener
     {
         $permissions = [];
 
+        // Banking Reconciliations
         $permissions[] = Permission::firstOrCreate([
             'name' => 'read-banking-reconciliations',
             'display_name' => 'Read Banking Reconciliations',
             'description' => 'Read Banking Reconciliations',
         ]);
+
         $permissions[] = Permission::firstOrCreate([
             'name' => 'create-banking-reconciliations',
             'display_name' => 'Create Banking Reconciliations',
             'description' => 'Create Banking Reconciliations',
         ]);
+
         $permissions[] = Permission::firstOrCreate([
             'name' => 'update-banking-reconciliations',
             'display_name' => 'Update Banking Reconciliations',
             'description' => 'Update Banking Reconciliations',
         ]);
+
         $permissions[] = Permission::firstOrCreate([
             'name' => 'delete-banking-reconciliations',
             'display_name' => 'Delete Banking Reconciliations',
             'description' => 'Delete Banking Reconciliations',
         ]);
 
-        // Attach permission to roles
-        $roles = Role::all();
-
-        foreach ($roles as $role) {
-            $allowed = ['admin', 'manager'];
-
-            if (!in_array($role->name, $allowed)) {
-                continue;
-            }
-
-            foreach ($permissions as $permission) {
-                $role->attachPermission($permission);
-            }
-        }
-    }
-
-    protected function getPermissions()
-    {
-        $permissions = [];
-
-        // Create permissions
+        // Create Wizard Permissions
         $permissions[] = Permission::firstOrCreate([
             'name' => 'create-wizard-companies',
             'display_name' => 'Create Wizard Compaines',
@@ -126,7 +93,7 @@ class Version130 extends Listener
             'description' => 'Create Wizard Finish',
         ]);
 
-        // Read permissions
+        // Read Wizard Permissions
         $permissions[] = Permission::firstOrCreate([
             'name' => 'read-wizard-companies',
             'display_name' => 'Read Wizard Compaines',
@@ -151,7 +118,7 @@ class Version130 extends Listener
             'description' => 'Read Wizard Finish',
         ]);
 
-        // Update permissions
+        // Update Wizard Permissions
         $permissions[] = Permission::firstOrCreate([
             'name' => 'update-wizard-companies',
             'display_name' => 'Update Wizard Compaines',
@@ -176,6 +143,19 @@ class Version130 extends Listener
             'description' => 'Update Wizard Finish',
         ]);
 
-        return $permissions;
+        // Attach permission to roles
+        $roles = Role::all();
+
+        foreach ($roles as $role) {
+            $allowed = ['admin', 'manager'];
+
+            if (!in_array($role->name, $allowed)) {
+                continue;
+            }
+
+            foreach ($permissions as $permission) {
+                $role->attachPermission($permission);
+            }
+        }
     }
 }
