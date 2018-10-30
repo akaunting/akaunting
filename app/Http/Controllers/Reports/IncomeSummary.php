@@ -7,6 +7,7 @@ use App\Models\Income\Invoice;
 use App\Models\Income\InvoicePayment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
+use App\Utilities\Recurring;
 use Charts;
 use Date;
 
@@ -55,29 +56,37 @@ class IncomeSummary extends Controller
             }
         }
 
-        // Invoices
+        $revenues = Revenue::monthsOfYear('paid_at')->isNotTransfer()->get();
+
         switch ($status) {
             case 'paid':
+                // Invoices
                 $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
-                $this->setRecurring($invoices, 'paid_at');
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'paid_at');
+
+                // Revenues
+                $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
                 break;
             case 'upcoming':
+                // Invoices
                 $invoices = Invoice::accrued()->monthsOfYear('due_at')->get();
+                Recurring::reflect($invoices, 'invoice', 'invoiced_at', $status);
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'due_at');
-                $this->setRecurring($invoices, 'due_at');
+
+                // Revenues
+                Recurring::reflect($revenues, 'revenue', 'paid_at', $status);
+                $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
                 break;
             default:
+                // Invoices
                 $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
-                $this->setRecurring($invoices, 'invoiced_at');
+                Recurring::reflect($invoices, 'invoice', 'invoiced_at', $status);
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'invoiced_at');
-                break;
-        }
 
-        // Revenues
-        if ($status != 'upcoming') {
-            $revenues = Revenue::monthsOfYear('paid_at')->isNotTransfer()->get();
-            $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
+                // Revenues
+                Recurring::reflect($revenues, 'revenue', 'paid_at', $status);
+                $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
+                break;
         }
 
         // Check if it's a print or normal request
@@ -101,49 +110,10 @@ class IncomeSummary extends Controller
         return view($view_template, compact('chart', 'dates', 'categories', 'incomes', 'totals'));
     }
 
-    private function setRecurring(&$invoices, $date)
-    {
-        foreach ($invoices as $invoice) {
-            if ($invoice['table'] == 'invoice_payments') {
-                $item  = $invoice->invoice;
-                $item->category_id = $invoice->category_id;
-
-                $invoice = $item;
-            }
-
-            if (!empty($invoice->parent_id)) {
-                continue;
-            }
-
-            if ($invoice->recurring) {
-                $recurred_invoices = Invoice::where('parent_id', $invoice->id)->accrued()->monthsOfYear($date)->get();
-
-                foreach ($invoice->recurring->schedule() as $recurr) {
-                    if ($recurred_invoices->count() > $recurr->getIndex()) {
-                        continue;
-                    }
-
-                    if ($recurr->getStart()->format('Y') != Date::now()->format('Y')) {
-                        continue;
-                    }
-
-                    $recurr_invoice = clone $invoice;
-
-                    $recurr_invoice->parent_id = $invoice->id;
-                    $recurr_invoice->created_at = $recurr->getStart()->format('Y-m-d');
-                    $recurr_invoice->invoiced_at = $recurr->getStart()->format('Y-m-d');
-                    $recurr_invoice->due_at = $recurr->getEnd()->format('Y-m-d');
-
-                    $invoices->push($recurr_invoice);
-                }
-            }
-        }
-    }
-
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            if ($item['table'] == 'invoice_payments') {
+            if ($item->getTable() == 'invoice_payments') {
                 $invoice = $item->invoice;
 
                 $item->category_id = $invoice->category_id;

@@ -7,6 +7,7 @@ use App\Models\Expense\Bill;
 use App\Models\Expense\BillPayment;
 use App\Models\Expense\Payment;
 use App\Models\Setting\Category;
+use App\Utilities\Recurring;
 use Charts;
 use Date;
 
@@ -55,29 +56,37 @@ class ExpenseSummary extends Controller
             }
         }
 
-        // Bills
+        $payments = Payment::monthsOfYear('paid_at')->isNotTransfer()->get();
+
         switch ($status) {
             case 'paid':
+                // Bills
                 $bills = BillPayment::monthsOfYear('paid_at')->get();
-                $this->setRecurring($bills, 'paid_at');
                 $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'paid_at');
+
+                // Payments
+                $this->setAmount($expenses_graph, $totals, $expenses, $payments, 'payment', 'paid_at');
                 break;
             case 'upcoming':
+                // Bills
                 $bills = Bill::accrued()->monthsOfYear('due_at')->get();
-                $this->setRecurring($bills, 'due_at');
+                Recurring::reflect($bills, 'bill', 'billed_at', $status);
                 $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'due_at');
+
+                // Payments
+                Recurring::reflect($payments, 'payment', 'paid_at', $status);
+                $this->setAmount($expenses_graph, $totals, $expenses, $payments, 'payment', 'paid_at');
                 break;
             default:
+                // Bills
                 $bills = Bill::accrued()->monthsOfYear('billed_at')->get();
-                $this->setRecurring($bills, 'billed_at');
+                Recurring::reflect($bills, 'bill', 'billed_at', $status);
                 $this->setAmount($expenses_graph, $totals, $expenses, $bills, 'bill', 'billed_at');
-                break;
-        }
 
-        // Payments
-        if ($status != 'upcoming') {
-            $payments = Payment::monthsOfYear('paid_at')->isNotTransfer()->get();
-            $this->setAmount($expenses_graph, $totals, $expenses, $payments, 'payment', 'paid_at');
+                // Payments
+                Recurring::reflect($payments, 'payment', 'paid_at', $status);
+                $this->setAmount($expenses_graph, $totals, $expenses, $payments, 'payment', 'paid_at');
+                break;
         }
 
         // Check if it's a print or normal request
@@ -101,49 +110,10 @@ class ExpenseSummary extends Controller
         return view($view_template, compact('chart', 'dates', 'categories', 'expenses', 'totals'));
     }
 
-    private function setRecurring(&$bills, $date)
-    {
-        foreach ($bills as $bill) {
-            if ($bill['table'] == 'bill_payments') {
-                $item  = $bill->bill;
-                $item->category_id = $bill->category_id;
-
-                $bill = $item;
-            }
-
-            if (!empty($bill->parent_id)) {
-                continue;
-            }
-
-            if ($bill->recurring) {
-                $recurred_bills = Bill::where('parent_id', $bill->id)->accrued()->monthsOfYear($date)->get();
-
-                foreach ($bill->recurring->schedule() as $recurr) {
-                    if ($recurred_bills->count() > $recurr->getIndex()) {
-                        continue;
-                    }
-
-                    if ($recurr->getStart()->format('Y') != Date::now()->format('Y')) {
-                        continue;
-                    }
-
-                    $recurr_bill = clone $bill;
-
-                    $recurr_bill->parent_id = $bill->id;
-                    $recurr_bill->created_at = $recurr->getStart()->format('Y-m-d');
-                    $recurr_bill->invoiced_at = $recurr->getStart()->format('Y-m-d');
-                    $recurr_bill->due_at = $recurr->getEnd()->format('Y-m-d');
-
-                    $bills->push($recurr_bill);
-                }
-            }
-        }
-    }
-
     private function setAmount(&$graph, &$totals, &$expenses, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            if ($item['table'] == 'bill_payments') {
+            if ($item->getTable() == 'bill_payments') {
                 $bill = $item->bill;
 
                 $item->category_id = $bill->category_id;
