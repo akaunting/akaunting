@@ -25,16 +25,11 @@ class ProfitLoss extends Controller
         $dates = $totals = $compares = $categories = [];
 
         $status = request('status');
+        $year = request('year', Date::now()->year);
 
         $income_categories = Category::enabled()->type('income')->pluck('name', 'id')->toArray();
 
         $expense_categories = Category::enabled()->type('expense')->pluck('name', 'id')->toArray();
-
-        // Get year
-        $year = request('year');
-        if (empty($year)) {
-            $year = Date::now()->year;
-        }
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {
@@ -142,6 +137,12 @@ class ProfitLoss extends Controller
             $this->setAmount($totals, $compares, $payments, 'payment', 'paid_at');
         }
 
+        $statuses = collect([
+            'all' => trans('general.all'),
+            'paid' => trans('invoices.paid'),
+            'upcoming' => trans('general.upcoming'),
+        ]);
+
         // Check if it's a print or normal request
         if (request('print')) {
             $view_template = 'reports.profit_loss.print';
@@ -149,7 +150,7 @@ class ProfitLoss extends Controller
             $view_template = 'reports.profit_loss.index';
         }
 
-        return view($view_template, compact('dates', 'income_categories', 'expense_categories', 'compares', 'totals', 'gross'));
+        return view($view_template, compact('dates', 'income_categories', 'expense_categories', 'compares', 'totals', 'gross', 'statuses'));
     }
 
     private function setAmount(&$totals, &$compares, $items, $type, $date_field)

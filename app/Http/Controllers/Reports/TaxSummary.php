@@ -27,16 +27,11 @@ class TaxSummary extends Controller
         $dates = $incomes = $expenses = $totals = [];
 
         $status = request('status');
+        $year = request('year', Date::now()->year);
 
         $t = Tax::enabled()->where('rate', '<>', '0')->pluck('name')->toArray();
 
         $taxes = array_combine($t, $t);
-
-        // Get year
-        $year = request('year');
-        if (empty($year)) {
-            $year = Date::now()->year;
-        }
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {
@@ -90,6 +85,12 @@ class TaxSummary extends Controller
                 break;
         }
 
+        $statuses = collect([
+            'all' => trans('general.all'),
+            'paid' => trans('invoices.paid'),
+            'upcoming' => trans('general.upcoming'),
+        ]);
+
         // Check if it's a print or normal request
         if (request('print')) {
             $view_template = 'reports.tax_summary.print';
@@ -97,7 +98,7 @@ class TaxSummary extends Controller
             $view_template = 'reports.tax_summary.index';
         }
 
-        return view($view_template, compact('dates', 'taxes', 'incomes', 'expenses', 'totals'));
+        return view($view_template, compact('dates', 'taxes', 'incomes', 'expenses', 'totals', 'statuses'));
     }
 
     private function setAmount(&$items, &$totals, $rows, $type, $date_field)
