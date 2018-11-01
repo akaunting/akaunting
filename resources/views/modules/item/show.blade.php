@@ -10,7 +10,7 @@
 @section('content')
     @include('partials.modules.bar')
 
-    <div class="row">
+    <div class="row module">
         <div class="col-md-12">
             <div class="col-md-8 no-padding-left">
                 <div class="content-header no-padding-left">
@@ -40,9 +40,59 @@
                         @endif
                         <li><a href="#review" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.reviews') }} @if ($module->total_review) ({{ $module->total_review }}) @endif</a></li>
                     </ul>
+
                     <div class="tab-content">
                         <div class="tab-pane active" id="description">
                             {!! $module->description !!}
+
+                            @if($module->screenshots)
+                                <div id="carousel-screenshot-generic" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        @if($module->video)
+                                            @php
+                                            if (strpos($module->video->link, '=') !== false) {
+                                                $code = explode('=', $module->video->link);
+                                                $code[1]= str_replace('&list', '', $code[1]);
+
+                                                if (empty($status)) {
+                                                    $status = 5;
+                                                } else {
+                                                    $status = 1;
+                                                } 
+                                            @endphp
+
+                                            <div class="item @if($status == 5) {{ 'active' }} @endif">
+                                                <iframe width="640" height="385" src="https://www.youtube-nocookie.com/embed/{{ $code[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            </div>
+                                            @php } @endphp
+                                        @endif
+
+                                        @foreach($module->screenshots as $screenshot)
+                                            @php if (empty($status)) { $status = 5; } else { $status = 1; } @endphp
+                                            <div class="item @if($status == 5) {{ 'active' }} @endif">
+                                                <a data-lightbox="image" href="{{ $screenshot->path_string }}" data-gallery="{{ $screenshot->alt_attribute }}">
+                                                    <img class="img-fluid d-block w-100" src="{{ $screenshot->path_string }}" alt="{{ $screenshot->alt_attribute }}">
+                                                </a>
+
+                                                <div class="image-description text-center">
+                                                    {{ $screenshot->description }}
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                        <div class="carousel-navigation-message">
+                                            <a class="left carousel-control" href="#carousel-screenshot-generic" role="button" data-slide="prev">
+                                                <i class="fa fa-chevron-left"></i>
+                                                <span class="sr-only">{{ trans('pagination.previous') }}</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#carousel-screenshot-generic" role="button" data-slide="next">
+                                                <i class="fa fa-chevron-right"></i>
+                                                <span class="sr-only">{{ trans('pagination.next') }}</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         @if ($module->installation)
                         <div class="tab-pane" id="installation">
@@ -140,30 +190,42 @@
                     <div class="box-body">
                         <table class="table table-striped">
                             <tbody>
+                                @if ($module->vendor_name)
                                 <tr>
                                     <th>{{ trans_choice('general.vendors', 1) }}</th>
                                     <td class="text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                                 </tr>
+                                @endif
+                                @if ($module->version)
                                 <tr>
                                     <th>{{ trans('footer.version') }}</th>
                                     <td class="text-right">{{ $module->version }}</td>
                                 </tr>
+                                @endif
+                                @if ($module->created_at)
                                 <tr>
                                     <th>{{ trans('modules.added') }}</th>
                                     <td class="text-right">{{ Date::parse($module->created_at)->format($date_format) }}</td>
                                 </tr>
+                                @endif
+                                @if ($module->updated_at)
                                 <tr>
                                     <th>{{ trans('modules.updated') }}</th>
                                     <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                                 </tr>
+                                @endif
+                                @if ($module->compatibility)
                                 <tr>
                                     <th>{{ trans('modules.compatibility') }}</th>
                                     <td class="text-right">{{ $module->compatibility }}</td>
                                 </tr>
+                                @endif
+                                @if ($module->category)
                                 <tr>
                                     <th>{{ trans_choice('general.categories', 1) }}</th>
                                     <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                                 </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -192,6 +254,11 @@
         var path = '';
 
         $(document).ready(function() {
+            $('.carousel').carousel({
+                interval: false,
+                keyboard: true
+            });
+
             @if($module->reviews)
             getReviews('', '1');
             @endif

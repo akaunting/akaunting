@@ -856,3 +856,49 @@ input[type="number"] {
 .box-filter .select2-container .select2-selection--multiple {
     min-height: 30px !important;
 }
+
+/* App Detail Page Sliders Start */
+.row.module #description .img-fluid.d-block.w-100 {
+    height: 420px;
+    width: 100%;
+}
+
+.row.module #description .image-description.text-center {
+    color: white;
+    padding-top: 12px;
+    position: absolute;
+    width: 100%;
+}
+
+.row.module #description #carousel-screenshot-generic .carousel-control {
+    top: inherit;
+    bottom: inherit;
+    margin-top: 30px;
+    width: 5%;
+}
+
+.row.module #description #carousel-screenshot-generic .carousel-control.left {
+    margin-left: -15px;
+}
+
+.row.module #description #carousel-screenshot-generic .carousel-control .fa {
+    font-size: 1em;
+}
+
+.row.module #description .carousel-navigation-message {
+    background-color: #333333;
+    height:40px;
+}
+
+.row.module #description .carousel-inner .item {
+    padding: 4px 4px 4px 4px;
+    line-height: 1.42857143;
+    background-color: #ffffff;
+    border-top: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+/* App Detail Page Sliders Finish */
