@@ -25,12 +25,7 @@ trait DateTime
 
     public function scopeMonthsOfYear($query, $field)
     {
-        $year = request('year');
-
-        // Get current year if not set
-        if (empty($year)) {
-            $year = Date::now()->year;
-        }
+        $year = request('year', Date::now()->year);
 
         $start = Date::parse($year . '-01-01')->format('Y-m-d');
         $end = Date::parse($year . '-12-31')->format('Y-m-d');

@@ -25,7 +25,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4">
+                    <td colspan="13">
                         <h5 class="text-center">{{ trans('general.no_records') }}</h5>
                     </td>
                 </tr>

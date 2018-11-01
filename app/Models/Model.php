@@ -127,4 +127,31 @@ class Model extends Eloquent
     {
         return $query->where('reconciled', $value);
     }
+
+    public function scopeAccount($query, $accounts)
+    {
+        if (empty($accounts)) {
+            return;
+        }
+
+        return $query->whereIn('account_id', (array) $accounts);
+    }
+
+    public function scopeCustomer($query, $customers)
+    {
+        if (empty($customers)) {
+            return;
+        }
+
+        return $query->whereIn('customer_id', (array) $customers);
+    }
+
+    public function scopeVendor($query, $vendors)
+    {
+        if (empty($vendors)) {
+            return;
+        }
+
+        return $query->whereIn('vendor_id', (array) $vendors);
+    }
 }
