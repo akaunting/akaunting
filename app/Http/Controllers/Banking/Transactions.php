@@ -25,8 +25,7 @@ class Transactions extends Controller
     {
         $request = request();
         
-        $accounts = collect(Account::enabled()->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
+        $accounts = collect(Account::enabled()->pluck('name', 'id'));
 
         $types = collect(['expense' => 'Expense', 'income' => 'Income'])
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
@@ -34,8 +33,7 @@ class Transactions extends Controller
         $type = $request->get('type');
 
         $type_cats = empty($type) ? ['income', 'expense'] : $type;
-        $categories = collect(Category::enabled()->type($type_cats)->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
+        $categories = collect(Category::enabled()->type($type_cats)->pluck('name', 'id'));
 
         if ($type != 'income') {
             $this->addTransactions(Payment::collect(['paid_at'=> 'desc']), trans_choice('general.expenses', 1));

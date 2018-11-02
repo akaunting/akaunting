@@ -47,13 +47,13 @@ class Bills extends Controller
     {
         $bills = Bill::with(['vendor', 'status', 'items', 'payments', 'histories'])->collect(['billed_at'=> 'desc']);
 
-        $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
+        $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'));
 
-        $statuses = collect(BillStatus::all()->pluck('name', 'code'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.statuses', 2)]), '');
+        $categories = collect(Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id'));
 
-        return view('expenses.bills.index', compact('bills', 'vendors', 'statuses'));
+        $statuses = collect(BillStatus::all()->pluck('name', 'code'));
+
+        return view('expenses.bills.index', compact('bills', 'vendors', 'categories', 'statuses'));
     }
 
     /**

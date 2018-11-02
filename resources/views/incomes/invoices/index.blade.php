@@ -15,12 +15,13 @@
 <div class="box box-success">
     <div class="box-header with-border">
         {!! Form::open(['url' => 'incomes/invoices', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
+        <div id="items" class="pull-left box-filter">
             <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::select('customer', $customers, request('customer'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::select('status', $status, request('status'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::select('customers[]', $customers, request('customers'), ['id' => 'filter-customers', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
+            {!! Form::select('categories[]', $categories, request('categories'), ['id' => 'filter-categories', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
             {!! Form::dateRange('invoice_date', trans('invoices.invoice_date'), 'calendar', []) !!}
+            {!! Form::select('statuses[]', $statuses, request('statuses'), ['id' => 'filter-statuses', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
@@ -102,5 +103,23 @@
 @push('css')
 <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+@endpush
+
+@push('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#filter-categories").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
+        });
+
+        $("#filter-customers").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)]) }}"
+        });
+
+        $("#filter-statuses").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.statuses', 1)]) }}"
+        });
+    });
+</script>
 @endpush
 

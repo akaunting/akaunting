@@ -25,7 +25,7 @@ class Categories extends Controller
             'income' => trans_choice('general.incomes', 1),
             'item' => trans_choice('general.items', 1),
             'other' => trans_choice('general.others', 1),
-        ])->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
+        ]);
 
         return view('settings.categories.index', compact('categories', 'types', 'transfer_id'));
     }
