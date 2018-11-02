@@ -121,7 +121,7 @@ class ExpenseSummary extends Controller
             ->credits(false)
             ->view($chart_template);
 
-        return view($view_template, compact('chart', 'dates', 'categories', 'statuses', 'vendors', 'expenses', 'totals'));
+        return view($view_template, compact('chart', 'dates', 'categories', 'statuses', 'accounts', 'vendors', 'expenses', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$expenses, $items, $type, $date_field)
