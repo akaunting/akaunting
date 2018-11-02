@@ -311,7 +311,7 @@ class Vendors extends Controller
         if (empty($vendor_id)) {
             return response()->json([]);
         }
-        
+
         $vendor = Vendor::find($vendor_id);
 
         if (empty($vendor)) {
@@ -333,6 +333,12 @@ class Vendors extends Controller
 
         $vendor->currency_code = $currency_code;
         $vendor->currency_rate = $currency->rate;
+
+        $vendor->thousands_separator = $currency->thousands_separator;
+        $vendor->decimal_mark = $currency->decimal_mark;
+        $vendor->precision = (int) $currency->precision;
+        $vendor->symbol_first = $currency->symbol_first;
+        $vendor->symbol = $currency->symbol;
 
         return response()->json($vendor);
     }
