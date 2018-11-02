@@ -52,6 +52,9 @@ class Settings extends Seeder
             'general.file_size'                 => '2',
             'general.file_types'                => 'pdf,jpeg,jpg,png',
             'general.wizard'                    => '0',
+            'general.invoice_item'              => 'settings.invoice.item',
+            'general.invoice_price'             => 'settings.invoice.price',
+            'general.invoice_quantity'          => 'settings.invoice.quantity',
             'offlinepayment.methods'            => '[{"code":"offlinepayment.cash.1","name":"Cash","order":"1","description":null},{"code":"offlinepayment.bank_transfer.2","name":"Bank Transfer","order":"2","description":null}]',
         ]);
     }

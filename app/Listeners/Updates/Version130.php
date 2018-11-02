@@ -30,6 +30,9 @@ class Version130 extends Listener
         setting(['general.send_item_reminder' => '0']);
         setting(['general.schedule_item_stocks' => '3,5,7']);
         setting(['general.wizard' => '1']);
+        setting(['general.invoice_item' => 'settings.invoice.item']);
+        setting(['general.invoice_price' => 'settings.invoice.price']);
+        setting(['general.invoice_quantity' => 'settings.invoice.quantity']);
 
         setting()->save();
 
