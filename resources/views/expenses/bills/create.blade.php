@@ -220,6 +220,10 @@
         });
 
         $(document).ready(function(){
+            @if (old('item'))
+            $('#vendor_id').trigger('change');
+            @endif
+
             $(".input-price").maskMoney({
                 thousands : '{{ $currency->thousands_separator }}',
                 decimal : '{{ $currency->decimal_mark }}',

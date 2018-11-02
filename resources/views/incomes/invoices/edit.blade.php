@@ -219,6 +219,10 @@
         });
 
         $(document).ready(function(){
+            @if (old('item'))
+            $('#customer_id').trigger('change');
+            @endif
+
             $(".input-price").maskMoney({
                 thousands : '{{ $currency->thousands_separator }}',
                 decimal : '{{ $currency->decimal_mark }}',
