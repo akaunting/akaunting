@@ -853,6 +853,15 @@ input[type="number"] {
     margin-top: -2px;
 }
 
+.box-filter .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    margin-top: 3px;
+}
+.box-filter .select2.select2-container .select2-selection__choice {
+    font-size: 13px !important;
+    margin-top: 4px;
+    margin-bottom: -1px !important;
+}
+
 .box-filter .select2-container .select2-selection--multiple {
     min-height: 30px !important;
 }
