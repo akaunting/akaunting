@@ -20,8 +20,7 @@ class Reconciliations extends Controller
     {
         $reconciliations = Reconciliation::collect();
 
-        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
+        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'));
 
         return view('banking.reconciliations.index', compact('reconciliations', 'accounts'));
     }

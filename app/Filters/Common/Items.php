@@ -19,8 +19,8 @@ class Items extends ModelFilter
         return $this->whereLike('name', $query);
     }
 
-    public function category($id)
+    public function categories($ids)
     {
-        return $this->where('category_id', $id);
+        return $this->whereIn('category_id', (array) $ids);
     }
 }

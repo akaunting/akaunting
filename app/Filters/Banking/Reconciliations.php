@@ -14,8 +14,8 @@ class Reconciliations extends ModelFilter
      */
     public $relations = [];
 
-    public function account($account)
+    public function accounts($accounts)
     {
-        return $this->where('account_id', $account);
+        return $this->whereIn('account_id', (array) $accounts);
     }
 }

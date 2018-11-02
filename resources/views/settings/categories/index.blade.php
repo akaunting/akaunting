@@ -13,10 +13,10 @@
 <div class="box box-success">
     <div class="box-header with-border">
         {!! Form::open(['url' => 'settings/categories', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
+        <div id="items" class="pull-left box-filter">
             <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::select('type', $types, request('type'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::select('types[]', $types, request('types'), ['id' => 'filter-types', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
@@ -88,3 +88,13 @@
 </div>
 <!-- /.box -->
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#filter-types").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
+        });
+    });
+</script>
+@endpush
