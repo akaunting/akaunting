@@ -266,7 +266,7 @@ return [
         'thousands_separator' => ',',
     ],
 
-    'BYR' => [
+    'BYN' => [
         'name'                => 'Belarussian Ruble',
         'code'                => 974,
         'precision'           => 0,
