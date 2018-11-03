@@ -14,12 +14,13 @@ use App\Models\Income\InvoiceTotal;
 use App\Models\Common\Item;
 use App\Models\Setting\Tax;
 use App\Notifications\Common\Item as ItemNotification;
+use App\Traits\Incomes;
 use App\Transformers\Income\Invoice as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Invoices extends ApiController
 {
-    use Helpers;
+    use Helpers, Incomes;
 
     /**
      * Display a listing of the resource.
@@ -163,9 +164,7 @@ class Invoices extends ApiController
         InvoiceHistory::create($request->input());
 
         // Update next invoice number
-        $next = setting('general.invoice_number_next', 1) + 1;
-        setting(['general.invoice_number_next' => $next]);
-        setting()->save();
+        $this->increaseNextInvoiceNumber();
 
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));
