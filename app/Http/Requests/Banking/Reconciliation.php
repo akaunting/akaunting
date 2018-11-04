@@ -27,7 +27,7 @@ class Reconciliation extends Request
             'account_id' => 'required|integer',
             'started_at' => 'required|date_format:Y-m-d H:i:s',
             'ended_at' => 'required|date_format:Y-m-d H:i:s',
-            'closing_balance' => 'required|amount',
+            'closing_balance' => 'required',
         ];
     }
 }
