@@ -489,6 +489,7 @@ class Invoices extends Controller
         unset($invoice->paid);
         unset($invoice->template_path);
         unset($invoice->pdf_path);
+        unset($invoice->reconciled);
 
         // Mark invoice as sent
         if ($invoice->invoice_status_code != 'partial') {
