@@ -17,6 +17,10 @@
 
             {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
 
+            {{ Form::selectGroup('calculate', trans('taxes.calculate'), 'calculator', ['0' => trans('general.no'), '1' => trans('general.yes')], null, []) }}
+
+            {{ Form::selectGroup('compound', trans('taxes.compound'), 'plus', ['0' => trans('general.no'), '1' => trans('general.yes')], null, []) }}
+
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
         </div>
         <!-- /.box-body -->
@@ -36,5 +40,17 @@
     <script type="text/javascript">
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
+
+        $(document).ready(function() {
+            $('#name').focus();
+
+            $("#calculate").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans('taxes.calculate')]) }}"
+            });
+
+            $("#compound").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans('taxes.compound')]) }}"
+            });
+        });
     </script>
 @endpush
