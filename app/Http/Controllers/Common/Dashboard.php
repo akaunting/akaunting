@@ -126,6 +126,7 @@ class Dashboard extends Controller
         $start = Date::parse(request('start', $this->today->startOfYear()->format('Y-m-d')));
         $end = Date::parse(request('end', $this->today->endOfYear()->format('Y-m-d')));
         $period = request('period', 'month');
+        $range = request('range', 'custom');
 
         $start_month = $start->month;
         $end_month = $end->month;
