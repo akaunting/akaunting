@@ -514,7 +514,7 @@ class Bills extends Controller
 
             $excel->sheet('bills', function ($sheet) use ($bills) {
                 $sheet->fromModel($bills->makeHidden([
-                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media'
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media', 'paid'
                 ]));
             });
 

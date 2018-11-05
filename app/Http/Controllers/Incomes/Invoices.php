@@ -399,7 +399,7 @@ class Invoices extends Controller
 
             $excel->sheet('invoices', function ($sheet) use ($invoices) {
                 $sheet->fromModel($invoices->makeHidden([
-                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media'
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media', 'paid'
                 ]));
             });
 
