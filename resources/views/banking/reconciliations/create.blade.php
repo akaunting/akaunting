@@ -128,6 +128,7 @@
                 decimal : '{{ $currency->decimal_mark }}',
                 precision : {{ $currency->precision }},
                 allowZero : true,
+                allowNegative: true,
                 @if($currency->symbol_first)
                 prefix : '{{ $currency->symbol }}'
                 @else

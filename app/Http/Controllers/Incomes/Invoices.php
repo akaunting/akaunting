@@ -8,7 +8,10 @@ use App\Events\InvoiceUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Income\Invoice as Request;
 use App\Http\Requests\Income\InvoicePayment as PaymentRequest;
+use App\Jobs\Income\CreateInvoice;
+use App\Jobs\Income\CreateInvoicePayment;
 use App\Models\Banking\Account;
+use App\Models\Common\Item;
 use App\Models\Common\Media;
 use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
@@ -18,7 +21,6 @@ use App\Models\Income\InvoiceItemTax;
 use App\Models\Income\InvoiceTotal;
 use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceStatus;
-use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
@@ -120,167 +122,7 @@ class Invoices extends Controller
      */
     public function store(Request $request)
     {
-        $invoice = Invoice::create($request->input());
-
-        // Upload attachment
-        if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'invoices');
-
-            $invoice->attachMedia($media, 'attachment');
-        }
-
-        $taxes = [];
-
-        $tax_total = 0;
-        $sub_total = 0;
-        $discount_total = 0;
-        $discount = $request['discount'];
-
-        $invoice_item = [];
-        $invoice_item['company_id'] = $request['company_id'];
-        $invoice_item['invoice_id'] = $invoice->id;
-
-        if ($request['item']) {
-            foreach ($request['item'] as $item) {
-                $item_sku = '';
-
-                if (!empty($item['item_id'])) {
-                    $item_object = Item::find($item['item_id']);
-
-                    $item['name'] = $item_object->name;
-                    $item_sku = $item_object->sku;
-
-                    // Decrease stock (item sold)
-                    $item_object->quantity -= $item['quantity'];
-                    $item_object->save();
-
-                    if (setting('general.send_item_reminder')) {
-                        $item_stocks = explode(',', setting('general.schedule_item_stocks'));
-
-                        foreach ($item_stocks as $item_stock) {
-                            if ($item_object->quantity == $item_stock) {
-                                foreach ($item_object->company->users as $user) {
-                                    if (!$user->can('read-notifications')) {
-                                        continue;
-                                    }
-
-                                    $user->notify(new ItemReminderNotification($item_object));
-                                }
-                            }
-                        }
-                    }
-
-                    // Notify users if out of stock
-                    if ($item_object->quantity == 0) {
-                        foreach ($item_object->company->users as $user) {
-                            if (!$user->can('read-notifications')) {
-                                continue;
-                            }
-
-                            $user->notify(new ItemNotification($item_object));
-                        }
-                    }
-                }
-
-                $item_tax = 0;
-                $item_taxes = [];
-                $invoice_item_taxes = [];
-
-                if (!empty($item['tax_id'])) {
-                    foreach ($item['tax_id'] as $tax_id) {
-                        $tax_object = Tax::find($tax_id);
-
-                        $item_taxes[] = $tax_id;
-
-                        $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
-
-                        // Apply discount to tax
-                        if ($discount) {
-                            $tax = $tax - ($tax * ($discount / 100));
-                        }
-
-                        $invoice_item_taxes[] = [
-                            'company_id' => $request['company_id'],
-                            'invoice_id' => $invoice->id,
-                            'tax_id' => $tax_id,
-                            'name' => $tax_object->name,
-                            'amount' => $tax,
-                        ];
-
-                        $item_tax += $tax;
-                    }
-                }
-
-                $invoice_item['item_id'] = $item['item_id'];
-                $invoice_item['name'] = str_limit($item['name'], 180, '');
-                $invoice_item['sku'] = $item_sku;
-                $invoice_item['quantity'] = (double) $item['quantity'];
-                $invoice_item['price'] = (double) $item['price'];
-                $invoice_item['tax'] = $item_tax;
-                $invoice_item['tax_id'] = 0;//(int) $item_taxes;
-                $invoice_item['total'] = (double) $item['price'] * (double) $item['quantity'];
-
-                $invoice_item_created = InvoiceItem::create($invoice_item);
-
-                if ($invoice_item_taxes) {
-                    foreach ($invoice_item_taxes as $invoice_item_tax) {
-                        $invoice_item_tax['invoice_item_id'] = $invoice_item_created->id;
-
-                        InvoiceItemTax::create($invoice_item_tax);
-
-                        // Set taxes
-                        if (isset($taxes) && array_key_exists($invoice_item_tax['tax_id'], $taxes)) {
-                            $taxes[$invoice_item_tax['tax_id']]['amount'] += $invoice_item_tax['amount'];
-                        } else {
-                            $taxes[$invoice_item_tax['tax_id']] = [
-                                'name' => $invoice_item_tax['name'],
-                                'amount' => $invoice_item_tax['amount']
-                            ];
-                        }
-                    }
-                }
-
-                // Calculate totals
-                $tax_total += $item_tax;
-                $sub_total += $invoice_item['total'];
-            }
-        }
-
-        $s_total = $sub_total;
-
-        // Apply discount to total
-        if ($discount) {
-            $s_discount = $s_total * ($discount / 100);
-            $discount_total += $s_discount;
-            $s_total = $s_total - $s_discount;
-        }
-
-        $amount = $s_total + $tax_total;
-
-        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
-
-        $invoice->update($request->input());
-
-        // Add invoice totals
-        $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
-
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => session('company_id'),
-            'invoice_id' => $invoice->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $invoice->invoice_number]),
-        ]);
-
-        // Update next invoice number
-        $this->increaseNextInvoiceNumber();
-
-        // Recurring
-        $invoice->createRecurring();
-
-        // Fire the event to make it extendible
-        event(new InvoiceCreated($invoice));
+        $invoice = dispatch(new CreateInvoice($request));
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.invoices', 1)]);
 
@@ -813,20 +655,7 @@ class Invoices extends Controller
 
         $invoice->save();
 
-        $invoice_payment_request = [
-            'company_id'     => $request['company_id'],
-            'invoice_id'     => $request['invoice_id'],
-            'account_id'     => $request['account_id'],
-            'paid_at'        => $request['paid_at'],
-            'amount'         => $request['amount'],
-            'currency_code'  => $request['currency_code'],
-            'currency_rate'  => $request['currency_rate'],
-            'description'    => $request['description'],
-            'payment_method' => $request['payment_method'],
-            'reference'      => $request['reference']
-        ];
-
-        $invoice_payment = InvoicePayment::create($invoice_payment_request);
+        $invoice_payment = dispatch(new CreateInvoicePayment($request, $invoice));
 
         // Upload attachment
         if ($request->file('attachment')) {
@@ -834,15 +663,6 @@ class Invoices extends Controller
 
             $invoice_payment->attachMedia($media, 'attachment');
         }
-
-        $request['status_code'] = $invoice->invoice_status_code;
-        $request['notify'] = 0;
-
-        $desc_amount = money((float) $request['amount'], (string) $request['currency_code'], true)->format();
-
-        $request['description'] = $desc_amount . ' ' . trans_choice('general.payments', 1);
-
-        InvoiceHistory::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 

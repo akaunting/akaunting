@@ -49,7 +49,7 @@ class Login extends Controller
     public function store()
     {
         // Attempt to login
-        if (!auth()->attempt(request(['email', 'password']))) {
+        if (!auth()->attempt(request(['email', 'password']), request('remember', false))) {
             flash(trans('auth.failed'))->error();
 
             return back();
