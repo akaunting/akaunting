@@ -58,6 +58,7 @@ class InvoicesTest extends FeatureTestCase
             ->assertStatus(302);
 
         $this->assertFlashLevel('success');
+
     }
 
     public function testItShouldDeleteInvoice()
@@ -70,25 +71,24 @@ class InvoicesTest extends FeatureTestCase
             ->assertRedirect(url('incomes/invoices'));
 
         $this->assertFlashLevel('success');
+
     }
 
     private function getInvoiceRequest($recurring = 0)
     {
         $amount = $this->faker->randomFloat(2, 2);
+
+        $items = [['name' =>  $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
+
         $data = [
-            'company_id' => $this->company->id,
             'customer_id' => '0',
-            'currency_code' => setting('general.default_currency'),
-            'currency_rate' => '1',
             'invoiced_at' => $this->faker->date(),
             'due_at' => $this->faker->date(),
-            'invoice_number' => $this->faker->lexify('INV ???'),
-            'order_number' =>  $this->faker->randomDigit,
-            'item_id' => null,
-            'item_name' => $this->faker->text(5),
-            'item_quantity' => '1',
-            'item_price' => $amount,
-            'item_currency' => setting('general.default_currency'),
+            'invoice_number' => '1',
+            'order_number' =>  '1',
+            'currency_code' => setting('general.default_currency'),
+            'currency_rate' => '1',
+            'item' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
             'category_id' => $this->company->categories()->type('income')->first()->id,
@@ -100,6 +100,7 @@ class InvoicesTest extends FeatureTestCase
             'customer_address' =>  $this->faker->address,
             'invoice_status_code' => 'draft',
             'amount' => $amount,
+            'company_id' => $this->company->id,
         ];
 
         if ($recurring) {
@@ -108,6 +109,7 @@ class InvoicesTest extends FeatureTestCase
             $data['recurring_custom_frequency'] = $this->faker->randomElement(['monthly', 'weekly']);
             $data['recurring_count'] = '1';
         }
+
         return $data;
     }
 }
