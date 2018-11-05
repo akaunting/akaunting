@@ -121,9 +121,12 @@
             data: $("#form-add-payment").serialize(),
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
             beforeSend: function() {
+                $('#button-add-payment').button('loading');
+
                 $('#modal-add-payment .modal-content').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
             },
             complete: function() {
+                $('#button-add-payment').button('reset');
                 $('#loading').remove();
             },
             success: function(json) {

@@ -39,8 +39,13 @@
             dataType: 'JSON',
             data: $("#form-create-tax").serialize(),
             beforeSend: function () {
+                $('#button-create-tax').button('loading');
+
                 $(".form-group").removeClass("has-error");
                 $(".help-block").remove();
+            },
+            complete: function() {
+                $('#button-create-tax').button('reset');
             },
             success: function(json) {
                 var data = json['data'];
