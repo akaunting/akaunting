@@ -770,12 +770,13 @@ input[type="number"] {
     border-radius: 0;
 }
 
-#tax-add-new {
-    padding: 6px 12px;
-}
-
 #items .select2-search__field {
     padding-left: 15px;
+    margin-top: 4px;
+}
+
+#tax-add-new {
+    padding: 6px 12px;
 }
 
 .stepwizard-step p {
