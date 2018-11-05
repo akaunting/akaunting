@@ -240,6 +240,7 @@ class Invoices extends Controller
     {
         $taxes = [];
 
+		$tax = 0;
         $tax_total = 0;
         $sub_total = 0;
         $discount_total = 0;
