@@ -98,7 +98,7 @@ class CreateInvoiceItem
         $item_tax_total = 0;
 
         if (!empty($this->data['tax_id'])) {
-            $calculates = $compounds = [];
+            $calculates = $compounds = $taxes = [];
 
             foreach ((array) $this->data['tax_id'] as $tax_id) {
                 $tax = Tax::find($tax_id);
@@ -112,6 +112,8 @@ class CreateInvoiceItem
                         break;
                     case 'normal':
                     default:
+                        $taxes[] = $tax;
+
                         $tax_amount = ($item_discount_amount / 100) * $tax->rate;
 
                         $item_taxes[] = [
@@ -128,20 +130,42 @@ class CreateInvoiceItem
             }
 
             if ($calculates) {
-                foreach ($calculates as $calculate) {
-                    $item_sub_and_tax_total = $item_discount_amount + $item_tax_total;
+                if ($this->discount) {
+                    $item_tax_total = 0;
 
-                    $item_tax_total = $tax_amount = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($calculate->rate / 100)));
+                    if ($taxes) {
+                        foreach ($taxes as $tax) {
+                            $item_tax_amount = ($item_amount / 100) * $tax->rate;
 
-                    $item_taxes[] = [
-                        'company_id' => $this->invoice->company_id,
-                        'invoice_id' => $this->invoice->id,
-                        'tax_id' => $calculate->id,
-                        'name' => $calculate->name,
-                        'amount' => $tax_amount,
-                    ];
+                            $item_tax_total += $item_tax_amount;
+                        }
+                    }
 
-                    $item_amount = $item_sub_and_tax_total - $item_tax_total;
+                    foreach ($calculates as $calculate) {
+                        $item_sub_and_tax_total = $item_amount + $item_tax_total;
+
+                        $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $calculate->rate)) / 100);
+
+                        $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
+
+                        $item_discount_amount = $item_sub_total - ($item_sub_total * ($this->discount / 100));
+                    }
+                } else {
+                    foreach ($calculates as $calculate) {
+                        $item_sub_and_tax_total = $item_discount_amount + $item_tax_total;
+
+                        $item_tax_total = $tax_amount = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($calculate->rate / 100)));
+
+                        $item_taxes[] = [
+                            'company_id' => $this->invoice->company_id,
+                            'invoice_id' => $this->invoice->id,
+                            'tax_id'     => $calculate->id,
+                            'name'       => $calculate->name,
+                            'amount'     => $tax_amount,
+                        ];
+
+                        $item_amount = $item_sub_and_tax_total - $item_tax_total;
+                    }
                 }
             }
 

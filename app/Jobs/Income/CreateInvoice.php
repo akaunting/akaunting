@@ -58,6 +58,18 @@ class CreateInvoice
                 // Calculate totals
                 $tax_total += $invoice_item->tax;
                 $sub_total += $invoice_item->total;
+
+                // Set taxes
+                foreach ($invoice_item->item_taxes as $item_tax) {
+                    if (isset($taxes) && in_array($item['tax_id'], $taxes)) {
+                        $taxes[$item_tax['tax_id']]['amount'] += $item_tax['amount'];
+                    } else {
+                        $taxes[$item_tax['tax_id']] = [
+                            'name' => $item_tax['name'],
+                            'amount' => $item_tax['amount']
+                        ];
+                    }
+                }
             }
         }
 
