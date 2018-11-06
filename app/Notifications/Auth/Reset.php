@@ -43,8 +43,6 @@ class Reset extends Notification
      */
     public function toMail($notifiable)
     {
-        setting(['general.company_name' => config('app.name')]);
-
         return (new MailMessage)
             ->line(trans('auth.notification.message_1'))
             ->action(trans('auth.notification.button'), url('auth/reset', $this->token))

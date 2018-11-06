@@ -181,17 +181,17 @@ class Settings extends Controller
     protected function oneCompany($key, $value)
     {
         switch ($key) {
+            case 'company_name':
+                Installer::updateEnv(['MAIL_FROM_NAME' => '"' . $value . '"']);
+                break;
+            case 'company_email':
+                Installer::updateEnv(['MAIL_FROM_ADDRESS' => $value]);
+                break;
             case 'default_locale':
-                // Change default locale
-                Installer::updateEnv([
-                    'APP_LOCALE' => $value
-                ]);
+                Installer::updateEnv(['APP_LOCALE' => $value]);
                 break;
             case 'session_handler':
-                // Change session handler
-                Installer::updateEnv([
-                    'SESSION_DRIVER' => $value
-                ]);
+                Installer::updateEnv(['SESSION_DRIVER' => $value]);
                 break;
         }
     }

@@ -269,15 +269,23 @@ class Installer
         $env = explode("\n", $env);
 
         foreach ($data as $data_key => $data_value) {
+            $updated = false;
+
             foreach ($env as $env_key => $env_value) {
                 $entry = explode('=', $env_value, 2);
 
                 // Check if new or old key
                 if ($entry[0] == $data_key) {
                     $env[$env_key] = $data_key . '=' . $data_value;
+                    $updated = true;
                 } else {
                     $env[$env_key] = $env_value;
                 }
+            }
+
+            // Lets create if not available
+            if (!$updated) {
+                $env[] = $data_key . '=' . $data_value;
             }
         }
 
