@@ -12,9 +12,9 @@
 
             {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
 
-            {{ Form::selectGroup('calculate', trans('taxes.calculate'), 'calculator', ['0' => trans('general.no'), '1' => trans('general.yes')], null, []) }}
+            {{ Form::radioGroup('calculate', trans('taxes.calculate')) }}
 
-            {{ Form::selectGroup('compound', trans('taxes.compound'), 'plus', ['0' => trans('general.no'), '1' => trans('general.yes')], null, []) }}
+            {{ Form::radioGroup('compound', trans('taxes.compound')) }}
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
         </div>
@@ -36,6 +36,8 @@
 
         $(document).ready(function() {
             $('#enabled_1').trigger('click');
+            $('#calculate_0').trigger('click');
+            $('#compound_0').trigger('click');
 
             $('#name').focus();
 
