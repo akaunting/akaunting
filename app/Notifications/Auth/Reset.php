@@ -47,7 +47,7 @@ class Reset extends Notification
 
         return (new MailMessage)
             ->line(trans('auth.notification.message_1'))
-            ->action(trans('auth.notification.button'), url('auth/reset', $this->token, true))
+            ->action(trans('auth.notification.button'), url('auth/reset', $this->token))
             ->line(trans('auth.notification.message_2'));
     }
 }

@@ -62,7 +62,7 @@ class Invoice extends Notification
             ]);
         }
 
-        $message->action(trans('customers.notification.button'), url('incomes/invoices', $this->invoice->id, true));
+        $message->action(trans('customers.notification.button'), url('incomes/invoices', $this->invoice->id));
 
         return $message;
     }
