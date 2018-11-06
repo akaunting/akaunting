@@ -22,7 +22,7 @@ class ModuleDelete extends Command
      *
      * @var string
      */
-    protected $description = 'Disable the specified module.';
+    protected $description = 'Delete the specified module.';
 
     /**
      * Execute the console command.
