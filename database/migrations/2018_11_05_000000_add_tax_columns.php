@@ -12,8 +12,7 @@ class AddTaxColumns extends Migration
     public function up()
     {
         Schema::table('taxes', function ($table) {
-            $table->boolean('calculate')->default(0);
-            $table->boolean('compound')->default(0);
+            $table->string('type')->default('normal');
         });
     }
 
@@ -26,8 +25,7 @@ class AddTaxColumns extends Migration
     {
         Schema::table('taxes', function ($table) {
             $table->dropColumn([
-                'calculate',
-                'compound',
+                'type',
             ]);
         });
     }

@@ -21,7 +21,7 @@ class Tax extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'rate', 'calculate', 'compound', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'rate', 'type', 'enabled'];
 
     /**
      * Sortable columns.

@@ -44,6 +44,14 @@ class CreateInvoiceItem
         $item_sku = '';
 
         $item_id = !empty($this->data['item_id']) ? $this->data['item_id'] : 0;
+        $item_amount = (double) $this->data['price'] * (double) $this->data['quantity'];
+
+        $item_discount_amount = $item_amount;
+
+        // Apply discount to tax
+        if ($this->discount) {
+            $item_discount_amount = $item_amount * ($this->discount / 100);
+        }
 
         if (!empty($item_id)) {
             $item_object = Item::find($item_id);
@@ -85,32 +93,72 @@ class CreateInvoiceItem
             $item_sku = $this->data['sku'];
         }
 
-        $item_tax = 0;
+        $tax_amount = 0;
         $item_taxes = [];
-        $invoice_item_taxes = [];
+        $item_tax_total = 0;
 
         if (!empty($this->data['tax_id'])) {
+            $calculates = $compounds = [];
+
             foreach ((array) $this->data['tax_id'] as $tax_id) {
-                $tax_object = Tax::find($tax_id);
+                $tax = Tax::find($tax_id);
 
-                $item_taxes[] = $tax_id;
+                switch ($tax->type) {
+                    case 'calculate':
+                        $calculates[] = $tax;
+                        break;
+                    case 'compound':
+                        $compounds[] = $tax;
+                        break;
+                    case 'normal':
+                    default:
+                        $tax_amount = ($item_discount_amount / 100) * $tax->rate;
 
-                $tax = (((double) $this->data['price'] * (double) $this->data['quantity']) / 100) * $tax_object->rate;
+                        $item_taxes[] = [
+                            'company_id' => $this->invoice->company_id,
+                            'invoice_id' => $this->invoice->id,
+                            'tax_id' => $tax_id,
+                            'name' => $tax->name,
+                            'amount' => $tax_amount,
+                        ];
 
-                // Apply discount to tax
-                if ($this->discount) {
-                    $tax = $tax - ($tax * ($this->discount / 100));
+                        $item_tax_total += $tax_amount;
+                        break;
                 }
+            }
 
-                $invoice_item_taxes[] = [
-                    'company_id' => $this->invoice->company_id,
-                    'invoice_id' => $this->invoice->id,
-                    'tax_id' => $tax_id,
-                    'name' => $tax_object->name,
-                    'amount' => $tax,
-                ];
+            if ($calculates) {
+                foreach ($calculates as $calculate) {
+                    $item_sub_and_tax_total = $item_discount_amount + $item_tax_total;
 
-                $item_tax += $tax;
+                    $item_tax_total = $tax_amount = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($calculate->rate / 100)));
+
+                    $item_taxes[] = [
+                        'company_id' => $this->invoice->company_id,
+                        'invoice_id' => $this->invoice->id,
+                        'tax_id' => $calculate->id,
+                        'name' => $calculate->name,
+                        'amount' => $tax_amount,
+                    ];
+
+                    $item_amount = $item_sub_and_tax_total - $item_tax_total;
+                }
+            }
+
+            if ($compounds) {
+                foreach ($compounds as $compound) {
+                    $tax_amount = (($item_discount_amount + $item_tax_total) / 100) * $compound->rate;
+
+                    $item_tax_total += $tax_amount;
+
+                    $item_taxes[] = [
+                        'company_id' => $this->invoice->company_id,
+                        'invoice_id' => $this->invoice->id,
+                        'tax_id' => $compound->id,
+                        'name' => $compound->name,
+                        'amount' => $tax_amount,
+                    ];
+                }
             }
         }
 
@@ -122,24 +170,31 @@ class CreateInvoiceItem
             'sku' => $item_sku,
             'quantity' => (double) $this->data['quantity'],
             'price' => (double) $this->data['price'],
-            'tax' => $item_tax,
-            'tax_id' => 0, // (int) $item_taxes;
-            'total' => (double) $this->data['price'] * (double) $this->data['quantity'],
+            'tax' => $item_tax_total,
+            'tax_id' => 0,
+            'total' => $item_amount,
         ]);
 
-        if ($invoice_item_taxes) {
-            foreach ($invoice_item_taxes as $invoice_item_tax) {
-                $invoice_item_tax['invoice_item_id'] = $invoice_item->id;
+        if (!empty($this->data['tax_id'])) {
+            // set item_taxes for
+            $invoice_item->item_taxes = $item_taxes;
+            $invoice_item->calculates = $calculates;
+            $invoice_item->compounds = $compounds;
+        }
 
-                InvoiceItemTax::create($invoice_item_tax);
+        if ($item_taxes) {
+            foreach ($item_taxes as $item_tax) {
+                $item_tax['invoice_item_id'] = $invoice_item->id;
+
+                InvoiceItemTax::create($item_tax);
 
                 // Set taxes
-                if (isset($taxes) && array_key_exists($invoice_item_tax['tax_id'], $taxes)) {
-                    $taxes[$invoice_item_tax['tax_id']]['amount'] += $invoice_item_tax['amount'];
+                if (isset($taxes) && array_key_exists($item_tax['tax_id'], $taxes)) {
+                    $taxes[$item_tax['tax_id']]['amount'] += $item_tax['amount'];
                 } else {
-                    $taxes[$invoice_item_tax['tax_id']] = [
-                        'name' => $invoice_item_tax['name'],
-                        'amount' => $invoice_item_tax['amount']
+                    $taxes[$item_tax['tax_id']] = [
+                        'name' => $item_tax['name'],
+                        'amount' => $item_tax['amount']
                     ];
                 }
             }
