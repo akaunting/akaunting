@@ -772,7 +772,7 @@ input[type="number"] {
 
 #items .select2-search__field {
     padding-left: 15px;
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 #tax-add-new {
@@ -865,6 +865,10 @@ input[type="number"] {
 
 .box-filter .select2-container .select2-selection--multiple {
     min-height: 30px !important;
+}
+
+.box-filter .select2-search__field {
+    font-size: 12px !important;
 }
 
 /* App Detail Page Sliders Start */
