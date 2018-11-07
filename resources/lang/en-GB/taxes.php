@@ -5,7 +5,7 @@ return [
     'rate'                  => 'Rate',
     'rate_percent'          => 'Rate (%)',
     'normal'                => 'Normal',
-    'included'              => 'Included in Price',
+    'inclusive'             => 'Inclusive',
     'compound'              => 'Compound',
 
 ];
