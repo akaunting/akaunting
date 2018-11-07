@@ -50,7 +50,7 @@ class Items extends Controller
     {
         $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
 
@@ -131,7 +131,7 @@ class Items extends Controller
     {
         $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
 
