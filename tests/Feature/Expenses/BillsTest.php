@@ -87,7 +87,7 @@ class BillsTest extends FeatureTestCase
     {
         $amount = $this->faker->randomFloat(2, 2);
 
-        $items = [['name' => 'urun', 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD', 'tax_id' => null]];
+        $items = [['name' =>  $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD', 'tax_id' => null]];
 
         $data =  [
             'vendor_id' => '0',

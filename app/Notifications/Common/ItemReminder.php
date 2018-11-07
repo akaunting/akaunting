@@ -45,7 +45,7 @@ class ItemReminder extends Notification
     {
         $message = (new MailMessage)
             ->line(trans('items.notification.message.reminder', ['name' => $this->item->name, 'quantity' => $this->item->quantity]))
-            ->action(trans('items.notification.button'), url('items/items', $this->item->id, true));
+            ->action(trans('items.notification.button'), url('items/items', $this->item->id));
 
         // Override per company as Laravel doesn't read config
         $message->from(config('mail.from.address'), config('mail.from.name'));

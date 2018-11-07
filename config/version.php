@@ -14,11 +14,11 @@ return [
 
     'build'     =>  '',
 
-    'status'    =>  'RC 2',
+    'status'    =>  'RC 3',
 
-    'date'      =>  '02-November-2018',
+    'date'      =>  '06-November-2018',
 
-    'time'      =>  '18:30',
+    'time'      =>  '10:30',
 
     'zone'      =>  'GMT +3',
 

@@ -48,6 +48,7 @@
                 </thead>
                 <tbody>
                 @foreach($bills as $item)
+                    @php $paid = $item->paid; @endphp
                     <tr>
                         <td><a href="{{ url('expenses/bills/' . $item->id . ' ') }}">{{ $item->bill_number }}</a></td>
                         <td>{{ $item->vendor_name }}</td>
@@ -62,7 +63,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('expenses/bills/' . $item->id) }}">{{ trans('general.show') }}</a></li>
-                                    @if ($item->paid && !$item->reconciled)
+                                    @if (!$item->reconciled)
                                     <li><a href="{{ url('expenses/bills/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
                                     @endif
                                     @permission('create-expenses-bills')
