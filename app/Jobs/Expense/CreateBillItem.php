@@ -180,8 +180,12 @@ class CreateBillItem
             'total' => $item_amount,
         ]);
 
+        $bill_item->item_taxes = false;
+        $bill_item->inclusives = false;
+        $bill_item->compounds = false;
+
+        // set item_taxes for
         if (!empty($this->data['tax_id'])) {
-            // set item_taxes for
             $bill_item->item_taxes = $item_taxes;
             $bill_item->inclusives = $inclusives;
             $bill_item->compounds = $compounds;

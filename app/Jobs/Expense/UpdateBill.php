@@ -62,14 +62,16 @@ class UpdateBill
                 $sub_total += $bill_item->total;
 
                 // Set taxes
-                foreach ($bill_item->item_taxes as $item_tax) {
-                    if (isset($taxes) && array_key_exists($item_tax['tax_id'], $taxes)) {
-                        $taxes[$item_tax['tax_id']]['amount'] += $item_tax['amount'];
-                    } else {
-                        $taxes[$item_tax['tax_id']] = [
-                            'name' => $item_tax['name'],
-                            'amount' => $item_tax['amount']
-                        ];
+                if ($bill_item->item_taxes) {
+                    foreach ($bill_item->item_taxes as $item_tax) {
+                        if (isset($taxes) && array_key_exists($item_tax['tax_id'], $taxes)) {
+                            $taxes[$item_tax['tax_id']]['amount'] += $item_tax['amount'];
+                        } else {
+                            $taxes[$item_tax['tax_id']] = [
+                                'name' => $item_tax['name'],
+                                'amount' => $item_tax['amount']
+                            ];
+                        }
                     }
                 }
             }

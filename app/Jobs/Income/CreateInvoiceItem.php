@@ -207,8 +207,12 @@ class CreateInvoiceItem
             'total' => $item_amount,
         ]);
 
+        $invoice_item->item_taxes = false;
+        $invoice_item->inclusives = false;
+        $invoice_item->compounds = false;
+
+        // set item_taxes for
         if (!empty($this->data['tax_id'])) {
-            // set item_taxes for
             $invoice_item->item_taxes = $item_taxes;
             $invoice_item->inclusives = $inclusives;
             $invoice_item->compounds = $compounds;
