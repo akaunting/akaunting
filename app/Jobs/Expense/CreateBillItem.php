@@ -183,7 +183,7 @@ class CreateBillItem
         if (!empty($this->data['tax_id'])) {
             // set item_taxes for
             $bill_item->item_taxes = $item_taxes;
-            $bill_item->inclusive = $inclusives;
+            $bill_item->inclusives = $inclusives;
             $bill_item->compounds = $compounds;
         }
 
