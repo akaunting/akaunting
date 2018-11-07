@@ -334,14 +334,14 @@ class Items extends Controller
                 }
 
                 if (!empty($item['tax_id'])) {
-                    $calculates = $compounds = $taxes = [];
+                    $includes = $compounds = $taxes = [];
 
                     foreach ($item['tax_id'] as $tax_id) {
                         $tax = Tax::find($tax_id);
 
                         switch ($tax->type) {
-                            case 'calculate':
-                                $calculates[] = $tax;
+                            case 'included':
+                                $includes[] = $tax;
                                 break;
                             case 'compound':
                                 $compounds[] = $tax;
@@ -357,7 +357,7 @@ class Items extends Controller
                         }
                     }
 
-                    if ($calculates) {
+                    if ($includes) {
                         if ($discount) {
                             $item_tax_total = 0;
 
@@ -369,20 +369,20 @@ class Items extends Controller
                                 }
                             }
 
-                            foreach ($calculates as $calculate) {
+                            foreach ($includes as $include) {
                                 $item_sub_and_tax_total = $item_sub_total + $item_tax_total;
 
-                                $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $calculate->rate)) / 100);
+                                $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $include->rate)) / 100);
 
                                 $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
 
                                 $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
                             }
                         } else {
-                            foreach ($calculates as $calculate) {
+                            foreach ($includes as $include) {
                                 $item_sub_and_tax_total = $item_discount_total + $item_tax_total;
 
-                                $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $calculate->rate)) / 100);
+                                $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $include->rate)) / 100);
 
                                 $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
 
