@@ -177,6 +177,13 @@
                             @endif
                             @endpermission
                         @endif
+
+                        @if ($module->purchase_faq)
+                        </br>
+                        <div class="text-center">
+                            <a href="#" id="button-purchase-faq">{{ trans('modules.tab.faq')}}</a>
+                        </div>
+                        @endif
                     </div>
                     <!-- /.box-footer -->
                 </div>
@@ -235,6 +242,10 @@
             </div>
         </div>
     </div>
+
+    @if ($module->purchase_faq)
+    {!! $module->purchase_faq !!}
+    @endif
 @endsection
 
 @push('css')
@@ -399,5 +410,11 @@
                 }
             });
         }
+
+        @if ($module->purchase_faq)
+        $(document).on('click', '#button-purchase-faq', function (e) {
+            $('.app-faq-modal').modal('show');
+        });
+        @endif
     </script>
 @endpush
