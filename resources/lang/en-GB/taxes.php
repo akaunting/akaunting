@@ -5,7 +5,7 @@ return [
     'rate'                  => 'Rate',
     'rate_percent'          => 'Rate (%)',
     'normal'                => 'Normal',
-    'calculate'             => 'Calculate as VAT/GST',
+    'included'              => 'Included in Price',
     'compound'              => 'Compound',
 
 ];
