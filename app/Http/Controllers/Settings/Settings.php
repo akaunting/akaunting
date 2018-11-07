@@ -47,7 +47,7 @@ class Settings extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
