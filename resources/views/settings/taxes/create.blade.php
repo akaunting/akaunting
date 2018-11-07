@@ -38,7 +38,7 @@
             $('#name').focus();
 
             $("#type").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans('general.type')]) }}"
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
             });
         });
     </script>
