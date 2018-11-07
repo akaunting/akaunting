@@ -224,6 +224,8 @@
             success: function(json) {
                 if (json['success']) {
                     $('#currency-' + data_id).after(json['html']);
+                    $('#enabled_1').trigger('click');
+                    $('#name').focus();
 
                     $("#code").select2({
                         placeholder: "{{ trans('general.form.select.field', ['field' => trans('currencies.code')]) }}"
@@ -239,18 +241,30 @@
         $(this).html('<span class="fa fa-spinner fa-pulse"></span>');
         $('.help-block').remove();
 
+        data = $('#tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'text\'], #tbl-currencies input[type=\'radio\'], #tbl-currencies input[type=\'hidden\'], #tbl-currencies textarea, #tbl-currencies select').serialize();
         data_href = $(this).data('href');
+        data_id = $(this).data('id');
 
         $.ajax({
             url: data_href,
             type: 'PATCH',
             dataType: 'JSON',
-            data: $('#tbl-currencies input[type=\'number\'], #tbl-currencies input[type=\'text\'], #tbl-currencies input[type=\'radio\'], #tbl-currencies input[type=\'hidden\'], #tbl-currencies textarea, #tbl-currencies select').serialize(),
+            data: data,
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
             success: function(json) {
                 $('.currency-updated').html('<span class="fa fa-save"></span>');
 
                 if (json['success']) {
+                    $('#currency-' + data_id + ' .currency-name a').text($('#currency-edit #name').val());
+                    $('#currency-' + data_id + ' .currency-code').text($('#currency-edit #code').val());
+                    $('#currency-' + data_id + ' .currency-rate').text($('#currency-edit #rate').val());
+
+                    if ($('#currency-edit #enabled').val()) {
+                        $('#currency-' + data_id + ' .currency-status').html('<span class="label label-success">{{ trans('general.enabled') }}</span>');
+                    } else {
+                        $('#currency-' + data_id + ' .currency-status').html('<span class="label label-danger">{{ trans('general.disabled') }}</span>');
+                    }
+
                     $('#currency-create').remove();
                     $('#currency-edit').remove();
                 }

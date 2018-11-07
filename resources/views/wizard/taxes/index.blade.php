@@ -222,6 +222,8 @@
             success: function(json) {
                 if (json['success']) {
                     $('#tax-' + data_id).after(json['html']);
+                    $('#enabled_1').trigger('click');
+                    $('#name').focus();
 
                     $("#code").select2({
                         placeholder: "{{ trans('general.form.select.field', ['field' => trans('taxes.code')]) }}"
@@ -249,6 +251,15 @@
                 $('.tax-updated').html('<span class="fa fa-save"></span>');
 
                 if (json['success']) {
+                    $('#tax-' + data_id + ' .tax-name a').text($('#tax-edit #name').val());
+                    $('#tax-' + data_id + ' .tax-rate').text($('#tax-edit #rate').val());
+
+                    if ($('#tax-edit #enabled').val()) {
+                        $('#tax-' + data_id + ' .tax-status').html('<span class="label label-success">{{ trans('general.enabled') }}</span>');
+                    } else {
+                        $('#tax-' + data_id + ' .tax-status').html('<span class="label label-danger">{{ trans('general.disabled') }}</span>');
+                    }
+
                     $('#tax-create').remove();
                     $('#tax-edit').remove();
                 }
