@@ -17,6 +17,8 @@
 
             {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
 
+            {{ Form::selectGroup('type', trans('general.type'), 'bars', $types, null, []) }}
+
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
         </div>
         <!-- /.box-body -->
@@ -36,5 +38,13 @@
     <script type="text/javascript">
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
+
+        $(document).ready(function() {
+            $('#name').focus();
+
+            $("#type").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
+            });
+        });
     </script>
 @endpush

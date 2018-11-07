@@ -2,19 +2,21 @@
 
 namespace App\Jobs\Income;
 
-use App\Events\InvoiceCreated;
+use App\Events\InvoiceUpdated;
 use App\Models\Income\Invoice;
-use App\Models\Income\InvoiceHistory;
 use App\Models\Income\InvoiceTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
 use App\Traits\Uploads;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class CreateInvoice
+class UpdateInvoice
 {
     use Currencies, DateTime, Dispatchable, Incomes, Uploads;
+
+    protected $invoice;
 
     protected $request;
 
@@ -23,8 +25,9 @@ class CreateInvoice
      *
      * @param  $request
      */
-    public function __construct($request)
+    public function __construct($invoice, $request)
     {
+        $this->invoice = $invoice;
         $this->request = $request;
     }
 
@@ -35,13 +38,11 @@ class CreateInvoice
      */
     public function handle()
     {
-        $invoice = Invoice::create($this->request->input());
-
         // Upload attachment
         if ($this->request->file('attachment')) {
             $media = $this->getMedia($this->request->file('attachment'), 'invoices');
 
-            $invoice->attachMedia($media, 'attachment');
+            $this->invoice->attachMedia($media, 'attachment');
         }
 
         $taxes = [];
@@ -52,8 +53,10 @@ class CreateInvoice
         $discount = $this->request['discount'];
 
         if ($this->request['item']) {
+            $this->deleteRelationships($this->invoice, 'items');
+
             foreach ($this->request['item'] as $item) {
-                $invoice_item = dispatch(new CreateInvoiceItem($item, $invoice, $discount));
+                $invoice_item = dispatch(new CreateInvoiceItem($item, $this->invoice, $discount));
 
                 // Calculate totals
                 $tax_total += $invoice_item->tax;
@@ -86,30 +89,21 @@ class CreateInvoice
 
         $this->request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
 
-        $invoice->update($this->request->input());
+        $this->invoice->update($this->request->input());
+
+        // Delete previous invoice totals
+        $this->deleteRelationships($this->invoice, 'totals');
 
         // Add invoice totals
-        $this->addTotals($invoice, $this->request, $taxes, $sub_total, $discount_total, $tax_total);
-
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => session('company_id'),
-            'invoice_id' => $invoice->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $invoice->invoice_number]),
-        ]);
-
-        // Update next invoice number
-        $this->increaseNextInvoiceNumber();
+        $this->addTotals($this->invoice, $this->request, $taxes, $sub_total, $discount_total, $tax_total);
 
         // Recurring
-        $invoice->createRecurring();
+        $this->invoice->updateRecurring();
 
         // Fire the event to make it extensible
-        event(new InvoiceCreated($invoice));
+        event(new InvoiceUpdated($this->invoice));
 
-        return $invoice;
+        return $this->invoice;
     }
 
     protected function addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total)
@@ -170,5 +164,32 @@ class CreateInvoice
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
         ]);
+    }
+
+    /**
+     * Mass delete relationships with events being fired.
+     *
+     * @param  $model
+     * @param  $relationships
+     *
+     * @return void
+     */
+    public function deleteRelationships($model, $relationships)
+    {
+        foreach ((array) $relationships as $relationship) {
+            if (empty($model->$relationship)) {
+                continue;
+            }
+
+            $items = $model->$relationship->all();
+
+            if ($items instanceof Collection) {
+                $items = $items->all();
+            }
+
+            foreach ((array) $items as $item) {
+                $item->delete();
+            }
+        }
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Jobs\Income;
+namespace App\Jobs\Expense;
 
 use App\Models\Common\Item;
-use App\Models\Income\InvoiceItem;
-use App\Models\Income\InvoiceItemTax;
+use App\Models\Expense\BillItem;
+use App\Models\Expense\BillItemTax;
 use App\Models\Setting\Tax;
 use App\Notifications\Common\Item as ItemNotification;
 use App\Notifications\Common\ItemReminder as ItemReminderNotification;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class CreateInvoiceItem
+class CreateBillItem
 {
     use Dispatchable;
 
     protected $data;
 
-    protected $invoice;
+    protected $bill;
 
     protected $discount;
 
@@ -24,20 +24,20 @@ class CreateInvoiceItem
      * Create a new job instance.
      *
      * @param  $data
-     * @param  $invoice
+     * @param  $bill
      * @param  $discount
      */
-    public function __construct($data, $invoice, $discount = null)
+    public function __construct($data, $bill, $discount = null)
     {
         $this->data = $data;
-        $this->invoice = $invoice;
+        $this->bill = $bill;
         $this->discount = $discount;
     }
 
     /**
      * Execute the job.
      *
-     * @return InvoiceItem
+     * @return BillItem
      */
     public function handle()
     {
@@ -59,36 +59,9 @@ class CreateInvoiceItem
             $this->data['name'] = $item_object->name;
             $item_sku = $item_object->sku;
 
-            // Decrease stock (item sold)
-            $item_object->quantity -= $this->data['quantity'];
+            // Increase stock (item bought)
+            $item_object->quantity += $this->data['quantity'];
             $item_object->save();
-
-            if (setting('general.send_item_reminder')) {
-                $item_stocks = explode(',', setting('general.schedule_item_stocks'));
-
-                foreach ($item_stocks as $item_stock) {
-                    if ($item_object->quantity == $item_stock) {
-                        foreach ($item_object->company->users as $user) {
-                            if (!$user->can('read-notifications')) {
-                                continue;
-                            }
-
-                            $user->notify(new ItemReminderNotification($item_object));
-                        }
-                    }
-                }
-            }
-
-            // Notify users if out of stock
-            if ($item_object->quantity == 0) {
-                foreach ($item_object->company->users as $user) {
-                    if (!$user->can('read-notifications')) {
-                        continue;
-                    }
-
-                    $user->notify(new ItemNotification($item_object));
-                }
-            }
         } elseif (!empty($this->data['sku'])) {
             $item_sku = $this->data['sku'];
         }
@@ -117,8 +90,8 @@ class CreateInvoiceItem
                         $tax_amount = ($item_discount_amount / 100) * $tax->rate;
 
                         $item_taxes[] = [
-                            'company_id' => $this->invoice->company_id,
-                            'invoice_id' => $this->invoice->id,
+                            'company_id' => $this->bill->company_id,
+                            'bill_id' => $this->bill->id,
                             'tax_id' => $tax_id,
                             'name' => $tax->name,
                             'amount' => $tax_amount,
@@ -157,8 +130,8 @@ class CreateInvoiceItem
                         $item_tax_total = $tax_amount = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($calculate->rate / 100)));
 
                         $item_taxes[] = [
-                            'company_id' => $this->invoice->company_id,
-                            'invoice_id' => $this->invoice->id,
+                            'company_id' => $this->bill->company_id,
+                            'bill_id' => $this->bill->id,
                             'tax_id'     => $calculate->id,
                             'name'       => $calculate->name,
                             'amount'     => $tax_amount,
@@ -176,8 +149,8 @@ class CreateInvoiceItem
                     $item_tax_total += $tax_amount;
 
                     $item_taxes[] = [
-                        'company_id' => $this->invoice->company_id,
-                        'invoice_id' => $this->invoice->id,
+                        'company_id' => $this->bill->company_id,
+                        'bill_id' => $this->bill->id,
                         'tax_id' => $compound->id,
                         'name' => $compound->name,
                         'amount' => $tax_amount,
@@ -186,9 +159,9 @@ class CreateInvoiceItem
             }
         }
 
-        $invoice_item = InvoiceItem::create([
-            'company_id' => $this->invoice->company_id,
-            'invoice_id' => $this->invoice->id,
+        $bill_item = BillItem::create([
+            'company_id' => $this->bill->company_id,
+            'bill_id' => $this->bill->id,
             'item_id' => $item_id,
             'name' => str_limit($this->data['name'], 180, ''),
             'sku' => $item_sku,
@@ -201,16 +174,16 @@ class CreateInvoiceItem
 
         if (!empty($this->data['tax_id'])) {
             // set item_taxes for
-            $invoice_item->item_taxes = $item_taxes;
-            $invoice_item->calculates = $calculates;
-            $invoice_item->compounds = $compounds;
+            $bill_item->item_taxes = $item_taxes;
+            $bill_item->calculates = $calculates;
+            $bill_item->compounds = $compounds;
         }
 
         if ($item_taxes) {
             foreach ($item_taxes as $item_tax) {
-                $item_tax['invoice_item_id'] = $invoice_item->id;
+                $item_tax['bill_item_id'] = $bill_item->id;
 
-                InvoiceItemTax::create($item_tax);
+                BillItemTax::create($item_tax);
 
                 // Set taxes
                 if (isset($taxes) && array_key_exists($item_tax['tax_id'], $taxes)) {
@@ -224,6 +197,6 @@ class CreateInvoiceItem
             }
         }
 
-        return $invoice_item;
+        return $bill_item;
     }
 }

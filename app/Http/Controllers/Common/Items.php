@@ -323,20 +323,78 @@ class Items extends Controller
                 $quantity = (double) $item['quantity'];
 
                 $item_tax_total = 0;
+                $item_tax_amount = 0;
+
                 $item_sub_total = ($price * $quantity);
+                $item_discount_total = $item_sub_total;
+
+                // Apply discount to item
+                if ($discount) {
+                    $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
+                }
 
                 if (!empty($item['tax_id'])) {
+                    $calculates = $compounds = $taxes = [];
+
                     foreach ($item['tax_id'] as $tax_id) {
                         $tax = Tax::find($tax_id);
 
-                        $item_tax = (($price * $quantity) / 100) * $tax->rate;
+                        switch ($tax->type) {
+                            case 'calculate':
+                                $calculates[] = $tax;
+                                break;
+                            case 'compound':
+                                $compounds[] = $tax;
+                                break;
+                            case 'normal':
+                            default:
+                                $taxes[] = $tax;
 
-                        // Apply discount to tax
-                        if ($discount) {
-                            $item_tax = $item_tax - ($item_tax * ($discount / 100));
+                                $item_tax_amount = ($item_discount_total / 100) * $tax->rate;
+
+                                $item_tax_total += $item_tax_amount;
+                                break;
                         }
+                    }
 
-                        $item_tax_total += $item_tax;
+                    if ($calculates) {
+                        if ($discount) {
+                            $item_tax_total = 0;
+
+                            if ($taxes) {
+                                foreach ($taxes as $tax) {
+                                    $item_tax_amount = ($item_sub_total / 100) * $tax->rate;
+
+                                    $item_tax_total += $item_tax_amount;
+                                }
+                            }
+
+                            foreach ($calculates as $calculate) {
+                                $item_sub_and_tax_total = $item_sub_total + $item_tax_total;
+
+                                $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $calculate->rate)) / 100);
+
+                                $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
+
+                                $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
+                            }
+                        } else {
+                            foreach ($calculates as $calculate) {
+                                $item_sub_and_tax_total = $item_discount_total + $item_tax_total;
+
+                                $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $calculate->rate)) / 100);
+
+                                $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
+
+                                $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
+                            }
+                        }
+                    }
+
+                    if ($compounds) {
+                        foreach ($compounds as $compound) {
+                            $item_tax_total += (($item_discount_total + $item_tax_total) / 100) * $compound->rate;
+                        }
                     }
                 }
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Income\Invoice as Request;
 use App\Http\Requests\Income\InvoicePayment as PaymentRequest;
 use App\Jobs\Income\CreateInvoice;
+use App\Jobs\Income\UpdateInvoice;
 use App\Jobs\Income\CreateInvoicePayment;
 use App\Models\Banking\Account;
 use App\Models\Common\Item;
@@ -238,128 +239,7 @@ class Invoices extends Controller
      */
     public function update(Invoice $invoice, Request $request)
     {
-        $taxes = [];
-
-		$tax = 0;
-        $tax_total = 0;
-        $sub_total = 0;
-        $discount_total = 0;
-        $discount = $request['discount'];
-
-        $invoice_item = [];
-        $invoice_item['company_id'] = $request['company_id'];
-        $invoice_item['invoice_id'] = $invoice->id;
-
-        if ($request['item']) {
-            $this->deleteRelationships($invoice, 'items');
-
-            foreach ($request['item'] as $item) {
-                unset($tax_object);
-                $item_sku = '';
-
-                if (!empty($item['item_id'])) {
-                    $item_object = Item::find($item['item_id']);
-
-                    $item['name'] = $item_object->name;
-                    $item_sku = $item_object->sku;
-                }
-
-                $item_tax = 0;
-                $item_taxes = [];
-                $invoice_item_taxes = [];
-
-                if (!empty($item['tax_id'])) {
-                    foreach ($item['tax_id'] as $tax_id) {
-                        $tax_object = Tax::find($tax_id);
-
-                        $item_taxes[] = $tax_id;
-
-                        $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
-
-                        // Apply discount to tax
-                        if ($discount) {
-                            $tax = $tax - ($tax * ($discount / 100));
-                        }
-
-                        $invoice_item_taxes[] = [
-                            'company_id' => $request['company_id'],
-                            'invoice_id' => $invoice->id,
-                            'tax_id' => $tax_id,
-                            'name' => $tax_object->name,
-                            'amount' => $tax,
-                        ];
-
-                        $item_tax += $tax;
-                    }
-                }
-
-                $invoice_item['item_id'] = $item['item_id'];
-                $invoice_item['name'] = str_limit($item['name'], 180, '');
-                $invoice_item['sku'] = $item_sku;
-                $invoice_item['quantity'] = (double) $item['quantity'];
-                $invoice_item['price'] = (double) $item['price'];
-                $invoice_item['tax'] = $tax;
-                $invoice_item['tax_id'] = 0;//$tax_id;
-                $invoice_item['total'] = (double) $item['price'] * (double) $item['quantity'];
-
-                $invoice_item_created = InvoiceItem::create($invoice_item);
-
-                if ($invoice_item_taxes) {
-                    foreach ($invoice_item_taxes as $invoice_item_tax) {
-                        $invoice_item_tax['invoice_item_id'] = $invoice_item_created->id;
-
-                        InvoiceItemTax::create($invoice_item_tax);
-
-                        // Set taxes
-                        if (isset($taxes) && array_key_exists($invoice_item_tax['tax_id'], $taxes)) {
-                            $taxes[$invoice_item_tax['tax_id']]['amount'] += $invoice_item_tax['amount'];
-                        } else {
-                            $taxes[$invoice_item_tax['tax_id']] = [
-                                'name' => $invoice_item_tax['name'],
-                                'amount' => $invoice_item_tax['amount']
-                            ];
-                        }
-                    }
-                }
-
-                $tax_total += $item_tax;
-                $sub_total += $invoice_item['total'];
-            }
-        }
-
-        $s_total = $sub_total;
-
-        // Apply discount to total
-        if ($discount) {
-            $s_discount = $s_total * ($discount / 100);
-            $discount_total += $s_discount;
-            $s_total = $s_total - $s_discount;
-        }
-
-        $amount = $s_total + $tax_total;
-
-        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
-
-        $invoice->update($request->input());
-
-        // Upload attachment
-        if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'invoices');
-
-            $invoice->attachMedia($media, 'attachment');
-        }
-
-        // Delete previous invoice totals
-        $this->deleteRelationships($invoice, 'totals');
-
-        // Add invoice totals
-        $this->addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total);
-
-        // Recurring
-        $invoice->updateRecurring();
-
-        // Fire the event to make it extendible
-        event(new InvoiceUpdated($invoice));
+        $invoice = dispatch(new UpdateInvoice($invoice, $request));
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.invoices', 1)]);
 
@@ -773,65 +653,5 @@ class Invoices extends Controller
         event(new InvoicePrinting($invoice));
 
         return $invoice;
-    }
-
-    protected function addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total)
-    {
-        $sort_order = 1;
-
-        // Added invoice sub total
-        InvoiceTotal::create([
-            'company_id' => $request['company_id'],
-            'invoice_id' => $invoice->id,
-            'code' => 'sub_total',
-            'name' => 'invoices.sub_total',
-            'amount' => $sub_total,
-            'sort_order' => $sort_order,
-        ]);
-
-        $sort_order++;
-
-        // Added invoice discount
-        if ($discount_total) {
-            InvoiceTotal::create([
-                'company_id' => $request['company_id'],
-                'invoice_id' => $invoice->id,
-                'code' => 'discount',
-                'name' => 'invoices.discount',
-                'amount' => $discount_total,
-                'sort_order' => $sort_order,
-            ]);
-
-            // This is for total
-            $sub_total = $sub_total - $discount_total;
-
-            $sort_order++;
-        }
-
-        // Added invoice taxes
-        if (isset($taxes)) {
-            foreach ($taxes as $tax) {
-                InvoiceTotal::create([
-                    'company_id' => $request['company_id'],
-                    'invoice_id' => $invoice->id,
-                    'code' => 'tax',
-                    'name' => $tax['name'],
-                    'amount' => $tax['amount'],
-                    'sort_order' => $sort_order,
-                ]);
-
-                $sort_order++;
-            }
-        }
-
-        // Added invoice total
-        InvoiceTotal::create([
-            'company_id' => $request['company_id'],
-            'invoice_id' => $invoice->id,
-            'code' => 'total',
-            'name' => 'invoices.total',
-            'amount' => $sub_total + $tax_total,
-            'sort_order' => $sort_order,
-        ]);
     }
 }

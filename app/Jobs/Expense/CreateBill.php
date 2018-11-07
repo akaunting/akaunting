@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Jobs\Income;
+namespace App\Jobs\Expense;
 
-use App\Events\InvoiceCreated;
-use App\Models\Income\Invoice;
-use App\Models\Income\InvoiceHistory;
-use App\Models\Income\InvoiceTotal;
+use App\Events\BillCreated;
+use App\Models\Expense\Bill;
+use App\Models\Expense\BillHistory;
+use App\Models\Expense\BillTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use App\Traits\Incomes;
 use App\Traits\Uploads;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class CreateInvoice
+class CreateBill
 {
-    use Currencies, DateTime, Dispatchable, Incomes, Uploads;
+    use Currencies, DateTime, Dispatchable, Uploads;
 
     protected $request;
 
@@ -35,13 +34,13 @@ class CreateInvoice
      */
     public function handle()
     {
-        $invoice = Invoice::create($this->request->input());
+        $bill = Bill::create($this->request->input());
 
         // Upload attachment
         if ($this->request->file('attachment')) {
-            $media = $this->getMedia($this->request->file('attachment'), 'invoices');
+            $media = $this->getMedia($this->request->file('attachment'), 'bills');
 
-            $invoice->attachMedia($media, 'attachment');
+            $bill->attachMedia($media, 'attachment');
         }
 
         $taxes = [];
@@ -53,14 +52,14 @@ class CreateInvoice
 
         if ($this->request['item']) {
             foreach ($this->request['item'] as $item) {
-                $invoice_item = dispatch(new CreateInvoiceItem($item, $invoice, $discount));
+                $bill_item = dispatch(new CreateBillItem($item, $bill, $discount));
 
                 // Calculate totals
-                $tax_total += $invoice_item->tax;
-                $sub_total += $invoice_item->total;
+                $tax_total += $bill_item->tax;
+                $sub_total += $bill_item->total;
 
                 // Set taxes
-                foreach ($invoice_item->item_taxes as $item_tax) {
+                foreach ($bill_item->item_taxes as $item_tax) {
                     if (isset($taxes) && array_key_exists($item_tax['tax_id'], $taxes)) {
                         $taxes[$item_tax['tax_id']]['amount'] += $item_tax['amount'];
                     } else {
@@ -84,57 +83,54 @@ class CreateInvoice
 
         $amount = $s_total + $tax_total;
 
-        $this->request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
+        $request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
 
-        $invoice->update($this->request->input());
+        $bill->update($this->request->input());
 
-        // Add invoice totals
-        $this->addTotals($invoice, $this->request, $taxes, $sub_total, $discount_total, $tax_total);
+        // Add bill totals
+        $this->addTotals($bill, $this->request, $taxes, $sub_total, $discount_total, $tax_total);
 
-        // Add invoice history
-        InvoiceHistory::create([
+        // Add bill history
+        BillHistory::create([
             'company_id' => session('company_id'),
-            'invoice_id' => $invoice->id,
+            'bill_id' => $bill->id,
             'status_code' => 'draft',
             'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $invoice->invoice_number]),
+            'description' => trans('messages.success.added', ['type' => $bill->bill_number]),
         ]);
 
-        // Update next invoice number
-        $this->increaseNextInvoiceNumber();
-
         // Recurring
-        $invoice->createRecurring();
+        $bill->createRecurring();
 
-        // Fire the event to make it extensible
-        event(new InvoiceCreated($invoice));
+        // Fire the event to make it extendible
+        event(new BillCreated($bill));
 
-        return $invoice;
+        return $bill;
     }
 
-    protected function addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total)
+    protected function addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total)
     {
         $sort_order = 1;
 
-        // Added invoice sub total
-        InvoiceTotal::create([
+        // Added bill sub total
+        BillTotal::create([
             'company_id' => $request['company_id'],
-            'invoice_id' => $invoice->id,
+            'bill_id' => $bill->id,
             'code' => 'sub_total',
-            'name' => 'invoices.sub_total',
+            'name' => 'bills.sub_total',
             'amount' => $sub_total,
             'sort_order' => $sort_order,
         ]);
 
         $sort_order++;
 
-        // Added invoice discount
+        // Added bill discount
         if ($discount_total) {
-            InvoiceTotal::create([
+            BillTotal::create([
                 'company_id' => $request['company_id'],
-                'invoice_id' => $invoice->id,
+                'bill_id' => $bill->id,
                 'code' => 'discount',
-                'name' => 'invoices.discount',
+                'name' => 'bills.discount',
                 'amount' => $discount_total,
                 'sort_order' => $sort_order,
             ]);
@@ -145,12 +141,12 @@ class CreateInvoice
             $sort_order++;
         }
 
-        // Added invoice taxes
+        // Added bill taxes
         if (isset($taxes)) {
             foreach ($taxes as $tax) {
-                InvoiceTotal::create([
+                BillTotal::create([
                     'company_id' => $request['company_id'],
-                    'invoice_id' => $invoice->id,
+                    'bill_id' => $bill->id,
                     'code' => 'tax',
                     'name' => $tax['name'],
                     'amount' => $tax['amount'],
@@ -161,12 +157,12 @@ class CreateInvoice
             }
         }
 
-        // Added invoice total
-        InvoiceTotal::create([
+        // Added bill total
+        BillTotal::create([
             'company_id' => $request['company_id'],
-            'invoice_id' => $invoice->id,
+            'bill_id' => $bill->id,
             'code' => 'total',
-            'name' => 'invoices.total',
+            'name' => 'bills.total',
             'amount' => $sub_total + $tax_total,
             'sort_order' => $sort_order,
         ]);
