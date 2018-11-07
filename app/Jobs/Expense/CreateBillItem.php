@@ -71,14 +71,14 @@ class CreateBillItem
         $item_tax_total = 0;
 
         if (!empty($this->data['tax_id'])) {
-            $includes = $compounds = $taxes = [];
+            $inclusives = $compounds = $taxes = [];
 
             foreach ((array) $this->data['tax_id'] as $tax_id) {
                 $tax = Tax::find($tax_id);
 
                 switch ($tax->type) {
                     case 'included':
-                        $includes[] = $tax;
+                        $inclusives[] = $tax;
                         break;
                     case 'compound':
                         $compounds[] = $tax;
@@ -102,7 +102,7 @@ class CreateBillItem
                 }
             }
 
-            if ($includes) {
+            if ($inclusives) {
                 if ($this->discount) {
                     $item_tax_total = 0;
 
@@ -114,34 +114,34 @@ class CreateBillItem
                         }
                     }
 
-                    foreach ($includes as $include) {
+                    foreach ($inclusives as $inclusive) {
                         $item_sub_and_tax_total = $item_amount + $item_tax_total;
 
-                        $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $include->rate)) / 100);
+                        $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $inclusive->rate)) / 100);
 
                         $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
 
                         $item_taxes[] = [
                             'company_id' => $this->bill->company_id,
                             'bill_id' => $this->bill->id,
-                            'tax_id'     => $include->id,
-                            'name'       => $include->name,
+                            'tax_id'     => $inclusive->id,
+                            'name'       => $inclusive->name,
                             'amount'     => $tax_amount,
                         ];
 
                         $item_discount_amount = $item_sub_total - ($item_sub_total * ($this->discount / 100));
                     }
                 } else {
-                    foreach ($includes as $include) {
+                    foreach ($inclusives as $inclusive) {
                         $item_sub_and_tax_total = $item_discount_amount + $item_tax_total;
 
-                        $item_tax_total = $tax_amount = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($include->rate / 100)));
+                        $item_tax_total = $tax_amount = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($inclusive->rate / 100)));
 
                         $item_taxes[] = [
                             'company_id' => $this->bill->company_id,
                             'bill_id' => $this->bill->id,
-                            'tax_id'     => $include->id,
-                            'name'       => $include->name,
+                            'tax_id'     => $inclusive->id,
+                            'name'       => $inclusive->name,
                             'amount'     => $tax_amount,
                         ];
 
@@ -183,7 +183,7 @@ class CreateBillItem
         if (!empty($this->data['tax_id'])) {
             // set item_taxes for
             $bill_item->item_taxes = $item_taxes;
-            $bill_item->includes = $includes;
+            $bill_item->inclusives = $inclusives;
             $bill_item->compounds = $compounds;
         }
 
