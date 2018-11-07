@@ -330,3 +330,13 @@ function convertDateFormat(date, split_character) {
 
     return result.join(split_character);
 }
+
+function itemTableResize() {
+    colspan = $('#items.table.table-bordered thead tr th').length - 1;
+
+    $('#items.table.table-bordered tbody #addItem .text-right').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-subtotal .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-discount .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-tax .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-total .text-right:first').attr('colspan', colspan);
+}

@@ -221,6 +221,8 @@
         });
 
         $(document).ready(function(){
+            itemTableResize();
+
             @if (old('item'))
             $('#customer_id').trigger('change');
             @endif

@@ -221,6 +221,8 @@
         });
 
         $(document).ready(function(){
+            itemTableResize();
+
             @if (old('item'))
             $('#vendor_id').trigger('change');
             @endif
