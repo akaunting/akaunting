@@ -21,7 +21,7 @@ return [
     'tax_rates'             => 'BTW-tarief|Belastingtarieven',
     'users'                 => 'Gebruiker|Gebruikers',
     'roles'                 => 'Rol|Rollen',
-    'permissions'           => 'Toestemming|Machtigingen',
+    'permissions'           => 'Machtiging|Machtigingen',
     'modules'               => 'App|Apps',
     'companies'             => 'Bedrijf|Bedrijven',
     'profits'               => 'Winst|Winst',
@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Nummer|Nummers',
     'statuses'              => 'Status|Statussen',
     'others'                => 'Overig|Overigen',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Dashboard',
     'banking'               => 'Banken',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Kleur',
     'save'                  => 'Opslaan',
     'cancel'                => 'Annuleren',
+    'loading'               => 'Loading...',
     'from'                  => 'Van',
     'to'                    => 'Aan',
     'print'                 => 'Afdrukken',
@@ -101,16 +106,31 @@ return [
     'partially'             => 'Gedeeltelijk',
     'partially_paid'        => 'Gedeeltelijk betaald',
     'export'                => 'Exporteren',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
     'enable'                => 'Activeren',
     'disable'               => 'Uitschakelen',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => 'Nieuwe :type',
         'edit'              => ':type bewerken',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
 
     'form' => [
-        'enter'             => 'Voer :field',
+        'enter'             => 'Voer :field in',
         'select' => [
             'field'         => '- Selecteer :field -',
             'file'          => 'Selecteer bestand',
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Geen bestand geselecteerd...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

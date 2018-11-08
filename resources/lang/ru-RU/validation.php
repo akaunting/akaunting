@@ -101,6 +101,8 @@ return [
         'attribute-name' => [
             'rule-name' => 'Настраиваемое сообщение',
         ],
+        'invalid_currency' => 'The :attribute code is invalid.',
+        'invalid_amount'   => 'The amount :attribute is invalid.',
     ],
 
     /*

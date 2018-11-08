@@ -121,6 +121,56 @@ class Updater
         return $file;
     }
 
+    public static function unzip($file, $temp_path)
+    {
+        // Unzip the file
+        $zip = new ZipArchive();
+
+        if (($zip->open($file) !== true) || !$zip->extractTo($temp_path)) {
+            return false;
+        }
+
+        $zip->close();
+
+        // Delete zip file
+        File::delete($file);
+
+        return true;
+    }
+
+    public static function fileCopy($alias, $temp_path, $version)
+    {
+        if ($alias == 'core') {
+            // Move all files/folders from temp path
+            if (!File::copyDirectory($temp_path, base_path())) {
+                return false;
+            }
+        } else {
+            // Get module instance
+            $module = Module::findByAlias($alias);
+            $model = Model::where('alias', $alias)->first();
+
+            // Move all files/folders from temp path
+            if (!File::copyDirectory($temp_path, module_path($module->get('name')))) {
+                return false;
+            }
+
+            // Add history
+            ModelHistory::create([
+                'company_id' => session('company_id'),
+                'module_id' => $model->id,
+                'category' => $module->get('category'),
+                'version' => $version,
+                'description' => trans('modules.history.updated', ['module' => $module->get('name')]),
+            ]);
+        }
+
+        // Delete temp directory
+        File::deleteDirectory($temp_path);
+
+        return true;
+    }
+
     public static function all()
     {
         // Get data from cache

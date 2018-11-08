@@ -37,7 +37,11 @@ return [
     'updates'               => 'به روز رسانی | به روز رسانی',
     'numbers'               => 'شماره | تعداد',
     'statuses'              => 'وضعیت | وضعیت',
-    'others'                => 'Other|Others',
+    'others'                => 'سایر |‌ سایرین',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'پیشخوان',
     'banking'               => 'بانکداری',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'رنگ',
     'save'                  => 'ذخیره کردن',
     'cancel'                => 'انصراف',
+    'loading'               => 'Loading...',
     'from'                  => 'از',
     'to'                    => 'به',
     'print'                 => 'چاپ کن',
@@ -100,11 +105,30 @@ return [
     'overdue'               => 'سر رسید شده',
     'partially'             => 'جزئی',
     'partially_paid'        => 'پرداخت جزئی',
+    'export'                => 'گرفتن خروجی',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
+    'enable'                => 'فعال',
+    'disable'               => 'غیر فعال',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => ':type جدید',
         'edit'              => 'ویرایش :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
+
     'form' => [
         'enter'             => 'واردکردن :field',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => 'هیچ فایلی انتخاب نشده...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

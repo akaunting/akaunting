@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type 已禁用!',
     ],
     'error' => [
-        'over_payment'      => '错误：未加入付款方式！数量超过总计。',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => '错误：您不允许管理此公司！',
         'customer'          => '错误：未创建用户！:name已经使用此邮箱。',
         'no_file'           => '错误：沒有选择文件！',

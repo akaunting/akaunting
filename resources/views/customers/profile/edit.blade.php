@@ -9,7 +9,8 @@
             'method' => 'PATCH',
             'files' => true,
             'url' => ['customers/profile/update'],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">

@@ -8,7 +8,8 @@
     {!! Form::model($customer, [
         'method' => 'PATCH',
         'url' => ['incomes/customers', $customer->id],
-        'role' => 'form'
+        'role' => 'form',
+        'class' => 'form-loading-button'
     ]) !!}
 
     <div class="box-body">
@@ -27,6 +28,8 @@
         {{ Form::textareaGroup('address', trans('general.address')) }}
 
         {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+
+        {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
 
         @stack('create_user_input_start')
         <div  id="customer-create-user" class="form-group col-md-12 margin-top">

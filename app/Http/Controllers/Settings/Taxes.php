@@ -38,7 +38,13 @@ class Taxes extends Controller
      */
     public function create()
     {
-        return view('settings.taxes.create');
+        $types = [
+            'normal' => trans('taxes.normal'),
+            'inclusive' => trans('taxes.inclusive'),
+            'compound' => trans('taxes.compound'),
+        ];
+
+        return view('settings.taxes.create', compact('types'));
     }
 
     /**
@@ -68,7 +74,13 @@ class Taxes extends Controller
      */
     public function edit(Tax $tax)
     {
-        return view('settings.taxes.edit', compact('tax'));
+        $types = [
+            'normal' => trans('taxes.normal'),
+            'inclusive' => trans('taxes.inclusive'),
+            'compound' => trans('taxes.compound'),
+        ];
+
+        return view('settings.taxes.edit', compact('tax', 'types'));
     }
 
     /**

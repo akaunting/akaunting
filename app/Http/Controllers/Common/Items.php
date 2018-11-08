@@ -26,8 +26,7 @@ class Items extends Controller
     {
         $items = Item::with('category')->collect();
 
-        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id')
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
+        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
         return view('common.items.index', compact('items', 'categories'));
     }
@@ -51,7 +50,7 @@ class Items extends Controller
     {
         $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
 
@@ -132,7 +131,7 @@ class Items extends Controller
     {
         $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
 
@@ -323,22 +322,83 @@ class Items extends Controller
                 $price = (double) $item['price'];
                 $quantity = (double) $item['quantity'];
 
-                $item_tax_total= 0;
+                $item_tax_total = 0;
+                $item_tax_amount = 0;
+
                 $item_sub_total = ($price * $quantity);
+                $item_discount_total = $item_sub_total;
+
+                // Apply discount to item
+                if ($discount) {
+                    $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
+                }
 
                 if (!empty($item['tax_id'])) {
-                    $tax = Tax::find($item['tax_id']);
+                    $inclusives = $compounds = $taxes = [];
 
-                    $item_tax_total = (($price * $quantity) / 100) * $tax->rate;
+                    foreach ($item['tax_id'] as $tax_id) {
+                        $tax = Tax::find($tax_id);
+
+                        switch ($tax->type) {
+                            case 'inclusive':
+                                $inclusives[] = $tax;
+                                break;
+                            case 'compound':
+                                $compounds[] = $tax;
+                                break;
+                            case 'normal':
+                            default:
+                                $taxes[] = $tax;
+
+                                $item_tax_amount = ($item_discount_total / 100) * $tax->rate;
+
+                                $item_tax_total += $item_tax_amount;
+                                break;
+                        }
+                    }
+
+                    if ($inclusives) {
+                        if ($discount) {
+                            $item_tax_total = 0;
+
+                            if ($taxes) {
+                                foreach ($taxes as $tax) {
+                                    $item_tax_amount = ($item_sub_total / 100) * $tax->rate;
+
+                                    $item_tax_total += $item_tax_amount;
+                                }
+                            }
+
+                            foreach ($inclusives as $inclusive) {
+                                $item_sub_and_tax_total = $item_sub_total + $item_tax_total;
+
+                                $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $inclusive->rate)) / 100);
+
+                                $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
+
+                                $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
+                            }
+                        } else {
+                            foreach ($inclusives as $inclusive) {
+                                $item_sub_and_tax_total = $item_discount_total + $item_tax_total;
+
+                                $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $inclusive->rate)) / 100);
+
+                                $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
+
+                                $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
+                            }
+                        }
+                    }
+
+                    if ($compounds) {
+                        foreach ($compounds as $compound) {
+                            $item_tax_total += (($item_discount_total + $item_tax_total) / 100) * $compound->rate;
+                        }
+                    }
                 }
 
                 $sub_total += $item_sub_total;
-
-                // Apply discount to tax
-                if ($discount) {
-                    $item_tax_total = $item_tax_total - ($item_tax_total * ($discount / 100));
-                }
-
                 $tax_total += $item_tax_total;
 
                 $items[$key] = money($item_sub_total, $currency_code, true)->format();

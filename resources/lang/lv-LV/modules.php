@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Šajā kategorijā programmu vēl nav.',
     'developer'             => 'Vai jūs esat izstrādātājs? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Šeit</a> jūs varat iemācīties, kā veidot programmas un sākt tās pārdot!',
 
+    'recommended_apps'      => 'Recommended Apps',
+
     'about'                 => 'Par',
 
     'added'                 => 'Pievienots',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Instalācija',
         'faq'               => 'BUJ',
         'changelog'         => 'Izmaiņas',
+        'reviews'            => 'Reviews',
     ],
 
     'installation' => [
         'header'            => 'Programmas instalācija',
         'download'          => 'Lejupielādēju :module.',
         'unzip'             => 'Atarhivēju :module.',
+        'file_copy'         => 'Copying :module files.',
+        'migrate'           => 'Applying :module updates.',
+        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
         'install'           => 'Instalēju :module.',
+    ],
+
+    'errors' => [
+        'download' => ':module can not download!',
+        'upload' => 'Downloaded :module can not saved!',
+        'unzip' => ':module can not unzip!',
+        'file_copy' => ':module files can not copy!',
+        'migrate' => ':module migrate broken!',
+        'migrate core' => ':module already latest version so then yon can not update.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Nopirkts',
         'installed' => 'Instalēts',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Add a Review'
+        ],
+        'na' => 'There are no reviews.'
+    ]
 ];

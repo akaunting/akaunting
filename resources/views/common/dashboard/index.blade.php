@@ -266,11 +266,13 @@
         $('#cashflow-range').on('apply.daterangepicker', function(ev, picker) {
             var period = $('#period').val();
 
+            range = getRange(picker);
+
             $.ajax({
                 url: '{{ url("common/dashboard/cashflow") }}',
                 type: 'get',
                 dataType: 'html',
-                data: 'period=' + period + '&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                data: 'period=' + period + '&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD') + '&range=' + range,
                 success: function(data) {
                     $('#cashflow').html(data);
                 }
@@ -282,11 +284,13 @@
 
             $('#period').val('month');
 
+            range = getRange(picker);
+
             $.ajax({
                 url: '{{ url("common/dashboard/cashflow") }}',
                 type: 'get',
                 dataType: 'html',
-                data: 'period=month&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                data: 'period=month&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD') + '&range=' + range,
                 success: function(data) {
                     $('#cashflow').html(data);
                 }
@@ -298,16 +302,36 @@
 
             $('#period').val('quarter');
 
+            range = getRange(picker);
+
             $.ajax({
                 url: '{{ url("common/dashboard/cashflow") }}',
                 type: 'get',
                 dataType: 'html',
-                data: 'period=quarter&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                data: 'period=quarter&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD') + '&range=' + range,
                 success: function(data) {
                     $('#cashflow').html(data);
                 }
             });
         });
     });
+
+    function getRange(picker) {
+        ranges = {
+            '{{ trans("reports.this_year") }}': 'this_year',
+            '{{ trans("reports.previous_year") }}': 'previous_year',
+            '{{ trans("reports.this_quarter") }}': 'this_quarter',
+            '{{ trans("reports.previous_quarter") }}': 'previous_quarter',
+            '{{ trans("reports.last_12_months") }}': 'last_12_months'
+        };
+
+        range = 'custom';
+
+        if (ranges[picker.chosenLabel] != undefined) {
+            range = ranges[picker.chosenLabel];
+        }
+
+        return range;
+    }
 </script>
 @endpush

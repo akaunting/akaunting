@@ -8,7 +8,10 @@ return [
     'sku'                   => 'SKU',
 
     'notification' => [
-        'message'       => 'Dostáváš tento email, protože :name brzo dojde.',
+        'message'       => [
+            'reminder' => 'You are receiving this email because only :quantity of :name has remained.',
+            'out_of_stock' => 'Dostáváš tento email, protože :name brzo dojde.',
+        ],
         'button'        => 'Zobrazit',
     ],
 

@@ -29,14 +29,11 @@ class Revenues extends Controller
     {
         $revenues = Revenue::with(['account', 'category', 'customer'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $customers = collect(Customer::enabled()->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.customers', 2)]), '');
+        $customers = collect(Customer::enabled()->orderBy('name')->pluck('name', 'id'));
 
-        $categories = collect(Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
+        $categories = collect(Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id'));
 
-        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
+        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'));
 
         $transfer_cat_id = Category::transfer();
 

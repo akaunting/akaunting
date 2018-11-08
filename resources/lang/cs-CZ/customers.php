@@ -7,5 +7,10 @@ return [
 
     'error' => [
         'email'             => 'Tato emailová adresa je už obsazena.'
-    ]
+    ],
+
+    'notification' => [
+        'message'       => ':customer provedl platbu v částce :amount k faktuře číslo :invoice_number.',
+        'button'        => 'Zobrazit',
+    ],
 ];

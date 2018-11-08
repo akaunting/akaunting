@@ -9,7 +9,8 @@
                 'method' => 'PATCH',
                 'url' => ['common/companies', $company->id],
                 'files' => true,
-                'role' => 'form'
+                'role' => 'form',
+                'class' => 'form-loading-button'
             ]) !!}
 
             <div class="box-body">

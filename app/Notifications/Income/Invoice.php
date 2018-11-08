@@ -60,7 +60,7 @@ class Invoice extends Notification
         }
 
         if ($this->invoice->customer->user) {
-            $message->action(trans('invoices.notification.button'), url('customers/invoices', $this->invoice->id, true));
+            $message->action(trans('invoices.notification.button'), url('customers/invoices', $this->invoice->id));
         }
 
         return $message;

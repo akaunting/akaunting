@@ -7,5 +7,10 @@ return [
 
     'error' => [
         'email'             => 'Este e-mail já foi utilizado.'
-    ]
+    ],
+
+    'notification' => [
+        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
+        'button'        => 'Show',
+    ],
 ];

@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count item out of stock|[2,*] :count items out of stock',
         'view_all'          => 'View All'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

@@ -57,6 +57,17 @@ trait Modules
         return [];
     }
 
+    public function getModuleReviews($alias, $data = [])
+    {
+        $response = $this->getRemote('apps/' . $alias . '/reviews', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
     public function getCategories()
     {
         $response = $this->getRemote('apps/categories');
@@ -68,9 +79,31 @@ trait Modules
         return [];
     }
 
-    public function getModulesByCategory($alias)
+    public function getModulesByCategory($alias, $data = [])
     {
-        $response = $this->getRemote('apps/categories/' . $alias);
+        $response = $this->getRemote('apps/categories/' . $alias, 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getVendors()
+    {
+        $response = $this->getRemote('apps/vendors');
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getModulesByVendor($alias, $data = [])
+    {
+        $response = $this->getRemote('apps/vendors/' . $alias, 'GET', $data);
 
         if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
@@ -159,6 +192,17 @@ trait Modules
     public function getSearchModules($data = [])
     {
         $response = $this->getRemote('apps/search', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getFeaturedModules($data = [])
+    {
+        $response = $this->getRemote('apps/featured', 'GET', $data);
 
         if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;

@@ -8,70 +8,86 @@ use Tests\Feature\FeatureTestCase;
 
 class ItemsTest extends FeatureTestCase
 {
-	public function testItShouldBeShowTheItemsPage()
+	public function testItShouldSeeItemListPage()
 	{
-		$this
-			->loginAs()
+		$this->loginAs()
 			->get(route('items.index'))
 			->assertStatus(200)
-			->assertSee('Items');
+			->assertSeeText(trans_choice('general.items', 2));
 	}
 
-	public function testItShouldBeShowCreateItemPage()
+	public function testItShouldSeeItemCreatePage()
 	{
-		$this
-			->loginAs()
+		$this->loginAs()
 			->get(route('items.create'))
 			->assertStatus(200)
-			->assertSee('New Item');
+			->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.items', 1)]));
 	}
 
-	public function testItShouldStoreAnItem()
+	public function testItShouldCreateItem()
 	{
-		$picture = UploadedFile::fake()->create('image.jpg');
-
-		$item = [
-			'name' => $this->faker->title,
-			'sku' => $this->faker->languageCode,
-			'picture' => $picture,
-			'description' => $this->faker->text(100),
-			'purchase_price' => $this->faker->randomFloat(2,10,20),
-			'sale_price' => $this->faker->randomFloat(2,10,20),
-			'quantity' => $this->faker->randomNumber(2),
-			'category_id' => $this->company->categories()->first()->id,
-			'tax_id' => $this->company->taxes()->first()->id,
-			'enabled' => $this->faker->boolean ? 1 : 0
-		];
-
-		$this
-			->loginAs()
-			->post(route('items.store'), $item)
+		$this->loginAs()
+			->post(route('items.store'), $this->getItemRequest())
 			->assertStatus(302)
 			->assertRedirect(route('items.index'));
+
 		$this->assertFlashLevel('success');
 	}
 
-	public function testItShouldEditItem()
+	public function testItShouldSeeItemUpdatePage()
 	{
-		$item = factory(Item::class)->create();
+        $item = Item::create($this->getItemRequest());
 
-		$this
-			->loginAs()
-			->get(route('items.edit', ['item' => $item]))
+		$this->loginAs()
+			->get(route('items.edit', ['item' => $item->id]))
 			->assertStatus(200)
 			->assertSee($item->name);
 	}
 
+	public function testItShouldUpdateItem()
+	{
+		$request = $this->getItemRequest();
+
+		$item = Item::create($request);
+
+        $request['name'] = $this->faker->text(15);
+
+		$this->loginAs()
+			->patch(route('items.update', $item->id), $request)
+			->assertStatus(302)
+			->assertRedirect(route('items.index'));
+
+		$this->assertFlashLevel('success');
+	}
+
 	public function testItShouldDeleteItem()
 	{
-		$item = factory(Item::class)->create();
+		$item = Item::create($this->getItemRequest());
 
-		$this
-			->loginAs()
+		$this->loginAs()
 			->delete(route('items.destroy', ['item' => $item]))
 			->assertStatus(302)
 			->assertRedirect(route('items.index'));
 
 		$this->assertFlashLevel('success');
 	}
+
+    private function getItemRequest()
+    {
+        $picture = UploadedFile::fake()->create('image.jpg');
+
+        return [
+            'company_id' => $this->company->id,
+            'name' => $this->faker->text(15),
+            'sku' => $this->faker->unique()->ean8,
+            'picture' => $picture,
+            'description' => $this->faker->text(100),
+            'purchase_price' => $this->faker->randomFloat(2, 10, 20),
+            'sale_price' => $this->faker->randomFloat(2, 10, 20),
+            'quantity' => $this->faker->randomNumber(2),
+            'category_id' => $this->company->categories()->type('item')->first()->id,
+            'tax_id' => $this->company->taxes()->enabled()->first()->id,
+            'enabled' => $this->faker->boolean ? 1 : 0
+        ];
+    }
 }

@@ -5,7 +5,7 @@ return [
     'recurring'             => 'Tilbagevendende',
     'every'                 => 'Hver',
     'period'                => 'Periode',
-    'times'                 => 'Tid',
+    'times'                 => 'Gange',
     'daily'                 => 'Daglig',
     'weekly'                => 'Ugentlig',
     'monthly'               => 'Månedlig',

@@ -31,7 +31,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         // Add notifications to header
         View::composer(
-            ['partials.admin.header', 'partials.customer.header'], 'App\Http\ViewComposers\Header'
+            ['partials.wizard.header', 'partials.admin.header', 'partials.customer.header'], 'App\Http\ViewComposers\Header'
         );
 
         // Add limits to index
@@ -52,6 +52,11 @@ class ViewComposerServiceProvider extends ServiceProvider
         // Add logo
         View::composer(
             ['incomes.invoices.invoice', 'expenses.bills.bill'], 'App\Http\ViewComposers\Logo'
+        );
+
+        // Add Invoice Text
+        View::composer(
+            ['incomes.invoices.*'], 'App\Http\ViewComposers\InvoiceText'
         );
     }
 

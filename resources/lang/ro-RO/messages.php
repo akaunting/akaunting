@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type dezactivat!',
     ],
     'error' => [
-        'over_payment'      => 'Eroare: Plata nu a fost adaugata. Suma depaseste totalul.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Eroare: Nu ai permisiunea necesara pentru a gestiona această companie!',
         'customer'          => 'Eroare: Utilizatorul nu a fost creat! :name deja foloseste aceasta adresa de email.',
         'no_file'           => 'Eroare: Nici un fişier selectat!',

@@ -8,7 +8,10 @@ return [
     'sku'                   => 'SKU',
 
     'notification' => [
-        'message'       => 'Anda menerima email ini karena :name kehabisan stok.',
+        'message'       => [
+            'reminder' => 'You are receiving this email because only :quantity of :name has remained.',
+            'out_of_stock' => 'You are receiving this email because the :name is running out of stock.',
+        ],
         'button'        => 'Lihat sekarang',
     ],
 

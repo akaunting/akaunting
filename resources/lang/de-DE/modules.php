@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Bisher existieren noch keine Apps in dieser Kategorie.',
     'developer'             => 'Sind sie ein Entwickler? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> lernen Sie wie Sie eine App erzeugen und verkaufen können!',
 
+    'recommended_apps'      => 'Empfohlene Apps',
+
     'about'                 => 'Über',
 
     'added'                 => 'Hinzugefügt',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Installation',
         'faq'               => 'Häufige Fragen / FAQ',
         'changelog'         => 'Changelog',
+        'reviews'            => 'Rezensionen',
     ],
 
     'installation' => [
         'header'            => 'App Installation',
         'download'          => 'Lade :module Dateien herunter.',
         'unzip'             => 'Extrahiere :module Dateien.',
+        'file_copy'         => ':module Dateien werden kopiert.',
+        'migrate'           => ':module wird geupdated.',
+        'finish'            => 'Das Update wurde erfolgreich installiert. Sie werden zum Update Center weiterleiten.',
         'install'           => 'Installiere :module Dateien.',
+    ],
+
+    'errors' => [
+        'download' => ':module kann nicht heruntergeladen werden!',
+        'upload' => 'Heruntergeladenes Modul :module konnte nicht gespeichert werden!',
+        'unzip' => ':module kann nicht entpackt werden!',
+        'file_copy' => ':module Dateien können nicht kopiert werden!',
+        'migrate' => ':module Migration fehlerhaft!',
+        'migrate core' => ':module bereits auf der neuesten Version, Aktualisierung nicht nötig.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Gekauft',
         'installed' => 'Installiert',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Eine Rezension verfassen'
+        ],
+        'na' => 'Es existieren noch keine Rezensionen.'
+    ]
 ];

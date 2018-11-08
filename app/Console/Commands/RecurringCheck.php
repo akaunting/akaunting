@@ -63,43 +63,41 @@ class RecurringCheck extends Command
 
             $company->setSettings();
 
-            foreach ($company->recurring as $recur) {
-                if (!$current = $recur->current()) {
-                    continue;
-                }
+            foreach ($company->recurring as $recurring) {
+                foreach ($recurring->schedule() as $recur) {
+                    $recur_date = Date::parse($recur->getStart()->format('Y-m-d'));
 
-                $current_date = Date::parse($current->format('Y-m-d'));
+                    // Check if should recur today
+                    if ($this->today->ne($recur_date)) {
+                        continue;
+                    }
 
-                // Check if should recur today
-                if ($this->today->ne($current_date)) {
-                    continue;
-                }
+                    $model = $recurring->recurable;
 
-                $model = $recur->recurable;
+                    if (!$model) {
+                        continue;
+                    }
 
-                if (!$model) {
-                    continue;
-                }
+                    switch ($recurring->recurable_type) {
+                        case 'App\Models\Expense\Bill':
+                            $this->recurBill($company, $model);
+                            break;
+                        case 'App\Models\Income\Invoice':
+                            $this->recurInvoice($company, $model);
+                            break;
+                        case 'App\Models\Expense\Payment':
+                        case 'App\Models\Income\Revenue':
+                            $model->cloneable_relations = [];
 
-                switch ($recur->recurable_type) {
-                    case 'App\Models\Expense\Bill':
-                        $this->recurBill($company, $model);
-                        break;
-                    case 'App\Models\Income\Invoice':
-                        $this->recurInvoice($company, $model);
-                        break;
-                    case 'App\Models\Expense\Payment':
-                    case 'App\Models\Income\Revenue':
-                        $model->cloneable_relations = [];
+                            // Create new record
+                            $clone = $model->duplicate();
 
-                        // Create new record
-                        $clone = $model->duplicate();
+                            $clone->parent_id = $model->id;
+                            $clone->paid_at = $this->today->format('Y-m-d');
+                            $clone->save();
 
-                        $clone->parent_id = $model->id;
-                        $clone->paid_at = $this->today->format('Y-m-d');
-                        $clone->save();
-
-                        break;
+                            break;
+                    }
                 }
             }
         }

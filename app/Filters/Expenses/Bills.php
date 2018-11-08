@@ -19,13 +19,27 @@ class Bills extends ModelFilter
         return $this->whereLike('vendor_name', $query);
     }
 
-    public function vendor($vendor)
+    public function vendors($vendors)
     {
-        return $this->where('vendor_id', $vendor);
+        return $this->whereIn('vendor_id', (array) $vendors);
     }
 
-    public function status($status)
+    public function categories($categories)
     {
-        return $this->where('bill_status_code', $status);
+        return $this->whereIn('category_id', (array) $categories);
+    }
+
+    public function statuses($statuses)
+    {
+        return $this->whereIn('bill_status_code', (array) $statuses);
+    }
+
+    public function billDate($date)
+    {
+        $dates = explode('_', $date);
+        $dates[0] .= ' 00:00:00';
+        $dates[1] .= ' 23:59:59';
+
+        return $this->whereBetween('billed_at', $dates);
     }
 }

@@ -38,6 +38,10 @@ return [
     'numbers'               => '編號 | 編號',
     'statuses'              => '狀態 | 狀態',
     'others'                => '其他 | 其他',
+    'contacts'              => '連絡人|連絡人',
+    'reconciliations'       => '核對|核對',
+    'deposits'              => '存款|存款',
+    'withdrawals'           => '提款|提款',
 
     'dashboard'             => '控制面板',
     'banking'               => '銀行',
@@ -81,6 +85,7 @@ return [
     'color'                 => '顏色',
     'save'                  => '儲存',
     'cancel'                => '取消',
+    'loading'               => '正在加載…',
     'from'                  => '來自',
     'to'                    => '收件人',
     'print'                 => '列印',
@@ -100,11 +105,30 @@ return [
     'overdue'               => '已逾期',
     'partially'             => '部分',
     'partially_paid'        => '部分付款',
+    'export'                => '導出',
+    'finish'                => '完成',
+    'wizard'                => '嚮導',
+    'skip'                  => '略過',
+    'enable'                => '啟用',
+    'disable'               => '禁用',
+    'select_all'            => '全部選取',
+    'unselect_all'          => '取消全選',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => '創建日期',
+    'period'                => 'Period',
+    'start'                 => '開始',
+    'end'                   => '结束',
+    'clear'                 => '清除',
+    'difference'            => '差異',
 
     'title' => [
         'new'               => '新增 :type',
         'edit'              => '編輯 :type',
+        'create'            => '創建 :type',
+        'send'              => 'Send :type',
+        'get'               => '獲取 :type',
     ],
+
     'form' => [
         'enter'             => '輸入 :field',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => '尚未選擇檔案...',
     ],
 
+    'date_range' => [
+        'today' => '今天',
+        'yesterday' => '昨天',
+        'last_days' => '過去 :day 天',
+        'this_month' => '本月',
+        'last_month' => '上個月',
+    ],
 ];

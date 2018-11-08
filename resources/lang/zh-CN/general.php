@@ -38,6 +38,10 @@ return [
     'numbers'               => '编号 | 编号',
     'statuses'              => '状态 | 状态',
     'others'                => '其他 | 其他',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => '统计',
     'banking'               => '银行',
@@ -81,6 +85,7 @@ return [
     'color'                 => '颜色',
     'save'                  => '保存',
     'cancel'                => '取消',
+    'loading'               => 'Loading...',
     'from'                  => '來自',
     'to'                    => '收件人',
     'print'                 => '打印',
@@ -101,12 +106,27 @@ return [
     'partially'             => '部分',
     'partially_paid'        => '部分付款',
     'export'                => '导出',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
     'enable'                => '启用',
     'disable'               => '禁用',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => '新增 :type',
         'edit'              => '编辑 :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => '未选择文件...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

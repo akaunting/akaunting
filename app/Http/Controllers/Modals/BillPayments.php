@@ -39,9 +39,9 @@ class BillPayments extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $currency = Currency::where('code', setting('general.default_currency'))->first();
-
         $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
+
+        $currency = Currency::where('code', $account_currency_code)->first();
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -52,7 +52,9 @@ class BillPayments extends Controller
             $bill->{$bill_total->code} = $bill_total->amount;
         }
 
-        $bill->grand_total = $bill->total;
+        $total = money($bill->total, $currency->code, true)->format();
+
+        $bill->grand_total = money($total, $currency->code)->getAmount();
 
         if (!empty($paid)) {
             $bill->grand_total = $bill->total - $paid;

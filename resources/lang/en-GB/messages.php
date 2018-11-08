@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type disabled!',
     ],
     'error' => [
-        'over_payment'      => 'Error: Payment not added! Amount passes the total. You don\'t should max add amount: :amount',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Error: You are not allowed to manage this company!',
         'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Error: No file selected!',

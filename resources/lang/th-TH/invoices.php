@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'ทำเครื่องหมายว่าส่งแล้ว',
     'download_pdf'      => 'ดาวน์โหลด PDF',
     'send_mail'         => 'ส่งอีเมล',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'ฉบับร่าง',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'อีเมลใบแจ้งหนี้ถูกส่งเรียบร้อยแล้ว!',
         'marked_sent'    => 'ใบแจ้งหนี้ที่ทำเครื่องหมายว่าส่งสำเร็จแล้ว!',
         'email_required' => 'ไม่มีที่อยู่อีเมลสำหรับลูกค้านี้',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

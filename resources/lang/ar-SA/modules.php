@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'لا توجد تطبيقات فى هذه الفئة حتى الآن.',
     'developer'             => 'هل أنت مطوّر؟ <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank"> هنا</a> يمكنك أن تتعلم كيفية إنشاء تطبيق وبدء البيع من اليوم!',
 
+    'recommended_apps'      => 'Recommended Apps',
+
     'about'                 => 'حول',
 
     'added'                 => 'تمت الإضافة',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'التثبيت',
         'faq'               => 'الأسئلة الشائعة',
         'changelog'         => 'سجل التغييرات',
+        'reviews'            => 'Reviews',
     ],
 
     'installation' => [
         'header'            => 'تثبيت التطبيق',
         'download'          => 'جاري تحميل ملف :module.',
         'unzip'             => 'جاري استخراج ملفات :module.',
+        'file_copy'         => 'Copying :module files.',
+        'migrate'           => 'Applying :module updates.',
+        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
         'install'           => 'جاري تثبيت ملفات :module.',
+    ],
+
+    'errors' => [
+        'download' => ':module can not download!',
+        'upload' => 'Downloaded :module can not saved!',
+        'unzip' => ':module can not unzip!',
+        'file_copy' => ':module files can not copy!',
+        'migrate' => ':module migrate broken!',
+        'migrate core' => ':module already latest version so then yon can not update.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'التي تم شراؤها',
         'installed' => 'التي تم تثبيتها',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Add a Review'
+        ],
+        'na' => 'There are no reviews.'
+    ]
 ];

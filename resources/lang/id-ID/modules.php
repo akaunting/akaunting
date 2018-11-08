@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Belum ada aplikasi dalam kategori ini.',
     'developer'             => 'Apakah kamu seorang pengembang<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Disini</a> Anda bisa belajar membuat aplikasi dan mulai menjual hari ini!',
 
+    'recommended_apps'      => 'Recommended Apps',
+
     'about'                 => 'Tentang',
 
     'added'                 => 'Menambahkan',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Instalasi',
         'faq'               => 'FAQ',
         'changelog'         => 'Perubahan Catatan',
+        'reviews'            => 'Reviews',
     ],
 
     'installation' => [
         'header'            => 'Instalasi Aplikasi',
         'download'          => 'Mengunduh :module file.',
         'unzip'             => 'Mengekstrak :module file.',
+        'file_copy'         => 'Copying :module files.',
+        'migrate'           => 'Applying :module updates.',
+        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
         'install'           => 'Instalasi :module.',
+    ],
+
+    'errors' => [
+        'download' => ':module can not download!',
+        'upload' => 'Downloaded :module can not saved!',
+        'unzip' => ':module can not unzip!',
+        'file_copy' => ':module files can not copy!',
+        'migrate' => ':module migrate broken!',
+        'migrate core' => ':module already latest version so then yon can not update.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Dibeli',
         'installed' => 'Terpasang',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Add a Review'
+        ],
+        'na' => 'Tidak ada ulasan.'
+    ]
 ];

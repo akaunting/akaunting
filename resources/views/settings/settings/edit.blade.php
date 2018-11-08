@@ -8,9 +8,9 @@
         {!! Form::model($setting, [
             'method' => 'PATCH',
             'url' => ['settings/settings'],
-            'class' => 'setting-form',
+            'class' => 'setting-form form-loading-button',
             'files' => true,
-            'role' => 'form'
+            'role' => 'form',
         ]) !!}
 
         <div class="col-sm-12">
@@ -39,6 +39,8 @@
                         {{ Form::textareaGroup('company_address', trans('settings.company.address')) }}
 
                         {{ Form::fileGroup('company_logo', trans('settings.company.logo')) }}
+
+                        {!! Form::hidden('wizard', null, ['id' => 'wizard']) !!}
                     </div>
 
                     <div class="tab-pane tab-margin" id="localisation">
@@ -57,6 +59,12 @@
                         {{ Form::textGroup('invoice_number_digit', trans('settings.invoice.digit'), 'text-width', []) }}
 
                         {{ Form::textGroup('invoice_number_next', trans('settings.invoice.next'), 'chevron-right', []) }}
+
+                        {{ Form::invoice_text('invoice_item', trans('settings.invoice.item_name'), 'font', $item_names, null, [], 'invoice_item_input', null) }}
+
+                        {{ Form::invoice_text('invoice_price', trans('settings.invoice.price_name'), 'font', $price_names, null, [], 'invoice_price_input', null) }}
+
+                        {{ Form::invoice_text('invoice_quantity', trans('settings.invoice.quantity_name'), 'font', $quantity_names, null, [], 'invoice_quantity_input', null) }}
 
                         {{ Form::fileGroup('invoice_logo', trans('settings.invoice.logo')) }}
                     </div>
@@ -97,6 +105,10 @@
                         {{ Form::radioGroup('send_bill_reminder', trans('settings.scheduling.send_bill')) }}
 
                         {{ Form::textGroup('schedule_bill_days', trans('settings.scheduling.bill_days'), 'calendar-check-o', []) }}
+
+                        {{ Form::radioGroup('send_item_reminder', trans('settings.scheduling.send_item_reminder')) }}
+
+                        {{ Form::textGroup('schedule_item_stocks', trans('settings.scheduling.item_stocks'), 'cubes', []) }}
 
                         <div class="col-sm-6">
                             <label for="cron_command" class="control-label">{{ trans('settings.scheduling.cron_command') }}</label>
@@ -210,9 +222,9 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($setting['company_logo'])
-                placeholder : '<?php echo $setting['company_logo']->basename; ?>'
+                placeholder : '{{ $setting['company_logo']->basename }}',
                 @else
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                placeholder : '{{ trans('general.form.no_file_selected') }}',
                 @endif
             });
 
@@ -240,39 +252,50 @@
                 });
             @endif
 
-            $('#invoice_logo').fancyfile({
-                text  : '{{ trans('general.form.select.file') }}',
-                style : 'btn-default',
-                @if($setting['invoice_logo'])
-                placeholder : '<?php echo $setting['invoice_logo']->basename; ?>'
-                @else
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
-                @endif
+            var invoice_file = false;
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("href");
+
+                if (target == '#invoice' && !invoice_file) {
+                    $(target + ' #invoice_logo').fancyfile({
+                        text  : '{{ trans('general.form.select.file') }}',
+                        style : 'btn-default',
+                        @if($setting['invoice_logo'])
+                        placeholder : '{{ $setting['invoice_logo']->basename }}',
+                        @else
+                        placeholder : '{{ trans('general.form.no_file_selected') }}',
+                        @endif
+                    });
+
+                    @if($setting['invoice_logo'])
+                    invoice_logo_html  = '<span class="invoice_logo">';
+                    invoice_logo_html += '    <a href="{{ url('uploads/' . $setting['invoice_logo']->id . '/download') }}">';
+                    invoice_logo_html += '        <span id="download-invoice_logo" class="text-primary">';
+                    invoice_logo_html += '            <i class="fa fa-file-{{ $setting['invoice_logo']->aggregate_type }}-o"></i> {{ $setting['invoice_logo']->basename }}';
+                    invoice_logo_html += '        </span>';
+                    invoice_logo_html += '    </a>';
+                    invoice_logo_html += '    {!! Form::open(['id' => 'invoice_logo-' . $setting['invoice_logo']->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $setting['invoice_logo']->id)], 'style' => 'display:inline']) !!}';
+                    invoice_logo_html += '    <a id="remove-invoice_logo" href="javascript:void();">';
+                    invoice_logo_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
+                    invoice_logo_html += '    </a>';
+                    invoice_logo_html += '    <input type="hidden" name="page" value="setting" />';
+                    invoice_logo_html += '    <input type="hidden" name="key" value="general.invoice_logo" />';
+                    invoice_logo_html += '    <input type="hidden" name="value" value="{{ $setting['invoice_logo']->id }}" />';
+                    invoice_logo_html += '    {!! Form::close() !!}';
+                    invoice_logo_html += '</span>';
+
+                    $(target + ' .fancy-file .fake-file').append(invoice_logo_html);
+
+                    $(document).on('click', '#remove-invoice_logo', function (e) {
+                        confirmDelete("#invoice_logo-{!! $setting['invoice_logo']->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $setting['invoice_logo']->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+                    });
+                    @endif
+
+                    invoice_file = true;
+                }
             });
 
-            @if($setting['invoice_logo'])
-                invoice_logo_html  = '<span class="invoice_logo">';
-                invoice_logo_html += '    <a href="{{ url('uploads/' . $setting['invoice_logo']->id . '/download') }}">';
-                invoice_logo_html += '        <span id="download-invoice_logo" class="text-primary">';
-                invoice_logo_html += '            <i class="fa fa-file-{{ $setting['invoice_logo']->aggregate_type }}-o"></i> {{ $setting['invoice_logo']->basename }}';
-                invoice_logo_html += '        </span>';
-                invoice_logo_html += '    </a>';
-                invoice_logo_html += '    {!! Form::open(['id' => 'invoice_logo-' . $setting['invoice_logo']->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $setting['invoice_logo']->id)], 'style' => 'display:inline']) !!}';
-                invoice_logo_html += '    <a id="remove-invoice_logo" href="javascript:void();">';
-                invoice_logo_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-                invoice_logo_html += '    </a>';
-                invoice_logo_html += '    <input type="hidden" name="page" value="setting" />';
-                invoice_logo_html += '    <input type="hidden" name="key" value="general.invoice_logo" />';
-                invoice_logo_html += '    <input type="hidden" name="value" value="{{ $setting['invoice_logo']->id }}" />';
-                invoice_logo_html += '    {!! Form::close() !!}';
-                invoice_logo_html += '</span>';
-
-                $('#invoice .fancy-file .fake-file').append(invoice_logo_html);
-
-                $(document).on('click', '#remove-invoice_logo', function (e) {
-                    confirmDelete("#invoice_logo-{!! $setting['invoice_logo']->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $setting['invoice_logo']->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-                });
-            @endif
             $("select[name='email_protocol']").on('change', function() {
                 var selection = $(this).val();
 
@@ -283,16 +306,14 @@
                     $("input[name='email_smtp_password']").prop('disabled', true);
                     $("input[name='email_smtp_port']").prop('disabled', true);
                     $("select[name='email_smtp_encryption']").prop('disabled', true);
-                }
-                else if(selection == 'sendmail') {
+                } else if(selection == 'sendmail') {
                     $("input[name='email_sendmail_path']").prop('disabled', false);
                     $("input[name='email_smtp_host']").prop('disabled', true);
                     $("input[name='email_smtp_username']").prop('disabled', true);
                     $("input[name='email_smtp_password']").prop('disabled', true);
                     $("input[name='email_smtp_port']").prop('disabled', true);
                     $("select[name='email_smtp_encryption']").prop('disabled', true);
-                }
-                else if (selection == 'smtp') {
+                } else if (selection == 'smtp') {
                     $("input[name='email_sendmail_path']").prop('disabled', true);
                     $("input[name='email_smtp_host']").prop('disabled', false);
                     $("input[name='email_smtp_username']").prop('disabled', false);

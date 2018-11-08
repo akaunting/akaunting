@@ -191,6 +191,16 @@ $(document).ready(function () {
         $(".input-group-recurring #recurring_frequency").select2();
         $('.input-group-recurring #recurring_frequency').trigger('change');
     }
+
+    $('.form-loading-button').submit(function( event ) {
+        $('.button-submit').button('loading');
+
+        return true;
+    });
+
+    if (document.getElementsByClassName('input-group-invoice-text').length) {
+        $('.input-group-invoice-text select').select2();
+    }
 });
 
 function confirmDelete(form_id, title, message, button_cancel, button_delete) {
@@ -285,3 +295,48 @@ $(document).on('change', '.input-group-recurring #recurring_frequency', function
         recurring_count.removeClass('hidden');
     }
 });
+
+$(document).on('change', '.input-group-invoice-text select', function () {
+    var invoice_text_custom = $(this).parent().parent().parent().find('input');
+
+    if ($(this).val() == 'custom') {
+        $(this).parent().parent().removeClass('col-md-12').addClass('col-md-6');
+
+        invoice_text_custom.parent().removeClass('hidden');
+
+        $(this).select2();
+    } else {
+        $(this).parent().parent().removeClass('col-md-6').addClass('col-md-12');
+
+        invoice_text_custom.parent().addClass('hidden');
+    }
+});
+
+function convertDateFormat(date, split_character) {
+    var result = [];
+    var formats = {
+        'd': 'DD',
+        'M': 'MMM',
+        'Y': 'YYYY',
+        'F': 'MMMM',
+        'm': 'MM'
+    };
+
+    dates = date.split(split_character);
+
+    dates.forEach(function(value) {
+        result.push(formats[value]);
+    });
+
+    return result.join(split_character);
+}
+
+function itemTableResize() {
+    colspan = $('#items.table.table-bordered thead tr th').length - 1;
+
+    $('#items.table.table-bordered tbody #addItem .text-right').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-subtotal .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-discount .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-tax .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-total .text-right:first').attr('colspan', colspan);
+}

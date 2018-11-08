@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Номер | Номери',
     'statuses'              => 'Статус | Статуси',
     'others'                => 'Інший | Інші',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Панель інструментів',
     'banking'               => 'Банківська справа',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Колір',
     'save'                  => 'Зберегти',
     'cancel'                => 'Відміна',
+    'loading'               => 'Loading...',
     'from'                  => 'Від',
     'to'                    => 'До',
     'print'                 => 'Друк',
@@ -100,11 +105,30 @@ return [
     'overdue'               => 'Протерміновано',
     'partially'             => 'Частково',
     'partially_paid'        => 'Частково Оплачено',
+    'export'                => 'Export',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => 'Нове: тип',
         'edit'              => 'Редагування: тип',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
+
     'form' => [
         'enter'             => 'Введіть: поля',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => 'Файл не вибрано...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

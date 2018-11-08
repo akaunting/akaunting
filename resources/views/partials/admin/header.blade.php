@@ -77,6 +77,9 @@
                                         @permission('create-banking-transfers')
                                         <li><a href="{{ url('banking/transfers/create') }}">{{ trans_choice('general.transfers', 1) }}</a></li>
                                         @endpermission
+                                        @permission('create-banking-reconciliations')
+                                        <li><a href="{{ url('banking/reconciliations/create') }}">{{ trans_choice('general.reconciliations', 1) }}</a></li>
+                                        @endpermission
                                     </ul>
                                 </li>
                             </ul>
@@ -159,7 +162,7 @@
                 @endpermission
                 <!-- Updates: style can be found in dropdown.less -->
                 <li class="hidden-xs">
-                    <a href="{{ url('https://akaunting.com/docs') }}" target="_blank" title="{{ trans('general.help') }}">
+                    <a href="{{ url(trans('header.docs_link')) }}" target="_blank" title="{{ trans('general.help') }}">
                         <i class="fa fa-life-ring"></i>
                     </a>
                 </li>

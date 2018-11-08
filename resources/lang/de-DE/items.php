@@ -8,7 +8,10 @@ return [
     'sku'                   => 'Artikelnummer',
 
     'notification' => [
-        'message'       => 'Sie erhalten diese E-Mail, da :name nur noch begrenzt verfügbar ist.',
+        'message'       => [
+            'reminder' => 'Sie erhalten diese E-Mail, weil nur noch :quantity :name verfügbar sind.',
+            'out_of_stock' => 'Sie erhalten diese E-Mail, weil :name nicht mehr auf Lager ist.',
+        ],
         'button'        => 'Jetzt ansehen',
     ],
 

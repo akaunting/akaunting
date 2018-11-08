@@ -22,9 +22,9 @@ return [
         ],
         'timezone'          => 'Zona Waktu',
         'percent' => [
-            'title'         => 'Percent (%) Position',
-            'before'        => 'Before Number',
-            'after'         => 'After Number',
+            'title'         => 'Persen (%) Posisi',
+            'before'        => 'Sebelum Nomor',
+            'after'         => 'Sesudah Nomor',
         ],
     ],
     'invoice' => [
@@ -33,6 +33,16 @@ return [
         'digit'             => 'Digit nomor',
         'next'              => 'Nomor Berikutnya',
         'logo'              => 'Logo',
+        'custom'            => 'Custom',
+        'item_name'         => 'Nama Barang',
+        'item'              => 'Barang',
+        'product'           => 'Produk',
+        'service'           => 'Layanan',
+        'price_name'        => 'Nama Harga',
+        'price'             => 'Harga',
+        'rate'              => 'Kurs',
+        'quantity_name'     => 'Nama Kuantitas',
+        'quantity'          => 'Kuantitas',
     ],
     'default' => [
         'tab'               => 'Standar',
@@ -66,6 +76,8 @@ return [
         'bill_days'         => 'Kirim Sebelum Jatuh Tempo',
         'cron_command'      => 'Perintah Cron',
         'schedule_time'     => 'Waktu untuk Menjalankan',
+        'send_item_reminder'=> 'Send Item Reminder',
+        'item_stocks'       => 'Send When Item Stock',
     ],
     'appearance' => [
         'tab'               => 'Tampilan',

@@ -5,7 +5,7 @@
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
-    {!! Form::open(['url' => 'incomes/invoices', 'files' => true, 'role' => 'form']) !!}
+    {!! Form::open(['url' => 'incomes/invoices', 'files' => true, 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
     <div class="box-body">
         @stack('customer_id_input_start')
@@ -33,7 +33,7 @@
         {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart', []) }}
 
         <div class="form-group col-md-12">
-            {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'control-label']) !!}
+            {!! Form::label('items', trans_choice($text_override['items'], 2), ['class' => 'control-label']) !!}
             <div class="table-responsive">
                 <table class="table table-bordered" id="items">
                     <thead>
@@ -45,10 +45,10 @@
                             <th width="40%" class="text-left">{{ trans('general.name') }}</th>
                             @stack('name_th_end')
                             @stack('quantity_th_start')
-                            <th width="5%" class="text-center">{{ trans('invoices.quantity') }}</th>
+                            <th width="5%" class="text-center">{{ trans($text_override['quantity']) }}</th>
                             @stack('quantity_th_end')
                             @stack('price_th_start')
-                            <th width="10%" class="text-right">{{ trans('invoices.price') }}</th>
+                            <th width="10%" class="text-right">{{ trans($text_override['price']) }}</th>
                             @stack('price_th_end')
                             @stack('taxes_th_start')
                             <th width="15%" class="text-right">{{ trans_choice('general.taxes', 1) }}</th>
@@ -77,13 +77,13 @@
                         </tr>
                         @stack('add_item_td_end')
                         @stack('sub_total_td_start')
-                        <tr>
+                        <tr id="tr-subtotal">
                             <td class="text-right" colspan="5"><strong>{{ trans('invoices.sub_total') }}</strong></td>
                             <td class="text-right"><span id="sub-total">0</span></td>
                         </tr>
                         @stack('sub_total_td_end')
                         @stack('add_discount_td_start')
-                        <tr>
+                        <tr id="tr-discount">
                             <td class="text-right" style="vertical-align: middle;" colspan="5">
                                 <a href="javascript:void(0)" id="discount-text" rel="popover">{{ trans('invoices.add_discount') }}</a>
                             </td>
@@ -94,13 +94,15 @@
                         </tr>
                         @stack('add_discount_td_end')
                         @stack('tax_total_td_start')
-                        <tr>
-                            <td class="text-right" colspan="5"><strong>{{ trans_choice('general.taxes', 1) }}</strong></td>
+                        <tr id="tr-tax">
+                            <td class="text-right" colspan="5">
+                                <strong>{{ trans_choice('general.taxes', 1) }}</strong>
+                            </td>
                             <td class="text-right"><span id="tax-total">0</span></td>
                         </tr>
                         @stack('tax_total_td_end')
                         @stack('grand_total_td_start')
-                        <tr>
+                        <tr id="tr-total">
                             <td class="text-right" colspan="5"><strong>{{ trans('invoices.total') }}</strong></td>
                             <td class="text-right"><span id="grand-total">0</span></td>
                         </tr>
@@ -152,7 +154,9 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    @if (language()->getShortCode() != 'en')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+    @endif
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
@@ -187,6 +191,14 @@
                             placeholder: {
                                 id: '-1', // the value of the option
                                 text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                            },
+                            escapeMarkup: function (markup) {
+                                return markup;
+                            },
+                            language: {
+                                noResults: function () {
+                                    return '<span id="tax-add-new"><i class="fa fa-plus"> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                                }
                             }
                         });
 
@@ -210,6 +222,12 @@
         });
 
         $(document).ready(function(){
+            itemTableResize();
+
+            @if (old('item'))
+            $('#customer_id').trigger('change');
+            @endif
+
             $(".input-price").maskMoney({
                 thousands : '{{ $currency->thousands_separator }}',
                 decimal : '{{ $currency->decimal_mark }}',
@@ -227,6 +245,7 @@
             //Date picker
             $('#invoiced_at').datepicker({
                 format: 'yyyy-mm-dd',
+                todayBtn: 'linked',
                 weekStart: 1,
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'
@@ -235,6 +254,7 @@
             //Date picker
             $('#due_at').datepicker({
                 format: 'yyyy-mm-dd',
+                todayBtn: 'linked',
                 weekStart: 1,
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'
@@ -244,6 +264,14 @@
                 placeholder: {
                     id: '-1', // the value of the option
                     text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                language: {
+                    noResults: function () {
+                        return '<span id="tax-add-new"><i class="fa fa-plus"> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                    }
                 }
             });
 
@@ -263,6 +291,24 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
+            });
+
+            $(document).on('click', '#tax-add-new', function(e){
+                tax_name = $('.select2-search__field').val();
+
+                $('#modal-create-tax').remove();
+
+                $.ajax({
+                    url: '{{ url("modals/taxes/create") }}',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    data: {name: tax_name},
+                    success: function(json) {
+                        if (json['success']) {
+                            $('body').append(json['html']);
+                        }
+                    }
+                });
             });
 
             var autocomplete_path = "{{ url('common/items/autocomplete') }}";
@@ -360,8 +406,8 @@
                 totalItem();
             });
 
-           var focus = false;
-    
+            var focus = false;
+
             $(document).on('focusin', '#items .input-price', function(){
                 focus = true;
             });
@@ -434,7 +480,7 @@
                 url: '{{ url("common/items/totalItem") }}',
                 type: 'POST',
                 dataType: 'JSON',
-                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
+                data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select').serialize(),
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 success: function(data) {
                     if (data) {

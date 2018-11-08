@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Пометить как отправлено',
     'download_pdf'      => 'Скачать PDF',
     'send_mail'         => 'Отправить E-mail',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Черновик',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Счет-фактура успешно отправлена на e-mail!',
         'marked_sent'    => 'Счет-фактура помечена как успешно отправлена!',
         'email_required' => 'Отсутствует e-mail адрес для этого клиента!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

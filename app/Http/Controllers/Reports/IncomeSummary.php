@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Reports;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banking\Account;
+use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoicePayment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
+use App\Utilities\Recurring;
 use Charts;
 use Date;
 
@@ -22,13 +25,16 @@ class IncomeSummary extends Controller
         $dates = $totals = $incomes = $incomes_graph = $categories = [];
 
         $status = request('status');
+        $year = request('year', Date::now()->year);
 
         $categories = Category::enabled()->type('income')->pluck('name', 'id')->toArray();
 
-        // Get year
-        $year = request('year');
-        if (empty($year)) {
-            $year = Date::now()->year;
+        if ($categories_filter = request('categories')) {
+            $cats = collect($categories)->filter(function ($value, $key) use ($categories_filter) {
+                return in_array($key, $categories_filter);
+            });
+        } else {
+            $cats = $categories;
         }
 
         // Dates
@@ -44,38 +50,58 @@ class IncomeSummary extends Controller
                 'currency_rate' => 1
             );
 
-            foreach ($categories as $category_id => $category_name) {
-                $incomes[$category_id][$dates[$j]] = array(
+            foreach ($cats as $category_id => $category_name) {
+                $incomes[$category_id][$dates[$j]] = [
                     'category_id' => $category_id,
                     'name' => $category_name,
                     'amount' => 0,
                     'currency_code' => setting('general.default_currency'),
                     'currency_rate' => 1
-                );
+                ];
             }
         }
 
-        // Invoices
+        $revenues = Revenue::monthsOfYear('paid_at')->account(request('accounts'))->customer(request('customers'))->isNotTransfer()->get();
+
         switch ($status) {
             case 'paid':
-                $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
+                // Invoices
+                $invoices = InvoicePayment::monthsOfYear('paid_at')->account(request('accounts'))->get();
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'paid_at');
+
+                // Revenues
+                $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
                 break;
             case 'upcoming':
-                $invoices = Invoice::accrued()->monthsOfYear('due_at')->get();
+                // Invoices
+                $invoices = Invoice::accrued()->monthsOfYear('due_at')->customer(request('customers'))->get();
+                Recurring::reflect($invoices, 'invoice', 'invoiced_at', $status);
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'due_at');
+
+                // Revenues
+                Recurring::reflect($revenues, 'revenue', 'paid_at', $status);
+                $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
                 break;
             default:
-                $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
+                // Invoices
+                $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->customer(request('customers'))->get();
+                Recurring::reflect($invoices, 'invoice', 'invoiced_at', $status);
                 $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'invoiced_at');
+
+                // Revenues
+                Recurring::reflect($revenues, 'revenue', 'paid_at', $status);
+                $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
                 break;
         }
 
-        // Revenues
-        if ($status != 'upcoming') {
-            $revenues = Revenue::monthsOfYear('paid_at')->isNotTransfer()->get();
-            $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
-        }
+        $statuses = collect([
+            'all' => trans('general.all'),
+            'paid' => trans('invoices.paid'),
+            'upcoming' => trans('dashboard.receivables'),
+        ]);
+
+        $accounts = Account::enabled()->pluck('name', 'id')->toArray();
+        $customers = Customer::enabled()->pluck('name', 'id')->toArray();
 
         // Check if it's a print or normal request
         if (request('print')) {
@@ -95,16 +121,33 @@ class IncomeSummary extends Controller
             ->credits(false)
             ->view($chart_template);
 
-        return view($view_template, compact('chart', 'dates', 'categories', 'incomes', 'totals'));
+        return view($view_template, compact('chart', 'dates', 'categories', 'statuses', 'accounts', 'customers', 'incomes', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            if ($item['table'] == 'invoice_payments') {
-                $invoice = $item->invoice;
+            switch ($item->getTable()) {
+                case 'invoice_payments':
+                    $invoice = $item->invoice;
 
-                $item->category_id = $invoice->category_id;
+                    if ($customers = request('customers')) {
+                        if (!in_array($invoice->customer_id, $customers)) {
+                            continue;
+                        }
+                    }
+
+                    $item->category_id = $invoice->category_id;
+                    break;
+                case 'invoices':
+                    if ($accounts = request('accounts')) {
+                        foreach ($item->payments as $payment) {
+                            if (!in_array($payment->account_id, $accounts)) {
+                                continue 2;
+                            }
+                        }
+                    }
+                    break;
             }
 
             $date = Date::parse($item->$date_field)->format('F');

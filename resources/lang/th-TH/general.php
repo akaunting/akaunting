@@ -38,6 +38,10 @@ return [
     'numbers'               => 'หมายเลข | หมายเลข',
     'statuses'              => 'สถานะ | สถานะ',
     'others'                => 'อื่น ๆ | อื่น ๆ',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'แดชบอร์ด',
     'banking'               => 'การธนาคาร',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'สี',
     'save'                  => 'บันทึก',
     'cancel'                => 'ยกเลิก',
+    'loading'               => 'Loading...',
     'from'                  => 'จาก',
     'to'                    => 'ถึง',
     'print'                 => 'พิมพ์',
@@ -100,11 +105,30 @@ return [
     'overdue'               => 'ค้างชำระ',
     'partially'             => 'บางส่วน',
     'partially_paid'        => 'ชำระเงินบางส่วน',
+    'export'                => 'Export',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => 'ใหม่ :type',
         'edit'              => 'แก้ไข :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
+
     'form' => [
         'enter'             => 'กรอก :type',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => 'ไม่ได้เลือกไฟล์...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

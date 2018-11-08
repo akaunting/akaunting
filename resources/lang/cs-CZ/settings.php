@@ -22,9 +22,9 @@ return [
         ],
         'timezone'          => 'Časové pásmo',
         'percent' => [
-            'title'         => 'Percent (%) Position',
-            'before'        => 'Before Number',
-            'after'         => 'After Number',
+            'title'         => 'Pozice  (%) procenta',
+            'before'        => 'Před číslem',
+            'after'         => 'Za číslem',
         ],
     ],
     'invoice' => [
@@ -33,6 +33,16 @@ return [
         'digit'             => 'Předčíslí',
         'next'              => 'Další číslo',
         'logo'              => 'Logo',
+        'custom'            => 'Vlastní',
+        'item_name'         => 'Jméno položky',
+        'item'              => 'Položky',
+        'product'           => 'Produkty',
+        'service'           => 'Služby',
+        'price_name'        => 'Jméno ceny',
+        'price'             => 'Cena',
+        'rate'              => 'Sazba',
+        'quantity_name'     => 'Jméno množství',
+        'quantity'          => 'Množství',
     ],
     'default' => [
         'tab'               => 'Výchozí',
@@ -66,6 +76,8 @@ return [
         'bill_days'         => 'Odeslat před splatností',
         'cron_command'      => 'Příkaz Cronu',
         'schedule_time'     => 'Hodina spuštění',
+        'send_item_reminder'=> 'Odesílat upozornění na položku',
+        'item_stocks'       => 'Odeslat když bude naskladněno',
     ],
     'appearance' => [
         'tab'               => 'Vzhled',

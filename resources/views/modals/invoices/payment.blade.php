@@ -3,11 +3,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.categories', 1)]) }}</h4>
+                <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.payments', 1)]) }}</h4>
             </div>
             <div class="modal-body">
                 <div class="modal-message"></div>
-                {!! Form::open(['id' => 'form-add-payment', 'role' => 'form']) !!}
+                {!! Form::open(['id' => 'form-add-payment', 'role' => 'form', 'class' => 'form-loading-button']) !!}
                 <div class="row">
                     {{ Form::textGroup('paid_at', trans('general.date'), 'calendar',['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
 
@@ -38,7 +38,7 @@
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-add-payment', 'class' => 'btn btn-success']) !!}
+                    {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-add-payment', 'class' => 'btn btn-success button-submit', 'data-loading-text' => trans('general.loading')]) !!}
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</button>
                 </div>
             </div>
@@ -68,6 +68,7 @@
 
         $('#modal-add-payment #paid_at').datepicker({
             format: 'yyyy-mm-dd',
+            todayBtn: 'linked',
             weekStart: 1,
             autoclose: true,
             language: '{{ language()->getShortCode() }}'
@@ -120,9 +121,12 @@
             data: $("#form-add-payment").serialize(),
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
             beforeSend: function() {
+                $('#button-add-payment').button('loading');
+
                 $('#modal-add-payment .modal-content').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
             },
             complete: function() {
+                $('#button-add-payment').button('reset');
                 $('#loading').remove();
             },
             success: function(json) {

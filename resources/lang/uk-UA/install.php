@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Перезавантажити',
 
     'steps' => [
-        'requirements'      => 'Будь ласка, відповідайте наступним вимогам!',
+        'requirements'      => 'Please, ask your hosting provider to fix the errors!',
         'language'          => 'Крок 1/3: Вибір мови',
         'database'          => 'Крок 2/3: Налаштування бази даних',
         'settings'          => 'Крок 3/3: Деталі компанії та адміністратора',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ': функцію потрібно ввімкнути!',
         'disabled'          => ': функцію потрібно вимкнути!',
-        'extension'         => ': розширення розширення повинно бути завантаженим!',
+        'extension'         => ':extension extension needs to be installed and loaded!',
         'directory'         => ': директорія каталогу повинна бути доступною для запису!',
     ],
 

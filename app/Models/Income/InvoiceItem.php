@@ -29,6 +29,11 @@ class InvoiceItem extends Model
         return $this->belongsTo('App\Models\Common\Item');
     }
 
+    public function itemTaxes()
+    {
+        return $this->hasMany('App\Models\Income\InvoiceItemTax', 'invoice_item_id', 'id');
+    }
+
     public function tax()
     {
         return $this->belongsTo('App\Models\Setting\Tax');
@@ -65,5 +70,24 @@ class InvoiceItem extends Model
     public function setTaxAttribute($value)
     {
         $this->attributes['tax'] = (double) $value;
+    }
+
+    /**
+     * Convert tax to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function getTaxIdAttribute($value)
+    {
+        $tax_ids = [];
+
+        if (!empty($value)) {
+            $tax_ids[] = $value;
+
+            return $tax_ids;
+        }
+
+        return $this->itemTaxes->pluck('tax_id');
     }
 }

@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Numéro|Numéros',
     'statuses'              => 'Statut | Statuts',
     'others'                => 'Autre|Autres',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Conciliation|Conciliations',
+    'deposits'              => 'Crédit|Crédits',
+    'withdrawals'           => 'Débit|Débits',
 
     'dashboard'             => 'Tableau de bord',
     'banking'               => 'Banque',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Couleur',
     'save'                  => 'Enregistrer',
     'cancel'                => 'Annuler',
+    'loading'               => 'Chargement...',
     'from'                  => 'De',
     'to'                    => 'Vers',
     'print'                 => 'Imprimer',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'Partiellement',
     'partially_paid'        => 'Partiellement payé',
     'export'                => 'Exporter',
+    'finish'                => 'Terminer',
+    'wizard'                => 'Assistant',
+    'skip'                  => 'Passer',
     'enable'                => 'Activer',
     'disable'               => 'Désactiver',
+    'select_all'            => 'Tout sélectionner',
+    'unselect_all'          => 'Tout désélectionner',
+    'go_to'                 => 'Aller à :name',
+    'created_date'          => 'Date de création',
+    'period'                => 'Période',
+    'start'                 => 'Début',
+    'end'                   => 'Fin',
+    'clear'                 => 'Effacer',
+    'difference'            => 'Différence',
 
     'title' => [
         'new'               => 'Nouveau :type',
         'edit'              => 'Modifier :type',
+        'create'            => 'Créer :type',
+        'send'              => 'Envoyer :type',
+        'get'               => 'Voir :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Aucun fichier sélectionné...',
     ],
 
+    'date_range' => [
+        'today' => 'Aujourd\'hui',
+        'yesterday' => 'Hier',
+        'last_days' => 'Les derniers :day jours',
+        'this_month' => 'Ce mois-ci',
+        'last_month' => 'Le mois dernier',
+    ],
 ];

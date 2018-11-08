@@ -5,7 +5,7 @@
                 <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.customers', 1)]) }}</h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(['id' => 'form-create-customer', 'role' => 'form']) !!}
+                {!! Form::open(['id' => 'form-create-customer', 'role' => 'form', 'class' => 'form-loading-button']) !!}
                 <div class="row">
                     {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
@@ -23,7 +23,7 @@
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-create-customer', 'class' => 'btn btn-success']) !!}
+                    {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-create-customer', 'class' => 'btn btn-success button-submit', 'data-loading-text' => trans('general.loading')]) !!}
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</button>
                 </div>
             </div>
@@ -49,8 +49,13 @@
             dataType: 'JSON',
             data: $("#form-create-customer").serialize(),
             beforeSend: function () {
+                $('#button-create-customer').button('loading');
+
                 $(".form-group").removeClass("has-error");
                 $(".help-block").remove();
+            },
+            complete: function() {
+                $('#button-create-customer').button('reset');
             },
             success: function(json) {
                 var data = json['data'];

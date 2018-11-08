@@ -2,19 +2,19 @@
 
 return [
 
-    'recurring'             => 'Recurring',
-    'every'                 => 'Every',
-    'period'                => 'Period',
-    'times'                 => 'Times',
-    'daily'                 => 'Daily',
-    'weekly'                => 'Weekly',
-    'monthly'               => 'Monthly',
-    'yearly'                => 'Yearly',
-    'custom'                => 'Custom',
-    'days'                  => 'Day(s)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'recurring'             => 'Opakující se',
+    'every'                 => 'Každý',
+    'period'                => 'Období',
+    'times'                 => 'Krát',
+    'daily'                 => 'Denně',
+    'weekly'                => 'Týdně',
+    'monthly'               => 'Měsíčně',
+    'yearly'                => 'Ročně',
+    'custom'                => 'Vlastní',
+    'days'                  => 'Dnů(í)',
+    'weeks'                 => 'Týden(Týdny)',
+    'months'                => 'Měsíc(e)',
+    'years'                 => 'rok(y)',
+    'message'               => 'Toto je opakovaný :type a další :type bude automaticky generován dne :date',
 
 ];

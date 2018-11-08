@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type çaktivizuar!',
     ],
     'error' => [
-        'over_payment'      => 'Gabim: Pagesa nuk u shtua! Shuma kalon totalin.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Gabim: Nuk ju lejohet të menaxhoni këtë kompani!',
         'customer'          => 'Gabim: Përdoruesi nuk u krijua! :name tashmë përdor këtë adresë e-maili.',
         'no_file'           => 'Gabim: Asnjë skedar i përzgjedhur!',

@@ -5,7 +5,7 @@
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
-    {!! Form::open(['url' => 'incomes/revenues', 'files' => true, 'role' => 'form']) !!}
+    {!! Form::open(['url' => 'incomes/revenues', 'files' => true, 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
     <div class="box-body">
         {{ Form::textGroup('paid_at', trans('general.date'), 'calendar',['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
@@ -78,7 +78,9 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    @if (language()->getShortCode() != 'en')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+    @endif
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
 @endpush
@@ -111,6 +113,7 @@
             //Date picker
             $('#paid_at').datepicker({
                 format: 'yyyy-mm-dd',
+                todayBtn: 'linked',
                 weekStart: 1,
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'

@@ -23,7 +23,7 @@
                         <td class="col-sm-2">{{ $income_categories[$category_id] }}</td>
                         @foreach($category as $i => $item)
                             @php $gross['income'][$i] += $item['amount']; @endphp
-                            <td class="col-sm-2 text-right">@money($item['amount'], $item['currency_code'], true)</td>
+                            <td class="col-sm-2 text-right">@money($item['amount'], setting('general.default_currency'), true)</td>
                         @endforeach
                     </tr>
                 @endforeach
@@ -49,7 +49,7 @@
                         <td class="col-sm-2">{{ $expense_categories[$category_id] }}</td>
                         @foreach($category as $i => $item)
                             @php $gross['expense'][$i] += $item['amount']; @endphp
-                            <td class="col-sm-2 text-right">@money($item['amount'], $item['currency_code'], true)</td>
+                            <td class="col-sm-2 text-right">@money($item['amount'], setting('general.default_currency'), true)</td>
                         @endforeach
                     </tr>
                 @endforeach
