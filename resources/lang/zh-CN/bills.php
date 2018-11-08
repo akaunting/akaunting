@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => '成功标记账单为已收到！',
+        'draft'          => '这是 <b>草稿</b> 账单, 在收到后将反映在图表上。',
+
+        'status' => [
+            'created'   => '创建日期: date',
+            'receive'      => [
+                'draft'     => 'Not sent',
+                'received'  => 'Received on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
 ];

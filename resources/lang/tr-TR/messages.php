@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type devre dışı bırakıldı!',
     ],
     'error' => [
-        'over_payment'      => 'Hata: Ödeme eklenmedi. Girilen tutar toplamı geçiyor.',
+        'over_payment'      => 'Hata: Ödeme Eklenmedi! Girdiğiniz :amount toplamı geçiyor',
         'not_user_company'  => 'Hata: Bu şirketi yönetme yetkiniz yok!',
         'customer'          => 'Hata: Kullanıcı oluşturulamadı. :name bu e-posta adresini kullanmaktadır.',
         'no_file'           => 'Hata: Dosya seçilmedi!',

@@ -7,5 +7,10 @@ return [
 
     'error' => [
         'email'             => 'อีเมลนี้ได้ลงทะเบียนอยู่แล้ว'
-    ]
+    ],
+
+    'notification' => [
+        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
+        'button'        => 'Show',
+    ],
 ];

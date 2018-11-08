@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type išjungtas!',
     ],
     'error' => [
-        'over_payment'      => 'Klaida: Apmokėjimas nepridėtas! Užsakymo kiekis viršija turimą kiekį.',
+        'over_payment'      => 'Klaida: Apmokėjimo būdas nepridėtas! Jūsų įvesta suma viršija :amount',
         'not_user_company'  => 'Klaida: Jūs neturite teisės valdyti šios kompanijos!',
         'customer'          => 'Klaida: Vartotojas nebuvo sukurtas! :name jau naudoja šį el. pašto adresą.',
         'no_file'           => 'Klaida: Nepasirinktas failas!',

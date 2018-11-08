@@ -4,6 +4,6 @@ return [
 
     'import'                => 'Uvezi',
     'title'                 => 'Uvoz :type',
-    'message'               => 'Allowed file types: XLS, XLSX. Please, <a target="_blank" href=":link"><strong>download</strong></a> the sample file.',
+    'message'               => 'Dopušteni tipovi datoteka: XLS, XLSX. Molimo,, <a target="_blank" href=":link"><strong>preuzmite</strong></a> primjer datoteke.',
 
 ];

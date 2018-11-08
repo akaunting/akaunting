@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Pažymėti kaip išsiųstą',
     'download_pdf'      => 'Parsisiųsti PDF',
     'send_mail'         => 'Siųsti laišką',
+    'all_invoices'      => 'Prisijunkite norėdami peržiūrėti visas sąskaitas faktūras',
 
     'status' => [
         'draft'         => 'Juodraštis',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Sąskaitą-faktūrą išsiųsta sėkmingai!',
         'marked_sent'    => 'SF pažymėta kaip išsiųsta sėkmingai!',
         'email_required' => 'Klientas neturi el. pašto!',
+        'draft'          => 'Tai yra <b>JUODRAŠTINĖ</b> sąskaita ir ji bus įtraukta į grafikus po to kai bus išsiųsta.',
+
+        'status' => [
+            'created'   => 'Sukurta :date',
+            'send'      => [
+                'draft'     => 'Neišsiųsta',
+                'sent'      => 'Išsiųsta :date',
+            ],
+            'paid'      => [
+                'await'     => 'Laukiama apmokėjimo',
+            ],
+        ],
     ],
 
     'notification' => [

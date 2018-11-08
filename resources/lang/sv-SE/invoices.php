@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Markera som skickad',
     'download_pdf'      => 'Ladda ner PDF',
     'send_mail'         => 'Skicka E-post',
+    'all_invoices'      => 'Logga in för att visa alla fakturor',
 
     'status' => [
         'draft'         => 'Utkast',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Faktura e-postmeddelandet har skickats!',
         'marked_sent'    => 'Faktura e-postmeddelandet har skickats!',
         'email_required' => 'Ingen e-postadress för den här kunden!',
+        'draft'          => 'Detta är en <b>utkast</b> faktura och kommer att speglas till diagramet efter det skickas.',
+
+        'status' => [
+            'created'   => 'Skapad den :date',
+            'send'      => [
+                'draft'     => 'Inte skickat',
+                'sent'      => 'Skickat den :date',
+            ],
+            'paid'      => [
+                'await'     => 'Väntar på betalning',
+            ],
+        ],
     ],
 
     'notification' => [

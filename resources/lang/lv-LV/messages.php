@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type atspējots!',
     ],
     'error' => [
-        'over_payment'      => 'Kļūda: Maksājums nav pievienots! Nepietiekoša summa.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Kļūda: Jums nav tiesības strādāt ar šo uzņēmumu!',
         'customer'          => 'Kļūda: Lietotājs nav izveidots! :name jau lieto šādu e-pasta adresi.',
         'no_file'           => 'Kļūda: Fails nav izvēlēts!',

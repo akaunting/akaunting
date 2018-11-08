@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Bill ditandai sebagai berhasil diterima!',
+        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+
+        'status' => [
+            'created'   => 'Dibuat pada: tanggal',
+            'receive'      => [
+                'draft'     => 'Tidak Terikirim',
+                'received'  => 'Diterima pada: tanggal',
+            ],
+            'paid'      => [
+                'await'     => 'Menunggu Pembayaran',
+            ],
+        ],
     ],
 
 ];

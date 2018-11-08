@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count artikel niet op voorraad | [2,*] :count artikelen niet op voorraad',
         'view_all'          => 'Alles Weergeven'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

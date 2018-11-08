@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Означи испратено',
     'download_pdf'      => 'Превземи PDF',
     'send_mail'         => 'Прати е-маил',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Неиспратено',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Е-маил порака со фактура е испратена успешно!',
         'marked_sent'    => 'Е-маил порака со фактура е испратена успешно!',
         'email_required' => 'Не постои е-маил адреса за овој клиент!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

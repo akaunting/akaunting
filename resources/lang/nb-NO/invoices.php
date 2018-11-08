@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Merk som sendt',
     'download_pdf'      => 'Last ned PDF',
     'send_mail'         => 'Send e-post',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Utkast',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'E-post med faktura har blitt sendt.',
         'marked_sent'    => 'Faktura merket som sendt.',
         'email_required' => 'E-postadresse må fylles inn.',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

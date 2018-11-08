@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Zmeniť na odoslané',
     'download_pdf'      => 'Stiahnuť PDF',
     'send_mail'         => 'Odoslať e-mail',
+    'all_invoices'      => 'Prihláste sa pre zobrazenie všetkých faktúr',
 
     'status' => [
         'draft'         => 'Koncept',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Email s faktúrou bol úspešne odoslaný!',
         'marked_sent'    => 'Faktúra bola označená ako odoslaná!',
         'email_required' => 'Žiadna e-mailová adresa pre tohto zákazníka!',
+        'draft'          => 'To je <b>Návrh</b> faktúry, po odoslaní bude zobrazená v grafe.',
+
+        'status' => [
+            'created'   => 'Vytvorené :date',
+            'send'      => [
+                'draft'     => 'Nebola odoslaná',
+                'sent'      => 'Odoslané :date',
+            ],
+            'paid'      => [
+                'await'     => 'Čaká sa na platbu',
+            ],
+        ],
     ],
 
     'notification' => [

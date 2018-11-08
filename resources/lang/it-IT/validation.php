@@ -102,6 +102,7 @@ return [
             'rule-name' => 'messaggio-personalizzato',
         ],
         'invalid_currency' => ':attribute codice non è valido.',
+        'invalid_amount'   => 'The amount :attribute is invalid.',
     ],
 
     /*

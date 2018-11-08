@@ -8,7 +8,10 @@ return [
     'sku'                   => 'Prekės kodas',
 
     'notification' => [
-        'message'       => 'Jūs gavote šį laišką, nes baigiasi :name likutis.',
+        'message'       => [
+            'reminder' => 'Jūs gavote šį laišką, nes :name liko tik :quantity vnt.',
+            'out_of_stock' => 'Jūs gavote šį laišką, nes baigiasi :name likutis.',
+        ],
         'button'        => 'Peržiūrėti dabar',
     ],
 

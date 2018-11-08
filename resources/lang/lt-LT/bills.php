@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Sąskaita gauta sėkmingai!',
+        'draft'          => 'Tai yra <b>JUODRAŠTINĖ</b> sąskaita ir ji bus įtraukta į grafikus po to kai bus gauta.',
+
+        'status' => [
+            'created'   => 'Sukurta :date',
+            'receive'      => [
+                'draft'     => 'Neišsiųsta',
+                'received'  => 'Gauta :date',
+            ],
+            'paid'      => [
+                'await'     => 'Laukiama apmokėjimo',
+            ],
+        ],
     ],
 
 ];

@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type disabled!',
     ],
     'error' => [
-        'over_payment'      => 'שגיאה: התשלום לא הוסף! הסכום עובר את הסכום הכולל.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'שגיאה: אינך מורשה לנהל החברה זאת!',
         'customer'          => 'שגיאה: המשתמש לא נוצר! :name כבר משתמש בכתוב הזאת.',
         'no_file'           => 'שגיאה: אין קובץ שנבחר!',

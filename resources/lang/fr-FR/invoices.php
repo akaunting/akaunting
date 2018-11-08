@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Marquer comme envoyée',
     'download_pdf'      => 'Télécharger en PDF',
     'send_mail'         => 'Envoyer un Email',
+    'all_invoices'      => 'Connectez-vous pour voir toutes les factures',
 
     'status' => [
         'draft'         => 'Brouillon',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'La facture a été envoyé avec succès !',
         'marked_sent'    => 'Facture marquée comme envoyée avec succès !',
         'email_required' => 'Ce client ne possède pas d\'email !',
+        'draft'          => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisé dans les graphiques après reception.',
+
+        'status' => [
+            'created'   => 'Créée le :date',
+            'send'      => [
+                'draft'     => 'Pas envoyée',
+                'sent'      => 'Envoyée le :date',
+            ],
+            'paid'      => [
+                'await'     => 'En attente du paiement',
+            ],
+        ],
     ],
 
     'notification' => [

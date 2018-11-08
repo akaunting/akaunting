@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Actualizar',
 
     'steps' => [
-        'requirements'      => 'Por favor, ¡cumpla los siguientes requisitos!',
+        'requirements'      => 'Por favor, pregúntele a su proveedor de hosting para corregir los errores!',
         'language'          => 'Paso 1/3: Selección del Idioma',
         'database'          => 'Paso 2/3: Configuración de la Base de Datos',
         'settings'          => 'Paso 3/3: Detalles de la Empresa y el Administrador',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => '¡:feature nencesita estar habilitado!',
         'disabled'          => '¡:feature debe estar deshabilitado!',
-        'extension'         => '¡La extensión :extension debe estar cargada!',
+        'extension'         => 'La extensión :extension necesita ser instalada y cargada!',
         'directory'         => '¡El directorio :directorio necesita tener permiso de escritura!',
     ],
 

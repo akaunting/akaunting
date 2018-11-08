@@ -4,7 +4,7 @@ return [
 
     'whoops'              => 'Ups!',
     'hello'               => 'Olá!',
-    'salutation'          => 'Regards,<br> :company_name',
-    'subcopy'             => 'If you’re having trouble clicking the ":text" button, copy and paste the URL below into your web browser: [:url](:url)',
+    'salutation'          => 'Atenciosamente,<br> :Nome_da_Empresa',
+    'subcopy'             => 'Se está a ter problemas ao clicar no botão ":text", copie e cole a URL abaixo no seu navegador web: [:url](:url)',
 
 ];

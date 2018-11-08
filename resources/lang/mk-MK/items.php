@@ -8,7 +8,10 @@ return [
     'sku'                   => 'SKU',
 
     'notification' => [
-        'message'       => 'Ја добивте оваа е-маил порака бидејќи  :name е со истечена залиха',
+        'message'       => [
+            'reminder' => 'You are receiving this email because only :quantity of :name has remained.',
+            'out_of_stock' => 'You are receiving this email because the :name is running out of stock.',
+        ],
         'button'        => 'Погледни сега',
     ],
 

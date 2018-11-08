@@ -7,5 +7,10 @@ return [
 
     'error' => [
         'email'             => 'Този имейл вече е бил регистриран.'
-    ]
+    ],
+
+    'notification' => [
+        'message'       => ':customer направи плащане от :amount по фактура номер :invoice_number.',
+        'button'        => 'Покажи',
+    ],
 ];

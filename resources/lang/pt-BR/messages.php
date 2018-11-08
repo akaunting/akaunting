@@ -12,7 +12,7 @@ return [
         'disabled'          => ': tipo desativado!',
     ],
     'error' => [
-        'over_payment'      => 'Erro: Pagamento não adicionado! Valor ultrapassa o Total.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Erro: você não tem permissão para gerenciar esta empresa!',
         'customer'          => 'Erro: Endereço de email :name já esta sendo utilizado.',
         'no_file'           => 'Erro: Nenhum arquivo selecionado!',

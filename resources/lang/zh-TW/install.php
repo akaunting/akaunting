@@ -6,7 +6,7 @@ return [
     'refresh'               => '重新整理',
 
     'steps' => [
-        'requirements'      => '請檢查以下系統需求！',
+        'requirements'      => '請詢問您的主機供應商以修復這些錯誤！',
         'language'          => '步驟一：選擇語系',
         'database'          => '步驟二：設定資料庫',
         'settings'          => '步驟三：公司與管理員資訊',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature 必須啟動！',
         'disabled'          => ':feature 必須關閉！',
-        'extension'         => ':extension 必須載入！',
+        'extension'         => '必須安裝並載入 :extension ！',
         'directory'         => ':directory 必須可寫入！',
     ],
 

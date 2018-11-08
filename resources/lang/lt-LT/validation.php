@@ -102,6 +102,7 @@ return [
             'rule-name' => 'Pasirinktinis pranešimas',
         ],
         'invalid_currency' => ':Attribute kodas neteisingas.',
+        'invalid_amount'   => 'The amount :attribute is invalid.',
     ],
 
     /*

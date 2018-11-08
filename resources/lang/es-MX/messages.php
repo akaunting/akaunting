@@ -12,12 +12,14 @@ return [
         'disabled'          => ':type desactivado!',
     ],
     'error' => [
-        'over_payment'      => 'Error: Pago no agregado! Cantidad sobre pasa el total.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Error: ¡No tiene permisos para administrar esta empresa!',
         'customer'          => 'Error: Usuario no creado! :nombre ya utiliza esta dirección de correo.',
         'no_file'           => 'Error: ¡Ningún archivo se ha seleccionado!',
         'last_category'     => 'Error: No se pudo eliminar el ultimo No. :type category!',
         'invalid_token'     => 'Error: El token ingresado es invalido!',
+        'import_column'     => 'Error: :message Nombre de la hoja: :sheet. Número de línea: :line.',
+        'import_sheet'      => 'Error: El nombre de la hoja no es válido. Por favor, verifique el archivo de ejemplo.',
     ],
     'warning' => [
         'deleted'           => 'Advertencia: No puede borrar <b>:name</b> porque tiene :text relacionado.',

@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Número|Números',
     'statuses'              => 'Status|Status',
     'others'                => 'Outro | Outros',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Painel',
     'banking'               => 'Banco',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Cor',
     'save'                  => 'Salvar',
     'cancel'                => 'Cancelar',
+    'loading'               => 'Loading...',
     'from'                  => 'De',
     'to'                    => 'Para',
     'print'                 => 'Imprimir',
@@ -100,13 +105,28 @@ return [
     'overdue'               => 'Atrasado',
     'partially'             => 'Parcial',
     'partially_paid'        => 'Pagamento parcial',
-    'export'                => 'Export',
-    'enable'                => 'Enable',
-    'disable'               => 'Disable',
+    'export'                => 'Exportar',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
+    'enable'                => 'Habilitar',
+    'disable'               => 'Desabilitar',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => 'Novo :type',
         'edit'              => 'Editar :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Nenhum arquivo selecionado...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

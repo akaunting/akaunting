@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'accepted'             => 'Das Feld :attribute muss akzeptiert werden.',
+    'accepted'             => ':attribute muss akzeptiert werden.',
     'active_url'           => ':attribute ist keine valide URL.',
     'after'                => ':attribute muss ein Datum nach dem :date sein.',
     'after_or_equal'       => ':attribute muss ein Datum nach oder gleich dem :date sein.',
@@ -26,7 +26,7 @@ return [
     'between'              => [
         'numeric' => ':attribute muss zwischen :min und :max liegen.',
         'file'    => ':attribute darf nur zwischen :min und :max kilobytes groß sein.',
-        'string'  => ':attribute muss mindestens :min und maximal :max Zeichen enthalten.',
+        'string'  => ':attribute muss mindestens :min und darf maximal :max Zeichen enthalten.',
         'array'   => ':attribute soll mindestens :min und darf maximal :max Stellen haben.',
     ],
     'boolean'              => ':attribute muss Wahr oder Falsch sein.',
@@ -41,7 +41,7 @@ return [
     'email'                => ':attribute Attribut muss eine gültige E-Mail-Adresse sein.',
     'exists'               => 'Das ausgewählte :attribute ist ungültig.',
     'file'                 => ':attribute muss eine Datei sein.',
-    'filled'               => ':attribute Feld muss einen Wert haben.',
+    'filled'               => ':attribute muss einen Wert besitzen.',
     'image'                => ':attribute muss ein Bild sein.',
     'in'                   => 'Das ausgewählte :attribute ist ungültig.',
     'in_array'             => ':attribute Feld existiert nicht in :other.',
@@ -51,7 +51,7 @@ return [
     'max'                  => [
         'numeric' => ':attribute darf nicht größer als :max sein.',
         'file'    => ':attribute darf nicht größer als :max Kilobyte sein.',
-        'string'  => ':attribute darf nicht mehr als :max Zeichen sein.',
+        'string'  => ':attribute darf nicht größer als :max Zeichen sein.',
         'array'   => ':attribute darf nicht mehr als :max Werte haben.',
     ],
     'mimes'                => ':attribute muss eine Datei des Typs :values sein.',
@@ -66,9 +66,9 @@ return [
     'numeric'              => ':attribute muss eine Zahl sein.',
     'present'              => ':attribute Feld muss vorhanden sein.',
     'regex'                => ':attribute Format ist ungültig.',
-    'required'             => ':attribute Feld muss ausgefüllt sein.',
+    'required'             => ':attribute wird benötigt.',
     'required_if'          => ':attribute wird benötigt wenn :other :value entspricht.',
-    'required_unless'      => ':attribute wird benötigt es sei denn :other ist in :values .',
+    'required_unless'      => ':attribute wird benötigt es sei denn :other ist in :values.',
     'required_with'        => ':attribute wird benötigt wenn :values vorhanden ist.',
     'required_with_all'    => ':attribute wird benötigt wenn :values vorhanden ist.',
     'required_without'     => ':attribute wird benötigt wenn :values nicht vorhanden ist.',
@@ -81,7 +81,7 @@ return [
         'array'   => ':attribute muss :size Artikel enthalten.',
     ],
     'string'               => ':attribute muss ein String sein.',
-    'timezone'             => ':attribute muss eine valide Zone sein.',
+    'timezone'             => ':attribute muss eine valide Zeitzone sein.',
     'unique'               => ':attribute wird schon benutzt.',
     'uploaded'             => ':attribute Fehler beim Hochladen.',
     'url'                  => ':attribute Format ist ungültig.',
@@ -102,6 +102,7 @@ return [
             'rule-name' => 'eigene Nachricht',
         ],
         'invalid_currency' => 'Das :attribute Kürzel ist ungültig.',
+        'invalid_amount'   => 'Die Menge von :attribute ist ungültig.',
     ],
 
     /*

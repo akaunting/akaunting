@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count prekės nebėra|[2,*] :count prekių nebėra',
         'view_all'          => 'Peržiūrėti visus'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Gönderildi İşaretle',
     'download_pdf'      => 'PDF İndir',
     'send_mail'         => 'Email Gönder',
+    'all_invoices'      => 'Tüm faturaları görüntülemek için giriş yapın',
 
     'status' => [
         'draft'         => 'Taslak',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Fatura emaili başarı ile gönderildi!',
         'marked_sent'    => 'Fatura başarıyla gönderilmiş olarak işaretlendi!',
         'email_required' => 'Bu müşteri için e-posta adresi yok!',
+        'draft'          => 'Bu bir <b>Taslak</b> faturadır ve alındıktan sonra grafiklere yansıtılacaktır.',
+
+        'status' => [
+            'created'   => ':date Oluşturuldu',
+            'send'      => [
+                'draft'     => 'Gönderilemedi',
+                'sent'      => ':date Gönderildi',
+            ],
+            'paid'      => [
+                'await'     => 'Ödeme bekliyor',
+            ],
+        ],
     ],
 
     'notification' => [

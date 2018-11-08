@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Tandai Dikirim',
     'download_pdf'      => 'Unduh PDF',
     'send_mail'         => 'Kirim Email',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Konsep',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Email faktur telah berhasil dikirim!',
         'marked_sent'    => 'Faktur ditandai sebagai berhasil dikirim!',
         'email_required' => 'Tidak ada alamat email untuk pelanggan ini!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

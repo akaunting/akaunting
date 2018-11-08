@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Bolo úspěšně označené ako prijaté!',
+        'draft'          => 'To je <b>Návrh</b> faktúry, po odoslaní bude zobrazená v grafe.',
+
+        'status' => [
+            'created'   => 'Vytvorené :date',
+            'receive'      => [
+                'draft'     => 'Nebola odoslaná',
+                'received'  => 'Doručené :date',
+            ],
+            'paid'      => [
+                'await'     => 'Čaká sa na platbu',
+            ],
+        ],
     ],
 
 ];

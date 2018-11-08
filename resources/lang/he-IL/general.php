@@ -38,6 +38,10 @@ return [
     'numbers'               => 'מספר | מספרים',
     'statuses'              => 'מצב | מצבים',
     'others'                => 'אחר | אחרים',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'לוח מחוונים',
     'banking'               => 'בנקאות',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'צבע',
     'save'                  => 'שמור',
     'cancel'                => 'ביטול',
+    'loading'               => 'Loading...',
     'from'                  => 'מאת',
     'to'                    => 'אל',
     'print'                 => 'הדפסה',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'חלקי',
     'partially_paid'        => 'תשלום חלקי',
     'export'                => 'Export',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
     'enable'                => 'Enable',
     'disable'               => 'Disable',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => ':type חדש',
         'edit'              => 'עריכת :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'לא נבחר קובץ...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

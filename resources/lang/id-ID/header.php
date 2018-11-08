@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count item habis|[2,*] :count barang habis',
         'view_all'          => 'Menampilkan Semuanya'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

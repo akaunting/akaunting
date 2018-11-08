@@ -26,7 +26,7 @@ return [
     'companies'             => 'Společnost | Společnosti',
     'profits'               => 'Zisk | Zisky',
     'taxes'                 => 'Daň | Daně',
-    'logos'                 => 'Logo|Logos',
+    'logos'                 => 'Logo | Loga',
     'pictures'              => 'Obrázek | Obrázky',
     'types'                 => 'Typ | Typy',
     'payment_methods'       => 'Způsob platby | Způsoby platby',
@@ -37,7 +37,11 @@ return [
     'updates'               => 'Aktualizace | Aktualizace',
     'numbers'               => 'Číslo | Čísla',
     'statuses'              => 'Stav | Stav',
-    'others'                => 'Other|Others',
+    'others'                => 'Ostatní|Ostatní',
+    'contacts'              => 'Kontakt|Kontakty',
+    'reconciliations'       => 'Smír|Smír',
+    'deposits'              => 'Vklad|Vklady',
+    'withdrawals'           => 'Výběr|Výběry',
 
     'dashboard'             => 'Ovládací panel',
     'banking'               => 'Bankovnictví',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Barva',
     'save'                  => 'Uložit',
     'cancel'                => 'Storno',
+    'loading'               => 'Načítání...',
     'from'                  => 'Od',
     'to'                    => 'Pro',
     'print'                 => 'Tisk',
@@ -100,11 +105,30 @@ return [
     'overdue'               => 'Po splatnosti',
     'partially'             => 'Částečně',
     'partially_paid'        => 'Částečně zaplaceno',
+    'export'                => 'Export',
+    'finish'                => 'Dokončit',
+    'wizard'                => 'Průvodce',
+    'skip'                  => 'Přeskočit',
+    'enable'                => 'Povolit',
+    'disable'               => 'Zakázat',
+    'select_all'            => 'Vybrat vše',
+    'unselect_all'          => 'Odznačit vše',
+    'go_to'                 => 'Jdi na :name',
+    'created_date'          => 'Datum vytvoření',
+    'period'                => 'Období',
+    'start'                 => 'Začátek',
+    'end'                   => 'Konec',
+    'clear'                 => 'Vyčistit',
+    'difference'            => 'Rozdíl',
 
     'title' => [
         'new'               => 'Nová(ý) :type',
         'edit'              => 'Upravit :type',
+        'create'            => 'Vytvořit :type',
+        'send'              => 'Odeslat :type',
+        'get'               => 'Získat :type',
     ],
+
     'form' => [
         'enter'             => 'Vyplň :field',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => 'Nebyl vybrán žádný soubor...',
     ],
 
+    'date_range' => [
+        'today' => 'Dnes',
+        'yesterday' => 'Včera',
+        'last_days' => 'Poslednich :day dnů',
+        'this_month' => 'Aktuální měsíc',
+        'last_month' => 'Minulý měsíc',
+    ],
 ];

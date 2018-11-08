@@ -7,5 +7,10 @@ return [
 
     'error' => [
         'email'             => 'Šis el. paštas jau užimtas.'
-    ]
+    ],
+
+    'notification' => [
+        'message'       => ':customer sumokėjo :amount pagal sąskaitą: :invoice_number.',
+        'button'        => 'Rodyti',
+    ],
 ];
