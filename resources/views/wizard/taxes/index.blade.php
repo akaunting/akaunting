@@ -67,7 +67,7 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="javascript:void(0);" data-href="{{ url('wizard/taxes/' . $item->id . '/edit') }}" class="tax-edit">{{ trans('general.edit') }}</a></li>
+                                    <li><a href="javascript:void(0);" data-id="{{ $item->id }}" data-href="{{ url('wizard/taxes/' . $item->id . '/edit') }}" class="tax-edit">{{ trans('general.edit') }}</a></li>
                                     @if ($item->enabled)
                                         <li><a href="javascript:void(0);" data-href="{{ url('wizard/taxes/' . $item->id . '/disable') }}" class="tax-disable">{{ trans('general.disable') }}</a></li>
                                     @else
