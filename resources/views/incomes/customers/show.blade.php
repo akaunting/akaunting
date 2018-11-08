@@ -140,7 +140,7 @@
                                             <tr>
                                                 <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
                                                 <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                                                <td class="hidden-xs">{{ $item->category->name }}</td>
+                                                <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
                                                 <td class="hidden-xs">{{ $item->account->name }}</td>
                                             </tr>
                                         @endforeach
@@ -196,7 +196,7 @@
                                             <tr>
                                                 <td><a href="{{ url('incomes/revenues/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
                                                 <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                                                <td class="hidden-xs">{{ $item->category->name }}</td>
+                                                <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
                                                 <td class="hidden-xs">{{ $item->account->name }}</td>
                                             </tr>
                                         @endforeach
