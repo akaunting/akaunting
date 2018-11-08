@@ -81,7 +81,7 @@ class Taxes extends Controller
 
         $item = $tax;
 
-        $html = view('wizard.TAXES.edit', compact('item'))->render();
+        $html = view('wizard.taxes.edit', compact('item'))->render();
 
         return response()->json([
             'success' => true,
