@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count utsolgt produkt|[2,*] :count utsolgte produkter',
         'view_all'          => 'Vis alle'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

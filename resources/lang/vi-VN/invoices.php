@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Đánh dấu đã gửi',
     'download_pdf'      => 'Tải PDF',
     'send_mail'         => 'Gửi Email',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Bản nháp',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Hoá đơn email đã được gửi thành công!',
         'marked_sent'    => 'Hóa đơn được đánh dấu là đã gửi thành công!',
         'email_required' => 'No email address for this customer!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

@@ -102,6 +102,7 @@ return [
             'rule-name' => 'رسالة مخصصة',
         ],
         'invalid_currency' => 'رمز خانة :attribute غير صحيحة.',
+        'invalid_amount'   => 'The amount :attribute is invalid.',
     ],
 
     /*

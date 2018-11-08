@@ -8,7 +8,10 @@ return [
     'sku'                   => 'Artikelnummer',
 
     'notification' => [
-        'message'       => 'Du får detta mail eftersom :name är slut på lagret.',
+        'message'       => [
+            'reminder' => 'You are receiving this email because only :quantity of :name has remained.',
+            'out_of_stock' => 'Du får detta mail eftersom :name snart är slut på lagret.',
+        ],
         'button'        => 'Visa nu',
     ],
 

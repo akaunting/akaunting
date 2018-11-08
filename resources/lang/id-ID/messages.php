@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type disabled!',
     ],
     'error' => [
-        'over_payment'      => 'Error: Payment not added! Amount passes the total.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Kesalahan: Anda tidak diperbolehkan mengelola perusahaan ini!',
         'customer'          => 'Galat: Pengguna tidak dibuat! :name telah menggunakan alamat email ini.',
         'no_file'           => 'Kesalahan: Tidak ada file dipilih!',

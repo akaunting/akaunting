@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Račun označen kao uspješno primljen!',
+        'draft'          => 'Ovo je <b>SKICA</b> računa i odrazit će se na grafikone nakon što se zaprimi.',
+
+        'status' => [
+            'created'   => 'Kreirano :date',
+            'receive'      => [
+                'draft'     => 'Nije poslano',
+                'received'  => 'Zaprimljeno :date',
+            ],
+            'paid'      => [
+                'await'     => 'Čeka plaćanje',
+            ],
+        ],
     ],
 
 ];

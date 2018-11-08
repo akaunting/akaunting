@@ -102,6 +102,7 @@ return [
             'rule-name' => 'Порака',
         ],
         'invalid_currency' => 'Полето :attribute не е во валиден формат.',
+        'invalid_amount'   => 'The amount :attribute is invalid.',
     ],
 
     /*

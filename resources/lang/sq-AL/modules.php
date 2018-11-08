@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Në këtë kategori akoma nuk ka aplikacione.',
     'developer'             => 'A jeni një zhvillues?<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Këtu</a> mund të mësoni si të krijoni një aplikacion dhe të filloni shitjen sot!',
 
+    'recommended_apps'      => 'Recommended Apps',
+
     'about'                 => 'Rreth nesh',
 
     'added'                 => 'Shtuar',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Instalim',
         'faq'               => 'Pyetësori',
         'changelog'         => 'Ndryshimet',
+        'reviews'            => 'Reviews',
     ],
 
     'installation' => [
         'header'            => 'Instalim Aplikacioni',
         'download'          => 'Shkarkimi i :module skedarit.',
         'unzip'             => 'Ekstraktimi i :module skedarit.',
+        'file_copy'         => 'Copying :module files.',
+        'migrate'           => 'Applying :module updates.',
+        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
         'install'           => 'Instalim i :module skedareve.',
+    ],
+
+    'errors' => [
+        'download' => ':module can not download!',
+        'upload' => 'Downloaded :module can not saved!',
+        'unzip' => ':module can not unzip!',
+        'file_copy' => ':module files can not copy!',
+        'migrate' => ':module migrate broken!',
+        'migrate core' => ':module already latest version so then yon can not update.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Blerë',
         'installed' => 'Instaluar',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Add a Review'
+        ],
+        'na' => 'There are no reviews.'
+    ]
 ];

@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'โทเค็นของ API',
     'api_token'             => 'โทเค็น',
+    'my_apps'               => 'My Apps',
     'top_paid'              => 'จ่ายเงินยอดนิยม',
     'new'                   => 'ใหม่',
     'top_free'              => 'ฟรียอดนิยม',
@@ -14,6 +15,8 @@ return [
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">คลิกที่นี่ที่</a> รับโทเค็นของคุณ API',
     'no_apps'               => 'ยังไม่มีแอปพลิเคชันในหมวดหมู่นี้',
     'developer'             => 'คุณเป็นนักพัฒนาใช่มั้ย? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">ที่นี่</a> คุณสามารถเรียนรู้วิธีการสร้างโปรแกรมประยุกต์และเริ่มขายวันนี้!',
+
+    'recommended_apps'      => 'Recommended Apps',
 
     'about'                 => 'เกี่ยวกับเรา',
 
@@ -31,13 +34,30 @@ return [
         'installation'      => 'การติดตั้ง',
         'faq'               => 'คำถามที่พบบ่อย',
         'changelog'         => 'ประวัติเวอร์ชั่น',
+        'reviews'            => 'Reviews',
     ],
 
     'installation' => [
         'header'            => 'ติดตั้งแอพ',
         'download'          => 'กำลังดาวน์โหลด :module ไฟล์',
         'unzip'             => 'กำลังแยก :module ไฟล์',
+        'file_copy'         => 'Copying :module files.',
+        'migrate'           => 'Applying :module updates.',
+        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
         'install'           => 'กำลังติดตั้ง :module ไฟล์',
+    ],
+
+    'errors' => [
+        'download' => ':module can not download!',
+        'upload' => 'Downloaded :module can not saved!',
+        'unzip' => ':module can not unzip!',
+        'file_copy' => ':module files can not copy!',
+        'migrate' => ':module migrate broken!',
+        'migrate core' => ':module already latest version so then yon can not update.',
+    ],
+
+    'badge' => [
+        'installed' => 'Installed',
     ],
 
     'button' => [
@@ -45,4 +65,16 @@ return [
         'disable'           => 'ปิดการใช้งาน',
         'enable'            => 'เปิดใช้งาน',
     ],
+
+    'my' => [
+        'purchased' => 'Purchased',
+        'installed' => 'Installed',
+    ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Add a Review'
+        ],
+        'na' => 'There are no reviews.'
+    ]
 ];

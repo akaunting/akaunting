@@ -101,6 +101,8 @@ return [
         'attribute-name' => [
             'rule-name' => 'anpassat-meddelande',
         ],
+        'invalid_currency' => 'Attributet :attribute är ogiltig.',
+        'invalid_amount'   => 'Beloppet :attribute är ogiltigt.',
     ],
 
     /*

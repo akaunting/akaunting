@@ -37,7 +37,11 @@ return [
     'updates'               => 'Обновление | Обновления',
     'numbers'               => 'Номер | Номера',
     'statuses'              => 'Статус | Статусы',
-    'others'                => 'Other|Others',
+    'others'                => 'Другой|Другие',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Панель управления',
     'banking'               => 'Банки',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Цвет',
     'save'                  => 'Сохранить',
     'cancel'                => 'Отмена',
+    'loading'               => 'Loading...',
     'from'                  => 'От',
     'to'                    => 'Кому',
     'print'                 => 'Печать',
@@ -100,11 +105,30 @@ return [
     'overdue'               => 'Просроченные',
     'partially'             => 'Частично',
     'partially_paid'        => 'Частично выплаченные',
+    'export'                => 'Экспортировать',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
+    'enable'                => 'Вкл.',
+    'disable'               => 'Откл.',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => 'Создать :type',
         'edit'              => 'Изменить :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
+
     'form' => [
         'enter'             => 'Ввести :field',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => 'Файл не выбран...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

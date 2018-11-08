@@ -102,6 +102,7 @@ return [
             'rule-name' => 'vlastná správa',
         ],
         'invalid_currency' => 'Neplatný :attribute kód.',
+        'invalid_amount'   => 'Zvolená hodnota pre :attribute je neplatná.',
     ],
 
     /*

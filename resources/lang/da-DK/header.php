@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count vare er ikke på lager|[2,*] :count varer er ikke på lager',
         'view_all'          => 'Vis alle'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

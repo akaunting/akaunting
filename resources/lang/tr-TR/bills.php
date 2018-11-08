@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Fatura başarıyla teslim alındı olarak işaretlendi!',
+        'draft'          => 'Bu bir <b>Taslak</b> faturadır ve alındıktan sonra grafiklere yansıtılacaktır.',
+
+        'status' => [
+            'created'   => ':date tarihinde oluşturuldu',
+            'receive'      => [
+                'draft'     => 'Gönderilmedi',
+                'received'  => ':date tarihinde alındı',
+            ],
+            'paid'      => [
+                'await'     => 'Bekleyen Ödeme',
+            ],
+        ],
     ],
 
 ];

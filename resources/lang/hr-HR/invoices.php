@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Označi kao poslano',
     'download_pdf'      => 'Preuzmite PDF',
     'send_mail'         => 'Pošalji e-mail',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Skica',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'E-mail računa je uspješno poslan!',
         'marked_sent'    => 'Račun je uspješno označen kao poslan!',
         'email_required' => 'Nema e-mail adrese za ovog kupca!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Kreirano :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

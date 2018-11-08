@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count položka není skladem|[2,*] :count položek není skladem',
         'view_all'          => 'Zobrazit vše'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

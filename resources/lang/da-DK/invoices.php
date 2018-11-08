@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Marker som sendt',
     'download_pdf'      => 'Download som PDF',
     'send_mail'         => 'Send E-mail',
+    'all_invoices'      => 'Log ind for at se alle fakturaer',
 
     'status' => [
         'draft'         => 'Kladde',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Faktura sendt over E-mail!',
         'marked_sent'    => 'Faktura markeret som sendt!',
         'email_required' => 'Ingen E-mail-adresse for kunden!',
+        'draft'          => 'Dette er et <b>UDKAST</b> til faktura og vil blive vist som diagrammer, når det bliver sendt.',
+
+        'status' => [
+            'created'   => 'Oprettet den :date',
+            'send'      => [
+                'draft'     => 'Ikke sendt',
+                'sent'      => 'Sendt den :date',
+            ],
+            'paid'      => [
+                'await'     => 'Afventer betaling',
+            ],
+        ],
     ],
 
     'notification' => [

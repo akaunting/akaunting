@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Recibo marcado como recibido con éxito!',
+        'draft'          => 'Este es un recibo <b>BORRADOR</b> y se reflejará en los gráficos luego de recibirse.',
+
+        'status' => [
+            'created'   => 'Creado el :date',
+            'receive'      => [
+                'draft'     => 'No enviado',
+                'received'  => 'Recibido el :date',
+            ],
+            'paid'      => [
+                'await'     => 'Pendiente de pago',
+            ],
+        ],
     ],
 
 ];

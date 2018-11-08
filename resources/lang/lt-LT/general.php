@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Skaičius|Skaičiai',
     'statuses'              => 'Statusas|Statusai',
     'others'                => 'Kiti|Kiti',
+    'contacts'              => 'Kontaktas|Kontaktai',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Depozitas|Depozitai',
+    'withdrawals'           => 'Išsiėmimas|Išsiėmimai',
 
     'dashboard'             => 'Pradžia',
     'banking'               => 'Bankai ir finansai',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Spalva',
     'save'                  => 'Išsaugoti',
     'cancel'                => 'Atšaukti',
+    'loading'               => 'Kraunama...',
     'from'                  => 'Nuo',
     'to'                    => 'Iki',
     'print'                 => 'Spausdinti',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'Dalinis',
     'partially_paid'        => 'Dalinai apmokėta',
     'export'                => 'Eksportuoti',
+    'finish'                => 'Užbaigti',
+    'wizard'                => 'Vedlys',
+    'skip'                  => 'Praleisti',
     'enable'                => 'Įjungti',
     'disable'               => 'Išjungti',
+    'select_all'            => 'Pažymėti viską',
+    'unselect_all'          => 'Panaikinti visų žymėjimą',
+    'go_to'                 => 'Eiti į :name',
+    'created_date'          => 'Sukūrimo data',
+    'period'                => 'Periodas',
+    'start'                 => 'Pradžia',
+    'end'                   => 'Pabaiga',
+    'clear'                 => 'Išvalyti',
+    'difference'            => 'Skirtumas',
 
     'title' => [
         'new'               => 'Naujas :type',
         'edit'              => 'Redaguoti :type',
+        'create'            => 'Sukurti :type',
+        'send'              => 'Siųsti :type',
+        'get'               => 'Gauti :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Nepasirinktas failas...',
     ],
 
+    'date_range' => [
+        'today' => 'Šiandien',
+        'yesterday' => 'Vakar',
+        'last_days' => 'Paskutinės :days dienos',
+        'this_month' => 'Šis mėnuo',
+        'last_month' => 'Praėjęs mėnuo',
+    ],
 ];

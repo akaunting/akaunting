@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Číslo | Čísla',
     'statuses'              => 'Stav | Stav',
     'others'                => 'Iný |Iné',
+    'contacts'              => 'Kontakt | Kontakty',
+    'reconciliations'       => 'Vyrovnanie | Vyrovnania',
+    'deposits'              => 'Vklad|vklady',
+    'withdrawals'           => 'Výber | Výbery',
 
     'dashboard'             => 'Ovládací panel',
     'banking'               => 'Bankovníctvo',
@@ -64,7 +68,7 @@ return [
     'delete_confirm'        => 'Potvrdiť zmazanie :name :type?',
     'name'                  => 'Názov',
     'email'                 => 'E-mail',
-    'tax_number'            => 'Daňové registračné číslo',
+    'tax_number'            => 'DIČ',
     'phone'                 => 'Telefón',
     'address'               => 'Adresa',
     'website'               => 'Webstránka',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Farba',
     'save'                  => 'Uložiť',
     'cancel'                => 'Zrušiť',
+    'loading'               => 'Načítávanie...',
     'from'                  => 'Od',
     'to'                    => 'Pre',
     'print'                 => 'Vytlačiť',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'Čiastočné',
     'partially_paid'        => 'Čiastočne zaplatené',
     'export'                => 'Exportovať',
+    'finish'                => 'Dokončiť',
+    'wizard'                => 'Sprievodca',
+    'skip'                  => 'Preskočiť',
     'enable'                => 'Zapnúť',
     'disable'               => 'Zakázať',
+    'select_all'            => 'Vybrať všetko',
+    'unselect_all'          => 'Zrušiť výber',
+    'go_to'                 => 'Prejsť na :name',
+    'created_date'          => 'Dátum vytvorenia',
+    'period'                => 'Obdobie',
+    'start'                 => 'Štart',
+    'end'                   => 'Koniec',
+    'clear'                 => 'Vymazať',
+    'difference'            => 'Rozdiel',
 
     'title' => [
         'new'               => 'Nový :type',
         'edit'              => 'Editovať :type',
+        'create'            => 'Vytvoriť :type',
+        'send'              => 'Odoslať :type',
+        'get'               => 'Získať :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Nebol zvolený žiadny súbor...',
     ],
 
+    'date_range' => [
+        'today' => 'Dnes',
+        'yesterday' => 'Včera',
+        'last_days' => 'Posledných 7 dní',
+        'this_month' => 'Aktuálny mesiac',
+        'last_month' => 'Posledný mesiac',
+    ],
 ];

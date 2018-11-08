@@ -3,7 +3,7 @@
 return [
 
     'accounts_cash'         => 'Bar',
-    'categories_deposit'    => 'Einzahlen',
+    'categories_deposit'    => 'Einzahlung',
     'categories_sales'      => 'Verkäufe',
     'currencies_usd'        => 'US-Dollar',
     'currencies_eur'        => 'Euro',

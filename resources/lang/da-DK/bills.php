@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Regning registreret som modtaget!',
+        'draft'          => 'Dette er et <b>UDKAST</b> til faktura og vil blive vist som diagrammer, når det bliver sendt.',
+
+        'status' => [
+            'created'   => 'Oprettet den :date',
+            'receive'      => [
+                'draft'     => 'Ikke sendt',
+                'received'  => 'Modtaget den :date',
+            ],
+            'paid'      => [
+                'await'     => 'Afventer betaling',
+            ],
+        ],
     ],
 
 ];

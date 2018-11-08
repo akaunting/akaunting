@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type оневозможено!',
     ],
     'error' => [
-        'over_payment'      => 'Error: Плаќања не се додадени! Износот го помунува лимитот.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Error: Немате дозвола да ја менаџирате оваа компанија!',
         'customer'          => 'Error: Корисникот не е додаден! :name веќе ја користи оваа е-маил адреса',
         'no_file'           => 'Грешка: Не е селектирај ниеден фајл!',

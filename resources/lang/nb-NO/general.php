@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Nummer | Nummer',
     'statuses'              => 'Status | Statuser',
     'others'                => 'Annen | Andre',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Kontrollpanel',
     'banking'               => 'Bank',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Farge',
     'save'                  => 'Lagre',
     'cancel'                => 'Avbryt',
+    'loading'               => 'Loading...',
     'from'                  => 'Fra',
     'to'                    => 'Til',
     'print'                 => 'Skriv ut',
@@ -100,11 +105,30 @@ return [
     'overdue'               => 'Forfalt',
     'partially'             => 'Delvis',
     'partially_paid'        => 'Delvis betalt',
+    'export'                => 'Export',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
+    'enable'                => 'Enable',
+    'disable'               => 'Disable',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => 'Ny :type',
         'edit'              => 'Endre :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
+
     'form' => [
         'enter'             => 'Fyll inn :field',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => 'Ingen fil valgt ...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

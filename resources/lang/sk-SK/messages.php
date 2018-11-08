@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type zakázaný!',
     ],
     'error' => [
-        'over_payment'      => 'Chyba: Platba nebola pridaná! Suma prekročila celkovú sumu.',
+        'over_payment'      => 'Chyba: Platba nebola pridaná! Suma, ktor[ ste zadali prekročila celkovú sumu.',
         'not_user_company'  => 'Chyba: Nemôžete spravovať túto spoločnosť!',
         'customer'          => 'Chyba: Používateľ nebol vytvorený! :name už používa táto e-mail adresa.',
         'no_file'           => 'Chyba: Žiadny súbor nebol vybratý!',

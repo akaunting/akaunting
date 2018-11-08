@@ -12,15 +12,15 @@ return [
     'quantity'          => 'Množství',
     'price'             => 'Cena',
     'sub_total'         => 'Mezisoučet',
-    'discount'          => 'Discount',
+    'discount'          => 'Sleva',
     'tax_total'         => 'Dph celkem',
     'total'             => 'Celkem',
 
     'item_name'         => 'Jméno položky | Jméno položek',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Sleva',
+    'add_discount'      => 'Přidat slevu',
+    'discount_desc'     => 'z propočtu',
 
     'payment_due'       => 'Splatnost platby',
     'amount_due'        => 'Dlužná částka',
@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Bylo úspěšně označeno jako přijaté!',
+        'draft'          => 'Toto je <b>KONCEPT</b> faktury a bude promítnut do grafů jakmile bude zaplacen.',
+
+        'status' => [
+            'created'   => 'Vytvořeno :date',
+            'receive'      => [
+                'draft'     => 'Neodesláno',
+                'received'  => 'Přijato :date',
+            ],
+            'paid'      => [
+                'await'     => 'Čekání na platbu',
+            ],
+        ],
     ],
 
 ];

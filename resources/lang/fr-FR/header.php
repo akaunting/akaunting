@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count élément épuisé|[2,*] :count éléments épuisés',
         'view_all'          => 'Afficher tout'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

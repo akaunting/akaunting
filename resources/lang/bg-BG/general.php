@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Номер | Числа',
     'statuses'              => 'Статус | Статуси',
     'others'                => 'Други|други',
+    'contacts'              => 'Контакт|Контакти',
+    'reconciliations'       => 'Оспорване|Оспорвания',
+    'deposits'              => 'Депозит|Депозити',
+    'withdrawals'           => 'Теглене |Тегления',
 
     'dashboard'             => 'Табло',
     'banking'               => 'Банкиране',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Цвят',
     'save'                  => 'Запиши',
     'cancel'                => 'Отмени',
+    'loading'               => 'Зареждане...',
     'from'                  => 'От',
     'to'                    => 'До',
     'print'                 => 'Печат',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'Частичен',
     'partially_paid'        => 'Частично платено',
     'export'                => 'Експорт',
+    'finish'                => 'Завърши',
+    'wizard'                => 'Съветник',
+    'skip'                  => 'Пропусни',
     'enable'                => 'Включи',
     'disable'               => 'Изключи',
+    'select_all'            => 'Избери Всички',
+    'unselect_all'          => 'Отмени всички',
+    'go_to'                 => 'Отидете на :name',
+    'created_date'          => 'Дата на създаване',
+    'period'                => 'Период',
+    'start'                 => 'Начало',
+    'end'                   => 'Край',
+    'clear'                 => 'Изчисти',
+    'difference'            => 'Разлика',
 
     'title' => [
         'new'               => 'Нов :type',
         'edit'              => 'Редактирай :type',
+        'create'            => 'Създай :type',
+        'send'              => 'Изпрати :type',
+        'get'               => 'Получи :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Не е избран файл...',
     ],
 
+    'date_range' => [
+        'today' => 'Днес',
+        'yesterday' => 'Вчера',
+        'last_days' => 'Последни :day дни',
+        'this_month' => 'Този месец',
+        'last_month' => 'Последния месец',
+    ],
 ];

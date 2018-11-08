@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Рахунок позначено як успішно отриманий!',
+        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'receive'      => [
+                'draft'     => 'Not sent',
+                'received'  => 'Received on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
 ];

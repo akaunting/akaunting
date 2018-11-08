@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Neexistujú žiadne aplikácie v tejto kategórii zatiaľ.',
     'developer'             => 'Ste vývojár? tu <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank"></a> sa môžete naučiť, ako vytvoriť aplikáciu a začať predávať ešte dnes!',
 
+    'recommended_apps'      => 'Odporúčané aplikácie',
+
     'about'                 => 'O aplikácii',
 
     'added'                 => 'Pridané',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Inštalácia',
         'faq'               => 'Najčastejšie otázky',
         'changelog'         => 'Zoznam zmien',
+        'reviews'            => 'Hodnotenia',
     ],
 
     'installation' => [
         'header'            => 'Inštalácia',
         'download'          => 'Sťahovanie :module súboru.',
         'unzip'             => 'Extrahovanie :modul súboru.',
+        'file_copy'         => 'Kopírovanie súborov modulu :module .',
+        'migrate'           => 'Aplikovanie aktualizácií modulu :module.',
+        'finish'            => 'Aktualizácia bola úspešne nainštalovaná. Budete presmerovaný na Centrum Aktualizácií.',
         'install'           => 'Inštalácia :modul súboru.',
+    ],
+
+    'errors' => [
+        'download' => 'Modul :module sa nepodarilo stiahnuť.',
+        'upload' => 'Práve stiahnutý modul :module sa nepodarilo uložiť!',
+        'unzip' => 'Modul :module sa nepodarilo extrahovať z archívu!',
+        'file_copy' => 'Nepodarilo sa nakopírvať súbory modulu:module!',
+        'migrate' => 'Migrácia modulu :module zlyhala!',
+        'migrate core' => 'Modul :module je aktuálny, preto nie je možné vykonať jeho aktualizáciu.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Zakúpené',
         'installed' => 'Nainštalované',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Pridať recenziu'
+        ],
+        'na' => 'Nie sú tu žiadne hodnotenia.'
+    ]
 ];

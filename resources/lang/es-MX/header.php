@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count producto/servicio sin stock | [2,*] :count productos/servicios sin stock',
         'view_all'          => 'Ver Todo'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

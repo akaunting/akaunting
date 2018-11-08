@@ -101,6 +101,8 @@ return [
         'attribute-name' => [
             'rule-name' => '自訂訊息',
         ],
+        'invalid_currency' => ':attribute 的代碼不正確。',
+        'invalid_amount'   => 'The amount :attribute is invalid.',
     ],
 
     /*

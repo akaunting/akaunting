@@ -101,6 +101,8 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'invalid_currency' => 'Formát :attribute je neplatný.',
+        'invalid_amount'   => 'Zvolená hodnota pro :attribute je neplatná.',
     ],
 
     /*

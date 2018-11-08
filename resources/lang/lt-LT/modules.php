@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Nėra programėlių šioje kategorijoje.',
     'developer'             => 'Ar esate kūrėjas? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Čia</a> galite sužinoti, kaip sukurti programėlę ir pradėti pardavinėti šiandien!',
 
+    'recommended_apps'      => 'Rekomenduojamos programėlės',
+
     'about'                 => 'Apie',
 
     'added'                 => 'Pridėta',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Įrašymas',
         'faq'               => 'DUK',
         'changelog'         => 'Pakeitimų sąrašas',
+        'reviews'            => 'Atsiliepimai',
     ],
 
     'installation' => [
         'header'            => 'Įrašymas',
         'download'          => 'Parsisiunčiamas :module failas.',
         'unzip'             => 'Išskleidžiami :module failai.',
+        'file_copy'         => 'Kopijuojami :module failai.',
+        'migrate'           => 'Įrašomi :module atnaujinimai.',
+        'finish'            => 'Atnaujinimai įrašyti. Jūs būsite nukreipti į Atnaujinimų Centrą.',
         'install'           => 'Įrašomi :module failai.',
+    ],
+
+    'errors' => [
+        'download' => 'Negalima parsisiųsti :module!',
+        'upload' => 'Negalima įrašyti parsiųsto modulio :module!',
+        'unzip' => 'Nagelima išpakuoti (unzip) :module!',
+        'file_copy' => 'Negalima kopijuoti :module failų!',
+        'migrate' => ':module migracija sugadinta!',
+        'migrate core' => ':module yra naujausios versijos.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Nupirkta',
         'installed' => 'Įrašyta',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Pridėti apžvalgą'
+        ],
+        'na' => 'Nėra apžvalgų.'
+    ]
 ];

@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Skaitļi|Skaitļi',
     'statuses'              => 'Statusi|Statusi',
     'others'                => 'Citi|Citi',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Sākums',
     'banking'               => 'Banka',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Krāsa',
     'save'                  => 'Saglabāt',
     'cancel'                => 'Atcelt',
+    'loading'               => 'Loading...',
     'from'                  => 'No',
     'to'                    => 'Kam',
     'print'                 => 'Drukāt',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'Daļēji',
     'partially_paid'        => 'Daļēji apmaksāts',
     'export'                => 'Eksportēt',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
     'enable'                => 'Iespējot',
     'disable'               => 'Atspējot',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => 'Jauns :type',
         'edit'              => 'Redigēts :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Fails nav izvēlēts...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];
