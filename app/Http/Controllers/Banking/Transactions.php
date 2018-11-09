@@ -60,12 +60,12 @@ class Transactions extends Controller
     {
         foreach ($items as $item) {
             if (!empty($item->category)) {
-                $category_name = $item->category->name;
+                $category_name = ($item->category) ? $item->category->name : trans('general.na');
             } else {
                 if ($type == trans_choice('general.incomes', 1)) {
-                    $category_name = $item->invoice->category->name;
+                    $category_name = ($item->invoice->category) ? $item->invoice->category->name : trans('general.na');
                 } else {
-                    $category_name = $item->bill->category->name;
+                    $category_name = ($item->bill->category) ? $item->bill->category->name : trans('general.na');
                 }
             }
 
