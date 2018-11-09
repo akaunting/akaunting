@@ -18,7 +18,13 @@ class Taxes extends Controller
     {
         $taxes = Tax::collect();
 
-        return view('settings.taxes.index', compact('taxes', 'rates'));
+        $types = [
+            'normal' => trans('taxes.normal'),
+            'inclusive' => trans('taxes.inclusive'),
+            'compound' => trans('taxes.compound'),
+        ];
+
+        return view('settings.taxes.index', compact('taxes', 'types'));
     }
 
     /**
