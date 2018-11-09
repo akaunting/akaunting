@@ -16,9 +16,13 @@
                 <h3>{{ trans('modules.top_paid') }}</h3>
             </div>
 
-            @foreach ($paid->data as $module)
-                @include('partials.modules.item')
-            @endforeach
+            @if ($paid->data)
+                @foreach ($paid->data as $module)
+                    @include('partials.modules.item')
+                @endforeach
+            @else
+                @include('partials.modules.no_apps')
+            @endif
         </div>
 
         <div class="col-md-12">
@@ -26,9 +30,13 @@
                 <h3>{{ trans('modules.new') }}</h3>
             </div>
 
-            @foreach ($new->data as $module)
-                @include('partials.modules.item')
-            @endforeach
+            @if ($new->data)
+                @foreach ($new->data as $module)
+                    @include('partials.modules.item')
+                @endforeach
+            @else
+                @include('partials.modules.no_apps')
+            @endif
         </div>
 
         <div class="col-md-12">
@@ -36,9 +44,13 @@
                 <h3>{{ trans('modules.top_free') }}</h3>
             </div>
 
-            @foreach ($free->data as $module)
-                @include('partials.modules.item')
-            @endforeach
+            @if ($free->data)
+                @foreach ($free->data as $module)
+                    @include('partials.modules.item')
+                @endforeach
+            @else
+                @include('partials.modules.no_apps')
+            @endif
         </div>
     </div>
 @endsection
