@@ -60,7 +60,7 @@ class CreateInvoiceItem
             $item_sku = $item_object->sku;
 
             // Decrease stock (item sold)
-            $item_object->quantity -= $this->data['quantity'];
+            $item_object->quantity -= (double) $this->data['quantity'];
             $item_object->save();
 
             if (setting('general.send_item_reminder')) {

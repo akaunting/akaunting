@@ -60,7 +60,7 @@ class CreateBillItem
             $item_sku = $item_object->sku;
 
             // Increase stock (item bought)
-            $item_object->quantity += $this->data['quantity'];
+            $item_object->quantity += (double) $this->data['quantity'];
             $item_object->save();
         } elseif (!empty($this->data['sku'])) {
             $item_sku = $this->data['sku'];
