@@ -67,6 +67,7 @@ class TaxesTest extends FeatureTestCase
             'company_id' => $this->company->id,
             'name' => $this->faker->text(15),
             'rate' => $this->faker->randomFloat(2, 10, 20),
+            'type' => 'Normal',
             'enabled' => $this->faker->boolean ? 1 : 0
         ];
     }
