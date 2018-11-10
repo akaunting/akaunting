@@ -85,7 +85,7 @@ class CreateBill
 
         $amount = $s_total + $tax_total;
 
-        $request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
+        $this->request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
 
         $bill->update($this->request->input());
 
