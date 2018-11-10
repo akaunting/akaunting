@@ -48,8 +48,8 @@ class OfflinePayment extends Controller
     }
     /**
      * Show the form for editing the specified resource.
-     * @param Invoice
-     * @param PaymentRequest
+     * @param $invoice
+     * @param $request
      * @return Response
      */
     public function link(Invoice $invoice, PaymentRequest $request)
@@ -85,14 +85,10 @@ class OfflinePayment extends Controller
 
         flash($message)->success();
 
-        $request_invoice_paid = [
+        $event_response = event(new InvoicePaid($invoice, [
             'amount' => $invoice->amount,
-            'currency_code' => $invoice->currency_code,
-            'currency_rate' => $invoice->currency_rate,
             'payment_method' => $request['payment_method'],
-        ];
-
-        event(new InvoicePaid($invoice, $request_invoice_paid));
+        ]));
 
         return response()->json([
             'error' => false,
