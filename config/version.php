@@ -10,13 +10,13 @@ return [
 
     'minor'     =>  '3',
 
-    'patch'     =>  '0',
+    'patch'     =>  '1',
 
     'build'     =>  '',
 
     'status'    =>  'Stable',
 
-    'date'      =>  '08-November-2018',
+    'date'      =>  '10-November-2018',
 
     'time'      =>  '16:30',
 
