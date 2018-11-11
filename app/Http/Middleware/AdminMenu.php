@@ -70,7 +70,7 @@ class AdminMenu
                 ]);
             }
 
-            // Expences
+            // Expenses
             if ($user->can(['read-expenses-bills', 'read-expenses-payments', 'read-expenses-vendors'])) {
                 $menu->dropdown(trans_choice('general.expenses', 2), function ($sub) use($user, $attr) {
                     if ($user->can('read-expenses-bills')) {
