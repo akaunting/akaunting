@@ -446,39 +446,11 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
-            $(document).on('click', '#button-email', function (e) {
-                $('#email-modal').remove();
-
-                var html = '<div class="modal fade" id="email-modal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel">';
-                html += '   <div class="modal-dialog" role="document">';
-                html += '       <div class="modal-content">';
-                html += '           <div class="modal-header">';
-                html += '               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-                html += '               <h4 class="modal-title" id="emailModalLabel">Overflowing text</h4>';
-                html += '           </div>';
-                html += '           <div class="modal-body">';
-                html += '               {{ trans('general.na') }}';
-                html += '           </div>';
-                html += '           <div class="modal-footer">';
-                html += '               <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('general.cancel') }}</button>';
-                html += '               <button type="button" class="btn btn-success">Save changes</button>';
-                html += '           </div>';
-                html += '       </div>';
-                html += '   </div>';
-                html += '</div>';
-
-                $('body').append(html);
-
-                $('#email-modal').modal('show');
-            });
-
-            @if($bill->attachment)
-            $(document).on('click', '#remove-attachment', function (e) {
-                confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-            });
-            @endif
+        @if($bill->attachment)
+        $(document).on('click', '#remove-attachment', function (e) {
+            confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
         });
+        @endif
 
         $(document).on('click', '#button-payment', function (e) {
             $('#modal-add-payment').remove();

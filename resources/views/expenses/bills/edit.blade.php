@@ -151,11 +151,12 @@
 
 @push('scripts')
     <script type="text/javascript">
+        var focus = false;
         var item_row = '{{ $item_row }}';
+        var currency_code = $('#currency_code').val();
+        var autocomplete_path = "{{ url('common/items/autocomplete') }}";
 
         $(document).on('click', '#button-add-item', function (e) {
-            var currency_code = $('#currency_code').val();
-
             $.ajax({
                 url: '{{ url("expenses/bills/addItem") }}',
                 type: 'GET',
@@ -185,7 +186,7 @@
 
                         var currency = json['data']['currency'];
 
-                        $("#item-price-" + item_row).maskMoney({
+                        $('#item-price-' + item_row).maskMoney({
                             thousands : currency.thousands_separator,
                             decimal : currency.decimal_mark,
                             precision : currency.precision,
@@ -194,7 +195,7 @@
                             suffix : (currency.symbol_first) ? '' : currency.symbol
                         });
 
-                        $("#item-price-" + item_row).trigger('focusout');
+                        $('#item-price-' + item_row).trigger('focusout');
 
                         item_row++;
                     }
@@ -221,13 +222,11 @@
         });
 
         $(document).ready(function(){
+            $('#vendor_id').trigger('change');
+
             itemTableResize();
 
-            @if (old('item'))
-            $('#vendor_id').trigger('change');
-            @endif
-
-            $(".input-price").maskMoney({
+            $('.input-price').maskMoney({
                 thousands : '{{ $currency->thousands_separator }}',
                 decimal : '{{ $currency->decimal_mark }}',
                 precision : {{ $currency->precision }},
@@ -261,7 +260,7 @@
                 language: '{{ language()->getShortCode() }}'
             });
 
-            $(".tax-select2").select2({
+            $('.tax-select2').select2({
                 placeholder: {
                     id: '-1', // the value of the option
                     text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
@@ -276,15 +275,15 @@
                 }
             });
 
-            $("#vendor_id").select2({
+            $('#vendor_id').select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.vendors', 1)]) }}"
             });
 
-            $("#currency_code").select2({
+            $('#currency_code').select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
             });
 
-            $("#category_id").select2({
+            $('#category_id').select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
             });
 
@@ -313,173 +312,172 @@
             attachment_html += '</span>';
 
             $('.fancy-file .fake-file').append(attachment_html);
-
-            $(document).on('click', '#remove-attachment', function (e) {
-                confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-            });
             @endif
-
-            var autocomplete_path = "{{ url('common/items/autocomplete') }}";
-
-            $(document).on('click', '.form-control.typeahead', function() {
-                input_id = $(this).attr('id').split('-');
-
-                item_id = parseInt(input_id[input_id.length-1]);
-
-                $(this).typeahead({
-                    minLength: 3,
-                    displayText:function (data) {
-                        return data.name + ' (' + data.sku + ')';
-                    },
-                    source: function (query, process) {
-                        $.ajax({
-                            url: autocomplete_path,
-                            type: 'GET',
-                            dataType: 'JSON',
-                            data: 'query=' + query + '&type=bill&currency_code=' + $('#currency_code').val(),
-                            success: function(data) {
-                                return process(data);
-                            }
-                        });
-                    },
-                    afterSelect: function (data) {
-                        $('#item-id-' + item_id).val(data.item_id);
-                        $('#item-quantity-' + item_id).val('1');
-                        $('#item-price-' + item_id).val(data.purchase_price);
-                        $('#item-tax-' + item_id).val(data.tax_id);
-
-                        // This event Select2 Stylesheet
-                        $('#item-price-' + item_id).trigger('focusout');
-                        $('#item-tax-' + item_id).trigger('change');
-
-                        $('#item-total-' + item_id).html(data.total);
-
-                        totalItem();
-                    }
-                });
-            });
-
-            $('a[rel=popover]').popover({
-                html: true,
-                placement: 'bottom',
-                title: '{{ trans('bills.discount') }}',
-                content: function () {
-                    html  = '<div class="discount box-body">';
-                    html += '    <div class="col-md-6">';
-                    html += '        <div class="input-group" id="input-discount">';
-                    html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
-                    html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
-                    html += '        </div>';
-                    html += '    </div>';
-                    html += '    <div class="col-md-6">';
-                    html += '        <div class="discount-description">';
-                    html += '           {{ trans('bills.discount_desc') }}';
-                    html += '        </div>';
-                    html += '    </div>';
-                    html += '</div>';
-                    html += '<div class="discount box-footer">';
-                    html += '    <div class="col-md-12">';
-                    html += '        <div class="form-group no-margin">';
-                    html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
-                    html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
-                    html += '       </div>';
-                    html += '    </div>';
-                    html += '</div>';
-
-                    return html;
-                }
-            });
-
-            $(document).on('keyup', '#pre-discount', function(e){
-                e.preventDefault();
-
-                $('#discount').val($(this).val());
-
-                totalItem();
-            });
-
-            $(document).on('click', '#save-discount', function(){
-                $('a[rel=popover]').trigger('click');
-            });
-
-            $(document).on('click', '#cancel-discount', function(){
-                $('#discount').val('');
-
-                totalItem();
-
-                $('a[rel=popover]').trigger('click');
-            });
-
-            $(document).on('change', '#currency_code, #items tbody select', function(){
-                totalItem();
-            });
-
-           var focus = false;
-            $(document).on('focusin', '#items .input-price', function(){
-                focus = true;
-            });
-
-            $(document).on('blur', '#items .input-price', function(){
-                if (focus) {
-                    totalItem();
-
-                    focus = false;
-                }
-            });
-
-            $(document).on('keyup', '#items tbody .form-control', function(){
-                if (!$(this).hasClass('input-price')) {
-                    totalItem();
-                }
-            });
-
-            $(document).on('change', '#vendor_id', function (e) {
-                $.ajax({
-                    url: '{{ url("expenses/vendors/currency") }}',
-                    type: 'GET',
-                    dataType: 'JSON',
-                    data: 'vendor_id=' + $(this).val(),
-                    success: function(data) {
-                        $('#vendor_name').val(data.name);
-                        $('#vendor_email').val(data.email);
-                        $('#vendor_tax_number').val(data.tax_number);
-                        $('#vendor_phone').val(data.phone);
-                        $('#vendor_address').val(data.address);
-
-                        $('#currency_code').val(data.currency_code);
-                        $('#currency_rate').val(data.currency_rate);
-
-                        $('.input-price').each(function(){
-                            input_price_id = $(this).attr('id');
-                            input_currency_id = input_price_id.replace('price', 'currency');
-
-                            $('#' + input_currency_id).val(data.currency_code);
-
-                            amount = $(this).maskMoney('unmasked')[0];
-
-                            $(this).maskMoney({
-                                thousands : data.thousands_separator,
-                                decimal : data.decimal_mark,
-                                precision : data.precision,
-                                allowZero : true,
-                                prefix : (data.symbol_first) ? data.symbol : '',
-                                suffix : (data.symbol_first) ? '' : data.symbol
-                            });
-
-                            $(this).val(amount);
-
-                            $(this).trigger('focusout');
-                        });
-
-                        // This event Select2 Stylesheet
-                        $('#currency_code').trigger('change');
-                    }
-                });
-            });
 
             @if(old('item'))
-                totalItem();
+            totalItem();
             @endif
+        });
+
+        @if($bill->attachment)
+        $(document).on('click', '#remove-attachment', function (e) {
+            confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+        });
+        @endif
+
+        $(document).on('click', '.form-control.typeahead', function() {
+            input_id = $(this).attr('id').split('-');
+
+            item_id = parseInt(input_id[input_id.length-1]);
+
+            $(this).typeahead({
+                minLength: 3,
+                displayText:function (data) {
+                    return data.name + ' (' + data.sku + ')';
+                },
+                source: function (query, process) {
+                    $.ajax({
+                        url: autocomplete_path,
+                        type: 'GET',
+                        dataType: 'JSON',
+                        data: 'query=' + query + '&type=bill&currency_code=' + $('#currency_code').val(),
+                        success: function(data) {
+                            return process(data);
+                        }
+                    });
+                },
+                afterSelect: function (data) {
+                    $('#item-id-' + item_id).val(data.item_id);
+                    $('#item-quantity-' + item_id).val('1');
+                    $('#item-price-' + item_id).val(data.purchase_price);
+                    $('#item-tax-' + item_id).val(data.tax_id);
+
+                    // This event Select2 Stylesheet
+                    $('#item-price-' + item_id).trigger('focusout');
+                    $('#item-tax-' + item_id).trigger('change');
+
+                    $('#item-total-' + item_id).html(data.total);
+
+                    totalItem();
+                }
+            });
+        });
+
+        $('a[rel=popover]').popover({
+            html: true,
+            placement: 'bottom',
+            title: '{{ trans('bills.discount') }}',
+            content: function () {
+                html  = '<div class="discount box-body">';
+                html += '    <div class="col-md-6">';
+                html += '        <div class="input-group" id="input-discount">';
+                html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
+                html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                html += '        </div>';
+                html += '    </div>';
+                html += '    <div class="col-md-6">';
+                html += '        <div class="discount-description">';
+                html += '           {{ trans('bills.discount_desc') }}';
+                html += '        </div>';
+                html += '    </div>';
+                html += '</div>';
+                html += '<div class="discount box-footer">';
+                html += '    <div class="col-md-12">';
+                html += '        <div class="form-group no-margin">';
+                html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
+                html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
+                html += '       </div>';
+                html += '    </div>';
+                html += '</div>';
+
+                return html;
+            }
+        });
+
+        $(document).on('keyup', '#pre-discount', function(e){
+            e.preventDefault();
+
+            $('#discount').val($(this).val());
+
+            totalItem();
+        });
+
+        $(document).on('click', '#save-discount', function(){
+            $('a[rel=popover]').trigger('click');
+        });
+
+        $(document).on('click', '#cancel-discount', function(){
+            $('#discount').val('');
+
+            totalItem();
+
+            $('a[rel=popover]').trigger('click');
+        });
+
+        $(document).on('change', '#currency_code, #items tbody select', function(){
+            totalItem();
+        });
+
+        $(document).on('focusin', '#items .input-price', function(){
+            focus = true;
+        });
+
+        $(document).on('blur', '#items .input-price', function(){
+            if (focus) {
+                totalItem();
+
+                focus = false;
+            }
+        });
+
+        $(document).on('keyup', '#items tbody .form-control', function(){
+            if (!$(this).hasClass('input-price')) {
+                totalItem();
+            }
+        });
+
+        $(document).on('change', '#vendor_id', function (e) {
+            $.ajax({
+                url: '{{ url("expenses/vendors/currency") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: 'vendor_id=' + $(this).val(),
+                success: function(data) {
+                    $('#vendor_name').val(data.name);
+                    $('#vendor_email').val(data.email);
+                    $('#vendor_tax_number').val(data.tax_number);
+                    $('#vendor_phone').val(data.phone);
+                    $('#vendor_address').val(data.address);
+
+                    $('#currency_code').val(data.currency_code);
+                    $('#currency_rate').val(data.currency_rate);
+
+                    $('.input-price').each(function(){
+                        input_price_id = $(this).attr('id');
+                        input_currency_id = input_price_id.replace('price', 'currency');
+
+                        $('#' + input_currency_id).val(data.currency_code);
+
+                        amount = $(this).maskMoney('unmasked')[0];
+
+                        $(this).maskMoney({
+                            thousands : data.thousands_separator,
+                            decimal : data.decimal_mark,
+                            precision : data.precision,
+                            allowZero : true,
+                            prefix : (data.symbol_first) ? data.symbol : '',
+                            suffix : (data.symbol_first) ? '' : data.symbol
+                        });
+
+                        $(this).val(amount);
+
+                        $(this).trigger('focusout');
+                    });
+
+                    // This event Select2 Stylesheet
+                    $('#currency_code').trigger('change');
+                }
+            });
         });
 
         function totalItem() {
