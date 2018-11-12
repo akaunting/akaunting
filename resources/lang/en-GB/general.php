@@ -109,6 +109,7 @@ return [
     'finish'                => 'Finish',
     'wizard'                => 'Wizard',
     'skip'                  => 'Skip',
+    'next'                  => 'Next',
     'enable'                => 'Enable',
     'disable'               => 'Disable',
     'select_all'            => 'Select All',
