@@ -34,11 +34,11 @@ class IncomeExpenseSummary extends Controller
 
         $income_categories = Category::enabled()->type('income')->when($categories_filter, function ($query) use ($categories_filter) {
             return $query->whereIn('id', $categories_filter);
-        })->pluck('name', 'id')->toArray();
+        })->orderBy('name')->pluck('name', 'id')->toArray();
 
         $expense_categories = Category::enabled()->type('expense')->when($categories_filter, function ($query) use ($categories_filter) {
             return $query->whereIn('id', $categories_filter);
-        })->pluck('name', 'id')->toArray();
+        })->orderBy('name')->pluck('name', 'id')->toArray();
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {

@@ -27,9 +27,9 @@ class ProfitLoss extends Controller
         $status = request('status');
         $year = request('year', Date::now()->year);
 
-        $income_categories = Category::enabled()->type('income')->pluck('name', 'id')->toArray();
+        $income_categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id')->toArray();
 
-        $expense_categories = Category::enabled()->type('expense')->pluck('name', 'id')->toArray();
+        $expense_categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id')->toArray();
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {

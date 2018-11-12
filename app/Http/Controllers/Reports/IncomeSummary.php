@@ -27,7 +27,7 @@ class IncomeSummary extends Controller
         $status = request('status');
         $year = request('year', Date::now()->year);
 
-        $categories = Category::enabled()->type('income')->pluck('name', 'id')->toArray();
+        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id')->toArray();
 
         if ($categories_filter = request('categories')) {
             $cats = collect($categories)->filter(function ($value, $key) use ($categories_filter) {
