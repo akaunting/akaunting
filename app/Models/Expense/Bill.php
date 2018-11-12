@@ -208,6 +208,10 @@ class Bill extends Model
      */
     public function getPaidAttribute()
     {
+        if (empty($this->amount)) {
+            return false;
+        }
+
         $paid = 0;
         $reconciled = $reconciled_amount = 0;
 
