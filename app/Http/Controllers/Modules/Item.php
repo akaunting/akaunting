@@ -67,7 +67,7 @@ class Item extends Controller
             $module->action_url .= $character . http_build_query($parameters);
         }
 
-        return view('modules.item.show', compact('module', 'about', 'installed', 'enable'));
+        return view('modules.item.show', compact('module', 'installed', 'enable'));
     }
 
     /**
