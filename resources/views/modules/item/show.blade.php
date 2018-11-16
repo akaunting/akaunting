@@ -62,7 +62,11 @@
                                             @endphp
 
                                             <div class="item @if($status == 5) {{ 'active' }} @endif">
-                                                <iframe width="640" height="385" src="https://www.youtube-nocookie.com/embed/{{ $code[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe width="100%" height="410px" src="https://www.youtube-nocookie.com/embed/{{ $code[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                                <div class="image-description text-center">
+                                                    {{ $module->name }}
+                                                </div>
                                             </div>
                                             @php } @endphp
                                         @endif
@@ -70,7 +74,7 @@
                                         @foreach($module->screenshots as $screenshot)
                                             @php if (empty($status)) { $status = 5; } else { $status = 1; } @endphp
                                             <div class="item @if($status == 5) {{ 'active' }} @endif">
-                                                <a data-lightbox="image" href="{{ $screenshot->path_string }}" data-gallery="{{ $screenshot->alt_attribute }}">
+                                                <a data-toggle="lightbox" href="{{ $screenshot->path_string }}" data-gallery="{{ $module->slug}}">
                                                     <img class="img-fluid d-block w-100" src="{{ $screenshot->path_string }}" alt="{{ $screenshot->alt_attribute }}">
                                                 </a>
 
@@ -81,6 +85,7 @@
                                         @endforeach
 
                                         <div class="carousel-navigation-message">
+                                            @if (count($module->screenshots) > 1)
                                             <a class="left carousel-control" href="#carousel-screenshot-generic" role="button" data-slide="prev">
                                                 <i class="fa fa-chevron-left"></i>
                                                 <span class="sr-only">{{ trans('pagination.previous') }}</span>
@@ -89,6 +94,7 @@
                                                 <i class="fa fa-chevron-right"></i>
                                                 <span class="sr-only">{{ trans('pagination.next') }}</span>
                                             </a>
+                                            @endif()
                                         </div>
                                     </div>
                                 </div>
@@ -248,7 +254,15 @@
     @endif
 @endsection
 
+@push('js')
+<script src="{{ asset('public/js/lightbox/ekko-lightbox.js') }}"></script>
+@endpush
+
 @push('css')
+<link rel="stylesheet" href="{{ asset('public/css/ekko-lightbox.css') }}">
+@endpush
+
+@push('style')
     <style type="text/css">
     .nav-tabs-custom img {
         display: block;
@@ -313,6 +327,12 @@
             page = $(this).data('page');
 
             getReviews(path, page);
+        });
+
+        $(document).on('click', '[data-toggle="lightbox"]', function(e) {
+            e.preventDefault();
+
+            $(this).ekkoLightbox();
         });
 
         function next() {

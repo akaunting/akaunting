@@ -873,7 +873,7 @@ input[type="number"] {
 
 /* App Detail Page Sliders Start */
 .row.module #description .img-fluid.d-block.w-100 {
-    height: 420px;
+    height: 410px;
     width: 100%;
 }
 
@@ -888,11 +888,12 @@ input[type="number"] {
     top: inherit;
     bottom: inherit;
     margin-top: 30px;
+    margin-right: 5px;
     width: 5%;
 }
 
 .row.module #description #carousel-screenshot-generic .carousel-control.left {
-    margin-left: -15px;
+    margin-left: -10px;
 }
 
 .row.module #description #carousel-screenshot-generic .carousel-control .fa {
