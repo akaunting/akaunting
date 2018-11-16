@@ -9,8 +9,8 @@ return [
 
     'notification' => [
         'message'       => [
-            'reminder' => 'You are receiving this email because only :quantity of :name has remained.',
-            'out_of_stock' => 'You are receiving this email because the :name is running out of stock.',
+            'reminder' => 'Ju po merrni këtë email sepse vetëm :quantity i :name ka mbetur.',
+            'out_of_stock' => 'Ju po merrni këtë email sepse :name po mbaron.',
         ],
         'button'        => 'Shiko Tani',
     ],

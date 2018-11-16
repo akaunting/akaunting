@@ -46,13 +46,13 @@ return [
         'email_sent'     => 'Fatura emaili başarı ile gönderildi!',
         'marked_sent'    => 'Fatura başarıyla gönderilmiş olarak işaretlendi!',
         'email_required' => 'Bu müşteri için e-posta adresi yok!',
-        'draft'          => 'Bu bir <b>Taslak</b> faturadır ve alındıktan sonra grafiklere yansıtılacaktır.',
+        'draft'          => 'Bu bir <b>TASLAK</b> faturadır ve gönderildikten sonra grafiklere yansıtılacaktır.',
 
         'status' => [
-            'created'   => ':date Oluşturuldu',
+            'created'   => ':date tarihinde oluşturuldu',
             'send'      => [
-                'draft'     => 'Gönderilemedi',
-                'sent'      => ':date Gönderildi',
+                'draft'     => 'Gönderilmedi',
+                'sent'      => ':date tarihinde gönderildi',
             ],
             'paid'      => [
                 'await'     => 'Ödeme bekliyor',
