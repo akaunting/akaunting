@@ -113,7 +113,7 @@ return [
     'disable'               => 'Disattiva',
     'select_all'            => 'Seleziona tutto',
     'unselect_all'          => 'Deseleziona Tutto',
-    'go_to'                 => 'Vai a :nome',
+    'go_to'                 => 'Vai a :name',
     'created_date'          => 'Data di Creazione',
     'period'                => 'Periodo',
     'start'                 => 'Avvia',

@@ -49,10 +49,10 @@ return [
         'draft'          => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà inviata.',
 
         'status' => [
-            'created'   => 'Creato il :data',
+            'created'   => 'Creato il :date',
             'send'      => [
                 'draft'     => 'Non inviato',
-                'sent'      => 'Inviato il :data',
+                'sent'      => 'Inviato il :date',
             ],
             'paid'      => [
                 'await'     => 'In attesa del pagamento',
