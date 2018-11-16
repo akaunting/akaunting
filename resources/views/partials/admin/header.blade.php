@@ -130,6 +130,13 @@
                                     </a>
                                 </li>
                                 @endif
+                                @if (count($items_reminder))
+                                <li>
+                                    <a href="{{ url('auth/users/' . $user->id . '/read-items') }}">
+                                        <i class="fa fa-cubes text-red"></i> {{ trans_choice('header.notifications.items_reminder', count($items_reminder), ['count' => count($items_reminder)]) }}
+                                    </a>
+                                </li>
+                                @endif
                             </ul>
                         </li>
                         <li class="footer"><a href="#">{{ trans('header.notifications.view_all') }}</a></li>
