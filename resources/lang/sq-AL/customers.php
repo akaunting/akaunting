@@ -10,7 +10,7 @@ return [
     ],
 
     'notification' => [
-        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Show',
+        'message'       => ':customer bëri :amount pagesën në numrin e faturës :invoice_number.',
+        'button'        => 'Shfaq',
     ],
 ];

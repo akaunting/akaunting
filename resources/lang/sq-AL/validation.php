@@ -102,7 +102,7 @@ return [
             'rule-name' => 'Mesazh Privat',
         ],
         'invalid_currency' => 'Kodi :attribute është i pavlefshëm.',
-        'invalid_amount'   => 'The amount :attribute is invalid.',
+        'invalid_amount'   => 'Shuma :attribute është e pavlefshme.',
     ],
 
     /*

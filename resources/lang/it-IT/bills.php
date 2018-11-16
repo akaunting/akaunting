@@ -41,16 +41,16 @@ return [
 
     'messages' => [
         'received'      => 'Fattura segnata con successo come ricevuta!',
-        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+        'draft'          => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà ricevuta.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'Creato il :date',
             'receive'      => [
-                'draft'     => 'Not sent',
-                'received'  => 'Received on :date',
+                'draft'     => 'Non inviato',
+                'received'  => 'Ricevuto il :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'In attesa del pagamento',
             ],
         ],
     ],

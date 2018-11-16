@@ -16,7 +16,7 @@ return [
     'no_apps'               => 'Në këtë kategori akoma nuk ka aplikacione.',
     'developer'             => 'A jeni një zhvillues?<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Këtu</a> mund të mësoni si të krijoni një aplikacion dhe të filloni shitjen sot!',
 
-    'recommended_apps'      => 'Recommended Apps',
+    'recommended_apps'      => 'Aplikacionet e Rekomanduara',
 
     'about'                 => 'Rreth nesh',
 
@@ -34,26 +34,26 @@ return [
         'installation'      => 'Instalim',
         'faq'               => 'Pyetësori',
         'changelog'         => 'Ndryshimet',
-        'reviews'            => 'Reviews',
+        'reviews'            => 'Shqyrtimet',
     ],
 
     'installation' => [
         'header'            => 'Instalim Aplikacioni',
         'download'          => 'Shkarkimi i :module skedarit.',
         'unzip'             => 'Ekstraktimi i :module skedarit.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
+        'file_copy'         => 'Kopjimi i :module skedareve.',
+        'migrate'           => 'Aplikimi i :module përditësimeve.',
+        'finish'            => 'Azhurnimi u instalua me sukses. Ju do të ridrejtoni në Qendrën e Përditësimit.',
         'install'           => 'Instalim i :module skedareve.',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download' => ':module nuk mund të shkarkohet!',
+        'upload' => ':module i shkarkuar nuk mund të ruhet!',
+        'unzip' => ':module nuk mund të hap zinxhirin!',
+        'file_copy' => ':module skedarët nuk mund të kopjohen!',
+        'migrate' => ':module migrimi i thyer!',
+        'migrate core' => ':module tashmë ka versionin e fundit kështu që atëherë nuk mund të azhurnohet.',
     ],
 
     'badge' => [
@@ -73,8 +73,8 @@ return [
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add' => 'Shto një Shqyrtim'
         ],
-        'na' => 'There are no reviews.'
+        'na' => 'Nuk ka shqyrtime.'
     ]
 ];
