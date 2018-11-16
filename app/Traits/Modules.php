@@ -438,6 +438,42 @@ trait Modules
         return $data;
     }
 
+    public function loadNotifications()
+    {
+        // Get data from cache
+        $data = Cache::get('notifications');
+
+        if (!empty($data)) {
+            return $data;
+        }
+
+        $data = [];
+
+        $url = 'apps/notifications';
+
+        $response = $this->getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
+
+        // Exception
+        if ($response instanceof RequestException) {
+            return false;
+        }
+
+        // Bad response
+        if (!$response || ($response->getStatusCode() != 200)) {
+            return false;
+        }
+
+        $notifications = json_decode($response->getBody())->data;
+
+        foreach ($notifications as $notification) {
+            $data[$notification->path][] = $notification;
+        }
+
+        Cache::put('notifications', $data, Date::now()->addHour(6));
+
+        return $data;
+    }
+
     public function getSuggestions($path)
     {
         // Get data from cache
@@ -445,6 +481,22 @@ trait Modules
 
         if (empty($data)) {
             $data = $this->loadSuggestions();
+        }
+
+        if (!empty($data) && array_key_exists($path, $data)) {
+            return $data[$path];
+        }
+
+        return false;
+    }
+
+    public function getNotifications($path)
+    {
+        // Get data from cache
+        $data = Cache::get('notifications');
+
+        if (empty($data)) {
+            $data = $this->loadNotifications();
         }
 
         if (!empty($data) && array_key_exists($path, $data)) {
