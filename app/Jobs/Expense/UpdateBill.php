@@ -109,6 +109,25 @@ class UpdateBill
 
     protected function addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total)
     {
+        // Check if totals are in request, i.e. api
+        if (!empty($request['totals'])) {
+            $sort_order = 1;
+
+            foreach ($request['totals'] as $total) {
+                $total['bill_id'] = $bill->id;
+
+                if (empty($total['sort_order'])) {
+                    $total['sort_order'] = $sort_order;
+                }
+
+                BillTotal::create($total);
+
+                $sort_order++;
+            }
+
+            return;
+        }
+
         $sort_order = 1;
 
         // Added bill sub total

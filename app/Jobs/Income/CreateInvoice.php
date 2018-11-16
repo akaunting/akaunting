@@ -116,6 +116,25 @@ class CreateInvoice
 
     protected function addTotals($invoice, $request, $taxes, $sub_total, $discount_total, $tax_total)
     {
+        // Check if totals are in request, i.e. api
+        if (!empty($request['totals'])) {
+            $sort_order = 1;
+
+            foreach ($request['totals'] as $total) {
+                $total['invoice_id'] = $invoice->id;
+
+                if (empty($total['sort_order'])) {
+                    $total['sort_order'] = $sort_order;
+                }
+
+                InvoiceTotal::create($total);
+
+                $sort_order++;
+            }
+
+            return;
+        }
+
         $sort_order = 1;
 
         // Added invoice sub total
