@@ -194,6 +194,10 @@ class Updater
                     $data['core'] = $version;
                 }
             } else {
+                if($version === '0.0.0') {
+                    continue;
+                }
+
                 $module = Module::findByAlias($alias);
 
                 // Up-to-date
