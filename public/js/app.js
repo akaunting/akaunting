@@ -340,3 +340,18 @@ function itemTableResize() {
     $('#items.table.table-bordered tbody #tr-tax .text-right:first').attr('colspan', colspan);
     $('#items.table.table-bordered tbody #tr-total .text-right:first').attr('colspan', colspan);
 }
+
+function notificationHide(path, id, token) {
+    $.ajax({
+        url: app_url + '/common/notifications/disable',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {path: path, id: id},
+        headers: { 'X-CSRF-TOKEN': token },
+        success: function(json) {
+            if (json['success']) {
+                $('#notification-' + id).remove();
+            }
+        }
+    });
+}

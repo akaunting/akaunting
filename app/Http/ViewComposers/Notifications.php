@@ -37,7 +37,16 @@ class Notifications
 
         // Push to a stack
         foreach ($notifications as $notification) {
-            $view->getFactory()->startPush('content_content_start', $notification->message);
+            $setting = 'notifications.'. $notification->path . '.' . $notification->id . '.status';
+
+            $path = str_replace('/', '#', $notification->path);
+
+            $message = str_replace('#path#', $path, $notification->message);
+            $message = str_replace('#token#', csrf_token(), $message);
+
+            if (setting($setting, 1)) {
+                $view->getFactory()->startPush('content_content_start', $message);
+            }
         }
     }
 }
