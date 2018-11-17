@@ -11,6 +11,12 @@
 
     <link rel="stylesheet" href="{{ asset('public/css/invoice.css?v=' . version('short')) }}">
 
+    <style type="text/css">
+        *{
+            font-family: DejaVu Sans;
+        }
+    </style>
+
     @stack('css')
 
     @stack('stylesheet')
