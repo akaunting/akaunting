@@ -172,10 +172,11 @@
     <script type="text/javascript">
         var focus = false;
         var item_row = '{{ $item_row }}';
-        var currency_code = $('#currency_code').val();
         var autocomplete_path = "{{ url('common/items/autocomplete') }}";
 
         $(document).ready(function(){
+            var currency_code = $('#currency_code').val();
+
             @if (old('item'))
             $('#vendor_id').trigger('change');
             @endif
