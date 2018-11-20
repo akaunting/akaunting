@@ -12,7 +12,7 @@ return [
     'quantity'          => 'تعداد',
     'price'             => 'قيمت',
     'sub_total'         => 'جمع کل',
-    'discount'          => 'Discount',
+    'discount'          => 'تخفیف',
     'tax_total'         => 'مجموع مالیات',
     'total'             => 'مجموع',
 
