@@ -12,15 +12,15 @@ return [
     'quantity'          => 'Количество',
     'price'             => 'Цена',
     'sub_total'         => 'Итого',
-    'discount'          => 'Discount',
+    'discount'          => 'Скидка',
     'tax_total'         => 'Итого с налогом',
     'total'             => 'Всего',
 
     'item_name'         => 'Имя пункта | Имена пунктов',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Скидка',
+    'add_discount'      => 'Добавить скидку',
+    'discount_desc'     => 'от итога',
 
     'payment_due'       => 'Оплатить до',
     'amount_due'        => 'Сумма',
@@ -41,16 +41,16 @@ return [
 
     'messages' => [
         'received'      => 'Счёт помечен как успешно получен!',
-        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+        'draft'          => 'Это <b>ЧЕРНОВИК</b> закупки, он будет проведен после отправки.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'Создано :date',
             'receive'      => [
-                'draft'     => 'Not sent',
-                'received'  => 'Received on :date',
+                'draft'     => 'Не отправлен',
+                'received'  => 'Получено :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'Ожидает оплаты',
             ],
         ],
     ],

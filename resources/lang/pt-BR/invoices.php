@@ -31,7 +31,7 @@ return [
     'mark_sent'         => 'Marcar Como Enviada',
     'download_pdf'      => 'Baixar em PDF',
     'send_mail'         => 'Enviar E-mail',
-    'all_invoices'      => 'Login to view all invoices',
+    'all_invoices'      => 'Faça login para ver todas as faturas',
 
     'status' => [
         'draft'         => 'Rascunho',
@@ -46,16 +46,16 @@ return [
         'email_sent'     => 'O e-mail foi enviado com sucesso!',
         'marked_sent'    => 'Fatura marcada como enviada com sucesso!',
         'email_required' => 'Nenhum endereço de e-mail para este cliente!',
-        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+        'draft'          => 'Este é um <b>RASCUNHO</b> de fatura e será refletida nos gráficos depois que ela for enviada.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'Criado em :date',
             'send'      => [
-                'draft'     => 'Not sent',
-                'sent'      => 'Sent on :date',
+                'draft'     => 'Não enviado',
+                'sent'      => 'Enviado em :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'Aguardando pagamento',
             ],
         ],
     ],

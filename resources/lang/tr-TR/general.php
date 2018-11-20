@@ -124,7 +124,7 @@ return [
     'title' => [
         'new'               => 'Yeni :type',
         'edit'              => ':type Düzenle',
-        'create'            => 'Oluştur :type',
+        'create'            => ':type Oluştur',
         'send'              => ':type Gönder',
         'get'               => ':type Getir',
     ],

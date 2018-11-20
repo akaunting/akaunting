@@ -12,15 +12,15 @@ return [
     'quantity'          => 'Количество',
     'price'             => 'Цена',
     'sub_total'         => 'Итого',
-    'discount'          => 'Discount',
+    'discount'          => 'Скидка',
     'tax_total'         => 'Итого с налогом',
     'total'             => 'Всего',
 
     'item_name'         => 'Имя пункта | Имена пунктов',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Скидка',
+    'add_discount'      => 'Добавить скидку',
+    'discount_desc'     => 'от итога',
 
     'payment_due'       => 'Оплатить до',
     'paid'              => 'Оплачено',
@@ -31,7 +31,7 @@ return [
     'mark_sent'         => 'Пометить как отправлено',
     'download_pdf'      => 'Скачать PDF',
     'send_mail'         => 'Отправить E-mail',
-    'all_invoices'      => 'Login to view all invoices',
+    'all_invoices'      => 'Войти для просмотра всех счетов',
 
     'status' => [
         'draft'         => 'Черновик',
@@ -46,16 +46,16 @@ return [
         'email_sent'     => 'Счет-фактура успешно отправлена на e-mail!',
         'marked_sent'    => 'Счет-фактура помечена как успешно отправлена!',
         'email_required' => 'Отсутствует e-mail адрес для этого клиента!',
-        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+        'draft'          => 'Это <b>ЧЕРНОВИК</b> счета, он будет проведен после отправки.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'Создано :date',
             'send'      => [
-                'draft'     => 'Not sent',
-                'sent'      => 'Sent on :date',
+                'draft'     => 'Не отправлено',
+                'sent'      => 'Отправлено :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'Ожидает оплаты',
             ],
         ],
     ],
