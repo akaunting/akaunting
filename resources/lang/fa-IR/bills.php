@@ -41,16 +41,16 @@ return [
 
     'messages' => [
         'received'      => 'صورتحساب مشخص شده با موفقیت علامت گذاری شد.',
-        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+        'draft'          => 'این صورت حساب به صورت پیشنویس است و پس از دریافت وجه بر روی نمودار را اعمال می شود.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'تاریخ ایجاد :date',
             'receive'      => [
-                'draft'     => 'Not sent',
-                'received'  => 'Received on :date',
+                'draft'     => 'ارسال نشده',
+                'received'  => 'تاریخ دریافت :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'انتظار پرداخت',
             ],
         ],
     ],

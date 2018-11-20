@@ -57,7 +57,7 @@ return [
     ],
 
     'badge' => [
-        'installed' => 'Installed',
+        'installed' => 'نصب شده',
     ],
 
     'button' => [
@@ -67,14 +67,14 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Purchased',
-        'installed' => 'Installed',
+        'purchased' => 'خریداری شد',
+        'installed' => 'نصب شده',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add' => 'اضافه کردن نظر'
         ],
-        'na' => 'There are no reviews.'
+        'na' => 'هیچ بررسی وجود دارد.'
     ]
 ];

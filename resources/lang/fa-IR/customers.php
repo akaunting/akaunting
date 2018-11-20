@@ -11,6 +11,6 @@ return [
 
     'notification' => [
         'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Show',
+        'button'        => 'نمایش',
     ],
 ];
