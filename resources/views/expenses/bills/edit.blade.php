@@ -153,7 +153,6 @@
     <script type="text/javascript">
         var focus = false;
         var item_row = '{{ $item_row }}';
-        var currency_code = $('#currency_code').val();
         var autocomplete_path = "{{ url('common/items/autocomplete') }}";
 
         $(document).on('click', '#button-add-item', function (e) {
@@ -222,6 +221,8 @@
         });
 
         $(document).ready(function(){
+            var currency_code = $('#currency_code').val();
+
             $('#vendor_id').trigger('change');
 
             itemTableResize();
