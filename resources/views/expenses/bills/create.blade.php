@@ -174,9 +174,7 @@
         var item_row = '{{ $item_row }}';
         var autocomplete_path = "{{ url('common/items/autocomplete') }}";
 
-        $(document).ready(function(){
-            var currency_code = $('#currency_code').val();
-
+        $(document).ready(function() {
             @if (old('item'))
             $('#vendor_id').trigger('change');
             @endif
@@ -258,7 +256,7 @@
                 url: '{{ url("expenses/bills/addItem") }}',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {item_row: item_row, currency_code : currency_code},
+                data: {item_row: item_row, currency_code : $('#currency_code').val()},
                 success: function(json) {
                     if (json['success']) {
                         $('#items tbody #addItem').before(json['html']);
@@ -300,24 +298,6 @@
             });
         });
 
-        $(document).on('click', '#tax-add-new', function(e){
-            tax_name = $('.select2-search__field').val();
-
-            $('#modal-create-tax').remove();
-
-            $.ajax({
-                url: '{{ url("modals/taxes/create") }}',
-                type: 'GET',
-                dataType: 'JSON',
-                data: {name: tax_name},
-                success: function(json) {
-                    if (json['success']) {
-                        $('body').append(json['html']);
-                    }
-                }
-            });
-        });
-
         $(document).on('click', '.form-control.typeahead', function() {
             input_id = $(this).attr('id').split('-');
 
@@ -352,6 +332,24 @@
                     $('#item-total-' + item_id).html(data.total);
 
                     totalItem();
+                }
+            });
+        });
+
+        $(document).on('click', '#tax-add-new', function(e) {
+            tax_name = $('.select2-search__field').val();
+
+            $('#modal-create-tax').remove();
+
+            $.ajax({
+                url: '{{ url("modals/taxes/create") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: {name: tax_name},
+                success: function(json) {
+                    if (json['success']) {
+                        $('body').append(json['html']);
+                    }
                 }
             });
         });

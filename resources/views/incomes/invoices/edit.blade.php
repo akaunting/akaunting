@@ -259,83 +259,12 @@
         });
         @endif
 
-        $(document).on('click', '.form-control.typeahead', function() {
-            input_id = $(this).attr('id').split('-');
-
-            item_id = parseInt(input_id[input_id.length-1]);
-
-            $(this).typeahead({
-                minLength: 3,
-                displayText:function (data) {
-                    return data.name + ' (' + data.sku + ')';
-                },
-                source: function (query, process) {
-                    $.ajax({
-                        url: autocomplete_path,
-                        type: 'GET',
-                        dataType: 'JSON',
-                        data: 'query=' + query + '&type=invoice&currency_code=' + $('#currency_code').val(),
-                        success: function(data) {
-                            return process(data);
-                        }
-                    });
-                },
-                afterSelect: function (data) {
-                    $('#item-id-' + item_id).val(data.item_id);
-                    $('#item-quantity-' + item_id).val('1');
-                    $('#item-price-' + item_id).val(data.sale_price);
-                    $('#item-tax-' + item_id).val(data.tax_id);
-
-                    // This event Select2 Stylesheet
-                    $('#item-price-' + item_id).trigger('focusout');
-                    $('#item-tax-' + item_id).trigger('change');
-
-                    $('#item-total-' + item_id).html(data.total);
-
-                    totalItem();
-                }
-            });
-        });
-
-        $('a[rel=popover]').popover({
-            html: true,
-            placement: 'bottom',
-            title: '{{ trans('invoices.discount') }}',
-            content: function () {
-                html  = '<div class="discount box-body">';
-                html += '    <div class="col-md-6">';
-                html += '        <div class="input-group" id="input-discount">';
-                html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
-                html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
-                html += '        </div>';
-                html += '    </div>';
-                html += '    <div class="col-md-6">';
-                html += '        <div class="discount-description">';
-                html += '           {{ trans('invoices.discount_desc') }}';
-                html += '        </div>';
-                html += '    </div>';
-                html += '</div>';
-                html += '<div class="discount box-footer">';
-                html += '    <div class="col-md-12">';
-                html += '        <div class="form-group no-margin">';
-                html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
-                html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
-                html += '       </div>';
-                html += '    </div>';
-                html += '</div>';
-
-                return html;
-            }
-        });
-
         $(document).on('click', '#button-add-item', function (e) {
-            var currency_code = $('#currency_code').val();
-
             $.ajax({
                 url: '{{ url("incomes/invoices/addItem") }}',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {item_row: item_row, currency_code : currency_code},
+                data: {item_row: item_row, currency_code : $('#currency_code').val()},
                 success: function(json) {
                     if (json['success']) {
                         $('#items tbody #addItem').before(json['html']);
@@ -377,7 +306,45 @@
             });
         });
 
-        $(document).on('click', '#tax-add-new', function(e){
+        $(document).on('click', '.form-control.typeahead', function() {
+            input_id = $(this).attr('id').split('-');
+
+            item_id = parseInt(input_id[input_id.length-1]);
+
+            $(this).typeahead({
+                minLength: 3,
+                displayText:function (data) {
+                    return data.name + ' (' + data.sku + ')';
+                },
+                source: function (query, process) {
+                    $.ajax({
+                        url: autocomplete_path,
+                        type: 'GET',
+                        dataType: 'JSON',
+                        data: 'query=' + query + '&type=invoice&currency_code=' + $('#currency_code').val(),
+                        success: function(data) {
+                            return process(data);
+                        }
+                    });
+                },
+                afterSelect: function (data) {
+                    $('#item-id-' + item_id).val(data.item_id);
+                    $('#item-quantity-' + item_id).val('1');
+                    $('#item-price-' + item_id).val(data.sale_price);
+                    $('#item-tax-' + item_id).val(data.tax_id);
+
+                    // This event Select2 Stylesheet
+                    $('#item-price-' + item_id).trigger('focusout');
+                    $('#item-tax-' + item_id).trigger('change');
+
+                    $('#item-total-' + item_id).html(data.total);
+
+                    totalItem();
+                }
+            });
+        });
+
+        $(document).on('click', '#tax-add-new', function(e) {
             tax_name = $('.select2-search__field').val();
 
             $('#modal-create-tax').remove();
@@ -393,6 +360,37 @@
                     }
                 }
             });
+        });
+
+        $('a[rel=popover]').popover({
+            html: true,
+            placement: 'bottom',
+            title: '{{ trans('invoices.discount') }}',
+            content: function () {
+                html  = '<div class="discount box-body">';
+                html += '    <div class="col-md-6">';
+                html += '        <div class="input-group" id="input-discount">';
+                html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
+                html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                html += '        </div>';
+                html += '    </div>';
+                html += '    <div class="col-md-6">';
+                html += '        <div class="discount-description">';
+                html += '           {{ trans('invoices.discount_desc') }}';
+                html += '        </div>';
+                html += '    </div>';
+                html += '</div>';
+                html += '<div class="discount box-footer">';
+                html += '    <div class="col-md-12">';
+                html += '        <div class="form-group no-margin">';
+                html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
+                html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
+                html += '       </div>';
+                html += '    </div>';
+                html += '</div>';
+
+                return html;
+            }
         });
 
         $(document).on('keyup', '#pre-discount', function(e){

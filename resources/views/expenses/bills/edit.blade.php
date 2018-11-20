@@ -155,74 +155,7 @@
         var item_row = '{{ $item_row }}';
         var autocomplete_path = "{{ url('common/items/autocomplete') }}";
 
-        $(document).on('click', '#button-add-item', function (e) {
-            $.ajax({
-                url: '{{ url("expenses/bills/addItem") }}',
-                type: 'GET',
-                dataType: 'JSON',
-                data: {item_row: item_row, currency_code : currency_code},
-                success: function(json) {
-                    if (json['success']) {
-                        $('#items tbody #addItem').before(json['html']);
-                        //$('[rel=tooltip]').tooltip();
-
-                        $('[data-toggle="tooltip"]').tooltip('hide');
-
-                        $('#item-row-' + item_row + ' .tax-select2').select2({
-                            placeholder: {
-                                id: '-1', // the value of the option
-                                text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
-                            },
-                            escapeMarkup: function (markup) {
-                                return markup;
-                            },
-                            language: {
-                                noResults: function () {
-                                    return '<span id="tax-add-new"><i class="fa fa-plus"> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
-                                }
-                            }
-                        });
-
-                        var currency = json['data']['currency'];
-
-                        $('#item-price-' + item_row).maskMoney({
-                            thousands : currency.thousands_separator,
-                            decimal : currency.decimal_mark,
-                            precision : currency.precision,
-                            allowZero : true,
-                            prefix : (currency.symbol_first) ? currency.symbol : '',
-                            suffix : (currency.symbol_first) ? '' : currency.symbol
-                        });
-
-                        $('#item-price-' + item_row).trigger('focusout');
-
-                        item_row++;
-                    }
-                }
-            });
-        });
-
-        $(document).on('click', '#tax-add-new', function(e){
-            tax_name = $('.select2-search__field').val();
-
-            $('#modal-create-tax').remove();
-
-            $.ajax({
-                url: '{{ url("modals/taxes/create") }}',
-                type: 'GET',
-                dataType: 'JSON',
-                data: {name: tax_name},
-                success: function(json) {
-                    if (json['success']) {
-                        $('body').append(json['html']);
-                    }
-                }
-            });
-        });
-
-        $(document).ready(function(){
-            var currency_code = $('#currency_code').val();
-
+        $(document).ready(function() {
             $('#vendor_id').trigger('change');
 
             itemTableResize();
@@ -326,6 +259,53 @@
         });
         @endif
 
+        $(document).on('click', '#button-add-item', function (e) {
+            $.ajax({
+                url: '{{ url("expenses/bills/addItem") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: {item_row: item_row, currency_code : $('#currency_code').val()},
+                success: function(json) {
+                    if (json['success']) {
+                        $('#items tbody #addItem').before(json['html']);
+                        //$('[rel=tooltip]').tooltip();
+
+                        $('[data-toggle="tooltip"]').tooltip('hide');
+
+                        $('#item-row-' + item_row + ' .tax-select2').select2({
+                            placeholder: {
+                                id: '-1', // the value of the option
+                                text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                            },
+                            escapeMarkup: function (markup) {
+                                return markup;
+                            },
+                            language: {
+                                noResults: function () {
+                                    return '<span id="tax-add-new"><i class="fa fa-plus"> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                                }
+                            }
+                        });
+
+                        var currency = json['data']['currency'];
+
+                        $('#item-price-' + item_row).maskMoney({
+                            thousands : currency.thousands_separator,
+                            decimal : currency.decimal_mark,
+                            precision : currency.precision,
+                            allowZero : true,
+                            prefix : (currency.symbol_first) ? currency.symbol : '',
+                            suffix : (currency.symbol_first) ? '' : currency.symbol
+                        });
+
+                        $('#item-price-' + item_row).trigger('focusout');
+
+                        item_row++;
+                    }
+                }
+            });
+        });
+
         $(document).on('click', '.form-control.typeahead', function() {
             input_id = $(this).attr('id').split('-');
 
@@ -360,6 +340,24 @@
                     $('#item-total-' + item_id).html(data.total);
 
                     totalItem();
+                }
+            });
+        });
+
+        $(document).on('click', '#tax-add-new', function(e) {
+            tax_name = $('.select2-search__field').val();
+
+            $('#modal-create-tax').remove();
+
+            $.ajax({
+                url: '{{ url("modals/taxes/create") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: {name: tax_name},
+                success: function(json) {
+                    if (json['success']) {
+                        $('body').append(json['html']);
+                    }
                 }
             });
         });
