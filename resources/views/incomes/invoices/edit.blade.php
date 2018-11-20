@@ -221,6 +221,38 @@
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
             });
 
+            // Discount popover
+            $('a[rel=popover]').popover({
+                html: true,
+                placement: 'bottom',
+                title: '{{ trans('invoices.discount') }}',
+                content: function () {
+                    html  = '<div class="discount box-body">';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="input-group" id="input-discount">';
+                    html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
+                    html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="discount-description">';
+                    html += '           {{ trans('invoices.discount_desc') }}';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '</div>';
+                    html += '<div class="discount box-footer">';
+                    html += '    <div class="col-md-12">';
+                    html += '        <div class="form-group no-margin">';
+                    html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
+                    html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
+                    html += '       </div>';
+                    html += '    </div>';
+                    html += '</div>';
+
+                    return html;
+                }
+            });
+
             $('#attachment').fancyfile({
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
@@ -360,37 +392,6 @@
                     }
                 }
             });
-        });
-
-        $('a[rel=popover]').popover({
-            html: true,
-            placement: 'bottom',
-            title: '{{ trans('invoices.discount') }}',
-            content: function () {
-                html  = '<div class="discount box-body">';
-                html += '    <div class="col-md-6">';
-                html += '        <div class="input-group" id="input-discount">';
-                html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
-                html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
-                html += '        </div>';
-                html += '    </div>';
-                html += '    <div class="col-md-6">';
-                html += '        <div class="discount-description">';
-                html += '           {{ trans('invoices.discount_desc') }}';
-                html += '        </div>';
-                html += '    </div>';
-                html += '</div>';
-                html += '<div class="discount box-footer">';
-                html += '    <div class="col-md-12">';
-                html += '        <div class="form-group no-margin">';
-                html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
-                html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
-                html += '       </div>';
-                html += '    </div>';
-                html += '</div>';
-
-                return html;
-            }
         });
 
         $(document).on('keyup', '#pre-discount', function(e){
