@@ -45,7 +45,7 @@
                         <div class="tab-pane active" id="description">
                             {!! $module->description !!}
 
-                            @if($module->screenshots)
+                            @if($module->screenshots || $module->video)
                                 <div id="carousel-screenshot-generic" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         @if($module->video)
@@ -85,7 +85,7 @@
                                         @endforeach
 
                                         <div class="carousel-navigation-message">
-                                            @if (count($module->screenshots) > 1)
+                                            @if (($item->module && (count($module->screenshots) > 1)) || (!$item->module && (count($module->screenshots) > 1)))
                                             <a class="left carousel-control" href="#carousel-screenshot-generic" role="button" data-slide="prev">
                                                 <i class="fa fa-chevron-left"></i>
                                                 <span class="sr-only">{{ trans('pagination.previous') }}</span>
