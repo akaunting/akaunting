@@ -10,6 +10,7 @@
         "akaunting/language": "1.0.*",
         "akaunting/money": "1.0.*",
         "akaunting/setting": "1.0.*",
+        "akaunting/signed-url": "1.0.*",
         "akaunting/version": "1.0.*",
         "almasaeed2010/adminlte": "2.3.*",
         "barryvdh/laravel-debugbar": "2.3.*",
@@ -38,7 +39,7 @@
         "tucker-eric/eloquentfilter": "1.1.*"
     },
     "require-dev": {
-        "fzaninotto/faker": "1.6.*",
+        "fzaninotto/faker": "1.8.*",
         "phpunit/phpunit": "5.7.*"
     },
     "autoload": {

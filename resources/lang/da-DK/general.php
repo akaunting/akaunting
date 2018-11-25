@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Nummer|Numre',
     'statuses'              => 'Status|Statusser',
     'others'                => 'Andre | Andre',
+    'contacts'              => 'Kontakt|kontakter',
+    'reconciliations'       => 'Afstemt|afstemninger',
+    'deposits'              => 'Depositum|indskud',
+    'withdrawals'           => 'Tilbagetrukket|tilbagetrækninger',
 
     'dashboard'             => 'Oversigt',
     'banking'               => 'Bank',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Farve',
     'save'                  => 'Gem',
     'cancel'                => 'Annullér',
+    'loading'               => 'Indlæser...',
     'from'                  => 'Fra:',
     'to'                    => 'Til',
     'print'                 => 'Udskriv',
@@ -100,11 +105,30 @@ return [
     'overdue'               => 'Forfalden',
     'partially'             => 'Delvist',
     'partially_paid'        => 'Delvist betalt',
+    'export'                => 'Eksportér',
+    'finish'                => 'Færdig',
+    'wizard'                => 'Guide',
+    'skip'                  => 'Spring over',
+    'enable'                => 'Aktivér',
+    'disable'               => 'Deaktiver',
+    'select_all'            => 'Vælg alle',
+    'unselect_all'          => 'Fravælge alle',
+    'go_to'                 => 'Gå til :name',
+    'created_date'          => 'Oprettelsesdato',
+    'period'                => 'Periode',
+    'start'                 => 'Start',
+    'end'                   => 'Slut',
+    'clear'                 => 'Ryd',
+    'difference'            => 'Forskel',
 
     'title' => [
         'new'               => 'Ny :type',
         'edit'              => 'Rediger :type',
+        'create'            => 'Opret !type',
+        'send'              => 'Send :type',
+        'get'               => 'Hent :type',
     ],
+
     'form' => [
         'enter'             => 'Indtast: :field',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => 'Ingen fil valgt...',
     ],
 
+    'date_range' => [
+        'today' => 'I dag',
+        'yesterday' => 'I går',
+        'last_days' => 'Sidste :days dage',
+        'this_month' => 'Denne måned',
+        'last_month' => 'Sidste måned',
+    ],
 ];

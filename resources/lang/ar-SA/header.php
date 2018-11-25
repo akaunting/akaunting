@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count منتج غير متوفر|[2,*] :count منتجات غير متوفرة',
         'view_all'          => 'عرض الكل'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

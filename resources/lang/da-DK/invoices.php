@@ -2,8 +2,8 @@
 
 return [
 
-    'invoice_number'    => 'Faktura nummer',
-    'invoice_date'      => 'Faktura dato',
+    'invoice_number'    => 'Fakturanummer',
+    'invoice_date'      => 'Fakturadato',
     'total_price'       => 'Total pris',
     'due_date'          => 'Forfaldsdato',
     'order_number'      => 'Ordrenummer',
@@ -30,7 +30,8 @@ return [
     'mark_paid'         => 'Marker som betalt',
     'mark_sent'         => 'Marker som sendt',
     'download_pdf'      => 'Download som PDF',
-    'send_mail'         => 'Send e-mail',
+    'send_mail'         => 'Send E-mail',
+    'all_invoices'      => 'Log ind for at se alle fakturaer',
 
     'status' => [
         'draft'         => 'Kladde',
@@ -42,13 +43,25 @@ return [
     ],
 
     'messages' => [
-        'email_sent'     => 'E-maiil med faktura er afsendt!',
+        'email_sent'     => 'Faktura sendt over E-mail!',
         'marked_sent'    => 'Faktura markeret som sendt!',
-        'email_required' => 'Ingen e-mail-adresse for denne kunde!',
+        'email_required' => 'Ingen E-mail-adresse for kunden!',
+        'draft'          => 'Dette er et <b>UDKAST</b> til faktura og vil blive vist som diagrammer, når det bliver sendt.',
+
+        'status' => [
+            'created'   => 'Oprettet den :date',
+            'send'      => [
+                'draft'     => 'Ikke sendt',
+                'sent'      => 'Sendt den :date',
+            ],
+            'paid'      => [
+                'await'     => 'Afventer betaling',
+            ],
+        ],
     ],
 
     'notification' => [
-        'message'       => 'Du modtager denne e-mail, fordi du har en faktura på :amount til :customer kunde.',
+        'message'       => 'Du modtager denne E-mail, fordi du har en faktura på :amount til :customer kunde.',
         'button'        => 'Betal nu',
     ],
 

@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type uitgeschakeld!',
     ],
     'error' => [
-        'over_payment'      => 'Fout: Betaling niet toegevoegd! Ingevoerde bedrag is hoger dan het totaal bedrag.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Fout: U heeft niet de juiste bevoegdheid om dit bedrijf te beheren!',
         'customer'          => 'Fout: Gebruiker niet aangemaakt! :name heeft dit e-mailadres al in gebruik.',
         'no_file'           => 'Fout: geen bestand geselecteerd!',

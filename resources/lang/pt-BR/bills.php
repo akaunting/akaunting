@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Conta marcada como recebida com sucesso!',
+        'draft'          => 'Este é um <b>RASCUNHO</b> de fatura e será refletida nos gráficos depois que ela for recebida.',
+
+        'status' => [
+            'created'   => 'Criado em :date',
+            'receive'      => [
+                'draft'     => 'Não enviado',
+                'received'  => 'Recebido em :date',
+            ],
+            'paid'      => [
+                'await'     => 'Aguardando pagamento',
+            ],
+        ],
     ],
 
 ];

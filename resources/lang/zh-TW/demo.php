@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => '現金',
-    'categories_uncat'      => '未分類',
     'categories_deposit'    => '存款',
     'categories_sales'      => '業務人員',
     'currencies_usd'        => '美金',

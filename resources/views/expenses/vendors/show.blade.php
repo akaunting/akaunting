@@ -39,6 +39,11 @@
                         <li class="list-group-item">
                             <b>{{ trans('general.tax_number') }}</b> <a class="pull-right">{{ $vendor->tax_number }}</a>
                         </li>
+                        @if ($vendor->refence)
+                        <li class="list-group-item">
+                            <b>{{ trans('general.reference') }}</b> <a class="pull-right">{{ $vendor->refence }}</a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
                 <!-- /.box-body -->
@@ -110,41 +115,98 @@
                 <!-- /.col -->
             </div>
 
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">{{ trans_choice('general.transactions', 2) }}</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="table table-responsive">
-                        <table class="table table-striped table-hover" id="tbl-transactions">
-                            <thead>
-                            <tr>
-                                <th class="col-md-3">{{ trans('general.date') }}</th>
-                                <th class="col-md-2 text-right amount-space">{{ trans('general.amount') }}</th>
-                                <th class="col-md-4 hidden-xs">{{ trans_choice('general.categories', 1) }}</th>
-                                <th class="col-md-3 hidden-xs">{{ trans_choice('general.accounts', 1) }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($transactions as $item)
-                                <tr>
-                                    <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                                    <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                                    <td class="hidden-xs">{{ $item->category->name }}</td>
-                                    <td class="hidden-xs">{{ $item->account->name }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#transactions" data-toggle="tab" aria-expanded="true">{{ trans_choice('general.transactions', 2) }}</a></li>
+                            <li class=""><a href="#bills" data-toggle="tab" aria-expanded="false">{{ trans_choice('general.bills', 2) }}</a></li>
+                            <li class=""><a href="#payments" data-toggle="tab" aria-expanded="false">{{ trans_choice('general.payments', 2) }}</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane tab-margin active" id="transactions">
+                                <table class="table table-striped table-hover" id="tbl-transactions">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-md-3">{{ trans('general.date') }}</th>
+                                        <th class="col-md-2 text-right amount-space">{{ trans('general.amount') }}</th>
+                                        <th class="col-md-4 hidden-xs">{{ trans_choice('general.categories', 1) }}</th>
+                                        <th class="col-md-3 hidden-xs">{{ trans_choice('general.accounts', 1) }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($transactions as $item)
+                                        <tr>
+                                            <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
+                                            <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
+                                            <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                                            <td class="hidden-xs">{{ $item->account->name }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+
+                                @include('partials.admin.pagination', ['items' => $transactions, 'type' => 'transactions'])
+                            </div>
+
+                            <div class="tab-pane tab-margin" id="bills">
+                                <div class="table table-responsive">
+                                    <table class="table table-striped table-hover" id="tbl-bills">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-2">{{ trans_choice('general.numbers', 1) }}</th>
+                                            <th class="col-md-2 text-right amount-space">{{ trans('general.amount') }}</th>
+                                            <th class="col-md-2">{{ trans('bills.bill_date') }}</th>
+                                            <th class="col-md-2">{{ trans('bills.due_date') }}</th>
+                                            <th class="col-md-2">{{ trans_choice('general.statuses', 1) }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($bills as $item)
+                                            <tr>
+                                                <td><a href="{{ url('expenses/bills/' . $item->id . ' ') }}">{{ $item->bill_number }}</a></td>
+                                                <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
+                                                <td>{{ Date::parse($item->billed_at)->format($date_format) }}</td>
+                                                <td>{{ Date::parse($item->due_at)->format($date_format) }}</td>
+                                                <td><span class="label {{ $item->status->label }}">{{ trans('bills.status.' . $item->status->code) }}</span></td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                @include('partials.admin.pagination', ['items' => $bills, 'type' => 'bills'])
+                            </div>
+
+                            <div class="tab-pane tab-margin" id="payments">
+                                <div class="table table-responsive">
+                                    <table class="table table-striped table-hover" id="tbl-payments">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-3">{{ trans('general.date') }}</th>
+                                            <th class="col-md-3 text-right amount-space">{{ trans('general.amount') }}</th>
+                                            <th class="col-md-3 hidden-xs">{{  trans_choice('general.categories', 1) }}</th>
+                                            <th class="col-md-3 hidden-xs">{{ trans_choice('general.accounts', 1) }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($payments as $item)
+                                            <tr>
+                                                <td><a href="{{ url('expenses/payments/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
+                                                <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
+                                                <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                                                <td class="hidden-xs">{{ $item->account->name }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                @include('partials.admin.pagination', ['items' => $payments, 'type' => 'payments'])
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- /.box-body -->
-
-                <div class="box-footer">
-                    @include('partials.admin.pagination', ['items' => $transactions, 'type' => 'transactions'])
-                </div>
-                <!-- /.box-footer -->
             </div>
             <!-- /.box -->
         </div>

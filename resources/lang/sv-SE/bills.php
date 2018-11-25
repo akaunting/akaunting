@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Faktura markerad som mottagen!',
+        'draft'          => 'Detta är ett <b>DRAFT</b> förslag och kommer att stämmas av innan den mottages.',
+
+        'status' => [
+            'created'   => 'Skapad den :date',
+            'receive'      => [
+                'draft'     => 'Inte skickat',
+                'received'  => 'Mottagen :date',
+            ],
+            'paid'      => [
+                'await'     => 'Väntar på betalning',
+            ],
+        ],
     ],
 
 ];

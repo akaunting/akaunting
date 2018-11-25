@@ -41,6 +41,18 @@ return [
 
     'messages' => [
         'received'      => 'Fatura shënohet si i marrë me sukses!',
+        'draft'          => 'Ky është një faturë <b>DRAFT</b> dhe do të pasqyrohet në skema pas marrjes së tij.',
+
+        'status' => [
+            'created'   => 'Krijuar më :date',
+            'receive'      => [
+                'draft'     => 'Nuk është dërguar',
+                'received'  => 'Pranuar më :date',
+            ],
+            'paid'      => [
+                'await'     => 'Duke pritur pagesen',
+            ],
+        ],
     ],
 
 ];

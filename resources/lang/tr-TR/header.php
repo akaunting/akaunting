@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} :count ürün stok dışı|[2,*] :count ürün stok dışı',
         'view_all'          => 'Tümünü Görüntüle'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\Incomes;
 
-use App\Events\InvoiceCreated;
 use App\Events\InvoiceUpdated;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Income\Invoice as Request;
+use App\Jobs\Income\CreateInvoice;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceHistory;
 use App\Models\Income\InvoiceItem;
@@ -13,13 +13,13 @@ use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceTotal;
 use App\Models\Common\Item;
 use App\Models\Setting\Tax;
-use App\Notifications\Common\Item as ItemNotification;
+use App\Traits\Incomes;
 use App\Transformers\Income\Invoice as Transformer;
 use Dingo\Api\Routing\Helpers;
 
 class Invoices extends ApiController
 {
-    use Helpers;
+    use Helpers, Incomes;
 
     /**
      * Display a listing of the resource.
@@ -63,114 +63,9 @@ class Invoices extends ApiController
             $request['amount'] = 0;
         }
 
-        $invoice = Invoice::create($request->all());
+        $invoice = dispatch(new CreateInvoice($request));
 
-        $taxes = [];
-        $tax_total = 0;
-        $sub_total = 0;
-
-        $invoice_item = array();
-        $invoice_item['company_id'] = $request['company_id'];
-        $invoice_item['invoice_id'] = $invoice->id;
-
-        if ($request['item']) {
-            foreach ($request['item'] as $item) {
-                $item_id = 0;
-                $item_sku = '';
-
-                if (!empty($item['item_id'])) {
-                    $item_object = Item::find($item['item_id']);
-
-                    $item_id = $item['item_id'];
-
-                    $item['name'] = $item_object->name;
-                    $item_sku = $item_object->sku;
-
-                    // Decrease stock (item sold)
-                    $item_object->quantity -= $item['quantity'];
-                    $item_object->save();
-
-                    // Notify users if out of stock
-                    if ($item_object->quantity == 0) {
-                        foreach ($item_object->company->users as $user) {
-                            if (!$user->can('read-notifications')) {
-                                continue;
-                            }
-
-                            $user->notify(new ItemNotification($item_object));
-                        }
-                    }
-                } elseif (!empty($item['sku'])) {
-                    $item_sku = $item['sku'];
-                }
-
-                $tax = $tax_id = 0;
-
-                if (!empty($item['tax_id'])) {
-                    $tax_object = Tax::find($item['tax_id']);
-
-                    $tax_id = $item['tax_id'];
-
-                    $tax = (($item['price'] * $item['quantity']) / 100) * $tax_object->rate;
-                } elseif (!empty($item['tax'])) {
-                    $tax = $item['tax'];
-                }
-
-                $invoice_item['item_id'] = $item_id;
-                $invoice_item['name'] = str_limit($item['name'], 180, '');
-                $invoice_item['sku'] = $item_sku;
-                $invoice_item['quantity'] = $item['quantity'];
-                $invoice_item['price'] = $item['price'];
-                $invoice_item['tax'] = $tax;
-                $invoice_item['tax_id'] = $tax_id;
-                $invoice_item['total'] = $item['price'] * $item['quantity'];
-
-                InvoiceItem::create($invoice_item);
-
-                if (isset($tax_object)) {
-                    if (array_key_exists($tax_object->id, $taxes)) {
-                        $taxes[$tax_object->id]['amount'] += $tax;
-                    } else {
-                        $taxes[$tax_object->id] = [
-                            'name' => $tax_object->name,
-                            'amount' => $tax
-                        ];
-                    }
-                }
-
-                $tax_total += $tax;
-                $sub_total += $invoice_item['total'];
-
-                unset($item_object);
-                unset($tax_object);
-            }
-        }
-
-        if (empty($request['amount'])) {
-            $request['amount'] = $sub_total + $tax_total;
-        }
-
-        $invoice->update($request->input());
-
-        // Add invoice totals
-        $this->addTotals($invoice, $request, $taxes, $sub_total, $tax_total);
-
-        $request['invoice_id'] = $invoice->id;
-        $request['status_code'] = $request['invoice_status_code'];
-        $request['notify'] = 0;
-        $request['description'] = trans('messages.success.added', ['type' => $request['invoice_number']]);
-
-        InvoiceHistory::create($request->input());
-
-        // Update next invoice number
-        $next = setting('general.invoice_number_next', 1) + 1;
-        setting(['general.invoice_number_next' => $next]);
-        setting()->save();
-
-        // Fire the event to make it extendible
-        event(new InvoiceCreated($invoice));
-
-        return $this->response->created(url('api/invoices/'.$invoice->id));
+        return $this->response->created(url('api/invoices/' . $invoice->id));
     }
 
     /**
@@ -277,11 +172,8 @@ class Invoices extends ApiController
      */
     public function destroy(Invoice $invoice)
     {
+        $this->deleteRelationships($invoice, ['items', 'histories', 'payments', 'recurring', 'totals']);
         $invoice->delete();
-
-        InvoiceItem::where('invoice_id', $invoice->id)->delete();
-        InvoicePayment::where('invoice_id', $invoice->id)->delete();
-        InvoiceHistory::where('invoice_id', $invoice->id)->delete();
 
         return $this->response->noContent();
     }

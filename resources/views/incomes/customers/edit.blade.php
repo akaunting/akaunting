@@ -29,6 +29,8 @@
 
         {{ Form::radioGroup('enabled', trans('general.enabled')) }}
 
+        {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
+
         @stack('create_user_input_start')
         <div  id="customer-create-user" class="form-group col-md-12 margin-top">
             @if ($customer->user_id)

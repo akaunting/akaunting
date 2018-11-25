@@ -12,15 +12,15 @@ return [
     'quantity'          => 'Množství',
     'price'             => 'Cena',
     'sub_total'         => 'Mezisoučet',
-    'discount'          => 'Discount',
+    'discount'          => 'Sleva',
     'tax_total'         => 'Daň celkem',
     'total'             => 'Celkem',
 
     'item_name'         => 'Jméno položky | Jméno položek',
 
-    'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'show_discount'     => ':discount% Sleva',
+    'add_discount'      => 'Přidat slevu',
+    'discount_desc'     => 'z propočtu',
 
     'payment_due'       => 'Splatnost platby',
     'paid'              => 'Zaplaceno',
@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Označit odesláno',
     'download_pdf'      => 'Stáhnout PDF',
     'send_mail'         => 'Poslat email',
+    'all_invoices'      => 'Přihlašte se pro zobrazení všech faktur',
 
     'status' => [
         'draft'         => 'Koncept',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Fakturační email byl úspěšně odeslán!',
         'marked_sent'    => 'Faktura byla úspěšně označena jako odeslaná!',
         'email_required' => 'Zákazník nemá uvedenou emailovou adresu!',
+        'draft'          => 'Toto je <b>KONCEPT</b> faktury a bude promítnut do grafů jakmile bude odeslán.',
+
+        'status' => [
+            'created'   => 'Vytvořeno :date',
+            'send'      => [
+                'draft'     => 'Neodesláno',
+                'sent'      => 'Odesláno dne :date',
+            ],
+            'paid'      => [
+                'await'     => 'Čekání na platbu',
+            ],
+        ],
     ],
 
     'notification' => [

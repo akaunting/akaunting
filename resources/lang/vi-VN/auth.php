@@ -23,7 +23,7 @@ return [
     
     'error' => [
         'self_delete'       => 'Lỗi: Bạn không thể xoá chính bạn!',
-        'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
+        'no_company'        => 'Lỗi: Không có công ty nào được chỉ định cho tài khoản của bạn. Vui lòng liên hệ với người quản trị hệ thống.',
     ],
 
     'failed'                => 'Thông tin tài khoản không tìm thấy trong hệ thống.',
@@ -31,9 +31,9 @@ return [
     'throttle'              => 'Vượt quá số lần đăng nhập cho phép. Vui lòng thử lại sau :seconds giây.',
 
     'notification' => [
-        'message_1'     => 'You are receiving this email because we received a password reset request for your account.',
-        'message_2'     => 'If you did not request a password reset, no further action is required.',
-        'button'        => 'Reset Password',
+        'message_1'     => 'Bạn nhận được email này bởi vì chúng tôi đã nhận được một yêu cầu đặt lại mật khẩu cho tài khoản của bạn.',
+        'message_2'     => 'Nếu bạn không yêu cầu đặt lại mật khẩu, đừng làm thêm bất cứ điều gì.',
+        'button'        => 'Đặt lại Mật khẩu',
     ],
 
 ];

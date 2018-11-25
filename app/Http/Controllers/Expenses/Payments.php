@@ -27,14 +27,11 @@ class Payments extends Controller
     {
         $payments = Payment::with(['vendor', 'account', 'category'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
+        $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'));
 
-        $categories = collect(Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
+        $categories = collect(Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id'));
 
-        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
+        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'));
 
         $transfer_cat_id = Category::transfer();
 

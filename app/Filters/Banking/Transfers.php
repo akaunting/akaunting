@@ -23,4 +23,13 @@ class Transfers extends ModelFilter
     {
         return $this->related('revenue', 'revenues.account_id', '=', $account_id);
     }
+
+    public function date($date)
+    {
+        $dates = explode('_', $date);
+        $dates[0] .= ' 00:00:00';
+        $dates[1] .= ' 23:59:59';
+
+        return $this->whereBetween('paid_at', $dates);
+    }
 }

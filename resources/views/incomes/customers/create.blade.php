@@ -24,6 +24,9 @@
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
 
+            {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
+
+
             @stack('create_user_input_start')
             <div id="customer-create-user" class="form-group col-md-12 margin-top">
                 <strong>{{ trans('customers.allow_login') }}</strong> &nbsp;  {{ Form::checkbox('create_user', '1', null, ['id' => 'create_user']) }}

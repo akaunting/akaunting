@@ -7,5 +7,10 @@ return [
 
     'error' => [
         'email'             => 'Emaili tashmë është marrë.'
-    ]
+    ],
+
+    'notification' => [
+        'message'       => ':customer bëri :amount pagesën në numrin e faturës :invoice_number.',
+        'button'        => 'Shfaq',
+    ],
 ];

@@ -27,16 +27,11 @@ class TaxSummary extends Controller
         $dates = $incomes = $expenses = $totals = [];
 
         $status = request('status');
+        $year = request('year', Date::now()->year);
 
         $t = Tax::enabled()->where('rate', '<>', '0')->pluck('name')->toArray();
 
         $taxes = array_combine($t, $t);
-
-        // Get year
-        $year = request('year');
-        if (empty($year)) {
-            $year = Date::now()->year;
-        }
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {
@@ -90,6 +85,12 @@ class TaxSummary extends Controller
                 break;
         }
 
+        $statuses = collect([
+            'all' => trans('general.all'),
+            'paid' => trans('invoices.paid'),
+            'upcoming' => trans('general.upcoming'),
+        ]);
+
         // Check if it's a print or normal request
         if (request('print')) {
             $view_template = 'reports.tax_summary.print';
@@ -97,13 +98,13 @@ class TaxSummary extends Controller
             $view_template = 'reports.tax_summary.index';
         }
 
-        return view($view_template, compact('dates', 'taxes', 'incomes', 'expenses', 'totals'));
+        return view($view_template, compact('dates', 'taxes', 'incomes', 'expenses', 'totals', 'statuses'));
     }
 
     private function setAmount(&$items, &$totals, $rows, $type, $date_field)
     {
         foreach ($rows as $row) {
-            if ($row['table'] == 'bill_payments' || $row['table'] == 'invoice_payments') {
+            if ($row->getTable() == 'bill_payments' || $row->getTable() == 'invoice_payments') {
                 $type_row = $row->$type;
 
                 $row->category_id = $type_row->category_id;
@@ -126,7 +127,14 @@ class TaxSummary extends Controller
                     continue;
                 }
 
-                $amount = $this->convert($row_total->amount, $row->currency_code, $row->currency_rate);
+                if ($date_field == 'paid_at') {
+                    $rate = ($row->amount * 100) / $type_row->amount;
+                    $row_amount = ($row_total->amount / 100) * $rate;
+                } else {
+                    $row_amount = $row_total->amount;
+                }
+
+                $amount = $this->convert($row_amount, $row->currency_code, $row->currency_rate);
 
                 $items[$row_total->name][$date]['amount'] += $amount;
 

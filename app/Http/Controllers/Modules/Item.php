@@ -67,7 +67,7 @@ class Item extends Controller
             $module->action_url .= $character . http_build_query($parameters);
         }
 
-        return view('modules.item.show', compact('module', 'about', 'installed', 'enable'));
+        return view('modules.item.show', compact('module', 'installed', 'enable'));
     }
 
     /**
@@ -301,5 +301,28 @@ class Item extends Controller
         flash($message)->success();
 
         return redirect('apps/' . $alias);
+    }
+
+    public function reviews($alias, Request $request)
+    {
+        $page = $request['page'];
+
+        $data = [
+            'query' => [
+                'page' => ($page) ? $page : 1,
+            ]
+        ];
+
+        $reviews = $this->getModuleReviews($alias, $data);
+
+        $html = view('partials.modules.reviews', compact('reviews'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => null,
+            'message' => null,
+            'html' => $html,
+        ]);
     }
 }

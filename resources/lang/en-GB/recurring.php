@@ -15,6 +15,6 @@ return [
     'weeks'                 => 'Week(s)',
     'months'                => 'Month(s)',
     'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'message'               => 'This is a recurring :type and the next :type will be automatically generated on :date',
 
 ];

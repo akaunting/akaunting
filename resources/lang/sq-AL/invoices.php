@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Shënoje të Dërguar',
     'download_pdf'      => 'Shkarko PDF',
     'send_mail'         => 'Dërgo Email',
+    'all_invoices'      => 'Identifikohu për të parë të gjitha faturat',
 
     'status' => [
         'draft'         => 'Draft',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Emaili i faturës është dërguar me sukses!',
         'marked_sent'    => 'Fatura shënohet si e dërguar me sukses!',
         'email_required' => 'Ska adresë e-mail për këtë klient!',
+        'draft'          => 'Kjo është një faturë <b>DRAFT</b> dhe do të pasqyrohet në skema pasi të jetë dërguar.',
+
+        'status' => [
+            'created'   => 'Krijuar më :date',
+            'send'      => [
+                'draft'     => 'Nuk është dërguar',
+                'sent'      => 'Dërguar më :date',
+            ],
+            'paid'      => [
+                'await'     => 'Duke pritur pagesen',
+            ],
+        ],
     ],
 
     'notification' => [

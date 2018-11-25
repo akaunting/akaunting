@@ -11,7 +11,7 @@ return [
     'gross_profit'          => 'Laba Kotor',
     'net_profit'            => 'Laba Bersih',
     'total_expenses'        => 'Total Pengeluaran',
-    'net'                   => 'NET',
+    'net'                   => 'Laba Bersih',
 
     'summary' => [
         'income'            => 'Ringkasan Pendapatan',

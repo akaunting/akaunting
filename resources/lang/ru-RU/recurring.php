@@ -2,19 +2,19 @@
 
 return [
 
-    'recurring'             => 'Recurring',
-    'every'                 => 'Every',
-    'period'                => 'Period',
+    'recurring'             => 'Повторяющийся',
+    'every'                 => 'Каждый',
+    'period'                => 'Период',
     'times'                 => 'Times',
-    'daily'                 => 'Daily',
-    'weekly'                => 'Weekly',
-    'monthly'               => 'Monthly',
-    'yearly'                => 'Yearly',
-    'custom'                => 'Custom',
-    'days'                  => 'Day(s)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'daily'                 => 'Ежедневно',
+    'weekly'                => 'Еженедельно',
+    'monthly'               => 'Ежемесячно',
+    'yearly'                => 'Ежегодно',
+    'custom'                => 'Задать свое',
+    'days'                  => 'день(дней)',
+    'weeks'                 => 'Неделя(недель)',
+    'months'                => 'Месяц(Месяцев)',
+    'years'                 => 'Год(лет)',
+    'message'               => 'This is a recurring :type and the next :type will be automatically generated on :date',
 
 ];

@@ -44,8 +44,8 @@ class Item extends Notification
     public function toMail($notifiable)
     {
         $message = (new MailMessage)
-            ->line(trans('items.notification.message', ['name' => $this->item->name]))
-            ->action(trans('items.notification.button'), url('items/items', $this->item->id, true));
+            ->line(trans('items.notification.message.out_of_stock', ['name' => $this->item->name]))
+            ->action(trans('items.notification.button'), url('items/items', $this->item->id));
 
         // Override per company as Laravel doesn't read config
         $message->from(config('mail.from.address'), config('mail.from.name'));

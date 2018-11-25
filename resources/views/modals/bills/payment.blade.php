@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.categories', 1)]) }}</h4>
+                <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.payments', 1)]) }}</h4>
             </div>
             <div class="modal-body">
                 <div class="modal-message"></div>
@@ -121,9 +121,12 @@
             data: $("#form-add-payment").serialize(),
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
             beforeSend: function() {
+                $('#button-add-payment').button('loading');
+
                 $('#modal-add-payment .modal-content').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
             },
             complete: function() {
+                $('#button-add-payment').button('reset');
                 $('#loading').remove();
             },
             success: function(json) {

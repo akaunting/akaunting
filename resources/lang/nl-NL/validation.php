@@ -20,7 +20,7 @@ return [
     'alpha'                => ':attribute mag enkel letters bevatten.',
     'alpha_dash'           => ':attribute mag enkel letters, cijfers of koppeltekens bevatten.',
     'alpha_num'            => ':attribute mag enkel letters en cijfers bevatten.',
-    'array'                => ':attribute moet een string zijn.',
+    'array'                => ':attribute moet een array zijn.',
     'before'               => ':attribute moet een datum zijn voor :date.',
     'before_or_equal'      => ':attribute moet een datum zijn voor of gelijk aan :date.',
     'between'              => [
@@ -70,9 +70,9 @@ return [
     'required_if'          => ':attribute veld is verplicht wanneer :other :value is.',
     'required_unless'      => ':attribute veld is verplicht tenzij :other bestaat in :values.',
     'required_with'        => ':attribute veld is verplicht wanneer :values aanwezig is.',
-    'required_with_all'    => ':attribute veld is verplocht wanneer :"values aanwezig is.',
-    'required_without'     => ':attribute veld is verplocht wanneer :values niet aanwezig is.',
-    'required_without_all' => ':attribute veld is verplocht wanneer geen van :values aanwezig zijn.',
+    'required_with_all'    => ':attribute veld is verplicht wanneer :values aanwezig is.',
+    'required_without'     => ':attribute veld is verplicht wanneer :values niet aanwezig is.',
+    'required_without_all' => ':attribute veld is verplicht wanneer geen van :values aanwezig zijn.',
     'same'                 => ':attribute en :other moeten overeenkomen.',
     'size'                 => [
         'numeric' => ':attribute moet :size zijn.',
@@ -99,9 +99,10 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'aangepast-bericht',
+            'rule-name' => 'aangepast bericht',
         ],
-        'invalid_currency' => 'De code :attribute is ongeldig.',
+        'invalid_currency' => ':attribute code is ongeldig.',
+        'invalid_amount'   => 'The amount :attribute is invalid.',
     ],
 
     /*

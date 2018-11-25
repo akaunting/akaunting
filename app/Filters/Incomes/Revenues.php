@@ -19,18 +19,27 @@ class Revenues extends ModelFilter
         return $this->whereLike('description', $query);
     }
 
-    public function customer($customer)
+    public function customers($customers)
     {
-        return $this->where('customer_id', $customer);
+        return $this->whereIn('customer_id', (array) $customers);
     }
 
-    public function category($category)
+    public function categories($categories)
     {
-        return $this->where('category_id', $category);
+        return $this->whereIn('category_id', (array) $categories);
     }
 
-    public function account($account)
+    public function accounts($accounts)
     {
-        return $this->where('account_id', $account);
+        return $this->whereIn('account_id', (array) $accounts);
+    }
+
+    public function date($date)
+    {
+        $dates = explode('_', $date);
+        $dates[0] .= ' 00:00:00';
+        $dates[1] .= ' 23:59:59';
+
+        return $this->whereBetween('paid_at', $dates);
     }
 }

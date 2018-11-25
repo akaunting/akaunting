@@ -100,8 +100,10 @@ class Vendors extends Controller
 
         $limit = request('limit', setting('general.list_limit', '25'));
         $transactions = $this->paginate($items->merge($bill_payments)->sortByDesc('paid_at'), $limit);
+        $bills = $this->paginate($bills->sortByDesc('paid_at'), $limit);
+        $payments = $this->paginate($payments->sortByDesc('paid_at'), $limit);
 
-        return view('expenses.vendors.show', compact('vendor', 'counts', 'amounts', 'transactions'));
+        return view('expenses.vendors.show', compact('vendor', 'counts', 'amounts', 'transactions', 'bills', 'payments'));
     }
 
     /**
@@ -309,7 +311,7 @@ class Vendors extends Controller
         if (empty($vendor_id)) {
             return response()->json([]);
         }
-        
+
         $vendor = Vendor::find($vendor_id);
 
         if (empty($vendor)) {
@@ -331,6 +333,12 @@ class Vendors extends Controller
 
         $vendor->currency_code = $currency_code;
         $vendor->currency_rate = $currency->rate;
+
+        $vendor->thousands_separator = $currency->thousands_separator;
+        $vendor->decimal_mark = $currency->decimal_mark;
+        $vendor->precision = (int) $currency->precision;
+        $vendor->symbol_first = $currency->symbol_first;
+        $vendor->symbol = $currency->symbol;
 
         return response()->json($vendor);
     }

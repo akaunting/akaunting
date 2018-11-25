@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Në këtë kategori akoma nuk ka aplikacione.',
     'developer'             => 'A jeni një zhvillues?<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Këtu</a> mund të mësoni si të krijoni një aplikacion dhe të filloni shitjen sot!',
 
+    'recommended_apps'      => 'Aplikacionet e Rekomanduara',
+
     'about'                 => 'Rreth nesh',
 
     'added'                 => 'Shtuar',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Instalim',
         'faq'               => 'Pyetësori',
         'changelog'         => 'Ndryshimet',
+        'reviews'            => 'Shqyrtimet',
     ],
 
     'installation' => [
         'header'            => 'Instalim Aplikacioni',
         'download'          => 'Shkarkimi i :module skedarit.',
         'unzip'             => 'Ekstraktimi i :module skedarit.',
+        'file_copy'         => 'Kopjimi i :module skedareve.',
+        'migrate'           => 'Aplikimi i :module përditësimeve.',
+        'finish'            => 'Azhurnimi u instalua me sukses. Ju do të ridrejtoni në Qendrën e Përditësimit.',
         'install'           => 'Instalim i :module skedareve.',
+    ],
+
+    'errors' => [
+        'download' => ':module nuk mund të shkarkohet!',
+        'upload' => ':module i shkarkuar nuk mund të ruhet!',
+        'unzip' => ':module nuk mund të hap zinxhirin!',
+        'file_copy' => ':module skedarët nuk mund të kopjohen!',
+        'migrate' => ':module migrimi i thyer!',
+        'migrate core' => ':module tashmë ka versionin e fundit kështu që atëherë nuk mund të azhurnohet.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Blerë',
         'installed' => 'Instaluar',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Shto një Shqyrtim'
+        ],
+        'na' => 'Nuk ka shqyrtime.'
+    ]
 ];

@@ -49,8 +49,13 @@
             dataType: 'JSON',
             data: $("#form-create-vendor").serialize(),
             beforeSend: function () {
+                $('#button-create-vendor').button('loading');
+
                 $(".form-group").removeClass("has-error");
                 $(".help-block").remove();
+            },
+            complete: function() {
+                $('#button-create-vendor').button('reset');
             },
             success: function(json) {
                 var data = json['data'];

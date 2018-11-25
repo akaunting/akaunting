@@ -32,7 +32,8 @@
                 <thead>
                     <tr>
                         <th class="col-md-5">@sortablelink('name', trans('general.name'))</th>
-                        <th class="col-md-5">@sortablelink('rate', trans('taxes.rate_percent'))</th>
+                        <th class="col-md-3">@sortablelink('rate', trans('taxes.rate_percent'))</th>
+                        <th class="col-md-2">@sortablelink('type', trans_choice('general.types', 1))</th>
                         <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
                         <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
@@ -42,6 +43,7 @@
                     <tr>
                         <td><a href="{{ url('settings/taxes/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
                         <td>{{ $item->rate }}</td>
+                        <td>{{ $types[$item->type] }}</td>
                         <td class="hidden-xs">
                             @if ($item->enabled)
                                 <span class="label label-success">{{ trans('general.enabled') }}</span>

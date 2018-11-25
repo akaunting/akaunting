@@ -41,6 +41,8 @@ class Settings extends Seeder
             'general.schedule_invoice_days'     => '1,3,5,10',
             'general.send_bill_reminder'        => '0',
             'general.schedule_bill_days'        => '10,5,3,1',
+            'general.send_item_reminder'        => '0',
+            'general.schedule_item_stocks'      => '3,5,7',
             'general.schedule_time'             => '09:00',
             'general.admin_theme'               => 'skin-green-light',
             'general.list_limit'                => '25',
@@ -49,7 +51,11 @@ class Settings extends Seeder
             'general.session_lifetime'          => '30',
             'general.file_size'                 => '2',
             'general.file_types'                => 'pdf,jpeg,jpg,png',
-            'offlinepayment.methods'           => '[{"code":"offlinepayment.cash.1","name":"Cash","order":"1","description":null},{"code":"offlinepayment.bank_transfer.2","name":"Bank Transfer","order":"2","description":null}]',
+            'general.wizard'                    => '0',
+            'general.invoice_item'              => 'settings.invoice.item',
+            'general.invoice_price'             => 'settings.invoice.price',
+            'general.invoice_quantity'          => 'settings.invoice.quantity',
+            'offlinepayment.methods'            => '[{"code":"offlinepayment.cash.1","name":"Cash","order":"1","description":null},{"code":"offlinepayment.bank_transfer.2","name":"Bank Transfer","order":"2","description":null}]',
         ]);
     }
 }

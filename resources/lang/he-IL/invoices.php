@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'סמן כנשלח',
     'download_pdf'      => 'הורדת PDF',
     'send_mail'         => 'שלח דואר אלקטרוני',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'טיוטה',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'החשבונית נשלחה בהצלחה באמצעות הדואר האלקטרוני!',
         'marked_sent'    => 'חשבונית סומנה שנשלחה בהצלחה!',
         'email_required' => 'אין דואר אלקטרוני מעודכן ללקוח זה!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

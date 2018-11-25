@@ -9,7 +9,7 @@ return [
         'requirements'      => 'Venligst, opfyld følgende krav!',
         'language'          => 'Trin 1/3: Valg af sprog',
         'database'          => 'Trin 2/3: Database opsætning',
-        'settings'          => 'Trin 3/3: Virksomhed og Admin detaljer',
+        'settings'          => 'Trin 3/3: Virksomhed og administrator detaljer',
     ],
 
     'language' => [
@@ -34,7 +34,7 @@ return [
         'company_name'      => 'Firmanavn',
         'company_email'     => 'Firma E-mail',
         'admin_email'       => 'Administrator e-mail',
-        'admin_password'    => 'Admin Password',
+        'admin_password'    => 'Administrator Password',
     ],
 
     'error' => [
