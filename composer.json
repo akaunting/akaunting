@@ -36,10 +36,10 @@
         "santigarcor/laratrust": "4.0.*",
         "simshaun/recurr": "3.0.*",
         "sofa/eloquence": "5.4.*",
-        "tucker-eric/eloquentfilter": "1.1.*"
+        "tucker-eric/eloquentfilter": "1.1.*",
+        "fzaninotto/faker": "1.8.*"
     },
     "require-dev": {
-        "fzaninotto/faker": "1.8.*",
         "phpunit/phpunit": "5.7.*"
     },
     "autoload": {
