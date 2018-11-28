@@ -62,6 +62,9 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('expenses/vendors/' . $item->id) }}">{{ trans('general.show') }}</a></li>
+                                    @permission('read-reports-expense-summary')
+                                    <li><a href="{{ url('reports/expense-summary?vendors[]=' . $item->id) }}">{{ trans_choice('general.reports', 1) }}</a></li>
+                                    @endpermission
                                     <li><a href="{{ url('expenses/vendors/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>@if ($item->enabled)
                                     <li><a href="{{ route('vendors.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
                                     @else
