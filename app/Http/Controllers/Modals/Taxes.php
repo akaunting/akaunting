@@ -27,7 +27,13 @@ class Taxes extends Controller
      */
     public function create()
     {
-        $html = view('modals.taxes.create')->render();
+        $types = [
+            'normal' => trans('taxes.normal'),
+            'inclusive' => trans('taxes.inclusive'),
+            'compound' => trans('taxes.compound'),
+        ];
+
+        $html = view('modals.taxes.create', compact('types'))->render();
 
         return response()->json([
             'success' => true,

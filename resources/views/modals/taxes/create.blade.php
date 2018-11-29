@@ -11,6 +11,8 @@
 
                     {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
 
+                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
+
                     {!! Form::hidden('enabled', '1', []) !!}
                 </div>
                 {!! Form::close() !!}
@@ -28,6 +30,12 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#modal-create-tax').modal('show');
+
+        $('#rate').focus();
+
+        $("#type").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
+        });
     });
 
     $(document).on('click', '#button-create-tax', function (e) {

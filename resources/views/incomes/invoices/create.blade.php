@@ -371,6 +371,8 @@
         $(document).on('click', '#tax-add-new', function(e) {
             tax_name = $('.select2-search__field').val();
 
+            $('body > .select2-container.select2-container--default.select2-container--open').remove();
+
             $('#modal-create-tax').remove();
 
             $.ajax({
