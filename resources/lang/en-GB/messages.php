@@ -11,7 +11,7 @@ return [
         'enabled'           => ':type enabled!',
         'disabled'          => ':type disabled!',
     ],
-    
+
     'error' => [
         'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Error: You are not allowed to manage this company!',

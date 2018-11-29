@@ -40,8 +40,6 @@ return [
     'others'                => 'Other|Others',
     'contacts'              => 'Contact|Contacts',
     'reconciliations'       => 'Reconciliation|Reconciliations',
-    'deposits'              => 'Deposit|Deposits',
-    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Dashboard',
     'banking'               => 'Banking',

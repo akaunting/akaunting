@@ -51,8 +51,8 @@
                                 <th class="col-md-2">{{ trans('general.date') }}</th>
                                 <th class="col-md-3">{{ trans('general.description') }}</th>
                                 <th class="col-md-2">{{ trans_choice('general.contacts', 1) }}</th>
-                                <th class="col-md-2 text-right">{{ trans_choice('general.deposits', 1) }}</th>
-                                <th class="col-md-2 text-right">{{ trans_choice('general.withdrawals', 1) }}</th>
+                                <th class="col-md-2 text-right">{{ trans('reconciliations.deposit') }}</th>
+                                <th class="col-md-2 text-right">{{ trans('reconciliations.withdrawal') }}</th>
                                 <th class="col-md-1 text-right">{{ trans('general.clear') }}</th>
                             </tr>
                             </thead>
