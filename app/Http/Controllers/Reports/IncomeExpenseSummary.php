@@ -209,11 +209,12 @@ class IncomeExpenseSummary extends Controller
                     break;
             }
 
-            $date = Date::parse($item->$date_field)->format('F');
+            $month = Date::parse($item->$date_field)->format('F');
+            $month_year = Date::parse($item->$date_field)->format('F-Y');
 
             $group = (($type == 'invoice') || ($type == 'revenue')) ? 'income' : 'expense';
 
-            if (!isset($compares[$group][$item->category_id])) {
+            if (!isset($compares[$group][$item->category_id]) || !isset($compares[$group][$item->category_id][$month]) || !isset($graph[$month_year])) {
                 continue;
             }
 
@@ -226,18 +227,18 @@ class IncomeExpenseSummary extends Controller
                 }
             }
 
-            $compares[$group][$item->category_id][$date]['amount'] += $amount;
-            $compares[$group][$item->category_id][$date]['currency_code'] = $item->currency_code;
-            $compares[$group][$item->category_id][$date]['currency_rate'] = $item->currency_rate;
+            $compares[$group][$item->category_id][$month]['amount'] += $amount;
+            $compares[$group][$item->category_id][$month]['currency_code'] = $item->currency_code;
+            $compares[$group][$item->category_id][$month]['currency_rate'] = $item->currency_rate;
 
             if ($group == 'income') {
-                $graph[Date::parse($item->$date_field)->format('F-Y')] += $amount;
+                $graph[$month_year] += $amount;
 
-                $totals[$date]['amount'] += $amount;
+                $totals[$month]['amount'] += $amount;
             } else {
-                $graph[Date::parse($item->$date_field)->format('F-Y')] -= $amount;
+                $graph[$month_year] -= $amount;
 
-                $totals[$date]['amount'] -= $amount;
+                $totals[$month]['amount'] -= $amount;
             }
         }
     }
