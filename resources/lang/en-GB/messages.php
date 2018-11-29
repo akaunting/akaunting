@@ -11,6 +11,7 @@ return [
         'enabled'           => ':type enabled!',
         'disabled'          => ':type disabled!',
     ],
+    
     'error' => [
         'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Error: You are not allowed to manage this company!',
@@ -21,9 +22,11 @@ return [
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],
+
     'warning' => [
         'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',
         'disabled'          => 'Warning: You are not allowed to disable <b>:name</b> because it has :text related.',
+        'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
     ],
 
 ];

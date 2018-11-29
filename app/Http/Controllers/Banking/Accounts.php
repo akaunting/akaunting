@@ -98,8 +98,15 @@ class Accounts extends Controller
      */
     public function update(Account $account, Request $request)
     {
-        // Check if we can disable it
-        if (!$request['enabled']) {
+        // Check if we can disable or change the code
+        if (!$request['enabled'] || ($account->currency_code != $request['currency_code'])) {
+            $relationships = $this->countRelationships($account, [
+                'invoice_payments' => 'invoices',
+                'revenues' => 'revenues',
+                'bill_payments' => 'bills',
+                'payments' => 'payments',
+            ]);
+
             if ($account->id == setting('general.default_account')) {
                 $relationships[] = strtolower(trans_choice('general.companies', 1));
             }
@@ -120,7 +127,7 @@ class Accounts extends Controller
 
             return redirect('banking/accounts');
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disable_code', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
