@@ -50,7 +50,7 @@ class CreateInvoiceItem
 
         // Apply discount to tax
         if ($this->discount) {
-            $item_discount_amount = $item_amount * ($this->discount / 100);
+            $item_discount_amount = $item_amount - ($item_amount * ($this->discount / 100));
         }
 
         if (!empty($item_id)) {
