@@ -11,8 +11,6 @@ services:
       MYSQL_PASSWORD: akaunting_password
   web:
     image: akaunting
-    volumes:
-      - ./:/var/www/html
     ports:
       - 8080:80
     environment:
