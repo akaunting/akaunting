@@ -12,7 +12,7 @@
     <div class="box-header with-border">
         {!! Form::open(['url' => 'reports/income-summary', 'role' => 'form', 'method' => 'GET']) !!}
         <div id="items" class="pull-left box-filter">
-            {!! Form::select('year', $years, request('year', $this_year), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
+            {!! Form::select('year', $years, request('year', $this_year), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::select('status', $statuses, request('status'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::select('accounts[]', $accounts, request('accounts'), ['id' => 'filter-accounts', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
             {!! Form::select('customers[]', $customers, request('customers'), ['id' => 'filter-customers', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
