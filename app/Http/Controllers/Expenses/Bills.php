@@ -337,7 +337,9 @@ class Bills extends Controller
     {
         $bill = $this->prepareBill($bill);
 
-        $html = view($bill->template_path, compact('bill'))->render();
+        $currency_style = true;
+
+        $html = view($bill->template_path, compact('bill', 'currency_style'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);

@@ -418,7 +418,9 @@ class Invoices extends Controller
     {
         $invoice = $this->prepareInvoice($invoice);
 
-        $html = view($invoice->template_path, compact('invoice'))->render();
+        $currency_style = true;
+
+        $html = view($invoice->template_path, compact('invoice', 'currency_style'))->render();
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);

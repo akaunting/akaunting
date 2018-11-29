@@ -125,12 +125,12 @@
             <td class="quantity">{{ $item->quantity }}</td>
             @stack('quantity_td_end')
             @stack('price_td_start')
-            <td class="price">@money($item->price, $invoice->currency_code, true)</td>
+            <td class="style-price price">@money($item->price, $invoice->currency_code, true)</td>
             @stack('price_td_end')
             @stack('taxes_td_start')
             @stack('taxes_td_end')
             @stack('total_td_start')
-            <td class="total">@money($item->total, $invoice->currency_code, true)</td>
+            <td class="style-price total">@money($item->total, $invoice->currency_code, true)</td>
             @stack('total_td_end')
         </tr>
         @endforeach
@@ -156,20 +156,20 @@
                     @stack($total->code . '_td_start')
                     <tr>
                         <th>{{ trans($total->title) }}:</th>
-                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                        <td class="style-price text-right">@money($total->amount, $invoice->currency_code, true)</td>
                     </tr>
                     @stack($total->code . '_td_end')
                 @else
                     @if ($invoice->paid)
                         <tr class="text-success">
                             <th>{{ trans('invoices.paid') }}:</th>
-                            <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
+                            <td class="style-price text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
                         </tr>
                     @endif
                     @stack('grand_total_td_start')
                     <tr>
                         <th>{{ trans($total->name) }}:</th>
-                        <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
+                        <td class="style-price text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
                     </tr>
                     @stack('grand_total_td_end')
                 @endif
@@ -179,3 +179,14 @@
     </div>
 </div>
 @endsection
+
+@if (isset($currency_style) && $currency_style)
+@push('stylesheet')
+<style type="text/css">
+    .style-price {
+        font-family: sans-serif;
+        font-size: 15px;
+    }
+</style>
+@endpush
+@endif
