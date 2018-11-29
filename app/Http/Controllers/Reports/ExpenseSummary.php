@@ -150,9 +150,10 @@ class ExpenseSummary extends Controller
                     break;
             }
 
-            $date = Date::parse($item->$date_field)->format('F');
+            $month = Date::parse($item->$date_field)->format('F');
+            $month_year = Date::parse($item->$date_field)->format('F-Y');
 
-            if (!isset($expenses[$item->category_id])) {
+            if (!isset($expenses[$item->category_id]) || !isset($expenses[$item->category_id][$month]) || !isset($graph[$month_year])) {
                 continue;
             }
 
@@ -165,13 +166,13 @@ class ExpenseSummary extends Controller
                 }
             }
 
-            $expenses[$item->category_id][$date]['amount'] += $amount;
-            $expenses[$item->category_id][$date]['currency_code'] = $item->currency_code;
-            $expenses[$item->category_id][$date]['currency_rate'] = $item->currency_rate;
+            $expenses[$item->category_id][$month]['amount'] += $amount;
+            $expenses[$item->category_id][$month]['currency_code'] = $item->currency_code;
+            $expenses[$item->category_id][$month]['currency_rate'] = $item->currency_rate;
 
-            $graph[Date::parse($item->$date_field)->format('F-Y')] += $amount;
+            $graph[$month_year] += $amount;
 
-            $totals[$date]['amount'] += $amount;
+            $totals[$month]['amount'] += $amount;
         }
     }
 }

@@ -150,9 +150,10 @@ class IncomeSummary extends Controller
                     break;
             }
 
-            $date = Date::parse($item->$date_field)->format('F');
+            $month = Date::parse($item->$date_field)->format('F');
+            $month_year = Date::parse($item->$date_field)->format('F-Y');
 
-            if (!isset($incomes[$item->category_id])) {
+            if (!isset($incomes[$item->category_id]) || !isset($incomes[$item->category_id][$month]) || !isset($graph[$month_year])) {
                 continue;
             }
 
@@ -165,13 +166,13 @@ class IncomeSummary extends Controller
                 }
             }
 
-            $incomes[$item->category_id][$date]['amount'] += $amount;
-            $incomes[$item->category_id][$date]['currency_code'] = $item->currency_code;
-            $incomes[$item->category_id][$date]['currency_rate'] = $item->currency_rate;
+            $incomes[$item->category_id][$month]['amount'] += $amount;
+            $incomes[$item->category_id][$month]['currency_code'] = $item->currency_code;
+            $incomes[$item->category_id][$month]['currency_rate'] = $item->currency_rate;
 
-            $graph[Date::parse($item->$date_field)->format('F-Y')] += $amount;
+            $graph[$month_year] += $amount;
 
-            $totals[$date]['amount'] += $amount;
+            $totals[$month]['amount'] += $amount;
         }
     }
 }
