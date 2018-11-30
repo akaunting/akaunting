@@ -40,8 +40,6 @@ return [
     'others'                => 'Kiti|Kiti',
     'contacts'              => 'Kontaktas|Kontaktai',
     'reconciliations'       => 'Reconciliation|Reconciliations',
-    'deposits'              => 'Depozitas|Depozitai',
-    'withdrawals'           => 'Išsiėmimas|Išsiėmimai',
 
     'dashboard'             => 'Pradžia',
     'banking'               => 'Bankai ir finansai',
@@ -91,7 +89,7 @@ return [
     'print'                 => 'Spausdinti',
     'search'                => 'Paieška',
     'search_placeholder'    => 'Ieškoti..',
-    'filter'                => 'Filtras',
+    'filter'                => 'Filtruoti',
     'help'                  => 'Pagalba',
     'all'                   => 'Visi',
     'all_type'              => 'Visi :type',

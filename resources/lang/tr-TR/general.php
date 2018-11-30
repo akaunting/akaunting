@@ -38,10 +38,8 @@ return [
     'numbers'               => 'Sayı|Sayılar',
     'statuses'              => 'Durum|Durumlar',
     'others'                => 'Diğer|Diğerleri',
-    'contacts'              => 'İletişim|İletişim',
+    'contacts'              => 'Kişi|Kişiler',
     'reconciliations'       => 'Mutabakat|Mutabakatlar',
-    'deposits'              => 'Mevduat|Mevduatlar',
-    'withdrawals'           => 'Para Çekme|Para Çekme',
 
     'dashboard'             => 'Kontrol Paneli',
     'banking'               => 'Banka',

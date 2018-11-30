@@ -4,11 +4,13 @@ return [
 
     'reconcile'             => 'Reconcile',
     'reconciled'            => 'Reconciled',
-    'closing_balance'       => 'Closing Balance',
+    'closing_balance'       => 'Eindsaldo',
     'unreconciled'          => 'Unreconciled',
     'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
+    'start_date'            => 'Start Datum',
+    'end_date'              => 'Eind Datum',
     'cleared_amount'        => 'Cleared Amount',
+    'deposit'               => 'Deposit',
+    'withdrawal'            => 'Withdrawal',
 
 ];

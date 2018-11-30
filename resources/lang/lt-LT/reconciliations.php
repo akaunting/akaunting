@@ -10,5 +10,7 @@ return [
     'start_date'            => 'Pradžios data',
     'end_date'              => 'Pabaigos data',
     'cleared_amount'        => 'Cleared Amount',
+    'deposit'               => 'Deposit',
+    'withdrawal'            => 'Withdrawal',
 
 ];

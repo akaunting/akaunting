@@ -3,12 +3,14 @@
 return [
 
     'reconcile'             => 'Abstimmen',
-    'reconciled'            => 'Abgestimmt',
+    'reconciled'            => 'Abgeglichen',
     'closing_balance'       => 'Endsaldo',
-    'unreconciled'          => 'Nicht abgestimmt',
+    'unreconciled'          => 'Nicht abgeglichen',
     'list_transactions'     => 'Transaktion anzeigen',
     'start_date'            => 'Startdatum',
     'end_date'              => 'Enddatum',
     'cleared_amount'        => 'Ausgeglichener Betrag',
+    'deposit'               => 'Deposit',
+    'withdrawal'            => 'Withdrawal',
 
 ];
