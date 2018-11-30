@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'name'              => 'Vardas',
+        'name'              => 'Pavadinimas',
         'email'             => 'El. paštas',
         'phone'             => 'Telefonas',
         'address'           => 'Adresas',
@@ -77,7 +77,7 @@ return [
         'cron_command'      => 'Cron komanda',
         'schedule_time'     => 'Paleisti valandą',
         'send_item_reminder'=> 'Siųsti priminimą',
-        'item_stocks'       => 'Send When Item Stock',
+        'item_stocks'       => 'Siųsti kai atsiras prekių',
     ],
     'appearance' => [
         'tab'               => 'Išvaizda',

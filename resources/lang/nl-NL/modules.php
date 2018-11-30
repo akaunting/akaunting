@@ -34,7 +34,7 @@ return [
         'installation'      => 'Installatie',
         'faq'               => 'Veelgestelde vragen (FAQ)',
         'changelog'         => 'Wijzigingslogboek',
-        'reviews'            => 'Reviews',
+        'reviews'            => 'Beoordelingen',
     ],
 
     'installation' => [

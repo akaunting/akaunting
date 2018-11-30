@@ -2,7 +2,10 @@
 
 return [
 
-    'rate'                  => 'Kursas',
-    'rate_percent'          => 'Kursas (%)',
+    'rate'                  => 'Mokestis',
+    'rate_percent'          => 'Mokestis (%)',
+    'normal'                => 'Normalus',
+    'inclusive'             => 'Imtinai',
+    'compound'              => 'Compound',
 
 ];

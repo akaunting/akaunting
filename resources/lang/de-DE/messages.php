@@ -11,6 +11,7 @@ return [
         'enabled'           => ':type aktiviert!',
         'disabled'          => ':type deaktiviert!',
     ],
+
     'error' => [
         'over_payment'      => 'Fehler: Zahlung wurde nicht gebucht! Der eingegebenen Betrag überschreitet die Gesamtsumme: :amount',
         'not_user_company'  => 'Fehler: Sie haben nicht die Berechtigung um diese Firma zu verwalten!',
@@ -21,9 +22,11 @@ return [
         'import_column'     => 'Fehler: :message. Name des Blattes: :sheet. Zeilennummer: :line.',
         'import_sheet'      => 'Fehler: Name des Blattes ist nicht gültig. Bitte die Beispieldatei überprüfen.',
     ],
+
     'warning' => [
         'deleted'           => 'Warnung: Sie dürfen <b>:name</b> nicht löschen, da :text dazu in Bezug steht.',
         'disabled'          => 'Warnung: Sie dürfen <b>:name</b> nicht deaktivieren, da :text dazu in Bezug steht.',
+        'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
     ],
 
 ];

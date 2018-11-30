@@ -40,8 +40,6 @@ return [
     'others'                => 'Altro|Altri',
     'contacts'              => 'Contatto|Contatti',
     'reconciliations'       => 'Riconciliazione | Riconciliazioni',
-    'deposits'              => 'Deposito | Depositi',
-    'withdrawals'           => 'Prelievo|Prelievi',
 
     'dashboard'             => 'Cruscotto',
     'banking'               => 'Banca',
