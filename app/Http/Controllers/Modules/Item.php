@@ -325,4 +325,19 @@ class Item extends Controller
             'html' => $html,
         ]);
     }
+
+    public function documentation($alias)
+    {
+        $this->checkApiToken();
+
+        $documentation = $this->getDocumentation($alias);
+
+        if (empty($documentation)) {
+            return redirect('apps/' . $alias)->send();
+        }
+
+        $back = 'apps/' . $alias;
+
+        return view('modules.item.documentation', compact('documentation', 'back'));
+    }
 }

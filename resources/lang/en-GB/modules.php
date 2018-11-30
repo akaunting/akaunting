@@ -23,6 +23,9 @@ return [
     'added'                 => 'Added',
     'updated'               => 'Updated',
     'compatibility'         => 'Compatibility',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => ':module installed',
     'uninstalled'           => ':module uninstalled',

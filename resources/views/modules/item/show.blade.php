@@ -85,7 +85,7 @@
                                         @endforeach
 
                                         <div class="carousel-navigation-message">
-                                            @if (($item->module && (count($module->screenshots) > 1)) || (!$item->module && (count($module->screenshots) > 1)))
+                                            @if (($module->video && (count($module->screenshots) > 1)) || (!$module->video && (count($module->screenshots) > 1)))
                                             <a href="#carousel-screenshot-generic" class="left carousel-control" role="button" data-slide="prev">
                                                 <i class="fa fa-chevron-left"></i>
                                                 <span class="sr-only">{{ trans('pagination.previous') }}</span>
@@ -239,6 +239,16 @@
                                     <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                                 </tr>
                                 @endif
+
+                                <tr>
+                                    <th>{{ trans('modules.documentation') }}</th>
+                                    <td class="text-right">
+                                        @if ($module->documentation)
+                                            <a href="{{ url('apps/docs/' . $module->slug) }}">{{ trans('modules.view') }}</a></td>
+                                        @else
+                                            {{ trans('general.na') }}
+                                        @endif
+                                </tr>
                             </tbody>
                         </table>
                     </div>
