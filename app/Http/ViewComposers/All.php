@@ -18,7 +18,7 @@ class All
     public function compose(View $view)
     {
         // Make sure it's installed
-        if (!env('APP_INSTALLED')) {
+        if (!env('APP_INSTALLED') && (env('APP_ENV') !== 'testing')) {
             return;
         }
 
