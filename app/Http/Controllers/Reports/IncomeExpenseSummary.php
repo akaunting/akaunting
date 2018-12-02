@@ -153,6 +153,8 @@ class IncomeExpenseSummary extends Controller
             $view_template = 'reports.income_expense_summary.index';
         }
 
+        $print_url = $this->getPrintUrl($year);
+
         // Profit chart
         $chart = Charts::multi('line', 'chartjs')
             ->dimensions(0, 300)
@@ -162,7 +164,20 @@ class IncomeExpenseSummary extends Controller
             ->credits(false)
             ->view($chart_template);
 
-        return view($view_template, compact('chart', 'dates', 'income_categories', 'expense_categories', 'categories', 'statuses', 'accounts', 'customers', 'vendors', 'compares', 'totals'));
+        return view($view_template, compact(
+            'chart',
+            'dates',
+            'income_categories',
+            'expense_categories',
+            'categories',
+            'statuses',
+            'accounts',
+            'customers',
+            'vendors',
+            'compares',
+            'totals',
+            'print_url'
+        ));
     }
 
     private function setAmount(&$graph, &$totals, &$compares, $items, $type, $date_field)
@@ -241,5 +256,30 @@ class IncomeExpenseSummary extends Controller
                 $totals[$month]['amount'] -= $amount;
             }
         }
+    }
+
+    private function getPrintUrl($year)
+    {
+        $print_url = 'reports/income-expense-summary?print=1'
+            . '&status=' . request('status')
+            . '&year='. request('year', $year);
+
+        collect(request('accounts'))->each(function($item) use(&$print_url) {
+            $print_url .= '&accounts[]=' . $item;
+        });
+
+        collect(request('customers'))->each(function($item) use(&$print_url) {
+            $print_url .= '&customers[]=' . $item;
+        });
+
+        collect(request('vendors'))->each(function($item) use(&$print_url) {
+            $print_url .= '&vendors[]=' . $item;
+        });
+
+        collect(request('categories'))->each(function($item) use(&$print_url) {
+            $print_url .= '&categories[]=' . $item;
+        });
+
+        return $print_url;
     }
 }
