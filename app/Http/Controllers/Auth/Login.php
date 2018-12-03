@@ -79,7 +79,7 @@ class Login extends Controller
             return redirect($path);
         }
 
-        return redirect('/');
+        return redirect()->intended('/');
     }
 
     public function destroy()
