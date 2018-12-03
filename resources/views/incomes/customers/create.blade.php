@@ -5,7 +5,7 @@
 @section('content')
     <!-- Default box -->
     <div class="box box-success">
-        {!! Form::open(['url' => 'incomes/customers', 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'incomes/customers', 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
         <div class="box-body">
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
@@ -23,6 +23,9 @@
             {{ Form::textareaGroup('address', trans('general.address')) }}
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+
+            {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
+
 
             @stack('create_user_input_start')
             <div id="customer-create-user" class="form-group col-md-12 margin-top">

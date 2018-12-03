@@ -1,0 +1,100 @@
+body {
+    margin: 0 10px;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #000;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+.row {
+    font-size: 0; /* prevent whitespace from stuffing up inline-block column layouts */
+}
+
+.col-58 {
+    display: inline-block;
+    width: 58%;
+    vertical-align: top;
+}
+
+.col-42 {
+    display: inline-block;
+    width: 42%;
+    vertical-align: top;
+}
+
+.text {
+    font-size: 16px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-success {
+    color: #28a745;
+}
+
+.header {
+    padding-bottom: 9px;
+    margin: 10px 0 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.company {
+    padding-left: 10px;
+}
+
+.logo {
+    max-width: 430px;
+    max-height: 120px;
+}
+
+.lines {
+    margin: 30px 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #ccc;
+}
+
+.lines thead tr {
+    background-color: #eee;
+}
+
+.lines tbody td {
+    border-bottom: 1px solid #ccc;
+}
+
+.lines .item {
+    width: 40%;
+}
+
+.lines .quantity {
+    width: 20%;
+    text-align: center;
+}
+
+.lines .price {
+    width: 20%;
+    text-align: right;
+}
+
+.lines .total {
+    width: 20%;
+    text-align: right;
+}
+
+.notes {
+    font-size: 14px;
+}

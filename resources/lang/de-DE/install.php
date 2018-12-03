@@ -24,7 +24,7 @@ return [
     ],
 
     'database' => [
-        'hostname'          => 'Hostname',
+        'hostname'          => 'Servername',
         'username'          => 'Benutzername',
         'password'          => 'Passwort',
         'name'              => 'Datenbank',

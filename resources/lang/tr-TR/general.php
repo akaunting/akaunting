@@ -38,6 +38,8 @@ return [
     'numbers'               => 'Sayı|Sayılar',
     'statuses'              => 'Durum|Durumlar',
     'others'                => 'Diğer|Diğerleri',
+    'contacts'              => 'Kişi|Kişiler',
+    'reconciliations'       => 'Mutabakat|Mutabakatlar',
 
     'dashboard'             => 'Kontrol Paneli',
     'banking'               => 'Banka',
@@ -81,6 +83,7 @@ return [
     'color'                 => 'Renk',
     'save'                  => 'Kaydet',
     'cancel'                => 'İptal',
+    'loading'               => 'Yükleniyor...',
     'from'                  => 'Tarafından',
     'to'                    => 'Tarafına',
     'print'                 => 'Yazdır',
@@ -101,12 +104,27 @@ return [
     'partially'             => 'Kısmen',
     'partially_paid'        => 'Kısmen Ödenmiş',
     'export'                => 'Dışa Aktar',
+    'finish'                => 'Bitti',
+    'wizard'                => 'Sihirbaz',
+    'skip'                  => 'Geç',
     'enable'                => 'Etkinleştir',
     'disable'               => 'Devre Dışı Bırak',
+    'select_all'            => 'Tümünü seç',
+    'unselect_all'          => 'Tüm Seçimi Kaldır',
+    'go_to'                 => 'Git :name',
+    'created_date'          => 'Oluşturulma Tarihi',
+    'period'                => 'Dönem',
+    'start'                 => 'Başlat',
+    'end'                   => 'Bitir',
+    'clear'                 => 'Temizle',
+    'difference'            => 'Fark',
 
     'title' => [
         'new'               => 'Yeni :type',
         'edit'              => ':type Düzenle',
+        'create'            => ':type Oluştur',
+        'send'              => ':type Gönder',
+        'get'               => ':type Getir',
     ],
 
     'form' => [
@@ -118,4 +136,11 @@ return [
         'no_file_selected'  => 'Dosya seçilmemiş...',
     ],
 
+    'date_range' => [
+        'today' => 'Bugün',
+        'yesterday' => 'Dün',
+        'last_days' => 'Son :day Gün',
+        'this_month' => 'Bu Ay',
+        'last_month' => 'Son Ay',
+    ],
 ];

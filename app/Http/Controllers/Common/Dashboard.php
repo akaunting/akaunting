@@ -126,6 +126,7 @@ class Dashboard extends Controller
         $start = Date::parse(request('start', $this->today->startOfYear()->format('Y-m-d')));
         $end = Date::parse(request('end', $this->today->endOfYear()->format('Y-m-d')));
         $period = request('period', 'month');
+        $range = request('range', 'custom');
 
         $start_month = $start->month;
         $end_month = $end->month;
@@ -134,6 +135,14 @@ class Dashboard extends Controller
         $labels = array();
 
         $s = clone $start;
+
+        if ($range == 'last_12_months') {
+            $end_month   = 12;
+            $start_month = 0;
+        } elseif ($range == 'custom') {
+            $end_month   = $end->diffInMonths($start);
+            $start_month = 0;
+        }
 
         for ($j = $end_month; $j >= $start_month; $j--) {
             $labels[$end_month - $j] = $s->format('M Y');

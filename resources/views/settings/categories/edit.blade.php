@@ -8,7 +8,8 @@
         {!! Form::model($category, [
             'method' => 'PATCH',
             'url' => ['settings/categories', $category->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">

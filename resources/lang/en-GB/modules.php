@@ -16,11 +16,16 @@ return [
     'no_apps'               => 'There are no apps in this category, yet.',
     'developer'             => 'Are you a developer? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Here</a> you can learn how to create an app and start selling today!',
 
+    'recommended_apps'      => 'Recommended Apps',
+
     'about'                 => 'About',
 
     'added'                 => 'Added',
     'updated'               => 'Updated',
     'compatibility'         => 'Compatibility',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => ':module installed',
     'uninstalled'           => ':module uninstalled',
@@ -39,7 +44,19 @@ return [
         'header'            => 'App Installation',
         'download'          => 'Downloading :module file.',
         'unzip'             => 'Extracting :module files.',
+        'file_copy'         => 'Copying :module files.',
+        'migrate'           => 'Applying :module updates.',
+        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
         'install'           => 'Installing :module files.',
+    ],
+
+    'errors' => [
+        'download' => ':module can not download!',
+        'upload' => 'Downloaded :module can not saved!',
+        'unzip' => ':module can not unzip!',
+        'file_copy' => ':module files can not copy!',
+        'migrate' => ':module migrate broken!',
+        'migrate core' => ':module already latest version so then yon can not update.',
     ],
 
     'badge' => [

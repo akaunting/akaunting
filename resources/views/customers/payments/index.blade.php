@@ -37,7 +37,7 @@
                 <tr>
                     <td><a href="{{ url('customers/payments/' . $item->id) }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
                     <td>@money($item->amount, $item->currency_code, true)</td>
-                    <td>{{ $item->category->name }}</td>
+                    <td>{{ $item->category ? $item->category->name : trans('general.na') }}</td>
                     <td>{{ $payment_methods[$item->payment_method] }}</td>
                 </tr>
                 @endforeach

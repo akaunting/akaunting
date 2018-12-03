@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Nomor | Nomor',
     'statuses'              => 'Status | Status',
     'others'                => 'Lain | Lain-lain',
+    'contacts'              => 'Kontak',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposito',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Dasbor',
     'banking'               => 'Perbankan',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Warna',
     'save'                  => 'Simpan',
     'cancel'                => 'Batal',
+    'loading'               => 'Loading...',
     'from'                  => 'Dari',
     'to'                    => 'Untuk',
     'print'                 => 'Cetak',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'Sebagian',
     'partially_paid'        => 'Sebagian dibayar',
     'export'                => 'Ekspor',
+    'finish'                => 'Selesai',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
     'enable'                => 'Aktif',
     'disable'               => 'Nonaktif',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Mulai',
+    'end'                   => 'Selesai',
+    'clear'                 => 'Hapus',
+    'difference'            => 'Perbedaan',
 
     'title' => [
         'new'               => 'Baru :type',
         'edit'              => 'Sunting :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Tidak ada Berkas yang dipilih...',
     ],
 
+    'date_range' => [
+        'today' => 'Hari Ini',
+        'yesterday' => 'Kemarin',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

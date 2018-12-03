@@ -12,19 +12,28 @@ return [
     'enter_email'           => 'Indtast din mailadresse',
     'current_email'         => 'Nuværende E-mail',
     'reset'                 => 'Nulstil',
-    'never'                 => 'aldrig',
+    'never'                 => 'Aldrig',
+    
     'password' => [
         'current'           => 'Adgangskode',
         'current_confirm'   => 'Bekræft adgangskode',
         'new'               => 'Ny adgangskode',
         'new_confirm'       => 'Bekræftelse af ny adgangskode',
     ],
+    
     'error' => [
-        'self_delete'       => 'Fejl: du Kan ikke slette dig selv!'
+        'self_delete'       => 'Fejl: Du kan ikke slette dig selv!',
+        'no_company'        => 'Error: Ingen virksomhed er tilknyttet din konto. Kontakt systemadministratoren.',
     ],
 
     'failed'                => 'Disse legitimationsoplysninger passer ikke i vores database.',
     'disabled'              => 'Denne konto er deaktiveret. Kontakt systemadministratoren.',
-    'throttle'              => 'For mange login forsøg. Prøv igen i :seconds sekunder.',
+    'throttle'              => 'For mange login forsøg. Prøv igen om :seconds sekunder.',
+
+    'notification' => [
+        'message_1'     => 'Du modtager denne e-mail, fordi vi modtog en anmodning om nulstilling af password.',
+        'message_2'     => 'Hvis du ikke har bedt om en nulstilling af adgangskoden, skal du ikke gøre yderligere.',
+        'button'        => 'Nulstil adgangskode',
+    ],
 
 ];

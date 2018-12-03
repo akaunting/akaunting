@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Não há nenhum apps nesta categoria, ainda.',
     'developer'             => 'Você é um desenvolvedor? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Clique aqui</a> que você pode aprender como criar um app e começar a vender hoje!',
 
+    'recommended_apps'      => 'Apps Recomendados',
+
     'about'                 => 'Sobre',
 
     'added'                 => 'Adicionado',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Instalação',
         'faq'               => 'Perguntas frequentes',
         'changelog'         => 'Log de alterações',
+        'reviews'            => 'Avaliações',
     ],
 
     'installation' => [
         'header'            => 'Instalação do aplicativo',
         'download'          => 'Baixando arquivos do módulo :module.',
         'unzip'             => 'Extraindo arquivos do módulo :module.',
+        'file_copy'         => 'Atualizando arquivos do módulo :module.',
+        'migrate'           => 'Aplicando atualizações: :module.',
+        'finish'            => 'A atualização foi instalada com sucesso. Você será redirecionado para a pagina de atualizações.',
         'install'           => 'Instalando :module.',
+    ],
+
+    'errors' => [
+        'download' => 'Não foi possível fazer o download do modulo :module!',
+        'upload' => 'O modulo :module baixado não foi salvo!',
+        'unzip' => 'O modulo :module não foi descompactado!',
+        'file_copy' => 'Arquivos do modulo :module não foram copiados!',
+        'migrate' => 'Arquivos de migração do modulo :module quebrados!',
+        'migrate core' => 'O modulo :module já está na versão mais recente, então você não pode atualizar.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Comprado',
         'installed' => 'Instalado',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Adicionar avaliação'
+        ],
+        'na' => 'Não existem avaliações.'
+    ]
 ];

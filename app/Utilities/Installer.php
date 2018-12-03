@@ -39,6 +39,14 @@ class Installer
             $requirements[] = trans('install.requirements.enabled', ['feature' => 'File Uploads']);
         }
 
+        if (!function_exists('proc_open')) {
+            $requirements[] = trans('install.requirements.enabled', ['feature' => 'proc_open']);
+        }
+
+        if (!function_exists('proc_close')) {
+            $requirements[] = trans('install.requirements.enabled', ['feature' => 'proc_close']);
+        }
+
         if (!class_exists('PDO')) {
             $requirements[] = trans('install.requirements.extension', ['extension' => 'MySQL PDO']);
         }
@@ -157,7 +165,7 @@ class Installer
 
         try {
             DB::connection('install_test')->getPdo();
-        } catch (\Exception $e) {;
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -261,15 +269,23 @@ class Installer
         $env = explode("\n", $env);
 
         foreach ($data as $data_key => $data_value) {
+            $updated = false;
+
             foreach ($env as $env_key => $env_value) {
                 $entry = explode('=', $env_value, 2);
 
                 // Check if new or old key
                 if ($entry[0] == $data_key) {
                     $env[$env_key] = $data_key . '=' . $data_value;
+                    $updated = true;
                 } else {
                     $env[$env_key] = $env_value;
                 }
+            }
+
+            // Lets create if not available
+            if (!$updated) {
+                $env[] = $data_key . '=' . $data_value;
             }
         }
 

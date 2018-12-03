@@ -32,6 +32,7 @@ Nume articol|Nume articole',
     'mark_sent'         => 'Marcheaza ca si Trimis',
     'download_pdf'      => 'Descarca PDF',
     'send_mail'         => 'Trimite Email',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Ciornă',
@@ -47,6 +48,18 @@ Parţială',
         'email_sent'     => 'Emailul cu factura a fost trimis cu succes!',
         'marked_sent'    => 'Factura a fost marcata ca si trimisa cu succes!',
         'email_required' => 'Nu exista adresa de email pentru acest client!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

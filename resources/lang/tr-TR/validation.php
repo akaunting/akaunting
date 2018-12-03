@@ -102,6 +102,7 @@ return [
             'rule-name' => 'Özel Mesaj',
         ],
         'invalid_currency' => ':attribute geçersiz bir döviz kuru kodu.',
+        'invalid_amount'   => 'Tutar :attribute geçersiz.',
     ],
 
     /*

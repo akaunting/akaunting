@@ -5,12 +5,14 @@
 @section('content')
       <!-- Default box -->
       <div class="box box-success">
-        {!! Form::open(['url' => 'settings/taxes', 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'settings/taxes', 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
         <div class="box-body">
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
             {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
+
+            {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
         </div>
@@ -34,6 +36,10 @@
             $('#enabled_1').trigger('click');
 
             $('#name').focus();
+
+            $("#type").select2({
+                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
+            });
         });
     </script>
 @endpush

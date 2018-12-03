@@ -57,6 +57,28 @@ trait Modules
         return [];
     }
 
+    public function getDocumentation($alias)
+    {
+        $response = $this->getRemote('apps/docs/' . $alias);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getModuleReviews($alias, $data = [])
+    {
+        $response = $this->getRemote('apps/' . $alias . '/reviews', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
     public function getCategories()
     {
         $response = $this->getRemote('apps/categories');
@@ -68,9 +90,31 @@ trait Modules
         return [];
     }
 
-    public function getModulesByCategory($alias)
+    public function getModulesByCategory($alias, $data = [])
     {
-        $response = $this->getRemote('apps/categories/' . $alias);
+        $response = $this->getRemote('apps/categories/' . $alias, 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getVendors()
+    {
+        $response = $this->getRemote('apps/vendors');
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getModulesByVendor($alias, $data = [])
+    {
+        $response = $this->getRemote('apps/vendors/' . $alias, 'GET', $data);
 
         if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
@@ -159,6 +203,17 @@ trait Modules
     public function getSearchModules($data = [])
     {
         $response = $this->getRemote('apps/search', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getFeaturedModules($data = [])
+    {
+        $response = $this->getRemote('apps/featured', 'GET', $data);
 
         if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
@@ -394,6 +449,42 @@ trait Modules
         return $data;
     }
 
+    public function loadNotifications()
+    {
+        // Get data from cache
+        $data = Cache::get('notifications');
+
+        if (!empty($data)) {
+            return $data;
+        }
+
+        $data = [];
+
+        $url = 'apps/notifications';
+
+        $response = $this->getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
+
+        // Exception
+        if ($response instanceof RequestException) {
+            return false;
+        }
+
+        // Bad response
+        if (!$response || ($response->getStatusCode() != 200)) {
+            return false;
+        }
+
+        $notifications = json_decode($response->getBody())->data;
+
+        foreach ($notifications as $notification) {
+            $data[$notification->path][] = $notification;
+        }
+
+        Cache::put('notifications', $data, Date::now()->addHour(6));
+
+        return $data;
+    }
+
     public function getSuggestions($path)
     {
         // Get data from cache
@@ -401,6 +492,22 @@ trait Modules
 
         if (empty($data)) {
             $data = $this->loadSuggestions();
+        }
+
+        if (!empty($data) && array_key_exists($path, $data)) {
+            return $data[$path];
+        }
+
+        return false;
+    }
+
+    public function getNotifications($path)
+    {
+        // Get data from cache
+        $data = Cache::get('notifications');
+
+        if (empty($data)) {
+            $data = $this->loadNotifications();
         }
 
         if (!empty($data) && array_key_exists($path, $data)) {

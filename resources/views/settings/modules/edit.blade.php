@@ -9,7 +9,8 @@
             'method' => 'PATCH',
             'url' => ['settings/apps/' . $module->getAlias()],
             'files' => true,
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">

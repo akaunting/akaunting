@@ -16,6 +16,8 @@ return [
     'no_apps'               => 'Henüz bu kategoride uygulama bulunmamaktadır.',
     'developer'             => 'Geliştirici misiniz? Uygulama geliştirip satışa sunmak için<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">buraya</a> tıklayın!',
 
+    'recommended_apps'      => 'Önerilen Uygulamalar',
+
     'about'                 => 'Hakkında',
 
     'added'                 => 'Ekleme Tarihi',
@@ -32,13 +34,26 @@ return [
         'installation'      => 'Yükleme',
         'faq'               => 'SSS',
         'changelog'         => 'Değişiklikler',
+        'reviews'            => 'İncelemeler',
     ],
 
     'installation' => [
         'header'            => 'Uygulama Yükleme',
         'download'          => ':module dosyası indiriliyor.',
         'unzip'             => ':module ayıklanıyor',
+        'file_copy'         => ':module dosyaları kopyalanıyor.',
+        'migrate'           => ':module uygulama güncellemeleri.',
+        'finish'            => 'Güncelleştirme başarıyla yüklendi. Java Update merkezi yönlendirme olabilir.',
         'install'           => ':module uygulamanın dosyaları yükleniyor.',
+    ],
+
+    'errors' => [
+        'download' => ':module indirilemiyor!',
+        'upload' => 'İndirilen :module kaydedilemedi!',
+        'unzip' => ':module sıkıştırılmış dosyadan çıkartılamadı!',
+        'file_copy' => ':module dosyaları kopyalanamaz!',
+        'migrate' => ':module göç bozuk!',
+        'migrate core' => ':module zaten son sürüm güncellemyemezsiniz.',
     ],
 
     'badge' => [
@@ -55,4 +70,11 @@ return [
         'purchased' => 'Satın Alınmış',
         'installed' => 'Yüklü',
     ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'İnceleme Ekle'
+        ],
+        'na' => 'Herhangi bir inceleme yok.'
+    ]
 ];

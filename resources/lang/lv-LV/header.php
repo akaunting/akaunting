@@ -11,5 +11,6 @@ return [
         'items_stock'       => '{1} Noliktavā trūkst :count preces |[2,*] Noliktavā trūkst :count preču',
         'view_all'          => 'Skatīt visus'
     ],
+    'docs_link'             => 'https://akaunting.com/docs',
 
 ];

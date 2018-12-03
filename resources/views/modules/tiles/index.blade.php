@@ -17,21 +17,21 @@
             </div>
 
             @if ($modules)
-                @foreach ($modules as $module)
+                @foreach ($modules->data as $module)
                     @include('partials.modules.item')
                 @endforeach
-            @else
-                <div class="box box-success">
-                    <div class="box-body">
-                        <p class="col-md-12" style="margin-top: 15px">
-                            {{ trans('modules.no_apps') }}
-                        </p>
-                        <p class="col-md-12" style="margin-top: 20px">
-                            <small>{!! trans('modules.developer') !!}</small>
-                        </p>
-                    </div>
-                    <!-- /.box-body -->
+                <div class="col-md-12 no-padding-left">
+                    <ul class="pager nomargin">
+                        @if ($modules->current_page < $modules->last_page)
+                            <li class="next"><a href="{{ url(request()->path()) }}?page={{ $modules->current_page + 1 }}" class="btn btn-default btn-sm">{{ trans('pagination.next') }}</a></li>
+                        @endif
+                        @if ($modules->current_page > 1)
+                            <li class="previous"><a href="{{ url(request()->path()) }}?page={{ $modules->current_page - 1 }}" class="btn btn-default btn-sm">{{ trans('pagination.previous') }}</a></li>
+                        @endif
+                    </ul>
                 </div>
+            @else
+                @include('partials.modules.no_apps')
             @endif
         </div>
     </div>

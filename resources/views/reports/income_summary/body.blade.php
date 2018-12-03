@@ -19,13 +19,13 @@
                     <tr>
                         <td>{{ $categories[$category_id] }}</td>
                         @foreach($category as $item)
-                            <td class="text-right">@money($item['amount'], $item['currency_code'], true)</td>
+                            <td class="text-right">@money($item['amount'], setting('general.default_currency'), true)</td>
                         @endforeach
                     </tr>
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4">
+                    <td colspan="13">
                         <h5 class="text-center">{{ trans('general.no_records') }}</h5>
                     </td>
                 </tr>

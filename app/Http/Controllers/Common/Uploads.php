@@ -91,6 +91,10 @@ class Uploads extends Controller
      */
     protected function getPath($media)
     {
+        if (!is_object($media)) {
+            return false;
+        }
+
         $path = $media->basename;
 
         if (!empty($media->directory)) {

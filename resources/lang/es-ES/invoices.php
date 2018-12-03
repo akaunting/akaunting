@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Marcar Como Enviada',
     'download_pdf'      => 'Descargar PDF',
     'send_mail'         => 'Enviar Email',
+    'all_invoices'      => 'Inicie sesión para ver todas las facturas',
 
     'status' => [
         'draft'         => 'Borrador',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'El email de la factura se ha enviado correctamente!',
         'marked_sent'    => 'Factura marcada como enviada con éxito!',
         'email_required' => 'Ninguna dirección de correo electrónico para este cliente!',
+        'draft'          => 'Esta es una factura <b>BORRADOR</b> y se reflejará en los gráficos luego de que sea enviada.',
+
+        'status' => [
+            'created'   => 'Creada el :date',
+            'send'      => [
+                'draft'     => 'No enviada',
+                'sent'      => 'Enviada el :date',
+            ],
+            'paid'      => [
+                'await'     => 'Pendiente de pago',
+            ],
+        ],
     ],
 
     'notification' => [

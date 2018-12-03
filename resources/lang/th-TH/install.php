@@ -6,7 +6,7 @@ return [
     'refresh'               => 'โหลดใหม่',
 
     'steps' => [
-        'requirements'      => 'โปรดปฏิบัติตามข้อกำหนดต่อไปนี้!',
+        'requirements'      => 'Please, ask your hosting provider to fix the errors!',
         'language'          => 'ขั้นตอนที่ 1/3: เลือกภาษา',
         'database'          => 'ขั้นตอนที่ 2/3: การตั้งค่าฐานข้อมูล',
         'settings'          => 'ขั้นตอนที่ 3/3: รายละเอียดบริษัทและผู้ดูแลระบบ',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature ที่ต้องการเปิดใช้งาน',
         'disabled'          => ':feature ที่ต้องการปิดใช้งาน',
-        'extension'         => ':extension ส่วนขยายต้องการโหลด',
+        'extension'         => ':extension extension needs to be installed and loaded!',
         'directory'         => ':directory แฟ้มจำเป็นต้องเขียน',
     ],
 

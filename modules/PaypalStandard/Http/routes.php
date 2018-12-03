@@ -8,3 +8,9 @@ Route::group(['prefix' => 'customers', 'namespace' => 'Modules\PaypalStandard\Ht
     Route::post('invoices/{invoice}/paypalstandard/result', 'PaypalStandard@result');
     Route::post('invoices/{invoice}/paypalstandard/callback', 'PaypalStandard@callback');
 });
+
+Route::group(['middleware' => ['web', 'language'], 'prefix' => 'links', 'namespace' => 'Modules\PaypalStandard\Http\Controllers'], function () {
+    Route::group(['middleware' => 'signed-url'], function () {
+        Route::post('invoices/{invoice}/paypalstandard', 'PaypalStandard@show');
+    });
+});

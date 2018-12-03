@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Número|Números',
     'statuses'              => 'Estado|Estados',
     'others'                => 'Outro|Outros',
+    'contacts'              => 'Contact|Contacts',
+    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'deposits'              => 'Deposit|Deposits',
+    'withdrawals'           => 'Withdrawal|Withdrawals',
 
     'dashboard'             => 'Painel de Controlo',
     'banking'               => 'Banco',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Côr',
     'save'                  => 'Guardar',
     'cancel'                => 'Cancelar',
+    'loading'               => 'Loading...',
     'from'                  => 'De',
     'to'                    => 'Para',
     'print'                 => 'Imprimir',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'Parcialmente',
     'partially_paid'        => 'Parcialmente Pago',
     'export'                => 'Exportar',
+    'finish'                => 'Finish',
+    'wizard'                => 'Wizard',
+    'skip'                  => 'Skip',
     'enable'                => 'Activar',
     'disable'               => 'Desactivar',
+    'select_all'            => 'Select All',
+    'unselect_all'          => 'Unselect All',
+    'go_to'                 => 'Go to :name',
+    'created_date'          => 'Created Date',
+    'period'                => 'Period',
+    'start'                 => 'Start',
+    'end'                   => 'End',
+    'clear'                 => 'Clear',
+    'difference'            => 'Difference',
 
     'title' => [
         'new'               => 'Novo(a) :type',
         'edit'              => 'Editar :type',
+        'create'            => 'Create :type',
+        'send'              => 'Send :type',
+        'get'               => 'Get :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Nenhum ficheiro selecionado...',
     ],
 
+    'date_range' => [
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'last_days' => 'Last :day Days',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+    ],
 ];

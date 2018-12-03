@@ -87,7 +87,7 @@ $(document).ready(function () {
         });
     };
 
-    $('input[name=\'live-search\']').liveSearch({
+    $('#live-search input[name=\'live-search\']').liveSearch({
         'source': function (request, response) {
             if (request != '' && request.length > 2) {
                 $.ajax({
@@ -115,7 +115,7 @@ $(document).ready(function () {
 
     last_radio = '';
 
-    $("input:radio").each(function () {
+    $('input:radio').each(function () {
         if ($(this).parent().parent().hasClass('radio-inline')) {
             input_name    = $(this).attr("name");
             input_value   = $(this).attr("value");
@@ -188,41 +188,20 @@ $(document).ready(function () {
     });
 
     if (document.getElementById('recurring_frequency')) {
-        $(".input-group-recurring #recurring_frequency").select2();
+        $('.input-group-recurring #recurring_frequency').select2();
         $('.input-group-recurring #recurring_frequency').trigger('change');
     }
+
+    $('.form-loading-button').submit(function( event ) {
+        $('.button-submit').button('loading');
+
+        return true;
+    });
+
+    if (document.getElementsByClassName('input-group-invoice-text').length) {
+        $('.input-group-invoice-text select').select2();
+    }
 });
-
-function confirmDelete(form_id, title, message, button_cancel, button_delete) {
-    $('#confirm-modal').remove();
-
-    var html  = '';
-
-    html += '<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">';
-    html += '  <div class="modal-dialog">';
-    html += '      <div class="modal-content">';
-    html += '          <div class="modal-header">';
-    html += '              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-    html += '              <h4 class="modal-title" id="confirmModalLabel">' + title + '</h4>';
-    html += '          </div>';
-    html += '          <div class="modal-body">';
-    html += '              <p>' + message + '</p>';
-    html += '              <p></p>';
-    html += '          </div>';
-    html += '          <div class="modal-footer">';
-    html += '              <div class="pull-left">';
-    html += '                  <button type="button" class="btn btn-danger" onclick="$(\'' + form_id + '\').submit();">' + button_delete + '</button>';
-    html += '                  <button type="button" class="btn btn-default" data-dismiss="modal">' + button_cancel + '</button>';
-    html += '              </div>';
-    html += '          </div>';
-    html += '      </div>';
-    html += '  </div>';
-    html += '</div>';
-
-    $('body').append(html);
-
-    $('#confirm-modal').modal('show');
-}
 
 $(document).on('click', '.popup', function(e) {
     e.preventDefault();
@@ -270,7 +249,7 @@ $(document).on('change', '.input-group-recurring #recurring_frequency', function
         recurring_custom_frequency.removeClass('hidden');
         recurring_count.removeClass('hidden');
 
-        $("#recurring_custom_frequency").select2();
+        $('#recurring_custom_frequency').select2();
     } else if (value == 'no' || value == '') {
         recurring_frequency.removeClass('col-md-10').removeClass('col-md-4').addClass('col-md-12');
 
@@ -285,3 +264,94 @@ $(document).on('change', '.input-group-recurring #recurring_frequency', function
         recurring_count.removeClass('hidden');
     }
 });
+
+$(document).on('change', '.input-group-invoice-text select', function () {
+    var invoice_text_custom = $(this).parent().parent().parent().find('input');
+
+    if ($(this).val() == 'custom') {
+        $(this).parent().parent().removeClass('col-md-12').addClass('col-md-6');
+
+        invoice_text_custom.parent().removeClass('hidden');
+
+        $(this).select2();
+    } else {
+        $(this).parent().parent().removeClass('col-md-6').addClass('col-md-12');
+
+        invoice_text_custom.parent().addClass('hidden');
+    }
+});
+
+function confirmDelete(form_id, title, message, button_cancel, button_delete) {
+    $('#confirm-modal').remove();
+
+    var html  = '';
+
+    html += '<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">';
+    html += '  <div class="modal-dialog">';
+    html += '      <div class="modal-content">';
+    html += '          <div class="modal-header">';
+    html += '              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+    html += '              <h4 class="modal-title" id="confirmModalLabel">' + title + '</h4>';
+    html += '          </div>';
+    html += '          <div class="modal-body">';
+    html += '              <p>' + message + '</p>';
+    html += '              <p></p>';
+    html += '          </div>';
+    html += '          <div class="modal-footer">';
+    html += '              <div class="pull-left">';
+    html += '                  <button type="button" class="btn btn-danger" onclick="$(\'' + form_id + '\').submit();">' + button_delete + '</button>';
+    html += '                  <button type="button" class="btn btn-default" data-dismiss="modal">' + button_cancel + '</button>';
+    html += '              </div>';
+    html += '          </div>';
+    html += '      </div>';
+    html += '  </div>';
+    html += '</div>';
+
+    $('body').append(html);
+
+    $('#confirm-modal').modal('show');
+}
+
+function convertDateFormat(date, split_character) {
+    var result = [];
+    var formats = {
+        'd': 'DD',
+        'M': 'MMM',
+        'Y': 'YYYY',
+        'F': 'MMMM',
+        'm': 'MM'
+    };
+
+    dates = date.split(split_character);
+
+    dates.forEach(function(value) {
+        result.push(formats[value]);
+    });
+
+    return result.join(split_character);
+}
+
+function itemTableResize() {
+    colspan = $('#items.table.table-bordered thead tr th').length - 1;
+
+    $('#items.table.table-bordered tbody #addItem .text-right').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-subtotal .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-discount .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-tax .text-right:first').attr('colspan', colspan);
+    $('#items.table.table-bordered tbody #tr-total .text-right:first').attr('colspan', colspan);
+}
+
+function notificationHide(path, id, token) {
+    $.ajax({
+        url: app_url + '/common/notifications/disable',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {path: path, id: id},
+        headers: { 'X-CSRF-TOKEN': token },
+        success: function(json) {
+            if (json['success']) {
+                $('#notification-' + id).remove();
+            }
+        }
+    });
+}

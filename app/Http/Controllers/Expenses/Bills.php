@@ -8,12 +8,16 @@ use App\Events\BillUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Bill as Request;
 use App\Http\Requests\Expense\BillPayment as PaymentRequest;
+use App\Jobs\Expense\CreateBill;
+use App\Jobs\Expense\UpdateBill;
+use App\Jobs\Expense\CreateBillPayment;
 use App\Models\Banking\Account;
 use App\Models\Common\Media;
 use App\Models\Expense\BillStatus;
 use App\Models\Expense\Vendor;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillItem;
+use App\Models\Expense\BillItemTax;
 use App\Models\Expense\BillTotal;
 use App\Models\Expense\BillHistory;
 use App\Models\Expense\BillPayment;
@@ -46,13 +50,13 @@ class Bills extends Controller
     {
         $bills = Bill::with(['vendor', 'status', 'items', 'payments', 'histories'])->collect(['billed_at'=> 'desc']);
 
-        $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
+        $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'));
 
-        $statuses = collect(BillStatus::all()->pluck('name', 'code'))
-            ->prepend(trans('general.all_type', ['type' => trans_choice('general.statuses', 2)]), '');
+        $categories = collect(Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id'));
 
-        return view('expenses.bills.index', compact('bills', 'vendors', 'statuses'));
+        $statuses = collect(BillStatus::all()->pluck('name', 'code'));
+
+        return view('expenses.bills.index', compact('bills', 'vendors', 'categories', 'statuses'));
     }
 
     /**
@@ -64,43 +68,6 @@ class Bills extends Controller
      */
     public function show(Bill $bill)
     {
-        $paid = 0;
-
-        // Get Bill Payments
-        if ($bill->payments->count()) {
-            $_currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
-
-            foreach ($bill->payments as $item) {
-                $default_amount = (double) $item->amount;
-
-                if ($bill->currency_code == $item->currency_code) {
-                    $amount = $default_amount;
-                } else {
-                    $default_amount_model = new BillPayment();
-
-                    $default_amount_model->default_currency_code = $bill->currency_code;
-                    $default_amount_model->amount = $default_amount;
-                    $default_amount_model->currency_code = $item->currency_code;
-                    $default_amount_model->currency_rate = $_currencies[$item->currency_code];
-
-                    $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
-
-                    $convert_amount = new BillPayment();
-
-                    $convert_amount->default_currency_code = $item->currency_code;
-                    $convert_amount->amount = $default_amount;
-                    $convert_amount->currency_code = $bill->currency_code;
-                    $convert_amount->currency_rate = $_currencies[$bill->currency_code];
-
-                    $amount = (double) $convert_amount->getDynamicConvertedAmount();
-                }
-
-                $paid += $amount;
-            }
-        }
-
-        $bill->paid = $paid;
-
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
@@ -131,7 +98,7 @@ class Bills extends Controller
 
         $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
         $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
@@ -147,120 +114,7 @@ class Bills extends Controller
      */
     public function store(Request $request)
     {
-        $bill = Bill::create($request->input());
-
-        // Upload attachment
-        if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'bills');
-
-            $bill->attachMedia($media, 'attachment');
-        }
-
-        $taxes = [];
-
-        $tax_total = 0;
-        $sub_total = 0;
-        $discount_total = 0;
-        $discount = $request['discount'];
-
-        $bill_item = [];
-        $bill_item['company_id'] = $request['company_id'];
-        $bill_item['bill_id'] = $bill->id;
-
-        if ($request['item']) {
-            foreach ($request['item'] as $item) {
-                unset($tax_object);
-                $item_sku = '';
-
-                if (!empty($item['item_id'])) {
-                    $item_object = Item::find($item['item_id']);
-
-                    $item['name'] = $item_object->name;
-                    $item_sku = $item_object->sku;
-
-                    // Increase stock (item bought)
-                    $item_object->quantity += $item['quantity'];
-                    $item_object->save();
-                }
-
-                $tax = $tax_id = 0;
-
-                if (!empty($item['tax_id'])) {
-                    $tax_object = Tax::find($item['tax_id']);
-
-                    $tax_id = $item['tax_id'];
-
-                    $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
-
-                    // Apply discount to tax
-                    if ($discount) {
-                        $tax = $tax - ($tax * ($discount / 100));
-                    }
-                }
-
-                $bill_item['item_id'] = $item['item_id'];
-                $bill_item['name'] = str_limit($item['name'], 180, '');
-                $bill_item['sku'] = $item_sku;
-                $bill_item['quantity'] = (double) $item['quantity'];
-                $bill_item['price'] = (double) $item['price'];
-                $bill_item['tax'] = $tax;
-                $bill_item['tax_id'] = $tax_id;
-                $bill_item['total'] = (double) $item['price'] * (double) $item['quantity'];
-
-                BillItem::create($bill_item);
-
-                // Set taxes
-                if (isset($tax_object)) {
-                    if (array_key_exists($tax_object->id, $taxes)) {
-                        $taxes[$tax_object->id]['amount'] += $tax;
-                    } else {
-                        $taxes[$tax_object->id] = [
-                            'name' => $tax_object->name,
-                            'amount' => $tax
-                        ];
-                    }
-                }
-
-                // Calculate totals
-                $tax_total += $tax;
-                $sub_total += $bill_item['total'];
-
-                unset($tax_object);
-            }
-        }
-
-        $s_total = $sub_total;
-
-        // Apply discount to total
-        if ($discount) {
-            $s_discount = $s_total * ($discount / 100);
-            $discount_total += $s_discount;
-            $s_total = $s_total - $s_discount;
-        }
-
-        $amount = $s_total + $tax_total;
-
-        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
-
-        $bill->update($request->input());
-
-        // Add bill totals
-        $this->addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total);
-
-        // Add bill history
-        BillHistory::create([
-            'company_id' => session('company_id'),
-            'bill_id' => $bill->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $bill->bill_number]),
-        ]);
-
-        // Recurring
-        $bill->createRecurring();
-
-        // Fire the event to make it extendible
-        event(new BillCreated($bill));
+        $bill = dispatch(new CreateBill($request));
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.bills', 1)]);
 
@@ -373,105 +227,7 @@ class Bills extends Controller
      */
     public function update(Bill $bill, Request $request)
     {
-        $taxes = [];
-        $tax_total = 0;
-        $sub_total = 0;
-        $discount_total = 0;
-        $discount = $request['discount'];
-
-        $bill_item = [];
-        $bill_item['company_id'] = $request['company_id'];
-        $bill_item['bill_id'] = $bill->id;
-
-        if ($request['item']) {
-            $this->deleteRelationships($bill, 'items');
-
-            foreach ($request['item'] as $item) {
-                unset($tax_object);
-                $item_sku = '';
-
-                if (!empty($item['item_id'])) {
-                    $item_object = Item::find($item['item_id']);
-
-                    $item['name'] = $item_object->name;
-                    $item_sku = $item_object->sku;
-                }
-
-                $tax = $tax_id = 0;
-
-                if (!empty($item['tax_id'])) {
-                    $tax_object = Tax::find($item['tax_id']);
-
-                    $tax_id = $item['tax_id'];
-
-                    $tax = (((double) $item['price'] * (double) $item['quantity']) / 100) * $tax_object->rate;
-
-                    // Apply discount to tax
-                    if ($discount) {
-                        $tax = $tax - ($tax * ($discount / 100));
-                    }
-                }
-
-                $bill_item['item_id'] = $item['item_id'];
-                $bill_item['name'] = str_limit($item['name'], 180, '');
-                $bill_item['sku'] = $item_sku;
-                $bill_item['quantity'] = (double) $item['quantity'];
-                $bill_item['price'] = (double) $item['price'];
-                $bill_item['tax'] = $tax;
-                $bill_item['tax_id'] = $tax_id;
-                $bill_item['total'] = (double) $item['price'] * (double) $item['quantity'];
-
-                if (isset($tax_object)) {
-                    if (array_key_exists($tax_object->id, $taxes)) {
-                        $taxes[$tax_object->id]['amount'] += $tax;
-                    } else {
-                        $taxes[$tax_object->id] = [
-                            'name' => $tax_object->name,
-                            'amount' => $tax
-                        ];
-                    }
-                }
-
-                $tax_total += $tax;
-                $sub_total += $bill_item['total'];
-
-                BillItem::create($bill_item);
-            }
-        }
-
-        $s_total = $sub_total;
-
-        // Apply discount to total
-        if ($discount) {
-            $s_discount = $s_total * ($discount / 100);
-            $discount_total += $s_discount;
-            $s_total = $s_total - $s_discount;
-        }
-
-        $amount = $s_total + $tax_total;
-
-        $request['amount'] = money($amount, $request['currency_code'])->getAmount();
-
-        $bill->update($request->input());
-
-        // Upload attachment
-        if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'bills');
-
-            $bill->attachMedia($media, 'attachment');
-        }
-
-        // Delete previous bill totals
-        $this->deleteRelationships($bill, 'totals');
-
-        // Add bill totals
-        $this->addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total);
-
-        // Recurring
-        $bill->updateRecurring();
-
-        // Fire the event to make it extendible
-        event(new BillUpdated($bill));
+        $bill = dispatch(new UpdateBill($bill, $request));
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.bills', 1)]);
 
@@ -509,9 +265,9 @@ class Bills extends Controller
         \Excel::create('bills', function ($excel) {
             $bills = Bill::with(['items', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
 
-            $excel->sheet('invoices', function ($sheet) use ($bills) {
+            $excel->sheet('bills', function ($sheet) use ($bills) {
                 $sheet->fromModel($bills->makeHidden([
-                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media'
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media', 'paid'
                 ]));
             });
 
@@ -581,7 +337,9 @@ class Bills extends Controller
     {
         $bill = $this->prepareBill($bill);
 
-        $html = view($bill->template_path, compact('bill'))->render();
+        $currency_style = true;
+
+        $html = view($bill->template_path, compact('bill', 'currency_style'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
@@ -652,20 +410,7 @@ class Bills extends Controller
 
         $bill->save();
 
-        $bill_payment_request = [
-            'company_id'     => $request['company_id'],
-            'bill_id'        => $request['bill_id'],
-            'account_id'     => $request['account_id'],
-            'paid_at'        => $request['paid_at'],
-            'amount'         => $request['amount'],
-            'currency_code'  => $request['currency_code'],
-            'currency_rate'  => $request['currency_rate'],
-            'description'    => $request['description'],
-            'payment_method' => $request['payment_method'],
-            'reference'      => $request['reference']
-        ];
-
-        $bill_payment = BillPayment::create($bill_payment_request);
+        $bill_payment = dispatch(new CreateBillPayment($request, $bill));
 
         // Upload attachment
         if ($request->file('attachment')) {
@@ -673,15 +418,6 @@ class Bills extends Controller
 
             $bill_payment->attachMedia($media, 'attachment');
         }
-
-        $request['status_code'] = $bill->bill_status_code;
-        $request['notify'] = 0;
-
-        $desc_amount = money((float) $request['amount'], (string) $request['currency_code'], true)->format();
-
-        $request['description'] = $desc_amount . ' ' . trans_choice('general.payments', 1);
-
-        BillHistory::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
@@ -790,65 +526,5 @@ class Bills extends Controller
         //event(new BillPrinting($bill));
 
         return $bill;
-    }
-
-    protected function addTotals($bill, $request, $taxes, $sub_total, $discount_total, $tax_total)
-    {
-        $sort_order = 1;
-
-        // Added bill sub total
-        BillTotal::create([
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'sub_total',
-            'name' => 'bills.sub_total',
-            'amount' => $sub_total,
-            'sort_order' => $sort_order,
-        ]);
-
-        $sort_order++;
-
-        // Added bill discount
-        if ($discount_total) {
-            BillTotal::create([
-                'company_id' => $request['company_id'],
-                'bill_id' => $bill->id,
-                'code' => 'discount',
-                'name' => 'bills.discount',
-                'amount' => $discount_total,
-                'sort_order' => $sort_order,
-            ]);
-
-            // This is for total
-            $sub_total = $sub_total - $discount_total;
-        }
-
-        $sort_order++;
-
-        // Added bill taxes
-        if ($taxes) {
-            foreach ($taxes as $tax) {
-                BillTotal::create([
-                    'company_id' => $request['company_id'],
-                    'bill_id' => $bill->id,
-                    'code' => 'tax',
-                    'name' => $tax['name'],
-                    'amount' => $tax['amount'],
-                    'sort_order' => $sort_order,
-                ]);
-
-                $sort_order++;
-            }
-        }
-
-        // Added bill total
-        BillTotal::create([
-            'company_id' => $request['company_id'],
-            'bill_id' => $bill->id,
-            'code' => 'total',
-            'name' => 'bills.total',
-            'amount' => $sub_total + $tax_total,
-            'sort_order' => $sort_order,
-        ]);
     }
 }

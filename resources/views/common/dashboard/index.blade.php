@@ -7,7 +7,11 @@
         <!---Income-->
         <div class="col-md-4">
             <div class="info-box">
+                @if ($auth_user->can('read-reports-income-summary'))
+                <a href="{{ url('reports/income-summary') }}"><span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span></a>
+                @else
                 <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
+                @endif
 
                 <div class="info-box-content">
                     <span class="info-box-text">{{ trans('dashboard.total_incomes') }}</span>
@@ -26,7 +30,11 @@
         <!---Expense-->
         <div class="col-md-4">
             <div class="info-box">
+                @if ($auth_user->can('read-reports-expense-summary'))
+                <a href="{{ url('reports/expense-summary') }}"><span class="info-box-icon bg-red"><i class="fa fa-shopping-cart"></i></span></a>
+                @else
                 <span class="info-box-icon bg-red"><i class="fa fa-shopping-cart"></i></span>
+                @endif
 
                 <div class="info-box-content">
                     <span class="info-box-text">{{ trans('dashboard.total_expenses') }}</span>
@@ -46,7 +54,11 @@
         <!---Profit-->
         <div class="col-md-4">
             <div class="info-box">
+                @if ($auth_user->can('read-reports-income-expense-summary'))
+                <a href="{{ url('reports/income-expense-summary') }}"><span class="info-box-icon bg-green"><i class="fa fa-heart"></i></span></a>
+                @else
                 <span class="info-box-icon bg-green"><i class="fa fa-heart"></i></span>
+                @endif
 
                 <div class="info-box-content">
                     <span class="info-box-text">{{ trans('dashboard.total_profit') }}</span>
@@ -266,11 +278,13 @@
         $('#cashflow-range').on('apply.daterangepicker', function(ev, picker) {
             var period = $('#period').val();
 
+            range = getRange(picker);
+
             $.ajax({
                 url: '{{ url("common/dashboard/cashflow") }}',
                 type: 'get',
                 dataType: 'html',
-                data: 'period=' + period + '&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                data: 'period=' + period + '&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD') + '&range=' + range,
                 success: function(data) {
                     $('#cashflow').html(data);
                 }
@@ -282,11 +296,13 @@
 
             $('#period').val('month');
 
+            range = getRange(picker);
+
             $.ajax({
                 url: '{{ url("common/dashboard/cashflow") }}',
                 type: 'get',
                 dataType: 'html',
-                data: 'period=month&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                data: 'period=month&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD') + '&range=' + range,
                 success: function(data) {
                     $('#cashflow').html(data);
                 }
@@ -298,16 +314,36 @@
 
             $('#period').val('quarter');
 
+            range = getRange(picker);
+
             $.ajax({
                 url: '{{ url("common/dashboard/cashflow") }}',
                 type: 'get',
                 dataType: 'html',
-                data: 'period=quarter&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD'),
+                data: 'period=quarter&start=' + picker.startDate.format('YYYY-MM-DD') + '&end=' + picker.endDate.format('YYYY-MM-DD') + '&range=' + range,
                 success: function(data) {
                     $('#cashflow').html(data);
                 }
             });
         });
     });
+
+    function getRange(picker) {
+        ranges = {
+            '{{ trans("reports.this_year") }}': 'this_year',
+            '{{ trans("reports.previous_year") }}': 'previous_year',
+            '{{ trans("reports.this_quarter") }}': 'this_quarter',
+            '{{ trans("reports.previous_quarter") }}': 'previous_quarter',
+            '{{ trans("reports.last_12_months") }}': 'last_12_months'
+        };
+
+        range = 'custom';
+
+        if (ranges[picker.chosenLabel] != undefined) {
+            range = ranges[picker.chosenLabel];
+        }
+
+        return range;
+    }
 </script>
 @endpush

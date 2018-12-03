@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Numri | Numrat',
     'statuses'              => 'Statusi | Statuset',
     'others'                => 'Tjetër | Të tjera',
+    'contacts'              => 'Kontakti | Kontaktet',
+    'reconciliations'       => 'Pajtimi | Pajtimet',
+    'deposits'              => 'Depozita | Depozitat',
+    'withdrawals'           => 'Tërheqje | Tërheqjet',
 
     'dashboard'             => 'Paneli Kryesor',
     'banking'               => 'Veprime Bankare',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Ngjyra',
     'save'                  => 'Ruaj',
     'cancel'                => 'Anulo',
+    'loading'               => 'Në ngarkim…',
     'from'                  => 'Nga',
     'to'                    => 'Te',
     'print'                 => 'Printo',
@@ -101,12 +106,27 @@ return [
     'partially'             => 'Pjesërisht',
     'partially_paid'        => 'I paguar pjesërisht',
     'export'                => 'Eksporto',
+    'finish'                => 'Përfundo',
+    'wizard'                => 'Magjistar',
+    'skip'                  => 'Anashkalo',
     'enable'                => 'Aktivizo',
     'disable'               => 'Çaktivizo',
+    'select_all'            => 'Zgjidh të gjitha',
+    'unselect_all'          => 'Hiqni të gjithë',
+    'go_to'                 => 'Shko te :name',
+    'created_date'          => 'Data e Krijuar',
+    'period'                => 'Periudhë',
+    'start'                 => 'Fillo',
+    'end'                   => 'Përfundo',
+    'clear'                 => 'Pastro',
+    'difference'            => 'Diferencë',
 
     'title' => [
         'new'               => 'I ri :type',
         'edit'              => 'Modifiko :type',
+        'create'            => 'Krijo :type',
+        'send'              => 'Dërgo :type',
+        'get'               => 'Merr :type',
     ],
 
     'form' => [
@@ -118,4 +138,11 @@ return [
         'no_file_selected'  => 'Asnjë skedar i përzgjedhur...',
     ],
 
+    'date_range' => [
+        'today' => 'Sot',
+        'yesterday' => 'Dje',
+        'last_days' => ':day Ditët e Fundit',
+        'this_month' => 'Këtë Muaj',
+        'last_month' => 'Muaji i Shkuar',
+    ],
 ];

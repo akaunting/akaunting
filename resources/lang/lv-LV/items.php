@@ -8,7 +8,10 @@ return [
     'sku'                   => 'Kods',
 
     'notification' => [
-        'message'       => 'Jūs saņemāt šo e-pastu, jo precei :name noliktavā beidzas atlikums.',
+        'message'       => [
+            'reminder' => 'You are receiving this email because only :quantity of :name has remained.',
+            'out_of_stock' => 'You are receiving this email because the :name is running out of stock.',
+        ],
         'button'        => 'Skatīt tagad',
     ],
 

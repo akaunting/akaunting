@@ -25,9 +25,9 @@
                             @endif
                             @foreach($category as $item)
                                 @if($type == 'income')
-                                    <td class="text-right">@money($item['amount'], $item['currency_code'], true)</td>
+                                    <td class="text-right">@money($item['amount'], setting('general.default_currency'), true)</td>
                                 @else
-                                    <td class="text-right">@money(-$item['amount'], $item['currency_code'], true)</td>
+                                    <td class="text-right">@money(-$item['amount'], setting('general.default_currency'), true)</td>
                                 @endif
                             @endforeach
                         </tr>

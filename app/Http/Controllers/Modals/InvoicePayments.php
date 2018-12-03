@@ -52,7 +52,9 @@ class InvoicePayments extends Controller
             $invoice->{$invoice_total->code} = $invoice_total->amount;
         }
 
-        $invoice->grand_total = $invoice->total;
+        $total = money($invoice->total, $currency->code, true)->format();
+
+        $invoice->grand_total = money($total, $currency->code)->getAmount();
 
         if (!empty($paid)) {
             $invoice->grand_total = $invoice->total - $paid;
@@ -147,7 +149,7 @@ class InvoicePayments extends Controller
                 $error_amount = (double) $convert_amount->getDynamicConvertedAmount();
             }
 
-            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $request['currency_code'],true)]);
+            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $request['currency_code'], true)]);
 
             return response()->json([
                 'success' => false,

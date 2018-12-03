@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Atzīmēt kā nosūtītu',
     'download_pdf'      => 'Lejupielādēt PDF',
     'send_mail'         => 'Sūtīt e-pastu',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Sagatave',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Rēķins veiksmīgi nosūtīts uz e-pastu!',
         'marked_sent'    => 'Rēķins atzīmēts kā nosūtīts!',
         'email_required' => 'Pircējam nav norādīta e-pasta adrese!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

@@ -3,7 +3,7 @@
 return [
 
     'success' => [
-        'added'             => ':type dodan!',
+        'added'             => ':type dodano!',
         'updated'           => ':type ažuriran!',
         'deleted'           => ':type izbrisan!',
         'duplicated'        => ':type dupliciran!',
@@ -12,7 +12,7 @@ return [
         'disabled'          => ':type disabled!',
     ],
     'error' => [
-        'over_payment'      => 'Pogreška: Plaćanje nije dodano! Iznos prelazi ukupan iznos.',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Pogreška: Nije vam dozvoljeno upravljanje ovom tvrtkom!',
         'customer'          => 'Pogreška: Korisnik nije kreiran! :name već koristi ovu e-mail adresu.',
         'no_file'           => 'Pogreška: Nije odabrana nijedna datoteka!',

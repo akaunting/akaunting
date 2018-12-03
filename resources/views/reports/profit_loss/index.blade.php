@@ -9,17 +9,12 @@
 @section('content')
 <!-- Default box -->
 <div class="box box-success">
-    <div class="box-header">
-        <div class="pull-left" style="margin-left: 5px">
-            <a href="{{ url('reports/profit-loss') }}?year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == '') bg-green @else bg-default @endif">{{ trans('general.all') }}</span></a>
-            <a href="{{ url('reports/profit-loss') }}?status=paid&year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == 'paid') bg-green @else bg-default @endif">{{ trans('invoices.paid') }}</span></a>
-            <a href="{{ url('reports/profit-loss') }}?status=upcoming&year={{ request('year', $this_year) }}"><span class="badge @if (request('status') == 'upcoming') bg-green @else bg-default @endif">{{ trans('general.upcoming') }}</span></a>
-        </div>
+    <div class="box-header with-border">
         {!! Form::open(['url' => 'reports/profit-loss', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-right">
-            @stack('year_input_start')
-            {!! Form::select('year', $years, request('year', $this_year), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
-            @stack('year_input_end')
+        <div id="items" class="pull-left" style="margin-left: 5px">
+            {!! Form::select('year', $years, request('year', $this_year), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::select('status', $statuses, request('status'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         {!! Form::close() !!}
     </div>

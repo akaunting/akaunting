@@ -4,6 +4,7 @@ return [
 
     'title'                 => 'API Token',
     'api_token'             => 'Token',
+    'my_apps'               => 'Mine apps',
     'top_paid'              => 'Top betalt',
     'new'                   => 'Ny',
     'top_free'              => 'Top gratis',
@@ -14,6 +15,8 @@ return [
     'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Klik her</a> for at få din API-token.',
     'no_apps'               => 'Der er ingen apps i denne kategori endnu.',
     'developer'             => 'Er du udvikler? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">her</a> kan du lære hvordan du opretter en app og begynde at sælge i dag!',
+
+    'recommended_apps'      => 'Anbefalede programmer',
 
     'about'                 => 'Om',
 
@@ -31,13 +34,30 @@ return [
         'installation'      => 'Installation',
         'faq'               => 'FAQ',
         'changelog'         => 'Ændringslog',
+        'reviews'            => 'Gennemsyn',
     ],
 
     'installation' => [
         'header'            => 'App installation',
         'download'          => 'Downloading :modul filen.',
         'unzip'             => 'Udpakker :module filer.',
+        'file_copy'         => 'Kopiere :modul filer.',
+        'migrate'           => 'Anvende :module opdateringer.',
+        'finish'            => 'Opdateringen blev installeret. Du vil blive sendt til Update Center.',
         'install'           => 'Installere :module filer.',
+    ],
+
+    'errors' => [
+        'download' => ':module kan ikke downloades!',
+        'upload' => 'Downloadet :module kan ikke gemmes!',
+        'unzip' => ':module kan ikke udpakkes!',
+        'file_copy' => ':module filer kan ikke kopieres!',
+        'migrate' => ':module migrering afbrudt!',
+        'migrate core' => ':module er allerede nyeste version, så kan ikke opdateres.',
+    ],
+
+    'badge' => [
+        'installed' => 'Installeret',
     ],
 
     'button' => [
@@ -45,4 +65,16 @@ return [
         'disable'           => 'Deaktiver',
         'enable'            => 'Aktivér',
     ],
+
+    'my' => [
+        'purchased' => 'Købt',
+        'installed' => 'Installeret',
+    ],
+
+    'reviews' => [
+        'button' => [
+            'add' => 'Tilføj en anmeldelse'
+        ],
+        'na' => 'Der er ingen anmeldelser.'
+    ]
 ];

@@ -31,6 +31,7 @@ return [
     'mark_sent'         => '标记为已发送',
     'download_pdf'      => '下载 PDF格式',
     'send_mail'         => '发送邮件',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => '草稿',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => '成功发送账单邮件！',
         'marked_sent'    => '成功标记账单为已发送！',
         'email_required' => '此客户沒有邮箱！',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

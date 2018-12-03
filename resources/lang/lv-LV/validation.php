@@ -102,6 +102,7 @@ return [
             'rule-name' => 'custom-message',
         ],
         'invalid_currency' => ':attribute kods nav derīgs.',
+        'invalid_amount'   => 'The amount :attribute is invalid.',
     ],
 
     /*

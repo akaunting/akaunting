@@ -18,11 +18,6 @@ class Company implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $company_id = session('company_id');
-        if (empty($company_id)) {
-            return;
-        }
-
         $table = $model->getTable();
 
         // Skip for specific tables
@@ -37,7 +32,7 @@ class Company implements Scope
         }
 
         // Apply company scope
-        $builder->where($table . '.company_id', '=', $company_id);
+        $builder->where($table . '.company_id', '=', session('company_id'));
     }
 
     /**

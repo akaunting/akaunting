@@ -100,8 +100,10 @@ class Customers extends Controller
 
         $limit = request('limit', setting('general.list_limit', '25'));
         $transactions = $this->paginate($items->merge($invoice_payments)->sortByDesc('paid_at'), $limit);
+        $invoices = $this->paginate($invoices->sortByDesc('paid_at'), $limit);
+        $revenues = $this->paginate($revenues->sortByDesc('paid_at'), $limit);
 
-        return view('incomes.customers.show', compact('customer', 'counts', 'amounts', 'transactions'));
+        return view('incomes.customers.show', compact('customer', 'counts', 'amounts', 'transactions', 'invoices', 'revenues'));
     }
 
     /**

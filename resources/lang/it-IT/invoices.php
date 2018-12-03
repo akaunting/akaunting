@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Segna come inviata',
     'download_pdf'      => 'Scarica PDF',
     'send_mail'         => 'Invia email',
+    'all_invoices'      => 'Accedi per visualizzare tutte le fatture',
 
     'status' => [
         'draft'         => 'Bozza',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'La mail è stata inviata con successo.',
         'marked_sent'    => 'La mail è stata contrassegnata con successo come inviata.',
         'email_required' => 'Nessun indirizzo email per questo cliente!',
+        'draft'          => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà inviata.',
+
+        'status' => [
+            'created'   => 'Creato il :date',
+            'send'      => [
+                'draft'     => 'Non inviato',
+                'sent'      => 'Inviato il :date',
+            ],
+            'paid'      => [
+                'await'     => 'In attesa del pagamento',
+            ],
+        ],
     ],
 
     'notification' => [

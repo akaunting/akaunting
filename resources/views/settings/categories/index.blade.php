@@ -13,10 +13,10 @@
 <div class="box box-success">
     <div class="box-header with-border">
         {!! Form::open(['url' => 'settings/categories', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
+        <div id="items" class="pull-left box-filter">
             <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::select('type', $types, request('type'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::select('types[]', $types, request('types'), ['id' => 'filter-types', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
@@ -42,7 +42,17 @@
                 <tbody>
                 @foreach($categories as $item)
                     <tr>
-                        <td><a href="{{ url('settings/categories/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
+                        <td>
+                        @if (($item->type == 'income') && $auth_user->can('read-reports-income-summary'))
+                        <a href="{{ url('reports/income-summary?categories[]=' . $item->id) }}">{{ $item->name }}</a>
+                        @elseif (($item->type == 'expense') && $auth_user->can('read-reports-expense-summary'))
+                        <a href="{{ url('reports/expense-summary?categories[]=' . $item->id) }}">{{ $item->name }}</a>
+                        @elseif (($item->type == 'item') && $auth_user->can('read-common-items'))
+                        <a href="{{ url('common/items?categories[]=' . $item->id) }}">{{ $item->name }}</a>
+                        @else
+                        <a href="{{ url('settings/categories/' . $item->id . '/edit') }}">{{ $item->name }}</a>
+                        @endif
+                        </td>
                         <td>{{ $types[$item->type] }}</td>
                         <td class="hidden-xs"><i class="fa fa-2x fa-circle" style="color:{{ $item->color }};"></i></td>
                         <td class="hidden-xs">
@@ -88,3 +98,13 @@
 </div>
 <!-- /.box -->
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#filter-types").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
+        });
+    });
+</script>
+@endpush

@@ -38,6 +38,8 @@ return [
     'numbers'               => 'Numero|Numeri',
     'statuses'              => 'Stato|Stati',
     'others'                => 'Altro|Altri',
+    'contacts'              => 'Contatto|Contatti',
+    'reconciliations'       => 'Riconciliazione | Riconciliazioni',
 
     'dashboard'             => 'Cruscotto',
     'banking'               => 'Banca',
@@ -81,6 +83,7 @@ return [
     'color'                 => 'Colore',
     'save'                  => 'Salva',
     'cancel'                => 'Annulla',
+    'loading'               => 'Caricamento...',
     'from'                  => 'Da',
     'to'                    => 'A',
     'print'                 => 'Stampa',
@@ -101,12 +104,27 @@ return [
     'partially'             => 'Parzialmente',
     'partially_paid'        => 'Parzialmente Pagato',
     'export'                => 'Esporta',
+    'finish'                => 'Conclusione',
+    'wizard'                => 'Procedura guidata',
+    'skip'                  => 'Salta',
     'enable'                => 'Attiva',
     'disable'               => 'Disattiva',
+    'select_all'            => 'Seleziona tutto',
+    'unselect_all'          => 'Deseleziona Tutto',
+    'go_to'                 => 'Vai a :name',
+    'created_date'          => 'Data di Creazione',
+    'period'                => 'Periodo',
+    'start'                 => 'Avvia',
+    'end'                   => 'Fine',
+    'clear'                 => 'Cancella',
+    'difference'            => 'Differenza',
 
     'title' => [
         'new'               => 'Nuovo :type',
         'edit'              => 'Modifica :type',
+        'create'            => 'Crea :type',
+        'send'              => 'Invia :type',
+        'get'               => 'Ottieni :type',
     ],
 
     'form' => [
@@ -118,4 +136,11 @@ return [
         'no_file_selected'  => 'Nessun file selezionato...',
     ],
 
+    'date_range' => [
+        'today' => 'Oggi',
+        'yesterday' => 'Ieri',
+        'last_days' => 'Ultimi :day Giorni',
+        'this_month' => 'Questo mese',
+        'last_month' => 'Ultimo mese',
+    ],
 ];

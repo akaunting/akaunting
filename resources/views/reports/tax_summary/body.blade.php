@@ -22,13 +22,13 @@
                     <tr>
                         <td style="width: 120px;">{{ trans_choice('general.incomes', 2) }}</td>
                         @foreach($incomes[$tax_name] as $tax_date)
-                            <td class="text-right">@money($tax_date['amount'], $tax_date['currency_code'], true)</td>
+                            <td class="text-right">@money($tax_date['amount'], setting('general.default_currency'), true)</td>
                         @endforeach
                     </tr>
                     <tr>
                         <td style="width: 120px;">{{ trans_choice('general.expenses', 2) }}</td>
                         @foreach($expenses[$tax_name] as $tax_date)
-                            <td class="text-right">@money($tax_date['amount'], $tax_date['currency_code'], true)</td>
+                            <td class="text-right">@money($tax_date['amount'], setting('general.default_currency'), true)</td>
                         @endforeach
                     </tr>
                 </tbody>
@@ -36,7 +36,7 @@
                     <tr>
                         <th style="width: 120px;">{{ trans('reports.net') }}</th>
                         @foreach($totals[$tax_name] as $tax_date)
-                            <th class="text-right">@money($tax_date['amount'], $tax_date['currency_code'], true)</th>
+                            <th class="text-right">@money($tax_date['amount'], setting('general.default_currency'), true)</th>
                         @endforeach
                     </tr>
                 </tfoot>

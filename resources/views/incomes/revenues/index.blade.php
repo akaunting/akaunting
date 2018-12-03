@@ -15,12 +15,13 @@
 <div class="box box-success">
     <div class="box-header with-border">
         {!! Form::open(['url' => 'incomes/revenues', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
+        <div id="items" class="pull-left box-filter">
             <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
             {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::select('customer', $customers, request('customer'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::select('category', $categories, request('category'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::select('account', $accounts, request('account'), ['class' => 'form-control input-filter input-sm']) !!}
+            {!! Form::dateRange('date', trans('general.date'), 'calendar', []) !!}
+            {!! Form::select('customers[]', $customers, request('customers'), ['id' => 'filter-customers', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
+            {!! Form::select('categories[]', $categories, request('categories'), ['id' => 'filter-categories', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
+            {!! Form::select('accounts[]', $accounts, request('accounts'), ['id' => 'filter-accounts', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
             {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
         </div>
         <div class="pull-right">
@@ -45,27 +46,36 @@
                 </thead>
                 <tbody>
                 @foreach($revenues as $item)
+                    @php $is_transfer = ($item->category && ($item->category->id == $transfer_cat_id)); @endphp
                     <tr>
+                        @if ($item->reconciled)
+                        <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
+                        @else
                         <td><a href="{{ url('incomes/revenues/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
+                        @endif
                         <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
                         <td class="hidden-xs">{{ !empty($item->customer->name) ? $item->customer->name : trans('general.na') }}</td>
-                        <td class="hidden-xs">{{ $item->category->name }}</td>
-                        <td class="hidden-xs">{{ $item->account->name }}</td>
+                        <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                        <td class="hidden-xs">{{ $item->account ? $item->account->name : trans('general.na') }}</td>
                         <td class="text-center">
-                            @if ($item->category->id != $transfer_cat_id)
+                            @if (!$is_transfer)
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
+                                    @if (!$item->reconciled)
                                     <li><a href="{{ url('incomes/revenues/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    @permission('create-incomes-revenues')
                                     <li class="divider"></li>
+                                    @endif
+                                    @permission('create-incomes-revenues')
                                     <li><a href="{{ url('incomes/revenues/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
                                     @endpermission
                                     @permission('delete-incomes-revenues')
+                                    @if (!$item->reconciled)
                                     <li class="divider"></li>
                                     <li>{!! Form::deleteLink($item, 'incomes/revenues') !!}</li>
+                                    @endif
                                     @endpermission
                                 </ul>
                             </div>
@@ -86,4 +96,36 @@
 </div>
 <!-- /.box -->
 @endsection
+
+@push('js')
+<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/moment.js') }}"></script>
+<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+@if (language()->getShortCode() != 'en')
+<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+@endif
+@endpush
+
+@push('css')
+<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.css') }}">
+<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+@endpush
+
+@push('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#filter-categories").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
+        });
+
+        $("#filter-customers").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)]) }}"
+        });
+
+        $("#filter-accounts").select2({
+            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
+        });
+    });
+</script>
+@endpush
 

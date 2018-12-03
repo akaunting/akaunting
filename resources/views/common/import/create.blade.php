@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="box box-success">
-        {!! Form::open(['url' => $path . '/import', 'files' => true, 'role' => 'form']) !!}
+        {!! Form::open(['url' => $path . '/import', 'files' => true, 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
         <div class="box-body">
             <div class="col-md-12">

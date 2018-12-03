@@ -3,7 +3,6 @@
 return [
 
     'accounts_cash'         => 'Hotovost',
-    'categories_uncat'      => 'Bez kategorie',
     'categories_deposit'    => 'Vklad',
     'categories_sales'      => 'Prodeje',
     'currencies_usd'        => 'Americký dolar',

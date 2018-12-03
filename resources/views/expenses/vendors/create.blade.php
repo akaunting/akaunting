@@ -5,7 +5,7 @@
 @section('content')
     <!-- Default box -->
     <div class="box box-success">
-        {!! Form::open(['url' => 'expenses/vendors', 'files' => true, 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'expenses/vendors', 'files' => true, 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
         <div class="box-body">
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
@@ -25,6 +25,9 @@
             {{ Form::fileGroup('logo', trans_choice('general.pictures', 1)) }}
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+
+            {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
+
         </div>
         <!-- /.box-body -->
 

@@ -7,5 +7,10 @@ return [
 
     'error' => [
         'email'             => 'Email đã được đăng ký.'
-    ]
+    ],
+
+    'notification' => [
+        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
+        'button'        => 'Show',
+    ],
 ];

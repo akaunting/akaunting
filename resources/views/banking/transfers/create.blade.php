@@ -5,7 +5,7 @@
 @section('content')
     <!-- Default box -->
     <div class="box box-success">
-        {!! Form::open(['url' => 'banking/transfers', 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'banking/transfers', 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
         <div class="box-body">
             {{ Form::selectGroup('from_account_id', trans('transfers.from_account'), 'university', $accounts) }}
@@ -38,7 +38,9 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    @if (language()->getShortCode() != 'en')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+    @endif
 @endpush
 
 @push('css')
@@ -65,6 +67,7 @@
             //Date picker
             $('#transferred_at').datepicker({
                 format: 'yyyy-mm-dd',
+                todayBtn: 'linked',
                 weekStart: 1,
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'

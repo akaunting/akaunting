@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Als verstuurd markeren',
     'download_pdf'      => 'PDF downloaden',
     'send_mail'         => 'E-mail versturen',
+    'all_invoices'      => 'Log in om alle facturen te bekijken',
 
     'status' => [
         'draft'         => 'Concept',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Factuur is succesvol per e-mail verzonden!',
         'marked_sent'    => 'Factuur is succesvol als verzonden gemarkeerd!',
         'email_required' => 'Er is geen e-mailadres bekend van deze klant!',
+        'draft'          => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',
+
+        'status' => [
+            'created'   => 'Gemaakt op :date',
+            'send'      => [
+                'draft'     => 'Niet verstuurd',
+                'sent'      => 'Verzonden op :date',
+            ],
+            'paid'      => [
+                'await'     => 'In afwachting van betaling',
+            ],
+        ],
     ],
 
     'notification' => [

@@ -18,9 +18,16 @@ class All
     public function compose(View $view)
     {
         // Make sure it's installed
-        if (env('APP_INSTALLED')) {
-            // Share date format
-            $view->with(['date_format' => $this->getCompanyDateFormat()]);
+        if (!env('APP_INSTALLED') && (env('APP_ENV') !== 'testing')) {
+            return;
         }
+
+        // Share user logged in
+        $auth_user = auth()->user();
+
+        // Share date format
+        $date_format = $this->getCompanyDateFormat();
+
+        $view->with(['auth_user' => $auth_user, 'date_format' => $date_format]);
     }
 }

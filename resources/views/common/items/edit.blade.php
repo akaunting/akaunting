@@ -9,7 +9,8 @@
         'method' => 'PATCH',
         'files' => true,
         'route' => ['items.update', $item->id],
-        'role' => 'form'
+        'role' => 'form',
+        'class' => 'form-loading-button'
     ]) !!}
 
     <div class="box-body">

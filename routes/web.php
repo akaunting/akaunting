@@ -7,6 +7,34 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('{id}/download', 'Common\Uploads@download');
         });
 
+        Route::group(['middleware' => 'permission:read-admin-panel'], function () {
+            Route::group(['prefix' => 'wizard'], function () {
+                Route::get('/', 'Wizard\Companies@edit')->name('wizard.index');
+                Route::get('companies', 'Wizard\Companies@edit')->name('wizard.companies.edit');
+                Route::patch('companies', 'Wizard\Companies@update')->name('wizard.companies.update');
+
+                Route::get('currencies', 'Wizard\Currencies@index')->name('wizard.currencies.index');
+                Route::get('currencies/create', 'Wizard\Currencies@create')->name('wizard.currencies.create');
+                Route::get('currencies/{currency}/edit', 'Wizard\Currencies@edit')->name('wizard.currencies.edit');
+                Route::get('currencies/{currency}/enable', 'Wizard\Currencies@enable')->name('wizard.currencies.enable');
+                Route::get('currencies/{currency}/disable', 'Wizard\Currencies@disable')->name('wizard.currencies.disable');
+                Route::get('currencies/{currency}/delete', 'Wizard\Currencies@destroy')->name('wizard.currencies.delete');
+                Route::post('currencies', 'Wizard\Currencies@store')->name('wizard.currencies.store');
+                Route::patch('currencies/{currency}', 'Wizard\Currencies@update')->name('wizard.currencies.update');
+
+                Route::get('taxes', 'Wizard\Taxes@index')->name('wizard.taxes.index');
+                Route::get('taxes/create', 'Wizard\Taxes@create')->name('wizard.taxes.create');
+                Route::get('taxes/{tax}/edit', 'Wizard\Taxes@edit')->name('wizard.taxes.edit');
+                Route::get('taxes/{tax}/enable', 'Wizard\Taxes@enable')->name('wizard.taxes.enable');
+                Route::get('taxes/{tax}/disable', 'Wizard\Taxes@disable')->name('wizard.taxes.disable');
+                Route::get('taxes/{tax}/delete', 'Wizard\Taxes@destroy')->name('wizard.taxes.delete');
+                Route::post('taxes', 'Wizard\Taxes@store')->name('wizard.taxes.store');
+                Route::patch('taxes/{tax}', 'Wizard\Taxes@update')->name('wizard.taxes.upadate');
+
+                Route::get('finish', 'Wizard\Finish@index')->name('wizard.finish.index');
+            });
+        });
+
         Route::group(['middleware' => ['adminmenu', 'permission:read-admin-panel']], function () {
             Route::get('/', 'Common\Dashboard@index');
 
@@ -31,6 +59,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('items', 'Common\Items', ['middleware' => ['money']]);
                 Route::get('search/search', 'Common\Search@search')->name('search.search');
                 Route::resource('search', 'Common\Search');
+                Route::post('notifications/disable', 'Common\Notifications@disable')->name('notifications.disable');
             });
 
             Route::group(['prefix' => 'auth'], function () {
@@ -106,6 +135,9 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('accounts', 'Banking\Accounts', ['middleware' => ['dateformat', 'money']]);
                 Route::resource('transactions', 'Banking\Transactions');
                 Route::resource('transfers', 'Banking\Transfers', ['middleware' => ['dateformat', 'money']]);
+                Route::post('reconciliations/calculate', 'Banking\Reconciliations@calculate')->middleware(['money']);
+                Route::patch('reconciliations/calculate', 'Banking\Reconciliations@calculate')->middleware(['money']);
+                Route::resource('reconciliations', 'Banking\Reconciliations', ['middleware' => ['dateformat', 'money']]);
             });
 
             Route::group(['prefix' => 'reports'], function () {
@@ -140,6 +172,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('home', 'Modules\Home');
                 Route::resource('my', 'Modules\My');
                 Route::get('categories/{alias}', 'Modules\Tiles@categoryModules');
+                Route::get('vendors/{alias}', 'Modules\Tiles@vendorModules');
+                Route::get('docs/{alias}', 'Modules\Item@documentation');
                 Route::get('paid', 'Modules\Tiles@paidModules');
                 Route::get('new', 'Modules\Tiles@newModules');
                 Route::get('free', 'Modules\Tiles@freeModules');
@@ -149,6 +183,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('unzip', 'Modules\Item@unzip');
                 Route::post('install', 'Modules\Item@install');
                 Route::get('post/{alias}', 'Modules\Item@post');
+                Route::post('{alias}/reviews', 'Modules\Item@reviews');
                 Route::get('{alias}/uninstall', 'Modules\Item@uninstall');
                 Route::get('{alias}/enable', 'Modules\Item@enable');
                 Route::get('{alias}/disable', 'Modules\Item@disable');
@@ -160,39 +195,23 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('updates/check', 'Install\Updates@check');
                 Route::get('updates/update/{alias}/{version}', 'Install\Updates@update');
                 Route::get('updates/post/{alias}/{old}/{new}', 'Install\Updates@post');
+                Route::post('updates/steps', 'Install\Updates@steps');
+                Route::post('updates/download', 'Install\Updates@download');
+                Route::post('updates/download', 'Install\Updates@download');
+                Route::post('updates/unzip', 'Install\Updates@unzip');
+                Route::post('updates/file-copy', 'Install\Updates@fileCopy');
+                Route::post('updates/migrate', 'Install\Updates@migrate');
+                Route::post('updates/finish', 'Install\Updates@finish');
                 Route::resource('updates', 'Install\Updates');
             });
 
-            Route::group(['prefix' => 'modals'], function () {
-                Route::resource('categories', 'Modals\Categories', ['names' => [
-                    'index' => 'modals.categories.index',
-                    'create' => 'modals.categories.create',
-                    'store' => 'modals.categories.store',
-                    'show' => 'modals.categories.show',
-                    'edit' => 'modals.categories.edit',
-                    'update' => 'modals.categories.update',
-                    'destroy' => 'modals.categories.destroy',
-                ]]);
-                Route::resource('customers', 'Modals\Customers', ['names' => [
-                    'index' => 'modals.customers.index',
-                    'create' => 'modals.customers.create',
-                    'store' => 'modals.customers.store',
-                    'show' => 'modals.customers.show',
-                    'edit' => 'modals.customers.edit',
-                    'update' => 'modals.customers.update',
-                    'destroy' => 'modals.customers.destroy',
-                ]]);
-                Route::resource('vendors', 'Modals\Vendors', ['names' => [
-                    'index' => 'modals.vendors.index',
-                    'create' => 'modals.vendors.create',
-                    'store' => 'modals.vendors.store',
-                    'show' => 'modals.vendors.show',
-                    'edit' => 'modals.vendors.edit',
-                    'update' => 'modals.vendors.update',
-                    'destroy' => 'modals.vendors.destroy',
-                ]]);
+            Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
+                Route::resource('categories', 'Modals\Categories');
+                Route::resource('customers', 'Modals\Customers');
+                Route::resource('vendors', 'Modals\Vendors');
                 Route::resource('invoices/{invoice}/payment', 'Modals\InvoicePayments', ['middleware' => ['dateformat', 'money']]);
                 Route::resource('bills/{bill}/payment', 'Modals\BillPayments', ['middleware' => ['dateformat', 'money']]);
+                Route::resource('taxes', 'Modals\Taxes');
             });
 
             /* @deprecated */
@@ -215,6 +234,16 @@ Route::group(['middleware' => 'language'], function () {
 
                 Route::get('logout', 'Auth\Login@destroy')->name('customer_logout');
             });
+        });
+    });
+
+    Route::group(['middleware' => 'signed-url'], function () {
+        Route::group(['prefix' => 'links'], function () {
+            Route::get('invoices/{invoice}', 'Customers\Invoices@link');
+            Route::get('invoices/{invoice}/print', 'Customers\Invoices@printInvoice');
+            Route::get('invoices/{invoice}/pdf', 'Customers\Invoices@pdfInvoice');
+            Route::post('invoices/{invoice}/payment', 'Customers\Invoices@payment');
+            Route::post('invoices/{invoice}/confirm', 'Customers\Invoices@confirm');
         });
     });
 

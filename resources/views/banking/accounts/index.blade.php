@@ -41,7 +41,11 @@
                 <tbody>
                 @foreach($accounts as $item)
                     <tr>
-                        <td><a href="{{ url('banking/accounts/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
+                        @if ($auth_user->can('read-reports-income-expense-summary'))
+                        <td><a href="{{ url('reports/income-expense-summary?accounts[]=' . $item->id) }}">{{ $item->name }}</a></td>
+                        @else
+                        <td><a href="{{ route('accounts.edit', $item->id) }}">{{ $item->name }}</a></td>
+                        @endif
                         <td class="hidden-xs">{{ $item->number }}</td>
                         <td class="text-right amount-space">@money($item->balance, $item->currency_code, true)</td>
                         <td class="hidden-xs">
@@ -57,7 +61,7 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ url('banking/accounts/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                                    <li><a href="{{ route('accounts.edit', $item->id) }}">{{ trans('general.edit') }}</a></li>
                                     @if ($item->enabled)
                                     <li><a href="{{ route('accounts.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
                                     @else

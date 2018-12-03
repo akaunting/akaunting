@@ -8,7 +8,8 @@
         {!! Form::model($transfer, [
             'method' => 'PATCH',
             'url' => ['banking/transfers', $transfer->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">
@@ -44,7 +45,9 @@
 
 @push('js')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    @if (language()->getShortCode() != 'en')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+    @endif
 @endpush
 
 @push('css')
@@ -71,6 +74,7 @@
             //Date picker
             $('#transferred_at').datepicker({
                 format: 'yyyy-mm-dd',
+                todayBtn: 'linked',
                 weekStart: 1,
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'

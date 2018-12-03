@@ -25,7 +25,7 @@ class Permission extends FormRequest
     {
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->role->getAttribute('id');
+            $id = $this->permission->getAttribute('id');
         } else {
             $id = null;
         }

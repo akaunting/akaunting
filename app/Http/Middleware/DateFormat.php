@@ -17,7 +17,7 @@ class DateFormat
     public function handle($request, Closure $next)
     {
         if (($request->method() == 'POST') || ($request->method() == 'PATCH')) {
-            $fields = ['paid_at', 'due_at', 'billed_at', 'invoiced_at'];
+            $fields = ['paid_at', 'due_at', 'billed_at', 'invoiced_at', 'started_at', 'ended_at'];
 
             foreach ($fields as $field) {
                 $date = $request->get($field);

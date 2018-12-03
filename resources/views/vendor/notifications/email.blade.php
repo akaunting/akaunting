@@ -45,7 +45,7 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-{!! trans('notifications.salutation', ['company_name' => setting('general.company_name', config('app.name'))]) !!}
+{!! trans('notifications.salutation', ['company_name' => setting('general.company_name', config('mail.from.name', config('app.name')))]) !!}
 @endif
 
 <!-- Subcopy -->

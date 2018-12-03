@@ -13,18 +13,27 @@ return [
     'current_email'         => 'อีเมลปัจจุบัน',
     'reset'                 => 'ตั้งค่าใหม่',
     'never'                 => 'ไม่เคยเลย',
+    
     'password' => [
         'current'           => 'รหัสผ่าน',
         'current_confirm'   => 'การยืนยันรหัสผ่าน',
         'new'               => 'รหัสผ่านใหม่',
         'new_confirm'       => 'ยืนยันรหัสผ่านใหม่',
     ],
+    
     'error' => [
-        'self_delete'       => 'ข้อผิดพลาด: ไม่สามารถลบด้วยตัวคุณเองได้!'
+        'self_delete'       => 'ข้อผิดพลาด: ไม่สามารถลบด้วยตัวคุณเองได้!',
+        'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
     ],
 
     'failed'                => 'ข้อมูลที่ใช้ในการยืนยันตัวตนไม่ถูกต้อง',
     'disabled'              => 'บัญชีนี้ถูกปิดใช้งาน กรุณา ติดต่อผู้ดูแลระบบ',
     'throttle'              => 'คุณได้พยายามเข้าระบบหลายครั้งเกินไป กรุณาลองใหม่ใน :seconds วินาทีข้างหน้า.',
+
+    'notification' => [
+        'message_1'     => 'You are receiving this email because we received a password reset request for your account.',
+        'message_2'     => 'If you did not request a password reset, no further action is required.',
+        'button'        => 'Reset Password',
+    ],
 
 ];

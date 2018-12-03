@@ -31,6 +31,7 @@ return [
     'mark_sent'         => 'Mark Sent',
     'download_pdf'      => 'Download PDF',
     'send_mail'         => 'Send Email',
+    'all_invoices'      => 'Login to view all invoices',
 
     'status' => [
         'draft'         => 'Draft',
@@ -45,6 +46,18 @@ return [
         'email_sent'     => 'Invoice email has been sent successfully!',
         'marked_sent'    => 'Invoice marked as sent successfully!',
         'email_required' => 'No email address for this customer!',
+        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+
+        'status' => [
+            'created'   => 'Created on :date',
+            'send'      => [
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
+            ],
+            'paid'      => [
+                'await'     => 'Awaiting payment',
+            ],
+        ],
     ],
 
     'notification' => [

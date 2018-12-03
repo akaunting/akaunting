@@ -54,6 +54,9 @@ class ModuleInstall extends Command
 
         ModuleHistory::create($data);
 
+        // Clear cache
+        $this->call('cache:clear');
+
         // Update database
         $this->call('migrate', ['--force' => true]);
 

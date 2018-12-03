@@ -9,7 +9,8 @@
             'method' => 'PATCH',
             'files' => true,
             'url' => ['expenses/vendors', $vendor->id],
-            'role' => 'form'
+            'role' => 'form',
+            'class' => 'form-loading-button'
         ]) !!}
 
         <div class="box-body">
@@ -30,6 +31,9 @@
             {{ Form::fileGroup('logo', trans_choice('general.logos', 1)) }}
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+
+            {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
+
         </div>
         <!-- /.box-body -->
 

@@ -15,6 +15,6 @@ return [
     'weeks'                 => 'Woche(n)',
     'months'                => 'Monat(e)',
     'years'                 => 'Jahr(e)',
-    'message'               => 'Dies ist ein sich wiederholender :type und der nächste :type wird automatisch am :date erzeugt',
+    'message'               => 'Dies ist ein(e) sich wiederholende :type und die/der nächste :type wird automatisch am :date erzeugt',
 
 ];

@@ -2,7 +2,7 @@
 
 return [
 
-    'recurring'             => 'Recurring',
+    'recurring'             => 'Ricorrenti',
     'every'                 => 'Ogni',
     'period'                => 'Periodo',
     'times'                 => 'Volte',
@@ -10,11 +10,11 @@ return [
     'weekly'                => 'Settimanalmente',
     'monthly'               => 'Mensile',
     'yearly'                => 'Annuale',
-    'custom'                => 'Custom',
-    'days'                  => 'Day(s)',
-    'weeks'                 => 'Week(s)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'custom'                => 'Personalizzato',
+    'days'                  => 'Giorno(i)',
+    'weeks'                 => 'Settimana(e)',
+    'months'                => 'Mese(i)',
+    'years'                 => 'Anno(i)',
+    'message'               => 'Questo è un :type ricorrente ed il successivo :type verrà generato automaticamente il :date',
 
 ];

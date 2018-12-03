@@ -38,6 +38,10 @@ return [
     'numbers'               => 'Siffra | Siffror',
     'statuses'              => 'Status | Statusar',
     'others'                => 'Andra | Andra',
+    'contacts'              => 'Kontakta|kontakter',
+    'reconciliations'       => 'Stämma av|avstämningar',
+    'deposits'              => 'Insättning|insättningar',
+    'withdrawals'           => 'Uttag|uttag',
 
     'dashboard'             => 'Översikt',
     'banking'               => 'Banktjänster',
@@ -81,6 +85,7 @@ return [
     'color'                 => 'Färg',
     'save'                  => 'Spara',
     'cancel'                => 'Avbryt',
+    'loading'               => 'Laddar...',
     'from'                  => 'Från',
     'to'                    => 'Till',
     'print'                 => 'Skriv ut',
@@ -100,11 +105,30 @@ return [
     'overdue'               => 'Förfallen',
     'partially'             => 'Delvis',
     'partially_paid'        => 'Delvis betalat',
+    'export'                => 'Exportera',
+    'finish'                => 'Slutför',
+    'wizard'                => 'Guiden',
+    'skip'                  => 'Hoppa över',
+    'enable'                => 'Aktivera',
+    'disable'               => 'Inaktivera',
+    'select_all'            => 'Markera alla',
+    'unselect_all'          => 'Avmarkera alla',
+    'go_to'                 => 'Gå till :name',
+    'created_date'          => 'Skapad Datum',
+    'period'                => 'Period',
+    'start'                 => 'Början',
+    'end'                   => 'Slutet',
+    'clear'                 => 'Töm',
+    'difference'            => 'Skillnaden',
 
     'title' => [
         'new'               => 'Nytt :type',
         'edit'              => 'Redigera :type',
+        'create'            => 'Skapa :type',
+        'send'              => 'Skicka :type',
+        'get'               => 'Få :type',
     ],
+
     'form' => [
         'enter'             => 'Ange :field',
         'select' => [
@@ -114,4 +138,11 @@ return [
         'no_file_selected'  => 'Ingen fil är vald...',
     ],
 
+    'date_range' => [
+        'today' => 'Idag',
+        'yesterday' => 'Igår',
+        'last_days' => 'Sista :day Dagarna',
+        'this_month' => 'Denna månaden',
+        'last_month' => 'Senaste månaden',
+    ],
 ];
