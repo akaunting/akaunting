@@ -84,7 +84,7 @@ class Login extends Controller
             return redirect('wizard');
         }
 
-        return redirect('/');
+        return redirect()->intended('/');
     }
 
     public function destroy()

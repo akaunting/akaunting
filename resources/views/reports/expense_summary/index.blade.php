@@ -3,7 +3,7 @@
 @section('title', trans('reports.summary.expense'))
 
 @section('new_button')
-<span class="new-button"><a href="{{ url('reports/expense-summary') }}?print=1&status={{ request('status') }}&year={{ request('year', $this_year) }}" target="_blank" class="btn btn-success btn-sm"><span class="fa fa-print"></span> &nbsp;{{ trans('general.print') }}</a></span>
+<span class="new-button"><a href="{{ url($print_url) }}" target="_blank" class="btn btn-success btn-sm"><span class="fa fa-print"></span> &nbsp;{{ trans('general.print') }}</a></span>
 @endsection
 
 @section('content')

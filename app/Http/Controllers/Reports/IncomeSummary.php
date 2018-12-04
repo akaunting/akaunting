@@ -112,6 +112,8 @@ class IncomeSummary extends Controller
             $view_template = 'reports.income_summary.index';
         }
 
+        $print_url = $this->getPrintUrl($year);
+
         // Incomes chart
         $chart = Charts::multi('line', 'chartjs')
             ->dimensions(0, 300)
@@ -121,7 +123,17 @@ class IncomeSummary extends Controller
             ->credits(false)
             ->view($chart_template);
 
-        return view($view_template, compact('chart', 'dates', 'categories', 'statuses', 'accounts', 'customers', 'incomes', 'totals'));
+        return view($view_template, compact(
+            'chart',
+            'dates',
+            'categories',
+            'statuses',
+            'accounts',
+            'customers',
+            'incomes',
+            'totals',
+            'print_url'
+        ));
     }
 
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)
@@ -174,5 +186,26 @@ class IncomeSummary extends Controller
 
             $totals[$month]['amount'] += $amount;
         }
+    }
+
+    private function getPrintUrl($year)
+    {
+        $print_url = 'reports/income-summary?print=1'
+            . '&status=' . request('status')
+            . '&year='. request('year', $year);
+
+        collect(request('accounts'))->each(function($item) use(&$print_url) {
+            $print_url .= '&accounts[]=' . $item;
+        });
+
+        collect(request('customers'))->each(function($item) use(&$print_url) {
+            $print_url .= '&customers[]=' . $item;
+        });
+
+        collect(request('categories'))->each(function($item) use(&$print_url) {
+            $print_url .= '&categories[]=' . $item;
+        });
+
+        return $print_url;
     }
 }
