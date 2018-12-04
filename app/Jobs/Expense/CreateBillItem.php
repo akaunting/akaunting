@@ -117,7 +117,7 @@ class CreateBillItem
                     foreach ($inclusives as $inclusive) {
                         $item_sub_and_tax_total = $item_amount + $item_tax_total;
 
-                        $item_tax_total = $item_sub_and_tax_total - (($item_sub_and_tax_total * (100 - $inclusive->rate)) / 100);
+                        $item_tax_total = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($inclusive->rate / 100)));
 
                         $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
 
