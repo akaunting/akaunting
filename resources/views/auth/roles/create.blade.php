@@ -21,7 +21,6 @@
 
                 <span class="permission-select-button">{{trans('general.select_all')}}</span> |
                 <span class="permission-unselect-button">{{trans('general.unselect_all')}}</span>
-
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         @foreach($names as $name)
@@ -33,8 +32,8 @@
                         @foreach($permissions as $code => $code_permissions)
                             <div class="tab-pane in @php echo ($code == 'read') ? 'active' : ''; @endphp" id="tab-{{ $code }}">
                                 <div class="permission-button-group">
-               						 <span class="permission-select-button">{{trans('general.select_all')}}</span> |
-               						 <span class="permission-unselect-button">{{trans('general.unselect_all')}}</span>
+									<span class="permission-select-button">{{trans('general.select_all')}}</span>|
+									<span class="permission-unselect-button">{{trans('general.unselect_all')}}</span>
                                 </div>
 
                                 @stack('permissions_input_start')
