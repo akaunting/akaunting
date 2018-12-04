@@ -7,6 +7,7 @@ use App\Events\BillCreated;
 use App\Events\BillUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Expense\Bill as Request;
+use App\Http\Requests\Expense\BillAddItem as ItemRequest;
 use App\Http\Requests\Expense\BillPayment as PaymentRequest;
 use App\Jobs\Expense\CreateBill;
 use App\Jobs\Expense\UpdateBill;
@@ -33,7 +34,6 @@ use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
-use Illuminate\Http\Request as ItemRequest;
 use Image;
 use Storage;
 
@@ -471,35 +471,32 @@ class Bills extends Controller
 
     public function addItem(ItemRequest $request)
     {
-        if ($request['item_row']) {
-            $item_row = $request['item_row'];
+        $item_row = $request['item_row'];
+        $currency_code = $request['currency_code'];
 
-            $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-            $currency = Currency::where('code', '=', $request['currency_code'])->first();
+        $currency = Currency::where('code', '=', $currency_code)->first();
 
-            // it should be integer for amount mask
-            $currency->precision = (int) $currency->precision;
-
-            $html = view('expenses.bills.item', compact('item_row', 'taxes', 'currency'))->render();
-
-            return response()->json([
-                'success' => true,
-                'error'   => false,
-                'data'    => [
-                    'currency' => $currency
-                ],
-                'message' => 'null',
-                'html'    => $html,
-            ]);
+        if (empty($currency)) {
+            $currency = Currency::where('code', '=', setting('general.default_currency'))->first();
         }
 
+        if ($currency) {
+            // it should be integer for amount mask
+            $currency->precision = (int) $currency->precision;
+        }
+
+        $html = view('expenses.bills.item', compact('item_row', 'taxes', 'currency'))->render();
+
         return response()->json([
-            'success' => false,
-            'error'   => true,
-            'data'    => 'null',
-            'message' => trans('issue'),
-            'html'    => 'null',
+            'success' => true,
+            'error'   => false,
+            'data'    => [
+                'currency' => $currency
+            ],
+            'message' => 'null',
+            'html'    => $html,
         ]);
     }
 

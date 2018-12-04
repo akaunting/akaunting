@@ -7,6 +7,7 @@ use App\Events\InvoicePrinting;
 use App\Events\InvoiceUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Income\Invoice as Request;
+use App\Http\Requests\Income\InvoiceAddItem as ItemRequest;
 use App\Http\Requests\Income\InvoicePayment as PaymentRequest;
 use App\Jobs\Income\CreateInvoice;
 use App\Jobs\Income\UpdateInvoice;
@@ -37,7 +38,6 @@ use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 use Date;
 use File;
-use Illuminate\Http\Request as ItemRequest;
 use Image;
 use Storage;
 use SignedUrl;
@@ -600,35 +600,32 @@ class Invoices extends Controller
 
     public function addItem(ItemRequest $request)
     {
-        if ($request['item_row']) {
-            $item_row = $request['item_row'];
+        $item_row = $request['item_row'];
+        $currency_code = $request['currency_code'];
 
-            $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
 
-            $currency = Currency::where('code', '=', $request['currency_code'])->first();
+        $currency = Currency::where('code', '=', $currency_code)->first();
 
-            // it should be integer for amount mask
-            $currency->precision = (int) $currency->precision;
-
-            $html = view('incomes.invoices.item', compact('item_row', 'taxes', 'currency'))->render();
-
-            return response()->json([
-                'success' => true,
-                'error'   => false,
-                'data'    => [
-                    'currency' => $currency
-                ],
-                'message' => 'null',
-                'html'    => $html,
-            ]);
+        if (empty($currency)) {
+            $currency = Currency::where('code', '=', setting('general.default_currency'))->first();
         }
 
+        if ($currency) {
+            // it should be integer for amount mask
+            $currency->precision = (int) $currency->precision;
+        }
+
+        $html = view('incomes.invoices.item', compact('item_row', 'taxes', 'currency'))->render();
+
         return response()->json([
-            'success' => false,
-            'error'   => true,
-            'data'    => 'null',
-            'message' => trans('issue'),
-            'html'    => 'null',
+            'success' => true,
+            'error'   => false,
+            'data'    => [
+                'currency' => $currency
+            ],
+            'message' => 'null',
+            'html'    => $html,
         ]);
     }
 
