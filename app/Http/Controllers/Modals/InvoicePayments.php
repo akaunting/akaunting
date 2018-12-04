@@ -39,9 +39,7 @@ class InvoicePayments extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
-
-        $currency = Currency::where('code', $account_currency_code)->first();
+        $currency = Currency::where('code', $invoice->currency_code)->first();
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -60,7 +58,7 @@ class InvoicePayments extends Controller
             $invoice->grand_total = $invoice->total - $paid;
         }
 
-        $html = view('modals.invoices.payment', compact('invoice', 'accounts', 'account_currency_code', 'currencies', 'currency', 'payment_methods'))->render();
+        $html = view('modals.invoices.payment', compact('invoice', 'accounts', 'currencies', 'currency', 'payment_methods'))->render();
 
         return response()->json([
             'success' => true,

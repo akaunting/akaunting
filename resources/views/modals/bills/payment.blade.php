@@ -20,8 +20,8 @@
                         {!! Form::label('currency_code', trans_choice('general.currencies', 1), ['class' => 'control-label']) !!}
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-exchange"></i></div>
-                            {!! Form::text('currency', $currencies[$account_currency_code], ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
-                            {!! Form::hidden('currency_code', $account_currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
+                            {!! Form::text('currency', $currencies[$bill->currency_code], ['id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
+                            {!! Form::hidden('currency_code', $bill->currency_code, ['id' => 'currency_code', 'class' => 'form-control', 'required' => 'required']) !!}
                         </div>
                     </div>
                     @stack('currency_code_input_end')
