@@ -92,7 +92,7 @@
 
                         {{ Form::textGroup('email_smtp_username', trans('settings.email.smtp.username'), 'paper-plane-o', []) }}
 
-                        {{ Form::passwordGroup('email_smtp_password', trans('settings.email.smtp.password'), 'paper-plane-o', []) }}
+                        {{ Form::textGroup('email_smtp_password', trans('settings.email.smtp.password'), 'paper-plane-o', ['type' => 'password']) }}
 
                         {{ Form::selectGroup('email_smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane-o', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], null, []) }}
                     </div>
@@ -139,7 +139,7 @@
                     @permission('update-settings-settings')
                     <div class="setting-buttons">
                         <div class="form-group no-margin">
-                            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success']) !!}
+                            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success  button-submit', 'data-loading-text' => trans('general.loading')]) !!}
                             <a href="{{ URL::previous() }}" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>
                         </div>
                     </div>
@@ -166,6 +166,8 @@
         var text_no = '{{ trans('general.no') }}';
 
         $(document).ready(function() {
+            $('#email_smtp_password').attr('type', 'password');
+
             $("#date_format").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans('settings.localisation.date.format')]) }}"
             });
