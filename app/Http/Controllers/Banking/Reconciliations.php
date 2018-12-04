@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Banking;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Banking\Reconciliation as Request;
+use App\Http\Requests\Banking\ReconciliationCalculate as CalculateRequest;
 use App\Models\Banking\Account;
 use App\Models\Banking\Reconciliation;
 use App\Models\Setting\Currency;
@@ -278,17 +279,17 @@ class Reconciliations extends Controller
         return $total;
     }
 
-    public function calculate()
+    public function calculate(CalculateRequest $request)
     {
-        $currency_code = request('currency_code');
-        $closing_balance = request('closing_balance');
+        $currency_code = $request['currency_code'];
+        $closing_balance = $request['closing_balance'];
 
         $json = new \stdClass();
 
         $cleared_amount = $difference = $income_total = $expense_total = 0;
 
-        if ($transactions = request('transactions')) {
-            $opening_balance = request('opening_balance');
+        if ($transactions = $request['transactions']) {
+            $opening_balance = $request['opening_balance'];
 
             foreach ($transactions as $key => $value) {
                 $model = explode('_', $key);
