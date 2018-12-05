@@ -49,6 +49,10 @@ class TestCompany extends Seeder
         Setting::set('general.default_currency', 'USD');
         Setting::set('general.default_account', '1');
         Setting::set('general.default_payment_method', 'offlinepayment.cash.1');
+        Setting::set('general.schedule_bill_days', '10,5,3,1');
+        Setting::set('general.schedule_invoice_days', '1,3,5,10');
+        Setting::set('general.send_invoice_reminder', true);
+        Setting::set('general.send_bill_reminder', true);
         Setting::save();
 
         $this->command->info('Test company created.');
