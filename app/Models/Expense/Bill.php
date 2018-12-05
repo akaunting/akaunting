@@ -115,7 +115,7 @@ class Bill extends Model
 
     public function scopeDue($query, $date)
     {
-        return $query->where('due_at', '=', $date);
+        return $query->whereDate('due_at', '=', $date);
     }
 
     public function scopeLatest($query)
