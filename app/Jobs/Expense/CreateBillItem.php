@@ -77,7 +77,7 @@ class CreateBillItem
                 $tax = Tax::find($tax_id);
 
                 switch ($tax->type) {
-                    case 'included':
+                    case 'inclusive':
                         $inclusives[] = $tax;
                         break;
                     case 'compound':
