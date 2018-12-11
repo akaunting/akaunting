@@ -73,6 +73,11 @@ class Kernel extends HttpKernel
             'company.settings',
             'company.currencies',
         ],
+
+        'signed' => [
+            'signed-url',
+            'signed-url.company',
+        ]
     ];
 
     /**
@@ -100,5 +105,6 @@ class Kernel extends HttpKernel
         'company.currencies' => \App\Http\Middleware\LoadCurrencies::class,
         'dateformat' => \App\Http\Middleware\DateFormat::class,
         'money' => \App\Http\Middleware\Money::class,
+        'signed-url.company' => \App\Http\Middleware\SignedUrlCompany::class,
     ];
 }
