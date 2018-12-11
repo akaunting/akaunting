@@ -23,7 +23,7 @@ return [
     
     'error' => [
         'self_delete'       => 'Feil: Du kan ikke slette deg selv.',
-        'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
+        'no_company'        => 'Feil: Ingen foretak knyttet til din konto. Vennligst kontakt systemadministrator.',
     ],
 
     'failed'                => 'Disse opplysningene samsvarer ikke med våre oppføringer.',
@@ -31,9 +31,9 @@ return [
     'throttle'              => 'For mange innloggingsforsøk. Forsøk igjen om :seconds sekunder.',
 
     'notification' => [
-        'message_1'     => 'You are receiving this email because we received a password reset request for your account.',
-        'message_2'     => 'If you did not request a password reset, no further action is required.',
-        'button'        => 'Reset Password',
+        'message_1'     => 'Du mottar denne e-posten fordi vi mottok en forespørsel om pasordnullstilling for din konto.',
+        'message_2'     => 'Hvis du ikke ba om å nullstille passord trenger du ikke foreta deg noe mer.',
+        'button'        => 'Nullstill passord',
     ],
 
 ];

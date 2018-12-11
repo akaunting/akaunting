@@ -10,7 +10,7 @@ return [
     ],
 
     'notification' => [
-        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Show',
+        'message'       => ':customer betalte :amount mot faktura :invoice_number.',
+        'button'        => 'Vis',
     ],
 ];

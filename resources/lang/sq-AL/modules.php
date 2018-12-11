@@ -23,6 +23,9 @@ return [
     'added'                 => 'Shtuar',
     'updated'               => 'Përditësuar',
     'compatibility'         => 'Pajtueshmëri',
+    'documentation'         => 'Dokumentacioni',
+    'view'                  => 'Pamje',
+    'back'                  => 'Mbrapa',
 
     'installed'             => ':module instaluar',
     'uninstalled'           => ':module çinstaluar',
