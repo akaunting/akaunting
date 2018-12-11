@@ -2,10 +2,25 @@
 
 namespace App\Http\Requests\Wizard;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
+use App\Traits\Modules as RemoteModules;
+use Illuminate\Validation\Factory as ValidationFactory;
 
-class Company extends FormRequest
+class Company extends Request
 {
+    use RemoteModules;
+
+    public function __construct(ValidationFactory $validation)
+    {
+        $validation->extend(
+            'check',
+            function ($attribute, $value, $parameters) {
+                return $this->checkToken($value);
+            },
+            trans('messages.error.invalid_token')
+        );
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,8 +38,14 @@ class Company extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'company_logo' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
         ];
+
+        if (!setting('general.api_token', false)) {
+            $rules['api_token'] = 'required|string|check';
+        }
+
+        return $rules;
     }
 }
