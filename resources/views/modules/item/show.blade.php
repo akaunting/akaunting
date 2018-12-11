@@ -205,7 +205,7 @@
                             <tbody>
                                 @if ($module->vendor_name)
                                 <tr>
-                                    <th>{{ trans_choice('general.vendors', 1) }}</th>
+                                    <th>{{ trans_choice('general.developers', 1) }}</th>
                                     <td class="text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                                 </tr>
                                 @endif
