@@ -23,6 +23,9 @@ return [
     'added'                 => 'Toegevoegd',
     'updated'               => 'Bijgewerkt',
     'compatibility'         => 'Compatibiliteit',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => ':module geïnstalleerd',
     'uninstalled'           => ':module verwijderd',

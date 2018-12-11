@@ -9,8 +9,8 @@ return [
 
     'notification' => [
         'message'       => [
-            'reminder' => 'You are receiving this email because only :quantity of :name has remained.',
-            'out_of_stock' => 'You are receiving this email because the :name is running out of stock.',
+            'reminder' => 'Du mottar denne e-posten fordi det kun er :quantity av :name igjen.',
+            'out_of_stock' => 'Du mottar denne e-posten fordi :name er nesten tom på lager.',
         ],
         'button'        => 'Vis nå',
     ],

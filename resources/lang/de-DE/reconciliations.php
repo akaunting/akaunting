@@ -10,7 +10,7 @@ return [
     'start_date'            => 'Startdatum',
     'end_date'              => 'Enddatum',
     'cleared_amount'        => 'Ausgeglichener Betrag',
-    'deposit'               => 'Deposit',
-    'withdrawal'            => 'Withdrawal',
+    'deposit'               => 'Einzahlung',
+    'withdrawal'            => 'Auszahlung',
 
 ];

@@ -23,6 +23,9 @@ return [
     'added'                 => 'Adicionado',
     'updated'               => 'Atualizado',
     'compatibility'         => 'Compatibilidade',
+    'documentation'         => 'Documentação',
+    'view'                  => 'Ver',
+    'back'                  => 'Voltar',
 
     'installed'             => ':module instalado',
     'uninstalled'           => ':module removido',

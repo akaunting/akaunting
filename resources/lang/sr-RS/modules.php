@@ -23,6 +23,9 @@ return [
     'added'                 => 'Додато',
     'updated'               => 'Ажурирано',
     'compatibility'         => 'Компатибилност',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => ':module инсталирана',
     'uninstalled'           => ':module разинсталирана',
