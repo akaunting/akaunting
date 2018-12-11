@@ -11,6 +11,7 @@
     @include('partials.modules.bar')
 
     <div class="row">
+        @if ($paid)
         <div class="col-md-12">
             <div class="content-header no-padding-left">
                 <h3>{{ trans('modules.top_paid') }}</h3>
@@ -24,7 +25,9 @@
                 @include('partials.modules.no_apps')
             @endif
         </div>
+        @endif
 
+        @if ($new)
         <div class="col-md-12">
             <div class="content-header no-padding-left">
                 <h3>{{ trans('modules.new') }}</h3>
@@ -38,7 +41,9 @@
                 @include('partials.modules.no_apps')
             @endif
         </div>
+        @endif
 
+        @if ($free)
         <div class="col-md-12">
             <div class="content-header no-padding-left">
                 <h3>{{ trans('modules.top_free') }}</h3>
@@ -52,5 +57,6 @@
                 @include('partials.modules.no_apps')
             @endif
         </div>
+        @endif
     </div>
 @endsection
