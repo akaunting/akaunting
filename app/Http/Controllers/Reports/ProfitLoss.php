@@ -26,6 +26,17 @@ class ProfitLoss extends Controller
 
         $status = request('status');
         $year = request('year', Date::now()->year);
+        
+        // check and assign year start
+        if (($financial_start = Date::parse(setting('general.financial_start')))->month != 1) {
+            // check if a specific year is requested
+            if (!is_null(request('year'))) {
+                $financial_start->year = $year;
+            }
+
+            $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
+            $financial_start->subYear()->subQuarter();
+        }
 
         $income_categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id')->toArray();
 
@@ -33,7 +44,9 @@ class ProfitLoss extends Controller
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {
-            $dates[$j] = Date::parse($year . '-' . $j)->quarter;
+            $ym_string = is_array($year) ? $financial_start->addQuarter()->format('Y-m') : $year . '-' . $j;
+            
+            $dates[$j] = Date::parse($ym_string)->quarter;
 
             // Totals
             $totals[$dates[$j]] = array(
