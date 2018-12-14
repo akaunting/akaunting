@@ -28,6 +28,7 @@ class Settings extends Seeder
 
         Setting::set([
             'general.date_format'               => 'd M Y',
+            'general.financial_start'           => '01 Jan',
             'general.date_separator'            => 'space',
             'general.timezone'                  => 'Europe/London',
             'general.percent_position'          => 'after',
