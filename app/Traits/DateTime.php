@@ -29,6 +29,18 @@ trait DateTime
 
         $start = Date::parse($year . '-01-01')->format('Y-m-d');
         $end = Date::parse($year . '-12-31')->format('Y-m-d');
+        
+        // check if financial year has been customized
+        $financial_start = Date::parse(setting('general.financial_start'));
+
+        if (Date::now()->startOfYear()->format('Y-m-d') !== $financial_start->format('Y-m-d')) {
+            if (!is_null(request('year'))) {
+                $financial_start->year = $year;
+            }
+
+            $start = $financial_start->format('Y-m-d');
+            $end = $financial_start->addYear(1)->subDays(1)->format('Y-m-d');
+        }
 
         return $query->whereBetween($field, [$start, $end]);
     }
