@@ -11,7 +11,6 @@ use App\Models\Income\Invoice;
 use App\Models\Income\InvoicePayment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
-use App\Models\Setting\Setting;
 use App\Traits\Currencies;
 use Charts;
 use Date;
