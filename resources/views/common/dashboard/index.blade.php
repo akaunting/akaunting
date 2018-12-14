@@ -252,8 +252,8 @@
 @push('scripts')
 <script type="text/javascript">
     $(function() {
-        var start = moment().startOf('year');
-        var end = moment().endOf('year');
+        var start = moment('{{ $financial_start }}');
+        var end = moment('{{ $financial_start }}').add('1', 'years').subtract('1', 'days');
 
         function cb(start, end) {
             $('#cashflow-range span').html(start.format('D MMM YYYY') + ' - ' + end.format('D MMM YYYY'));
@@ -263,8 +263,8 @@
             startDate: start,
             endDate: end,
             ranges: {
-                '{{ trans("reports.this_year") }}': [moment().startOf('year'), moment().endOf('year')],
-                '{{ trans("reports.previous_year") }}': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+                '{{ trans("reports.this_year") }}': [start, end],
+                '{{ trans("reports.previous_year") }}': [moment('{{ $financial_start }}').subtract(1, 'year'), moment('{{ $financial_start }}').subtract('1', 'days')],
                 '{{ trans("reports.this_quarter") }}': [moment().subtract(2, 'months').startOf('month'), moment().endOf('month')],
                 '{{ trans("reports.previous_quarter") }}': [moment().subtract(5, 'months').startOf('month'), moment().subtract(3, 'months').endOf('month')],
                 '{{ trans("reports.last_12_months") }}': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')]
@@ -330,8 +330,8 @@
 
     function getRange(picker) {
         ranges = {
-            '{{ trans("reports.this_year") }}': 'this_year',
-            '{{ trans("reports.previous_year") }}': 'previous_year',
+            '{{ trans("reports.this_year") }}': 'custom',
+            '{{ trans("reports.previous_year") }}': 'custom',
             '{{ trans("reports.this_quarter") }}': 'this_quarter',
             '{{ trans("reports.previous_quarter") }}': 'previous_quarter',
             '{{ trans("reports.last_12_months") }}': 'last_12_months'
