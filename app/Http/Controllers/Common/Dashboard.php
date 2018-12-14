@@ -37,7 +37,7 @@ class Dashboard extends Controller
     public function index()
     {
         $this->today = Date::today();
-        $this->financial_start = $financial_start = Date::parse(Setting::where('key', 'general.financial_start')->first()->value)->format('Y-m-d');
+        $this->financial_start = $financial_start = Date::parse(setting('general.financial_start'))->format('Y-m-d');
 
         list($total_incomes, $total_expenses, $total_profit) = $this->getTotals();
 
