@@ -266,7 +266,7 @@
                 '{{ trans("reports.this_year") }}': [start, end],
                 '{{ trans("reports.previous_year") }}': [moment('{{ $financial_start }}').subtract(1, 'year'), moment('{{ $financial_start }}').subtract('1', 'days')],
                 '{{ trans("reports.this_quarter") }}': [moment().subtract(2, 'months').startOf('month'), moment().endOf('month')],
-                '{{ trans("reports.previous_quarter") }}': [moment().subtract(5, 'months').startOf('month'), moment().subtract(3, 'months').endOf('month')],
+                '{{ trans("reports.previous_quarter") }}': [moment().subtract(1, 'quarter').startOf('quarter'), moment().subtract(1, 'quarter').endOf('quarter')],
                 '{{ trans("reports.last_12_months") }}': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')]
             }
         }, cb);
