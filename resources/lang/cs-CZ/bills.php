@@ -13,7 +13,7 @@ return [
     'price'             => 'Cena',
     'sub_total'         => 'Mezisoučet',
     'discount'          => 'Sleva',
-    'tax_total'         => 'Dph celkem',
+    'tax_total'         => 'DPH celkem',
     'total'             => 'Celkem',
 
     'item_name'         => 'Jméno položky | Jméno položek',
@@ -28,7 +28,7 @@ return [
     'histories'         => 'Historie',
     'payments'          => 'Platby',
     'add_payment'       => 'Přidat platbu',
-    'mark_received'     => 'Označ za přijatou',
+    'mark_received'     => 'Označ jako přijatou',
     'download_pdf'      => 'Stáhnout PDF',
     'send_mail'         => 'Poslat email',
 
@@ -41,7 +41,7 @@ return [
 
     'messages' => [
         'received'      => 'Bylo úspěšně označeno jako přijaté!',
-        'draft'          => 'Toto je <b>KONCEPT</b> faktury a bude promítnut do grafů jakmile bude zaplacen.',
+        'draft'          => 'Toto je <b>KONCEPT</b> faktury. Bude promítnut do grafů, jakmile bude zaplacen.',
 
         'status' => [
             'created'   => 'Vytvořeno :date',
@@ -50,7 +50,7 @@ return [
                 'received'  => 'Přijato :date',
             ],
             'paid'      => [
-                'await'     => 'Čekání na platbu',
+                'await'     => 'Čeká na platbu',
             ],
         ],
     ],

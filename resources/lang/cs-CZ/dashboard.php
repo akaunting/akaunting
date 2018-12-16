@@ -14,11 +14,11 @@ return [
     'open_profit'               => 'Zisk',
     'overdue_profit'            => 'Zisk po splatnosti',
     'cash_flow'                 => 'Peněžní tok',
-    'no_profit_loss'            => 'No Profil Loss',
+    'no_profit_loss'            => 'Žádný pokles zisku',
     'incomes_by_category'       => 'Příjmy podle kategorie',
     'expenses_by_category'      => 'Výdaje podle kategorie',
     'account_balance'           => 'Zůstatek na účtu',
     'latest_incomes'            => 'Poslední příjmy',
-    'latest_expenses'           => 'Nejnovější výdaje',
+    'latest_expenses'           => 'Poslední výdaje',
 
 ];

@@ -61,7 +61,7 @@ return [
     ],
 
     'notification' => [
-        'message'       => 'Obdželi jste tento email protože máte fakturovat :amount zákazníkovi :customer.',
+        'message'       => 'Obdželi jste tento email, protože máte fakturovat :amount zákazníkovi :customer.',
         'button'        => 'Zaplatit',
     ],
 

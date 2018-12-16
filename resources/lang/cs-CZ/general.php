@@ -39,7 +39,7 @@ return [
     'statuses'              => 'Stav | Stav',
     'others'                => 'Ostatní|Ostatní',
     'contacts'              => 'Kontakt|Kontakty',
-    'reconciliations'       => 'Smír|Smír',
+    'reconciliations'       => 'Odsouhlasení|Odsouhlasení',
     'deposits'              => 'Vklad|Vklady',
     'withdrawals'           => 'Výběr|Výběry',
 
@@ -120,6 +120,7 @@ return [
     'end'                   => 'Konec',
     'clear'                 => 'Vyčistit',
     'difference'            => 'Rozdíl',
+    'developers'            => 'Vývojář',
 
     'title' => [
         'new'               => 'Nová(ý) :type',
