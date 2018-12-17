@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/debugbar
 /vendor
 /.idea
 /.vagrant
@@ -99,3 +100,4 @@ modules.xml
 *.ipr
 
 # End of https://www.gitignore.io/api/phpstorm+all
+
