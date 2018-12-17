@@ -1,0 +1,30 @@
+name: akaunting
+recipe: laravel
+
+services:
+  node:
+    type: node:6.10
+    globals:
+      gulp-cli: "latest"
+  database:
+    type: mysql
+    portforward: 33865
+
+config:
+  php: '7.2'
+  #webroot: public
+  via: nginx
+
+tooling:
+  npm:
+    service: node
+  node:
+    service: node
+
+events:
+  # Composer install + custom script + artisan migrate
+  post-start:
+  # - appserver: cd $LANDO_MOUNT && composer install
+  # - appserver: cd $LANDO_WEBROOT && php script.php
+  # - appserver: cd $LANDO_WEBROOT && artisan migrate
+
