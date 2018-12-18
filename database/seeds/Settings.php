@@ -4,6 +4,7 @@ namespace Database\Seeds;
 
 use App\Models\Model;
 use Illuminate\Database\Seeder;
+use Date;
 use Setting;
 
 class Settings extends Seeder
@@ -28,7 +29,7 @@ class Settings extends Seeder
 
         Setting::set([
             'general.date_format'               => 'd M Y',
-            'general.financial_start'           => '01 Jan',
+            'general.financial_start'           => Date::now()->startOfYear()->format('d F'),
             'general.date_separator'            => 'space',
             'general.timezone'                  => 'Europe/London',
             'general.percent_position'          => 'after',
