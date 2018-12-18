@@ -2,10 +2,9 @@
 
 namespace Modules\OfflinePayment\Listeners;
 
-use Auth;
 use App\Events\AdminMenuCreated;
 
-class OfflinePaymentAdminMenu
+class AdminMenu
 {
 
     /**
@@ -16,7 +15,7 @@ class OfflinePaymentAdminMenu
      */
     public function handle(AdminMenuCreated $event)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         // Settings
         if ($user->can(['read-settings-settings', 'read-settings-categories', 'read-settings-currencies', 'read-settings-taxes'])) {

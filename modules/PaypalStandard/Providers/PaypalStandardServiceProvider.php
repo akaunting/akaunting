@@ -2,10 +2,9 @@
 
 namespace Modules\PaypalStandard\Providers;
 
-use Illuminate\Support\ServiceProvider;
-
 use App\Events\PaymentGatewayListing;
-use Modules\PaypalStandard\Listeners\PaypalStandardGateway;
+use Illuminate\Support\ServiceProvider;
+use Modules\PaypalStandard\Listeners\Gateway;
 
 class PaypalStandardServiceProvider extends ServiceProvider
 {
@@ -25,8 +24,6 @@ class PaypalStandardServiceProvider extends ServiceProvider
     {
         $this->registerTranslations();
         $this->registerViews();
-        $this->registerMigrations();
-
         $this->registerEvents();
     }
 
@@ -76,14 +73,9 @@ class PaypalStandardServiceProvider extends ServiceProvider
         }
     }
 
-    public function registerMigrations()
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-    }
-
     public function registerEvents()
     {
-        $this->app['events']->listen(PaymentGatewayListing::class, PaypalStandardGateway::class);
+        $this->app['events']->listen(PaymentGatewayListing::class, Gateway::class);
     }
 
     /**
