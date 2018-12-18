@@ -10,6 +10,7 @@ use Date;
 use File;
 use Module;
 use ZipArchive;
+use Artisan;
 use GuzzleHttp\Exception\RequestException;
 
 class Updater
@@ -18,10 +19,7 @@ class Updater
 
     public static function clear()
     {
-        Cache::forget('modules');
-        Cache::forget('updates');
-        Cache::forget('versions');
-        Cache::forget('suggestions');
+        Artisan::call('cache:clear');
 
         return true;
     }
