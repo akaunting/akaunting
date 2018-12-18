@@ -1,11 +1,11 @@
 <h2>{{ $gateway['name'] }}</h2>
 
 @if($gateway['mode'] == 'sandbox')
-<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ trans('paypalstandard::paypalstandard.test_mode') }}</div>
+<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ trans('paypalstandard::general.test_mode') }}</div>
 @endif
 
 <div class="well well-sm">
-    {{ trans('paypalstandard::paypalstandard.description') }}
+    {{ trans('paypalstandard::general.description') }}
 </div>
 
 <form action="{{ $gateway['action'] }}" method="post">
@@ -42,7 +42,7 @@
     <input type="hidden" name="bn" value="Akaunting_1.0_WPS" />
     <div class="buttons">
         <div class="pull-right">
-            <input type="submit" value="{{ trans('paypalstandard::paypalstandard.confirm') }}" class="btn btn-success" />
+            <input type="submit" value="{{ trans('paypalstandard::general.confirm') }}" class="btn btn-success" />
         </div>
     </div>
 </form>
