@@ -4,7 +4,6 @@ namespace Modules\OfflinePayment\Http\Controllers;
 
 use App\Events\InvoicePaid;
 
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Http\Request;
@@ -16,11 +15,12 @@ use SignedUrl;
 
 class OfflinePayment extends Controller
 {
+
     /**
      * Show the form for editing the specified resource.
      * @param Invoice
      * @param PaymentRequest
-     * @return Response
+     * @return JSON
      */
     public function show(Invoice $invoice, PaymentRequest $request)
     {
@@ -46,11 +46,12 @@ class OfflinePayment extends Controller
             'html' => $html,
         ]);
     }
+
     /**
      * Show the form for editing the specified resource.
      * @param $invoice
      * @param $request
-     * @return Response
+     * @return JSON
      */
     public function link(Invoice $invoice, PaymentRequest $request)
     {

@@ -5,9 +5,10 @@
     {{ $gateway['description'] }}
 </div>
 @endif
+
 <div class="buttons">
     <div class="pull-right">
-        <input type="button" value="{{ trans('offlinepayment::offlinepayment.confirm') }}" id="button-confirm" class="btn btn-success" data-loading-text="{{ trans('offlinepayment::offlinepayment.loading') }}" />
+        <input type="button" value="{{ trans('offlinepayment::general.confirm') }}" id="button-confirm" class="btn btn-success" data-loading-text="{{ trans('offlinepayment::general.loading') }}" />
     </div>
 </div>
 <script type="text/javascript"><!--
