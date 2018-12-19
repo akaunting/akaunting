@@ -15,6 +15,9 @@ use App\Traits\Uploads;
 use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use App\Utilities\Modules;
+use App\Notifications\Income\NewRevenue;
+use App\Models\Auth\User;
+use Notification;
 
 class Revenues extends Controller
 {
@@ -98,6 +101,8 @@ class Revenues extends Controller
         $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
 
         flash($message)->success();
+
+        Notification::send(User::first(), new NewRevenue($revenue));
 
         return redirect('incomes/revenues');
     }
