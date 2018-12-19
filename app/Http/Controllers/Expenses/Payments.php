@@ -13,6 +13,9 @@ use App\Traits\Uploads;
 use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use App\Utilities\Modules;
+use Notification;
+use App\Models\Auth\User;
+use App\Notifications\Expense\NewPayment;
 
 class Payments extends Controller
 {
@@ -96,6 +99,8 @@ class Payments extends Controller
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
         flash($message)->success();
+
+        Notification::send(User::first(), new NewPayment($payment));
 
         return redirect('expenses/payments');
     }

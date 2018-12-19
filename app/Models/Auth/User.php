@@ -190,4 +190,13 @@ class User extends Authenticatable
     {
         return $query->where('enabled', 1);
     }
+
+    /**
+     * Route notifications for the Slack channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForSlack() {
+        return env('SLACK_WEBHOOK_URL');
+    }
 }
