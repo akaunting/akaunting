@@ -528,6 +528,7 @@ trait Modules
             'Accept'        => 'application/json',
             'Referer'       => env('APP_URL'),
             'Akaunting'     => version('short'),
+            'Language'      => language()->getShortCode()
         ];
 
         $data['http_errors'] = false;

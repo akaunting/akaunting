@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PaypalStandard\Events\Handlers;
+namespace Modules\PaypalStandard\Listeners;
 
 use App\Events\PaymentGatewayListing;
 
