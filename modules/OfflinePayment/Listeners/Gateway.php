@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\PaypalStandard\Listeners;
+namespace Modules\OfflinePayment\Listeners;
 
 use App\Events\PaymentGatewayListing;
 
-class PaypalStandardGateway
+class Gateway
 {
     /**
      * Handle the event.
@@ -14,10 +14,6 @@ class PaypalStandardGateway
      */
     public function handle(PaymentGatewayListing $event)
     {
-        $setting = setting('paypalstandard');
-
-        $setting['code'] = 'paypalstandard';
-
-        return [$setting];
+        return json_decode(setting('offlinepayment.methods'), true);
     }
 }

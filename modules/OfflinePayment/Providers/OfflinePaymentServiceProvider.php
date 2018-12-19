@@ -2,13 +2,11 @@
 
 namespace Modules\OfflinePayment\Providers;
 
-use Illuminate\Support\ServiceProvider;
-
 use App\Events\AdminMenuCreated;
-use Modules\OfflinePayment\Listeners\OfflinePaymentAdminMenu;
-
 use App\Events\PaymentGatewayListing;
-use Modules\OfflinePayment\Listeners\OfflinePaymentGateway;
+use Illuminate\Support\ServiceProvider;
+use Modules\OfflinePayment\Listeners\AdminMenu;
+use Modules\OfflinePayment\Listeners\Gateway;
 
 class OfflinePaymentServiceProvider extends ServiceProvider
 {
@@ -29,7 +27,6 @@ class OfflinePaymentServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerViews();
         $this->registerMigrations();
-
         $this->registerEvents();
     }
 
@@ -86,8 +83,8 @@ class OfflinePaymentServiceProvider extends ServiceProvider
 
     public function registerEvents()
     {
-        $this->app['events']->listen(AdminMenuCreated::class, OfflinePaymentAdminMenu::class);
-        $this->app['events']->listen(PaymentGatewayListing::class, OfflinePaymentGateway::class);
+        $this->app['events']->listen(AdminMenuCreated::class, AdminMenu::class);
+        $this->app['events']->listen(PaymentGatewayListing::class, Gateway::class);
     }
 
     /**
