@@ -54,8 +54,8 @@ class BillPayments extends Controller
 
         $bill->grand_total = money($total, $currency->code)->getAmount();
 
-        if (!empty($paid)) {
-            $bill->grand_total = $bill->total - $paid;
+        if ($bill->paid > 0) {
+            $bill->grand_total = $bill->total - $bill->paid;
         }
 
         $html = view('modals.bills.payment', compact('bill', 'accounts', 'currencies', 'currency', 'payment_methods'))->render();
