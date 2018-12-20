@@ -178,8 +178,6 @@ class Accounts extends Controller
             $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
-
-            return redirect()->route('accounts.index');
         }
 
         return redirect()->route('accounts.index');
