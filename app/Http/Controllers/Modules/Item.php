@@ -286,8 +286,6 @@ class Item extends Controller
      * Final actions post update.
      *
      * @param  $alias
-     * @param  $old
-     * @param  $new
      * @return Response
      */
     public function post($alias)
