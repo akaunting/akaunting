@@ -18,6 +18,5 @@ class CompanySeeder extends Seeder
         $this->call(Database\Seeds\InvoiceStatuses::class);
         $this->call(Database\Seeds\Modules::class);
         $this->call(Database\Seeds\Settings::class);
-        $this->call(Database\Seeds\Taxes::class);
     }
 }
