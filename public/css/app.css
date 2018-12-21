@@ -917,3 +917,9 @@ input[type="number"] {
     transition: all 0.2s ease-in-out;
 }
 /* App Detail Page Sliders Finish */
+
+.select2-results__option:hover{
+    color: white;
+    background: #6da252;
+    cursor: pointer;
+}
