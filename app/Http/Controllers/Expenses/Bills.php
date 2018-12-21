@@ -245,7 +245,7 @@ class Bills extends Controller
      */
     public function destroy(Bill $bill)
     {
-        $this->deleteRelationships($bill, ['items', 'histories', 'payments', 'recurring', 'totals']);
+        $this->deleteRelationships($bill, ['items', 'itemTaxes', 'histories', 'payments', 'recurring', 'totals']);
         $bill->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.bills', 1)]);
