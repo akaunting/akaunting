@@ -2,7 +2,7 @@
     "name": "PaypalStandard",
     "alias": "paypalstandard",
     "description": "",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "category": "payment-gateway",
     "keywords": [],
     "active": 1,
