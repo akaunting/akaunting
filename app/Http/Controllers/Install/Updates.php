@@ -99,33 +99,6 @@ class Updates extends Controller
     }
 
     /**
-     * Final actions post update.
-     *
-     * @param  $alias
-     * @param  $old
-     * @param  $new
-     * @return Response
-     */
-    public function post($alias, $old, $new)
-    {
-        // Check if the file mirror was successful
-        if (($alias == 'core') && (version('short') != $new)) {
-            flash(trans('updates.error'))->error()->important();
-
-            return redirect('install/updates');
-        }
-
-        // Clear cache after update
-        Artisan::call('cache:clear');
-
-        event(new UpdateFinished($alias, $old, $new));
-
-        flash(trans('updates.success'))->success();
-
-        return redirect('install/updates');
-    }
-
-    /**
      * Show the form for viewing the specified resource.
      *
      * @param  $request
