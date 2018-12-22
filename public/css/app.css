@@ -918,7 +918,11 @@ input[type="number"] {
 }
 /* App Detail Page Sliders Finish */
 
-.select2-results__option:hover{
+.select2-results__option {
+    color: lightslategray;
+}
+
+.select2-results__option:hover {
     color: white;
     background: #6da252;
     cursor: pointer;
