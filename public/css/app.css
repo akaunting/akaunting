@@ -927,3 +927,11 @@ input[type="number"] {
     background: #6da252;
     cursor: pointer;
 }
+
+.box-body .app-price-suffix {
+    font-size: 50%;
+}
+
+.box-footer .app-price-suffix {
+    font-size: 70%;
+}
