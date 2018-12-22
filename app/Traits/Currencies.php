@@ -62,21 +62,21 @@ trait Currencies
 
     public function getConvertedAmount($format = false, $with_tax = true)
     {
-        $amount = $with_tax ? $this->amount : isset($this->amount_without_tax) ? $this->amount_without_tax : $this->amount;
+        $amount = $with_tax ? $this->amount : (isset($this->amount_without_tax) ? $this->amount_without_tax : $this->amount);
 
         return $this->convert($amount, $this->currency_code, $this->currency_rate, $format);
     }
 
     public function getReverseConvertedAmount($format = false, $with_tax = true)
     {
-        $amount = $with_tax ? $this->amount : isset($this->amount_without_tax) ? $this->amount_without_tax : $this->amount;
+        $amount = $with_tax ? $this->amount : (isset($this->amount_without_tax) ? $this->amount_without_tax : $this->amount);
 
         return $this->reverseConvert($amount, $this->currency_code, $this->currency_rate, $format);
     }
 
     public function getDynamicConvertedAmount($format = false, $with_tax = true)
     {
-        $amount = $with_tax ? $this->amount : isset($this->amount_without_tax) ? $this->amount_without_tax : $this->amount;
+        $amount = $with_tax ? $this->amount : (isset($this->amount_without_tax) ? $this->amount_without_tax : $this->amount);
 
         return $this->dynamicConvert($this->default_currency_code, $amount, $this->currency_code, $this->currency_rate, $format);
     }
