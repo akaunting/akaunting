@@ -156,7 +156,7 @@ class ProfitLoss extends Controller
     private function setAmount(&$totals, &$compares, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            if ($item['table'] == 'bill_payments' || $item['table'] == 'invoice_payments') {
+            if (($item['table'] == 'bill_payments') || ($item['table'] == 'invoice_payments')) {
                 $type_item = $item->$type;
 
                 $item->category_id = $type_item->category_id;
@@ -170,7 +170,7 @@ class ProfitLoss extends Controller
                 continue;
             }
 
-            $amount = $item->getConvertedAmount();
+            $amount = $item->getConvertedAmount(false, false);
 
             // Forecasting
             if ((($type == 'invoice') || ($type == 'bill')) && ($date_field == 'due_at')) {

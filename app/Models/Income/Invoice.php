@@ -24,7 +24,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $appends = ['attachment', 'discount', 'paid'];
+    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid'];
 
     protected $dates = ['deleted_at', 'invoiced_at', 'due_at'];
 
@@ -203,6 +203,22 @@ class Invoice extends Model
         }
 
         return $percent;
+    }
+
+    /**
+     * Get the amount without tax.
+     *
+     * @return string
+     */
+    public function getAmountWithoutTaxAttribute()
+    {
+        $amount = $this->amount;
+
+        $this->totals()->where('code', 'tax')->each(function ($tax) use(&$amount) {
+            $amount -= $tax->amount;
+        });
+
+        return $amount;
     }
 
     /**
