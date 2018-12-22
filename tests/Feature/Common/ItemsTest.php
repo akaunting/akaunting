@@ -86,7 +86,7 @@ class ItemsTest extends FeatureTestCase
             'sale_price' => $this->faker->randomFloat(2, 10, 20),
             'quantity' => $this->faker->randomNumber(2),
             'category_id' => $this->company->categories()->type('item')->first()->id,
-            'tax_id' => $this->company->taxes()->enabled()->first()->id,
+            'tax_id' => '',
             'enabled' => $this->faker->boolean ? 1 : 0
         ];
     }
