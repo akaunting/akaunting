@@ -125,7 +125,7 @@ class IncomeSummary extends Controller
             $view_template = 'reports.income_summary.index';
         }
 
-        $print_url = $this->getPrintUrl($year);
+        $print_url = $this->getPrintUrl(is_array($year) ? $year[0] : $year);
 
         // Incomes chart
         $chart = Charts::multi('line', 'chartjs')
