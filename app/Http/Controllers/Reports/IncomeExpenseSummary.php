@@ -167,7 +167,7 @@ class IncomeExpenseSummary extends Controller
             $view_template = 'reports.income_expense_summary.index';
         }
 
-        $print_url = $this->getPrintUrl($year);
+        $print_url = $this->getPrintUrl(is_array($year) ? $year[0] : $year);
 
         // Profit chart
         $chart = Charts::multi('line', 'chartjs')
