@@ -159,5 +159,22 @@
             }
         });
     });
+
+    $(document).on('hidden.bs.modal', '#modal-create-tax', function () {
+        $('#tax_id').select2({
+            placeholder: {
+                id: '-1', // the value of the option
+                text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            language: {
+                noResults: function () {
+                    return '<span id="tax-add-new"><i class="fa fa-plus-circle"></i> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                }
+            }
+        });
+    });
 </script>
 @endpush
