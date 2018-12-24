@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="tab-pane tab-margin" id="localisation">
-                        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd MM\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->format('d F')) }}
+                        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd MM\'', 'data-mask' => '', 'autocomplete' => 'off']) }}
 
                         {{ Form::selectGroup('timezone', trans('settings.localisation.timezone'), 'globe', $timezones, null, []) }}
 
