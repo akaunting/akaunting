@@ -30,6 +30,18 @@ class IncomeExpenseSummary extends Controller
 
         $status = request('status');
         $year = request('year', Date::now()->year);
+        
+        // check and assign year start
+        if (($financial_start = Date::parse(setting('general.financial_start')))->month != 1) {
+            // check if a specific year is requested
+            if (!is_null(request('year'))) {
+                $financial_start->year = $year;
+            }
+
+            $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
+            $financial_start->subYear()->subMonth();
+        }
+
         $categories_filter = request('categories');
 
         $income_categories = Category::enabled()->type('income')->when($categories_filter, function ($query) use ($categories_filter) {
@@ -42,9 +54,11 @@ class IncomeExpenseSummary extends Controller
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {
-            $dates[$j] = Date::parse($year . '-' . $j)->format('F');
+            $ym_string = is_array($year) ? $financial_start->addMonth()->format('Y-m') : $year . '-' . $j;
+            
+            $dates[$j] = Date::parse($ym_string)->format('F');
 
-            $profit_graph[Date::parse($year . '-' . $j)->format('F-Y')] = 0;
+            $profit_graph[Date::parse($ym_string)->format('F-Y')] = 0;
 
             // Totals
             $totals[$dates[$j]] = array(
@@ -153,7 +167,7 @@ class IncomeExpenseSummary extends Controller
             $view_template = 'reports.income_expense_summary.index';
         }
 
-        $print_url = $this->getPrintUrl($year);
+        $print_url = $this->getPrintUrl(is_array($year) ? $year[0] : $year);
 
         // Profit chart
         $chart = Charts::multi('line', 'chartjs')

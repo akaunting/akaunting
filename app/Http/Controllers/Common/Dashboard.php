@@ -20,6 +20,9 @@ class Dashboard extends Controller
     use Currencies;
 
     public $today;
+    
+    // get any custom financial year beginning
+    public $financial_start;
 
     public $income_donut = ['colors' => [], 'labels' => [], 'values' => []];
 
@@ -33,6 +36,7 @@ class Dashboard extends Controller
     public function index()
     {
         $this->today = Date::today();
+        $this->financial_start = $financial_start = Date::parse(setting('general.financial_start'))->format('Y-m-d');
 
         list($total_incomes, $total_expenses, $total_profit) = $this->getTotals();
 
@@ -55,7 +59,8 @@ class Dashboard extends Controller
             'donut_expenses',
             'accounts',
             'latest_incomes',
-            'latest_expenses'
+            'latest_expenses',
+            'financial_start'
         ));
     }
 
@@ -123,8 +128,13 @@ class Dashboard extends Controller
 
     private function getCashFlow()
     {
-        $start = Date::parse(request('start', $this->today->startOfYear()->format('Y-m-d')));
-        $end = Date::parse(request('end', $this->today->endOfYear()->format('Y-m-d')));
+        // check and assign year start
+        if (($year_start = $this->today->startOfYear()->format('Y-m-d')) !== $this->financial_start) {
+            $year_start = $this->financial_start;
+        }
+
+        $start = Date::parse(request('start', $year_start));
+        $end = Date::parse(request('end', Date::parse($year_start)->addYear(1)->subDays(1)->format('Y-m-d')));
         $period = request('period', 'month');
         $range = request('range', 'custom');
 

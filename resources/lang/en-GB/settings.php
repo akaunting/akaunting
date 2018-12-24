@@ -12,13 +12,14 @@ return [
     'localisation' => [
         'tab'               => 'Localisation',
         'date' => [
-            'format'        => 'Date Format',
-            'separator'     => 'Date Separator',
-            'dash'          => 'Dash (-)',
-            'dot'           => 'Dot (.)',
-            'comma'         => 'Comma (,)',
-            'slash'         => 'Slash (/)',
-            'space'         => 'Space ( )',
+            'format'            => 'Date Format',
+            'financial_start'   => 'Financial year start',
+            'separator'         => 'Date Separator',
+            'dash'              => 'Dash (-)',
+            'dot'               => 'Dot (.)',
+            'comma'             => 'Comma (,)',
+            'slash'             => 'Slash (/)',
+            'space'             => 'Space ( )',
         ],
         'timezone'          => 'Time Zone',
         'percent' => [
