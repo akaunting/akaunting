@@ -108,7 +108,7 @@
             },
             language: {
                 noResults: function () {
-                    return '<span id="tax-add-new plus"><i class="fa fa-plus"></i> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                    return '<span id="tax-add-new"><i class="fa fa-plus"></i> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
                 }
             }
         });
