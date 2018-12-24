@@ -45,12 +45,10 @@ class Item extends Controller
             return redirect('apps/home')->send();
         }
 
-        $check = Module::alias($alias)->first();
-
-        if ($check) {
+        if ($this->moduleExists($alias) && ($model = Module::alias($alias)->first())) {
             $installed = true;
 
-            if ($check->status) {
+            if ($model->status) {
                 $enable = true;
             }
         }

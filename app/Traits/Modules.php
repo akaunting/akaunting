@@ -413,6 +413,17 @@ trait Modules
         ];
     }
 
+    public function moduleExists($alias)
+    {
+        $status = false;
+
+        if (Module::findByAlias($alias) instanceof \Nwidart\Modules\Module) {
+            $status = true;
+        }
+
+        return $status;
+    }
+
     public function loadSuggestions()
     {
         // Get data from cache
