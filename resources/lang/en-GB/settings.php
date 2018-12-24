@@ -11,17 +11,17 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Localisation',
-        'date' => [
-            'format'            => 'Date Format',
-            'financial_start'   => 'Financial year start',
-            'separator'         => 'Date Separator',
-            'dash'              => 'Dash (-)',
-            'dot'               => 'Dot (.)',
-            'comma'             => 'Comma (,)',
-            'slash'             => 'Slash (/)',
-            'space'             => 'Space ( )',
-        ],
+        'financial_start'   => 'Financial Year Start',
         'timezone'          => 'Time Zone',
+        'date' => [
+            'format'        => 'Date Format',
+            'separator'     => 'Date Separator',
+            'dash'          => 'Dash (-)',
+            'dot'           => 'Dot (.)',
+            'comma'         => 'Comma (,)',
+            'slash'         => 'Slash (/)',
+            'space'         => 'Space ( )',
+        ],
         'percent' => [
             'title'         => 'Percent (%) Position',
             'before'        => 'Before Number',

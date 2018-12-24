@@ -28,10 +28,10 @@ class Settings extends Seeder
         $company_id = $this->command->argument('company');
 
         Setting::set([
-            'general.date_format'               => 'd M Y',
             'general.financial_start'           => Date::now()->startOfYear()->format('d F'),
-            'general.date_separator'            => 'space',
             'general.timezone'                  => 'Europe/London',
+            'general.date_format'               => 'd M Y',
+            'general.date_separator'            => 'space',
             'general.percent_position'          => 'after',
             'general.invoice_number_prefix'     => 'INV-',
             'general.invoice_number_digit'      => '5',

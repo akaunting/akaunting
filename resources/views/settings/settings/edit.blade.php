@@ -44,13 +44,14 @@
                     </div>
 
                     <div class="tab-pane tab-margin" id="localisation">
-                        {{ Form::selectGroup('date_format', trans('settings.localisation.date.format'), 'calendar', $date_formats, null, ['autocomplete' => 'off']) }}
-                        
-                        {{ Form::textGroup('financial_start', trans('settings.localisation.date.financial_start'), 'calendar-check-o', []) }}
 
-                        {{ Form::selectGroup('date_separator', trans('settings.localisation.date.separator'), 'minus', $date_separators, null, []) }}
+                        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd MM\'', 'data-mask' => '', 'autocomplete' => 'off']) }}
 
                         {{ Form::selectGroup('timezone', trans('settings.localisation.timezone'), 'globe', $timezones, null, []) }}
+
+                        {{ Form::selectGroup('date_format', trans('settings.localisation.date.format'), 'calendar', $date_formats, null, ['autocomplete' => 'off']) }}
+
+                        {{ Form::selectGroup('date_separator', trans('settings.localisation.date.separator'), 'minus', $date_separators, null, []) }}
 
                         {{ Form::selectGroup('percent_position', trans('settings.localisation.percent.title'), 'percent', $percent_positions, null, []) }}
                     </div>
@@ -155,10 +156,15 @@
 @endsection
 
 @push('js')
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    @if (language()->getShortCode() != 'en')
+    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+    @endif
     <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
+    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
 @endpush
 
@@ -220,6 +226,14 @@
 
             $("#session_handler").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans('settings.system.session.handler')]) }}"
+            });
+
+            $('#financial_start').datepicker({
+                format: 'dd MM',
+                todayBtn: 'linked',
+                weekStart: 1,
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
             });
 
             $('#company_logo').fancyfile({
