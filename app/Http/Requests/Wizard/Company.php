@@ -42,8 +42,8 @@ class Company extends Request
             'company_logo' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
         ];
 
-        if (!setting('general.api_token', false)) {
-            $rules['api_token'] = 'required|string|check';
+        if (!setting('general.api_token', false) && !empty($this->request->get('api_token'))) {
+            $rules['api_token'] = 'string|check';
         }
 
         return $rules;
