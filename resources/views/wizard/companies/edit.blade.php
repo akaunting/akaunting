@@ -54,10 +54,9 @@
             </p>
             </br>
         </div>
-
         {{ Form::textGroup('company_tax_number', trans('general.tax_number'), 'percent', []) }}
 
-        {{ Form::textGroup('company_phone', trans('settings.company.phone'), 'phone', []) }}
+        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd MM\'', 'data-mask' => '', 'autocomplete' => 'off']) }}
 
         {{ Form::textareaGroup('company_address', trans('settings.company.address')) }}
 
@@ -80,10 +79,15 @@
 @endsection
 
 @push('js')
+<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+@if (language()->getShortCode() != 'en')
+<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+@endif
 <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
+<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
 <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
 @endpush
 
@@ -93,6 +97,14 @@
     var text_no = '{{ trans('general.no') }}';
 
     $(document).ready(function() {
+        $('#financial_start').datepicker({
+            format: 'dd MM',
+            todayBtn: 'linked',
+            weekStart: 1,
+            autoclose: true,
+            language: '{{ language()->getShortCode() }}'
+        });
+
         $('#company_logo').fancyfile({
             text  : '{{ trans('general.form.select.file') }}',
             style : 'btn-default',
