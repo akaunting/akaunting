@@ -39,6 +39,7 @@
             <div class="modal-footer">
                 <div class="pull-left">
                     {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-add-payment', 'class' => 'btn btn-success button-submit', 'data-loading-text' => trans('general.loading')]) !!}
+                    <a href="{{ url('apps/categories/payment-gateway') }}" class="btn btn-default"><span class="fa fa-money"></span> &nbsp;{{ trans('invoices.accept_payments') }}</a>
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</button>
                 </div>
             </div>

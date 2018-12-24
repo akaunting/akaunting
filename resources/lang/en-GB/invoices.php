@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Create Invoice',
     'send_invoice'          => 'Send Invoice',
     'get_paid'              => 'Get Paid',
+    'accept_payments'       => 'Accept Online Payments',
 
     'status' => [
         'draft'             => 'Draft',
