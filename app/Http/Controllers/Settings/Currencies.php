@@ -222,8 +222,6 @@ class Currencies extends Controller
             $message = trans('messages.warning.disabled', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
-
-            return redirect()->route('currencies.index');
         }
 
         return redirect()->route('currencies.index');

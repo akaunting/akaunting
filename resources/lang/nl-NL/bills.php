@@ -41,7 +41,7 @@ return [
 
     'messages' => [
         'received'      => 'Factuur als \'succesvol ontvangen\' gemarkeerd!',
-        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+        'draft'          => 'Dit is een <b>CONCEPT</b> factuur en zal in de statistieken terugkomen zodra het is ontvangen.',
 
         'status' => [
             'created'   => 'Gemaakt op :date',

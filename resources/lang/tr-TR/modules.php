@@ -23,6 +23,9 @@ return [
     'added'                 => 'Ekleme Tarihi',
     'updated'               => 'Güncelleme Tarihi',
     'compatibility'         => 'Uyumluluk',
+    'documentation'         => 'Dökümantasyon',
+    'view'                  => 'Görüntüle',
+    'back'                  => 'Geri',
 
     'installed'             => ':module yüklendi',
     'uninstalled'           => ':module kaldırıldı',
@@ -34,7 +37,7 @@ return [
         'installation'      => 'Yükleme',
         'faq'               => 'SSS',
         'changelog'         => 'Değişiklikler',
-        'reviews'            => 'İncelemeler',
+        'reviews'            => 'Yorumlar',
     ],
 
     'installation' => [
@@ -73,8 +76,8 @@ return [
 
     'reviews' => [
         'button' => [
-            'add' => 'İnceleme Ekle'
+            'add' => 'Yorum Ekle'
         ],
-        'na' => 'Herhangi bir inceleme yok.'
+        'na' => 'Herhangi bir yorum yok.'
     ]
 ];

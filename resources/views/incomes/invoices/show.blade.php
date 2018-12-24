@@ -29,7 +29,7 @@
                     <i class="fa fa-plus bg-blue"></i>
 
                     <div class="timeline-item">
-                        <h3 class="timeline-header">{{ trans('general.title.create', ['type' => trans_choice('general.invoices', 1)]) }}</h3>
+                        <h3 class="timeline-header">{{ trans('invoices.create_invoice') }}</h3>
 
                         <div class="timeline-body">
                             {{ trans_choice('general.statuses', 1) . ': ' . trans('invoices.messages.status.created', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}
@@ -44,7 +44,7 @@
                     <i class="fa fa-envelope bg-orange"></i>
 
                     <div class="timeline-item">
-                        <h3 class="timeline-header">{{ trans('general.title.send', ['type' => trans_choice('general.invoices', 1)]) }}</h3>
+                        <h3 class="timeline-header">{{ trans('invoices.send_invoice') }}</h3>
 
                         <div class="timeline-body">
                             @if ($invoice->status->code != 'sent' && $invoice->status->code != 'partial')
@@ -74,7 +74,7 @@
                     <i class="fa fa-money bg-green"></i>
 
                     <div class="timeline-item">
-                        <h3 class="timeline-header">{{ trans('general.title.get', ['type' => trans('general.paid')]) }}</h3>
+                        <h3 class="timeline-header">{{ trans('invoices.get_paid') }}</h3>
 
                         <div class="timeline-body">
                             @if($invoice->status->code != 'paid' && empty($invoice->payments()->count()))

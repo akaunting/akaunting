@@ -16,7 +16,7 @@ return [
     'tax_total'         => 'Totalt mva',
     'total'             => 'Totalt',
 
-    'item_name'         => 'Enhetsnavn | Enhetsnavn',
+    'item_name'         => 'Artikkelnavn | Artikkelnavn',
 
     'show_discount'     => ':discount% rabatt',
     'add_discount'      => 'Legg til rabatt',
@@ -25,13 +25,13 @@ return [
     'payment_due'       => 'Forfallsdato',
     'paid'              => 'Betalt',
     'histories'         => 'Historikk',
-    'payments'          => 'Betalinger',
+    'payments'          => 'Utbetalinger',
     'add_payment'       => 'Legg til betaling',
     'mark_paid'         => 'Merk som betalt',
     'mark_sent'         => 'Merk som sendt',
     'download_pdf'      => 'Last ned PDF',
     'send_mail'         => 'Send e-post',
-    'all_invoices'      => 'Login to view all invoices',
+    'all_invoices'      => 'Logg inn for å se alle fakturaer',
 
     'status' => [
         'draft'         => 'Utkast',
@@ -46,22 +46,22 @@ return [
         'email_sent'     => 'E-post med faktura har blitt sendt.',
         'marked_sent'    => 'Faktura merket som sendt.',
         'email_required' => 'E-postadresse må fylles inn.',
-        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+        'draft'          => 'Dette er en <b>KLADD</b> for fakturaen som vil bli oppdatert etter at den er sendt.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'Opprettet :date',
             'send'      => [
-                'draft'     => 'Not sent',
-                'sent'      => 'Sent on :date',
+                'draft'     => 'Ikke sendt',
+                'sent'      => 'Sendt :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'Avventer betaling',
             ],
         ],
     ],
 
     'notification' => [
-        'message'       => 'Du mottar denne e-posten fordi du har en kommende faktura, pålydende  :amount, til :costumer.',
+        'message'       => 'Du mottar denne e-posten med faktura til :customer, pålydende :amount.',
         'button'        => 'Betal nå',
     ],
 

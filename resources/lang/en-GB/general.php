@@ -40,6 +40,7 @@ return [
     'others'                => 'Other|Others',
     'contacts'              => 'Contact|Contacts',
     'reconciliations'       => 'Reconciliation|Reconciliations',
+    'developers'            => 'Developer|Developers',
 
     'dashboard'             => 'Dashboard',
     'banking'               => 'Banking',

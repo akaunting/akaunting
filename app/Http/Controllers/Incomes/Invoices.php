@@ -257,7 +257,7 @@ class Invoices extends Controller
      */
     public function destroy(Invoice $invoice)
     {
-        $this->deleteRelationships($invoice, ['items', 'histories', 'payments', 'recurring', 'totals']);
+        $this->deleteRelationships($invoice, ['items', 'itemTaxes', 'histories', 'payments', 'recurring', 'totals']);
         $invoice->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);

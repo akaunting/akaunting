@@ -237,7 +237,7 @@ Route::group(['middleware' => 'language'], function () {
         });
     });
 
-    Route::group(['middleware' => 'signed-url'], function () {
+    Route::group(['middleware' => 'signed'], function () {
         Route::group(['prefix' => 'links'], function () {
             Route::get('invoices/{invoice}', 'Customers\Invoices@link');
             Route::get('invoices/{invoice}/print', 'Customers\Invoices@printInvoice');

@@ -31,17 +31,21 @@ class ModuleInstall extends Command
      */
     public function handle()
     {
+        $alias = $this->argument('alias');
+        $company_id = $this->argument('company_id');
+
+        // Set company id
+        session(['company_id' => $company_id]);
+
         $request = [
-            'company_id' => $this->argument('company_id'),
-            'alias' => strtolower($this->argument('alias')),
+            'company_id' => $company_id,
+            'alias' => strtolower($alias),
             'status' => '1',
         ];
 
         $model = Module::create($request);
 
-        $module = $this->laravel['modules']->findByAlias($model->alias);
-
-        $company_id = $this->argument('company_id');
+        $module = $this->laravel['modules']->findByAlias($alias);
 
         // Add history
         $data = [
@@ -61,7 +65,10 @@ class ModuleInstall extends Command
         $this->call('migrate', ['--force' => true]);
 
         // Trigger event
-        event(new ModuleInstalled($model->alias, $company_id));
+        event(new ModuleInstalled($alias, $company_id));
+
+        // Unset company id
+        session()->forget('company_id');
 
         $this->info('Module installed!');
     }

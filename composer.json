@@ -81,6 +81,13 @@
             "php artisan clear-compiled",
             "php artisan optimize",
             "composer dump-autoload"
+        ],
+        "test": [
+            "composer install --no-scripts",
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan clear-compiled",
+            "php artisan optimize",
+            "composer dump-autoload"
         ]
     },
     "config": {

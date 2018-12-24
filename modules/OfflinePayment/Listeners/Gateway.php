@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\OfflinePayment\Events\Handlers;
+namespace Modules\OfflinePayment\Listeners;
 
 use App\Events\PaymentGatewayListing;
 
-class OfflinePaymentGateway
+class Gateway
 {
     /**
      * Handle the event.

@@ -8,6 +8,7 @@ use App\Http\Requests\Common\Company as Request;
 use App\Models\Common\Company;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
+use App\Utilities\Overrider;
 
 class Companies extends Controller
 {
@@ -60,6 +61,8 @@ class Companies extends Controller
      */
     public function store(Request $request)
     {
+        $company_id = session('company_id');
+
         setting()->forgetAll();
 
         // Create company
@@ -85,6 +88,12 @@ class Companies extends Controller
 
         setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->save();
+
+        setting()->forgetAll();
+
+        session(['company_id' => $company_id]);
+
+        Overrider::load('settings');
 
         // Redirect
         $message = trans('messages.success.added', ['type' => trans_choice('general.companies', 1)]);
@@ -129,6 +138,8 @@ class Companies extends Controller
      */
     public function update(Company $company, Request $request)
     {
+        $company_id = session('company_id');
+
         // Check if user can update company
         if (!$this->isUserCompany($company)) {
             $message = trans('companies.error.not_user_company');
@@ -166,6 +177,12 @@ class Companies extends Controller
 
         setting()->save();
 
+        setting()->forgetAll();
+
+        session(['company_id' => $company_id]);
+
+        Overrider::load('settings');
+
         // Redirect
         $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 1)]);
 
@@ -191,6 +208,7 @@ class Companies extends Controller
         flash($message)->success();
 
         return redirect()->route('companies.index');
+
     }
 
     /**

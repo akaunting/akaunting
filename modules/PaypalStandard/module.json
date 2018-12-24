@@ -3,7 +3,7 @@
     "alias": "paypalstandard",
     "description": "",
     "version": "1.0.0",
-    "category": "payment-gateways",
+    "category": "payment-gateway",
     "keywords": [],
     "active": 1,
     "order": 0,
@@ -28,7 +28,7 @@
         {
             "type": "textGroup",
             "name": "email",
-            "title": "paypalstandard::paypalstandard.email",
+            "title": "paypalstandard::general.form.email",
             "icon": "envelope-o",
             "attributes": {
                 "required": "required"
@@ -37,7 +37,7 @@
         {
             "type": "selectGroup",
             "name": "mode",
-            "title": "paypalstandard::paypalstandard.mode",
+            "title": "paypalstandard::general.form.mode",
             "icon": "plane",
             "values": {
                 "live": "Live",
@@ -49,7 +49,7 @@
         {
             "type": "selectGroup",
             "name": "transaction",
-            "title": "paypalstandard::paypalstandard.transaction",
+            "title": "paypalstandard::general.form.transaction",
             "icon": "exchange",
             "values": {
                 "authorization": "Authorization",
@@ -61,7 +61,7 @@
         {
             "type": "radioGroup",
             "name": "customer",
-            "title": "paypalstandard::paypalstandard.customer",
+            "title": "paypalstandard::general.form.customer",
             "enable": "general.yes",
             "disable": "general.no",
             "attributes": {}
@@ -69,7 +69,7 @@
         {
             "type": "radioGroup",
             "name": "debug",
-            "title": "paypalstandard::paypalstandard.debug",
+            "title": "paypalstandard::general.form.debug",
             "enable": "general.yes",
             "disable": "general.no",
             "attributes": {}
@@ -77,7 +77,7 @@
         {
             "type": "textGroup",
             "name": "order",
-            "title": "paypalstandard::paypalstandard.order",
+            "title": "paypalstandard::general.form.order",
             "icon": "sort",
             "attributes": {}
         }

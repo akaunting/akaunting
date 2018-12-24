@@ -184,7 +184,9 @@ class Invoices extends Controller
 
     public function link(Invoice $invoice, Request $request)
     {
-        session(['company_id' => $invoice->company_id]);
+        if (empty($invoice)) {
+            redirect()->route('login');
+        }
 
         $paid = 0;
 

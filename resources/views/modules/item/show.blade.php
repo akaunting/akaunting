@@ -146,12 +146,14 @@
                                 @if ($module->price == '0.0000')
                                     {{ trans('modules.free') }}
                                 @else
+                                    {!! $module->price_prefix !!}
                                     @if (isset($module->special_price))
                                         <del>{{ $module->price }}</del>
                                         {{ $module->special_price }}
                                     @else
                                         {{ $module->price }}
                                     @endif
+                                    {!! $module->price_suffix !!}
                                 @endif
                             </div>
                         </div>
@@ -205,7 +207,7 @@
                             <tbody>
                                 @if ($module->vendor_name)
                                 <tr>
-                                    <th>{{ trans_choice('general.vendors', 1) }}</th>
+                                    <th>{{ trans_choice('general.developers', 1) }}</th>
                                     <td class="text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                                 </tr>
                                 @endif

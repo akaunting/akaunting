@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'password' => 'Passord må inneholde minst seks tegn, og også være være lik bekreftelsen.',
+    'password' => 'Passord må inneholde minst seks tegn og være være lik bekreftelsen.',
     'reset' => 'Passordet ble endret.',
     'sent' => 'Vi har sendt deg en lenke på e-post, som du kan klikke på for å endre passord.',
     'token' => 'Nullstillingskode for passord er ugyldig.',

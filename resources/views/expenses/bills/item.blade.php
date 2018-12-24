@@ -18,7 +18,7 @@
     @stack('quantity_td_start')
     <td {{ $errors->has('item.' . $item_row . '.quantity') ? 'class="has-error"' : '' }}>
         @stack('quantity_input_start')
-        <input value="{{ empty($item) ? '' : $item->quantity }}" class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="text" id="item-quantity-{{ $item_row }}">
+        <input value="{{ empty($item) ? 1 : $item->quantity }}" class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="text" id="item-quantity-{{ $item_row }}">
         {!! $errors->first('item.' . $item_row . '.quantity', '<p class="help-block">:message</p>') !!}
         @stack('quantity_input_end')
     </td>

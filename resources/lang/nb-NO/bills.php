@@ -16,7 +16,7 @@ return [
     'tax_total'         => 'Mva',
     'total'             => 'Totalt',
 
-    'item_name'         => 'Enhetsnavn | Enhetsnavn',
+    'item_name'         => 'Artikkelnavn | Artikkelnavn',
 
     'show_discount'     => ':discount% rabatt',
     'add_discount'      => 'Legg til rabatt',
@@ -26,7 +26,7 @@ return [
     'amount_due'        => 'Forfallsbeløp',
     'paid'              => 'Betalt',
     'histories'         => 'Historikk',
-    'payments'          => 'Betalinger',
+    'payments'          => 'Utbetalinger',
     'add_payment'       => 'Legg til betaling',
     'mark_received'     => 'Merk som mottatt',
     'download_pdf'      => 'Last ned PDF',
@@ -41,16 +41,16 @@ return [
 
     'messages' => [
         'received'      => 'Faktura ble merket som mottatt.',
-        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+        'draft'          => 'Dette er en <b>KLADD</b> for fakturaen som vil bli oppdatert etter at den er mottatt.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'Opprettet :date',
             'receive'      => [
-                'draft'     => 'Not sent',
-                'received'  => 'Received on :date',
+                'draft'     => 'Ikke sendt',
+                'received'  => 'Mottatt :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'Avventer betaling',
             ],
         ],
     ],

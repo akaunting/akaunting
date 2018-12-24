@@ -83,7 +83,7 @@ class Updates extends Controller
     public function update($alias, $version)
     {
         if ($alias == 'core') {
-            $name = 'Akaunting v' . $version;
+            $name = 'Akaunting ' . $version;
 
             $installed = version('short');
         } else {
@@ -96,33 +96,6 @@ class Updates extends Controller
         }
 
         return view('install.updates.edit', compact('alias', 'name', 'installed', 'version'));
-    }
-
-    /**
-     * Final actions post update.
-     *
-     * @param  $alias
-     * @param  $old
-     * @param  $new
-     * @return Response
-     */
-    public function post($alias, $old, $new)
-    {
-        // Check if the file mirror was successful
-        if (($alias == 'core') && (version('short') != $new)) {
-            flash(trans('updates.error'))->error()->important();
-
-            return redirect('install/updates');
-        }
-
-        // Clear cache after update
-        Artisan::call('cache:clear');
-
-        event(new UpdateFinished($alias, $old, $new));
-
-        flash(trans('updates.success'))->success();
-
-        return redirect('install/updates');
     }
 
     /**
