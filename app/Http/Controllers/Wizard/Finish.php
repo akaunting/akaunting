@@ -17,7 +17,7 @@ class Finish extends Controller
      */
     public function index()
     {
-        if (setting(setting('general.wizard', false))) {
+        if (setting('general.wizard', false)) {
             return redirect('/');
         }
 

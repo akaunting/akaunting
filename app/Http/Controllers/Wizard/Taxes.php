@@ -15,7 +15,7 @@ class Taxes extends Controller
      */
     public function index()
     {
-        if (setting(setting('general.wizard', false))) {
+        if (setting('general.wizard', false)) {
             return redirect('/');
         }
 
@@ -31,7 +31,7 @@ class Taxes extends Controller
      */
     public function create()
     {
-        if (setting(setting('general.wizard', false))) {
+        if (setting('general.wizard', false)) {
             return redirect('/');
         }
 
@@ -75,7 +75,7 @@ class Taxes extends Controller
      */
     public function edit(Tax $tax)
     {
-        if (setting(setting('general.wizard', false))) {
+        if (setting('general.wizard', false)) {
             return redirect('/');
         }
 
