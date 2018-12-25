@@ -40,6 +40,7 @@ return [
     'others'                => 'Annen | Andre',
     'contacts'              => 'Kontakt|Kontakter',
     'reconciliations'       => 'Avstemming|avstemminger',
+    'developers'            => 'Utvikler|Utviklere',
 
     'dashboard'             => 'Kontrollpanel',
     'banking'               => 'Bank',

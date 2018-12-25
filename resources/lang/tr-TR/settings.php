@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Yerelleştirme',
+        'financial_start'   => 'Mali Yıl Başlangıcı',
+        'timezone'          => 'Saat dilimi',
         'date' => [
             'format'        => 'Tarih Biçimi',
             'separator'     => 'Tarih Ayracı',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Taksim (/)',
             'space'         => 'Boşluk ( )',
         ],
-        'timezone'          => 'Saat dilimi',
         'percent' => [
             'title'         => 'Yüzde (%) Konumu',
             'before'        => 'Sayıdan Önce',

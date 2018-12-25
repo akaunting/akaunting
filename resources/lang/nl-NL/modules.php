@@ -16,16 +16,16 @@ return [
     'no_apps'               => 'Er zijn nog geen Apps in deze categorie beschikbaar.',
     'developer'             => 'Bent u een ontwikkelaar? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> kunt u lezen hoe u vandaag nog een app kan ontwikkelen en verkopen!',
 
-    'recommended_apps'      => 'Recommended Apps',
+    'recommended_apps'      => 'Aanbevolen Apps',
 
     'about'                 => 'Over ons',
 
     'added'                 => 'Toegevoegd',
     'updated'               => 'Bijgewerkt',
     'compatibility'         => 'Compatibiliteit',
-    'documentation'         => 'Documentation',
-    'view'                  => 'View',
-    'back'                  => 'Back',
+    'documentation'         => 'Documentatie',
+    'view'                  => 'Weergave',
+    'back'                  => 'Terug',
 
     'installed'             => ':module geïnstalleerd',
     'uninstalled'           => ':module verwijderd',
@@ -44,19 +44,19 @@ return [
         'header'            => 'App installatie',
         'download'          => ':module bestand aan het downloaden.',
         'unzip'             => 'Bezig met uitpakken van :module bestanden.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
+        'file_copy'         => 'Kopieren :module files.',
+        'migrate'           => 'Toepassen :module update.',
+        'finish'            => 'De update is succesvol geïnstalleerd. U wordt omgeleid naar het Update Centrum.',
         'install'           => 'Bezit met installatie van :module bestanden.',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download' => ':module kan niet worden gedownload!',
+        'upload' => 'Gedownloade :module kan niet worden opgeslagen!',
+        'unzip' => ':module kan niet worden uitgepakt!',
+        'file_copy' => ':module bestanden kunnen niet worden gekopieerd!',
+        'migrate' => ':module migratie werkt niet!',
+        'migrate core' => ':module is al de nieuwste versie dus kan niet worden geüpdatet.',
     ],
 
     'badge' => [
@@ -76,8 +76,8 @@ return [
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add' => 'Voeg een Recensie toe'
         ],
-        'na' => 'There are no reviews.'
+        'na' => 'Er zijn geen reviews.'
     ]
 ];

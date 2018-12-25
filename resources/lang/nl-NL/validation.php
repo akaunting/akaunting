@@ -20,7 +20,7 @@ return [
     'alpha'                => ':attribute mag enkel letters bevatten.',
     'alpha_dash'           => ':attribute mag enkel letters, cijfers of koppeltekens bevatten.',
     'alpha_num'            => ':attribute mag enkel letters en cijfers bevatten.',
-    'array'                => ':attribute moet een array zijn.',
+    'array'                => ':attribute moet een rangschikking zijn.',
     'before'               => ':attribute moet een datum zijn voor :date.',
     'before_or_equal'      => ':attribute moet een datum zijn voor of gelijk aan :date.',
     'between'              => [
@@ -102,7 +102,7 @@ return [
             'rule-name' => 'aangepast bericht',
         ],
         'invalid_currency' => ':attribute code is ongeldig.',
-        'invalid_amount'   => 'The amount :attribute is invalid.',
+        'invalid_amount'   => 'De hoeveelheid :attribute is ongeldig.',
     ],
 
     /*

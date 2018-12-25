@@ -40,6 +40,7 @@ return [
     'others'                => 'Diğer|Diğerleri',
     'contacts'              => 'Kişi|Kişiler',
     'reconciliations'       => 'Mutabakat|Mutabakatlar',
+    'developers'            => 'Geliştirici|Geliştiriciler',
 
     'dashboard'             => 'Kontrol Paneli',
     'banking'               => 'Banka',

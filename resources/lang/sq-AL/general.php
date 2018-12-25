@@ -40,6 +40,7 @@ return [
     'others'                => 'Tjetër | Të tjera',
     'contacts'              => 'Kontakti | Kontaktet',
     'reconciliations'       => 'Pajtimi | Pajtimet',
+    'developers'            => 'Zhvillues | Zhvilluesit',
 
     'dashboard'             => 'Paneli Kryesor',
     'banking'               => 'Veprime Bankare',

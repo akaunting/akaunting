@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Τοπική προσαρμογή',
+        'financial_start'   => 'Financial Year Start',
+        'timezone'          => 'Ζώνη ώρας',
         'date' => [
             'format'        => 'Μορφοποίηση Ημερομηνίας',
             'separator'     => 'Διαχωριστικό ημερομηνίας',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Πλαγιοκάθετος (/)',
             'space'         => 'Κενό ( )',
         ],
-        'timezone'          => 'Ζώνη ώρας',
         'percent' => [
             'title'         => 'Θέση συμβόλου ποσοστού (%)',
             'before'        => 'Πριν από τον αριθμό',

@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Lokalisering',
+        'financial_start'   => 'Start på regnskapsår',
+        'timezone'          => 'Tidssone',
         'date' => [
             'format'        => 'Datoformat',
             'separator'     => 'Datoseparator',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Skråstrek (/)',
             'space'         => 'Mellomrom ( )',
         ],
-        'timezone'          => 'Tidssone',
         'percent' => [
             'title'         => 'Prosentplassering (%)',
             'before'        => 'Før nummer',
