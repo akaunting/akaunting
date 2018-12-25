@@ -43,7 +43,7 @@ class BillPayments extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $bill->paid = $this->getPaid($bill);
+        $paid = $this->getPaid($bill);
 
         // Get Bill Totals
         foreach ($bill->totals as $bill_total) {
@@ -54,8 +54,8 @@ class BillPayments extends Controller
 
         $bill->grand_total = money($total, $currency->code)->getAmount();
 
-        if ($bill->paid > 0) {
-            $bill->grand_total = $bill->total - $bill->paid;
+        if (!empty($paid)) {
+            $bill->grand_total = $bill->total - $paid;
         }
 
         $html = view('modals.bills.payment', compact('bill', 'accounts', 'currencies', 'currency', 'payment_methods'))->render();
