@@ -39,7 +39,8 @@ return [
     'statuses'              => 'Status|Statussen',
     'others'                => 'Overig|Overigen',
     'contacts'              => 'Contactpersoon|Contactpersonen',
-    'reconciliations'       => 'Reconciliation|Reconciliations',
+    'reconciliations'       => 'Afstemming | Afstemmingen',
+    'developers'            => 'Ontwikkelaar | Ontwikkelaars',
 
     'dashboard'             => 'Dashboard',
     'banking'               => 'Banken',
@@ -116,15 +117,15 @@ return [
     'period'                => 'Periode',
     'start'                 => 'Begin',
     'end'                   => 'Eind',
-    'clear'                 => 'Clear',
+    'clear'                 => 'Wis',
     'difference'            => 'Verschil',
 
     'title' => [
         'new'               => 'Nieuwe :type',
         'edit'              => ':type bewerken',
-        'create'            => 'Create :type',
-        'send'              => 'Send :type',
-        'get'               => 'Get :type',
+        'create'            => 'Creëer :type',
+        'send'              => 'Stuur :type',
+        'get'               => 'Ontvang :type',
     ],
 
     'form' => [

@@ -40,6 +40,7 @@ return [
     'others'                => 'Andere|Andere',
     'contacts'              => 'Kontakt|Kontakte',
     'reconciliations'       => 'Kontenabgleich|Kontenabgleiche',
+    'developers'            => 'Entwickler|Entwickler',
 
     'dashboard'             => 'Dashboard',
     'banking'               => 'Bankwesen',

@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Lokalizimi',
+        'financial_start'   => 'Financial Year Start',
+        'timezone'          => 'Zona Kohore',
         'date' => [
             'format'        => 'Formati i Datës',
             'separator'     => 'Ndarës i Datës',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Prerje (/)',
             'space'         => 'Hapësirë ( )',
         ],
-        'timezone'          => 'Zona Kohore',
         'percent' => [
             'title'         => 'Pozicioni Përqindja (%)',
             'before'        => 'Para Numrit',

@@ -2,15 +2,15 @@
 
 return [
 
-    'reconcile'             => 'Reconcile',
-    'reconciled'            => 'Reconciled',
+    'reconcile'             => 'Afstemmen',
+    'reconciled'            => 'Afgestemd',
     'closing_balance'       => 'Eindsaldo',
-    'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
+    'unreconciled'          => 'Nog af te stemmen',
+    'list_transactions'     => 'Lijst transacties',
     'start_date'            => 'Start Datum',
     'end_date'              => 'Eind Datum',
-    'cleared_amount'        => 'Cleared Amount',
-    'deposit'               => 'Deposit',
-    'withdrawal'            => 'Withdrawal',
+    'cleared_amount'        => 'Vrijgemaakt bedrag',
+    'deposit'               => 'Storting',
+    'withdrawal'            => 'Opname',
 
 ];

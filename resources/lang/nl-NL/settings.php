@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Lokalisatie',
+        'financial_start'   => 'Start financieel boekjaar',
+        'timezone'          => 'Tijdzone',
         'date' => [
             'format'        => 'Datum formaat',
             'separator'     => 'Datumscheidingsteken',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Slash (/)',
             'space'         => 'Spatie ( ) ',
         ],
-        'timezone'          => 'Tijdzone',
         'percent' => [
             'title'         => 'Procent (%) Positie',
             'before'        => 'Voor aantal',
@@ -33,11 +34,11 @@ return [
         'digit'             => 'Aantal cijfers',
         'next'              => 'Volgende nummer',
         'logo'              => 'Logo',
-        'custom'            => 'Custom',
-        'item_name'         => 'Item Name',
+        'custom'            => 'Aangepast',
+        'item_name'         => 'Item Naam',
         'item'              => 'Artikel|Artikelen',
         'product'           => 'Producten',
-        'service'           => 'Services',
+        'service'           => 'Diensten',
         'price_name'        => 'Prijs label',
         'price'             => 'Prijs',
         'rate'              => 'Tarief',
@@ -76,8 +77,8 @@ return [
         'bill_days'         => 'Aantal dagen voor vervaldatum sturen',
         'cron_command'      => 'Cron opdracht',
         'schedule_time'     => 'Uren duurtijd',
-        'send_item_reminder'=> 'Send Item Reminder',
-        'item_stocks'       => 'Send When Item Stock',
+        'send_item_reminder'=> 'Stuur item herinnering',
+        'item_stocks'       => 'Stuur bericht waneer item op voorraad is',
     ],
     'appearance' => [
         'tab'               => 'Opmaak',
