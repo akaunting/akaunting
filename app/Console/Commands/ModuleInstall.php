@@ -34,6 +34,8 @@ class ModuleInstall extends Command
         $alias = $this->argument('alias');
         $company_id = $this->argument('company_id');
 
+        $old_company_id = session('company_id');
+
         // Set company id
         session(['company_id' => $company_id]);
 
@@ -69,6 +71,11 @@ class ModuleInstall extends Command
 
         // Unset company id
         session()->forget('company_id');
+
+        // Set company id
+        if (!empty($old_company_id)) {
+            session(['company_id' => $old_company_id]);
+        }
 
         $this->info('Module installed!');
     }
