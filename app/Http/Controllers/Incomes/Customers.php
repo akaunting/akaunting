@@ -29,7 +29,7 @@ class Customers extends Controller
     {
         $customers = Customer::collect();
 
-        return view('incomes.customers.index', compact('customers', 'emails'));
+        return view('incomes.customers.index', compact('customers'));
     }
 
     /**
