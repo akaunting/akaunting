@@ -237,16 +237,6 @@ Route::group(['middleware' => 'language'], function () {
         });
     });
 
-    Route::group(['middleware' => 'signed'], function () {
-        Route::group(['prefix' => 'links'], function () {
-            Route::get('invoices/{invoice}', 'Customers\Invoices@link');
-            Route::get('invoices/{invoice}/print', 'Customers\Invoices@printInvoice');
-            Route::get('invoices/{invoice}/pdf', 'Customers\Invoices@pdfInvoice');
-            Route::post('invoices/{invoice}/payment', 'Customers\Invoices@payment');
-            Route::post('invoices/{invoice}/confirm', 'Customers\Invoices@confirm');
-        });
-    });
-
     Route::group(['middleware' => 'guest'], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::get('login', 'Auth\Login@create')->name('login');

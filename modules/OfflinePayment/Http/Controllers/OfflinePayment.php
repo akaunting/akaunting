@@ -67,7 +67,7 @@ class OfflinePayment extends Controller
             }
         }
 
-        $confirm_action = SignedUrl::sign(url('links/invoices/' . $invoice->id . '/offlinepayment/confirm'), 1);
+        $confirm_action = SignedUrl::sign(url('signed/invoices/' . $invoice->id . '/offlinepayment/confirm'), 1);
 
         $html = view('offlinepayment::link', compact('gateway', 'invoice', 'confirm_action'))->render();
 

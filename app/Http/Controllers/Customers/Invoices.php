@@ -222,12 +222,12 @@ class Invoices extends Controller
             $codes = explode('.', $payment_method_key);
 
             if (!isset($payment_actions[$codes[0]])) {
-                $payment_actions[$codes[0]] = SignedUrl::sign(url('links/invoices/' . $invoice->id . '/' . $codes[0]), 1);
+                $payment_actions[$codes[0]] = SignedUrl::sign(url('signed/invoices/' . $invoice->id . '/' . $codes[0]), 1);
             }
         }
 
-        $print_action = SignedUrl::sign(url('links/invoices/' . $invoice->id . '/print'), 1);
-        $pdf_action = SignedUrl::sign(url('links/invoices/' . $invoice->id . '/pdf'), 1);
+        $print_action = SignedUrl::sign(route('signed.invoices.print', $invoice->id), 1);
+        $pdf_action = SignedUrl::sign(route('signed.invoices.pdf', $invoice->id), 1);
 
         return view('customers.invoices.link', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'payment_actions', 'print_action', 'pdf_action'));
     }

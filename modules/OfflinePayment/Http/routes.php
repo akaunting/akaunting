@@ -12,7 +12,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['web', 'auth', 'language', 'customermenu', 'permission:read-customer-panel'],
+    'middleware' => 'customer',
     'prefix' => 'customers',
     'namespace' => 'Modules\OfflinePayment\Http\Controllers'
 ], function () {
@@ -21,12 +21,10 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['web', 'language'],
-    'prefix' => 'links',
+    'middleware' => ['signed', 'language'],
+    'prefix' => 'signed',
     'namespace' => 'Modules\OfflinePayment\Http\Controllers'
 ], function () {
-    Route::group(['middleware' => 'signed-url'], function () {
-        Route::post('invoices/{invoice}/offlinepayment', 'OfflinePayment@link');
-        Route::post('invoices/{invoice}/offlinepayment/confirm', 'OfflinePayment@confirm');
-    });
+    Route::post('invoices/{invoice}/offlinepayment', 'OfflinePayment@link');
+    Route::post('invoices/{invoice}/offlinepayment/confirm', 'OfflinePayment@confirm');
 });

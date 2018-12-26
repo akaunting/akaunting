@@ -85,7 +85,7 @@ class Invoices extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $customer_share = SignedUrl::sign(url('links/invoices/' . $invoice->id));
+        $customer_share = SignedUrl::sign(route('signed.invoices', $invoice->id));
 
         return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'customer_share'));
     }
