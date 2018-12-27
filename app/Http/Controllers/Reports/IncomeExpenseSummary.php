@@ -30,17 +30,20 @@ class IncomeExpenseSummary extends Controller
 
         $status = request('status');
         $year = request('year', Date::now()->year);
-        
+
         // check and assign year start
-        if (($financial_start = Date::parse(setting('general.financial_start')))->month != 1) {
-            // check if a specific year is requested
-            if (!is_null(request('year'))) {
-                $financial_start->year = $year;
+       //if (($financial_start = Date::parse(setting('general.financial_start')))->month != 1) {
+        if (($financial_start = Date::parse(setting('general.financial_start'))->month) != 1) {
+                // check if a specific year is requested
+                if (!is_null(request('year'))) {
+                    $financial_start->year = $year;
+                }
+
+                $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
+                $financial_start->subYear()->subMonth();
             }
 
-            $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
-            $financial_start->subYear()->subMonth();
-        }
+
 
         $categories_filter = request('categories');
 
