@@ -28,7 +28,9 @@ class ProfitLoss extends Controller
         $year = request('year', Date::now()->year);
         
         // check and assign year start
-        if (($financial_start = Date::parse(setting('general.financial_start'))->month) != 1) {
+        $financial_start = Date::parse(setting('general.financial_start'));
+
+        if ($financial_start->month != 1) {
             // check if a specific year is requested
             if (!is_null(request('year'))) {
                 $financial_start->year = $year;
