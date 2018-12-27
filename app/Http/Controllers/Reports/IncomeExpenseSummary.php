@@ -32,7 +32,6 @@ class IncomeExpenseSummary extends Controller
         $year = request('year', Date::now()->year);
 
         // check and assign year start
-       //if (($financial_start = Date::parse(setting('general.financial_start')))->month != 1) {
         if (($financial_start = Date::parse(setting('general.financial_start'))->month) != 1) {
                 // check if a specific year is requested
                 if (!is_null(request('year'))) {
