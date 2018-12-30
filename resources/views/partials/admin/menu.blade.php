@@ -6,7 +6,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ setting('general.company_logo') ? Storage::url(setting('general.company_logo')) : asset('public/img/company.png') }}" class="img-circle" alt="@setting('general.company_name')">
+                <img src="{{ setting('general.company_logo') ? Storage::url(setting('general.company_logo')) : asset(AKAUNTING_PUBLIC . 'img/company.png') }}" class="img-circle" alt="@setting('general.company_name')">
             </div>
             <div class="pull-left info">
                 <p>{{ str_limit(setting('general.company_name'), 22) }}</p>

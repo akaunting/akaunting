@@ -156,7 +156,7 @@ class Company extends Eloquent
             $value = $setting->getAttribute('value');
 
             if (($key == 'company_logo') && empty($value)) {
-                $value = 'public/img/company.png';
+                $value = AKAUNTING_PUBLIC . 'img/company.png';
             }
 
             $this->setAttribute($key, $value);
@@ -164,7 +164,10 @@ class Company extends Eloquent
 
         // Set default default company logo if empty
         if ($this->getAttribute('company_logo') == '') {
-            $this->setAttribute('company_logo', 'public/img/company.png');
+            $this->setAttribute(
+                'company_logo',
+                AKAUNTING_PUBLIC . 'img/company.png'
+            );
         }
     }
 

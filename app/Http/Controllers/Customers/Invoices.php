@@ -166,7 +166,7 @@ class Invoices extends Controller
                 return $logo;
             }
         } else {
-            $path = asset('public/img/company.png');
+            $path = asset(AKAUNTING_PUBLIC . 'img/company.png');
         }
 
         $image = Image::make($path)->encode()->getEncoded();

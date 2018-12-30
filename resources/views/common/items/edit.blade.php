@@ -47,11 +47,11 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')
@@ -129,9 +129,9 @@
                 picture_html += '    </a>';
                 picture_html += '    {!! Form::close() !!}';
                 picture_html += '</span>';
-    
+
                 $('.fancy-file .fake-file').append(picture_html);
-    
+
                 $(document).on('click', '#remove-picture', function (e) {
                     confirmDelete("#picture-{!! $item->picture->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $item->picture->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
                 });

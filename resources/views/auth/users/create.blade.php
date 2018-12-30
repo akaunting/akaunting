@@ -53,12 +53,12 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'js/bootstrap-fancyfile.js') }}"></script>
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/bootstrap-fancyfile.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
 @endpush
 

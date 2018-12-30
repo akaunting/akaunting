@@ -9,7 +9,7 @@
         <div class="box-body">
             <div class="col-md-12">
                 <div class="alert alert-info alert-important">
-                    {!! trans('import.message', ['link' => url('public/files/import/' . $type . '.xlsx')]) !!}
+                    {!! trans('import.message', ['link' => url(AKAUNTING_PUBLIC . 'files/import/' . $type . '.xlsx')]) !!}
                 </div>
             </div>
             @stack('import_input_start')
@@ -36,11 +36,11 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+<script src="{{ asset(AKAUNTING_PUBLIC . 'js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+<link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')

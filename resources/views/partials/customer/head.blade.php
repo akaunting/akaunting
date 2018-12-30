@@ -11,9 +11,9 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('public/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/font-awesome.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('public/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/ionicons.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins -->
@@ -21,17 +21,17 @@
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
     @else
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=' . version('short')) }}">
+        <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/skin-black.css?v=' . version('short')) }}">
     @endif
     <!-- Data Tables -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datatables/dataTables.bootstrap.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
     <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}">
-    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=' . version('short')) }}">
-    
-    <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/app.css?v=' . version('short')) }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/akaunting-green.css?v=' . version('short')) }}">
+
+    <link rel="shortcut icon" href="{{ asset(AKAUNTING_PUBLIC . 'img/favicon.ico') }}">
 
     @stack('css')
 
@@ -61,9 +61,9 @@
     <!-- Select2 -->
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.js') }}"></script>
     <!-- Mask Money -->
-    <script src="{{ asset('public/js/jquery/jquery.maskMoney.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'js/jquery/jquery.maskMoney.js') }}"></script>
 
-    <script src="{{ asset('public/js/app.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'js/app.js?v=' . version('short')) }}"></script>
 
     <script type="text/javascript"><!--
         var app_url = '{{ env("APP_URL") }}';

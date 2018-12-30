@@ -1,0 +1,68 @@
+<?php
+/**
+ * @package     Akaunting
+ * @copyright   2017-2018 Akaunting. All rights reserved.
+ * @license     GNU GPL version 3; see LICENSE.txt
+ * @link        https://akaunting.com
+ */
+
+if ('cli' !== php_sapi_name()) {
+    exit(0);
+}
+
+// Define minimum supported PHP version
+define('AKAUNTING_PHP', '5.6.4');
+
+// Check PHP version
+if (version_compare(PHP_VERSION, AKAUNTING_PHP, '<')) {
+    die('Your host needs to use PHP ' . AKAUNTING_PHP . ' or higher to run Akaunting');
+}
+
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader
+| for our application. We just need to utilize it! We'll require it
+| into the script here so that we do not have to worry about the
+| loading of any our classes "manually". Feels great to relax.
+|
+*/
+
+require __DIR__.'/bootstrap/autoload.php';
+
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+/*
+|--------------------------------------------------------------------------
+| Run The Artisan Application
+|--------------------------------------------------------------------------
+|
+| When we run the console application, the current CLI command will be
+| executed in this console and the response sent back to a terminal
+| or another output device for the developers. Here goes nothing!
+|
+*/
+
+$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+
+$status = $kernel->handle(
+    $input = new Symfony\Component\Console\Input\ArgvInput,
+    new Symfony\Component\Console\Output\ConsoleOutput
+);
+
+/*
+|--------------------------------------------------------------------------
+| Shutdown The Application
+|--------------------------------------------------------------------------
+|
+| Once Artisan has finished running. We will fire off the shutdown events
+| so that any final work may be done by the application before we shut
+| down the process. This is the last thing to happen to the request.
+|
+*/
+
+$kernel->terminate($input, $status);
+
+exit($status);

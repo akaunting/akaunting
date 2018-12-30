@@ -73,7 +73,7 @@
 @endsection
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('public/css/modules.css?v=' . version('short')) }}">
+<link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/modules.css?v=' . version('short')) }}">
 @endpush
 
 @push('scripts')

@@ -235,18 +235,18 @@
 @endsection
 
 @push('css')
-<link rel="stylesheet" type="text/css" href="{{ asset('public/css/daterangepicker.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset(AKAUNTING_PUBLIC . 'css/daterangepicker.css') }}" />
 @endpush
 
 @push('js')
 {!! Charts::assets() !!}
-<script type="text/javascript" src="{{ asset('public/js/moment/moment.js') }}"></script>
+<script type="text/javascript" src="{{ asset(AKAUNTING_PUBLIC . 'js/moment/moment.js') }}"></script>
 @if (is_file(base_path('public/js/moment/locale/' . strtolower(app()->getLocale()) . '.js')))
-<script type="text/javascript" src="{{ asset('public/js/moment/locale/' . strtolower(app()->getLocale()) . '.js') }}"></script>
+<script type="text/javascript" src="{{ asset(AKAUNTING_PUBLIC . 'js/moment/locale/' . strtolower(app()->getLocale()) . '.js') }}"></script>
 @elseif (is_file(base_path('public/js/moment/locale/' . language()->getShortCode() . '.js')))
-<script type="text/javascript" src="{{ asset('public/js/moment/locale/' . language()->getShortCode() . '.js') }}"></script>
+<script type="text/javascript" src="{{ asset(AKAUNTING_PUBLIC . 'js/moment/locale/' . language()->getShortCode() . '.js') }}"></script>
 @endif
-<script type="text/javascript" src="{{ asset('public/js/daterangepicker/daterangepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset(AKAUNTING_PUBLIC . 'js/daterangepicker/daterangepicker.js') }}"></script>
 @endpush
 
 @push('scripts')

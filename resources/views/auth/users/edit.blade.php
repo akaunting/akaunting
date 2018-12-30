@@ -62,12 +62,12 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'js/bootstrap-fancyfile.js') }}"></script>
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/bootstrap-fancyfile.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
 @endpush
 
@@ -105,9 +105,9 @@
                 picture_html += '    </a>';
                 picture_html += '    {!! Form::close() !!}';
                 picture_html += '</span>';
-    
+
                 $('.fancy-file .fake-file').append(picture_html);
-    
+
                 $(document).on('click', '#remove-picture', function (e) {
                     confirmDelete("#picture-{!! $user->picture->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $user->picture->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
                 });

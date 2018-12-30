@@ -2,6 +2,19 @@
 
 /*
 |--------------------------------------------------------------------------
+| Set default public location
+|--------------------------------------------------------------------------
+|
+| When no AKAUNTING_PUBLIC is set assume we run from application root, so then
+| the public location is public/
+|
+*/
+if (! defined('AKAUNTING_PUBLIC')) {
+    define('AKAUNTING_PUBLIC', 'public/');
+}
+
+/*
+|--------------------------------------------------------------------------
 | Create The Application
 |--------------------------------------------------------------------------
 |

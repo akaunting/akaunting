@@ -33,11 +33,11 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')

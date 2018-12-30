@@ -112,7 +112,7 @@
                     @elseif (setting('general.company_logo'))
                         <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
                     @else
-                        <img src="{{ asset('public/img/company.png') }}" class="invoice-logo" />
+                        <img src="{{ asset(AKAUNTING_PUBLIC . 'img/company.png') }}" class="invoice-logo" />
                     @endif
                 </div>
                 <div class="col-xs-5 invoice-company">
@@ -464,12 +464,12 @@
     @if (language()->getShortCode() != 'en')
     <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
     @endif
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')

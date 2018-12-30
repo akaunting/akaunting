@@ -58,7 +58,7 @@
                                                     $status = 5;
                                                 } else {
                                                     $status = 1;
-                                                } 
+                                                }
                                             @endphp
 
                                             <div class="item @if($status == 5) {{ 'active' }} @endif">
@@ -267,11 +267,11 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('public/js/lightbox/ekko-lightbox.js') }}"></script>
+<script src="{{ asset(AKAUNTING_PUBLIC . 'js/lightbox/ekko-lightbox.js') }}"></script>
 @endpush
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('public/css/ekko-lightbox.css') }}">
+<link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/ekko-lightbox.css') }}">
 @endpush
 
 @push('style')

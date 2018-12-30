@@ -22,7 +22,7 @@
                     @elseif (setting('general.company_logo'))
                         <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
                     @else
-                        <img src="{{ asset('public/img/company.png') }}" class="invoice-logo" />
+                        <img src="{{ asset(AKAUNTING_PUBLIC . 'img/company.png') }}" class="invoice-logo" />
                     @endif
                 </div>
                 <div class="col-xs-5 invoice-company">

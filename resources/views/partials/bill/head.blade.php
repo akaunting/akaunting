@@ -9,7 +9,7 @@
 
     <title>@yield('title') - @setting('general.company_name')</title>
 
-    <link rel="stylesheet" href="{{ asset('public/css/invoice.css?v=' . version('short')) }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/invoice.css?v=' . version('short')) }}">
 
     <style type="text/css">
         * {

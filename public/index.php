@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /**
  * @package     Akaunting
@@ -7,4 +6,6 @@
  * @link        https://akaunting.com
  */
 
-require(__DIR__ . '/artisan.php');
+define('AKAUNTING_PUBLIC', '');
+
+require(__DIR__ . '/../index.php');
