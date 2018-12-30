@@ -45,11 +45,11 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/iCheck/icheck.min.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/iCheck/square/green.css') }}">
 @endpush
 
 @push('scripts')

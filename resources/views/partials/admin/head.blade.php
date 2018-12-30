@@ -9,22 +9,22 @@
     <title>@yield('title') - @setting('general.company_name')</title>
 
     <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/font-awesome.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/ionicons.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins -->
     @if (setting('general.admin_theme', 'skin-green-light') == 'skin-green-light')
-        <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
+        <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/dist/css/skins/skin-green-light.min.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
+        <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/dist/css/skins/skin-black.min.css') }}">
         <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/skin-black.css?v=' . version('short')) }}">
     @endif
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/select2/select2.min.css') }}">
     <!-- App style -->
     <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/app.css?v=' . version('short')) }}">
     <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'css/akaunting-green.css?v=' . version('short')) }}">
@@ -43,17 +43,17 @@
     <![endif]-->
 
     <!-- jQuery 2.2.3 -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
     <!-- Bootstrap 3.3.6 -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- SlimScroll -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
     <!-- FastClick -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/fastclick/fastclick.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/fastclick/fastclick.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/dist/js/app.min.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/dist/js/app.min.js') }}"></script>
     <!-- Select2 -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/select2/select2.min.js') }}"></script>
     <!-- Mask Money -->
     <script src="{{ asset(AKAUNTING_PUBLIC . 'js/jquery/jquery.maskMoney.js') }}"></script>
 

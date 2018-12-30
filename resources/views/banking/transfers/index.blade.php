@@ -77,15 +77,15 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/moment.js') }}"></script>
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+<script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/daterangepicker/moment.js') }}"></script>
+<script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 @if (language()->getShortCode() != 'en')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+<script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
 @endif
 @endpush
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+<link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/daterangepicker/daterangepicker.css') }}">
+<link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/datepicker/datepicker3.css') }}">
 @endpush

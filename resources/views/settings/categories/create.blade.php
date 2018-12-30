@@ -37,11 +37,11 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
+    <script src="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
+    <link rel="stylesheet" href="{{ asset(AKAUNTING_PUBLIC . 'adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
 @endpush
 
 @push('scripts')
