@@ -10,11 +10,14 @@ use App\Models\Expense\Bill;
 use App\Models\Expense\BillPayment;
 use App\Models\Expense\Payment;
 use App\Models\Setting\Category;
+use App\Traits\DateTime;
 use Charts;
 use Date;
 
 class ProfitLoss extends Controller
 {
+    use DateTime;
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +31,7 @@ class ProfitLoss extends Controller
         $year = request('year', Date::now()->year);
         
         // check and assign year start
-        $financial_start = Date::parse(setting('general.financial_start'));
+        $financial_start = $this->getFinancialStart();
 
         if ($financial_start->month != 1) {
             // check if a specific year is requested

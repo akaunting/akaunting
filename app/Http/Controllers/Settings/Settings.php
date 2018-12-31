@@ -14,6 +14,7 @@ use App\Traits\DateTime;
 use App\Traits\Uploads;
 use App\Utilities\Installer;
 use App\Utilities\Modules;
+use Date;
 
 class Settings extends Controller
 {
@@ -26,20 +27,15 @@ class Settings extends Controller
      */
     public function edit()
     {
-        /*$setting = Setting::all()->pluck('value', 'key');*/
         $setting = Setting::all()->map(function ($s) {
             $s->key = str_replace('general.', '', $s->key);
 
             return $s;
         })->pluck('value', 'key');
 
-        $company_logo = $setting->pull('company_logo');
-
-        $setting['company_logo'] = Media::find($company_logo);
-
-        $invoice_logo = $setting->pull('invoice_logo');
-
-        $setting['invoice_logo'] = Media::find($invoice_logo);
+        $setting->put('company_logo', Media::find($setting->pull('company_logo')));
+        $setting->put('invoice_logo', Media::find($setting->pull('invoice_logo')));
+        $setting->put('financial_start', $this->getFinancialStart()->format('d F'));
 
         $timezones = $this->getTimezones();
 
@@ -163,6 +159,11 @@ class Settings extends Controller
             // If only 1 company
             if ($companies == 1) {
                 $this->oneCompany($key, $value);
+            }
+
+            // Format financial year
+            if ($key == 'financial_start') {
+                $value = Date::parse($value)->format('d-m');
             }
 
             setting()->set('general.' . $key, $value);

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Listeners\Updates;
+namespace App\Listeners\Updates\V10;
 
 use App\Events\UpdateFinished;
+use App\Listeners\Updates\Listener;
 use App\Models\Common\Company;
 use Artisan;
 

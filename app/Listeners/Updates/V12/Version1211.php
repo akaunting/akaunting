@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Listeners\Updates;
+namespace App\Listeners\Updates\V12;
 
 use App\Events\UpdateFinished;
+use App\Listeners\Updates\Listener;
 use Artisan;
 
 class Version1211 extends Listener

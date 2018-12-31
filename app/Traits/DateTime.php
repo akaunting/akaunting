@@ -31,7 +31,7 @@ trait DateTime
         $end = Date::parse($year . '-12-31')->format('Y-m-d');
         
         // check if financial year has been customized
-        $financial_start = Date::parse(setting('general.financial_start'));
+        $financial_start = $this->getFinancialStart();
 
         if (Date::now()->startOfYear()->format('Y-m-d') !== $financial_start->format('Y-m-d')) {
             if (!is_null(request('year'))) {
@@ -81,5 +81,17 @@ trait DateTime
         ksort($groups);
 
         return $groups;
+    }
+
+    public function getFinancialStart()
+    {
+        $now = Date::now()->startOfYear();
+
+        $setting = explode('-', setting('general.financial_start'));
+
+        $day = !empty($setting[0]) ? $setting[0] : $now->day;
+        $month = !empty($setting[1]) ? $setting[1] : $now->month;
+
+        return Date::create(null, $month, $day);
     }
 }

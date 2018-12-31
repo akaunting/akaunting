@@ -12,12 +12,13 @@ use App\Models\Income\InvoicePayment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
+use App\Traits\DateTime;
 use Charts;
 use Date;
 
 class Dashboard extends Controller
 {
-    use Currencies;
+    use Currencies, DateTime;
 
     public $today;
     
@@ -36,7 +37,7 @@ class Dashboard extends Controller
     public function index()
     {
         $this->today = Date::today();
-        $this->financial_start = $financial_start = Date::parse(setting('general.financial_start'))->format('Y-m-d');
+        $this->financial_start = $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
         list($total_incomes, $total_expenses, $total_profit) = $this->getTotals();
 
