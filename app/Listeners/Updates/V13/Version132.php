@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Listeners\Updates;
+namespace App\Listeners\Updates\V13;
 
 use App\Events\UpdateFinished;
+use App\Listeners\Updates\Listener;
 use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
 use Artisan;

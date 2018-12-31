@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Listeners\Updates;
+namespace App\Listeners\Updates\V13;
 
 use App\Events\UpdateFinished;
+use App\Listeners\Updates\Listener;
 use Date;
 
 class Version138 extends Listener

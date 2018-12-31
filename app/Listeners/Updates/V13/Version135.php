@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Listeners\Updates;
+namespace App\Listeners\Updates\V13;
 
 use App\Events\UpdateFinished;
-use Artisan;
+use App\Listeners\Updates\Listener;
+use Date;
 
-class Version129 extends Listener
+class Version135 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.2.9';
+    const VERSION = '1.3.5';
 
     /**
      * Handle the event.
@@ -24,7 +25,8 @@ class Version129 extends Listener
             return;
         }
 
-        // Update database
-        Artisan::call('migrate', ['--force' => true]);
+        // Add financial year start to settings
+        setting(['general.financial_start' => Date::now()->startOfYear()->format('d F')]);
+        setting()->save();
     }
 }

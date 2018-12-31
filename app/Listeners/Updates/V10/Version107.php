@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Listeners\Updates;
+namespace App\Listeners\Updates\V10;
 
 use App\Events\UpdateFinished;
-use Date;
+use App\Listeners\Updates\Listener;
+use DB;
 
-class Version135 extends Listener
+class Version107 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.3.5';
+    const VERSION = '1.0.7';
 
     /**
      * Handle the event.
@@ -24,8 +25,8 @@ class Version135 extends Listener
             return;
         }
 
-        // Add financial year start to settings
-        setting(['general.financial_start' => Date::now()->startOfYear()->format('d F')]);
-        setting()->save();
+        $table = env('DB_PREFIX') . 'taxes';
+
+        DB::statement("ALTER TABLE `$table` MODIFY `rate` DOUBLE(15,4) NOT NULL");
     }
 }

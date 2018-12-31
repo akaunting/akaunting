@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Listeners\Updates;
+namespace App\Listeners\Updatesv\V12;
 
 use App\Events\UpdateFinished;
+use App\Listeners\Updates\Listener;
 use Artisan;
 
-class Version1210 extends Listener
+class Version129 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.2.10';
+    const VERSION = '1.2.9';
 
     /**
      * Handle the event.
