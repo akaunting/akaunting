@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Updatesv\V12;
+namespace App\Listeners\Updates\V12;
 
 use App\Events\UpdateFinished;
 use App\Listeners\Updates\Listener;
