@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Wizard\Company as Request;
 use App\Models\Common\Company;
 use App\Traits\Uploads;
+use Date;
 
 class Companies extends Controller
 {
@@ -68,6 +69,11 @@ class Companies extends Controller
                 if (empty($value)) {
                     continue;
                 }
+            }
+
+            // Format financial year
+            if ($key == 'financial_start') {
+                $value = Date::parse($value)->format('d-m');
             }
 
             setting()->set('general.' . $key, $value);
