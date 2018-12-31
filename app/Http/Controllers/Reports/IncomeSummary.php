@@ -10,11 +10,14 @@ use App\Models\Income\InvoicePayment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use App\Utilities\Recurring;
+use App\Traits\DateTime;
 use Charts;
 use Date;
 
 class IncomeSummary extends Controller
 {
+    use DateTime;
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +31,7 @@ class IncomeSummary extends Controller
         $year = request('year', Date::now()->year);
         
         // check and assign year start
-        $financial_start = Date::parse(setting('general.financial_start'));
+        $financial_start = $this->getFinancialStart();
 
         if ($financial_start->month != 1) {
             // check if a specific year is requested

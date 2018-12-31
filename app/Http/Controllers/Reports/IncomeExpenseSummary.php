@@ -14,11 +14,14 @@ use App\Models\Expense\Payment;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Category;
 use App\Utilities\Recurring;
+use App\Traits\DateTime;
 use Charts;
 use Date;
 
 class IncomeExpenseSummary extends Controller
 {
+    use DateTime;
+
     /**
      * Display a listing of the resource.
      *
@@ -32,19 +35,17 @@ class IncomeExpenseSummary extends Controller
         $year = request('year', Date::now()->year);
 
         // check and assign year start
-        $financial_start = Date::parse(setting('general.financial_start'));
+        $financial_start = $this->getFinancialStart();
 
         if ($financial_start->month != 1) {
-                // check if a specific year is requested
-                if (!is_null(request('year'))) {
-                    $financial_start->year = $year;
-                }
-
-                $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
-                $financial_start->subYear()->subMonth();
+            // check if a specific year is requested
+            if (!is_null(request('year'))) {
+                $financial_start->year = $year;
             }
 
-
+            $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
+            $financial_start->subYear()->subMonth();
+        }
 
         $categories_filter = request('categories');
 
