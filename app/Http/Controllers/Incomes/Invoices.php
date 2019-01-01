@@ -286,7 +286,7 @@ class Invoices extends Controller
             $tables = ['items', 'histories', 'payments', 'totals'];
             foreach ($tables as $table) {
                 $excel->sheet('invoice_' . $table, function ($sheet) use ($invoices, $table) {
-                    $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];
+                    $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title', 'tax_id'];
 
                     $i = 1;
 
