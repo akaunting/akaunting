@@ -33,7 +33,6 @@ class Companies extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Company  $company
      * @param  Request  $request
      *
      * @return Response
@@ -69,11 +68,6 @@ class Companies extends Controller
                 if (empty($value)) {
                     continue;
                 }
-            }
-
-            // Format financial year
-            if ($key == 'financial_start') {
-                $value = Date::parse($value)->format('d-m');
             }
 
             setting()->set('general.' . $key, $value);

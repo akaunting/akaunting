@@ -35,7 +35,6 @@ class Settings extends Controller
 
         $setting->put('company_logo', Media::find($setting->pull('company_logo')));
         $setting->put('invoice_logo', Media::find($setting->pull('invoice_logo')));
-        $setting->put('financial_start', $this->getFinancialStart()->format('d F'));
 
         $timezones = $this->getTimezones();
 
@@ -159,11 +158,6 @@ class Settings extends Controller
             // If only 1 company
             if ($companies == 1) {
                 $this->oneCompany($key, $value);
-            }
-
-            // Format financial year
-            if ($key == 'financial_start') {
-                $value = Date::parse($value)->format('d-m');
             }
 
             setting()->set('general.' . $key, $value);

@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="tab-pane tab-margin" id="localisation">
-                        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd MM\'', 'data-mask' => '', 'autocomplete' => 'off'], $setting['financial_start']) }}
+                        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd-mm\'', 'data-mask' => '', 'autocomplete' => 'off'], $setting['financial_start']) }}
 
                         {{ Form::selectGroup('timezone', trans('settings.localisation.timezone'), 'globe', $timezones, null, []) }}
 
@@ -228,7 +228,7 @@
             });
 
             $('#financial_start').datepicker({
-                format: 'dd MM',
+                format: 'dd-mm',
                 todayBtn: 'linked',
                 weekStart: 1,
                 autoclose: true,
