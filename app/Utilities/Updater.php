@@ -146,21 +146,24 @@ class Updater
         } else {
             // Get module instance
             $module = Module::findByAlias($alias);
-            $model = Model::where('alias', $alias)->first();
 
             // Move all files/folders from temp path
             if (!File::copyDirectory($temp_path, module_path($module->get('name')))) {
                 return false;
             }
 
-            // Add history
-            ModelHistory::create([
-                'company_id' => session('company_id'),
-                'module_id' => $model->id,
-                'category' => $module->get('category'),
-                'version' => $version,
-                'description' => trans('modules.history.updated', ['module' => $module->get('name')]),
-            ]);
+            $model = Model::where('alias', $alias)->first();
+
+            if (!empty($model)) {
+                // Add history
+                ModelHistory::create([
+                    'company_id' => session('company_id'),
+                    'module_id' => $model->id,
+                    'category' => $module->get('category'),
+                    'version' => $version,
+                    'description' => trans('modules.history.updated', ['module' => $module->get('name')]),
+                ]);
+            }
         }
 
         // Delete temp directory
