@@ -176,7 +176,6 @@ class CreateBillItem
             'quantity' => (double) $this->data['quantity'],
             'price' => (double) $this->data['price'],
             'tax' => $item_tax_total,
-            'tax_id' => 0,
             'total' => $item_amount,
         ]);
 

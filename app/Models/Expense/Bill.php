@@ -83,7 +83,7 @@ class Bill extends Model
         return $this->hasMany('App\Models\Expense\BillItem');
     }
 
-    public function itemTaxes()
+    public function item_taxes()
     {
         return $this->hasMany('App\Models\Expense\BillItemTax');
     }

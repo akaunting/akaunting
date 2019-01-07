@@ -86,7 +86,7 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
 
-    public function itemTaxes()
+    public function item_taxes()
     {
         return $this->hasMany('App\Models\Income\InvoiceItemTax');
     }

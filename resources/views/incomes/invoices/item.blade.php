@@ -35,7 +35,7 @@
     @stack('taxes_td_start')
     <td {{ $errors->has('item.' . $item_row . '.tax_id') ? 'class="has-error"' : '' }}>
         @stack('tax_id_input_start')
-        {!! Form::select('item[' . $item_row . '][tax_id][]', $taxes, (empty($item) || empty($item->tax_id)) ? setting('general.default_tax') : $item->tax_id, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control tax-select2', 'multiple' => 'true']) !!}
+        {!! Form::select('item[' . $item_row . '][tax_id][]', $taxes, (empty($item) || empty($item->taxes)) ? setting('general.default_tax') : $item->taxes->pluck('tax_id'), ['id'=> 'item-tax-' . $item_row, 'class' => 'form-control tax-select2', 'multiple' => 'true']) !!}
         {!! $errors->first('item.' . $item_row . '.tax_id', '<p class="help-block">:message</p>') !!}
         @stack('tax_id_input_end')
     </td>

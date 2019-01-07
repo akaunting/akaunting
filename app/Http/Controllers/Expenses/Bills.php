@@ -161,7 +161,7 @@ class Bills extends Controller
     {
         $success = true;
 
-        $allowed_sheets = ['bills', 'bill_items', 'bill_histories', 'bill_payments', 'bill_totals'];
+        $allowed_sheets = ['bills', 'bill_items', 'bill_item_taxes', 'bill_histories', 'bill_payments', 'bill_totals'];
 
         // Loop through all sheets
         $import->each(function ($sheet) use (&$success, $allowed_sheets) {
@@ -245,7 +245,7 @@ class Bills extends Controller
      */
     public function destroy(Bill $bill)
     {
-        $this->deleteRelationships($bill, ['items', 'itemTaxes', 'histories', 'payments', 'recurring', 'totals']);
+        $this->deleteRelationships($bill, ['items', 'item_taxes', 'histories', 'payments', 'recurring', 'totals']);
         $bill->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.bills', 1)]);
@@ -263,15 +263,15 @@ class Bills extends Controller
     public function export()
     {
         \Excel::create('bills', function ($excel) {
-            $bills = Bill::with(['items', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
+            $bills = Bill::with(['items', 'item_taxes', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
 
             $excel->sheet('bills', function ($sheet) use ($bills) {
                 $sheet->fromModel($bills->makeHidden([
-                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media', 'paid'
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'item_taxes', 'histories', 'payments', 'totals', 'media', 'paid', 'amount_without_tax'
                 ]));
             });
 
-            $tables = ['items', 'histories', 'payments', 'totals'];
+            $tables = ['items', 'item_taxes', 'histories', 'payments', 'totals'];
             foreach ($tables as $table) {
                 $excel->sheet('bill_' . $table, function ($sheet) use ($bills, $table) {
                     $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];

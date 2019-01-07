@@ -173,7 +173,7 @@ class Invoices extends Controller
     {
         $success = true;
 
-        $allowed_sheets = ['invoices', 'invoice_items', 'invoice_histories', 'invoice_payments', 'invoice_totals'];
+        $allowed_sheets = ['invoices', 'invoice_items', 'invoice_item_taxes', 'invoice_histories', 'invoice_payments', 'invoice_totals'];
 
         // Loop through all sheets
         $import->each(function ($sheet) use (&$success, $allowed_sheets) {
@@ -257,7 +257,7 @@ class Invoices extends Controller
      */
     public function destroy(Invoice $invoice)
     {
-        $this->deleteRelationships($invoice, ['items', 'itemTaxes', 'histories', 'payments', 'recurring', 'totals']);
+        $this->deleteRelationships($invoice, ['items', 'item_taxes', 'histories', 'payments', 'recurring', 'totals']);
         $invoice->delete();
 
         $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
@@ -275,15 +275,15 @@ class Invoices extends Controller
     public function export()
     {
         \Excel::create('invoices', function ($excel) {
-            $invoices = Invoice::with(['items', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
+            $invoices = Invoice::with(['items', 'item_taxes', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
 
             $excel->sheet('invoices', function ($sheet) use ($invoices) {
                 $sheet->fromModel($invoices->makeHidden([
-                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'histories', 'payments', 'totals', 'media', 'paid'
+                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'item_taxes', 'histories', 'payments', 'totals', 'media', 'paid', 'amount_without_tax'
                 ]));
             });
 
-            $tables = ['items', 'histories', 'payments', 'totals'];
+            $tables = ['items', 'item_taxes', 'histories', 'payments', 'totals'];
             foreach ($tables as $table) {
                 $excel->sheet('invoice_' . $table, function ($sheet) use ($invoices, $table) {
                     $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];

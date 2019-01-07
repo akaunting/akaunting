@@ -24,11 +24,6 @@ class BillItemTax extends Model
         return $this->belongsTo('App\Models\Expense\Bill');
     }
 
-    public function item()
-    {
-        return $this->belongsTo('App\Models\Common\Item');
-    }
-
     public function tax()
     {
         return $this->belongsTo('App\Models\Setting\Tax');

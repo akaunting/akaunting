@@ -24,11 +24,6 @@ class InvoiceItemTax extends Model
         return $this->belongsTo('App\Models\Income\Invoice');
     }
 
-    public function item()
-    {
-        return $this->belongsTo('App\Models\Common\Item');
-    }
-
     public function tax()
     {
         return $this->belongsTo('App\Models\Setting\Tax');
