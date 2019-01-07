@@ -153,7 +153,7 @@
                             $('input[name="name"]').val(json['data']['name']);
                             $('input[name="code"]').val(json['data']['code']);
 
-                            if (json['data']['customer']) {
+                            if (json['data']['customer'] == 1) {
                                 $('#customer_1 input').trigger('click');
                             } else {
                                 $('#customer_0 input').trigger('click');
