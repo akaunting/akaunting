@@ -41,16 +41,16 @@ return [
 
     'messages' => [
         'received'      => 'تم تحويل فاتورة الشراء إلى فاتورة مستلمة بنجاح!',
-        'draft'          => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+        'draft'          => 'هذه فاتورة <b>مسودة</b> وستنعكس على المخططات بعد استلامها.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'تم الانشاء :date',
             'receive'      => [
-                'draft'     => 'Not sent',
-                'received'  => 'Received on :date',
+                'draft'     => 'لم يتم الارسال',
+                'received'  => 'تم الاستلام في :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'في انتظار إرسال الدفعة',
             ],
         ],
     ],

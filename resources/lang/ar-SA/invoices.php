@@ -31,7 +31,7 @@ return [
     'mark_sent'         => 'التحديد كمرسل',
     'download_pdf'      => 'تحميل PDF',
     'send_mail'         => 'إرسال بريد إلكتروني',
-    'all_invoices'      => 'Login to view all invoices',
+    'all_invoices'      => 'سجل دخولك لعرض جميع الفواتير',
 
     'status' => [
         'draft'         => 'مسودة',
@@ -46,16 +46,16 @@ return [
         'email_sent'     => 'تم إرسال الفاتورة بنجاح!',
         'marked_sent'    => 'تم تحديد الفاتورة كفاتورة مرسلة بنجاح!',
         'email_required' => 'لا يوجد عنوان البريد إلكتروني لهذا العميل!',
-        'draft'          => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+        'draft'          => 'هذه فاتورة <b>مسودة</b> وستنعكس على المخططات بعد استلامها.',
 
         'status' => [
-            'created'   => 'Created on :date',
+            'created'   => 'تم الانشاء :date',
             'send'      => [
-                'draft'     => 'Not sent',
-                'sent'      => 'Sent on :date',
+                'draft'     => 'لم يتم الارسال',
+                'sent'      => 'تم الاستلام في :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'في انتظار إرسال الدفعة',
             ],
         ],
     ],

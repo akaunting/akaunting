@@ -12,7 +12,7 @@ return [
         'disabled'          => 'تم تعطيل :type!',
     ],
     'error' => [
-        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
+        'over_payment'      => 'خطأ: لم تتم إضافة الدفعة! المبلغ الذي أدخلته يمر total: :amount',
         'not_user_company'  => 'خطأ: غير مسموح لك بإدارة هذه الشركة!',
         'customer'          => 'خطأ: لم تتم إضافة المستخدم! :name يستخدم هذا البريد الإلكتروني مسبقاً.',
         'no_file'           => 'خطأ: لم يتم تحديد أي ملف!',
