@@ -56,7 +56,7 @@
         </div>
         {{ Form::textGroup('company_tax_number', trans('general.tax_number'), 'percent', []) }}
 
-        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd-mm\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->startOfYear()->format('d F')) }}
+        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd-mm\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->startOfYear()->format('d-m')) }}
 
         {{ Form::textareaGroup('company_address', trans('settings.company.address')) }}
 
