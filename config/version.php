@@ -16,7 +16,7 @@ return [
 
     'status'    =>  'Stable',
 
-    'date'      =>  '10-January-2018',
+    'date'      =>  '10-January-2019',
 
     'time'      =>  '13:30',
 
