@@ -4,7 +4,7 @@ return [
 
     'title'                 => 'โทเค็นของ API',
     'api_token'             => 'โทเค็น',
-    'my_apps'               => 'My Apps',
+    'my_apps'               => 'แอปของฉัน',
     'top_paid'              => 'จ่ายเงินยอดนิยม',
     'new'                   => 'ใหม่',
     'top_free'              => 'ฟรียอดนิยม',
@@ -16,13 +16,16 @@ return [
     'no_apps'               => 'ยังไม่มีแอปพลิเคชันในหมวดหมู่นี้',
     'developer'             => 'คุณเป็นนักพัฒนาใช่มั้ย? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">ที่นี่</a> คุณสามารถเรียนรู้วิธีการสร้างโปรแกรมประยุกต์และเริ่มขายวันนี้!',
 
-    'recommended_apps'      => 'Recommended Apps',
+    'recommended_apps'      => 'แอปที่แนะนำ',
 
     'about'                 => 'เกี่ยวกับเรา',
 
     'added'                 => 'เพิ่มแล้ว',
     'updated'               => 'อัพเดทแล้ว',
     'compatibility'         => 'ความเข้ากันได้',
+    'documentation'         => 'เอกสารประกอบ',
+    'view'                  => 'มุมมอง',
+    'back'                  => 'ย้อนกลับ',
 
     'installed'             => ':module ติดตั้งแล้ว',
     'uninstalled'           => ':module ถอนการติดตั้งแล้ว',
@@ -34,7 +37,7 @@ return [
         'installation'      => 'การติดตั้ง',
         'faq'               => 'คำถามที่พบบ่อย',
         'changelog'         => 'ประวัติเวอร์ชั่น',
-        'reviews'            => 'Reviews',
+        'reviews'            => 'รีวิว',
     ],
 
     'installation' => [
@@ -53,11 +56,11 @@ return [
         'unzip' => ':module can not unzip!',
         'file_copy' => ':module files can not copy!',
         'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'migrate core' => ': โมดูลเป็นรุ่นล่าสุดอยู่แล้วดังนั้นจึงไม่สามารถอับเดทได้',
     ],
 
     'badge' => [
-        'installed' => 'Installed',
+        'installed' => 'ติดตั้งแล้ว',
     ],
 
     'button' => [
@@ -67,14 +70,14 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Purchased',
-        'installed' => 'Installed',
+        'purchased' => 'ซื้อแล้ว',
+        'installed' => 'ติดตั้งแล้ว',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add' => 'เพิ่มการแสดงความคิดเห็น'
         ],
-        'na' => 'There are no reviews.'
+        'na' => 'ไม่มีการแสดงความคิดเ็น'
     ]
 ];

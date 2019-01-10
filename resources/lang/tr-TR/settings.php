@@ -12,7 +12,7 @@ return [
     'localisation' => [
         'tab'               => 'Yerelleştirme',
         'financial_start'   => 'Mali Yıl Başlangıcı',
-        'timezone'          => 'Saat dilimi',
+        'timezone'          => 'Saat Dilimi',
         'date' => [
             'format'        => 'Tarih Biçimi',
             'separator'     => 'Tarih Ayracı',

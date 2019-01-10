@@ -11,6 +11,7 @@ return [
         'enabled'           => ':type enabled!',
         'disabled'          => ':type disabled!',
     ],
+
     'error' => [
         'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'ข้อผิดพลาด: คุณไม่สามารถจัดการบริษัทนี้!',
@@ -21,9 +22,11 @@ return [
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],
+
     'warning' => [
         'deleted'           => 'คำเตือน: คุณไม่ได้รับอนุญาตให้ลบ <b>:name</b> เนื่องจากมี :text ที่เกี่ยวข้อง',
         'disabled'          => 'คำเตือน: คุณไม่ได้รับอนุญาตให้ปิดใช้งาน <b>:name</b> เนื่องจากมี :text ที่เกี่ยวข้อง',
+        'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
     ],
 
 ];

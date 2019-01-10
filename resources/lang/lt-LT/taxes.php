@@ -6,6 +6,6 @@ return [
     'rate_percent'          => 'Mokestis (%)',
     'normal'                => 'Normalus',
     'inclusive'             => 'Imtinai',
-    'compound'              => 'Compound',
+    'compound'              => 'Sudėtinis',
 
 ];

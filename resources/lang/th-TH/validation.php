@@ -101,8 +101,8 @@ return [
         'attribute-name' => [
             'rule-name' => 'ข้อความแบบกำหนดเอง',
         ],
-        'invalid_currency' => 'The :attribute code is invalid.',
-        'invalid_amount'   => 'The amount :attribute is invalid.',
+        'invalid_currency' => 'รูปแบบของ :attribute ไม่ถูกต้อง',
+        'invalid_amount'   => 'ปริมาณ:attribute ไม่ถูกต้อง',
     ],
 
     /*

@@ -6,7 +6,7 @@ return [
     'to_account'            => 'ไปบัญชี',
 
     'messages' => [
-        'delete'            => ':from to :to (:amount)',
+        'delete'            => ':จาก :ถึง (:จำนวน)',
     ],
 
 ];
