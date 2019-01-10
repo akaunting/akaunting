@@ -174,7 +174,7 @@ class ProfitLoss extends Controller
     private function setAmount(&$totals, &$compares, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            if (($item['table'] == 'bill_payments') || ($item['table'] == 'invoice_payments')) {
+            if (($item->getTable() == 'bill_payments') || ($item->getTable() == 'invoice_payments')) {
                 $type_item = $item->$type;
 
                 $item->category_id = $type_item->category_id;

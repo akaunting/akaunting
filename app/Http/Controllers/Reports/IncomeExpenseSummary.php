@@ -202,45 +202,44 @@ class IncomeExpenseSummary extends Controller
     private function setAmount(&$graph, &$totals, &$compares, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            if ($item->getTable() == 'bill_payments' || $item->getTable() == 'invoice_payments') {
+            if (($item->getTable() == 'bill_payments') || ($item->getTable() == 'invoice_payments')) {
                 $type_item = $item->$type;
 
                 $item->category_id = $type_item->category_id;
             }
 
-            switch ($item->getTable()) {
-                case 'invoice_payments':
-                    $invoice = $item->invoice;
+            if ($item->getTable() == 'invoice_payments') {
+                $invoice = $item->invoice;
 
-                    if ($customers = request('customers')) {
-                        if (!in_array($invoice->customer_id, $customers)) {
-                            continue;
+                if ($customers = request('customers')) {
+                    if (!in_array($invoice->customer_id, $customers)) {
+                        continue;
+                    }
+                }
+
+                $item->category_id = $invoice->category_id;
+            }
+
+            if ($item->getTable() == 'bill_payments') {
+                $bill = $item->bill;
+
+                if ($vendors = request('vendors')) {
+                    if (!in_array($bill->vendor_id, $vendors)) {
+                        continue;
+                    }
+                }
+
+                $item->category_id = $bill->category_id;
+            }
+
+            if (($item->getTable() == 'invoices') || ($item->getTable() == 'bills')) {
+                if ($accounts = request('accounts')) {
+                    foreach ($item->payments as $payment) {
+                        if (!in_array($payment->account_id, $accounts)) {
+                            continue 2;
                         }
                     }
-
-                    $item->category_id = $invoice->category_id;
-                    break;
-                case 'bill_payments':
-                    $bill = $item->bill;
-
-                    if ($vendors = request('vendors')) {
-                        if (!in_array($bill->vendor_id, $vendors)) {
-                            continue;
-                        }
-                    }
-
-                    $item->category_id = $bill->category_id;
-                    break;
-                case 'invoices':
-                case 'bills':
-                    if ($accounts = request('accounts')) {
-                        foreach ($item->payments as $payment) {
-                            if (!in_array($payment->account_id, $accounts)) {
-                                continue 2;
-                            }
-                        }
-                    }
-                    break;
+                }
             }
 
             $month = Date::parse($item->$date_field)->format('F');

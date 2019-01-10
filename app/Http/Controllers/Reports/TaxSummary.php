@@ -120,7 +120,7 @@ class TaxSummary extends Controller
     private function setAmount(&$items, &$totals, $rows, $type, $date_field)
     {
         foreach ($rows as $row) {
-            if ($row->getTable() == 'bill_payments' || $row->getTable() == 'invoice_payments') {
+            if (($row->getTable() == 'bill_payments') || ($row->getTable() == 'invoice_payments')) {
                 $type_row = $row->$type;
 
                 $row->category_id = $type_row->category_id;

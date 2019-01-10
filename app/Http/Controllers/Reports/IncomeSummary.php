@@ -157,27 +157,26 @@ class IncomeSummary extends Controller
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            switch ($item->getTable()) {
-                case 'invoice_payments':
-                    $invoice = $item->invoice;
+            if ($item->getTable() == 'invoice_payments') {
+                $invoice = $item->invoice;
 
-                    if ($customers = request('customers')) {
-                        if (!in_array($invoice->customer_id, $customers)) {
-                            continue;
+                if ($customers = request('customers')) {
+                    if (!in_array($invoice->customer_id, $customers)) {
+                        continue;
+                    }
+                }
+
+                $item->category_id = $invoice->category_id;
+            }
+
+            if ($item->getTable() == 'invoices') {
+                if ($accounts = request('accounts')) {
+                    foreach ($item->payments as $payment) {
+                        if (!in_array($payment->account_id, $accounts)) {
+                            continue 2;
                         }
                     }
-
-                    $item->category_id = $invoice->category_id;
-                    break;
-                case 'invoices':
-                    if ($accounts = request('accounts')) {
-                        foreach ($item->payments as $payment) {
-                            if (!in_array($payment->account_id, $accounts)) {
-                                continue 2;
-                            }
-                        }
-                    }
-                    break;
+                }
             }
 
             $month = Date::parse($item->$date_field)->format('F');
