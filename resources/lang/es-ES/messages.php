@@ -11,6 +11,7 @@ return [
         'enabled'           => ':type habilitado!',
         'disabled'          => ':type deshabilitado!',
     ],
+
     'error' => [
         'over_payment'      => 'Error: Pago no añadido! La cantidad que escribiste pasa total: :amount',
         'not_user_company'  => 'Error: No tiene permisos para administrar esta empresa!',
@@ -21,9 +22,11 @@ return [
         'import_column'     => 'Error: :message Nombre de la hoja: :sheet. Número de línea: :line.',
         'import_sheet'      => 'Error: El nombre de la hoja no es válido. Por favor, verifique el archivo de ejemplo.',
     ],
+
     'warning' => [
         'deleted'           => 'Advertencia: No puede borrar <b>:name</b> porque tiene :text relacionado.',
         'disabled'          => 'Advertencia: No se permite desactivar <b>:name</b> porque tiene :text relacionado.',
+        'disable_code'      => 'Advertencia: No puede desactivar o cambiar la moneda <b>:name</b> porque tiene :text relacionado.',
     ],
 
 ];

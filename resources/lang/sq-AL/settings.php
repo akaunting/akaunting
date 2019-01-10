@@ -11,7 +11,7 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Lokalizimi',
-        'financial_start'   => 'Financial Year Start',
+        'financial_start'   => 'Fillimi i Vitit Financiar',
         'timezone'          => 'Zona Kohore',
         'date' => [
             'format'        => 'Formati i Datës',

@@ -39,7 +39,7 @@ return [
     'statuses'              => 'Status | Statuser',
     'others'                => 'Annen | Andre',
     'contacts'              => 'Kontakt|Kontakter',
-    'reconciliations'       => 'Avstemming|avstemminger',
+    'reconciliations'       => 'Avstemming|Avstemminger',
     'developers'            => 'Utvikler|Utviklere',
 
     'dashboard'             => 'Kontrollpanel',
