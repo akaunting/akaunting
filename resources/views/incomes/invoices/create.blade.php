@@ -168,6 +168,16 @@
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
 @endpush
 
+@push('stylesheet')
+    <style type="text/css">
+        .select2-results__option.select2-results__message:hover {
+            color: white;
+            background: #6da252;
+            cursor: pointer;
+        }
+    </style>
+@endpush
+
 @push('scripts')
     <script type="text/javascript">
         var focus = false;
