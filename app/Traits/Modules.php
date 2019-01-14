@@ -360,9 +360,12 @@ trait Modules
             'version' => $module->get('version'),
         ];
 
+        Artisan::call('cache:clear');
+
         $module->delete();
 
-        Artisan::call('cache:clear');
+        // Cache Data clear
+        File::deleteDirectory(storage_path('framework/cache/data'));
 
         return [
             'success' => true,
