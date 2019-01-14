@@ -31,6 +31,7 @@ class Overrider
 
         // Timezone
         config(['app.timezone' => setting('general.timezone', 'UTC')]);
+        date_default_timezone_set(config('app.timezone'));
 
         // Email
         $email_protocol = setting('general.email_protocol', 'mail');
