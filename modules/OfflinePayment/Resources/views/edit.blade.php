@@ -57,7 +57,7 @@
                                 <th class="col-md-3">{{ trans('general.name') }}</th>
                                 <th class="col-md-4">{{ trans('offlinepayment::general.form.code') }}</th>
                                 <th class="col-md-2 text-center">{{ trans('offlinepayment::general.form.order') }}</th>
-                                <th class="col-md-3">{{ trans('general.actions') }}</th>
+                                <th class="col-md-3 text-center">{{ trans('general.actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,9 +67,17 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->code }}</td>
                                     <td class="text-center">{{ $item->order }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-xs method-edit" id="edit-{{ $item->code }}" title="{{ trans('general.edit') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</button>
-                                        <button type="button" class="btn btn-danger btn-xs method-delete" id="delete-{{ $item->code }}" title="{{ trans('general.delete') }}"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ trans('general.delete') }}</button>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="#" class="method-edit" id="edit-{{ $item->code }}">{{ trans('general.edit') }}</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#" class="method-delete" id="delete-{{ $item->code }}">{{ trans('general.delete') }}</a></li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
