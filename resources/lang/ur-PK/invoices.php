@@ -33,8 +33,9 @@ return [
     'send_mail'             => 'ای میل بھیجیں',
     'all_invoices'          => ' تمام انوائس دیکھنے کے لئے لاگ ان کریں',
     'create_invoice'        => 'انوائس بنائیں',
-    'send_invoice'          => 'انوائس کو بھیجیں',
+    'send_invoice'          => 'انوائس بھیجیں',
     'get_paid'              => 'انوائس حاصل کریں',
+    'accept_payments'       => 'آن لائن ادائیگی قبول کریں',
 
     'status' => [
         'draft'             => 'ڈرافٹ',

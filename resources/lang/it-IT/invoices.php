@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Crea Fattura',
     'send_invoice'          => 'Inviare Fattura',
     'get_paid'              => 'Essere pagato',
+    'accept_payments'       => 'Accetta pagamenti online',
 
     'status' => [
         'draft'             => 'Bozza',

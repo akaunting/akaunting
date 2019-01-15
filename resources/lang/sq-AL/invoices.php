@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Krijo Faturë',
     'send_invoice'          => 'Dërgo Faturën',
     'get_paid'              => 'Merre Pagesen',
+    'accept_payments'       => 'Pranoni Pagesat Online',
 
     'status' => [
         'draft'             => 'Draft',

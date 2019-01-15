@@ -9,8 +9,5 @@ return [
     'currencies_eur'        => 'یورو',
     'currencies_gbp'        => 'برطانوی پاؤنڈ',
     'currencies_try'        => 'ترکی لیرا',
-    'taxes_exempt'          => 'ٹیکس سے مستثنی',
-    'taxes_normal'          => 'عام ٹیکس',
-    'taxes_sales'           => 'سیلز ٹیکس',
 
 ];
