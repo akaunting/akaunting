@@ -9,8 +9,5 @@ return [
     'currencies_eur'        => 'Avro',
     'currencies_gbp'        => 'İngiliz Sterlini',
     'currencies_try'        => 'Türk Lirası',
-    'taxes_exempt'          => 'Vergi Muaf',
-    'taxes_normal'          => 'Normal Vergi',
-    'taxes_sales'           => 'Satış Vergisi',
 
 ];

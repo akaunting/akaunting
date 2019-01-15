@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Opprett faktura',
     'send_invoice'          => 'Send faktura',
     'get_paid'              => 'Få betalt',
+    'accept_payments'       => 'Aksepter online betalinger',
 
     'status' => [
         'draft'             => 'Utkast',

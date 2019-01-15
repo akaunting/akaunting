@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Fatura Oluştur',
     'send_invoice'          => 'Faturayı Gönder',
     'get_paid'              => 'Ödeme Al',
+    'accept_payments'       => 'Online Tahsilat Al',
 
     'status' => [
         'draft'             => 'Taslak',
