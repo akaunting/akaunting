@@ -36,10 +36,14 @@ class Version139 extends Listener
 
     protected function copyOldInvoiceItemTaxes()
     {
+        $company_id = session('company_id');
+
         $invoice_items = InvoiceItem::where('company_id', '<>', '0')->where('tax_id', '<>', '0')->get();
 
         foreach ($invoice_items as $invoice_item) {
-            $tax = Tax::where('company_id', $invoice_item->company_id)->where('id', $invoice_item->tax_id)->first();
+            session(['company_id' => $invoice_item->company_id]);
+
+            $tax = Tax::where('id', $invoice_item->tax_id)->first();
 
             if (empty($tax)) {
                 continue;
@@ -54,5 +58,7 @@ class Version139 extends Listener
                 'amount' => $invoice_item->tax,
             ]);
         }
+
+        session(['company_id' => $company_id]);
     }
 }
