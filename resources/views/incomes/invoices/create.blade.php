@@ -389,7 +389,7 @@
                 url: '{{ url("modals/taxes/create") }}',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {name: tax_name},
+                data: {name: tax_name, tax_selector: '.tax-select2'},
                 success: function(json) {
                     if (json['success']) {
                         $('body').append(json['html']);
