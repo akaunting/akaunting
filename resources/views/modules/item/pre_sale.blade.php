@@ -233,7 +233,7 @@
                 keyboard: true
             });
 
-            var newDate = new Date(2019, 5, 15);
+            var newDate = new Date({{ $module->pre_sale_date['year'] }}, {{ $module->pre_sale_date['month'] }}, {{ $module->pre_sale_date['day'] }});
 
             $('#countdown-pre-sale').countdown({
                 until: newDate
