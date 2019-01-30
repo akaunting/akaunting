@@ -18,7 +18,11 @@
 
             @if ($modules)
                 @foreach ($modules->data as $module)
-                    @include('partials.modules.item')
+                    @if ($module->status == 'active')
+                        @include('partials.modules.item')
+                    @else
+                        @include('partials.modules.pre_sale')
+                    @endif
                 @endforeach
                 <div class="col-md-12 no-padding-left">
                     <ul class="pager nomargin">
