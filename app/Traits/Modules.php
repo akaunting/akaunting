@@ -167,6 +167,17 @@ trait Modules
         return $installed;
     }
 
+    public function getPreSaleModules($data = [])
+    {
+        $response = $this->getRemote('apps/pre_sale', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
     public function getPaidModules($data = [])
     {
         $response = $this->getRemote('apps/paid', 'GET', $data);

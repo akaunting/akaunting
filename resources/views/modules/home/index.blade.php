@@ -11,6 +11,22 @@
     @include('partials.modules.bar')
 
     <div class="row">
+        @if ($pre_sale)
+        <div class="col-md-12">
+            <div class="content-header no-padding-left">
+                <h3>{{ trans('modules.pre_sale') }}</h3>
+            </div>
+
+            @if ($pre_sale->data)
+                @foreach ($pre_sale->data as $module)
+                    @include('partials.modules.pre_sale')
+                @endforeach
+            @else
+                @include('partials.modules.no_apps')
+            @endif
+        </div>
+        @endif
+
         @if ($paid)
         <div class="col-md-12">
             <div class="content-header no-padding-left">
