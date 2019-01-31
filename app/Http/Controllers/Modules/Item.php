@@ -65,7 +65,7 @@ class Item extends Controller
             $module->action_url .= $character . http_build_query($parameters);
         }
 
-        if ($module->status == 'pre_sale') {
+        if ($module->status_type == 'pre_sale') {
             return view('modules.item.pre_sale', compact('module', 'installed', 'enable'));
         }
 

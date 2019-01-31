@@ -18,10 +18,10 @@
 
             @if ($modules)
                 @foreach ($modules->data as $module)
-                    @if ($module->status == 'active')
-                        @include('partials.modules.item')
-                    @else
+                    @if ($module->status_type == 'pre_sale')
                         @include('partials.modules.pre_sale')
+                    @else
+                        @include('partials.modules.item')
                     @endif
                 @endforeach
                 <div class="col-md-12 no-padding-left">
