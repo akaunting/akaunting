@@ -27,8 +27,8 @@ trait DateTime
     {
         $year = request('year', Date::now()->year);
 
-        $start = Date::parse($year . '-01-01')->format('Y-m-d');
-        $end = Date::parse($year . '-12-31')->format('Y-m-d');
+        $start = Date::parse($year . '-01-01')->startOfDay()->format('Y-m-d H:i:s');
+        $end = Date::parse($year . '-12-31')->endOfDay()->format('Y-m-d  H:i:s');
         
         // check if financial year has been customized
         $financial_start = $this->getFinancialStart();

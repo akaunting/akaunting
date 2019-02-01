@@ -929,3 +929,7 @@ input[type="number"] {
 .box-footer .app-price-suffix {
     font-size: 70%;
 }
+
+.table-report {
+    overflow-x: auto !important;
+}
