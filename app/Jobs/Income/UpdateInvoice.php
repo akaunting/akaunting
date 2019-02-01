@@ -108,6 +108,14 @@ class UpdateInvoice
 
         $this->request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
 
+        $invoice_paid = $this->invoice->paid;
+
+        if ($this->request['amount'] > $invoice_paid) {
+            $this->request['invoice_status_code'] = 'partial';
+
+            unset($this->invoice->reconciled);
+        }
+
         $this->invoice->update($this->request->input());
 
         // Delete previous invoice totals

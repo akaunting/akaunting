@@ -107,6 +107,14 @@ class UpdateBill
 
         $this->request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
 
+        $bill_paid = $this->bill->paid;
+
+        if ($this->request['amount'] > $bill_paid) {
+            $this->request['bill_status_code'] = 'partial';
+
+            unset($this->bill->reconciled);
+        }
+
         $this->bill->update($this->request->input());
 
         // Delete previous bill totals
