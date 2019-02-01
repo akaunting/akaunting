@@ -520,8 +520,8 @@ class Invoices extends Controller
             $multiplier *= 10;
         }
 
-        $amount *=  $multiplier;
-        $total_amount *=  $multiplier;
+        $amount_check = (int) ($amount * $multiplier);
+        $total_amount_check = (int) (round($total_amount, $currency->precision) * $multiplier);
 
         if ($amount > $total_amount) {
             $message = trans('messages.error.over_payment');

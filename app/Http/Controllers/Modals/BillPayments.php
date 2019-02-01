@@ -55,7 +55,7 @@ class BillPayments extends Controller
         $bill->grand_total = money($total, $currency->code)->getAmount();
 
         if (!empty($paid)) {
-            $bill->grand_total = $bill->total - $paid;
+            $bill->grand_total = round($bill->total - $paid, $currency->precision) ;
         }
 
         $html = view('modals.bills.payment', compact('bill', 'accounts', 'currencies', 'currency', 'payment_methods'))->render();
@@ -121,8 +121,8 @@ class BillPayments extends Controller
             $multiplier *= 10;
         }
 
-        $amount_check = $amount * $multiplier;
-        $total_amount_check = $total_amount * $multiplier;
+        $amount_check = (int) ($amount * $multiplier);
+        $total_amount_check = (int) (round($total_amount, $currency->precision) * $multiplier);
 
         if ($amount_check > $total_amount_check) {
             $error_amount = $total_amount;

@@ -55,7 +55,7 @@ class InvoicePayments extends Controller
         $invoice->grand_total = money($total, $currency->code)->getAmount();
 
         if (!empty($paid)) {
-            $invoice->grand_total = $invoice->total - $paid;
+            $invoice->grand_total = round($invoice->total - $paid, $currency->precision) ;
         }
 
         $html = view('modals.invoices.payment', compact('invoice', 'accounts', 'currencies', 'currency', 'payment_methods'))->render();
@@ -121,8 +121,8 @@ class InvoicePayments extends Controller
             $multiplier *= 10;
         }
 
-        $amount_check = $amount * $multiplier;
-        $total_amount_check = $total_amount * $multiplier;
+        $amount_check = (int) ($amount * $multiplier);
+        $total_amount_check = (int) (round($total_amount, $currency->precision) * $multiplier);
 
         if ($amount_check > $total_amount_check) {
             $error_amount = $total_amount;
@@ -158,7 +158,7 @@ class InvoicePayments extends Controller
                 'message' => $message,
                 'html' => 'null',
             ]);
-        } elseif ($amount == $total_amount) {
+        } elseif ($amount_check == $total_amount_check) {
             $invoice->invoice_status_code = 'paid';
         } else {
             $invoice->invoice_status_code = 'partial';
