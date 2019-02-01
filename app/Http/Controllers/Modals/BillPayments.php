@@ -158,7 +158,7 @@ class BillPayments extends Controller
                 'message' => $message,
                 'html' => 'null',
             ]);
-        } elseif ($amount == $total_amount) {
+        } elseif ($amount_check == $total_amount_check) {
             $bill->bill_status_code = 'paid';
         } else {
             $bill->bill_status_code = 'partial';
