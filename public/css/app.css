@@ -933,3 +933,14 @@ input[type="number"] {
 .table-report {
     overflow-x: auto !important;
 }
+
+.mailbox-attachment-file-name {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mailbox-attachment-download {
+    margin-right: 5px;
+}

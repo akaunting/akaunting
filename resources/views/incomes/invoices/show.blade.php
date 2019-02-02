@@ -339,23 +339,8 @@
                     </div>
 
                     @if($invoice->attachment)
-                        <span class="attachment">
-                            <a href="{{ url('uploads/' . $invoice->attachment->id . '/download') }}">
-                                <span id="download-attachment" class="text-primary">
-                                    <i class="fa fa-file-{{ $invoice->attachment->aggregate_type }}-o"></i> {{ $invoice->attachment->basename }}
-                                </span>
-                            </a>
-                            {!! Form::open([
-                                'id' => 'attachment-' . $invoice->attachment->id,
-                                'method' => 'DELETE',
-                                'url' => [url('uploads/' . $invoice->attachment->id)],
-                                'style' => 'display:inline'
-                            ]) !!}
-                            <a id="remove-attachment" href="javascript:void();">
-                                <span class="text-danger"><i class="fa fa fa-times"></i></span>
-                            </a>
-                            {!! Form::close() !!}
-                        </span>
+                    @php $file = $invoice->attachment; @endphp
+                    @include('partials.media.file')
                     @endif
                 </div>
             </div>
@@ -474,11 +459,13 @@
 
 @push('scripts')
     <script type="text/javascript">
+        @permission('delete-common-uploads')
         @if($invoice->attachment)
         $(document).on('click', '#remove-attachment', function (e) {
             confirmDelete("#attachment-{!! $invoice->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $invoice->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
         });
         @endif
+        @endpermission
 
         $(document).on('click', '#button-payment', function (e) {
             $('#modal-add-payment').remove();

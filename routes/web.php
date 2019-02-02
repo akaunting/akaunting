@@ -4,6 +4,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'uploads'], function () {
             Route::get('{id}', 'Common\Uploads@get');
+            Route::get('{id}/show', 'Common\Uploads@show');
             Route::get('{id}/download', 'Common\Uploads@download');
         });
 

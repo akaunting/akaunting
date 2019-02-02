@@ -110,31 +110,30 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($item->picture)
-                placeholder : '<?php echo $item->picture->basename; ?>'
+                placeholder : '{{ $item->picture->basename }}'
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
             @if($item->picture)
-                picture_html  = '<span class="picture">';
-                picture_html += '    <a href="{{ url('uploads/' . $item->picture->id . '/download') }}">';
-                picture_html += '        <span id="download-picture" class="text-primary">';
-                picture_html += '            <i class="fa fa-file-{{ $item->picture->aggregate_type }}-o"></i> {{ $item->picture->basename }}';
-                picture_html += '        </span>';
-                picture_html += '    </a>';
-                picture_html += '    {!! Form::open(['id' => 'picture-' . $item->picture->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $item->picture->id)], 'style' => 'display:inline']) !!}';
-                picture_html += '    <a id="remove-picture" href="javascript:void();">';
-                picture_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-                picture_html += '    </a>';
-                picture_html += '    {!! Form::close() !!}';
-                picture_html += '</span>';
-    
-                $('.fancy-file .fake-file').append(picture_html);
-    
-                $(document).on('click', '#remove-picture', function (e) {
-                    confirmDelete("#picture-{!! $item->picture->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $item->picture->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-                });
+            $.ajax({
+                url: '{{ url('uploads/' . $item->picture->id . '/show') }}',
+                type: 'GET',
+                data: {column_name: 'picture'},
+                dataType: 'JSON',
+                success: function(json) {
+                    if (json['success']) {
+                        $('.fancy-file').after(json['html']);
+                    }
+                }
+            });
+
+            @permission('delete-common-uploads')
+            $(document).on('click', '#remove-picture', function (e) {
+                confirmDelete("#picture-{!! $item->picture->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $item->picture->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+            });
+            @endpermission
             @endif
         });
 
