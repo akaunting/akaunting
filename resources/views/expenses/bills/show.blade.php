@@ -431,11 +431,13 @@
 
 @push('scripts')
     <script type="text/javascript">
+        @permission('delete-common-uploads')
         @if($bill->attachment)
         $(document).on('click', '#remove-attachment', function (e) {
             confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
         });
         @endif
+        @endpermission
 
         $(document).on('click', '#button-payment', function (e) {
             $('#modal-add-payment').remove();

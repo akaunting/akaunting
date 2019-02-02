@@ -37,10 +37,18 @@ class Uploads extends Controller
     public function show($id, Request $request)
     {
         $file = false;
+        $options = false;
         $column_name = 'attachment';
 
         if ($request->has('column_name')) {
             $column_name = $request->get('column_name');
+        }
+
+        if ($request->has('page')) {
+            $options = [
+                'page' => $request->get('page'),
+                'key' => $request->get('key'),
+            ];
         }
 
         $media = Media::find($id);
@@ -58,7 +66,7 @@ class Uploads extends Controller
 
         $file = $media;
 
-        $html = view('partials.media.file', compact('file', 'column_name'))->render();
+        $html = view('partials.media.file', compact('file', 'column_name', 'options'))->render();
 
         return response()->json([
             'success' => true,

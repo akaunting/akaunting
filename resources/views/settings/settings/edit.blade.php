@@ -249,7 +249,7 @@
             $.ajax({
                 url: '{{ url('uploads/' . $setting['company_logo']->id . '/show') }}',
                 type: 'GET',
-                data: {column_name: 'company_logo'},
+                data: {column_name: 'company_logo', page: 'setting', key: 'general.company_logo'},
                 dataType: 'JSON',
                 success: function(json) {
                     if (json['success']) {
@@ -285,7 +285,7 @@
                     $.ajax({
                         url: '{{ url('uploads/' . $setting['invoice_logo']->id . '/show') }}',
                         type: 'GET',
-                        data: {column_name: 'invoice_logo'},
+                        data: {column_name: 'invoice_logo', page: 'setting', key: 'general.invoice_logo'},
                         dataType: 'JSON',
                         success: function(json) {
                             if (json['success']) {

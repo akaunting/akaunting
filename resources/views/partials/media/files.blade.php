@@ -1,3 +1,8 @@
+@php
+$column_name = !empty($column_name) ? $column_name : 'attachment';
+$options = !empty($options) ? $options : false;
+@endphp
+
 <ul class="mailbox-attachments clearfix margin-top">
     @foreach ($files as $file)
     <li>
@@ -21,18 +26,24 @@
             <span class="mailbox-attachment-size">
               {{ $file->readableSize() }}
 
+              @permission('delete-common-uploads')
                 {!! Form::open([
                 'id' => 'attachment-' . $file->id,
                 'method' => 'DELETE',
                 'url' => [url('uploads/' . $file->id)],
                 'style' => 'display:inline'
             ]) !!}
-                @permission('delete-common-uploads')
                 <a href="javascript:void();" id="remove-attachment" class="btn btn-danger btn-xs pull-right mailbox-attachment-remove">
                     <i class="fa fa fa-times"></i>
                 </a>
-                @endpermission
+
+                @if ($options)
+                <input type="hidden" name="page" value="{{ $options['page'] }}" />
+                <input type="hidden" name="key" value="{{ $options['key'] }}" />
+                <input type="hidden" name="value" value="{{ $file->id }}" />
+                @endif
                 {!! Form::close() !!}
+                @endpermission
 
                 <a href="{{ url('uploads/' . $file->id . '/download') }}" class="btn btn-info btn-xs pull-right mailbox-attachment-download">
                     <i class="fa fa-cloud-download"></i>
