@@ -267,6 +267,7 @@
             $.ajax({
                 url: '{{ url('uploads/' . $invoice->attachment->id . '/show') }}',
                 type: 'GET',
+                data: {column_name: 'attachment'},
                 dataType: 'JSON',
                 success: function(json) {
                     if (json['success']) {
@@ -281,11 +282,13 @@
             @endif
         });
 
+        @permission('delete-common-uploads')
         @if($invoice->attachment)
         $(document).on('click', '#remove-attachment', function (e) {
             confirmDelete("#attachment-{!! $invoice->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $invoice->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
         });
         @endif
+        @endpermission
 
         $(document).on('click', '#button-add-item', function (e) {
             $.ajax({

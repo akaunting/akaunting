@@ -257,27 +257,24 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($bill->attachment)
-                placeholder : '<?php echo $bill->attachment->basename; ?>'
+                placeholder : '{{ $bill->attachment->basename }}'
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
             @if($bill->attachment)
-            attachment_html  = '<span class="attachment">';
-            attachment_html += '    <a href="{{ url('uploads/' . $bill->attachment->id . '/download') }}">';
-            attachment_html += '        <span id="download-attachment" class="text-primary">';
-            attachment_html += '            <i class="fa fa-file-{{ $bill->attachment->aggregate_type }}-o"></i> {{ $bill->attachment->basename }}';
-            attachment_html += '        </span>';
-            attachment_html += '    </a>';
-            attachment_html += '    {!! Form::open(['id' => 'attachment-' . $bill->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $bill->attachment->id)], 'style' => 'display:inline']) !!}';
-            attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
-            attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-            attachment_html += '    </a>';
-            attachment_html += '    {!! Form::close() !!}';
-            attachment_html += '</span>';
-
-            $('.fancy-file .fake-file').append(attachment_html);
+            $.ajax({
+                url: '{{ url('uploads/' . $bill->attachment->id . '/show') }}',
+                type: 'GET',
+                data: {column_name: 'attachment'},
+                dataType: 'JSON',
+                success: function(json) {
+                    if (json['success']) {
+                        $('.fancy-file').after(json['html']);
+                    }
+                }
+            });
             @endif
 
             @if(old('item'))
@@ -285,11 +282,13 @@
             @endif
         });
 
+        @permission('delete-common-uploads')
         @if($bill->attachment)
         $(document).on('click', '#remove-attachment', function (e) {
             confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
         });
         @endif
+        @endpermission
 
         $(document).on('click', '#button-add-item', function (e) {
             $.ajax({

@@ -34,9 +34,14 @@ class Uploads extends Controller
      * @param  $id
      * @return mixed
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $file = false;
+        $column_name = 'attachment';
+
+        if ($request->has('column_name')) {
+            $column_name = $request->get('column_name');
+        }
 
         $media = Media::find($id);
 
@@ -53,7 +58,7 @@ class Uploads extends Controller
 
         $file = $media;
 
-        $html = view('partials.media.file', compact('file'))->render();
+        $html = view('partials.media.file', compact('file', 'column_name'))->render();
 
         return response()->json([
             'success' => true,

@@ -137,32 +137,31 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($revenue->attachment)
-                placeholder : '<?php echo $revenue->attachment->basename; ?>'
+                placeholder : '{{ $revenue->attachment->basename }}'
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
             @if($revenue->attachment)
-                attachment_html  = '<span class="attachment">';
-                attachment_html += '    <a href="{{ url('uploads/' . $revenue->attachment->id . '/download') }}">';
-                attachment_html += '        <span id="download-attachment" class="text-primary">';
-                attachment_html += '            <i class="fa fa-file-{{ $revenue->attachment->aggregate_type }}-o"></i> {{ $revenue->attachment->basename }}';
-                attachment_html += '        </span>';
-                attachment_html += '    </a>';
-                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $revenue->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $revenue->attachment->id)], 'style' => 'display:inline']) !!}';
-                attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
-                attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-                attachment_html += '    </a>';
-                attachment_html += '    {!! Form::close() !!}';
-                attachment_html += '</span>';
+            $.ajax({
+                url: '{{ url('uploads/' . $revenue->attachment->id . '/show') }}',
+                type: 'GET',
+                data: {column_name: 'attachment'},
+                dataType: 'JSON',
+                success: function(json) {
+                    if (json['success']) {
+                        $('.fancy-file').after(json['html']);
+                    }
+                }
+            });
 
-                $('.fancy-file .fake-file').append(attachment_html);
-
-                $(document).on('click', '#remove-attachment', function (e) {
-                    confirmDelete("#attachment-{!! $revenue->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $revenue->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-                });
+            @permission('delete-common-uploads')
+            $(document).on('click', '#remove-attachment', function (e) {
+                confirmDelete("#attachment-{!! $revenue->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $revenue->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+            });
             @endif
+            @endpermission
         });
 
         $(document).on('change', '#account_id', function (e) {

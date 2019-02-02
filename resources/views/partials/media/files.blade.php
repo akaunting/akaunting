@@ -27,9 +27,11 @@
                 'url' => [url('uploads/' . $file->id)],
                 'style' => 'display:inline'
             ]) !!}
-                <a id="remove-attachment" href="javascript:void();" class="btn btn-danger btn-xs pull-right">
+                @permission('delete-common-uploads')
+                <a href="javascript:void();" id="remove-attachment" class="btn btn-danger btn-xs pull-right mailbox-attachment-remove">
                     <i class="fa fa fa-times"></i>
                 </a>
+                @endpermission
                 {!! Form::close() !!}
 
                 <a href="{{ url('uploads/' . $file->id . '/download') }}" class="btn btn-info btn-xs pull-right mailbox-attachment-download">

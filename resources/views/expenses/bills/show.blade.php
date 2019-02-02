@@ -311,23 +311,8 @@
                     </div>
 
                     @if($bill->attachment)
-                        <span class="attachment">
-                            <a href="{{ url('uploads/' . $bill->attachment->id . '/download') }}">
-                                <span id="download-attachment" class="text-primary">
-                                    <i class="fa fa-file-{{ $bill->attachment->aggregate_type }}-o"></i> {{ $bill->attachment->basename }}
-                                </span>
-                            </a>
-                            {!! Form::open([
-                                'id' => 'attachment-' . $bill->attachment->id,
-                                'method' => 'DELETE',
-                                'url' => [url('uploads/' . $bill->attachment->id)],
-                                'style' => 'display:inline'
-                            ]) !!}
-                            <a id="remove-attachment" href="javascript:void();">
-                                <span class="text-danger"><i class="fa fa fa-times"></i></span>
-                            </a>
-                            {!! Form::close() !!}
-                        </span>
+                    @php $file = $bill->attachment; @endphp
+                    @include('partials.media.file')
                     @endif
                 </div>
             </div>
