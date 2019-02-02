@@ -257,27 +257,23 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($invoice->attachment)
-                placeholder : '<?php echo $invoice->attachment->basename; ?>'
+                placeholder : '{{ $invoice->attachment->basename }}'
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
             @if($invoice->attachment)
-            attachment_html  = '<span class="attachment">';
-            attachment_html += '    <a href="{{ url('uploads/' . $invoice->attachment->id . '/download') }}">';
-            attachment_html += '        <span id="download-attachment" class="text-primary">';
-            attachment_html += '            <i class="fa fa-file-{{ $invoice->attachment->aggregate_type }}-o"></i> {{ $invoice->attachment->basename }}';
-            attachment_html += '        </span>';
-            attachment_html += '    </a>';
-            attachment_html += '    {!! Form::open(['id' => 'attachment-' . $invoice->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $invoice->attachment->id)], 'style' => 'display:inline']) !!}';
-            attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
-            attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-            attachment_html += '    </a>';
-            attachment_html += '    {!! Form::close() !!}';
-            attachment_html += '</span>';
-
-            $('.fancy-file .fake-file').append(attachment_html);
+            $.ajax({
+                url: '{{ url('uploads/' . $invoice->attachment->id . '/show') }}',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(json) {
+                    if (json['success']) {
+                        $('.fancy-file').after(json['html']);
+                    }
+                }
+            });
             @endif
 
             @if(old('item'))

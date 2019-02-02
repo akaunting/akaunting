@@ -29,6 +29,42 @@ class Uploads extends Controller
     }
 
     /**
+     * Get the specified resource.
+     *
+     * @param  $id
+     * @return mixed
+     */
+    public function show($id)
+    {
+        $file = false;
+
+        $media = Media::find($id);
+
+        // Get file path
+        if (!$path = $this->getPath($media)) {
+            return response()->json([
+                'success' => false,
+                'error'   => true,
+                'data'    => [],
+                'message' => 'null',
+                'html'    => '',
+            ]);
+        }
+
+        $file = $media;
+
+        $html = view('partials.media.file', compact('file'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error'   => false,
+            'data'    => [],
+            'message' => 'null',
+            'html'    => $html,
+        ]);
+    }
+
+    /**
      * Download the specified resource.
      *
      * @param  $id
