@@ -488,6 +488,7 @@ class Invoices extends Controller
     public function payment(PaymentRequest $request)
     {
         // Get currency object
+        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
         $currency = Currency::where('code', $request['currency_code'])->first();
 
         $request['currency_code'] = $currency->code;
@@ -497,16 +498,28 @@ class Invoices extends Controller
 
         $total_amount = $invoice->amount;
 
-        $amount = (double) $request['amount'];
+        $default_amount = (double) $request['amount'];
 
-        if ($request['currency_code'] != $invoice->currency_code) {
-            $request_invoice = new Invoice();
+        if ($invoice->currency_code == $request['currency_code']) {
+            $amount = $default_amount;
+        } else {
+            $default_amount_model = new InvoicePayment();
 
-            $request_invoice->amount = (float) $request['amount'];
-            $request_invoice->currency_code = $currency->code;
-            $request_invoice->currency_rate = $currency->rate;
+            $default_amount_model->default_currency_code = $invoice->currency_code;
+            $default_amount_model->amount                = $default_amount;
+            $default_amount_model->currency_code         = $request['currency_code'];
+            $default_amount_model->currency_rate         = $currencies[$request['currency_code']];
 
-            $amount = $request_invoice->getConvertedAmount();
+            $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+            $convert_amount = new InvoicePayment();
+
+            $convert_amount->default_currency_code = $request['currency_code'];
+            $convert_amount->amount = $default_amount;
+            $convert_amount->currency_code = $invoice->currency_code;
+            $convert_amount->currency_rate = $currencies[$invoice->currency_code];
+
+            $amount = (double) $convert_amount->getDynamicConvertedAmount();
         }
 
         if ($invoice->payments()->count()) {
@@ -523,15 +536,41 @@ class Invoices extends Controller
         $amount_check = (int) ($amount * $multiplier);
         $total_amount_check = (int) (round($total_amount, $currency->precision) * $multiplier);
 
-        if ($amount > $total_amount) {
-            $message = trans('messages.error.over_payment');
+        if ($amount_check > $total_amount_check) {
+            $error_amount = $total_amount;
+
+            if ($invoice->currency_code != $request['currency_code']) {
+                $error_amount_model = new InvoicePayment();
+
+                $error_amount_model->default_currency_code = $request['currency_code'];
+                $error_amount_model->amount                = $error_amount;
+                $error_amount_model->currency_code         = $invoice->currency_code;
+                $error_amount_model->currency_rate         = $currencies[$invoice->currency_code];
+
+                $error_amount = (double) $error_amount_model->getDivideConvertedAmount();
+
+                $convert_amount = new InvoicePayment();
+
+                $convert_amount->default_currency_code = $invoice->currency_code;
+                $convert_amount->amount = $error_amount;
+                $convert_amount->currency_code = $request['currency_code'];
+                $convert_amount->currency_rate = $currencies[$request['currency_code']];
+
+                $error_amount = (double) $convert_amount->getDynamicConvertedAmount();
+            }
+
+            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $request['currency_code'], true)]);
 
             return response()->json([
                 'success' => false,
                 'error' => true,
+                'data' => [
+                    'amount' => $error_amount
+                ],
                 'message' => $message,
+                'html' => 'null',
             ]);
-        } elseif ($amount == $total_amount) {
+        } elseif ($amount_check == $total_amount_check) {
             $invoice->invoice_status_code = 'paid';
         } else {
             $invoice->invoice_status_code = 'partial';

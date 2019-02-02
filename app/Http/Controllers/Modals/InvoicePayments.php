@@ -11,6 +11,7 @@ use App\Models\Income\InvoiceHistory;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
+use App\Jobs\Income\CreateInvoicePayment;
 
 class InvoicePayments extends Controller
 {
@@ -130,7 +131,7 @@ class InvoicePayments extends Controller
             if ($invoice->currency_code != $request['currency_code']) {
                 $error_amount_model = new InvoicePayment();
 
-                $error_amount_model->default_currency_code = $request['currency_code'];
+                $error_amount_model->default_currency_code = $request['currency_code'];
                 $error_amount_model->amount                = $error_amount;
                 $error_amount_model->currency_code         = $invoice->currency_code;
                 $error_amount_model->currency_rate         = $currencies[$invoice->currency_code];
@@ -166,20 +167,7 @@ class InvoicePayments extends Controller
 
         $invoice->save();
 
-        $invoice_payment_request = [
-            'company_id'     => $request['company_id'],
-            'invoice_id'     => $request['invoice_id'],
-            'account_id'     => $request['account_id'],
-            'paid_at'        => $request['paid_at'],
-            'amount'         => $request['amount'],
-            'currency_code'  => $request['currency_code'],
-            'currency_rate'  => $request['currency_rate'],
-            'description'    => $request['description'],
-            'payment_method' => $request['payment_method'],
-            'reference'      => $request['reference']
-        ];
-
-        $invoice_payment = InvoicePayment::create($invoice_payment_request);
+        $invoice_payment = dispatch(new CreateInvoicePayment($request, $invoice));
 
         // Upload attachment
         if ($request->file('attachment')) {
@@ -187,15 +175,6 @@ class InvoicePayments extends Controller
 
             $invoice_payment->attachMedia($media, 'attachment');
         }
-
-        $request['status_code'] = $invoice->invoice_status_code;
-        $request['notify'] = 0;
-
-        $desc_amount = money((float) $request['amount'], (string) $request['currency_code'], true)->format();
-
-        $request['description'] = $desc_amount . ' ' . trans_choice('general.payments', 1);
-
-        InvoiceHistory::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 

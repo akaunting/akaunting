@@ -11,6 +11,7 @@ use App\Models\Expense\BillHistory;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
+use App\Jobs\Expense\CreateBillPayment;
 
 class BillPayments extends Controller
 {
@@ -166,20 +167,7 @@ class BillPayments extends Controller
 
         $bill->save();
 
-        $bill_payment_request = [
-            'company_id'     => $request['company_id'],
-            'bill_id'        => $request['bill_id'],
-            'account_id'     => $request['account_id'],
-            'paid_at'        => $request['paid_at'],
-            'amount'         => $request['amount'],
-            'currency_code'  => $request['currency_code'],
-            'currency_rate'  => $request['currency_rate'],
-            'description'    => $request['description'],
-            'payment_method' => $request['payment_method'],
-            'reference'      => $request['reference']
-        ];
-
-        $bill_payment = BillPayment::create($bill_payment_request);
+        $bill_payment = dispatch(new CreateBillPayment($request, $bill));
 
         // Upload attachment
         if ($request->file('attachment')) {
@@ -187,15 +175,6 @@ class BillPayments extends Controller
 
             $bill_payment->attachMedia($media, 'attachment');
         }
-
-        $request['status_code'] = $bill->bill_status_code;
-        $request['notify'] = 0;
-
-        $desc_amount = money((float) $request['amount'], (string) $request['currency_code'], true)->format();
-
-        $request['description'] = $desc_amount . ' ' . trans_choice('general.payments', 1);
-
-        BillHistory::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 

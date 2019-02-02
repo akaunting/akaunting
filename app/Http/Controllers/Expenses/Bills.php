@@ -307,6 +307,15 @@ class Bills extends Controller
         $bill->bill_status_code = 'received';
         $bill->save();
 
+        // Add bill history
+        BillHistory::create([
+            'company_id' => $bill->company_id,
+            'bill_id' => $bill->id,
+            'status_code' => 'received',
+            'notify' => 0,
+            'description' => trans('bills.mark_recevied'),
+        ]);
+
         flash(trans('bills.messages.received'))->success();
 
         return redirect()->back();
