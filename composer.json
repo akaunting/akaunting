@@ -28,7 +28,7 @@
         "laracasts/flash": "3.0.*",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "LaravelCollective/html": "5.4.*",
+        "laravelcollective/html": "5.4.*",
         "maatwebsite/excel": "2.1.*",
         "nwidart/laravel-menus": "0.5.*",
         "nwidart/laravel-modules": "1.*",
