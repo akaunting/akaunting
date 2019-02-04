@@ -110,10 +110,10 @@ class UpdateInvoice
 
         $invoice_paid = $this->invoice->paid;
 
-        if ($this->request['amount'] > $invoice_paid) {
-            $this->request['invoice_status_code'] = 'partial';
+        unset($this->invoice->reconciled);
 
-            unset($this->invoice->reconciled);
+        if (($invoice_paid) && $this->request['amount'] > $invoice_paid) {
+            $this->request['invoice_status_code'] = 'partial';
         }
 
         $this->invoice->update($this->request->input());

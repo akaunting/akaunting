@@ -109,10 +109,10 @@ class UpdateBill
 
         $bill_paid = $this->bill->paid;
 
-        if ($this->request['amount'] > $bill_paid) {
-            $this->request['bill_status_code'] = 'partial';
+        unset($this->bill->reconciled);
 
-            unset($this->bill->reconciled);
+        if (($bill_paid) && $this->request['amount'] > $bill_paid) {
+            $this->request['bill_status_code'] = 'partial';
         }
 
         $this->bill->update($this->request->input());
