@@ -368,6 +368,7 @@ class Bills extends Controller
     public function payment(PaymentRequest $request)
     {
         // Get currency object
+        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
         $currency = Currency::where('code', $request['currency_code'])->first();
 
         $request['currency_code'] = $currency->code;
@@ -377,16 +378,28 @@ class Bills extends Controller
 
         $total_amount = $bill->amount;
 
-        $amount = (double) $request['amount'];
+        $default_amount = (double) $request['amount'];
 
-        if ($request['currency_code'] != $bill->currency_code) {
-            $request_bill = new Bill();
+        if ($bill->currency_code == $request['currency_code']) {
+            $amount = $default_amount;
+        } else {
+            $default_amount_model = new BillPayment();
 
-            $request_bill->amount = (float) $request['amount'];
-            $request_bill->currency_code = $currency->code;
-            $request_bill->currency_rate = $currency->rate;
+            $default_amount_model->default_currency_code = $bill->currency_code;
+            $default_amount_model->amount                = $default_amount;
+            $default_amount_model->currency_code         = $request['currency_code'];
+            $default_amount_model->currency_rate         = $currencies[$request['currency_code']];
 
-            $amount = $request_bill->getConvertedAmount();
+            $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+            $convert_amount = new BillPayment();
+
+            $convert_amount->default_currency_code = $request['currency_code'];
+            $convert_amount->amount = $default_amount;
+            $convert_amount->currency_code = $bill->currency_code;
+            $convert_amount->currency_rate = $currencies[$bill->currency_code];
+
+            $amount = (double) $convert_amount->getDynamicConvertedAmount();
         }
 
         if ($bill->payments()->count()) {
@@ -403,15 +416,41 @@ class Bills extends Controller
         $amount_check = (int) ($amount * $multiplier);
         $total_amount_check = (int) (round($total_amount, $currency->precision) * $multiplier);
 
-        if ($amount > $total_amount) {
-            $message = trans('messages.error.over_payment');
+        if ($amount_check > $total_amount_check) {
+            $error_amount = $total_amount;
+
+            if ($bill->currency_code != $request['currency_code']) {
+                $error_amount_model = new BillPayment();
+
+                $error_amount_model->default_currency_code = $request['currency_code'];
+                $error_amount_model->amount                = $error_amount;
+                $error_amount_model->currency_code         = $bill->currency_code;
+                $error_amount_model->currency_rate         = $currencies[$bill->currency_code];
+
+                $error_amount = (double) $error_amount_model->getDivideConvertedAmount();
+
+                $convert_amount = new BillPayment();
+
+                $convert_amount->default_currency_code = $bill->currency_code;
+                $convert_amount->amount = $error_amount;
+                $convert_amount->currency_code = $request['currency_code'];
+                $convert_amount->currency_rate = $currencies[$request['currency_code']];
+
+                $error_amount = (double) $convert_amount->getDynamicConvertedAmount();
+            }
+
+            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $request['currency_code'], true)]);
 
             return response()->json([
                 'success' => false,
                 'error' => true,
+                'data' => [
+                    'amount' => $error_amount
+                ],
                 'message' => $message,
+                'html' => 'null',
             ]);
-        } elseif ($amount == $total_amount) {
+        } elseif ($amount_check == $total_amount_check) {
             $bill->bill_status_code = 'paid';
         } else {
             $bill->bill_status_code = 'partial';
