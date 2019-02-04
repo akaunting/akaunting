@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Crear Factura',
     'send_invoice'          => 'Enviar Factura',
     'get_paid'              => 'Recibir Pago',
+    'accept_payments'       => 'Aceptar Pagos Online',
 
     'status' => [
         'draft'             => 'Borrador',

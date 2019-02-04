@@ -23,6 +23,9 @@ return [
     'added'                 => 'تمت الإضافة',
     'updated'               => 'تم التحديث',
     'compatibility'         => 'التوافق',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => 'تم تثبيت :module',
     'uninstalled'           => 'تم إلغاء تثبيت :module',

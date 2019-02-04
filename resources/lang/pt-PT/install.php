@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Atualizar',
 
     'steps' => [
-        'requirements'      => 'Por favor, peça ao seu provedor de hospedagem para corrigir os erros!',
+        'requirements'      => 'Por favor, peça ao seu fornecedor de hospedagem para corrigir os erros!',
         'language'          => 'Passo 1/3: Selecionar idioma',
         'database'          => 'Passo 2/3: Configuração da base de dados',
         'settings'          => 'Passo 3/3: Detalhes da empresa e do administrador',
@@ -33,8 +33,8 @@ return [
     'settings' => [
         'company_name'      => 'Nome da empresa',
         'company_email'     => 'E-mail da empresa',
-        'admin_email'       => 'E-mail do Administrador',
-        'admin_password'    => 'Senha do Administrador',
+        'admin_email'       => 'E-mail do administrador',
+        'admin_password'    => 'Senha do administrador',
     ],
 
     'error' => [
