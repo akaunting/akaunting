@@ -41,7 +41,7 @@
                             <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
                             <td>{{ $item->description }}</td>
                             <td>@if (!empty($item->contact)) {{ $item->contact->name }} @else {{ trans('general.na') }}@endif</td>
-                            @if (($item->model == 'App\Models\Income\Invoice') || ($item->model == 'App\Models\Income\Revenue'))
+                            @if (($item->model == 'App\Models\Income\InvoicePayment') || ($item->model == 'App\Models\Income\Revenue'))
                                 <td class="text-right">@money($item->amount, $item->currency_code, true)</td>
                                 <td>&nbsp;</td>
                             @else

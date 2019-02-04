@@ -218,7 +218,7 @@ class Reconciliations extends Controller
             $m::where('account_id', $account->id)->whereBetween('paid_at', [$started[0], $ended[0]])->each(function($item) use(&$transactions, $model) {
                 $item->model = $model;
 
-                if (($model == 'App\Models\Income\Invoice') || ($model == 'App\Models\Income\Revenue')) {
+                if (($model == 'App\Models\Income\InvoicePayment') || ($model == 'App\Models\Income\Revenue')) {
                     if ($item->invoice) {
                         $item->contact = $item->invoice->customer;
                     } else {
@@ -294,7 +294,7 @@ class Reconciliations extends Controller
             foreach ($transactions as $key => $value) {
                 $model = explode('_', $key);
 
-                if (($model[1] == 'App\Models\Income\Invoice') || ($model[1] == 'App\Models\Income\Revenue')) {
+                if (($model[1] == 'App\Models\Income\InvoicePayment') || ($model[1] == 'App\Models\Income\Revenue')) {
                     $income_total += $value;
                 } else {
                     $expense_total += $value;
