@@ -348,7 +348,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-md-6 col-sm-12">
             <div class="box box-default collapsed-box">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('invoices.histories') }}</h3>
@@ -383,7 +383,7 @@
             </div>
         </div>
 
-        <div class="col-xs-6">
+        <div class="col-md-6 col-sm-12">
             <div class="box box-default collapsed-box">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ trans('invoices.payments') }}</h3>
