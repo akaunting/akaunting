@@ -9,7 +9,7 @@ return [
 
     'notification' => [
         'message'       => [
-            'reminder' => 'You are receiving this email because only :quantity of :name has remained.',
+            'reminder' => 'أنت تتلقى هذه الرسالة لأنه متبقي لديك :quantity من :name.',
             'out_of_stock' => 'You are receiving this email because the :name is running out of stock.',
         ],
         'button'        => 'عرض الآن',

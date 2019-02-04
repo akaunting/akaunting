@@ -4,11 +4,11 @@ return [
 
     'account_name'          => 'Denumire Cont',
     'number'                => 'Număr',
-    'opening_balance'       => 'Soldul initial',
+    'opening_balance'       => 'Soldul inițial',
     'current_balance'       => 'Soldul curent',
-    'bank_name'             => 'Numele bancii',
-    'bank_phone'            => 'Telefonul bancii',
-    'bank_address'          => 'Adresa bancii',
-    'default_account'       => 'Cont implicit',
+    'bank_name'             => 'Numele băncii',
+    'bank_phone'            => 'Telefonul băncii',
+    'bank_address'          => 'Adresa băncii',
+    'default_account'       => 'Cont standard',
 
 ];

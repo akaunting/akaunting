@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Rechnung erstellen',
     'send_invoice'          => 'Rechnung senden',
     'get_paid'              => 'Zahlung erhalten',
+    'accept_payments'       => 'Onlinezahlungen akzeptieren',
 
     'status' => [
         'draft'             => 'Entwurf',

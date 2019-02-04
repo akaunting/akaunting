@@ -5,12 +5,12 @@ return [
     'profile'               => 'Profil',
     'logout'                => 'Deconectare',
     'login'                 => 'Conectare',
-    'login_to'              => 'Conecteaza-te pentru a începe sesiunea',
+    'login_to'              => 'Conectează-te pentru a începe sesiunea',
     'remember_me'           => 'Ţine-mă minte',
     'forgot_password'       => 'Am uitat parola',
-    'reset_password'        => 'Reseteaza parola',
-    'enter_email'           => 'Introduceți adresa dvs. de email',
-    'current_email'         => 'Adresa de Email actuala',
+    'reset_password'        => 'Resetează parola',
+    'enter_email'           => 'Introduceți adresa dvs. de Email',
+    'current_email'         => 'Adresa de Email actuală',
     'reset'                 => 'Resetare',
     'never'                 => 'niciodată',
     
@@ -18,13 +18,12 @@ return [
         'current'           => 'Parola',
         'current_confirm'   => 'Confirmă parola',
         'new'               => 'Parola nouă',
-        'new_confirm'       => 'Confirmă parola',
+        'new_confirm'       => 'Confirmă parola nouă',
     ],
     
     'error' => [
-        'self_delete'       => 'Eroare: Nu te poti sterge!
-Eroare: nu poti sterge contul tau! You can\'t delete your account!',
-        'no_company'        => 'Eroare: Nici o companie nu este atribuita contului. Contacteaza administratorul de sistem.',
+        'self_delete'       => 'Eroare: Nu î-ți poți șterge singur contul!',
+        'no_company'        => 'Eroare: Nici o companie nu este atribuita contului. Contactează administratorul de sistem.',
     ],
 
     'failed'                => 'Datele de identificare nu pot fi confirmate.',
@@ -32,9 +31,9 @@ Eroare: nu poti sterge contul tau! You can\'t delete your account!',
     'throttle'              => 'Prea multe încercări de intrare în cont. Poți încerca din nou peste :seconds secunde.',
 
     'notification' => [
-        'message_1'     => 'Primesti acest email pentru ca a fost facuta o cerere de resetare a parolei pentru contul tau.',
-        'message_2'     => 'Daca nu ai cerut resetarea parolei, nu este necesara o actiune suplimentara.',
-        'button'        => 'Resetare Parola',
+        'message_1'     => 'Primești acest Email pentru că a fost făcută o cerere de resetare a parolei pentru contul tău.',
+        'message_2'     => 'Dacă nu ai cerut resetarea parolei, nu este necesară o acțiune suplimentară.',
+        'button'        => 'Resetare Parolă',
     ],
 
 ];

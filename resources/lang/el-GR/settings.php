@@ -11,7 +11,7 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Τοπική προσαρμογή',
-        'financial_start'   => 'Financial Year Start',
+        'financial_start'   => 'Έναρξη Οικονομικού Έτους',
         'timezone'          => 'Ζώνη ώρας',
         'date' => [
             'format'        => 'Μορφοποίηση Ημερομηνίας',

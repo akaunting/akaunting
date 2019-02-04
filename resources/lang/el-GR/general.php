@@ -67,7 +67,7 @@ return [
     'delete_confirm'        => 'Επιβεβαίωση διαγραφής :name :type;',
     'name'                  => 'Όνομα',
     'email'                 => 'Email',
-    'tax_number'            => 'Ονομασία ΦΠΑ',
+    'tax_number'            => 'ΑΦΜ',
     'phone'                 => 'Τηλέφωνο',
     'address'               => 'Διεύθυνση',
     'website'               => 'Ιστοσελίδα',
