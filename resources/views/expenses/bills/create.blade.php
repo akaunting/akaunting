@@ -181,6 +181,8 @@
 @push('scripts')
     <script type="text/javascript">
         var focus = false;
+        var select_count = {};
+        var taxes = {};
         var item_row = '{{ $item_row }}';
         var autocomplete_path = "{{ url('common/items/autocomplete') }}";
 
@@ -221,6 +223,66 @@
                 weekStart: 1,
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'
+            });
+            
+            $('body').on('select2:selecting', '.tax-select2', function(e) {
+                var parent_id = e.params.args.data.element.parentNode.id;
+
+                if (!(parent_id in select_count)) {
+                    select_count[parent_id] = 0;
+                    taxes[parent_id] = [];
+                }
+
+                select_count[parent_id]++;
+
+                if (select_count[parent_id] == 0) {
+                    var tax_filter = e.params.args.data.element.dataset.type;
+
+                    if (tax_filter == 'inclusive') {
+
+                        // if inclusive, limit the options to only 'inclusive'
+                        $('#' +  parent_id).find(`[data-type="normal"]`).each( function () {
+                            taxes[parent_id].push({val: $(this).val(), text: $(this).text(), type: $(this).attr('data-type')});
+                            $(this).remove();
+                        })
+
+                        $('#' +  parent_id).find(`[data-type="compound"]`).each( function () {
+                            taxes[parent_id].push({val: $(this).val(), text: $(this).text(), type: $(this).attr('data-type')});
+                            $(this).remove();
+                        })
+
+                        $('#' +  parent_id).trigger('change.select2');
+                    } else {
+                        // if not inclusive, options to not have 'inclusive'
+                        $('#' +  parent_id).find(`[data-type="inclusive"]`).each( function () {
+                            taxes[parent_id].push({val: $(this).val(), text: $(this).text(), type: $(this).attr('data-type')});
+                            $(this).remove();
+                        })
+
+                        $('#' +  parent_id).trigger('change.select2');
+                    }
+                }
+            });
+
+            $('body').on('select2:unselecting', '.tax-select2', function (e) {
+                var parent_id = e.params.args.data.element.parentNode.id;
+
+                if (!(parent_id in select_count)) {
+                    select_count[parent_id] = 0;
+                    taxes[parent_id] = [];
+                }
+
+                select_count[parent_id]--;
+                
+                if (select_count[parent_id] == -1) {
+                    taxes[parent_id].map(function (e) {
+                        $('#' +  parent_id).append(`<option value="${e.val}" data-type="${e.type}">${e.text}</option>`);
+                    })
+
+                    taxes[parent_id] = [];
+                    
+                    $('#' +  parent_id).trigger('change.select2');
+                }
             });
 
             $('.tax-select2').select2({
