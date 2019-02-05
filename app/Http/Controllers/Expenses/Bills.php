@@ -99,10 +99,13 @@ class Bills extends Controller
         $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
+        $taxes_attributes = Tax::enabled()->orderBy('name')->get()->mapWithKeys(function ($t) {
+            return [$t->id => ['data-type' => $t->type]]; 
+        })->all();
 
         $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id');
 
-        return view('expenses.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'categories'));
+        return view('expenses.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'categories', 'taxes_attributes'));
     }
 
     /**
@@ -523,6 +526,9 @@ class Bills extends Controller
         $currency_code = $request['currency_code'];
 
         $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes_attributes = Tax::enabled()->orderBy('name')->get()->mapWithKeys(function ($t) {
+            return [$t->id => ['data-type' => $t->type]]; 
+        })->all();
 
         $currency = Currency::where('code', '=', $currency_code)->first();
 
@@ -535,7 +541,7 @@ class Bills extends Controller
             $currency->precision = (int) $currency->precision;
         }
 
-        $html = view('expenses.bills.item', compact('item_row', 'taxes', 'currency'))->render();
+        $html = view('expenses.bills.item', compact('item_row', 'taxes', 'currency', 'taxes_attributes'))->render();
 
         return response()->json([
             'success' => true,
