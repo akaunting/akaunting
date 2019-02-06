@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Install;
 
 use App\Http\Controllers\Controller;
-use App\Events\UpdateFinished;
 use App\Utilities\Updater;
 use App\Utilities\Versions;
 use Illuminate\Http\Request;
-use Artisan;
 use Module;
-use File;
 
 class Updates extends Controller
 {
@@ -157,45 +154,11 @@ class Updates extends Controller
     {
         set_time_limit(600); // 10 minutes
 
-        $status = true;
-
         if ($request['alias'] != 'core') {
             $this->checkApiToken();
         }
 
-        // Download file
-        if (!$data = Updater::download($request['alias'], $request['version'])) {
-            $status = false;
-
-            $message = trans('modules.errors.download', ['module' => $request['name']]);
-        }
-
-        // Create temp directory
-        $path = 'temp-' . md5(mt_rand());
-        $temp_path = storage_path('app/temp') . '/' . $path;
-
-        if (!File::isDirectory($temp_path)) {
-            File::makeDirectory($temp_path);
-        }
-
-        $file = $temp_path . '/upload.zip';
-
-        // Add content to the Zip file
-        $uploaded = is_int(file_put_contents($file, $data)) ? true : false;
-
-        if (!$uploaded) {
-            $status = false;
-
-            $message = trans('modules.errors.upload', ['module' => $request['name']]);
-        }
-
-        $json = [
-            'success' => ($status) ? true : false,
-            'errors' => (!$status) ? $message : false,
-            'data' => [
-                'path' => $path
-            ]
-        ];
+        $json = Updater::download($request['name'], $request['alias'], $request['version']);
 
         return response()->json($json);
     }
@@ -215,19 +178,7 @@ class Updates extends Controller
             $this->checkApiToken();
         }
 
-        $path = storage_path('app/temp') . '/' . $request['path'];
-
-        $file =  $path . '/upload.zip';
-
-        $result = Updater::unzip($file, $path);
-
-        $json = [
-            'success' => ($result) ? true : false,
-            'errors' => (!$result) ? trans('modules.errors.unzip', ['module' => $request['name']]) : false,
-            'data' => [
-                'path' => $request['path']
-            ]
-        ];
+        $json = Updater::unzip($request['name'], $request['path']);
 
         return response()->json($json);
     }
@@ -247,17 +198,7 @@ class Updates extends Controller
             $this->checkApiToken();
         }
 
-        $path = storage_path('app/temp') . '/' . $request['path'];
-
-        $result = Updater::fileCopy($request['alias'], $path, $request['version']);
-
-        $json = [
-            'success' => ($result) ? true : false,
-            'errors' => (!$result) ? trans('modules.errors.file_copy', ['module' => $request['name']]) : false,
-            'data' => [
-                'path' => $request['path']
-            ]
-        ];
+        $json = Updater::fileCopy($request['name'], $request['alias'], $request['path'], $request['version']);
 
         return response()->json($json);
     }
@@ -271,35 +212,7 @@ class Updates extends Controller
      */
     public function migrate(Request $request)
     {
-        // Check if the file mirror was successful
-        if (($request['alias'] == 'core') && (version('short') != $request['version'])) {
-            $json = [
-                'success' => false,
-                'errors' => trans('modules.errors.migrate core', ['module' => $request['name']]),
-                'data' => []
-            ];
-
-            return response()->json($json);
-        }
-
-        // Clear cache after update
-        Artisan::call('cache:clear');
-
-        try {
-            event(new UpdateFinished($request['alias'], $request['installed'], $request['version']));
-
-            $json = [
-                'success' => true,
-                'errors' => false,
-                'data' => []
-            ];
-        } catch (\Exception $e) {
-            $json = [
-                'success' => false,
-                'errors' => trans('modules.errors.migrate', ['module' => $request['name']]),
-                'data' => []
-            ];
-        }
+        $json = Updater::migrate($request['name'], $request['alias'], $request['version'], $request['installed']);
 
         return response()->json($json);
     }
@@ -313,13 +226,11 @@ class Updates extends Controller
      */
     public function finish(Request $request)
     {
-        $json =  [
+        return response()->json([
             'success' => true,
             'errors' => false,
             'redirect' => url("install/updates"),
             'data' => [],
-        ];
-
-        return response()->json($json);
+        ]);
     }
 }
