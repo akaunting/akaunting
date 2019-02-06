@@ -233,10 +233,8 @@
                 keyboard: true
             });
 
-            var newDate = new Date({{ $module->pre_sale_date['year'] }}, {{ $module->pre_sale_date['month'] }}, {{ $module->pre_sale_date['day'] }});
-
             $('#countdown-pre-sale').countdown({
-                until: newDate
+                until: new Date({{ (int) $module->pre_sale_date->year }}, {{ (int) $module->pre_sale_date->month }} - 1, {{ (int) $module->pre_sale_date->day }})
             });
         });
 
