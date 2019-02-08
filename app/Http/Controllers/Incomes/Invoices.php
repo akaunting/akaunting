@@ -349,7 +349,7 @@ class Invoices extends Controller
 
         $invoice = $this->prepareInvoice($invoice);
 
-        $html = view($invoice->template_path, compact('invoice'))->render();
+        $html = mb_convert_encoding(view($invoice->template_path, compact('invoice'))->render(), 'HTML-ENTITIES');
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
