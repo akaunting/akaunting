@@ -64,9 +64,15 @@
 
                 $('#modal-create-vendor').modal('hide');
 
-                $("#vendor_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('#vendor_id').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
                 $('#vendor_id').trigger('change');
-                $("#vendor_id").select2('refresh');
+                $('#vendor_id').select2('refresh');
+
+                @if ($vendor_selector)
+                $('{{ $vendor_selector }}').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('{{ $vendor_selector }}').trigger('change');
+                $('{{ $vendor_selector }}').select2('refresh');
+                @endif
             },
             error: function(error, textStatus, errorThrown) {
                 $('#span-loading').remove();

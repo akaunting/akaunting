@@ -62,14 +62,14 @@
 
                 $('#modal-create-tax').modal('hide');
 
-                $("#tax_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('#tax_id').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
                 $('#tax_id').trigger('change');
-                $("#tax_id").select2('refresh');
+                $('#tax_id').select2('refresh');
 
                 @if ($tax_selector)
-                $("{{ $tax_selector }}").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('{{ $tax_selector }}').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
                 $('{{ $tax_selector }}').trigger('change');
-                $("{{ $tax_selector }}").select2('refresh');
+                $('{{ $tax_selector }}').select2('refresh');
                 @endif
             },
             error: function(error, textStatus, errorThrown) {

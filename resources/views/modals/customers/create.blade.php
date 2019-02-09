@@ -64,9 +64,15 @@
 
                 $('#modal-create-customer').modal('hide');
 
-                $("#customer_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('#customer_id').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
                 $('#customer_id').trigger('change');
-                $("#customer_id").select2('refresh');
+                $('#customer_id').select2('refresh');
+
+                @if ($customer_selector)
+                $('{{ $customer_selector }}').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('{{ $customer_selector }}').trigger('change');
+                $('{{ $customer_selector }}').select2('refresh');
+                @endif
             },
             error: function(error, textStatus, errorThrown) {
                 $('#span-loading').remove();

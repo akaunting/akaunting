@@ -41,7 +41,13 @@ class Vendors extends Controller
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
 
-        $html = view('modals.vendors.create', compact('currencies'))->render();
+        $vendor_selector = false;
+
+        if (request()->has('vendor_selector')) {
+            $vendor_selector = request()->get('vendor_selector');
+        }
+
+        $html = view('modals.vendors.create', compact('currencies', 'vendor_selector'))->render();
 
         return response()->json([
             'success' => true,
@@ -60,6 +66,8 @@ class Vendors extends Controller
      */
     public function store(Request $request)
     {
+        $request['enabled'] = 1;
+
         $vendor = Vendor::create($request->all());
 
         // Upload logo

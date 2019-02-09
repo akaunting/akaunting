@@ -40,7 +40,13 @@ class Customers extends Controller
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
 
-        $html = view('modals.customers.create', compact('currencies'))->render();
+        $customer_selector = false;
+
+        if (request()->has('customer_selector')) {
+            $customer_selector = request()->get('customer_selector');
+        }
+
+        $html = view('modals.customers.create', compact('currencies', 'customer_selector'))->render();
 
         return response()->json([
             'success' => true,
@@ -59,6 +65,8 @@ class Customers extends Controller
      */
     public function store(Request $request)
     {
+        $request['enabled'] = 1;
+
         $customer = Customer::create($request->all());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);

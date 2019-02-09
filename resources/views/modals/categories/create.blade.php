@@ -66,8 +66,15 @@
 
                 $('#modal-create-category').modal('hide');
 
-                $("#category_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
-                $("#category_id").select2('refresh');
+                $('#category_id').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('#category_id').trigger('change');
+                $('#category_id').select2('refresh');
+
+                @if ($category_selector)
+                $('{{ $category_selector }}').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('{{ $category_selector }}').trigger('change');
+                $('{{ $category_selector }}').select2('refresh');
+                @endif
             },
             error: function(error, textStatus, errorThrown) {
                 $('#span-loading').remove();
