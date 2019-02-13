@@ -348,7 +348,8 @@ class Bills extends Controller
 
         $currency_style = true;
 
-        $html = view($bill->template_path, compact('bill', 'currency_style'))->render();
+        $view = view($bill->template_path, compact('bill', 'currency_style'))->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES');
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
