@@ -1,13 +1,17 @@
-<div class="modal fade" id="modal-add-payment" style="display: none;">
+<div class="modal fade add-payment-{{ $rand }}" id="modal-add-payment" style="display: none;">
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
                 <h4 class="modal-title">{{ trans('general.title.new', ['type' => trans_choice('general.payments', 1)]) }}</h4>
             </div>
+
             <div class="modal-body">
                 <div class="modal-message"></div>
+
                 {!! Form::open(['id' => 'form-add-payment', 'role' => 'form', 'class' => 'form-loading-button']) !!}
+
                 <div class="row">
                     {{ Form::textGroup('paid_at', trans('general.date'), 'calendar',['id' => 'paid_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
 
@@ -34,11 +38,14 @@
 
                     {!! Form::hidden('bill_id', $bill->id, ['id' => 'bill_id', 'class' => 'form-control', 'required' => 'required']) !!}
                 </div>
+
                 {!! Form::close() !!}
             </div>
+
             <div class="modal-footer">
                 <div class="pull-left">
                     {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' =>'button-add-payment', 'class' => 'btn btn-success button-submit', 'data-loading-text' => trans('general.loading')]) !!}
+
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</button>
                 </div>
             </div>
@@ -47,12 +54,12 @@
 </div>
 
 <script type="text/javascript">
-    $('#modal-add-payment #amount').focus();
+    $('.add-payment-{{ $rand }}#modal-add-payment #amount').focus();
 
     $(document).ready(function(){
-        $('#modal-add-payment').modal('show');
+        $('.add-payment-{{ $rand }}#modal-add-payment').modal('show');
 
-        $("#modal-add-payment #amount").maskMoney({
+        $(".add-payment-{{ $rand }}#modal-add-payment #amount").maskMoney({
             thousands : '{{ $currency->thousands_separator }}',
             decimal : '{{ $currency->decimal_mark }}',
             precision : {{ $currency->precision }},
@@ -64,9 +71,9 @@
             @endif
         });
 
-        $('#modal-add-payment #amount').trigger('focusout');
+        $('.add-payment-{{ $rand }}#modal-add-payment #amount').trigger('focusout');
 
-        $('#modal-add-payment #paid_at').datepicker({
+        $('.add-payment-{{ $rand }}#modal-add-payment #paid_at').datepicker({
             format: 'yyyy-mm-dd',
             todayBtn: 'linked',
             weekStart: 1,
@@ -74,28 +81,28 @@
             language: '{{ language()->getShortCode() }}'
         });
 
-        $("#modal-add-payment #account_id").select2({
+        $(".add-payment-{{ $rand }}#modal-add-payment #account_id").select2({
             placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
         });
 
-        $("#modal-add-payment #payment_method").select2({
+        $(".add-payment-{{ $rand }}#modal-add-payment #payment_method").select2({
             placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)]) }}"
         });
     });
 
-    $(document).on('change', '#modal-add-payment  #account_id', function (e) {
+    $(document).on('change', '.add-payment-{{ $rand }}#modal-add-payment  #account_id', function (e) {
         $.ajax({
             url: '{{ url("banking/accounts/currency") }}',
             type: 'GET',
             dataType: 'JSON',
             data: 'account_id=' + $(this).val(),
             success: function(data) {
-                $('#modal-add-payment  #currency').val(data.currency_name);
-                $('#modal-add-payment  #currency_code').val(data.currency_code);
+                $('.add-payment-{{ $rand }}#modal-add-payment  #currency').val(data.currency_name);
+                $('.add-payment-{{ $rand }}#modal-add-payment  #currency_code').val(data.currency_code);
 
-                amount = $('#modal-add-payment  #amount').maskMoney('unmasked')[0];
+                amount = $('.add-payment-{{ $rand }}#modal-add-payment  #amount').maskMoney('unmasked')[0];
 
-                $("#modal-add-payment  #amount").maskMoney({
+                $(".add-payment-{{ $rand }}#modal-add-payment  #amount").maskMoney({
                     thousands : data.thousands_separator,
                     decimal : data.decimal_mark,
                     precision : data.precision,
@@ -104,43 +111,43 @@
                     suffix : (data.symbol_first) ? '' : data.symbol
                 });
 
-                $('#modal-add-payment  #amount').val(amount);
+                $('.add-payment-{{ $rand }}#modal-add-payment  #amount').val(amount);
 
-                $('#modal-add-payment #amount').focus();
+                $('.add-payment-{{ $rand }}#modal-add-payment #amount').focus();
             }
         });
     });
 
-    $(document).on('click', '#button-add-payment', function (e) {
-        $('.help-block').remove();
+    $(document).on('click', '.add-payment-{{ $rand }} #button-add-payment', function (e) {
+        $('.add-payment-{{ $rand }} .help-block').remove();
 
         $.ajax({
             url: '{{ url("modals/bills/" . $bill->id . "/payment") }}',
             type: 'POST',
             dataType: 'JSON',
-            data: $("#form-add-payment").serialize(),
+            data: $(".add-payment-{{ $rand }} #form-add-payment").serialize(),
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
             beforeSend: function() {
-                $('#button-add-payment').button('loading');
+                $('.add-payment-{{ $rand }} #button-add-payment').button('loading');
 
-                $('#modal-add-payment .modal-content').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
+                $('.add-payment-{{ $rand }}#modal-add-payment .modal-content').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
             },
             complete: function() {
-                $('#button-add-payment').button('reset');
-                $('#loading').remove();
+                $('.add-payment-{{ $rand }} #button-add-payment').button('reset');
+                $('.add-payment-{{ $rand }} #loading').remove();
             },
             success: function(json) {
                 if (json['error']) {
-                    $('#modal-add-payment .modal-message').append('<div class="alert alert-danger">' + json['message'] + '</div>');
-                    $('div.alert-danger').delay(3000).fadeOut(350);
+                    $('.add-payment-{{ $rand }}#modal-add-payment .modal-message').append('<div class="alert alert-danger">' + json['message'] + '</div>');
+                    $('.add-payment-{{ $rand }} div.alert-danger').delay(3000).fadeOut(350);
                 }
 
                 if (json['success']) {
-                    $('#modal-add-payment .modal-message').before('<div class="alert alert-success">' + json['message'] + '</div>');
-                    $('div.alert-success').delay(3000).fadeOut(350);
+                    $('.add-payment-{{ $rand }}#modal-add-payment .modal-message').before('<div class="alert alert-success">' + json['message'] + '</div>');
+                    $('.add-payment-{{ $rand }} div.alert-success').delay(3000).fadeOut(350);
 
                     setTimeout(function(){
-                        $("#modal-add-payment").modal('hide');
+                        $(".add-payment-{{ $rand }}#modal-add-payment").modal('hide');
 
                         location.reload();
                     }, 3000);
@@ -151,27 +158,27 @@
 
                 if (typeof errors !== 'undefined') {
                     if (errors.paid_at) {
-                        $('#modal-add-payment #paid_at').parent().after('<p class="help-block">' + errors.paid_at + '</p>');
+                        $('.add-payment-{{ $rand }}#modal-add-payment #paid_at').parent().after('<p class="help-block">' + errors.paid_at + '</p>');
                     }
 
                     if (errors.amount) {
-                        $('#modal-add-payment #amount').parent().after('<p class="help-block">' + errors.amount + '</p>');
+                        $('.add-payment-{{ $rand }}#modal-add-payment #amount').parent().after('<p class="help-block">' + errors.amount + '</p>');
                     }
 
                     if (errors.account_id) {
-                        $('#modal-add-payment #account_id').parent().after('<p class="help-block">' + errors.account_id + '</p>');
+                        $('.add-payment-{{ $rand }}#modal-add-payment #account_id').parent().after('<p class="help-block">' + errors.account_id + '</p>');
                     }
 
                     if (errors.currency_code) {
-                        $('#modal-add-payment #currency_code').parent().after('<p class="help-block">' + errors.currency_code + '</p>');
+                        $('.add-payment-{{ $rand }}#modal-add-payment #currency_code').parent().after('<p class="help-block">' + errors.currency_code + '</p>');
                     }
 
                     if (errors.category_id) {
-                        $('#modal-add-payment #category_id').parent().after('<p class="help-block">' + errors.category_id + '</p>');
+                        $('.add-payment-{{ $rand }}#modal-add-payment #category_id').parent().after('<p class="help-block">' + errors.category_id + '</p>');
                     }
 
                     if (errors.payment_method) {
-                        $('#modal-add-payment #payment_method').parent().after('<p class="help-block">' + errors.payment_method + '</p>');
+                        $('.add-payment-{{ $rand }}#modal-add-payment #payment_method').parent().after('<p class="help-block">' + errors.payment_method + '</p>');
                     }
                 }
             }

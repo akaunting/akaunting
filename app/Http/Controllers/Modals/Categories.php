@@ -36,7 +36,9 @@ class Categories extends Controller
             $category_selector = request()->get('category_selector');
         }
 
-        $html = view('modals.categories.create', compact('currencies', 'type', 'category_selector'))->render();
+        $rand = rand();
+
+        $html = view('modals.categories.create', compact('currencies', 'type', 'category_selector', 'rand'))->render();
 
         return response()->json([
             'success' => true,

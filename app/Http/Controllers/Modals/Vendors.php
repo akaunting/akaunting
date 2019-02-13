@@ -47,7 +47,9 @@ class Vendors extends Controller
             $vendor_selector = request()->get('vendor_selector');
         }
 
-        $html = view('modals.vendors.create', compact('currencies', 'vendor_selector'))->render();
+        $rand = rand();
+
+        $html = view('modals.vendors.create', compact('currencies', 'vendor_selector', 'rand'))->render();
 
         return response()->json([
             'success' => true,

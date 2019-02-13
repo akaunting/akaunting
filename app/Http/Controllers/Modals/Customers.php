@@ -46,7 +46,9 @@ class Customers extends Controller
             $customer_selector = request()->get('customer_selector');
         }
 
-        $html = view('modals.customers.create', compact('currencies', 'customer_selector'))->render();
+        $rand = rand();
+
+        $html = view('modals.customers.create', compact('currencies', 'customer_selector', 'rand'))->render();
 
         return response()->json([
             'success' => true,
