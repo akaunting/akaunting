@@ -133,7 +133,7 @@ class InvoicePayments extends Controller
             if ($invoice->currency_code != $request['currency_code']) {
                 $error_amount_model = new InvoicePayment();
 
-                $error_amount_model->default_currency_code = $request['currency_code'];
+                $error_amount_model->default_currency_code = $request['currency_code'];
                 $error_amount_model->amount                = $error_amount;
                 $error_amount_model->currency_code         = $invoice->currency_code;
                 $error_amount_model->currency_rate         = $currencies[$invoice->currency_code];
