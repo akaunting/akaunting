@@ -4,7 +4,7 @@
 @section('message', trans('auth.login_to'))
 
 @section('content')
-<form role="form" method="POST" action="{{ url('auth/login') }}">
+<form role="form" method="POST" action="{{ url('auth/login') }}" class="form-loading-button">
     {{ csrf_field() }}
 
     @stack('email_input_start')
@@ -44,7 +44,7 @@
         <!-- /.col -->
 
         <div class="col-sm-4">
-            <button type="submit" class="btn btn-success btn-block btn-flat">{{ trans('auth.login') }}</button>
+            <button type="submit" class="btn btn-success btn-block btn-flat button-submit" data-loading-text="{{ trans('general.loading') }}">{{ trans('auth.login') }}</button>
         </div>
         <!-- /.col -->
     </div>
