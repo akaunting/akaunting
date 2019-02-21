@@ -79,12 +79,7 @@ class Login extends Controller
             return redirect($path);
         }
 
-        // Check wizard
-        if (!setting('general.wizard', false)) {
-            return redirect('wizard');
-        }
-
-        return redirect()->intended('/');
+        return redirect()->intended('wizard');
     }
 
     public function destroy()

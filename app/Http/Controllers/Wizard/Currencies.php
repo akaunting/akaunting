@@ -13,16 +13,10 @@ class Currencies extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Currency  $currency
-     *
      * @return Response
      */
     public function index()
     {
-        if (setting('general.wizard', false)) {
-            return redirect('/');
-        }
-
         $currencies = Currency::all();
 
         return view('wizard.currencies.index', compact('currencies'));
@@ -35,10 +29,6 @@ class Currencies extends Controller
      */
     public function create()
     {
-        if (setting('general.wizard', false)) {
-            return redirect('/');
-        }
-
         // Get current currencies
         $current = Currency::pluck('code')->toArray();
 
@@ -105,10 +95,6 @@ class Currencies extends Controller
      */
     public function edit(Currency $currency)
     {
-        if (setting('general.wizard', false)) {
-            return redirect('/');
-        }
-
         // Get current currencies
         $current = Currency::pluck('code')->toArray();
 

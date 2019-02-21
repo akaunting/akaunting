@@ -15,10 +15,6 @@ class Taxes extends Controller
      */
     public function index()
     {
-        if (setting('general.wizard', false)) {
-            return redirect('/');
-        }
-
         $taxes = Tax::all();
 
         return view('wizard.taxes.index', compact('taxes'));
@@ -31,10 +27,6 @@ class Taxes extends Controller
      */
     public function create()
     {
-        if (setting('general.wizard', false)) {
-            return redirect('/');
-        }
-
         $html = view('wizard.taxes.create', compact('codes'))->render();
 
         return response()->json([
@@ -75,10 +67,6 @@ class Taxes extends Controller
      */
     public function edit(Tax $tax)
     {
-        if (setting('general.wizard', false)) {
-            return redirect('/');
-        }
-
         $item = $tax;
 
         $html = view('wizard.taxes.edit', compact('item'))->render();
