@@ -26,7 +26,7 @@ class All
         $auth_user = auth()->user();
 
         // Share date format
-        $date_format = $this->getCompanyDateFormat();
+        $date_format = $auth_user ? $this->getCompanyDateFormat() : 'd F Y';
 
         $view->with(['auth_user' => $auth_user, 'date_format' => $date_format]);
     }
