@@ -65,7 +65,7 @@ return [
     ],
 
     'notification' => [
-        'message'           => 'You are receiving this email because you have an upcoming :amount invoice to :customer customer.',
+        'message'           => 'Please find attached an invoice for :amount, you will receive confirmation via email as soon as the payment has been received.',
         'button'            => 'Pay Now',
     ],
 
