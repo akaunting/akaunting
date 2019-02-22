@@ -5,7 +5,6 @@ namespace Database\Seeds;
 use App\Models\Model;
 use Illuminate\Database\Seeder;
 use Date;
-use Setting;
 
 class Settings extends Seeder
 {
@@ -27,7 +26,9 @@ class Settings extends Seeder
     {
         $company_id = $this->command->argument('company');
 
-        Setting::set([
+        setting()->setExtraColumns(['company_id' => $company_id]);
+
+        setting()->set([
             'general.financial_start'           => Date::now()->startOfYear()->format('d-m'),
             'general.timezone'                  => 'Europe/London',
             'general.date_format'               => 'd M Y',

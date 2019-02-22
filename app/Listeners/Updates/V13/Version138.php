@@ -28,6 +28,7 @@ class Version138 extends Listener
         // Re-format financial start
         $current_setting = setting('general.financial_start', Date::now()->startOfYear()->format('d F'));
 
+        setting()->setExtraColumns(['company_id' => session('company_id')]);
         setting(['general.financial_start' => Date::parse($current_setting)->format('d-m')]);
         setting()->save();
     }

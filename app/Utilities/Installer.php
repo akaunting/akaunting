@@ -214,13 +214,13 @@ class Installer
         ]);
 
         // Set settings
+        setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->set([
             'general.company_name'          => $name,
             'general.company_email'         => $email,
             'general.default_currency'      => 'USD',
             'general.default_locale'        => $locale,
         ]);
-        setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->save();
     }
 
