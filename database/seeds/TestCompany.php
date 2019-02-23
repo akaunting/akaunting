@@ -5,6 +5,7 @@ namespace Database\Seeds;
 use App\Models\Model;
 use App\Models\Auth\User;
 use App\Models\Common\Company;
+use Date;
 use Illuminate\Database\Seeder;
 
 class TestCompany extends Seeder
