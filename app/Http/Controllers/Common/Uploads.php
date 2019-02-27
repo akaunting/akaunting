@@ -18,7 +18,11 @@ class Uploads extends Controller
      */
     public function get($id)
     {
-        $media = Media::find($id);
+        try {
+            $media = Media::find($id);
+        } catch (\Exception $e) {
+            return false;
+        }
 
         // Get file path
         if (!$path = $this->getPath($media)) {
@@ -51,7 +55,17 @@ class Uploads extends Controller
             ];
         }
 
-        $media = Media::find($id);
+        try {
+            $media = Media::find($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error'   => true,
+                'data'    => [],
+                'message' => 'null',
+                'html'    => '',
+            ]);
+        }
 
         // Get file path
         if (!$path = $this->getPath($media)) {
@@ -85,7 +99,11 @@ class Uploads extends Controller
      */
     public function download($id)
     {
-        $media = Media::find($id);
+        try {
+            $media = Media::find($id);
+        } catch (\Exception $e) {
+            return false;
+        }
 
         // Get file path
         if (!$path = $this->getPath($media)) {
@@ -103,7 +121,11 @@ class Uploads extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $media = Media::find($id);
+        try {
+            $media = Media::find($id);
+        } catch (\Exception $e) {
+            return back();
+        }
 
         // Get file path
         if (!$path = $this->getPath($media)) {
@@ -125,7 +147,6 @@ class Uploads extends Controller
 
                     setting()->save();
                     break;
-                default;
             }
         }
 
