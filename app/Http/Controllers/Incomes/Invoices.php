@@ -257,6 +257,18 @@ class Invoices extends Controller
      */
     public function destroy(Invoice $invoice)
     {
+        // Increase stock
+        $invoice->items()->each(function ($invoice_item) {
+            $item = Item::find($invoice_item->item_id);
+
+            if (empty($item)) {
+                return;
+            }
+
+            $item->quantity += (double) $invoice_item->quantity;
+            $item->save();
+        });
+
         $this->deleteRelationships($invoice, ['items', 'item_taxes', 'histories', 'payments', 'recurring', 'totals']);
         $invoice->delete();
 
