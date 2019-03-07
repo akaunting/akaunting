@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Listeners\Updates\V11;
+namespace App\Listeners\Updates\V13;
 
 use App\Events\UpdateFinished;
 use App\Listeners\Updates\Listener;
 use App\Models\Common\Company;
 use App\Utilities\Installer;
+use Artisan;
 
-class Version112 extends Listener
+class Version1313 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '1.1.2';
+    const VERSION = '1.3.13';
 
     /**
      * Handle the event.
@@ -26,14 +27,17 @@ class Version112 extends Listener
             return;
         }
 
-        $locale = 'en-GB';
+        $schedule_time = '09:00';
 
         // Get default locale if only 1 company
         if (Company::all()->count() == 1) {
-            $locale = setting('general.default_locale', 'en-GB');
+            $schedule_time = setting('general.schedule_time', '09:00');
         }
 
         // Set default locale
-        Installer::updateEnv(['APP_LOCALE' => $locale]);
+        Installer::updateEnv(['APP_SCHEDULE_TIME' => '"' . $schedule_time . '"']);
+
+        // Update database
+        Artisan::call('migrate', ['--force' => true]);
     }
 }
