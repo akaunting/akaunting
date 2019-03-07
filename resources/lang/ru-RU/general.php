@@ -40,8 +40,7 @@ return [
     'others'                => 'Другой|Другие',
     'contacts'              => 'Контакт | Контакты',
     'reconciliations'       => 'Reconciliation|Reconciliations',
-    'deposits'              => 'Депозит | Депозиты',
-    'withdrawals'           => 'Withdrawal|Withdrawals',
+    'developers'            => 'Developer|Developers',
 
     'dashboard'             => 'Панель управления',
     'banking'               => 'Банки',

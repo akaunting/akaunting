@@ -5,6 +5,7 @@ return [
     'title'                 => 'API ٹوکن',
     'api_token'             => 'ٹوکن',
     'my_apps'               => 'میری ایپس',
+    'pre_sale'              => 'فروخت سے پہلے',
     'top_paid'              => 'سب سے اوپر فروخت کنندہ ایپ',
     'new'                   => 'نیا',
     'top_free'              => 'سب سے زیادہ مفت ایپ',
@@ -61,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'انسٹال',
+        'pre_sale' => 'فروخت سے پہلے',
     ],
 
     'button' => [

@@ -9,8 +9,5 @@ return [
     'currencies_eur'        => 'Euro',
     'currencies_gbp'        => 'Britse pond',
     'currencies_try'        => 'Turkse Lira',
-    'taxes_exempt'          => 'Vrijstelling van BTW',
-    'taxes_normal'          => 'Standaard BTW',
-    'taxes_sales'           => 'Verkoop BTW',
 
 ];
