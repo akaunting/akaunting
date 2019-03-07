@@ -5,6 +5,7 @@ return [
     'title'                 => 'API token',
     'api_token'             => 'Token',
     'my_apps'               => 'Uygulamalarım',
+    'pre_sale'              => 'Ön-Satış',
     'top_paid'              => 'Popüler Ücretli',
     'new'                   => 'Yeni',
     'top_free'              => 'Popüler Ücretsiz',
@@ -61,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Yüklü',
+        'pre_sale' => 'Ön-Satış',
     ],
 
     'button' => [

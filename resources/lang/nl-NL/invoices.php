@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Factuur maken',
     'send_invoice'          => 'Factuur sturen',
     'get_paid'              => 'Betaling afstemmen',
+    'accept_payments'       => 'Accept Online Payments',
 
     'status' => [
         'draft'             => 'Concept',
