@@ -106,16 +106,16 @@ class CreateBillItem
                 $item_amount = $item_discount_amount + $item_tax_total;
 
                 $item_base_rate = $item_amount / (1 + collect($inclusives)->sum('rate')/100);
-                
+
                 foreach ($inclusives as $inclusive) {
                     $item_tax_total += $tax_amount = $item_base_rate * ($inclusive->rate / 100);
 
                     $item_taxes[] = [
-                        'company_id'    => $this->bill->company_id,
-                        'bill_id'       => $this->bill->id,
-                        'tax_id'        => $inclusive->id,
-                        'name'          => $inclusive->name,
-                        'amount'        => $tax_amount,
+                        'company_id' => $this->bill->company_id,
+                        'bill_id' => $this->bill->id,
+                        'tax_id' => $inclusive->id,
+                        'name' => $inclusive->name,
+                        'amount' => $tax_amount,
                     ];
                 }
 
