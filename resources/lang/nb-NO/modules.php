@@ -5,6 +5,7 @@ return [
     'title'                 => 'API-token',
     'api_token'             => 'Token',
     'my_apps'               => 'Mine applikasjoner',
+    'pre_sale'              => 'Forhåndssalg',
     'top_paid'              => 'Topp betalte',
     'new'                   => 'Ny',
     'top_free'              => 'Topp gratis',
@@ -61,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Innstallert',
+        'pre_sale' => 'Forhåndssalg',
     ],
 
     'button' => [

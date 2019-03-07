@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Локализация',
+        'financial_start'   => 'Financial Year Start',
+        'timezone'          => 'Часовой пояс',
         'date' => [
             'format'        => 'Формат даты',
             'separator'     => 'Разделитель даты',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Слэш (/)',
             'space'         => 'Пробел ( )',
         ],
-        'timezone'          => 'Часовой пояс',
         'percent' => [
             'title'         => 'Percent (%) Position',
             'before'        => 'Before Number',
