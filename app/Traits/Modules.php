@@ -551,7 +551,7 @@ trait Modules
         $headers['headers'] = [
             'Authorization' => 'Bearer ' . setting('general.api_token'),
             'Accept'        => 'application/json',
-            'Referer'       => env('APP_URL'),
+            'Referer'       => url('/'),
             'Akaunting'     => version('short'),
             'Language'      => language()->getShortCode()
         ];
