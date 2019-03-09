@@ -113,7 +113,6 @@ class Installer
         // Update .env file
         static::updateEnv([
             'APP_KEY'   =>  'base64:'.base64_encode(random_bytes(32)),
-            'APP_URL'   =>  url('/'),
         ]);
 	}
 
