@@ -94,7 +94,7 @@ return [
 
         'chartjs' => [
             'scripts' => [
-                asset('public/js/chartjs/Chart.min.js'),
+                app()->runningInConsole() ? '' : asset('public/js/chartjs/Chart.min.js'),
             ],
         ],
 

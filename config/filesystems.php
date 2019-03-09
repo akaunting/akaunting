@@ -51,14 +51,14 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => url('/') . '/storage',
+            'url' => app()->runningInConsole() ? '' : url('/') . '/storage',
             'visibility' => 'public',
         ],
 
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('app/uploads'),
-            'url' => url('/') . '/uploads',
+            'url' => app()->runningInConsole() ? '' : url('/') . '/uploads',
             'visibility' => 'private',
         ],
 
