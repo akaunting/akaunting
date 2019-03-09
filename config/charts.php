@@ -94,7 +94,7 @@ return [
 
         'chartjs' => [
             'scripts' => [
-                asset('/public/js/chartjs/Chart.min.js'),
+                asset('public/js/chartjs/Chart.min.js'),
             ],
         ],
 
