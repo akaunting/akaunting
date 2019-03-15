@@ -97,7 +97,7 @@ class Items extends Controller
 
         flash($message)->success();
 
-        return redirect()->route('items.edit', $item->id);
+        return redirect()->route('items.edit', $clone->id);
     }
 
     /**
