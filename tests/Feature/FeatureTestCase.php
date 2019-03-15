@@ -40,11 +40,11 @@ abstract class FeatureTestCase extends TestCase
 	{
 		if (!$user) {
 		    $user = $this->user;
-        }
+		}
 
 		if (!$company) {
 		    $company = $user->companies()->first();
-        }
+        	}
 
 		$this->startSession();
 
