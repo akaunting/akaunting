@@ -148,7 +148,7 @@
                                 @foreach($accounts as $item)
                                 <tr>
                                     <td class="text-left">{{ $item->name }}</td>
-                                    <td class="text-right">@money($item->balance, $item->currency_code, true)</td>
+                                    <td class="text-right">@money($item->balance, setting('general.default_currency'), true)</td>
                                 </tr>
                                 @endforeach
                             </tbody>
