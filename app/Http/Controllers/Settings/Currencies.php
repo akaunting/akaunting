@@ -287,6 +287,8 @@ class Currencies extends Controller
 
         if ($code) {
             $currency = config('money.' . $code);
+            
+            $currency['rate'] = isset($currency['rate']) ? $currency['rate'] : null;
             $currency['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
 
             $json = (object) $currency;

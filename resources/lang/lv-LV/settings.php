@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Reģionālie iestatījumi',
+        'financial_start'   => 'Financial Year Start',
+        'timezone'          => 'Laika zona',
         'date' => [
             'format'        => 'Datuma formāts',
             'separator'     => 'Datuma atdalītājs',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Daļsvītra (/)',
             'space'         => 'Atstarpe ( )',
         ],
-        'timezone'          => 'Laika zona',
         'percent' => [
             'title'         => 'Procentu (%) pozīcija',
             'before'        => 'Pirms skaitļa',

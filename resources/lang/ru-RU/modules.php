@@ -5,6 +5,7 @@ return [
     'title'                 => 'API ключ',
     'api_token'             => 'Ключ',
     'my_apps'               => 'Мои приложения',
+    'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'Топ оплаченных',
     'new'                   => 'Новый',
     'top_free'              => 'Топ бесплатных',
@@ -23,6 +24,9 @@ return [
     'added'                 => 'Добавлено',
     'updated'               => 'Обновлено',
     'compatibility'         => 'Совместимость',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => ':module установлен',
     'uninstalled'           => ':module удалён',
@@ -58,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Установлено',
+        'pre_sale' => 'Pre-Sale',
     ],
 
     'button' => [

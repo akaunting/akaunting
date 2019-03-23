@@ -97,7 +97,7 @@ class Items extends Controller
 
         flash($message)->success();
 
-        return redirect()->route('items.edit', $item->id);
+        return redirect()->route('items.edit', $clone->id);
     }
 
     /**
@@ -358,37 +358,12 @@ class Items extends Controller
                     }
 
                     if ($inclusives) {
-                        if ($discount) {
-                            $item_tax_total = 0;
+                        $item_sub_and_tax_total = $item_discount_total + $item_tax_total;
 
-                            if ($taxes) {
-                                foreach ($taxes as $tax) {
-                                    $item_tax_amount = ($item_sub_total / 100) * $tax->rate;
+                        $item_base_rate = $item_sub_and_tax_total / (1 + collect($inclusives)->sum('rate')/100);
+                        $item_tax_total = $item_sub_and_tax_total - $item_base_rate;
 
-                                    $item_tax_total += $item_tax_amount;
-                                }
-                            }
-
-                            foreach ($inclusives as $inclusive) {
-                                $item_sub_and_tax_total = $item_sub_total + $item_tax_total;
-
-                                $item_tax_total = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($inclusive->rate / 100)));
-
-                                $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
-
-                                $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
-                            }
-                        } else {
-                            foreach ($inclusives as $inclusive) {
-                                $item_sub_and_tax_total = $item_discount_total + $item_tax_total;
-
-                                $item_tax_total = $item_sub_and_tax_total - ($item_sub_and_tax_total / (1 + ($inclusive->rate / 100)));
-
-                                $item_sub_total = $item_sub_and_tax_total - $item_tax_total;
-
-                                $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
-                            }
-                        }
+                        $item_sub_total = $item_base_rate + $discount;
                     }
 
                     if ($compounds) {

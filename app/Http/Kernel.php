@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\AddXHeader::class,
             'company.settings',
             'company.currencies',
+            \App\Http\Middleware\RedirectIfWizardCompleted::class,
         ],
 
         'wizard' => [
@@ -83,7 +84,6 @@ class Kernel extends HttpKernel
             'signed-url',
             'signed-url.company',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\RedirectIfNotInstalled::class,
             \App\Http\Middleware\AddXHeader::class,
             'company.settings',
             'company.currencies',

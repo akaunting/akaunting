@@ -58,6 +58,9 @@ class Overrider
             //Session::put('locale', setting('general.default_language'));
             config(['app.locale' => setting('general.default_locale')]);
         }
+
+        // Set app url dynamically
+        config(['app.url' => url('/')]);
     }
 
     protected static function loadCurrencies()

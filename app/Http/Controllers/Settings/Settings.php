@@ -188,6 +188,9 @@ class Settings extends Controller
             case 'session_handler':
                 Installer::updateEnv(['SESSION_DRIVER' => $value]);
                 break;
+            case 'schedule_time':
+                Installer::updateEnv(['APP_SCHEDULE_TIME' => '"' . $value . '"']);
+                break;
         }
     }
 }

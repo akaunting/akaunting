@@ -10,5 +10,7 @@ return [
     'start_date'            => 'Start Date',
     'end_date'              => 'End Date',
     'cleared_amount'        => 'Cleared Amount',
+    'deposit'               => 'Deposit',
+    'withdrawal'            => 'Withdrawal',
 
 ];

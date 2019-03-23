@@ -5,6 +5,7 @@ return [
     'title'                 => 'API atslēga',
     'api_token'             => 'Atslēga',
     'my_apps'               => 'Manas programmas',
+    'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'Top maksas',
     'new'                   => 'Jaunas',
     'top_free'              => 'Top bezmaksas',
@@ -23,6 +24,9 @@ return [
     'added'                 => 'Pievienots',
     'updated'               => 'Atjaunināts',
     'compatibility'         => 'Savietojamība',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => ':module instalēta',
     'uninstalled'           => ':module atinstalēta',
@@ -58,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Instalēts',
+        'pre_sale' => 'Pre-Sale',
     ],
 
     'button' => [

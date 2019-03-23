@@ -5,6 +5,7 @@ return [
     'title'                 => 'رمز API',
     'api_token'             => 'رمز الوصول',
     'my_apps'               => 'تطبيقاتي',
+    'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'أعلى المدفوعات',
     'new'                   => 'جديد',
     'top_free'              => 'المجانيات الأعلى',
@@ -61,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'مثبت',
+        'pre_sale' => 'Pre-Sale',
     ],
 
     'button' => [

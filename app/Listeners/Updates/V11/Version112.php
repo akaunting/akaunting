@@ -5,7 +5,7 @@ namespace App\Listeners\Updates\V11;
 use App\Events\UpdateFinished;
 use App\Listeners\Updates\Listener;
 use App\Models\Common\Company;
-use DotenvEditor;
+use App\Utilities\Installer;
 
 class Version112 extends Listener
 {
@@ -34,11 +34,6 @@ class Version112 extends Listener
         }
 
         // Set default locale
-        DotenvEditor::setKeys([
-            [
-                'key'       => 'APP_LOCALE',
-                'value'     => $locale,
-            ],
-        ])->save();
+        Installer::updateEnv(['APP_LOCALE' => $locale]);
     }
 }

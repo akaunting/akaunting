@@ -63,10 +63,11 @@ class Companies extends Controller
     {
         $company_id = session('company_id');
 
-        setting()->forgetAll();
-
         // Create company
         $company = Company::create($request->input());
+
+        setting()->forgetAll();
+        setting()->setExtraColumns(['company_id' => $company->id]);
 
         // Create settings
         setting()->set('general.company_name', $request->get('company_name'));
@@ -85,8 +86,6 @@ class Companies extends Controller
 
         setting()->set('general.default_currency', $request->get('default_currency'));
         setting()->set('general.default_locale', session('locale'));
-
-        setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->save();
 
         setting()->forgetAll();

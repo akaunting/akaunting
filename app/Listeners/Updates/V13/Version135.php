@@ -26,6 +26,7 @@ class Version135 extends Listener
         }
 
         // Add financial year start to settings
+        setting()->setExtraColumns(['company_id' => session('company_id')]);
         setting(['general.financial_start' => Date::now()->startOfYear()->format('d F')]);
         setting()->save();
     }

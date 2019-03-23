@@ -19,10 +19,6 @@ class Companies extends Controller
      */
     public function edit()
     {
-        if (setting('general.wizard', false)) {
-            return redirect('/');
-        }
-
         $company = Company::find(session('company_id'));
 
         $company->setSettings();

@@ -245,6 +245,18 @@ class Bills extends Controller
      */
     public function destroy(Bill $bill)
     {
+        // Decrease stock
+        $bill->items()->each(function ($bill_item) {
+            $item = Item::find($bill_item->item_id);
+
+            if (empty($item)) {
+                return;
+            }
+
+            $item->quantity += (double) $bill_item->quantity;
+            $item->save();
+        });
+
         $this->deleteRelationships($bill, ['items', 'item_taxes', 'histories', 'payments', 'recurring', 'totals']);
         $bill->delete();
 
