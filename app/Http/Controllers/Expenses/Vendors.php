@@ -100,7 +100,7 @@ class Vendors extends Controller
 
         $limit = request('limit', setting('general.list_limit', '25'));
         $transactions = $this->paginate($items->merge($bill_payments)->sortByDesc('paid_at'), $limit)->withPath($vendor->id);
-        $bills = $this->paginate($bills->sortByDesc('paid_at'), $limit)->withPath($vendor->id);
+        $bills = $this->paginate($bills->sortByDesc('billed_at'), $limit)->withPath($vendor->id);
         $payments = $this->paginate($payments->sortByDesc('paid_at'), $limit)->withPath($vendor->id);
 
         return view('expenses.vendors.show', compact('vendor', 'counts', 'amounts', 'transactions', 'bills', 'payments'));
