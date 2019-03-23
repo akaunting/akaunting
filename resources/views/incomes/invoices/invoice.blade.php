@@ -141,7 +141,7 @@
     <div class="col-58">
         @stack('notes_input_start')
         @if ($invoice->notes)
-        <table class="text" style="page-break-inside: avoid;">
+        <table class="text" style="page-break-inside: avoid; white-space: pre;">
             <tr><th>{{ trans_choice('general.notes', 2) }}</th></tr>
             <tr><td>{{ $invoice->notes }}</td></tr>
         </table>
