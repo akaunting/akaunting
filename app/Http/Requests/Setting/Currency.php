@@ -27,7 +27,7 @@ class Currency extends Request
         if ($this->getMethod() == 'PATCH') {
             $id = $this->currency->getAttribute('id');
         } else {
-            $id = null;
+            $id = 'NULL';
         }
 
         // Get company id

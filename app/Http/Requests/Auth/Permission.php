@@ -27,7 +27,7 @@ class Permission extends FormRequest
         if ($this->getMethod() == 'PATCH') {
             $id = $this->permission->getAttribute('id');
         } else {
-            $id = null;
+            $id = 'NULL';
         }
 
         return [
