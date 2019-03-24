@@ -59,7 +59,10 @@ class Invoices extends Controller
 
         $categories = collect(Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id'));
 
-        $statuses = collect(InvoiceStatus::all()->pluck('name', 'code'));
+        $statuses = collect(InvoiceStatus::get()->each(function($item) {
+            $item->name = trans('invoices.status.' . $item->code);
+            return $item;
+        })->pluck('name', 'code'));
 
         return view('incomes.invoices.index', compact('invoices', 'customers', 'categories', 'statuses'));
     }
