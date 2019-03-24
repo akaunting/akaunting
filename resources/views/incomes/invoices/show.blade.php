@@ -333,7 +333,7 @@
                 @if ($invoice->notes)
                     <p class="lead">{{ trans_choice('general.notes', 2) }}</p>
 
-                    <pre class="text-muted well well-sm no-shadow" style="margin-top: 10px;">{{ $invoice->notes }}</pre>
+                    <div class="text-muted well well-sm no-shadow" style="margin-top: 10px; white-space: pre-wrap;">{{ $invoice->notes }}</div>
                 @endif
                 @stack('notes_input_end')
                 </div>
