@@ -29,13 +29,15 @@ class Database extends Controller
     public function store(Request $request)
     {
         $host = $request['hostname'];
-        $port     = env('DB_PORT', '3306');
         $database = $request['database'];
         $username = $request['username'];
         $password = $request['password'];
+        $driver = $request['driver'];
+        $prefix = $request['prefix'];
+        $port = $request['port'];
 
         // Check database connection
-        if (!Installer::createDbTables($host, $port, $database, $username, $password)) {
+        if (!Installer::createDbTables($host, $port, $database, $username, $password, $driver, $prefix)) {
             $message = trans('install.error.connection');
 
             flash($message)->error()->important();

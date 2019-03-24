@@ -116,14 +116,15 @@ class Installer
         ]);
 	}
 
-    public static function createDbTables($host, $port, $database, $username, $password)
+    public static function createDbTables($host, $port, $database, $username, $password, $driver, $prefix)
     {
-        if (!static::isDbValid($host, $port, $database, $username, $password)) {
+        if (!static::isDbValid($host, $port, $database, $username, $password, $driver)) {
             return false;
         }
 
+
         // Set database details
-        static::saveDbVariables($host, $port, $database, $username, $password);
+        static::saveDbVariables($host, $port, $database, $username, $password, $driver, $prefix);
 
         // Try to increase the maximum execution time
         set_time_limit(300); // 5 minutes
@@ -147,19 +148,28 @@ class Installer
      * @param $database
      * @param $username
      * @param $password
+     * @param $driver
      *
      * @return bool
      */
-    public static function isDbValid($host, $port, $database, $username, $password)
+    public static function isDbValid($host, $port, $database, $username, $password, $driver)
     {
+        switch ($driver){
+            case 'pgsql':
+                $charset = 'utf8';
+                break;
+            default:
+                $charset = 'utf8mb4';
+        }
+
         Config::set('database.connections.install_test', [
             'host'      => $host,
             'port'      => $port,
             'database'  => $database,
             'username'  => $username,
             'password'  => $password,
-            'driver'    => env('DB_CONNECTION', 'mysql'),
-            'charset'   => env('DB_CHARSET', 'utf8mb4'),
+            'driver'    => $driver,
+            'charset'   => $charset,
         ]);
 
         try {
@@ -174,12 +184,11 @@ class Installer
         return true;
     }
 
-    public static function saveDbVariables($host, $port, $database, $username, $password)
+    public static function saveDbVariables($host, $port, $database, $username, $password, $driver, $prefix)
     {
-        $prefix = strtolower(str_random(3) . '_');
-
         // Update .env file
         static::updateEnv([
+            'DB_CONNECTION' =>  $driver,
             'DB_HOST'       =>  $host,
             'DB_PORT'       =>  $port,
             'DB_DATABASE'   =>  $database,
@@ -188,7 +197,7 @@ class Installer
             'DB_PREFIX'     =>  $prefix,
         ]);
 
-        $con = env('DB_CONNECTION', 'mysql');
+        $con = $driver;
 
         // Change current connection
         $db = Config::get('database.connections.' . $con);

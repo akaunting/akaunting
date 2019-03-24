@@ -28,6 +28,9 @@ return [
         'username'          => 'Username',
         'password'          => 'Password',
         'name'              => 'Database',
+        'driver'            => 'Driver',
+        'port'              => 'Port',
+        'prefix'            => 'Table Prefix',
     ],
 
     'settings' => [
