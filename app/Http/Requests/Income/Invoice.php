@@ -28,7 +28,7 @@ class Invoice extends Request
         if ($this->getMethod() == 'PATCH') {
             $id = $this->invoice->getAttribute('id');
         } else {
-            $id = null;
+            $id = 'NULL';
         }
 
         // Get company id

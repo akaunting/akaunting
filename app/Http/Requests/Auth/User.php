@@ -28,7 +28,7 @@ class User extends FormRequest
             $id = $this->user->getAttribute('id');
             $required = '';
         } else {
-            $id = null;
+            $id = 'NULL';
             $required = 'required|';
         }
 

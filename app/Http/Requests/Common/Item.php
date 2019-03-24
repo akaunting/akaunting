@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Common;
 
 use App\Http\Requests\Request;
-use Illuminate\Validation\Rule;
 
 class Item extends Request
 {
@@ -28,7 +27,7 @@ class Item extends Request
         if ($this->getMethod() == 'PATCH') {
             $id = $this->item->getAttribute('id');
         } else {
-            $id = null;
+            $id = 'NULL';
         }
 
         // Get company id
@@ -36,15 +35,7 @@ class Item extends Request
 
         return [
             'name' => 'required|string',
-            'sku' => [
-                'required',
-                Rule::unique('items')
-                    ->ignore($id, 'id')
-                    ->where(function($query) use($company_id) {
-                        $query->where('company_id', $company_id);
-                        $query->whereNull('deleted_at');
-                    })
-            ],
+            'sku' => 'required|string|unique:items,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
             'sale_price' => 'required',
             'purchase_price' => 'required',
             'quantity' => 'required|integer',

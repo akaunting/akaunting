@@ -33,7 +33,7 @@ class Customer extends Request
         if ($this->getMethod() == 'PATCH') {
             $id = $this->customer->getAttribute('id');
         } else {
-            $id = null;
+            $id = 'NULL';
         }
 
         if (!empty($this->request->get('create_user')) && empty($this->request->get('user_id'))) {

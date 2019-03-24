@@ -28,7 +28,7 @@ class Bill extends Request
         if ($this->getMethod() == 'PATCH') {
             $id = $this->bill->getAttribute('id');
         } else {
-            $id = null;
+            $id = 'NULL';
         }
 
         // Get company id

@@ -32,7 +32,7 @@ class Vendor extends Request
         if ($this->getMethod() == 'PATCH') {
             $id = $this->vendor->getAttribute('id');
         } else {
-            $id = null;
+            $id = 'NULL';
         }
 
         if (!empty($this->request->get('email'))) {
