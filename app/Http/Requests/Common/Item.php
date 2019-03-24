@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Common;
 
 use App\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 
 class Item extends Request
 {
@@ -35,7 +36,15 @@ class Item extends Request
 
         return [
             'name' => 'required|string',
-            'sku' => 'required|string|unique:items,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
+            'sku' => [
+                'required',
+                Rule::unique('items')
+                    ->ignore($id, 'id')
+                    ->where(function($query) use($company_id) {
+                        $query->where('company_id', $company_id);
+                        $query->whereNull('deleted_at');
+                    })
+            ],
             'sale_price' => 'required',
             'purchase_price' => 'required',
             'quantity' => 'required|integer',
