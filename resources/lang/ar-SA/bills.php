@@ -3,9 +3,9 @@
 return [
 
     'bill_number'           => 'رقم فاتورة الشراء',
-    'bill_date'             => 'تاريخ فاتورة',
+    'bill_date'             => 'تاريخ الفاتورة',
     'total_price'           => 'السعر الإجمالي',
-    'due_date'              => 'تاريخ التسليم',
+    'due_date'              => 'تاريخ الاستحقاق',
     'order_number'          => 'رقم الطلب',
     'bill_from'             => 'فاتورة الشراء من',
 
@@ -32,8 +32,8 @@ return [
     'download_pdf'          => 'تحميل PDF',
     'send_mail'             => 'إرسال بريد إلكتروني',
     'create_bill'           => 'إنشاء فاتورة',
-    'receive_bill'          => 'Receive Bill',
-    'make_payment'          => 'Make Payment',
+    'receive_bill'          => 'إستلام فاتورة',
+    'make_payment'          => 'القيام بالدفع',
 
     'status' => [
         'draft'             => 'مسودة',

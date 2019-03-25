@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Criar fatura',
     'send_invoice'          => 'Enviar fatura',
     'get_paid'              => 'Pagar',
+    'accept_payments'       => 'Aceitar os Termos de Pagamento Online',
 
     'status' => [
         'draft'             => 'Rascunho',

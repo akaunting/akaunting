@@ -5,6 +5,7 @@ return [
     'title'                 => 'Token de API',
     'api_token'             => 'Token',
     'my_apps'               => 'Meus Apps',
+    'pre_sale'              => 'Pré-Venda',
     'top_paid'              => 'Pago a maior',
     'new'                   => 'Novo',
     'top_free'              => 'Melhores Grátis',
@@ -44,7 +45,7 @@ return [
         'header'            => 'Instalação do aplicativo',
         'download'          => 'Baixando arquivos do módulo :module.',
         'unzip'             => 'Extraindo arquivos do módulo :module.',
-        'file_copy'         => 'Atualizando arquivos do módulo :module.',
+        'file_copy'         => 'Copiando arquivos :module.',
         'migrate'           => 'Aplicando atualizações: :module.',
         'finish'            => 'A atualização foi instalada com sucesso. Você será redirecionado para a pagina de atualizações.',
         'install'           => 'Instalando :module.',
@@ -61,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Instalado',
+        'pre_sale' => 'Pré-Venda',
     ],
 
     'button' => [
