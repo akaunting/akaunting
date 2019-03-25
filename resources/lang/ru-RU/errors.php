@@ -2,23 +2,23 @@
 
 return [
 
-    'forbidden_access' => 'Forbidden Access',
-    'error_page'       => 'Error Page',
-    'page_not_found'   => 'Page Not Found',
+    'forbidden_access' => 'Доступ закрыт',
+    'error_page'       => 'Страница ошибки',
+    'page_not_found'   => 'Страница не найдена',
 
     'body'   => [
-        'forbidden_access' => 'Oops! Forbidden Access.',
-        'error_page' => 'Oops! Something went wrong.',
-        'page_not_found' => 'Oops! Page not found.',
+        'forbidden_access' => 'Ой! Запрещен доступ.',
+        'error_page' => 'Ой! Что-то пошло не так.',
+        'page_not_found' => 'Страница не найдена.',
     ],
 
     'messages'   => [
-        'forbidden_access' => 'You can not access this page.
-        Meanwhile, you may <a href=":link">return to dashboard</a>.',
-        'error_page' => 'We will work on fixing that right away.
-        Meanwhile, you may <a href=":link">return to dashboard</a>.',
-        'page_not_found' => 'We could not find the page you were looking for.
-        Meanwhile, you may <a href=":link">return to dashboard</a>.',
+        'forbidden_access' => 'Вы можете не получить доступ к этой странице.
+        тем временем, вы можете вернуться <a href=":link"> к панели</a>.',
+        'error_page' => 'Вы можете не получить доступ к этой странице.
+        тем временем, вы можете вернуться <a href=":link"> к панели</a>.',
+        'page_not_found' => 'Мы не можем найти страницу, которую вы искали.
+        Между тем, вы можете <a href=":link">вернуться на панель управления</a>.',
     ],
 
 ];

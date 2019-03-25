@@ -11,7 +11,7 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Localizção',
-        'financial_start'   => 'Financial Year Start',
+        'financial_start'   => 'Início do ano fiscal',
         'timezone'          => 'Fuso Horário',
         'date' => [
             'format'        => 'Formato da Data',
