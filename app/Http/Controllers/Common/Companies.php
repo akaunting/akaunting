@@ -65,10 +65,7 @@ class Companies extends Controller
 
         // Create company
         $company = Company::create($request->input());
-
-        setting()->forgetAll();
-        setting()->setExtraColumns(['company_id' => $company->id]);
-
+        
         // Create settings
         setting()->set('general.company_name', $request->get('company_name'));
         setting()->set('general.company_email', $request->get('company_email'));
@@ -223,6 +220,8 @@ class Companies extends Controller
         if (!$this->isUserCompany($company)) {
             $message = trans('companies.error.not_user_company');
 
+            Overrider::load('settings');
+
             flash($message)->error();
 
             return redirect()->route('companies.index');
@@ -277,6 +276,8 @@ class Companies extends Controller
         // Check if user can manage company
         if ($this->isUserCompany($company)) {
             session(['company_id' => $company->id]);
+
+            Overrider::load('settings');
 
             event(new CompanySwitched($company));
         }

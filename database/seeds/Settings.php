@@ -26,6 +26,7 @@ class Settings extends Seeder
     {
         $company_id = $this->command->argument('company');
 
+        setting()->forgetAll();
         setting()->setExtraColumns(['company_id' => $company_id]);
 
         setting()->set([
