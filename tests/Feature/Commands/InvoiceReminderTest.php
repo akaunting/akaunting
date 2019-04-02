@@ -50,7 +50,6 @@ class InvoiceReminderTest extends FeatureTestCase
 
         $items = [['name' => $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
 
-
         $data = [
             'customer_id' => '0',
             'invoiced_at' => $this->faker->date(),

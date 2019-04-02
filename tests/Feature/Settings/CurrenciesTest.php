@@ -7,7 +7,6 @@ use Tests\Feature\FeatureTestCase;
 
 class CurrenciesTest extends FeatureTestCase
 {
-
     public function testItShouldSeeCurrencyListPage()
     {
         $this->loginAs()
@@ -61,7 +60,6 @@ class CurrenciesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
     }
-
 
     private function getCurrencyRequest()
     {
