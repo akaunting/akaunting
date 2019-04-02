@@ -6,6 +6,7 @@ use App\Events\UpdateFinished;
 use App\Listeners\Updates\Listener;
 use App\Models\Common\Company;
 use App\Utilities\Overrider;
+use App\Models\Banking\Account;
 use Artisan;
 use Date;
 
@@ -91,6 +92,14 @@ class Version1316 extends Listener
                 }
 
                 setting([$key => $value]);
+            }
+
+            if (empty(setting('general.default_account'))) {
+                $account = Account::where('company_id', $company->id)->first();
+
+                if ($account) {
+                    setting()->set('general.default_account', $account->id);
+                }
             }
 
             setting()->save();
