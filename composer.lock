@@ -127,16 +127,16 @@
         },
         {
             "name": "akaunting/setting",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/setting.git",
-                "reference": "cdc63641d09c4aec98b6a8d01fddde3e70336fcd"
+                "reference": "5da44d76710ebb2b138f0807e364f614e909849f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/setting/zipball/cdc63641d09c4aec98b6a8d01fddde3e70336fcd",
-                "reference": "cdc63641d09c4aec98b6a8d01fddde3e70336fcd",
+                "url": "https://api.github.com/repos/akaunting/setting/zipball/5da44d76710ebb2b138f0807e364f614e909849f",
+                "reference": "5da44d76710ebb2b138f0807e364f614e909849f",
                 "shasum": ""
             },
             "require": {
@@ -186,7 +186,7 @@
                 "laravel",
                 "persistent"
             ],
-            "time": "2019-02-21T15:22:18+00:00"
+            "time": "2019-04-01T08:29:23+00:00"
         },
         {
             "name": "akaunting/signed-url",
@@ -249,16 +249,16 @@
         },
         {
             "name": "akaunting/version",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/version.git",
-                "reference": "43628c3f15ac9c546cc90f216f1f03446a4c0812"
+                "reference": "44a7e544d0c4c7702ef5bbf5c7cc5208342a6b82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/version/zipball/43628c3f15ac9c546cc90f216f1f03446a4c0812",
-                "reference": "43628c3f15ac9c546cc90f216f1f03446a4c0812",
+                "url": "https://api.github.com/repos/akaunting/version/zipball/44a7e544d0c4c7702ef5bbf5c7cc5208342a6b82",
+                "reference": "44a7e544d0c4c7702ef5bbf5c7cc5208342a6b82",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +301,7 @@
                 "laravel",
                 "version"
             ],
-            "time": "2017-08-24T08:04:43+00:00"
+            "time": "2019-04-01T08:50:44+00:00"
         },
         {
             "name": "almasaeed2010/adminlte",
@@ -2428,16 +2428,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.50",
+            "version": "1.0.51",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "dab4e7624efa543a943be978008f439c333f2249"
+                "reference": "755ba7bf3fb9031e6581d091db84d78275874396"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/dab4e7624efa543a943be978008f439c333f2249",
-                "reference": "dab4e7624efa543a943be978008f439c333f2249",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/755ba7bf3fb9031e6581d091db84d78275874396",
+                "reference": "755ba7bf3fb9031e6581d091db84d78275874396",
                 "shasum": ""
             },
             "require": {
@@ -2508,7 +2508,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-02-01T08:50:36+00:00"
+            "time": "2019-03-30T13:22:34+00:00"
         },
         {
             "name": "league/fractal",
@@ -4263,7 +4263,7 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v3.4.23",
+            "version": "v3.4.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/class-loader.git",
