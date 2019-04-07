@@ -2,7 +2,7 @@
 
 return [
 
-    'invoice_number'        => 'Номер квитанции',
+    'invoice_number'        => 'Номер счёта',
     'invoice_date'          => 'Дата квитанции',
     'total_price'           => 'Общая цена',
     'due_date'              => 'Дата окончания',

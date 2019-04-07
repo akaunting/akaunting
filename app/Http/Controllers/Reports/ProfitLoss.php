@@ -89,7 +89,13 @@ class ProfitLoss extends Controller
             'currency_rate' => 1
         ];
 
-        $gross['income'] = $gross['expense'] = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 'total' => 0];
+        foreach ($dates as $date) {
+            $gross['income'][$date] = 0;
+            $gross['expense'][$date] = 0;
+        }
+
+        $gross['income']['total'] = 0;
+        $gross['expense']['total'] = 0;
 
         foreach ($income_categories as $category_id => $category_name) {
             $compares['income'][$category_id]['total'] = [

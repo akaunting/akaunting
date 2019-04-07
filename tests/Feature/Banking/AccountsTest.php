@@ -73,18 +73,17 @@ class AccountsTest extends FeatureTestCase
 
     private function getAccountRequest()
     {
-        return[
-        'company_id' => $this->company->id,
-        'name' => $this->faker->text(5),
-        'number' => '1',
-        'currency_code' => setting('general.default_currency'),
-        'opening_balance' => 0,
-        'bank_name' => $this->faker->text(5),
-        'bank_phone' => null,
-        'bank_address' => null,
-        'default_account' => $this->faker->randomElement(['yes', 'no']),
-        'enabled' => $this->faker->boolean ? 1 : 0,
+        return [
+	        'company_id' => $this->company->id,
+	        'name' => $this->faker->text(5),
+	        'number' => '1',
+	        'currency_code' => setting('general.default_currency'),
+	        'opening_balance' => 0,
+	        'bank_name' => $this->faker->text(5),
+	        'bank_phone' => null,
+	        'bank_address' => null,
+	        'default_account' => $this->faker->randomElement(['yes', 'no']),
+	        'enabled' => $this->faker->boolean ? 1 : 0,
         ];
     }
 }
-

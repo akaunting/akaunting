@@ -49,7 +49,7 @@
                 @foreach($invoices as $item)
                     @php $paid = $item->paid; @endphp
                     <tr>
-                        <td><a href="{{ url('incomes/invoices/' . $item->id . ' ') }}">{{ $item->invoice_number }}</a></td>
+                        <td><a href="{{ url('incomes/invoices/' . $item->id) }}">{{ $item->invoice_number }}</a></td>
                         <td>{{ $item->customer_name }}</td>
                         <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
                         <td>{{ Date::parse($item->invoiced_at)->format($date_format) }}</td>

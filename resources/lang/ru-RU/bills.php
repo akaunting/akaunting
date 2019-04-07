@@ -2,12 +2,12 @@
 
 return [
 
-    'bill_number'           => 'Номер счёта',
-    'bill_date'             => 'Дата счёта',
+    'bill_number'           => 'Номер закупки',
+    'bill_date'             => 'Дата закупки',
     'total_price'           => 'Общая стоимость',
     'due_date'              => 'Дата завершения',
     'order_number'          => 'Номер заказа',
-    'bill_from'             => 'Счёт от',
+    'bill_from'             => 'Закупка от',
 
     'quantity'              => 'Количество',
     'price'                 => 'Цена',

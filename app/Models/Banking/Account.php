@@ -91,25 +91,11 @@ class Account extends Model
         // Opening Balance
         $total = $this->opening_balance;
 
-        // Sum invoices
-        foreach ($this->invoice_payments as $item) {
-            $total += $item->amount;
-        }
+        // Sum Incomes
+        $total += $this->invoice_payments()->sum('amount') + $this->revenues()->sum('amount');
 
-        // Sum revenues
-        foreach ($this->revenues as $item) {
-            $total += $item->amount;
-        }
-
-        // Subtract bills
-        foreach ($this->bill_payments as $item) {
-            $total -= $item->amount;
-        }
-
-        // Subtract payments
-        foreach ($this->payments as $item) {
-            $total -= $item->amount;
-        }
+        // Subtract Expenses
+        $total -= $this->bill_payments()->sum('amount') + $this->payments()->sum('amount');
 
         return $total;
     }

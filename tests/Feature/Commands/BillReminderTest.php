@@ -50,7 +50,6 @@ class BillReminderTest extends FeatureTestCase
 
         $items = [['name' => $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
 
-
         $data = [
             'vendor_id' => '0',
             'billed_at' => $this->faker->date(),
@@ -73,7 +72,6 @@ class BillReminderTest extends FeatureTestCase
             'amount' => $amount,
             'company_id' => $this->company->id,
         ];
-
 
         return $data;
     }

@@ -54,7 +54,10 @@ class Bills extends Controller
 
         $categories = collect(Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id'));
 
-        $statuses = collect(BillStatus::all()->pluck('name', 'code'));
+        $statuses = collect(BillStatus::get()->each(function($item) {
+            $item->name = trans('bills.status.' . $item->code);
+            return $item;
+        })->pluck('name', 'code'));
 
         return view('expenses.bills.index', compact('bills', 'vendors', 'categories', 'statuses'));
     }

@@ -107,7 +107,7 @@ class Accounts extends Controller
                 'payments' => 'payments',
             ]);
 
-            if ($account->id == setting('general.default_account')) {
+            if (!$request['enabled'] && $account->id == setting('general.default_account')) {
                 $relationships[] = strtolower(trans_choice('general.companies', 1));
             }
         }
