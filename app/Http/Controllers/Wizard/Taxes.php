@@ -27,7 +27,7 @@ class Taxes extends Controller
      */
     public function create()
     {
-        $html = view('wizard.taxes.create', compact('codes'))->render();
+        $html = view('wizard.taxes.create')->render();
 
         return response()->json([
             'success' => true,
