@@ -36,7 +36,11 @@ class FormServiceProvider extends ServiceProvider
         ]);
 
         Form::component('textareaGroup', 'partials.form.textarea_group', [
-            'name', 'text', 'value' => null, 'attributes' => ['rows' => '3'], 'col' => 'col-md-12',
+            'name', 'text', 'value' => null, 'attributes' => ['rows' => '3'], 'col' => 'col-md-6',
+        ]);
+
+        Form::component('textareaGroupHalf', 'partials.form.textarea_group_half', [
+            'name', 'text', 'value' => null, 'attributes' => ['rows' => '3'], 'col' => 'col-md-6',
         ]);
 
         Form::component('radioGroup', 'partials.form.radio_group', [

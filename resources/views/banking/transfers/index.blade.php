@@ -37,6 +37,7 @@
                     <th class="col-md-3">@sortablelink('payment.name', trans('transfers.from_account'))</th>
                     <th class="col-md-3">@sortablelink('revenue.name', trans('transfers.to_account'))</th>
                     <th class="col-md-3 text-right amount-space">@sortablelink('payment.amount', trans('general.amount'))</th>
+                    <th class="col-md-3 text-right amount-space">@sortablelink('revenue.amount', trans('general.amount'))</th>
                     <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
                 </tr>
                 </thead>
@@ -46,7 +47,8 @@
                         <td><a href="{{ url('banking/transfers/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
                         <td>{{ $item->from_account }}</td>
                         <td>{{ $item->to_account }}</td>
-                        <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
+                        <td class="text-right amount-space">@money($item->payment_amount, $item->payment_currency_code, true)</td>
+                        <td class="text-right amount-space">@money($item->revenue_amount, $item->revenue_currency_code, true)</td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">

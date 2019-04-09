@@ -23,7 +23,7 @@ class Transfer extends Model
      *
      * @var array
      */
-    public $sortable = ['payment.paid_at', 'payment.amount', 'payment.name', 'revenue.name'];
+    public $sortable = ['payment.paid_at', 'payment.amount', 'payment.name', 'revenue.name', 'revenue.amount'];
 
     public function payment()
     {

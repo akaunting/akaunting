@@ -14,16 +14,25 @@
 
             {{ Form::textGroup('amount', trans('general.amount'), 'money') }}
 
-            {{ Form::textGroup('transferred_at', trans('general.date'), 'calendar',['id' => 'transferred_at', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
+            {{ Form::textGroup('amount_expected', trans('general.amount'), 'money') }}
 
-            {{ Form::textareaGroup('description', trans('general.description')) }}
+            {{ Form::textGroup('transferred_at', trans('general.date'), 'calendar',[
+                'id' => 'transferred_at',
+                'required' => 'required',
+                'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'',
+                'data-mask' => '', 'autocomplete' => 'off'],
+                Date::now()->toDateString()) }}
+
+            {{ Form::textareaGroupHalf('description', trans('general.description')) }}
 
             {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, setting('general.default_payment_method')) }}
 
             {{ Form::textGroup('reference', trans('general.reference'), 'file-text-o', []) }}
 
-            {!! Form::hidden('currency_code', null, ['id' => 'currency_code']) !!}
-            {!! Form::hidden('currency_rate', null, ['id' => 'currency_rate']) !!}
+            {!! Form::hidden('currency_code_from', null, ['id' => 'currency_code_from']) !!}
+            {!! Form::hidden('currency_rate_from', null, ['id' => 'currency_rate_from']) !!}
+            {!! Form::hidden('currency_code_to', null, ['id' => 'currency_code_to']) !!}
+            {!! Form::hidden('currency_rate_to', null, ['id' => 'currency_rate_to']) !!}
         </div>
         <!-- /.box-body -->
 
@@ -51,18 +60,32 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#amount").maskMoney({
-                thousands : '{{ $currency->thousands_separator }}',
-                decimal : '{{ $currency->decimal_mark }}',
-                precision : {{ $currency->precision }},
+                thousands : '{{ $currency_from->thousands_separator }}',
+                decimal : '{{ $currency_from->decimal_mark }}',
+                precision : {{ $currency_from->precision }},
                 allowZero : true,
-                @if($currency->symbol_first)
-                prefix : '{{ $currency->symbol }}'
+                @if($currency_from->symbol_first)
+                prefix : '{{ $currency_from->symbol }}'
                 @else
-                suffix : '{{ $currency->symbol }}'
+                suffix : '{{ $currency_from->symbol }}'
                 @endif
             });
 
             $("#amount").focusout();
+
+            $("#amount_expected").maskMoney({
+                thousands : '{{ $currency_to->thousands_separator }}',
+                decimal : '{{ $currency_to->decimal_mark }}',
+                precision : {{ $currency_to->precision }},
+                allowZero : true,
+                @if($currency_to->symbol_first)
+                prefix : '{{ $currency_to->symbol }}'
+                @else
+                suffix : '{{ $currency_to->symbol }}'
+                @endif
+            });
+
+            $("#amount_expeted").focusout();
 
             //Date picker
             $('#transferred_at').datepicker({
@@ -95,8 +118,8 @@
                 success: function(data) {
                     $('#currency').val(data.currency_code);
 
-                    $('#currency_code').val(data.currency_code);
-                    $('#currency_rate').val(data.currency_rate);
+                    $('#currency_code_from').val(data.currency_code);
+                    $('#currency_rate_from').val(data.currency_rate);
 
                     amount = $('#amount').maskMoney('unmasked')[0];
 
@@ -110,6 +133,36 @@
                     });
 
                     $('#amount').val(amount);
+
+                    $('#amount').trigger('focus');
+                }
+            });
+        });
+
+        $(document).on('change', '#to_account_id', function (e) {
+            $.ajax({
+                url: '{{ url("banking/accounts/currency") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: 'account_id=' + $(this).val(),
+                success: function(data) {
+                    $('#currency_to').val(data.currency_code);
+
+                    $('#currency_code_to').val(data.currency_code);
+                    $('#currency_rate_to').val(data.currency_rate);
+
+                    amount = $('#amount_expected').maskMoney('unmasked')[0];
+
+                    $("#amount_expected").maskMoney({
+                        thousands : data.thousands_separator,
+                        decimal : data.decimal_mark,
+                        precision : data.precision,
+                        allowZero : true,
+                        prefix : (data.symbol_first) ? data.symbol : '',
+                        suffix : (data.symbol_first) ? '' : data.symbol
+                    });
+
+                    $('#amount_expected').val(amount);
 
                     $('#amount').trigger('focus');
                 }
