@@ -237,6 +237,8 @@ class Transfers extends Controller
 
         $currency_from = Currency::where('code', '=', $account->currency_code)->first();
         $currency_to = Currency::where('code', '=', $revenue->currency_code)->first();
+        $currency_from->setRateAttribute($payment->currency_rate);
+        $currency_to->setRateAttribute($revenue->currency_rate);
 
         return view('banking.transfers.edit', compact('transfer', 'accounts', 'payment_methods', 'currency_from', 'currency_to'));
     }
@@ -264,7 +266,8 @@ class Transfers extends Controller
             'account_id' => $request['from_account_id'],
             'paid_at' => $request['transferred_at'],
             'currency_code' => $payment_currency_code,
-            'currency_rate' => $currencies[$payment_currency_code],
+//            'currency_rate' => $currencies[$payment_currency_code],
+            'currecy_rate' => $request['currency_rate_from'],
             'amount' => $request['amount'],
             'vendor_id' => 0,
             'description' => $request['description'],
@@ -273,45 +276,54 @@ class Transfers extends Controller
             'reference' => $request['reference'],
         ];
 
+//        var_dump($payment_request);
+//        die;
+
         $payment->update($payment_request);
 
 //        // Convert amount if not same currency
-        if ($payment_currency_code != $revenue_currency_code) {
-            $default_currency = setting('general.default_currency', 'USD');
+//        if ($payment_currency_code != $revenue_currency_code) {
+//            $default_currency = setting('general.default_currency', 'USD');
+//
+//            $default_amount = $request['amount'];
+//
+//            if ($default_currency != $payment_currency_code) {
+//                $default_amount_model = new Transfer();
+//
+//                $default_amount_model->default_currency_code = $default_currency;
+//                $default_amount_model->amount = $request['amount'];
+//                $default_amount_model->currency_code = $payment_currency_code;
+//                $default_amount_model->currency_rate = $currencies[$payment_currency_code];
+//
+//                $default_amount = $default_amount_model->getDivideConvertedAmount();
+//            }
+//
+//            $transfer_amount = new Transfer();
+//
+//            $transfer_amount->default_currency_code = $payment_currency_code;
+//            $transfer_amount->amount = $default_amount;
+//            $transfer_amount->currency_code = $revenue_currency_code;
+//            $transfer_amount->currency_rate = $currencies[$revenue_currency_code];
+//
+//            $amount = $transfer_amount->getDynamicConvertedAmount();
+//        } else {
+//            $amount = $request['amount'];
+//        }
 
-            $default_amount = $request['amount'];
-
-            if ($default_currency != $payment_currency_code) {
-                $default_amount_model = new Transfer();
-
-                $default_amount_model->default_currency_code = $default_currency;
-                $default_amount_model->amount = $request['amount'];
-                $default_amount_model->currency_code = $payment_currency_code;
-                $default_amount_model->currency_rate = $currencies[$payment_currency_code];
-
-                $default_amount = $default_amount_model->getDivideConvertedAmount();
-            }
-
-            $transfer_amount = new Transfer();
-
-            $transfer_amount->default_currency_code = $payment_currency_code;
-            $transfer_amount->amount = $default_amount;
-            $transfer_amount->currency_code = $revenue_currency_code;
-            $transfer_amount->currency_rate = $currencies[$revenue_currency_code];
-
-            $amount = $transfer_amount->getDynamicConvertedAmount();
-        } else {
-            $amount = $request['amount'];
-        }
-
+//  added code
+        $payment_amount = $request['amount'];
+        $rev_amount = doubleval(mb_substr($request['amount_expected'], 1));
+        $revenue_currency_rate = ($rev_amount > 0) ? ($payment_amount / $rev_amount) : NULL;
 
         $revenue_request = [
             'company_id' => $request['company_id'],
             'account_id' => $request['to_account_id'],
             'paid_at' => $request['transferred_at'],
             'currency_code' => $revenue_currency_code,
-            'currency_rate' => $currencies[$revenue_currency_code],
-            'amount' => $amount,
+//            'currency_rate' => $currencies[$revenue_currency_rate],
+            'currency_rate' => $revenue_currency_rate,
+//            'amount' => $amount,
+            'amount' => $rev_amount,
             'customer_id' => 0,
             'description' => $request['description'],
             'category_id' => Category::transfer(), // Transfer Category ID
