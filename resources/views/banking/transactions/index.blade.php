@@ -44,7 +44,13 @@
                         <td>{{ $item->type }}</td>
                         <td>{{ $item->category_name }}</td>
                         <td>{{ $item->description }}</td>
+                        @if(!is_null($item->bill_id))
+                        <td class="text-right amount-space">
+                            <a href="{{ route('bills.show', $item->bill_id) }}">@money($item->amount, $item->currency_code, true)</a>
+                        </td>
+                        @else
                         <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>
