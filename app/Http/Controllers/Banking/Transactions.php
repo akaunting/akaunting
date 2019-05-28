@@ -71,6 +71,7 @@ class Transactions extends Controller
 
             $this->transactions[] = (object) [
                 'paid_at'           => $item->paid_at,
+                'bill_id'           => $item->bill_id,
                 'account_name'      => $item->account->name,
                 'type'              => $type,
                 'description'       => $item->description,
