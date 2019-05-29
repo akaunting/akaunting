@@ -32,7 +32,7 @@ class RecurringCheck extends Command
      * @var string
      */
     protected $description = 'Check for recurring';
-    
+
     /**
      * Create a new command instance.
      */
@@ -48,7 +48,6 @@ class RecurringCheck extends Command
      */
     public function handle()
     {
-        $this->today = Date::today();
 
         // Get all companies
         $companies = Company::all();
@@ -60,6 +59,9 @@ class RecurringCheck extends Command
             // Override settings and currencies
             Overrider::load('settings');
             Overrider::load('currencies');
+
+            // get today's date based on company timezone settings after settings load
+            $this->today = Date::today();
 
             $company->setSettings();
 
@@ -121,7 +123,8 @@ class RecurringCheck extends Command
 
         // Update dates
         $clone->invoiced_at = $this->today->format('Y-m-d');
-        $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
+        // Use today copy for modification
+        $clone->due_at = $this->today->copy()->addDays($diff_days)->format('Y-m-d');
         $clone->save();
 
         // Add invoice history
@@ -166,7 +169,8 @@ class RecurringCheck extends Command
 
         // Update dates
         $clone->billed_at = $this->today->format('Y-m-d');
-        $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
+        // Use today copy for modification
+        $clone->due_at = $this->today->copy()->addDays($diff_days)->format('Y-m-d');
         $clone->save();
 
         // Add bill history
