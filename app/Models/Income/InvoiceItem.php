@@ -4,11 +4,12 @@ namespace App\Models\Income;
 
 use App\Models\Model;
 use App\Traits\Currencies;
+use Bkwld\Cloner\Cloneable;
 
 class InvoiceItem extends Model
 {
 
-    use Currencies;
+    use Cloneable, Currencies;
 
     protected $table = 'invoice_items';
 
@@ -18,6 +19,13 @@ class InvoiceItem extends Model
      * @var array
      */
     protected $fillable = ['company_id', 'invoice_id', 'item_id', 'name', 'sku', 'quantity', 'price', 'total', 'tax'];
+
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    public $cloneable_relations = ['taxes'];
 
     public function invoice()
     {
