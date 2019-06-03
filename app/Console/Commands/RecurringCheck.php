@@ -76,7 +76,13 @@ class RecurringCheck extends Command
 
                     $model = $recurring->recurable;
 
+                    // Skip if no model is present
                     if (!$model) {
+                        continue;
+                    }
+
+                    // Skip creating invoice created on the same day, but scheduler hasn't run yet
+                    if ($this->today->eq(Date::parse($model->invoiced_at->format('Y-m-d')))) {
                         continue;
                     }
 
