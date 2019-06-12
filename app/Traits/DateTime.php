@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Date;
+use Illuminate\Support\Facades\Log;
 
 trait DateTime
 {
@@ -85,13 +86,28 @@ trait DateTime
 
     public function getFinancialStart()
     {
-        $now = Date::now()->startOfYear();
+        // get now
+        $now = Date::now();
 
+		//get teh start of financial year in this calendar year
         $setting = explode('-', setting('general.financial_start'));
 
         $day = !empty($setting[0]) ? $setting[0] : $now->day;
         $month = !empty($setting[1]) ? $setting[1] : $now->month;
+        $year = $now->year;
+        
+        $date1 = Date::create($year,$month,$day);
 
-        return Date::create(null, $month, $day);
+		//How far and in which direction is the start vs now
+        $interval=$now->diffInDays($date1,false);
+        
+        if($interval <=0)
+        {
+			return Date::create($year, $month, $day); //start of FY is in this calendar year
+		}else
+		{
+			return Date::create($year-1, $month, $day); //start of FY is in last calendar year
+		}     
+        
     }
 }
