@@ -92,5 +92,12 @@
     },
     "config": {
         "preferred-install": "dist"
-    }
+    },
+
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
