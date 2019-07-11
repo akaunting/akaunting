@@ -11,7 +11,7 @@
 <div class="box box-success">
     <div class="box-header with-border">
         <i class="fa fa-gear"></i>
-        <h3 class="box-title">Akaunting</h3>
+        <h3 class="box-title">SGO - Sistema de Gerenciamento Organizacional</h3>
     </div>
     <!-- /.box-header -->
 

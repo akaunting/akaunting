@@ -8,7 +8,7 @@
             @stack('login_box_start')
 
             <div class="login-logo">
-                <img src="{{ asset('public/img/akaunting-logo-white.png') }}" alt="Akaunting" />
+                <img src="{{ asset('public/img/system_logo.png') }}" alt="SGO" />
             </div>
             <!-- /.login-logo -->
 

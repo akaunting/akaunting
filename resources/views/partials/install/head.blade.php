@@ -6,7 +6,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <title>Akaunting</title>
+    <title>SGO - Instalação do sistema...</title>
 
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/bootstrap/css/bootstrap.min.css') }}">
