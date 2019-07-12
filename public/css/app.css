@@ -261,8 +261,12 @@ div.required .control-label:not(span):after, td.required:after {
     */
 }
 
+.login-box-body{
+    border-radius: 3px 3px 3px 3px;
+}
+
 .login-logo img {
-    width: 70px;
+    width: 100px;
 }
 
 .user-panel {

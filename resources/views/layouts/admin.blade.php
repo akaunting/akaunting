@@ -18,3 +18,5 @@
         @stack('body_end')
     </body>
 </html>
+
+{{-- insert tema default --}}

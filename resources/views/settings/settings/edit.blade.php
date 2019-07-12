@@ -25,7 +25,6 @@
                     <li class=""><a href="#appearance" data-toggle="tab" aria-expanded="false">{{ trans('settings.appearance.tab') }}</a></li>
                     <li class=""><a href="#system" data-toggle="tab" aria-expanded="false">{{ trans('settings.system.tab') }}</a></li>
                 </ul>
-
                 <div class="tab-content">
                     <div class="tab-pane tab-margin active" id="company">
                         {{ Form::textGroup('company_name', trans('settings.company.name'), 'id-card-o') }}
@@ -121,7 +120,7 @@
                     </div>
 
                     <div class="tab-pane tab-margin" id="appearance">
-                        {{ Form::selectGroup('admin_theme', trans('settings.appearance.theme'), 'paint-brush', ['skin-green-light' => trans('settings.appearance.light'), 'skin-black' => trans('settings.appearance.dark')], null, []) }}
+                        {{ Form::selectGroup('admin_theme', trans('settings.appearance.theme'), 'paint-brush', ['skin-green-light' => trans('settings.appearance.light'), 'skin-black' => trans('settings.appearance.dark'), 'skin-blue' => trans('settings.appearance.blue')], null, []) }}
 
                         {{ Form::selectGroup('list_limit', trans('settings.appearance.list_limit'), 'columns', ['10' => '10', '25' => '25', '50' => '50', '100' => '100'], null, []) }}
 
@@ -336,3 +335,5 @@
         });
     </script>
 @endpush
+
+{{-- insert tema --}}

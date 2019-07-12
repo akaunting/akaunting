@@ -85,6 +85,7 @@ return [
         'theme'             => 'Tema',
         'light'             => 'Claro',
         'dark'              => 'Escuro',
+        'blue'              => 'Azul',
         'list_limit'        => 'Registros por Página',
         'use_gravatar'      => 'Usar Gravatar',
     ],

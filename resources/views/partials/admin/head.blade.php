@@ -19,6 +19,10 @@
     <!-- AdminLTE Skins -->
     @if (setting('general.admin_theme', 'skin-green-light') == 'skin-green-light')
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
+    
+    @elseif(setting('general.admin_theme', 'skin-blue') == 'skin-blue')
+    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-blue.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/skin-blue.css?v=' . version('short')) }}">
     @else
         <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
         <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=' . version('short')) }}">
@@ -27,7 +31,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
     <!-- App style -->
     <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}">
-    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=' . version('short')) }}">
+    <link rel="stylesheet" href="{{ asset('public/css/sgo-default.css?v=' . version('short')) }}">
     
     <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
     
@@ -70,3 +74,5 @@
 
     @stack('head_end')
 </head>
+
+{{-- insert tema css --}}

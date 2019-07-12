@@ -62,3 +62,4 @@ class Settings extends Seeder
         ]);
     }
 }
+# insert tema default
