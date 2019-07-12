@@ -17,15 +17,13 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins -->
-    @if (setting('general.admin_theme', 'skin-green-light') == 'skin-green-light')
-        <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
-    
-    @elseif(setting('general.admin_theme', 'skin-blue') == 'skin-blue')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-blue.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/skin-blue.css?v=' . version('short')) }}">
+    @if (setting('general.admin_theme', 'skin-blue-light') == 'skin-blue-light')
+        <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-blue-light.min.css') }}">
+    @elseif(setting('general.admin_theme', 'skin-purple-light') == 'skin-purple-light')
+        <link rel="stylesheet" href="{{ asset('public/css/skin-purple-light.css?v=' . version('short')) }}">
     @else
-        <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=' . version('short')) }}">
+        <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black-light.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/css/skin-black-light.css?v=' . version('short')) }}">
     @endif
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">

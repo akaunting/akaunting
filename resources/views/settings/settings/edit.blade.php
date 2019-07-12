@@ -120,7 +120,8 @@
                     </div>
 
                     <div class="tab-pane tab-margin" id="appearance">
-                        {{ Form::selectGroup('admin_theme', trans('settings.appearance.theme'), 'paint-brush', ['skin-green-light' => trans('settings.appearance.light'), 'skin-black' => trans('settings.appearance.dark'), 'skin-blue' => trans('settings.appearance.blue')], null, []) }}
+                        {{ Form::selectGroup('admin_theme', trans('settings.appearance.theme'), 'paint-brush', ['skin-blue-light' => trans('settings.appearance.blue-light'), 
+                            'skin-purple-light'=> trans('settings.appearance.purple-light'), 'skin-black-light' => trans('settings.appearance.black-light')], null, []) }}
 
                         {{ Form::selectGroup('list_limit', trans('settings.appearance.list_limit'), 'columns', ['10' => '10', '25' => '25', '50' => '50', '100' => '100'], null, []) }}
 

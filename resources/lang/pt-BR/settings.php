@@ -83,9 +83,9 @@ return [
     'appearance' => [
         'tab'               => 'Aparência',
         'theme'             => 'Tema',
-        'light'             => 'Claro',
-        'dark'              => 'Escuro',
-        'blue'              => 'Azul',
+        'blue-light'        => 'Azul Claro',
+        'black-light'       => 'Black Claro',
+        'purple-light'      => 'Púrpura Claro',
         'list_limit'        => 'Registros por Página',
         'use_gravatar'      => 'Usar Gravatar',
     ],
