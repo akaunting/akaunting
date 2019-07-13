@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Akaunting'),
+    'name' => env('APP_NAME', 'SGO'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en-GB'),
+    'locale' => env('APP_LOCALE', 'pt-BR'),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en-GB',
+    'fallback_locale' => 'pt-BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +103,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'JustAKeyForAkauntingInstallation'),
+    'key' => env('APP_KEY', ''),
 
     'cipher' => env('APP_CIPHER', 'AES-256-CBC'),
 

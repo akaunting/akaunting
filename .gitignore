@@ -5,11 +5,11 @@
 /vendor
 /.idea
 /.vagrant
-Homestead.json
-Homestead.yaml
-npm-debug.log
+/Homestead.json
+/Homestead.yaml
+/npm-debug.log
 .env
-robots.txt
-_ide_helper.php
-.phpstorm.meta.php
+/robots.txt
+/_ide_helper.php
+/.phpstorm.meta.php
 /storage/debugbar/*
