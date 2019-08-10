@@ -328,7 +328,7 @@ class Bills extends Controller
             'bill_id' => $bill->id,
             'status_code' => 'received',
             'notify' => 0,
-            'description' => trans('bills.mark_recevied'),
+            'description' => trans('bills.mark_received'),
         ]);
 
         flash(trans('bills.messages.received'))->success();
