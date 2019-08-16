@@ -47,7 +47,7 @@ class Settings extends Seeder
             'general.send_item_reminder'        => '0',
             'general.schedule_item_stocks'      => '3,5,7',
             'general.schedule_time'             => '09:00',
-            'general.admin_theme'               => 'skin-blue-light',
+            'general.admin_theme'               => 'skin-green-light',
             'general.list_limit'                => '25',
             'general.use_gravatar'              => '0',
             'general.session_handler'           => 'file',
@@ -62,4 +62,3 @@ class Settings extends Seeder
         ]);
     }
 }
-# insert tema default

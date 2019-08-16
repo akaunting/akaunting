@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <select name="lang" id="lang" size="17" class="form-control">
                 @foreach (language()->allowed() as $code => $name)
-                <option value="{{ $code }}" @if ($code == 'pt-BR') {{ 'selected="selected"' }} @endif>{{ $name }}</option>
+                <option value="{{ $code }}" @if ($code == 'en-GB') {{ 'selected="selected"' }} @endif>{{ $name }}</option>
                 @endforeach
             </select>
         </div>

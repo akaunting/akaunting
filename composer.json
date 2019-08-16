@@ -26,7 +26,7 @@
         "jenssegers/date": "3.3.*",
         "kyslik/column-sortable": "5.4.*",
         "laracasts/flash": "3.0.*",
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "5.5",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.4.*",
         "maatwebsite/excel": "2.1.*",
@@ -37,10 +37,12 @@
         "simshaun/recurr": "3.0.*",
         "sofa/eloquence": "5.4.*",
         "tucker-eric/eloquentfilter": "1.1.*"
+
+
     },
     "require-dev": {
         "fzaninotto/faker": "1.8.*",
-        "phpunit/phpunit": "5.7.*"
+        "phpunit/phpunit": "~6.0"
     },
     "autoload": {
         "classmap": [

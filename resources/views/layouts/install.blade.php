@@ -6,7 +6,7 @@
 
         <div class="install-content">
             <div class="install-logo">
-                <img src="{{ asset('public/img/system_logo.png') }}" alt="SGO" />
+                <img src="{{ asset('public/img/system_logo.png') }}" alt="SGO - Sistema  de Gestão Organizacional" />
             </div>
 
             <div class="box box-success box-solid">

@@ -249,8 +249,7 @@ div.required .control-label:not(span):after, td.required:after {
 }
 
 .login-page {
-    background-color: #3f4141;
-    /*background: url('../img/login.jpg') no-repeat center center fixed;
+    background: url('../img/login.jpg') no-repeat center center fixed;
     height: 100%;
     width: 100%;
     padding: 5% 0;
@@ -258,15 +257,10 @@ div.required .control-label:not(span):after, td.required:after {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    */
-}
-
-.login-box-body{
-    border-radius: 3px 3px 3px 3px;
 }
 
 .login-logo img {
-    width: 100px;
+    width: 70px;
 }
 
 .user-panel {

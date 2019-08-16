@@ -5,14 +5,14 @@
     <a href="{{ url('/') }}" class="logo">
         @if (setting('general.admin_theme', 'skin-green-light') == 'skin-green-light')
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><img src="{{ asset('public/img/system_logo.png') }}" class="logo-image-mini" width="25" alt="SGO Logo"></span>
+            <span class="logo-mini"><img src="{{ asset('public/img/system_logo.png') }}" class="logo-image-mini" width="25" alt="SGO - Sistema  de Gestão Organizacional">SGO</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><img src="{{ asset('public/img/system_logo.png') }}" class="logo-image-lg" width="25" alt="SGO Logo"> <b>SGO</b></span>
+            <span class="logo-lg"><img src="{{ asset('public/img/system_logo.png') }}" class="logo-image-lg" width="25" alt="SGO - Sistema  de Gestão Organizacional"> <b>SGO</b></span>
         @else
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><img src="{{ asset('public/img/system_logo.png') }}" class="logo-image-mini" width="25" alt="SGO Logo"></span>
+            <span class="logo-mini"><img src="{{ asset('public/img/system_logo.png') }}" class="logo-image-mini" width="25" alt="SGO - Sistema  de Gestão Organizacional"></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><img src="{{ asset('public/img/system_logo.png') }}" class="logo-image-lg" width="25" alt="SGO Logo"> <b>SGO</b></span>
+            <span class="logo-lg"><img src="{{ asset('public/img/system_logo.png') }}" class="logo-image-lg" width="25" alt="SGO - Sistema  de Gestão Organizacional"> <b>SGO</b></span>
         @endif
     </a>
     <!-- Header Navbar: style can be found in header.less -->

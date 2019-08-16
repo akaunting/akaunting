@@ -62,6 +62,7 @@ class Users extends Controller
         // Create user
         $user = User::create($request->input());
 
+        //var_dump($user);die;
         // Upload picture
         if ($request->file('picture')) {
             $media = $this->getMedia($request->file('picture'), 'users');
@@ -71,6 +72,8 @@ class Users extends Controller
 
         // Attach roles
         $user->roles()->attach($request['roles']);
+
+        
 
         // Attach companies
         $user->companies()->attach($request['companies']);

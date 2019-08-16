@@ -8,7 +8,7 @@
             @stack('login_box_start')
 
             <div class="login-logo">
-                <img src="{{ asset('public/img/system_logo.png') }}" alt="SGO" />
+                <img src="{{ asset('public/img/system_logo.png') }}" alt="SGO - Sistema de Controle Organizacional" />
             </div>
             <!-- /.login-logo -->
 

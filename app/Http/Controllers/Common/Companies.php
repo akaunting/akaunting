@@ -63,6 +63,8 @@ class Companies extends Controller
     {
         $company_id = session('company_id');
 
+        var_dump(session('company_id'));die;
+
         // Create company
         $company = Company::create($request->input());
         
