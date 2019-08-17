@@ -105,7 +105,7 @@ class InvoicePayments extends BaseController
 
         InvoiceHistory::create($request->input());
 
-        return $this->response->created(url('api/invoices/' . $invoice_id . '/payments' . $invoice_payment->id));
+        return $this->response->created(url('api/invoices/' . $invoice_id . '/payments/' . $invoice_payment->id));
     }
 
     /**
