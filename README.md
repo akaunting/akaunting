@@ -40,7 +40,7 @@ docker build -t akaunting .
 # Run the app
 docker-compose up -d
 
-# Make sure you the dependencies are installed
+# Make sure you have the dependencies are installed
 docker-compose exec web composer install
 
 # Stream logs
