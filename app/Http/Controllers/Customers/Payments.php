@@ -43,7 +43,7 @@ class Payments extends Controller
      */
     public function show(Payment $payment)
     {
-        $payment_methods = Modules::getPaymentMethods();
+        $payment_methods = Modules::getPaymentMethods('all');
 
         return view('customers.payments.show', compact('payment', 'payment_methods'));
     }
