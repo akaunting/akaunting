@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Common;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Dingo\Api\Http\FormRequest;
 
 class Company extends FormRequest
 {
