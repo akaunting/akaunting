@@ -264,10 +264,6 @@ class Items extends Controller
             'sku' => $query,
         ]);
 
-        if ($type == 'invoice') {
-            $autocomplete->quantity();
-        }
-
         $items = $autocomplete->get();
 
         if ($items) {
