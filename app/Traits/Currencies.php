@@ -49,6 +49,8 @@ trait Currencies
 
     public function dynamicConvert($default, $amount, $code, $rate, $format = false)
     {
+        if ($default==$code) return $amount;
+        
         $code = new Currency($code);
 
         if ($format) {
