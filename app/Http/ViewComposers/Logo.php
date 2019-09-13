@@ -36,7 +36,7 @@ class Logo
                 return $logo;
             }
         } else {
-            $path = asset('public/img/company.png');
+            $path = 'public/img/company.png';
         }
 
         $image = Image::make($path)->encode()->getEncoded();
