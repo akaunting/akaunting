@@ -8,18 +8,20 @@
         {!! Form::model($invoice, ['method' => 'PATCH', 'files' => true, 'url' => ['incomes/invoices', $invoice->id], 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
         <div class="box-body">
+            {{ Form::textGroup('invoice_number', trans('invoices.invoice_number'), 'file-text-o') }}
+            {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart',[]) }}
+                        
             {{ Form::selectGroup('customer_id', trans_choice('general.customers', 1), 'user', $customers, config('general.customers')) }}
-
             {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies) }}
-
+                        
+            
             {{ Form::textGroup('invoiced_at', trans('invoices.invoice_date'), 'calendar', ['id' => 'invoiced_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::parse($invoice->invoiced_at)->toDateString()) }}
 
             {{ Form::textGroup('due_at', trans('invoices.due_date'), 'calendar', ['id' => 'due_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy-mm-dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::parse($invoice->due_at)->toDateString()) }}
 
-            {{ Form::textGroup('invoice_number', trans('invoices.invoice_number'), 'file-text-o') }}
-
-            {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart',[]) }}
-
+            {{ Form::textGroup('delivered_at', 
+                                         trans('invoices.delivered_date'),'calendar',['id' =>'delivered_at', 'class' => 'form-control', 'required' => 'required','data-inputmask' => '\'alias\': \'yyyy-mm-dd\'','data-mask' => '', 'autocomplete' => 'off'], Date::parse($invoice->delivered_at)->toDateString()) }}
+            
             <div class="form-group col-md-12">
                 {!! Form::label('items', trans_choice($text_override['items'], 2), ['class' => 'control-label']) !!}
                 <div class="table-responsive">
@@ -117,6 +119,8 @@
             {{ Form::hidden('customer_name', old('customer_name', null), ['id' => 'customer_name']) }}
             {{ Form::hidden('customer_email', old('customer_email', null), ['id' => 'customer_email']) }}
             {{ Form::hidden('customer_tax_number', old('customer_tax_number', null), ['id' => 'customer_tax_number']) }}
+            {{ Form::hidden('customer_company_number', old('customer_company_number', null), ['id' =>'customer_company_number']) }}
+            
             {{ Form::hidden('customer_phone', old('customer_phone', null), ['id' => 'customer_phone']) }}
             {{ Form::hidden('customer_address', old('customer_address', null), ['id' => 'customer_address']) }}
             {{ Form::hidden('currency_rate', old('currency_rate', null), ['id' => 'currency_rate']) }}
@@ -178,6 +182,14 @@
 
             //Date picker
             $('#invoiced_at').datepicker({
+                format: 'yyyy-mm-dd',
+                todayBtn: 'linked',
+                weekStart: 1,
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
+            });
+            //Date picker
+            $('#delivered_at').datepicker({
                 format: 'yyyy-mm-dd',
                 todayBtn: 'linked',
                 weekStart: 1,
@@ -447,6 +459,7 @@
                     $('#customer_name').val(data.name);
                     $('#customer_email').val(data.email);
                     $('#customer_tax_number').val(data.tax_number);
+                    $('#customer_company_number').val(data.company_number);
                     $('#customer_phone').val(data.phone);
                     $('#customer_address').val(data.address);
 

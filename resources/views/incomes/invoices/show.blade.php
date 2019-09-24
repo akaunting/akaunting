@@ -178,6 +178,7 @@
                     <address>
                         <strong>{{ setting('general.company_name') }}</strong><br>
                         {!! nl2br(setting('general.company_address')) !!}<br>
+                        
                         @if (setting('general.company_tax_number'))
                         {{ trans('general.tax_number') }}: {{ setting('general.company_tax_number') }}<br>
                         @endif
@@ -204,6 +205,13 @@
                         {!! nl2br($invoice->customer_address) !!}<br>
                         @stack('address_input_end')
 
+                        <br>                        
+                        @stack('company_number_input_start')
+                        @if ($invoice->customer_company_number)
+                          {{ trans('general.company_number') }}: {{$invoice->customer_company_number }}<br>
+                        @endif
+                        @stack('company_number_input_end')
+                        
                         @stack('tax_number_input_start')
                         @if ($invoice->customer_tax_number)
                         {{ trans('general.tax_number') }}: {{ $invoice->customer_tax_number }}<br>
@@ -241,7 +249,14 @@
                                 </tr>
                                 @endif
                                 @stack('order_number_input_end')
-
+                                
+                                @stack('delivered_at_input_start')
+                                <tr>
+                                    <th>{{ trans('invoices.delivered_date') }}:</th>
+                                    <td class="text-right">{{Date::parse($invoice->delivered_at)->format($date_format) }}</td>
+                                </tr>
+                                @stack('delivered_at_input_end')
+                                
                                 @stack('invoiced_at_input_start')
                                 <tr>
                                     <th>{{ trans('invoices.invoice_date') }}:</th>
@@ -282,8 +297,15 @@
                                 @stack('price_th_start')
                                 <th class="text-right">{{ trans($text_override['price']) }}</th>
                                 @stack('price_th_end')
-
+                                
+                                @stack('total_th_start')
+                                <th
+                                class="text-right">{{trans('invoices.sub_total') }}</th>
+                                @stack('total_th_end')
+                                
                                 @stack('taxes_th_start')
+                                <th class="text-right">{{ trans_choice('general.taxes', 1) }}%</th>
+                                <th class="text-right">  {{ trans_choice('general.taxes', 1) }} [&euro;]</th>
                                 @stack('taxes_th_end')
 
                                 @stack('total_th_start')
@@ -307,16 +329,29 @@
                                 @stack('quantity_td_start')
                                 <td class="text-center">{{ $item->quantity }}</td>
                                 @stack('quantity_td_end')
-
+                                
+                                @stack('price_td_start')
+                                <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
+                                @stack('price_td_end')
+                                
+                                @stack('total_td_start')
+                                 <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
+                                @stack('total_td_end')
+                                
                                 @stack('price_td_start')
                                 <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
                                 @stack('price_td_end')
 
                                 @stack('taxes_td_start')
+                                                                                             
+                                <td class="text-right">{{ $item->taxType->rate }} %</td>
+                                <td class="text-right">@money($item->tax,$invoice->currency_code, true)</td>
+                                
+                                
                                 @stack('taxes_td_end')
 
                                 @stack('total_td_start')
-                                <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
+                                <td class="text-right">@money($item->total + $item->tax, $invoice->currency_code, true)</td>
                                 @stack('total_td_end')
                             </tr>
                             @endforeach
@@ -329,17 +364,7 @@
             @stack('invoice_total_start')
             <div class="row">
                 <div class="col-xs-7">
-                @stack('notes_input_start')
-                @if ($invoice->notes)
-                    <p class="lead">{{ trans_choice('general.notes', 2) }}</p>
-
-                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                        {{ $invoice->notes }}
-                    </p>
-                @endif
-                @stack('notes_input_end')
                 </div>
-
                 <div class="col-xs-5">
                     <div class="table-responsive">
                         <table class="table">
@@ -372,6 +397,23 @@
                     </div>
                 </div>
             </div>
+           
+            <div class="row">
+            <div class="col-xs-12">
+                @stack('notes_input_start')
+                @if ($invoice->notes)
+                    <p class="lead">{{ trans_choice('general.notes', 2) }}</p>
+
+                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                        {{ $invoice->notes }}
+                    </p>
+                @endif
+                @stack('notes_input_end')
+                </div>
+                
+                
+            </div>
+
             @stack('invoice_total_end')
 
             @stack('box_footer_start')

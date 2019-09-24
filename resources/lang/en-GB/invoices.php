@@ -2,13 +2,14 @@
 
 return [
 
+
     'invoice_number'        => 'Invoice Number',
     'invoice_date'          => 'Invoice Date',
     'total_price'           => 'Total Price',
     'due_date'              => 'Due Date',
+    'delivered_date'	      => 'Delivery date',
     'order_number'          => 'Order Number',
     'bill_to'               => 'Bill To',
-
     'quantity'              => 'Quantity',
     'price'                 => 'Price',
     'sub_total'             => 'Subtotal',
