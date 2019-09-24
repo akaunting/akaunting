@@ -39,9 +39,8 @@ return [
     'statuses'              => 'Estado|Estados',
     'others'                => 'Otro|Otros',
     'contacts'              => 'Contacto|Contactos',
-    'reconciliations'       => 'Conciliación|Concialiaciones',
-    'deposits'              => 'Depósito|Depósitos',
-    'withdrawals'           => 'Retiro|Retiros',
+    'reconciliations'       => 'Conciliación|Conciliaciones',
+    'developers'            => 'Desarrollador | Desarrolladores',
 
     'dashboard'             => 'Panel de Control',
     'banking'               => 'Banking',

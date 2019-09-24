@@ -9,8 +9,5 @@ return [
     'currencies_eur'        => 'Euro',
     'currencies_gbp'        => 'Sterlina Regno Unito',
     'currencies_try'        => 'Lira turca',
-    'taxes_exempt'          => 'Esenti da imposte',
-    'taxes_normal'          => 'Tassa normale',
-    'taxes_sales'           => 'Imposta sulle vendite',
 
 ];

@@ -27,8 +27,20 @@ trait DateTime
     {
         $year = request('year', Date::now()->year);
 
-        $start = Date::parse($year . '-01-01')->format('Y-m-d');
-        $end = Date::parse($year . '-12-31')->format('Y-m-d');
+        $start = Date::parse($year . '-01-01')->startOfDay()->format('Y-m-d H:i:s');
+        $end = Date::parse($year . '-12-31')->endOfDay()->format('Y-m-d  H:i:s');
+        
+        // check if financial year has been customized
+        $financial_start = $this->getFinancialStart();
+
+        if (Date::now()->startOfYear()->format('Y-m-d') !== $financial_start->format('Y-m-d')) {
+            if (!is_null(request('year'))) {
+                $financial_start->year = $year;
+            }
+
+            $start = $financial_start->format('Y-m-d');
+            $end = $financial_start->addYear(1)->subDays(1)->format('Y-m-d');
+        }
 
         return $query->whereBetween($field, [$start, $end]);
     }
@@ -69,5 +81,17 @@ trait DateTime
         ksort($groups);
 
         return $groups;
+    }
+
+    public function getFinancialStart()
+    {
+        $now = Date::now()->startOfYear();
+
+        $setting = explode('-', setting('general.financial_start'));
+
+        $day = !empty($setting[0]) ? $setting[0] : $now->day;
+        $month = !empty($setting[1]) ? $setting[1] : $now->month;
+
+        return Date::create(null, $month, $day);
     }
 }

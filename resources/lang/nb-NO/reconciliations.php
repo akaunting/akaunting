@@ -2,13 +2,15 @@
 
 return [
 
-    'reconcile'             => 'Reconcile',
-    'reconciled'            => 'Reconciled',
-    'closing_balance'       => 'Closing Balance',
-    'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
-    'cleared_amount'        => 'Cleared Amount',
+    'reconcile'             => 'Avstem',
+    'reconciled'            => 'Avstemt',
+    'closing_balance'       => 'Sluttbalanse',
+    'unreconciled'          => 'Uavstemt',
+    'list_transactions'     => 'Vis transaksjoner',
+    'start_date'            => 'Startdato',
+    'end_date'              => 'Sluttdato',
+    'cleared_amount'        => 'Klarert beløp',
+    'deposit'               => 'Innskudd',
+    'withdrawal'            => 'Uttak',
 
 ];

@@ -167,8 +167,6 @@ class Taxes extends Controller
             $message = trans('messages.warning.disabled', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
-
-            return redirect()->route('taxes.index');
         }
 
         return redirect()->route('taxes.index');

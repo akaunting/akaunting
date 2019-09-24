@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Oppfrisk',
 
     'steps' => [
-        'requirements'      => 'Please, ask your hosting provider to fix the errors!',
+        'requirements'      => 'Vennligst anmod din tjenestetilbyder om å rette opp problemene!',
         'language'          => 'Steg 1/3: Språkvalg',
         'database'          => 'Steg 2/3: Databaseoppsett',
         'settings'          => 'Steg 3/3: Foretak- og administratordetaljer',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature må være aktivert.',
         'disabled'          => ':feature må være deaktivert.',
-        'extension'         => ':extension extension needs to be installed and loaded!',
+        'extension'         => 'Utvidelsen :extension må installeres og aktiveres!',
         'directory'         => 'Mappen :directory må være skrivbar.',
     ],
 

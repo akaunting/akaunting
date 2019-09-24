@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Wizard\Company as Request;
 use App\Models\Common\Company;
 use App\Traits\Uploads;
+use Date;
 
 class Companies extends Controller
 {
@@ -18,10 +19,6 @@ class Companies extends Controller
      */
     public function edit()
     {
-        if (setting('general.wizard', false)) {
-            return redirect('/');
-        }
-
         $company = Company::find(session('company_id'));
 
         $company->setSettings();
@@ -32,7 +29,6 @@ class Companies extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Company  $company
      * @param  Request  $request
      *
      * @return Response

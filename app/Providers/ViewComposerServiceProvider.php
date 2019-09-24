@@ -61,7 +61,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         // Add Invoice Text
         View::composer(
-            ['incomes.invoices.*'], 'App\Http\ViewComposers\InvoiceText'
+            ['incomes.invoices.*', 'customers.invoices.*'], 'App\Http\ViewComposers\InvoiceText'
         );
     }
 

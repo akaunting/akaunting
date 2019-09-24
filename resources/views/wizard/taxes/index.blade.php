@@ -176,7 +176,7 @@
                     html += '               <li><a href="javascript:void(0);" data-href="wizard/taxes/' + tax.id + '/disable" class="tax-disable">{{ trans('general.disable') }}</a></li>';
                     html += '               <li class="divider"></li>';
                     html += '               <li>';
-                    html += '                   <button type="button" class="delete-link" title="{{ trans('general.delete') }}" onclick="confirmCurrency("#tax-' + tax.id + '", "{{ trans_choice('general.taxes', 2) }}", "{{ trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans_choice('general.taxes', 1))]) }}", "{{ trans('general.cancel') }}", "{{ trans('general.delete') }}")">{{ trans('general.delete') }}</button>';
+                    html += '                   <button type="button" class="delete-link" title="{{ trans('general.delete') }}" onclick="confirmCurrency("#tax-' + tax.id + '", "{{ trans_choice('general.taxes', 2) }}", "{{ trans('general.delete_confirm', ['name' => !empty($item) ? '<strong>' . $item->name . '</strong>' : '', 'type' => mb_strtolower(trans_choice('general.taxes', 1))]) }}", "{{ trans('general.cancel') }}", "{{ trans('general.delete') }}")">{{ trans('general.delete') }}</button>';
                     html += '               </li>';
                     html += '           </ul>';
                     html += '       </div>';

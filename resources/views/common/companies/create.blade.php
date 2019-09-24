@@ -46,6 +46,9 @@
         var text_no = '{{ trans('general.no') }}';
 
         $(document).ready(function(){
+            $('#enabled_1').trigger('click');
+            $('#company_name').focus();
+
             $("#default_currency").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
             });

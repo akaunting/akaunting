@@ -87,10 +87,18 @@
             $("#sale_price").focusout();
             $("#purchase_price").focusout();*/
 
-            $("#tax_id").select2({
+            $('#tax_id').select2({
                 placeholder: {
                     id: '-1', // the value of the option
                     text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                language: {
+                    noResults: function () {
+                        return '<span id="tax-add-new"><i class="fa fa-plus"></i> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                    }
                 }
             });
 
@@ -102,32 +110,68 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($item->picture)
-                placeholder : '<?php echo $item->picture->basename; ?>'
+                placeholder : '{{ $item->picture->basename }}'
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
             @if($item->picture)
-                picture_html  = '<span class="picture">';
-                picture_html += '    <a href="{{ url('uploads/' . $item->picture->id . '/download') }}">';
-                picture_html += '        <span id="download-picture" class="text-primary">';
-                picture_html += '            <i class="fa fa-file-{{ $item->picture->aggregate_type }}-o"></i> {{ $item->picture->basename }}';
-                picture_html += '        </span>';
-                picture_html += '    </a>';
-                picture_html += '    {!! Form::open(['id' => 'picture-' . $item->picture->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $item->picture->id)], 'style' => 'display:inline']) !!}';
-                picture_html += '    <a id="remove-picture" href="javascript:void();">';
-                picture_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-                picture_html += '    </a>';
-                picture_html += '    {!! Form::close() !!}';
-                picture_html += '</span>';
-    
-                $('.fancy-file .fake-file').append(picture_html);
-    
-                $(document).on('click', '#remove-picture', function (e) {
-                    confirmDelete("#picture-{!! $item->picture->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $item->picture->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-                });
+            $.ajax({
+                url: '{{ url('uploads/' . $item->picture->id . '/show') }}',
+                type: 'GET',
+                data: {column_name: 'picture'},
+                dataType: 'JSON',
+                success: function(json) {
+                    if (json['success']) {
+                        $('.fancy-file').after(json['html']);
+                    }
+                }
+            });
+
+            @permission('delete-common-uploads')
+            $(document).on('click', '#remove-picture', function (e) {
+                confirmDelete("#picture-{!! $item->picture->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $item->picture->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+            });
+            @endpermission
             @endif
+        });
+
+        $(document).on('click', '.select2-results__option.select2-results__message', function(e) {
+            tax_name = $('.select2-search__field').val();
+
+            $('body > .select2-container.select2-container--default.select2-container--open').remove();
+
+            $('#modal-create-tax').remove();
+
+            $.ajax({
+                url: '{{ url("modals/taxes/create") }}',
+                type: 'GET',
+                dataType: 'JSON',
+                data: {name: tax_name},
+                success: function(json) {
+                    if (json['success']) {
+                        $('body').append(json['html']);
+                    }
+                }
+            });
+        });
+
+        $(document).on('hidden.bs.modal', '#modal-create-tax', function () {
+            $('#tax_id').select2({
+                placeholder: {
+                    id: '-1', // the value of the option
+                    text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                language: {
+                    noResults: function () {
+                        return '<span id="tax-add-new"><i class="fa fa-plus-circle"></i> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                    }
+                }
+            });
         });
     </script>
 @endpush

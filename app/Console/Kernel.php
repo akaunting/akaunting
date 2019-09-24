@@ -37,9 +37,11 @@ class Kernel extends ConsoleKernel
             return;
         }
 
-        $schedule->command('reminder:invoice')->dailyAt(setting('general.schedule_time', '09:00'));
-        $schedule->command('reminder:bill')->dailyAt(setting('general.schedule_time', '09:00'));
-        $schedule->command('recurring:check')->dailyAt(setting('general.schedule_time', '09:00'));
+        $schedule_time = env('APP_SCHEDULE_TIME', '09:00');
+
+        $schedule->command('reminder:invoice')->dailyAt($schedule_time);
+        $schedule->command('reminder:bill')->dailyAt($schedule_time);
+        $schedule->command('recurring:check')->dailyAt($schedule_time);
     }
 
     /**

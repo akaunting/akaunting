@@ -616,11 +616,28 @@
     function maskValueStandard(value, settings) {
         var negative = (value.indexOf("-") > -1 && settings.allowNegative) ? "-" : "",
             onlyNumbers = value.replace(/[^0-9]/g, ""),
-            input_precision = value.length - value.lastIndexOf(settings.decimal) - 1,
-            integerPart = onlyNumbers.slice(0, onlyNumbers.length - input_precision),
+            valueWithoutSymbol = value.replace(settings.prefix, "").replace(settings.suffix, "");
+
+        var input_precision = value.length - value.lastIndexOf(settings.decimal) - 1;
+
+        if (settings.precision == 0) {
+            input_precision = 0;
+        }
+
+        var integerPart = onlyNumbers.slice(0, onlyNumbers.length - input_precision),
             newValue,
             decimalPart,
             leadingZeros;
+
+        if (settings.suffix != '' && value.length != valueWithoutSymbol.length) {
+            input_precision = valueWithoutSymbol.length - valueWithoutSymbol.lastIndexOf(settings.decimal) - 1;
+
+            if (settings.precision == 0) {
+                input_precision = 0;
+            }
+
+            integerPart = onlyNumbers.slice(0, onlyNumbers.length - input_precision);
+        }
 
         newValue = buildIntegerPart(integerPart, negative, settings);
 

@@ -45,7 +45,7 @@
                         <div class="tab-pane active" id="description">
                             {!! $module->description !!}
 
-                            @if($module->screenshots)
+                            @if($module->screenshots || $module->video)
                                 <div id="carousel-screenshot-generic" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         @if($module->video)
@@ -74,7 +74,7 @@
                                         @foreach($module->screenshots as $screenshot)
                                             @php if (empty($status)) { $status = 5; } else { $status = 1; } @endphp
                                             <div class="item @if($status == 5) {{ 'active' }} @endif">
-                                                <a data-toggle="lightbox" href="{{ $screenshot->path_string }}" data-gallery="{{ $module->slug}}">
+                                                <a href="{{ $screenshot->path_string }}" data-toggle="lightbox" data-gallery="{{ $module->slug}}">
                                                     <img class="img-fluid d-block w-100" src="{{ $screenshot->path_string }}" alt="{{ $screenshot->alt_attribute }}">
                                                 </a>
 
@@ -85,12 +85,12 @@
                                         @endforeach
 
                                         <div class="carousel-navigation-message">
-                                            @if (count($module->screenshots) > 1)
-                                            <a class="left carousel-control" href="#carousel-screenshot-generic" role="button" data-slide="prev">
+                                            @if (($module->video && (count($module->screenshots) > 1)) || (!$module->video && (count($module->screenshots) > 1)))
+                                            <a href="#carousel-screenshot-generic" class="left carousel-control" role="button" data-slide="prev">
                                                 <i class="fa fa-chevron-left"></i>
                                                 <span class="sr-only">{{ trans('pagination.previous') }}</span>
                                             </a>
-                                            <a class="right carousel-control" href="#carousel-screenshot-generic" role="button" data-slide="next">
+                                            <a href="#carousel-screenshot-generic" class="right carousel-control" role="button" data-slide="next">
                                                 <i class="fa fa-chevron-right"></i>
                                                 <span class="sr-only">{{ trans('pagination.next') }}</span>
                                             </a>
@@ -146,12 +146,14 @@
                                 @if ($module->price == '0.0000')
                                     {{ trans('modules.free') }}
                                 @else
+                                    {!! $module->price_prefix !!}
                                     @if (isset($module->special_price))
                                         <del>{{ $module->price }}</del>
                                         {{ $module->special_price }}
                                     @else
                                         {{ $module->price }}
                                     @endif
+                                    {!! $module->price_suffix !!}
                                 @endif
                             </div>
                         </div>
@@ -205,7 +207,7 @@
                             <tbody>
                                 @if ($module->vendor_name)
                                 <tr>
-                                    <th>{{ trans_choice('general.vendors', 1) }}</th>
+                                    <th>{{ trans_choice('general.developers', 1) }}</th>
                                     <td class="text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                                 </tr>
                                 @endif
@@ -239,6 +241,16 @@
                                     <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                                 </tr>
                                 @endif
+
+                                <tr>
+                                    <th>{{ trans('modules.documentation') }}</th>
+                                    <td class="text-right">
+                                        @if ($module->documentation)
+                                            <a href="{{ url('apps/docs/' . $module->slug) }}">{{ trans('modules.view') }}</a></td>
+                                        @else
+                                            {{ trans('general.na') }}
+                                        @endif
+                                </tr>
                             </tbody>
                         </table>
                     </div>

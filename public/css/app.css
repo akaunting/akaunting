@@ -917,3 +917,30 @@ input[type="number"] {
     transition: all 0.2s ease-in-out;
 }
 /* App Detail Page Sliders Finish */
+
+.select2-container .select2-selection--multiple{
+    min-height: 34px;
+}
+
+.box-body .app-price-suffix {
+    font-size: 50%;
+}
+
+.box-footer .app-price-suffix {
+    font-size: 70%;
+}
+
+.table-report {
+    overflow-x: auto !important;
+}
+
+.mailbox-attachment-file-name {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mailbox-attachment-download {
+    margin-right: 5px;
+}

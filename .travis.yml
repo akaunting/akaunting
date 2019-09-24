@@ -5,6 +5,7 @@ php:
   - '7.0'
   - '7.1'
   - '7.2'
+  - '7.3'
 
 env:
   - DB=sqlite
@@ -20,7 +21,7 @@ before_install:
 
 before_script:
   - cp .env.testing .env
-  - composer install --no-interaction
+  - composer test --no-interaction
 
 script:
   - vendor/bin/phpunit

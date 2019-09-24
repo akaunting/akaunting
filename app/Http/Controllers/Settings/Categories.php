@@ -178,8 +178,6 @@ class Categories extends Controller
             $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
-
-            return redirect()->route('categories.index');
         }
 
         return redirect()->route('categories.index');

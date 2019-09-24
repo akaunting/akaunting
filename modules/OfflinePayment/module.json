@@ -3,7 +3,7 @@
     "alias": "offlinepayment",
     "description": "",
     "version": "1.0.0",
-    "category": "payment-gateways",
+    "category": "payment-gateway",
     "keywords": [],
     "active": 1,
     "order": 0,

@@ -125,12 +125,12 @@
             <td class="quantity">{{ $item->quantity }}</td>
             @stack('quantity_td_end')
             @stack('price_td_start')
-            <td class="price">@money($item->price, $bill->currency_code, true)</td>
+            <td class="style-price price">@money($item->price, $bill->currency_code, true)</td>
             @stack('price_td_end')
             @stack('taxes_td_start')
             @stack('taxes_td_end')
             @stack('total_td_start')
-            <td class="total">@money($item->total, $bill->currency_code, true)</td>
+            <td class="style-price total">@money($item->total, $bill->currency_code, true)</td>
             @stack('total_td_end')
         </tr>
         @endforeach
@@ -156,20 +156,20 @@
                     @stack($total->code . '_td_start')
                     <tr>
                         <th>{{ trans($total->title) }}:</th>
-                        <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
+                        <td class="style-price text-right">@money($total->amount, $bill->currency_code, true)</td>
                     </tr>
                     @stack($total->code . '_td_end')
                 @else
                     @if ($bill->paid)
                         <tr class="text-success">
                             <th>{{ trans('invoices.paid') }}:</th>
-                            <td class="text-right">- @money($bill->paid, $bill->currency_code, true)</td>
+                            <td class="style-price text-right">- @money($bill->paid, $bill->currency_code, true)</td>
                         </tr>
                     @endif
                     @stack('grand_total_td_start')
                     <tr>
                         <th>{{ trans($total->name) }}:</th>
-                        <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
+                        <td class="style-price text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
                     </tr>
                     @stack('grand_total_td_end')
                 @endif
