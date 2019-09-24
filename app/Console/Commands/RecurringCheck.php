@@ -121,6 +121,8 @@ class RecurringCheck extends Command
 
         // Update dates
         $clone->invoiced_at = $this->today->format('Y-m-d');
+        $clone->delivered_at = $this->today->format('Y-m-d');
+        
         $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
         $clone->save();
 

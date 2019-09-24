@@ -39,6 +39,11 @@ class InvoiceItem extends Model
         return $this->belongsTo('App\Models\Setting\Tax');
     }
 
+    public function taxType()
+    {
+        return $this->belongsTo('App\Models\Setting\Tax' , 'tax_id');
+    }
+
     /**
      * Convert price to double.
      *

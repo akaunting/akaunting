@@ -10,6 +10,7 @@ table {
 }
 
 th, td {
+    font-size: 12px;
     text-align: left;
     padding: 8px;
 }
@@ -31,7 +32,7 @@ th, td {
 }
 
 .text {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .text-right {
@@ -96,5 +97,5 @@ th, td {
 }
 
 .notes {
-    font-size: 14px;
+    font-size: 12px;
 }

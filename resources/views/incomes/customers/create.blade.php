@@ -11,6 +11,8 @@
             {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
             {{ Form::textGroup('email', trans('general.email'), 'envelope', []) }}
+            
+            {{ Form::textGroup('company_number', trans('general.company_number'), 'percent', []) }}
 
             {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
 
