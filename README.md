@@ -34,20 +34,14 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
 It is possible to containerise Akaunting using the [`docker-compose`](docker-compose.yml) file. Here are a few commands:
 
 ```
-# Build the app
-docker build -t akaunting .
-
-# Run the app
+# Run the app (it'll build the images if they don't exist, already)
 docker-compose up -d
 
-# Make sure you the dependencies are installed
-docker-compose exec web composer install
-
 # Stream logs
-docker-compose logs -f web
+docker-compose logs -f app
 
 # Access the container
-docker-compose exec web /bin/sh
+docker-compose exec app bash
 
 # Stop & Delete everything
 docker-compose down -v

@@ -1,21 +1,49 @@
-version: '3'
+version: '3.7'
+
 services:
+  nginx:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - .:/var/www/akaunting.test
+    restart: unless-stopped
+    networks:
+      akaunting:
+        aliases:
+          - akaunting.test
+
+  app:
+    build: .docker/php
+    user: "1000:1000"
+    expose:
+      - 9000
+    volumes:
+      - .:/var/www/akaunting.test
+    restart: unless-stopped
+    environment:
+      APP_DEBUG: "true"
+    networks:
+      - akaunting
+
   mysql:
     image: mysql:5
     ports:
       - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: akaunting_root_password
       MYSQL_DATABASE: akaunting_db
       MYSQL_USER: akaunting_admin
       MYSQL_PASSWORD: akaunting_password
-  web:
-    image: akaunting
-    volumes:
-      - ./:/var/www/html
-    ports:
-      - 8080:80
-    environment:
-      APP_DEBUG: "true"
-    links:
-      - mysql
+    networks:
+      - akaunting
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  db-data:
+
+networks:
+  akaunting:
