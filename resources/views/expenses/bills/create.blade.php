@@ -168,6 +168,16 @@
     <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
 @endpush
 
+@push('stylesheet')
+    <style type="text/css">
+        .select2-results__option.select2-results__message:hover {
+            color: white;
+            background: #6da252;
+            cursor: pointer;
+        }
+    </style>
+@endpush
+
 @push('scripts')
     <script type="text/javascript">
         var focus = false;
@@ -223,7 +233,7 @@
                 },
                 language: {
                     noResults: function () {
-                        return '<span id="tax-add-new"><i class="fa fa-plus"> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
+                        return '<span id="tax-add-new"><i class="fa fa-plus-circle"></i> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
                     }
                 }
             });
@@ -238,6 +248,38 @@
 
             $('#category_id').select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
+            });
+
+            // Discount popover
+            $('a[rel=popover]').popover({
+                html: true,
+                placement: 'bottom',
+                title: '{{ trans('bills.discount') }}',
+                content: function () {
+                    html  = '<div class="discount box-body">';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="input-group" id="input-discount">';
+                    html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
+                    html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '    <div class="col-md-6">';
+                    html += '        <div class="discount-description">';
+                    html += '           {{ trans('bills.discount_desc') }}';
+                    html += '        </div>';
+                    html += '    </div>';
+                    html += '</div>';
+                    html += '<div class="discount box-footer">';
+                    html += '    <div class="col-md-12">';
+                    html += '        <div class="form-group no-margin">';
+                    html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
+                    html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
+                    html += '       </div>';
+                    html += '    </div>';
+                    html += '</div>';
+
+                    return html;
+                }
             });
 
             $('#attachment').fancyfile({
@@ -339,50 +381,21 @@
         $(document).on('click', '#tax-add-new', function(e) {
             tax_name = $('.select2-search__field').val();
 
+            $('body > .select2-container.select2-container--default.select2-container--open').remove();
+
             $('#modal-create-tax').remove();
 
             $.ajax({
                 url: '{{ url("modals/taxes/create") }}',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {name: tax_name},
+                data: {name: tax_name, tax_selector: '.tax-select2'},
                 success: function(json) {
                     if (json['success']) {
                         $('body').append(json['html']);
                     }
                 }
             });
-        });
-
-        $('a[rel=popover]').popover({
-            html: true,
-            placement: 'bottom',
-            title: '{{ trans('bills.discount') }}',
-            content: function () {
-                html  = '<div class="discount box-body">';
-                html += '    <div class="col-md-6">';
-                html += '        <div class="input-group" id="input-discount">';
-                html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
-                html += '            <div class="input-group-addon"><i class="fa fa-percent"></i></div>';
-                html += '        </div>';
-                html += '    </div>';
-                html += '    <div class="col-md-6">';
-                html += '        <div class="discount-description">';
-                html += '           {{ trans('bills.discount_desc') }}';
-                html += '        </div>';
-                html += '    </div>';
-                html += '</div>';
-                html += '<div class="discount box-footer">';
-                html += '    <div class="col-md-12">';
-                html += '        <div class="form-group no-margin">';
-                html += '            {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount','class' => 'btn btn-success']) !!}';
-                html += '            <a href="javascript:void(0)" id="cancel-discount" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>';
-                html += '       </div>';
-                html += '    </div>';
-                html += '</div>';
-
-                return html;
-            }
         });
 
         $(document).on('keyup', '#pre-discount', function(e){
@@ -497,6 +510,23 @@
                 success: function(json) {
                     if (json['success']) {
                         $('body').append(json['html']);
+                    }
+                }
+            });
+        });
+
+        $(document).on('hidden.bs.modal', '#modal-create-tax', function () {
+            $('.tax-select2').select2({
+                placeholder: {
+                    id: '-1', // the value of the option
+                    text: "{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}"
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                language: {
+                    noResults: function () {
+                        return '<span id="tax-add-new"><i class="fa fa-plus-circle"></i> {{ trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]) }}</span>';
                     }
                 }
             });

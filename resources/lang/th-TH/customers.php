@@ -10,7 +10,7 @@ return [
     ],
 
     'notification' => [
-        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Show',
+        'message'       => ': ดำเนินโดยลูกค้า: ยอดเงินการชำระเงินใบแจ้งหนี้หมายเลข: invoice_number',
+        'button'        => 'แสดง',
     ],
 ];

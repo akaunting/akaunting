@@ -30,7 +30,15 @@ class Categories extends Controller
     {
         $type = $request['type'];
 
-        $html = view('modals.categories.create', compact('currencies', 'type'))->render();
+        $category_selector = false;
+
+        if (request()->has('category_selector')) {
+            $category_selector = request()->get('category_selector');
+        }
+
+        $rand = rand();
+
+        $html = view('modals.categories.create', compact('currencies', 'type', 'category_selector', 'rand'))->render();
 
         return response()->json([
             'success' => true,
@@ -49,6 +57,8 @@ class Categories extends Controller
      */
     public function store(Request $request)
     {
+        $request['enabled'] = 1;
+
         $category = Category::create($request->all());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.categories', 1)]);

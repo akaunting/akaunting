@@ -39,9 +39,8 @@ return [
     'statuses'              => 'Status|Stati',
     'others'                => 'Andere|Andere',
     'contacts'              => 'Kontakt|Kontakte',
-    'reconciliations'       => 'Abstimmung|Abstimmungen',
-    'deposits'              => 'Anzahlung|Anzahlungen',
-    'withdrawals'           => 'Auszahlung|Auszahlungen',
+    'reconciliations'       => 'Kontenabgleich|Kontenabgleiche',
+    'developers'            => 'Entwickler|Entwickler',
 
     'dashboard'             => 'Dashboard',
     'banking'               => 'Bankwesen',

@@ -1,4 +1,4 @@
-<html lang="{{ setting('general.default_locale') }}">
+<html lang="{{ app()->getLocale() }}">
     @include('partials.bill.head')
 
     <body onload="window.print();">

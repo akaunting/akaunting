@@ -46,4 +46,21 @@ trait Uploads
 
         return MediaUploader::fromSource($file)->toDirectory($path)->upload();
     }
+
+    public function importMedia($file, $folder = 'settings', $company_id = null, $disk = null)
+    {
+        $path = '';
+
+        if (!$disk) {
+            $disk = config('mediable.default_disk');
+        }
+
+        if (!$company_id) {
+            $company_id = session('company_id');
+        }
+
+        $path = $company_id . '/' . $folder . '/' . basename($file);
+
+        return MediaUploader::importPath($disk, $path);
+    }
 }

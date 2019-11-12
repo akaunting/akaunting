@@ -1,4 +1,4 @@
-<html lang="{{ setting('general.default_locale') }}">
+<html lang="{{ app()->getLocale() }}">
     @include('partials.customer.head')
 
     <body class="hold-transition skin-green-light sidebar-mini fixed">

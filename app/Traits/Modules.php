@@ -3,15 +3,15 @@
 namespace App\Traits;
 
 use App\Utilities\Info;
+use App\Models\Module\Module as Model;
 use Artisan;
+use Cache;
+use Date;
 use File;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Module;
-use App\Models\Module\Module as MModule;
 use ZipArchive;
-use Cache;
-use Date;
 
 trait Modules
 {
@@ -49,6 +49,17 @@ trait Modules
     public function getModule($alias)
     {
         $response = $this->getRemote('apps/' . $alias);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
+    }
+
+    public function getDocumentation($alias)
+    {
+        $response = $this->getRemote('apps/docs/' . $alias);
 
         if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
@@ -137,7 +148,7 @@ trait Modules
 
         $installed = [];
         $modules = Module::all();
-        $installed_modules = MModule::where('company_id', '=', session('company_id'))->pluck('status', 'alias')->toArray();
+        $installed_modules = Model::where('company_id', '=', session('company_id'))->pluck('status', 'alias')->toArray();
 
         foreach ($modules as $module) {
             if (!array_key_exists($module->alias, $installed_modules)) {
@@ -154,6 +165,17 @@ trait Modules
         Cache::put($cache, $installed, Date::now()->addHour(6));
 
         return $installed;
+    }
+
+    public function getPreSaleModules($data = [])
+    {
+        $response = $this->getRemote('apps/pre_sale', 'GET', $data);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
     }
 
     public function getPaidModules($data = [])
@@ -349,9 +371,12 @@ trait Modules
             'version' => $module->get('version'),
         ];
 
+        Artisan::call('cache:clear');
+
         $module->delete();
 
-        Artisan::call('cache:clear');
+        // Cache Data clear
+        File::deleteDirectory(storage_path('framework/cache/data'));
 
         return [
             'success' => true,
@@ -400,6 +425,17 @@ trait Modules
             'errors' => false,
             'data'   => $data
         ];
+    }
+
+    public function moduleExists($alias)
+    {
+        $status = false;
+
+        if (Module::findByAlias($alias) instanceof \Nwidart\Modules\Module) {
+            $status = true;
+        }
+
+        return $status;
     }
 
     public function loadSuggestions()
@@ -515,8 +551,9 @@ trait Modules
         $headers['headers'] = [
             'Authorization' => 'Bearer ' . setting('general.api_token'),
             'Accept'        => 'application/json',
-            'Referer'       => env('APP_URL'),
+            'Referer'       => url('/'),
             'Akaunting'     => version('short'),
+            'Language'      => language()->getShortCode()
         ];
 
         $data['http_errors'] = false;

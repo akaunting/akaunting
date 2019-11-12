@@ -31,6 +31,7 @@ class Overrider
 
         // Timezone
         config(['app.timezone' => setting('general.timezone', 'UTC')]);
+        date_default_timezone_set(config('app.timezone'));
 
         // Email
         $email_protocol = setting('general.email_protocol', 'mail');
@@ -57,6 +58,9 @@ class Overrider
             //Session::put('locale', setting('general.default_language'));
             config(['app.locale' => setting('general.default_locale')]);
         }
+
+        // Set app url dynamically
+        config(['app.url' => url('/')]);
     }
 
     protected static function loadCurrencies()

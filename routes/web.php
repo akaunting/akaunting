@@ -4,6 +4,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'uploads'], function () {
             Route::get('{id}', 'Common\Uploads@get');
+            Route::get('{id}/show', 'Common\Uploads@show');
             Route::get('{id}/download', 'Common\Uploads@download');
         });
 
@@ -173,6 +174,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::resource('my', 'Modules\My');
                 Route::get('categories/{alias}', 'Modules\Tiles@categoryModules');
                 Route::get('vendors/{alias}', 'Modules\Tiles@vendorModules');
+                Route::get('docs/{alias}', 'Modules\Item@documentation');
                 Route::get('paid', 'Modules\Tiles@paidModules');
                 Route::get('new', 'Modules\Tiles@newModules');
                 Route::get('free', 'Modules\Tiles@freeModules');
@@ -233,16 +235,6 @@ Route::group(['middleware' => 'language'], function () {
 
                 Route::get('logout', 'Auth\Login@destroy')->name('customer_logout');
             });
-        });
-    });
-
-    Route::group(['middleware' => 'signed-url'], function () {
-        Route::group(['prefix' => 'links'], function () {
-            Route::get('invoices/{invoice}', 'Customers\Invoices@link');
-            Route::get('invoices/{invoice}/print', 'Customers\Invoices@printInvoice');
-            Route::get('invoices/{invoice}/pdf', 'Customers\Invoices@pdfInvoice');
-            Route::post('invoices/{invoice}/payment', 'Customers\Invoices@payment');
-            Route::post('invoices/{invoice}/confirm', 'Customers\Invoices@confirm');
         });
     });
 

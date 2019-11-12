@@ -69,31 +69,30 @@
                 text  : '{{ trans('general.form.select.file') }}',
                 style : 'btn-default',
                 @if($vendor->logo)
-                placeholder : '<?php echo $vendor->logo->basename; ?>'
+                placeholder : '{{ $vendor->logo->basename }}'
                 @else
                 placeholder : '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
             @if($vendor->logo)
-            logo_html  = '<span class="logo">';
-            logo_html += '    <a href="{{ url('uploads/' . $vendor->logo->id . '/download') }}">';
-            logo_html += '        <span id="download-logo" class="text-primary">';
-            logo_html += '            <i class="fa fa-file-{{ $vendor->logo->aggregate_type }}-o"></i> {{ $vendor->logo->basename }}';
-            logo_html += '        </span>';
-            logo_html += '    </a>';
-            logo_html += '    {!! Form::open(['id' => 'logo-' . $vendor->logo->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $vendor->logo->id)], 'style' => 'display:inline']) !!}';
-            logo_html += '    <a id="remove-logo" href="javascript:void();">';
-            logo_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-            logo_html += '    </a>';
-            logo_html += '    {!! Form::close() !!}';
-            logo_html += '</span>';
+            $.ajax({
+                url: '{{ url('uploads/' . $vendor->logo->id . '/show') }}',
+                type: 'GET',
+                data: {column_name: 'logo'},
+                dataType: 'JSON',
+                success: function(json) {
+                    if (json['success']) {
+                        $('.fancy-file').after(json['html']);
+                    }
+                }
+            });
 
-            $('.fancy-file .fake-file').append(logo_html);
-
+            @permission('delete-common-uploads')
             $(document).on('click', '#remove-logo', function (e) {
                 confirmDelete("#logo-{!! $vendor->logo->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $vendor->logo->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
             });
+            @endpermission
             @endif
         });
     </script>

@@ -10,7 +10,7 @@ return [
     ],
 
     'notification' => [
-        'message'       => ': купац направио: износ уплате на број фактуре: инвоице_нумбер.',
+        'message'       => ':customer је уплатио :amount по фактури број :invoice_number.',
         'button'        => 'Прикажи',
     ],
 ];

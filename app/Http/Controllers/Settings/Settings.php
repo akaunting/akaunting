@@ -14,6 +14,7 @@ use App\Traits\DateTime;
 use App\Traits\Uploads;
 use App\Utilities\Installer;
 use App\Utilities\Modules;
+use Date;
 
 class Settings extends Controller
 {
@@ -26,20 +27,14 @@ class Settings extends Controller
      */
     public function edit()
     {
-        /*$setting = Setting::all()->pluck('value', 'key');*/
         $setting = Setting::all()->map(function ($s) {
             $s->key = str_replace('general.', '', $s->key);
 
             return $s;
         })->pluck('value', 'key');
 
-        $company_logo = $setting->pull('company_logo');
-
-        $setting['company_logo'] = Media::find($company_logo);
-
-        $invoice_logo = $setting->pull('invoice_logo');
-
-        $setting['invoice_logo'] = Media::find($invoice_logo);
+        $setting->put('company_logo', Media::find($setting->pull('company_logo')));
+        $setting->put('invoice_logo', Media::find($setting->pull('invoice_logo')));
 
         $timezones = $this->getTimezones();
 
@@ -192,6 +187,9 @@ class Settings extends Controller
                 break;
             case 'session_handler':
                 Installer::updateEnv(['SESSION_DRIVER' => $value]);
+                break;
+            case 'schedule_time':
+                Installer::updateEnv(['APP_SCHEDULE_TIME' => '"' . $value . '"']);
                 break;
         }
     }

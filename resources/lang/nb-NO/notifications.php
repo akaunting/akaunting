@@ -2,9 +2,9 @@
 
 return [
 
-    'whoops'              => 'Whoops!',
-    'hello'               => 'Hello!',
-    'salutation'          => 'Regards,<br> :company_name',
-    'subcopy'             => 'If you’re having trouble clicking the ":text" button, copy and paste the URL below into your web browser: [:url](:url)',
+    'whoops'              => 'Uff!',
+    'hello'               => 'God dag!',
+    'salutation'          => 'Vennlig hilsen<br> :company_name',
+    'subcopy'             => 'Hvis du har problememer med å klikke på ":text" knappen, vennligst kopier følgende URL til din nettleser: [:url](:url)',
 
 ];

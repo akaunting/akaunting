@@ -2,7 +2,7 @@
 
 return [
 
-    'this_year'             => 'Tento rok',
+    'this_year'             => 'Aktuální rok',
     'previous_year'         => 'Předchozí rok',
     'this_quarter'          => 'Aktuální čtvrtletí',
     'previous_quarter'      => 'Předchozí čtvrtletí',

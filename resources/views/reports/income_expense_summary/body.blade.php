@@ -3,7 +3,7 @@
 
     <hr>
 
-    <div class="table table-responsive">
+    <div class="table table-responsive table-report">
         <table class="table table-bordered table-striped table-hover" id="tbl-payments">
             <thead>
             <tr>

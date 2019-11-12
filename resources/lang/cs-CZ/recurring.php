@@ -14,7 +14,7 @@ return [
     'days'                  => 'Dnů(í)',
     'weeks'                 => 'Týden(Týdny)',
     'months'                => 'Měsíc(e)',
-    'years'                 => 'rok(y)',
-    'message'               => 'Toto je opakovaný :type a další :type bude automaticky generován dne :date',
+    'years'                 => 'Rok(y)',
+    'message'               => 'Toto je opakovaný :type. Další :type bude automaticky generován dne :date',
 
 ];

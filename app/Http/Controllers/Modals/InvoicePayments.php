@@ -11,6 +11,7 @@ use App\Models\Income\InvoiceHistory;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
+use App\Jobs\Income\CreateInvoicePayment;
 
 class InvoicePayments extends Controller
 {
@@ -39,9 +40,7 @@ class InvoicePayments extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
-
-        $currency = Currency::where('code', $account_currency_code)->first();
+        $currency = Currency::where('code', $invoice->currency_code)->first();
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -57,10 +56,12 @@ class InvoicePayments extends Controller
         $invoice->grand_total = money($total, $currency->code)->getAmount();
 
         if (!empty($paid)) {
-            $invoice->grand_total = $invoice->total - $paid;
+            $invoice->grand_total = round($invoice->total - $paid, $currency->precision) ;
         }
 
-        $html = view('modals.invoices.payment', compact('invoice', 'accounts', 'account_currency_code', 'currencies', 'currency', 'payment_methods'))->render();
+        $rand = rand();
+
+        $html = view('modals.invoices.payment', compact('invoice', 'accounts', 'currencies', 'currency', 'payment_methods', 'rand'))->render();
 
         return response()->json([
             'success' => true,
@@ -123,8 +124,8 @@ class InvoicePayments extends Controller
             $multiplier *= 10;
         }
 
-        $amount_check = $amount * $multiplier;
-        $total_amount_check = $total_amount * $multiplier;
+        $amount_check = (int) ($amount * $multiplier);
+        $total_amount_check = (int) (round($total_amount, $currency->precision) * $multiplier);
 
         if ($amount_check > $total_amount_check) {
             $error_amount = $total_amount;
@@ -160,7 +161,7 @@ class InvoicePayments extends Controller
                 'message' => $message,
                 'html' => 'null',
             ]);
-        } elseif ($amount == $total_amount) {
+        } elseif ($amount_check == $total_amount_check) {
             $invoice->invoice_status_code = 'paid';
         } else {
             $invoice->invoice_status_code = 'partial';
@@ -168,20 +169,7 @@ class InvoicePayments extends Controller
 
         $invoice->save();
 
-        $invoice_payment_request = [
-            'company_id'     => $request['company_id'],
-            'invoice_id'     => $request['invoice_id'],
-            'account_id'     => $request['account_id'],
-            'paid_at'        => $request['paid_at'],
-            'amount'         => $request['amount'],
-            'currency_code'  => $request['currency_code'],
-            'currency_rate'  => $request['currency_rate'],
-            'description'    => $request['description'],
-            'payment_method' => $request['payment_method'],
-            'reference'      => $request['reference']
-        ];
-
-        $invoice_payment = InvoicePayment::create($invoice_payment_request);
+        $invoice_payment = dispatch(new CreateInvoicePayment($request, $invoice));
 
         // Upload attachment
         if ($request->file('attachment')) {
@@ -189,15 +177,6 @@ class InvoicePayments extends Controller
 
             $invoice_payment->attachMedia($media, 'attachment');
         }
-
-        $request['status_code'] = $invoice->invoice_status_code;
-        $request['notify'] = 0;
-
-        $desc_amount = money((float) $request['amount'], (string) $request['currency_code'], true)->format();
-
-        $request['description'] = $desc_amount . ' ' . trans_choice('general.payments', 1);
-
-        InvoiceHistory::create($request->input());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 

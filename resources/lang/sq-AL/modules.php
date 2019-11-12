@@ -5,6 +5,7 @@ return [
     'title'                 => 'Shenjë API',
     'api_token'             => 'Shenjë',
     'my_apps'               => 'Aplikacionet e Mia',
+    'pre_sale'              => 'Para Shitjet',
     'top_paid'              => 'Më të paguarat',
     'new'                   => 'I ri',
     'top_free'              => 'Më të mirët Falas',
@@ -23,6 +24,9 @@ return [
     'added'                 => 'Shtuar',
     'updated'               => 'Përditësuar',
     'compatibility'         => 'Pajtueshmëri',
+    'documentation'         => 'Dokumentacioni',
+    'view'                  => 'Pamje',
+    'back'                  => 'Mbrapa',
 
     'installed'             => ':module instaluar',
     'uninstalled'           => ':module çinstaluar',
@@ -58,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Instaluar',
+        'pre_sale' => 'Para Shitjet',
     ],
 
     'button' => [

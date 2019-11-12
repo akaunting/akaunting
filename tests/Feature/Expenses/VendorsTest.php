@@ -80,7 +80,6 @@ class VendorsTest extends FeatureTestCase
             ->assertRedirect(route('vendors.index'));
 
         $this->assertFlashLevel('success');
-
     }
 
     private function getVendorRequest()
@@ -97,5 +96,4 @@ class VendorsTest extends FeatureTestCase
             'enabled' => $this->faker->boolean ? 1 : 0
         ];
     }
-
 }

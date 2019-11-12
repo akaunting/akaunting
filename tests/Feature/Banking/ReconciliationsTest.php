@@ -1,6 +1,7 @@
 <?php
 
 namespace Tests\Feature\Banking;
+
 use App\Models\Banking\Reconciliation;
 use Tests\Feature\FeatureTestCase;
 

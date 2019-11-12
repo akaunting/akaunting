@@ -3,7 +3,7 @@
 @section('title', trans('reports.summary.income_expense'))
 
 @section('new_button')
-<span class="new-button"><a href="{{ url('reports/income-expense-summary') }}?print=1&status={{ request('status') }}&year={{ request('year', $this_year) }}" target="_blank" class="btn btn-success btn-sm"><span class="fa fa-print"></span> &nbsp;{{ trans('general.print') }}</a></span>
+<span class="new-button"><a href="{{ url($print_url) }}" target="_blank" class="btn btn-success btn-sm"><span class="fa fa-print"></span> &nbsp;{{ trans('general.print') }}</a></span>
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
     <div class="box-header with-border">
         {!! Form::open(['url' => 'reports/income-expense-summary', 'role' => 'form', 'method' => 'GET']) !!}
         <div id="items" class="pull-left box-filter">
-            {!! Form::select('year', $years, request('year', $this_year), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
+            {!! Form::select('year', $years, request('year', $this_year), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::select('status', $statuses, request('status'), ['class' => 'form-control input-filter input-sm']) !!}
             {!! Form::select('accounts[]', $accounts, request('accounts'), ['id' => 'filter-accounts', 'class' => 'form-control input-filter', 'multiple' => 'multiple']) !!}
             {!! Form::select('customers[]', $customers, request('customers'), ['id' => 'filter-customers', 'class' => 'form-control input-filter', 'multiple' => 'multiple']) !!}

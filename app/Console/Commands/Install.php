@@ -133,37 +133,37 @@ class Install extends Command
         }
 
         $this->dbName = $this->option(self::OPT_DB_NAME);
-        if (empty($this->dbPort)) {
+        if (empty($this->dbName)) {
             $missingOptions[] = self::OPT_DB_NAME;
         }
 
         $this->dbUsername = $this->option(self::OPT_DB_USERNAME);
-        if (empty($this->dbPort)) {
+        if (empty($this->dbUsername)) {
             $missingOptions[] = self::OPT_DB_USERNAME;
         }
 
         $this->dbPassword = $this->option(self::OPT_DB_PASSWORD);
-        if (empty($this->dbPort)) {
+        if (empty($this->dbPassword)) {
             $missingOptions[] = self::OPT_DB_PASSWORD;
         }
 
         $this->companyName = $this->option(self::OPT_COMPANY_NAME);
-        if (empty($this->dbPort)) {
+        if (empty($this->companyName)) {
             $missingOptions[] = self::OPT_COMPANY_NAME;
         }
 
         $this->companyEmail = $this->option(self::OPT_COMPANY_EMAIL);
-        if (empty($this->dbPort)) {
+        if (empty($this->companyEmail)) {
             $missingOptions[] = self::OPT_COMPANY_EMAIL;
         }
 
         $this->adminEmail = $this->option(self::OPT_ADMIN_EMAIL);
-        if (empty($this->dbPort)) {
+        if (empty($this->adminEmail)) {
             $missingOptions[] = self::OPT_ADMIN_EMAIL;
         }
 
         $this->adminPassword = $this->option(self::OPT_ADMIN_PASSWORD);
-        if (empty($this->dbPort)) {
+        if (empty($this->adminPassword)) {
             $missingOptions[] = self::OPT_ADMIN_PASSWORD;
         }
 

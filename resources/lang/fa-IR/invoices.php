@@ -19,8 +19,8 @@ return [
     'item_name'         => 'نام آیتم | نام آیتم ها',
 
     'show_discount'     => ':discount% Discount',
-    'add_discount'      => 'Add Discount',
-    'discount_desc'     => 'of subtotal',
+    'add_discount'      => 'افزودن تخفیف',
+    'discount_desc'     => 'از جمع کل',
 
     'payment_due'       => 'سررسید پرداخت',
     'paid'              => 'پرداخت شده',
@@ -51,11 +51,11 @@ return [
         'status' => [
             'created'   => 'Created on :date',
             'send'      => [
-                'draft'     => 'Not sent',
+                'draft'     => 'ارسال نشده',
                 'sent'      => 'Sent on :date',
             ],
             'paid'      => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'در انتظار پرداخت',
             ],
         ],
     ],

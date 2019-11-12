@@ -23,7 +23,7 @@ return [
     
     'error' => [
         'self_delete'       => 'ข้อผิดพลาด: ไม่สามารถลบด้วยตัวคุณเองได้!',
-        'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
+        'no_company'        => 'ข้อผิดพลาด: บัญชีของคุณยังไม่ได้ตั้งค่าบริษัท กรุณา ติดต่อผู้ดูแลระบบ',
     ],
 
     'failed'                => 'ข้อมูลที่ใช้ในการยืนยันตัวตนไม่ถูกต้อง',
@@ -31,9 +31,9 @@ return [
     'throttle'              => 'คุณได้พยายามเข้าระบบหลายครั้งเกินไป กรุณาลองใหม่ใน :seconds วินาทีข้างหน้า.',
 
     'notification' => [
-        'message_1'     => 'You are receiving this email because we received a password reset request for your account.',
-        'message_2'     => 'If you did not request a password reset, no further action is required.',
-        'button'        => 'Reset Password',
+        'message_1'     => 'คุณได้รับอีเมลนี้เนื่องจากเราได้รับการร้องขอรีเซ็ตรหัสผ่านสำหรับบัญชีของคุณ',
+        'message_2'     => 'ถ้าคุณไม่ได้ขอรีเซ็ตรหัสผ่าน ไม่จำเป็นต้องทำอะไรเพิ่มเติม',
+        'button'        => 'ตั้งรหัสผ่านใหม่',
     ],
 
 ];

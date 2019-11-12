@@ -23,6 +23,9 @@ return [
     'added'                 => 'Pridėta',
     'updated'               => 'Atnaujinta',
     'compatibility'         => 'Suderinamumas',
+    'documentation'         => 'Dokumentacija',
+    'view'                  => 'Rodyti',
+    'back'                  => 'Atgal',
 
     'installed'             => ':module įrašytas',
     'uninstalled'           => ':module ištrintas',

@@ -10,11 +10,14 @@ use App\Models\Expense\Payment;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Category;
 use App\Utilities\Recurring;
+use App\Traits\DateTime;
 use Charts;
 use Date;
 
 class ExpenseSummary extends Controller
 {
+    use DateTime;
+
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +29,19 @@ class ExpenseSummary extends Controller
 
         $status = request('status');
         $year = request('year', Date::now()->year);
+        
+        // check and assign year start
+        $financial_start = $this->getFinancialStart();
+
+        if ($financial_start->month != 1) {
+            // check if a specific year is requested
+            if (!is_null(request('year'))) {
+                $financial_start->year = $year;
+            }
+
+            $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
+            $financial_start->subYear()->subMonth();
+        }
 
         $categories = Category::enabled()->type('expense')->orderBy('name')->pluck('name', 'id')->toArray();
 
@@ -39,9 +55,11 @@ class ExpenseSummary extends Controller
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {
-            $dates[$j] = Date::parse($year . '-' . $j)->format('F');
+            $ym_string = is_array($year) ? $financial_start->addMonth()->format('Y-m') : $year . '-' . $j;
+            
+            $dates[$j] = Date::parse($ym_string)->format('F');
 
-            $expenses_graph[Date::parse($year . '-' . $j)->format('F-Y')] = 0;
+            $expenses_graph[Date::parse($ym_string)->format('F-Y')] = 0;
 
             // Totals
             $totals[$dates[$j]] = array(
@@ -112,6 +130,8 @@ class ExpenseSummary extends Controller
             $view_template = 'reports.expense_summary.index';
         }
 
+        $print_url = $this->getPrintUrl(is_array($year) ? $year[0] : $year);
+
         // Expenses chart
         $chart = Charts::multi('line', 'chartjs')
             ->dimensions(0, 300)
@@ -121,38 +141,48 @@ class ExpenseSummary extends Controller
             ->credits(false)
             ->view($chart_template);
 
-        return view($view_template, compact('chart', 'dates', 'categories', 'statuses', 'accounts', 'vendors', 'expenses', 'totals'));
+        return view($view_template, compact(
+            'chart',
+            'dates',
+            'categories',
+            'statuses',
+            'accounts',
+            'vendors',
+            'expenses',
+            'totals',
+            'print_url'
+        ));
     }
 
     private function setAmount(&$graph, &$totals, &$expenses, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            switch ($item->getTable()) {
-                case 'bill_payments':
-                    $bill = $item->bill;
+            if ($item->getTable() == 'bill_payments') {
+                $bill = $item->bill;
 
-                    if ($vendors = request('vendors')) {
-                        if (!in_array($bill->vendor_id, $vendors)) {
-                            continue;
-                        }
+                if ($vendors = request('vendors')) {
+                    if (!in_array($bill->vendor_id, $vendors)) {
+                        continue;
                     }
+                }
 
-                    $item->category_id = $bill->category_id;
-                    break;
-                case 'bills':
-                    if ($accounts = request('accounts')) {
-                        foreach ($item->payments as $payment) {
-                            if (!in_array($payment->account_id, $accounts)) {
-                                continue 2;
-                            }
-                        }
-                    }
-                    break;
+                $item->category_id = $bill->category_id;
             }
 
-            $date = Date::parse($item->$date_field)->format('F');
+            if ($item->getTable() == 'bills') {
+                if ($accounts = request('accounts')) {
+                    foreach ($item->payments as $payment) {
+                        if (!in_array($payment->account_id, $accounts)) {
+                            continue 2;
+                        }
+                    }
+                }
+            }
 
-            if (!isset($expenses[$item->category_id])) {
+            $month = Date::parse($item->$date_field)->format('F');
+            $month_year = Date::parse($item->$date_field)->format('F-Y');
+
+            if (!isset($expenses[$item->category_id]) || !isset($expenses[$item->category_id][$month]) || !isset($graph[$month_year])) {
                 continue;
             }
 
@@ -165,13 +195,34 @@ class ExpenseSummary extends Controller
                 }
             }
 
-            $expenses[$item->category_id][$date]['amount'] += $amount;
-            $expenses[$item->category_id][$date]['currency_code'] = $item->currency_code;
-            $expenses[$item->category_id][$date]['currency_rate'] = $item->currency_rate;
+            $expenses[$item->category_id][$month]['amount'] += $amount;
+            $expenses[$item->category_id][$month]['currency_code'] = $item->currency_code;
+            $expenses[$item->category_id][$month]['currency_rate'] = $item->currency_rate;
 
-            $graph[Date::parse($item->$date_field)->format('F-Y')] += $amount;
+            $graph[$month_year] += $amount;
 
-            $totals[$date]['amount'] += $amount;
+            $totals[$month]['amount'] += $amount;
         }
+    }
+
+    private function getPrintUrl($year)
+    {
+        $print_url = 'reports/expense-summary?print=1'
+            . '&status=' . request('status')
+            . '&year='. request('year', $year);
+
+        collect(request('accounts'))->each(function($item) use(&$print_url) {
+            $print_url .= '&accounts[]=' . $item;
+        });
+
+        collect(request('vendors'))->each(function($item) use(&$print_url) {
+            $print_url .= '&vendors[]=' . $item;
+        });
+
+        collect(request('categories'))->each(function($item) use(&$print_url) {
+            $print_url .= '&categories[]=' . $item;
+        });
+
+        return $print_url;
     }
 }

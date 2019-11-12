@@ -32,10 +32,11 @@ class InvoiceItem extends Model
         return $this->belongsTo('App\Models\Common\Item');
     }
 
-    public function itemTaxes()
+    public function taxes()
     {
         return $this->hasMany('App\Models\Income\InvoiceItemTax', 'invoice_item_id', 'id');
     }
+
 
     public function tax()
     {
@@ -79,5 +80,4 @@ class InvoiceItem extends Model
     {
         $this->attributes['tax'] = (double) $value;
     }
-
 }

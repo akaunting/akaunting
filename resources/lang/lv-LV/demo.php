@@ -9,8 +9,5 @@ return [
     'currencies_eur'        => 'Euro',
     'currencies_gbp'        => 'Angļu mārciņa',
     'currencies_try'        => 'Turku lira',
-    'taxes_exempt'          => 'Ar nodokli neapliekams',
-    'taxes_normal'          => 'Ar nodokli apliekams',
-    'taxes_sales'           => 'PVN',
 
 ];

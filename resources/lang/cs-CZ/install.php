@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Aktualizovat',
 
     'steps' => [
-        'requirements'      => 'Prosím, požádej svého poskytovatele hostingu o opravu chyb!',
+        'requirements'      => 'Prosím, požádejte svého poskytovatele hostingu o opravu chyb!',
         'language'          => 'Krok 1/3: Výběr jazyka',
         'database'          => 'Krok 2/3: Nastavení databáze',
         'settings'          => 'Krok 3/3: Údaje o společnosti a administrátorovi',
@@ -17,10 +17,10 @@ return [
     ],
 
     'requirements' => [
-        'enabled'           => 'Musíš povolit :feature!',
-        'disabled'          => 'Musiš vypnout :feature!',
-        'extension'         => 'Koncovka :extension musí být nainstalována nebo nahrána!',
-        'directory'         => 'Do složky:directory se musí dát zapisovat!',
+        'enabled'           => 'Musíte povolit :feature!',
+        'disabled'          => 'Musíte zakázat :feature!',
+        'extension'         => 'Rozšíření :extension musí být nainstalováno a načteno!',
+        'directory'         => 'Složka :directory musí být zapisovatelná!',
     ],
 
     'database' => [
@@ -32,13 +32,13 @@ return [
 
     'settings' => [
         'company_name'      => 'Název společnosti',
-        'company_email'     => 'Email společnosti',
-        'admin_email'       => 'Email administratora',
+        'company_email'     => 'E-mail společnosti',
+        'admin_email'       => 'E-mail administrátora',
         'admin_password'    => 'Heslo administrátora',
     ],
 
     'error' => [
-        'connection'        => 'Chyba: Nelze se připojit k databázi! Prosím ujistěte se, že údaje jsou správné.',
+        'connection'        => 'Chyba: Nelze se připojit k databázi! Prosím, ujistěte se, že údaje jsou správné.',
     ],
 
 ];

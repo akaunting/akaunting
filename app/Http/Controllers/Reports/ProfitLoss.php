@@ -10,11 +10,14 @@ use App\Models\Expense\Bill;
 use App\Models\Expense\BillPayment;
 use App\Models\Expense\Payment;
 use App\Models\Setting\Category;
+use App\Traits\DateTime;
 use Charts;
 use Date;
 
 class ProfitLoss extends Controller
 {
+    use DateTime;
+
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +29,19 @@ class ProfitLoss extends Controller
 
         $status = request('status');
         $year = request('year', Date::now()->year);
+        
+        // check and assign year start
+        $financial_start = $this->getFinancialStart();
+
+        if ($financial_start->month != 1) {
+            // check if a specific year is requested
+            if (!is_null(request('year'))) {
+                $financial_start->year = $year;
+            }
+
+            $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
+            $financial_start->subYear()->subQuarter();
+        }
 
         $income_categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id')->toArray();
 
@@ -33,7 +49,9 @@ class ProfitLoss extends Controller
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {
-            $dates[$j] = Date::parse($year . '-' . $j)->quarter;
+            $ym_string = is_array($year) ? $financial_start->addQuarter()->format('Y-m') : $year . '-' . $j;
+            
+            $dates[$j] = Date::parse($ym_string)->quarter;
 
             // Totals
             $totals[$dates[$j]] = array(
@@ -71,7 +89,13 @@ class ProfitLoss extends Controller
             'currency_rate' => 1
         ];
 
-        $gross['income'] = $gross['expense'] = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 'total' => 0];
+        foreach ($dates as $date) {
+            $gross['income'][$date] = 0;
+            $gross['expense'][$date] = 0;
+        }
+
+        $gross['income']['total'] = 0;
+        $gross['expense']['total'] = 0;
 
         foreach ($income_categories as $category_id => $category_name) {
             $compares['income'][$category_id]['total'] = [
@@ -156,7 +180,7 @@ class ProfitLoss extends Controller
     private function setAmount(&$totals, &$compares, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            if ($item['table'] == 'bill_payments' || $item['table'] == 'invoice_payments') {
+            if (($item->getTable() == 'bill_payments') || ($item->getTable() == 'invoice_payments')) {
                 $type_item = $item->$type;
 
                 $item->category_id = $type_item->category_id;
@@ -170,7 +194,7 @@ class ProfitLoss extends Controller
                 continue;
             }
 
-            $amount = $item->getConvertedAmount();
+            $amount = $item->getConvertedAmount(false, false);
 
             // Forecasting
             if ((($type == 'invoice') || ($type == 'bill')) && ($date_field == 'due_at')) {

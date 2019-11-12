@@ -40,8 +40,7 @@ return [
     'others'                => 'Citi|Citi',
     'contacts'              => 'Contact|Contacts',
     'reconciliations'       => 'Reconciliation|Reconciliations',
-    'deposits'              => 'Deposit|Deposits',
-    'withdrawals'           => 'Withdrawal|Withdrawals',
+    'developers'            => 'Developer|Developers',
 
     'dashboard'             => 'Sākums',
     'banking'               => 'Banka',

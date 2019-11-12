@@ -2,7 +2,7 @@
 
 return [
 
-    'recurring'             => 'Repetir',
+    'recurring'             => 'Recorrente',
     'every'                 => 'A cada',
     'period'                => 'Período',
     'times'                 => 'Vezes',
@@ -15,6 +15,6 @@ return [
     'weeks'                 => 'Semana(s)',
     'months'                => 'Mês(es)',
     'years'                 => 'Ano(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated at :date',
+    'message'               => 'Isto é um(a) :type recorrente e o(a) próximo(a) :type será gerado(a) automaticamente em :data',
 
 ];
