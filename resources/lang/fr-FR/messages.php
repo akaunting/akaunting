@@ -17,7 +17,7 @@ return [
         'customer'          => 'Erreur : Utilisateur non créé ! :name utilise déjà cette adresse email.',
         'no_file'           => 'Erreur : Aucun fichier sélectionné !',
         'last_category'     => 'Erreur : impossible de supprimer la dernière catégorie de type :type !',
-        'invalid_token'     => 'Erreur : le token est invalide !',
+        'invalid_apikey'     => 'Erreur : le token est invalide !',
         'import_column'     => 'Erreur : :message Nom de la feuille : :sheet. Numéro de ligne : :line.',
         'import_sheet'      => 'Erreur : Le nom de la feuille n\'est pas valide. Veuillez télécharger le modèle de fichier.',
     ],

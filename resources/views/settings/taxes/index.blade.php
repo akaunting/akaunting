@@ -3,85 +3,90 @@
 @section('title', trans_choice('general.tax_rates', 2))
 
 @permission('create-settings-taxes')
-@section('new_button')
-<span class="new-button"><a href="{{ url('settings/taxes/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-@endsection
+    @section('new_button')
+        <span><a href="{{ route('taxes.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+    @endsection
 @endpermission
 
 @section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        {!! Form::open(['url' => 'settings/taxes', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
-            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
-            {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
-        </div>
-        <div class="pull-right">
-            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
-            {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <!-- /.box-header -->
+    <div class="card">
+        <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
+            {!! Form::open([
+                'url' => 'settings/taxes',
+                'role' => 'form',
+                'method' => 'GET',
+                'class' => 'mb-0'
+            ]) !!}
+                <div class="row" v-if="!bulk_action.show">
+                    <div class="col-12 card-header-search">
+                        <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
+                        <akaunting-search></akaunting-search>
+                    </div>
+                </div>
 
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-taxes">
-                <thead>
-                    <tr>
-                        <th class="col-md-5">@sortablelink('name', trans('general.name'))</th>
-                        <th class="col-md-3">@sortablelink('rate', trans('taxes.rate_percent'))</th>
-                        <th class="col-md-2">@sortablelink('type', trans_choice('general.types', 1))</th>
-                        <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
-                        <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
+                {{ Form::bulkActionRowGroup('general.taxes', $bulk_actions, 'settings/taxes') }}
+            {!! Form::close() !!}
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-flush table-hover">
+                <thead class="thead-light">
+                    <tr class="row table-head-line">
+                        <th class="col-sm-2 col-md-2 col-lg-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
+                        <th class="col-xs-4 col-sm-3 col-md-2 col-lg-4">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
+                        <th class="col-md-2 col-lg-2 hidden-md">@sortablelink('rate', trans('taxes.rate_percent'))</th>
+                        <th class="col-sm-2 col-md-2 col-lg-2 hidden-sm">@sortablelink('type', trans_choice('general.types', 1))</th>
+                        <th class="col-xs-4 col-sm-3 col-md-2 col-lg-2">@sortablelink('enabled', trans('general.enabled'))</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                @foreach($taxes as $item)
-                    <tr>
-                        <td><a href="{{ url('settings/taxes/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
-                        <td>{{ $item->rate }}</td>
-                        <td>{{ $types[$item->type] }}</td>
-                        <td class="hidden-xs">
-                            @if ($item->enabled)
-                                <span class="label label-success">{{ trans('general.enabled') }}</span>
-                            @else
-                                <span class="label label-danger">{{ trans('general.disabled') }}</span>
-                            @endif
-                        </td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ url('settings/taxes/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
+                    @foreach($taxes as $item)
+                        <tr class="row align-items-center border-top-1">
+                            <td class="col-sm-2 col-md-2 col-lg-1 hidden-sm">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
+                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-4"><a class="col-aka text-success" href="{{ route('taxes.edit', $item->id) }}">{{ $item->name }}</a></td>
+                            <td class="col-md-2 col-lg-2 hidden-md">{{ $item->rate }}</td>
+                            <td class="col-sm-2 col-md-2 col-lg-2 hidden-sm">{{ $types[$item->type] }}</td>
+                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+                                @if (user()->can('update-settings-taxes'))
+                                    {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
+                                @else
                                     @if ($item->enabled)
-                                    <li><a href="{{ route('taxes.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                                        <badge rounded type="success">{{ trans('general.enabled') }}</badge>
                                     @else
-                                    <li><a href="{{ route('taxes.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                        <badge rounded type="danger">{{ trans('general.disabled') }}</badge>
                                     @endif
-                                    @permission('delete-settings-taxes')
-                                    <li class="divider"></li>
-                                    <li>{!! Form::deleteLink($item, 'settings/taxes', 'tax_rates') !!}</li>
-                                    @endpermission
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
+                                @endif
+                            </td>
+                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">
+                                <div class="dropdown">
+                                    <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h text-muted"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="{{ route('taxes.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                        @permission('delete-settings-taxes')
+                                            <div class="dropdown-divider"></div>
+                                            {!! Form::deleteLink($item, 'settings/taxes', 'tax_rates') !!}
+                                        @endpermission
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
+
+        <div class="card-footer table-action">
+            <div class="row">
+                @include('partials.admin.pagination', ['items' => $taxes, 'type' => 'taxes'])
+            </div>
+        </div>
     </div>
-    <!-- /.box-body -->
-    <div class="box-footer">
-        @include('partials.admin.pagination', ['items' => $taxes, 'type' => 'taxes'])
-    </div>
-    <!-- /.box-footer -->
-</div>
-</div>
-<!-- /.box -->
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/settings/taxes.js?v=' . version('short')) }}"></script>
+@endpush

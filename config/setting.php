@@ -12,6 +12,22 @@ return [
     */
 	'auto_save'			=> false,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cache
+    |--------------------------------------------------------------------------
+    |
+    | Options for caching. Set whether to enable cache, its key, time to live
+    | in seconds and whether to auto clear after save.
+    |
+    */
+    'cache' => [
+        'enabled'       => true,
+        'key'           => 'setting',
+        'ttl'           => 21600,
+        'auto_clear'    => true,
+    ],
+
 	/*
     |--------------------------------------------------------------------------
     | Setting driver
@@ -49,7 +65,7 @@ return [
     |
     */
 	'json' => [
-		'path'          => storage_path().'/settings.json',
+		'path'          => storage_path() . '/settings.json',
 	],
 
 	/*
@@ -81,6 +97,6 @@ return [
     |
     */
     'required_extra_columns' => [
-        'company_id'
+        'company_id',
     ],
 ];

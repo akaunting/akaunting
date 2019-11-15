@@ -17,7 +17,7 @@ return [
         'customer'          => 'Lỗi: Người dùng chưa được tạo! Đã có người dùng :name sử dụng địa chỉ email này.',
         'no_file'           => 'Lỗi: Không có tập tin nào được chọn!',
         'last_category'     => 'Lỗi: Không thể xóa mục :type cuối!',
-        'invalid_token'     => 'Lỗi: Chữ ký số nhập vào không hợp lệ!',
+        'invalid_apikey'     => 'Lỗi: Chữ ký số nhập vào không hợp lệ!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],

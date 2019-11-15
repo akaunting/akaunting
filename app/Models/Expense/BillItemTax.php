@@ -2,7 +2,7 @@
 
 namespace App\Models\Expense;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Traits\Currencies;
 
 class BillItemTax extends Model

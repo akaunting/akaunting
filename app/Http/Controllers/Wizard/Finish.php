@@ -17,7 +17,7 @@ class Finish extends Controller
      */
     public function index()
     {
-        setting()->set('general.wizard', true);
+        setting()->set('wizard.completed', 1);
 
         // Save all settings
         setting()->save();

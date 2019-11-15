@@ -18,7 +18,7 @@ return [
         'customer'          => 'ข้อผิดพลาด: ผู้ใช้ยังไม่ได้สร้าง! :name ใช้อีเมลนี้แล้ว',
         'no_file'           => 'ข้อผิดพลาด: ไม่ได้เลือกไฟล์!',
         'last_category'     => 'ข้อผิดพลาด: ไม่สามารถลบหมวด :type ล่าสุด!',
-        'invalid_token'     => 'ข้อผิดพลาด: โทเค็นที่ป้อนไม่ถูกต้อง!',
+        'invalid_apikey'     => 'ข้อผิดพลาด: โทเค็นที่ป้อนไม่ถูกต้อง!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],

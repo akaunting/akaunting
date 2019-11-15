@@ -3,89 +3,80 @@
 @section('title', trans_choice('general.transfers', 2))
 
 @permission('create-banking-transfers')
-@section('new_button')
-<span class="new-button"><a href="{{ url('banking/transfers/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-@endsection
+    @section('new_button')
+        <span><a href="{{ route('transfers.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+    @endsection
 @endpermission
 
 @section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        {!! Form::open(['url' => 'banking/transfers', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
-            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
-            {!! Form::dateRange('date', trans('general.date'), 'calendar', []) !!}
-            {!! Form::select('from_account', $accounts, request('from_account'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::select('to_account', $accounts, request('to_account'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
-        </div>
-        <div class="pull-right">
-            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
-            {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <!-- /.box-header -->
+    <div class="card">
+        <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
+            {!! Form::open([
+                'route' => 'transfers.index',
+                'role' => 'form',
+                'method' => 'GET',
+                'class' => 'mb-0'
+            ]) !!}
+                <div class="row" v-if="!bulk_action.show">
+                    <div class="col-12 card-header-search">
+                        <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
+                        <akaunting-search></akaunting-search>
+                    </div>
+                </div>
 
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-transfers">
-                <thead>
-                <tr>
-                    <th class="col-md-2">@sortablelink('payment.paid_at', trans('general.date'))</th>
-                    <th class="col-md-3">@sortablelink('payment.name', trans('transfers.from_account'))</th>
-                    <th class="col-md-3">@sortablelink('revenue.name', trans('transfers.to_account'))</th>
-                    <th class="col-md-3 text-right amount-space">@sortablelink('payment.amount', trans('general.amount'))</th>
-                    <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($transfers as $item)
-                    <tr>
-                        <td><a href="{{ url('banking/transfers/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
-                        <td>{{ $item->from_account }}</td>
-                        <td>{{ $item->to_account }}</td>
-                        <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ url('banking/transfers/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    @permission('delete-banking-transfers')
-                                    <li>{!! Form::deleteLink($item, 'banking/transfers') !!}</li>
-                                    @endpermission
-                                </ul>
-                            </div>
-                        </td>
+                {{ Form::bulkActionRowGroup('general.transfers', $bulk_actions, 'banking/transfers') }}
+            {!! Form::close() !!}
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-flush table-hover">
+                <thead class="thead-light">
+                    <tr class="row table-head-line">
+                        <th class="col-sm-2 col-md-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
+                        <th class="col-md-2 hidden-md">@sortablelink('expense_transaction.paid_at', trans('general.date'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
+                        <th class="col-sm-2 col-md-3 hidden-sm">@sortablelink('expense_transaction.name', trans('transfers.from_account'))</th>
+                        <th class="col-xs-4 col-sm-4 col-md-2">@sortablelink('income_transaction.name', trans('transfers.to_account'))</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 text-right">@sortablelink('expense_transaction.amount', trans('general.amount'))</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 text-center">{{ trans('general.actions') }}</th>
                     </tr>
-                @endforeach
+                </thead>
+
+                <tbody>
+                    @foreach($transfers as $item)
+                        <tr class="row align-items-center border-top-1">
+                            <td class="col-sm-2 col-md-1 hidden-sm">{{ Form::bulkActionGroup($item->id, $item->from_account) }}</td>
+                            <td class="col-md-2 hidden-md"><a class="col-aka text-success" href="{{ route('transfers.edit', $item->id) }}">@date($item->paid_at)</a></td>
+                            <td class="col-sm-2 col-md-3 hidden-sm">{{ $item->from_account }}</td>
+                            <td class="col-xs-4 col-sm-4 col-md-2">{{ $item->to_account }}</td>
+                            <td class="col-xs-4 col-sm-2 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
+                            <td class="col-xs-4 col-sm-2 col-md-2 text-center">
+                                <div class="dropdown">
+                                    <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h text-muted"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="{{ route('transfers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                        <div class="dropdown-divider"></div>
+                                        @permission('delete-banking-transfers')
+                                            {!! Form::deleteLink($item, 'banking/transfers') !!}
+                                        @endpermission
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
-    <!-- /.box-body -->
 
-    <div class="box-footer">
-        @include('partials.admin.pagination', ['items' => $items, 'type' => 'transfers'])
+        <div class="card-footer table-action">
+            <div class="row">
+                @include('partials.admin.pagination', ['items' => $transfers, 'type' => 'transfers'])
+            </div>
+        </div>
     </div>
-    <!-- /.box-footer -->
-</div>
-<!-- /.box -->
 @endsection
 
-@push('js')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/moment.js') }}"></script>
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-@if (language()->getShortCode() != 'en')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
-@endif
-@endpush
-
-@push('css')
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+@push('scripts_start')
+    <script src="{{ asset('public/js/banking/transfers.js?v=' . version('short')) }}"></script>
 @endpush

@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\Wizard;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 use App\Traits\Modules as RemoteModules;
 use Illuminate\Validation\Factory as ValidationFactory;
 
-class Company extends Request
+class Company extends FormRequest
 {
     use RemoteModules;
 
@@ -17,7 +17,7 @@ class Company extends Request
             function ($attribute, $value, $parameters) {
                 return $this->checkToken($value);
             },
-            trans('messages.error.invalid_token')
+            trans('messages.error.invalid_apikey')
         );
     }
 
@@ -39,11 +39,11 @@ class Company extends Request
     public function rules()
     {
         $rules = [
-            'company_logo' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
+            'company_logo' => 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024,
         ];
 
-        if (!setting('general.api_token', false) && !empty($this->request->get('api_token'))) {
-            $rules['api_token'] = 'string|check';
+        if (!setting('apps.api_key', false) && !empty($this->request->get('api_key'))) {
+            $rules['api_key'] = 'string|check';
         }
 
         return $rules;

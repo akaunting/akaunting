@@ -14,19 +14,13 @@ class Menu
      */
     public function compose(View $view)
     {
-        $customer = null;
-        $user = auth()->user();
-
-        // Get all companies
-        $companies = $user->companies()->enabled()->limit(10)->get()->each(function ($com) {
-            $com->setSettings();
-        })->sortBy('name');
-
-        // Get customer
-        if ($user->customer) {
-            $customer = $user;
+        // Get user companies
+        if ($user = user()) {
+            $companies = $user->companies()->enabled()->limit(10)->get()->sortBy('name');
+        } else {
+            $companies = [];
         }
 
-        $view->with(['companies' => $companies, 'customer' => $customer]);
+        $view->with(['companies' => $companies]);
     }
 }

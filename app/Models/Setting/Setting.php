@@ -3,9 +3,9 @@
 namespace App\Models\Setting;
 
 use App\Scopes\Company;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Setting extends Model
+class Setting extends Eloquent
 {
 
     protected $table = 'settings';

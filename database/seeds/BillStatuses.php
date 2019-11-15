@@ -2,7 +2,7 @@
 
 namespace Database\Seeds;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Models\Expense\BillStatus;
 use Illuminate\Database\Seeder;
 

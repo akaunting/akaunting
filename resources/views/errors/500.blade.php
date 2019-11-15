@@ -3,13 +3,14 @@
 @section('title', trans('errors.error_page'))
 
 @section('content')
-<div class="error-page">
-    <h2 class="headline text-red">500</h2>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0 text-danger">500 Internal Server Error</h2>
+        </div>
+        <div class="card-body">
+            <h3><i class="fa fa-exclamation-triangle text-danger"></i> {{ trans('errors.body.error_page') }}</h3>
 
-    <div class="error-content">
-        <h3><i class="fa fa-warning text-red"></i> {{ trans('errors.body.error_page') }}</h3>
-
-        <p>{!! trans('errors.messages.error_page', ['link' => url('/') ]) !!}</p>
+            <p>{!! trans('errors.messages.error_page', ['link' => url('/') ]) !!}</p>
+        </div>
     </div>
-</div>
 @endsection

@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers\Incomes;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Income\Revenue as Request;
+use App\Abstracts\Http\Controller;
+use App\Exports\Incomes\Revenues as Export;
+use App\Http\Requests\Banking\Transaction as Request;
+use App\Http\Requests\Common\Import as ImportRequest;
+use App\Imports\Common\Items as Import;
+use App\Jobs\Banking\CreateTransaction;
+use App\Jobs\Banking\DeleteTransaction;
+use App\Jobs\Banking\UpdateTransaction;
 use App\Models\Banking\Account;
-use App\Models\Income\Customer;
-use App\Models\Income\Revenue;
+use App\Models\Banking\Transaction;
+use App\Models\Common\Contact;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
+use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use App\Traits\Uploads;
-use App\Utilities\Import;
-use App\Utilities\ImportFile;
 use App\Utilities\Modules;
 
 class Revenues extends Controller
 {
-    use DateTime, Currencies, Uploads;
+    use Contacts, Currencies, DateTime;
 
     /**
      * Display a listing of the resource.
@@ -27,13 +31,13 @@ class Revenues extends Controller
      */
     public function index()
     {
-        $revenues = Revenue::with(['account', 'category', 'customer'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
+        $revenues = Transaction::type('income')->with(['account', 'category', 'contact'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $customers = collect(Customer::enabled()->orderBy('name')->pluck('name', 'id'));
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = collect(Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id'));
+        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'));
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
         $transfer_cat_id = Category::transfer();
 
@@ -47,7 +51,7 @@ class Revenues extends Controller
      */
     public function show()
     {
-        return redirect('incomes/revenues');
+        return redirect()->route('revenues.index');
     }
 
     /**
@@ -61,13 +65,13 @@ class Revenues extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
+        $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
 
         $currency = Currency::where('code', $account_currency_code)->first();
 
-        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
+        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -83,33 +87,33 @@ class Revenues extends Controller
      */
     public function store(Request $request)
     {
-        $revenue = Revenue::create($request->input());
+        $response = $this->ajaxDispatch(new CreateTransaction($request));
 
-        // Upload attachment
-        if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'revenues');
+        if ($response['success']) {
+            $response['redirect'] = route('revenues.index');
 
-            $revenue->attachMedia($media, 'attachment');
+            $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('revenues.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        // Recurring
-        $revenue->createRecurring();
-
-        $message = trans('messages.success.added', ['type' => trans_choice('general.revenues', 1)]);
-
-        flash($message)->success();
-
-        return redirect('incomes/revenues');
+        return response()->json($response);
     }
 
     /**
      * Duplicate the specified resource.
      *
-     * @param  Revenue  $revenue
+     * @param  Transaction  $revenue
      *
      * @return Response
      */
-    public function duplicate(Revenue $revenue)
+    public function duplicate(Transaction $revenue)
     {
         $clone = $revenue->duplicate();
 
@@ -117,37 +121,35 @@ class Revenues extends Controller
 
         flash($message)->success();
 
-        return redirect('incomes/revenues/' . $clone->id . '/edit');
+        return redirect()->route('revenues.edit', $clone->id);
     }
 
     /**
      * Import the specified resource.
      *
-     * @param  ImportFile  $import
+     * @param  ImportRequest  $request
      *
      * @return Response
      */
-    public function import(ImportFile $import)
+    public function import(ImportRequest $request)
     {
-        if (!Import::createFromFile($import, 'Income\Revenue')) {
-            return redirect('common/import/incomes/revenues');
-        }
+        \Excel::import(new Import(), $request->file('import'));
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.revenues', 2)]);
 
         flash($message)->success();
 
-        return redirect('incomes/revenues');
+        return redirect()->route('revenues.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Revenue  $revenue
+     * @param  Transaction  $revenue
      *
      * @return Response
      */
-    public function edit(Revenue $revenue)
+    public function edit(Transaction $revenue)
     {
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -155,66 +157,70 @@ class Revenues extends Controller
 
         $currency = Currency::where('code', $revenue->currency_code)->first();
 
-        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
+        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('incomes.revenues.edit', compact('revenue', 'accounts', 'currencies', 'currency', 'customers', 'categories', 'payment_methods'));
+        $date_format = $this->getCompanyDateFormat();
+
+        return view('incomes.revenues.edit', compact('revenue', 'accounts', 'currencies', 'currency', 'customers', 'categories', 'payment_methods', 'date_format'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Revenue  $revenue
-     * @param  Request  $request
+     * @param  Transaction $revenue
+     * @param  Request $request
      *
      * @return Response
      */
-    public function update(Revenue $revenue, Request $request)
+    public function update(Transaction $revenue, Request $request)
     {
-        $revenue->update($request->input());
+        $response = $this->ajaxDispatch(new UpdateTransaction($revenue, $request));
 
-        // Upload attachment
-        if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'revenues');
+        if ($response['success']) {
+            $response['redirect'] = route('revenues.index');
 
-            $revenue->attachMedia($media, 'attachment');
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.revenues', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('revenues.edit', $revenue->id);
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        // Recurring
-        $revenue->updateRecurring();
-
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.revenues', 1)]);
-
-        flash($message)->success();
-
-        return redirect('incomes/revenues');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Revenue  $revenue
+     * @param  Transaction $revenue
      *
      * @return Response
      */
-    public function destroy(Revenue $revenue)
+    public function destroy(Transaction $revenue)
     {
-        // Can't delete transfer revenue
-        if ($revenue->category->id == Category::transfer()) {
-            return redirect('incomes/revenues');
+        $response = $this->ajaxDispatch(new DeleteTransaction($revenue));
+
+        $response['redirect'] = route('revenues.index');
+
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => trans_choice('general.revenues', 1)]);
+
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        $revenue->recurring()->delete();
-        $revenue->delete();
-
-        $message = trans('messages.success.deleted', ['type' => trans_choice('general.revenues', 1)]);
-
-        flash($message)->success();
-
-        return redirect('incomes/revenues');
+        return response()->json($response);
     }
 
     /**
@@ -224,12 +230,6 @@ class Revenues extends Controller
      */
     public function export()
     {
-        \Excel::create('revenues', function($excel) {
-            $excel->sheet('revenues', function($sheet) {
-                $sheet->fromModel(Revenue::filter(request()->input())->get()->makeHidden([
-                    'id', 'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at'
-                ]));
-            });
-        })->download('xlsx');
+        return \Excel::download(new Export(), trans_choice('general.revenues', 2) . '.xlsx');
     }
 }

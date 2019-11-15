@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Models\Setting\Setting;
-use File;
-use Module;
+use App\Http\Requests\Setting\Module as Request;
 
 class Modules extends Controller
 {
@@ -16,13 +15,12 @@ class Modules extends Controller
      */
     public function edit($alias)
     {
-        /*$setting = Setting::all($alias)->pluck('value', 'key');*/
-        $setting = Setting::all($alias)->map(function($s) use($alias) {
+        $setting = Setting::all($alias)->map(function ($s) use ($alias) {
             $s->key = str_replace($alias . '.', '', $s->key);
             return $s;
         })->pluck('value', 'key');
 
-        $module = Module::findByAlias($alias);
+        $module = module($alias);
 
         return view('settings.modules.edit', compact('setting', 'module'));
     }
@@ -34,18 +32,11 @@ class Modules extends Controller
      *
      * @return Response
      */
-    public function update($alias)
+    public function update($alias, Request $request)
     {
-        $fields = request()->all();
-        
-        $skip_keys = ['company_id', '_method', '_token'];
-        
-        foreach ($fields as $key => $value) {
-            // Don't process unwanted keys
-            if (in_array($key, $skip_keys)) {
-                continue;
-            }
+        $fields = $request->except(['company_id', '_method', '_token', 'module_alias']);
 
+        foreach ($fields as $key => $value) {
             setting()->set($alias . '.' . $key, $value);
         }
 
@@ -54,8 +45,17 @@ class Modules extends Controller
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.settings', 2)]);
 
+        $response = [
+            'status' => null,
+            'success' => true,
+            'error' => false,
+            'message' => $message,
+            'data' => null,
+            'redirect' => route('settings.index')//('settings/apps/' . $alias),
+        ];
+
         flash($message)->success();
 
-        return redirect('settings/apps/' . $alias);
+        return response()->json($response);
     }
 }

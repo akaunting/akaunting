@@ -7,20 +7,9 @@ use Date;
 class Recurring
 {
 
-    public static function reflect(&$items, $type, $issued_date_field, $status)
+    public static function reflect(&$items, $type, $issued_date_field)
     {
         foreach ($items as $key => $item) {
-            if (($item->getTable() == 'bill_payments') || ($item->getTable() == 'invoice_payments')) {
-                $i  = $item->$type;
-                $i->category_id = $item->category_id;
-
-                $item = $i;
-            }
-
-            if (($status == 'upcoming') && (($type == 'revenue') || ($type == 'payment'))) {
-                $items->forget($key);
-            }
-
             if (!$item->recurring || !empty($item->parent_id)) {
                 continue;
             }

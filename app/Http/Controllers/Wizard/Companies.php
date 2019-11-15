@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Wizard;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Wizard\Company as Request;
 use App\Models\Common\Company;
 use App\Traits\Uploads;
-use Date;
+use Illuminate\Support\Str;
 
 class Companies extends Controller
 {
@@ -20,8 +20,6 @@ class Companies extends Controller
     public function edit()
     {
         $company = Company::find(session('company_id'));
-
-        $company->setSettings();
 
         return view('wizard.companies.edit', compact('company'));
     }
@@ -41,7 +39,7 @@ class Companies extends Controller
         $fields = $request->all();
 
         $skip_keys = ['company_id', '_method', '_token'];
-        $file_keys = ['company_logo', 'invoice_logo'];
+        $file_keys = ['company.logo'];
 
         foreach ($fields as $key => $value) {
             // Don't process unwanted keys
@@ -49,13 +47,24 @@ class Companies extends Controller
                 continue;
             }
 
+            switch ($key) {
+                case 'api_key':
+                    $real_key = 'apps.' . $key;
+                    break;
+                case 'financial_start':
+                    $real_key = 'localisation.' . $key;
+                    break;
+                default:
+                    $real_key = 'company.' . $key;
+            }
+
             // Process file uploads
-            if (in_array($key, $file_keys)) {
+            if (in_array($real_key, $file_keys)) {
                 // Upload attachment
                 if ($request->file($key)) {
                     $media = $this->getMedia($request->file($key), 'settings');
 
-                    $company->attachMedia($media, $key);
+                    $company->attachMedia($media, Str::snake($key));
 
                     $value = $media->id;
                 }
@@ -66,12 +75,25 @@ class Companies extends Controller
                 }
             }
 
-            setting()->set('general.' . $key, $value);
+            setting()->set($real_key, $value);
         }
 
         // Save all settings
         setting()->save();
 
-        return redirect('wizard/currencies');
+        $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 2)]);
+
+        $response = [
+            'status' => null,
+            'success' => true,
+            'error' => false,
+            'message' => $message,
+            'data' => null,
+            'redirect' => route('wizard.currencies.index'),
+        ];
+
+        flash($message)->success();
+
+        return response()->json($response);
     }
 }

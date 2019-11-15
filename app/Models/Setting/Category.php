@@ -2,7 +2,7 @@
 
 namespace App\Models\Setting;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 
 class Category extends Model
 {
@@ -39,24 +39,33 @@ class Category extends Model
 
     public function payments()
     {
-        return $this->hasMany('App\Models\Expense\Payment');
+        return $this->transactions()->where('type', 'expense');
     }
 
     public function revenues()
     {
-        return $this->hasMany('App\Models\Income\Revenue');
+        return $this->transactions()->where('type', 'income');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Banking\Transaction');
     }
 
     /**
      * Scope to only include categories of a given type.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param mixed $type
+     * @param mixed $types
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeType($query, $type)
+    public function scopeType($query, $types)
     {
-        return $query->whereIn('type', (array) $type);
+        if (empty($types)) {
+            return $query;
+        }
+
+        return $query->whereIn('type', (array) $types);
     }
 
     /**

@@ -1,12 +1,21 @@
 @stack($name . '_input_start')
-
-<div class="form-group {{ $col }} {{ isset($attributes['required']) ? 'required' : '' }} {{ $errors->has($name) ? 'has-error' : ''}}">
-    {!! Form::label($name, $text, ['class' => 'control-label']) !!}
-    <div class="input-group">
-        <div class="input-group-addon"><i class="fa fa-{{ $icon }}"></i></div>
-        {!! Form::select($name, $values, $selected, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => $text])], $attributes)) !!}
-    </div>
-    {!! $errors->first($name, '<p class="help-block">:message</p>') !!}
-</div>
-
+    <akaunting-select
+        class="{{ $col }} {{ isset($attributes['required']) ? 'required' : '' }}"
+        :form-classes="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]"
+        :title="'{{ $text }}'"
+        :placeholder="'{{ trans('general.form.select.field', ['field' => $text]) }}'"
+        :name="'{{ $name }}'"
+        :options="{{ json_encode($values) }}"
+        :value="'{{ old($name, $selected) }}'"
+        :icon="'{{ $icon }}'"
+        @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' : 'form.' . $name . ' = $event' }}"
+        @if (!empty($attributes['change']))
+        @change="{{ $attributes['change'] }}($event)"
+        @endif
+        @if(isset($attributes['v-error-message']))
+        :form-error="{{ $attributes['v-error-message'] }}"
+        @else
+        :form-error="form.errors.get('{{ $name }}')"
+        @endif
+    ></akaunting-select>
 @stack($name . '_input_end')

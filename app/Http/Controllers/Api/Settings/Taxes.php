@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\Settings;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Setting\Tax as Request;
+use App\Jobs\Setting\CreateTax;
+use App\Jobs\Setting\DeleteTax;
+use App\Jobs\Setting\UpdateTax;
 use App\Models\Setting\Tax;
 use App\Transformers\Setting\Tax as Transformer;
-use Dingo\Api\Routing\Helpers;
 
 class Taxes extends ApiController
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
@@ -43,9 +43,9 @@ class Taxes extends ApiController
      */
     public function store(Request $request)
     {
-        $tax = Tax::create($request->all());
+        $tax = $this->dispatch(new CreateTax($request));
 
-        return $this->response->created(url('api/taxes/'.$tax->id));
+        return $this->response->created(url('api/taxes/' . $tax->id));
     }
 
     /**
@@ -57,9 +57,43 @@ class Taxes extends ApiController
      */
     public function update(Tax $tax, Request $request)
     {
-        $tax->update($request->all());
+        try {
+            $tax = $this->dispatch(new UpdateTax($tax, $request));
 
-        return $this->response->item($tax->fresh(), new Transformer());
+            return $this->item($tax->fresh(), new Transformer());
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
+    }
+
+    /**
+     * Enable the specified resource in storage.
+     *
+     * @param  Tax  $tax
+     * @return \Dingo\Api\Http\Response
+     */
+    public function enable(Tax $tax)
+    {
+        $tax = $this->dispatch(new UpdateTax($tax, request()->merge(['enabled' => 1])));
+
+        return $this->item($tax->fresh(), new Transformer());
+    }
+
+    /**
+     * Disable the specified resource in storage.
+     *
+     * @param  Tax  $tax
+     * @return \Dingo\Api\Http\Response
+     */
+    public function disable(Tax $tax)
+    {
+        try {
+            $tax = $this->dispatch(new UpdateTax($tax, request()->merge(['enabled' => 0])));
+
+            return $this->item($tax->fresh(), new Transformer());
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 
     /**
@@ -70,8 +104,12 @@ class Taxes extends ApiController
      */
     public function destroy(Tax $tax)
     {
-        $tax->delete();
+        try {
+            $this->dispatch(new DeleteTax($tax));
 
-        return $this->response->noContent();
+            return $this->response->noContent();
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 }

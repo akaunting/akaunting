@@ -2,18 +2,16 @@
 
 namespace App\Console\Commands;
 
+use App\Events\Expense\BillCreated;
+use App\Events\Expense\BillRecurring;
+use App\Events\Income\InvoiceCreated;
+use App\Events\Income\InvoiceRecurring;
 use App\Models\Common\Company;
-use App\Models\Expense\BillHistory;
-use App\Models\Income\InvoiceHistory;
-use App\Notifications\Expense\Bill as BillNotification;
-use App\Notifications\Income\Invoice as InvoiceNotification;
 use App\Traits\Incomes;
 use App\Utilities\Overrider;
+use Carbon\Carbon;
 use Date;
 use Illuminate\Console\Command;
-use Recurr\Rule;
-use Recurr\Transformer\ArrayTransformer;
-use Recurr\Transformer\ArrayTransformerConfig;
 
 class RecurringCheck extends Command
 {
@@ -32,7 +30,14 @@ class RecurringCheck extends Command
      * @var string
      */
     protected $description = 'Check for recurring';
-    
+
+    /**
+     * The current day.
+     *
+     * @var Carbon
+     */
+    protected $today;
+
     /**
      * Create a new command instance.
      */
@@ -48,12 +53,12 @@ class RecurringCheck extends Command
      */
     public function handle()
     {
-        $this->today = Date::today();
-
         // Get all companies
-        $companies = Company::all();
+        $companies = Company::enabled()->cursor();
 
         foreach ($companies as $company) {
+            $this->info('Creating recurring records for ' . $company->name . ' company.');
+
             // Set company id
             session(['company_id' => $company->id]);
 
@@ -61,43 +66,11 @@ class RecurringCheck extends Command
             Overrider::load('settings');
             Overrider::load('currencies');
 
-            $company->setSettings();
+            $this->today = Date::today();
 
             foreach ($company->recurring as $recurring) {
-                foreach ($recurring->schedule() as $recur) {
-                    $recur_date = Date::parse($recur->getStart()->format('Y-m-d'));
-
-                    // Check if should recur today
-                    if ($this->today->ne($recur_date)) {
-                        continue;
-                    }
-
-                    $model = $recurring->recurable;
-
-                    if (!$model) {
-                        continue;
-                    }
-
-                    switch ($recurring->recurable_type) {
-                        case 'App\Models\Expense\Bill':
-                            $this->recurBill($company, $model);
-                            break;
-                        case 'App\Models\Income\Invoice':
-                            $this->recurInvoice($company, $model);
-                            break;
-                        case 'App\Models\Expense\Payment':
-                        case 'App\Models\Income\Revenue':
-                            $model->cloneable_relations = [];
-
-                            // Create new record
-                            $clone = $model->duplicate();
-
-                            $clone->parent_id = $model->id;
-                            $clone->paid_at = $this->today->format('Y-m-d');
-                            $clone->save();
-
-                            break;
-                    }
+                foreach ($recurring->schedule() as $schedule) {
+                    $this->recur($recurring, $schedule);
                 }
             }
         }
@@ -106,85 +79,90 @@ class RecurringCheck extends Command
         session()->forget('company_id');
     }
 
-    protected function recurInvoice($company, $model)
+    protected function recur($recurring, $schedule)
     {
-        $model->cloneable_relations = ['items', 'totals'];
+        $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
 
-        // Create new record
-        $clone = $model->duplicate();
-
-        // Set original invoice id
-        $clone->parent_id = $model->id;
-
-        // Days between invoiced and due date
-        $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
-
-        // Update dates
-        $clone->invoiced_at = $this->today->format('Y-m-d');
-        $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
-        $clone->save();
-
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => session('company_id'),
-            'invoice_id' => $clone->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $clone->invoice_number]),
-        ]);
-
-        // Notify the customer
-        if ($clone->customer && !empty($clone->customer_email)) {
-            $clone->customer->notify(new InvoiceNotification($clone));
+        // Check if should recur today
+        if ($this->today->ne($schedule_date)) {
+            return;
         }
 
-        // Notify all users assigned to this company
-        foreach ($company->users as $user) {
-            if (!$user->can('read-notifications')) {
-                continue;
-            }
-
-            $user->notify(new InvoiceNotification($clone));
+        if (!$model = $recurring->recurable) {
+            return;
         }
 
-        // Update next invoice number
-        $this->increaseNextInvoiceNumber();
+        switch ($recurring->recurable_type) {
+            case 'App\Models\Expense\Bill':
+                if (!$clone = $this->getDocumentClone($model, 'billed_at')) {
+                    break;
+                }
+
+                event(new BillCreated($clone));
+
+                event(new BillRecurring($clone));
+
+                break;
+            case 'App\Models\Income\Invoice':
+                if (!$clone = $this->getDocumentClone($model, 'invoiced_at')) {
+                    break;
+                }
+
+                event(new InvoiceCreated($clone));
+
+                event(new InvoiceRecurring($clone));
+
+                break;
+            case 'App\Models\Banking\Transaction':
+                // Skip model created on the same day, but scheduler hasn't run yet
+                if ($this->today->eq(Date::parse($model->paid_at->format('Y-m-d')))) {
+                    break;
+                }
+                
+                $model->cloneable_relations = [];
+
+                // Create new record
+                $clone = $model->duplicate();
+
+                $clone->parent_id = $model->id;
+                $clone->paid_at = $this->today->format('Y-m-d');
+                $clone->save();
+
+                break;
+        }
     }
 
-    protected function recurBill($company, $model)
+    /**
+     * Clone the document and return it.
+     *
+     * @param  $model
+     * @param  $date_field
+     *
+     * @return boolean|object
+     */
+    protected function getDocumentClone($model, $date_field)
     {
+        // Skip model created on the same day, but scheduler hasn't run yet
+        if ($this->today->eq(Date::parse($model->$date_field->format('Y-m-d')))) {
+            return false;
+        }
+
         $model->cloneable_relations = ['items', 'totals'];
 
         // Create new record
         $clone = $model->duplicate();
 
-        // Set original bill id
+        // Set original model id
         $clone->parent_id = $model->id;
 
-        // Days between invoiced and due date
-        $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
+        // Days between issued and due date
+        $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->$date_field));
 
         // Update dates
-        $clone->billed_at = $this->today->format('Y-m-d');
-        $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
+        $clone->$date_field = $this->today->format('Y-m-d');
+        $clone->due_at = $this->today->copy()->addDays($diff_days)->format('Y-m-d');
         $clone->save();
-
-        // Add bill history
-        BillHistory::create([
-            'company_id' => session('company_id'),
-            'bill_id' => $clone->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $clone->bill_number]),
-        ]);
-
-        // Notify all users assigned to this company
-        foreach ($company->users as $user) {
-            if (!$user->can('read-notifications')) {
-                continue;
-            }
-
-            $user->notify(new BillNotification($clone));
-        }
+        
+        return $clone;
     }
 }

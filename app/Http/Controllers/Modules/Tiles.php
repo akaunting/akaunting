@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Traits\Modules;
 use App\Models\Module\Module;
-use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 
 class Tiles extends Controller
@@ -21,8 +20,6 @@ class Tiles extends Controller
      */
     public function categoryModules($alias)
     {
-        $this->checkApiToken();
-
         $page = request('page', 1);
 
         $request = [
@@ -35,7 +32,7 @@ class Tiles extends Controller
 
         $title = $data->category->name;
         $modules = $data->modules;
-        $installed = Module::all()->pluck('status', 'alias')->toArray();
+        $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
         return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
@@ -49,8 +46,6 @@ class Tiles extends Controller
      */
     public function vendorModules($alias)
     {
-        $this->checkApiToken();
-
         $page = request('page', 1);
 
         $request = [
@@ -63,7 +58,7 @@ class Tiles extends Controller
 
         $title = $data->vendor->name;
         $modules = $data->modules;
-        $installed = Module::all()->pluck('status', 'alias')->toArray();
+        $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
         return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
@@ -75,8 +70,6 @@ class Tiles extends Controller
      */
     public function paidModules()
     {
-        $this->checkApiToken();
-
         $page = request('page', 1);
 
         $data = [
@@ -87,7 +80,7 @@ class Tiles extends Controller
 
         $title = trans('modules.top_paid');
         $modules = $this->getPaidModules($data);
-        $installed = Module::all()->pluck('status', 'alias')->toArray();
+        $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
         return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
@@ -99,8 +92,6 @@ class Tiles extends Controller
      */
     public function newModules()
     {
-        $this->checkApiToken();
-
         $page = request('page', 1);
 
         $data = [
@@ -111,7 +102,7 @@ class Tiles extends Controller
 
         $title = trans('modules.new');
         $modules = $this->getNewModules($data);
-        $installed = Module::all()->pluck('status', 'alias')->toArray();
+        $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
         return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
@@ -123,8 +114,6 @@ class Tiles extends Controller
      */
     public function freeModules()
     {
-        $this->checkApiToken();
-
         $page = request('page', 1);
 
         $data = [
@@ -135,7 +124,7 @@ class Tiles extends Controller
 
         $title = trans('modules.top_free');
         $modules = $this->getFreeModules($data);
-        $installed = Module::all()->pluck('status', 'alias')->toArray();
+        $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
         return view('modules.tiles.index', compact('title', 'modules', 'installed'));
     }
@@ -147,8 +136,6 @@ class Tiles extends Controller
      */
     public function searchModules(Request $request)
     {
-        $this->checkApiToken();
-
         $keyword = $request['keyword'];
         $page = request('page', 1);
 
@@ -161,7 +148,7 @@ class Tiles extends Controller
 
         $title = trans('modules.search');
         $modules = $this->getSearchModules($data);
-        $installed = Module::all()->pluck('status', 'alias')->toArray();
+        $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
         return view('modules.tiles.index', compact('title', 'modules', 'keyword', 'installed'));
     }

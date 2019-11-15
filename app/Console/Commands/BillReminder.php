@@ -41,9 +41,11 @@ class BillReminder extends Command
     public function handle()
     {
         // Get all companies
-        $companies = Company::all();
+        $companies = Company::enabled()->cursor();
 
         foreach ($companies as $company) {
+            $this->info('Sending bill reminders for ' . $company->name . ' company.');
+
             // Set company id
             session(['company_id' => $company->id]);
 
@@ -51,14 +53,14 @@ class BillReminder extends Command
             Overrider::load('settings');
             Overrider::load('currencies');
 
-            $company->setSettings();
-
             // Don't send reminders if disabled
-            if (!$company->send_bill_reminder) {
+            if (!setting('schedule.send_bill_reminder')) {
+                $this->info('Bill reminders disabled by ' . $company->name . '.');
+
                 continue;
             }
 
-            $days = explode(',', $company->schedule_bill_days);
+            $days = explode(',', setting('schedule.bill_days'));
 
             foreach ($days as $day) {
                 $day = (int) trim($day);
@@ -69,6 +71,7 @@ class BillReminder extends Command
 
         // Unset company_id
         session()->forget('company_id');
+        setting()->forgetAll();
     }
 
     protected function remind($day, $company)
@@ -77,7 +80,7 @@ class BillReminder extends Command
         $date = Date::today()->addDays($day)->toDateString();
 
         // Get upcoming bills
-        $bills = Bill::with('vendor')->accrued()->notPaid()->due($date)->get();
+        $bills = Bill::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($bills as $bill) {
             // Notify all users assigned to this company
@@ -86,7 +89,7 @@ class BillReminder extends Command
                     continue;
                 }
 
-                $user->notify(new Notification($bill));
+                $user->notify(new Notification($bill, 'bill_remind_admin'));
             }
         }
     }

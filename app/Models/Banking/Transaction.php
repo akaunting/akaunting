@@ -2,91 +2,212 @@
 
 namespace App\Models\Banking;
 
-use App\Models\Expense\Bill;
-use App\Models\Expense\Payment;
-use App\Models\Income\Invoice;
-use App\Models\Income\Revenue;
-use Illuminate\Database\Eloquent\Model;
+use App\Abstracts\Model;
+use App\Models\Setting\Category;
+use App\Traits\Currencies;
+use App\Traits\DateTime;
+use App\Traits\Media;
+use App\Traits\Recurring;
+use Bkwld\Cloner\Cloneable;
+use Date;
 
 class Transaction extends Model
 {
-    public static function getUserTransactions($user_id, $type)
+    use Cloneable, Currencies, DateTime, Media, Recurring;
+
+    protected $table = 'transactions';
+
+    protected $dates = ['deleted_at', 'paid_at'];
+
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['company_id', 'type', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'document_id', 'contact_id', 'description', 'category_id', 'payment_method', 'reference', 'parent_id'];
+
+    /**
+     * Sortable columns.
+     *
+     * @var array
+     */
+    public $sortable = ['paid_at', 'amount','category.name', 'account.name'];
+
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    public $cloneable_relations = ['recurring'];
+
+    public function account()
     {
-        $transactions = array();
+        return $this->belongsTo('App\Models\Banking\Account')->withDefault(['name' => trans('general.na')]);
+    }
 
-        switch ($type) {
-            case 'payments':
-                $bills = Bill::where('vendor_id', $user_id)->get();
+    public function bill()
+    {
+        return $this->belongsTo('App\Models\Expense\Bill', 'document_id');
+    }
 
-                foreach ($bills as $bill) {
-                    $bill_payments = $bill->payments;
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Setting\Category')->withDefault(['name' => trans('general.na')]);
+    }
 
-                    if ($bill_payments) {
-                        foreach ($bill_payments as $bill_payment) {
-                            $transactions[] = (object) [
-                                'date'          => $bill_payment->paid_at,
-                                'account'       => $bill_payment->account->name,
-                                'type'          => trans('invoices.status.partial'),
-                                'category'      => trans_choice('general.invoices', 1),
-                                'description'   => $bill_payment->description,
-                                'amount'        => $bill_payment->amount,
-                                'currency_code' => $bill_payment->currency_code,
-                            ];
-                        }
-                    }
-                }
+    public function contact()
+    {
+        return $this->belongsTo('App\Models\Common\Contact')->withDefault(['name' => trans('general.na')]);
+    }
 
-                $payments = Payment::where('vendor_id', $user_id)->get();
+    public function currency()
+    {
+        return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
+    }
 
-                foreach ($payments as $payment) {
-                    $transactions[] = (object) [
-                        'date'          => $payment->paid_at,
-                        'account'       => $payment->account->name,
-                        'type'          => 'Expense',
-                        'category'      => $payment->category->name,
-                        'description'   => $payment->description,
-                        'amount'        => $payment->amount,
-                        'currency_code' => $payment->currency_code,
-                    ];
-                }
-                break;
-            case 'revenues':
-                $invoices = Invoice::where('customer_id', $user_id)->get();
+    public function invoice()
+    {
+        return $this->belongsTo('App\Models\Income\Invoice', 'document_id');
+    }
 
-                foreach ($invoices as $invoice) {
-                    $invoice_payments = $invoice->payments;
+    public function recurring()
+    {
+        return $this->morphOne('App\Models\Common\Recurring', 'recurable');
+    }
 
-                    if ($invoice_payments) {
-                        foreach ($invoice_payments as $invoice_payment) {
-                            $transactions[] = (object) [
-                                'date'          => $invoice_payment->paid_at,
-                                'account'       => $invoice_payment->account->name,
-                                'type'          => trans('invoices.status.partial'),
-                                'category'      => trans_choice('general.invoices', 1),
-                                'description'   => $invoice_payment->description,
-                                'amount'        => $invoice_payment->amount,
-                                'currency_code' => $invoice_payment->currency_code,
-                            ];
-                        }
-                    }
-                }
+    public function transfers()
+    {
+        return $this->hasMany('App\Models\Banking\Transfer');
+    }
 
-                $revenues = Revenue::where('customer_id', $user_id)->get();
+    public function user()
+    {
+        return $this->belongsTo('App\Models\Auth\User', 'contact_id', 'id');
+    }
 
-                foreach ($revenues as $revenue) {
-                    $transactions[] = (object) [
-                        'date'          => $revenue->paid_at,
-                        'account'       => $revenue->account->name,
-                        'type'          => trans_choice('general.payments', 1),
-                        'category'      => $revenue->category->name,
-                        'description'   => $revenue->description,
-                        'amount'        => $revenue->amount,
-                        'currency_code' => $revenue->currency_code,
-                    ];
-                }
-                break;
+    /**
+     * Scope to only include contacts of a given type.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $types
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeType($query, $types)
+    {
+        if (empty($types)) {
+            return $query;
         }
 
-        return $transactions;
+        return $query->whereIn('type', (array) $types);
+    }
+
+    /**
+     * Get only transfers.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsTransfer($query)
+    {
+        return $query->where('category_id', '=', Category::transfer());
+    }
+
+    /**
+     * Skip transfers.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsNotTransfer($query)
+    {
+        return $query->where('category_id', '<>', Category::transfer());
+    }
+
+    /**
+     * Get only documents (invoice/bill).
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsDocument($query)
+    {
+        return $query->where('document_id', '<>', '');
+    }
+
+    /**
+     * Get by document (invoice/bill).
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  integer $document_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDocument($query, $document_id)
+    {
+        return $query->where('document_id', '=', $document_id);
+    }
+
+    /**
+     * Order by paid date.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('paid_at', 'desc');
+    }
+
+    /**
+     * Scope paid invoice.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePaid($query)
+    {
+        return $query->sum('amount');
+    }
+
+    /**
+     * Convert amount to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = (double) $value;
+    }
+
+    /**
+     * Convert currency rate to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setCurrencyRateAttribute($value)
+    {
+        $this->attributes['currency_rate'] = (double) $value;
+    }
+
+    /**
+     * Get the current balance.
+     *
+     * @return string
+     */
+    public function getAttachmentAttribute($value)
+    {
+        if (!empty($value) && !$this->hasMedia('attachment')) {
+            return $value;
+        } elseif (!$this->hasMedia('attachment')) {
+            return false;
+        }
+
+        return $this->getMedia('attachment')->last();
+    }
+
+    public function getDivideConvertedAmount($format = false)
+    {
+        return $this->divide($this->amount, $this->currency_code, $this->currency_rate, $format);
     }
 }

@@ -17,7 +17,7 @@ return [
         'customer'          => 'Fel: Användaren inte skapad! :name använder redan denna e-postadress.',
         'no_file'           => 'Fel: Ingen fil har valts!',
         'last_category'     => 'Fel: Kan inte ta bort sista :type kategorin!',
-        'invalid_token'     => 'Fel: Den symbolen som angetts är ogiltigt!',
+        'invalid_apikey'     => 'Fel: Den symbolen som angetts är ogiltigt!',
         'import_column'     => 'Fel: :message bladnamn: :sheet. Radnummer: :line.',
         'import_sheet'      => 'Fel: Bladets namn är inte giltigt. Vänligen kontrollera exempelfilen.',
     ],

@@ -17,7 +17,7 @@ return [
         'customer'          => 'Chyba: Používateľ nebol vytvorený! :name už používa táto e-mail adresa.',
         'no_file'           => 'Chyba: Žiadny súbor nebol vybratý!',
         'last_category'     => 'Chyba: Nemožno zmazať poslednú kategóriu :type!',
-        'invalid_token'     => 'Chyba: Token je neplatný!',
+        'invalid_apikey'     => 'Chyba: Token je neplatný!',
         'import_column'     => 'Error: :message Názov hárka: :sheet. Číslo riadku: :line.',
         'import_sheet'      => 'Chyba: Názov hárka nie je platný. Prosím, skontrolujte podľa vzorového súboru.',
     ],

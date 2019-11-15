@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use App\Models\Model;
-use App\Models\Company\Company;
+use App\Abstracts\Model;
+use App\Models\Common\Company;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceItem;
 use App\Models\Income\InvoiceTotal;
 use App\Models\Setting\Tax;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateInvoiceTotalsTable extends Migration
 {

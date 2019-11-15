@@ -2,18 +2,16 @@
 
 namespace App\Jobs\Expense;
 
-use App\Events\BillCreated;
+use App\Abstracts\Job;
+use App\Events\Expense\BillCreated;
 use App\Models\Expense\Bill;
-use App\Models\Expense\BillHistory;
 use App\Models\Expense\BillTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use App\Traits\Uploads;
-use Illuminate\Foundation\Bus\Dispatchable;
 
-class CreateBill
+class CreateBill extends Job
 {
-    use Currencies, DateTime, Dispatchable, Uploads;
+    use Currencies, DateTime;
 
     protected $request;
 
@@ -24,7 +22,7 @@ class CreateBill
      */
     public function __construct($request)
     {
-        $this->request = $request;
+        $this->request = $this->getRequestInstance($request);
     }
 
     /**
@@ -34,7 +32,7 @@ class CreateBill
      */
     public function handle()
     {
-        $bill = Bill::create($this->request->input());
+        $bill = Bill::create($this->request->all());
 
         // Upload attachment
         if ($this->request->file('attachment')) {
@@ -50,9 +48,9 @@ class CreateBill
         $discount_total = 0;
         $discount = $this->request['discount'];
 
-        if ($this->request['item']) {
-            foreach ($this->request['item'] as $item) {
-                $bill_item = dispatch(new CreateBillItem($item, $bill, $discount));
+        if ($this->request['items']) {
+            foreach ($this->request['items'] as $item) {
+                $bill_item = $this->dispatch(new CreateBillItem($item, $bill, $discount));
 
                 // Calculate totals
                 $tax_total += $bill_item->tax;
@@ -91,15 +89,6 @@ class CreateBill
 
         // Add bill totals
         $this->addTotals($bill, $this->request, $taxes, $sub_total, $discount_total, $tax_total);
-
-        // Add bill history
-        BillHistory::create([
-            'company_id' => session('company_id'),
-            'bill_id' => $bill->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $bill->bill_number]),
-        ]);
 
         // Recurring
         $bill->createRecurring();

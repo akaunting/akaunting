@@ -2,7 +2,7 @@
 
 namespace Database\Seeds;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Models\Banking\Account;
 use Illuminate\Database\Seeder;
 
@@ -43,7 +43,7 @@ class Accounts extends Seeder
         foreach ($rows as $row) {
             $account = Account::create($row);
 
-            setting()->set('general.default_account', $account->id);
+            setting()->set('default.account', $account->id);
         }
     }
 }

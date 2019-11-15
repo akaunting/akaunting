@@ -29,8 +29,7 @@ class RolesTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('roles.store'), $this->getRoleRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('roles.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -55,8 +54,7 @@ class RolesTest extends FeatureTestCase
 
         $this->loginAs()
             ->patch(route('roles.update', $role->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(route('roles.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -67,8 +65,7 @@ class RolesTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('roles.destroy', $role->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('roles.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }

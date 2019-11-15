@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Str;
 
 class RedirectIfWizardCompleted
 {
@@ -16,12 +17,12 @@ class RedirectIfWizardCompleted
     public function handle($request, Closure $next)
     {
         // Not in wizard
-        if (!starts_with($request->getPathInfo(), '/wizard')) {
+        if (!Str::startsWith($request->getPathInfo(), '/wizard')) {
             return $next($request);
         }
 
         // Wizard not completed
-        if (!setting('general.wizard', 0)) {
+        if (!setting('wizard.completed', 0)) {
             return $next($request);
         }
 

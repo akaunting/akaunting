@@ -17,22 +17,22 @@ class InvoiceText
     {
         $text_override = [];
 
-        $text_items = setting('general.invoice_item', 'general.items');
+        $text_items = setting('invoice.item_name', 'general.items');
 
         if ($text_items == 'custom') {
-            $text_items = setting('general.invoice_item_input');
+            $text_items = setting('invoice.item_input');
         }
 
-        $text_quantity = setting('general.invoice_quantity', 'invoices.quantity');
+        $text_quantity = setting('invoice.quantity_name', 'invoices.quantity');
 
         if ($text_quantity == 'custom') {
-            $text_quantity = setting('general.invoice_quantity_input');
+            $text_quantity = setting('invoice.quantity_input');
         }
 
-        $text_price = setting('general.invoice_price', 'invoices.price');
+        $text_price = setting('invoice.price_name', 'invoices.price');
 
         if ($text_price == 'custom') {
-            $text_price = setting('general.invoice_price_input');
+            $text_price = setting('invoice.price_input');
         }
 
         $text_override['items'] = $text_items;

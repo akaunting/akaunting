@@ -2,65 +2,55 @@
 
 namespace App\Notifications\Income;
 
-use Illuminate\Notifications\Notification;
+use App\Abstracts\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\URL;
 
 class Invoice extends Notification
 {
     /**
-     * The bill model.
+     * The invoice model.
      *
      * @var object
      */
     public $invoice;
 
     /**
+     * The email template.
+     *
+     * @var string
+     */
+    public $template;
+
+    /**
      * Create a notification instance.
      *
      * @param  object  $invoice
+     * @param  object  $template
      */
-    public function __construct($invoice)
+    public function __construct($invoice = null, $template = null)
     {
-        $this->queue = 'high';
-        $this->delay = config('queue.connections.database.delay');
+        parent::__construct();
 
         $this->invoice = $invoice;
+        $this->template = $template;
     }
 
     /**
-     * Get the notification's channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array|string
-     */
-    public function via($notifiable)
-    {
-        return ['mail', 'database'];
-    }
-
-    /**
-     * Build the mail representation of the notification.
+     * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        $message = (new MailMessage)
-            ->line(trans('invoices.notification.message', ['amount' => money($this->invoice->amount, $this->invoice->currency_code, true), 'customer' => $this->invoice->customer_name]));
-
-        // Override per company as Laravel doesn't read config
-        $message->from(config('mail.from.address'), config('mail.from.name'));
+        $message = $this->initMessage();
 
         // Attach the PDF file if available
         if (isset($this->invoice->pdf_path)) {
             $message->attach($this->invoice->pdf_path, [
                 'mime' => 'application/pdf',
             ]);
-        }
-
-        if ($this->invoice->customer->user) {
-            $message->action(trans('invoices.notification.button'), url('customers/invoices', $this->invoice->id));
         }
 
         return $message;
@@ -77,6 +67,34 @@ class Invoice extends Notification
         return [
             'invoice_id' => $this->invoice->id,
             'amount' => $this->invoice->amount,
+        ];
+    }
+
+    public function getTags()
+    {
+        return [
+            '{invoice_number}',
+            '{invoice_total}',
+            '{invoice_due_date}',
+            '{invoice_guest_link}',
+            '{invoice_admin_link}',
+            '{invoice_portal_link}',
+            '{customer_name}',
+            '{company_name}',
+        ];
+    }
+
+    public function getTagsReplacement()
+    {
+        return [
+            $this->invoice->invoice_number,
+            money($this->invoice->amount, $this->invoice->currency_code, true),
+            $this->invoice->due_at,
+            URL::signedRoute('signed.invoices.show', [$this->invoice->id, 'company_id' => $this->invoice->company_id]),
+            route('invoices.show', $this->invoice->id),
+            route('portal.invoices.show', $this->invoice->id),
+            $this->invoice->contact_name,
+            $this->invoice->company->name
         ];
     }
 }

@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Expenses;
 
-use App\Models\Common\Item;
-use App\Models\Expense\Bill;
-use App\Models\Expense\Vendor;
+use App\Jobs\Expense\CreateBill;
 use Tests\Feature\FeatureTestCase;
 
 class BillsTest extends FeatureTestCase
@@ -29,8 +27,7 @@ class BillsTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('bills.store'), $this->getBillRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('bills.show', ['bill' => 1]));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -39,29 +36,27 @@ class BillsTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('bills.store'), $this->getBillRequest(1))
-            ->assertStatus(302)
-            ->assertRedirect(route('bills.show', ['bill' => 1]));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldSeeBillUpdatePage()
     {
-        $bill = Bill::create($this->getBillRequest());
+        $bill = dispatch_now(new CreateBill($this->getBillRequest()));
+
         $this->loginAs()
             ->get(route('bills.edit', ['bill' => $bill->id]))
             ->assertStatus(200)
-            ->assertSee($bill->vendor_name)
-            ->assertSee($bill->vendor_email);
+            ->assertSee($bill->contact_name)
+            ->assertSee($bill->contact_email);
     }
 
     public function testItShouldUpdateBill()
     {
-        $request = $this->getBillRequest();
+        $bill = dispatch_now(new CreateBill($this->getBillRequest()));
 
-        $bill = Bill::create($request);
-
-        $request['vendor_name'] = $this->faker->name;
+        $request['contact_name'] = $this->faker->name;
 
         $this->loginAs()
             ->patch(route('bills.update', $bill->id), $request)
@@ -72,7 +67,7 @@ class BillsTest extends FeatureTestCase
 
     public function testItShouldDeleteBill()
     {
-        $bill = Bill::create($this->getBillRequest());
+        $bill = dispatch_now(new CreateBill($this->getBillRequest()));
 
         $this->loginAs()
             ->delete(route('bills.destroy', $bill->id))
@@ -90,26 +85,26 @@ class BillsTest extends FeatureTestCase
         $items = [['name' =>  $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD', 'tax_id' => null]];
 
         $data =  [
-            'vendor_id' => '0',
+            'company_id' => $this->company->id,
             'billed_at' => $this->faker->date(),
             'due_at' => $this->faker->date(),
             'bill_number' => '1',
             'order_number' => '1',
-            'currency_code' => setting('general.default_currency'),
+            'currency_code' => setting('default.currency'),
             'currency_rate' => '1',
-            'item' => $items,
+            'items' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
             'category_id' => $this->company->categories()->type('expense')->first()->id,
             'recurring_frequency' => 'no',
-            'vendor_name' =>  $this->faker->name,
-            'vendor_email' =>$this->faker->email,
-            'vendor_tax_number' => null,
-            'vendor_phone' =>  null,
-            'vendor_address' =>  $this->faker->address,
+            'contact_id' => '0',
+            'contact_name' =>  $this->faker->name,
+            'contact_email' =>$this->faker->email,
+            'contact_tax_number' => null,
+            'contact_phone' =>  null,
+            'contact_address' =>  $this->faker->address,
             'bill_status_code' => 'draft',
             'amount' => $amount,
-            'company_id' => $this->company->id,
         ];
 
         if ($recurring) {

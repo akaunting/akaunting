@@ -19,22 +19,20 @@ class Header
      */
     public function compose(View $view)
     {
-        $user = Auth::user();
+        $user = user();
 
         $bills = [];
         $invoices = [];
-        $items = [];
-        $items_reminder = [];
         $notifications = 0;
         $company = null;
 
         // Get customer company
-        if ($user->customer()) {
+        if ($user->contact) {
             $company = (object)[
-                'company_name' => setting('general.company_name'),
-                'company_email' => setting('general.company_email'),
-                'company_address' => setting('general.company_address'),
-                'company_logo' => setting('general.company_logo'),
+                'company_name' => setting('company.name'),
+                'company_email' => setting('company.email'),
+                'company_address' => setting('company.address'),
+                'company_logo' => setting('company.logo'),
             ];
         }
 
@@ -52,14 +50,6 @@ class Header
                     $invoices[$data['invoice_id']] = $data['amount'];
                     $notifications++;
                     break;
-                case 'App\Notifications\Common\Item':
-                    $items[$data['item_id']] = $data['name'];
-                    $notifications++;
-                    break;
-                case 'App\Notifications\Common\ItemReminder':
-                    $items_reminder[$data['item_id']] = $data['name'];
-                    $notifications++;
-                    break;
             }
         }
 
@@ -72,8 +62,6 @@ class Header
             'notifications' => $notifications,
             'bills' => $bills,
             'invoices' => $invoices,
-            'items' => $items,
-            'items_reminder' => $items_reminder,
             'company' => $company,
             'updates' => $updates,
         ]);

@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Common;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Notification extends Request
+class Notification extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -3,21 +3,19 @@
 namespace App\Models\Auth;
 
 use App\Notifications\Auth\Reset;
+use App\Traits\Media;
 use Date;
-use EloquentFilter\Filterable;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Kyslik\ColumnSortable\Sortable;
-use App\Traits\Media;
-use Request;
-use Route;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable
 {
-    use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable, Media;
+    use LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media;
 
     protected $table = 'users';
 
@@ -54,9 +52,14 @@ class User extends Authenticatable
         return $this->morphToMany('App\Models\Common\Company', 'user', 'user_companies', 'user_id', 'company_id');
     }
 
-    public function customer()
+    public function contact()
     {
-        return $this->hasOne('App\Models\Income\Customer', 'user_id', 'id');
+        return $this->hasOne('App\Models\Common\Contact', 'user_id', 'id');
+    }
+
+    public function dashboards()
+    {
+        return $this->hasMany('App\Models\Common\Dashboard');
     }
 
     /**
@@ -73,7 +76,7 @@ class User extends Authenticatable
     public function getPictureAttribute($value)
     {
         // Check if we should use gravatar
-        if (setting('general.use_gravatar', '0') == '1') {
+        if (setting('default.use_gravatar', '0') == '1') {
             try {
                 // Check for gravatar
                 $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))).'?size=90&d=404';
@@ -136,33 +139,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Define the filter provider globally.
-     *
-     * @return ModelFilter
-     */
-    public function modelFilter()
-    {
-        // Check if is api or web
-        if (Request::is('api/*')) {
-            $arr = array_reverse(explode('\\', explode('@', app()['api.router']->currentRouteAction())[0]));
-            $folder = $arr[1];
-            $file = $arr[0];
-        } else {
-            list($folder, $file) = explode('/', Route::current()->uri());
-        }
-
-        if (empty($folder) || empty($file)) {
-            return $this->provideFilter();
-        }
-
-        //$class = '\App\Filters\Auth\Users';
-
-        $class = '\App\Filters\\' . ucfirst($folder) . '\\' . ucfirst($file);
-
-        return $this->provideFilter($class);
-    }
-
-    /**
      * Scope to get all rows filtered, sorted and paginated.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -174,10 +150,10 @@ class User extends Authenticatable
     {
         $request = request();
 
-        $input = $request->input();
-        $limit = $request->get('limit', setting('general.list_limit', '25'));
+        $search = $request->get('search');
+        $limit = $request->get('limit', setting('default.list_limit', '25'));
 
-        return $query->filter($input)->sortable($sort)->paginate($limit);
+        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
     }
 
     /**

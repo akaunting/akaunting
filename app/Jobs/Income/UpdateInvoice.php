@@ -2,20 +2,18 @@
 
 namespace App\Jobs\Income;
 
-use App\Events\InvoiceUpdated;
+use App\Abstracts\Job;
 use App\Models\Common\Item;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
-use App\Traits\Uploads;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Bus\Dispatchable;
 
-class UpdateInvoice
+class UpdateInvoice extends Job
 {
-    use Currencies, DateTime, Dispatchable, Incomes, Uploads;
+    use Currencies, DateTime, Incomes;
 
     protected $invoice;
 
@@ -29,7 +27,7 @@ class UpdateInvoice
     public function __construct($invoice, $request)
     {
         $this->invoice = $invoice;
-        $this->request = $request;
+        $this->request = $this->getRequestInstance($request);
     }
 
     /**
@@ -39,6 +37,8 @@ class UpdateInvoice
      */
     public function handle()
     {
+        event(new \App\Events\Income\InvoiceUpdating($this->invoice, $this->request));
+
         // Upload attachment
         if ($this->request->file('attachment')) {
             $media = $this->getMedia($this->request->file('attachment'), 'invoices');
@@ -53,27 +53,11 @@ class UpdateInvoice
         $discount_total = 0;
         $discount = $this->request['discount'];
 
-        if ($this->request['item']) {
-            $items = $this->invoice->items;
+        if ($this->request['items']) {
+            $this->deleteRelationships($this->invoice, ['items', 'item_taxes']);
 
-            if ($items) {
-                foreach ($items as $item) {
-                    if (empty($item->item_id)) {
-                        continue;
-                    }
-
-                    $item_object = Item::find($item->item_id);
-
-                    // Increase stock
-                    $item_object->quantity += (double) $item->quantity;
-                    $item_object->save();
-                }
-            }
-
-            $this->deleteRelationships($this->invoice, 'items');
-
-            foreach ($this->request['item'] as $item) {
-                $invoice_item = dispatch(new CreateInvoiceItem($item, $this->invoice, $discount));
+            foreach ($this->request['items'] as $item) {
+                $invoice_item = dispatch_now(new CreateInvoiceItem($item, $this->invoice, $discount));
 
                 // Calculate totals
                 $tax_total += $invoice_item->tax;
@@ -127,8 +111,7 @@ class UpdateInvoice
         // Recurring
         $this->invoice->updateRecurring();
 
-        // Fire the event to make it extensible
-        event(new InvoiceUpdated($this->invoice));
+        event(new \App\Events\Income\InvoiceUpdated($this->invoice, $this->request));
 
         return $this->invoice;
     }

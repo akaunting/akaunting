@@ -2,7 +2,7 @@
 
 namespace App\Models\Income;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Models\Setting\Tax;
 use App\Traits\DateTime;
 
@@ -34,12 +34,12 @@ class InvoiceTotal extends Model
     /**
      * Convert amount to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) $value;
+        $this->attributes['amount'] = (double)$value;
     }
 
     /**
@@ -53,6 +53,8 @@ class InvoiceTotal extends Model
 
         $percent = 0;
 
+        $tax = null;
+
         switch ($this->code) {
             case 'discount':
                 $title = trans($title);
@@ -60,22 +62,23 @@ class InvoiceTotal extends Model
 
                 break;
             case 'tax':
-                $rate = Tax::where('name', $title)->value('rate');
+                $tax = Tax::where('name', $title)->first();
 
-                if (!empty($rate)) {
-                    $percent = $rate;
+                if (!empty($tax->rate)) {
+                    $percent = $tax->rate;
                 }
 
                 break;
         }
 
         if (!empty($percent)) {
+
             $title .= ' (';
 
-            if (setting('general.percent_position', 'after') == 'after') {
-                $title .= $percent . '%';
+            if (setting('localisation.percent_position', 'after') == 'after') {
+                $title .= $this->code == 'discount' ? false : $tax->type == 'fixed' ? $percent : $percent . '%';
             } else {
-                $title .= '%' . $percent;
+                $title .= $this->code == 'discount' ? false : $tax->type == 'fixed' ? $percent : '%' . $percent;
             }
 
             $title .= ')';

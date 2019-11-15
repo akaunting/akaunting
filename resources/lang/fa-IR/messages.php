@@ -18,7 +18,7 @@ return [
         'customer'          => 'خطا: کاربر ایجاد نشد :name از ایمیل وارد شده استفاده می کند.',
         'no_file'           => 'خطا: فایلی انتخاب نشده است!',
         'last_category'     => 'Error: Can not delete the last :type category!',
-        'invalid_token'     => 'Error: The token entered is invalid!',
+        'invalid_apikey'     => 'Error: The token entered is invalid!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],

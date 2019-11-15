@@ -23,9 +23,15 @@ class User extends FormRequest
      */
     public function rules()
     {
+        $picture = 'nullable';
+
+        if ($this->request->get('picture', null)) {
+            $picture = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
+        }
+
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->user->getAttribute('id');
+            $id = is_numeric($this->user) ? $this->user : $this->user->getAttribute('id');
             $required = '';
         } else {
             $id = null;
@@ -38,7 +44,7 @@ class User extends FormRequest
             'password' => $required . 'confirmed',
             'companies' => 'required',
             'roles' => 'required',
-            'picture' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
+            'picture' => $picture,
         ];
     }
 }

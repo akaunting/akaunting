@@ -30,33 +30,30 @@ class Overrider
         setting()->load(true);
 
         // Timezone
-        config(['app.timezone' => setting('general.timezone', 'UTC')]);
+        config(['app.timezone' => setting('localisation.timezone', 'UTC')]);
         date_default_timezone_set(config('app.timezone'));
 
         // Email
-        $email_protocol = setting('general.email_protocol', 'mail');
+        $email_protocol = setting('email.protocol', 'mail');
         config(['mail.driver' => $email_protocol]);
-        config(['mail.from.name' => setting('general.company_name')]);
-        config(['mail.from.address' => setting('general.company_email')]);
+        config(['mail.from.name' => setting('company.name')]);
+        config(['mail.from.address' => setting('company.email')]);
 
         if ($email_protocol == 'sendmail') {
-            config(['mail.sendmail' => setting('general.email_sendmail_path')]);
+            config(['mail.sendmail' => setting('email.sendmail_path')]);
         } elseif ($email_protocol == 'smtp') {
-            config(['mail.host' => setting('general.email_smtp_host')]);
-            config(['mail.port' => setting('general.email_smtp_port')]);
-            config(['mail.username' => setting('general.email_smtp_username')]);
-            config(['mail.password' => setting('general.email_smtp_password')]);
-            config(['mail.encryption' => setting('general.email_smtp_encryption')]);
+            config(['mail.host' => setting('email.smtp_host')]);
+            config(['mail.port' => setting('email.smtp_port')]);
+            config(['mail.username' => setting('email.smtp_username')]);
+            config(['mail.password' => setting('email.smtp_password')]);
+            config(['mail.encryption' => setting('email.smtp_encryption')]);
         }
-
-        // Session
-        config(['session.lifetime' => setting('general.session_lifetime', '30')]);
 
         // Locale
         if (session('locale') == '') {
-            //App::setLocale(setting('general.default_language'));
-            //Session::put('locale', setting('general.default_language'));
-            config(['app.locale' => setting('general.default_locale')]);
+            //App::setLocale(setting('default.locale'));
+            //Session::put('locale', setting('default.locale'));
+            config(['app.locale' => setting('default.locale')]);
         }
 
         // Set app url dynamically

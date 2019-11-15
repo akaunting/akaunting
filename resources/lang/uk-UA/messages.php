@@ -17,7 +17,7 @@ return [
         'customer'          => 'Помилка: Користувача не створено! : ця електронна адреса вже використовується.',
         'no_file'           => 'Помилка: Файл не обрано!',
         'last_category'     => 'Помилка: Неможливо видалити :type категорію!',
-        'invalid_token'     => 'Помилка: Введений токен невірний!',
+        'invalid_apikey'     => 'Помилка: Введений токен невірний!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],

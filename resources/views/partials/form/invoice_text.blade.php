@@ -1,19 +1,29 @@
 @stack($name . '_input_start')
 
-<div class="{{ $col }} input-group-invoice-text">
-    <div class="form-group col-md-12 {{ isset($attributes['required']) ? 'required' : '' }} {{ $errors->has($name) ? 'has-error' : ''}}">
-        {!! Form::label($name, $text, ['class' => 'control-label']) !!}
-        <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-{{ $icon }}"></i></div>
-            {!! Form::select($name, $values, $selected, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => $text])], $attributes)) !!}
+<div
+    class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}"
+    :class="[{'has-error': form.errors.get('{{ $name }}')}]">
+    {!! Form::label($name, $text, ['class' => 'form-control-label']) !!}
+
+    <div class="input-group input-group-merge {{ $group_class }}">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fa fa-{{ $icon }}"></i>
+            </span>
         </div>
-        {!! $errors->first($name, '<p class="help-block">:message</p>') !!}
+
+        {!! Form::text($input_name, $input_value, [
+            'class' => 'form-control',
+            'data-name' => $input_name,
+            'data-value' => $input_value,
+            'placeholder' => trans('general.form.select.field', ['field' => $text]),
+            'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $input_name
+        ]) !!}
     </div>
 
-    <div class="form-group col-md-6 hidden {{ $errors->has('invoice_text_text') ? 'has-error' : '' }}">
-        {!! Form::label($input_name, trans('settings.invoice.custom'), ['class' => 'control-label']) !!}
-        {!! Form::text($input_name, $input_value, ['class' => 'form-control']) !!}
-        {!! $errors->first($input_name, '<p class="help-block">:message</p>') !!}
+    <div class="invalid-feedback d-block"
+         v-if="form.errors.has('{{ $input_name }}')"
+         v-html="form.errors.get('{{ $input_name }}')">
     </div>
 </div>
 

@@ -23,10 +23,10 @@ class Money
             $purchase_price = $request->get('purchase_price');
             $opening_balance = $request->get('opening_balance');
             $currency_code = $request->get('currency_code');
-            $items = $request->get('item');
+            $items = $request->get('items');
 
             if (empty($currency_code)) {
-                $currency_code = setting('general.default_currency');
+                $currency_code = setting('default.currency');
             }
 
             if (!empty($amount)) {
@@ -49,7 +49,7 @@ class Money
                         }
                     }
 
-                    $request->request->set('item', $items);
+                    $request->request->set('items', $items);
                 }
             }
 

@@ -17,7 +17,7 @@ return [
         'customer'          => '錯誤：未建立使用者！:name已經使用此電子郵件。',
         'no_file'           => '錯誤：沒有選擇檔案！',
         'last_category'     => '錯誤：無法刪除最後一個 :type 分類！',
-        'invalid_token'     => '錯誤：token輸入錯誤！',
+        'invalid_apikey'     => '錯誤：token輸入錯誤！',
         'import_column'     => '錯誤： :message工作表 name: :sheet，第 number: :line 行',
         'import_sheet'      => '錯誤：工作表名稱不正確，請檢查範例檔案。',
     ],

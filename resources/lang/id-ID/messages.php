@@ -18,7 +18,7 @@ return [
         'customer'          => 'Galat: Pengguna tidak dibuat! :name telah menggunakan alamat email ini.',
         'no_file'           => 'Kesalahan: Tidak ada file dipilih!',
         'last_category'     => 'Error: Can not delete the last :type category!',
-        'invalid_token'     => 'Galat: Token yang dimasukkan tidak sah!',
+        'invalid_apikey'     => 'Galat: Token yang dimasukkan tidak sah!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],

@@ -4,13 +4,9 @@ namespace App\Utilities;
 
 use Cache;
 use Date;
-use Module;
-
-use App\Events\PaymentGatewayListing;
 
 class Modules
 {
-
     public static function getPaymentMethods($type = null)
     {
         $company_id = session('company_id');
@@ -20,13 +16,13 @@ class Modules
 
         $payment_methods = Cache::get($cache_admin);
 
-        $customer = true;
+        $contact = true;
 
-        if (auth()->user()) {
-            $customer = auth()->user()->customer;
+        if (user()) {
+            $contact = user()->contact;
         }
 
-        if ($customer && $type != 'all') {
+        if ($contact && ($type != 'all')) {
             $payment_methods = Cache::get($cache_customer);
         }
 
@@ -34,46 +30,53 @@ class Modules
             return $payment_methods;
         }
 
-        $gateways = [];
-        $methods = [];
+        $list = [];
 
-        // Fire the event to extend the menu
-        $results = event(new PaymentGatewayListing($gateways));
+        $modules = new \stdClass();
+        $modules->payment_methods = [];
 
-        foreach ($results as $gateways) {
-            foreach ($gateways as $gateway) {
-                if (!isset($gateway['name']) || !isset($gateway['code'])) {
-                    continue;
-                }
+        // Fire the event to get the list of payment methods
+        event(new \App\Events\Module\PaymentMethodShowing($modules));
 
-                if (($customer && empty($gateway['customer'])) && $type != 'all') {
-                    continue;
-                }
-
-                $methods[] = $gateway;
+        foreach ($modules->payment_methods as $method) {
+            if (!isset($method['name']) || !isset($method['code'])) {
+                continue;
             }
+
+            if (($contact && empty($method['customer'])) && ($type != 'all')) {
+                continue;
+            }
+
+            $list[] = $method;
         }
 
-        $sort_order = [];
+        static::sortPaymentMethods($list);
 
-        if ($methods) {
-            foreach ($methods as $key => $value) {
-                $sort_order[$key] = !empty($value['order']) ? $value['order'] : 0;
-            }
-
-            array_multisort($sort_order, SORT_ASC, $methods);
-
-            foreach ($methods as $method) {
-                $payment_methods[$method['code']] = $method['name'];
-            }
+        foreach ($list as $method) {
+            $payment_methods[$method['code']] = $method['name'];
         }
 
-        if ($customer) {
+        if ($contact) {
             Cache::put($cache_customer, $payment_methods, Date::now()->addHour(6));
         } else {
             Cache::put($cache_admin, $payment_methods, Date::now()->addHour(6));
         }
 
         return ($payment_methods) ? $payment_methods : [];
+    }
+
+    protected static function sortPaymentMethods(&$list)
+    {
+        $sort_order = [];
+
+        foreach ($list as $key => $value) {
+            $sort_order[$key] = !empty($value['order']) ? $value['order'] : 0;
+        }
+
+        if (empty($sort_order)) {
+            return;
+        }
+
+        array_multisort($sort_order, SORT_ASC, $list);
     }
 }

@@ -2,13 +2,14 @@
 
 namespace App\Models\Expense;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Traits\Currencies;
+use Bkwld\Cloner\Cloneable;
 
 class BillItem extends Model
 {
 
-    use Currencies;
+    use Cloneable, Currencies;
 
     protected $table = 'bill_items';
 
@@ -17,7 +18,14 @@ class BillItem extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'bill_id', 'item_id', 'name', 'sku', 'quantity', 'price', 'total', 'tax'];
+    protected $fillable = ['company_id', 'bill_id', 'item_id', 'name', 'price', 'total', 'tax'];
+
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    public $cloneable_relations = ['taxes'];
 
     public function bill()
     {

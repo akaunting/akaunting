@@ -3,7 +3,7 @@
 namespace Tests\Feature\Incomes;
 
 use App\Models\Auth\User;
-use App\Models\Income\Customer;
+use App\Models\Common\Contact;
 use Tests\Feature\FeatureTestCase;
 
 class CustomersTest extends FeatureTestCase
@@ -28,8 +28,7 @@ class CustomersTest extends FeatureTestCase
 	{
 		$this->loginAs()
 			->post(route('customers.store'), $this->getCustomerRequest())
-			->assertStatus(302)
-			->assertRedirect(route('customers.index'));
+			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
 	}
@@ -40,8 +39,7 @@ class CustomersTest extends FeatureTestCase
 
 		$this->loginAs()
 			->post(route('customers.store'), $customer)
-			->assertStatus(302)
-			->assertRedirect(route('customers.index'));
+			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
 
@@ -64,7 +62,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldSeeCustomerDetailPage()
 	{
-		$customer = Customer::create($this->getCustomerRequest());
+		$customer = Contact::create($this->getCustomerRequest());
 
 		$this->loginAs()
 			->get(route('customers.show', ['customer' => $customer->id]))
@@ -74,7 +72,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldSeeCustomerUpdatePage()
 	{
-		$customer = Customer::create($this->getCustomerRequest());
+		$customer = Contact::create($this->getCustomerRequest());
 
 		$this->loginAs()
 			->get(route('customers.edit', ['customer' => $customer->id]))
@@ -87,26 +85,24 @@ class CustomersTest extends FeatureTestCase
 	{
 		$request = $this->getCustomerRequest();
 
-		$customer = Customer::create($request);
+		$customer = Contact::create($request);
 
         $request['name'] = $this->faker->name;
 
 		$this->loginAs()
 			->patch(route('customers.update', $customer->id), $request)
-			->assertStatus(302)
-			->assertRedirect(route('customers.index'));
+			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
 	}
 
 	public function testItShouldDeleteCustomer()
 	{
-		$customer = Customer::create($this->getCustomerRequest());
+		$customer = Contact::create($this->getCustomerRequest());
 
 		$this->loginAs()
 			->delete(route('customers.destroy', $customer->id))
-			->assertStatus(302)
-			->assertRedirect(route('customers.index'));
+			->assertStatus(200);
 		
 		$this->assertFlashLevel('success');
 
@@ -122,6 +118,7 @@ class CustomersTest extends FeatureTestCase
 	{
 		return [
 			'company_id' => $this->company->id,
+            'type' => 'customer',
 			'name' => $this->faker->name,
 			'email' => $this->faker->email,
 			'tax_number' => $this->faker->randomNumber(9),

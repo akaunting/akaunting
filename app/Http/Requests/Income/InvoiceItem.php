@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Income;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class InvoiceItem extends Request
+class InvoiceItem extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

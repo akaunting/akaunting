@@ -3,49 +3,54 @@
 @section('title', $module->getName())
 
 @section('content')
-    <!-- Default box -->
-    <div class="box box-success">
+    <div class="card">
         {!! Form::model($setting, [
+            'id' => 'module',
             'method' => 'PATCH',
-            'url' => ['settings/apps/' . $module->getAlias()],
+            'url' => ['settings/' . $module->getAlias()],
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
             'files' => true,
             'role' => 'form',
-            'class' => 'form-loading-button'
+            'class' => 'form-loading-button',
+            'novalidate' => true
         ]) !!}
 
-        <div class="box-body">
-            @foreach($module->get('settings') as $field)
-                @php $type = $field['type']; @endphp
+            <div class="card-body">
+                <div class="row">
+                    @foreach($module->get('settings') as $field)
+                        @php $type = $field['type']; @endphp
 
-                @if (($type == 'textGroup') || ($type == 'emailGroup') || ($type == 'passwordGroup'))
-                    {{ Form::$type($field['name'], trans($field['title']), $field['icon'], $field['attributes']) }}
-                @elseif ($type == 'textareaGroup')
-                    {{ Form::$type($field['name'], trans($field['title'])) }}
-                @elseif ($type == 'selectGroup')
-                    {{ Form::$type($field['name'], trans($field['title']), $field['icon'], $field['values'], $field['selected'], $field['attributes']) }}
-                @elseif ($type == 'radioGroup')
-                    {{ Form::$type($field['name'], trans($field['title']), trans($field['enable']), trans($field['disable']), $field['attributes']) }}
-                @elseif ($type == 'checkboxGroup')
-                    {{ Form::$type($field['name'], trans($field['title']), $field['items'], $field['value'], $field['id'], $field['attributes']) }}
-                @elseif ($type == 'fileGroup')
-                    {{ Form::$type($field['name'], trans($field['title']), $field['attributes']) }}
-                @endif
-            @endforeach
-        </div>
-        <!-- /.box-body -->
+                        @if (($type == 'textGroup') || ($type == 'emailGroup') || ($type == 'passwordGroup'))
+                            {{ Form::$type($field['name'], trans($field['title']), $field['icon'], $field['attributes']) }}
+                        @elseif ($type == 'textareaGroup')
+                            {{ Form::$type($field['name'], trans($field['title'])) }}
+                        @elseif ($type == 'selectGroup')
+                            {{ Form::$type($field['name'], trans($field['title']), $field['icon'], $field['values'], $field['selected'], $field['attributes']) }}
+                        @elseif ($type == 'radioGroup')
+                            {{ Form::$type($field['name'], trans($field['title']), null, trans($field['enable']), trans($field['disable']), $field['attributes']) }}
+                        @elseif ($type == 'checkboxGroup')
+                            {{ Form::$type($field['name'], trans($field['title']), $field['items'], $field['value'], $field['id'], $field['attributes']) }}
+                        @elseif ($type == 'fileGroup')
+                            {{ Form::$type($field['name'], trans($field['title']), $field['attributes']) }}
+                        @endif
+                    @endforeach
 
-        <div class="box-footer">
-            {{ Form::saveButtons(URL::previous()) }}
-        </div>
-        <!-- /.box-footer -->
+                    {{ Form::hidden('module_alias', $module->getAlias(), ['id' => 'module_alias']) }}
+                </div>
+            </div>
 
+            <div class="card-footer">
+                <div class="float-right">
+                    <div class="row">
+                        {{ Form::saveButtons(URL::previous()) }}
+                    </div>
+                </div>
+            </div>
         {!! Form::close() !!}
     </div>
 @endsection
 
-@push('scripts')
-    <script type="text/javascript">
-        var text_yes = '{{ trans('general.yes') }}';
-        var text_no = '{{ trans('general.no') }}';
-    </script>
+@push('scripts_start')
+    <script src="{{ asset('public/js/settings/modules.js?v=' . version('short')) }}"></script>
 @endpush

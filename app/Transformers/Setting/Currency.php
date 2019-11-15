@@ -25,8 +25,8 @@ class Currency extends TransformerAbstract
             'symbol_first' => $model->symbol_first,
             'decimal_mark' => $model->decimal_mark,
             'thousands_separator' => $model->thousands_separator,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
+            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
     }
 }

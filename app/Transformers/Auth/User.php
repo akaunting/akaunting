@@ -2,7 +2,7 @@
 
 namespace App\Transformers\Auth;
 
-use App\Transformers\Company\Company;
+use App\Transformers\Common\Company;
 use App\Models\Auth\User as Model;
 use League\Fractal\TransformerAbstract;
 
@@ -23,8 +23,8 @@ class User extends TransformerAbstract
             'id' => $model->id,
             'name' => $model->name,
             'email' => $model->email,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
+            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
     }
 

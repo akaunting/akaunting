@@ -8,7 +8,6 @@ use Recurr\Transformer\ArrayTransformerConfig;
 
 trait Recurring
 {
-
     public function createRecurring()
     {
         $request = request();
@@ -134,7 +133,7 @@ trait Recurring
 
     public function getRuleTimeZone()
     {
-        return setting('general.timezone');
+        return setting('localisation.timezone');
     }
 
     public function getRuleCount()

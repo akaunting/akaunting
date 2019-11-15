@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Install;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Utilities\Updater;
 use App\Utilities\Versions;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class Updates extends Controller
             $core = $updates['core'];
         }
 
-        $rows = Module::all();
+        $rows = module()->all();
 
         if ($rows) {
             foreach ($rows as $row) {
@@ -39,7 +39,7 @@ class Updates extends Controller
                 }
 
                 $m = new \stdClass();
-                $m->name = $row->get('name');
+                $m->name = $row->getName();
                 $m->alias = $row->get('alias');
                 $m->category = $row->get('category');
                 $m->installed = $row->get('version');
@@ -85,9 +85,9 @@ class Updates extends Controller
             $installed = version('short');
         } else {
             // Get module instance
-            $module = Module::findByAlias($alias);
+            $module = module($alias);
 
-            $name = $module->get('name');
+            $name = $module->getName();
 
             $installed = $module->get('version');
         }
@@ -128,23 +128,23 @@ class Updates extends Controller
             'url'  => url('install/updates/file-copy')
         ];
 
-        // Migrate DB and trigger event UpdateFinish event
+        // Finish installation
         $json['step'][] = [
-            'text' => trans('modules.installation.migrate', ['module' => $name]),
-            'url'  => url('install/updates/migrate')
+            'text' => trans('modules.installation.finish', ['module' => $name]),
+            'url'  => url('install/updates/finish')
         ];
 
-        // redirect update page
+        // Redirect
         $json['step'][] = [
-            'text' => trans('modules.installation.finish'),
-            'url'  => url('install/updates/finish')
+            'text' => trans('modules.installation.redirect', ['module' => $name]),
+            'url'  => url('install/updates/redirect')
         ];
 
         return response()->json($json);
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Download the file
      *
      * @param  $request
      *
@@ -154,17 +154,13 @@ class Updates extends Controller
     {
         set_time_limit(600); // 10 minutes
 
-        if ($request['alias'] != 'core') {
-            $this->checkApiToken();
-        }
-
-        $json = Updater::download($request['name'], $request['alias'], $request['version']);
+        $json = Updater::download($request['alias'], $request['version'], $request['installed']);
 
         return response()->json($json);
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Unzip the downloaded file
      *
      * @param  $request
      *
@@ -174,17 +170,13 @@ class Updates extends Controller
     {
         set_time_limit(600); // 10 minutes
 
-        if ($request['alias'] != 'core') {
-            $this->checkApiToken();
-        }
-
-        $json = Updater::unzip($request['name'], $request['path']);
+        $json = Updater::unzip($request['path'], $request['alias'], $request['version'], $request['installed']);
 
         return response()->json($json);
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Copy files
      *
      * @param  $request
      *
@@ -194,31 +186,13 @@ class Updates extends Controller
     {
         set_time_limit(600); // 10 minutes
 
-        if ($request['alias'] != 'core') {
-            $this->checkApiToken();
-        }
-
-        $json = Updater::fileCopy($request['name'], $request['alias'], $request['path'], $request['version']);
+        $json = Updater::fileCopy($request['path'], $request['alias'], $request['version'], $request['installed']);
 
         return response()->json($json);
     }
 
     /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  $request
-     *
-     * @return Response
-     */
-    public function migrate(Request $request)
-    {
-        $json = Updater::migrate($request['name'], $request['alias'], $request['version'], $request['installed']);
-
-        return response()->json($json);
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
+     * Finish the update
      *
      * @param  $request
      *
@@ -226,10 +200,24 @@ class Updates extends Controller
      */
     public function finish(Request $request)
     {
+        $json = Updater::finish($request['alias'], $request['version'], $request['installed']);
+
+        return response()->json($json);
+    }
+
+    /**
+     * Redirect back
+     *
+     * @param  $request
+     *
+     * @return Response
+     */
+    public function redirect(Request $request)
+    {
         return response()->json([
             'success' => true,
             'errors' => false,
-            'redirect' => url("install/updates"),
+            'redirect' => route('updates.index'),
             'data' => [],
         ]);
     }

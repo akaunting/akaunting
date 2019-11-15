@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Common;
 
 use Date;
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Traits\Modules as RemoteModules;
 use App\Http\Requests\Common\Notification as Request;
 

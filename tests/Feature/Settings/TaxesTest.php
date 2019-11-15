@@ -27,8 +27,7 @@ class TaxesTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('taxes.store'), $this->getTaxRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('taxes.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -43,8 +42,7 @@ class TaxesTest extends FeatureTestCase
 
         $this->loginAs()
             ->patch(route('taxes.update', $tax->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(route('taxes.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -55,8 +53,7 @@ class TaxesTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('taxes.destroy', $tax->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('taxes.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeds;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use Illuminate\Database\Seeder;
 use Date;
 
@@ -29,36 +29,33 @@ class Settings extends Seeder
         setting()->setExtraColumns(['company_id' => $company_id]);
 
         setting()->set([
-            'general.financial_start'           => Date::now()->startOfYear()->format('d-m'),
-            'general.timezone'                  => 'Europe/London',
-            'general.date_format'               => 'd M Y',
-            'general.date_separator'            => 'space',
-            'general.percent_position'          => 'after',
-            'general.invoice_number_prefix'     => 'INV-',
-            'general.invoice_number_digit'      => '5',
-            'general.invoice_number_next'       => '1',
-            'general.default_payment_method'    => 'offlinepayment.cash.1',
-            'general.email_protocol'            => 'mail',
-            'general.email_sendmail_path'       => '/usr/sbin/sendmail -bs',
-            'general.send_invoice_reminder'     => '0',
-            'general.schedule_invoice_days'     => '1,3,5,10',
-            'general.send_bill_reminder'        => '0',
-            'general.schedule_bill_days'        => '10,5,3,1',
-            'general.send_item_reminder'        => '0',
-            'general.schedule_item_stocks'      => '3,5,7',
-            'general.schedule_time'             => '09:00',
-            'general.admin_theme'               => 'skin-green-light',
-            'general.list_limit'                => '25',
-            'general.use_gravatar'              => '0',
-            'general.session_handler'           => 'file',
-            'general.session_lifetime'          => '30',
-            'general.file_size'                 => '2',
-            'general.file_types'                => 'pdf,jpeg,jpg,png',
-            'general.wizard'                    => '0',
-            'general.invoice_item'              => 'settings.invoice.item',
-            'general.invoice_price'             => 'settings.invoice.price',
-            'general.invoice_quantity'          => 'settings.invoice.quantity',
-            'offlinepayment.methods'            => '[{"code":"offlinepayment.cash.1","name":"Cash","order":"1","description":null},{"code":"offlinepayment.bank_transfer.2","name":"Bank Transfer","order":"2","description":null}]',
+            'localisation.financial_start'      => Date::now()->startOfYear()->format('d-m'),
+            'localisation.timezone'             => 'Europe/London',
+            'localisation.date_format'          => 'd M Y',
+            'localisation.date_separator'       => 'space',
+            'localisation.percent_position'     => 'after',
+            'invoice.number_prefix'             => 'INV-',
+            'invoice.number_digit'              => '5',
+            'invoice.number_next'               => '1',
+            'invoice.item_name'                 => 'settings.invoice.item',
+            'invoice.price_name'                => 'settings.invoice.price',
+            'invoice.quantity_name'             => 'settings.invoice.quantity',
+            'invoice.title'                     => trans_choice('general.invoices', 1),
+            'invoice.payment_terms'             => '0',
+            'default.payment_method'            => 'offline-payments.cash.1',
+            'default.list_limit'                => '25',
+            'default.use_gravatar'              => '0',
+            'email.protocol'                    => 'mail',
+            'email.sendmail_path'               => '/usr/sbin/sendmail -bs',
+            'schedule.send_invoice_reminder'    => '0',
+            'schedule.invoice_days'             => '1,3,5,10',
+            'schedule.send_bill_reminder'       => '0',
+            'schedule.bill_days'                => '10,5,3,1',
+            'schedule.time'                     => '09:00',
+            'wizard.completed'                  => '0',
+            'offline-payments.methods'          => '[{"code":"offline-payments.cash.1","name":"Cash","order":"1","description":null},{"code":"offline-payments.bank_transfer.2","name":"Bank Transfer","order":"2","description":null}]',
+            'contact.type.customer'             => 'customer',
+            'contact.type.vendor'               => 'vendor',
         ]);
     }
 }

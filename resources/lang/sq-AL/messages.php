@@ -18,7 +18,7 @@ return [
         'customer'          => 'Gabim: Përdoruesi nuk u krijua! :name tashmë përdor këtë adresë e-maili.',
         'no_file'           => 'Gabim: Asnjë skedar i përzgjedhur!',
         'last_category'     => 'Gabim: Nuk mund të fshihet :type kategoria e fundit!',
-        'invalid_token'     => 'Gabim: Marku i dhënë është i pavlefshëm!',
+        'invalid_apikey'     => 'Gabim: Marku i dhënë është i pavlefshëm!',
         'import_column'     => 'Gabim: :message Fleta name: :sheet. Rreshti number: :line.',
         'import_sheet'      => 'Gabim: Emri i fletës nuk është i vlefshëm. Ju lutem, kontrolloni skedarin e mostrës.',
     ],

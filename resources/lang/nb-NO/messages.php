@@ -18,7 +18,7 @@ return [
         'customer'          => 'Feil: Bruker ble ikke opprettet. :name bruker allerede denne e-postadressen.',
         'no_file'           => 'Feil: Ingen fil er valgt.',
         'last_category'     => 'Feil: Kan ikke slette siste :type kategori.',
-        'invalid_token'     => 'Feil: Angitt token er ugyldig.',
+        'invalid_apikey'     => 'Feil: Angitt token er ugyldig.',
         'import_column'     => 'Feil: :message Arknavn: :sheet. Linjenummer: :line.',
         'import_sheet'      => 'Feil: Arknavn er ikke gyldig. Vennligst sjekk malfilen.',
     ],

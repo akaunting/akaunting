@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Common;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use Illuminate\Http\Request;
 use App\Models\Common\Media;
 use File;
@@ -21,12 +21,12 @@ class Uploads extends Controller
         try {
             $media = Media::find($id);
         } catch (\Exception $e) {
-            return false;
+            return response(null, 204);
         }
 
         // Get file path
         if (!$path = $this->getPath($media)) {
-            return false;
+            return response(null, 204);
         }
 
         return response()->file($path);

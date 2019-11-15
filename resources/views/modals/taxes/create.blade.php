@@ -1,4 +1,4 @@
-<div class="modal fade create-tax-{{ $rand }}" id="modal-create-tax" style="display: none;">
+<div class="modal fade create-tax-{{ $rand }} d-none" id="modal-create-tax">
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,17 +7,15 @@
 
             <div class="modal-body">
                 {!! Form::open(['id' => 'form-create-tax', 'role' => 'form', 'class' => 'form-loading-button']) !!}
+                    <div class="row">
+                        {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+                        {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
 
-                    {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
+                        {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
 
-                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
-
-                    {!! Form::hidden('enabled', '1', []) !!}
-                </div>
-
+                        {!! Form::hidden('enabled', '1', []) !!}
+                    </div>
                 {!! Form::close() !!}
             </div>
 
