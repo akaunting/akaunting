@@ -3,70 +3,74 @@
 @section('title', trans_choice('general.updates', 2))
 
 @section('new_button')
-<span class="new-button"><a href="{{ url('install/updates/check') }}" class="btn btn-warning btn-sm"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a></span>
+    <span><a href="{{ route('updates.check') }}" class="btn btn-warning btn-sm btn-alone"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a></span>
 @endsection
 
 @section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        <i class="fa fa-gear"></i>
-        <h3 class="box-title">Akaunting</h3>
+    <div class="card">
+        <div class="card-header">
+            <span class="table-text text-primary">Akaunting</span>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                @if (empty($core))
+                    <div class="col-md-12">
+                        {{ trans('updates.latest_core') }}
+                    </div>
+                @else
+                    <div class="col-sm-2 col-md-6 o-y">
+                        {{ trans('updates.new_core') }}
+                    </div>
+                    <div class="col-sm-10 col-md-6 text-right">
+                        <a href="{{ url('install/updates/update', ['alias' => 'core', 'version' => $core]) }}" data-toggle="tooltip" title="{{ trans('updates.update', ['version' => $core]) }}" class="btn btn-info btn-sm header-button-top o-y"><i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}</a>
+                        <a href="{{ route('updates.changelog') }}" data-toggle="tooltip" title="{{ trans('updates.changelog') }}" class="btn btn-white btn-sm header-button-bottom"><i class="fa fa-exchange-alt"></i> &nbsp;{{ trans('updates.changelog') }}</a>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
-    <!-- /.box-header -->
 
-    <div class="box-body">
-        @if (empty($core))
-        {{ trans('updates.latest_core') }}
-        @else
-            {{ trans('updates.new_core') }}
-            <a href="{{ url('install/updates/update', ['alias' => 'core', 'version' => $core]) }}" data-toggle="tooltip" title="{{ trans('updates.update', ['version' => $core]) }}" class="btn btn-warning btn-xs"><i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}</a>
-            <a href="{{ url('install/updates/changelog') }}" data-toggle="tooltip" title="{{ trans('updates.changelog') }}" class="btn btn-default btn-xs popup"><i class="fa fa-exchange"></i> &nbsp;{{ trans('updates.changelog') }}</a>
-        @endif
-    </div>
-    <!-- /.box-body -->
+    <div class="card">
+        <div class="card-header border-bottom-0">
+            <span class="table-text">{{ trans_choice('general.modules', 2) }}</span>
+        </div>
 
-</div>
-<!-- /.box -->
-
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        <i class="fa fa-rocket"></i>
-        <h3 class="box-title">{{ trans_choice('general.modules', 2) }}</h3>
-    </div>
-    <!-- /.box-header -->
-
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-translations">
-                <thead>
-                    <tr>
-                        <th class="col-md-4">{{ trans('general.name') }}</th>
-                        <th class="col-md-2">{{ trans_choice('general.categories', 1) }}</th>
-                        <th class="col-md-2">{{ trans('updates.installed_version') }}</th>
-                        <th class="col-md-2">{{ trans('updates.latest_version') }}</th>
-                        <th class="col-md-2">{{ trans('general.actions') }}</th>
+        <div class="table-responsive">
+            <table class="table table-flush table-hover" id="tbl-translations">
+                <thead class="thead-light">
+                    <tr class="row table-head-line">
+                        <th class="col-xs-4 col-sm-4 col-md-4">{{ trans('general.name') }}</th>
+                        <th class="col-md-2 hidden-md">{{ trans_choice('general.categories', 1) }}</th>
+                        <th class="col-sm-3 col-md-2 hidden-sm">{{ trans('updates.installed_version') }}</th>
+                        <th class="col-xs-4 col-sm-3 col-md-2">{{ trans('updates.latest_version') }}</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($modules as $module)
-                    <tr>
-                        <td>{{ $module->name }}</td>
-                        <td>{{ $module->category }}</td>
-                        <td>{{ $module->installed }}</td>
-                        <td>{{ $module->latest }}</td>
-                        <td>
-                            <a href="{{ url('install/updates/update/' . $module->alias . '/' . $module->latest) }}" class="btn btn-warning btn-xs"><i class="fa fa-refresh" aria-hidden="true"></i> {{ trans_choice('general.updates', 1) }}</a>
-                        </td>
-                    </tr>
-                @endforeach
+                    @if ($modules)
+                        @foreach($modules as $module)
+                            <tr class="row align-items-center border-top-1">
+                                <td class="col-xs-4 col-sm-4 col-md-4">{{ $module->name }}</td>
+                                <td class="col-md-2 hidden-md">{{ $module->category }}</td>
+                                <td class="col-sm-3 col-md-2 hidden-sm">{{ $module->installed }}</td>
+                                <td class="col-xs-4 col-md-2 col-sm-3">{{ $module->latest }}</td>
+                                <td class="col-xs-4 col-sm-2 col-md-2 text-center">
+                                    <a href="{{ url('install/updates/update/' . $module->alias . '/' . $module->latest) }}" class="btn btn-warning btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i> {{ trans_choice('general.updates', 1) }}</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr class="row">
+                            <td class="col-12">
+                                <div class="text-sm text-muted" id="datatable-basic_info" role="status" aria-live="polite">
+                                    <small>{{ trans('general.no_records') }}</small>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
     </div>
-    <!-- /.box-body -->
-
-</div>
-<!-- /.box -->
 @endsection

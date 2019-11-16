@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Expenses;
 
-use App\Models\Expense\Vendor;
+use App\Models\Common\Contact;
 use Tests\Feature\FeatureTestCase;
 
 class VendorsTest extends FeatureTestCase
@@ -27,15 +27,14 @@ class VendorsTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('vendors.store'), $this->getVendorRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('vendors.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldSeeVendorDetailPage()
     {
-        $vendor = Vendor::create($this->getVendorRequest());
+        $vendor = Contact::create($this->getVendorRequest());
 
         $this->loginAs()
             ->get(route('vendors.show', ['vendor' => $vendor->id]))
@@ -45,7 +44,7 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldSeeVendorUpdatePage()
     {
-        $vendor = Vendor::create($this->getVendorRequest());
+        $vendor = Contact::create($this->getVendorRequest());
 
         $this->loginAs()
             ->get(route('vendors.edit', ['vendor' => $vendor->id]))
@@ -58,26 +57,24 @@ class VendorsTest extends FeatureTestCase
     {
         $request = $this->getVendorRequest();
 
-        $vendor = Vendor::create($request);
+        $vendor = Contact::create($request);
 
         $request['name'] = $this->faker->name;
 
         $this->loginAs()
             ->patch(route('vendors.update', $vendor->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(route('vendors.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldDeleteVendor()
     {
-        $vendor = Vendor::create($this->getVendorRequest());
+        $vendor = Contact::create($this->getVendorRequest());
 
         $this->loginAs()
             ->delete(route('vendors.destroy', $vendor->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('vendors.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -86,6 +83,7 @@ class VendorsTest extends FeatureTestCase
     {
         return [
             'company_id' => $this->company->id,
+            'type' => 'vendor',
             'name' => $this->faker->name,
             'email' => $this->faker->email,
             'tax_number' => $this->faker->randomNumber(9),

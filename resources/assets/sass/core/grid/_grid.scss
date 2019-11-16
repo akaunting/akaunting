@@ -1,0 +1,31 @@
+//
+// Grid
+//
+
+
+// Example row
+
+.row-example {
+    > .col,
+    > [class^="col-"] {
+        span {
+            display: block; 
+            padding: .75rem;
+            color: rgb(57, 63, 73);
+            background-color: rgb(255, 255, 255);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 4px 16px;
+            font-size: $font-size-sm;
+            border-radius: .25rem;
+            margin: 1rem 0;
+        }
+    }
+}
+
+.no-gutters {
+    > .col,
+    > [class^="col-"] {
+        span {
+            border-radius: 0;
+        }
+    }
+}

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Common;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use Date;
 use Dingo\Api\Routing\Helpers;
 

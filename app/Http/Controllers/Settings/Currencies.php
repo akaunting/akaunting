@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Settings;
 
 use Akaunting\Money\Currency as MoneyCurrency;
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Currency as Request;
-use App\Models\Banking\Account;
+use App\Jobs\Setting\CreateCurrency;
+use App\Jobs\Setting\DeleteCurrency;
+use App\Jobs\Setting\UpdateCurrency;
 use App\Models\Setting\Currency;
 
 class Currencies extends Controller
@@ -29,7 +31,7 @@ class Currencies extends Controller
      */
     public function show()
     {
-        return redirect('settings/currencies');
+        return redirect()->route('currencies.index');
     }
 
     /**
@@ -66,24 +68,23 @@ class Currencies extends Controller
      */
     public function store(Request $request)
     {
-        // Force the rate to be 1 for default currency
-        if ($request['default_currency']) {
-            $request['rate'] = '1';
+        $response = $this->ajaxDispatch(new CreateCurrency($request));
+
+        if ($response['success']) {
+            $response['redirect'] = route('currencies.index');
+
+            $message = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('currencies.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        Currency::create($request->all());
-
-        // Update default currency setting
-        if ($request['default_currency']) {
-            setting()->set('general.default_currency', $request['code']);
-            setting()->save();
-        }
-
-        $message = trans('messages.success.added', ['type' => trans_choice('general.currencies', 1)]);
-
-        flash($message)->success();
-
-        return redirect('settings/currencies');
+        return response()->json($response);
     }
 
     /**
@@ -111,7 +112,7 @@ class Currencies extends Controller
         }
 
         // Set default currency
-        $currency->default_currency = ($currency->code == setting('general.default_currency')) ? 1 : 0;
+        $currency->default_currency = ($currency->code == setting('default.currency')) ? 1 : 0;
 
         return view('settings.currencies.edit', compact('currency', 'codes'));
     }
@@ -119,149 +120,92 @@ class Currencies extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Currency  $currency
-     * @param  Request  $request
+     * @param  Currency $currency
+     * @param  Request $request
      *
      * @return Response
      */
     public function update(Currency $currency, Request $request)
     {
-        // Check if we can disable or change the code
-        if (!$request['enabled'] || ($currency->code != $request['code'])) {
-            $relationships = $this->countRelationships($currency, [
-                'accounts' => 'accounts',
-                'customers' => 'customers',
-                'invoices' => 'invoices',
-                'revenues' => 'revenues',
-                'bills' => 'bills',
-                'payments' => 'payments',
-            ]);
+        $response = $this->ajaxDispatch(new UpdateCurrency($currency, $request));
 
-            if ($currency->code == setting('general.default_currency')) {
-                $relationships[] = strtolower(trans_choice('general.companies', 1));
-            }
-        }
+        if ($response['success']) {
+            $response['redirect'] = route('currencies.index');
 
-        if (empty($relationships)) {
-            // Force the rate to be 1 for default currency
-            if ($request['default_currency']) {
-                $request['rate'] = '1';
-            }
-
-            $currency->update($request->all());
-
-            // Update default currency setting
-            if ($request['default_currency']) {
-                setting()->set('general.default_currency', $request['code']);
-                setting()->save();
-            }
-
-            $message = trans('messages.success.updated', ['type' => trans_choice('general.currencies', 1)]);
+            $message = trans('messages.success.updated', ['type' => $currency->name]);
 
             flash($message)->success();
-
-            return redirect('settings/currencies');
         } else {
-            $message = trans('messages.warning.disable_code', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
+            $response['redirect'] = route('currencies.edit', $currency->id);
 
-            flash($message)->warning();
+            $message = $response['message'];
 
-            return redirect('settings/currencies/' . $currency->id . '/edit');
+            flash($message)->error();
         }
+
+        return response()->json($response);
     }
 
     /**
      * Enable the specified resource.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      *
      * @return Response
      */
     public function enable(Currency $currency)
     {
-        $currency->enabled = 1;
-        $currency->save();
+        $response = $this->ajaxDispatch(new UpdateCurrency($currency, request()->merge(['enabled' => 1])));
 
-        $message = trans('messages.success.enabled', ['type' => trans_choice('general.currencies', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.enabled', ['type' => $currency->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('currencies.index');
+        return response()->json($response);
     }
 
     /**
      * Disable the specified resource.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      *
      * @return Response
      */
     public function disable(Currency $currency)
     {
-        $relationships = $this->countRelationships($currency, [
-            'accounts' => 'accounts',
-            'customers' => 'customers',
-            'invoices' => 'invoices',
-            'revenues' => 'revenues',
-            'bills' => 'bills',
-            'payments' => 'payments',
-        ]);
+        $response = $this->ajaxDispatch(new UpdateCurrency($currency, request()->merge(['enabled' => 0])));
 
-        if ($currency->code == setting('general.default_currency')) {
-            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.disabled', ['type' => $currency->name]);
         }
 
-        if (empty($relationships)) {
-            $currency->enabled = 0;
-            $currency->save();
-
-            $message = trans('messages.success.disabled', ['type' => trans_choice('general.currencies', 1)]);
-
-            flash($message)->success();
-        } else {
-            $message = trans('messages.warning.disabled', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
-
-            flash($message)->warning();
-        }
-
-        return redirect()->route('currencies.index');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      *
      * @return Response
      */
     public function destroy(Currency $currency)
     {
-        $relationships = $this->countRelationships($currency, [
-            'accounts' => 'accounts',
-            'customers' => 'customers',
-            'invoices' => 'invoices',
-            'revenues' => 'revenues',
-            'bills' => 'bills',
-            'payments' => 'payments',
-        ]);
+        $response = $this->ajaxDispatch(new DeleteCurrency($currency));
 
-        if ($currency->code == setting('general.default_currency')) {
-            $relationships[] = strtolower(trans_choice('general.companies', 1));
-        }
+        $response['redirect'] = route('currencies.index');
 
-        if (empty($relationships)) {
-            $currency->delete();
-
-            $message = trans('messages.success.deleted', ['type' => trans_choice('general.currencies', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $currency->name]);
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            flash($message)->warning();
+            flash($message)->error();
         }
 
-        return redirect('settings/currencies');
+        return response()->json($response);
     }
 
     public function currency()
@@ -270,13 +214,17 @@ class Currencies extends Controller
 
         $code = request('code');
 
-        // Get currency object
-        $currency = Currency::where('code', $code)->first();
+        if ($code) {
+            // Get currency object
+            $currency = Currency::where('code', $code)->first();
 
-        // it should be integer for amount mask
-        $currency->precision = (int) $currency->precision;
+            // it should be integer for amount mask
+            $currency->precision = (int) $currency->precision;
 
-        return response()->json($currency);
+            $json = (object) $currency;
+        }
+
+        return response()->json($json);
     }
 
     public function config()
@@ -287,7 +235,7 @@ class Currencies extends Controller
 
         if ($code) {
             $currency = config('money.' . $code);
-            
+
             $currency['rate'] = isset($currency['rate']) ? $currency['rate'] : null;
             $currency['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
 

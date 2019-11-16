@@ -20,8 +20,8 @@ class BillHistories extends TransformerAbstract
             'status_code' => $model->status_code,
             'notify' => $model->notify,
             'description' => $model->description,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
+            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
     }
 }

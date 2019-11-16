@@ -1,4 +1,4 @@
-<div class="modal fade create-vendor-{{ $rand }}" id="modal-create-vendor" style="display: none;">
+<div class="modal fade create-vendor-{{ $rand }} d-none" id="modal-create-vendor">
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,20 +8,19 @@
             <div class="modal-body">
                 {!! Form::open(['id' => 'form-create-vendor', 'role' => 'form', 'class' => 'form-loading-button']) !!}
 
-                <div class="row">
-                    {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+                    <div class="row">
+                        {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
-                    {{ Form::textGroup('email', trans('general.email'), 'envelope', []) }}
+                        {{ Form::textGroup('email', trans('general.email'), 'envelope', []) }}
 
-                    {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
+                        {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
 
-                    {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, setting('general.default_currency')) }}
+                        {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, setting('default.currency')) }}
 
-                    {{ Form::textareaGroup('address', trans('general.address')) }}
+                        {{ Form::textareaGroup('address', trans('general.address')) }}
 
-                    {!! Form::hidden('enabled', '1', []) !!}
-                </div>
-
+                        {!! Form::hidden('enabled', '1', []) !!}
+                    </div>
                 {!! Form::close() !!}
             </div>
 
@@ -69,14 +68,14 @@
 
                 $('.create-vendor-{{ $rand }}#modal-create-vendor').modal('hide');
 
-                $('#vendor_id').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
-                $('#vendor_id').trigger('change');
-                $('#vendor_id').select2('refresh');
+                $('#contact_id').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('#contact_id').trigger('change');
+                $('#contact_id').select2('refresh');
 
-                @if ($vendor_selector)
-                $('{{ $vendor_selector }}').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
-                $('{{ $vendor_selector }}').trigger('change');
-                $('{{ $vendor_selector }}').select2('refresh');
+                @if ($contact_selector)
+                $('{{ $contact_selector }}').append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                $('{{ $contact_selector }}').trigger('change');
+                $('{{ $contact_selector }}').select2('refresh');
                 @endif
             },
             error: function(error, textStatus, errorThrown) {

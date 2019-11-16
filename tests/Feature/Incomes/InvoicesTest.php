@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Incomes;
 
-use App\Models\Common\Item;
-use App\Models\Income\Customer;
-use App\Models\Income\Invoice;
+use App\Jobs\Income\CreateInvoice;
 use Tests\Feature\FeatureTestCase;
 
 class InvoicesTest extends FeatureTestCase
@@ -12,7 +10,7 @@ class InvoicesTest extends FeatureTestCase
     public function testItShouldSeeInvoiceListPage()
     {
         $this->loginAs()
-            ->get(url('incomes/invoices'))
+            ->get(route('invoices.index'))
             ->assertStatus(200)
             ->assertSeeText(trans_choice('general.invoices', 2));
     }
@@ -20,7 +18,7 @@ class InvoicesTest extends FeatureTestCase
     public function testItShouldSeeInvoiceCreatePage()
     {
         $this->loginAs()
-            ->get(url('incomes/invoices'))
+            ->get(route('invoices.create'))
             ->assertStatus(200)
             ->assertSeeText(trans( trans_choice('general.invoices', 1)));
     }
@@ -28,9 +26,8 @@ class InvoicesTest extends FeatureTestCase
     public function testItShouldCreateInvoice()
     {
         $this->loginAs()
-            ->post(url('incomes/invoices'), $this->getInvoiceRequest())
-            ->assertStatus(302)
-            ->assertRedirect(url('incomes/invoices', ['invoice' => 1]));
+            ->post(route('invoices.store'), $this->getInvoiceRequest())
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -38,36 +35,43 @@ class InvoicesTest extends FeatureTestCase
     public function testItShouldCreateInvoiceWithRecurring()
     {
         $this->loginAs()
-            ->post(url('incomes/invoices'), $this->getInvoiceRequest(1))
-            ->assertStatus(302)
-            ->assertRedirect(url('incomes/invoices', ['invoice' => 1]));
+            ->post(route('invoices.store'), $this->getInvoiceRequest(1))
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
-    public function testItShouldUpdateInvoice()
+    public function testItShouldSeeInvoiceUpdatePage()
     {
-        $request = $this->getInvoiceRequest();
-
-        $invoice = Invoice::create($request);
-
-        $request['customer_name'] = $this->faker->name;
+        $invoice = dispatch_now(new CreateInvoice($this->getInvoiceRequest()));
 
         $this->loginAs()
-            ->patch(url('incomes/invoices', $invoice->id), $request)
-            ->assertStatus(302);
+            ->get(route('invoices.edit', ['invoice' => $invoice->id]))
+            ->assertStatus(200)
+            ->assertSee($invoice->contact_name)
+            ->assertSee($invoice->contact_email);
+    }
+
+    public function testItShouldUpdateInvoice()
+    {
+        $invoice = dispatch_now(new CreateInvoice($this->getInvoiceRequest()));
+
+        $request['contact_name'] = $this->faker->name;
+
+        $this->loginAs()
+            ->patch(route('invoices.update', $invoice->id), $request)
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldDeleteInvoice()
     {
-        $invoice = Invoice::create($this->getInvoiceRequest());
+        $invoice = dispatch_now(new CreateInvoice($this->getInvoiceRequest()));
 
         $this->loginAs()
-            ->delete(url('incomes/invoices', $invoice->id))
-            ->assertStatus(302)
-            ->assertRedirect(url('incomes/invoices'));
+            ->delete(route('invoices.destroy', $invoice->id))
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -79,26 +83,26 @@ class InvoicesTest extends FeatureTestCase
         $items = [['name' =>  $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
 
         $data = [
-            'customer_id' => '0',
+            'company_id' => $this->company->id,
             'invoiced_at' => $this->faker->date(),
             'due_at' => $this->faker->date(),
             'invoice_number' => '1',
             'order_number' =>  '1',
-            'currency_code' => setting('general.default_currency'),
+            'currency_code' => setting('default.currency'),
             'currency_rate' => '1',
-            'item' => $items,
+            'items' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
             'category_id' => $this->company->categories()->type('income')->first()->id,
             'recurring_frequency' => 'no',
-            'customer_name' =>  $this->faker->name,
-            'customer_email' =>$this->faker->email,
-            'customer_tax_number' => null,
-            'customer_phone' =>  null,
-            'customer_address' =>  $this->faker->address,
+            'contact_id' => '0',
+            'contact_name' =>  $this->faker->name,
+            'contact_email' =>$this->faker->email,
+            'contact_tax_number' => null,
+            'contact_phone' =>  null,
+            'contact_address' =>  $this->faker->address,
             'invoice_status_code' => 'draft',
             'amount' => $amount,
-            'company_id' => $this->company->id,
         ];
 
         if ($recurring) {

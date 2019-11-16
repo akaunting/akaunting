@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Expense;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 use Date;
 
-class Bill extends Request
+class Bill extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,15 @@ class Bill extends Request
     {
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->bill->getAttribute('id');
+            $id = is_numeric($this->bill) ? $this->bill : $this->bill->getAttribute('id');
         } else {
             $id = null;
+        }
+
+        $attachment = 'nullable';
+
+        if ($this->request->get('attachment', null)) {
+            $attachment = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
         }
 
         // Get company id
@@ -40,16 +46,16 @@ class Bill extends Request
             'billed_at' => 'required|date_format:Y-m-d H:i:s',
             'due_at' => 'required|date_format:Y-m-d H:i:s',
             'amount' => 'required',
-            'item.*.name' => 'required|string',
-            'item.*.quantity' => 'required',
-            'item.*.price' => 'required|amount',
-            'item.*.currency' => 'required|string|currency',
+            'items.*.name' => 'required|string',
+            'items.*.quantity' => 'required',
+            'items.*.price' => 'required|amount',
+            'items.*.currency' => 'required|string|currency',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required',
-            'vendor_id' => 'required|integer',
-            'vendor_name' => 'required|string',
+            'contact_id' => 'required|integer',
+            'contact_name' => 'required|string',
             'category_id' => 'required|integer',
-            'attachment' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
+            'attachment' => $attachment,
         ];
     }
 
@@ -68,11 +74,11 @@ class Bill extends Request
     public function messages()
     {
         return [
-            'item.*.name.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('general.name'))]),
-            'item.*.quantity.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('bills.quantity'))]),
-            'item.*.price.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('bills.price'))]),
-            'item.*.currency.required' => trans('validation.custom.invalid_currency'),
-            'item.*.currency.string' => trans('validation.custom.invalid_currency'),
+            'items.*.name.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('general.name'))]),
+            'items.*.quantity.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('bills.quantity'))]),
+            'items.*.price.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('bills.price'))]),
+            'items.*.currency.required' => trans('validation.custom.invalid_currency'),
+            'items.*.currency.string' => trans('validation.custom.invalid_currency'),
         ];
     }
 }

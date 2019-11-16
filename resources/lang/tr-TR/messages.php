@@ -18,7 +18,7 @@ return [
         'customer'          => 'Hata: Kullanıcı oluşturulamadı. :name bu e-posta adresini kullanmaktadır.',
         'no_file'           => 'Hata: Dosya seçilmedi!',
         'last_category'     => 'Hata: Son :type kategorisini silemezsiniz!',
-        'invalid_token'     => 'Hata: Girilen token yanlış!',
+        'invalid_apikey'     => 'Hata: Girilen token yanlış!',
         'import_column'     => 'Hata: :message Sayfa ismi: :sheet. Satır numarası: :line.',
         'import_sheet'      => 'Hata: Sayfa ismi geçersiz. Lütfen, örnek dosyaya bakın.',
     ],

@@ -2,7 +2,7 @@
 
 namespace App\Models\Income;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Traits\Currencies;
 
 class InvoiceItemTax extends Model

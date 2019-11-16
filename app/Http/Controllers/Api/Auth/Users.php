@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Auth\User as Request;
+use App\Jobs\Auth\CreateUser;
+use App\Jobs\Auth\DeleteUser;
+use App\Jobs\Auth\UpdateUser;
 use App\Models\Auth\User;
 use App\Transformers\Auth\User as Transformer;
-use Dingo\Api\Routing\Helpers;
 
 class Users extends ApiController
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
@@ -50,15 +50,9 @@ class Users extends ApiController
      */
     public function store(Request $request)
     {
-        $user = User::create($request->input());
+        $user = $this->dispatch(new CreateUser($request));
 
-        // Attach roles
-        $user->roles()->attach($request->get('roles'));
-
-        // Attach companies
-        $user->companies()->attach($request->get('companies'));
-
-        return $this->response->created(url('api/users/'.$user->id));
+        return $this->response->created(url('api/users/' . $user->id));
     }
 
     /**
@@ -70,16 +64,35 @@ class Users extends ApiController
      */
     public function update(User $user, Request $request)
     {
-        // Except password as we don't want to let the users change a password from this endpoint
-        $user->update($request->except('password'));
+        $user = $this->dispatch(new UpdateUser($user, $request));
 
-        // Sync roles
-        $user->roles()->sync($request->get('roles'));
+        return $this->item($user->fresh(), new Transformer());
+    }
 
-        // Sync companies
-        $user->companies()->sync($request->get('companies'));
+    /**
+     * Enable the specified resource in storage.
+     *
+     * @param  User  $user
+     * @return \Dingo\Api\Http\Response
+     */
+    public function enable(User $user)
+    {
+        $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
-        return $this->response->item($user->fresh(), new Transformer());
+        return $this->item($user->fresh(), new Transformer());
+    }
+
+    /**
+     * Disable the specified resource in storage.
+     *
+     * @param  User  $user
+     * @return \Dingo\Api\Http\Response
+     */
+    public function disable(User $user)
+    {
+        $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 0])));
+
+        return $this->item($user->fresh(), new Transformer());
     }
 
     /**
@@ -90,8 +103,12 @@ class Users extends ApiController
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        try {
+            $this->dispatch(new DeleteUser($user));
 
-        return $this->response->noContent();
+            return $this->response->noContent();
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 }

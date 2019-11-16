@@ -2,7 +2,7 @@
 
 namespace App\Models\Expense;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 
 class BillStatus extends Model
 {
@@ -32,17 +32,17 @@ class BillStatus extends Model
     {
         switch ($this->code) {
             case 'paid':
-                $label = 'label-success';
+                $label = 'success';
                 break;
             case 'delete':
-                $label = 'label-danger';
+                $label = 'danger';
                 break;
             case 'partial':
             case 'received':
-                $label = 'label-warning';
+                $label = 'warning';
                 break;
             default:
-                $label = 'bg-aqua';
+                $label = 'info';
                 break;
         }
 

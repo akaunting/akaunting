@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Expense;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class BillTotal extends Request
+class BillTotal extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

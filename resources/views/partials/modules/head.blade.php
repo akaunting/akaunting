@@ -1,90 +1,54 @@
 <head>
     @stack('head_start')
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>@yield('title') - @setting('company.name')</title>
 
-    <title>@yield('title') - @setting('general.company_name')</title>
+        @include('partials.pwa.pwa')
 
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/bootstrap/css/bootstrap.min.css') }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('public/css/font-awesome.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('public/css/ionicons.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/AdminLTE.min.css') }}">
-    <!-- AdminLTE Skins -->
-    @if (setting('general.admin_theme', 'skin-green-light') == 'skin-green-light')
-        <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-green-light.min.css') }}">
-    @else
-        <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/dist/css/skins/skin-black.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('public/css/skin-black.css?v=' . version('short')) }}">
-    @endif
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.css') }}">
-    <!-- App style -->
-    <link rel="stylesheet" href="{{ asset('public/css/app.css?v=' . version('short')) }}">
-    <link rel="stylesheet" href="{{ asset('public/css/akaunting-green.css?v=' . version('short')) }}">
-    <link rel="stylesheet" href="{{ asset('public/css/modules.css?v=' . version('short')) }}">
-    
-    <link rel="shortcut icon" href="{{ asset('public/img/favicon.ico') }}">
-    
-    @stack('css')
+        <!-- Favicon -->
+        <link rel="icon" href="{{ asset('public/img/favicon.ico') }}" type="image/png">
 
-    @stack('stylesheet')
+        <!-- Font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <!-- Icons -->
+        <link rel="stylesheet" href="{{ asset('public/vendor/nucleo/css/nucleo.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('public/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css">
 
-    <!-- jQuery 2.2.3 -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
-    <!-- SlimScroll -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-    <!-- FastClick -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/fastclick/fastclick.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/dist/js/app.min.js') }}"></script>
+        <!-- Css -->
+        <!-- Argon -->
+        <link rel="stylesheet" href="{{ asset('public/css/argon.css?v=1.1.0') }}" type="text/css">
 
-    <!-- Select2 -->
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/select2/select2.min.js') }}"></script>
+        <!-- Color -->
+        <link rel="stylesheet" href="{{ asset('public/css/akaunting-color.css?v=' . version('short')) }}">
+        <!-- Custom -->
+        <link rel="stylesheet" href="{{ asset('public/css/custom.css?v=' . version('short')) }}">
 
-    <script src="{{ asset('public/js/app.js?v=' . version('short')) }}"></script>
+        @stack('css')
 
-    <script type="text/javascript"><!--
-        var app_url = '{{ url("/") }}';
-        var url_search = '{{ url("common/search/search") }}';
-    //--></script>
+        @stack('stylesheet')
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('select[name=\'category\']').on('change', function() {
-                url = '{{ url("apps/categories") }}';
+        <script type="text/javascript"><!--
+            var url = '{{ url("/") }}';
+            var app_url = '{{ env("APP_URL") }}';
+        //--></script>
 
-                var value = $(this).val();
+        @stack('js')
 
-                if (value) {
-                    url += '/' + encodeURIComponent(value);
-                } else {
-                    url = '{{ url("apps/home") }}';
-                }
+        <script type="text/javascript"><!--
+            window.Laravel = <?php echo json_encode([
+                'csrfToken' => csrf_token(),
+            ]); ?>;
 
-                location = url;
-            });
-        });
-    </script>
+            var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
 
-    @stack('js')
+            var flash_notification = {!! (session()->has('flash_notification')) ? json_encode(session()->get('flash_notification')) : 'false' !!};
+        //--></script>
 
-    @stack('scripts')
+        {{ session()->forget('flash_notification') }}
 
+        @stack('scripts')
     @stack('head_end')
 </head>

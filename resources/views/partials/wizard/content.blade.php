@@ -1,39 +1,25 @@
 @stack('content_start')
+    @stack('content_header_start')
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper no-margin">
-    @stack('content_wrapper_start')
-
-    <!-- Content Header (Page header) -->
-    <section class="content-header content-center">
-        @stack('content_header_start')
-
-        <h1>
+        <h1 class="text-white">
             @yield('title')
             @yield('new_button')
         </h1>
 
-        @stack('content_header_end')
-    </section>
+    @stack('content_header_end')
 
-    <!-- Main content -->
-    <section class="content content-center">
-        @include('flash::message')
-
-        @stack('content_content_start')
+    @stack('content_content_start')
 
         @yield('content')
 
-        @stack('content_content_end')
-    </section>
-    <!-- /.content -->
+    @stack('content_content_end')
 
-    @stack('content_wrapper_end')
-</div>
-<!-- /.content-wrapper -->
+    <notifications></notifications>
 
-<script type="text/javascript">
-    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
-</script>
-
+    <akaunting-modal
+        v-if="addNew.modal"
+        :show="addNew.modal"
+        :title="addNew.title"
+        :message="addNew.html">
+    </akaunting-modal>
 @stack('content_end')

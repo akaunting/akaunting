@@ -2,13 +2,10 @@
 
 namespace App\Models\Banking;
 
-use App\Models\Model;
-use Sofa\Eloquence\Eloquence;
+use App\Abstracts\Model;
 
 class Reconciliation extends Model
 {
-    use Eloquence;
-
     protected $table = 'reconciliations';
 
     protected $dates = ['deleted_at', 'started_at', 'ended_at'];

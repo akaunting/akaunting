@@ -3,43 +3,39 @@
 @section('title', trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]))
 
 @section('content')
-      <!-- Default box -->
-      <div class="box box-success">
-        {!! Form::open(['url' => 'settings/taxes', 'role' => 'form', 'class' => 'form-loading-button']) !!}
+    <div class="card">
+        {!! Form::open([
+            'route' => 'taxes.store',
+            'id' => 'tax',
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
+            'files' => true,
+            'role' => 'form',
+            'class' => 'form-loading-button',
+            'novalidate' => true
+        ]) !!}
 
-        <div class="box-body">
-            {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+            <div class="card-body">
+                <div class="row">
+                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
-            {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
+                    {{ Form::textGroup('rate', trans('taxes.rate'), 'percent', ['@input' => 'taxRateReplace']) }}
 
-            {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
+                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
 
-            {{ Form::radioGroup('enabled', trans('general.enabled')) }}
-        </div>
-        <!-- /.box-body -->
+                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                </div>
+            </div>
 
-        <div class="box-footer">
-            {{ Form::saveButtons('settings/taxes') }}
-        </div>
-        <!-- /.box-footer -->
-
+            <div class="card-footer">
+                <div class="row float-right">
+                    {{ Form::saveButtons('settings/taxes') }}
+                </div>
+            </div>
         {!! Form::close() !!}
-      </div>
+    </div>
 @endsection
 
-@push('scripts')
-    <script type="text/javascript">
-        var text_yes = '{{ trans('general.yes') }}';
-        var text_no = '{{ trans('general.no') }}';
-
-        $(document).ready(function() {
-            $('#enabled_1').trigger('click');
-
-            $('#name').focus();
-
-            $("#type").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
-            });
-        });
-    </script>
+@push('scripts_start')
+    <script src="{{ asset('public/js/settings/taxes.js?v=' . version('short')) }}"></script>
 @endpush

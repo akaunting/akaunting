@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Settings;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Setting\Setting;
 use App\Transformers\Setting\Setting as Transformer;

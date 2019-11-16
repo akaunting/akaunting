@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Modals;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Category as Request;
 use Illuminate\Http\Request as CRequest;
 use App\Models\Setting\Category;

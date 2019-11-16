@@ -2,19 +2,18 @@
 
 namespace App\Jobs\Income;
 
-use App\Events\InvoiceCreated;
+use App\Abstracts\Job;
+use App\Events\Income\InvoiceCreated;
+use App\Events\Income\InvoiceCreating;
 use App\Models\Income\Invoice;
-use App\Models\Income\InvoiceHistory;
 use App\Models\Income\InvoiceTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
-use App\Traits\Uploads;
-use Illuminate\Foundation\Bus\Dispatchable;
 
-class CreateInvoice
+class CreateInvoice extends Job
 {
-    use Currencies, DateTime, Dispatchable, Incomes, Uploads;
+    use Currencies, DateTime, Incomes;
 
     protected $request;
 
@@ -25,7 +24,7 @@ class CreateInvoice
      */
     public function __construct($request)
     {
-        $this->request = $request;
+        $this->request = $this->getRequestInstance($request);
     }
 
     /**
@@ -35,7 +34,13 @@ class CreateInvoice
      */
     public function handle()
     {
-        $invoice = Invoice::create($this->request->input());
+        if (empty($this->request['amount'])) {
+            $this->request['amount'] = 0;
+        }
+
+        event(new InvoiceCreating($this->request));
+
+        $invoice = Invoice::create($this->request->all());
 
         // Upload attachment
         if ($this->request->file('attachment')) {
@@ -51,9 +56,9 @@ class CreateInvoice
         $discount_total = 0;
         $discount = $this->request['discount'];
 
-        if ($this->request['item']) {
-            foreach ($this->request['item'] as $item) {
-                $invoice_item = dispatch(new CreateInvoiceItem($item, $invoice, $discount));
+        if ($this->request['items']) {
+            foreach ($this->request['items'] as $item) {
+                $invoice_item = $this->dispatch(new CreateInvoiceItem($item, $invoice, $discount));
 
                 // Calculate totals
                 $tax_total += $invoice_item->tax;
@@ -88,27 +93,14 @@ class CreateInvoice
 
         $this->request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
 
-        $invoice->update($this->request->input());
+        $invoice->update($this->request->all());
 
         // Add invoice totals
         $this->addTotals($invoice, $this->request, $taxes, $sub_total, $discount_total, $tax_total);
 
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => session('company_id'),
-            'invoice_id' => $invoice->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $invoice->invoice_number]),
-        ]);
-
-        // Update next invoice number
-        $this->increaseNextInvoiceNumber();
-
         // Recurring
         $invoice->createRecurring();
 
-        // Fire the event to make it extensible
         event(new InvoiceCreated($invoice));
 
         return $invoice;

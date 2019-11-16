@@ -27,8 +27,7 @@ class CategoriesTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('categories.store'), $this->getCategoryRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('categories.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -53,8 +52,7 @@ class CategoriesTest extends FeatureTestCase
 
         $this->loginAs()
             ->patch(route('categories.update', $category->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(route('categories.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -65,8 +63,7 @@ class CategoriesTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('categories.destroy', $category->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('categories.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }

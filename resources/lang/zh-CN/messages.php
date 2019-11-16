@@ -17,7 +17,7 @@ return [
         'customer'          => '错误：未创建用户！:name已经使用此邮箱。',
         'no_file'           => '错误：沒有选择文件！',
         'last_category'     => '错误：无法刪除最后一个 :type 分类！',
-        'invalid_token'     => '错误：token输入错误！',
+        'invalid_apikey'     => '错误：token输入错误！',
         'import_column'     => '错误: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => '错误: Sheet name 无效. 请检查示例文件.',
     ],

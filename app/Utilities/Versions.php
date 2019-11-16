@@ -70,7 +70,7 @@ class Versions
         // Check core first
         $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
 
-        $data['core'] = static::getLatestVersion($url);
+        $data['core'] = static::getLatestVersion($url, $info['akaunting']);
 
         // Then modules
         foreach ($modules as $module) {
@@ -79,7 +79,7 @@ class Versions
 
             $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
 
-            $data[$alias] = static::getLatestVersion($url);
+            $data[$alias] = static::getLatestVersion($url, $version);
         }
 
         Cache::put('versions', $data, Date::now()->addHour(6));
@@ -87,11 +87,9 @@ class Versions
         return $data;
     }
 
-    public static function getLatestVersion($url)
+    public static function getLatestVersion($url, $latest)
     {
-        $latest = '0.0.0';
-
-        $response = static::getRemote($url, ['timeout' => 10, 'referer' => true]);
+        $response = static::getRemote($url, 'GET', ['timeout' => 10, 'referer' => true]);
 
         // Exception
         if ($response instanceof RequestException) {

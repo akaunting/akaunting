@@ -3,23 +3,37 @@
 @section('title', trans('general.title.new', ['type' => trans_choice('general.permissions', 1)]))
 
 @section('content')
-    <!-- Default box -->
-    <div class="box box-success">
-        {!! Form::open(['url' => 'auth/permissions', 'role' => 'form', 'class' => 'form-loading-button']) !!}
+    <div class="card">
+        {!! Form::open([
+            'route' => 'permissions.store',
+            'id' => 'permission',
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
+            'files' => true,
+            'role' => 'form',
+            'class' => 'form-loading-button',
+            'novalidate' => true
+        ]) !!}
 
-        <div class="box-body">
-            {{ Form::textGroup('display_name', trans('general.name'), 'id-card-o') }}
+            <div class="card-body">
+                <div class="row">
+                    {{ Form::textGroup('display_name', trans('general.name'), 'tasks') }}
 
-            {{ Form::textGroup('name', trans('general.code'), 'code') }}
+                    {{ Form::textGroup('name', trans('general.code'), 'code') }}
 
-            {{ Form::textareaGroup('description', trans('general.description')) }}
-        </div>
-        <!-- /.box-body -->
+                    {{ Form::textareaGroup('description', trans('general.description')) }}
+                </div>
+            </div>
 
-        <div class="box-footer">
-            {{ Form::saveButtons('auth/permissions') }}
-        </div>
-        <!-- /.box-footer -->
+            <div class="card-footer">
+                <div class="row float-right">
+                    {{ Form::saveButtons('auth/permissions') }}
+                </div>
+            </div>
         {!! Form::close() !!}
     </div>
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/auth/permissions.js?v=' . version('short')) }}"></script>
+@endpush

@@ -2,40 +2,37 @@
 
 namespace App\Notifications\Expense;
 
-use Illuminate\Notifications\Notification;
+use App\Abstracts\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class Bill extends Notification
 {
     /**
-     * The invoice model.
+     * The bill model.
      *
      * @var object
      */
     public $bill;
 
     /**
+     * The email template.
+     *
+     * @var string
+     */
+    public $template;
+
+    /**
      * Create a notification instance.
      *
      * @param  object  $bill
+     * @param  object  $template
      */
-    public function __construct($bill)
+    public function __construct($bill = null, $template = null)
     {
-        $this->queue = 'high';
-        $this->delay = config('queue.connections.database.delay');
+        parent::__construct();
 
         $this->bill = $bill;
-    }
-
-    /**
-     * Get the notification's channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array|string
-     */
-    public function via($notifiable)
-    {
-        return ['mail', 'database'];
+        $this->template = $template;
     }
 
     /**
@@ -46,12 +43,7 @@ class Bill extends Notification
      */
     public function toMail($notifiable)
     {
-        $message = (new MailMessage)
-            ->line('You are receiving this email because you have an upcoming ' . money($this->bill->amount, $this->bill->currency_code, true) . ' bill to ' . $this->bill->vendor_name . ' vendor.')
-            ->action('Add Payment', url('expenses/bills', $this->bill->id));
-
-        // Override per company as Laravel doesn't read config
-        $message->from(config('mail.from.address'), config('mail.from.name'));
+        $message = $this->initMessage();
 
         return $message;
     }
@@ -67,6 +59,30 @@ class Bill extends Notification
         return [
             'bill_id' => $this->bill->id,
             'amount' => $this->bill->amount,
+        ];
+    }
+
+    public function getTags()
+    {
+        return [
+            '{bill_number}',
+            '{bill_total}',
+            '{bill_due_date}',
+            '{bill_admin_link}',
+            '{vendor_name}',
+            '{company_name}',
+        ];
+    }
+
+    public function getTagsReplacement()
+    {
+        return [
+            $this->bill->bill_number,
+            money($this->bill->amount, $this->bill->currency_code, true),
+            $this->bill->due_at,
+            route('bills.show', $this->bill->id),
+            $this->bill->contact_name,
+            $this->bill->company->name
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Modals;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Tax as Request;
 use App\Models\Setting\Tax;
 

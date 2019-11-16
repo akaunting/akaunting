@@ -1,23 +1,22 @@
-<div class="col-md-12 no-padding-left">
-    <div class="box box-success">
-        <div class="box-header with-border">
-
-            <div class="pull-left">
-                {!! Form::select('category', $categories, request('category'), ['class' => 'form-control input-sm', 'style' => 'display:inline;width:inherit;']) !!}
-                <a href="{{ url('apps/paid') }}" class="btn btn-sm btn-default btn-flat margin" style="margin-left: 20px;">{{ trans('modules.top_paid') }}</a>
-                <a href="{{ url('apps/new') }}" class="btn btn-sm btn-default btn-flat margin">{{ trans('modules.new') }}</a>
-                <a href="{{ url('apps/free') }}" class="btn btn-sm btn-default btn-flat margin">{{ trans('modules.top_free') }}</a>
-            </div>
-
-            <div class="pull-right">
-                <div class="has-feedback">
-                    {!! Form::open(['url' => 'apps/search', 'role' => 'form', 'method' => 'GET']) !!}
-                    <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control input-sm" style="margin-top: 10px;" placeholder="Search Apps">
-                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                    {!! Form::close() !!}
+<div class="row justify-content-center">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        {!! Form::select('category', $categories, request('category'), ['class' => 'form-control form-control-sm table-header-search mt-0']) !!}
+                        <a href="{{ route('apps.paid') }}" class="btn btn-sm btn-white card-buttons filter-button ml-2">{{ trans('modules.top_paid') }}</a>
+                        <a href="{{ route('apps.new') }}" class="btn btn-sm btn-white card-buttons filter-button">{{ trans('modules.new') }}</a>
+                        <a href="{{ route('apps.free') }}" class="btn btn-sm btn-white card-buttons filter-button">{{ trans('modules.top_free') }}</a>
+                    </div>
+                    <div class="col-3 text-right">
+                        {!! Form::open(['route' => ['apps.search'], 'role' => 'form', 'method' => 'GET', 'class' => 'm-0']) !!}
+                            <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control form-control-sm table-header-search" placeholder="Search Apps">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

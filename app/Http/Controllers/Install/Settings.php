@@ -37,6 +37,8 @@ class Settings extends Controller
         Installer::finalTouches();
 
         // Redirect to dashboard
-        return redirect('auth/login');
+        $response['redirect'] = route('login');
+
+        return response()->json($response);
     }
 }

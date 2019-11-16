@@ -2,18 +2,14 @@
 
 namespace App\Jobs\Expense;
 
-use App\Models\Common\Item;
+use App\Abstracts\Job;
 use App\Models\Expense\BillItem;
 use App\Models\Expense\BillItemTax;
 use App\Models\Setting\Tax;
-use App\Notifications\Common\Item as ItemNotification;
-use App\Notifications\Common\ItemReminder as ItemReminderNotification;
-use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Str;
 
-class CreateBillItem
+class CreateBillItem extends Job
 {
-    use Dispatchable;
-
     protected $data;
 
     protected $bill;
@@ -41,8 +37,6 @@ class CreateBillItem
      */
     public function handle()
     {
-        $item_sku = '';
-
         $item_id = !empty($this->data['item_id']) ? $this->data['item_id'] : 0;
         $item_amount = (double) $this->data['price'] * (double) $this->data['quantity'];
 
@@ -51,19 +45,6 @@ class CreateBillItem
         // Apply discount to tax
         if ($this->discount) {
             $item_discount_amount = $item_amount - ($item_amount * ($this->discount / 100));
-        }
-
-        if (!empty($item_id)) {
-            $item_object = Item::find($item_id);
-
-            $this->data['name'] = $item_object->name;
-            $item_sku = $item_object->sku;
-
-            // Increase stock (item bought)
-            $item_object->quantity += (double) $this->data['quantity'];
-            $item_object->save();
-        } elseif (!empty($this->data['sku'])) {
-            $item_sku = $this->data['sku'];
         }
 
         $tax_amount = 0;
@@ -82,6 +63,20 @@ class CreateBillItem
                         break;
                     case 'compound':
                         $compounds[] = $tax;
+                        break;
+                    case 'fixed':
+                        $fixed_taxes[] = $tax;
+                        $tax_amount = $tax->rate;
+
+                        $item_taxes[] = [
+                            'company_id' => $this->invoice->company_id,
+                            'invoice_id' => $this->invoice->id,
+                            'tax_id' => $tax_id,
+                            'name' => $tax->name,
+                            'amount' => $tax_amount,
+                        ];
+
+                        $item_tax_total += $tax_amount;
                         break;
                     case 'normal':
                     default:
@@ -105,7 +100,7 @@ class CreateBillItem
             if ($inclusives) {
                 $item_amount = $item_discount_amount + $item_tax_total;
 
-                $item_base_rate = $item_amount / (1 + collect($inclusives)->sum('rate')/100);
+                $item_base_rate = $item_amount / (1 + collect($inclusives)->sum('rate') / 100);
 
                 foreach ($inclusives as $inclusive) {
                     $item_tax_total += $tax_amount = $item_base_rate * ($inclusive->rate / 100);
@@ -143,8 +138,7 @@ class CreateBillItem
             'company_id' => $this->bill->company_id,
             'bill_id' => $this->bill->id,
             'item_id' => $item_id,
-            'name' => str_limit($this->data['name'], 180, ''),
-            'sku' => $item_sku,
+            'name' => Str::limit($this->data['name'], 180, ''),
             'quantity' => (double) $this->data['quantity'],
             'price' => (double) $this->data['price'],
             'tax' => $item_tax_total,

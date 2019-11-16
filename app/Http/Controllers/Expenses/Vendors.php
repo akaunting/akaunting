@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Expenses;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Expense\Vendor as Request;
+use App\Abstracts\Http\Controller;
+use App\Exports\Expenses\Vendors as Export;
+use App\Http\Requests\Common\Contact as Request;
+use App\Http\Requests\Common\Import as ImportRequest;
+use App\Imports\Expenses\Vendors as Import;
+use App\Jobs\Common\CreateContact;
+use App\Jobs\Common\DeleteContact;
+use App\Jobs\Common\UpdateContact;
+use App\Models\Banking\Transaction;
+use App\Models\Common\Contact;
 use App\Models\Expense\Bill;
-use App\Models\Expense\Payment;
-use App\Models\Expense\Vendor;
 use App\Models\Setting\Currency;
-use App\Traits\Uploads;
-use App\Utilities\Import;
-use App\Utilities\ImportFile;
+use App\Traits\Contacts;
 use Date;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class Vendors extends Controller
 {
-    use Uploads;
+    use Contacts;
 
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class Vendors extends Controller
      */
     public function index()
     {
-        $vendors = Vendor::collect();
+        $vendors = Contact::type($this->getVendorTypes())->collect();
 
         return view('expenses.vendors.index', compact('vendors'));
     }
@@ -35,11 +36,11 @@ class Vendors extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Contact  $vendor
      *
      * @return Response
      */
-    public function show(Vendor $vendor)
+    public function show(Contact $vendor)
     {
         $amounts = [
             'paid' => 0,
@@ -53,57 +54,42 @@ class Vendors extends Controller
         ];
 
         // Handle bills
-        $bills = Bill::with(['status', 'payments'])->where('vendor_id', $vendor->id)->get();
+        $bills = Bill::where('contact_id', $vendor->id)->get();
 
         $counts['bills'] = $bills->count();
-
-        $bill_payments = [];
 
         $today = Date::today()->toDateString();
 
         foreach ($bills as $item) {
-            $payments = 0;
-
-            foreach ($item->payments as $payment) {
-                $payment->category = $item->category;
-
-                $bill_payments[] = $payment;
-
-                $amount = $payment->getConvertedAmount();
-
-                $amounts['paid'] += $amount;
-
-                $payments += $amount;
-            }
-
+            // Already in payments
             if ($item->bill_status_code == 'paid') {
                 continue;
             }
 
+            $transactions = 0;
+
+            foreach ($item->transactions as $transaction) {
+                $transactions += $transaction->getAmountConvertedToDefault();
+            }
+
             // Check if it's open or overdue invoice
             if ($item->due_at > $today) {
-                $amounts['open'] += $item->getConvertedAmount() - $payments;
+                $amounts['open'] += $item->getAmountConvertedToDefault() - $transactions;
             } else {
-                $amounts['overdue'] += $item->getConvertedAmount() - $payments;
+                $amounts['overdue'] += $item->getAmountConvertedToDefault() - $transactions;
             }
         }
 
         // Handle payments
-        $payments = Payment::with(['account', 'category'])->where('vendor_id', $vendor->id)->get();
+        $transactions = Transaction::where('contact_id', $vendor->id)->type('expense')->get();
 
-        $counts['payments'] = $payments->count();
+        $counts['transactions'] = $transactions->count();
 
-        // Prepare data
-        $items = collect($payments)->each(function ($item) use (&$amounts) {
-            $amounts['paid'] += $item->getConvertedAmount();
-        });
-
-        $limit = request('limit', setting('general.list_limit', '25'));
-        $transactions = $this->paginate($items->merge($bill_payments)->sortByDesc('paid_at'), $limit);
+        $limit = request('limit', setting('default.list_limit', '25'));
+        $transactions = $this->paginate($transactions->sortByDesc('paid_at'), $limit);
         $bills = $this->paginate($bills->sortByDesc('paid_at'), $limit);
-        $payments = $this->paginate($payments->sortByDesc('paid_at'), $limit);
 
-        return view('expenses.vendors.show', compact('vendor', 'counts', 'amounts', 'transactions', 'bills', 'payments'));
+        return view('expenses.vendors.show', compact('vendor', 'counts', 'amounts', 'transactions', 'bills'));
     }
 
     /**
@@ -127,30 +113,33 @@ class Vendors extends Controller
      */
     public function store(Request $request)
     {
-        $vendor = Vendor::create($request->all());
+        $response = $this->ajaxDispatch(new CreateContact($request));
 
-        // Upload logo
-        if ($request->file('logo')) {
-            $media = $this->getMedia($request->file('logo'), 'vendors');
+        if ($response['success']) {
+            $response['redirect'] = route('vendors.index');
 
-            $vendor->attachMedia($media, 'logo');
+            $message = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('vendors.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
-
-        flash($message)->success();
-
-        return redirect('expenses/vendors');
+        return response()->json($response);
     }
 
     /**
      * Duplicate the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Contact  $vendor
      *
      * @return Response
      */
-    public function duplicate(Vendor $vendor)
+    public function duplicate(Contact $vendor)
     {
         $clone = $vendor->duplicate();
 
@@ -158,37 +147,35 @@ class Vendors extends Controller
 
         flash($message)->success();
 
-        return redirect('expenses/vendors/' . $clone->id . '/edit');
+        return redirect()->route('vendors.edit', $clone->id);
     }
 
     /**
      * Import the specified resource.
      *
-     * @param  ImportFile  $import
+     * @param  ImportRequest  $request
      *
      * @return Response
      */
-    public function import(ImportFile $import)
+    public function import(ImportRequest $request)
     {
-        if (!Import::createFromFile($import, 'Expense\Vendor')) {
-            return redirect('common/import/expenses/vendors');
-        }
+        \Excel::import(new Import(), $request->file('import'));
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.vendors', 2)]);
 
         flash($message)->success();
 
-        return redirect('expenses/vendors');
+        return redirect()->route('vendors.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Contact  $vendor
      *
      * @return Response
      */
-    public function edit(Vendor $vendor)
+    public function edit(Contact $vendor)
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
 
@@ -198,94 +185,92 @@ class Vendors extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Vendor  $vendor
-     * @param  Request  $request
+     * @param  Contact $vendor
+     * @param  Request $request
      *
      * @return Response
      */
-    public function update(Vendor $vendor, Request $request)
+    public function update(Contact $vendor, Request $request)
     {
-        $vendor->update($request->all());
+        $response = $this->ajaxDispatch(new UpdateContact($vendor, $request));
 
-        // Upload logo
-        if ($request->file('logo')) {
-            $media = $this->getMedia($request->file('logo'), 'vendors');
+        if ($response['success']) {
+            $response['redirect'] = route('vendors.index');
 
-            $vendor->attachMedia($media, 'logo');
+            $message = trans('messages.success.updated', ['type' => $vendor->name]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('vendors.edit', $vendor->id);
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.vendors', 1)]);
-
-        flash($message)->success();
-
-        return redirect('expenses/vendors');
+        return response()->json($response);
     }
 
     /**
      * Enable the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Contact $vendor
      *
      * @return Response
      */
-    public function enable(Vendor $vendor)
+    public function enable(Contact $vendor)
     {
-        $vendor->enabled = 1;
-        $vendor->save();
+        $response = $this->ajaxDispatch(new UpdateContact($vendor, request()->merge(['enabled' => 1])));
 
-        $message = trans('messages.success.enabled', ['type' => trans_choice('general.vendors', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.enabled', ['type' => $vendor->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('vendors.index');
+        return response()->json($response);
     }
 
     /**
      * Disable the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Contact $vendor
      *
      * @return Response
      */
-    public function disable(Vendor $vendor)
+    public function disable(Contact $vendor)
     {
-        $vendor->enabled = 0;
-        $vendor->save();
+        $response = $this->ajaxDispatch(new UpdateContact($vendor, request()->merge(['enabled' => 0])));
 
-        $message = trans('messages.success.disabled', ['type' => trans_choice('general.vendors', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.disabled', ['type' => $vendor->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('vendors.index');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Vendor  $vendor
+     * @param  Contact $vendor
      *
      * @return Response
      */
-    public function destroy(Vendor $vendor)
+    public function destroy(Contact $vendor)
     {
-        $relationships = $this->countRelationships($vendor, [
-            'bills' => 'bills',
-            'payments' => 'payments',
-        ]);
+        $response = $this->ajaxDispatch(new DeleteContact($vendor));
 
-        if (empty($relationships)) {
-            $vendor->delete();
+        $response['redirect'] = route('vendors.index');
 
-            $message = trans('messages.success.deleted', ['type' => trans_choice('general.vendors', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $vendor->name]);
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $vendor->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            flash($message)->warning();
+            flash($message)->error();
         }
 
-        return redirect('expenses/vendors');
+        return response()->json($response);
     }
 
     /**
@@ -295,30 +280,16 @@ class Vendors extends Controller
      */
     public function export()
     {
-        \Excel::create('vendors', function($excel) {
-            $excel->sheet('vendors', function($sheet) {
-                $sheet->fromModel(Vendor::filter(request()->input())->get()->makeHidden([
-                    'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
-                ]));
-            });
-        })->download('xlsx');
+        return \Excel::download(new Export(), trans_choice('general.vendors', 2) . '.xlsx');
     }
 
-    public function currency()
+    public function currency(Contact $vendor)
     {
-        $vendor_id = (int) request('vendor_id');
-
-        if (empty($vendor_id)) {
-            return response()->json([]);
-        }
-
-        $vendor = Vendor::find($vendor_id);
-
         if (empty($vendor)) {
             return response()->json([]);
         }
 
-        $currency_code = setting('general.default_currency');
+        $currency_code = setting('default.currency');
 
         if (isset($vendor->currency_code)) {
             $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
@@ -331,6 +302,7 @@ class Vendors extends Controller
         // Get currency object
         $currency = Currency::where('code', $currency_code)->first();
 
+        $vendor->currency_name = $currency->name;
         $vendor->currency_code = $currency_code;
         $vendor->currency_rate = $currency->rate;
 
@@ -341,31 +313,5 @@ class Vendors extends Controller
         $vendor->symbol = $currency->symbol;
 
         return response()->json($vendor);
-    }
-
-    public function vendor(Request $request)
-    {
-        $vendor = Vendor::create($request->all());
-
-        return response()->json($vendor);
-    }
-
-    /**
-     * Generate a pagination collection.
-     *
-     * @param array|Collection      $items
-     * @param int   $perPage
-     * @param int   $page
-     * @param array $options
-     *
-     * @return LengthAwarePaginator
-     */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

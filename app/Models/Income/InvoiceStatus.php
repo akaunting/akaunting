@@ -2,7 +2,7 @@
 
 namespace App\Models\Income;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 
 class InvoiceStatus extends Model
 {
@@ -32,17 +32,17 @@ class InvoiceStatus extends Model
     {
         switch ($this->code) {
             case 'paid':
-                $label = 'label-success';
+                $label = 'success';
                 break;
             case 'delete':
-                $label = 'label-danger';
+                $label = 'danger';
                 break;
             case 'partial':
             case 'sent':
-                $label = 'label-warning';
+                $label = 'warning';
                 break;
             default:
-                $label = 'bg-aqua';
+                $label = 'info';
                 break;
         }
 

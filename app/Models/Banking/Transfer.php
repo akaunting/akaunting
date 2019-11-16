@@ -2,7 +2,7 @@
 
 namespace App\Models\Banking;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Traits\Currencies;
 
 class Transfer extends Model
@@ -16,47 +16,32 @@ class Transfer extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'payment_id', 'revenue_id'];
+    protected $fillable = ['company_id', 'expense_transaction_id', 'income_transaction_id'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['payment.paid_at', 'payment.amount', 'payment.name', 'revenue.name'];
+    public $sortable = ['expense.paid_at', 'expense.amount', 'expense.name', 'income.name'];
 
-    public function payment()
+    public function expense_transaction()
     {
-        return $this->belongsTo('App\Models\Expense\Payment');
+        return $this->belongsTo('App\Models\Banking\Transaction', 'expense_transaction_id');
     }
 
-    public function paymentAccount()
+    public function expense_account()
     {
-        return $this->belongsTo('App\Models\Banking\Account', 'payment.account_id', 'id');
+        return $this->belongsTo('App\Models\Banking\Account', 'expense_transaction.account_id', 'id');
     }
 
-    public function revenue()
+    public function income_transaction()
     {
-        return $this->belongsTo('App\Models\Income\Revenue');
+        return $this->belongsTo('App\Models\Banking\Transaction', 'income_transaction_id');
     }
 
-    public function revenueAccount()
+    public function income_account()
     {
-        return $this->belongsTo('App\Models\Banking\Account', 'revenue.account_id', 'id');
-    }
-
-    public function getDynamicConvertedAmount($format = false)
-    {
-        return $this->dynamicConvert($this->default_currency_code, $this->amount, $this->currency_code, $this->currency_rate, $format);
-    }
-
-    public function getReverseConvertedAmount($format = false)
-    {
-        return $this->reverseConvert($this->amount, $this->currency_code, $this->currency_rate, $format);
-    }
-
-    public function getDivideConvertedAmount($format = false)
-    {
-        return $this->divide($this->amount, $this->currency_code, $this->currency_rate, $format);
+        return $this->belongsTo('App\Models\Banking\Account', 'income_transaction.account_id', 'id');
     }
 }

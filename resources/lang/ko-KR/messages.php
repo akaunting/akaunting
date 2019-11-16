@@ -18,7 +18,7 @@ return [
         'customer'          => '오류: 사용자가 생성되지 않았습니다! :name 이 이미 이 이메일 주소를 사용하고 있습니다.',
         'no_file'           => '오류: 선택된 파일이 없습니다!',
         'last_category'     => '오류: 최근 :type 카테고리를 삭제할 수 없습니다!',
-        'invalid_token'     => '오류: 입력된 토큰은 유효하지 않습니다!',
+        'invalid_apikey'     => '오류: 입력된 토큰은 유효하지 않습니다!',
         'import_column'     => '오류: :message 시트 이름: :sheet. 줄 번호: :line.',
         'import_sheet'      => '오류: 시트명이 유효하지 않습니다. 샘플 파일을 확인하세요.',
     ],

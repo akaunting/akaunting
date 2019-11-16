@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Setting;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Setting extends Request
+class Setting extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class Setting extends Request
     public function rules()
     {
         return [
-            'company_name' => 'required|string',
-            'company_email' => 'required|email',
-            'company_logo' => 'mimes:' . setting('general.file_types', 'pdf,jpeg,jpg,png'),
+            //'company_name' => 'required|string',
+            //'company_email' => 'required|email',
+            //'company_logo' => 'mimes:' . config('filesystems.mimes'), 'pdf,jpeg,jpg,png'),
         ];
     }
 }

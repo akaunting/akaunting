@@ -27,8 +27,7 @@ class CurrenciesTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('currencies.store'), $this->getCurrencyRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('currencies.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -43,8 +42,7 @@ class CurrenciesTest extends FeatureTestCase
 
         $this->loginAs()
             ->patch(route('currencies.update', $currency->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(route('currencies.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -55,8 +53,7 @@ class CurrenciesTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('currencies.destroy', $currency->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('currencies.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }

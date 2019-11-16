@@ -4,211 +4,183 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-3">
-            <!-- Stats -->
-            <div class="box box-success">
-                <div class="box-body box-profile">
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item" style="border-top: 0;">
-                            <b>{{ trans_choice('general.bills', 2) }}</b> <a class="pull-right">{{ $counts['bills'] }}</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>{{ trans_choice('general.payments', 2) }}</b> <a class="pull-right">{{ $counts['payments'] }}</a>
-                        </li>
-                    </ul>
+        <div class="col-xl-3">
+            <div class="card">
+                <div class="card-header border-bottom-0 show-transaction-card-header">
+                    <a class="text-sm">{{ trans_choice('general.bills', 2) }}</a> <a class="float-right text-xs">{{ $counts['bills'] }}</a>
                 </div>
-                <!-- /.box-body -->
+
+                <div class="card-footer show-transaction-card-footer">
+                    <a class="text-sm">{{ trans_choice('general.transactions', 2) }}</a> <a class="float-right text-xs">{{ $counts['transactions'] }}</a>
+                </div>
             </div>
 
-            <!-- Profile -->
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">{{ trans('auth.profile') }}</h3>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">{{ trans('auth.profile') }}</h4>
                 </div>
-                <div class="box-body box-profile">
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item" style="border-top: 0;">
-                            <b>{{ trans('general.email') }}</b> <a class="pull-right">{{ $vendor->email }}</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>{{ trans('general.phone') }}</b> <a class="pull-right">{{ $vendor->phone }}</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>{{ trans('general.website') }}</b> <a class="pull-right">{{ $vendor->website }}</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>{{ trans('general.tax_number') }}</b> <a class="pull-right">{{ $vendor->tax_number }}</a>
-                        </li>
-                        @if ($vendor->refence)
-                        <li class="list-group-item">
-                            <b>{{ trans('general.reference') }}</b> <a class="pull-right">{{ $vendor->refence }}</a>
-                        </li>
-                        @endif
-                    </ul>
+
+                <div class="card-body d-grid">
+                    <a class="text-sm font-weight-600">{{ trans('general.email') }}</a> <a class="text-xs o-y">{{ $vendor->email }}</a>
+                        <div class="dropdown-divider"></div>
+                    <a class="text-sm font-weight-600">{{ trans('general.phone') }}</a> <a class="text-xs o-y">{{ $vendor->phone }}</a>
+                        <div class="dropdown-divider"></div>
+                    <a class="text-sm font-weight-600">{{ trans('general.website') }}</a> <a class="text-xs o-y">{{ $vendor->website }}</a>
+                        <div class="dropdown-divider"></div>
+                    <a class="text-sm font-weight-600">{{ trans('general.tax_number') }}</a> <a class="text-xs o-y">{{ $vendor->tax_number }}</a>
+                    @if ($vendor->reference)
+                        <div class="dropdown-divider"></div>
+                        <a class="text-sm font-weight-600">{{ trans('general.reference') }}</a> <a class="text-xs o-y">{{ $vendor->reference }}</a>
+                    @endif
                 </div>
-                <!-- /.box-body -->
             </div>
 
-            <!-- Address Box -->
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">{{ trans('general.address') }}</h3>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">{{ trans('general.address') }}</h4>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <p class="text-muted">
+
+                <div class="card-body">
+                    <a class="text-xs m-0">
                         {{ $vendor->address }}
                     </p>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
 
-            <!-- Edit -->
-            <div>
-                    <a href="{{ url('expenses/vendors/' . $vendor->id . '/edit') }}" class="btn btn-primary btn-block"><b>{{ trans('general.edit') }}</b></a>
-                <!-- /.box-body -->
-            </div>
+            <a href="{{ url('expenses/vendors/' . $vendor->id . '/edit') }}" class="btn btn-default btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
         </div>
-        <!-- /.col -->
 
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-4 col-sm-8 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fa fa-shopping-cart"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">{{ trans('general.paid') }}</span>
-                            <span class="info-box-number">@money($amounts['paid'], setting('general.default_currency'), true)</span>
+        <div class="col-xl-9">
+            <div class="row mb--3">
+                <div class="col-md-4">
+                    <div class="card bg-gradient-success border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('general.paid') }}</h5>
+                                    <div class="dropdown-divider"></div>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@money($amounts['paid'], setting('default.currency'), true)</span>
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
                 </div>
-                <!-- /.col -->
-                <div class="col-md-4 col-sm-8 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-yellow"><i class="fa fa-paper-plane-o"></i></span>
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">{{ trans('dashboard.open_bills') }}</span>
-                            <span class="info-box-number">@money($amounts['open'], setting('general.default_currency'), true)</span>
+                <div class="col-md-4">
+                    <div class="card bg-gradient-warning border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('dashboard.open_bills') }}</h5>
+                                    <div class="dropdown-divider"></div>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@money($amounts['open'], setting('default.currency'), true)</span>
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
                 </div>
-                <!-- /.col -->
-                <div class="col-md-4 col-sm-8 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-red"><i class="fa fa-warning"></i></span>
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">{{ trans('dashboard.overdue_bills') }}</span>
-                            <span class="info-box-number">@money($amounts['overdue'], setting('general.default_currency'), true)</span>
+                <div class="col-md-4">
+                    <div class="card bg-gradient-danger border-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('dashboard.overdue_bills') }}</h5>
+                                    <div class="dropdown-divider"></div>
+                                    <span class="h2 font-weight-bold mb-0 text-white">@money($amounts['overdue'], setting('default.currency'), true)</span>
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
                 </div>
-                <!-- /.col -->
             </div>
 
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#transactions" data-toggle="tab" aria-expanded="true">{{ trans_choice('general.transactions', 2) }}</a></li>
-                            <li class=""><a href="#bills" data-toggle="tab" aria-expanded="false">{{ trans_choice('general.bills', 2) }}</a></li>
-                            <li class=""><a href="#payments" data-toggle="tab" aria-expanded="false">{{ trans_choice('general.payments', 2) }}</a></li>
+                <div class="col-md-12">
+                    <div class="nav-wrapper">
+                        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fas fa-hand-holding-usd mr-2"></i>{{ trans_choice('general.transactions', 2) }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fa fa-shopping-cart mr-2"></i>{{ trans_choice('general.bills', 2) }}</a>
+                            </li>
                         </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane tab-margin active" id="transactions">
-                                <table class="table table-striped table-hover" id="tbl-transactions">
-                                    <thead>
-                                    <tr>
-                                        <th class="col-md-3">{{ trans('general.date') }}</th>
-                                        <th class="col-md-2 text-right amount-space">{{ trans('general.amount') }}</th>
-                                        <th class="col-md-4 hidden-xs">{{ trans_choice('general.categories', 1) }}</th>
-                                        <th class="col-md-3 hidden-xs">{{ trans_choice('general.accounts', 1) }}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($transactions as $item)
-                                        <tr>
-                                            <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                                            <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                                            <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
-                                            <td class="hidden-xs">{{ $item->account->name }}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                    </div>
 
-                                @include('partials.admin.pagination', ['items' => $transactions, 'type' => 'transactions'])
-                            </div>
-
-                            <div class="tab-pane tab-margin" id="bills">
-                                <div class="table table-responsive">
-                                    <table class="table table-striped table-hover" id="tbl-bills">
-                                        <thead>
-                                        <tr>
-                                            <th class="col-md-2">{{ trans_choice('general.numbers', 1) }}</th>
-                                            <th class="col-md-2 text-right amount-space">{{ trans('general.amount') }}</th>
-                                            <th class="col-md-2">{{ trans('bills.bill_date') }}</th>
-                                            <th class="col-md-2">{{ trans('bills.due_date') }}</th>
-                                            <th class="col-md-2">{{ trans_choice('general.statuses', 1) }}</th>
-                                        </tr>
+                    <div class="card shadow">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-flush" id="tbl-transactions">
+                                        <thead class="thead-light">
+                                            <tr class="row table-head-line">
+                                                <th class="col-xs-6 col-sm-3">{{ trans('general.date') }}</th>
+                                                <th class="col-xs-6 col-sm-2">{{ trans('general.amount') }}</th>
+                                                <th class="col-sm-4 hidden-sm">{{ trans_choice('general.categories', 1) }}</th>
+                                                <th class="col-sm-3 hidden-sm">{{ trans_choice('general.accounts', 1) }}</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($bills as $item)
-                                            <tr>
-                                                <td><a href="{{ url('expenses/bills/' . $item->id . ' ') }}">{{ $item->bill_number }}</a></td>
-                                                <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                                                <td>{{ Date::parse($item->billed_at)->format($date_format) }}</td>
-                                                <td>{{ Date::parse($item->due_at)->format($date_format) }}</td>
-                                                <td><span class="label {{ $item->status->label }}">{{ trans('bills.status.' . $item->status->code) }}</span></td>
-                                            </tr>
-                                        @endforeach
+                                            @foreach($transactions as $item)
+                                                <tr class="row align-items-center border-top-1">
+                                                    <td class="col-xs-6 col-sm-3">@date($item->paid_at)</td>
+                                                    <td class="col-xs-6 col-sm-2">@money($item->amount, $item->currency_code, true)</td>
+                                                    <td class="col-sm-4 hidden-sm">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                                                    <td class="col-sm-3 hidden-sm">{{ $item->account->name }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
 
-                                @include('partials.admin.pagination', ['items' => $bills, 'type' => 'bills'])
+                                <div class="card-footer py-4 table-action">
+                                    <div class="row">
+                                        @include('partials.admin.pagination', ['items' => $transactions, 'type' => 'transactions'])
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="tab-pane tab-margin" id="payments">
-                                <div class="table table-responsive">
-                                    <table class="table table-striped table-hover" id="tbl-payments">
-                                        <thead>
-                                        <tr>
-                                            <th class="col-md-3">{{ trans('general.date') }}</th>
-                                            <th class="col-md-3 text-right amount-space">{{ trans('general.amount') }}</th>
-                                            <th class="col-md-3 hidden-xs">{{  trans_choice('general.categories', 1) }}</th>
-                                            <th class="col-md-3 hidden-xs">{{ trans_choice('general.accounts', 1) }}</th>
-                                        </tr>
+                            <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-flush" id="tbl-bills">
+                                        <thead class="thead-light">
+                                            <tr class="row table-head-line">
+                                                <th class="col-xs-4 col-sm-3">{{ trans_choice('general.numbers', 1) }}</th>
+                                                <th class="col-xs-4 col-sm-3">{{ trans('general.amount') }}</th>
+                                                <th class="col-sm-2 hidden-sm">{{ trans('bills.bill_date') }}</th>
+                                                <th class="col-sm-2 hidden-sm">{{ trans('bills.due_date') }}</th>
+                                                <th class="col-xs-4 col-sm-2">{{ trans_choice('general.statuses', 1) }}</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($payments as $item)
-                                            <tr>
-                                                <td><a href="{{ url('expenses/payments/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
-                                                <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                                                <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
-                                                <td class="hidden-xs">{{ $item->account->name }}</td>
-                                            </tr>
-                                        @endforeach
+                                            @foreach($bills as $item)
+                                                <tr class="row align-items-center border-top-1">
+                                                    <td class="col-xs-4 col-sm-3"><a href="{{ url('expenses/bills/' . $item->id . ' ') }}">{{ $item->bill_number }}</a></td>
+                                                    <td cclass="col-xs-4 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
+                                                    <td class="col-sm-2 hidden-sm">@date($item->billed_at)</td>
+                                                    <td class="col-sm-2 hidden-sm">@date($item->due_at)</td>
+                                                    <td class="col-xs-4 col-sm-2"><span class="badge badge-pill badge-{{ $item->status->label }}">{{ trans('bills.status.' . $item->status->code) }}</span></td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
 
-                                @include('partials.admin.pagination', ['items' => $payments, 'type' => 'payments'])
+                                <div class="card-footer py-4 table-action">
+                                    <div class="row">
+                                        @include('partials.admin.pagination', ['items' => $bills, 'type' => 'bills'])
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /.box -->
         </div>
     </div>
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/expenses/vendors.js?v=' . version('short')) }}"></script>
+@endpush

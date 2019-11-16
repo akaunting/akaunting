@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Common;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
+use App\Models\Common\Contact;
 use App\Models\Expense\Bill;
-use App\Models\Expense\Payment;
-use App\Models\Expense\Vendor;
 use App\Models\Income\Invoice;
-use App\Models\Income\Revenue;
-use App\Models\Income\Customer;
 use App\Models\Common\Item;
+use App\Traits\Contacts;
 
 class Search extends Controller
 {
+    use Contacts;
+
     /**
      * Display a listing of the resource.
      *
@@ -21,23 +22,11 @@ class Search extends Controller
      */
     public function index()
     {
-        $items = Item::enabled()->with('category')->get()->sortBy('name');
-
-        return view('items.items.index', compact('items'));
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function search()
-    {
         $results = array();
 
         $keyword = request('keyword');
 
-        $accounts = Account::enabled()->search($keyword)->get();
+        $accounts = Account::enabled()->usingSearchString($keyword)->get();
 
         if ($accounts->count()) {
             foreach ($accounts as $account) {
@@ -45,13 +34,13 @@ class Search extends Controller
                     'id'    => $account->id,
                     'name'  => $account->name,
                     'type'  => trans_choice('general.accounts', 1),
-                    'color' => '#337ab7',
+                    'color' => '#55588b',
                     'href'  => url('banking/accounts/' . $account->id . '/edit'),
                 ];
             }
         }
 
-        $items = Item::enabled()->search($keyword)->get();
+        $items = Item::enabled()->usingSearchString($keyword)->get();
 
         if ($items->count()) {
             foreach ($items as $item) {
@@ -59,29 +48,41 @@ class Search extends Controller
                     'id'    => $item->id,
                     'name'  => $item->name,
                     'type'  => trans_choice('general.items', 1),
-                    'color' => '#f5bd65',
+                    'color' => '#efad32',
                     'href'  => url('common/items/' . $item->id . '/edit'),
                 ];
             }
         }
 
-        $invoices = Invoice::search($keyword)->get();
+        $invoices = Invoice::usingSearchString($keyword)->get();
 
         if ($invoices->count()) {
             foreach ($invoices as $invoice) {
                 $results[] = (object)[
                     'id'    => $invoice->id,
-                    'name'  => $invoice->invoice_number . ' - ' . $invoice->customer_name,
+                    'name'  => $invoice->invoice_number . ' - ' . $invoice->contact_name,
                     'type'  => trans_choice('general.invoices', 1),
-                    'color' => '#00c0ef',
+                    'color' => '#6da252',
                     'href'  => url('incomes/invoices/' . $invoice->id),
                 ];
             }
-        }
+        }/*
 
-        //$revenues = Revenue::search($keyword)->get();
+        $revenues = Transaction::type('income')->usingSearchString($keyword)->get();
 
-        $customers = Customer::enabled()->search($keyword)->get();
+        if ($revenues->count()) {
+            foreach ($revenues as $revenue) {
+                $results[] = (object)[
+                    'id'    => $revenue->id,
+                    'name'  => $revenue->contact_name,
+                    'type'  => trans_choice('general.revenues', 1),
+                    'color' => '#00c0ef',
+                    'href'  => url('incomes/revenues/' . $revenue->id),
+                ];
+            }
+        }*/
+
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->usingSearchString($keyword)->get();
 
         if ($customers->count()) {
             foreach ($customers as $customer) {
@@ -89,29 +90,41 @@ class Search extends Controller
                     'id'    => $customer->id,
                     'name'  => $customer->name,
                     'type'  => trans_choice('general.customers', 1),
-                    'color' => '#03d876',
+                    'color' => '#328aef',
                     'href'  => url('incomes/customers/' . $customer->id),
                 ];
             }
         }
 
-        $bills = Bill::search($keyword)->get();
+        $bills = Bill::usingSearchString($keyword)->get();
 
         if ($bills->count()) {
             foreach ($bills as $bill) {
                 $results[] = (object)[
                     'id'    => $bill->id,
-                    'name'  => $bill->bill_number . ' - ' . $bill->vendor_name,
+                    'name'  => $bill->bill_number . ' - ' . $bill->contact_name,
                     'type'  => trans_choice('general.bills', 1),
-                    'color' => '#dd4b39',
+                    'color' => '#ef3232',
                     'href'  => url('expenses/bills/' . $bill->id),
                 ];
             }
         }
+/*
+        $payments = Transaction::type('expense')->usingSearchString($keyword)->get();
 
-        //$payments = Payment::search($keyword)->get();
+        if ($revenues->count()) {
+            foreach ($revenues as $revenue) {
+                $results[] = (object)[
+                    'id'    => $revenue->id,
+                    'name'  => $revenue->contact_name,
+                    'type'  => trans_choice('general.revenues', 1),
+                    'color' => '#00c0ef',
+                    'href'  => url('incomes/revenues/' . $revenue->id),
+                ];
+            }
+        }*/
 
-        $vendors = Vendor::enabled()->search($keyword)->get();
+        $vendors = Contact::type($this->getVendorTypes())->enabled()->usingSearchString($keyword)->get();
 
         if ($vendors->count()) {
             foreach ($vendors as $vendor) {
@@ -119,7 +132,7 @@ class Search extends Controller
                     'id'    => $vendor->id,
                     'name'  => $vendor->name,
                     'type'  => trans_choice('general.vendors', 1),
-                    'color' => '#ff8373',
+                    'color' => '#efef32',
                     'href'  => url('expenses/vendors/' . $vendor->id),
                 ];
             }

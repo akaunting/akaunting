@@ -2,19 +2,17 @@
 
 namespace App\Jobs\Expense;
 
-use App\Events\BillUpdated;
+use App\Abstracts\Job;
 use App\Models\Common\Item;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use App\Traits\Uploads;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Bus\Dispatchable;
 
-class UpdateBill
+class UpdateBill extends Job
 {
-    use Currencies, DateTime, Dispatchable, Uploads;
+    use Currencies, DateTime;
 
     protected $bill;
 
@@ -28,7 +26,7 @@ class UpdateBill
     public function __construct($bill, $request)
     {
         $this->bill = $bill;
-        $this->request = $request;
+        $this->request = $this->getRequestInstance($request);
     }
 
     /**
@@ -52,27 +50,11 @@ class UpdateBill
         $discount_total = 0;
         $discount = $this->request['discount'];
 
-        if ($this->request['item']) {
-            $items = $this->bill->items;
+        if ($this->request['items']) {
+            $this->deleteRelationships($this->bill, ['items', 'item_taxes']);
 
-            if ($items) {
-                foreach ($items as $item) {
-                    if (empty($item->item_id)) {
-                        continue;
-                    }
-
-                    $item_object = Item::find($item->item_id);
-
-                    // Decrease stock
-                    $item_object->quantity -= (double) $item->quantity;
-                    $item_object->save();
-                }
-            }
-
-            $this->deleteRelationships($this->bill, 'items');
-
-            foreach ($this->request['item'] as $item) {
-                $bill_item = dispatch(new CreateBillItem($item, $this->bill, $discount));
+            foreach ($this->request['items'] as $item) {
+                $bill_item = dispatch_now(new CreateBillItem($item, $this->bill, $discount));
 
                 // Calculate totals
                 $tax_total += $bill_item->tax;
@@ -127,7 +109,7 @@ class UpdateBill
         $this->bill->updateRecurring();
 
         // Fire the event to make it extensible
-        event(new BillUpdated($this->bill));
+        event(new \App\Events\Expense\BillUpdated($this->bill));
 
         return $this->bill;
     }

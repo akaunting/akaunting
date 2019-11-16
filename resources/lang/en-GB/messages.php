@@ -18,7 +18,8 @@ return [
         'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Error: No file selected!',
         'last_category'     => 'Error: Can not delete the last :type category!',
-        'invalid_token'     => 'Error: The token entered is invalid!',
+        'change_type'       => 'Error: Can not change the type because it has :text related!',
+        'invalid_apikey'    => 'Error: The token entered is invalid!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],
@@ -27,6 +28,7 @@ return [
         'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',
         'disabled'          => 'Warning: You are not allowed to disable <b>:name</b> because it has :text related.',
         'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
+        'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
     ],
 
 ];

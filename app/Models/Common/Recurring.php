@@ -2,7 +2,7 @@
 
 namespace App\Models\Common;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Traits\Recurring as RecurringTrait;
 
 class Recurring extends Model

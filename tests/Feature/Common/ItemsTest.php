@@ -28,8 +28,7 @@ class ItemsTest extends FeatureTestCase
 	{
 		$this->loginAs()
 			->post(route('items.store'), $this->getItemRequest())
-			->assertStatus(302)
-			->assertRedirect(route('items.index'));
+			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
 	}
@@ -54,8 +53,7 @@ class ItemsTest extends FeatureTestCase
 
 		$this->loginAs()
 			->patch(route('items.update', $item->id), $request)
-			->assertStatus(302)
-			->assertRedirect(route('items.index'));
+			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
 	}
@@ -66,8 +64,7 @@ class ItemsTest extends FeatureTestCase
 
 		$this->loginAs()
 			->delete(route('items.destroy', ['item' => $item]))
-			->assertStatus(302)
-			->assertRedirect(route('items.index'));
+			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
 	}
@@ -79,12 +76,10 @@ class ItemsTest extends FeatureTestCase
         return [
             'company_id' => $this->company->id,
             'name' => $this->faker->text(15),
-            'sku' => $this->faker->unique()->ean8,
             'picture' => $picture,
             'description' => $this->faker->text(100),
             'purchase_price' => $this->faker->randomFloat(2, 10, 20),
             'sale_price' => $this->faker->randomFloat(2, 10, 20),
-            'quantity' => $this->faker->randomNumber(2),
             'category_id' => $this->company->categories()->type('item')->first()->id,
             'tax_id' => '',
             'enabled' => $this->faker->boolean ? 1 : 0

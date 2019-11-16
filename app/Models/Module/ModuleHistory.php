@@ -2,7 +2,7 @@
 
 namespace App\Models\Module;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 
 class ModuleHistory extends Model
 {

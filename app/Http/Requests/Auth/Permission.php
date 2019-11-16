@@ -25,7 +25,7 @@ class Permission extends FormRequest
     {
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->permission->getAttribute('id');
+            $id = is_numeric($this->permission) ? $this->permission : $this->permission->getAttribute('id');
         } else {
             $id = null;
         }

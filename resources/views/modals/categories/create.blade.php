@@ -1,4 +1,4 @@
-<div class="modal fade create-category-{{ $rand }}" id="modal-create-category" style="display: none;">
+<div class="modal fade create-category-{{ $rand }} d-none" id="modal-create-category">
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,14 +12,14 @@
                     {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
                     @stack('color_input_start')
-                    <div class="form-group col-md-6 required {{ $errors->has('color') ? 'has-error' : ''}}">
-                        {!! Form::label('color', trans('general.color'), ['class' => 'control-label']) !!}
-                        <div  id="category-color-picker" class="input-group colorpicker-component">
-                            <div class="input-group-addon"><i></i></div>
-                            {!! Form::text('color', '#00a65a', ['id' => 'color', 'class' => 'form-control', 'required' => 'required']) !!}
+                        <div class="form-group col-md-6 required {{ $errors->has('color') ? 'has-error' : ''}}">
+                            {!! Form::label('color', trans('general.color'), ['class' => 'control-label']) !!}
+                                <div  id="category-color-picker" class="input-group colorpicker-component">
+                                    <div class="input-group-addon"><i></i></div>
+                                    {!! Form::text('color', '#00a65a', ['id' => 'color', 'class' => 'form-control', 'required' => 'required']) !!}
+                                </div>
+                            {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
                         </div>
-                        {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
-                    </div>
                     @stack('color_input_end')
 
                     {!! Form::hidden('type', $type, []) !!}
@@ -48,7 +48,7 @@
     });
 
     $(document).on('click', '.create-category-{{ $rand }} #button-create-category', function (e) {
-        $('.create-category-{{ $rand }}#modal-create-category .modal-header').before('<span id="span-loading" style="position: absolute; height: 100%; width: 100%; z-index: 99; background: #6da252; opacity: 0.4;"><i class="fa fa-spinner fa-spin" style="font-size: 10em !important;margin-left: 35%;margin-top: 8%;"></i></span>');
+        $('.create-category-{{ $rand }}#modal-create-category .modal-header').before('<span id="span-loading" style="position: absolute; height: 100%; width: 100%; z-index: 99; background: #6da252; opacity: 0.4;"><i class="fa fa-spinner fa-spin" style="font-size: 10em !important; margin-left: 35%;margin-top: 8%;"></i></span>');
 
         $.ajax({
             url: '{{ url("modals/categories") }}',

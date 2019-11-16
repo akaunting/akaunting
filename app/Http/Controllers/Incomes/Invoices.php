@@ -2,49 +2,36 @@
 
 namespace App\Http\Controllers\Incomes;
 
-use App\Events\InvoiceCreated;
-use App\Events\InvoicePrinting;
-use App\Events\InvoiceUpdated;
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
+use App\Exports\Incomes\Invoices as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Income\Invoice as Request;
 use App\Http\Requests\Income\InvoiceAddItem as ItemRequest;
-use App\Http\Requests\Income\InvoicePayment as PaymentRequest;
+use App\Imports\Incomes\Invoices as Import;
 use App\Jobs\Income\CreateInvoice;
+use App\Jobs\Income\DeleteInvoice;
+use App\Jobs\Income\DuplicateInvoice;
 use App\Jobs\Income\UpdateInvoice;
-use App\Jobs\Income\CreateInvoicePayment;
 use App\Models\Banking\Account;
+use App\Models\Common\Contact;
 use App\Models\Common\Item;
-use App\Models\Common\Media;
-use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
-use App\Models\Income\InvoiceHistory;
-use App\Models\Income\InvoiceItem;
-use App\Models\Income\InvoiceItemTax;
-use App\Models\Income\InvoiceTotal;
-use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceStatus;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Notifications\Income\Invoice as Notification;
-use App\Notifications\Common\Item as ItemNotification;
-use App\Notifications\Common\ItemReminder as ItemReminderNotification;
+use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Incomes;
-use App\Traits\Uploads;
-use App\Utilities\Import;
-use App\Utilities\ImportFile;
 use App\Utilities\Modules;
-use Date;
 use File;
-use Image;
-use Storage;
-use SignedUrl;
+use Illuminate\Support\Facades\URL;
 
 class Invoices extends Controller
 {
-    use DateTime, Currencies, Incomes, Uploads;
+    use Contacts, Currencies, DateTime, Incomes;
 
     /**
      * Display a listing of the resource.
@@ -53,13 +40,13 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with(['customer', 'status', 'items', 'payments', 'histories'])->collect(['invoice_number'=> 'desc']);
+        $invoices = Invoice::with(['contact', 'items', 'histories', 'status', 'transactions'])->collect(['invoice_number'=> 'desc']);
 
-        $customers = collect(Customer::enabled()->orderBy('name')->pluck('name', 'id'));
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = collect(Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id'));
+        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $statuses = collect(InvoiceStatus::get()->each(function($item) {
+        $statuses = collect(InvoiceStatus::get()->each(function ($item) {
             $item->name = trans('invoices.status.' . $item->code);
             return $item;
         })->pluck('name', 'code'));
@@ -80,17 +67,21 @@ class Invoices extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
+        $currency = Currency::where('code', $invoice->currency_code)->first();
 
-        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
+        $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
 
-        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
+
+        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $customer_share = SignedUrl::sign(route('signed.invoices', $invoice->id));
+        $signed_url = URL::signedRoute('signed.invoices.show', [$invoice->id, 'company_id' => session('company_id')]);
 
-        return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'customer_share'));
+        $date_format = $this->getCompanyDateFormat();
+
+        return view('incomes.invoices.show', compact('invoice', 'accounts', 'currencies', 'currency', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'signed_url', 'date_format'));
     }
 
     /**
@@ -100,17 +91,17 @@ class Invoices extends Controller
      */
     public function create()
     {
-        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $currency = Currency::where('code', '=', setting('general.default_currency'))->first();
+        $currency = Currency::where('code', setting('default.currency'))->first();
 
         $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
+        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
         $number = $this->getNextInvoiceNumber();
 
@@ -126,13 +117,23 @@ class Invoices extends Controller
      */
     public function store(Request $request)
     {
-        $invoice = dispatch(new CreateInvoice($request));
+        $response = $this->ajaxDispatch(new CreateInvoice($request));
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.invoices', 1)]);
+        if ($response['success']) {
+            $response['redirect'] = route('invoices.show', $response['data']->id);
 
-        flash($message)->success();
+            $message = trans('messages.success.added', ['type' => trans_choice('general.invoices', 1)]);
 
-        return redirect('incomes/invoices/' . $invoice->id);
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('invoices.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -144,58 +145,27 @@ class Invoices extends Controller
      */
     public function duplicate(Invoice $invoice)
     {
-        $clone = $invoice->duplicate();
-
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => session('company_id'),
-            'invoice_id' => $clone->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $clone->invoice_number]),
-        ]);
-
-        // Update next invoice number
-        $this->increaseNextInvoiceNumber();
+        $clone = $this->dispatch(new DuplicateInvoice($invoice));
 
         $message = trans('messages.success.duplicated', ['type' => trans_choice('general.invoices', 1)]);
 
         flash($message)->success();
 
-        return redirect('incomes/invoices/' . $clone->id . '/edit');
+        return redirect()->route('invoices.edit', $clone->id);
     }
 
     /**
      * Import the specified resource.
      *
-     * @param  ImportFile  $import
+     * @param  ImportRequest  $request
      *
      * @return Response
      */
-    public function import(ImportFile $import)
+    public function import(ImportRequest $request)
     {
         $success = true;
 
-        $allowed_sheets = ['invoices', 'invoice_items', 'invoice_item_taxes', 'invoice_histories', 'invoice_payments', 'invoice_totals'];
-
-        // Loop through all sheets
-        $import->each(function ($sheet) use (&$success, $allowed_sheets) {
-            $sheet_title = $sheet->getTitle();
-
-            if (!in_array($sheet_title, $allowed_sheets)) {
-                $message = trans('messages.error.import_sheet');
-
-                flash($message)->error()->important();
-
-                return false;
-            }
-
-            $slug = 'Income\\' . str_singular(studly_case($sheet_title));
-
-            if (!$success = Import::createFromSheet($sheet, $slug)) {
-                return false;
-            }
-        });
+        \Excel::import(new Import(), $request->file('import'));
 
         if (!$success) {
             return redirect('common/import/incomes/invoices');
@@ -211,23 +181,23 @@ class Invoices extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Invoice  $invoice
+     * @param  Invoice $invoice
      *
      * @return Response
      */
     public function edit(Invoice $invoice)
     {
-        $customers = Customer::enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $currency = Currency::where('code', '=', $invoice->currency_code)->first();
+        $currency = Currency::where('code', $invoice->currency_code)->first();
 
         $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $categories = Category::enabled()->type('income')->orderBy('name')->pluck('name', 'id');
+        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
         return view('incomes.invoices.edit', compact('invoice', 'customers', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }
@@ -235,51 +205,56 @@ class Invoices extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Invoice  $invoice
-     * @param  Request  $request
+     * @param  Invoice $invoice
+     * @param  Request $request
      *
      * @return Response
      */
     public function update(Invoice $invoice, Request $request)
     {
-        $invoice = dispatch(new UpdateInvoice($invoice, $request));
+        $response = $this->ajaxDispatch(new UpdateInvoice($invoice, $request));
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.invoices', 1)]);
+        if ($response['success']) {
+            $response['redirect'] = route('invoices.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.invoices', 1)]);
 
-        return redirect('incomes/invoices/' . $invoice->id);
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('invoices.edit', $invoice->id);
+
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Invoice  $invoice
+     * @param  Invoice $invoice
      *
      * @return Response
      */
     public function destroy(Invoice $invoice)
     {
-        // Increase stock
-        $invoice->items()->each(function ($invoice_item) {
-            $item = Item::find($invoice_item->item_id);
+        $response = $this->ajaxDispatch(new DeleteInvoice($invoice));
 
-            if (empty($item)) {
-                return;
-            }
+        $response['redirect'] = route('invoices.index');
 
-            $item->quantity += (double) $invoice_item->quantity;
-            $item->save();
-        });
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
 
-        $this->deleteRelationships($invoice, ['items', 'item_taxes', 'histories', 'payments', 'recurring', 'totals']);
-        $invoice->delete();
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
 
-        $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
+            flash($message)->error();
+        }
 
-        flash($message)->success();
-
-        return redirect('incomes/invoices');
+        return response()->json($response);
     }
 
     /**
@@ -289,37 +264,7 @@ class Invoices extends Controller
      */
     public function export()
     {
-        \Excel::create('invoices', function ($excel) {
-            $invoices = Invoice::with(['items', 'item_taxes', 'histories', 'payments', 'totals'])->filter(request()->input())->get();
-
-            $excel->sheet('invoices', function ($sheet) use ($invoices) {
-                $sheet->fromModel($invoices->makeHidden([
-                    'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at', 'attachment', 'discount', 'items', 'item_taxes', 'histories', 'payments', 'totals', 'media', 'paid', 'amount_without_tax'
-                ]));
-            });
-
-            $tables = ['items', 'item_taxes', 'histories', 'payments', 'totals'];
-            foreach ($tables as $table) {
-                $excel->sheet('invoice_' . $table, function ($sheet) use ($invoices, $table) {
-                    $hidden_fields = ['id', 'company_id', 'created_at', 'updated_at', 'deleted_at', 'title'];
-
-                    $i = 1;
-
-                    foreach ($invoices as $invoice) {
-                        $model = $invoice->$table->makeHidden($hidden_fields);
-
-                        if ($i == 1) {
-                            $sheet->fromModel($model, null, 'A1', false);
-                        } else {
-                            // Don't put multiple heading columns
-                            $sheet->fromModel($model, null, 'A1', false, false);
-                        }
-
-                        $i++;
-                    }
-                });
-            }
-        })->download('xlsx');
+        return \Excel::download(new Export(), trans_choice('general.invoices', 2) . '.xlsx');
     }
 
     /**
@@ -331,20 +276,11 @@ class Invoices extends Controller
      */
     public function markSent(Invoice $invoice)
     {
-        $invoice->invoice_status_code = 'sent';
+        event(new \App\Events\Income\InvoiceSent($invoice));
 
-        $invoice->save();
+        $message = trans('invoices.messages.marked_sent');
 
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => $invoice->company_id,
-            'invoice_id' => $invoice->id,
-            'status_code' => 'sent',
-            'notify' => 0,
-            'description' => trans('invoices.mark_sent'),
-        ]);
-
-        flash(trans('invoices.messages.marked_sent'))->success();
+        flash($message)->success();
 
         return redirect()->back();
     }
@@ -358,7 +294,7 @@ class Invoices extends Controller
      */
     public function emailInvoice(Invoice $invoice)
     {
-        if (empty($invoice->customer_email)) {
+        if (empty($invoice->contact_email)) {
             return redirect()->back();
         }
 
@@ -367,7 +303,7 @@ class Invoices extends Controller
         $view = view($invoice->template_path, compact('invoice'))->render();
         $html = mb_convert_encoding($view, 'HTML-ENTITIES');
 
-        $pdf = \App::make('dompdf.wrapper');
+        $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
         $file = storage_path('app/temp/invoice_'.time().'.pdf');
@@ -378,7 +314,7 @@ class Invoices extends Controller
         $pdf->save($file);
 
         // Notify the customer
-        $invoice->customer->notify(new Notification($invoice));
+        $invoice->contact->notify(new Notification($invoice, 'invoice_new_customer'));
 
         // Delete temp file
         File::delete($file);
@@ -388,21 +324,7 @@ class Invoices extends Controller
         unset($invoice->pdf_path);
         unset($invoice->reconciled);
 
-        // Mark invoice as sent
-        if ($invoice->invoice_status_code != 'partial') {
-            $invoice->invoice_status_code = 'sent';
-
-            $invoice->save();
-        }
-
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => $invoice->company_id,
-            'invoice_id' => $invoice->id,
-            'status_code' => 'sent',
-            'notify' => 1,
-            'description' => trans('invoices.send_mail'),
-        ]);
+        event(new \App\Events\Income\InvoiceSent($invoice));
 
         flash(trans('invoices.messages.email_sent'))->success();
 
@@ -458,198 +380,17 @@ class Invoices extends Controller
      */
     public function markPaid(Invoice $invoice)
     {
-        $paid = 0;
+        try {
+            event(new \App\Events\Income\PaymentReceived($invoice, []));
 
-        foreach ($invoice->payments as $item) {
-            $amount = $item->amount;
+            $message = trans('invoices.messages.marked_paid');
 
-            if ($invoice->currency_code != $item->currency_code) {
-                $item->default_currency_code = $invoice->currency_code;
+            flash($message)->success();
+        } catch(\Exception $e) {
+            $message = $e->getMessage();
 
-                $amount = $item->getDynamicConvertedAmount();
-            }
-
-            $paid += $amount;
+            flash($message)->error();
         }
-
-        $amount = $invoice->amount - $paid;
-
-        if (!empty($amount)) {
-            $request = new PaymentRequest();
-
-            $request['company_id'] = $invoice->company_id;
-            $request['invoice_id'] = $invoice->id;
-            $request['account_id'] = setting('general.default_account');
-            $request['payment_method'] = setting('general.default_payment_method', 'offlinepayment.cash.1');
-            $request['currency_code'] = $invoice->currency_code;
-            $request['amount'] = $amount;
-            $request['paid_at'] = Date::now()->format('Y-m-d');
-            $request['_token'] = csrf_token();
-
-            $this->payment($request);
-        } else {
-            $invoice->invoice_status_code = 'paid';
-            $invoice->save();
-        }
-
-        return redirect()->back();
-    }
-
-    /**
-     * Add payment to the invoice.
-     *
-     * @param  PaymentRequest  $request
-     *
-     * @return Response
-     */
-    public function payment(PaymentRequest $request)
-    {
-        // Get currency object
-        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
-        $currency = Currency::where('code', $request['currency_code'])->first();
-
-        $request['currency_code'] = $currency->code;
-        $request['currency_rate'] = $currency->rate;
-
-        $invoice = Invoice::find($request['invoice_id']);
-
-        $total_amount = $invoice->amount;
-
-        $default_amount = (double) $request['amount'];
-
-        if ($invoice->currency_code == $request['currency_code']) {
-            $amount = $default_amount;
-        } else {
-            $default_amount_model = new InvoicePayment();
-
-            $default_amount_model->default_currency_code = $invoice->currency_code;
-            $default_amount_model->amount                = $default_amount;
-            $default_amount_model->currency_code         = $request['currency_code'];
-            $default_amount_model->currency_rate         = $currencies[$request['currency_code']];
-
-            $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
-
-            $convert_amount = new InvoicePayment();
-
-            $convert_amount->default_currency_code = $request['currency_code'];
-            $convert_amount->amount = $default_amount;
-            $convert_amount->currency_code = $invoice->currency_code;
-            $convert_amount->currency_rate = $currencies[$invoice->currency_code];
-
-            $amount = (double) $convert_amount->getDynamicConvertedAmount();
-        }
-
-        if ($invoice->payments()->count()) {
-            $total_amount -= $invoice->payments()->paid();
-        }
-
-        // For amount cover integer
-        $multiplier = 1;
-
-        for ($i = 0; $i < $currency->precision; $i++) {
-            $multiplier *= 10;
-        }
-
-        $amount_check = (int) ($amount * $multiplier);
-        $total_amount_check = (int) (round($total_amount, $currency->precision) * $multiplier);
-
-        if ($amount_check > $total_amount_check) {
-            $error_amount = $total_amount;
-
-            if ($invoice->currency_code != $request['currency_code']) {
-                $error_amount_model = new InvoicePayment();
-
-                $error_amount_model->default_currency_code = $request['currency_code'];
-                $error_amount_model->amount                = $error_amount;
-                $error_amount_model->currency_code         = $invoice->currency_code;
-                $error_amount_model->currency_rate         = $currencies[$invoice->currency_code];
-
-                $error_amount = (double) $error_amount_model->getDivideConvertedAmount();
-
-                $convert_amount = new InvoicePayment();
-
-                $convert_amount->default_currency_code = $invoice->currency_code;
-                $convert_amount->amount = $error_amount;
-                $convert_amount->currency_code = $request['currency_code'];
-                $convert_amount->currency_rate = $currencies[$request['currency_code']];
-
-                $error_amount = (double) $convert_amount->getDynamicConvertedAmount();
-            }
-
-            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $request['currency_code'], true)]);
-
-            return response()->json([
-                'success' => false,
-                'error' => true,
-                'data' => [
-                    'amount' => $error_amount
-                ],
-                'message' => $message,
-                'html' => 'null',
-            ]);
-        } elseif ($amount_check == $total_amount_check) {
-            $invoice->invoice_status_code = 'paid';
-        } else {
-            $invoice->invoice_status_code = 'partial';
-        }
-
-        $invoice->save();
-
-        $invoice_payment = dispatch(new CreateInvoicePayment($request, $invoice));
-
-        // Upload attachment
-        if ($request->file('attachment')) {
-            $media = $this->getMedia($request->file('attachment'), 'invoices');
-
-            $invoice_payment->attachMedia($media, 'attachment');
-        }
-
-        $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'message' => $message,
-        ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  InvoicePayment  $payment
-     *
-     * @return Response
-     */
-    public function paymentDestroy(InvoicePayment $payment)
-    {
-        $invoice = Invoice::find($payment->invoice_id);
-
-        if ($invoice->payments()->count() > 1) {
-            $invoice->invoice_status_code = 'partial';
-        } else {
-            $invoice->invoice_status_code = 'sent';
-        }
-
-        $invoice->save();
-
-        $desc_amount = money((float) $payment->amount, (string) $payment->currency_code, true)->format();
-
-        $description = $desc_amount . ' ' . trans_choice('general.payments', 1);
-
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => $invoice->company_id,
-            'invoice_id' => $invoice->id,
-            'status_code' => $invoice->invoice_status_code,
-            'notify' => 0,
-            'description' => trans('messages.success.deleted', ['type' => $description]),
-        ]);
-
-        $payment->delete();
-
-        $message = trans('messages.success.deleted', ['type' => trans_choice('general.invoices', 1)]);
-
-        flash($message)->success();
 
         return redirect()->back();
     }
@@ -659,12 +400,12 @@ class Invoices extends Controller
         $item_row = $request['item_row'];
         $currency_code = $request['currency_code'];
 
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $currency = Currency::where('code', '=', $currency_code)->first();
+        $currency = Currency::where('code', $currency_code)->first();
 
         if (empty($currency)) {
-            $currency = Currency::where('code', '=', setting('general.default_currency'))->first();
+            $currency = Currency::where('code', setting('default.currency', 'USD'))->first();
         }
 
         if ($currency) {
@@ -695,7 +436,7 @@ class Invoices extends Controller
             if ($invoice->currency_code != $item->currency_code) {
                 $item->default_currency_code = $invoice->currency_code;
 
-                $amount = $item->getDynamicConvertedAmount();
+                $amount = $item->getAmountConvertedFromCustomDefault();
             }
 
             $paid += $amount;
@@ -705,7 +446,7 @@ class Invoices extends Controller
 
         $invoice->template_path = 'incomes.invoices.invoice';
 
-        event(new InvoicePrinting($invoice));
+        event(new \App\Events\Income\InvoicePrinting($invoice));
 
         return $invoice;
     }

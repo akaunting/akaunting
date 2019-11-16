@@ -18,7 +18,7 @@ return [
         'customer'          => 'Erro: Endereço de email :name já esta sendo utilizado.',
         'no_file'           => 'Erro: Nenhum arquivo selecionado!',
         'last_category'     => 'Erro: Não foi possível excluir a última :type categoria!',
-        'invalid_token'     => 'Erro: O símbolo inserido é inválido!',
+        'invalid_apikey'     => 'Erro: O símbolo inserido é inválido!',
         'import_column'     => 'Erro: :message Planilha: :sheet. Número da linha: :line.',
         'import_sheet'      => 'Erro: Planilha não é válida. Por favor, verifique o arquivo de exemplo.',
     ],

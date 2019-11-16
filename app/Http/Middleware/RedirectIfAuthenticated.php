@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
 use Closure;
 
 class RedirectIfAuthenticated
@@ -17,12 +16,12 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            if (Auth::user()->customer) {
-                return redirect('/customers');
+        if (auth()->guard($guard)->check()) {
+            if (user()->contact) {
+                return redirect()->route('portal.dashboard');
             }
 
-            return redirect('/');
+            return redirect()->route('dashboard');
         }
 
         return $next($request);

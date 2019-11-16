@@ -22,6 +22,53 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Which permissions and role checker to use.
+    |--------------------------------------------------------------------------
+    |
+    | Defines if you want to use the roles and permissions checker.
+    | Available:
+    | - default: Check for the roles and permissions using the method that Laratrust
+                 has always used.
+    | - query: Check for the roles and permissions using direct queries to the database.
+    |           This method doesn't support cache yet.
+    |
+     */
+    'checker' => 'default',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache
+    |--------------------------------------------------------------------------
+    |
+    | Manage Laratrust's cache configurations. It uses the driver defined in the
+    | config/cache.php file.
+    |
+    */
+    'cache' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Use cache in the package
+        |--------------------------------------------------------------------------
+        |
+        | Defines if Laratrust will use Laravel's Cache to cache the roles and permissions.
+        | NOTE: Currently the database check does not use cache.
+        |
+        */
+        'enabled' => true,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Time to store in cache Laratrust's roles and permissions.
+        |--------------------------------------------------------------------------
+        |
+        | Determines the time in SECONDS to store Laratrust's roles and permissions in the cache.
+        |
+        */
+        'expiration_time' => 3600,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Use teams feature in the package
     |--------------------------------------------------------------------------
     |
@@ -30,6 +77,19 @@ return [
     |
     */
     'use_teams' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Strict check for roles/permissions inside teams
+    |--------------------------------------------------------------------------
+    |
+    | Determines if a strict check should be done when checking if a role or permission
+    | is attached inside a team.
+    | If it's false, when checking a role/permission without specifying the team,
+    | it will check only if the user has attached that role/permission ignoring the team.
+    |
+    */
+    'teams_strict_check' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -152,21 +212,46 @@ return [
     | Laratrust Middleware
     |--------------------------------------------------------------------------
     |
-    | This configuration helps to customize the Laratrust middlewares behavior.
+    | This configuration helps to customize the Laratrust middleware behavior.
     |
     */
     'middleware' => [
         /**
+         * Define if the laratrust middleware are registered automatically in the service provider
+         */
+        'register' => false,
+
+        /**
          * Method to be called in the middleware return case.
          * Available: abort|redirect
          */
-        'handling' => 'redirect',
+        'handling' => 'abort',
 
         /**
-         * Parameter passed to the middleware_handling method
+         * Handlers for the unauthorized method in the middlewares.
+         * The name of the handler must be the same as the handling.
          */
-        'params' => 'auth/login',
-
+        'handlers' => [
+            /**
+             * Aborts the execution with a 403 code.
+             */
+            'abort' => [
+                'code' => 403
+            ],
+            /**
+             * Redirects the user to the given url.
+             * If you want to flash a key to the session,
+             * you can do it by setting the key and the content of the message
+             * If the message content is empty it won't be added to the redirection.
+             */
+            'redirect' => [
+                'url' => 'auth/login',
+                'message' => [
+                    'key' => 'error',
+                    'content' => ''
+                ]
+            ]
+        ]
     ],
 
     /*

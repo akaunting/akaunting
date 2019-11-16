@@ -18,7 +18,7 @@ return [
         'customer'          => 'Fout: Gebruiker niet aangemaakt! :name heeft dit e-mailadres al in gebruik.',
         'no_file'           => 'Fout: geen bestand geselecteerd!',
         'last_category'     => 'Fout: Kan de laatste categorie niet verwijderen: :type',
-        'invalid_token'     => 'Fout: Ingevulde token is ongeldig!',
+        'invalid_apikey'     => 'Fout: Ingevulde token is ongeldig!',
         'import_column'     => 'Fout: :message Blad naam: :sheet. Lijnnummer: :line.',
         'import_sheet'      => 'Fout: Bladnaam is niet geldig. Vergelijk het met het voorbeeldbestand.',
     ],

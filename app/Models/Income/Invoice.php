@@ -2,7 +2,8 @@
 
 namespace App\Models\Income;
 
-use App\Models\Model;
+use App\Abstracts\Model;
+use App\Models\Banking\Transaction;
 use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
@@ -10,12 +11,11 @@ use App\Traits\Incomes;
 use App\Traits\Media;
 use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
-use Sofa\Eloquence\Eloquence;
 use Date;
 
 class Invoice extends Model
 {
-    use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media, Recurring;
+    use Cloneable, Currencies, DateTime, Incomes, Media, Recurring;
 
     protected $table = 'invoices';
 
@@ -33,29 +33,14 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_number', 'order_number', 'invoice_status_code', 'invoiced_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'customer_id', 'customer_name', 'customer_email', 'customer_tax_number', 'customer_phone', 'customer_address', 'notes', 'category_id', 'parent_id'];
+    protected $fillable = ['company_id', 'invoice_number', 'order_number', 'invoice_status_code', 'invoiced_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'contact_id', 'contact_name', 'contact_email', 'contact_tax_number', 'contact_phone', 'contact_address', 'notes', 'category_id', 'parent_id', 'footer'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['invoice_number', 'customer_name', 'amount', 'status' , 'invoiced_at', 'due_at', 'invoice_status_code'];
-
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
-    protected $searchableColumns = [
-        'invoice_number'   => 10,
-        'order_number'     => 10,
-        'customer_name'    => 10,
-        'customer_email'   => 5,
-        'customer_phone'   => 2,
-        'customer_address' => 1,
-        'notes'            => 2,
-    ];
+    public $sortable = ['invoice_number', 'contact_name', 'amount', 'status' , 'invoiced_at', 'due_at', 'invoice_status_code'];
 
     protected $reconciled_amount = [];
 
@@ -68,17 +53,17 @@ class Invoice extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Setting\Category');
+        return $this->belongsTo('App\Models\Setting\Category')->withDefault(['name' => trans('general.na')]);
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo('App\Models\Common\Contact')->withDefault(['name' => trans('general.na')]);
     }
 
     public function currency()
     {
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo('App\Models\Income\Customer');
     }
 
     public function items()
@@ -98,7 +83,7 @@ class Invoice extends Model
 
     public function payments()
     {
-        return $this->hasMany('App\Models\Income\InvoicePayment');
+        return $this->transactions();
     }
 
     public function recurring()
@@ -116,6 +101,11 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoiceTotal');
     }
 
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Banking\Transaction', 'document_id');
+    }
+
     public function scopeDue($query, $date)
     {
         return $query->whereDate('due_at', '=', $date);
@@ -123,7 +113,7 @@ class Invoice extends Model
 
     public function scopeLatest($query)
     {
-        return $query->orderBy('paid_at', 'desc');
+        return $query->orderBy('invoiced_at', 'desc');
     }
 
     public function scopeAccrued($query)
@@ -242,7 +232,7 @@ class Invoice extends Model
                 if ($this->currency_code == $item->currency_code) {
                     $amount = (double) $item->amount;
                 } else {
-                    $default_model = new InvoicePayment();
+                    $default_model = new Transaction();
                     $default_model->default_currency_code = $this->currency_code;
                     $default_model->amount = $item->amount;
                     $default_model->currency_code = $item->currency_code;
@@ -250,13 +240,13 @@ class Invoice extends Model
 
                     $default_amount = (double) $default_model->getDivideConvertedAmount();
 
-                    $convert_model = new InvoicePayment();
+                    $convert_model = new Transaction();
                     $convert_model->default_currency_code = $item->currency_code;
                     $convert_model->amount = $default_amount;
                     $convert_model->currency_code = $this->currency_code;
                     $convert_model->currency_rate = $currencies[$this->currency_code];
 
-                    $amount = (double) $convert_model->getDynamicConvertedAmount();
+                    $amount = (double) $convert_model->getAmountConvertedFromCustomDefault();
                 }
 
                 $paid += $amount;
