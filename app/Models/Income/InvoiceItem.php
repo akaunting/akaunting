@@ -18,9 +18,9 @@ class InvoiceItem extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_id', 'item_id', 'name', 'sku', 'quantity', 'price', 'total',  'tax'];
+    protected $fillable = ['company_id', 'invoice_id', 'item_id', 'name', 'sku', 'quantity', 'price', 'total','tax', 'tax_id'];
     
-    public $cloneable_relations = ['itemTaxes'];
+    public $cloneable_relations = ['taxes'];
 
     public function invoice()
     {
@@ -36,8 +36,42 @@ class InvoiceItem extends Model
     {
         return $this->hasMany('App\Models\Income\InvoiceItemTax', 'invoice_item_id', 'id');
     }
-
-
+    
+    public function first_tax() {
+        return $this->taxes()->first();
+    }
+    
+    public function getTotalTaxRateAttribute() {
+        $totalTax = 0.0;
+        foreach( $this->taxes as $t){
+            $totalTax += $t->tax->rate;
+        }
+        
+        return $totalTax;        
+    }
+    
+    public function getTaxUsedAsStringAttribute() {
+        $usedTaxes = collect();
+        foreach( $this->taxes as $t){
+            $usedTaxes->push($t->tax->rate);
+        }
+        
+        return $usedTaxes->implode('+');        
+    }
+  
+    
+    
+    public function getTotalTaxAmountAttribute() {
+        $totalAmount = 0.0;
+        foreach( $this->taxes as $t){
+            $totalAmount += $t->amount;
+        }
+        
+        return $totalAmount;        
+    }
+  
+  
+/*
     public function tax()
     {
         return $this->belongsTo('App\Models\Setting\Tax');
@@ -45,8 +79,25 @@ class InvoiceItem extends Model
 
     public function taxType()
     {
-        return $this->belongsTo('App\Models\Setting\Tax' , 'tax_id');
+        return $this->belongsTo('App\Models\Setting\Tax', 'tax_id');
     }
+*/    
+    /**
+     * Convert tax to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function getTaxIdAttribute($value)
+    {
+        $tax_ids = [];
+        if (!empty($value)) {
+            $tax_ids[] = $value;
+            return $tax_ids[0];
+        }
+        return $this->taxes->pluck('tax_id');
+    }
+    
 
     /**
      * Convert price to double.
@@ -80,4 +131,5 @@ class InvoiceItem extends Model
     {
         $this->attributes['tax'] = (double) $value;
     }
+
 }

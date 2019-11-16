@@ -126,6 +126,11 @@ class Invoice extends Model
         return $query->where('delivered_at', '=', $date);
     }
 
+    public function scopeDelivered($query, $date)
+    {
+        return $query->where('delivered_at', '=', $date);
+    }
+
     public function scopeLatest($query)
     {
         return $query->orderBy('paid_at', 'desc');
