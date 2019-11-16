@@ -6,6 +6,7 @@ return [
     'invoice_date'      => 'Dátum fakturácie',
     'total_price'       => 'Celková cena',
     'due_date'          => 'Dátum splatnosti',
+    'delivered_date'	=> 'Dátum dodania',
     'order_number'      => 'Číslo objednávky',
     'bill_to'           => 'Odberateľ',
 
@@ -22,7 +23,7 @@ return [
     'add_discount'      => 'Pridať zľavu',
     'discount_desc'     => 'z celku',
 
-    'payment_due'       => 'Splatnosť',
+    'payment_due'       => 'Dátum splatnosti',
     'paid'              => 'Zaplatené',
     'histories'         => 'História',
     'payments'          => 'Platby',
@@ -61,7 +62,7 @@ return [
     ],
 
     'notification' => [
-        'message'       => 'Dostávate tento e-mail, pretože máte prichádzajúce :amount faktúry pre :customer zákazníka.',
+        'message'       => 'Týmto si Vás dovoľujeme informovať o vystavenej faktúre pre Vašu firmu: ":customer" vo výške :amount.',
         'button'        => 'Zaplatiť teraz',
     ],
 

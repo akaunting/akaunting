@@ -26,21 +26,21 @@ class Invoice extends Model
      */
     protected $appends = ['attachment', 'discount', 'paid'];
 
-    protected $dates = ['deleted_at', 'invoiced_at', 'due_at'];
+    protected $dates = ['deleted_at', 'invoiced_at', 'due_at','delivered_at'];
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_number', 'order_number', 'invoice_status_code', 'invoiced_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'customer_id', 'customer_name', 'customer_email', 'customer_tax_number', 'customer_phone', 'customer_address', 'notes', 'category_id', 'parent_id'];
+    protected $fillable = [ 'company_id', 'invoice_number', 'order_number', 'invoice_status_code', 'delivered_at', 'invoiced_at', 'due_at','amount', 'currency_code', 'currency_rate','customer_id', 'customer_name', 'customer_email', 'customer_company_number', 'customer_tax_number', 'customer_phone', 'customer_address', 'notes', 'category_id','parent_id'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['invoice_number', 'customer_name', 'amount', 'status' , 'invoiced_at', 'due_at', 'invoice_status_code'];
+    public $sortable = ['invoice_number', 'customer_name', 'amount', 'status' , 'invoiced_at', 'due_at', 'delivered_at', 'invoice_status_code'];
 
     /**
      * Searchable rules.
@@ -119,6 +119,11 @@ class Invoice extends Model
     public function scopeDue($query, $date)
     {
         return $query->where('due_at', '=', $date);
+    }
+
+    public function scopeDelivered($query, $date)
+    {
+        return $query->where('delivered_at', '=', $date);
     }
 
     public function scopeLatest($query)
