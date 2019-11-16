@@ -22,7 +22,7 @@
 
                     {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, $currency->code, ['required' => 'required', 'change' => 'onCodeAccount']) }}
 
-                    {{ Form::textGroup('rate', trans('currencies.rate'), 'sliders-h', ['@input' => 'RateReplace']) }}
+                    {{ Form::textGroup('rate', trans('currencies.rate'), 'sliders-h', ['@input' => 'RateReplace', 'required' => 'required']) }}
 
                     {{ Form::numberGroup('precision', trans('currencies.precision'), 'dot-circle') }}
 
