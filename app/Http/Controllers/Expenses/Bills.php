@@ -9,6 +9,7 @@ use App\Http\Requests\Expense\Bill as Request;
 use App\Http\Requests\Expense\BillAddItem as ItemRequest;
 use App\Imports\Expenses\Bills as Import;
 use App\Jobs\Expense\CreateBill;
+use App\Jobs\Expense\DeleteBill;
 use App\Jobs\Expense\DuplicateBill;
 use App\Jobs\Expense\UpdateBill;
 use App\Models\Banking\Account;
