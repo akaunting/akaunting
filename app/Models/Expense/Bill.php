@@ -216,10 +216,10 @@ class Bill extends Model
         $paid = 0;
         $reconciled = $reconciled_amount = 0;
 
-        if ($this->payments->count()) {
+        if ($this->transactions->count()) {
             $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
-            foreach ($this->payments as $item) {
+            foreach ($this->transactions as $item) {
                 if ($this->currency_code == $item->currency_code) {
                     $amount = (double) $item->amount;
                 } else {

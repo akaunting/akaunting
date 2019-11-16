@@ -18,7 +18,7 @@ class BillItem extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'bill_id', 'item_id', 'name', 'price', 'total', 'tax'];
+    protected $fillable = ['company_id', 'bill_id', 'item_id', 'name', 'quantity', 'price', 'total', 'tax'];
 
     /**
      * Clonable relationships.
