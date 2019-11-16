@@ -26,21 +26,19 @@ class CreateInvoiceTransaction
         } catch (\Exception $e) {
             $message = $e->getMessage();
 
-            $user = user();
-
-            if ($user) {
-                if ($user->contact) {
-                    flash($message)->error();
-
-                    redirect()->route('portal.invoices.show', $invoice->id)->send();
-                }
-
-                throw new \Exception($message);
+            if (!$user = user()) {
+                flash($message)->error();
+    
+                redirect()->route('signed.invoices.show', $invoice->id)->send();
             }
 
-            flash($message)->error();
+            if ($user->can('read-client-portal')) {
+                flash($message)->error();
 
-            redirect()->route('signed.invoices.show', $invoice->id)->send();
+                redirect()->route('portal.invoices.show', $invoice->id)->send();
+            }
+
+            throw new \Exception($message);
         }
     }
 }

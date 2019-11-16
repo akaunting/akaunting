@@ -65,7 +65,7 @@ class Bills extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $currency = Currency::where('code', $bil->currency_code)->first();
+        $currency = Currency::where('code', $bill->currency_code)->first();
 
         $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
 

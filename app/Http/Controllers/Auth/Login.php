@@ -84,7 +84,7 @@ class Login extends Controller
         }
 
         // Check if is customer
-        if ($user->contact) {
+        if ($user->can('read-client-portal')) {
             $path = session('url.intended', 'portal');
 
             // Path must start with 'portal' prefix

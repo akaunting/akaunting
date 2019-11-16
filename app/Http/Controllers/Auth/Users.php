@@ -81,7 +81,7 @@ class Users extends Controller
      */
     public function edit(User $user)
     {
-        if ($user->contact) {
+        if ($user->can('read-client-portal')) {
             // Show only roles with customer permission
             $roles = Role::all()->reject(function ($r) {
                 return !$r->hasPermission('read-client-portal');
