@@ -3,7 +3,7 @@
 return [
 
     'success' => [
-        'added'             => ':type adaugat!',
+        'added'             => ':type adăugat!',
         'updated'           => ':type actualizat!',
         'deleted'           => ':type şters!',
         'duplicated'        => ':type duplicat!',
@@ -11,6 +11,7 @@ return [
         'enabled'           => ':type activat!',
         'disabled'          => ':type dezactivat!',
     ],
+
     'error' => [
         'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Eroare: Nu ai permisiunea necesara pentru a gestiona această companie!',
@@ -21,9 +22,11 @@ return [
         'import_column'     => 'Eroare: message Nume foaie lucru: :sheet. Numar linie: :line.',
         'import_sheet'      => 'Eroare: Numele foii de lucru nu este valid. Te rog verifica fisierul mostra.',
     ],
+
     'warning' => [
         'deleted'           => 'Avertisment: Nu ti se permite să ştergi <b>:name</b> deoarece are o legatura cu :text.',
         'disabled'          => 'Avertisment: Nu ti se permite să dezactivezi <b>:name</b> deoarece are o legatura cu :text.',
+        'disable_code'      => 'Atenție: Nu vi se permite să dezactivezi sau sa schimbi valuta <b>:name</b> deoarece este în legătură cu :text.',
     ],
 
 ];

@@ -6,9 +6,11 @@ return [
     'reconciled'            => 'Reconciled',
     'closing_balance'       => 'Closing Balance',
     'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
+    'list_transactions'     => 'فهرست تراکنش‌ها',
+    'start_date'            => 'تاریخ شروع',
+    'end_date'              => 'تاریخ پایان',
     'cleared_amount'        => 'Cleared Amount',
+    'deposit'               => 'سپرده',
+    'withdrawal'            => 'Withdrawal',
 
 ];

@@ -11,6 +11,7 @@ return [
         'enabled'           => ':type aktiveret!',
         'disabled'          => ':type deaktiveret!',
     ],
+
     'error' => [
         'over_payment'      => 'Error: Betaling blev ikke tilføjet! Beløbet du har angivet overstiger: :amount',
         'not_user_company'  => 'Fejl: Du har ikke tilladelse til at kontrollere denne virksomhed!',
@@ -21,9 +22,11 @@ return [
         'import_column'     => 'Error: :message arkets navn: :sheet. Linje nummer: :line.',
         'import_sheet'      => 'Error: Ark navn er ikke valid. Kontroller venligst eksempel filen.',
     ],
+
     'warning' => [
         'deleted'           => 'Advarsel: Du har ikke tilladelse tiil at slette <b>:name</b> fordi den er :text relateret.',
         'disabled'          => 'Advarsel: Du har ikke tilladelse tiil at deaktivere <b>:name</b> fordi den er :text relateret.',
+        'disable_code'      => 'Advarsel: Du må ikke deaktivere eller ændre valutaen i <b>:name</b> , fordi den er :text relateret.',
     ],
 
 ];

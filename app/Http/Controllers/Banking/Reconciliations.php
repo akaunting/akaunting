@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Banking;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Banking\Reconciliation as Request;
+use App\Http\Requests\Banking\ReconciliationCalculate as CalculateRequest;
 use App\Models\Banking\Account;
 use App\Models\Banking\Reconciliation;
 use App\Models\Setting\Currency;
@@ -217,7 +218,7 @@ class Reconciliations extends Controller
             $m::where('account_id', $account->id)->whereBetween('paid_at', [$started[0], $ended[0]])->each(function($item) use(&$transactions, $model) {
                 $item->model = $model;
 
-                if (($model == 'App\Models\Income\Invoice') || ($model == 'App\Models\Income\Revenue')) {
+                if (($model == 'App\Models\Income\InvoicePayment') || ($model == 'App\Models\Income\Revenue')) {
                     if ($item->invoice) {
                         $item->contact = $item->invoice->customer;
                     } else {
@@ -278,22 +279,22 @@ class Reconciliations extends Controller
         return $total;
     }
 
-    public function calculate()
+    public function calculate(CalculateRequest $request)
     {
-        $currency_code = request('currency_code');
-        $closing_balance = request('closing_balance');
+        $currency_code = $request['currency_code'];
+        $closing_balance = $request['closing_balance'];
 
         $json = new \stdClass();
 
         $cleared_amount = $difference = $income_total = $expense_total = 0;
 
-        if ($transactions = request('transactions')) {
-            $opening_balance = request('opening_balance');
+        if ($transactions = $request['transactions']) {
+            $opening_balance = $request['opening_balance'];
 
             foreach ($transactions as $key => $value) {
                 $model = explode('_', $key);
 
-                if (($model[1] == 'App\Models\Income\Invoice') || ($model[1] == 'App\Models\Income\Revenue')) {
+                if (($model[1] == 'App\Models\Income\InvoicePayment') || ($model[1] == 'App\Models\Income\Revenue')) {
                     $income_total += $value;
                 } else {
                     $expense_total += $value;

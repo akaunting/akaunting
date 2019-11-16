@@ -18,7 +18,7 @@ return [
         'current'           => 'Adgangskode',
         'current_confirm'   => 'Bekræft adgangskode',
         'new'               => 'Ny adgangskode',
-        'new_confirm'       => 'Bekræftelse af ny adgangskode',
+        'new_confirm'       => 'Bekræftelse ny adgangskode',
     ],
     
     'error' => [
@@ -26,7 +26,7 @@ return [
         'no_company'        => 'Error: Ingen virksomhed er tilknyttet din konto. Kontakt systemadministratoren.',
     ],
 
-    'failed'                => 'Disse legitimationsoplysninger passer ikke i vores database.',
+    'failed'                => 'Disse legitimationsoplysninger passer ikke med vores optegnelser.',
     'disabled'              => 'Denne konto er deaktiveret. Kontakt systemadministratoren.',
     'throttle'              => 'For mange login forsøg. Prøv igen om :seconds sekunder.',
 

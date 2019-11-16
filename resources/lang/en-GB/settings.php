@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Localisation',
+        'financial_start'   => 'Financial Year Start',
+        'timezone'          => 'Time Zone',
         'date' => [
             'format'        => 'Date Format',
             'separator'     => 'Date Separator',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Slash (/)',
             'space'         => 'Space ( )',
         ],
-        'timezone'          => 'Time Zone',
         'percent' => [
             'title'         => 'Percent (%) Position',
             'before'        => 'Before Number',

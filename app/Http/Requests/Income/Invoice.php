@@ -58,6 +58,7 @@ class Invoice extends Request
     {
         if ($validator->errors()->count()) {
             // Set date
+            
             $invoiced_at = Date::parse($this->request->get('invoiced_at'))->format('Y-m-d');
             $due_at = Date::parse($this->request->get('due_at'))->format('Y-m-d');
             $delivered_at = Date::parse($this->request->get('delivered_at'))->format('Y-m-d');

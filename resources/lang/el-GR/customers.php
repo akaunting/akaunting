@@ -10,7 +10,7 @@ return [
     ],
 
     'notification' => [
-        'message'       => 'Έγινε πληρωμή :amount αντί του τιμολογίου με αριθμό :invoice_number από τον/την :customer.',
+        'message'       => 'Ο πελάτης :customer πραγματοποίησε πληρωμή :amount για το τιμολόγιο με αριθμό :invoice_number.',
         'button'        => 'Εμφάνιση',
     ],
 ];

@@ -4,6 +4,7 @@
     </td>
     <td>
         {{ Form::textGroup('rate', trans('currencies.rate'), 'money', ['required' => 'required'], null, '') }}
+        {{ Form::hidden('type', 'normal') }}
     </td>
     <td class="hidden-xs">
         {{ Form::radioGroup('enabled', trans('general.enabled'), trans('general.yes'), trans('general.no'), [], 'col-md-12 tax-enabled-radio-group') }}

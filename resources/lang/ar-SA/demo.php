@@ -9,8 +9,5 @@ return [
     'currencies_eur'        => 'يورو',
     'currencies_gbp'        => 'جنيه استرليني',
     'currencies_try'        => 'ليرة تركية',
-    'taxes_exempt'          => 'الإعفاء الضريبي',
-    'taxes_normal'          => 'الضريبة العادية',
-    'taxes_sales'           => 'ضريبة المبيعات',
 
 ];

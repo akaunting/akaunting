@@ -24,7 +24,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $appends = ['attachment', 'discount', 'paid'];
+    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid'];
 
     protected $dates = ['deleted_at', 'invoiced_at', 'due_at','delivered_at'];
 
@@ -86,7 +86,7 @@ class Invoice extends Model
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
 
-    public function itemTaxes()
+    public function item_taxes()
     {
         return $this->hasMany('App\Models\Income\InvoiceItemTax');
     }
@@ -118,7 +118,12 @@ class Invoice extends Model
 
     public function scopeDue($query, $date)
     {
-        return $query->where('due_at', '=', $date);
+        return $query->whereDate('due_at', '=', $date);
+    }
+
+    public function scopeDelivered($query, $date)
+    {
+        return $query->where('delivered_at', '=', $date);
     }
 
     public function scopeDelivered($query, $date)
@@ -208,6 +213,22 @@ class Invoice extends Model
         }
 
         return $percent;
+    }
+
+    /**
+     * Get the amount without tax.
+     *
+     * @return string
+     */
+    public function getAmountWithoutTaxAttribute()
+    {
+        $amount = $this->amount;
+
+        $this->totals()->where('code', 'tax')->each(function ($tax) use(&$amount) {
+            $amount -= $tax->amount;
+        });
+
+        return $amount;
     }
 
     /**

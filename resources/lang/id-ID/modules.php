@@ -23,6 +23,9 @@ return [
     'added'                 => 'Menambahkan',
     'updated'               => 'Mempebarui',
     'compatibility'         => 'Kesesuaian',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => ':module terpasang',
     'uninstalled'           => ':module dihapus',

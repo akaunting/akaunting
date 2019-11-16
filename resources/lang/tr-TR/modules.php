@@ -5,6 +5,7 @@ return [
     'title'                 => 'API token',
     'api_token'             => 'Token',
     'my_apps'               => 'Uygulamalarım',
+    'pre_sale'              => 'Ön-Satış',
     'top_paid'              => 'Popüler Ücretli',
     'new'                   => 'Yeni',
     'top_free'              => 'Popüler Ücretsiz',
@@ -23,6 +24,9 @@ return [
     'added'                 => 'Ekleme Tarihi',
     'updated'               => 'Güncelleme Tarihi',
     'compatibility'         => 'Uyumluluk',
+    'documentation'         => 'Dökümantasyon',
+    'view'                  => 'Görüntüle',
+    'back'                  => 'Geri',
 
     'installed'             => ':module yüklendi',
     'uninstalled'           => ':module kaldırıldı',
@@ -34,7 +38,7 @@ return [
         'installation'      => 'Yükleme',
         'faq'               => 'SSS',
         'changelog'         => 'Değişiklikler',
-        'reviews'            => 'İncelemeler',
+        'reviews'            => 'Yorumlar',
     ],
 
     'installation' => [
@@ -43,7 +47,7 @@ return [
         'unzip'             => ':module ayıklanıyor',
         'file_copy'         => ':module dosyaları kopyalanıyor.',
         'migrate'           => ':module uygulama güncellemeleri.',
-        'finish'            => 'Güncelleştirme başarıyla yüklendi. Java Update merkezi yönlendirme olabilir.',
+        'finish'            => 'Güncelleme başarıyla yüklendi. Güncelleme sayfasına yönlendiriliyorsunuz.',
         'install'           => ':module uygulamanın dosyaları yükleniyor.',
     ],
 
@@ -58,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Yüklü',
+        'pre_sale' => 'Ön-Satış',
     ],
 
     'button' => [
@@ -73,8 +78,8 @@ return [
 
     'reviews' => [
         'button' => [
-            'add' => 'İnceleme Ekle'
+            'add' => 'Yorum Ekle'
         ],
-        'na' => 'Herhangi bir inceleme yok.'
+        'na' => 'Herhangi bir yorum yok.'
     ]
 ];

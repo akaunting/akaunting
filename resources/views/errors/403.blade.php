@@ -1,13 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'Forbidden Access')
+@section('title', trans('errors.forbidden_access'))
 
 @section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-body">
-        <h1>You don't have permission.</h1>
+<div class="error-page">
+    <h2 class="headline text-red">403</h2>
+
+    <div class="error-content">
+        <h3><i class="fa fa-ban text-red"></i> {{ trans('errors.body.forbidden_access') }}</h3>
+
+        <p>{!! trans('errors.messages.forbidden_access', ['link' => url('/') ]) !!}</p>
     </div>
-    <!-- /.box-body -->
 </div>
 @endsection

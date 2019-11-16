@@ -4,7 +4,7 @@ namespace Database\Seeds;
 
 use App\Models\Model;
 use Illuminate\Database\Seeder;
-use Setting;
+use Date;
 
 class Settings extends Seeder
 {
@@ -26,10 +26,13 @@ class Settings extends Seeder
     {
         $company_id = $this->command->argument('company');
 
-        Setting::set([
+        setting()->setExtraColumns(['company_id' => $company_id]);
+
+        setting()->set([
+            'general.financial_start'           => Date::now()->startOfYear()->format('d-m'),
+            'general.timezone'                  => 'Europe/London',
             'general.date_format'               => 'd M Y',
             'general.date_separator'            => 'space',
-            'general.timezone'                  => 'Europe/London',
             'general.percent_position'          => 'after',
             'general.invoice_number_prefix'     => 'INV-',
             'general.invoice_number_digit'      => '5',

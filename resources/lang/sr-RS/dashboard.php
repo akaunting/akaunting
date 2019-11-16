@@ -10,7 +10,7 @@ return [
     'payables'                  => 'Дуговања',
     'open_bills'                => 'Отворени рачуни',
     'overdue_bills'             => 'Неплаћени рачуни',
-    'total_profit'              => 'Укупна допит',
+    'total_profit'              => 'Укупна добит',
     'open_profit'               => 'Отворена добит',
     'overdue_profit'            => 'Доспела добит',
     'cash_flow'                 => 'Новчани ток',

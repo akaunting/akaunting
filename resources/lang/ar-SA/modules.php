@@ -5,6 +5,7 @@ return [
     'title'                 => 'رمز API',
     'api_token'             => 'رمز الوصول',
     'my_apps'               => 'تطبيقاتي',
+    'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'أعلى المدفوعات',
     'new'                   => 'جديد',
     'top_free'              => 'المجانيات الأعلى',
@@ -23,6 +24,9 @@ return [
     'added'                 => 'تمت الإضافة',
     'updated'               => 'تم التحديث',
     'compatibility'         => 'التوافق',
+    'documentation'         => 'Documentation',
+    'view'                  => 'View',
+    'back'                  => 'Back',
 
     'installed'             => 'تم تثبيت :module',
     'uninstalled'           => 'تم إلغاء تثبيت :module',
@@ -58,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'مثبت',
+        'pre_sale' => 'Pre-Sale',
     ],
 
     'button' => [

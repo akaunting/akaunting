@@ -4,14 +4,14 @@ return [
 
     'profile'               => 'Profil',
     'logout'                => 'Odhlásit',
-    'login'                 => 'Přihlášení',
-    'login_to'              => 'Přihlasit se a začít relaci',
+    'login'                 => 'Přihlásit',
+    'login_to'              => 'Pro pokračování se, prosím, přihlaste',
     'remember_me'           => 'Pamatuj si mě',
     'forgot_password'       => 'Zapoměl jsem heslo',
-    'reset_password'        => 'Reset hesla',
-    'enter_email'           => 'Zadejte svou emailovou adresu',
-    'current_email'         => 'Aktuální email',
-    'reset'                 => 'Resetovat',
+    'reset_password'        => 'Obnovení hesla',
+    'enter_email'           => 'Zadejte svou e-mailovou adresu',
+    'current_email'         => 'Aktuální e-mail',
+    'reset'                 => 'Obnovit',
     'never'                 => 'nikdy',
     
     'password' => [
@@ -22,18 +22,18 @@ return [
     ],
     
     'error' => [
-        'self_delete'       => 'Chyba: nemůžeš smazat sám sebe!',
-        'no_company'        => 'Chyba: Tvůj účet nemá přidelenou firmu/společnost. Prosím, kontaktujte systémového administrátora.',
+        'self_delete'       => 'Chyba: nemůžete smazat sám sebe!',
+        'no_company'        => 'Chyba: Váš účet nemá přidělenou firmu/společnost. Prosím, kontaktujte systémového administrátora.',
     ],
 
-    'failed'                => 'Tyto přihlašovací údaje neodpovídají žadnému záznamu.',
+    'failed'                => 'Tyto přihlašovací údaje neodpovídají žádnému záznamu.',
     'disabled'              => 'Tento účet je zakázán. Obraťte se na správce systému.',
-    'throttle'              => 'Příliš mnoho pokusů o přihlášení. Zkuste to prosím znovu za :seconds vteřin.',
+    'throttle'              => 'Příliš mnoho pokusů o přihlášení. Zkuste to, prosím, znovu za :seconds vteřin.',
 
     'notification' => [
-        'message_1'     => 'Posíláme Vám tento email, protože jsme obdrželi žádost o resetování hesla.',
-        'message_2'     => 'Pokud jste o reset hesla nežádal, neberte jej v potaz.',
-        'button'        => 'Reset hesla',
+        'message_1'     => 'Posíláme Vám tento e-mail, protože jsme obdrželi žádost o obnovení hesla.',
+        'message_2'     => 'Pokud jste o obnovení hesla nežádal(a), neberte jej v potaz.',
+        'button'        => 'Obnovit heslo',
     ],
 
 ];

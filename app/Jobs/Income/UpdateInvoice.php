@@ -3,6 +3,7 @@
 namespace App\Jobs\Income;
 
 use App\Events\InvoiceUpdated;
+use App\Models\Common\Item;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceTotal;
 use App\Traits\Currencies;
@@ -53,6 +54,22 @@ class UpdateInvoice
         $discount = $this->request['discount'];
 
         if ($this->request['item']) {
+            $items = $this->invoice->items;
+
+            if ($items) {
+                foreach ($items as $item) {
+                    if (empty($item->item_id)) {
+                        continue;
+                    }
+
+                    $item_object = Item::find($item->item_id);
+
+                    // Increase stock
+                    $item_object->quantity += (double) $item->quantity;
+                    $item_object->save();
+                }
+            }
+
             $this->deleteRelationships($this->invoice, 'items');
 
             foreach ($this->request['item'] as $item) {
@@ -90,6 +107,14 @@ class UpdateInvoice
         $amount = $s_total + $tax_total;
 
         $this->request['amount'] = money($amount, $this->request['currency_code'])->getAmount();
+
+        $invoice_paid = $this->invoice->paid;
+
+        unset($this->invoice->reconciled);
+
+        if (($invoice_paid) && $this->request['amount'] > $invoice_paid) {
+            $this->request['invoice_status_code'] = 'partial';
+        }
 
         $this->invoice->update($this->request->input());
 

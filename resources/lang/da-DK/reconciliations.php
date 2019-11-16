@@ -10,5 +10,7 @@ return [
     'start_date'            => 'Start dato',
     'end_date'              => 'Slut dato',
     'cleared_amount'        => 'Afstemt beløb',
+    'deposit'               => 'Indbetal',
+    'withdrawal'            => 'Udbetaling',
 
 ];

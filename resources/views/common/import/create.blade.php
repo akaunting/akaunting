@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', trans('import.title', ['type' => trans_choice('general.' . $type, 2)]))
+@section('title', trans('import.title', ['type' => trans_choice($namespace . 'general.' . snake_case(camel_case($type)), 2)]))
 
 @section('content')
     <div class="box box-success">

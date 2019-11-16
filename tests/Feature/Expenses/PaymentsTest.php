@@ -8,7 +8,6 @@ use Tests\Feature\FeatureTestCase;
 
 class PaymentsTest extends FeatureTestCase
 {
-
     public function testItShouldSeePaymentListPage()
     {
         $this->loginAs()
@@ -82,5 +81,4 @@ class PaymentsTest extends FeatureTestCase
             'attachment' => $attachment,
         ];
     }
-
 }

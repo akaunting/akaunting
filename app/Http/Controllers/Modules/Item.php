@@ -45,12 +45,10 @@ class Item extends Controller
             return redirect('apps/home')->send();
         }
 
-        $check = Module::alias($alias)->first();
-
-        if ($check) {
+        if ($this->moduleExists($alias) && ($model = Module::alias($alias)->first())) {
             $installed = true;
 
-            if ($check->status) {
+            if ($model->status) {
                 $enable = true;
             }
         }
@@ -65,6 +63,10 @@ class Item extends Controller
             }
 
             $module->action_url .= $character . http_build_query($parameters);
+        }
+
+        if ($module->status_type == 'pre_sale') {
+            return view('modules.item.pre_sale', compact('module', 'installed', 'enable'));
         }
 
         return view('modules.item.show', compact('module', 'installed', 'enable'));
@@ -286,8 +288,6 @@ class Item extends Controller
      * Final actions post update.
      *
      * @param  $alias
-     * @param  $old
-     * @param  $new
      * @return Response
      */
     public function post($alias)
@@ -324,5 +324,20 @@ class Item extends Controller
             'message' => null,
             'html' => $html,
         ]);
+    }
+
+    public function documentation($alias)
+    {
+        $this->checkApiToken();
+
+        $documentation = $this->getDocumentation($alias);
+
+        if (empty($documentation)) {
+            return redirect('apps/' . $alias)->send();
+        }
+
+        $back = 'apps/' . $alias;
+
+        return view('modules.item.documentation', compact('documentation', 'back'));
     }
 }

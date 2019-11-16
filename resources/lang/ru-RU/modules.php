@@ -5,6 +5,7 @@ return [
     'title'                 => 'API ключ',
     'api_token'             => 'Ключ',
     'my_apps'               => 'Мои приложения',
+    'pre_sale'              => 'Пред продажа',
     'top_paid'              => 'Топ оплаченных',
     'new'                   => 'Новый',
     'top_free'              => 'Топ бесплатных',
@@ -16,13 +17,16 @@ return [
     'no_apps'               => 'В этой категории еще нет приложений.',
     'developer'             => 'Вы разработчик? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Здесь</a> вы можете узнать, как создать приложение и начать продавать уже сегодня!',
 
-    'recommended_apps'      => 'Recommended Apps',
+    'recommended_apps'      => 'Рекомендуемые приложения',
 
     'about'                 => 'О нас',
 
     'added'                 => 'Добавлено',
     'updated'               => 'Обновлено',
     'compatibility'         => 'Совместимость',
+    'documentation'         => 'Документация',
+    'view'                  => 'Просм.',
+    'back'                  => 'Назад',
 
     'installed'             => ':module установлен',
     'uninstalled'           => ':module удалён',
@@ -58,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Установлено',
+        'pre_sale' => 'Pre-Sale',
     ],
 
     'button' => [
