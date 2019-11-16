@@ -29,8 +29,7 @@ class UsersTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('users.store'), $this->getUserRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('users.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -55,8 +54,7 @@ class UsersTest extends FeatureTestCase
 
         $this->loginAs()
             ->patch(route('users.update', $user->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(route('users.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -67,8 +65,7 @@ class UsersTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('users.destroy', $user->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('users.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }

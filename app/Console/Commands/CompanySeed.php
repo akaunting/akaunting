@@ -38,10 +38,9 @@ class CompanySeed extends Command
     public function handle()
     {
         $class = $this->laravel->make('CompanySeeder');
-        
+
         $seeder = $class->setContainer($this->laravel)->setCommand($this);
-        
+
         $seeder->__invoke();
     }
-
 }

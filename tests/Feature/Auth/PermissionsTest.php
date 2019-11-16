@@ -28,8 +28,7 @@ class PermissionsTest extends FeatureTestCase
     {
         $this->loginAs()
             ->post(route('permissions.store'), $this->getPermissionRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('permissions.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -54,8 +53,7 @@ class PermissionsTest extends FeatureTestCase
 
         $this->loginAs()
             ->patch(route('permissions.update', $permission->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(route('permissions.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -66,8 +64,7 @@ class PermissionsTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('permissions.destroy', $permission->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('permissions.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
 

@@ -1,0 +1,10 @@
+<?php
+
+Route::group([
+    'middleware' => 'admin',
+    'namespace' => 'Modules\$STUDLY_NAME$\Http\Controllers'
+], function () {
+    Route::prefix('$ALIAS$')->group(function() {
+        // Route::get('/', 'Main@index');
+    });
+});

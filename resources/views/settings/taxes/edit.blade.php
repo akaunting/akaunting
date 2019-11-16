@@ -3,48 +3,42 @@
 @section('title', trans('general.title.edit', ['type' => trans_choice('general.tax_rates', 1)]))
 
 @section('content')
-    <!-- Default box -->
-    <div class="box box-success">
+    <div class="card">
         {!! Form::model($tax, [
+            'id' => 'tax',
             'method' => 'PATCH',
-            'url' => ['settings/taxes', $tax->id],
+            'route' => ['taxes.update', $tax->id],
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
+            'files' => true,
             'role' => 'form',
-            'class' => 'form-loading-button'
+            'class' => 'form-loading-button',
+            'novalidate' => true
         ]) !!}
 
-        <div class="box-body">
-            {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+            <div class="card-body">
+                <div class="row">
+                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
-            {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
+                    {{ Form::textGroup('rate', trans('taxes.rate'), 'percent', ['@input' => 'taxRateReplace']) }}
 
-            {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, null) }}
+                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $tax->type) }}
 
-            {{ Form::radioGroup('enabled', trans('general.enabled')) }}
-        </div>
-        <!-- /.box-body -->
+                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                </div>
+            </div>
 
-        @permission('update-settings-taxes')
-        <div class="box-footer">
-            {{ Form::saveButtons('settings/taxes') }}
-        </div>
-        <!-- /.box-footer -->
-        @endpermission
-
+            @permission('update-settings-taxes')
+                <div class="card-footer">
+                    <div class="row float-right">
+                        {{ Form::saveButtons('settings/taxes') }}
+                    </div>
+                </div>
+            @endpermission
         {!! Form::close() !!}
     </div>
 @endsection
 
-@push('scripts')
-    <script type="text/javascript">
-        var text_yes = '{{ trans('general.yes') }}';
-        var text_no = '{{ trans('general.no') }}';
-
-        $(document).ready(function() {
-            $('#name').focus();
-
-            $("#type").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
-            });
-        });
-    </script>
+@push('scripts_start')
+    <script src="{{ asset('public/js/settings/taxes.js?v=' . version('short')) }}"></script>
 @endpush

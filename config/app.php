@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', true),
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,6 +52,8 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -94,6 +96,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Faker Locale
+    |--------------------------------------------------------------------------
+    |
+    | This locale will be used by the Faker PHP library when generating fake
+    | data for your database seeds. For example, this will be used to get
+    | localized telephone numbers, street address information and more.
+    |
+    */
+    'faker_locale' => 'en_GB',
+
+    /*
+    |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
     |
@@ -106,23 +120,6 @@ return [
     'key' => env('APP_KEY', 'JustAKeyForAkauntingInstallation'),
 
     'cipher' => env('APP_CIPHER', 'AES-256-CBC'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => env('APP_LOG', 'single'),
-
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
@@ -171,41 +168,16 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\FormServiceProvider::class,
-        App\Providers\ObserverServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\ValidationServiceProvider::class,
-        App\Providers\ViewComposerServiceProvider::class,
-
-        /*
-         * Vendor Service Providers...
-         */
-        Akaunting\Language\Provider::class,
-        Akaunting\Money\Provider::class,
-        Akaunting\Setting\Provider::class,
-        Akaunting\SignedUrl\Provider::class,
-        Akaunting\Version\Provider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
-        Bkwld\Cloner\ServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        ConsoleTVs\Charts\ChartsServiceProvider::class,
-        Dingo\Api\Provider\LaravelServiceProvider::class,
-        EloquentFilter\ServiceProvider::class,
-        Fideloper\Proxy\TrustedProxyServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-        Jenssegers\Date\DateServiceProvider::class,
-        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
-        Laratrust\LaratrustServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-        Nwidart\Menus\MenusServiceProvider::class,
-        Nwidart\Modules\LaravelModulesServiceProvider::class,
-        Sofa\Eloquence\ServiceProvider::class,
-        Plank\Mediable\MediableServiceProvider::class,
+        App\Providers\App::class,
+        App\Providers\Auth::class,
+        App\Providers\Blade::class,
+        // App\Providers\Broadcast::class,
+        App\Providers\Event::class,
+        App\Providers\Form::class,
+        App\Providers\Observer::class,
+        App\Providers\Route::class,
+        App\Providers\Validation::class,
+        App\Providers\ViewComposer::class,
 
     ],
 
@@ -223,6 +195,7 @@ return [
     'aliases' => [
 
         'App' => Illuminate\Support\Facades\App::class,
+        'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
@@ -241,7 +214,6 @@ return [
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
-        'MediaUploader' => Plank\Mediable\MediaUploaderFacade::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
@@ -253,29 +225,10 @@ return [
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
+        'Str' => Illuminate\Support\Str::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
-        /*
-         * Vendor Aliases...
-         */
-        //'Api' => Dingo\Api\Facade\API,
-        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Date' => Jenssegers\Date\Date::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-        'Image' => Intervention\Image\Facades\Image::class,
-        'Language' => Akaunting\Language\Facade::class,
-        'Laratrust' => Laratrust\LaratrustFacade::class,
-        'Menu' => Nwidart\Menus\Facades\Menu::class,
-        'Module' => Nwidart\Modules\Facades\Module::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Setting' => Akaunting\Setting\Facade::class,
-        'SignedUrl' => Akaunting\SignedUrl\Facade::class,
-        'Version' => Akaunting\Version\Facade::class,
 
     ],
 

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Auth\Permission as Request;
 use App\Models\Auth\Permission;
+use App\Jobs\Auth\CreatePermission;
+use App\Jobs\Auth\DeletePermission;
+use App\Jobs\Auth\UpdatePermission;
 use App\Transformers\Auth\Permission as Transformer;
-use Dingo\Api\Routing\Helpers;
 
 class Permissions extends ApiController
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
@@ -43,9 +43,9 @@ class Permissions extends ApiController
      */
     public function store(Request $request)
     {
-        $permission = Permission::create($request->all());
+        $permission = $this->dispatch(new CreatePermission($request));
 
-        return $this->response->created(url('api/permissions/'.$permission->id));
+        return $this->response->created(url('api/permissions/' . $permission->id));
     }
 
     /**
@@ -57,9 +57,9 @@ class Permissions extends ApiController
      */
     public function update(Permission $permission, Request $request)
     {
-        $permission->update($request->all());
+        $permission = $this->dispatch(new UpdatePermission($permission, $request));
 
-        return $this->response->item($permission->fresh(), new Transformer());
+        return $this->item($permission->fresh(), new Transformer());
     }
 
     /**
@@ -70,8 +70,12 @@ class Permissions extends ApiController
      */
     public function destroy(Permission $permission)
     {
-        $permission->delete();
+        try {
+            $this->dispatch(new DeletePermission($permission));
 
-        return $this->response->noContent();
+            return $this->response->noContent();
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 }

@@ -17,7 +17,7 @@ return [
         'customer'          => 'Error: Корисникот не е додаден! :name веќе ја користи оваа е-маил адреса',
         'no_file'           => 'Грешка: Не е селектирај ниеден фајл!',
         'last_category'     => 'Error: Неможе да се избрише последната :type категорија!',
-        'invalid_token'     => 'Error: Внесениот токен е невалиден!',
+        'invalid_apikey'     => 'Error: Внесениот токен е невалиден!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],

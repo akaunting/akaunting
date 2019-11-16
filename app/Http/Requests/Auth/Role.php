@@ -25,7 +25,7 @@ class Role extends FormRequest
     {
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->role->getAttribute('id');
+            $id = is_numeric($this->role) ? $this->role : $this->role->getAttribute('id');
         } else {
             $id = null;
         }

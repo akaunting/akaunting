@@ -3,30 +3,22 @@
 @section('title', trans_choice('general.notifications', 2))
 
 @section('content')
-<!-- Default box -->
+    <div class="card">
+        <div class="card-header"></div>
 
-<div class="box box-success">
-    <div class="box-header with-border">
-    </div>
-    <!-- /.box-header -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-notifications">
-                <thead>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+        <div class="card-footer">
+            @include('partials.admin.pagination', ['items' => $notifications, 'type' => 'notifications'])
         </div>
     </div>
-    <!-- /.box-body -->
-
-    <div class="box-footer">
-        @include('partials.admin.pagination', ['items' => $notifications, 'type' => 'notifications'])
-    </div>
-    <!-- /.box-footer -->
-</div>
-<!-- /.box -->
 @endsection
-

@@ -1,0 +1,32 @@
+.el-tag.el-tag--primary{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: .625rem .625rem .5rem;
+  height: 33px;
+  margin: .125rem;
+  border-radius: $input-border-radius;
+  background: $tag-bg;
+  color: $tag-color;
+  line-height: 1.5;
+  cursor: pointer;
+  font-weight: 600;
+  @include box-shadow($tag-box-shadow);
+  @include transition($transition-base);
+
+  .el-tag__close.el-icon-close {
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+  }
+}
+
+
+.tags-input__wrapper {
+  display: flex;
+
+  input.form-control {
+    border: none;
+    box-shadow: none;
+  }
+}

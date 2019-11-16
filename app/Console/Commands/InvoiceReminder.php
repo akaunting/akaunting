@@ -41,9 +41,11 @@ class InvoiceReminder extends Command
     public function handle()
     {
         // Get all companies
-        $companies = Company::all();
+        $companies = Company::enabled()->cursor();
 
         foreach ($companies as $company) {
+            $this->info('Sending invoice reminders for ' . $company->name . ' company.');
+
             // Set company id
             session(['company_id' => $company->id]);
 
@@ -51,14 +53,14 @@ class InvoiceReminder extends Command
             Overrider::load('settings');
             Overrider::load('currencies');
 
-            $company->setSettings();
-
             // Don't send reminders if disabled
-            if (!$company->send_invoice_reminder) {
+            if (!setting('schedule.send_invoice_reminder')) {
+                $this->info('Invoice reminders disabled by ' . $company->name . '.');
+
                 continue;
             }
 
-            $days = explode(',', $company->schedule_invoice_days);
+            $days = explode(',', setting('schedule.invoice_days'));
 
             foreach ($days as $day) {
                 $day = (int) trim($day);
@@ -69,6 +71,7 @@ class InvoiceReminder extends Command
 
         // Unset company_id
         session()->forget('company_id');
+        setting()->forgetAll();
     }
 
     protected function remind($day, $company)
@@ -76,13 +79,13 @@ class InvoiceReminder extends Command
         // Get due date
         $date = Date::today()->subDays($day)->toDateString();
 
-        // Get upcoming bills
-        $invoices = Invoice::with('customer')->accrued()->notPaid()->due($date)->get();
+        // Get upcoming invoices
+        $invoices = Invoice::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($invoices as $invoice) {
             // Notify the customer
-            if ($invoice->customer && !empty($invoice->customer_email)) {
-                $invoice->customer->notify(new Notification($invoice));
+            if ($invoice->contact && !empty($invoice->contact_email)) {
+                $invoice->contact->notify(new Notification($invoice, 'invoice_remind_customer'));
             }
 
             // Notify all users assigned to this company
@@ -91,7 +94,7 @@ class InvoiceReminder extends Command
                     continue;
                 }
 
-                $user->notify(new Notification($invoice));
+                $user->notify(new Notification($invoice, 'invoice_remind_admin'));
             }
         }
     }

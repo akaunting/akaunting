@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Income;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class InvoiceTotal extends Request
+class InvoiceTotal extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

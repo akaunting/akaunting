@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use File;
+use Illuminate\Support\Str;
 
 class RedirectIfNotInstalled
 {
@@ -22,11 +23,11 @@ class RedirectIfNotInstalled
         }
 
         // Already in the wizard
-        if (starts_with($request->getPathInfo(), '/install')) {
+        if (Str::startsWith($request->getPathInfo(), '/install')) {
             return $next($request);
         }
 
         // Not installed, redirect to installation wizard
-        redirect('install/requirements')->send();
+        redirect()->route('install.requirements')->send();
     }
 }

@@ -8,6 +8,7 @@ use Artisan;
 use Config;
 use DB;
 use File;
+use Illuminate\Support\Str;
 
 /**
  * Class Installer
@@ -176,7 +177,7 @@ class Installer
 
     public static function saveDbVariables($host, $port, $database, $username, $password)
     {
-        $prefix = strtolower(str_random(3) . '_');
+        $prefix = strtolower(Str::random(3) . '_');
 
         // Update .env file
         static::updateEnv([
@@ -215,10 +216,10 @@ class Installer
         // Set settings
         setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->set([
-            'general.company_name'          => $name,
-            'general.company_email'         => $email,
-            'general.default_currency'      => 'USD',
-            'general.default_locale'        => $locale,
+            'company.name'          => $name,
+            'company.email'         => $email,
+            'default.currency'     => 'USD',
+            'default.locale'       => $locale,
         ]);
         setting()->save();
     }
@@ -238,15 +239,21 @@ class Installer
 
         // Attach company
         $user->companies()->attach('1');
+
+        Artisan::call('user:seed', [
+            'user' => $user->id,
+            'company' => 1
+        ]);
     }
 
     public static function finalTouches()
     {
         // Update .env file
         static::updateEnv([
-            'APP_LOCALE'    =>  session('locale'),
-            'APP_INSTALLED' =>  'true',
-            'APP_DEBUG'     =>  'false',
+            'APP_LOCALE'        =>  session('locale'),
+            'APP_INSTALLED'     =>  'true',
+            'APP_DEBUG'         =>  'false',
+            'FIREWALL_ENABLED'  =>  'true',
         ]);
 
         // Rename the robots.txt file

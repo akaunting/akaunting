@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Api\Common;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Common\Item as Request;
+use App\Jobs\Common\CreateItem;
+use App\Jobs\Common\DeleteItem;
+use App\Jobs\Common\UpdateItem;
 use App\Models\Common\Item;
 use App\Transformers\Common\Item as Transformer;
-use Dingo\Api\Routing\Helpers;
+use App\Traits\Uploads;
 
 class Items extends ApiController
 {
-    use Helpers;
+    use Uploads;
 
     /**
      * Display a listing of the resource.
@@ -32,12 +35,7 @@ class Items extends ApiController
      */
     public function show($id)
     {
-        // Check if we're querying by id or sku
-        if (is_numeric($id)) {
-            $item = Item::with(['category', 'tax'])->find($id);
-        } else {
-            $item = Item::with(['category', 'tax'])->where('sku', $id)->first();
-        }
+        $item = Item::with(['category', 'tax'])->find($id);
 
         return $this->response->item($item, new Transformer());
     }
@@ -50,9 +48,9 @@ class Items extends ApiController
      */
     public function store(Request $request)
     {
-        $item = Item::create($request->all());
+        $item = $this->dispatch(new CreateItem($request));
 
-        return $this->response->created(url('api/items/'.$item->id));
+        return $this->response->created(url('api/items/' . $item->id));
     }
 
     /**
@@ -64,9 +62,35 @@ class Items extends ApiController
      */
     public function update(Item $item, Request $request)
     {
-        $item->update($request->all());
+        $item = $this->dispatch(new UpdateItem($item, $request));
 
-        return $this->response->item($item->fresh(), new Transformer());
+        return $this->item($item->fresh(), new Transformer());
+    }
+
+    /**
+     * Enable the specified resource in storage.
+     *
+     * @param  Item  $item
+     * @return \Dingo\Api\Http\Response
+     */
+    public function enable(Item $item)
+    {
+        $item = $this->dispatch(new UpdateItem($item, request()->merge(['enabled' => 1])));
+
+        return $this->item($item->fresh(), new Transformer());
+    }
+
+    /**
+     * Disable the specified resource in storage.
+     *
+     * @param  Item  $item
+     * @return \Dingo\Api\Http\Response
+     */
+    public function disable(Item $item)
+    {
+        $item = $this->dispatch(new UpdateItem($item, request()->merge(['enabled' => 0])));
+
+        return $this->item($item->fresh(), new Transformer());
     }
 
     /**
@@ -77,8 +101,12 @@ class Items extends ApiController
      */
     public function destroy(Item $item)
     {
-        $item->delete();
+        try {
+            $this->dispatch(new DeleteItem($item));
 
-        return $this->response->noContent();
+            return $this->response->noContent();
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 }

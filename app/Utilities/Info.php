@@ -25,7 +25,7 @@ class Info
     {
         $data = static::versions();
 
-        $data['token'] = setting('general.api_token');
+        $data['token'] = setting('apps.api_key');
 
         $data['companies'] = Company::all()->count();
 

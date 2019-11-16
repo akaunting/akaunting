@@ -6,7 +6,6 @@ use Date;
 
 trait DateTime
 {
-
     /*
      * Get the date format based on company settings.
      * getDateFormat method is used by Eloquent
@@ -15,31 +14,44 @@ trait DateTime
      */
     public function getCompanyDateFormat()
     {
+        $default = 'd M Y';
+
+        // Make sure it's installed
+        if (!env('APP_INSTALLED') && (env('APP_ENV') !== 'testing')) {
+            return $default;
+        }
+
+        // Make user is logged in
+        if (!user()) {
+            return $default;
+        }
+
         $chars = ['dash' => '-', 'slash' => '/', 'dot' => '.', 'comma' => ',', 'space' => ' '];
 
-        $date_format = setting('general.date_format', 'd F Y');
-        $date_separator = $chars[setting('general.date_separator', 'space')];
+        $date_format = setting('localisation.date_format', $default);
+        $date_separator = $chars[setting('localisation.date_separator', 'space')];
 
         return str_replace(' ', $date_separator, $date_format);
     }
 
     public function scopeMonthsOfYear($query, $field)
     {
-        $year = request('year', Date::now()->year);
+        $now = Date::now();
+        $year = request('year', $now->year);
 
-        $start = Date::parse($year . '-01-01')->startOfDay()->format('Y-m-d H:i:s');
-        $end = Date::parse($year . '-12-31')->endOfDay()->format('Y-m-d  H:i:s');
-        
-        // check if financial year has been customized
         $financial_start = $this->getFinancialStart();
 
-        if (Date::now()->startOfYear()->format('Y-m-d') !== $financial_start->format('Y-m-d')) {
+        // Check if FS has been customized
+        if ($now->startOfYear()->format('Y-m-d') === $financial_start->format('Y-m-d')) {
+            $start = Date::parse($year . '-01-01')->startOfDay()->format('Y-m-d H:i:s');
+            $end = Date::parse($year . '-12-31')->endOfDay()->format('Y-m-d H:i:s');
+        } else {
             if (!is_null(request('year'))) {
                 $financial_start->year = $year;
             }
 
-            $start = $financial_start->format('Y-m-d');
-            $end = $financial_start->addYear(1)->subDays(1)->format('Y-m-d');
+            $start = $financial_start->format('Y-m-d H:i:s');
+            $end = $financial_start->addYear(1)->subDays(1)->format('Y-m-d H:i:s');
         }
 
         return $query->whereBetween($field, [$start, $end]);
@@ -85,13 +97,51 @@ trait DateTime
 
     public function getFinancialStart()
     {
-        $now = Date::now()->startOfYear();
+        $now = Date::now();
+        $start = Date::now()->startOfYear();
 
-        $setting = explode('-', setting('general.financial_start'));
+        $setting = explode('-', setting('localisation.financial_start'));
 
-        $day = !empty($setting[0]) ? $setting[0] : $now->day;
-        $month = !empty($setting[1]) ? $setting[1] : $now->month;
+        $day = !empty($setting[0]) ? $setting[0] : $start->day;
+        $month = !empty($setting[1]) ? $setting[1] : $start->month;
+        $year = request('year', $now->year);
 
-        return Date::create(null, $month, $day);
+        $financial_start = Date::create($year, $month, $day);
+
+        // Check if FS is in last calendar year
+        if ($now->diffInDays($financial_start, false) > 0) {
+            $financial_start->subYear();
+        }
+
+        return $financial_start;
+    }
+
+    public function getMonthlyDateFormat()
+    {
+        $format = 'M';
+
+        if ($this->getFinancialStart()->month != 1) {
+            $format = 'M Y';
+        }
+
+        return $format;
+    }
+
+    public function getQuarterlyDateFormat()
+    {
+        $format = 'M';
+
+        if ($this->getFinancialStart()->month != 1) {
+            $format = 'M Y';
+        }
+
+        return $format;
+    }
+
+    public function getYearlyDateFormat()
+    {
+        $format = 'Y';
+
+        return $format;
     }
 }

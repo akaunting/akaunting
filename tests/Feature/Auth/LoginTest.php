@@ -19,8 +19,7 @@ class LoginTest extends FeatureTestCase
     public function testItShouldLoginUser()
     {
         $this->post(route('login'), ['email' => $this->user->email, 'password' => $this->user->password])
-            ->assertStatus(302)
-            ->assertRedirect(url('/'));
+            ->assertStatus(200);
 
         $this->isAuthenticated($this->user->user);
     }

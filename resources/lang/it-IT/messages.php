@@ -18,7 +18,7 @@ return [
         'customer'          => 'Errore: Utente non creato! :name usa già questo indirizzo email.',
         'no_file'           => 'Errore: Nessun file selezionato!',
         'last_category'     => 'Errore: Non è possibile eliminare l\'ultimo categoria di :type!',
-        'invalid_token'     => 'Errore: Il token inserito non è valido!',
+        'invalid_apikey'     => 'Errore: Il token inserito non è valido!',
         'import_column'     => 'Errore: :message Foglio nome: :sheet. Riga numero: :line.',
         'import_sheet'      => 'Errore: Il nome del foglio non è valido. Vi preghiamo di controllare il file di esempio.',
     ],

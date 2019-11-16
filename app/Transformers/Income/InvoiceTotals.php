@@ -22,8 +22,8 @@ class InvoiceTotals extends TransformerAbstract
             'name' => $model->name,
             'amount' => $model->amount,
             'sort_order' => $model->sort_order,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
+            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
     }
 }

@@ -26,5 +26,4 @@ class LoadSettings
 
         return $next($request);
     }
-
 }

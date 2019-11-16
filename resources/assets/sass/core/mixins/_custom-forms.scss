@@ -1,0 +1,47 @@
+@mixin custom-checkbox-variant($color) {
+    .custom-control-input {
+        &:checked {
+            ~ .custom-control-label {
+                &::before {
+                    border-color: $color;
+                    @include gradient-bg($color);
+                }
+                &::after {
+                    background-image: $color;
+                }
+            }
+        }
+    }
+
+}
+
+@mixin custom-toggle-variant($color) {
+    input {
+        &:checked {
+             + .custom-toggle-slider {
+                border-color: $color;
+
+                &:before {
+                    background: $color;
+                }
+
+
+				&:after {
+					color: $color;
+				}
+            }
+        }
+
+        &:disabled {
+            &:checked {
+                + .custom-toggle-slider {
+                    border-color: $color;
+
+                    &:before {
+                        background-color: lighten($color, 10%);
+                    }
+                }
+            }
+        }
+    }
+}

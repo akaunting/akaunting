@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Banking;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class ReconciliationCalculate extends Request
+class ReconciliationCalculate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

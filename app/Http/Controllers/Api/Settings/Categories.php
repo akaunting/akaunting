@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\Settings;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Setting\Category as Request;
+use App\Jobs\Setting\CreateCategory;
+use App\Jobs\Setting\DeleteCategory;
+use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
 use App\Transformers\Setting\Category as Transformer;
-use Dingo\Api\Routing\Helpers;
 
 class Categories extends ApiController
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
@@ -43,9 +43,9 @@ class Categories extends ApiController
      */
     public function store(Request $request)
     {
-        $category = Category::create($request->all());
+        $category = $this->dispatch(new CreateCategory($request));
 
-        return $this->response->created(url('api/categories/'.$category->id));
+        return $this->response->created(url('api/categories/' . $category->id));
     }
 
     /**
@@ -57,9 +57,43 @@ class Categories extends ApiController
      */
     public function update(Category $category, Request $request)
     {
-        $category->update($request->all());
+        try {
+            $category = $this->dispatch(new UpdateCategory($category, $request));
 
-        return $this->response->item($category->fresh(), new Transformer());
+            return $this->item($category->fresh(), new Transformer());
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
+    }
+
+    /**
+     * Enable the specified resource in storage.
+     *
+     * @param  Category  $category
+     * @return \Dingo\Api\Http\Response
+     */
+    public function enable(Category $category)
+    {
+        $category = $this->dispatch(new UpdateCategory($category, request()->merge(['enabled' => 1])));
+
+        return $this->item($category->fresh(), new Transformer());
+    }
+
+    /**
+     * Disable the specified resource in storage.
+     *
+     * @param  Category  $category
+     * @return \Dingo\Api\Http\Response
+     */
+    public function disable(Category $category)
+    {
+        try {
+            $category = $this->dispatch(new UpdateCategory($category, request()->merge(['enabled' => 0])));
+
+            return $this->item($category->fresh(), new Transformer());
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 
     /**
@@ -70,8 +104,12 @@ class Categories extends ApiController
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        try {
+            $this->dispatch(new DeleteCategory($category));
 
-        return $this->response->noContent();
+            return $this->response->noContent();
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 }

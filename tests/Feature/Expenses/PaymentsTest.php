@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Expenses;
 
-use App\Models\Expense\Payment;
+use App\Models\Banking\Transaction;
 use Illuminate\Http\UploadedFile;
 use Tests\Feature\FeatureTestCase;
 
@@ -11,7 +11,7 @@ class PaymentsTest extends FeatureTestCase
     public function testItShouldSeePaymentListPage()
     {
         $this->loginAs()
-            ->get(url('expenses/payments'))
+            ->get(route('payments.index'))
             ->assertStatus(200)
             ->assertSeeText(trans_choice('general.payments', 2));
     }
@@ -19,7 +19,7 @@ class PaymentsTest extends FeatureTestCase
     public function testItShouldSeePaymentCreatePage()
     {
         $this->loginAs()
-            ->get(url('expenses/payments/create'))
+            ->get(route('payments.create'))
             ->assertStatus(200)
             ->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.payments', 1)]));
     }
@@ -27,9 +27,8 @@ class PaymentsTest extends FeatureTestCase
     public function testItShouldCreatePayment()
     {
         $this->loginAs()
-            ->post(url('expenses/payments'), $this->getPaymentRequest())
-            ->assertStatus(302)
-            ->assertRedirect(url('expenses/payments'));
+            ->post(route('payments.store'), $this->getPaymentRequest())
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -38,26 +37,24 @@ class PaymentsTest extends FeatureTestCase
     {
         $request = $this->getPaymentRequest();
 
-        $payment = Payment::create($request);
+        $payment = Transaction::create($request);
 
         $request['name'] = $this->faker->text(15);
 
         $this->loginAs()
-            ->patch(url('expenses/payments', $payment->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(url('expenses/payments'));
+            ->patch(route('payments.update', $payment->id), $request)
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldDeletePayment()
     {
-        $payment = Payment::create($this->getPaymentRequest());
+        $payment = Transaction::create($this->getPaymentRequest());
 
         $this->loginAs()
-            ->delete(url('expenses/payments', $payment->id))
-            ->assertStatus(302)
-            ->assertRedirect(url('expenses/payments'));
+            ->delete(route('payments.destroy', $payment->id))
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -68,15 +65,15 @@ class PaymentsTest extends FeatureTestCase
 
         return [
             'company_id' => $this->company->id,
-            'account_id' => setting('general.default_account'),
-            'vendor_id' => '',
+            'type' => 'expense',
+            'account_id' => setting('default.account'),
             'paid_at' => $this->faker->date(),
             'amount' => $this->faker->randomFloat(2, 2),
-            'currency_code' => setting('general.default_currency'),
+            'currency_code' => setting('default.currency'),
             'currency_rate' => '1',
             'description' => $this->faker->text(5),
             'category_id' => $this->company->categories()->type('expense')->first()->id,
-            'payment_method' => setting('general.default_payment_method'),
+            'payment_method' => setting('default.payment_method'),
             'reference' => $this->faker->text(5),
             'attachment' => $attachment,
         ];

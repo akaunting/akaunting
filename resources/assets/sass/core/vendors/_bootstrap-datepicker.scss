@@ -1,0 +1,279 @@
+//
+// Bootstrap datepicker
+//
+
+
+.datepicker {
+    border-radius: $datepicker-border-radius;
+
+    &-inline {
+        width: 220px;
+    }
+
+    direction: ltr;
+
+    &-rtl {
+        direction: rtl;
+        &.dropdown-menu {
+            left: auto;
+        }
+        table tr td span {
+            float: right;
+        }
+    }
+
+    &-dropdown {
+        top: 0;
+        left: 0;
+        padding: $datepicker-dropdown-padding;
+        @include box-shadow($dropdown-box-shadow);
+
+        &.datepicker-orient-left:before {
+            left: 6px;
+        }
+        &.datepicker-orient-left:after {
+            left: 7px;
+        }
+        &.datepicker-orient-right:before {
+            right: 6px;
+        }
+        &.datepicker-orient-right:after {
+            right: 7px;
+        }
+        &.datepicker-orient-bottom:before {
+            top: -7px;
+        }
+        &.datepicker-orient-bottom:after {
+            top: -6px;
+        }
+
+        &.datepicker-orient-top:before {
+            bottom: -7px;
+            border-bottom: 0;
+            border-top: 7px solid $datepicker-dropdown-border;
+        }
+
+        &.datepicker-orient-top:after {
+            bottom: -6px;
+            border-bottom: 0;
+            border-top: 6px solid $datepicker-dropdown-bg;
+        }
+    }
+
+    table {
+        margin: 0;
+        -webkit-touch-callout: none;
+        user-select: none;
+
+        tr {
+            td {
+                border-radius: $datepicker-cell-border-radius;
+            }
+
+            th {
+                border-radius: $datepicker-header-cell-border-radius;
+                font-weight: 500;
+            }
+
+            td,
+            th {
+                transition: $datepicker-cell-transition;
+                width: $datepicker-cell-width;
+                height: $datepicker-cell-height;
+                border: none;
+                text-align: center;
+                font-size: $font-size-sm;
+            }
+        }
+    }
+
+    // Inline display inside a table presents some problems with
+    // border and background colors.
+    .table-striped & table tr {
+        td,
+        th {
+            background-color: transparent;
+        }
+    }
+
+    table tr td {
+        &.old,
+        &.new {
+            color: $datepicker-disabled-old-new-color;
+        }
+
+        &.day:hover,
+        &.focused {
+            background: $datepicker-cell-hover-background;
+            cursor: pointer;
+        }
+
+        &.disabled,
+        &.disabled:hover {
+            background: none;
+            color: $datepicker-disabled-cell-color;
+            cursor: default;
+        }
+
+        &.highlighted {
+            border-radius: 0;
+
+            &.focused {
+                background: $datepicker-highlighted-bg
+            }
+
+            &.disabled,
+            &.disabled:active {
+                background: $datepicker-highlighted-bg;
+                color: $gray-400;
+            }
+        }
+
+        &.today {
+            background: lighten($datepicker-active-background, 45%);
+            &.focused {
+                background: lighten($gray-400, 58%);
+            }
+
+            &.disabled,
+            &.disabled:active {
+                background: lighten($gray-400, 58%);
+                color: $btn-link-disabled-color;
+            }
+        }
+
+        // Range selection
+        &.range {
+            background: $datepicker-range-background;
+            color: $datepicker-range-color;
+            border-radius: 0;
+
+            &.focused {
+                background: darken($datepicker-range-cell-focused-background, 3%);
+            }
+
+            &.disabled,
+            &.disabled:active,
+            &.day.disabled:hover {
+                background: darken($datepicker-active-background, 10%);
+                color: lighten($datepicker-active-background, 10%);
+            }
+        }
+
+        &.range.highlighted {
+            &.focused {
+                background: darken($datepicker-range-highlighted-bg, 10%);
+            }
+
+            &.disabled,
+            &.disabled:active {
+                background: $datepicker-range-highlighted-bg;
+                color: $datepicker-disabled-cell-color;
+            }
+        }
+
+        &.range.today {
+            &.disabled,
+            &.disabled:active {
+                background: $blue;
+                color: $white;
+            }
+        }
+
+        &.day.range-start {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &.day.range-end {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &.day.range-start.range-end {
+            border-radius: $datepicker-cell-border-radius;
+        }
+
+        &.selected,
+        &.selected.highlighted,
+        &.selected:hover,
+        &.selected.highlighted:hover,
+        &.day.range:hover {
+            background: $datepicker-active-background;
+            color: $datepicker-active-color;
+        }
+
+        &.active,
+        &.active.highlighted,
+        &.active:hover,
+        &.active.highlighted:hover {
+            background: $datepicker-active-background;
+            color: $datepicker-active-color;
+            box-shadow: $datepicker-active-box-shadow;
+        }
+
+        span {
+            display: block;
+            width: 23%;
+            height: 54px;
+            line-height: 54px;
+            float: left;
+            margin: 1%;
+            cursor: pointer;
+            border-radius: 4px;
+
+            &:hover,
+            &.focused {
+                background: $gray-200;
+            }
+
+            &.disabled,
+            &.disabled:hover {
+                background: none;
+                color: $datepicker-disabled-cell-color;
+                cursor: default;
+            }
+
+            &.active,
+            &.active:hover,
+            &.active.disabled,
+            &.active.disabled:hover {
+                text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
+            }
+
+            &.old,
+            &.new {
+                color: $btn-link-disabled-color;
+            }
+        }
+    }
+
+    .datepicker-switch {
+        width: 145px;
+    }
+
+    .datepicker-switch,
+    .prev,
+    .next,
+    tfoot tr th {
+        cursor: pointer;
+        &:hover {
+            background: $gray-200;
+        }
+    }
+
+    .prev,
+    .next {
+        &.disabled {
+            visibility: hidden;
+        }
+    }
+
+    // Basic styling for calendar-week cells
+    .cw {
+        font-size: 10px;
+        width: 12px;
+        padding: 0 2px 0 5px;
+        vertical-align: middle;
+    }
+}

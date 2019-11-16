@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
+use App\Http\Requests\Auth\Login as Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Str;
 
 class Login extends Controller
 {
@@ -46,47 +48,81 @@ class Login extends Controller
         return view('auth.login.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
         // Attempt to login
-        if (!auth()->attempt(request(['email', 'password']), request('remember', false))) {
-            flash(trans('auth.failed'))->error();
+        if (!auth()->attempt($request->only('email', 'password'), $request->get('remember', false))) {
+            $response = [
+                'status' => null,
+                'success' => false,
+                'error' => true,
+                'message' => trans('auth.failed'),
+                'data' => null,
+                'redirect' => null,
+            ];
 
-            return back();
+            return response()->json($response);
         }
 
         // Get user object
-        $user = auth()->user();
+        $user = user();
 
         // Check if user is enabled
         if (!$user->enabled) {
             $this->logout();
 
-            flash(trans('auth.disabled'))->error();
+            $response = [
+                'status' => null,
+                'success' => false,
+                'error' => true,
+                'message' => trans('auth.disabled'),
+                'data' => null,
+                'redirect' => null,
+            ];
 
-            return redirect('auth/login');
+            return response()->json($response);
         }
 
         // Check if is customer
-        if ($user->customer) {
-            $path = session('url.intended', 'customers');
+        if ($user->contact) {
+            $path = session('url.intended', 'portal');
 
-            // Path must start with 'customers' prefix
-            if (!str_contains($path, 'customers')) {
-                $path = 'customers';
+            // Path must start with 'portal' prefix
+            if (!Str::startsWith($path, 'portal')) {
+                $path = 'portal';
             }
 
-            return redirect($path);
+            $response = [
+                'status' => null,
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => null,
+                'redirect' => url($path),
+            ];
+
+            return response()->json($response);
         }
 
-        return redirect()->intended('wizard');
+        session(['dashboard_id' => $user->dashboards()->pluck('id')->first()]);
+
+        $response = [
+            'status' => null,
+            'success' => true,
+            'error' => false,
+            'message' => null,
+            'data' => null,
+            'redirect' => redirect()->intended('wizard')->getTargetUrl(),
+        ];
+
+        return response()->json($response);
     }
 
     public function destroy()
     {
         $this->logout();
 
-        return redirect('auth/login');
+        return redirect()->route('login');
     }
 
     public function logout()

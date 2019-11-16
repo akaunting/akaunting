@@ -2,11 +2,8 @@
 
 namespace App\Transformers\Expense;
 
-use App\Transformers\Expense\BillHistories;
-use App\Transformers\Expense\BillItems;
-use App\Transformers\Expense\BillPayments;
-use App\Transformers\Expense\BillStatus;
-use App\Transformers\Expense\Vendor;
+use App\Transformers\Banking\Transaction;
+use App\Transformers\Common\Contact;
 use App\Transformers\Setting\Currency;
 use App\Models\Expense\Bill as Model;
 use League\Fractal\TransformerAbstract;
@@ -16,7 +13,7 @@ class Bill extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['currency', 'histories', 'items', 'payments', 'status', 'vendor'];
+    protected $defaultIncludes = ['contact', 'currency', 'histories', 'items', 'status', 'transactions'];
 
     /**
      * @param Model $model
@@ -30,22 +27,31 @@ class Bill extends TransformerAbstract
             'bill_number' => $model->bill_number,
             'order_number' => $model->order_number,
             'bill_status_code' => $model->invoice_status_code,
-            'billed_at' => $model->billed_at->toIso8601String(),
-            'due_at' => $model->due_at->toIso8601String(),
+            'billed_at' => $model->billed_at ? $model->billed_at->toIso8601String() : '',
+            'due_at' => $model->due_at ? $model->due_at->toIso8601String() : '',
             'amount' => $model->amount,
             'currency_code' => $model->currency_code,
             'currency_rate' => $model->currency_rate,
-            'vendor_id' => $model->vendor_id,
-            'vendor_name' => $model->vendor_name,
-            'vendor_email' => $model->vendor_email,
-            'vendor_tax_number' => $model->vendor_tax_number,
-            'vendor_phone' => $model->vendor_phone,
-            'vendor_address' => $model->vendor_address,
+            'contact_id' => $model->contact_id,
+            'contact_name' => $model->contact_name,
+            'contact_email' => $model->contact_email,
+            'contact_tax_number' => $model->contact_tax_number,
+            'contact_phone' => $model->contact_phone,
+            'contact_address' => $model->contact_address,
             'notes' => $model->notes,
             'attachment' => $model->attachment,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
+            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeContact(Model $model)
+    {
+        return $this->item($model->contact, new Contact());
     }
 
     /**
@@ -77,15 +83,6 @@ class Bill extends TransformerAbstract
 
     /**
      * @param Model $model
-     * @return \League\Fractal\Resource\Collection
-     */
-    public function includePayments(Model $model)
-    {
-        return $this->collection($model->payments, new BillPayments());
-    }
-
-    /**
-     * @param Model $model
      * @return \League\Fractal\Resource\Item
      */
     public function includeStatus(Model $model)
@@ -95,10 +92,10 @@ class Bill extends TransformerAbstract
 
     /**
      * @param Model $model
-     * @return \League\Fractal\Resource\Item
+     * @return \League\Fractal\Resource\Collection
      */
-    public function includeVendor(Model $model)
+    public function includeTransactions(Model $model)
     {
-        return $this->item($model->vendor, new Vendor());
+        return $this->collection($model->transactions, new Transaction());
     }
 }

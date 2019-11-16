@@ -12,7 +12,7 @@ class InvoiceReminderTest extends FeatureTestCase
 {
     private $addDay;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -51,23 +51,23 @@ class InvoiceReminderTest extends FeatureTestCase
         $items = [['name' => $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
 
         $data = [
-            'customer_id' => '0',
+            'contact_id' => '0',
             'invoiced_at' => $this->faker->date(),
             'due_at' => Date::now()->addDay($this->addDay - 1),
             'invoice_number' => '1',
             'order_number' => '1',
-            'currency_code' => setting('general.default_currency'),
+            'currency_code' => setting('default.currency'),
             'currency_rate' => '1',
             'item' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
             'category_id' => $this->company->categories()->type('income')->first()->id,
             'recurring_frequency' => 'no',
-            'customer_name' => $this->faker->name,
-            'customer_email' => $this->faker->email,
-            'customer_tax_number' => null,
-            'customer_phone' => null,
-            'customer_address' => $this->faker->address,
+            'contact_name' => $this->faker->name,
+            'contact_email' => $this->faker->email,
+            'contact_tax_number' => null,
+            'contact_phone' => null,
+            'contact_address' => $this->faker->address,
             'invoice_status_code' => 'sent',
             'amount' => $amount,
             'company_id' => $this->company->id,

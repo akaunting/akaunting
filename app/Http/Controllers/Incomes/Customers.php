@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers\Incomes;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Income\Customer as Request;
-use App\Models\Auth\User;
-use App\Models\Income\Customer;
+use App\Abstracts\Http\Controller;
+use App\Exports\Incomes\Customers as Export;
+use App\Http\Requests\Common\Contact as Request;
+use App\Http\Requests\Common\Import as ImportRequest;
+use App\Imports\Incomes\Customers as Import;
+use App\Jobs\Common\CreateContact;
+use App\Jobs\Common\DeleteContact;
+use App\Jobs\Common\UpdateContact;
+use App\Models\Banking\Transaction;
+use App\Models\Common\Contact;
 use App\Models\Income\Invoice;
-use App\Models\Income\Revenue;
 use App\Models\Setting\Currency;
-use App\Utilities\Import;
-use App\Utilities\ImportFile;
+use App\Traits\Contacts;
 use Date;
-use Illuminate\Http\Request as FRequest;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
+use Illuminate\Http\Request as BaseRequest;
 
 class Customers extends Controller
 {
+    use Contacts;
 
     /**
      * Display a listing of the resource.
@@ -27,7 +29,7 @@ class Customers extends Controller
      */
     public function index()
     {
-        $customers = Customer::collect();
+        $customers = Contact::type($this->getCustomerTypes())->collect();
 
         return view('incomes.customers.index', compact('customers'));
     }
@@ -35,11 +37,11 @@ class Customers extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Contact  $customer
      *
      * @return Response
      */
-    public function show(Customer $customer)
+    public function show(Contact $customer)
     {
         $amounts = [
             'paid' => 0,
@@ -53,57 +55,47 @@ class Customers extends Controller
         ];
 
         // Handle invoices
-        $invoices = Invoice::with(['status', 'payments'])->where('customer_id', $customer->id)->get();
+        $invoices = Invoice::where('contact_id', $customer->id)->get();
 
         $counts['invoices'] = $invoices->count();
-
-        $invoice_payments = [];
 
         $today = Date::today()->toDateString();
 
         foreach ($invoices as $item) {
-            $payments = 0;
-
-            foreach ($item->payments as $payment) {
-                $payment->category = $item->category;
-
-                $invoice_payments[] = $payment;
-
-                $amount = $payment->getConvertedAmount();
-
-                $amounts['paid'] += $amount;
-
-                $payments += $amount;
-            }
-
+            // Already in revenues
             if ($item->invoice_status_code == 'paid') {
                 continue;
             }
 
+            $transactions = 0;
+
+            foreach ($item->transactions as $transaction) {
+                $transactions += $transaction->getAmountConvertedToDefault();
+            }
+
             // Check if it's open or overdue invoice
             if ($item->due_at > $today) {
-                $amounts['open'] += $item->getConvertedAmount() - $payments;
+                $amounts['open'] += $item->getAmountConvertedToDefault() - $transactions;
             } else {
-                $amounts['overdue'] += $item->getConvertedAmount() - $payments;
+                $amounts['overdue'] += $item->getAmountConvertedToDefault() - $transactions;
             }
         }
 
-        // Handle revenues
-        $revenues = Revenue::with(['account', 'category'])->where('customer_id', $customer->id)->get();
+        // Handle transactions
+        $transactions = Transaction::where('contact_id', $customer->id)->type('income')->get();
 
-        $counts['revenues'] = $revenues->count();
+        $counts['transactions'] = $transactions->count();
 
         // Prepare data
-        $items = collect($revenues)->each(function ($item) use (&$amounts) {
-            $amounts['paid'] += $item->getConvertedAmount();
+        $transactions->each(function ($item) use (&$amounts) {
+            $amounts['paid'] += $item->getAmountConvertedToDefault();
         });
 
-        $limit = request('limit', setting('general.list_limit', '25'));
-        $transactions = $this->paginate($items->merge($invoice_payments)->sortByDesc('paid_at'), $limit);
-        $invoices = $this->paginate($invoices->sortByDesc('paid_at'), $limit);
-        $revenues = $this->paginate($revenues->sortByDesc('paid_at'), $limit);
+        $limit = request('limit', setting('default.list_limit', '25'));
+        $transactions = $this->paginate($transactions->sortByDesc('paid_at'), $limit);
+        $invoices = $this->paginate($invoices->sortByDesc('invoiced_at'), $limit);
 
-        return view('incomes.customers.show', compact('customer', 'counts', 'amounts', 'transactions', 'invoices', 'revenues'));
+        return view('incomes.customers.show', compact('customer', 'counts', 'amounts', 'transactions', 'invoices'));
     }
 
     /**
@@ -127,50 +119,33 @@ class Customers extends Controller
      */
     public function store(Request $request)
     {
-        if (empty($request->input('create_user'))) {
-            Customer::create($request->all());
+        $response = $this->ajaxDispatch(new CreateContact($request));
+
+        if ($response['success']) {
+            $response['redirect'] = route('customers.index');
+
+            $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+
+            flash($message)->success();
         } else {
-            // Check if user exist
-            $user = User::where('email', $request['email'])->first();
-            if (!empty($user)) {
-                $message = trans('messages.error.customer', ['name' => $user->name]);
+            $response['redirect'] = route('customers.create');
 
-                flash($message)->error();
+            $message = $response['message'];
 
-                return redirect()->back()->withInput($request->except('create_user'))->withErrors(
-                    ['email' => trans('customers.error.email')]
-                );
-            }
-
-            // Create user first
-            $data = $request->all();
-            $data['locale'] = setting('general.default_locale', 'en-GB');
-
-            $user = User::create($data);
-            $user->roles()->attach(['3']);
-            $user->companies()->attach([session('company_id')]);
-
-            // Finally create customer
-            $request['user_id'] = $user->id;
-
-            Customer::create($request->all());
+            flash($message)->error();
         }
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
-
-        flash($message)->success();
-
-        return redirect('incomes/customers');
+        return response()->json($response);
     }
 
     /**
      * Duplicate the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Contact  $customer
      *
      * @return Response
      */
-    public function duplicate(Customer $customer)
+    public function duplicate(Contact $customer)
     {
         $clone = $customer->duplicate();
 
@@ -178,37 +153,35 @@ class Customers extends Controller
 
         flash($message)->success();
 
-        return redirect('incomes/customers/' . $clone->id . '/edit');
+        return redirect()->route('customers.edit', $clone->id);
     }
 
     /**
      * Import the specified resource.
      *
-     * @param  ImportFile  $import
+     * @param  ImportRequest  $request
      *
      * @return Response
      */
-    public function import(ImportFile $import)
+    public function import(ImportRequest $request)
     {
-        if (!Import::createFromFile($import, 'Income\Customer')) {
-            return redirect('common/import/incomes/customers');
-        }
+        \Excel::import(new Import(), $request->file('import'));
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.customers', 2)]);
 
         flash($message)->success();
 
-        return redirect('incomes/customers');
+        return redirect()->route('customers.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Contact  $customer
      *
      * @return Response
      */
-    public function edit(Customer $customer)
+    public function edit(Contact $customer)
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
 
@@ -218,110 +191,92 @@ class Customers extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Customer  $customer
-     * @param  Request  $request
+     * @param  Contact $customer
+     * @param  Request $request
      *
      * @return Response
      */
-    public function update(Customer $customer, Request $request)
+    public function update(Contact $customer, Request $request)
     {
-        if (empty($request->input('create_user'))) {
-            $customer->update($request->all());
+        $response = $this->ajaxDispatch(new UpdateContact($customer, $request));
+
+        if ($response['success']) {
+            $response['redirect'] = route('customers.index');
+
+            $message = trans('messages.success.updated', ['type' => $customer->name]);
+
+            flash($message)->success();
         } else {
-            // Check if user exist
-            $user = User::where('email', $request['email'])->first();
-            if (!empty($user)) {
-                $message = trans('messages.error.customer', ['name' => $user->name]);
+            $response['redirect'] = route('customers.edit', $customer->id);
 
-                flash($message)->error();
+            $message = $response['message'];
 
-                return redirect()->back()->withInput($request->except('create_user'))->withErrors(
-                    ['email' => trans('customers.error.email')]
-                );
-            }
-
-            // Create user first
-            $user = User::create($request->all());
-            $user->roles()->attach(['3']);
-            $user->companies()->attach([session('company_id')]);
-
-            $request['user_id'] = $user->id;
-
-            $customer->update($request->all());
+            flash($message)->error();
         }
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.customers', 1)]);
-
-        flash($message)->success();
-
-        return redirect('incomes/customers');
+        return response()->json($response);
     }
 
     /**
      * Enable the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Contact $customer
      *
      * @return Response
      */
-    public function enable(Customer $customer)
+    public function enable(Contact $customer)
     {
-        $customer->enabled = 1;
-        $customer->save();
+        $response = $this->ajaxDispatch(new UpdateContact($customer, request()->merge(['enabled' => 1])));
 
-        $message = trans('messages.success.enabled', ['type' => trans_choice('general.customers', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.enabled', ['type' => $customer->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('customers.index');
+        return response()->json($response);
     }
 
     /**
      * Disable the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Contact $customer
      *
      * @return Response
      */
-    public function disable(Customer $customer)
+    public function disable(Contact $customer)
     {
-        $customer->enabled = 0;
-        $customer->save();
+        $response = $this->ajaxDispatch(new UpdateContact($customer, request()->merge(['enabled' => 0])));
 
-        $message = trans('messages.success.disabled', ['type' => trans_choice('general.customers', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.disabled', ['type' => $customer->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('customers.index');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Customer  $customer
+     * @param  Contact $customer
      *
      * @return Response
      */
-    public function destroy(Customer $customer)
+    public function destroy(Contact $customer)
     {
-        $relationships = $this->countRelationships($customer, [
-            'invoices' => 'invoices',
-            'revenues' => 'revenues',
-        ]);
+        $response = $this->ajaxDispatch(new DeleteContact($customer));
 
-        if (empty($relationships)) {
-            $customer->delete();
+        $response['redirect'] = route('customers.index');
 
-            $message = trans('messages.success.deleted', ['type' => trans_choice('general.customers', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $customer->name]);
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $customer->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            flash($message)->warning();
+            flash($message)->error();
         }
 
-        return redirect('incomes/customers');
+        return response()->json($response);
     }
 
     /**
@@ -331,30 +286,16 @@ class Customers extends Controller
      */
     public function export()
     {
-        \Excel::create('customers', function($excel) {
-            $excel->sheet('customers', function($sheet) {
-                $sheet->fromModel(Customer::filter(request()->input())->get()->makeHidden([
-                    'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
-                ]));
-            });
-        })->download('xlsx');
+        return \Excel::download(new Export(), trans_choice('general.customers', 2) . '.xlsx');
     }
 
-    public function currency()
+    public function currency(Contact $customer)
     {
-        $customer_id = (int) request('customer_id');
-
-        if (empty($customer_id)) {
-            return response()->json([]);
-        }
-
-        $customer = Customer::find($customer_id);
-
         if (empty($customer)) {
             return response()->json([]);
         }
 
-        $currency_code = setting('general.default_currency');
+        $currency_code = setting('default.currency');
 
         if (isset($customer->currency_code)) {
             $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
@@ -380,14 +321,7 @@ class Customers extends Controller
         return response()->json($customer);
     }
 
-    public function customer(Request $request)
-    {
-        $customer = Customer::create($request->all());
-
-        return response()->json($customer);
-    }
-
-    public function field(FRequest $request)
+    public function field(BaseRequest $request)
     {
         $html = '';
 
@@ -395,10 +329,10 @@ class Customers extends Controller
             foreach ($request['fields'] as $field) {
                 switch ($field) {
                     case 'password':
-                        $html .= \Form::passwordGroup('password', trans('auth.password.current'), 'key', [], null, 'col-md-6 password');
+                        $html .= \Form::passwordGroup('password', trans('auth.password.current'), 'key', [], 'col-md-6 password');
                         break;
                     case 'password_confirmation':
-                        $html .= \Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], null, 'col-md-6 password');
+                        $html .= \Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], 'col-md-6 password');
                         break;
                 }
             }
@@ -409,24 +343,5 @@ class Customers extends Controller
         ];
 
         return response()->json($json);
-    }
-
-    /**
-     * Generate a pagination collection.
-     *
-     * @param array|Collection      $items
-     * @param int   $perPage
-     * @param int   $page
-     * @param array $options
-     *
-     * @return LengthAwarePaginator
-     */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

@@ -1,26 +1,22 @@
 {
-    "name": "PaypalStandard",
-    "alias": "paypalstandard",
-    "description": "",
-    "version": "1.0.0",
-    "category": "payment-gateway",
-    "keywords": [],
+    "alias": "paypal-standard",
+    "icon": "fab fa-paypal",
+    "version": "2.0.0",
+    "category": "payment-method",
     "active": 1,
     "order": 0,
     "providers": [
-        "Modules\\PaypalStandard\\Providers\\PaypalStandardServiceProvider"
+        "Modules\\PaypalStandard\\Providers\\Main"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": [],
     "settings": [
         {
             "type": "textGroup",
             "name": "name",
             "title": "general.name",
-            "icon": "id-card-o",
+            "icon": "fa fa-font",
             "attributes": {
                 "required": "required"
             }
@@ -28,8 +24,8 @@
         {
             "type": "textGroup",
             "name": "email",
-            "title": "paypalstandard::general.form.email",
-            "icon": "envelope-o",
+            "title": "paypal-standard::general.form.email",
+            "icon": "envelope",
             "attributes": {
                 "required": "required"
             }
@@ -37,7 +33,7 @@
         {
             "type": "selectGroup",
             "name": "mode",
-            "title": "paypalstandard::general.form.mode",
+            "title": "paypal-standard::general.form.mode",
             "icon": "plane",
             "values": {
                 "live": "Live",
@@ -49,8 +45,8 @@
         {
             "type": "selectGroup",
             "name": "transaction",
-            "title": "paypalstandard::general.form.transaction",
-            "icon": "exchange",
+            "title": "paypal-standard::general.form.transaction",
+            "icon": "exchange-alt",
             "values": {
                 "authorization": "Authorization",
                 "sale": "Sale"
@@ -61,7 +57,7 @@
         {
             "type": "radioGroup",
             "name": "customer",
-            "title": "paypalstandard::general.form.customer",
+            "title": "paypal-standard::general.form.customer",
             "enable": "general.yes",
             "disable": "general.no",
             "attributes": {}
@@ -69,7 +65,7 @@
         {
             "type": "radioGroup",
             "name": "debug",
-            "title": "paypalstandard::general.form.debug",
+            "title": "paypal-standard::general.form.debug",
             "enable": "general.yes",
             "disable": "general.no",
             "attributes": {}
@@ -77,7 +73,7 @@
         {
             "type": "textGroup",
             "name": "order",
-            "title": "paypalstandard::general.form.order",
+            "title": "paypal-standard::general.form.order",
             "icon": "sort",
             "attributes": {}
         }

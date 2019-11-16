@@ -26,9 +26,8 @@ class AccountsTest extends FeatureTestCase
     public function testItShouldCreateAccount()
     {
         $this->loginAs()
-            ->post(url('banking/accounts'), $this->getAccountRequest())
-            ->assertStatus(302)
-            ->assertRedirect(url('banking/accounts'));
+            ->post(route('accounts.index'), $this->getAccountRequest())
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -52,9 +51,8 @@ class AccountsTest extends FeatureTestCase
         $request['name'] = $this->faker->text(5);
 
         $this->loginAs()
-            ->patch(url('banking/accounts', $account->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(url('banking/accounts'));
+            ->patch(route('accounts.update', ['account' => $account->id]), $request)
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -65,8 +63,7 @@ class AccountsTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('accounts.destroy', ['account' => $account]))
-            ->assertStatus(302)
-            ->assertRedirect(route('accounts.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -77,7 +74,7 @@ class AccountsTest extends FeatureTestCase
 	        'company_id' => $this->company->id,
 	        'name' => $this->faker->text(5),
 	        'number' => '1',
-	        'currency_code' => setting('general.default_currency'),
+	        'currency_code' => setting('default.currency'),
 	        'opening_balance' => 0,
 	        'bank_name' => $this->faker->text(5),
 	        'bank_phone' => null,

@@ -2,20 +2,10 @@
 
 namespace App\Http\Controllers\Modals;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Income\Customer as Request;
-use App\Models\Auth\User;
-use App\Models\Income\Customer;
-use App\Models\Income\Invoice;
-use App\Models\Income\Revenue;
+use App\Abstracts\Http\Controller;
+use App\Http\Requests\Common\Contact as Request;
+use App\Models\Common\Contact;
 use App\Models\Setting\Currency;
-use App\Utilities\Import;
-use App\Utilities\ImportFile;
-use Date;
-use Illuminate\Http\Request as FRequest;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class Customers extends Controller
 {
@@ -38,17 +28,17 @@ class Customers extends Controller
      */
     public function create()
     {
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $customer_selector = false;
+        $contact_selector = false;
 
-        if (request()->has('customer_selector')) {
-            $customer_selector = request()->get('customer_selector');
+        if (request()->has('contact_selector')) {
+            $contact_selector = request()->get('contact_selector');
         }
 
         $rand = rand();
 
-        $html = view('modals.customers.create', compact('currencies', 'customer_selector', 'rand'))->render();
+        $html = view('modals.customers.create', compact('currencies', 'contact_selector', 'rand'))->render();
 
         return response()->json([
             'success' => true,
@@ -69,7 +59,7 @@ class Customers extends Controller
     {
         $request['enabled'] = 1;
 
-        $customer = Customer::create($request->all());
+        $customer = Contact::create($request->all());
 
         $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
 

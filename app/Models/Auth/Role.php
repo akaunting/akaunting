@@ -2,19 +2,15 @@
 
 namespace App\Models\Auth;
 
-use EloquentFilter\Filterable;
-use Laratrust\LaratrustRole;
+use Laratrust\Models\LaratrustRole;
 use Laratrust\Traits\LaratrustRoleTrait;
 use Kyslik\ColumnSortable\Sortable;
-use Request;
-use Route;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Role extends LaratrustRole
 {
-    use LaratrustRoleTrait;
-    use Filterable;
-    use Sortable;
-    
+    use LaratrustRoleTrait, SearchString, Sortable;
+
     protected $table = 'roles';
 
     /**
@@ -23,31 +19,6 @@ class Role extends LaratrustRole
      * @var array
      */
     protected $fillable = ['name', 'display_name', 'description'];
-
-    /**
-     * Define the filter provider globally.
-     *
-     * @return ModelFilter
-     */
-    public function modelFilter()
-    {
-        // Check if is api or web
-        if (Request::is('api/*')) {
-            $arr = array_reverse(explode('\\', explode('@', app()['api.router']->currentRouteAction())[0]));
-            $folder = $arr[1];
-            $file = $arr[0];
-        } else {
-            list($folder, $file) = explode('/', Route::current()->uri());
-        }
-
-        if (empty($folder) || empty($file)) {
-            return $this->provideFilter();
-        }
-
-        $class = '\App\Filters\\' . ucfirst($folder) .'\\' . ucfirst($file);
-
-        return $this->provideFilter($class);
-    }
 
     /**
      * Scope to get all rows filtered, sorted and paginated.
@@ -61,9 +32,9 @@ class Role extends LaratrustRole
     {
         $request = request();
 
-        $input = $request->input();
-        $limit = $request->get('limit', setting('general.list_limit', '25'));
+        $search = $request->get('search');
+        $limit = $request->get('limit', setting('default.list_limit', '25'));
 
-        return $query->filter($input)->sortable($sort)->paginate($limit);
+        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
     }
 }

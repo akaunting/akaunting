@@ -18,7 +18,7 @@ return [
         'customer'          => 'Klaida: Vartotojas nebuvo sukurtas! :name jau naudoja šį el. pašto adresą.',
         'no_file'           => 'Klaida: Nepasirinktas failas!',
         'last_category'     => 'Klaida: Negalite ištrinti paskutinės :type kategorijos!',
-        'invalid_token'     => 'Klaida: Neteisingas raktas!',
+        'invalid_apikey'     => 'Klaida: Neteisingas raktas!',
         'import_column'     => 'Klaida: :message :sheet lape. Eilutė: :line.',
         'import_sheet'      => 'Klaida: Lapo pavadinimas neteisingas Peržiūrėkite pavyzdį.',
     ],

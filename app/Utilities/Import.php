@@ -4,6 +4,7 @@ namespace App\Utilities;
 
 use Date;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class Import
 {
@@ -92,7 +93,7 @@ class Import
             $title = $t[1];
         }
 
-        if ($sheet->getTitle() != str_plural(snake_case($title))) {
+        if ($sheet->getTitle() != Str::plural(Str::snake($title))) {
             return false;
         }
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Setting;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Currency extends Request
+class Currency extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class Currency extends Request
     {
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->currency->getAttribute('id');
+            $id = is_numeric($this->currency) ? $this->currency : $this->currency->getAttribute('id');
         } else {
             $id = null;
         }

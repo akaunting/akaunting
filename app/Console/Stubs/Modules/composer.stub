@@ -11,5 +11,15 @@
         "psr-4": {
             "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\": ""
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\Main"
+            ],
+            "aliases": {
+                
+            }
+        }
     }
 }

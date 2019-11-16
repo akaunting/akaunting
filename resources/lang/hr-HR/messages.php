@@ -17,7 +17,7 @@ return [
         'customer'          => 'Pogreška: Korisnik nije kreiran! :name već koristi ovu e-mail adresu.',
         'no_file'           => 'Pogreška: Nije odabrana nijedna datoteka!',
         'last_category'     => 'Pogreška: Nije moguće izbrisati zadnju :type kategoriju!',
-        'invalid_token'     => 'Pogreška: Upisani token nije valjan!',
+        'invalid_apikey'     => 'Pogreška: Upisani token nije valjan!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],

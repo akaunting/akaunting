@@ -18,7 +18,7 @@ return [
         'customer'          => 'Kļūda: Lietotājs nav izveidots! :name jau lieto šādu e-pasta adresi.',
         'no_file'           => 'Kļūda: Fails nav izvēlēts!',
         'last_category'     => 'Kļūda: Nevar izdzēst pēdējo :type kategoriju!',
-        'invalid_token'     => 'Kļūda: Ievadītā atslēga nav pareiza!',
+        'invalid_apikey'     => 'Kļūda: Ievadītā atslēga nav pareiza!',
         'import_column'     => 'Kļūda: :message Lapas nosaukums: :sheet. Rindas numurs: :line.',
         'import_sheet'      => 'Kļūda: Lapas nosaukums nav pareizs. Lūdzu pārbaudiet parauga failu.',
     ],

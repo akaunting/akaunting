@@ -14,11 +14,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \App\Http\Middleware\TrustProxies::class,
+        \MisterPhilip\MaintenanceMode\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \Fideloper\Proxy\TrustProxies::class,
     ];
 
     /**
@@ -28,66 +28,88 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\RedirectIfNotInstalled::class,
-            \App\Http\Middleware\AddXHeader::class,
+            'cookies.encrypt',
+            'cookies.response',
+            'session.start',
+            // 'session.auth',
+            'session.errors',
+            'csrf',
+            'bindings',
+            'install.redirect',
+            'header.x',
             'company.settings',
             'company.currencies',
-            \App\Http\Middleware\RedirectIfWizardCompleted::class,
+            'language',
+            'firewall.all',
         ],
 
-        'wizard' => [
+        'install' => [
             'web',
-            'language',
-            'auth',
-            'permission:read-admin-panel',
-        ],
-
-        'admin' => [
-            'web',
-            'language',
-            'auth',
-            'adminmenu',
-            'permission:read-admin-panel',
-        ],
-
-        'customer' => [
-            'web',
-            'language',
-            'auth',
-            'customermenu',
-            'permission:read-customer-panel',
+            'install.can',
         ],
 
         'api' => [
             'api.auth',
+            'auth.disabled',
             'throttle:60,1',
             'bindings',
             'api.company',
             'permission:read-api',
             'company.settings',
             'company.currencies',
+            'language',
+            'firewall.all',
+        ],
+
+        'common' => [
+            'web',
+            'wizard.completed',
+        ],
+
+        'guest' => [
+            'web',
+            'auth.redirect',
+        ],
+
+        'admin' => [
+            'web',
+            'auth',
+            'auth.disabled',
+            'wizard.completed',
+            'menu.admin',
+            'permission:read-admin-panel',
+        ],
+
+        'wizard' => [
+            'web',
+            'auth',
+            'auth.disabled',
+            'permission:read-admin-panel',
+        ],
+
+        'portal' => [
+            'web',
+            'auth',
+            'auth.disabled',
+            'menu.portal',
+            'permission:read-client-portal',
         ],
 
         'signed' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            'signed-url',
-            'signed-url.company',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\AddXHeader::class,
+            'cookies.encrypt',
+            'cookies.response',
+            'session.start',
+            'session.errors',
+            'csrf',
+            'signature',
+            'company.signed',
+            'bindings',
+            'header.x',
             'company.settings',
             'company.currencies',
-        ]
+            'language',
+            'firewall.all',
+        ],
     ];
 
     /**
@@ -98,23 +120,60 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        // Laravel
+        'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'cookies.encrypt' => \App\Http\Middleware\EncryptCookies::class,
+        'cookies.response' => \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
+        'session.auth' => \Illuminate\Session\Middleware\AuthenticateSession::class,
+        'session.errors' => \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        'session.start' => \Illuminate\Session\Middleware\StartSession::class,
+        //'signature' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'signature' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'adminmenu' => \App\Http\Middleware\AdminMenu::class,
-        'customermenu' => \App\Http\Middleware\CustomerMenu::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        // Akaunting
+        'api.company' => \App\Http\Middleware\ApiCompany::class,
+        'auth.disabled' => \App\Http\Middleware\LogoutIfUserDisabled::class,
+        'auth.redirect' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'company.currencies' => \App\Http\Middleware\LoadCurrencies::class,
+        'company.settings' => \App\Http\Middleware\LoadSettings::class,
+        'company.signed' => \App\Http\Middleware\SignedCompany::class,
+        'header.x' => \App\Http\Middleware\AddXHeader::class,
+        'menu.admin' => \App\Http\Middleware\AdminMenu::class,
+        'menu.portal' => \App\Http\Middleware\PortalMenu::class,
+        'date.format' => \App\Http\Middleware\DateFormat::class,
+        'install.can' => \App\Http\Middleware\CanInstall::class,
+        'install.redirect' => \App\Http\Middleware\RedirectIfNotInstalled::class,
+        'money' => \App\Http\Middleware\Money::class,
+        'wizard.completed' => \App\Http\Middleware\RedirectIfWizardCompleted::class,
+        'api.key' => \App\Http\Middleware\CanApiKey::class,
+
+        // Vendor
+        'ability' => \Laratrust\Middleware\LaratrustAbility::class,
         'role' => \Laratrust\Middleware\LaratrustRole::class,
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
-        'ability' => \Laratrust\Middleware\LaratrustAbility::class,
-        'api.company' => \App\Http\Middleware\ApiCompany::class,
-        'install' => \App\Http\Middleware\CanInstall::class,
-        'company.settings' => \App\Http\Middleware\LoadSettings::class,
-        'company.currencies' => \App\Http\Middleware\LoadCurrencies::class,
-        'dateformat' => \App\Http\Middleware\DateFormat::class,
-        'money' => \App\Http\Middleware\Money::class,
-        'signed-url.company' => \App\Http\Middleware\SignedUrlCompany::class,
+    ];
+
+    /**
+     * The priority-sorted list of middleware.
+     *
+     * This forces non-global middleware to always be in the given order.
+     *
+     * @var array
+     */
+    protected $middlewarePriority = [
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\Authenticate::class,
+        \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \Illuminate\Auth\Middleware\Authorize::class,
     ];
 }

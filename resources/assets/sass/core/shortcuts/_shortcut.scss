@@ -1,0 +1,30 @@
+//
+// Shortcut
+//
+
+.shortcuts {
+
+}
+
+.shortcut-media {
+    @include transition($transition-cubic-bezier);
+}
+
+.shortcut-item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+
+    small {
+        display: block;
+        margin-top: .75rem;
+        font-size: $h5-font-size;
+        font-weight: $heading-font-weight;
+    }
+
+    &:hover {
+        .shortcut-media {
+            transform: scale(1.1);
+        }
+    }
+}

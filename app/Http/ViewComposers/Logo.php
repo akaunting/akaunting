@@ -21,10 +21,10 @@ class Logo
     {
         $logo = '';
 
-        $media_id = setting('general.company_logo');
+        $media_id = setting('company.logo');
 
-        if (setting('general.invoice_logo')) {
-            $media_id = setting('general.invoice_logo');
+        if (setting('invoice.logo')) {
+            $media_id = setting('invoice.logo');
         }
 
         $media = Media::find($media_id);

@@ -20,8 +20,8 @@ class Category extends TransformerAbstract
             'type' => $model->type,
             'color' => $model->color,
             'enabled' => $model->enabled,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
+            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
     }
 }

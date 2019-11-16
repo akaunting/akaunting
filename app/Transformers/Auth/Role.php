@@ -22,8 +22,8 @@ class Role extends TransformerAbstract
             'id' => $model->id,
             'name' => $model->display_name,
             'code' => $model->name,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
+            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
     }
 

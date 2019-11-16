@@ -1,0 +1,64 @@
+
+
+.el-table .el-table__header-wrapper {
+  thead th {
+    padding-top: 0;
+    padding-bottom: 0;
+    .cell {
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .sort-caret {
+    border: 4px solid transparent;
+  }
+
+  .sort-caret.ascending {
+    top: 7px;
+  }
+  .ascending .sort-caret.ascending {
+    border-bottom-color: theme-color("default");
+  }
+
+  .sort-caret.descending {
+    bottom: 9px;
+  }
+
+  .descending .sort-caret.descending {
+    border-top-color: theme-color("default");
+  }
+}
+
+div.el-table {
+  background: transparent;
+
+  tbody td,
+  thead th {
+    padding: $table-cell-padding;
+  }
+
+  .el-table-column--selection .cell {
+    min-width: 100px;
+    overflow: visible;
+    text-overflow: initial;
+    .el-checkbox {
+      margin-bottom: 0;
+    }
+  }
+
+  .el-table__row {
+    background: transparent;
+    &:hover {
+      background: transparent;
+    }
+  }
+  &.el-table--enable-row-hover .el-table__body tr:hover>td {
+    background: transparent;
+  }
+
+  .el-table__row .cell,
+  .el-table__header .cell{
+    padding: 0;
+  }
+}

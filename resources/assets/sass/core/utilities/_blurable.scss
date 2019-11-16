@@ -1,0 +1,37 @@
+//
+// Blurable
+// add a blue effect on hover on any element with .blur--hover class
+//
+
+.blur--hover {
+    position: relative;
+
+    .blur-item {
+        transition: 1s cubic-bezier(.19,1,.22,1);
+        will-change: transform;
+        filter: blur(0);
+        opacity: 1;
+    }
+
+    .blur-hidden {
+        position: absolute;
+        top: calc(50% + 7px);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: $transition-base;
+        z-index: 100;
+    }
+    &:hover {
+        .blur-item {
+            opacity: .8;
+            filter: blur(10px);
+            transform: scale(.95);
+            z-index: 1;
+        }
+        .blur-hidden {
+            opacity: 1;
+            top: 50%;
+        }
+    }
+}

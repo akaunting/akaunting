@@ -1,0 +1,58 @@
+//
+// Custom control
+// additional styles for custom checkboxes, radios and other
+//
+
+.custom-control-label {
+    // Background-color and (when enabled) gradient
+    &::before {
+        border: $custom-control-indicator-border-width solid $custom-control-indicator-border-color;
+        @include transition($input-transition);
+        top:($font-size-base * $line-height-base - $custom-control-indicator-size) / 2;
+        left: -($custom-control-gutter + $custom-control-indicator-size - 1rem);
+
+    }
+
+    &::after{
+      top:($font-size-base * $line-height-base - $custom-control-indicator-size) / 2;
+      left: -($custom-control-gutter + $custom-control-indicator-size - 1rem);
+
+    }
+
+    span {
+        position: relative;
+        top: 2px;
+    }
+}
+
+.custom-control-label {
+    margin-bottom: 0;
+}
+
+
+// Alternative style
+
+.custom-control-alternative {
+    .custom-control-label {
+        // Background-color and (when enabled) gradient
+        &::before {
+            border: 0;
+            box-shadow: $input-alternative-box-shadow;
+        }
+    }
+
+    .custom-control-input {
+        &:checked {
+            ~ .custom-control-label {
+                &::before {
+                    box-shadow: $input-focus-alternative-box-shadow;
+                }
+            }
+        }
+
+        &:active~.custom-control-label::before,
+        &:focus~.custom-control-label::before {
+            box-shadow: $input-alternative-box-shadow;
+        }
+    }
+}

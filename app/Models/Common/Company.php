@@ -2,16 +2,15 @@
 
 namespace App\Models\Common;
 
-use Auth;
-use EloquentFilter\Filterable;
+use App\Traits\Media;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
-use App\Traits\Media;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Company extends Eloquent
 {
-    use Filterable, SoftDeletes, Sortable, Media;
+    use Media, SearchString, SoftDeletes, Sortable;
 
     protected $table = 'companies';
 
@@ -26,6 +25,19 @@ class Company extends Eloquent
      */
     public $sortable = ['name', 'domain', 'email', 'enabled', 'created_at'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::retrieved(function($model) {
+            $model->setSettings();
+        });
+
+        static::saving(function($model) {
+            $model->unsetSettings();
+        });
+    }
+
     public function accounts()
     {
         return $this->hasMany('App\Models\Banking\Account');
@@ -39,11 +51,6 @@ class Company extends Eloquent
     public function bill_items()
     {
         return $this->hasMany('App\Models\Expense\BillItem');
-    }
-
-    public function bill_payments()
-    {
-        return $this->hasMany('App\Models\Expense\BillPayment');
     }
 
     public function bill_statuses()
@@ -61,6 +68,11 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Setting\Category');
     }
 
+    public function contacts()
+    {
+        return $this->hasMany('App\Models\Common\Contact');
+    }
+
     public function currencies()
     {
         return $this->hasMany('App\Models\Setting\Currency');
@@ -68,7 +80,12 @@ class Company extends Eloquent
 
     public function customers()
     {
-        return $this->hasMany('App\Models\Income\Customer');
+        return $this->contacts()->where('type', 'customer');
+    }
+
+    public function dashboards()
+    {
+        return $this->hasMany('App\Models\Common\Dashboard');
     }
 
     public function invoice_histories()
@@ -79,11 +96,6 @@ class Company extends Eloquent
     public function invoice_items()
     {
         return $this->hasMany('App\Models\Income\InvoiceItem');
-    }
-
-    public function invoice_payments()
-    {
-        return $this->hasMany('App\Models\Income\InvoicePayment');
     }
 
     public function invoice_statuses()
@@ -103,7 +115,7 @@ class Company extends Eloquent
 
     public function payments()
     {
-        return $this->hasMany('App\Models\Expense\Payment');
+        return $this->transactions()->where('type', 'expense');
     }
 
     public function recurring()
@@ -113,7 +125,7 @@ class Company extends Eloquent
 
     public function revenues()
     {
-        return $this->hasMany('App\Models\Income\Revenue');
+        return $this->transactions()->where('type', 'income');
     }
 
     public function settings()
@@ -124,6 +136,11 @@ class Company extends Eloquent
     public function taxes()
     {
         return $this->hasMany('App\Models\Setting\Tax');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Banking\Transaction');
     }
 
     public function transfers()
@@ -138,24 +155,29 @@ class Company extends Eloquent
 
     public function vendors()
     {
-        return $this->hasMany('App\Models\Expense\Vendor');
+        return $this->contacts()->where('type', 'vendor');
     }
 
     public function setSettings()
     {
         $settings = $this->settings;
 
+        $groups = [
+            'company',
+            'default'
+        ];
+
         foreach ($settings as $setting) {
             list($group, $key) = explode('.', $setting->getAttribute('key'));
 
             // Load only general settings
-            if ($group != 'general') {
+            if (!in_array($group, $groups)) {
                 continue;
             }
 
             $value = $setting->getAttribute('value');
 
-            if (($key == 'company_logo') && empty($value)) {
+            if (($key == 'logo') && empty($value)) {
                 $value = 'public/img/company.png';
             }
 
@@ -163,27 +185,32 @@ class Company extends Eloquent
         }
 
         // Set default default company logo if empty
-        if ($this->getAttribute('company_logo') == '') {
-            $this->setAttribute('company_logo', 'public/img/company.png');
+        if ($this->getAttribute('logo') == '') {
+            $this->setAttribute('logo', 'public/img/company.png');
         }
     }
 
-    /**
-     * Define the filter provider globally.
-     *
-     * @return ModelFilter
-     */
-    public function modelFilter()
+    public function unsetSettings()
     {
-        list($folder, $file) = explode('/', \Route::current()->uri());
+        $settings = $this->settings;
 
-        if (empty($folder) || empty($file)) {
-            return $this->provideFilter();
+        $groups = [
+            'company',
+            'default'
+        ];
+
+        foreach ($settings as $setting) {
+            list($group, $key) = explode('.', $setting->getAttribute('key'));
+
+            // Load only general settings
+            if (!in_array($group, $groups)) {
+                continue;
+            }
+
+            $this->offsetUnset($key);
         }
 
-        $class = '\App\Filters\\' . ucfirst($folder) .'\\' . ucfirst($file);
-
-        return $this->provideFilter($class);
+        $this->offsetUnset('logo');
     }
 
     /**
@@ -198,10 +225,10 @@ class Company extends Eloquent
     {
         $request = request();
 
-        $input = $request->input();
-        $limit = $request->get('limit', setting('general.list_limit', '25'));
+        $search = $request->get('search');
+        $limit = $request->get('limit', setting('default.list_limit', '25'));
 
-        return Auth::user()->companies()->filter($input)->sortable($sort)->paginate($limit);
+        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
     }
 
     /**
@@ -227,7 +254,7 @@ class Company extends Eloquent
     public function nameSortable($query, $direction)
     {
         return $query->join('settings', 'companies.id', '=', 'settings.company_id')
-            ->where('key', 'general.company_name')
+            ->where('key', 'company.name')
             ->orderBy('value', $direction)
             ->select('companies.*');
     }

@@ -18,7 +18,7 @@ return [
         'customer'          => 'Chyba: uživatel nebyl vytvořen! Uživatel :name již používá tuto emailovou adresu.',
         'no_file'           => 'Chyba: Nebyl vybrán žádný soubor!',
         'last_category'     => 'Chyba: Nemohu smazat poslední kategorii :type ! ',
-        'invalid_token'     => 'Chyba: Zadaný token je neplatný!',
+        'invalid_apikey'     => 'Chyba: Zadaný token je neplatný!',
         'import_column'     => 'Chyba: :message Tabulka :sheet. Řádek: :line.',
         'import_sheet'      => 'Chyba: Tabulka je neplatná. Prosím, zkontrolujte vzorový soubor.',
     ],

@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Common;
 
-use App\Events\CompanySwitched;
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\Company as Request;
+use App\Jobs\Common\CreateCompany;
+use App\Jobs\Common\DeleteCompany;
+use App\Jobs\Common\UpdateCompany;
 use App\Models\Common\Company;
 use App\Models\Setting\Currency;
 use App\Traits\Uploads;
+use App\Traits\Users;
 use App\Utilities\Overrider;
 
 class Companies extends Controller
 {
-    use Uploads;
+    use Uploads, Users;
 
     /**
      * Display a listing of the resource.
@@ -22,10 +25,6 @@ class Companies extends Controller
     public function index()
     {
         $companies = Company::collect();
-
-        foreach ($companies as $company) {
-            $company->setSettings();
-        }
 
         return view('common.companies.index', compact('companies'));
     }
@@ -37,7 +36,7 @@ class Companies extends Controller
      */
     public function show()
     {
-        return redirect('common/companies');
+        return redirect()->route('companies.index');
     }
 
     /**
@@ -63,40 +62,27 @@ class Companies extends Controller
     {
         $company_id = session('company_id');
 
-        // Create company
-        $company = Company::create($request->input());
-        
-        // Create settings
-        setting()->set('general.company_name', $request->get('company_name'));
-        setting()->set('general.company_email', $request->get('company_email'));
-        setting()->set('general.company_address', $request->get('company_address'));
+        $response = $this->ajaxDispatch(new CreateCompany($request));
 
-        if ($request->file('company_logo')) {
-            $company_logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
+        if ($response['success']) {
+            $response['redirect'] = route('companies.index');
 
-            if ($company_logo) {
-                $company->attachMedia($company_logo, 'company_logo');
+            $message = trans('messages.success.added', ['type' => trans_choice('general.companies', 1)]);
 
-                setting()->set('general.company_logo', $company_logo->id);
-            }
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('companies.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
-
-        setting()->set('general.default_currency', $request->get('default_currency'));
-        setting()->set('general.default_locale', session('locale'));
-        setting()->save();
-
-        setting()->forgetAll();
 
         session(['company_id' => $company_id]);
 
         Overrider::load('settings');
 
-        // Redirect
-        $message = trans('messages.success.added', ['type' => trans_choice('general.companies', 1)]);
-
-        flash($message)->success();
-
-        return redirect('common/companies');
+        return response()->json($response);
     }
 
     /**
@@ -108,16 +94,9 @@ class Companies extends Controller
      */
     public function edit(Company $company)
     {
-        // Check if user can edit company
-        if (!$this->isUserCompany($company)) {
-            $message = trans('companies.error.not_user_company');
-
-            flash($message)->error();
-
-            return redirect('common/companies');
+        if (!$this->isUserCompany($company->id)) {
+            return redirect()->route('companies.index');
         }
-
-        $company->setSettings();
 
         $currencies = Currency::enabled()->pluck('name', 'code');
 
@@ -127,8 +106,8 @@ class Companies extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Company  $company
-     * @param  Request  $request
+     * @param  Company $company
+     * @param  Request $request
      *
      * @return Response
      */
@@ -136,132 +115,89 @@ class Companies extends Controller
     {
         $company_id = session('company_id');
 
-        // Check if user can update company
-        if (!$this->isUserCompany($company)) {
-            $message = trans('companies.error.not_user_company');
+        $response = $this->ajaxDispatch(new UpdateCompany($company, $request));
+
+        if ($response['success']) {
+            $response['redirect'] = route('companies.index');
+
+            $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('companies.edit', $company->id);
+
+            $message = $response['message'];
 
             flash($message)->error();
-
-            return redirect('common/companies');
         }
-
-        // Update company
-        $company->update($request->input());
-
-        // Get the company settings
-        setting()->forgetAll();
-        setting()->setExtraColumns(['company_id' => $company->id]);
-        setting()->load(true);
-        
-        // Update settings
-        setting()->set('general.company_name', $request->get('company_name'));
-        setting()->set('general.company_email', $request->get('company_email'));
-        setting()->set('general.company_address', $request->get('company_address'));
-
-        if ($request->file('company_logo')) {
-            $company_logo = $this->getMedia($request->file('company_logo'), 'settings', $company->id);
-
-            if ($company_logo) {
-                $company->attachMedia($company_logo, 'company_logo');
-
-                setting()->set('general.company_logo', $company_logo->id);
-            }
-        }
-
-        setting()->set('general.default_payment_method', 'offlinepayment.cash.1');
-        setting()->set('general.default_currency', $request->get('default_currency'));
-
-        setting()->save();
-
-        setting()->forgetAll();
 
         session(['company_id' => $company_id]);
 
         Overrider::load('settings');
 
-        // Redirect
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.companies', 1)]);
-
-        flash($message)->success();
-
-        return redirect('common/companies');
+        return response()->json($response);
     }
 
     /**
      * Enable the specified resource.
      *
-     * @param  Company  $company
+     * @param  Company $company
      *
      * @return Response
      */
     public function enable(Company $company)
     {
-        $company->enabled = 1;
-        $company->save();
+        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 1])));
 
-        $message = trans('messages.success.enabled', ['type' => trans_choice('general.companies', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.enabled', ['type' => trans_choice('general.companies', 1)]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('companies.index');
-
+        return response()->json($response);
     }
 
     /**
      * Disable the specified resource.
      *
-     * @param  Company  $company
+     * @param  Company $company
      *
      * @return Response
      */
     public function disable(Company $company)
     {
-        // Check if user can update company
-        if (!$this->isUserCompany($company)) {
-            $message = trans('companies.error.not_user_company');
+        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 0])));
 
-            Overrider::load('settings');
-
-            flash($message)->error();
-
-            return redirect()->route('companies.index');
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.disabled', ['type' => trans_choice('general.companies', 1)]);
         }
 
-        $company->enabled = 0;
-        $company->save();
-
-        $message = trans('messages.success.disabled', ['type' => trans_choice('general.companies', 1)]);
-
-        flash($message)->success();
-
-        return redirect()->route('companies.index');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Company  $company
+     * @param  Company $company
      *
      * @return Response
      */
     public function destroy(Company $company)
     {
-        // Can't delete active company
-        if ($company->id == session('company_id')) {
-            $message = trans('companies.error.delete_active');
+        $response = $this->ajaxDispatch(new DeleteCompany($company));
+
+        $response['redirect'] = route('companies.index');
+
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => trans_choice('general.companies', 1)]);
+
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
 
             flash($message)->error();
-
-            return redirect('common/companies');
         }
 
-        $company->delete();
-
-        $message = trans('messages.success.deleted', ['type' => trans_choice('general.companies', 1)]);
-
-        flash($message)->success();
-
-        return redirect('common/companies');
+        return response()->json($response);
     }
 
     /**
@@ -271,40 +207,24 @@ class Companies extends Controller
      *
      * @return Response
      */
-    public function set(Company $company)
+    public function switch(Company $company)
     {
-        // Check if user can manage company
-        if ($this->isUserCompany($company)) {
+        if ($this->isUserCompany($company->id)) {
+            $old_company_id = session('company_id');
+
             session(['company_id' => $company->id]);
+            session(['dashboard_id' => $company->dashboards()->pluck('id')->first()]);
 
             Overrider::load('settings');
 
-            event(new CompanySwitched($company));
-        }
+            event(new \App\Events\Common\CompanySwitched($company, $old_company_id));
 
-        // Check wizard
-        if (!setting('general.wizard', false)) {
-            return redirect('wizard');
+            // Check wizard
+            if (!setting('wizard.completed', false)) {
+                return redirect()->route('wizard.edit');
+            }
         }
 
         return redirect('/');
-    }
-
-    /**
-     * Check user company assignment
-     *
-     * @param  Company  $company
-     *
-     * @return boolean
-     */
-    public function isUserCompany(Company $company)
-    {
-        $companies = auth()->user()->companies()->pluck('id')->toArray();
-
-        if (in_array($company->id, $companies)) {
-            return true;
-        }
-
-        return false;
     }
 }

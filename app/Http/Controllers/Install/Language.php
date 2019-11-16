@@ -30,6 +30,22 @@ class Language extends Controller
         // Set locale
         Session::put('locale', $request['lang']);
 
-        return redirect('install/database');
+        $response['redirect'] = route('install.database');
+
+        return response()->json($response);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function getLanguages()
+    {
+        $response = [
+            'languages' => $languages = language()->allowed(),
+        ];
+
+        return response()->json($response);
     }
 }

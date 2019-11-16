@@ -1,0 +1,929 @@
+.select-tax .el-select .el-select__tags .el-tag {
+    margin-top: 30px;
+}
+
+@font-face {
+    font-family: element-icons;
+    src:url("./../fonts/vendor/element-ui/lib/theme-chalk/element-icons.woff") format("woff"),
+        url("./../fonts/vendor/element-ui/lib/theme-chalk/element-icons.ttf") format("truetype");
+    font-weight: 400;
+    font-display: "auto";
+    font-style: normal;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+/*--------General Button Hover--------*/
+.btn:hover
+{
+    Transform: translateY(0px);
+}
+/*--------General Button Hover Finish--------*/
+
+
+/*--------Invoice, Bill Note--------*/
+.show-note
+{
+    width: 65% !important;
+}
+/*--------Invoice, Bill Note Finish--------*/
+
+
+/*--------Dashboard Categories--------*/
+.dashboard-categories
+{
+    position:relative !important;
+    height:23vh !important;
+}
+/*--------Dashboard Categories Finish--------*/
+
+/*--------Recurring Form Element--------*/
+.recurring-hidden
+{
+    position: absolute;
+    overflow: hidden;
+    z-index: -1;
+}
+/*--------Recurring Form Element Finish--------*/
+
+
+/*--------Attachment Cursor--------*/
+.form-attachment
+{
+    cursor: pointer;
+}
+/*--------Attachment Cursor Finish--------*/
+
+
+/*--------Table Head Search--------*/
+.table-header-search
+{
+    display: inline-block;
+    width: auto;
+}
+/*--------Table Head Search Finish--------*/
+
+
+/*--------Login Logo--------*/
+.login-logo
+{
+    width: 22% !important;
+}
+/*--------Login Logo Finish--------*/
+
+
+/*--------Wizard Steps--------*/
+.wizard-steps
+{
+    width: 3.375rem;
+    height: 3.375rem;
+    padding: 0;
+}
+
+.wizard-steps-inner
+{
+    font-size: 1.875rem;
+}
+
+.step-text
+{
+    cursor: default !important;
+    font-weight: 400;
+}
+
+.after-step-text
+{
+    cursor: default !important;
+    font-weight: 600;
+}
+
+.steps:not(:disabled):not(.disabled)
+{
+    cursor: default !important;
+}
+
+.wizard-line
+{
+    width: 75%;
+    position: absolute;
+    margin-left: 7rem;
+    margin-top: 1.7rem;
+    margin-bottom: 1.7rem;
+    border-top: 5px solid rgba(0, 0, 0, 0.1);
+}
+/*--------Wizard Steps Finish--------*/
+
+
+/*--------Border Radius 0--------*/
+.border-radius-0
+{
+    border-radius: 0 !important;
+}
+/*--------Border Radius 0 Finished--------*/
+
+
+.dropup .dropdown-toggle::after
+{
+    display: none !important;
+}
+
+.el-color-picker__icon
+{
+    padding-left: 16px;
+    padding-top: 5px;
+}
+
+.el-color-dropdown.el-color-picker__panel
+{
+    top: 360px !important;
+    left: 580px !important;
+}
+
+.el-color-picker__color
+{
+    margin-top: 10 !important;
+    height: 18px !important;
+    margin-left: 7px !important;
+}
+
+.el-color-picker--mini .el-color-picker__trigger
+{
+    height: 42px !important;
+    margin-top: -10px;
+    margin-right: -2px !important;
+    margin-left: -10px;
+    position: absolute !important;
+    border: 0;
+    z-index: 99999 !important;
+    width: 28px !important;
+}
+
+.el-color-picker__trigger
+{
+    border-radius: 4px 0 0 4px !important;
+}
+
+.el-input.is-active .el-input__inner, .el-input__inner:focus
+{
+    border-color: #3c3f72 !important;
+}
+
+
+.input-group:focus-within .input-group
+{
+    border-color: #55588b !important;
+}
+
+
+.el-button.is-plain:focus, .el-button.is-plain:hover
+{
+    background: #ffffff !important;
+    border-color: #55588b !important;
+    color: #55588b !important;
+}
+
+.el-button--text
+{
+    color: #55588b !important;
+}
+
+
+.el-color-picker--mini {
+    height: 24px !important;
+    padding-right: 6px !important;
+}
+
+.color-hex
+{
+    padding-left: 15px !important;
+}
+
+.el-button.el-color-dropdown__link-btn.el-button--text.el-button--mini
+{
+    margin-top: 10px !important;
+}
+
+.role-list
+{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/*--------Action Column--------*/
+.action-column
+{
+    padding-left: 1.2rem !important;
+}
+/*--------Action Column Finish--------*/
+
+
+/*--------Table Search--------*/
+.table-text
+{
+    font-size: .875rem;
+}
+/*--------Table Search Finish--------*/
+
+
+/*--------Customer/Vendor Show--------*/
+.show-transaction-card-header
+{
+    padding: 1.14rem;
+}
+
+.show-transaction-card-footer
+{
+    padding: 1.15rem;
+}
+
+.edit-sv
+{
+    margin-bottom: 30px;
+}
+/*--------Customer/Vendor Show Finish--------*/
+
+
+/*--------Content Width--------*/
+.content-layout
+{
+    max-width: 1116px !important;
+}
+/*--------Content Width- Finish-------*/
+
+
+/*--------Navbar Notification--------*/
+.nav-link .badge-floating
+{
+    position: absolute;
+    top: 15%;
+    margin-left: -0.2rem;
+    transform: translateY(50%);
+    width: 1rem !important;
+    height: 1rem !important;
+    font-size: 0.5rem;
+}
+/*--------Navbar Notification Finish--------*/
+
+
+/*--------Index Page Tables--------*/
+.table-responsive
+{
+    overflow-x: visible !important;
+}
+/*--------Index Page Tables Finish--------*/
+
+
+/*--------Categories Input--------*/
+.color-box
+{
+    min-width: 3rem;
+}
+/*--------Categories Input Finish--------*/
+
+
+/*--------Left Menu Dropdown--------*/
+.menu-dropdown
+{
+    position: absolute !important;
+    right: -1.6rem;
+}
+/*--------Left Menu Dropdown Finish--------*/
+
+
+/*--------Form Group--------*/
+.form-group.visible-field .form-control
+{
+    background-color: #fff;
+}
+/*--------Form Group Finish--------*/
+
+
+/*--------Overflow-Y For Table Columns--------*/
+.o-y
+{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/*--------Overflow-Y For Table Columns Finish--------*/
+
+
+/*--------Thead Row Margin--------*/
+.thead-light .row
+{
+    margin: 0;
+}
+/*--------Thead Row Margin Finish--------*/
+
+
+/*--------Tbody Row Margin--------*/
+.table, tbody .row
+{
+    margin-right: 0;
+    margin-left: 0;
+}
+/*--------Tbody Row Margin Finish--------*/
+
+
+/*--------Thead Column Letter Spacing--------*/
+.table thead th
+{
+    letter-spacing: 0;
+}
+/*--------Thead Column Letter Spacing Finish--------*/
+
+
+/*--------Card Footer--------*/
+.card-footer
+{
+    margin: 0;
+}
+/*--------Card Footer Finish--------*/
+
+
+/*--------Item Column Image--------*/
+.item-img
+{
+    width: 38px;
+    height: 38px;
+}
+/*--------Item Column Image Finish--------*/
+
+
+/*--------Border Top--------*/
+.border-top-1
+{
+    border-top: 1px solid #e9ecef !important;
+}
+/*--------Border Top Finish--------*/
+
+
+/*--------Border Top--------*/
+.border-bottom-1
+{
+    border-bottom: 1px solid #e9ecef !important;
+}
+/*--------Border Top Finish--------*/
+
+
+/*--------Border Top Style--------*/
+.border-top-style
+{
+    border-top-style: hidden !important;
+}
+/*--------Border Top Style Finish--------*/
+
+
+/*--------Border Bottom Style--------*/
+.border-bottom-style
+{
+    border-bottom-style: hidden !important;
+}
+/*--------Border Bottom Style Finish--------*/
+
+
+/*--------Invoice Bill Show Table Position--------*/
+.show-table
+{
+    margin-right: -2.5rem !important;
+    margin-left:  -2.5rem !important;
+}
+/*--------Invoice Bill Show Table Position Finished--------*/
+
+
+/*--------Table Head Line--------*/
+.table-head-line
+{
+    line-height: 26px;
+}
+
+.table tbody + tbody
+{
+    border-top: 1px solid #e9ecef;
+}
+/*--------Table Head Line Finish--------*/
+
+
+/*--------Company Name--------*/
+.d-grid
+{
+    display: grid;
+}
+/*--------Company Name Finish--------*/
+
+
+/*--------Card Header Bulk Action--------*/
+.d-none.show
+{
+    display : flex !important;
+}
+
+.btn .d-none.show
+{
+    display : inherit !important;
+}
+/*--------Card Header Bulk Action Finish--------*/
+
+
+/*--------Card Buttons--------*/
+.card-buttons
+{
+    margin-top: -0.4rem !important;
+}
+/*--------Card Buttons Finish--------*/
+
+
+/*--------Card Action Button--------*/
+.card-action-button
+{
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+/*--------Card Action Button Finish--------*/
+
+
+/*--------Module Show Second Card--------*/
+.table-fixed
+{
+    table-layout: fixed;
+}
+
+.long-module-detail
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*--------Module Show Second Card Finish--------*/
+
+
+/*--------Akaunting Loader--------*/
+.aka-loader-frame
+{
+    width: 59.88px;
+    height: 21px;
+}
+
+.aka-loader
+{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: relative;
+    animation: aka-loader 0.7s ease alternate infinite;
+    animation-delay: 0.28s;
+    top: -13px;
+    margin: -10px auto 0;
+}
+
+.aka-loader::after, .aka-loader::before
+{
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: aka-loader 0.8s ease alternate infinite;
+}
+
+.aka-loader::before
+{
+    left: -15px;
+    animation-delay: 0.14s;
+}
+
+.aka-loader::after
+{
+    right: -15px;
+    animation-delay: 0.42s;
+}
+
+@keyframes aka-loader
+{
+    0%
+    {
+        box-shadow: 0 28px 0 -28px #ffffff;
+    }
+
+    100%
+    {
+        box-shadow: 0 28px 0 #ffffff;
+    }
+}
+
+.btn .aka-loader
+{
+    display: none !important;
+}
+
+.btn:disabled span
+{
+    opacity: 0;
+}
+
+.btn:disabled .aka-loader
+{
+    display: block !important;
+}
+/*--------Akaunting Loader Finish--------*/
+
+
+/*--------Settings Index Page Icons--------*/
+.settings-icons
+{
+    position: relative;
+    top: -0.4rem;
+    height: 45px;
+    width: 45px;
+    padding-top: 10px;
+}
+/*--------Settings Index Page Icons Finish--------*/
+
+
+/*--------Settings Button Clipboard--------*/
+.btn-icon-clipboard:focus {
+    outline: none;
+}
+/*--------Settings Button Clipboard Finish--------*/
+
+
+/*--------Box Shadow None Focus--------*/
+.shadow-none--hover:focus
+{
+    box-shadow: none !important;
+}
+/*--------Box Shadow None Focus Finish--------*/
+
+
+/*--------Pagination Alignment--------*/
+.page-item .page-link, .page-item span
+{
+    align-items: unset;
+    padding-top: 7px;
+}
+/*--------Pagination Alignment Finish--------*/
+
+
+/*--------Akaunting Tables--------*/
+.col-aka
+{
+    margin-left: -51px;
+}
+/*--------Akaunting Tables--------*/
+
+
+/*--------Login Background--------*/
+.login-page
+{
+    background: url('../img/login.png') no-repeat center center fixed;
+    height: 100%;
+    width: 100%;
+    padding: 5% 0;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+/*--------Login Background Finish--------*/
+
+
+/*--------Wizard Background--------*/
+.wizard-page
+{
+    background: url('../img/login.png') no-repeat center center fixed;
+    height: 100%;
+    width: 100%;
+    padding: 5% 0;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+/*--------Wizard Background Finish--------*/
+
+
+/*--------Installation Background--------*/
+.installation-page
+{
+    background: url('../img/login.png') no-repeat center center fixed;
+    height: 100%;
+    width: 100%;
+    padding: 5% 0;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.install-line
+{
+    width: 75%;
+    position: absolute;
+    margin-top: 1.7rem;
+    margin-bottom: 1.7rem;
+    margin-left: 2.5rem;
+    border-top: 5px solid rgba(0, 0, 0, 0.1);
+}
+/*--------Installation Background Finish--------*/
+
+
+/*--------Font Size 1--------*/
+.font-size-1
+{
+    font-size: 1rem !important;
+}
+/*--------Font Size 1 Finish--------*/
+
+
+/*--------Avatar Size--------*/
+.avatar-size
+{
+    width: 128px;
+    height: 128px;
+    font-size: 4.5rem;
+}
+/*--------Avatar Size--------*/
+
+
+/*--------Button Disabled Hover--------*/
+.btn:disabled:hover
+{
+    box-shadow: none !important;
+}
+/*--------Button Disabled Hover Finish--------*/
+
+
+/*--------Recurring Inputs--------*/
+.recurring-single
+{
+    margin-top: 29px !important;
+}
+/*--------Recurring Inputs--------*/
+
+/*--------Invoice and Bill Total Column--------*/
+.total-column
+{
+    padding-top: 1.75rem !important;
+}
+/*--------Invoice and Bill Total Column Finish--------*/
+
+
+/*--------El Select Icon--------*/
+.select-icon-position
+{
+    padding-top: 0.3rem;
+}
+
+.el-select-icon
+{
+   padding-left: 4px;
+}
+
+.el-select .el-input .el-input__inner
+{
+    padding-left: 39px;
+}
+/*--------El Select Icon Finish--------*/
+
+
+/*--------Custom Table--------*/
+.table thead th
+{
+    border-bottom: 0;
+}
+
+.table-flush tbody tr td {
+    border: 0 !important;
+}
+/*--------Custom Table Finish--------*/
+
+
+/*--------Add Item Show--------*/
+.item-show
+{
+    min-width: 253px;
+    border-radius: 0.4375rem;
+}
+/*--------Add Item Show Finish--------*/
+
+
+/*--------Height 0--------*/
+.h-0
+{
+    height: 0 !important;
+}
+/*--------Height 0 Finish--------*/
+
+
+/*----------------RESPONSIVE START LINE----------------*/
+/*--------Xs Breakpoint--------*/
+@media (min-width: 304px) and (max-width: 575.98px)
+{
+    .col-xs-1 {width: 8.33%;}
+    .col-xs-2 {width: 16.66%;}
+    .col-xs-3 {width: 25%;}
+    .col-xs-4 {width: 33.33%;}
+    .col-xs-5 {width: 41.66%;}
+    .col-xs-6 {width: 50%;}
+    .col-xs-7 {width: 58.33%;}
+    .col-xs-8 {width: 66.66%;}
+    .col-xs-9 {width: 75%;}
+    .col-xs-10 {width: 83.33%;}
+    .col-xs-11 {width: 91.66%;}
+    .col-xs-12 {width: 100%;}
+
+    .hidden-sm,
+    .hidden-md,
+    .hidden-lg,
+    .hidden-xl
+    {
+        display: none;
+    }
+
+    .btn-alone
+    {
+        width: 100%;
+        height: 40px;
+        font-size: .875rem;
+        padding: .425rem 1.25rem;
+        margin-top: 0.4rem;
+        margin-bottom: -1rem;
+    }
+
+    .header-button-top
+    {
+        width: 100%;
+        height: 40px;
+        font-size: .875rem;
+        padding: .425rem 1.25rem;
+        margin-top: 0.5rem;
+    }
+
+    .header-button-bottom
+    {
+        width: 100%;
+        height: 40px;
+        font-size: .875rem;
+        padding: .425rem 1.25rem;
+        margin-top: 0.5rem;
+        margin-bottom: -1rem;
+    }
+
+    .footer-texts
+    {
+        width: 100%;
+        text-align: center;
+        white-space: nowrap;
+        font-size: 0.75rem !important;
+    }
+
+    .card-header-search
+    {
+        margin-left: -1rem;
+    }
+
+    .col-aka
+    {
+        margin-left: 0;
+    }
+
+    .left-menu-toggle
+    {
+        display: block !important;
+        padding-top: 0.4rem !important;
+    }
+
+    .left-menu-toggle-position
+    {
+        margin-left: 1rem !important;
+    }
+
+    .nav-header-text
+    {
+      width: 8.5rem;
+    }
+
+    .dashboard-action
+    {
+        float: right;
+    }
+
+    .install-line
+    {
+        width: 0;
+        position: absolute;
+        margin-left: 7.75rem;
+        border-left: 5px solid rgba(0, 0, 0, 0.1);
+        height: 200px;
+    }
+}
+/*--------Xs Breakpoint Finish--------*/
+
+/*--------S Breakpoint--------*/
+@media (min-width: 576px) and (max-width: 767.98px)
+{
+    .hidden-md,
+    .hidden-lg,
+    .hidden-xl
+    {
+        display: none;
+    }
+
+    .card-header-search
+    {
+        margin-left: -1rem;
+    }
+
+    .dashboard-action
+    {
+        margin-left: 4rem !important;
+    }
+
+    .install-line
+    {
+        width: 0;
+        position: absolute;
+        margin-left: 7.75rem;
+        border-left: 5px solid rgba(0, 0, 0, 0.1);
+        height: 200px;
+    }
+}
+/*--------S Breakpoint Finish--------*/
+
+/*--------M Breakpoint--------*/
+@media (min-width: 768px) and (max-width: 991.98px)
+{
+    .hidden-lg,
+    .hidden-xl
+    {
+        display: none;
+    }
+
+    .card-header-search
+    {
+        margin-left: -1rem;
+    }
+
+    .sidenav .navbar-nav .dropdown-menu
+    {
+        left: 1rem !important;
+    }
+
+    .dashboard-action
+    {
+        margin-left: 3rem !important;
+    }
+}
+/*--------M Breakpoint Finish--------*/
+
+/*--------L Breakpoint--------*/
+@media (min-width: 992px) and (max-width: 1199.98px)
+{
+    .hidden-xl
+    {
+        display: none;
+    }
+
+    .card-header-search
+    {
+        margin-left: -1rem;
+    }
+
+    .card-header-search-text
+    {
+        padding-left: 17px;
+    }
+
+    .card-header-space
+    {
+        white-space: nowrap;
+    }
+
+    .sidenav .navbar-nav .dropdown-menu
+    {
+        left: 1rem;
+    }
+
+    .dashboard-action
+    {
+        margin-left: 1rem !important;
+    }
+}
+/*--------L Breakpoint Finish--------*/
+
+/*--------XL Breakpoint--------*/
+@media (min-width: 1200px) and (max-width: 1327.98px)
+{
+    .hidden-xl
+    {
+        display: none;
+    }
+}
+/*--------XL Breakpoint Finish--------*/
+/*----------------RESPONSIVE END LINE----------------*/
+
+table .align-items-center td span.badge {
+    height: 24px;
+    padding-top: 8px;
+    font-size: 9px;
+}

@@ -23,12 +23,18 @@ class Company extends FormRequest
      */
     public function rules()
     {
+        $logo = 'nullable';
+
+        if ($this->request->get('logo', null)) {
+            $logo = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
+        }
+
         return [
-            'domain' => 'required|string',
-            'company_name' => 'required|string',
-            'company_email' => 'required|email',
-            'company_logo' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
-            'default_currency' => 'required|string',
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'currency' => 'required|string',
+            'domain' => 'nullable|string',
+            'logo' => $logo,
         ];
     }
 }

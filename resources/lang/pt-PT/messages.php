@@ -18,7 +18,7 @@ return [
         'customer'          => 'Erro: O utilizador não foi criado! :name já está a usar este e-mail.',
         'no_file'           => 'Erro: Nenhum ficheiro selecionado!',
         'last_category'     => 'Erro: Não pode excluir a última :type categoria!',
-        'invalid_token'     => 'Erro: O token inserido é inválido!',
+        'invalid_apikey'     => 'Erro: O token inserido é inválido!',
         'import_column'     => 'Erro: :message Nome da folha: :sheet. Linha número: :line.',
         'import_sheet'      => 'Erro: O nome da folha não é válido. Por favor, verifique o ficheiro de exemplo.',
     ],

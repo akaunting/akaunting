@@ -18,7 +18,7 @@ return [
         'customer'          => 'Грешка: Корисник није креиран! :name већ корисити ову адресу е-поште.',
         'no_file'           => 'Грешка: Није одабрана ниједна датотека!',
         'last_category'     => 'Грешка: Није могуће избрисати задњу :type категорију!',
-        'invalid_token'     => 'Грешка: Upisani token nije valjan!',
+        'invalid_apikey'     => 'Грешка: Upisani token nije valjan!',
         'import_column'     => 'Грешка: :message Назив табле: :sheet. Број линије: :line.',
         'import_sheet'      => 'Грешка: Назив табле није валидан. Молимо Вас, проверите фајл узорак.',
     ],

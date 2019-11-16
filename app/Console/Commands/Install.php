@@ -212,7 +212,8 @@ class Install extends Command
         }
     }
 
-    private function createDatabaseTables() {
+    private function createDatabaseTables()
+    {
         $this->dbHost     = $this->option(self::OPT_DB_HOST);
         $this->dbPort     = $this->option(self::OPT_DB_PORT);
         $this->dbName     = $this->option(self::OPT_DB_NAME);

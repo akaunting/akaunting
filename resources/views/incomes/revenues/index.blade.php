@@ -3,129 +3,106 @@
 @section('title', trans_choice('general.revenues', 2))
 
 @section('new_button')
-@permission('create-incomes-revenues')
-<span class="new-button"><a href="{{ url('incomes/revenues/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-<span><a href="{{ url('common/import/incomes/revenues') }}" class="btn btn-default btn-sm"><span class="fa fa-download"></span> &nbsp;{{ trans('import.import') }}</a></span>
-@endpermission
-<span><a href="{{ route('revenues.export', request()->input()) }}" class="btn btn-default btn-sm"><span class="fa fa-upload"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    @permission('create-incomes-revenues')
+        <span><a href="{{ route('revenues.create') }}" class="btn btn-primary btn-sm btn-success header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <span><a href="{{ url('common/import/incomes/revenues') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
+    @endpermission
+    <span><a href="{{ route('revenues.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
 @endsection
 
 @section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        {!! Form::open(['url' => 'incomes/revenues', 'role' => 'form', 'method' => 'GET']) !!}
-        <div id="items" class="pull-left box-filter">
-            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
-            {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::dateRange('date', trans('general.date'), 'calendar', []) !!}
-            {!! Form::select('customers[]', $customers, request('customers'), ['id' => 'filter-customers', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
-            {!! Form::select('categories[]', $categories, request('categories'), ['id' => 'filter-categories', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
-            {!! Form::select('accounts[]', $accounts, request('accounts'), ['id' => 'filter-accounts', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
-            {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
+    <div class="card">
+        <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
+            {!! Form::open([
+                'url' => 'incomes/revenues',
+                'role' => 'form',
+                'method' => 'GET',
+                'class' => 'mb-0'
+            ]) !!}
+                <div class="row" v-if="!bulk_action.show">
+                    <div class="col-12 card-header-search">
+                        <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
+                        <akaunting-search></akaunting-search>
+                    </div>
+                </div>
+
+                {{ Form::bulkActionRowGroup('general.revenues', $bulk_actions, 'incomes/revenues') }}
+            {!! Form::close() !!}
         </div>
-        <div class="pull-right">
-            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
-            {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-revenues">
-                <thead>
-                    <tr>
-                        <th class="col-md-2">@sortablelink('paid_at', trans('general.date'))</th>
-                        <th class="col-md-2 text-right amount-space">@sortablelink('amount', trans('general.amount'))</th>
-                        <th class="col-md-3 hidden-xs">@sortablelink('customer.name', trans_choice('general.customers', 1))</th>
-                        <th class="col-md-2 hidden-xs">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
-                        <th class="col-md-2 hidden-xs">@sortablelink('account.name', trans_choice('general.accounts', 1))</th>
-                        <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
+
+        <div class="table-responsive">
+            <table class="table table-flush table-hover">
+                <thead class="thead-light">
+                    <tr class="row table-head-line">
+                        <th class="col-sm-2 col-md-2 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
+                        <th class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-3">@sortablelink('paid_at', trans('general.date'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
+                        <th class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1 text-right">@sortablelink('amount', trans('general.amount'))</th>
+                        <th class="col-md-2 col-lg-2 col-xl-3 hidden-md">@sortablelink('contact.name', trans_choice('general.customers', 1))</th>
+                        <th class="col-lg-2 col-xl-2 hidden-lg">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
+                        <th class="col-lg-2 col-xl-1 hidden-lg">@sortablelink('account.name', trans_choice('general.accounts', 1))</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center"><a>{{ trans('general.actions') }}</a></th>
                     </tr>
                 </thead>
+
                 <tbody>
-                @foreach($revenues as $item)
-                    @php $is_transfer = ($item->category && ($item->category->id == $transfer_cat_id)); @endphp
-                    <tr>
-                        @if ($item->reconciled)
-                        <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                        @else
-                        <td><a href="{{ url('incomes/revenues/' . $item->id . '/edit') }}">{{ Date::parse($item->paid_at)->format($date_format) }}</a></td>
-                        @endif
-                        <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                        <td class="hidden-xs">{{ !empty($item->customer->name) ? $item->customer->name : trans('general.na') }}</td>
-                        <td class="hidden-xs">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
-                        <td class="hidden-xs">{{ $item->account ? $item->account->name : trans('general.na') }}</td>
-                        <td class="text-center">
-                            @if (!$is_transfer)
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    @if (!$item->reconciled)
-                                    <li><a href="{{ url('incomes/revenues/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
-                                    <li class="divider"></li>
-                                    @endif
-                                    @permission('create-incomes-revenues')
-                                    <li><a href="{{ url('incomes/revenues/' . $item->id . '/duplicate') }}">{{ trans('general.duplicate') }}</a></li>
-                                    @endpermission
-                                    @permission('delete-incomes-revenues')
-                                    @if (!$item->reconciled)
-                                    <li class="divider"></li>
-                                    <li>{!! Form::deleteLink($item, 'incomes/revenues') !!}</li>
-                                    @endif
-                                    @endpermission
-                                </ul>
-                            </div>
+                    @foreach($revenues as $item)
+                        @php $is_transfer = ($item->category && ($item->category->id == $transfer_cat_id)); @endphp
+                        <tr class="row align-items-center border-top-1">
+                            <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionGroup($item->id, $item->contact->name) }}</td>
+                            @if ($item->reconciled)
+                                <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-3">@date($item->paid_at)</td>
+                            @else
+                                <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-3"><a class="text-success col-aka" href="{{ route('revenues.edit', $item->id) }}">@date($item->paid_at)</a></td>
                             @endif
-                        </td>
-                    </tr>
-                @endforeach
+                            <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1 text-right">@money($item->amount, $item->currency_code, true)</td>
+                            <td class="col-md-2 col-lg-2 col-xl-3 hidden-md">{{ !empty($item->contact->name) ? $item->contact->name : trans('general.na') }}</td>
+                            <td class="col-lg-2 col-xl-2 hidden-lg">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                            <td class="col-lg-2 col-xl-1 hidden-lg">{{ $item->account ? $item->account->name : trans('general.na') }}</td>
+                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
+                                @if (!$is_transfer)
+                                    <div class="dropdown">
+                                        <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h text-muted"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            @if (!$item->reconciled)
+                                                <a class="dropdown-item" href="{{ route('revenues.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                                <div class="dropdown-divider"></div>
+                                            @endif
+                                            @permission('create-incomes-revenues')
+                                                <a class="dropdown-item" href="{{ route('revenues.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
+                                            @endpermission
+
+                                            @permission('delete-incomes-revenues')
+                                                @if (!$item->reconciled)
+                                                    <div class="dropdown-divider"></div>
+                                                    {!! Form::deleteLink($item, 'incomes/revenues') !!}
+                                                @endif
+                                            @endpermission
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="tooltip" aria-haspopup="true" aria-expanded="false" title="This Transfer, If you want to action redirect">
+                                            <i class="fa fa-exchange-alt text-muted"></i>
+                                        </button>
+                                    </div>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
-    <!-- /.box-body -->
 
-    <div class="box-footer">
-        @include('partials.admin.pagination', ['items' => $revenues, 'type' => 'revenues'])
+        <div class="card-footer table-action">
+            <div class="row">
+                @include('partials.admin.pagination', ['items' => $revenues, 'type' => 'revenues'])
+            </div>
+        </div>
     </div>
-    <!-- /.box-footer -->
-</div>
-<!-- /.box -->
 @endsection
 
-@push('js')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/moment.js') }}"></script>
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-@if (language()->getShortCode() != 'en')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
-@endif
+@push('scripts_start')
+    <script src="{{ asset('public/js/incomes/revenues.js?v=' . version('short')) }}"></script>
 @endpush
-
-@push('css')
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-@endpush
-
-@push('scripts')
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#filter-categories").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
-        });
-
-        $("#filter-customers").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.customers', 1)]) }}"
-        });
-
-        $("#filter-accounts").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
-        });
-    });
-</script>
-@endpush
-

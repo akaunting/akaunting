@@ -3,31 +3,40 @@
 @section('title', trans('general.title.edit', ['type' => trans_choice('general.permissions', 1)]))
 
 @section('content')
-    <!-- Default box -->
-    <div class="box box-success">
+    <div class="card">
         {!! Form::model($permission, [
+            'id' => 'permission',
             'method' => 'PATCH',
-            'url' => ['auth/permissions', $permission->id],
+            'route' => ['permissions.update', $permission->id],
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
+            'files' => true,
             'role' => 'form',
-            'class' => 'form-loading-button'
+            'class' => 'form-loading-button',
+            'novalidate' => true
         ]) !!}
 
-        <div class="box-body">
-            {{ Form::textGroup('display_name', trans('general.name'), 'id-card-o') }}
+            <div class="card-body">
+                <div class="row">
+                    {{ Form::textGroup('display_name', trans('general.name'), 'tasks') }}
 
-            {{ Form::textGroup('name', trans('general.code'), 'code') }}
+                    {{ Form::textGroup('name', trans('general.code'), 'code') }}
 
-            {{ Form::textareaGroup('description', trans('general.description')) }}
-        </div>
-        <!-- /.box-body -->
+                    {{ Form::textareaGroup('description', trans('general.description')) }}
+                </div>
+            </div>
 
-        @permission('update-auth-permissions')
-        <div class="box-footer">
-            {{ Form::saveButtons('auth/permissions') }}
-        </div>
-        <!-- /.box-footer -->
-        @endpermission
-
+            @permission('update-auth-permissions')
+                <div class="card-footer">
+                    <div class="row float-right">
+                        {{ Form::saveButtons('auth/permissions') }}
+                    </div>
+                </div>
+            @endpermission
         {!! Form::close() !!}
     </div>
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/auth/permissions.js?v=' . version('short')) }}"></script>
+@endpush

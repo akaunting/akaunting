@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Wizard;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Tax as Request;
+use App\Jobs\Setting\CreateTax;
+use App\Jobs\Setting\DeleteTax;
+use App\Jobs\Setting\UpdateTax;
 use App\Models\Setting\Tax;
 
 class Taxes extends Controller
@@ -15,26 +18,9 @@ class Taxes extends Controller
      */
     public function index()
     {
-        $taxes = Tax::all();
+        $taxes = Tax::collect();
 
         return view('wizard.taxes.index', compact('taxes'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        $html = view('wizard.taxes.create')->render();
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'message' => 'null',
-            'html' => $html,
-        ]);
     }
 
     /**
@@ -46,37 +32,21 @@ class Taxes extends Controller
      */
     public function store(Request $request)
     {
-        $tax = Tax::create($request->all());
+        $response = $this->ajaxDispatch(new CreateTax($request));
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.tax_rates', 1)]);
+        $response['redirect'] = route('wizard.taxes.index');
 
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'message' => $message,
-            'data' => $tax,
-        ]);
-    }
+        if ($response['success']) {
+            $message = trans('messages.success.added', ['type' => trans_choice('general.taxes', 1)]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Tax  $tax
-     *
-     * @return Response
-     */
-    public function edit(Tax $tax)
-    {
-        $item = $tax;
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
 
-        $html = view('wizard.taxes.edit', compact('item'))->render();
+            flash($message)->error();
+        }
 
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'message' => 'null',
-            'html' => $html,
-        ]);
+        return response()->json($response);
     }
 
     /**
@@ -89,94 +59,21 @@ class Taxes extends Controller
      */
     public function update(Tax $tax, Request $request)
     {
-        $relationships = $this->countRelationships($tax, [
-            'items' => 'items',
-            'invoice_items' => 'invoices',
-            'bill_items' => 'bills',
-        ]);
+        $response = $this->ajaxDispatch(new UpdateTax($tax, $request));
 
-        if (empty($relationships) || $request['enabled']) {
-            $tax->update($request->all());
+        $response['redirect'] = route('wizard.taxes.index');
 
-            $message = trans('messages.success.updated', ['type' => trans_choice('general.tax_rates', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.updated', ['type' => $tax->name]);
 
-            return response()->json([
-                'success' => true,
-                'error' => false,
-                'message' => $message,
-                'data' => $tax,
-            ]);
+            flash($message)->success();
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            return response()->json([
-                'success' => true,
-                'error' => false,
-                'message' => $message,
-                'data' => $tax,
-            ]);
+            flash($message)->error();
         }
-    }
 
-    /**
-     * Enable the specified resource.
-     *
-     * @param  Tax  $tax
-     *
-     * @return Response
-     */
-    public function enable(Tax $tax)
-    {
-        $tax->enabled = 1;
-        $tax->save();
-
-        $message = trans('messages.success.enabled', ['type' => trans_choice('general.tax_rates', 1)]);
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'message' => $message,
-            'data' => $tax,
-        ]);
-    }
-
-    /**
-     * Disable the specified resource.
-     *
-     * @param  Tax  $tax
-     *
-     * @return Response
-     */
-    public function disable(Tax $tax)
-    {
-        $relationships = $this->countRelationships($tax, [
-            'items' => 'items',
-            'invoice_items' => 'invoices',
-            'bill_items' => 'bills',
-        ]);
-
-        if (empty($relationships)) {
-            $tax->enabled = 0;
-            $tax->save();
-
-            $message = trans('messages.success.disabled', ['type' => trans_choice('general.tax_rates', 1)]);
-
-            return response()->json([
-                'success' => true,
-                'error' => false,
-                'message' => $message,
-                'data' => $tax,
-            ]);
-        } else {
-            $message = trans('messages.warning.disabled', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
-
-            return response()->json([
-                'success' => false,
-                'error' => true,
-                'message' => $message,
-                'data' => $tax,
-            ]);
-        }
+        return response()->json($response);
     }
 
     /**
@@ -188,32 +85,20 @@ class Taxes extends Controller
      */
     public function destroy(Tax $tax)
     {
-        $relationships = $this->countRelationships($tax, [
-            'items' => 'items',
-            'invoice_items' => 'invoices',
-            'bill_items' => 'bills',
-        ]);
+        $response = $this->ajaxDispatch(new DeleteTax($tax));
 
-        if (empty($relationships)) {
-            $tax->delete();
+        $response['redirect'] = route('wizard.taxes.index');
 
-            $message = trans('messages.success.deleted', ['type' => trans_choice('general.taxes', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $tax->name]);
 
-            return response()->json([
-                'success' => true,
-                'error' => false,
-                'message' => $message,
-                'data' => $tax,
-            ]);
+            flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            return response()->json([
-                'success' => false,
-                'error' => true,
-                'message' => $message,
-                'data' => $tax,
-            ]);
+            flash($message)->error();
         }
+
+        return response()->json($response);
     }
 }

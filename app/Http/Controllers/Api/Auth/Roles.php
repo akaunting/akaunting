@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Auth\Role as Request;
 use App\Models\Auth\Role;
+use App\Jobs\Auth\CreateRole;
+use App\Jobs\Auth\DeleteRole;
+use App\Jobs\Auth\UpdateRole;
 use App\Transformers\Auth\Role as Transformer;
-use Dingo\Api\Routing\Helpers;
 
 class Roles extends ApiController
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
@@ -43,13 +43,9 @@ class Roles extends ApiController
      */
     public function store(Request $request)
     {
-        $role = Role::create($request->input());
+        $role = $this->dispatch(new CreateRole($request));
 
-        if ($request->has('permissions')) {
-            $role->permissions()->attach($request->get('permissions'));
-        }
-
-        return $this->response->created(url('api/roles/'.$role->id));
+        return $this->response->created(url('api/roles/' . $role->id));
     }
 
     /**
@@ -61,13 +57,9 @@ class Roles extends ApiController
      */
     public function update(Role $role, Request $request)
     {
-        $role->update($request->all());
+        $role = $this->dispatch(new UpdateRole($role, $request));
 
-        if ($request->has('permissions')) {
-            $role->permissions()->attach($request->get('permissions'));
-        }
-
-        return $this->response->item($role->fresh(), new Transformer());
+        return $this->item($role->fresh(), new Transformer());
     }
 
     /**
@@ -78,8 +70,12 @@ class Roles extends ApiController
      */
     public function destroy(Role $role)
     {
-        $role->delete();
+        try {
+            $this->dispatch(new DeleteRole($role));
 
-        return $this->response->noContent();
+            return $this->response->noContent();
+        } catch(\Exception $e) {
+            $this->response->errorUnauthorized($e->getMessage());
+        }
     }
 }

@@ -14,7 +14,7 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('domain');
+            $table->string('domain')->nullable();
             $table->boolean('enabled')->default(1);
             $table->timestamps();
             $table->softDeletes();

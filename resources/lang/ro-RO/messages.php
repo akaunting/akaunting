@@ -18,7 +18,7 @@ return [
         'customer'          => 'Eroare: Utilizatorul nu a fost creat! :name deja foloseste aceasta adresa de email.',
         'no_file'           => 'Eroare: Nici un fişier selectat!',
         'last_category'     => 'Eroare: Nu pot sterge ultima :type categorie!',
-        'invalid_token'     => 'Eroare: Tokenul introdus este invalid!',
+        'invalid_apikey'     => 'Eroare: Tokenul introdus este invalid!',
         'import_column'     => 'Eroare: message Nume foaie lucru: :sheet. Numar linie: :line.',
         'import_sheet'      => 'Eroare: Numele foii de lucru nu este valid. Te rog verifica fisierul mostra.',
     ],

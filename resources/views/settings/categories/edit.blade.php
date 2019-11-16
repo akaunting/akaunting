@@ -3,70 +3,60 @@
 @section('title', trans('general.title.edit', ['type' => trans_choice('general.categories', 1)]))
 
 @section('content')
-    <!-- Default box -->
-    <div class="box box-success">
+    <div class="card">
         {!! Form::model($category, [
+            'id' => 'category',
             'method' => 'PATCH',
-            'url' => ['settings/categories', $category->id],
+            'route' => ['categories.update', $category->id],
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
+            'files' => true,
             'role' => 'form',
-            'class' => 'form-loading-button'
+            'class' => 'form-loading-button',
+            'novalidate' => true
         ]) !!}
 
-        <div class="box-body">
-            {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+            <div class="card-body">
+                <div class="row">
+                    {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
-            @if ($type_disabled)
-                {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, null, ['required' => 'required', 'disabled' => 'disabled']) }}
-                <input type="hidden" name="type" value="{{ $category->type }}" />
-            @else
-                {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types) }}
-            @endif
+                    @if ($type_disabled)
+                        {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $category->type, ['required' => 'required', 'disabled' => 'disabled']) }}
+                        <input type="hidden" name="type" value="{{ $category->type }}" />
+                    @else
+                        {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $category->type) }}
+                    @endif
 
-            @stack('color_input_start')
-            <div class="form-group col-md-6 required {{ $errors->has('color') ? 'has-error' : ''}}">
-                {!! Form::label('color', trans('general.color'), ['class' => 'control-label']) !!}
-                <div  id="category-color-picker" class="input-group colorpicker-component">
-                    <div class="input-group-addon"><i></i></div>
-                    {!! Form::text('color', null, ['id' => 'color', 'class' => 'form-control', 'required' => 'required']) !!}
+                    @stack('color_input_start')
+                        <div class="form-group col-md-6 required {{ $errors->has('color') ? 'has-error' : ''}}">
+                            {!! Form::label('color', trans('general.color'), ['class' => 'form-control-label']) !!}
+                            <div class="input-group input-group-merge" id="category-color-picker">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <el-color-picker v-model="color" size="small" :predefine="predefineColors" @change="onChangeColor"></el-color-picker>
+                                    </span>
+                                </div>
+                                {!! Form::text('color', $category->color, ['@input' => 'onChangeColorInput', 'id' => 'color', 'class' => 'form-control color-hex', 'required' => 'required']) !!}
+                            </div>
+                            {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
+                        </div>
+                    @stack('color_input_end')
+
+                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
                 </div>
-                {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
             </div>
-            @stack('color_input_end')
 
-            {{ Form::radioGroup('enabled', trans('general.enabled')) }}
-        </div>
-        <!-- /.box-body -->
-
-        @permission('update-settings-categories')
-        <div class="box-footer">
-            {{ Form::saveButtons('settings/categories') }}
-        </div>
-        <!-- /.box-footer -->
-        @endpermission
-
+            @permission('update-settings-categories')
+                <div class="card-footer">
+                    <div class="row float-right">
+                        {{ Form::saveButtons('settings/categories') }}
+                    </div>
+                </div>
+            @endpermission
         {!! Form::close() !!}
     </div>
 @endsection
 
-@push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
-@endpush
-
-@push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
-@endpush
-
-@push('scripts')
-    <script type="text/javascript">
-        var text_yes = '{{ trans('general.yes') }}';
-        var text_no = '{{ trans('general.no') }}';
-
-        $(document).ready(function(){
-            $("#type").select2({
-                placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]) }}"
-            });
-
-            $('#category-color-picker').colorpicker();
-        });
-    </script>
+@push('scripts_start')
+    <script src="{{ asset('public/js/settings/categories.js?v=' . version('short')) }}"></script>
 @endpush

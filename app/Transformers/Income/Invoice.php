@@ -2,11 +2,8 @@
 
 namespace App\Transformers\Income;
 
-use App\Transformers\Income\Customer;
-use App\Transformers\Income\InvoiceHistories;
-use App\Transformers\Income\InvoiceItems;
-use App\Transformers\Income\InvoicePayments;
-use App\Transformers\Income\InvoiceStatus;
+use App\Transformers\Banking\Transaction;
+use App\Transformers\Common\Contact;
 use App\Transformers\Setting\Currency;
 use App\Models\Income\Invoice as Model;
 use League\Fractal\TransformerAbstract;
@@ -16,7 +13,7 @@ class Invoice extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['currency', 'customer', 'histories', 'items', 'payments', 'status'];
+    protected $defaultIncludes = ['contact', 'currency', 'histories', 'items', 'status', 'transactions'];
 
     /**
      * @param Model $model
@@ -30,22 +27,31 @@ class Invoice extends TransformerAbstract
             'invoice_number' => $model->invoice_number,
             'order_number' => $model->order_number,
             'invoice_status_code' => $model->invoice_status_code,
-            'invoiced_at' => $model->invoiced_at->toIso8601String(),
-            'due_at' => $model->due_at->toIso8601String(),
+            'invoiced_at' => $model->invoiced_at ? $model->invoiced_at->toIso8601String() : '',
+            'due_at' => $model->due_at ? $model->due_at->toIso8601String() : '',
             'amount' => $model->amount,
             'currency_code' => $model->currency_code,
             'currency_rate' => $model->currency_rate,
-            'customer_id' => $model->customer_id,
-            'customer_name' => $model->customer_name,
-            'customer_email' => $model->customer_email,
-            'customer_tax_number' => $model->customer_tax_number,
-            'customer_phone' => $model->customer_phone,
-            'customer_address' => $model->customer_address,
+            'contact_id' => $model->contact_id,
+            'contact_name' => $model->contact_name,
+            'contact_email' => $model->contact_email,
+            'contact_tax_number' => $model->contact_tax_number,
+            'contact_phone' => $model->contact_phone,
+            'contact_address' => $model->contact_address,
             'notes' => $model->notes,
             'attachment' => $model->attachment,
-            'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
+            'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeContact(Model $model)
+    {
+        return $this->item($model->contact, new Contact());
     }
 
     /**
@@ -55,15 +61,6 @@ class Invoice extends TransformerAbstract
     public function includeCurrency(Model $model)
     {
         return $this->item($model->currency, new Currency());
-    }
-
-    /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeCustomer(Model $model)
-    {
-        return $this->item($model->customer, new Customer());
     }
 
     /**
@@ -86,19 +83,19 @@ class Invoice extends TransformerAbstract
 
     /**
      * @param Model $model
-     * @return \League\Fractal\Resource\Collection
-     */
-    public function includePayments(Model $model)
-    {
-        return $this->collection($model->payments, new InvoicePayments());
-    }
-
-    /**
-     * @param Model $model
      * @return \League\Fractal\Resource\Item
      */
     public function includeStatus(Model $model)
     {
         return $this->item($model->status, new InvoiceStatus());
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeTransactions(Model $model)
+    {
+        return $this->collection($model->transactions, new Transaction());
     }
 }

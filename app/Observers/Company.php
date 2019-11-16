@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Models\Common\Company as Model;
 use Artisan;
-use Auth;
 
 class Company
 {
@@ -22,12 +21,12 @@ class Company
         ]);
 
         // Check if user is logged in
-        if (!Auth::check()) {
+        if (!auth()->check()) {
             return;
         }
 
         // Attach company to user
-        Auth::user()->companies()->attach($company->id);
+        user()->companies()->attach($company->id);
     }
 
     /**
@@ -39,9 +38,9 @@ class Company
     public function deleted(Model $company)
     {
         $tables = [
-            'accounts', 'bill_histories', 'bill_items', 'bill_payments', 'bill_statuses', 'bills', 'categories',
-            'currencies', 'customers', 'invoice_histories', 'invoice_items', 'invoice_payments', 'invoice_statuses',
-            'invoices', 'items', 'payments', 'recurring', 'revenues', 'settings', 'taxes', 'transfers', 'vendors',
+            'accounts', 'bill_histories', 'bill_items', 'bill_statuses', 'bills', 'categories', 'contacts',
+            'currencies', 'invoice_histories', 'invoice_items', 'invoice_statuses', 'invoices', 'items', 'recurring',
+            'settings', 'taxes', 'transactions', 'transfers',
         ];
 
         foreach ($tables as $table) {

@@ -2,29 +2,32 @@
 
 namespace App\Traits;
 
+use App\Traits\SiteApi;
 use App\Utilities\Info;
 use App\Models\Module\Module as Model;
+use App\Models\Module\Module;
 use Artisan;
 use Cache;
 use Date;
 use File;
-use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 use GuzzleHttp\Exception\RequestException;
-use Module;
 use ZipArchive;
+
 
 trait Modules
 {
+    use SiteApi;
 
-    public function checkToken($token)
+    public function checkToken($apiKey)
     {
         $data = [
             'form_params' => [
-                'token' => $token,
+                'token' => $apiKey,
             ]
         ];
 
-        $response = $this->getRemote('token/check', 'POST', $data);
+        $response = static::getRemote('token/check', 'POST', $data);
 
         if ($response && ($response->getStatusCode() == 200)) {
             $result = json_decode($response->getBody());
@@ -35,103 +38,51 @@ trait Modules
         return false;
     }
 
+    // Get All Modules
     public function getModules()
     {
-        $response = $this->getRemote('apps/items');
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/items');
     }
 
+    // Get Module
     public function getModule($alias)
     {
-        $response = $this->getRemote('apps/' . $alias);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/' . $alias);
     }
 
     public function getDocumentation($alias)
     {
-        $response = $this->getRemote('apps/docs/' . $alias);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/docs/' . $alias);
     }
 
     public function getModuleReviews($alias, $data = [])
     {
-        $response = $this->getRemote('apps/' . $alias . '/reviews', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/' . $alias . '/reviews', 'GET', $data);
     }
 
     public function getCategories()
     {
-        $response = $this->getRemote('apps/categories');
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/categories');
     }
 
     public function getModulesByCategory($alias, $data = [])
     {
-        $response = $this->getRemote('apps/categories/' . $alias, 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/categories/' . $alias, 'GET', $data);
     }
 
     public function getVendors()
     {
-        $response = $this->getRemote('apps/vendors');
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/vendors');
     }
 
     public function getModulesByVendor($alias, $data = [])
     {
-        $response = $this->getRemote('apps/vendors/' . $alias, 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/vendors/' . $alias, 'GET', $data);
     }
 
     public function getMyModules($data = [])
     {
-        $response = $this->getRemote('apps/my', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/my', 'GET', $data);
     }
 
     public function getInstalledModules($data = [])
@@ -147,8 +98,9 @@ trait Modules
         }
 
         $installed = [];
+
         $modules = Module::all();
-        $installed_modules = Model::where('company_id', '=', session('company_id'))->pluck('status', 'alias')->toArray();
+        $installed_modules = Model::where('company_id', '=', session('company_id'))->pluck('enabled', 'alias')->toArray();
 
         foreach ($modules as $module) {
             if (!array_key_exists($module->alias, $installed_modules)) {
@@ -169,75 +121,39 @@ trait Modules
 
     public function getPreSaleModules($data = [])
     {
-        $response = $this->getRemote('apps/pre_sale', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/pre_sale', 'GET', $data);
     }
 
     public function getPaidModules($data = [])
     {
-        $response = $this->getRemote('apps/paid', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/paid', 'GET', $data);
     }
 
     public function getNewModules($data = [])
     {
-        $response = $this->getRemote('apps/new', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/new', 'GET', $data);
     }
 
     public function getFreeModules($data = [])
     {
-        $response = $this->getRemote('apps/free', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/free', 'GET', $data);
     }
 
     public function getSearchModules($data = [])
     {
-        $response = $this->getRemote('apps/search', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/search', 'GET', $data);
     }
 
     public function getFeaturedModules($data = [])
     {
-        $response = $this->getRemote('apps/featured', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $this->remote('apps/featured', 'GET', $data);
     }
 
     public function getCoreVersion()
     {
         $data['query'] = Info::all();
 
-        $response = $this->getRemote('core/version', 'GET', $data);
+        $response = static::getRemote('core/version', 'GET', $data);
 
         if ($response && ($response->getStatusCode() == 200)) {
             return $response->json();
@@ -248,7 +164,7 @@ trait Modules
 
     public function downloadModule($path)
     {
-        $response = $this->getRemote($path);
+        $response = static::getRemote($path);
 
         if ($response && ($response->getStatusCode() == 200)) {
             $file = $response->getBody()->getContents();
@@ -334,7 +250,7 @@ trait Modules
 
         $module = json_decode(file_get_contents($temp_path . '/module.json'));
 
-        $module_path = $modules_path . '/' . $module->name;
+        $module_path = $modules_path . '/' . Str::studly($module->alias);
 
         // Create module directory
         if (!File::isDirectory($module_path)) {
@@ -348,8 +264,8 @@ trait Modules
         Artisan::call('cache:clear');
 
         $data = [
-            'path'  => $path,
-            'name' => $module->name,
+            'path' => $path,
+            'name' => Str::studly($module->alias),
             'alias' => $module->alias
         ];
 
@@ -363,10 +279,10 @@ trait Modules
 
     public function uninstallModule($alias)
     {
-        $module = Module::findByAlias($alias);
+        $module = module($alias);
 
         $data = [
-            'name' => $module->get('name'),
+            'name' => $module->getName(),
             'category' => $module->get('category'),
             'version' => $module->get('version'),
         ];
@@ -381,16 +297,16 @@ trait Modules
         return [
             'success' => true,
             'errors' => false,
-            'data'   => $data
+            'data' => $data
         ];
     }
 
     public function enableModule($alias)
     {
-        $module = Module::findByAlias($alias);
+        $module = module($alias);
 
         $data = [
-            'name' => $module->get('name'),
+            'name' => $module->getName(),
             'category' => $module->get('category'),
             'version' => $module->get('version'),
         ];
@@ -402,18 +318,18 @@ trait Modules
         return [
             'success' => true,
             'errors' => false,
-            'data'   => $data
+            'data' => $data
         ];
     }
 
     public function disableModule($alias)
     {
-        $module = Module::findByAlias($alias);
+        $module = module($alias);
 
         $data = [
-          'name' => $module->get('name'),
-          'category' => $module->get('category'),
-          'version' => $module->get('version'),
+            'name' => $module->getName(),
+            'category' => $module->get('category'),
+            'version' => $module->get('version'),
         ];
 
         $module->disable();
@@ -423,7 +339,7 @@ trait Modules
         return [
             'success' => true,
             'errors' => false,
-            'data'   => $data
+            'data' => $data
         ];
     }
 
@@ -431,7 +347,7 @@ trait Modules
     {
         $status = false;
 
-        if (Module::findByAlias($alias) instanceof \Nwidart\Modules\Module) {
+        if (module($alias) instanceof \Akaunting\Module\Module) {
             $status = true;
         }
 
@@ -451,7 +367,7 @@ trait Modules
 
         $url = 'apps/suggestions';
 
-        $response = $this->getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
+        $response = static::getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
 
         // Exception
         if ($response instanceof RequestException) {
@@ -465,8 +381,10 @@ trait Modules
 
         $suggestions = json_decode($response->getBody())->data;
 
-        foreach ($suggestions as $suggestion) {
-            $data[$suggestion->path] = $suggestion;
+        if ($suggestions) {
+            foreach ($suggestions as $suggestion) {
+                $data[$suggestion->path] = $suggestion;
+            }
         }
 
         Cache::put('suggestions', $data, Date::now()->addHour(6));
@@ -487,7 +405,7 @@ trait Modules
 
         $url = 'apps/notifications';
 
-        $response = $this->getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
+        $response = static::getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
 
         // Exception
         if ($response instanceof RequestException) {
@@ -542,30 +460,14 @@ trait Modules
         return false;
     }
 
-    protected function getRemote($path, $method = 'GET', $data = array())
+    protected function remote($path, $method = 'GET', $data = [])
     {
-        $base = 'https://akaunting.com/api/';
+        $response = static::getRemote($path, $method, $data);
 
-        $client = new Client(['verify' => false, 'base_uri' => $base]);
-
-        $headers['headers'] = [
-            'Authorization' => 'Bearer ' . setting('general.api_token'),
-            'Accept'        => 'application/json',
-            'Referer'       => url('/'),
-            'Akaunting'     => version('short'),
-            'Language'      => language()->getShortCode()
-        ];
-
-        $data['http_errors'] = false;
-
-        $data = array_merge($data, $headers);
-
-        try {
-            $result = $client->request($method, $path, $data);
-        } catch (RequestException $e) {
-            $result = false;
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
         }
 
-        return $result;
+        return [];
     }
 }

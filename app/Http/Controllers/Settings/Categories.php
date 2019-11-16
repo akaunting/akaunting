@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Category as Request;
+use App\Jobs\Setting\CreateCategory;
+use App\Jobs\Setting\DeleteCategory;
+use App\Jobs\Setting\UpdateCategory;
 use App\Models\Setting\Category;
 
 class Categories extends Controller
@@ -37,7 +40,7 @@ class Categories extends Controller
      */
     public function show()
     {
-        return redirect('settings/categories');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -66,13 +69,23 @@ class Categories extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($request->all());
+        $response = $this->ajaxDispatch(new CreateCategory($request));
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.categories', 1)]);
+        if ($response['success']) {
+            $response['redirect'] = route('categories.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.added', ['type' => trans_choice('general.categories', 1)]);
 
-        return redirect('settings/categories');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('categories.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -99,134 +112,97 @@ class Categories extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Category  $category
-     * @param  Request  $request
+     * @param  Category $category
+     * @param  Request $request
      *
      * @return Response
      */
     public function update(Category $category, Request $request)
     {
-        $relationships = $this->countRelationships($category, [
-            'items' => 'items',
-            'invoices' => 'invoices',
-            'revenues' => 'revenues',
-            'bills' => 'bills',
-            'payments' => 'payments',
-        ]);
+        $response = $this->ajaxDispatch(new UpdateCategory($category, $request));
 
-        if (empty($relationships) || $request['enabled']) {
-            $category->update($request->all());
+        if ($response['success']) {
+            $response['redirect'] = route('categories.index');
 
-            $message = trans('messages.success.updated', ['type' => trans_choice('general.categories', 1)]);
+            $message = trans('messages.success.updated', ['type' => $category->name]);
 
             flash($message)->success();
-
-            return redirect('settings/categories');
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+            $response['redirect'] = route('categories.edit', $category->id);
 
-            flash($message)->warning();
+            $message = $response['message'];
 
-            return redirect('settings/categories/' . $category->id . '/edit');
+            flash($message)->error();
         }
+
+        return response()->json($response);
     }
 
     /**
      * Enable the specified resource.
      *
-     * @param  Category  $category
+     * @param  Category $category
      *
      * @return Response
      */
     public function enable(Category $category)
     {
-        $category->enabled = 1;
-        $category->save();
+        $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 1])));
 
-        $message = trans('messages.success.enabled', ['type' => trans_choice('general.categories', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.enabled', ['type' => $category->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('categories.index');
+        return response()->json($response);
     }
 
     /**
      * Disable the specified resource.
      *
-     * @param  Category  $category
+     * @param  Category $category
      *
      * @return Response
      */
     public function disable(Category $category)
     {
-        $relationships = $this->countRelationships($category, [
-            'items' => 'items',
-            'invoices' => 'invoices',
-            'revenues' => 'revenues',
-            'bills' => 'bills',
-            'payments' => 'payments',
-        ]);
+        $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 0])));
 
-        if (empty($relationships)) {
-            $category->enabled = 0;
-            $category->save();
-
-            $message = trans('messages.success.disabled', ['type' => trans_choice('general.categories', 1)]);
-
-            flash($message)->success();
-        } else {
-            $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
-
-            flash($message)->warning();
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.disabled', ['type' => $category->name]);
         }
 
-        return redirect()->route('categories.index');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Category  $category
+     * @param  Category $category
      *
      * @return Response
      */
     public function destroy(Category $category)
     {
-        // Can not delete the last category by type
-        if (Category::where('type', $category->type)->count() == 1) {
-            $message = trans('messages.error.last_category', ['type' => strtolower(trans_choice('general.' . $category->type . 's', 1))]);
+        $response = $this->ajaxDispatch(new DeleteCategory($category));
 
-            flash($message)->warning();
+        $response['redirect'] = route('categories.index');
 
-            return redirect('settings/categories');
-        }
-
-        $relationships = $this->countRelationships($category, [
-            'items' => 'items',
-            'invoices' => 'invoices',
-            'revenues' => 'revenues',
-            'bills' => 'bills',
-            'payments' => 'payments',
-        ]);
-
-        if (empty($relationships)) {
-            $category->delete();
-
-            $message = trans('messages.success.deleted', ['type' => trans_choice('general.categories', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $category->name]);
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            flash($message)->warning();
+            flash($message)->error();
         }
 
-        return redirect('settings/categories');
+        return response()->json($response);
     }
 
     public function category(Request $request)
     {
-        $category = Category::create($request->all());
+        $category = $this->dispatch(new CreateCategory($request));
 
         return response()->json($category);
     }

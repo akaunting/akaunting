@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Common;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
+use App\Exports\Common\Items as Export;
 use App\Http\Requests\Common\Item as Request;
-use App\Http\Requests\Common\TotalItem as TRequest;
+use App\Http\Requests\Common\Import as ImportRequest;
+use App\Http\Requests\Common\TotalItem as TotalRequest;
+use App\Imports\Common\Items as Import;
+use App\Jobs\Common\CreateItem;
+use App\Jobs\Common\DeleteItem;
+use App\Jobs\Common\UpdateItem;
 use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Uploads;
-use App\Utilities\Import;
-use App\Utilities\ImportFile;
 
 class Items extends Controller
 {
@@ -24,11 +28,9 @@ class Items extends Controller
      */
     public function index()
     {
-        $items = Item::with('category')->collect();
+        $items = Item::with(['category', 'tax'])->collect();
 
-        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
-
-        return view('common.items.index', compact('items', 'categories'));
+        return view('common.items.index', compact('items'));
     }
 
     /**
@@ -48,11 +50,11 @@ class Items extends Controller
      */
     public function create()
     {
-        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
+        $categories = Category::type('item')->enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+        $currency = Currency::where('code', setting('default.currency', 'USD'))->first();
 
         return view('common.items.create', compact('categories', 'taxes', 'currency'));
     }
@@ -60,26 +62,28 @@ class Items extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
-     *
+     * @param  $request
      * @return Response
      */
     public function store(Request $request)
     {
-        $item = Item::create($request->input());
+        $response = $this->ajaxDispatch(new CreateItem($request));
 
-        // Upload picture
-        if ($request->file('picture')) {
-            $media = $this->getMedia($request->file('picture'), 'items');
+        if ($response['success']) {
+            $response['redirect'] = route('items.index');
 
-            $item->attachMedia($media, 'picture');
+            $message = trans('messages.success.added', ['type' => trans_choice('general.items', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('items.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.items', 1)]);
-
-        flash($message)->success();
-
-        return redirect()->route('items.index');
+        return response()->json($response);
     }
 
     /**
@@ -103,15 +107,13 @@ class Items extends Controller
     /**
      * Import the specified resource.
      *
-     * @param  ImportFile  $import
+     * @param  ImportRequest  $request
      *
      * @return Response
      */
-    public function import(ImportFile $import)
+    public function import(ImportRequest $request)
     {
-        if (!Import::createFromFile($import, 'Common\Item')) {
-            return redirect('common/import/common/items');
-        }
+        \Excel::import(new Import(), $request->file('import'));
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.items', 2)]);
 
@@ -129,106 +131,101 @@ class Items extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::enabled()->orderBy('name')->type('item')->pluck('name', 'id');
+        $categories = Category::type('item')->enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
-
-        return view('common.items.edit', compact('item', 'categories', 'taxes', 'currency'));
+        return view('common.items.edit', compact('item', 'categories', 'taxes'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Item  $item
-     * @param  Request  $request
-     *
+     * @param  $item
+     * @param  $request
      * @return Response
      */
     public function update(Item $item, Request $request)
     {
-        $item->update($request->input());
+        $response = $this->ajaxDispatch(new UpdateItem($item, $request));
 
-        // Upload picture
-        if ($request->file('picture')) {
-            $media = $this->getMedia($request->file('picture'), 'items');
+        if ($response['success']) {
+            $response['redirect'] = route('items.index');
 
-            $item->attachMedia($media, 'picture');
+            $message = trans('messages.success.updated', ['type' => $item->name]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('items.edit', $item->id);
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.items', 1)]);
-
-        flash($message)->success();
-
-        return redirect()->route('items.index');
+        return response()->json($response);
     }
 
     /**
      * Enable the specified resource.
      *
-     * @param  Item  $item
+     * @param  Item $item
      *
      * @return Response
      */
     public function enable(Item $item)
     {
-        $item->enabled = 1;
-        $item->save();
+        $response = $this->ajaxDispatch(new UpdateItem($item, request()->merge(['enabled' => 1])));
 
-        $message = trans('messages.success.enabled', ['type' => trans_choice('general.items', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.enabled', ['type' => $item->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('items.index');
+        return response()->json($response);
     }
 
     /**
      * Disable the specified resource.
      *
-     * @param  Item  $item
+     * @param  Item $item
      *
      * @return Response
      */
     public function disable(Item $item)
     {
-        $item->enabled = 0;
-        $item->save();
+        $response = $this->ajaxDispatch(new UpdateItem($item, request()->merge(['enabled' => 0])));
 
-        $message = trans('messages.success.disabled', ['type' => trans_choice('general.items', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.disabled', ['type' => $item->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('items.index');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Item  $item
+     * @param  Item $item
      *
      * @return Response
      */
     public function destroy(Item $item)
     {
-        $relationships = $this->countRelationships($item, [
-            'invoice_items' => 'invoices',
-            'bill_items' => 'bills',
-        ]);
+        $response = $this->ajaxDispatch(new DeleteItem($item));
 
-        if (empty($relationships)) {
-            $item->delete();
+        $response['redirect'] = route('items.index');
 
-            $message = trans('messages.success.deleted', ['type' => trans_choice('general.items', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $item->name]);
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $item->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            flash($message)->warning();
+            flash($message)->error();
         }
 
-        return redirect()->route('items.index');
+        return response()->json($response);
     }
 
     /**
@@ -238,13 +235,7 @@ class Items extends Controller
      */
     public function export()
     {
-        \Excel::create('items', function($excel) {
-            $excel->sheet('items', function($sheet) {
-                $sheet->fromModel(Item::filter(request()->input())->get()->makeHidden([
-                    'id', 'company_id', 'item_id', 'created_at', 'updated_at', 'deleted_at'
-                ]));
-            });
-        })->download('xlsx');
+        return \Excel::download(new Export(), trans_choice('general.items', 2) . '.xlsx');
     }
 
     public function autocomplete()
@@ -254,19 +245,12 @@ class Items extends Controller
         $currency_code = request('currency_code');
 
         if (empty($currency_code) || (strtolower($currency_code)  == 'null')) {
-            $currency_code = setting('general.default_currency');
+            $currency_code = setting('default.currency');
         }
-
-        $currency = Currency::where('code', $currency_code)->first();
 
         $autocomplete = Item::autocomplete([
-            'name' => $query,
-            'sku' => $query,
+            'name' => $query
         ]);
-
-        if ($type == 'invoice') {
-            $autocomplete->quantity();
-        }
 
         $items = $autocomplete->get();
 
@@ -279,9 +263,6 @@ class Items extends Controller
                 if (!empty($tax)) {
                     $item_tax_price = ($item->sale_price / 100) * $tax->rate;
                 }
-
-                //$item->sale_price = $this->convertPrice($item->sale_price, $currency_code, $currency->rate);
-                //$item->purchase_price = $this->convertPrice($item->purchase_price, $currency_code, $currency->rate);
 
                 switch ($type) {
                     case 'bill':
@@ -300,14 +281,14 @@ class Items extends Controller
         return response()->json($items);
     }
 
-    public function totalItem(TRequest $request)
+    public function total(TotalRequest $request)
     {
-        $input_items = $request->input('item');
+        $input_items = $request->input('items');
         $currency_code = $request->input('currency_code');
         $discount = $request->input('discount');
 
         if (empty($currency_code)) {
-            $currency_code = setting('general.default_currency');
+            $currency_code = setting('default.currency');
         }
 
         $json = new \stdClass;
@@ -334,7 +315,7 @@ class Items extends Controller
                 }
 
                 if (!empty($item['tax_id'])) {
-                    $inclusives = $compounds = $taxes = [];
+                    $inclusives = $compounds = $taxes = $fixed_taxes = [];
 
                     foreach ($item['tax_id'] as $tax_id) {
                         $tax = Tax::find($tax_id);
@@ -345,6 +326,11 @@ class Items extends Controller
                                 break;
                             case 'compound':
                                 $compounds[] = $tax;
+                                break;
+                            case 'fixed':
+                                $fixed_taxes[] = $tax;
+
+                                $item_tax_total += $tax->rate;
                                 break;
                             case 'normal':
                             default:
@@ -415,20 +401,5 @@ class Items extends Controller
         $json->symbol = $currency->symbol;
 
         return response()->json($json);
-    }
-
-    protected function convertPrice($amount, $currency_code, $currency_rate, $format = false, $reverse = false)
-    {
-        $item = new Item();
-
-        $item->amount = $amount;
-        $item->currency_code = $currency_code;
-        $item->currency_rate = $currency_rate;
-
-        if ($reverse) {
-            return $item->getReverseConvertedAmount($format);
-        }
-
-        return $item->getConvertedAmount($format);
     }
 }

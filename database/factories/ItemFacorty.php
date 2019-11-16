@@ -15,12 +15,10 @@ $factory->define(Item::class, function (Generator $faker) {
 
 	return [
 		'name' => $faker->title,
-		'sku' => $faker->languageCode,
 		'company_id' => $company->id,
 		'description' => $faker->text(100),
 		'purchase_price' => $faker->randomFloat(2,10,20),
 		'sale_price' => $faker->randomFloat(2,10,20),
-		'quantity' => $faker->randomNumber(2),
 		'category_id' => $company->categories()->first()->id,
 		'tax_id' => $company->taxes()->first()->id,
 		'enabled' => $this->faker->boolean ? 1 : 0

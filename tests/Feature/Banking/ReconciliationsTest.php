@@ -26,9 +26,8 @@ class ReconciliationsTest extends FeatureTestCase
     public function testItShouldCreateReconciliation()
     {
         $this->loginAs()
-            ->post(url('banking/reconciliations'), $this->getReconciliationRequest())
-            ->assertStatus(302)
-            ->assertRedirect(url('banking/reconciliations'));
+            ->post(route('reconciliations.store'), $this->getReconciliationRequest())
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -52,9 +51,8 @@ class ReconciliationsTest extends FeatureTestCase
         $request['description'] = $this->faker->text(10);
 
         $this->loginAs()
-            ->patch(url('banking/reconciliations', $reconciliation->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(url('banking/reconciliations'));
+            ->patch(route('reconciliations.update', $reconciliation->id), $request)
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -65,8 +63,7 @@ class ReconciliationsTest extends FeatureTestCase
 
         $this->loginAs()
             ->delete(route('reconciliations.destroy', ['reconciliation' => $reconciliation]))
-            ->assertStatus(302)
-            ->assertRedirect(route('reconciliations.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
@@ -77,7 +74,7 @@ class ReconciliationsTest extends FeatureTestCase
         return [
             'company_id' => $this->company->id,
             'account_id' => '1',
-            'currency_code' => setting('general.default_currency'),
+            'currency_code' => setting('default.currency'),
             'opening_balance' => '0',
             'closing_balance' => '10',
             'started_at' => $this->faker->date(),
