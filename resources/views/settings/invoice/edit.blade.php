@@ -39,8 +39,6 @@
                 {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
 
                 {{ Form::textareaGroup('footer', trans('general.footer')) }}
-
-                {{ Form::fileGroup('logo', trans('settings.invoice.logo')) }}
             </div>
         </div>
 
