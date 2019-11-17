@@ -15,7 +15,7 @@ class ModifySkuQuantityColumnItemsTable extends Migration
         Schema::table('items', function (Blueprint $table) {
             $table->string('sku')->nullable()->change();
             $table->integer('quantity')->default(1)->change();
-            $table->dropUnique('items_company_id_sku_deleted_at_unique');
+            $table->dropUnique(['company_id', 'sku', 'deleted_at']);
         });
     }
 
