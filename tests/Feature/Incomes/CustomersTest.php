@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Incomes;
 
+use App\Jobs\Common\CreateContact;
 use App\Models\Auth\User;
-use App\Models\Common\Contact;
 use Tests\Feature\FeatureTestCase;
 
 class CustomersTest extends FeatureTestCase
@@ -62,7 +62,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldSeeCustomerDetailPage()
 	{
-		$customer = Contact::create($this->getCustomerRequest());
+		$customer = $this->dispatch(new CreateContact($this->getCustomerRequest()));
 
 		$this->loginAs()
 			->get(route('customers.show', ['customer' => $customer->id]))
@@ -72,7 +72,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldSeeCustomerUpdatePage()
 	{
-		$customer = Contact::create($this->getCustomerRequest());
+		$customer = $this->dispatch(new CreateContact($this->getCustomerRequest()));
 
 		$this->loginAs()
 			->get(route('customers.edit', ['customer' => $customer->id]))
@@ -85,7 +85,7 @@ class CustomersTest extends FeatureTestCase
 	{
 		$request = $this->getCustomerRequest();
 
-		$customer = Contact::create($request);
+		$customer = $this->dispatch(new CreateContact($request));
 
         $request['name'] = $this->faker->name;
 
@@ -98,7 +98,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldDeleteCustomer()
 	{
-		$customer = Contact::create($this->getCustomerRequest());
+		$customer = $this->dispatch(new CreateContact($this->getCustomerRequest()));
 
 		$this->loginAs()
 			->delete(route('customers.destroy', $customer->id))
@@ -135,10 +135,10 @@ class CustomersTest extends FeatureTestCase
 		$password = $this->faker->password;
 
 		return $this->getCustomerRequest() + [
-				'create_user' => 1,
-				'locale' => 'en-GB',
-				'password' => $password,
-				'password_confirmation' => $password
-			];
+			'create_user' => 1,
+			'locale' => 'en-GB',
+			'password' => $password,
+			'password_confirmation' => $password
+		];
 	}
 }

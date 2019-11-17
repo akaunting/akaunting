@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Jobs\Auth\CreateUser;
 use App\Models\Auth\Role;
-use App\Models\Auth\User;
 use Tests\Feature\FeatureTestCase;
 
 class UsersTest extends FeatureTestCase
 {
-
     public function testItShouldSeeUserListPage()
     {
         $this->loginAs()
@@ -36,7 +35,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldSeeUserUpdatePage()
     {
-        $user = User::create($this->getUserRequest());
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
 
         $this->loginAs()
             ->get(route('users.edit', ['user' => $user->id]))
@@ -48,7 +47,7 @@ class UsersTest extends FeatureTestCase
     {
         $request = $this->getUserRequest();
 
-        $user = User::create($request);
+        $user = $this->dispatch(new CreateUser($request));
 
         $request['name'] = $this->faker->name;
 
@@ -61,13 +60,52 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldDeleteUser()
     {
-        $user = User::create($this->getUserRequest());
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
 
         $this->loginAs()
             ->delete(route('users.destroy', $user->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+    }
+
+    public function testItShouldSeeLoginPage()
+    {
+        $this->get(route('login'))
+            ->assertStatus(200)
+            ->assertSeeText(trans('auth.login_to'));
+    }
+
+    public function testItShouldLoginUser()
+    {
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+
+        $this->post(route('login'), ['email' => $user->email, 'password' => $user->password])
+            ->assertStatus(200);
+
+        $this->isAuthenticated($user->user);
+    }
+
+    public function testItShouldNotLoginUser()
+    {
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+
+        $this->post(route('login'), ['email' => $user->email, $this->faker->password()])
+            ->assertStatus(302);
+
+        $this->assertGuest();
+    }
+
+    public function testItShouldLogoutUser()
+    {
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+
+        $this->loginAs()
+            ->get(route('logout', $user->id))
+            ->assertStatus(302)
+            ->assertRedirect(route('login'));
+
+        $this->assertGuest();
     }
 
     private function getUserRequest()
@@ -80,7 +118,7 @@ class UsersTest extends FeatureTestCase
             'password' => $password,
             'password_confirmation' => $password,
             'locale' => 'en-GB',
-            'companies' => [session('company_id')],
+            'companies' => [$this->company->id],
             'roles' => Role::take(1)->pluck('id')->toArray(),
             'enabled' => $this->faker->boolean ? 1 : 0,
         ];

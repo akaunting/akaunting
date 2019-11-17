@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Common;
 
-use App\Models\Common\Item;
+use App\Jobs\Common\CreateItem;
 use Illuminate\Http\UploadedFile;
 use Tests\Feature\FeatureTestCase;
 
@@ -35,7 +35,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldSeeItemUpdatePage()
 	{
-        $item = Item::create($this->getItemRequest());
+        $item = $this->dispatch(new CreateItem($this->getItemRequest()));
 
 		$this->loginAs()
 			->get(route('items.edit', ['item' => $item->id]))
@@ -47,7 +47,7 @@ class ItemsTest extends FeatureTestCase
 	{
 		$request = $this->getItemRequest();
 
-		$item = Item::create($request);
+		$item = $this->dispatch(new CreateItem($request));
 
         $request['name'] = $this->faker->text(15);
 
@@ -60,7 +60,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldDeleteItem()
 	{
-		$item = Item::create($this->getItemRequest());
+		$item = $this->dispatch(new CreateItem($this->getItemRequest()));
 
 		$this->loginAs()
 			->delete(route('items.destroy', ['item' => $item]))
@@ -80,7 +80,7 @@ class ItemsTest extends FeatureTestCase
             'description' => $this->faker->text(100),
             'purchase_price' => $this->faker->randomFloat(2, 10, 20),
             'sale_price' => $this->faker->randomFloat(2, 10, 20),
-            'category_id' => $this->company->categories()->type('item')->first()->id,
+            'category_id' => $this->company->categories()->type('item')->pluck('id')->first(),
             'tax_id' => '',
             'enabled' => $this->faker->boolean ? 1 : 0
         ];

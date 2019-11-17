@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Jobs\Auth\CreateRole;
 use App\Models\Auth\Permission;
-use App\Models\Auth\Role;
 use Tests\Feature\FeatureTestCase;
 
 class RolesTest extends FeatureTestCase
@@ -36,7 +36,7 @@ class RolesTest extends FeatureTestCase
 
     public function testItShouldSeeRoleUpdatePage()
     {
-        $role = Role::create($this->getRoleRequest());
+        $role = $this->dispatch(new CreateRole($this->getRoleRequest()));
 
         $this->loginAs()
             ->get(route('roles.edit', ['role' => $role->id]))
@@ -48,7 +48,7 @@ class RolesTest extends FeatureTestCase
     {
         $request = $this->getRoleRequest();
 
-        $role = Role::create($request);
+        $role = $this->dispatch(new CreateRole($request));
 
         $request['name'] = $this->faker->name;
 
@@ -61,7 +61,7 @@ class RolesTest extends FeatureTestCase
 
     public function testItShouldDeleteRole()
     {
-        $role = Role::create($this->getRoleRequest());
+        $role = $this->dispatch(new CreateRole($this->getRoleRequest()));
 
         $this->loginAs()
             ->delete(route('roles.destroy', $role->id))

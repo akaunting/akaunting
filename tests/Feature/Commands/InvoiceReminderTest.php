@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Commands;
 
-use App\Models\Income\Invoice;
+use App\Jobs\Income\CreateInvoice;
 use App\Notifications\Income\Invoice as InvoiceNotification;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Date\Date;
@@ -23,7 +23,7 @@ class InvoiceReminderTest extends FeatureTestCase
     {
         Notification::fake();
 
-        $invoice = Invoice::create($this->getInvoiceRequest());
+        $invoice = $this->dispatch(new CreateInvoice($this->getInvoiceRequest()));
 
         Date::setTestNow(Date::now()->addDay($this->addDay));
 
@@ -39,12 +39,11 @@ class InvoiceReminderTest extends FeatureTestCase
     }
 
     /**
-     * Copied in InvoicesTest
+     * Invoice request
      *
-     * @param int $recurring
      * @return array
      */
-    private function getInvoiceRequest($recurring = 0)
+    private function getInvoiceRequest()
     {
         $amount = $this->faker->randomFloat(2, 2);
 
@@ -58,7 +57,7 @@ class InvoiceReminderTest extends FeatureTestCase
             'order_number' => '1',
             'currency_code' => setting('default.currency'),
             'currency_rate' => '1',
-            'item' => $items,
+            'items' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
             'category_id' => $this->company->categories()->type('income')->first()->id,
@@ -72,13 +71,6 @@ class InvoiceReminderTest extends FeatureTestCase
             'amount' => $amount,
             'company_id' => $this->company->id,
         ];
-
-        if ($recurring) {
-            $data['recurring_frequency'] = 'yes';
-            $data['recurring_interval'] = '1';
-            $data['recurring_custom_frequency'] = $this->faker->randomElement(['monthly', 'weekly']);
-            $data['recurring_count'] = '1';
-        }
 
         return $data;
     }

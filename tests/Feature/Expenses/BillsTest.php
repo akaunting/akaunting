@@ -35,7 +35,7 @@ class BillsTest extends FeatureTestCase
     public function testItShouldCreateBillWithRecurring()
     {
         $this->loginAs()
-            ->post(route('bills.store'), $this->getBillRequest(1))
+            ->post(route('bills.store'), $this->getBillRequest(true))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -43,7 +43,7 @@ class BillsTest extends FeatureTestCase
 
     public function testItShouldSeeBillUpdatePage()
     {
-        $bill = dispatch_now(new CreateBill($this->getBillRequest()));
+        $bill = $this->dispatch(new CreateBill($this->getBillRequest()));
 
         $this->loginAs()
             ->get(route('bills.edit', ['bill' => $bill->id]))
@@ -54,35 +54,35 @@ class BillsTest extends FeatureTestCase
 
     public function testItShouldUpdateBill()
     {
-        $bill = dispatch_now(new CreateBill($this->getBillRequest()));
+        $request = $this->getBillRequest();
+
+        $bill = $this->dispatch(new CreateBill($request));
 
         $request['contact_name'] = $this->faker->name;
 
         $this->loginAs()
             ->patch(route('bills.update', $bill->id), $request)
-            ->assertStatus(302);
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldDeleteBill()
     {
-        $bill = dispatch_now(new CreateBill($this->getBillRequest()));
+        $bill = $this->dispatch(new CreateBill($this->getBillRequest()));
 
         $this->loginAs()
             ->delete(route('bills.destroy', $bill->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('bills.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
-
     }
 
-    private function getBillRequest($recurring = 0)
+    private function getBillRequest($recurring = false)
     {
         $amount = $this->faker->randomFloat(2, 2);
 
-        $items = [['name' =>  $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD', 'tax_id' => null]];
+        $items = [['name' => $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD', 'tax_id' => null]];
 
         $data =  [
             'company_id' => $this->company->id,
@@ -95,7 +95,7 @@ class BillsTest extends FeatureTestCase
             'items' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
-            'category_id' => $this->company->categories()->type('expense')->first()->id,
+            'category_id' => $this->company->categories()->type('expense')->pluck('id')->first(),
             'recurring_frequency' => 'no',
             'contact_id' => '0',
             'contact_name' =>  $this->faker->name,

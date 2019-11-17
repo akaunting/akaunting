@@ -9,7 +9,7 @@ class DashboardTest extends FeatureTestCase
     public function testItShouldSeeDashboard()
     {
         $this->loginAs()
-            ->get(url('/'))
+            ->get(route('dashboard'))
             ->assertStatus(200)
             ->assertSeeText(trans('general.dashboard'));
     }

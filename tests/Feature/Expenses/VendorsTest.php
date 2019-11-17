@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Expenses;
 
-use App\Models\Common\Contact;
+use App\Jobs\Common\CreateContact;
 use Tests\Feature\FeatureTestCase;
 
 class VendorsTest extends FeatureTestCase
@@ -34,7 +34,7 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldSeeVendorDetailPage()
     {
-        $vendor = Contact::create($this->getVendorRequest());
+        $vendor = $this->dispatch(new CreateContact($this->getVendorRequest()));
 
         $this->loginAs()
             ->get(route('vendors.show', ['vendor' => $vendor->id]))
@@ -44,7 +44,7 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldSeeVendorUpdatePage()
     {
-        $vendor = Contact::create($this->getVendorRequest());
+        $vendor = $this->dispatch(new CreateContact($this->getVendorRequest()));
 
         $this->loginAs()
             ->get(route('vendors.edit', ['vendor' => $vendor->id]))
@@ -57,7 +57,7 @@ class VendorsTest extends FeatureTestCase
     {
         $request = $this->getVendorRequest();
 
-        $vendor = Contact::create($request);
+        $vendor = $this->dispatch(new CreateContact($request));
 
         $request['name'] = $this->faker->name;
 
@@ -70,7 +70,7 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldDeleteVendor()
     {
-        $vendor = Contact::create($this->getVendorRequest());
+        $vendor = $this->dispatch(new CreateContact($this->getVendorRequest()));
 
         $this->loginAs()
             ->delete(route('vendors.destroy', $vendor->id))
