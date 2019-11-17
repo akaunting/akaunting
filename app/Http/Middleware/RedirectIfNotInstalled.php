@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use File;
 use Illuminate\Support\Str;
 
 class RedirectIfNotInstalled
@@ -17,12 +16,12 @@ class RedirectIfNotInstalled
      */
     public function handle($request, Closure $next)
     {
-        // Check if .env file exists
-        if (File::exists(base_path('.env'))) {
+        // Check application is installed or not
+        if (env('APP_INSTALLED', false) == true) {
             return $next($request);
         }
 
-        // Already in the wizard
+        // Already in the installation wizard
         if (Str::startsWith($request->getPathInfo(), '/install')) {
             return $next($request);
         }
