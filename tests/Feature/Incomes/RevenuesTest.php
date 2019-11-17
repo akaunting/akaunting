@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Incomes;
 
-use App\Models\Banking\Transaction;
+use App\Jobs\Banking\CreateTransaction;
 use Illuminate\Http\UploadedFile;
 use Tests\Feature\FeatureTestCase;
 
@@ -37,7 +37,7 @@ class RevenuesTest extends FeatureTestCase
     {
         $request = $this->getRevenueRequest();
 
-        $revenue = Transaction::create($request);
+        $revenue = $this->dispatch(new CreateTransaction($request));
 
         $request['name'] = $this->faker->text(15);
 
@@ -50,7 +50,7 @@ class RevenuesTest extends FeatureTestCase
 
     public function testItShouldDeleteRevenue()
     {
-        $revenue = Transaction::create($this->getRevenueRequest());
+        $revenue = $this->dispatch(new CreateTransaction($this->getRevenueRequest()));
 
         $this->loginAs()
             ->delete(route('revenues.destroy', $revenue->id))

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\Auth\Permission;
+use App\Jobs\Auth\CreatePermission;
 use Tests\Feature\FeatureTestCase;
 
 class PermissionsTest extends FeatureTestCase
@@ -35,7 +35,7 @@ class PermissionsTest extends FeatureTestCase
 
     public function testItShouldSeePermissionUpdatePage()
     {
-        $permission = Permission::create($this->getPermissionRequest());
+        $permission = $this->dispatch(new CreatePermission($this->getPermissionRequest()));
 
         $this->loginAs()
             ->get(route('permissions.edit', ['permission' => $permission->id]))
@@ -47,7 +47,7 @@ class PermissionsTest extends FeatureTestCase
     {
         $request = $this->getPermissionRequest();
 
-        $permission = Permission::create($request);
+        $permission = $this->dispatch(new CreatePermission($request));
 
         $request['name'] = $this->faker->name;
 
@@ -60,7 +60,7 @@ class PermissionsTest extends FeatureTestCase
 
     public function testItShouldDeletePermission()
     {
-        $permission = Permission::create($this->getPermissionRequest());
+        $permission = $this->dispatch(new CreatePermission($this->getPermissionRequest()));
 
         $this->loginAs()
             ->delete(route('permissions.destroy', $permission->id))

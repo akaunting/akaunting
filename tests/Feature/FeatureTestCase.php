@@ -26,7 +26,7 @@ abstract class FeatureTestCase extends TestCase
 
 		$this->faker = Factory::create();
 		$this->user = User::first();
-		$this->company = $this->user->first()->companies()->first();
+		$this->company = $this->user->companies()->first();
 
 		// Set Company settings
         setting()->forgetAll();
@@ -48,7 +48,7 @@ abstract class FeatureTestCase extends TestCase
 		}
 
 		if (!$company) {
-		    $company = $user->companies()->first();
+		    $company = $this->company;
 		}
 
 		$this->startSession();

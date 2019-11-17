@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Commands;
 
-use App\Models\Expense\Bill;
+use App\Jobs\Expense\CreateBill;
 use App\Notifications\Expense\Bill as BillNotification;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Date\Date;
@@ -23,7 +23,7 @@ class BillReminderTest extends FeatureTestCase
     {
         Notification::fake();
 
-        $bill = Bill::create($this->getBillRequest());
+        $bill = $this->dispatch(new CreateBill($this->getBillRequest()));
 
         Date::setTestNow(Date::now()->subDays($this->addDay));
 
@@ -39,7 +39,7 @@ class BillReminderTest extends FeatureTestCase
     }
 
     /**
-     * Copied in InvoicesTest
+     * Bill request
      *
      * @param int $recurring
      * @return array
@@ -58,7 +58,7 @@ class BillReminderTest extends FeatureTestCase
             'order_number' => '1',
             'currency_code' => setting('default.currency'),
             'currency_rate' => '1',
-            'item' => $items,
+            'items' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
             'category_id' => $this->company->categories()->type('income')->first()->id,

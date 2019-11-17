@@ -20,7 +20,7 @@ class InvoicesTest extends FeatureTestCase
         $this->loginAs()
             ->get(route('invoices.create'))
             ->assertStatus(200)
-            ->assertSeeText(trans( trans_choice('general.invoices', 1)));
+            ->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.invoices', 1)]));
     }
 
     public function testItShouldCreateInvoice()
@@ -35,7 +35,7 @@ class InvoicesTest extends FeatureTestCase
     public function testItShouldCreateInvoiceWithRecurring()
     {
         $this->loginAs()
-            ->post(route('invoices.store'), $this->getInvoiceRequest(1))
+            ->post(route('invoices.store'), $this->getInvoiceRequest(true))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -43,7 +43,7 @@ class InvoicesTest extends FeatureTestCase
 
     public function testItShouldSeeInvoiceUpdatePage()
     {
-        $invoice = dispatch_now(new CreateInvoice($this->getInvoiceRequest()));
+        $invoice = $this->dispatch(new CreateInvoice($this->getInvoiceRequest()));
 
         $this->loginAs()
             ->get(route('invoices.edit', ['invoice' => $invoice->id]))
@@ -54,7 +54,9 @@ class InvoicesTest extends FeatureTestCase
 
     public function testItShouldUpdateInvoice()
     {
-        $invoice = dispatch_now(new CreateInvoice($this->getInvoiceRequest()));
+        $request = $this->getInvoiceRequest();
+
+        $invoice = $this->dispatch(new CreateInvoice($request));
 
         $request['contact_name'] = $this->faker->name;
 
@@ -67,7 +69,7 @@ class InvoicesTest extends FeatureTestCase
 
     public function testItShouldDeleteInvoice()
     {
-        $invoice = dispatch_now(new CreateInvoice($this->getInvoiceRequest()));
+        $invoice = $this->dispatch(new CreateInvoice($this->getInvoiceRequest()));
 
         $this->loginAs()
             ->delete(route('invoices.destroy', $invoice->id))
@@ -76,11 +78,11 @@ class InvoicesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getInvoiceRequest($recurring = 0)
+    private function getInvoiceRequest($recurring = false)
     {
         $amount = $this->faker->randomFloat(2, 2);
 
-        $items = [['name' =>  $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
+        $items = [['name' => $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
 
         $data = [
             'company_id' => $this->company->id,
@@ -93,7 +95,7 @@ class InvoicesTest extends FeatureTestCase
             'items' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
-            'category_id' => $this->company->categories()->type('income')->first()->id,
+            'category_id' => $this->company->categories()->type('income')->pluck('id')->first(),
             'recurring_frequency' => 'no',
             'contact_id' => '0',
             'contact_name' =>  $this->faker->name,

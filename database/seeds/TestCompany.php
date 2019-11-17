@@ -5,6 +5,7 @@ namespace Database\Seeds;
 use App\Abstracts\Model;
 use App\Models\Auth\User;
 use App\Models\Common\Company;
+use Artisan;
 use Date;
 use Illuminate\Database\Seeder;
 
@@ -30,16 +31,9 @@ class TestCompany extends Seeder
 
     private function createCompany()
     {
-        $rows = [
-            [
-                'id' => '1',
-                'domain' => 'test.com',
-            ],
-        ];
-
-        foreach ($rows as $row) {
-            Company::create($row);
-        }
+        Company::create([
+            'domain' => 'test.com',
+        ]);
 
         setting()->setExtraColumns(['company_id' => '1']);
         setting()->set([
@@ -49,11 +43,14 @@ class TestCompany extends Seeder
             'localisation.financial_start'      => '01-01',
             'default.currency'                  => 'USD',
             'default.account'                   => '1',
-            'default.payment_method'            => 'offline-paymentz.cash.1',
+            'default.payment_method'            => 'offline-payments.cash.1',
             'schedule.bill_days'                => '10,5,3,1',
             'schedule.invoice_days'             => '1,3,5,10',
-            'schedule.send_invoice_reminder'    => true,
-            'schedule.send_bill_reminder'       => true,
+            'schedule.send_invoice_reminder'    => '0',
+            'schedule.send_bill_reminder'       => '0',
+            'wizard.completed'                  => '1',
+            'contact.type.customer'             => 'customer',
+            'contact.type.vendor'               => 'vendor',
         ]);
         setting()->save();
 
@@ -75,6 +72,11 @@ class TestCompany extends Seeder
 
         // Attach company
         $user->companies()->attach(1);
+
+        Artisan::call('user:seed', [
+            'user' => $user->id,
+            'company' => 1,
+        ]);
 
         $this->command->info('Admin user created.');
     }

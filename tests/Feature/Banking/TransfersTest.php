@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Banking;
 
-use App\Models\Banking\Transfer;
-use App\Models\Banking\Transaction;
+use App\Jobs\Banking\CreateTransaction;
+use App\Jobs\Banking\CreateTransfer;
 use Illuminate\Http\UploadedFile;
 use Tests\Feature\FeatureTestCase;
 
@@ -28,10 +28,10 @@ class TransfersTest extends FeatureTestCase
     public function testItShouldCreateTransfer()
     {
         // Create income
-        $income_transaction = Transaction::create($this->getIncomeRequest());
+        $income_transaction = $this->dispatch(new CreateTransaction($this->getIncomeRequest()));
 
         // Create expense
-        $expense_transaction = Transaction::create($this->getExpenseRequest());
+        $expense_transaction = $this->dispatch(new CreateTransaction($this->getExpenseRequest()));
 
         $this->loginAs()
             ->post(route('transfers.store'), $this->getTransferRequest($income_transaction, $expense_transaction))
@@ -43,12 +43,12 @@ class TransfersTest extends FeatureTestCase
     public function testItShouldSeeTransferUpdatePage()
     {
         // Create income
-        $income_transaction = Transaction::create($this->getIncomeRequest());
+        $income_transaction = $this->dispatch(new CreateTransaction($this->getIncomeRequest()));
 
         // Create expense
-        $expense_transaction = Transaction::create($this->getExpenseRequest());
+        $expense_transaction = $this->dispatch(new CreateTransaction($this->getExpenseRequest()));
 
-        $transfer = Transfer::create($this->getTransferRequest($income_transaction, $expense_transaction));
+        $transfer = $this->dispatch(new CreateTransfer($this->getTransferRequest($income_transaction, $expense_transaction)));
 
         $this->loginAs()
             ->get(route('transfers.edit', ['transfer' => $transfer->id]))
@@ -59,14 +59,14 @@ class TransfersTest extends FeatureTestCase
     public function testItShouldUpdateTransfer()
     {
         // Create income
-        $income_transaction = Transaction::create($this->getIncomeRequest());
+        $income_transaction = $this->dispatch(new CreateTransaction($this->getIncomeRequest()));
 
         // Create expense
-        $expense_transaction = Transaction::create($this->getExpenseRequest());
+        $expense_transaction = $this->dispatch(new CreateTransaction($this->getExpenseRequest()));
 
         $request = $this->getTransferRequest($income_transaction, $expense_transaction);
 
-        $transfer = Transfer::create($request);
+        $transfer = $this->dispatch(new CreateTransfer($request));
 
         $request['description'] = $this->faker->text(10);
 
@@ -80,12 +80,12 @@ class TransfersTest extends FeatureTestCase
     public function testItShouldDeleteTransfer()
     {
         // Create income
-        $income_transaction = Transaction::create($this->getIncomeRequest());
+        $income_transaction = $this->dispatch(new CreateTransaction($this->getIncomeRequest()));
 
         // Create expense
-        $expense_transaction = Transaction::create($this->getExpenseRequest());
+        $expense_transaction = $this->dispatch(new CreateTransaction($this->getExpenseRequest()));
 
-        $transfer = Transfer::create($this->getTransferRequest($income_transaction, $expense_transaction));
+        $transfer = $this->dispatch(new CreateTransfer($this->getTransferRequest($income_transaction, $expense_transaction)));
 
         $this->loginAs()
             ->delete(route('transfers.destroy', ['transfer' => $transfer->id]))

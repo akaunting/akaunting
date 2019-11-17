@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Expenses;
 
-use App\Models\Banking\Transaction;
+use App\Jobs\Banking\CreateTransaction;
 use Illuminate\Http\UploadedFile;
 use Tests\Feature\FeatureTestCase;
 
@@ -37,7 +37,7 @@ class PaymentsTest extends FeatureTestCase
     {
         $request = $this->getPaymentRequest();
 
-        $payment = Transaction::create($request);
+        $payment = $this->dispatch(new CreateTransaction($request));
 
         $request['name'] = $this->faker->text(15);
 
@@ -50,7 +50,7 @@ class PaymentsTest extends FeatureTestCase
 
     public function testItShouldDeletePayment()
     {
-        $payment = Transaction::create($this->getPaymentRequest());
+        $payment = $this->dispatch(new CreateTransaction($this->getPaymentRequest()));
 
         $this->loginAs()
             ->delete(route('payments.destroy', $payment->id))

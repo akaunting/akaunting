@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Banking;
 
+use App\Jobs\Banking\CreateAccount;
 use App\Models\Banking\Account;
 use Tests\Feature\FeatureTestCase;
 
@@ -34,7 +35,7 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldSeeAccountUpdatePage()
     {
-        $account = Account::create($this->getAccountRequest());
+        $account = $this->dispatch(new CreateAccount($this->getAccountRequest()));
 
         $this->loginAs()
             ->get(route('accounts.edit', ['account' => $account->id]))

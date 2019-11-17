@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Settings;
 
-use App\Models\Setting\Category;
+use App\Jobs\Setting\CreateCategory;
 use Tests\Feature\FeatureTestCase;
 
 class CategoriesTest extends FeatureTestCase
@@ -34,7 +34,7 @@ class CategoriesTest extends FeatureTestCase
 
     public function testItShouldSeeCategoryUpdatePage()
     {
-        $category = Category::create($this->getCategoryRequest());
+        $category = $this->dispatch(new CreateCategory($this->getCategoryRequest()));
 
         $this->loginAs()
             ->get(route('categories.edit', ['category' => $category->id]))
@@ -46,7 +46,7 @@ class CategoriesTest extends FeatureTestCase
     {
         $request = $this->getCategoryRequest();
 
-        $category = Category::create($request);
+        $category = $this->dispatch(new CreateCategory($request));
 
         $request['name'] = $this->faker->text(15);
 
@@ -59,7 +59,7 @@ class CategoriesTest extends FeatureTestCase
 
     public function testItShouldDeleteCategory()
     {
-        $category = Category::create($this->getCategoryRequest());
+        $category = $this->dispatch(new CreateCategory($this->getCategoryRequest()));
 
         $this->loginAs()
             ->delete(route('categories.destroy', $category->id))
@@ -73,7 +73,7 @@ class CategoriesTest extends FeatureTestCase
         return [
             'company_id' => $this->company->id,
             'name' => $this->faker->text(15),
-            'type' => 'other',
+            'type' => 'item',
             'color' => $this->faker->text(15),
             'enabled' => $this->faker->boolean ? 1 : 0
         ];

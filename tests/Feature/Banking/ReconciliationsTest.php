@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Banking;
 
-use App\Models\Banking\Reconciliation;
+use App\Jobs\Banking\CreateReconciliation;
 use Tests\Feature\FeatureTestCase;
 
 class ReconciliationsTest extends FeatureTestCase
@@ -34,7 +34,7 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldSeeReconciliationUpdatePage()
     {
-        $reconciliation = Reconciliation::create($this->getReconciliationRequest());
+        $reconciliation = $this->dispatch(new CreateReconciliation($this->getReconciliationRequest()));
 
         $this->loginAs()
             ->get(route('reconciliations.edit', ['reconciliation' => $reconciliation->id]))
@@ -46,7 +46,7 @@ class ReconciliationsTest extends FeatureTestCase
     {
         $request = $this->getReconciliationRequest();
 
-        $reconciliation= Reconciliation::create($request);
+        $reconciliation= $this->dispatch(new CreateReconciliation($request));
 
         $request['description'] = $this->faker->text(10);
 
@@ -59,7 +59,7 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldDeleteReconciliation()
     {
-        $reconciliation = Reconciliation::create($this->getReconciliationRequest());
+        $reconciliation = $this->dispatch(new CreateReconciliation($this->getReconciliationRequest()));
 
         $this->loginAs()
             ->delete(route('reconciliations.destroy', ['reconciliation' => $reconciliation]))

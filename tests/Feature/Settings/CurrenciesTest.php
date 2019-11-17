@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Settings;
 
-use App\Models\Setting\Currency;
+use App\Jobs\Setting\CreateCurrency;
 use Tests\Feature\FeatureTestCase;
 
 class CurrenciesTest extends FeatureTestCase
@@ -36,7 +36,7 @@ class CurrenciesTest extends FeatureTestCase
     {
         $request = $this->getCurrencyRequest();
 
-        $currency = Currency::create($request);
+        $currency = $this->dispatch(new CreateCurrency($request));
 
         $request['name'] = $this->faker->text(15);
 
@@ -49,7 +49,7 @@ class CurrenciesTest extends FeatureTestCase
 
     public function testItShouldDeleteCurrency()
     {
-        $currency = Currency::create($this->getCurrencyRequest());
+        $currency = $this->dispatch(new CreateCurrency($this->getCurrencyRequest()));
 
         $this->loginAs()
             ->delete(route('currencies.destroy', $currency->id))

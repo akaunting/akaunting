@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Settings;
 
-use App\Models\Setting\Tax;
+use App\Jobs\Setting\CreateTax;
 use Tests\Feature\FeatureTestCase;
 
 class TaxesTest extends FeatureTestCase
@@ -36,7 +36,7 @@ class TaxesTest extends FeatureTestCase
     {
         $request = $this->getTaxRequest();
 
-        $tax = Tax::create($request);
+        $tax = $this->dispatch(new CreateTax($request));
 
         $request['name'] = $this->faker->text(15);
 
@@ -49,7 +49,7 @@ class TaxesTest extends FeatureTestCase
 
     public function testItShouldDeleteTax()
     {
-        $tax = Tax::create($this->getTaxRequest());
+        $tax = $this->dispatch(new CreateTax($this->getTaxRequest()));
 
         $this->loginAs()
             ->delete(route('taxes.destroy', $tax->id))
