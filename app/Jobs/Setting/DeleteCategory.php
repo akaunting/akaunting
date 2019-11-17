@@ -3,6 +3,7 @@
 namespace App\Jobs\Setting;
 
 use App\Abstracts\Job;
+use App\Models\Setting\Category;
 
 class DeleteCategory extends Job
 {

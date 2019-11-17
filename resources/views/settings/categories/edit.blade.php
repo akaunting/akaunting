@@ -33,7 +33,7 @@
                             <div class="input-group input-group-merge" id="category-color-picker">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <el-color-picker v-model="color" size="small" :predefine="predefineColors" @change="onChangeColor"></el-color-picker>
+                                        <el-color-picker v-model="color" size="mini" :predefine="predefineColors" @change="onChangeColor"></el-color-picker>
                                     </span>
                                 </div>
                                 {!! Form::text('color', $category->color, ['@input' => 'onChangeColorInput', 'id' => 'color', 'class' => 'form-control color-hex', 'required' => 'required']) !!}
