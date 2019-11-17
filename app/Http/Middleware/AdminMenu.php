@@ -34,7 +34,7 @@ class AdminMenu
             $dashboards = Dashboard::getByUser($user->id);
 
             if ($dashboards->count() > 1) {
-                $menu->dropdown(trans_choice('general.dashboards', 2), function ($sub) use ($user, $attr, $dashboards) {
+                $menu->dropdown(trim(trans_choice('general.dashboards', 2)), function ($sub) use ($user, $attr, $dashboards) {
                     foreach ($dashboards as $key => $dashboard) {
                         $path = (session('dashboard_id') == $dashboard->id) ? '/' : '/?dashboard_id=' . $dashboard->id;
 
@@ -61,7 +61,7 @@ class AdminMenu
 
             // Incomes
             if ($user->can(['read-incomes-invoices', 'read-incomes-revenues', 'read-incomes-customers'])) {
-                $menu->dropdown(trans_choice('general.incomes', 2), function ($sub) use ($user, $attr) {
+                $menu->dropdown(trim(trans_choice('general.incomes', 2)), function ($sub) use ($user, $attr) {
                     if ($user->can('read-incomes-invoices')) {
                         $sub->route('invoices.index', trans_choice('general.invoices', 2), [], 1, $attr);
                     }
@@ -81,7 +81,7 @@ class AdminMenu
 
             // Expenses
             if ($user->can(['read-expenses-bills', 'read-expenses-payments', 'read-expenses-vendors'])) {
-                $menu->dropdown(trans_choice('general.expenses', 2), function ($sub) use ($user, $attr) {
+                $menu->dropdown(trim(trans_choice('general.expenses', 2)), function ($sub) use ($user, $attr) {
                     if ($user->can('read-expenses-bills')) {
                         $sub->route('bills.index', trans_choice('general.bills', 2), [], 1, $attr);
                     }
@@ -101,7 +101,7 @@ class AdminMenu
 
             // Banking
             if ($user->can(['read-banking-accounts', 'read-banking-transfers', 'read-banking-transactions', 'read-banking-reconciliations'])) {
-                $menu->dropdown(trans('general.banking'), function ($sub) use ($user, $attr) {
+                $menu->dropdown(trim(trans('general.banking')), function ($sub) use ($user, $attr) {
                     if ($user->can('read-banking-accounts')) {
                         $sub->route('accounts.index', trans_choice('general.accounts', 2), [], 1, $attr);
                     }
