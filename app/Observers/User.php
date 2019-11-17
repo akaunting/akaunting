@@ -6,7 +6,6 @@ use App\Models\Auth\User as Model;
 
 class User
 {
-
     /**
      * Listen to the deleted event.
      *
@@ -16,7 +15,7 @@ class User
     public function deleted(Model $user)
     {
         $tables = [
-            'settings', 'taxes', 'transactions', 'transfers',
+            'dashboards',
         ];
 
         foreach ($tables as $table) {
