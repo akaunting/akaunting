@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-7">
             @if ($logo)
-                <img src="{{ $logo }}" class="invoice-logo" />
+                <img src="{{ $logo }}"/>
             @endif
         </div>
         <div class="col-md-5 invoice-company">

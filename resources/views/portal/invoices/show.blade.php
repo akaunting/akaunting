@@ -20,10 +20,8 @@
                                     <tbody>
                                         <tr>
                                             <th>
-                                                @if (setting('invoice.logo'))
-                                                    <img src="{{ Storage::url(setting('invoice.logo')) }}" class="invoice-logo" />
-                                                @elseif (setting('company.logo'))
-                                                    <img src="{{ Storage::url(setting('company.logo')) }}" class="invoice-logo" />
+                                                @if (setting('company.logo'))
+                                                    <img src="{{ Storage::url(setting('company.logo')) }}"/>
                                                 @else
                                                     <span class="avatar avatar-size rounded-circle bg-primary">
                                                         <i class="fas fa-building"></i>
