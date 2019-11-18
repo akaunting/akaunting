@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Обновить',
 
     'steps' => [
-        'requirements'      => 'Please, ask your hosting provider to fix the errors!',
+        'requirements'      => 'Пожалуйста, попросите вашего хостинг-провайдера исправить ошибки!',
         'language'          => 'Шаг 1/3: Выбор языка',
         'database'          => 'Шаг 2/3: Настройка базы данных',
         'settings'          => 'Шаг 3/3: Компании и данные Администратора',
@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature должно быть включено!',
         'disabled'          => ':feature должно быть отключено!',
-        'extension'         => ':extension extension needs to be installed and loaded!',
+        'extension'         => 'Расширение :extension должно быть установлено и загружено!',
         'directory'         => ':directory директория должна быть доступна для записи!',
     ],
 

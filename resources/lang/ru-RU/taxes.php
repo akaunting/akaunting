@@ -4,8 +4,8 @@ return [
 
     'rate'                  => 'Оценка',
     'rate_percent'          => 'Оценка (%)',
-    'normal'                => 'Normal',
-    'inclusive'             => 'Inclusive',
-    'compound'              => 'Compound',
-
+    'normal'                => 'Обычный',
+    'inclusive'             => 'Включенный в цену',
+    'compound'              => 'Смешанный',
+    'fixed'                 => 'Фиксированный',
 ];

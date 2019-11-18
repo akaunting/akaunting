@@ -5,7 +5,7 @@ return [
     'recurring'             => 'Повторяющийся',
     'every'                 => 'Каждый',
     'period'                => 'Период',
-    'times'                 => 'Times',
+    'times'                 => 'Количество раз',
     'daily'                 => 'Ежедневно',
     'weekly'                => 'Еженедельно',
     'monthly'               => 'Ежемесячно',
@@ -15,6 +15,6 @@ return [
     'weeks'                 => 'Неделя(недель)',
     'months'                => 'Месяц(Месяцев)',
     'years'                 => 'Год(лет)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated on :date',
+    'message'               => 'Это повторяющийся :type и следующий :type будет сгенерирован автоматически :date',
 
 ];
