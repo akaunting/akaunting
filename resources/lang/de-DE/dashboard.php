@@ -20,5 +20,4 @@ return [
     'account_balance'           => 'Kontostand',
     'latest_incomes'            => 'Neuestes Einkommen',
     'latest_expenses'           => 'Letzte Ausgaben',
-
 ];
