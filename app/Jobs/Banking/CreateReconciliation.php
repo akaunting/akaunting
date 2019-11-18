@@ -30,7 +30,7 @@ class CreateReconciliation extends Job
         $transactions = $this->request->get('transactions');
 
         $reconciliation = Reconciliation::create([
-            'company_id' => session('company_id'),
+            'company_id' => $this->request['company_id'],
             'account_id' => $this->request->get('account_id'),
             'started_at' => $this->request->get('started_at'),
             'ended_at' => $this->request->get('ended_at'),

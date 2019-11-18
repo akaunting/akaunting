@@ -3,7 +3,6 @@
 namespace Tests\Feature\Banking;
 
 use App\Jobs\Banking\CreateAccount;
-use App\Models\Banking\Account;
 use Tests\Feature\FeatureTestCase;
 
 class AccountsTest extends FeatureTestCase
@@ -47,7 +46,7 @@ class AccountsTest extends FeatureTestCase
     {
         $request = $this->getAccountRequest();
 
-        $account= Account::create($request);
+        $account = $this->dispatch(new CreateAccount($request));
 
         $request['name'] = $this->faker->text(5);
 
@@ -60,7 +59,7 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldDeleteAccount()
     {
-        $account = Account::create($this->getAccountRequest());
+        $account = $this->dispatch(new CreateAccount($this->getAccountRequest()));
 
         $this->loginAs()
             ->delete(route('accounts.destroy', ['account' => $account]))
@@ -74,13 +73,13 @@ class AccountsTest extends FeatureTestCase
         return [
 	        'company_id' => $this->company->id,
 	        'name' => $this->faker->text(5),
-	        'number' => '1',
-	        'currency_code' => setting('default.currency'),
-	        'opening_balance' => 0,
+	        'number' => (string) $this->faker->randomNumber(2),
+	        'currency_code' => setting('default.currency', 'USD'),
+	        'opening_balance' => '0',
 	        'bank_name' => $this->faker->text(5),
 	        'bank_phone' => null,
 	        'bank_address' => null,
-	        'default_account' => $this->faker->randomElement(['yes', 'no']),
+	        'default_account' => 0,
 	        'enabled' => $this->faker->boolean ? 1 : 0,
         ];
     }

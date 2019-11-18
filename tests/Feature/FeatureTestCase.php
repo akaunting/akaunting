@@ -9,15 +9,10 @@ use Tests\TestCase;
 
 abstract class FeatureTestCase extends TestCase
 {
-	/**
-	 * @var \Faker\Generator
-	 */
 	protected $faker;
 
-	/** @var User */
 	protected $user;
 
-	/** @var Company */
 	protected $company;
 
 	protected function setUp(): void
