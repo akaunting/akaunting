@@ -10,13 +10,13 @@ use Tests\Feature\FeatureTestCase;
 
 class InvoiceReminderTest extends FeatureTestCase
 {
-    private $addDay;
+    private $add_days;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->addDay = 3;
+        $this->add_days = 3;
     }
 
     public function testInvoiceReminderByDueDate()
@@ -25,7 +25,7 @@ class InvoiceReminderTest extends FeatureTestCase
 
         $invoice = $this->dispatch(new CreateInvoice($this->getInvoiceRequest()));
 
-        Date::setTestNow(Date::now()->addDay($this->addDay));
+        Date::setTestNow(Date::now()->addDay($this->add_days));
 
         $this->artisan('reminder:invoice');
 
@@ -50,26 +50,26 @@ class InvoiceReminderTest extends FeatureTestCase
         $items = [['name' => $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
 
         $data = [
-            'contact_id' => '0',
+            'company_id' => $this->company->id,
             'invoiced_at' => $this->faker->date(),
-            'due_at' => Date::now()->addDay($this->addDay - 1),
+            'due_at' => Date::now()->subDays($this->add_days - 1),
             'invoice_number' => '1',
-            'order_number' => '1',
-            'currency_code' => setting('default.currency'),
+            'order_number' =>  '1',
+            'currency_code' => setting('default.currency', 'USD'),
             'currency_rate' => '1',
             'items' => $items,
             'discount' => '0',
             'notes' => $this->faker->text(5),
-            'category_id' => $this->company->categories()->type('income')->first()->id,
+            'category_id' => $this->company->categories()->type('income')->pluck('id')->first(),
             'recurring_frequency' => 'no',
-            'contact_name' => $this->faker->name,
-            'contact_email' => $this->faker->email,
+            'contact_id' => '0',
+            'contact_name' =>  $this->faker->name,
+            'contact_email' =>$this->faker->email,
             'contact_tax_number' => null,
-            'contact_phone' => null,
-            'contact_address' => $this->faker->address,
+            'contact_phone' =>  null,
+            'contact_address' =>  $this->faker->address,
             'invoice_status_code' => 'sent',
             'amount' => $amount,
-            'company_id' => $this->company->id,
         ];
 
         return $data;

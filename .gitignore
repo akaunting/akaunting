@@ -15,3 +15,4 @@ robots.txt
 _ide_helper.php
 .phpstorm.meta.php
 /storage/debugbar/*
+.phpunit.result.cache

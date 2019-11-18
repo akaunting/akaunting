@@ -68,7 +68,6 @@ class ReconciliationsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-
     private function getReconciliationRequest()
     {
         return [

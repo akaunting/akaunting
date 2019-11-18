@@ -49,17 +49,6 @@ class CustomersTest extends FeatureTestCase
 		$this->assertEquals($customer['email'], $user->email);
 	}
 
-	public function testItShouldNotCreateCustomerWithExistsUser()
-	{
-        $customer = $this->getCustomerRequestWithUser();
-
-		User::create($customer);
-
-		$this->loginAs()
-			->post(route('customers.store'), $customer)
-			->assertSessionHasErrors(['email']);
-	}
-
 	public function testItShouldSeeCustomerDetailPage()
 	{
 		$customer = $this->dispatch(new CreateContact($this->getCustomerRequest()));

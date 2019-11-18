@@ -119,7 +119,7 @@ class UsersTest extends FeatureTestCase
             'password_confirmation' => $password,
             'locale' => 'en-GB',
             'companies' => [$this->company->id],
-            'roles' => Role::take(1)->pluck('id')->toArray(),
+            'roles' => ['1'],
             'enabled' => $this->faker->boolean ? 1 : 0,
         ];
     }

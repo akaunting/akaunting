@@ -90,7 +90,7 @@ class InvoicesTest extends FeatureTestCase
             'due_at' => $this->faker->date(),
             'invoice_number' => '1',
             'order_number' =>  '1',
-            'currency_code' => setting('default.currency'),
+            'currency_code' => setting('default.currency', 'USD'),
             'currency_rate' => '1',
             'items' => $items,
             'discount' => '0',
