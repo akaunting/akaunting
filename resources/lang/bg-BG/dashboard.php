@@ -20,5 +20,4 @@ return [
     'account_balance'           => 'Салдо',
     'latest_incomes'            => 'Последни приходи',
     'latest_expenses'           => 'Последни разходи',
-
 ];

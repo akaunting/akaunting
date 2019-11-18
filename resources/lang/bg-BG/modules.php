@@ -2,9 +2,9 @@
 
 return [
 
-    'title'                 => 'API Token',
-    'api_token'             => 'Token',
+    'api_key'               => 'API Key',
     'my_apps'               => 'Моите приложения',
+    'pre_sale'              => 'Предварителна продажба',
     'top_paid'              => 'Топ платени',
     'new'                   => 'Нов',
     'top_free'              => 'Топ безплатни',
@@ -12,9 +12,9 @@ return [
     'search'                => 'Търси',
     'install'               => 'Инсталирай',
     'buy_now'               => 'Купете сега',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Натиснете тук</a> за да получите Вашия API token.',
+    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Натисни тук</a>за да получиш своя API код.',
     'no_apps'               => 'Все още няма приложения в тази категория.',
-    'developer'             => 'Вие сте разработчик? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Тук</a> можете да научите как да създадете приложение и да започнете да продавате днес!',
+    'developer'             => 'Вие сте разработчик? <a href="https://akaunting.com/developers" target="_blank">Тук</a> можете да разберете как да създадете приложение!',
 
     'recommended_apps'      => 'Препоръчани Добавки',
 
@@ -23,6 +23,9 @@ return [
     'added'                 => 'Добавено',
     'updated'               => 'Обновено',
     'compatibility'         => 'Съвместимост',
+    'documentation'         => 'Документация',
+    'view'                  => 'Преглед',
+    'back'                  => 'Назад',
 
     'installed'             => ':module инсталиран',
     'uninstalled'           => ':module деинсталиран',
@@ -34,30 +37,30 @@ return [
         'installation'      => 'Инсталация',
         'faq'               => 'ЧЗВ',
         'changelog'         => 'Списък на промените',
-        'reviews'            => 'Отзиви',
+        'reviews'           => 'Отзиви',
     ],
 
     'installation' => [
         'header'            => 'Инсталиране на приложение',
-        'download'          => 'Изтегляне :module файл.',
-        'unzip'             => 'Извличане :module файлове.',
-        'file_copy'         => 'Копиране на :module файлове.',
-        'migrate'           => 'Прилагане на :module обновявания.',
-        'finish'            => 'Обновяването е инсталирано успешно. Ще бъдете препратени към Центъра за Обновявания.',
-        'install'           => 'Инсталиране :module файлове.',
+        'download'          => 'Изтегляне :module',
+        'unzip'             => 'Извличане :module',
+        'file_copy'         => 'Копиране :module',
+        'finish'            => 'Приключване на инсталацията на :module',
+        'redirect'          => ':module е инсталиран, препращаме Ви към страницата с обновявания',
+        'install'           => 'Инсталиране на :module',
     ],
 
     'errors' => [
-        'download' => ':module не може да се изтегли!',
-        'upload' => 'Изтегления :module не може да бъде запаметен!',
-        'unzip' => ':module не може да се деархивира!',
-        'file_copy' => ':module файлове не могат да се копират!',
-        'migrate' => ':module е счупен!',
-        'migrate core' => ':module има вече последната версия и не може да се обнови.',
+        'download'          => 'Не е възможно да се изтегли :module',
+        'zip'               => 'Не е възможно да се създаде :module zip файл',
+        'unzip'             => 'Не е възможно да се разархивира :module',
+        'file_copy'         => 'Не е възможно да се копират файловете на :module',
+        'finish'            => 'Не е възможно да се приключи инсталацията на :module',
     ],
 
     'badge' => [
-        'installed' => 'Инсталирано',
+        'installed'         => 'Инсталирано',
+        'pre_sale'          => 'Предварителна продажба',
     ],
 
     'button' => [
@@ -67,14 +70,15 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Закупени',
-        'installed' => 'Инсталирани',
+        'purchased'         => 'Закупени',
+        'installed'         => 'Инсталирани',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Добави отзив'
+            'add'           => 'Добави отзив'
         ],
-        'na' => 'Няма отзиви.'
+
+        'na'                => 'Няма отзиви.'
     ]
 ];
