@@ -13,8 +13,7 @@ import Global from './../../mixins/global';
 import Form from './../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
 
-import ColorPicker from 'element-ui';
-//import 'element-ui/lib/theme-default/index.css';
+import {ColorPicker} from 'element-ui';
 
 Vue.use(ColorPicker);
 
@@ -26,7 +25,7 @@ const app = new Vue({
     ],
 
     components: {
-        ColorPicker
+        [ColorPicker.name]: ColorPicker,
     },
 
     mounted() {
