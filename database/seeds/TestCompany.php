@@ -3,14 +3,15 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Models\Auth\User;
+use App\Jobs\Auth\CreateUser;
 use App\Models\Common\Company;
-use Artisan;
-use Date;
+use App\Traits\Jobs;
 use Illuminate\Database\Seeder;
 
 class TestCompany extends Seeder
 {
+    use Jobs;
+
     /**
      * Run the database seeds.
      *
@@ -37,8 +38,8 @@ class TestCompany extends Seeder
 
         setting()->setExtraColumns(['company_id' => '1']);
         setting()->set([
-            'company.name'                      => 'Test Inc.',
-            'company.email'                     => 'info@test.com',
+            'company.name'                      => 'Test Company',
+            'company.email'                     => 'test@company.com',
             'company.address'                   => 'New Street 1254',
             'localisation.financial_start'      => '01-01',
             'default.currency'                  => 'USD',
@@ -46,8 +47,8 @@ class TestCompany extends Seeder
             'default.payment_method'            => 'offline-payments.cash.1',
             'schedule.bill_days'                => '10,5,3,1',
             'schedule.invoice_days'             => '1,3,5,10',
-            'schedule.send_invoice_reminder'    => '0',
-            'schedule.send_bill_reminder'       => '0',
+            'schedule.send_invoice_reminder'    => '1',
+            'schedule.send_bill_reminder'       => '1',
             'wizard.completed'                  => '1',
             'contact.type.customer'             => 'customer',
             'contact.type.vendor'               => 'vendor',
@@ -59,25 +60,16 @@ class TestCompany extends Seeder
 
     public function createUser()
     {
-        // Create user
-        $user = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@akaunting.com',
+        $this->dispatch(new CreateUser([
+            'name' => 'Test',
+            'email' => 'test@company.com',
             'password' => '123456',
-            'last_logged_in_at' => Date::now(),
-        ]);
+            'locale' => 'en-GB',
+            'companies' => ['1'],
+            'roles' => ['1'],
+            'enabled' => '1',
+        ]));
 
-        // Attach Role
-        $user->roles()->attach(1);
-
-        // Attach company
-        $user->companies()->attach(1);
-
-        Artisan::call('user:seed', [
-            'user' => $user->id,
-            'company' => 1,
-        ]);
-
-        $this->command->info('Admin user created.');
+        $this->command->info('Test user created.');
     }
 }

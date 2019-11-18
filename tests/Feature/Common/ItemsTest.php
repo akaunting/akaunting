@@ -49,7 +49,7 @@ class ItemsTest extends FeatureTestCase
 
 		$item = $this->dispatch(new CreateItem($request));
 
-        $request['name'] = $this->faker->text(15);
+		$request['name'] = $this->faker->text(15);
 
 		$this->loginAs()
 			->patch(route('items.update', $item->id), $request)
