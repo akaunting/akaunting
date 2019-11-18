@@ -5,9 +5,8 @@ namespace App\Abstracts;
 use Artisan;
 use Illuminate\Database\Eloquent\Collection;
 
-class BulkAction
+abstract class BulkAction
 {
-
     public $model = false;
 
     public $actions = [
