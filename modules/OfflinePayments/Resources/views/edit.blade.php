@@ -92,7 +92,7 @@
                                                         'title'   => trans('general.delete'),
                                                         'data-code' => $item->code,
                                                         'id' => 'delete-' . $item->code,
-                                                        '@click'  => 'confirmDelete("' . $item->code . '", "' . trans('general.delete') . ' ' . trans_choice('offline-payments::general.methods', 1) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans('offline-payments::general.title'))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
+                                                        '@click'  => 'confirmDelete("' . $item->code . '", "' . trans('general.delete') . ' ' . trans_choice('offline-payments::general.methods', 1) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans('offline-payments::general.name'))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
                                                     )) !!}
                                                 </div>
                                             </div>
@@ -120,5 +120,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="{{ asset('modules/OfflinePayments/Resources/js/offline-payments.min.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset('modules/OfflinePayments/Resources/assets/js/offline-payments.min.js?v=' . version('short')) }}"></script>
 @endpush

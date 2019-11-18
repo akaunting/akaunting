@@ -21,13 +21,22 @@ const app = new Vue({
 
     data() {
         return {
-            form: new Form('offline-payments')
+            form: new Form('offline-payments'),
+            confirm: {
+                code: '',
+                title: '',
+                message: '',
+                button_cancel: '',
+                button_delete: '',
+                show: false
+            },
         }
     },
 
     methods:{
         onEdit(event) {
             var code = event.target.dataset.code;
+
             this.form.loading = true;
 
             axios.post('offline-payments/get', {
@@ -47,6 +56,23 @@ const app = new Vue({
             });
         },
 
+        // Actions > Delete
+        confirmDelete(code, title, message, button_cancel, button_delete) {
+            this.confirm.code = code;
+            this.confirm.title = title;
+            this.confirm.message = message;
+            this.confirm.button_cancel = button_cancel;
+            this.confirm.button_delete = button_delete;
+            this.confirm.show = true;
+        },
+
+        cancelDelete() {
+            this.confirm.code = '';
+            this.confirm.title = '';
+            this.confirm.message = '';
+            this.confirm.show = false;
+        },
+
         onDelete() {
             axios({
                 method: 'DELETE',
@@ -57,14 +83,9 @@ const app = new Vue({
             })
             .then(response => {
                 if (response.data.success) {
-                    var type = (response.data.success) ? 'success' : 'warning';
-
-                    this.$notify({
-                        message: response.data.message,
-                        timeout: 5000,
-                        icon: 'fas fa-bell',
-                        type
-                    });
+                    if (response.data.redirect) {
+                        window.location.href = response.data.redirect;
+                    }
 
                     document.getElementById('method-' + this.confirm.code).remove();
 
