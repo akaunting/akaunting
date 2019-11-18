@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Nettoresultat',
     'total_expenses'        => 'Udgifter i alt',
     'net'                   => 'Netto',
+    'income-expense'        => 'Indtægter & Udgifter',
 
     'summary' => [
         'income'            => 'Indkomst Resumé',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Moms oversigt',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Okt-Dec',
+    'charts' => [
+        'line'              => 'Linje',
+        'bar'               => 'Diagrambar',
+        'pie'               => 'Lagkagediagram',
     ],
 
 ];
