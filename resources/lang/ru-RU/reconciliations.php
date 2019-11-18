@@ -2,15 +2,15 @@
 
 return [
 
-    'reconcile'             => 'Reconcile',
-    'reconciled'            => 'Reconciled',
-    'closing_balance'       => 'Closing Balance',
-    'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
-    'cleared_amount'        => 'Cleared Amount',
-    'deposit'               => 'Deposit',
-    'withdrawal'            => 'Withdrawal',
+    'reconcile'             => 'Сверить',
+    'reconciled'            => 'Сверено',
+    'closing_balance'       => 'Конечное сальдо',
+    'unreconciled'          => 'Не сверено',
+    'transactions'          => 'Транзакции',
+    'start_date'            => 'Дата начала',
+    'end_date'              => 'Дата окончания',
+    'cleared_amount'        => 'Зачтенная сумма',
+    'deposit'               => 'Пополнить средства',
+    'withdrawal'            => 'Вывести средства',
 
 ];
