@@ -3,10 +3,10 @@
 return [
 
     'code'                  => 'Код',
-    'rate'                  => 'Оцінити',
+    'rate'                  => 'Оцінка',
     'default'               => 'Валюта за замовчуванням',
     'decimal_mark'          => 'Десятковий знак',
-    'thousands_separator'   => 'Тисячі сепаратор',
+    'thousands_separator'   => 'Роздільник тисяч',
     'precision'             => 'Точність',
     'symbol' => [
         'symbol'            => 'Символ',
