@@ -156,10 +156,13 @@ class Settings extends Controller
 
         $message = trans('messages.success.deleted', ['type' => $remove['name']]);
 
+        flash($message)->success();
+
         return response()->json([
             'errors' => false,
             'success' => true,
-            'message' => $message
+            'message' => $message,
+            'redirect' => route('offline-payments.edit'),
         ]);
     }
 }
