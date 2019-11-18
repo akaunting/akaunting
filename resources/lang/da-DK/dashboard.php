@@ -20,5 +20,4 @@ return [
     'account_balance'           => 'Saldo',
     'latest_incomes'            => 'Seneste indkomster',
     'latest_expenses'           => 'Seneste udgifter',
-
 ];

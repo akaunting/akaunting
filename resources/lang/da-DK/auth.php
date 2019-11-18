@@ -13,20 +13,21 @@ return [
     'current_email'         => 'Nuværende E-mail',
     'reset'                 => 'Nulstil',
     'never'                 => 'Aldrig',
-    
+
     'password' => [
         'current'           => 'Adgangskode',
         'current_confirm'   => 'Bekræft adgangskode',
         'new'               => 'Ny adgangskode',
-        'new_confirm'       => 'Bekræftelse ny adgangskode',
+        'new_confirm'       => 'Bekræftelse af ny adgangskode',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Fejl: Du kan ikke slette dig selv!',
+        'self_disable'      => 'Fejl: Du kan ikke disable dig selv!',
         'no_company'        => 'Error: Ingen virksomhed er tilknyttet din konto. Kontakt systemadministratoren.',
     ],
 
-    'failed'                => 'Disse legitimationsoplysninger passer ikke med vores optegnelser.',
+    'failed'                => 'Disse legitimationsoplysninger passer ikke med de gemte.',
     'disabled'              => 'Denne konto er deaktiveret. Kontakt systemadministratoren.',
     'throttle'              => 'For mange login forsøg. Prøv igen om :seconds sekunder.',
 

@@ -6,7 +6,7 @@ return [
     'reconciled'            => 'Afstemt',
     'closing_balance'       => 'Primo saldo',
     'unreconciled'          => 'Uafstemt',
-    'list_transactions'     => 'Vis transaktioner',
+    'transactions'          => 'Transaktioner',
     'start_date'            => 'Start dato',
     'end_date'              => 'Slut dato',
     'cleared_amount'        => 'Afstemt beløb',

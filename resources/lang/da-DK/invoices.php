@@ -47,13 +47,15 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Faktura sendt over E-mail!',
-        'marked_sent'       => 'Faktura markeret som sendt!',
+        'email_sent'        => 'Faktura email er blevet sendt!',
+        'marked_sent'       => 'Faktura er markeret som sendt!',
+        'marked_paid'       => 'Faktura markeret som betalt!',
         'email_required'    => 'Ingen E-mail-adresse for kunden!',
         'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil blive vist som diagrammer, når det bliver sendt.',
 
         'status' => [
             'created'       => 'Oprettet den :date',
+            'viewed'        => 'Set',
             'send' => [
                 'draft'     => 'Ikke sendt',
                 'sent'      => 'Sendt den :date',
@@ -62,11 +64,6 @@ return [
                 'await'     => 'Afventer betaling',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Du modtager denne E-mail, fordi du har en faktura på :amount til :customer kunde.',
-        'button'            => 'Betal nu',
     ],
 
 ];

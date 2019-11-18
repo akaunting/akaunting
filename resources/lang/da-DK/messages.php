@@ -18,7 +18,8 @@ return [
         'customer'          => 'Fejl: Brugeren ikke oprettet! :name bruger allerede denne E-mail.',
         'no_file'           => 'Fejl: Ingen fil valgt!',
         'last_category'     => 'Fejl: Kan ikke slette sidste :type kategori!',
-        'invalid_apikey'     => 'Fejl: Token indtastet er ugyldig!',
+        'change_type'       => 'Fejl: Kan ikke ændre type fordi den har :text relateret!',
+        'invalid_apikey'    => 'Fejl: Den indtastede token er ikke gyldig!',
         'import_column'     => 'Error: :message arkets navn: :sheet. Linje nummer: :line.',
         'import_sheet'      => 'Error: Ark navn er ikke valid. Kontroller venligst eksempel filen.',
     ],
@@ -27,6 +28,7 @@ return [
         'deleted'           => 'Advarsel: Du har ikke tilladelse tiil at slette <b>:name</b> fordi den er :text relateret.',
         'disabled'          => 'Advarsel: Du har ikke tilladelse tiil at deaktivere <b>:name</b> fordi den er :text relateret.',
         'disable_code'      => 'Advarsel: Du må ikke deaktivere eller ændre valutaen i <b>:name</b> , fordi den er :text relateret.',
+        'payment_cancel'    => 'Advarsel: Du har annulleret den seneste :method betaling!',
     ],
 
 ];
