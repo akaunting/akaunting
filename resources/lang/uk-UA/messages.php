@@ -3,27 +3,32 @@
 return [
 
     'success' => [
-        'added'             => ': тип додано!',
-        'updated'           => ': тип оновлено!',
-        'deleted'           => ': тип видалено!',
-        'duplicated'        => ': тип продубльовано!',
-        'imported'          => ': тип імпортовано!',
-        'enabled'           => ':type enabled!',
-        'disabled'          => ':type disabled!',
+        'added'             => ':type додано!',
+        'updated'           => ':type оновлено!',
+        'deleted'           => ':type видалено!',
+        'duplicated'        => ':type продубльовано!',
+        'imported'          => ':type імпортовано!',
+        'enabled'           => ':type увімкнено!',
+        'disabled'          => ':type відключено!',
     ],
+
     'error' => [
-        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
+        'over_payment'      => 'Помилка: Оплату не додано! Сума, яку ви ввели більша загальної: :amount',
         'not_user_company'  => 'Помилка: Вам не дозволено керувати цією компанією!',
-        'customer'          => 'Помилка: Користувача не створено! : ця електронна адреса вже використовується.',
+        'customer'          => 'Помилка: Користувача не створено! :name ця електронна адреса вже використовується.',
         'no_file'           => 'Помилка: Файл не обрано!',
         'last_category'     => 'Помилка: Неможливо видалити :type категорію!',
-        'invalid_apikey'     => 'Помилка: Введений токен невірний!',
-        'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
-        'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
+        'change_type'       => 'Помилка: Неможливо змінити тип, оскільки :text використаний!',
+        'invalid_apikey'    => 'Помилка: Введений токен невірний!',
+        'import_column'     => 'Помилка: :message Назва файлу: :sheet. Номер рядка: :line.',
+        'import_sheet'      => 'Помилка: Назва аркуша неприпустима. Будь ласка, перевірте зразок файлу.',
     ],
+
     'warning' => [
-        'deleted'           => 'Увага: Вам не дозволено видалити <b>: ім\'я</b> , оскільки воно має: текст, пов\'язані.',
-        'disabled'          => 'Увага: Вам не дозволяється відключати <b>: ім\'я</b> , оскільки воно має: текст, пов\'язані.',
+        'deleted'           => 'Увага: Вам не дозволено видалити <b>:name</b> оскільки воно :text використовується.',
+        'disabled'          => 'Увага: Вам не дозволяється відключати <b>:name</b> оскільки воно :text використовується.',
+        'disable_code'      => 'Увага: Вам не дозволяється відключати <b>:name</b> оскільки воно :text використовується.',
+        'payment_cancel'    => 'Увага: Ви відмінили вашу останню :method оплату!',
     ],
 
 ];

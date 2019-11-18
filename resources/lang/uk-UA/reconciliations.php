@@ -2,13 +2,15 @@
 
 return [
 
-    'reconcile'             => 'Reconcile',
-    'reconciled'            => 'Reconciled',
-    'closing_balance'       => 'Closing Balance',
-    'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
-    'cleared_amount'        => 'Cleared Amount',
+    'reconcile'             => 'Врегулювати',
+    'reconciled'            => 'Врегульовано',
+    'closing_balance'       => 'Закриття балансу',
+    'unreconciled'          => 'Неврегульовано',
+    'transactions'          => 'Транзакції',
+    'start_date'            => 'Дата початку ',
+    'end_date'              => 'Дата закінчення',
+    'cleared_amount'        => 'Видалена Сума',
+    'deposit'               => 'Аванс',
+    'withdrawal'            => 'Вивести',
 
 ];
