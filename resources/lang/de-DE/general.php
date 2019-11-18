@@ -2,6 +2,7 @@
 
 return [
 
+    'dashboards'            => 'Dashboard|Dashboards',
     'items'                 => 'Artikel|Artikel',
     'incomes'               => 'Einkommen|Einkommen',
     'invoices'              => 'Rechnung|Rechnungen',
@@ -41,8 +42,15 @@ return [
     'contacts'              => 'Kontakt|Kontakte',
     'reconciliations'       => 'Kontenabgleich|Kontenabgleiche',
     'developers'            => 'Entwickler|Entwickler',
+    'schedules'             => 'Zeitplan|Zeitpläne',
+    'groups'                => 'Gruppen|Gruppen',
+    'charts'                => 'Diagramm|Diagramme',
+    'localisations'         => 'Lokalisierungen',
+    'defaults'              => 'Standard|Standardwerte',
+    'widgets'               => 'Widget|Widgets',
 
     'dashboard'             => 'Dashboard',
+    'welcome'               => 'Willkommen',
     'banking'               => 'Bankwesen',
     'general'               => 'Allgemein',
     'no_records'            => 'Keine Einträge.',
@@ -54,6 +62,7 @@ return [
     'no'                    => 'Nein',
     'na'                    => 'N/V',
     'daily'                 => 'Täglich',
+    'weekly'                => 'Wöchentlich',
     'monthly'               => 'Monatlich',
     'quarterly'             => 'Vierteljährlich',
     'yearly'                => 'Jährlich',
@@ -83,6 +92,7 @@ return [
     'switch'                => 'Wechseln',
     'color'                 => 'Farbe',
     'save'                  => 'Speichern',
+    'confirm'               => 'Bestätigen',
     'cancel'                => 'Abbrechen',
     'loading'               => 'Wird geladen...',
     'from'                  => 'Von',
@@ -115,17 +125,27 @@ return [
     'go_to'                 => 'Gehe zu :name',
     'created_date'          => 'Erstellungsdatum',
     'period'                => 'Zeitraum',
+    'frequency'             => 'Häufigkeit',
     'start'                 => 'Start',
     'end'                   => 'Ende',
     'clear'                 => 'Löschen',
     'difference'            => 'Differenz',
+    'footer'                => 'Fusszeile',
+    'start_date'            => 'Startdatum',
+    'basis'                 => 'Basis',
+    'accrual'               => 'Rückstellung',
+    'cash'                  => 'Bar',
+    'group_by'              => 'Gruppieren nach',
+    'accounting'            => 'Buchhaltung',
 
     'title' => [
         'new'               => 'Neu :type',
         'edit'              => ':type bearbeiten',
+        'delete'            => ':type löschen',
         'create'            => ':type erstellen',
         'send'              => ':type versendet',
         'get'               => ':type werden',
+        'add'               => ':type hinzufügen',
     ],
 
     'form' => [
@@ -134,6 +154,7 @@ return [
             'field'         => '- :field auswählen -',
             'file'          => 'Datei auswählen',
         ],
+        'add_new'           => 'Neues :field hinzufügen',
         'no_file_selected'  => 'Keine Datei ausgewählt...',
     ],
 

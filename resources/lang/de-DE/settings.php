@@ -3,14 +3,16 @@
 return [
 
     'company' => [
+        'description'       => 'Firma, E-Mail, Adresse, Steuernummer usw. ändern',
         'name'              => 'Name',
         'email'             => 'E-Mail',
         'phone'             => 'Telefon',
         'address'           => 'Adresse',
         'logo'              => 'Logo',
     ],
+
     'localisation' => [
-        'tab'               => 'Lokalisation',
+        'description'       => 'Steuerjahr, Zeitzone, Datumsformat und Position des Prozentzeichen festlegen',
         'financial_start'   => 'Beginn des Finanzjahrs',
         'timezone'          => 'Zeitzone',
         'date' => [
@@ -28,8 +30,9 @@ return [
             'after'         => 'Nach der Zahl',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Rechnung',
+        'description'       => 'Standardwerte für die Rechnungsdarstellung anpassen (Präfix, Nummer, Texte, usw.)',
         'prefix'            => 'Rechnungsprefix',
         'digit'             => 'Nachkommastellen',
         'next'              => 'Nächste Nummer',
@@ -44,16 +47,21 @@ return [
         'rate'              => 'Satz',
         'quantity_name'     => 'Mengenbezeichnung',
         'quantity'          => 'Menge',
+        'payment_terms'     => 'Zahlungskonditionen',
+        'title'             => 'Titel',
+        'subheading'        => 'Unterüberschrift',
+        'due_receipt'       => 'Fälligkeit: sofort',
+        'due_days'          => 'Fällig innerhalb von :days Tagen',
     ],
+
     'default' => [
-        'tab'               => 'Standardeinstellungen',
-        'account'           => 'Standardkonto',
-        'currency'          => 'Standardwährung',
-        'tax'               => 'Standard-Steuersatz',
-        'payment'           => 'Standard-Zahlungsmethode',
-        'language'          => 'Standardsprache',
+        'description'       => 'Standardkonto, Währung, Sprache Ihres Unternehmens',
+        'list_limit'        => 'Datensätze pro Seite',
+        'use_gravatar'      => 'Gravatar verwenden',
     ],
+
     'email' => [
+        'description'       => 'Sendeprotokoll und E-Mail-Vorlagen ändern',
         'protocol'          => 'Protokoll',
         'php'               => 'PHP-Mail',
         'smtp' => [
@@ -68,36 +76,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail Pfad',
         'log'               => 'E-Mails protokollieren',
+
+        'templates' => [
+            'subject'                   => 'Betreff',
+            'body'                      => 'Inhalt',
+            'tags'                      => '<strong>Verfügbare Platzhalter:</strong> :tag_list',
+            'invoice_new_customer'      => 'Vorlage für neue Rechnungen (an Kunden gesendet)',
+            'invoice_remind_customer'   => 'Vorlage für Erinnerungen - Einnahmen (an Kunden gesendet)',
+            'invoice_remind_admin'      => 'Vorlage für Erinnerungen - Einnahmen (an Admin gesendet)',
+            'invoice_recur_customer'    => 'Vorlage für wiederkehrende Rechnungen (an Kunden gesendet)',
+            'invoice_recur_admin'       => 'Vorlage für wiederkehrende Rechnungen (an Admin gesendet)',
+            'invoice_payment_customer'  => 'Vorlage für Zahlungseingang (an Kunden gesendet)',
+            'invoice_payment_admin'     => 'Vorlage für Zahlungseingang (an Admin gesendet)',
+            'bill_remind_admin'         => 'Vorlage für Erinnerungen - Ausgaben (an Admin gesendet)',
+            'bill_recur_admin'          => 'Vorlage für wiederkehrende Rechnungen - Ausgaben (an Admin gesendet)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Zeitpläne',
+        'name'              => 'Zeitpläne',
+        'description'       => 'Automatische Erinnerungen und Befehl für wiederkehrende Aktionen',
         'send_invoice'      => 'Erinnerung für Kundenrechnung senden',
         'invoice_days'      => 'Senden nach Fälligkeit (Tage)',
         'send_bill'         => 'Erinnerung für Ausgabenrechnung senden',
         'bill_days'         => 'Senden vor Fälligkeit (Tage)',
         'cron_command'      => 'Cron-Befehl',
         'schedule_time'     => 'Ausführungszeit (volle Stunde)',
-        'send_item_reminder'=> 'Erinnerung für Artikel senden',
-        'item_stocks'       => 'Senden wenn Artikel verfügbar',
     ],
-    'appearance' => [
-        'tab'               => 'Darstellung',
-        'theme'             => 'Theme',
-        'light'             => 'Light',
-        'dark'              => 'Dark',
-        'list_limit'        => 'Datensätze pro Seite',
-        'use_gravatar'      => 'Gravatar verwenden',
+
+    'categories' => [
+        'description'       => 'Unbegrenzte Kategorien für Einnahmen, Ausgaben und Artikel',
     ],
-    'system' => [
-        'tab'               => 'System',
-        'session' => [
-            'lifetime'      => 'Sitzungsdauer (Minuten)',
-            'handler'       => 'Session-Verwaltung',
-            'file'          => 'Datei',
-            'database'      => 'Datenbank',
-        ],
-        'file_size'         => 'Max. Dateigröße (MB)',
-        'file_types'        => 'Erlaubte Dateitypen',
+
+    'currencies' => [
+        'description'       => 'Währungen erstellen, verwalten und Kurse festlegen',
+    ],
+
+    'taxes' => [
+        'description'       => 'Steuersätze erstellen und verwalten',
     ],
 
 ];

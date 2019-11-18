@@ -6,7 +6,7 @@ return [
     'reconciled'            => 'Abgeglichen',
     'closing_balance'       => 'Endsaldo',
     'unreconciled'          => 'Nicht abgeglichen',
-    'list_transactions'     => 'Transaktion anzeigen',
+    'transactions'          => 'Transaktionen',
     'start_date'            => 'Startdatum',
     'end_date'              => 'Enddatum',
     'cleared_amount'        => 'Ausgeglichener Betrag',

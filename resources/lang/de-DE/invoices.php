@@ -47,13 +47,15 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Rechnungsemail wurde erfolgreich versendet!',
-        'marked_sent'       => 'Rechnung als erfolgreich versendet markiert!',
+        'email_sent'        => 'Rechnung wurde per E-Mail versendet',
+        'marked_sent'       => 'Rechnung als gesendet markiert!',
+        'marked_paid'       => 'Rechnung als bezahlt markiert!',
         'email_required'    => 'Es existiert keine E-Mailadresse zu diesem Kunden!',
         'draft'             => 'Dies ist eine <b>Vorschau</b>-Rechnung und wird nach dem Versand in den Charts ersichtlich.',
 
         'status' => [
             'created'       => 'Erstellt am :date',
+            'viewed'        => 'Gelesen',
             'send' => [
                 'draft'     => 'Noch nicht versandt',
                 'sent'      => 'Gesendet am :date',
@@ -62,11 +64,6 @@ return [
                 'await'     => 'Zahlung erwartet',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Sie erhalten diese Email, da eine Rechnung in Höhe von :amount für den Kunden :customer ansteht.',
-        'button'            => 'Jetzt bezahlen',
     ],
 
 ];
