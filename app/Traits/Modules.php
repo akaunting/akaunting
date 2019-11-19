@@ -41,43 +41,131 @@ trait Modules
     // Get All Modules
     public function getModules()
     {
-        return $this->remote('apps/items');
+        // Get data from cache
+        $items = Cache::get('apps.items');
+
+        if (!empty($items)) {
+            return $items;
+        }
+
+        $items = $this->remote('apps/items');
+
+        Cache::put('apps.items', $items, Date::now()->addHour());
+
+        return $items;
     }
 
     // Get Module
     public function getModule($alias)
     {
-        return $this->remote('apps/' . $alias);
+        // Get data from cache
+        $item = Cache::get('apps.' . $alias);
+
+        if (!empty($item)) {
+            return $item;
+        }
+
+        $item = $this->remote('apps/' . $alias);
+
+        Cache::put('apps.' . $alias, $item, Date::now()->addHour());
+
+        return $item;
     }
 
     public function getDocumentation($alias)
     {
-        return $this->remote('apps/docs/' . $alias);
+        // Get data from cache
+        $documentation = Cache::get('apps.docs.' . $alias);
+
+        if (!empty($documentation)) {
+            return $documentation;
+        }
+
+        $documentation = $this->remote('apps/docs/' . $alias);
+
+        Cache::put('apps.docs.' . $alias, $documentation, Date::now()->addHour());
+
+        return $documentation;
     }
 
     public function getModuleReviews($alias, $data = [])
     {
-        return $this->remote('apps/' . $alias . '/reviews', 'GET', $data);
+        // Get data from cache
+        $reviews = Cache::get('apps.' . $alias . '.reviews');
+
+        if (!empty($reviews)) {
+            return $reviews;
+        }
+
+        $reviews = $this->remote('apps/' . $alias . '/reviews', 'GET', $data);
+
+        Cache::put('apps.' . $alias . '.reviews', $reviews, Date::now()->addHour());
+
+        return $reviews;
     }
 
     public function getCategories()
     {
-        return $this->remote('apps/categories');
+        // Get data from cache
+        $categories = Cache::get('apps.categories');
+
+        if (!empty($categories)) {
+            return $categories;
+        }
+
+        $categories =  $this->remote('apps/categories');
+
+        Cache::put('apps.categories', $categories, Date::now()->addHour());
+
+        return $categories;
     }
 
     public function getModulesByCategory($alias, $data = [])
     {
-        return $this->remote('apps/categories/' . $alias, 'GET', $data);
+        // Get data from cache
+        $category = Cache::get('apps.categories.' . $alias);
+
+        if (!empty($category)) {
+            return $category;
+        }
+
+        $category = $this->remote('apps/categories/' . $alias, 'GET', $data);
+
+        Cache::put('apps.categories.' . $alias, $category, Date::now()->addHour());
+
+        return $category;
     }
 
     public function getVendors()
     {
-        return $this->remote('apps/vendors');
+        // Get data from cache
+        $vendors = Cache::get('apps.vendors');
+
+        if (!empty($vendors)) {
+            return $vendors;
+        }
+
+        $vendors =  $this->remote('apps/vendors');
+
+        Cache::put('apps.vendors', $vendors, Date::now()->addHour());
+
+        return $vendors;
     }
 
     public function getModulesByVendor($alias, $data = [])
     {
-        return $this->remote('apps/vendors/' . $alias, 'GET', $data);
+        // Get data from cache
+        $vendor = Cache::get('apps.vendors.' . $alias);
+
+        if (!empty($vendor)) {
+            return $vendor;
+        }
+
+        $vendor =  $this->remote('apps/vendors/' . $alias, 'GET', $data);
+
+        Cache::put('apps.vendors.' . $alias, $vendor, Date::now()->addHour());
+
+        return $vendor;
     }
 
     public function getMyModules($data = [])
@@ -121,32 +209,87 @@ trait Modules
 
     public function getPreSaleModules($data = [])
     {
-        return $this->remote('apps/pre_sale', 'GET', $data);
+        // Get data from cache
+        $pre_sale = Cache::get('apps.pre_sale');
+
+        if (!empty($pre_sale)) {
+            return $pre_sale;
+        }
+
+        $pre_sale = $this->remote('apps/pre_sale', 'GET', $data);
+
+        Cache::put('apps.pre_sale', $pre_sale, Date::now()->addHour());
+
+        return $pre_sale;
     }
 
     public function getPaidModules($data = [])
     {
-        return $this->remote('apps/paid', 'GET', $data);
+        // Get data from cache
+        $paid = Cache::get('apps.paid');
+
+        if (!empty($paid)) {
+            return $paid;
+        }
+
+        $paid = $this->remote('apps/paid', 'GET', $data);
+
+        Cache::put('apps.paid', $paid, Date::now()->addHour());
+
+        return $paid;
     }
 
     public function getNewModules($data = [])
     {
-        return $this->remote('apps/new', 'GET', $data);
+        // Get data from cache
+        $new = Cache::get('apps.new');
+
+        if (!empty($new)) {
+            return $new;
+        }
+
+        $new = $this->remote('apps/new', 'GET', $data);
+
+        Cache::put('apps.new', $new, Date::now()->addHour());
+
+        return $new;
     }
 
     public function getFreeModules($data = [])
     {
-        return $this->remote('apps/free', 'GET', $data);
+        // Get data from cache
+        $free = Cache::get('apps.free');
+
+        if (!empty($free)) {
+            return $free;
+        }
+
+        $free =  $this->remote('apps/free', 'GET', $data);
+
+        Cache::put('apps.free', $free, Date::now()->addHour());
+
+        return $free;
+    }
+
+    public function getFeaturedModules($data = [])
+    {
+        // Get data from cache
+        $featured = Cache::get('apps.featured');
+
+        if (!empty($featured)) {
+            return $featured;
+        }
+
+        $featured = $this->remote('apps/featured', 'GET', $data);
+
+        Cache::put('apps.featured', $featured, Date::now()->addHour());
+
+        return $featured;
     }
 
     public function getSearchModules($data = [])
     {
         return $this->remote('apps/search', 'GET', $data);
-    }
-
-    public function getFeaturedModules($data = [])
-    {
-        return $this->remote('apps/featured', 'GET', $data);
     }
 
     public function getCoreVersion()
