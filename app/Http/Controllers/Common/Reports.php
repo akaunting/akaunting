@@ -154,42 +154,6 @@ class Reports extends Controller
     }
 
     /**
-     * Enable the specified resource.
-     *
-     * @param  Report $report
-     *
-     * @return Response
-     */
-    public function enable(Report $report)
-    {
-        $response = $this->ajaxDispatch(new UpdateReport($report, request()->merge(['enabled' => 1])));
-
-        if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $report->name]);
-        }
-
-        return response()->json($response);
-    }
-
-    /**
-     * Disable the specified resource.
-     *
-     * @param  Report $report
-     *
-     * @return Response
-     */
-    public function disable(Report $report)
-    {
-        $response = $this->ajaxDispatch(new UpdateReport($report, request()->merge(['enabled' => 0])));
-
-        if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $report->name]);
-        }
-
-        return response()->json($response);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  Report $report

@@ -36,7 +36,6 @@ class Reports extends Seeder
                 'period' => 'monthly',
                 'basis' => 'accrual',
                 'chart' => 'line',
-                'enabled' => 1,
             ],
             [
                 'company_id' => $company_id,
@@ -47,7 +46,6 @@ class Reports extends Seeder
                 'period' => 'monthly',
                 'basis' => 'accrual',
                 'chart' => 'line',
-                'enabled' => 1,
             ],
             [
                 'company_id' => $company_id,
@@ -58,7 +56,6 @@ class Reports extends Seeder
                 'period' => 'monthly',
                 'basis' => 'accrual',
                 'chart' => 'line',
-                'enabled' => 1,
             ],
             [
                 'company_id' => $company_id,
@@ -69,7 +66,6 @@ class Reports extends Seeder
                 'period' => 'quarterly',
                 'basis' => 'accrual',
                 'chart' => '0',
-                'enabled' => 1,
             ],
             [
                 'company_id' => $company_id,
@@ -80,7 +76,6 @@ class Reports extends Seeder
                 'period' => 'quarterly',
                 'basis' => 'accrual',
                 'chart' => '0',
-                'enabled' => 1,
             ],
         ];
 

@@ -22,7 +22,6 @@ class Report extends FormRequest
             'period' => 'required|string',
             'basis' => 'required|string',
             'chart' => 'required|string',
-            'enabled' => 'integer|boolean',
         ];
     }
 }

@@ -14,5 +14,5 @@ class Report extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'description', 'class', 'group', 'period', 'basis', 'chart', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'description', 'class', 'group', 'period', 'basis', 'chart'];
 }

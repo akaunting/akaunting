@@ -53,9 +53,6 @@ class Reports
     {
         return [
             'category' => trans_choice('general.categories', 1),
-            'account' => trans_choice('general.accounts', 1),
-            'customer' => trans_choice('general.customers', 1),
-            'vendor' => trans_choice('general.vendors', 1),
         ];
     }
 

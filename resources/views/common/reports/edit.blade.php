@@ -30,8 +30,6 @@
                     {{ Form::selectGroup('basis', trans('general.basis'), 'file', $basises, $report->basis) }}
 
                     {{ Form::selectGroup('chart', trans_choice('general.charts', 1), 'chart-pie', $charts, $report->chart) }}
-
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
                 </div>
             </div>
 
@@ -46,7 +44,7 @@
 
 @push('scripts_start')
     <script type="text/javascript">
-        var class = 
+        var class = '';
     </script>
 
     <script src="{{ asset('public/js/common/reports.js?v=' . version('short')) }}"></script>
