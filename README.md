@@ -23,7 +23,7 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
 
 ## Installation
 
-* Install [Composer](https://getcomposer.org/download)
+* Install [Composer](https://getcomposer.org/download), [Npm](https://nodejs.org/en/download/)
 * Download the [repository](https://github.com/akaunting/akaunting/archive/master.zip) and unzip into your server
 * Open and point your command line to the directory you unzipped Akaunting
 * Run the following command: `composer install`
