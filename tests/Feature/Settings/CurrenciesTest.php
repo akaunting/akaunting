@@ -72,7 +72,7 @@ class CurrenciesTest extends FeatureTestCase
             'decimal_mark' => $this->faker->text(5),
             'thousands_separator' => $this->faker->text(5),
             'enabled' => $this->faker->boolean ? 1 : 0,
-            'default_currency' => $this->faker->boolean ? 1 : 0
+            'default_currency' => 0,
         ];
     }
 }
