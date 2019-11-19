@@ -4,12 +4,31 @@ on: [push, pull_request]
 
 jobs:
   tests:
+
+    name: PHP ${{ matrix.php-versions }} Test
+
     runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 2
+      matrix:
+        php-versions: ['7.2', '7.3']
+
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@master
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extension-csv: mbstring, dom, fileinfo
+        coverage: xdebug
+
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
+
     - name: Install composer
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
     - name: Execute tests
       run: vendor/bin/phpunit
