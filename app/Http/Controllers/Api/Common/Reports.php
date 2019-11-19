@@ -63,32 +63,6 @@ class Reports extends ApiController
     }
 
     /**
-     * Enable the specified resource in storage.
-     *
-     * @param  Report  $report
-     * @return \Dingo\Api\Http\Response
-     */
-    public function enable(Report $report)
-    {
-        $report = $this->dispatch(new UpdateReport($report, request()->merge(['enabled' => 1])));
-
-        return $this->item($report->fresh(), new Transformer());
-    }
-
-    /**
-     * Disable the specified resource in storage.
-     *
-     * @param  Report  $report
-     * @return \Dingo\Api\Http\Response
-     */
-    public function disable(Report $report)
-    {
-        $report = $this->dispatch(new UpdateReport($report, request()->merge(['enabled' => 0])));
-
-        return $this->item($report->fresh(), new Transformer());
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  Report  $report

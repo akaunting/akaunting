@@ -35,8 +35,6 @@ Route::group(['prefix' => 'common'], function () {
 
     Route::get('reports/{report}/print', 'Common\Reports@print')->name('reports.print');
     Route::get('reports/{report}/export', 'Common\Reports@export')->name('reports.export');
-    Route::get('reports/{report}/enable', 'Common\Reports@enable')->name('reports.enable');
-    Route::get('reports/{report}/disable', 'Common\Reports@disable')->name('reports.disable');
     Route::get('reports/groups', 'Common\Reports@groups')->name('reports.groups');
     Route::resource('reports', 'Common\Reports');
 });

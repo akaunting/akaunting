@@ -29,8 +29,6 @@
                     {{ Form::selectGroup('basis', trans('general.basis'), 'file', $basises, 'accrual') }}
 
                     {{ Form::selectGroup('chart', trans_choice('general.charts', 1), 'chart-pie', $charts, 'line') }}
-
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
                 </div>
             </div>
 

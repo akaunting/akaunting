@@ -24,7 +24,6 @@ class Report extends TransformerAbstract
             'period' => $model->period,
             'basis' => $model->basis,
             'graph' => $model->graph,
-            'enabled' => $model->enabled,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
