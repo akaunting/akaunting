@@ -2,6 +2,7 @@
     "alias": "paypal-standard",
     "icon": "fab fa-paypal",
     "version": "2.0.0",
+    "category": "payment-method",
     "active": 1,
     "providers": [
         "Modules\\PaypalStandard\\Providers\\Main"

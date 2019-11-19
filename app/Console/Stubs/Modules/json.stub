@@ -1,6 +1,7 @@
 {
     "alias": "$ALIAS$",
     "version": "1.0.0",
+    "category": "accounting",
     "active": 1,
     "providers": [
         "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\Main"
