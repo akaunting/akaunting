@@ -1,9 +1,9 @@
-name: PHPUnit Tests
+name: GitHub CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  phpunit-tests:
+  tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
