@@ -191,7 +191,7 @@ class Updater
                 ModelHistory::create([
                     'company_id' => session('company_id'),
                     'module_id' => $model->id,
-                    'category' => $module->get('category'),
+                    'category' => $module->get('category', 'payment-method'),
                     'version' => $version,
                     'description' => trans('modules.history.updated', ['module' => $module->get('alias')]),
                 ]);

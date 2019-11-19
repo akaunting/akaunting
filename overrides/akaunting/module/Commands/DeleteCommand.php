@@ -52,7 +52,7 @@ class DeleteCommand extends Command
         $data = [
             'company_id' => $company_id,
             'module_id' => $model->id,
-            'category' => $module->get('category'),
+            'category' => $module->get('category', 'payment-method'),
             'version' => $module->get('version'),
             'description' => trans('modules.deleted', ['module' => $module->get('alias')]),
         ];
