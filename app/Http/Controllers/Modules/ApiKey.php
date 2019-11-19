@@ -32,6 +32,11 @@ class ApiKey extends Controller
 
         setting()->save();
 
-        return redirect()->route('apps.home.index');
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'redirect' => route('apps.home.index'),
+            'message' => '',
+        ]);
     }
 }

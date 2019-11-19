@@ -15,20 +15,9 @@
 
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group required {{ $errors->has('api_key') ? 'has-error' : ''}}">
-                            {!! Form::label('api_key', trans('modules.api_key'), ['class' => 'form-control-label']) !!}
-                            <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-key"></i>
-                                    </span>
-                                </div>
-                                {!! Form::text('api_key', setting('apps.api_key', ''), ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_key')])]) !!}
-                            </div>
-                            {!! $errors->first('api_key', '<p class="help-block">:message</p>') !!}
-                        </div>
+                    {{ Form::textGroup('api_key', trans('modules.api_key'), 'key', ['required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_key')])], setting('apps.api_key', null), 'col-md-12') }}
 
+                    <div class="col-md-12">
                         <p class="mb-0 mt--3">
                             <small>{!! trans('modules.api_key_link') !!}</small>
                         </p>
