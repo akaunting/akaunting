@@ -22,9 +22,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         extension-csv: mbstring, dom, fileinfo
-
-    - name: Disable XDebug
-      run: phpenv config-rm xdebug.ini || return
+        coverage: none
 
     - name: Copy .env
       run: cp .env.testing .env
