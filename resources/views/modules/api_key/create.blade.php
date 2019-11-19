@@ -6,7 +6,7 @@
     <div class="card">
         {!! Form::open([
             'route' => 'apps.api-key.store',
-            'id' => 'app',
+            'id' => 'form-app',
             '@submit.prevent' => 'onSubmit',
             'files' => true,
             'role' => 'form',
@@ -23,7 +23,7 @@
                                     <i class="fa fa-key"></i>
                                 </span>
                             </div>
-                            {!! Form::text('api_key', setting('apps.api_key', null), ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_key')])]) !!}
+                            {!! Form::text('api_key', setting('apps.api_key', ''), ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_key')])]) !!}
                         </div>
                         {!! $errors->first('api_key', '<p class="help-block">:message</p>') !!}
                     </div>
@@ -44,5 +44,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="{{ asset('public/js/apps.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset('public/js/modules/apps.js?v=' . version('short')) }}"></script>
 @endpush
