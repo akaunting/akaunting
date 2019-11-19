@@ -26,7 +26,7 @@ class DropEnabledColumnReportsTable extends Migration
     public function down()
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->boolean('enabled');
+            $table->boolean('enabled')->default(1);
         });
     }
 }
