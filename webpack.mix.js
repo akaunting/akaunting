@@ -50,6 +50,7 @@ mix
 
     // Modules
     .js('resources/assets/js/views/modules/item.js', 'public/js/modules')
+    .js('resources/assets/js/views/modules/apps.js', 'public/js/modules')
 
     // Portal
     .js('resources/assets/js/views/portal/dashboard.js', 'public/js/portal')

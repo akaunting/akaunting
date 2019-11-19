@@ -22,6 +22,7 @@
     "/js/incomes/invoices.js": "/js/incomes/invoices.js",
     "/js/incomes/revenues.js": "/js/incomes/revenues.js",
     "/js/install.js": "/js/install.js",
+    "/js/modules/apps.js": "/js/modules/apps.js",
     "/js/modules/item.js": "/js/modules/item.js",
     "/js/portal/dashboard.js": "/js/portal/dashboard.js",
     "/js/portal/invoices.js": "/js/portal/invoices.js",
