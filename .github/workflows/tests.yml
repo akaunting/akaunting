@@ -15,20 +15,22 @@ jobs:
         php-versions: ['7.2', '7.3']
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
 
     - name: Setup PHP
       uses: shivammathur/setup-php@master
       with:
         php-version: ${{ matrix.php-versions }}
         extension-csv: mbstring, dom, fileinfo
-        coverage: xdebug
+
+    - name: Disable XDebug
+      run: phpenv config-rm xdebug.ini || return
 
     - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
+      run: cp .env.testing .env
 
     - name: Install composer
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      run: composer test
 
     - name: Execute tests
       run: vendor/bin/phpunit

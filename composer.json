@@ -112,7 +112,7 @@
             "composer dump-autoload"
         ],
         "test": [
-            "composer install --no-scripts",
+            "composer install --no-interaction --no-scripts --no-suggest",
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan clear-compiled",
             "composer dump-autoload"

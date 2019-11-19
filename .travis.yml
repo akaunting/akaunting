@@ -18,7 +18,7 @@ before_install:
 
 before_script:
   - cp .env.testing .env
-  - composer test --no-interaction
+  - composer test
 
 script:
   - vendor/bin/phpunit
