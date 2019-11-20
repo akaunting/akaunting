@@ -43,7 +43,7 @@ class Versions
                 continue;
             }
 
-            $output .= '<h2><span class="label label-success">'.$release->tag_name.'</span></h2>';
+            $output .= '<h2><span class="badge badge-pill badge-success">' . $release->tag_name . '</span></h2>';
 
             $output .= $parsedown->text($release->body);
 

@@ -47,6 +47,7 @@ mix
 
     // Install
     .js('resources/assets/js/install.js', 'public/js')
+    .js('resources/assets/js/views/install/update.js', 'public/js/install')
 
     // Modules
     .js('resources/assets/js/views/modules/item.js', 'public/js/modules')

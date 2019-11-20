@@ -199,6 +199,7 @@ Route::group(['prefix' => 'install'], function () {
     Route::post('updates/file-copy', 'Install\Updates@fileCopy')->middleware('api.key')->name('updates.copy');
     Route::post('updates/migrate', 'Install\Updates@migrate')->name('updates.migrate');
     Route::post('updates/finish', 'Install\Updates@finish')->name('updates.finish');
+    Route::post('updates/redirect', 'Install\Updates@redirect')->name('updates.redirect');
     Route::resource('updates', 'Install\Updates');
 });
 

@@ -43,7 +43,8 @@ class Updater
         if ($response instanceof RequestException) {
             return [
                 'success' => false,
-                'errors' => trans('modules.errors.download', ['module' => $name]),
+                'error' => true,
+                'message' => trans('modules.errors.download', ['module' => $alias]),
                 'data' => [
                     'path' => $path
                 ]
@@ -69,7 +70,8 @@ class Updater
             if (!$uploaded) {
                 return [
                     'success' => false,
-                    'errors' => trans('modules.errors.zip', ['module' => $alias]),
+                    'error' => true,
+                    'message' => trans('modules.errors.zip', ['module' => $alias]),
                     'data' => [
                         'path' => $path
                     ]
@@ -81,7 +83,8 @@ class Updater
 
                 return [
                     'success' => true,
-                    'errors' => false,
+                    'error' => false,
+                    'message' => null,
                     'data' => [
                         'path' => $path
                     ]
@@ -89,7 +92,8 @@ class Updater
             } catch (\Exception $e) {
                 return [
                     'success' => false,
-                    'errors' => trans('modules.errors.download', ['module' => $alias]),
+                    'error' => true,
+                    'message' => trans('modules.errors.download', ['module' => $alias]),
                     'data' => []
                 ];
             }
@@ -97,7 +101,8 @@ class Updater
 
         return [
             'success' => false,
-            'errors' => trans('modules.errors.download', ['module' => $alias]),
+            'error' => true,
+            'message' => trans('modules.errors.download', ['module' => $alias]),
             'data' => [
                 'path' => $path
             ]
@@ -116,7 +121,8 @@ class Updater
         if (($zip->open($file) !== true) || !$zip->extractTo($temp_path)) {
             return [
                 'success' => false,
-                'errors' => trans('modules.errors.unzip', ['module' => $alias]),
+                'error' => true,
+                'message' => trans('modules.errors.unzip', ['module' => $alias]),
                 'data' => [
                     'path' => $path
                 ]
@@ -133,7 +139,8 @@ class Updater
 
             return [
                 'success' => true,
-                'errors' => false,
+                'error' => false,
+                'message' => null,
                 'data' => [
                     'path' => $path
                 ]
@@ -141,7 +148,8 @@ class Updater
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'errors' => trans('modules.errors.unzip', ['module' => $alias]),
+                'error' => true,
+                'message' => trans('modules.errors.unzip', ['module' => $alias]),
                 'data' => []
             ];
         }
@@ -156,7 +164,8 @@ class Updater
             if (!File::copyDirectory($temp_path, base_path())) {
                 return [
                     'success' => false,
-                    'errors' => trans('modules.errors.file_copy', ['module' => $alias]),
+                    'error' => true,
+                    'message' => trans('modules.errors.file_copy', ['module' => $alias]),
                     'data' => [
                         'path' => $path
                     ]
@@ -177,7 +186,8 @@ class Updater
             if (!File::copyDirectory($temp_path, $module_path)) {
                 return [
                     'success' => false,
-                    'errors' => trans('modules.errors.file_copy', ['module' => $alias]),
+                    'error' => true,
+                    'message' => trans('modules.errors.file_copy', ['module' => $alias]),
                     'data' => [
                         'path' => $path
                     ]
@@ -208,7 +218,8 @@ class Updater
 
             return [
                 'success' => true,
-                'errors' => false,
+                'error' => false,
+                'message' => null,
                 'data' => [
                     'path' => $path
                 ]
@@ -216,7 +227,8 @@ class Updater
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'errors' => trans('modules.errors.file_copy', ['module' => $alias]),
+                'error' => true,
+                'message' => trans('modules.errors.file_copy', ['module' => $alias]),
                 'data' => []
             ];
         }
@@ -228,7 +240,8 @@ class Updater
         if (($alias == 'core') && (version('short') != $version)) {
             return [
                 'success' => false,
-                'errors' => trans('modules.errors.file_copy', ['module' => $alias]),
+                'error' => true,
+                'message' => trans('modules.errors.file_copy', ['module' => $alias]),
                 'data' => []
             ];
         }
@@ -241,13 +254,15 @@ class Updater
 
             return [
                 'success' => true,
-                'errors' => false,
+                'error' => false,
+                'message' => null,
                 'data' => []
             ];
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'errors' => trans('modules.errors.finish', ['module' => $alias]),
+                'error' => true,
+                'message' => trans('modules.errors.finish', ['module' => $alias]),
                 'data' => []
             ];
         }

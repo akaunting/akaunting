@@ -23,8 +23,13 @@
                         {{ trans('updates.new_core') }}
                     </div>
                     <div class="col-sm-10 col-md-6 text-right">
-                        <a href="{{ url('install/updates/update', ['alias' => 'core', 'version' => $core]) }}" data-toggle="tooltip" title="{{ trans('updates.update', ['version' => $core]) }}" class="btn btn-info btn-sm header-button-top o-y"><i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}</a>
-                        <a href="{{ route('updates.changelog') }}" data-toggle="tooltip" title="{{ trans('updates.changelog') }}" class="btn btn-white btn-sm header-button-bottom"><i class="fa fa-exchange-alt"></i> &nbsp;{{ trans('updates.changelog') }}</a>
+                        <a href="{{ url('install/updates/update', ['alias' => 'core', 'version' => $core]) }}"
+                            class="btn btn-info btn-sm header-button-top o-y">
+                            <i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}
+                        </a>
+                        <button type="button" @click="onChangelog" class="btn btn-white btn-sm header-button-bottom">
+                            <i class="fa fa-exchange-alt"></i> &nbsp;{{ trans('updates.changelog') }}
+                        </button>
                     </div>
                 @endif
             </div>
@@ -56,7 +61,9 @@
                                 <td class="col-sm-3 col-md-2 hidden-sm">{{ $module->installed }}</td>
                                 <td class="col-xs-4 col-md-2 col-sm-3">{{ $module->latest }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 text-center">
-                                    <a href="{{ url('install/updates/update/' . $module->alias . '/' . $module->latest) }}" class="btn btn-warning btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i> {{ trans_choice('general.updates', 1) }}</a>
+                                    <a href="{{ url('install/updates/update/' . $module->alias . '/' . $module->latest) }}" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-refresh" aria-hidden="true"></i> {{ trans_choice('general.updates', 1) }}
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -73,4 +80,18 @@
             </table>
         </div>
     </div>
+
+    <akaunting-modal v-if="changelog.show"
+        :show="changelog.show"
+        :title="'{{ trans('updates.changelog') }}'"
+        @cancel="changelog.show = false"
+        :message="changelog.html">
+        <template #card-footer>
+            <span></span>
+        </template>
+    </akaunting-modal>
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/install/update.js?v=' . version('short')) }}"></script>
+@endpush

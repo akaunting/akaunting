@@ -104,43 +104,46 @@ class Updates extends Controller
      */
     public function steps(Request $request)
     {
-        $json = [];
-        $json['step'] = [];
+        $steps = [];
 
         $name = $request['name'];
-        $version = $request['version'];
 
         // Download
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.download', ['module' => $name]),
             'url'  => url('install/updates/download')
         ];
 
         // Unzip
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.unzip', ['module' => $name]),
             'url'  => url('install/updates/unzip')
         ];
 
         // File Copy
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.file_copy', ['module' => $name]),
             'url'  => url('install/updates/file-copy')
         ];
 
         // Finish installation
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.finish', ['module' => $name]),
             'url'  => url('install/updates/finish')
         ];
 
         // Redirect
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.redirect', ['module' => $name]),
             'url'  => url('install/updates/redirect')
         ];
 
-        return response()->json($json);
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $steps,
+            'message' => null
+        ]);
     }
 
     /**
