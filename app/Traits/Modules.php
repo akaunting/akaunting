@@ -335,14 +335,16 @@ trait Modules
 
             return [
                 'success' => true,
-                'errors' => false,
+                'error' => false,
+                'message' => null,
                 'data' => $data,
             ];
         }
 
         return [
             'success' => false,
-            'errors' => true,
+            'error' => true,
+            'message' => null,
             'data' => null,
         ];
     }
@@ -359,7 +361,8 @@ trait Modules
         if (!$zip->open($file) || !$zip->extractTo($temp_path)) {
             return [
                 'success' => false,
-                'errors' => true,
+                'error' => true,
+                'message' => null,
                 'data' => null,
             ];
         }
@@ -375,7 +378,8 @@ trait Modules
 
         return [
             'success' => true,
-            'errors' => false,
+            'error' => false,
+            'message' => null,
             'data' => $data,
         ];
     }
@@ -414,8 +418,9 @@ trait Modules
 
         return [
             'success' => true,
-            'installed' => url("apps/post/" . $module->alias),
-            'errors' => false,
+            'redirect' => url("apps/post/" . $module->alias),
+            'error' => false,
+            'message' => null,
             'data' => $data,
         ];
     }
@@ -439,7 +444,8 @@ trait Modules
 
         return [
             'success' => true,
-            'errors' => false,
+            'error' => false,
+            'message' => null,
             'data' => $data
         ];
     }
@@ -460,7 +466,8 @@ trait Modules
 
         return [
             'success' => true,
-            'errors' => false,
+            'error' => false,
+            'message' => null,
             'data' => $data
         ];
     }
@@ -481,7 +488,8 @@ trait Modules
 
         return [
             'success' => true,
-            'errors' => false,
+            'error' => false,
+            'message' => null,
             'data' => $data
         ];
     }

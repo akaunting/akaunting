@@ -210,16 +210,16 @@
                     @else
                         @permission('create-modules-item')
                             @if ($module->install)
-                                <a href="{{ $module->action_url }}" class="btn btn-success btn-block" id="install-module">
+                                <button type="button" @click="onInstall('{{ $module->action_url }}', '{{ $module->name }}', '{{ $module->version }}')" class="btn btn-success btn-block" id="install-module">
                                     {{ trans('modules.install') }}
-                                </a>
+                                </button>
                             @else
                                 <a href="{{ $module->action_url }}" class="btn btn-success btn-block" target="_blank">
                                     {{ trans('modules.buy_now') }}
                                 </a>
                             @endif
                         @endpermission
-                    @endif
+                    @endif  
 
                     @if ($module->purchase_faq)
                          <div class="text-center mt-3">
@@ -290,6 +290,23 @@
         <akaunting-modal :show="faq">
             <template #modal-content>
                 {!! $module->purchase_faq !!}
+            </template>
+        </akaunting-modal>
+    @endif
+
+    @if ($module->install)
+        <akaunting-modal :show="installation.show"
+        :title="'{{ trans('modules.installation.header') }}'"
+        @cancel="installation.show = false">
+            <template #modal-body>
+                <div class="modal-body">
+                    <el-progress :text-inside="true" :stroke-width="24" :percentage="installation.total" :status="installation.status"></el-progress>
+
+                    <div id="progress-text" v-html="installation.html"></div>
+                </div>
+            </template>
+            <template #card-footer>
+                <span></span>
             </template>
         </akaunting-modal>
     @endif

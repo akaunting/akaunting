@@ -78,31 +78,34 @@ class Item extends Controller
      */
     public function steps(Request $request)
     {
-        $json = [];
-        $json['step'] = [];
+        $steps = [];
 
         $name = $request['name'];
-        $version = $request['version'];
 
         // Download
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.download', ['module' => $name]),
             'url'  => url('apps/download')
         ];
 
         // Unzip
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.unzip', ['module' => $name]),
             'url'  => url('apps/unzip')
         ];
 
         // Download
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.install', ['module' => $name]),
             'url'  => url('apps/install')
         ];
 
-        return response()->json($json);
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $steps,
+            'message' => null
+        ]);
     }
 
     /**

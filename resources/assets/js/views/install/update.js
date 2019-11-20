@@ -100,7 +100,7 @@ const app = new Vue({
             let installed = document.getElementById('installed').value;
 
             if (data) {
-                this.update.total = (100 - ((this.update.steps.length / this.update.steps_total) * 100));
+                this.update.total = (100 - ((this.update.steps.length / this.update.steps_total) * 100)).toFixed(0);
 
                 this.update.html = '<span class="text-default"><i class="fa fa-spinner fa-spin update-spin"></i> ' + data['text'] + '</span> </br>';
 

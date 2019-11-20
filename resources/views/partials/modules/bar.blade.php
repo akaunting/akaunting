@@ -5,6 +5,7 @@
                 <div class="row">
                     <div class="col-9">
                         {!! Form::select('category', $categories, request('category'), ['class' => 'form-control form-control-sm table-header-search mt-0']) !!}
+
                         <a href="{{ route('apps.paid') }}" class="btn btn-sm btn-white card-buttons filter-button ml-2">{{ trans('modules.top_paid') }}</a>
                         <a href="{{ route('apps.new') }}" class="btn btn-sm btn-white card-buttons filter-button">{{ trans('modules.new') }}</a>
                         <a href="{{ route('apps.free') }}" class="btn btn-sm btn-white card-buttons filter-button">{{ trans('modules.top_free') }}</a>
