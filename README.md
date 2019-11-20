@@ -29,7 +29,9 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
 * Run the following commands: `composer install` , `npm install` , `npm run dev`
 * Finally, launch the [web installer](https://akaunting.com/docs/installation) or run the following command:
 
-`php artisan install --db-host="localhost" --db-name="my_db" --db-username="my_admin" --db-password="my_pass" --company-name="My Company" --company-email="my@company.com" --admin-email="my@company.com" --admin-password="123456"`
+```bash
+php artisan install --db-host="localhost" --db-name="my_db" --db-username="my_admin" --db-password="my_pass" --company-name="My Company" --company-email="my@company.com" --admin-email="my@company.com" --admin-password="123456"
+```
 
 ## Contributing
 
