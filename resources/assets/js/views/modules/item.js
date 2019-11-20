@@ -47,6 +47,18 @@ const app = new Vue({
     },
 
     methods: {
+        onChangeCategory(category) {
+            let path =  document.getElementById('category_page').value;
+
+            if (category) {
+                path += '/' + encodeURIComponent(category);
+            } else {
+                path = app_home;
+            }
+
+            location = path;
+        },
+
         onGetReviews (path, page) {
             axios.post(url + '/apps/' + app_slug  + '/reviews', {
                 patth: path,

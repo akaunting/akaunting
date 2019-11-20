@@ -14,12 +14,28 @@ import Form from './../../plugins/form';
 
 const app = new Vue({
     el: '#app',
+
     mixins: [
         Global
     ],
+
     data: function () {
         return {
             form: new Form('form-app')
+        }
+    },
+
+    methods: {
+        onChangeCategory(category) {
+            let path =  document.getElementById('category_page').value;
+
+            if (category) {
+                path += '/' + encodeURIComponent(category);
+            } else {
+                path = app_home;
+            }
+
+            location = path;
         }
     }
 });
