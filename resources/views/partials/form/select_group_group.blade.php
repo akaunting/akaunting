@@ -1,7 +1,7 @@
 @stack($name . '_input_start')
     <akaunting-select
         class="{{ $col }} {{ isset($attributes['required']) ? 'required' : '' }}"
-        :form-classes="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get(' . $name . ')' }} }]"
+        :form-classes="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]"
         :title="'{{ $text }}'"
         :placeholder="'{{ trans('general.form.select.field', ['field' => $text]) }}'"
         :name="'{{ $name }}'"
@@ -13,6 +13,6 @@
         @if (!empty($attributes['change']))
         @change="{{ $attributes['change'] }}($event)"
         @endif
-        :form-error="{{ isset($attributes['v-error-message']) ? $attributes['v-error-message'] : 'form.errors.get(' . $name . ')' }}"
+        :form-error="{{ isset($attributes['v-error-message']) ? $attributes['v-error-message'] : 'form.errors.get("' . $name . '")' }}"
     ></akaunting-select>
 @stack($name . '_input_end')
