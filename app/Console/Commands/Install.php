@@ -31,7 +31,7 @@ class Install extends Command
                             {--db-host=localhost : Database host}
                             {--db-port=3306 : Port of the database host}
                             {--db-name= : Name of the database}
-                            {--db-username= : Username to use to access the database}
+                            {--db-username=root : Username to use to access the database}
                             {--db-password= : Password to use to access the database}
                             {--company-name=My Company : Name of the company}
                             {--company-email=my@company.com : Email of the company}
@@ -145,7 +145,7 @@ class Install extends Command
         }
 
         if (empty($this->db_username)) {
-            $this->db_username = $this->ask('What is the database username?');
+            $this->db_username = $this->ask('What is the database username?', 'root');
         }
 
         if (empty($this->db_password)) {
