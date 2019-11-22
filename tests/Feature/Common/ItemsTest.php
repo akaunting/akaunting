@@ -3,7 +3,7 @@
 namespace Tests\Feature\Common;
 
 use App\Jobs\Common\CreateItem;
-use Illuminate\Http\UploadedFile;
+use App\Models\Common\Item;
 use Tests\Feature\FeatureTestCase;
 
 class ItemsTest extends FeatureTestCase
@@ -27,7 +27,7 @@ class ItemsTest extends FeatureTestCase
 	public function testItShouldCreateItem()
 	{
 		$this->loginAs()
-			->post(route('items.store'), $this->getItemRequest())
+			->post(route('items.store'), factory(Item::class)->raw())
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
@@ -35,7 +35,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldSeeItemUpdatePage()
 	{
-        $item = $this->dispatch(new CreateItem($this->getItemRequest()));
+        $item = $this->dispatch(new CreateItem(factory(Item::class)->raw()));
 
 		$this->loginAs()
 			->get(route('items.edit', ['item' => $item->id]))
@@ -45,7 +45,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldUpdateItem()
 	{
-		$request = $this->getItemRequest();
+		$request = factory(Item::class)->raw();
 
 		$item = $this->dispatch(new CreateItem($request));
 
@@ -60,7 +60,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldDeleteItem()
 	{
-		$item = $this->dispatch(new CreateItem($this->getItemRequest()));
+		$item = $this->dispatch(new CreateItem(factory(Item::class)->raw()));
 
 		$this->loginAs()
 			->delete(route('items.destroy', ['item' => $item]))
@@ -68,21 +68,4 @@ class ItemsTest extends FeatureTestCase
 
 		$this->assertFlashLevel('success');
 	}
-
-    private function getItemRequest()
-    {
-        $picture = UploadedFile::fake()->create('image.jpg');
-
-        return [
-            'company_id' => $this->company->id,
-            'name' => $this->faker->text(15),
-            'picture' => $picture,
-            'description' => $this->faker->text(100),
-            'purchase_price' => $this->faker->randomFloat(2, 10, 20),
-            'sale_price' => $this->faker->randomFloat(2, 10, 20),
-            'category_id' => $this->company->categories()->type('item')->pluck('id')->first(),
-            'tax_id' => '',
-            'enabled' => $this->faker->boolean ? 1 : 0
-        ];
-    }
 }

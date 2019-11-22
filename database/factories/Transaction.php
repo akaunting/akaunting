@@ -9,6 +9,8 @@ $factory->define(Transaction::class, function (Faker $faker) {
 	$user = User::first();
 	$company = $user->companies()->first();
 
+	setting()->setExtraColumns(['company_id' => $company->id]);
+
 	$attachment = UploadedFile::fake()->create('image.jpg');
 
 	return [
@@ -16,13 +18,13 @@ $factory->define(Transaction::class, function (Faker $faker) {
 		'type' => 'income',
 		'account_id' => setting('default.account'),
 		'paid_at' => $faker->date(),
-		'amount' => $faker->randomFloat(2, 2),
+		'amount' => $faker->randomFloat(2, 2, 1000),
 		'currency_code' => setting('default.currency'),
 		'currency_rate' => '1',
 		'description' => $faker->text(5),
 		'category_id' => $company->categories()->type('income')->first()->id,
 		'reference' => $faker->text(5),
 		'payment_method' => setting('default.payment_method'),
-		'attachment' => $attachment,
+		//'attachment' => $attachment,
 	];
 });
