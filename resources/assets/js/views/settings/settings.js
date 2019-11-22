@@ -12,12 +12,19 @@ import Global from './../../mixins/global';
 
 import Form from './../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
+import HtmlEditor from './../../components/Inputs/HtmlEditor';
 
 const app = new Vue({
     el: '#app',
+
     mixins: [
         Global
     ],
+
+    components: {
+        HtmlEditor
+    },
+
     data: function () {
         return {
             form: new Form('setting'),

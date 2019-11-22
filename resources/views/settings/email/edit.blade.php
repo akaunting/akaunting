@@ -29,7 +29,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_new_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_invoice_new_customer_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_new_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_new_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
@@ -54,7 +54,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_remind_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_invoice_remind_customer_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_remind_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_remind_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
@@ -79,7 +79,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_remind_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_invoice_remind_admin_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_remind_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_remind_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
@@ -104,7 +104,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_recur_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_invoice_recur_customer_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_recur_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_recur_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
@@ -129,7 +129,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_recur_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_invoice_recur_admin_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_recur_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_recur_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
@@ -154,7 +154,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_payment_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_invoice_payment_customer_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_payment_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_payment_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $payment_tags]) !!}</small>
@@ -179,7 +179,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_payment_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_invoice_payment_admin_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_payment_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_payment_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $payment_tags]) !!}</small>
@@ -204,7 +204,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_bill_remind_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_bill_remind_admin_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_bill_remind_admin_body', trans('settings.email.templates.body'), null, $setting['template_bill_remind_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $bill_tags]) !!}</small>
@@ -229,7 +229,7 @@
                             <div class="row">
                                 {{ Form::textGroup('template_bill_recur_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textareaGroup('template_bill_recur_admin_body', trans('settings.email.templates.body'), null, null, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_bill_recur_admin_body', trans('settings.email.templates.body'), null, $setting['template_bill_recur_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
 
                                 <div class="col-md-12">
                                     <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $bill_tags]) !!}</small>
@@ -254,7 +254,7 @@
                             <div class="row">
                                 {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, !empty($setting['protocol']) ? $setting['protocol'] : null, []) }}
 
-                                {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled' => '(form.protocol == "smtp")|| (form.protocol != "sendmail") ? true : false']) }}
+                                {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled' => '(form.protocol == "smtp") || (form.protocol != "sendmail") ? true : false']) }}
 
                                 {{ Form::textGroup('smtp_host', trans('settings.email.smtp.host'), 'paper-plane', [':disabled' => '(form.protocol != "smtp") ? true : false']) }}
 
@@ -262,7 +262,7 @@
 
                                 {{ Form::textGroup('smtp_username', trans('settings.email.smtp.username'), 'paper-plane', [':disabled' => '(form.protocol != "smtp") ? true : false']) }}
 
-                                {{ Form::textGroup('smtp_password', trans('settings.email.smtp.password'), 'paper-plane', ['type' => 'password',':disabled' => '(form.protocol != "smtp") ? true : false']) }}
+                                {{ Form::textGroup('smtp_password', trans('settings.email.smtp.password'), 'paper-plane', ['type' => 'password', ':disabled' => '(form.protocol != "smtp") ? true : false']) }}
 
                                 {{ Form::selectGroup('smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], !empty($setting['smtp_encryption']) ? $setting['smtp_encryption'] : null, [':disabled' => '(form.protocol != "smtp") ? true : false']) }}
                             </div>

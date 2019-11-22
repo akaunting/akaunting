@@ -9,6 +9,8 @@
 
     <script src="{{ asset('public/js/common/search.js?v=' . version('short')) }}"></script>
 
+    <script src="{{ asset('public/0.js?v=' . version('short')) }}"></script>
+
     <script src="https://unpkg.com/vue"></script>
 
     @stack('charts')
