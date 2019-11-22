@@ -73,7 +73,7 @@ export default class BulkAction {
 
         this.loading = true;
 
-        axios.post('bulk-actions/' + path, {
+        axios.post(url +'/common/bulk-actions/' + path, {
             'handle': this.value,
             'selected': this.selected
         })
