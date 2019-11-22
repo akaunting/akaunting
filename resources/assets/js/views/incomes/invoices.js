@@ -53,7 +53,7 @@ const app = new Vue({
             this.onAddItem();
         }
 
-        if (typeof invoice_items !== 'undefined') {
+        if (typeof invoice_items !== 'undefined' && invoice_items) {
             let items = [];
             let currency_code = this.form.currency_code;
 
@@ -148,6 +148,7 @@ const app = new Vue({
 
         onGetItem(event, index) {
             let name = event.target.value;
+            this.form.items[index].show = false;
 
             axios.get(url + '/common/items/autocomplete', {
                 params: {

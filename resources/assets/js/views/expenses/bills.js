@@ -53,11 +53,11 @@ const app = new Vue({
             this.onAddItem();
         }
 
-        if (typeof invoice_items !== 'undefined') {
+        if (typeof bill_items !== 'undefined' && bill_items) {
             let items = [];
             let currency_code = this.form.currency_code;
 
-            invoice_items.forEach(function(item) {
+            bill_items.forEach(function(item) {
                 items.push({
                     show: false,
                     currency: currency_code,
@@ -148,11 +148,12 @@ const app = new Vue({
 
         onGetItem(event, index) {
             let name = event.target.value;
+            this.form.items[index].show = false;
 
             axios.get(url + '/common/items/autocomplete', {
                 params: {
                     query: name,
-                    type: 'invoice',
+                    type: 'bill',
                     currency_code: this.form.currency_code
                 }
               })
