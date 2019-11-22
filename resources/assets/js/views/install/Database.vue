@@ -21,7 +21,6 @@
                     <p class="mt-2 after-step-text">Database</p>
                 </div>
 
-
                 <div class="col-md-4 text-center">
                     <button type="button" class="btn btn-secondary btn-lg wizard-steps rounded-circle steps">
                         <span class="btn-inner--icon wizard-steps-inner wizard-steps-color">3</span>

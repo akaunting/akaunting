@@ -24,13 +24,10 @@
                     <p class="mt-2 text-muted step-text">Admin</p>
                 </div>
 
-
                 <div class="col-md-12">
                     <div class="form-group mb-0">
                         <select v-model="form.lang" name="lang" id="lang" size="13" class="col-xl-12 form-control-label">
-                            <option
-                                v-for="(name, code) in languages"
-                                v-bind:value="code">
+                            <option v-for="(name, code) in languages" :value="code">
                                 {{ name }}
                             </option>
                         </select>

@@ -17,7 +17,8 @@ import Language from './views/install/Language';
 import Database from './views/install/Database';
 import Settings from './views/install/Settings';
 
-var base_path = url.replace(window.location.origin, '');
+var global_path = new URL(url).protocol + '//' + window.location.host;
+var base_path = url.replace(global_path, '');
 
 const router = new VueRouter({
     mode: 'history',
@@ -25,7 +26,7 @@ const router = new VueRouter({
     routes: [
         {
             path:  '/',
-            name: 'requirements',
+            name: 'home',
             component: Requirements
         },
         {

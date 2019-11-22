@@ -17,7 +17,6 @@ import NProgressAxios from './../plugins/nprogress-axios';
 
 import {VMoney} from 'v-money';
 import { Select, Option } from 'element-ui';
-import { isThisSecond } from 'date-fns';
 
 // plugin setup
 Vue.use(DashboardPlugin);

@@ -23,7 +23,6 @@
                         <div class="card">
                             {!! Form::open([
                                 'url' => url()->current(),
-                                '@submit.prevent' => 'onSubmit',
                                 'role' => 'form',
                                 'id' => 'form-install'
                             ]) !!}
