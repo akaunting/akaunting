@@ -2,7 +2,7 @@
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-9">
                         <akaunting-select
                             class="form-control-sm table-header-search mt-0"
