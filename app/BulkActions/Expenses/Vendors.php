@@ -67,7 +67,7 @@ class Vendors extends BulkAction
 
                 $message = trans('messages.success.deleted', ['type' => $contact->name]);
 
-                return new Response($message);
+                flash($message)->success();
             } else {
                 $message = trans('messages.warning.deleted', ['name' => $contact->name, 'text' => implode(', ', $relationships)]);
 

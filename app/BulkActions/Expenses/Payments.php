@@ -61,7 +61,7 @@ class Payments extends BulkAction
 
                 $message = trans('messages.success.deleted', ['type' => trans_choice('general.' . \Str::plural($type), 1)]);
 
-                return new Response($message);
+                flash($message)->success();
             } else {
                 $this->response->errorUnauthorized();
             }

@@ -67,7 +67,7 @@ class Taxes extends BulkAction
 
                 $message = trans('messages.success.deleted', ['type' => $tax->name]);
 
-                return new Response($message);
+                flash($message)->success();
             } else {
                 $message = trans('messages.warning.deleted', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
 

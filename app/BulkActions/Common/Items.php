@@ -68,7 +68,7 @@ class Items extends BulkAction
 
                 $message = trans('messages.success.deleted', ['type' => $item->name]);
 
-                return new Response($message);
+                flash($message)->success();
             } else {
                 $message = trans('messages.warning.deleted', ['name' => $item->name, 'text' => implode(', ', $relationships)]);
 

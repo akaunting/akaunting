@@ -97,7 +97,7 @@ class Companies extends BulkAction
 
                 $message = trans('messages.success.deleted', ['type' => $company->name]);
 
-                return new Response($message);
+                flash($message)->success();
             } catch (\HttpException $e) {
                 $this->response->errorUnauthorized(trans('companies.error.not_user_company'));
             }

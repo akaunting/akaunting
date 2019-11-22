@@ -29,8 +29,24 @@ BulkActions extends Controller
             $bulk_actions = app('App\BulkActions\\' .  ucfirst($group) . '\\' . ucfirst($type));
         }
 
-        $bulk_actions->{$request->get('handle')}($request);
+        $result = $bulk_actions->{$request->get('handle')}($request);
 
-        return view('common.import.create', compact('group', 'type', 'path', 'namespace'));
+        if (!empty($result) && isset($result->file)) {
+            /*return response()->json([
+                'success' => true,
+                'redirect' => false,
+                'error' => false,
+                'data' => [],
+                'message' => ''
+            ]);*/
+        } else {
+            return response()->json([
+                'success' => true,
+                'redirect' => true,
+                'error' => false,
+                'data' => [],
+                'message' => ''
+            ]);
+        }
     }
 }

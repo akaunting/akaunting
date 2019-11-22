@@ -41,7 +41,7 @@ class Categories extends BulkAction
 
                 $message = trans('messages.success.disabled', ['type' => $category->name]);
 
-                return $this->itemResponse($category->fresh(), new Transformer(), $message);
+                flash($message)->success();
             } else {
                 $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
 

@@ -77,7 +77,7 @@ class Accounts extends BulkAction
 
                 $message = trans('messages.success.deleted', ['type' => $account->name]);
 
-                return new Response($message);
+                flash($message)->success();
             } else {
                 $message = trans('messages.warning.deleted', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
 

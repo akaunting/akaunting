@@ -67,7 +67,7 @@ class Currencies extends BulkAction
 
                 $message = trans('messages.success.deleted', ['type' => $currency->name]);
 
-                return new Response($message);
+                flash($message)->success();
             } else {
                 $message = trans('messages.warning.deleted', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
 
