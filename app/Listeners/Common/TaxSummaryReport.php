@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Common;
 
-use App\Abstracts\Reports\Listener;
+use App\Abstracts\Listeners\Report as Listener;
 
 class TaxSummaryReport extends Listener
 {

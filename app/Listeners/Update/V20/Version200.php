@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Update\V20;
 
+use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
-use App\Listeners\Update\Listener;
 use App\Models\Auth\User;
 use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
@@ -32,8 +32,7 @@ class Version200 extends Listener
      */
     public function handle(Event $event)
     {
-        // Check if should listen
-        if (!$this->check($event)) {
+        if ($this->skipThisUpdate($event)) {
             return;
         }
 

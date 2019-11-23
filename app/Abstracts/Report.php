@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Abstracts\Reports;
+namespace App\Abstracts;
 
 use App\Exports\Common\Reports as Export;
 use App\Models\Common\Report as Model;

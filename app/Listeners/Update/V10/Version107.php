@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Update\V10;
 
+use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
-use App\Listeners\Update\Listener;
 use DB;
 
 class Version107 extends Listener

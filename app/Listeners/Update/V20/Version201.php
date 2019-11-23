@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Update\V13;
 
+use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
-use App\Listeners\Update\Listener;
 use Artisan;
 
 class Version201 extends Listener
@@ -20,8 +20,7 @@ class Version201 extends Listener
      */
     public function handle(Event $event)
     {
-        // Check if should listen
-        if (!$this->check($event)) {
+        if ($this->skipThisUpdate($event)) {
             return;
         }
 
