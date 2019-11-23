@@ -2,10 +2,9 @@
 
 return [
 
-    'title'                 => 'API トークン',
-    'api_token'             => 'トークン',
+    'api_key'               => 'API キー',
     'my_apps'               => '私のアプリ',
-    'pre_sale'              => 'Pre-Sale',
+    'pre_sale'              => 'プレセール',
     'top_paid'              => 'トップ完済',
     'new'                   => '新しい',
     'top_free'              => '無料トップ',
@@ -13,9 +12,9 @@ return [
     'search'                => '探索',
     'install'               => 'インストール',
     'buy_now'               => '今すぐ購入',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"></a>APIトークンを取得します。',
+    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">ここをクリック</a> APIキーを取得するには.',
     'no_apps'               => 'ないアプリこのカテゴリには、まだです。',
-    'developer'             => '開発者の場合は、 <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">ここ</a> アプリと今日の販売を開始を作成する方法を学ぶことができます!',
+    'developer'             => 'あなたは開発者ですか？ <a href="https://akaunting.com/developers" target="_blank">ここに</a> アプリの作成方法を学び、今日から販売を開始できます！',
 
     'recommended_apps'      => 'おすすめアプリ',
 
@@ -38,31 +37,30 @@ return [
         'installation'      => 'インストール',
         'faq'               => 'よくある質問',
         'changelog'         => '変更履歴',
-        'reviews'            => 'レビュー',
+        'reviews'           => 'レビュー',
     ],
 
     'installation' => [
         'header'            => 'アプリのインストール',
-        'download'          => 'ダウンロード: モジュール ファイル。',
-        'unzip'             => '抽出: モジュール ファイル。',
-        'file_copy'         => 'コピー: モジュール ファイル。',
-        'migrate'           => '適用: モジュールの更新。',
-        'finish'            => '更新プログラムは正常にインストールされました。アップデートセンターにリダイレクトされます。',
-        'install'           => 'インストール中：モジュールファイル',
+        'download'          => 'ダウンロード：モジュール',
+        'unzip'             => '抽出：モジュールファイル',
+        'file_copy'         => 'コピー中：モジュールファイル',
+        'finish'            => 'ファイナライズ：モジュールのインストール',
+        'redirect'          => '：インストールされたモジュール、更新ページにリダイレクト',
+        'install'           => 'インストール中：モジュール',
     ],
 
     'errors' => [
-        'download' => '：モジュールはダウンロードできません！',
-        'upload' => 'ダウンロード：モジュールを保存できません。',
-        'unzip' => '：モジュールを解凍できません！',
-        'file_copy' => '：モジュールファイルはコピーできません。',
-        'migrate' => '：モジュールの移行に失敗しました。',
-        'migrate core' => '：モジュールはすでに最新の状態です。更新できません。',
+        'download'          => 'ダウンロードできません：モジュール',
+        'zip'               => '作成できません：モジュール zipファイル',
+        'unzip'             => '解凍できません：モジュール',
+        'file_copy'         => 'コピーできません：モジュールファイル',
+        'finish'            => 'ファイナライズできません：モジュールのインストール',
     ],
 
     'badge' => [
-        'installed' => 'インストールしました！',
-        'pre_sale' => 'Pre-Sale',
+        'installed'         => 'インストールしました！',
+        'pre_sale'          => 'プレセール',
     ],
 
     'button' => [
@@ -72,14 +70,15 @@ return [
     ],
 
     'my' => [
-        'purchased' => '購入した',
-        'installed' => 'インストールしました！',
+        'purchased'         => '購入した',
+        'installed'         => 'インストールしました！',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'レビューを追加します。'
+            'add'           => 'レビューを追加します。'
         ],
-        'na' => 'レビューはありません。'
+
+        'na'                => 'レビューはありません。'
     ]
 ];

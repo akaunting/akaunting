@@ -9,7 +9,7 @@ return [
     'order_number'          => '注文番号',
     'bill_from'             => '請求元',
 
-    'quantity'              => '量',
+    'quantity'              => '数量',
     'price'                 => '価格',
     'sub_total'             => '小計',
     'discount'              => '割引',

@@ -3,14 +3,16 @@
 return [
 
     'company' => [
+        'description'       => '会社名、メール、住所、税番号などを変更する',
         'name'              => '名前',
         'email'             => 'メールアドレス',
         'phone'             => '電話番号',
         'address'           => '住所',
         'logo'              => 'ロゴ',
     ],
+
     'localisation' => [
-        'tab'               => '翻訳',
+        'description'       => '会計年度、タイムゾーン、日付形式などのローカルを設定します',
         'financial_start'   => '会計年度開始',
         'timezone'          => 'タイムゾーン',
         'date' => [
@@ -28,8 +30,9 @@ return [
             'after'         => '番号の後',
         ],
     ],
+
     'invoice' => [
-        'tab'               => '請求書',
+        'description'       => '請求書のプレフィックス、番号、条件、フッターなどをカスタマイズする',
         'prefix'            => '番号プレフィックス',
         'digit'             => '数の桁',
         'next'              => '次の番号',
@@ -44,16 +47,21 @@ return [
         'rate'              => 'レート',
         'quantity_name'     => '数量名',
         'quantity'          => '量',
+        'payment_terms'     => '支払い条件',
+        'title'             => 'タイトル',
+        'subheading'        => '小見出し',
+        'due_receipt'       => '領収書による',
+        'due_days'          => '期限内：日日',
     ],
+
     'default' => [
-        'tab'               => 'デフォルト',
-        'account'           => 'デフォルトのアカウント',
-        'currency'          => 'デフォルト通貨',
-        'tax'               => '既定の税率',
-        'payment'           => '支払い方法の適用',
-        'language'          => '既定の言語',
+        'description'       => '会社のデフォルトのアカウント、通貨、言語',
+        'list_limit'        => 'ページごとの記録',
+        'use_gravatar'      => 'Gravatarを使用する',
     ],
+
     'email' => [
+        'description'       => '送信プロトコルとメールテンプレートを変更する',
         'protocol'          => 'プロトコル',
         'php'               => 'PHP メール',
         'smtp' => [
@@ -68,36 +76,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail のパス',
         'log'               => 'ログの電子メール',
+
+        'templates' => [
+            'subject'                   => '件名',
+            'body'                      => '体',
+            'tags'                      => '<strong>利用可能なタグ:</strong> :tag_list',
+            'invoice_new_customer'      => '新しい請求書テンプレート顧客に送信）',
+            'invoice_remind_customer'   => '請求書通知テンプレート（顧客に送信）',
+            'invoice_remind_admin'      => '請求書通知テンプレート（管理者に送信）',
+            'invoice_recur_customer'    => '請求書の繰り返しテンプレート（顧客に送信）',
+            'invoice_recur_admin'       => '請求書の繰り返しテンプレート（管理者に送信）',
+            'invoice_payment_customer'  => '支払い受領済みテンプレート（顧客に送信）',
+            'invoice_payment_admin'     => '支払い受領済みテンプレート（管理者に送信）',
+            'bill_remind_admin'         => 'ビルリマインダーテンプレート（管理者に送信）',
+            'bill_recur_admin'          => '請求書定期テンプレート（管理者に送信）',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'スケジューリング',
+        'name'              => 'スケジューリング',
+        'description'       => '自動リマインダーと定期的なコマンド',
         'send_invoice'      => '請求書アラームを送信する',
         'invoice_days'      => '期日後に送信',
         'send_bill'         => '請求書のリマインダーを送信',
         'bill_days'         => '期日前に送信日',
         'cron_command'      => 'Cron コマンド',
         'schedule_time'     => '実行する時間',
-        'send_item_reminder'=> 'アイテムの通知を送信',
-        'item_stocks'       => 'アイテム ストックしたら送信',
     ],
-    'appearance' => [
-        'tab'               => '外観',
-        'theme'             => 'テーマ',
-        'light'             => 'ライト',
-        'dark'              => 'ダーク',
-        'list_limit'        => 'ページごとの記録',
-        'use_gravatar'      => '使用グラバター',
+
+    'categories' => [
+        'description'       => '収入、費用、アイテムの無制限のカテゴリ',
     ],
-    'system' => [
-        'tab'               => 'システム',
-        'session' => [
-            'lifetime'      => 'セッションの有効期間 (分)',
-            'handler'       => 'セッションハンドラ',
-            'file'          => 'ファイル',
-            'database'      => 'データベース',
-        ],
-        'file_size'         => '最大ファイルサイズ (MB)',
-        'file_types'        => '許可されたファイルタイプ',
+
+    'currencies' => [
+        'description'       => '通貨を作成および管理し、金利を設定します',
+    ],
+
+    'taxes' => [
+        'description'       => '固定税率、通常税率、包括的税率、複合税率',
     ],
 
 ];

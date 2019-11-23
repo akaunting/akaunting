@@ -4,6 +4,6 @@ return [
 
     'previous'              => '&laquo; 前',
     'next'                  => '次 &raquo;',
-    'showing'               => '表示：最初：最後：最後：合計：タイプ',
-
+    'showing'               => '：最初-：最後の：合計：タイプ。',
+    'page'                  => 'ページあたり',
 ];
