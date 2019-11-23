@@ -7,7 +7,7 @@
     :placeholder="'{{ trans('general.form.select.field', ['field' => $text]) }}'"
     :name="'{{ $name }}'"
     :options="{{ json_encode($values) }}"
-    :value="'{{ old($name, $selected) }}'"
+    :value="{{ json_encode(old($name, $selected)) }}"
     :icon="'{{ $icon }}'"
     :multiple="true"
     @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' : 'form.' . $name . ' = $event' }}"
