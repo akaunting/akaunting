@@ -5,20 +5,23 @@
     :class="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]">
     {!! Form::label($name, $text, ['class' => 'form-control-label']) !!}
 
-    <br/>
-    @foreach($items as $item)
-        <div class="custom-control custom-checkbox">
-            {{ Form::checkbox($name, $item->$id, null, [
-                'id' => 'checkbox-' . $name . '-' . $item->$id,
-                'class' => 'custom-control-input',
-                'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $name
-            ]) }}
+    <div class="row">
+        @foreach($items as $item)
+            <div class="col-md-3">
+                <div class="custom-control custom-checkbox">
+                    {{ Form::checkbox($name, $item->$id, null, [
+                        'id' => 'checkbox-' . $name . '-' . $item->$id,
+                        'class' => 'custom-control-input',
+                        'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $name
+                    ]) }}
 
-            <label class="custom-control-label" for="checkbox-{{ $name . '-' . $item->$id}}">
-                {{ $item->$value }}
-            </label>
-        </div>
-    @endforeach
+                    <label class="custom-control-label" for="checkbox-{{ $name . '-' . $item->$id}}">
+                        {{ $item->$value }}
+                    </label>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
     <div class="invalid-feedback d-block"
          v-if="{{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.has("' . $name . '")' }}"
