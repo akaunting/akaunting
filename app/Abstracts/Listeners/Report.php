@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Abstracts\Reports;
+namespace App\Abstracts\Listeners;
 
 use App\Events\Common\ReportFilterApplying;
 use App\Events\Common\ReportFilterShowing;
@@ -12,7 +12,7 @@ use App\Models\Setting\Category;
 use App\Traits\Contacts;
 use Date;
 
-abstract class Listener
+abstract class Report
 {
     use Contacts;
 

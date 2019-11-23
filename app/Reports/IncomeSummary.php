@@ -2,7 +2,7 @@
 
 namespace App\Reports;
 
-use App\Abstracts\Reports\Report;
+use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
 use App\Models\Income\Invoice;
 use App\Utilities\Recurring;

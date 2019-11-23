@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Update\V12;
 
+use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
-use App\Listeners\Update\Listener;
 use Artisan;
 
 class Version1211 extends Listener

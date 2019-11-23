@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Update\V13;
 
+use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
-use App\Listeners\Update\Listener;
 use App\Models\Income\InvoiceItem;
 use App\Models\Income\InvoiceItemTax;
 use App\Models\Setting\Tax;
