@@ -2,9 +2,9 @@
 
 return [
 
-    'title'                 => 'API Token',
-    'api_token'             => 'Token',
+    'api_key'               => 'Clave API',
     'my_apps'               => 'Mis aplicaciones',
+    'pre_sale'              => 'Preventa',
     'top_paid'              => 'Top de pago',
     'new'                   => 'Nuevo',
     'top_free'              => 'Top gratis',
@@ -12,9 +12,9 @@ return [
     'search'                => 'Buscar',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar ahora',
-    'token_link'            => 'Haga <a href="https://akaunting.com/tokens" target="_blank">Click aquí</a> para obtener su API token.',
+    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Haz clic aquí</a> para obtener tu clave API.',
     'no_apps'               => 'No hay aplicaciones en esta categoría, aún.',
-    'developer'             => '¿Eres un desarrollador? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Aquí</a> puedes aprender cómo crear una aplicación y comenzar a venderla hoy!',
+    'developer'             => '¿Eres un desarrollador? <a href="https://akaunting.com/developers" target="_blank">Aquí</a> puedes aprender cómo crear una aplicación y empezar a vender hoy!',
 
     'recommended_apps'      => 'Aplicaciones recomendadas',
 
@@ -37,30 +37,30 @@ return [
         'installation'      => 'Instalación',
         'faq'               => 'P+F',
         'changelog'         => 'Historial de cambios',
-        'reviews'            => 'Revisiones',
+        'reviews'           => 'Revisiones',
     ],
 
     'installation' => [
         'header'            => 'Instalación de Aplicación',
-        'download'          => 'Descargando archivo :module .',
-        'unzip'             => 'Extrayendo archivo :module .',
-        'file_copy'         => 'Copiando archivos de :module.',
-        'migrate'           => 'Aplicando actualización de :module.',
-        'finish'            => 'La actualización se instaló correctamente. Se redirigirá al Centro de Actualizaciones.',
-        'install'           => 'Instalando archivos de :module .',
+        'download'          => 'Descargando :module',
+        'unzip'             => 'Extrayendo archivos de :module',
+        'file_copy'         => 'Copiando archivos de :module',
+        'finish'            => 'Finalizando la instalación de :module',
+        'redirect'          => ':module instalado, redirigiendo a la página de Actualizaciones',
+        'install'           => 'Instalando :module',
     ],
 
     'errors' => [
-        'download' => ':module no puede ser descargado!',
-        'upload' => ':module Descargado, no puede ser grabado!',
-        'unzip' => ':module no se puede descomprimir!',
-        'file_copy' => ':module No se puede copiar los archivos!',
-        'migrate' => ':module migración rota!',
-        'migrate core' => ':module posee última versión entonces no se puede actualizar.',
+        'download'          => 'No se puede descargar :module',
+        'zip'               => 'No se puede crear el archivo zip :module',
+        'unzip'             => 'No se puede descomprimir :module',
+        'file_copy'         => 'No se pueden copiar los archivos de :module',
+        'finish'            => 'No se puede finalizar la instalación de :module',
     ],
 
     'badge' => [
-        'installed' => 'Instalado',
+        'installed'         => 'Instalado',
+        'pre_sale'          => 'Preventa',
     ],
 
     'button' => [
@@ -70,14 +70,15 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Comprado',
-        'installed' => 'Instalado',
+        'purchased'         => 'Comprado',
+        'installed'         => 'Instalado',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Añadir revisión'
+            'add'           => 'Añadir revisión'
         ],
-        'na' => 'No hay revisiones.'
+
+        'na'                => 'No hay revisiones.'
     ]
 ];
