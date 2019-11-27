@@ -93,6 +93,11 @@ class Bill extends Model
         return $this->hasMany('App\Models\Expense\BillTotal');
     }
 
+    public function payments()
+    {
+        return $this->hasMany('App\Models\Expense\BillPayment');
+    }
+
     public function transactions()
     {
         return $this->hasMany('App\Models\Banking\Transaction', 'document_id');
