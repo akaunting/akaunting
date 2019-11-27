@@ -36,7 +36,7 @@ class Logo
                 return $logo;
             }
         } else {
-            $path = asset('public/img/company.png');
+            $path = asset('public/img/akaunting-logo-green.png');
         }
 
         $image = Image::make($path)->encode()->getEncoded();
