@@ -628,7 +628,7 @@
                         </div>
                     </div>
                 </div>
-            @stack('row_footer_payment_end')
+            @stack('row_footer_transaction_end')
         </div>
     @stack('row_footer_end')
 @endsection
