@@ -34,7 +34,7 @@ return [
     'all_invoices'          => 'Faça login para ver todas as faturas',
     'create_invoice'        => 'Criar fatura',
     'send_invoice'          => 'Enviar fatura',
-    'get_paid'              => 'Pagar',
+    'get_paid'              => 'Quitar',
     'accept_payments'       => 'Aceitar os Termos de Pagamento Online',
 
     'status' => [
@@ -47,13 +47,15 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'O e-mail foi enviado com sucesso!',
-        'marked_sent'       => 'Fatura marcada como enviada com sucesso!',
+        'email_sent'        => 'O email da fatura foi enviado!',
+        'marked_sent'       => 'Fatura marcada como enviada!',
+        'marked_paid'       => 'Fatura marcada como paga!',
         'email_required'    => 'Nenhum endereço de e-mail para este cliente!',
         'draft'             => 'Este é um <b>RASCUNHO</b> de fatura e será refletida nos gráficos depois que ela for enviada.',
 
         'status' => [
             'created'       => 'Criado em :date',
+            'viewed'        => 'Visualizado',
             'send' => [
                 'draft'     => 'Não enviado',
                 'sent'      => 'Enviado em :date',
@@ -62,11 +64,6 @@ return [
                 'await'     => 'Aguardando pagamento',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Você está recebendo este e-mail porque tem :amount fatura a vencer.',
-        'button'            => 'Pagar agora',
     ],
 
 ];

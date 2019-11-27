@@ -18,7 +18,8 @@ return [
         'customer'          => 'Erro: Endereço de email :name já esta sendo utilizado.',
         'no_file'           => 'Erro: Nenhum arquivo selecionado!',
         'last_category'     => 'Erro: Não foi possível excluir a última :type categoria!',
-        'invalid_apikey'     => 'Erro: O símbolo inserido é inválido!',
+        'change_type'       => 'Erro: Não é possível alterar o tipo porque possui :text related!',
+        'invalid_apikey'    => 'Erro: O token informado é inválido!',
         'import_column'     => 'Erro: :message Planilha: :sheet. Número da linha: :line.',
         'import_sheet'      => 'Erro: Planilha não é válida. Por favor, verifique o arquivo de exemplo.',
     ],
@@ -27,6 +28,7 @@ return [
         'deleted'           => 'Aviso: Você não têm permissão para excluir <b>:name</b>, porque possui o :text relacionado.',
         'disabled'          => 'Aviso: Você não tem permissão para desativar <b>:name</b>, porque tem :text relacionado.',
         'disable_code'      => 'Aviso: você não tem permissão para desativar ou alterar a moeda de <b>:name</b> porque possui :text relacionado.',
+        'payment_cancel'    => 'Aviso: Você cancelou recentemente :method payment!',
     ],
 
 ];

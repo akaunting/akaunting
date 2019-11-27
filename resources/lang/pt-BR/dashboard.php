@@ -20,5 +20,4 @@ return [
     'account_balance'           => 'Saldo da Conta',
     'latest_incomes'            => 'Últimos Rendimentos',
     'latest_expenses'           => 'Últimas Despesas',
-
 ];
