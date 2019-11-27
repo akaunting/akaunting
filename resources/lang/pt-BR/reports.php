@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Lucro líquido',
     'total_expenses'        => 'Total Despesas',
     'net'                   => 'Líquido',
+    'income-expense'        => 'Receita vs Despesa',
 
     'summary' => [
         'income'            => 'Resumo de Venda',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Resumo financeiro',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Abr-Jun',
-        '3'                 => 'Jul-Set',
-        '4'                 => 'Out-Dez',
+    'charts' => [
+        'line'              => 'Linha',
+        'bar'               => 'Barra',
+        'pie'               => 'Pizza',
     ],
 
 ];

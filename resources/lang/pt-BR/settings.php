@@ -3,14 +3,16 @@
 return [
 
     'company' => [
+        'description'       => 'Alterar o nome da empresa, e-mail, endereço, número de imposto etc',
         'name'              => 'Nome',
         'email'             => 'E-mail',
         'phone'             => 'Telefone',
         'address'           => 'Endereço',
         'logo'              => 'Logo',
     ],
+
     'localisation' => [
-        'tab'               => 'Localizção',
+        'description'       => 'Definir ano fiscal, fuso horário, formato de data e mais locais',
         'financial_start'   => 'Início do ano fiscal',
         'timezone'          => 'Fuso Horário',
         'date' => [
@@ -28,8 +30,9 @@ return [
             'after'         => 'Depois do número',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Faturas',
+        'description'       => 'Personalizar o prefixo da fatura, número, termos, rodapé etc',
         'prefix'            => 'Formato do número',
         'digit'             => 'Número de dígitos',
         'next'              => 'Próximo número',
@@ -44,16 +47,21 @@ return [
         'rate'              => 'Taxa',
         'quantity_name'     => 'Nome da quantidade',
         'quantity'          => 'Quantidade',
+        'payment_terms'     => 'Condições de Pagamento',
+        'title'             => 'Título',
+        'subheading'        => 'Subtítulo',
+        'due_receipt'       => 'Vence após recebimento',
+        'due_days'          => 'Vence em :days dias',
     ],
+
     'default' => [
-        'tab'               => 'Padrões',
-        'account'           => 'Conta Padrão',
-        'currency'          => 'Moeda Padrão',
-        'tax'               => 'Imposto Padrão',
-        'payment'           => 'Método de pagamento padrão',
-        'language'          => 'Idioma Padrão',
+        'description'       => 'Conta padrão, moeda, idioma de sua empresa',
+        'list_limit'        => 'Registros por Página',
+        'use_gravatar'      => 'Usar Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Alterar o protocolo de envio e modelos de e-mail',
         'protocol'          => 'Protocolo',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -68,36 +76,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail Path',
         'log'               => 'Log Emails',
+
+        'templates' => [
+            'subject'                   => 'Assunto',
+            'body'                      => 'Corpo',
+            'tags'                      => '<strong>Tags disponíveis:</strong> :tag_list',
+            'invoice_new_customer'      => 'Novo Modelo de Fatura (enviado ao cliente)',
+            'invoice_remind_customer'   => 'Modelo de lembrete de fatura (enviado ao cliente)',
+            'invoice_remind_admin'      => 'Modelo de lembrete de fatura (enviado para administrador)',
+            'invoice_recur_customer'    => 'Modelo de Fatura Recorrente (enviado ao cliente)',
+            'invoice_recur_admin'       => 'Modelo de Fatura Recorrente (enviado ao administrador)',
+            'invoice_payment_customer'  => 'Modelo de Pagamento Recebido (enviado ao cliente)',
+            'invoice_payment_admin'     => 'Modelo de Pagamento Recebido (enviado ao administrador)',
+            'bill_remind_admin'         => 'Modelo de Lembrete de Fatura (enviado ao administrador)',
+            'bill_recur_admin'          => 'Modelo de cobrança recorrente (enviado ao administrador)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Agendamento',
+        'name'              => 'Agendamento',
+        'description'       => 'Lembretes automáticos e comando para recorrentes',
         'send_invoice'      => 'Enviar lembrete de faturas',
         'invoice_days'      => 'Enviar após dias de vencimento',
         'send_bill'         => 'Enviar lembrança',
         'bill_days'         => 'Enviar antes de vencer',
         'cron_command'      => 'Comando Cron',
         'schedule_time'     => 'Iniciar Cron',
-        'send_item_reminder'=> 'Enviar Lembrete',
-        'item_stocks'       => 'Enviar quando item possui estoque',
     ],
-    'appearance' => [
-        'tab'               => 'Aparência',
-        'theme'             => 'Tema',
-        'light'             => 'Claro',
-        'dark'              => 'Escuro',
-        'list_limit'        => 'Registros por Página',
-        'use_gravatar'      => 'Usar Gravatar',
+
+    'categories' => [
+        'description'       => 'Categorias ilimitadas para receita, despesa e item',
     ],
-    'system' => [
-        'tab'               => 'Sistema',
-        'session' => [
-            'lifetime'      => 'Finalizar sessão (Minutos)',
-            'handler'       => 'Manipulador de sessão',
-            'file'          => 'Arquivo',
-            'database'      => 'Database',
-        ],
-        'file_size'         => 'Tamanho máximo do arquivo (MB)',
-        'file_types'        => 'Tipos de arquivos permitidos',
+
+    'currencies' => [
+        'description'       => 'Crie e gerencie moedas e defina suas taxas',
+    ],
+
+    'taxes' => [
+        'description'       => 'Taxas de imposto fixas, normais, inclusivas e compostas',
     ],
 
 ];
