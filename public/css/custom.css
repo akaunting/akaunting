@@ -290,6 +290,14 @@
 /*--------Left Menu Dropdown Finish--------*/
 
 
+/*--------Max Width 100 Pixel--------*/
+.mwpx-100
+{
+  max-width: 100px !important;
+}
+/*--------Max Width 100 Pixel Finish--------*/
+
+
 /*--------Form Group--------*/
 .form-group.visible-field .form-control
 {
