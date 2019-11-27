@@ -74,7 +74,7 @@
                 '@keydown' => 'form.errors.clear($event.target.name)',
                 'files' => true,
                 'role' => 'form',
-                'class' => 'form-loading-button',
+                'class' => 'form-loading-button mb-0',
                 'novalidate' => true
             ]) !!}
                 <table class="table table-flush table-hover" id='tbl-currencies'>
