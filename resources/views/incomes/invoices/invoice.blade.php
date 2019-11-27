@@ -263,9 +263,9 @@
             </div>
         </div>
 
-        @if ($item->footer)
+        @if ($invoice->footer)
             <div class="row">
-                {!! $item->footer !!}
+                {!! $invoice->footer !!}
             </div>
         @endif
     </div>
