@@ -8,9 +8,8 @@
                             <span class="avatar avatar-xs background-unset">
                                 <img class="border-radius-0 border-0 mr-3" alt="Image placeholder" src="{{ setting('company.logo') ? Storage::url(setting('company.logo')) : asset('public/img/akaunting-logo-white.png') }}">
                             </span>
-                            <div class="media-body pl-2 d-grid nav-header-text">
-                                <span class="font-weight-bold long-texts">{{ Str::limit(setting('company.name'), 22) }}<i class="fas fa-sort-down pl-2"></i></span>
-                            </div>
+                            <span class="nav-link-text long-texts pl-2 mwpx-100">{{ Str::limit(setting('company.name'), 22) }}</span>
+                            <i class="fas fa-sort-down pl-2"></i>
                         </a>
                         @permission('read-common-companies')
                             <div class="dropdown-menu dropdown-menu-right menu-dropdown">
