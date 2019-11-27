@@ -240,7 +240,7 @@
 
                 @stack('invoice_information_start')
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-7 long-texts">
                             <div class="table-responsive">
                                 <table class="table table-borderless">
                                     <tbody>
@@ -288,7 +288,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-5 long-texts">
                             <div class="table-responsive">
                                 <table class="table table-borderless">
                                     <tbody>
@@ -388,7 +388,7 @@
                                                 <tr>
                                                     <th>
                                                         <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                                        <p class="form-control text-muted show-note">{{ $invoice->notes }}</p>
+                                                        <p class="form-control text-muted show-note long-texts">{{ $invoice->notes }}</p>
                                                     </th>
                                                 </tr>
                                             @endif

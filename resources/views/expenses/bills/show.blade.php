@@ -157,7 +157,7 @@
             <div class="card-body">
                 @stack('bill_header_start')
                     <div class="row mx--4">
-                        <div class="col-md-7">
+                        <div class="col-md-7 border-bottom-1">
                             <div class="table-responsive mt-2">
                                 <table class="table table-borderless">
                                     <tbody>
@@ -218,7 +218,7 @@
 
                 @stack('bill_information_start')
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-7 long-texts">
                             <div class="table-responsive">
                                 <table class="table table-borderless">
                                     <tbody>
@@ -266,7 +266,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-5 long-texts">
                             <div class="table-responsive">
                                 <table class="table table-borderless">
                                     <tbody>
@@ -366,7 +366,7 @@
                                                 <tr>
                                                     <th>
                                                         <p class="form-control-label">{{ trans_choice('general.notes', 2) }}:</p>
-                                                        <p class="form-control text-muted show-note">{{ $bill->notes }}</p>
+                                                        <p class="form-control text-muted show-note long-texts">{{ $bill->notes }}</p>
                                                     </th>
                                                 </tr>
                                             @endif
