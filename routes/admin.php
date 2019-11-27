@@ -88,7 +88,6 @@ Route::group(['prefix' => 'expenses'], function () {
     Route::get('bills/{bill}/pdf', 'Expenses\Bills@pdfBill')->name('bills.pdf');
     Route::get('bills/{bill}/duplicate', 'Expenses\Bills@duplicate')->name('bills.duplicate');
     Route::get('bills/addItem', 'Expenses\Bills@addItem')->middleware(['money'])->name('bill.add.item');
-    Route::post('bills/payment', 'Expenses\Bills@payment')->middleware(['date.format', 'money'])->name('bill.payment');
     Route::post('bills/import', 'Expenses\Bills@import')->name('bills.import');
     Route::get('bills/export', 'Expenses\Bills@export')->name('bills.export');
     Route::resource('bills', 'Expenses\Bills', ['middleware' => ['date.format', 'money']]);
