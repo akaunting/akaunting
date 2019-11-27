@@ -147,7 +147,7 @@
                                             <div class="mt-3">
                                                 @stack('timeline_body_get_paid_body_button_pay_start')
                                                     @permission('update-incomes-invoices')
-                                                        <a href="{{ url('incomes/invoices/' . $invoice->id . '/pay') }}" class="btn btn-white btn-sm header-button-top">{{ trans('invoices.mark_paid') }}</a>
+                                                        <a href="{{ route('invoices.paid', $invoice->id) }}" class="btn btn-white btn-sm header-button-top">{{ trans('invoices.mark_paid') }}</a>
                                                     @endpermission
                                                 @stack('timeline_body_get_paid_body_button_pay_end')
 
@@ -553,7 +553,7 @@
                 </div>
             @stack('row_footer_history_end')
 
-            @stack('row_footer_payment_start')
+            @stack('row_footer_transaction_start')
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="accordion">
                         <div class="card">
@@ -650,7 +650,7 @@
                     <span>{{ trans('general.cancel') }}</span>
                 </button>
 
-                <a href="{{ url('apps/categories/payment-gateway') }}" class="btn btn-white">
+                <a href="{{ url('apps/categories/payment-method') }}" class="btn btn-white">
                     <span class="fa fa-money"></span> &nbsp;{{ trans('invoices.accept_payments') }}
                 </a>
 

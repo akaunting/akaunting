@@ -119,7 +119,7 @@
 
                                                 @stack('timeline_body_make_payment_body_start')
                                                     @stack('timeline_body_get_paid_body_message_start')
-                                                        @if($bill->status->code != 'paid' && empty($bill->payments->count()))
+                                                        @if($bill->status->code != 'paid' && empty($bill->transactions->count()))
                                                             <span> {{ trans_choice('general.statuses', 1) .  ' :'  }}</span> <span class=" text-sm font-weight-300">{{ trans('bills.messages.status.paid.await') }}</span>
                                                         @else
                                                             <p class=" text-sm mt-1 mb-0">{{ trans_choice('general.statuses', 1) . ': ' . trans('general.partially_paid') }}</p>
@@ -128,8 +128,8 @@
 
                                                     <div class="mt-3">
                                                         @stack('timeline_body_make_payment_body_button_payment_start')
-                                                            @if(empty($bill->payments->count()) || (!empty($bill->payments->count()) && $bill->paid != $bill->amount))
-                                                                <a href="{{ url('expenses/bills/' . $bill->id . '/pay') }}" class="btn btn-success btn-sm btn-alone">{{ trans('bills.add_payment') }}</a>
+                                                            @if(empty($bill->transactions->count()) || (!empty($bill->transactions->count()) && $bill->paid != $bill->amount))
+                                                                <button @click="onPayment" id="button-payment" class="btn btn-success btn-sm header-button-bottom">{{ trans('bills.add_payment') }}</button>
                                                             @endif
                                                         @stack('timeline_body_make_payment_body_button_payment_end')
                                                     </div>
@@ -415,14 +415,14 @@
                     <div class="float-right">
                         @stack('button_edit_start')
                             @if(!$bill->reconciled)
-                                <a href="{{ url('expenses/bills/' . $bill->id . '/edit') }}" class="btn btn-info header-button-top">
+                                <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
                                     <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
                                 </a>
                             @endif
                         @stack('button_edit_end')
 
                         @stack('button_print_start')
-                            <a href="{{ url('expenses/bills/' . $bill->id . '/print') }}" target="_blank" class="btn btn-success header-button-top">
+                            <a href="{{ route('bills.print', $bill->id) }}" target="_blank" class="btn btn-success header-button-top">
                                 <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                             </a>
                         @stack('button_print_end')
@@ -438,7 +438,7 @@
                                             @endif
                                             @permission('update-expenses-bills')
                                                 @if($bill->bill_status_code == 'draft')
-                                                    <a class="dropdown-item" href="{{ url('expenses/bills/' . $bill->id . '/received') }}">{{ trans('bills.mark_received') }}</a></a>
+                                                    <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
                                                 @else
                                                     <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
                                                 @endif
@@ -448,7 +448,7 @@
                                     @stack('button_pay_end')
 
                                     @stack('button_pdf_start')
-                                        <a class="dropdown-item" href="{{ url('expenses/bills/' . $bill->id . '/pdf') }}">{{ trans('bills.download_pdf') }}</a>
+                                        <a class="dropdown-item" href="{{ route('bills.pdf', $bill->id) }}">{{ trans('bills.download_pdf') }}</a>
                                     @stack('button_pdf_end')
 
                                     @stack('button_delete_start')
@@ -482,27 +482,25 @@
                                 <h4 class="mb-0">{{ trans('bills.histories') }}</h4>
                             </div>
                             <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="thead-light">
-                                                <tr class="table-head-line">
-                                                    <th>{{ trans('general.date') }}</th>
-                                                    <th>{{ trans_choice('general.statuses', 1) }}</th>
-                                                    <th>{{ trans('general.description') }}</th>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="thead-light">
+                                            <tr class="table-head-line">
+                                                <th>{{ trans('general.date') }}</th>
+                                                <th>{{ trans_choice('general.statuses', 1) }}</th>
+                                                <th>{{ trans('general.description') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($bill->histories as $history)
+                                                <tr>
+                                                    <td>@date($history->created_at)</td>
+                                                    <td class="text-center">{{ $history->status->name }}</td>
+                                                    <td class="text-center">{{ $history->description }}</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($bill->histories as $history)
-                                                    <tr>
-                                                        <td>@date($history->created_at)</td>
-                                                        <td class="text-center">{{ $history->status->name }}</td>
-                                                        <td class="text-center">{{ $history->description }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -510,67 +508,65 @@
                 </div>
             @stack('row_footer_history_end')
 
-            @stack('row_footer_payment_start')
+            @stack('row_footer_transaction_start')
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="accordion">
                         <div class="card">
                             <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <h4 class="mb-0">{{ trans('bills.payments') }}</h4>
+                                <h4 class="mb-0">{{ trans_choice('general.transactions', 2) }}</h4>
                             </div>
                             <div id="collapseTwo" class="collapse hide" aria-labelledby="headingTwo">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="thead-light">
-                                                <tr class="table-head-line">
-                                                    <th>{{ trans('general.date') }}</th>
-                                                    <th>{{ trans('general.amount') }}</th>
-                                                    <th>{{ trans_choice('general.accounts', 1) }}</th>
-                                                    <th>{{ trans('general.actions') }}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @if ($bill->payments->count())
-                                                    @foreach($bill->payments as $payment)
-                                                        <tr>
-                                                            <td>@date($item->paid_at)</td>
-                                                            <td>@money($payment->amount, $payment->currency_code, true)</td>
-                                                            <td>{{ $payment->account->name }}</td>
-                                                            <td>
-                                                                @if ($payment->reconciled)
-                                                                    <button type="button" class="btn btn-secondary btn-sm">
-                                                                        <i class="fa fa-check"></i> {{ trans('reconciliations.reconciled') }}
-                                                                    </button>
-                                                                @else
-                                                                    {!! Form::open([
-                                                                        'id' => 'bill-payment-' . $payment->id,
-                                                                        'method' => 'DELETE',
-                                                                        'route' => ['payments.destroy', $payment->id],
-                                                                        'style' => 'display:inline'
-                                                                    ]) !!}
-                                                                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
-                                                                        'type'    => 'button',
-                                                                        'class'   => 'btn btn-danger btn-xs',
-                                                                        'title'   => trans('general.delete'),
-                                                                        'onclick' => 'confirmDelete("' . '#bill-payment-' . $payment->id . '", "' . trans_choice('general.payments', 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . Date::parse($payment->paid_at)->format($date_format) . ' - ' . money($payment->amount, $payment->currency_code, true) . ' - ' . $payment->account->name . '</strong>', 'type' => strtolower(trans_choice('general.payments', 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
-                                                                    )) !!}
-                                                                    {!! Form::close() !!}
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @else
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="thead-light">
+                                            <tr class="table-head-line">
+                                                <th>{{ trans('general.date') }}</th>
+                                                <th>{{ trans('general.amount') }}</th>
+                                                <th>{{ trans_choice('general.accounts', 1) }}</th>
+                                                <th>{{ trans('general.actions') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if ($bill->transactions->count())
+                                                @foreach($bill->transactions as $transaction)
                                                     <tr>
-                                                        <td colspan="4">
-                                                            <div class="text-muted" id="datatable-basic_info" role="status" aria-live="polite">
-                                                               {{ trans('general.no_records') }}
-                                                            </div>
+                                                        <td>@date($item->paid_at)</td>
+                                                        <td>@money($transaction->amount, $transaction->currency_code, true)</td>
+                                                        <td>{{ $transaction->account->name }}</td>
+                                                        <td>
+                                                            @if ($transaction->reconciled)
+                                                                <button type="button" class="btn btn-secondary btn-sm">
+                                                                    <i class="fa fa-check"></i> {{ trans('reconciliations.reconciled') }}
+                                                                </button>
+                                                            @else
+                                                                {!! Form::open([
+                                                                    'id' => 'bill-transaction-' . $transaction->id,
+                                                                    'method' => 'DELETE',
+                                                                    'route' => ['transactions.destroy', $transaction->id],
+                                                                    'style' => 'display:inline'
+                                                                ]) !!}
+                                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                                                    'type'    => 'button',
+                                                                    'class'   => 'btn btn-danger btn-sm',
+                                                                    'title'   => trans('general.delete'),
+                                                                    'onclick' => 'confirmDelete("' . '#bill-transaction-' . $transaction->id . '", "' . trans_choice('general.transaction', 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . Date::parse($transaction->paid_at)->format($date_format) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>', 'type' => strtolower(trans_choice('general.transactions', 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
+                                                                )) !!}
+                                                                {!! Form::close() !!}
+                                                            @endif
                                                         </td>
                                                     </tr>
-                                                @endif
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div class="text-muted" id="datatable-basic_info" role="status" aria-live="polite">
+                                                            {{ trans('general.no_records') }}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -580,3 +576,33 @@
         </div>
     @stack('row_footer_end')
 @endsection
+
+@push('content_content_end')
+    <akaunting-modal
+        :show="payment.modal"
+        :title="'{{ trans('general.title.new', ['type' => trans_choice('general.payments', 1)]) }}'"
+        :message="payment.html"
+        :button_cancel="'{{ trans('general.button.save') }}'"
+        :button_delete="'{{ trans('general.button.cancel') }}'">
+        <template #modal-body>
+            @include('modals.bills.payment')
+        </template>
+
+        <template #card-footer>
+            <div class="float-right">
+                <button type="button" class="btn btn-outline-secondary" @click="closePayment">
+                    <span>{{ trans('general.cancel') }}</span>
+                </button>
+
+                <button type="button" class="btn btn-success button-submit" @click="addPayment">
+                    <div class="aka-loader d-none"></div>
+                    <span>{{ trans('general.confirm') }}</span>
+                </button>
+            </div>
+        </template>
+    </akaunting-modal>
+@endpush
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/expenses/bills.js?v=' . version('short')) }}"></script>
+@endpush
