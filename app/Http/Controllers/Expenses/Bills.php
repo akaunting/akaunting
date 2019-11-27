@@ -362,7 +362,7 @@ class Bills extends Controller
     {
         $paid = 0;
 
-        foreach ($bill->payments as $item) {
+        foreach ($bill->transactions as $item) {
             $amount = $item->amount;
 
             if ($bill->currency_code != $item->currency_code) {
