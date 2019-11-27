@@ -28,11 +28,11 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr class="row">
-                            <th  class="col-xs-4 col-sm-3 col-md-2 o-y">{{ trans('general.date') }}</th>
+                            <th  class="col-xs-4 col-sm-3 col-md-2 long-texts">{{ trans('general.date') }}</th>
                             <th class="col-md-2 text-center hidden-md">{{ trans('general.description') }}</th>
                             <th class="col-md-2 col-sm-3 col-md-3 hidden-sm">{{ trans_choice('general.contacts', 1) }}</th>
                             <th class="col-xs-4 col-sm-3 col-md-2 text-right">{{ trans('reconciliations.deposit') }}</th>
-                            <th class="col-xs-4 col-sm-3 col-md-2 text-right o-y">{{ trans('reconciliations.withdrawal') }}</th>
+                            <th class="col-xs-4 col-sm-3 col-md-2 text-right long-texts">{{ trans('reconciliations.withdrawal') }}</th>
                             <th class="col-md-1 text-right hidden-md">{{ trans('general.clear') }}</th>
                         </tr>
                     </thead>
@@ -40,7 +40,7 @@
                     <tbody>
                         @foreach($transactions as $item)
                             <tr class="row">
-                                <td class="col-xs-4 col-sm-3 col-md-2 o-y">@date($item->paid_at)</td>
+                                <td class="col-xs-4 col-sm-3 col-md-2 long-texts">@date($item->paid_at)</td>
                                 <td class="col-md-2 text-center hidden-md">{{ $item->description }}</td>
                                 <td class="col-sm-3 col-md-3 hidden-sm">{{ $item->contact->name }}</td>
                                 @if ($item->type == 'income')

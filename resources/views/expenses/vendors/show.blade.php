@@ -21,16 +21,16 @@
                 </div>
 
                 <div class="card-body d-grid">
-                    <a class="text-sm font-weight-600">{{ trans('general.email') }}</a> <a class="text-xs o-y">{{ $vendor->email }}</a>
+                    <a class="text-sm font-weight-600">{{ trans('general.email') }}</a> <a class="text-xs long-texts">{{ $vendor->email }}</a>
                         <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.phone') }}</a> <a class="text-xs o-y">{{ $vendor->phone }}</a>
+                    <a class="text-sm font-weight-600">{{ trans('general.phone') }}</a> <a class="text-xs long-texts">{{ $vendor->phone }}</a>
                         <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.website') }}</a> <a class="text-xs o-y">{{ $vendor->website }}</a>
+                    <a class="text-sm font-weight-600">{{ trans('general.website') }}</a> <a class="text-xs long-texts">{{ $vendor->website }}</a>
                         <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.tax_number') }}</a> <a class="text-xs o-y">{{ $vendor->tax_number }}</a>
+                    <a class="text-sm font-weight-600">{{ trans('general.tax_number') }}</a> <a class="text-xs long-texts">{{ $vendor->tax_number }}</a>
                     @if ($vendor->reference)
                         <div class="dropdown-divider"></div>
-                        <a class="text-sm font-weight-600">{{ trans('general.reference') }}</a> <a class="text-xs o-y">{{ $vendor->reference }}</a>
+                        <a class="text-sm font-weight-600">{{ trans('general.reference') }}</a> <a class="text-xs long-texts">{{ $vendor->reference }}</a>
                     @endif
                 </div>
             </div>

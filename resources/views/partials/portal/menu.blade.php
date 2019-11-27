@@ -9,7 +9,7 @@
                                 <img class="border-radius-0 border-0 mr-3" alt="Image placeholder" src="{{ setting('company.logo') ? Storage::url(setting('company.logo')) : asset('public/img/akaunting-logo-white.png') }}">
                             </span>
                             <div class="media-body pl-2 d-grid nav-header-text">
-                                <span class="font-weight-bold o-y">{{ Str::limit(setting('company.name'), 22) }}<i class="fas fa-sort-down pl-2"></i></span>
+                                <span class="font-weight-bold long-texts">{{ Str::limit(setting('company.name'), 22) }}<i class="fas fa-sort-down pl-2"></i></span>
                             </div>
                         </a>
                     </li>

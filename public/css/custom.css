@@ -298,14 +298,14 @@
 /*--------Form Group Finish--------*/
 
 
-/*--------Overflow-Y For Table Columns--------*/
-.o-y
+/*--------Long Texts--------*/
+.long-texts
 {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
-/*--------Overflow-Y For Table Columns Finish--------*/
+/*--------Long Texts Finish--------*/
 
 
 /*--------Thead Row Margin--------*/
