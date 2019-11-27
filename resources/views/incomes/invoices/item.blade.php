@@ -103,7 +103,7 @@
     @stack('taxes_td_end')
 
     @stack('total_td_start')
-        <td class="col-md-2 text-right total-column border-bottom-0">
+        <td class="col-md-2 text-right total-column border-bottom-0 long-texts">
             <input name="item[][total]"
                 data-item="total"
                 v-model.lazy="row.total"

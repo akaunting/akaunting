@@ -146,10 +146,10 @@
 
                                     @stack('grand_total_td_start')
                                         <tr class="row" id="tr-total">
-                                            <td class="col-md-10 text-right border-right-0 long-texts">
+                                            <td class="col-md-10 text-right border-right-0">
                                                 <strong>{{ trans('bills.total') }}</strong>
                                             </td>
-                                            <td class="col-md-2 text-right">
+                                            <td class="col-md-2 text-right long-texts">
                                                 <span id="grand-total" v-html="totals.total">0</span>
                                             </td>
                                         </tr>
