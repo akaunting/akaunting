@@ -68,16 +68,16 @@ class Search extends Controller
             }
         }/*
 
-        $revenues = Transaction::type('income')->usingSearchString($keyword)->get();
+        $income_transactions = Transaction::type('income')->usingSearchString($keyword)->get();
 
-        if ($revenues->count()) {
-            foreach ($revenues as $revenue) {
+        if ($income_transactions->count()) {
+            foreach ($income_transactions as $transaction) {
                 $results[] = (object)[
-                    'id'    => $revenue->id,
-                    'name'  => $revenue->contact_name,
+                    'id'    => $transaction->id,
+                    'name'  => $transaction->contact_name,
                     'type'  => trans_choice('general.revenues', 1),
                     'color' => '#00c0ef',
-                    'href'  => url('incomes/revenues/' . $revenue->id),
+                    'href'  => url('incomes/revenues/' . $transaction->id),
                 ];
             }
         }*/

@@ -27,14 +27,14 @@ class TotalIncomes extends AbstractWidget
         $incomes_amount = $open_invoice = $overdue_invoice = 0;
 
         // Get categories
-        $categories = Category::with(['invoices', 'revenues'])->type(['income'])->enabled()->get();
+        $categories = Category::with(['invoices', 'income_transacions'])->type(['income'])->enabled()->get();
 
         foreach ($categories as $category) {
             $amount = 0;
 
-            // Revenues
-            foreach ($category->revenues as $revenue) {
-                $amount += $revenue->getAmountConvertedToDefault();
+            // Transactions
+            foreach ($category->income_transacions as $transacion) {
+                $amount += $transacion->getAmountConvertedToDefault();
             }
 
             $incomes_amount += $amount;

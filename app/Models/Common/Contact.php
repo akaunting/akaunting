@@ -38,19 +38,19 @@ class Contact extends Model
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function invoices()
-    {
-        return $this->hasMany('App\Models\Income\Invoice');
-    }
-
-    public function payments()
+    public function expense_transactions()
     {
         return $this->transactions()->where('type', 'expense');
     }
 
-    public function revenues()
+    public function income_transactions()
     {
         return $this->transactions()->where('type', 'income');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\Income\Invoice');
     }
 
     public function transactions()

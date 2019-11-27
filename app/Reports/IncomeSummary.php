@@ -36,12 +36,12 @@ class IncomeSummary extends Report
 
     public function getTotals()
     {
-        $revenues = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+        $transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
 
         switch ($this->report->basis) {
             case 'cash':
-                // Revenues
-                $this->setTotals($revenues, 'paid_at');
+                // Transactions
+                $this->setTotals($transactions, 'paid_at');
 
                 break;
             default:
@@ -50,9 +50,9 @@ class IncomeSummary extends Report
                 Recurring::reflect($invoices, 'invoice', 'invoiced_at');
                 $this->setTotals($invoices, 'invoiced_at');
 
-                // Revenues
-                Recurring::reflect($revenues, 'revenue', 'paid_at');
-                $this->setTotals($revenues, 'paid_at');
+                // Transactions
+                Recurring::reflect($transactions, 'transaction', 'paid_at');
+                $this->setTotals($transactions, 'paid_at');
 
                 break;
         }

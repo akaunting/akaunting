@@ -88,6 +88,16 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Common\Dashboard');
     }
 
+    public function expense_transactions()
+    {
+        return $this->transactions()->where('type', 'expense');
+    }
+
+    public function income_transactions()
+    {
+        return $this->transactions()->where('type', 'income');
+    }
+
     public function invoice_histories()
     {
         return $this->hasMany('App\Models\Income\InvoiceHistory');
@@ -113,19 +123,9 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Common\Item');
     }
 
-    public function payments()
-    {
-        return $this->transactions()->where('type', 'expense');
-    }
-
     public function recurring()
     {
         return $this->hasMany('App\Models\Common\Recurring');
-    }
-
-    public function revenues()
-    {
-        return $this->transactions()->where('type', 'income');
     }
 
     public function settings()

@@ -430,7 +430,7 @@ class Invoices extends Controller
     {
         $paid = 0;
 
-        foreach ($invoice->payments as $item) {
+        foreach ($invoice->transactions as $item) {
             $amount = $item->amount;
 
             if ($invoice->currency_code != $item->currency_code) {

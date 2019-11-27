@@ -43,19 +43,19 @@ class Currency extends Model
         return $this->contacts()->where('type', 'customer');
     }
 
-    public function invoices()
-    {
-        return $this->hasMany('App\Models\Income\Invoice', 'currency_code', 'code');
-    }
-
-    public function payments()
+    public function expense_transactions()
     {
         return $this->transactions()->where('type', 'expense');
     }
 
-    public function revenues()
+    public function income_transactions()
     {
         return $this->transactions()->where('type', 'income');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\Income\Invoice', 'currency_code', 'code');
     }
 
     public function transactions()

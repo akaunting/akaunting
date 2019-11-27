@@ -87,7 +87,7 @@ class Customers extends BulkAction
     {
         $rels = [
             'invoices' => 'invoices',
-            'revenues' => 'revenues',
+            'income_transactions' => 'transactions',
         ];
 
         $relationships = $this->countRelationships($contact, $rels);

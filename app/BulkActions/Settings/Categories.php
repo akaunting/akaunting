@@ -88,9 +88,9 @@ class Categories extends BulkAction
         $relationships = $this->countRelationships($category, [
             'items' => 'items',
             'invoices' => 'invoices',
-            'revenues' => 'revenues',
+            'income_transacions' => 'transactions',
             'bills' => 'bills',
-            'payments' => 'payments',
+            'expense_transactions' => 'transactions',
         ]);
 
         return $relationships;

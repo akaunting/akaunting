@@ -82,9 +82,9 @@ class Currencies extends BulkAction
             'accounts' => 'accounts',
             'customers' => 'customers',
             'invoices' => 'invoices',
-            'revenues' => 'revenues',
+            'income_transactions' => 'transactions',
             'bills' => 'bills',
-            'payments' => 'payments',
+            'expense_transactions' => 'transactions',
         ]);
 
         if ($currency->code == setting('default.currency')) {

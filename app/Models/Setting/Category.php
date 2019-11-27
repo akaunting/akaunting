@@ -27,6 +27,16 @@ class Category extends Model
         return $this->hasMany('App\Models\Expense\Bill');
     }
 
+    public function expense_transactions()
+    {
+        return $this->transactions()->where('type', 'expense');
+    }
+
+    public function income_transacions()
+    {
+        return $this->transactions()->where('type', 'income');
+    }
+
     public function invoices()
     {
         return $this->hasMany('App\Models\Income\Invoice');
@@ -35,16 +45,6 @@ class Category extends Model
     public function items()
     {
         return $this->hasMany('App\Models\Common\Item');
-    }
-
-    public function payments()
-    {
-        return $this->transactions()->where('type', 'expense');
-    }
-
-    public function revenues()
-    {
-        return $this->transactions()->where('type', 'income');
     }
 
     public function transactions()

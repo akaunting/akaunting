@@ -82,16 +82,16 @@ class TotalProfit extends AbstractWidget
         $expenses_amount = $open_bill = $overdue_bill = 0;
 
         // Get categories
-        $categories = Category::with(['bills', 'invoices', 'payments', 'revenues'])->type(['income', 'expense'])->enabled()->get();
+        $categories = Category::with(['bills', 'expense_transactions', 'invoices', 'income_transacions'])->type(['income', 'expense'])->enabled()->get();
 
         foreach ($categories as $category) {
             switch ($category->type) {
                 case 'income':
                     $amount = 0;
 
-                    // Revenues
-                    foreach ($category->revenues as $revenue) {
-                        $amount += $revenue->getAmountConvertedToDefault();
+                    // Transactions
+                    foreach ($category->income_transacions as $transacion) {
+                        $amount += $transacion->getAmountConvertedToDefault();
                     }
 
                     $incomes_amount += $amount;
@@ -109,9 +109,9 @@ class TotalProfit extends AbstractWidget
                 case 'expense':
                     $amount = 0;
 
-                    // Payments
-                    foreach ($category->payments as $payment) {
-                        $amount += $payment->getAmountConvertedToDefault();
+                    // Transactions
+                    foreach ($category->expense_transactions as $transaction) {
+                        $amount += $transaction->getAmountConvertedToDefault();
                     }
 
                     $expenses_amount += $amount;

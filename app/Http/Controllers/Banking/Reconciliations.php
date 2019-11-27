@@ -197,15 +197,15 @@ class Reconciliations extends Controller
         // Opening Balance
         $total = $account->opening_balance;
 
-        // Sum revenues
-        $revenues = $account->revenues()->whereDate('paid_at', '<', $started_at)->get();
-        foreach ($revenues as $item) {
+        // Sum income transactions
+        $transactions = $account->income_transacions()->whereDate('paid_at', '<', $started_at)->get();
+        foreach ($transactions as $item) {
             $total += $item->amount;
         }
 
-        // Subtract payments
-        $payments = $account->payments()->whereDate('paid_at', '<', $started_at)->get();
-        foreach ($payments as $item) {
+        // Subtract expense transactions
+        $transactions = $account->expense_transactions()->whereDate('paid_at', '<', $started_at)->get();
+        foreach ($transactions as $item) {
             $total -= $item->amount;
         }
 

@@ -29,14 +29,14 @@ class ExpensesByCategory extends AbstractWidget
         $expenses_amount = $open_bill = $overdue_bill = 0;
 
         // Get categories
-        $categories = Category::with(['bills', 'payments'])->type(['expense'])->enabled()->get();
+        $categories = Category::with(['bills', 'expense_transactions'])->type(['expense'])->enabled()->get();
 
         foreach ($categories as $category) {
             $amount = 0;
 
-            // Payments
-            foreach ($category->payments as $payment) {
-                $amount += $payment->getAmountConvertedToDefault();
+            // Transactions
+            foreach ($category->expense_transactions as $transaction) {
+                $amount += $transaction->getAmountConvertedToDefault();
             }
 
             $expenses_amount += $amount;
@@ -149,14 +149,14 @@ class ExpensesByCategory extends AbstractWidget
         $expenses_amount = $open_bill = $overdue_bill = 0;
 
         // Get categories
-        $categories = Category::with(['bills', 'payments'])->type(['expense'])->enabled()->get();
+        $categories = Category::with(['bills', 'expense_transactions'])->type(['expense'])->enabled()->get();
 
         foreach ($categories as $category) {
             $amount = 0;
 
-            // Payments
-            foreach ($category->payments as $payment) {
-                $amount += $payment->getAmountConvertedToDefault();
+            // Transactions
+            foreach ($category->expense_transactions as $transaction) {
+                $amount += $transaction->getAmountConvertedToDefault();
             }
 
             $expenses_amount += $amount;

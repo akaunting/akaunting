@@ -109,14 +109,14 @@ class BillTransactions extends Controller
     {
         $paid = 0;
 
-        // Get Bill Payments
-        if (!$bill->payments->count()) {
+        // Get Bill Transactions
+        if (!$bill->transactions->count()) {
             return $paid;
         }
 
         $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
-        foreach ($bill->payments as $item) {
+        foreach ($bill->transactions as $item) {
             $default_amount = (double) $item->amount;
 
             if ($bill->currency_code == $item->currency_code) {

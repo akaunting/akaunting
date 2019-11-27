@@ -34,14 +34,14 @@ class Account extends Model
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function revenues()
-    {
-        return $this->transactions()->where('type', 'income');
-    }
-
-    public function payments()
+    public function expense_transactions()
     {
         return $this->transactions()->where('type', 'expense');
+    }
+
+    public function income_transacions()
+    {
+        return $this->transactions()->where('type', 'income');
     }
 
     public function transactions()
@@ -71,10 +71,10 @@ class Account extends Model
         $total = $this->opening_balance;
 
         // Sum Incomes
-        $total += $this->revenues->sum('amount');
+        $total += $this->income_transacions->sum('amount');
 
         // Subtract Expenses
-        $total -= $this->payments->sum('amount');
+        $total -= $this->expense_transactions->sum('amount');
 
         return $total;
     }

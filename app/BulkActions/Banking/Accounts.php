@@ -89,8 +89,8 @@ class Accounts extends BulkAction
     protected function getRelationships($account)
     {
         $relationships = $this->countRelationships($account, [
-            'payments' => 'payments',
-            'revenues' => 'revenues',
+            'expense_transactions' => 'transactions',
+            'income_transacions' => 'transactions',
         ]);
 
         return $relationships;

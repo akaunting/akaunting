@@ -198,7 +198,7 @@ class Dashboard extends Controller
     {
         foreach ($items as $item) {
             if ($type == 'partial') {
-                $item->amount = $item->payments()->paid();
+                $item->amount = $item->transactions()->paid();
             }
 
             $i = Date::parse($item->paid_at)->format($date_format);

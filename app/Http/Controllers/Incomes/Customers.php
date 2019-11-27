@@ -51,7 +51,7 @@ class Customers extends Controller
 
         $counts = [
             'invoices' => 0,
-            'revenues' => 0,
+            'transactions' => 0,
         ];
 
         // Handle invoices
@@ -62,7 +62,7 @@ class Customers extends Controller
         $today = Date::today()->toDateString();
 
         foreach ($invoices as $item) {
-            // Already in revenues
+            // Already in transactions
             if ($item->invoice_status_code == 'paid') {
                 continue;
             }

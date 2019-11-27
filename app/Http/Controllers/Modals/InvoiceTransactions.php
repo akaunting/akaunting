@@ -116,14 +116,14 @@ class InvoiceTransactions extends Controller
     {
         $paid = 0;
 
-        // Get Invoice Payments
-        if (!$invoice->payments->count()) {
+        // Get invoice transactions
+        if (!$invoice->transactions->count()) {
             return $paid;
         }
 
         $_currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
-        foreach ($invoice->payments as $item) {
+        foreach ($invoice->transactions as $item) {
             $default_amount = $item->amount;
 
             if ($invoice->currency_code == $item->currency_code) {
