@@ -34,7 +34,7 @@
                     <tr class="row table-head-line">
                         <th class="col-sm-2 col-md-1 col-lg-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
                         <th class="col-xs-4 col-sm-3 col-md-2 col-lg-3">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                        <th class="col-sm-2 col-md-2 col-lg-3 hidden-sm o-y">@sortablelink('email', trans('general.email'))</th>
+                        <th class="col-sm-2 col-md-2 col-lg-3 hidden-sm long-texts">@sortablelink('email', trans('general.email'))</th>
                         <th class="col-md-2 col-lg-2 hidden-md">{{ trans_choice('general.roles', 2) }}</th>
                         <th class="col-xs-4 col-sm-3 col-md-2 col-lg-2">@sortablelink('enabled', trans('general.enabled'))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
@@ -57,7 +57,7 @@
                                     {{ $item->name }}
                                 </a>
                             </td>
-                            <td class="col-sm-2 hidden-sm col-md-2 col-lg-3 o-y border-0">{{ $item->email }}</td>
+                            <td class="col-sm-2 hidden-sm col-md-2 col-lg-3 border-0 long-texts">{{ $item->email }}</td>
                             <td class="col-md-2 col-lg-2 hidden-md border-0">
                                 @foreach($item->roles as $role)
                                     <label class="label label-default">{{ $role->display_name }}</label>

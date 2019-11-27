@@ -4,7 +4,7 @@
             <div class="header-body">
                 <div class="row py-4 align-items-center">
                     <div class="col-sm-4 col-md-5 align-items-center">
-                        <h2 class="d-inline-block mb-0">@yield('title')</h2>
+                        <h2 class="d-inline-block mb-0 long-texts">@yield('title')</h2>
                         @yield('dashboard_action')
                     </div>
                     <div class="col-sm-8 col-md-7">

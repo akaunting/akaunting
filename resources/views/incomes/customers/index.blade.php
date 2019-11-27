@@ -53,13 +53,13 @@
                             <td class="col-xs-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <a class="col-aka text-success" href="{{ route('customers.show', $item->id) }}">{{ $item->name }}</a>
                             </td>
-                            <td class="col-md-2 col-lg-2 col-xl-2 hidden-md o-y">
+                            <td class="col-md-2 col-lg-2 col-xl-2 hidden-md long-texts">
                                 {{ !empty($item->email) ? $item->email : trans('general.na') }}
                             </td>
-                            <td class="col-sm-3 col-md-2 col-lg-2 col-xl-2 hidden-sm o-y">
+                            <td class="col-sm-3 col-md-2 col-lg-2 col-xl-2 hidden-sm long-texts">
                                 {{ $item->phone }}
                             </td>
-                            <td class="col-lg-2 col-xl-2 text-right hidden-lg o-y">
+                            <td class="col-lg-2 col-xl-2 text-right hidden-lg long-texts">
                                 @money($item->unpaid, setting('default.currency'), true)
                             </td>
                             <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">

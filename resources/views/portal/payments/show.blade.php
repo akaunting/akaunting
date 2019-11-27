@@ -22,20 +22,20 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <a class="text-sm font-weight-600">{{ trans('general.from') }}:</a> <a class="text-xs o-y"> {{ setting('company.name') }}</a>
+                            <a class="text-sm font-weight-600">{{ trans('general.from') }}:</a> <a class="text-xs long-texts"> {{ setting('company.name') }}</a>
                         </div>
 
                         <div class="card-body d-grid">
                             <a class="text-sm font-weight-600">{{ trans('general.address') }}:</a>
-                            <a class="text-xs o-y"> {{ setting('company.address') }}</a>
+                            <a class="text-xs long-texts"> {{ setting('company.address') }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="text-sm font-weight-600">{{ trans('general.phone') }}:</a>
-                            <a class="text-xs o-y"> {{ setting('company.phone') }}</a>
+                            <a class="text-xs long-texts"> {{ setting('company.phone') }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="text-sm font-weight-600">{{ trans('general.email') }}:</a>
-                            <a class="text-xs o-y"> {{ setting('company.email') }}</a>
+                            <a class="text-xs long-texts"> {{ setting('company.email') }}</a>
                         </div>
                     </div>
                 </div>
@@ -43,20 +43,20 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <a class="text-sm font-weight-600">{{ trans('general.to') }}:</a> <a class="text-xs o-y"> {{ $payment->contact->name }}</a>
+                            <a class="text-sm font-weight-600">{{ trans('general.to') }}:</a> <a class="text-xs long-texts"> {{ $payment->contact->name }}</a>
                         </div>
 
                         <div class="card-body d-grid">
                             <a class="text-sm font-weight-600">{{ trans('general.address') }}:</a>
-                            <a class="text-xs o-y"> {{ $payment->contact->address }}</a>
+                            <a class="text-xs long-texts"> {{ $payment->contact->address }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="text-sm font-weight-600">{{ trans('general.phone') }}:</a>
-                            <a class="text-xs o-y"> {{ $payment->contact->phone }}</a>
+                            <a class="text-xs long-texts"> {{ $payment->contact->phone }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="text-sm font-weight-600">{{ trans('general.email') }}:</a>
-                            <a class="text-xs o-y"> {{ $payment->contact->email }}</a>
+                            <a class="text-xs long-texts"> {{ $payment->contact->email }}</a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <a class="text-sm font-weight-600">{{ trans('invoices.payment_due') }}:</a> <a class="text-xs o-y"> @date($payment->paid_at)</a>
+                            <a class="text-sm font-weight-600">{{ trans('invoices.payment_due') }}:</a> <a class="text-xs long-texts"> @date($payment->paid_at)</a>
                         </div>
                     </div>
                 </div>

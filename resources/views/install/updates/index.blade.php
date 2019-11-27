@@ -19,12 +19,12 @@
                         {{ trans('updates.latest_core') }}
                     </div>
                 @else
-                    <div class="col-sm-2 col-md-6 o-y">
+                    <div class="col-sm-2 col-md-6 long-texts">
                         {{ trans('updates.new_core') }}
                     </div>
                     <div class="col-sm-10 col-md-6 text-right">
                         <a href="{{ url('install/updates/update', ['alias' => 'core', 'version' => $core]) }}"
-                            class="btn btn-info btn-sm header-button-top o-y">
+                            class="btn btn-info btn-sm header-button-top long-texts">
                             <i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}
                         </a>
                         <button type="button" @click="onChangelog" class="btn btn-white btn-sm header-button-bottom">

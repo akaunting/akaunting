@@ -76,7 +76,7 @@
                                             <td class="col-md-10 text-right border-right-0 border-bottom-0">
                                                 <strong>{{ trans('bills.sub_total') }}</strong>
                                             </td>
-                                            <td class="col-md-2 text-right border-bottom-0">
+                                            <td class="col-md-2 text-right border-bottom-0 long-texts">
                                                 <span id="sub-total" v-html="totals.sub">0</span>
                                             </td>
                                         </tr>
@@ -138,7 +138,7 @@
                                             <td class="col-md-10 text-right border-right-0 border-bottom-0">
                                                 <strong>{{ trans_choice('general.taxes', 1) }}</strong>
                                             </td>
-                                            <td class="col-md-2 text-right border-bottom-0">
+                                            <td class="col-md-2 text-right border-bottom-0 long-texts">
                                                 <span id="tax-total" v-html="totals.tax">0</span>
                                             </td>
                                         </tr>
@@ -146,7 +146,7 @@
 
                                     @stack('grand_total_td_start')
                                         <tr class="row" id="tr-total">
-                                            <td class="col-md-10 text-right border-right-0">
+                                            <td class="col-md-10 text-right border-right-0 long-texts">
                                                 <strong>{{ trans('bills.total') }}</strong>
                                             </td>
                                             <td class="col-md-2 text-right">

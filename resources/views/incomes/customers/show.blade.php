@@ -19,16 +19,16 @@
                     <h4 class="mb-0">{{ trans('auth.profile') }}</h4>
                 </div>
                 <div class="card-body d-grid">
-                    <a class="text-sm font-weight-600">{{ trans('general.email') }}</a> <a class="text-xs o-y">{{ $customer->email }}</a>
+                    <a class="text-sm font-weight-600">{{ trans('general.email') }}</a> <a class="text-xs long-texts">{{ $customer->email }}</a>
                         <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.phone') }}</a> <a class="text-xs o-y">{{ $customer->phone }}</a>
+                    <a class="text-sm font-weight-600">{{ trans('general.phone') }}</a> <a class="text-xs long-texts">{{ $customer->phone }}</a>
                           <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.website') }}</a> <a class="text-xs o-y">{{ $customer->website }}</a>
+                    <a class="text-sm font-weight-600">{{ trans('general.website') }}</a> <a class="text-xs long-texts">{{ $customer->website }}</a>
                         <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.tax_number') }}</a> <a class="text-xs o-y">{{ $customer->tax_number }}</a>
+                    <a class="text-sm font-weight-600">{{ trans('general.tax_number') }}</a> <a class="text-xs long-texts">{{ $customer->tax_number }}</a>
                     @if ($customer->reference)
                         <div class="dropdown-divider"></div>
-                        <a class="text-sm font-weight-600">{{ trans('general.reference') }}</a> <a class="text-xs o-y">{{ $customer->reference }}</a>
+                        <a class="text-sm font-weight-600">{{ trans('general.reference') }}</a> <a class="text-xs long-texts">{{ $customer->reference }}</a>
                     @endif
                 </div>
             </div>
