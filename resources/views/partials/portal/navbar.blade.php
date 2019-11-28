@@ -15,12 +15,17 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-bell"></i>
+                        @if ($notifications)
+                            <span class="badge badge-md badge-circle badge-reminder badge-warning">{{ $notifications }}</span>
+                        @endif
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden">
-                        <div class="px-3 py-3">
-                            <a class="text-sm text-muted m-0">{{ trans_choice('header.notifications.counter', $notifications, ['count' => $notifications]) }}</a>
-                        </div>
+                        @if ($notifications)
+                            <div class="p-3">
+                                <a class="text-sm text-muted m-0">{{ trans_choice('header.notifications.counter', $notifications, ['count' => $notifications]) }}</a>
+                            </div>
+                        @endif
 
                         <div class="list-group list-group-flush">
                             @if (count($bills))
@@ -42,7 +47,7 @@
                                 <a href="{{ url('auth/users/' . $user->id . '/read-invoices') }}" class="list-group-item list-group-item-action">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
-                                            <i class="fa fa-money-bill-alt"></i>
+                                            <i class="fa fa-money-bill"></i>
                                         </div>
                                         <div class="col ml--2">
                                             <div class="d-flex justify-content-between align-items-center">
@@ -54,7 +59,11 @@
                             @endif
                         </div>
 
-                        <a href="#!" class="dropdown-item text-center text-success font-weight-bold py-3">{{ trans('header.notifications.view_all') }}</a>
+                        @if ($notifications)
+                            <a href="#" class="dropdown-item text-center text-primary font-weight-bold py-3">{{ trans('header.notifications.view_all') }}</a>
+                        @else
+                            <a class="dropdown-item text-center text-primary font-weight-bold py-3">{{ trans_choice('header.notifications.counter', $notifications, ['count' => $notifications]) }}</a>
+                        @endif
                     </div>
                 </li>
 
@@ -65,7 +74,7 @@
                                 <i class="fa fa-sync-alt"></i>
                             </span>
                             @if ($updates)
-                                <span class="badge badge-md badge-circle badge-floating badge-warning">{{ $updates }}</span>
+                                <span class="badge badge-md badge-circle badge-update badge-warning">{{ $updates }}</span>
                             @endif
                         </a>
                     </li>
