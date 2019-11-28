@@ -122,7 +122,7 @@ return [
     'disable'               => 'Disable',
     'select_all'            => 'Select All',
     'unselect_all'          => 'Unselect All',
-    'go_to'                 => 'Go to :name',
+    'go_to'                 => 'Go to dashboard',
     'created_date'          => 'Created Date',
     'period'                => 'Period',
     'frequency'             => 'Frequency',
