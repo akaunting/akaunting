@@ -32,7 +32,7 @@
         </div>
 
         <div class="card-body" id="expense-category-doughnut">
-            <div class="chart dashboard-categories">
+            <div class="dashboard-categories">
                 {!! $donut_expenses->container() !!}
             </div>
         </div>

@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="card-body mt--4" id="cashflow">
+        <div class="card-body pt-0" id="cashflow">
             <div class="chart">
                 {!! $cashflow->container() !!}
             </div>

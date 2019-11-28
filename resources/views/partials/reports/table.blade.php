@@ -1,4 +1,4 @@
-<div class="table-responsive mt-4 overflow-auto">
+<div class="table-responsive overflow-auto">
     <table class="table align-items-center table-hover" id="tbl-report">
         @include($class->views['table.header'])
             <tbody>

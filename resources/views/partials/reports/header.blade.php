@@ -1,7 +1,7 @@
 @section('title', $class->report->name)
 
 @section('new_button')
-    <span class="new-button">
+    <span>
         <a href="{{ url($class->getUrl('print')) }}" target="_blank" class="btn btn-white btn-sm"><span class="fa fa-print"></span> &nbsp;{{ trans('general.print') }}</a>
     </span>
     <span>
