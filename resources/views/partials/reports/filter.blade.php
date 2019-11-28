@@ -3,7 +3,6 @@
         'url' => 'common/reports/' . $class->report->id . '/display',
         'role' => 'form',
         'method' => 'GET',
-        'class' => 'mb-0',
     ]) !!}
 
     <div id="items" class="float-left">

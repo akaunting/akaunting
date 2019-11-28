@@ -252,11 +252,23 @@
 
 
 /*--------Navbar Notification--------*/
-.nav-link .badge-floating
+.nav-link .badge-update
 {
     position: absolute;
     top: 15%;
     margin-left: -0.2rem;
+    transform: translateY(50%);
+    width: 1rem !important;
+    height: 1rem !important;
+    font-size: 0.5rem;
+}
+
+
+.nav-link .badge-reminder
+{
+    position: absolute;
+    top: -59%;
+    margin-left: -0.35rem;
     transform: translateY(50%);
     width: 1rem !important;
     height: 1rem !important;
