@@ -1,4 +1,4 @@
-<div class="table-responsive mt-4 overflow-auto">
+<div class="table-responsive overflow-auto">
     <table class="table align-items-center">
         <thead class="border-top-style">
             <tr>
