@@ -4,9 +4,9 @@
 
 @section('content')
     <div class="card">
-        <div class="card-body">
+        <div class="card-header pb-0">
             <div class="container-fluid">
-                <div class="row mb--4">
+                <div class="row">
                     <hr class="wizard-line">
                     <div class="col-md-3">
                         <div class="text-center">
@@ -48,15 +48,10 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card">
-        <div class="card-header border-bottom-0">
+        <div class="card-body border-bottom-0">
             <div class="row">
-                <div class="col-6">
-                    <h3 class="mb-0">{{ trans_choice('general.currencies', 2) }}</h3>
-                </div>
-                <div class="col-6 text-right">
+                <div class="col-12 text-right">
                     <span class="new-button">
                         <button type="button" @click="onAddCurrency" class="btn btn-success btn-sm">
                             <span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}
@@ -129,13 +124,13 @@
 
                         <tr class="row align-items-center border-top-1" v-show="show">
                             <td class="col-xs-4 col-sm-3 currency-name">
-                                {{ Form::textGroup('name', trans('general.name'), 'id-card-o', [], null, '') }}
+                                {{ Form::textGroup('name', trans('general.name'), 'font', [], null, '') }}
                             </td>
                             <td class="col-sm-3 hidden-sm currency-code">
                                 {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, null, ['required' => 'required', 'change' => 'onChangeCode'], '') }}
                             </td>
                             <td class="col-sm-2 hidden-sm currency-rate">
-                                {{ Form::textGroup('rate', trans('currencies.rate'), 'money', ['required' => 'required'], null, '') }}
+                                {{ Form::textGroup('rate', trans('currencies.rate'), 'percentage', ['required' => 'required'], null, '') }}
                             </td>
                             <td class="col-xs-4 col-sm-2 currency-status">
                                 {{ Form::radioGroup('enabled', trans('general.enabled')) }}
@@ -172,7 +167,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-12 text-right">
-                    <a href="{{ url('wizard/taxes') }}" id="wizard-skip" class="btn btn-white">
+                    <a href="{{ url('wizard/taxes') }}" id="wizard-skip" class="btn btn-white header-button-top">
                         <span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}
                     </a>
                 </div>
