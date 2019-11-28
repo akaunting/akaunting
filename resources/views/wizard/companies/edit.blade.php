@@ -4,51 +4,6 @@
 
 @section('content')
     <div class="card">
-        <div class="card-body">
-            <div class="container-fluid">
-                <div class="row mb--4">
-                    <hr class="wizard-line">
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <button href="#step-1" type="button" class="btn btn-default btn-lg wizard-steps rounded-circle">
-                                <span class="btn-inner--icon wizard-steps-inner">1</span>
-                            </button>
-                            <p class="mt-2 after-step-text">{{ trans_choice('general.companies', 1) }}</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <button type="button" class="btn btn-secondary btn-lg wizard-steps rounded-circle steps">
-                                <span class="btn-inner--icon wizard-steps-inner wizard-steps-color">2</span>
-                            </button>
-                            <p class="mt-2 text-muted step-text">{{ trans_choice('general.currencies', 2) }}</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <button type="button" class="btn btn-secondary btn-lg wizard-steps rounded-circle steps">
-                                <span class="btn-inner--icon wizard-steps-inner wizard-steps-color">3</span>
-                            </button>
-                            <p class="mt-2 text-muted step-text">{{ trans_choice('general.taxes', 2) }}</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <button type="button" class="btn btn-secondary btn-lg wizard-steps rounded-circle steps">
-                                <span class="btn-inner--icon wizard-steps-inner wizard-steps-color">4</span>
-                            </button>
-                            <p class="mt-2 text-muted step-text">{{ trans_choice('general.finish', 1) }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
         {!! Form::model($company, [
             'method' => 'PATCH',
             'route' => ['wizard.companies.update'],
@@ -60,13 +15,51 @@
             'class' => 'form-loading-button mb-0',
             'novalidate' => true
         ]) !!}
-            <div id="wizard-loading"></div>
+            <div class="card-header wizard-header pb-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <hr class="wizard-line">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <button href="#step-1" type="button" class="btn btn-default btn-lg wizard-steps rounded-circle">
+                                    <span class="btn-inner--icon wizard-steps-inner">1</span>
+                                </button>
+                                <p class="mt-2 after-step-text">{{ trans_choice('general.companies', 1) }}</p>
+                            </div>
+                        </div>
 
-            <div class="card-header">
-                 <h3 class="mb-0">{{ trans_choice('general.companies', 1) }}</h3>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary btn-lg wizard-steps rounded-circle steps">
+                                    <span class="btn-inner--icon wizard-steps-inner wizard-steps-color">2</span>
+                                </button>
+                                <p class="mt-2 text-muted step-text">{{ trans_choice('general.currencies', 2) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary btn-lg wizard-steps rounded-circle steps">
+                                    <span class="btn-inner--icon wizard-steps-inner wizard-steps-color">3</span>
+                                </button>
+                                <p class="mt-2 text-muted step-text">{{ trans_choice('general.taxes', 2) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary btn-lg wizard-steps rounded-circle steps">
+                                    <span class="btn-inner--icon wizard-steps-inner wizard-steps-color">4</span>
+                                </button>
+                                <p class="mt-2 text-muted step-text">{{ trans_choice('general.finish', 1) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-             <div class="card-body">
+            <div class="card-body">
+                <div id="wizard-loading"></div>
                 <div class="row mb--4">
                     <div class="col-md-12 {!! (!setting('apps.api_key', null)) ?: 'hidden' !!}">
                         <div class="form-group {{ $errors->has('api_key') ? 'has-error' : ''}}"
@@ -89,8 +82,8 @@
                             </div>
 
                             <div class="invalid-feedback d-block"
-                                 v-if="form.errors.has('api_key')"
-                                 v-html="form.errors.get('api_key')"></div>
+                                    v-if="form.errors.has('api_key')"
+                                    v-html="form.errors.get('api_key')"></div>
                         </div>
                         <p class="mb-0 mt--3">
                             <small>{!! trans('modules.api_key_link') !!}</small>
@@ -105,19 +98,21 @@
                     {{ Form::textareaGroup('address', trans('settings.company.address')) }}
 
                     {{ Form::fileGroup('logo', trans('settings.company.logo')) }}
-                 </div>
-             </div>
+                </div>
+            </div>
 
             <div class="card-footer">
                 <div class="row">
                     <div class="col-12 text-right">
                         {!! Form::button(
-                            '<div v-if="form.loading" :class="(form.loading) ? \'show \' : \'\'"  class="aka-loader-frame d-none"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
-                                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit', 'data-loading-text' => trans('general.loading')]) !!}
-                        <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-white"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
+                            '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
+                                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+
+                        <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-white header-button-top"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
                     </div>
                 </div>
             </div>
+
         {!! Form::close() !!}
     </div>
 @endsection

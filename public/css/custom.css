@@ -73,6 +73,12 @@
 
 
 /*--------Wizard Steps--------*/
+.wizard-header
+{
+    border-radius: calc(0.375rem - 1px) calc(0.375rem - 1px) 0 0;
+}
+
+
 .wizard-steps
 {
     width: 3.375rem;
