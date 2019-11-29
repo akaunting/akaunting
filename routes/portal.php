@@ -9,8 +9,6 @@ Route::group(['as' => 'portal.'], function () {
 
     Route::resource('payments', 'Portal\Payments');
 
-    Route::resource('transactions', 'Portal\Transactions');
-
     Route::get('profile/read-invoices', 'Portal\Profile@readOverdueInvoices')->name('invoices.read');
     Route::resource('profile', 'Portal\Profile');
 

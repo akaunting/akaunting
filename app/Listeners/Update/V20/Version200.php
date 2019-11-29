@@ -649,7 +649,6 @@ class Version200 extends Listener
                 'client-portal' => 'r',
                 'portal-invoices' => 'r,u',
                 'portal-payments' => 'r,u',
-                'portal-transactions' => 'r',
                 'portal-profile' => 'r,u',
             ],
         ]);
@@ -837,6 +836,8 @@ class Version200 extends Listener
             'resources/assets/js/components/Example.vue',
             'resources/assets/sass/_variables.scss',
             'resources/assets/sass/app.scss',
+            'resources/views/expenses/bills/bill.blade.php',
+            'resources/views/incomes/invoices/invoice.blade.php',
             'resources/views/layouts/customer.blade.php',
             'resources/views/layouts/link.blade.php',
             'resources/views/modules/token/create.blade.php',

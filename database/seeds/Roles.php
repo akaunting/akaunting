@@ -124,7 +124,6 @@ class Roles extends Seeder
                 'client-portal' => 'r',
                 'portal-invoices' => 'r,u',
                 'portal-payments' => 'r,u',
-                'portal-transactions' => 'r',
                 'portal-profile' => 'r,u',
             ],
         ];

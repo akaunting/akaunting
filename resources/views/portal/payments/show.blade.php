@@ -1,25 +1,16 @@
 @extends('layouts.portal')
 
-@section('title', trans_choice('general.invoices', 1))
+@section('title', trans_choice('general.payments', 1))
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="m-0 float-right">{{ $payment->category->name }}</h3>
+            <h3 class="m-0 float-right">@date($payment->paid_at)</h3>
         </div>
 
         <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-md-7">
-                    <h2>{{ $payment->contact->name }}</h2>
-                </div>
-                <div class="col-md-5">
-                    <h2 class="float-right">{{ trans('general.date') }}: @date($payment->paid_at)</h2>
-                </div>
-            </div>
-
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <a class="text-sm font-weight-600">{{ trans('general.from') }}:</a> <a class="text-xs long-texts"> {{ setting('company.name') }}</a>
@@ -27,20 +18,20 @@
 
                         <div class="card-body d-grid">
                             <a class="text-sm font-weight-600">{{ trans('general.address') }}:</a>
-                            <a class="text-xs long-texts"> {{ setting('company.address') }}</a>
+                            <a class="text-xs long-texts">{{ setting('company.address') }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="text-sm font-weight-600">{{ trans('general.phone') }}:</a>
-                            <a class="text-xs long-texts"> {{ setting('company.phone') }}</a>
+                            <a class="text-xs long-texts">{{ setting('company.phone') }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="text-sm font-weight-600">{{ trans('general.email') }}:</a>
-                            <a class="text-xs long-texts"> {{ setting('company.email') }}</a>
+                            <a class="text-xs long-texts">{{ setting('company.email') }}</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <a class="text-sm font-weight-600">{{ trans('general.to') }}:</a> <a class="text-xs long-texts"> {{ $payment->contact->name }}</a>
@@ -48,23 +39,15 @@
 
                         <div class="card-body d-grid">
                             <a class="text-sm font-weight-600">{{ trans('general.address') }}:</a>
-                            <a class="text-xs long-texts"> {{ $payment->contact->address }}</a>
+                            <a class="text-xs long-texts">{{ $payment->contact->address }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="text-sm font-weight-600">{{ trans('general.phone') }}:</a>
-                            <a class="text-xs long-texts"> {{ $payment->contact->phone }}</a>
+                            <a class="text-xs long-texts">{{ $payment->contact->phone }}</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="text-sm font-weight-600">{{ trans('general.email') }}:</a>
-                            <a class="text-xs long-texts"> {{ $payment->contact->email }}</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <a class="text-sm font-weight-600">{{ trans('invoices.payment_due') }}:</a> <a class="text-xs long-texts"> @date($payment->paid_at)</a>
+                            <a class="text-xs long-texts">{{ $payment->contact->email }}</a>
                         </div>
                     </div>
                 </div>
@@ -85,18 +68,16 @@
             <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                     <tr>
-                        <th>{{ trans_choice('general.categories', 1) }}</th>
-                        <th>{{ trans_choice('general.payment_methods', 1) }}</th>
-                        <th>{{ trans('general.reference') }}</th>
                         <th>{{ trans('general.amount') }}</th>
+                        <th>{{ trans_choice('general.payment_methods', 1) }}</th>
+                        <th>{{ trans('general.description') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ $payment->category->name }}</td>
-                        <td>{{ $payment_methods[$payment->payment_method] }}</td>
-                        <td>{{ $payment->reference }}</td>
                         <td>@money($payment->amount, $payment->currency_code, true)</td>
+                        <td>{{ $payment_methods[$payment->payment_method] }}</td>
+                        <td>{{ $payment->description }}</td>
                     </tr>
                 </tbody>
             </table>
