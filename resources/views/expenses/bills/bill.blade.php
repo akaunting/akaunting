@@ -12,7 +12,7 @@
                             <tr>
                                 <th>
                                     @if ($logo)
-                                        <img src="{{ $logo }}"/>
+                                        <img src="{{ asset('public/img/company.png') }}" height="128" width="128" alt="Company"/>
                                     @endif
                                 </th>
                             </tr>

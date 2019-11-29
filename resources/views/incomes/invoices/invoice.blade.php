@@ -12,7 +12,7 @@
                             <tr>
                                 <th>
                                     @if ($logo)
-                                        <img src="{{ $logo }}"/>
+                                        <img src="{{ asset('public/img/company.png') }}" height="128" width="128" alt="Company"/>
                                     @endif
                                 </th>
                             </tr>
@@ -263,10 +263,22 @@
             </div>
         </div>
 
-        @if ($invoice->footer)
-            <div class="row">
-                {!! $invoice->footer !!}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    @if ($invoice->footer)
+                                        {!! $invoice->footer !!}
+                                    @endif
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        @endif
+        </div>
     </div>
 @endsection

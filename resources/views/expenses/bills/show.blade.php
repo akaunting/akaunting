@@ -166,9 +166,7 @@
                                                 @if (isset($bill->contact->logo) && !empty($bill->contact->logo->id))
                                                     <img src="{{ Storage::url($bill->contact->logo->id) }}"/>
                                                 @else
-                                                    <span class="avatar avatar-size rounded-circle bg-primary">
-                                                        <i class="fas fa-building"></i>
-                                                    </span>
+                                                    <img src="{{ asset('public/img/company.png') }}" height="128" width="128" alt="Company"/>
                                                 @endif
                                             </th>
                                         </tr>
