@@ -67,6 +67,12 @@ class Event extends Provider
         'App\Events\Income\InvoiceRecurring' => [
             'App\Listeners\Income\SendInvoiceRecurringNotification',
         ],
+        'App\Events\Menu\AdminCreated' => [
+            'App\Listeners\Menu\AddAdminItems',
+        ],
+        'App\Events\Menu\PortalCreated' => [
+            'App\Listeners\Menu\AddPortalItems',
+        ],
     ];
 
     /**
