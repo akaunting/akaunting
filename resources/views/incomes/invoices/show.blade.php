@@ -185,11 +185,7 @@
                                     <tbody>
                                         <tr>
                                             <th>
-                                                @if (setting('company.logo'))
-                                                    <img src="{{ Storage::url(setting('company.logo')) }}"/>
-                                                @else
-                                                    <img src="{{ asset('public/img/company.png') }}" height="128" width="128" alt="Company"/>
-                                                @endif
+                                                <img src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
                                             </th>
                                         </tr>
                                     </tbody>

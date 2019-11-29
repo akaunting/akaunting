@@ -376,7 +376,7 @@ class Bills extends Controller
 
         $bill->paid = $paid;
 
-        $bill->template_path = 'expenses.bills.bill';
+        $bill->template_path = 'expenses.bills.print';
 
         return $bill;
     }
