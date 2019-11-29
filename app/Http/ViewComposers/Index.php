@@ -38,7 +38,7 @@ class Index
         if (Str::contains($view_name, '::')) {
             $names = explode('::', $view_name);
 
-            $params = explode('.', $view_name);
+            $params = explode('.', $names[1]);
 
             $type = $params[0];
 
