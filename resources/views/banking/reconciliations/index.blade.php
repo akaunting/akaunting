@@ -37,7 +37,7 @@
                         <th class="col-xs-4 col-sm-3 col-md-3 col-lg-3">@sortablelink('account_id', trans_choice('general.accounts', 1))</th>
                         <th class="col-lg-2 hidden-lg">{{ trans('general.period') }}</th>
                         <th class="col-md-2 col-lg-2 hidden-md text-right">@sortablelink('closing_balance', trans('reconciliations.closing_balance'))</th>
-                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1">@sortablelink('enabled', trans('general.enabled'))</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1">@sortablelink('invoice_status_code', trans_choice('general.statuses', 1))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
@@ -51,14 +51,10 @@
                             <td class="col-lg-2 hidden-lg border-0">@date($item->started_at) - @date($item->ended_at)</td>
                             <td class="col-md-2 col-lg-2 hidden-md text-right">@money($item->closing_balance, $item->account->currency_code, true)</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1">
-                                @if (user()->can('update-banking-reconciliations'))
-                                    {{ Form::enabledGroup($item->id, $item->account->name, $item->enabled) }}
+                                @if ($item->reconciled)
+                                    <span class="badge badge-pill badge-success">{{ trans('reconciliations.reconciled') }}</span>
                                 @else
-                                    @if ($item->enabled)
-                                        <badge rounded type="success">{{ trans('general.enabled') }}</badge>
-                                    @else
-                                        <badge rounded type="danger">{{ trans('general.disabled') }}</badge>
-                                    @endif
+                                    <span class="badge badge-pill badge-danger">{{ trans('reconciliations.unreconciled') }}</span>
                                 @endif
                             </td>
                             <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">

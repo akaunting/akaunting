@@ -79,8 +79,13 @@
                 <div class="row float-right">
                     @if ($transactions->count())
                         <a href="{{ route('reconciliations.index') }}" class="btn btn-outline-secondary header-button-top"><span class="fa fa-times"></span> &nbsp;{{ trans('general.cancel') }}</a>
-                        {!! Form::button('<span class="fa fa-check"></span> &nbsp;' . trans('reconciliations.reconcile'), ['type' => 'button', 'id' => 'button-reconcile', 'class' => 'btn btn-info button-submit header-button-top', 'data-loading-text' => trans('general.loading'), 'disabled' => 'disabled']) !!}
-                        {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+                        {!! Form::button(
+                            '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-check"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('reconciliations.reconcile') . '</span>',
+                            [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-info button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+
+                        {!! Form::button(
+                            '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
+                            [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
                     @else
                         <small>{{ trans('general.no_records') }}</small>
                     @endif
