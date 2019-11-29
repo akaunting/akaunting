@@ -30,7 +30,7 @@
                         @else
                             {!! $module->price_prefix !!}
                                 @if (isset($module->special_price))
-                                    <del>{{ $module->price }}</del>
+                                    <del class="text-danger">{{ $module->price }}</del>
                                     {{ $module->special_price }}
                                 @else
                                     {{ $module->price }}

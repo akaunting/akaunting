@@ -15,6 +15,7 @@
             'class' => 'form-loading-button mb-0',
             'novalidate' => true
         ]) !!}
+        <div id="wizard-loading"></div>
             <div class="card-header wizard-header pb-0">
                 <div class="container-fluid">
                     <div class="row">

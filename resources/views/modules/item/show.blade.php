@@ -182,7 +182,7 @@
                                     {!! $module->price_prefix !!}
 
                                     @if (isset($module->special_price))
-                                        <del>{{ $module->price }}</del>
+                                        <del class="text-danger">{{ $module->price }}</del>
                                         {{ $module->special_price }}
                                     @else
                                         {{ $module->price }}
@@ -219,7 +219,7 @@
                                 </a>
                             @endif
                         @endpermission
-                    @endif  
+                    @endif
 
                     @if ($module->purchase_faq)
                          <div class="text-center mt-3">

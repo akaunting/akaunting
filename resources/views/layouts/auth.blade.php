@@ -12,7 +12,7 @@
                         <div class="header-body text-center mb-5">
                             <div class="row justify-content-center">
                                 <div class="col-xl-5 col-lg-6 col-md-8">
-                                    <img class="login-logo pb-5" src="{{ asset('public/img/akaunting-logo-white.png') }}" alt="Akaunting" />
+                                    <img class="login-logo pb-5" src="{{ asset('public/img/akaunting-logo-white.png') }}" alt="Akaunting"/>
                                 </div>
                             </div>
                         </div>

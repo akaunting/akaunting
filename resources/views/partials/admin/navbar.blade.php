@@ -199,9 +199,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <div class="media align-items-center">
-                                <span class="avatar avatar-sm rounded-circle bg-default font-size-1">
-                                    <i class="fas fa-user-alt"></i>
-                                </span>
+                                <img src="{{ asset('public/img/user.png') }}" height="36" width="36" alt="User"/>
                                 <div class="media-body ml-2 d-none d-lg-block">
                                     <span class="mb-0 text-sm  font-weight-bold">
                                         @if (!empty($user->name))
