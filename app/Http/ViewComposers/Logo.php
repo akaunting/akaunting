@@ -21,13 +21,7 @@ class Logo
     {
         $logo = '';
 
-        $media_id = setting('company.logo');
-
-        if (setting('invoice.logo')) {
-            $media_id = setting('invoice.logo');
-        }
-
-        $media = Media::find($media_id);
+        $media = Media::find(setting('company.logo'));
 
         if (!empty($media)) {
             $path = Storage::path($media->getDiskPath());
@@ -36,10 +30,12 @@ class Logo
                 return $logo;
             }
         } else {
-            $path = asset('public/img/akaunting-logo-green.png');
+            $path = asset('public/img/company.png');
         }
 
-        $image = Image::make($path)->encode()->getEncoded();
+        $width = $height = setting('invoice.logo_size', 128);
+
+        $image = Image::make($path)->resize($width, $height)->encode()->getEncoded();
 
         if (empty($image)) {
             return $logo;

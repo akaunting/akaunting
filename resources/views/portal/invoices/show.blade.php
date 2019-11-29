@@ -20,13 +20,7 @@
                                     <tbody>
                                         <tr>
                                             <th>
-                                                @if (setting('company.logo'))
-                                                    <img src="{{ Storage::url(setting('company.logo')) }}"/>
-                                                @else
-                                                    <span class="avatar avatar-size rounded-circle bg-primary">
-                                                        <i class="fas fa-building"></i>
-                                                    </span>
-                                                @endif
+                                                <img src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
                                             </th>
                                         </tr>
                                     </tbody>

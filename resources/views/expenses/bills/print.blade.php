@@ -11,8 +11,10 @@
                         <tbody>
                             <tr>
                                 <th>
-                                    @if ($logo)
-                                        <img src="{{ asset('public/img/company.png') }}" height="128" width="128" alt="Company"/>
+                                    @if (!empty($bill->contact->logo) && !empty($bill->contact->logo->id))
+                                        <img src="{{ Storage::url($bill->contact->logo->id) }}" height="128" width="128" alt="{{ $bill->contact_name }}"/>
+                                    @else
+                                        <img src="{{ $logo }}" alt="{{ $bill->contact_name }}"/>
                                     @endif
                                 </th>
                             </tr>

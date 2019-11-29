@@ -16,22 +16,24 @@ class ViewComposer extends Provider
     {
         // Suggestions
         View::composer(
-            ['partials.admin.header'], 'App\Http\ViewComposers\Suggestions'
+            'partials.admin.header', 'App\Http\ViewComposers\Suggestions'
         );
 
         // Notifications
         View::composer(
-            ['partials.admin.content'], 'App\Http\ViewComposers\Notifications'
+            'partials.admin.content', 'App\Http\ViewComposers\Notifications'
         );
 
         // Add company info to menu
         View::composer(
-            ['partials.admin.menu', 'partials.portal.menu'], 'App\Http\ViewComposers\Menu'
+            ['partials.admin.menu', 'partials.portal.menu'],
+            'App\Http\ViewComposers\Menu'
         );
 
         // Add notifications to header
         View::composer(
-            ['partials.wizard.navbar', 'partials.admin.navbar', 'partials.portal.navbar'], 'App\Http\ViewComposers\Header'
+            ['partials.wizard.navbar', 'partials.admin.navbar', 'partials.portal.navbar'],
+            'App\Http\ViewComposers\Header'
         );
 
         // Add limits and bulk actions to index
@@ -51,17 +53,19 @@ class ViewComposer extends Provider
 
         // Add recurring
         View::composer(
-            ['partials.form.recurring',], 'App\Http\ViewComposers\Recurring'
+            'partials.form.recurring', 'App\Http\ViewComposers\Recurring'
         );
 
         // Add logo
         View::composer(
-            ['incomes.invoices.invoice', 'expenses.bills.bill'], 'App\Http\ViewComposers\Logo'
+            ['expenses.bills.print', 'expenses.bills.show', 'incomes.invoices.print', 'incomes.invoices.show', 'portal.invoices.show'],
+            'App\Http\ViewComposers\Logo'
         );
 
         // Add Invoice Text
         View::composer(
-            ['incomes.invoices.*', 'portal.invoices.*'], 'App\Http\ViewComposers\InvoiceText'
+            ['incomes.invoices.*', 'portal.invoices.*'],
+            'App\Http\ViewComposers\InvoiceText'
         );
     }
 

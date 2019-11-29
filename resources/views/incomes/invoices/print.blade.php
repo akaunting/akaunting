@@ -11,9 +11,7 @@
                         <tbody>
                             <tr>
                                 <th>
-                                    @if ($logo)
-                                        <img src="{{ asset('public/img/company.png') }}" height="128" width="128" alt="Company"/>
-                                    @endif
+                                    <img src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
                                 </th>
                             </tr>
                         </tbody>
