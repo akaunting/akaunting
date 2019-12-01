@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports\Incomes;
+namespace App\Imports\Expenses;
 
 use App\Models\Common\Contact as Model;
 use App\Http\Requests\Common\Contact as Request;
