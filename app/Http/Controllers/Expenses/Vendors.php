@@ -48,10 +48,7 @@ class Vendors extends Controller
             'overdue' => 0,
         ];
 
-        $counts = [
-            'bills' => 0,
-            'payments' => 0,
-        ];
+        $counts = [];
 
         // Handle bills
         $bills = Bill::where('contact_id', $vendor->id)->get();
@@ -61,7 +58,7 @@ class Vendors extends Controller
         $today = Date::today()->toDateString();
 
         foreach ($bills as $item) {
-            // Already in payments
+            // Already in transactions
             if ($item->bill_status_code == 'paid') {
                 continue;
             }

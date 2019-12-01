@@ -49,10 +49,7 @@ class Customers extends Controller
             'overdue' => 0,
         ];
 
-        $counts = [
-            'invoices' => 0,
-            'transactions' => 0,
-        ];
+        $counts = [];
 
         // Handle invoices
         $invoices = Invoice::where('contact_id', $customer->id)->get();
