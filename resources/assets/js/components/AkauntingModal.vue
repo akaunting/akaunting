@@ -23,8 +23,16 @@
                 <div class="card-footer border-top-0">
                     <slot name="card-footer">
                         <div class="float-right">
-                            <button type="button" class="btn btn-outline-secondary" @click="onCancel"> {{ button_cancel }} </button>
-                            <button type="button" class="btn btn-danger" @click="onConfirm"> {{ button_delete }} </button>
+                            <button type="button" class="btn btn-icon btn-outline-secondary" @click="onCancel">
+                                <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
+                                <span class="btn-inner--text">{{ button_cancel }}</span>
+                            </button>
+
+                            <button :disabled="form.loading" type="button" class="btn btn-icon btn-danger button-submit" @click="onConfirm">
+                                <div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div>
+                                <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>
+                                <span v-if="!form.loading" class="btn-inner--text">{{ button_delete }}</span>
+                            </button>
                         </div>
                     </slot>
                 </div>
@@ -84,6 +92,17 @@ export default {
         }
     },
 
+    data() {
+        return {
+            form: {
+                loading: false,
+                name: this.name,
+                enabled: this.enabled
+            },
+            display: this.show
+        };
+    },
+
     methods: {
         closeModal() {
             this.$emit("update:show", false);
@@ -116,5 +135,45 @@ export default {
 <style>
     .modal.show {
         background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .loader10 {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        position: relative;
+        animation: loader10 0.9s ease alternate infinite;
+        animation-delay: 0.36s;
+        top: 50%;
+        margin: -42px auto 0;
+    }
+
+    .loader10::after, .loader10::before {
+        content: '';
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        animation: loader10 0.9s ease alternate infinite;
+    }
+
+    .loader10::before {
+        left: -40px;
+        animation-delay: 0.18s;
+    }
+
+    .loader10::after {
+        right: -40px;
+        animation-delay: 0.54s;
+    }
+
+    @keyframes loader10 {
+        0% {
+            box-shadow: 0 28px 0 -28px #0052ec;
+        }
+
+        100% {
+            box-shadow: 0 28px 0 #0052ec;
+        }
     }
 </style>
