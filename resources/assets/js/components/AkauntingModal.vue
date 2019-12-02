@@ -29,7 +29,7 @@
                             </button>
 
                             <button :disabled="form.loading" type="button" class="btn btn-icon btn-danger button-submit" @click="onConfirm">
-                                <div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div>
+                                <div v-if="form.loading" class="aka-loader-frame btn-delete"><div class="aka-loader"></div></div>
                                 <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                 <span v-if="!form.loading" class="btn-inner--text">{{ button_delete }}</span>
                             </button>
