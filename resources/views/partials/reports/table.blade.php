@@ -1,5 +1,5 @@
 <div class="table-responsive overflow-auto">
-    <table class="table align-items-center table-hover" id="tbl-report">
+    <table class="table align-items-center table-hover">
         @include($class->views['table.header'])
             <tbody>
                 @if (!empty($class->rows[$table]))
