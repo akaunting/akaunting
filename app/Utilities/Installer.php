@@ -22,7 +22,7 @@ class Installer
 
     public static function checkServerRequirements()
     {
-        $requirements = array();
+        $requirements = [];
 
         if (ini_get('safe_mode')) {
             $requirements[] = trans('install.requirements.disabled', ['feature' => 'Safe Mode']);
@@ -52,6 +52,38 @@ class Installer
             $requirements[] = trans('install.requirements.extension', ['extension' => 'MySQL PDO']);
         }
 
+        if (!extension_loaded('bcmath')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'BCMath']);
+        }
+
+        if (!extension_loaded('ctype')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'Ctype']);
+        }
+
+        if (!extension_loaded('curl')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'cURL']);
+        }
+
+        if (!extension_loaded('dom')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'DOM']);
+        }
+
+        if (!extension_loaded('fileinfo')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'FileInfo']);
+        }
+
+        if (!extension_loaded('gd')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'GD']);
+        }
+
+        if (!extension_loaded('json')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'JSON']);
+        }
+
+        if (!extension_loaded('mbstring')) {
+            $requirements[] = trans('install.requirements.extension', ['extension' => 'Mbstring']);
+        }
+
         if (!extension_loaded('openssl')) {
             $requirements[] = trans('install.requirements.extension', ['extension' => 'OpenSSL']);
         }
@@ -60,24 +92,12 @@ class Installer
             $requirements[] = trans('install.requirements.extension', ['extension' => 'Tokenizer']);
         }
 
-        if (!extension_loaded('mbstring')) {
-            $requirements[] = trans('install.requirements.extension', ['extension' => 'mbstring']);
-        }
-
-        if (!extension_loaded('curl')) {
-            $requirements[] = trans('install.requirements.extension', ['extension' => 'cURL']);
-        }
-
         if (!extension_loaded('xml')) {
             $requirements[] = trans('install.requirements.extension', ['extension' => 'XML']);
         }
 
         if (!extension_loaded('zip')) {
             $requirements[] = trans('install.requirements.extension', ['extension' => 'ZIP']);
-        }
-
-        if (!extension_loaded('fileinfo')) {
-            $requirements[] = trans('install.requirements.extension', ['extension' => 'FileInfo']);
         }
 
         if (!is_writable(base_path('storage/app'))) {
