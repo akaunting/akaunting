@@ -65,12 +65,12 @@ class Versions
         $info = Info::all();
 
         // No data in cache, grab them from remote
-        $data = array();
+        $data = [];
 
         // Check core first
         $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
 
-        $data['core'] = '2.0.2';
+        $data['core'] = static::getLatestVersion($url, $info['akaunting']);
 
         // Then modules
         foreach ($modules as $module) {

@@ -30,7 +30,7 @@ class Update extends Command
      *
      * @var string
      */
-    protected $description = 'Allows to update Akaunting directly through CLI';
+    protected $description = 'Allows to update Akaunting and modules directly through CLI';
     
     /**
      * Create a new command instance.
