@@ -39,26 +39,22 @@ class InstallCommand extends Command
         // Set company id
         session(['company_id' => $company_id]);
 
-        $request = [
-            'company_id' => $company_id,
-            'alias' => strtolower($alias),
-            'enabled' => '1',
-        ];
-
-        $model = Module::create($request);
-
         $module = module($alias);
 
+        $model = Module::create([
+            'company_id' => $company_id,
+            'alias' => $alias,
+            'enabled' => '1',
+        ]);
+
         // Add history
-        $data = [
+        ModuleHistory::create([
             'company_id' => $company_id,
             'module_id' => $model->id,
             'category' => $module->get('category', 'payment-method'),
             'version' => $module->get('version'),
-            'description' => trans('modules.installed', ['module' => $module->get('alias')]),
-        ];
-
-        ModuleHistory::create($data);
+            'description' => trans('modules.installed', ['module' => $alias]),
+        ]);
 
         // Clear cache
         $this->call('cache:clear');

@@ -73,6 +73,9 @@ class Event extends Provider
         'App\Events\Menu\PortalCreated' => [
             'App\Listeners\Menu\AddPortalItems',
         ],
+        'App\Events\Install\UpdateFinished' => [
+            'App\Listeners\Update\CreateModuleUpdatedHistory',
+        ],
     ];
 
     /**

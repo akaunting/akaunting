@@ -6,7 +6,6 @@ use App\Abstracts\Http\Controller;
 use App\Utilities\Updater;
 use App\Utilities\Versions;
 use Illuminate\Http\Request;
-use Module;
 
 class Updates extends Controller
 {
@@ -111,31 +110,31 @@ class Updates extends Controller
         // Download
         $steps[] = [
             'text' => trans('modules.installation.download', ['module' => $name]),
-            'url'  => url('install/updates/download')
+            'url'  => route('updates.download'),
         ];
 
         // Unzip
         $steps[] = [
             'text' => trans('modules.installation.unzip', ['module' => $name]),
-            'url'  => url('install/updates/unzip')
+            'url'  => route('updates.unzip'),
         ];
 
-        // File Copy
+        // Copy files
         $steps[] = [
             'text' => trans('modules.installation.file_copy', ['module' => $name]),
-            'url'  => url('install/updates/file-copy')
+            'url'  => route('updates.copy'),
         ];
 
-        // Finish installation
+        // Finish/Apply
         $steps[] = [
             'text' => trans('modules.installation.finish', ['module' => $name]),
-            'url'  => url('install/updates/finish')
+            'url'  => route('updates.finish'),
         ];
 
         // Redirect
         $steps[] = [
             'text' => trans('modules.installation.redirect', ['module' => $name]),
-            'url'  => url('install/updates/redirect')
+            'url'  => route('updates.redirect'),
         ];
 
         return response()->json([
@@ -155,9 +154,27 @@ class Updates extends Controller
      */
     public function download(Request $request)
     {
-        set_time_limit(600); // 10 minutes
+        set_time_limit(900); // 15 minutes
 
-        $json = Updater::download($request['alias'], $request['version'], $request['installed']);
+        try {
+            $path = Updater::download($request['alias'], $request['version'], $request['installed']);
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -171,9 +188,27 @@ class Updates extends Controller
      */
     public function unzip(Request $request)
     {
-        set_time_limit(600); // 10 minutes
+        set_time_limit(900); // 15 minutes
 
-        $json = Updater::unzip($request['path'], $request['alias'], $request['version'], $request['installed']);
+        try {
+            $path = Updater::unzip($request['path'], $request['alias'], $request['version'], $request['installed']);
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -185,11 +220,29 @@ class Updates extends Controller
      *
      * @return Response
      */
-    public function fileCopy(Request $request)
+    public function copyFiles(Request $request)
     {
-        set_time_limit(600); // 10 minutes
+        set_time_limit(900); // 15 minutes
 
-        $json = Updater::fileCopy($request['path'], $request['alias'], $request['version'], $request['installed']);
+        try {
+            $path = Updater::copyFiles($request['path'], $request['alias'], $request['version'], $request['installed']);
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -203,7 +256,25 @@ class Updates extends Controller
      */
     public function finish(Request $request)
     {
-        $json = Updater::finish($request['alias'], $request['version'], $request['installed']);
+        set_time_limit(900); // 15 minutes
+
+        try {
+            Updater::finish($request['alias'], $request['version'], $request['installed']);
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -215,13 +286,15 @@ class Updates extends Controller
      *
      * @return Response
      */
-    public function redirect(Request $request)
+    public function redirect()
     {
-        return response()->json([
+        $json = [
             'success' => true,
             'errors' => false,
             'redirect' => route('updates.index'),
             'data' => [],
-        ]);
+        ];
+
+        return response()->json($json);
     }
 }

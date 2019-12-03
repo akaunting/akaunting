@@ -177,8 +177,6 @@ Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
         Route::post('unzip', 'Modules\Item@unzip')->name('unzip');
         Route::post('install', 'Modules\Item@install')->name('install');
 
-        Route::get('post/{alias}', 'Modules\Item@post');
-
         Route::post('{alias}/reviews', 'Modules\Item@reviews')->name('app.reviews');
         Route::get('{alias}/uninstall', 'Modules\Item@uninstall')->name('app.uninstall');
         Route::get('{alias}/enable', 'Modules\Item@enable')->name('app.enable');
@@ -191,11 +189,10 @@ Route::group(['prefix' => 'install'], function () {
     Route::get('updates/changelog', 'Install\Updates@changelog')->name('updates.changelog');
     Route::get('updates/check', 'Install\Updates@check')->name('updates.check');
     Route::get('updates/update/{alias}/{version}', 'Install\Updates@update')->name('updates.update');
-    Route::get('updates/post/{alias}/{old}/{new}', 'Install\Updates@post')->name('updates.post');
     Route::post('updates/steps', 'Install\Updates@steps')->name('updates.steps');
     Route::post('updates/download', 'Install\Updates@download')->middleware('api.key')->name('updates.download');
     Route::post('updates/unzip', 'Install\Updates@unzip')->middleware('api.key')->name('updates.unzip');
-    Route::post('updates/file-copy', 'Install\Updates@fileCopy')->middleware('api.key')->name('updates.copy');
+    Route::post('updates/copy-files', 'Install\Updates@copyFiles')->middleware('api.key')->name('updates.copy');
     Route::post('updates/migrate', 'Install\Updates@migrate')->name('updates.migrate');
     Route::post('updates/finish', 'Install\Updates@finish')->name('updates.finish');
     Route::post('updates/redirect', 'Install\Updates@redirect')->name('updates.redirect');

@@ -70,7 +70,7 @@ class Versions
         // Check core first
         $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
 
-        $data['core'] = static::getLatestVersion($url, $info['akaunting']);
+        $data['core'] = '2.0.2';
 
         // Then modules
         foreach ($modules as $module) {

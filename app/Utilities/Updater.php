@@ -2,8 +2,9 @@
 
 namespace App\Utilities;
 
-use App\Models\Module\Module as Model;
-use App\Models\Module\ModuleHistory as ModelHistory;
+use App\Events\Install\UpdateCopied;
+use App\Events\Install\UpdateDownloaded;
+use App\Events\Install\UpdateUnzipped;
 use App\Traits\SiteApi;
 use Cache;
 use Date;
@@ -23,7 +24,7 @@ class Updater
         return true;
     }
 
-    public static function download($alias, $version, $installed)
+    public static function download($alias, $new, $old)
     {
         $file = null;
         $path = null;
@@ -32,101 +33,53 @@ class Updater
         $info = Info::all();
 
         if ($alias == 'core') {
-            $url = 'core/download/' . $version . '/' . $info['php'] . '/' . $info['mysql'];
+            $url = 'core/download/' . $new . '/' . $info['php'] . '/' . $info['mysql'];
         } else {
-            $url = 'apps/' . $alias . '/download/' . $version . '/' . $info['akaunting'] . '/' . $info['token'];
+            $url = 'apps/' . $alias . '/download/' . $new . '/' . $info['akaunting'] . '/' . $info['token'];
         }
 
         $response = static::getRemote($url, 'GET', ['timeout' => 50, 'track_redirects' => true]);
 
         // Exception
-        if ($response instanceof RequestException) {
-            return [
-                'success' => false,
-                'error' => true,
-                'message' => trans('modules.errors.download', ['module' => $alias]),
-                'data' => [
-                    'path' => $path
-                ]
-            ];
+        if (!$response || ($response instanceof RequestException) || ($response->getStatusCode() != 200)) {
+            throw new \Exception(trans('modules.errors.download', ['module' => $alias]));
         }
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            $file = $response->getBody()->getContents();
+        $file = $response->getBody()->getContents();
 
-            $path = 'temp-' . md5(mt_rand());
-            $temp_path = storage_path('app/temp') . '/' . $path;
+        $path = 'temp-' . md5(mt_rand());
+        $temp_path = storage_path('app/temp') . '/' . $path;
 
-            $file_path = $temp_path . '/upload.zip';
+        $file_path = $temp_path . '/update.zip';
 
-            // Create tmp directory
-            if (!File::isDirectory($temp_path)) {
-                File::makeDirectory($temp_path);
-            }
-
-            // Add content to the Zip file
-            $uploaded = is_int(file_put_contents($file_path, $file)) ? true : false;
-
-            if (!$uploaded) {
-                return [
-                    'success' => false,
-                    'error' => true,
-                    'message' => trans('modules.errors.zip', ['module' => $alias]),
-                    'data' => [
-                        'path' => $path
-                    ]
-                ];
-            }
-
-            try {
-                event(new \App\Events\Install\UpdateDownloaded($alias, $version, $installed));
-
-                return [
-                    'success' => true,
-                    'error' => false,
-                    'message' => null,
-                    'data' => [
-                        'path' => $path
-                    ]
-                ];
-            } catch (\Exception $e) {
-                return [
-                    'success' => false,
-                    'error' => true,
-                    'message' => trans('modules.errors.download', ['module' => $alias]),
-                    'data' => []
-                ];
-            }
+        // Create tmp directory
+        if (!File::isDirectory($temp_path)) {
+            File::makeDirectory($temp_path);
         }
 
-        return [
-            'success' => false,
-            'error' => true,
-            'message' => trans('modules.errors.download', ['module' => $alias]),
-            'data' => [
-                'path' => $path
-            ]
-        ];
+        // Add content to the Zip file
+        $uploaded = is_int(file_put_contents($file_path, $file)) ? true : false;
+
+        if (!$uploaded) {
+            throw new \Exception(trans('modules.errors.zip', ['module' => $alias]));
+        }
+
+        event(new UpdateDownloaded($alias, $new, $old));
+
+        return $path;
     }
 
-    public static function unzip($path, $alias, $version, $installed)
+    public static function unzip($path, $alias, $new, $old)
     {
         $temp_path = storage_path('app/temp') . '/' . $path;
 
-        $file = $temp_path . '/upload.zip';
+        $file = $temp_path . '/update.zip';
 
         // Unzip the file
         $zip = new ZipArchive();
 
         if (($zip->open($file) !== true) || !$zip->extractTo($temp_path)) {
-            return [
-                'success' => false,
-                'error' => true,
-                'message' => trans('modules.errors.unzip', ['module' => $alias]),
-                'data' => [
-                    'path' => $path
-                ]
-            ];
+            throw new \Exception(trans('modules.errors.unzip', ['module' => $alias]));
         }
 
         $zip->close();
@@ -134,42 +87,19 @@ class Updater
         // Delete zip file
         File::delete($file);
 
-        try {
-            event(new \App\Events\Install\UpdateUnzipped($alias, $version, $installed));
+        event(new UpdateUnzipped($alias, $new, $old));
 
-            return [
-                'success' => true,
-                'error' => false,
-                'message' => null,
-                'data' => [
-                    'path' => $path
-                ]
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => true,
-                'message' => trans('modules.errors.unzip', ['module' => $alias]),
-                'data' => []
-            ];
-        }
+        return $path;
     }
 
-    public static function fileCopy($path, $alias, $version, $installed)
+    public static function copyFiles($path, $alias, $new, $old)
     {
         $temp_path = storage_path('app/temp') . '/' . $path;
 
         if ($alias == 'core') {
             // Move all files/folders from temp path
             if (!File::copyDirectory($temp_path, base_path())) {
-                return [
-                    'success' => false,
-                    'error' => true,
-                    'message' => trans('modules.errors.file_copy', ['module' => $alias]),
-                    'data' => [
-                        'path' => $path
-                    ]
-                ];
+                throw new \Exception(trans('modules.errors.file_copy', ['module' => $alias]));
             }
         } else {
             // Get module instance
@@ -184,87 +114,31 @@ class Updater
 
             // Move all files/folders from temp path
             if (!File::copyDirectory($temp_path, $module_path)) {
-                return [
-                    'success' => false,
-                    'error' => true,
-                    'message' => trans('modules.errors.file_copy', ['module' => $alias]),
-                    'data' => [
-                        'path' => $path
-                    ]
-                ];
-            }
-
-            $model = Model::where('alias', $alias)->first();
-
-            if (!empty($model)) {
-                // Add history
-                ModelHistory::create([
-                    'company_id' => session('company_id'),
-                    'module_id' => $model->id,
-                    'category' => $module->get('category', 'payment-method'),
-                    'version' => $version,
-                    'description' => trans('modules.history.updated', ['module' => $module->get('alias')]),
-                ]);
+                throw new \Exception(trans('modules.errors.file_copy', ['module' => $alias]));
             }
         }
 
         // Delete temp directory
         File::deleteDirectory($temp_path);
 
-        Artisan::call('cache:clear');
+        event(new UpdateCopied($alias, $new, $old));
 
-        try {
-            event(new \App\Events\Install\UpdateCopied($alias, $version, $installed));
-
-            return [
-                'success' => true,
-                'error' => false,
-                'message' => null,
-                'data' => [
-                    'path' => $path
-                ]
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => true,
-                'message' => trans('modules.errors.file_copy', ['module' => $alias]),
-                'data' => []
-            ];
-        }
+        return $path;
     }
 
-    public static function finish($alias, $version, $installed)
+    public static function finish($alias, $new, $old)
     {
         // Check if the file mirror was successful
-        if (($alias == 'core') && (version('short') != $version)) {
-            return [
-                'success' => false,
-                'error' => true,
-                'message' => trans('modules.errors.file_copy', ['module' => $alias]),
-                'data' => []
-            ];
+        if (($alias == 'core') && (version('short') != $new)) {
+            throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
         }
 
-        // Clear cache after update
-        Artisan::call('cache:clear');
+        $company_id = session('company_id');
 
-        try {
-            event(new \App\Events\Install\UpdateFinished($alias, $installed, $version));
+        $command = "php artisan update:finish {$alias} {$company_id} {$new} {$old}";
 
-            return [
-                'success' => true,
-                'error' => false,
-                'message' => null,
-                'data' => []
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => true,
-                'message' => trans('modules.errors.finish', ['module' => $alias]),
-                'data' => []
-            ];
+        if (!Console::run($command)) {
+            throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
         }
     }
 

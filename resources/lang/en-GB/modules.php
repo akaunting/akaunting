@@ -46,7 +46,7 @@ return [
         'unzip'             => 'Extracting :module files',
         'file_copy'         => 'Copying :module files',
         'finish'            => 'Finalizing :module installation',
-        'redirect'          => ':module installed, redirecting to Updates page',
+        'redirect'          => ':module installed, redirecting to updates page',
         'install'           => 'Installing :module',
     ],
 
