@@ -65,7 +65,7 @@ class Versions
         $info = Info::all();
 
         // No data in cache, grab them from remote
-        $data = array();
+        $data = [];
 
         // Check core first
         $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];

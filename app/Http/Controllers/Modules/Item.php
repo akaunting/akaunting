@@ -268,25 +268,6 @@ class Item extends Controller
         return redirect('apps/' . $alias)->send();
     }
 
-    /**
-     * Final actions post update.
-     *
-     * @param  $alias
-     * @return Response
-     */
-    public function post($alias)
-    {
-        Artisan::call('module:install', ['alias' => $alias, 'company_id' => session('company_id')]);
-
-        $module = module($alias);
-
-        $message = trans('modules.installed', ['module' => $module->getName()]);
-
-        flash($message)->success();
-
-        return redirect('apps/' . $alias);
-    }
-
     public function reviews($alias, Request $request)
     {
         $page = $request['page'];

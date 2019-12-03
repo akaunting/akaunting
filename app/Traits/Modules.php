@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Traits\SiteApi;
+use App\Utilities\Console;
 use App\Utilities\Info;
 use App\Models\Module\Module as Model;
 use App\Models\Module\Module;
@@ -13,7 +14,6 @@ use File;
 use Illuminate\Support\Str;
 use GuzzleHttp\Exception\RequestException;
 use ZipArchive;
-
 
 trait Modules
 {
@@ -408,17 +408,19 @@ trait Modules
         File::copyDirectory($temp_path, $module_path);
         File::deleteDirectory($temp_path);
 
-        Artisan::call('cache:clear');
-
         $data = [
             'path' => $path,
             'name' => Str::studly($module->alias),
             'alias' => $module->alias
         ];
 
+        $company_id = session('company_id');
+
+        Console::run("php artisan module:install {$module->alias} {$company_id}");
+
         return [
             'success' => true,
-            'redirect' => url("apps/post/" . $module->alias),
+            'redirect' => url('apps/' . $module->alias),
             'error' => false,
             'message' => null,
             'data' => $data,
@@ -446,7 +448,7 @@ trait Modules
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data
+            'data' => $data,
         ];
     }
 
@@ -468,7 +470,7 @@ trait Modules
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data
+            'data' => $data,
         ];
     }
 
@@ -490,7 +492,7 @@ trait Modules
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data
+            'data' => $data,
         ];
     }
 
