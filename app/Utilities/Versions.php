@@ -6,7 +6,6 @@ use App\Traits\SiteApi;
 use Cache;
 use Date;
 use Parsedown;
-use GuzzleHttp\Exception\RequestException;
 
 class Versions
 {
@@ -89,28 +88,14 @@ class Versions
 
     public static function getLatestVersion($url, $latest)
     {
-        $response = static::getRemote($url, 'GET', ['timeout' => 10, 'referer' => true]);
-
-        // Exception
-        if ($response instanceof RequestException) {
+        if (!$data = static::getResponseData('GET', $url, ['timeout' => 10])) {
             return $latest;
         }
 
-        // Bad response
-        if (!$response || ($response->getStatusCode() != 200)) {
+        if (!is_object($data)) {
             return $latest;
         }
 
-        $content = json_decode($response->getBody());
-
-        // Empty response
-        if (!is_object($content) || !is_object($content->data)) {
-            return $latest;
-        }
-
-        // Get the latest version
-        $latest = $content->data->latest;
-
-        return $latest;
+        return $data->latest;
     }
 }

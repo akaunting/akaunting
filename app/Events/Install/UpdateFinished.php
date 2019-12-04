@@ -10,9 +10,9 @@ class UpdateFinished
 
     public $alias;
 
-    public $old;
-
     public $new;
+
+    public $old;
 
     /**
      * Create a new event instance.
@@ -21,10 +21,10 @@ class UpdateFinished
      * @param  $old
      * @param  $new
      */
-    public function __construct($alias, $old, $new)
+    public function __construct($alias, $new, $old)
     {
         $this->alias = $alias;
-        $this->old = $old;
         $this->new = $new;
+        $this->old = $old;
     }
 }

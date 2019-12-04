@@ -5,13 +5,13 @@ namespace App\Utilities;
 use App\Events\Install\UpdateCopied;
 use App\Events\Install\UpdateDownloaded;
 use App\Events\Install\UpdateUnzipped;
+use App\Utilities\Console;
 use App\Traits\SiteApi;
+use Artisan;
 use Cache;
 use Date;
 use File;
 use ZipArchive;
-use Artisan;
-use GuzzleHttp\Exception\RequestException;
 
 class Updater
 {
@@ -38,10 +38,7 @@ class Updater
             $url = 'apps/' . $alias . '/download/' . $new . '/' . $info['akaunting'] . '/' . $info['token'];
         }
 
-        $response = static::getRemote($url, 'GET', ['timeout' => 50, 'track_redirects' => true]);
-
-        // Exception
-        if (!$response || ($response instanceof RequestException) || ($response->getStatusCode() != 200)) {
+        if (!$response = static::getResponse('GET', $url, ['timeout' => 50, 'track_redirects' => true])) {
             throw new \Exception(trans('modules.errors.download', ['module' => $alias]));
         }
 
@@ -50,7 +47,7 @@ class Updater
         $path = 'temp-' . md5(mt_rand());
         $temp_path = storage_path('app/temp') . '/' . $path;
 
-        $file_path = $temp_path . '/update.zip';
+        $file_path = $temp_path . '/upload.zip';
 
         // Create tmp directory
         if (!File::isDirectory($temp_path)) {
@@ -73,7 +70,7 @@ class Updater
     {
         $temp_path = storage_path('app/temp') . '/' . $path;
 
-        $file = $temp_path . '/update.zip';
+        $file = $temp_path . '/upload.zip';
 
         // Unzip the file
         $zip = new ZipArchive();

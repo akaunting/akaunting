@@ -7,31 +7,60 @@ use GuzzleHttp\Exception\RequestException;
 
 trait SiteApi
 {
+    public static $base_uri = 'https://api.akaunting.com/';
 
-    protected static function getRemote($path, $method = 'GET', $data = [])
+    protected static function siteApiRequest($method, $path, $extra_data = [])
     {
-        $base = 'https://api.akaunting.com/';
-
-        $client = new Client(['verify' => false, 'base_uri' => $base]);
+        $client = new Client(['verify' => false, 'base_uri' => static::$base_uri]);
 
         $headers['headers'] = [
             'Authorization' => 'Bearer ' . setting('apps.api_key'),
             'Accept'        => 'application/json',
             'Referer'       => url('/'),
             'Akaunting'     => version('short'),
-            'Language'      => language()->getShortCode()
+            'Language'      => language()->getShortCode(),
         ];
 
-        $data['http_errors'] = false;
+        $data = array_merge([
+            'timeout' => 30,
+            'referer' => true,
+            'http_errors' => false,
+        ], $extra_data);
 
-        $data = array_merge($data, $headers);
+        $options = array_merge($data, $headers);
 
         try {
-            $result = $client->request($method, $path, $data);
+            $response = $client->request($method, $path, $options);
         } catch (RequestException $e) {
-            $result = $e;
+            $response = $e;
         }
 
-        return $result;
+        return $response;
+    }
+
+    public static function getResponse($method, $path, $data = [])
+    {
+        $response = static::siteApiRequest($method, $path, $data);
+
+        if (!$response || ($response instanceof RequestException) || ($response->getStatusCode() != 200)) {
+            return false;
+        }
+
+        return $response;
+    }
+
+    public static function getResponseData($method, $path, $data = [])
+    {
+        if (!$response = static::getResponse($method, $path, $data)) {
+            return [];
+        }
+
+        $body = json_decode($response->getBody());
+
+        if (!is_object($body)) {
+            return [];
+        }
+
+        return $body->data;
     }
 }

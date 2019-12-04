@@ -2,17 +2,16 @@
 
 namespace App\Traits;
 
+use App\Models\Module\Module as Model;
+use App\Models\Module\Module;
 use App\Traits\SiteApi;
 use App\Utilities\Console;
 use App\Utilities\Info;
-use App\Models\Module\Module as Model;
-use App\Models\Module\Module;
 use Artisan;
 use Cache;
 use Date;
 use File;
 use Illuminate\Support\Str;
-use GuzzleHttp\Exception\RequestException;
 use ZipArchive;
 
 trait Modules
@@ -27,15 +26,13 @@ trait Modules
             ]
         ];
 
-        $response = static::getRemote('token/check', 'POST', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            $result = json_decode($response->getBody());
-
-            return ($result->success) ? true : false;
+        if (!$response = static::getResponse('POST', 'token/check', $data)) {
+            return false;
         }
 
-        return false;
+        $result = json_decode($response->getBody());
+
+        return $result->success ? true : false;
     }
 
     // Get All Modules
@@ -48,7 +45,7 @@ trait Modules
             return $items;
         }
 
-        $items = $this->remote('apps/items');
+        $items = static::getResponseData('GET', 'apps/items');
 
         Cache::put('apps.items', $items, Date::now()->addHour());
 
@@ -65,7 +62,7 @@ trait Modules
             return $item;
         }
 
-        $item = $this->remote('apps/' . $alias);
+        $item = static::getResponseData('GET', 'apps/' . $alias);
 
         Cache::put('apps.' . $alias, $item, Date::now()->addHour());
 
@@ -81,7 +78,7 @@ trait Modules
             return $documentation;
         }
 
-        $documentation = $this->remote('apps/docs/' . $alias);
+        $documentation = static::getResponseData('GET', 'apps/docs/' . $alias);
 
         Cache::put('apps.docs.' . $alias, $documentation, Date::now()->addHour());
 
@@ -97,7 +94,7 @@ trait Modules
             return $reviews;
         }
 
-        $reviews = $this->remote('apps/' . $alias . '/reviews', 'GET', $data);
+        $reviews = static::getResponseData('GET', 'apps/' . $alias . '/reviews', $data);
 
         Cache::put('apps.' . $alias . '.reviews', $reviews, Date::now()->addHour());
 
@@ -113,7 +110,7 @@ trait Modules
             return $categories;
         }
 
-        $categories =  $this->remote('apps/categories');
+        $categories = static::getResponseData('GET', 'apps/categories');
 
         Cache::put('apps.categories', $categories, Date::now()->addHour());
 
@@ -129,7 +126,7 @@ trait Modules
             return $category;
         }
 
-        $category = $this->remote('apps/categories/' . $alias, 'GET', $data);
+        $category = static::getResponseData('GET', 'apps/categories/' . $alias, $data);
 
         Cache::put('apps.categories.' . $alias, $category, Date::now()->addHour());
 
@@ -145,7 +142,7 @@ trait Modules
             return $vendors;
         }
 
-        $vendors =  $this->remote('apps/vendors');
+        $vendors = static::getResponseData('GET', 'apps/vendors');
 
         Cache::put('apps.vendors', $vendors, Date::now()->addHour());
 
@@ -161,7 +158,7 @@ trait Modules
             return $vendor;
         }
 
-        $vendor =  $this->remote('apps/vendors/' . $alias, 'GET', $data);
+        $vendor = static::getResponseData('GET', 'apps/vendors/' . $alias, $data);
 
         Cache::put('apps.vendors.' . $alias, $vendor, Date::now()->addHour());
 
@@ -170,7 +167,7 @@ trait Modules
 
     public function getMyModules($data = [])
     {
-        return $this->remote('apps/my', 'GET', $data);
+        return static::getResponseData('GET', 'apps/my', $data);
     }
 
     public function getInstalledModules($data = [])
@@ -216,7 +213,7 @@ trait Modules
             return $pre_sale;
         }
 
-        $pre_sale = $this->remote('apps/pre_sale', 'GET', $data);
+        $pre_sale = static::getResponseData('GET', 'apps/pre_sale', $data);
 
         Cache::put('apps.pre_sale', $pre_sale, Date::now()->addHour());
 
@@ -232,7 +229,7 @@ trait Modules
             return $paid;
         }
 
-        $paid = $this->remote('apps/paid', 'GET', $data);
+        $paid = static::getResponseData('GET', 'apps/paid', $data);
 
         Cache::put('apps.paid', $paid, Date::now()->addHour());
 
@@ -248,7 +245,7 @@ trait Modules
             return $new;
         }
 
-        $new = $this->remote('apps/new', 'GET', $data);
+        $new = static::getResponseData('GET', 'apps/new', $data);
 
         Cache::put('apps.new', $new, Date::now()->addHour());
 
@@ -264,7 +261,7 @@ trait Modules
             return $free;
         }
 
-        $free =  $this->remote('apps/free', 'GET', $data);
+        $free = static::getResponseData('GET', 'apps/free', $data);
 
         Cache::put('apps.free', $free, Date::now()->addHour());
 
@@ -280,7 +277,7 @@ trait Modules
             return $featured;
         }
 
-        $featured = $this->remote('apps/featured', 'GET', $data);
+        $featured = static::getResponseData('GET', 'apps/featured', $data);
 
         Cache::put('apps.featured', $featured, Date::now()->addHour());
 
@@ -289,63 +286,62 @@ trait Modules
 
     public function getSearchModules($data = [])
     {
-        return $this->remote('apps/search', 'GET', $data);
+        return static::getResponseData('GET', 'apps/search', $data);
     }
 
     public function getCoreVersion()
     {
         $data['query'] = Info::all();
 
-        $response = static::getRemote('core/version', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return $response->json();
+        if (!$response = static::getResponse('GET', 'core/version', $data)) {
+            return [];
         }
 
-        return [];
+        return $response->json();
     }
 
     public function downloadModule($path)
     {
-        $response = static::getRemote($path);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            $file = $response->getBody()->getContents();
-
-            $path = 'temp-' . md5(mt_rand());
-            $temp_path = storage_path('app/temp') . '/' . $path;
-
-            $file_path = $temp_path . '/upload.zip';
-
-            // Create tmp directory
-            if (!File::isDirectory($temp_path)) {
-                File::makeDirectory($temp_path);
-            }
-
-            // Add content to the Zip file
-            $uploaded = is_int(file_put_contents($file_path, $file)) ? true : false;
-
-            if (!$uploaded) {
-                return false;
-            }
-
-            $data = [
-                'path' => $path
-            ];
-
+        if (!$response = static::getResponse('GET', $path)) {
             return [
-                'success' => true,
-                'error' => false,
+                'success' => false,
+                'error' => true,
                 'message' => null,
-                'data' => $data,
+                'data' => null,
+            ];
+        }
+
+        $file = $response->getBody()->getContents();
+
+        $path = 'temp-' . md5(mt_rand());
+        $temp_path = storage_path('app/temp') . '/' . $path;
+
+        $file_path = $temp_path . '/upload.zip';
+
+        // Create tmp directory
+        if (!File::isDirectory($temp_path)) {
+            File::makeDirectory($temp_path);
+        }
+
+        // Add content to the Zip file
+        $uploaded = is_int(file_put_contents($file_path, $file)) ? true : false;
+
+        if (!$uploaded) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => null,
+                'data' => null,
             ];
         }
 
         return [
-            'success' => false,
-            'error' => true,
+            'success' => true,
+            'error' => false,
             'message' => null,
-            'data' => null,
+            'data' => [
+                'path' => $path,
+            ],
         ];
     }
 
@@ -518,26 +514,12 @@ trait Modules
 
         $data = [];
 
-        $url = 'apps/suggestions';
-
-        $response = static::getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
-
-        // Exception
-        if ($response instanceof RequestException) {
-            return false;
+        if (!$suggestions = static::getResponseData('GET', 'apps/suggestions')) {
+            return $data;
         }
 
-        // Bad response
-        if (!$response || ($response->getStatusCode() != 200)) {
-            return false;
-        }
-
-        $suggestions = json_decode($response->getBody())->data;
-
-        if ($suggestions) {
-            foreach ($suggestions as $suggestion) {
-                $data[$suggestion->path] = $suggestion;
-            }
+        foreach ($suggestions as $suggestion) {
+            $data[$suggestion->path] = $suggestion;
         }
 
         Cache::put('suggestions', $data, Date::now()->addHour(6));
@@ -556,21 +538,9 @@ trait Modules
 
         $data = [];
 
-        $url = 'apps/notifications';
-
-        $response = static::getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
-
-        // Exception
-        if ($response instanceof RequestException) {
-            return false;
+        if (!$notifications = static::getResponse('GET', 'apps/notifications')) {
+            return $data;
         }
-
-        // Bad response
-        if (!$response || ($response->getStatusCode() != 200)) {
-            return false;
-        }
-
-        $notifications = json_decode($response->getBody())->data;
 
         foreach ($notifications as $notification) {
             $data[$notification->path][] = $notification;
@@ -611,16 +581,5 @@ trait Modules
         }
 
         return false;
-    }
-
-    protected function remote($path, $method = 'GET', $data = [])
-    {
-        $response = static::getRemote($path, $method, $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
     }
 }
