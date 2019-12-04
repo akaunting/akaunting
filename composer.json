@@ -48,7 +48,7 @@
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
         "facade/ignition": "^1.4",
-        "fzaninotto/faker": "^1.4",
+        "fzaninotto/faker": "^1.9",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^8.0"
