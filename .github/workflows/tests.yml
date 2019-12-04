@@ -27,7 +27,7 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: ${{ matrix.php }}
-          extension-csv: bcmath, ctype, dom, fileinfo, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
+          extension-csv: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
           coverage: none
 
       - name: Copy .env

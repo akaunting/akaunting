@@ -35,7 +35,7 @@
         "kyslik/column-sortable": "6.*",
         "laracasts/flash": "3.0.*",
         "laravel/framework": "6.*",
-        "laravel/tinker": "1.0.*",
+        "laravel/tinker": "2.0.*",
         "laravelcollective/html": "6.0.*",
         "lorisleiva/laravel-search-string": "0.1.*",
         "maatwebsite/excel": "3.1.*",
