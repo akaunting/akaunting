@@ -5,30 +5,36 @@ on: [push, pull_request]
 jobs:
   tests:
 
-    name: PHP ${{ matrix.php-versions }} Test
+    name: PHP ${{ matrix.php }} Test
 
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 2
       matrix:
-        php-versions: ['7.2', '7.3', '7.4']
+        php: ['7.2', '7.3', '7.4']
 
     steps:
-    - uses: actions/checkout@v1
+      - name: Checkout code
+        uses: actions/checkout@v1
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@master
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extension-csv: bcmath, ctype, dom, fileinfo, gd, json, mbstring, openssl, xml, zip
-        coverage: none
+      - name: Cache composer
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
-    - name: Copy .env
-      run: cp .env.testing .env
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extension-csv: bcmath, ctype, dom, fileinfo, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
+          coverage: none
 
-    - name: Install composer
-      run: composer test
+      - name: Copy .env
+        run: cp .env.testing .env
 
-    - name: Execute tests
-      run: vendor/bin/phpunit
+      - name: Install composer
+        run: composer test
+
+      - name: Execute tests
+        run: vendor/bin/phpunit
