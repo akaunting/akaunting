@@ -252,7 +252,7 @@
                     <div id="collapse10" class="collapse hide" aria-labelledby="heading10" data-parent="#accordion10">
                         <div class="card-body">
                             <div class="row">
-                                {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, !empty($setting['protocol']) ? $setting['protocol'] : null, []) }}
+                                {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, !empty($setting['protocol']) ? $setting['protocol'] : null, ['change' => 'onProtocolChange']) }}
 
                                 {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled' => '(form.protocol == "smtp") || (form.protocol != "sendmail") ? true : false']) }}
 
