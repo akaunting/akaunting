@@ -58,7 +58,6 @@ mix
     .js('resources/assets/js/views/portal/invoices.js', 'public/js/portal')
     .js('resources/assets/js/views/portal/payments.js', 'public/js/portal')
     .js('resources/assets/js/views/portal/profile.js', 'public/js/portal')
-    .js('resources/assets/js/views/portal/transactions.js', 'public/js/portal')
 
     // Settings
     .js('resources/assets/js/views/settings/categories.js', 'public/js/settings')
