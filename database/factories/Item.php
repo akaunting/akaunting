@@ -15,7 +15,7 @@ $factory->define(Item::class, function (Faker $faker) {
 		'purchase_price' => $faker->randomFloat(2, 10, 20),
 		'sale_price' => $faker->randomFloat(2, 10, 20),
 		'category_id' => $company->categories()->type('item')->pluck('id')->first(),
-		'tax_id' => 0,
-		'enabled' => $faker->boolean ? 1 : 0
+		'tax_id' => null,
+		'enabled' => $faker->boolean ? 1 : 0,
 	];
 });
