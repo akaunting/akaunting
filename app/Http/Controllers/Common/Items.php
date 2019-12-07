@@ -291,12 +291,12 @@ class Items extends Controller
             $currency_code = setting('default.currency');
         }
 
-        $json = new \stdClass;
+        $json = new \stdClass();
 
         $sub_total = 0;
         $tax_total = 0;
 
-        $items = array();
+        $items = [];
 
         if ($input_items) {
             foreach ($input_items as $key => $item) {
@@ -307,15 +307,15 @@ class Items extends Controller
                 $item_tax_amount = 0;
 
                 $item_sub_total = ($price * $quantity);
-                $item_discount_total = $item_sub_total;
+                $item_discounted_total = $item_sub_total;
 
-                // Apply discount to item
+                // Apply discount to amount
                 if ($discount) {
-                    $item_discount_total = $item_sub_total - ($item_sub_total * ($discount / 100));
+                    $item_discounted_total = $item_sub_total - ($item_sub_total * ($discount / 100));
                 }
 
                 if (!empty($item['tax_id'])) {
-                    $inclusives = $compounds = $taxes = $fixed_taxes = [];
+                    $inclusives = $compounds = [];
 
                     foreach ($item['tax_id'] as $tax_id) {
                         $tax = Tax::find($tax_id);
@@ -328,15 +328,10 @@ class Items extends Controller
                                 $compounds[] = $tax;
                                 break;
                             case 'fixed':
-                                $fixed_taxes[] = $tax;
-
-                                $item_tax_total += $tax->rate;
+                                $item_tax_total += $tax->rate * $quantity;
                                 break;
-                            case 'normal':
                             default:
-                                $taxes[] = $tax;
-
-                                $item_tax_amount = ($item_discount_total / 100) * $tax->rate;
+                                $item_tax_amount = ($item_discounted_total / 100) * $tax->rate;
 
                                 $item_tax_total += $item_tax_amount;
                                 break;
@@ -344,9 +339,9 @@ class Items extends Controller
                     }
 
                     if ($inclusives) {
-                        $item_sub_and_tax_total = $item_discount_total + $item_tax_total;
+                        $item_sub_and_tax_total = $item_discounted_total + $item_tax_total;
 
-                        $item_base_rate = $item_sub_and_tax_total / (1 + collect($inclusives)->sum('rate')/100);
+                        $item_base_rate = $item_sub_and_tax_total / (1 + collect($inclusives)->sum('rate') / 100);
                         $item_tax_total = $item_sub_and_tax_total - $item_base_rate;
 
                         $item_sub_total = $item_base_rate + $discount;
@@ -354,7 +349,7 @@ class Items extends Controller
 
                     if ($compounds) {
                         foreach ($compounds as $compound) {
-                            $item_tax_total += (($item_discount_total + $item_tax_total) / 100) * $compound->rate;
+                            $item_tax_total += (($item_discounted_total + $item_tax_total) / 100) * $compound->rate;
                         }
                     }
                 }
@@ -370,14 +365,14 @@ class Items extends Controller
 
         $json->sub_total = money($sub_total, $currency_code, true)->format();
 
-        $json->discount_text= trans('invoices.add_discount');
+        $json->discount_text = trans('invoices.add_discount');
         $json->discount_total = '';
 
         $json->tax_total = money($tax_total, $currency_code, true)->format();
 
         // Apply discount to total
         if ($discount) {
-            $json->discount_text= trans('invoices.show_discount', ['discount' => $discount]);
+            $json->discount_text = trans('invoices.show_discount', ['discount' => $discount]);
             $json->discount_total = money($sub_total * ($discount / 100), $currency_code, true)->format();
 
             $sub_total = $sub_total - ($sub_total * ($discount / 100));
