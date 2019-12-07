@@ -5,10 +5,10 @@
 Akaunting is a free, open source and online accounting software designed for small businesses and freelancers. It is built with modern technologies such as Laravel, VueJS, Bootstrap 4, RESTful API etc. Thanks to its modular structure, Akaunting provides an awesome App Store for users and developers.
 
 * [Home](https://akaunting.com) - The house of Akaunting
-* [Blog](https://akaunting.com/blog) - Get the latest news
 * [Forum](https://akaunting.com/forum) - Ask for support
-* [Documentation](https://akaunting.com/docs) - Learn how to use
-* [Translations](https://crowdin.com/project/akaunting) - Akaunting in your language
+* [Documentation](https://akaunting.com/docs) - Learn how to use and develop
+* [App Store](https://akaunting.com/apps) - Extend your Akaunting
+* [Translations](https://crowdin.com/project/akaunting) - Help us translate Akaunting
 
 ## Requirements
 
@@ -23,11 +23,10 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
 
 ## Installation
 
-* Install [Composer](https://getcomposer.org/download) and [Npm](https://nodejs.org/en/download/)
-* Download the [repository](https://github.com/akaunting/akaunting/archive/master.zip) and unzip into your server
-* Open and point your command line to the directory you unzipped Akaunting
-* Run the following commands: `composer install` , `npm install` , `npm run dev`
-* Finally, launch the [web installer](https://akaunting.com/docs/installation) or run the following command:
+* Install [Composer](https://getcomposer.org/download) and [Npm](https://nodejs.org/en/download)
+* Clone the repository: `git clone https://github.com/akaunting/akaunting.git`
+* Install dependencies: `composer install ; npm install ; npm run dev`
+* Install Akaunting:
 
 ```bash
 php artisan install --db-name="akaunting" --db-username="root" --db-password="pass" --admin-email="admin@company.com" --admin-password="123456"
