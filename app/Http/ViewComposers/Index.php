@@ -38,9 +38,10 @@ class Index
         if (Str::contains($view_name, '::')) {
             $names = explode('::', $view_name);
 
-            $params = explode('.', $view_name);
+            $params = explode('.', $names[1]);
 
-            $type = $params[0];
+            $group = $params[0];
+            $type = $params[1];
 
             // Check is module
             $module = module($names[0]);
@@ -52,7 +53,7 @@ class Index
         }
 
         if ($module instanceof \Akaunting\Module\Module) {
-            $class = 'Modules\\' . $module->getStudlyName() . '\BulkActions\\' . ucfirst($type);
+            $class = 'Modules\\' . $module->getStudlyName() . '\BulkActions\\' . ucfirst($group) . '\\' . ucfirst($type);
         } else {
             $class = 'App\BulkActions\\' .  ucfirst($group) . '\\' . ucfirst($type);
         }
