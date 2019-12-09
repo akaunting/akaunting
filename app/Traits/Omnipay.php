@@ -2,9 +2,20 @@
 
 namespace App\Traits;
 
+use Omnipay\Omnipay as Library;
+
 trait Omnipay
 {
-    public function authorize($invoice, $request, $gateway, $extra_options = [])
+    use Library;
+
+    public $gateway;
+
+    public function create($name)
+    {
+        $this->gateway = Library::create($name);
+    }
+
+    public function authorize($invoice, $request, $extra_options = [])
     {
         $default_options = [
             'amount' => $invoice->amount,
@@ -17,7 +28,7 @@ trait Omnipay
         $options = array_merge($default_options, $extra_options);
 
         try {
-            $response = $gateway->authorize($options)->send();
+            $response = $this->gateway->authorize($options)->send();
         } catch (\Exception $e) {
             $this->logger->info($this->module->getName() . ':: Invoice: ' . $invoice->id . ' - Error: '. $e->getMessage());
 
@@ -34,7 +45,7 @@ trait Omnipay
         if ($response->isSuccessful()) {
             $this->setReference($invoice, $response->getTransactionReference());
 
-            $response = $gateway->capture([
+            $response = $this->gateway->capture([
                 'amount' => $invoice->amount,
                 'currency' => $invoice->currency_code,
                 'transactionId' => $this->getReference($invoice),
@@ -46,7 +57,7 @@ trait Omnipay
         return $this->failure($invoice, $response);
     }
 
-    public function purchase($invoice, $request, $gateway, $extra_options = [])
+    public function purchase($invoice, $request, $extra_options = [])
     {
         $default_options = [
             'amount' => $invoice->amount,
@@ -59,7 +70,7 @@ trait Omnipay
         $options = array_merge($default_options, $extra_options);
 
         try {
-            $response = $gateway->purchase($options)->send();
+            $response = $this->gateway->purchase($options)->send();
         } catch (\Exception $e) {
             $this->logger->info($this->module->getName() . ':: Invoice: ' . $invoice->id . ' - Error: '. $e->getMessage());
 
@@ -93,7 +104,7 @@ trait Omnipay
         return $this->failure($invoice, $response);
     }
 
-    public function completePurchase($invoice, $request, $gateway, $extra_options = [])
+    public function completePurchase($invoice, $request, $extra_options = [])
     {
         $default_options = [
             'amount' => $invoice->amount,
@@ -106,7 +117,7 @@ trait Omnipay
 
         $options = array_merge($default_options, $extra_options);
 
-        $response = $gateway->completePurchase($options)->send();
+        $response = $this->gateway->completePurchase($options)->send();
 
         if ($response->isSuccessful()) {
             return $this->finish($invoice, $request);
