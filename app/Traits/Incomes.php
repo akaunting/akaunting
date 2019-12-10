@@ -31,4 +31,5 @@ trait Incomes
         setting(['general.invoice_number_next' => $next]);
         setting()->save();
     }
+    
 }

@@ -17,10 +17,12 @@
 
         {{ Form::textGroup('email', trans('general.email'), 'envelope', []) }}
 
+        {{ Form::textGroup('company_number', trans('general.company_number'), 'percent', []) }}
+
         {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
 
         {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies) }}
-
+	
         {{ Form::textGroup('phone', trans('general.phone'), 'phone', []) }}
 
         {{ Form::textGroup('website', trans('general.website'), 'globe',[]) }}

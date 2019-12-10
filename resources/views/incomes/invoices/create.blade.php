@@ -22,15 +22,18 @@
         </div>
         @stack('customer_id_input_end')
 
-        {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, setting('general.default_currency')) }}
-
-        {{ Form::textGroup('invoiced_at', trans('invoices.invoice_date'), 'calendar',['id' => 'invoiced_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy/mm/dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
-
-        {{ Form::textGroup('due_at', trans('invoices.due_date'), 'calendar',['id' => 'due_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy/mm/dd\'', 'data-mask' => '', 'autocomplete' => 'off']) }}
+        {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart', []) }}
 
         {{ Form::textGroup('invoice_number', trans('invoices.invoice_number'), 'file-text-o', ['required' => 'required'], $number) }}
 
-        {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart', []) }}
+        {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, setting('general.default_currency')) }}
+
+        {{ Form::textGroup('invoiced_at', trans('invoices.invoice_date'), 'calendar',['id' => 'invoiced_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy/mm/dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
+    
+        {{ Form::textGroup('due_at', trans('invoices.due_date'), 'calendar',['id' => 'due_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy/mm/dd\'', 'data-mask' => '', 'autocomplete' => 'off']) }}
+
+        {{ Form::textGroup('delivered_at', trans('invoices.delivered_date'), 'calendar',['id' =>
+            'delivered_at', 'class' => 'form-control', 'required' => 'required', 'data-inputmask' => '\'alias\': \'yyyy/mm/dd\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->toDateString()) }}
 
         <div class="form-group col-md-12">
             {!! Form::label('items', trans_choice($text_override['items'], 2), ['class' => 'control-label']) !!}
@@ -212,6 +215,15 @@
                 autoclose: true,
                 language: '{{ language()->getShortCode() }}'
             });
+            //Date picker
+            $('#delivered_at').datepicker({
+                format: 'yyyy-mm-dd',
+                todayBtn: 'linked',
+                weekStart: 1,
+                autoclose: true,
+                language: '{{ language()->getShortCode() }}'
+            });
+
 
             $('.tax-select2').select2({
                 placeholder: {

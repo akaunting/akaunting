@@ -31,6 +31,7 @@ class Invoice extends TransformerAbstract
             'order_number' => $model->order_number,
             'invoice_status_code' => $model->invoice_status_code,
             'invoiced_at' => $model->invoiced_at->toIso8601String(),
+            'delivered_at' => $model->delivered_at->toIso8601String(),
             'due_at' => $model->due_at->toIso8601String(),
             'amount' => $model->amount,
             'currency_code' => $model->currency_code,
@@ -39,12 +40,13 @@ class Invoice extends TransformerAbstract
             'customer_name' => $model->customer_name,
             'customer_email' => $model->customer_email,
             'customer_tax_number' => $model->customer_tax_number,
+            'customer_company_number' => $model->customer_company_number,
             'customer_phone' => $model->customer_phone,
             'customer_address' => $model->customer_address,
             'notes' => $model->notes,
             'attachment' => $model->attachment,
             'created_at' => $model->created_at->toIso8601String(),
-            'updated_at' => $model->updated_at->toIso8601String(),
+            'updated_at' => $model->updated_at->toIso8601String()
         ];
     }
 

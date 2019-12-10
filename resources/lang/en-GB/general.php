@@ -69,6 +69,7 @@ return [
     'name'                  => 'Name',
     'email'                 => 'Email',
     'tax_number'            => 'Tax Number',
+    'company_number'	    => 'Company Number',
     'phone'                 => 'Phone',
     'address'               => 'Address',
     'website'               => 'Website',

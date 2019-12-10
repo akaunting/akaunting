@@ -10,8 +10,9 @@ table {
 }
 
 th, td {
+    font-size: 10px;
     text-align: left;
-    padding: 8px;
+    padding: 4px;
 }
 
 .row {
@@ -31,7 +32,7 @@ th, td {
 }
 
 .text {
-    font-size: 16px;
+    font-size: 10px;
 }
 
 .text-right {
@@ -48,7 +49,7 @@ th, td {
 
 .header {
     padding-bottom: 9px;
-    margin: 10px 0 20px 0;
+    margin: 10px 0 10px 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -62,7 +63,7 @@ th, td {
 }
 
 .lines {
-    margin: 30px 0;
+    margin: 10px 0;
     border-collapse: collapse;
     table-layout: fixed;
     border: 1px solid #ccc;
@@ -96,5 +97,5 @@ th, td {
 }
 
 .notes {
-    font-size: 14px;
+    font-size: 10px;
 }

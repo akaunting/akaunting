@@ -354,7 +354,10 @@ class Invoices extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file = storage_path('app/temp/invoice_'.time().'.pdf');
+        $company_name = setting('general.company_name');
+        $file =
+            storage_path('app/temp/'.Date::parse($invoice->invoiced_at)->format("Y-m-d").'-'.$invoice->invoice_number.'-'.
+            substr($company_name, 0, strpos($company_name, ' ')).'.pdf');
 
         $invoice->pdf_path = $file;
 
@@ -424,8 +427,12 @@ class Invoices extends Controller
         $pdf->loadHTML($html);
 
         //$pdf->setPaper('A4', 'portrait');
+        $company_name = setting('general.company_name');
+        $file_name = Date::parse($invoice->invoiced_at)->format("Y-m-d").'-'.$invoice->invoice_number.'-'.
+                     substr($company_name, 0, strpos($company_name, ' ')).'.pdf';
 
-        $file_name = 'invoice_'.time().'.pdf';
+
+        #$file_name = 'invoice_'.time().'.pdf';
 
         return $pdf->download($file_name);
     }

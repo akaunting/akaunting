@@ -38,6 +38,7 @@ class Invoice extends Request
             'invoice_number' => 'required|string|unique:invoices,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
             'invoice_status_code' => 'required|string',
             'invoiced_at' => 'required|date_format:Y-m-d H:i:s',
+            'delivered_at' => 'required|date_format:Y-m-d H:i:s',            
             'due_at' => 'required|date_format:Y-m-d H:i:s',
             'amount' => 'required',
             'item.*.name' => 'required|string',
@@ -59,9 +60,12 @@ class Invoice extends Request
             // Set date
             $invoiced_at = Date::parse($this->request->get('invoiced_at'))->format('Y-m-d');
             $due_at = Date::parse($this->request->get('due_at'))->format('Y-m-d');
+            $delivered_at = Date::parse($this->request->get('delivered_at'))->format('Y-m-d');
 
             $this->request->set('invoiced_at', $invoiced_at);
             $this->request->set('due_at', $due_at);
+            $this->request->set('delivered_at', $delivered_at);
+            
         }
     }
 

@@ -20,6 +20,7 @@ class Customer extends TransformerAbstract
             'name' => $model->name,
             'email' => $model->email,
             'tax_number' => $model->tax_number,
+            'company_number' => $model->company_number,
             'phone' => $model->phone,
             'address' => $model->address,
             'website' => $model->website,
