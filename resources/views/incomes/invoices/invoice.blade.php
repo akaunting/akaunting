@@ -14,13 +14,13 @@
             <strong>{{ setting('general.company_name') }}</strong><br>
             {!! nl2br(setting('general.company_address')) !!}<br>
             @if (setting('general.company_tax_number'))
-                {{ trans('general.tax_number') }}: {{ setting('general.company_tax_number') }}<br>
+                 <strong>{{ trans('general.tax_number') }}: </strong> {{ setting('general.company_tax_number') }}<br>
             @endif
             <br>
             @if (setting('general.company_phone'))
-                {{ setting('general.company_phone') }}<br>
+                <strong>kontakt:</strong> {{ setting('general.company_phone') }}, 
             @endif
-            {{ setting('general.company_email') }}
+                 {{ setting('general.company_email') }}
         </div>
     </div>
 </div>
@@ -36,25 +36,26 @@
             {!! nl2br($invoice->customer_address) !!}<br>
             @stack('address_input_end')
             <br>
+            @stack('tax_number_input_start')
+            @if ($invoice->customer_tax_number)
+                 <strong>{{ trans('general.tax_number') }}: </strong> {{ $invoice->customer_tax_number }} /  
+            @endif
+            @stack('tax_number_input_end')
+
             @stack('company_number_input_start')
             @if ($invoice->customer_company_number)
-                {{ trans('general.company_number') }}: {{ $invoice->customer_company_number }}<br>
+                 <strong>{{ trans('general.company_number') }}: </strong> {{ $invoice->customer_company_number}}  
             @endif
             @stack('company_number_input_end')
 
-            @stack('tax_number_input_start')
-            @if ($invoice->customer_tax_number)
-                {{ trans('general.tax_number') }}: {{ $invoice->customer_tax_number }}<br>
-            @endif
-            @stack('tax_number_input_end')
             <br>         
             @stack('phone_input_start')
             @if ($invoice->customer_phone)
-                {{ $invoice->customer_phone }}<br>
+                <strong>kontakt:</strong> {{ $invoice->customer_phone }},
             @endif
             @stack('phone_input_end')
             @stack('email_start')
-            {{ $invoice->customer_email }}
+                 {{ $invoice->customer_email }}
             @stack('email_input_end')
         </div>
     </div>
@@ -226,7 +227,14 @@
     <div class="col-100">
             @stack('signature_input_start')
             <table class="text" style="page-break-inside: avoid;">
-                <tr><td>&nbsp;</td><td lign="right"><img src="<?php echo e(asset('public/img/stamp-opt.png'));?>" width="233" height="153" align="right" /></td></tr>
+
+                <tr>
+                <td>
+                <img width="150"
+                     height="150"
+                    src='data:image/png;base64, {{$invoice->payBySquare}}'/>
+                </td>
+                <td lign="right"><img src="<?php echo e(asset('public/img/stamp-opt.png'));?>" width="233" height="153" align="right" /></td></tr>
             </table>
             @stack('signature_input_end')
     </div>
