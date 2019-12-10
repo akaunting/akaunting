@@ -58,7 +58,6 @@ class InvoicesTest extends FeatureTestCase
             ->assertStatus(302);
 
         $this->assertFlashLevel('success');
-
     }
 
     public function testItShouldDeleteInvoice()
@@ -71,7 +70,6 @@ class InvoicesTest extends FeatureTestCase
             ->assertRedirect(url('incomes/invoices'));
 
         $this->assertFlashLevel('success');
-
     }
 
     private function getInvoiceRequest($recurring = 0)

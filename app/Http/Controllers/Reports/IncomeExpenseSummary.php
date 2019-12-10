@@ -14,11 +14,14 @@ use App\Models\Expense\Payment;
 use App\Models\Expense\Vendor;
 use App\Models\Setting\Category;
 use App\Utilities\Recurring;
+use App\Traits\DateTime;
 use Charts;
 use Date;
 
 class IncomeExpenseSummary extends Controller
 {
+    use DateTime;
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +33,20 @@ class IncomeExpenseSummary extends Controller
 
         $status = request('status');
         $year = request('year', Date::now()->year);
+
+        // check and assign year start
+        $financial_start = $this->getFinancialStart();
+
+        if ($financial_start->month != 1) {
+            // check if a specific year is requested
+            if (!is_null(request('year'))) {
+                $financial_start->year = $year;
+            }
+
+            $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
+            $financial_start->subYear()->subMonth();
+        }
+
         $categories_filter = request('categories');
 
         $income_categories = Category::enabled()->type('income')->when($categories_filter, function ($query) use ($categories_filter) {
@@ -42,9 +59,11 @@ class IncomeExpenseSummary extends Controller
 
         // Dates
         for ($j = 1; $j <= 12; $j++) {
-            $dates[$j] = Date::parse($year . '-' . $j)->format('F');
+            $ym_string = is_array($year) ? $financial_start->addMonth()->format('Y-m') : $year . '-' . $j;
+            
+            $dates[$j] = Date::parse($ym_string)->format('F');
 
-            $profit_graph[Date::parse($year . '-' . $j)->format('F-Y')] = 0;
+            $profit_graph[Date::parse($ym_string)->format('F-Y')] = 0;
 
             // Totals
             $totals[$dates[$j]] = array(
@@ -153,6 +172,8 @@ class IncomeExpenseSummary extends Controller
             $view_template = 'reports.income_expense_summary.index';
         }
 
+        $print_url = $this->getPrintUrl(is_array($year) ? $year[0] : $year);
+
         // Profit chart
         $chart = Charts::multi('line', 'chartjs')
             ->dimensions(0, 300)
@@ -162,58 +183,71 @@ class IncomeExpenseSummary extends Controller
             ->credits(false)
             ->view($chart_template);
 
-        return view($view_template, compact('chart', 'dates', 'income_categories', 'expense_categories', 'categories', 'statuses', 'accounts', 'customers', 'vendors', 'compares', 'totals'));
+        return view($view_template, compact(
+            'chart',
+            'dates',
+            'income_categories',
+            'expense_categories',
+            'categories',
+            'statuses',
+            'accounts',
+            'customers',
+            'vendors',
+            'compares',
+            'totals',
+            'print_url'
+        ));
     }
 
     private function setAmount(&$graph, &$totals, &$compares, $items, $type, $date_field)
     {
         foreach ($items as $item) {
-            if ($item->getTable() == 'bill_payments' || $item->getTable() == 'invoice_payments') {
+            if (($item->getTable() == 'bill_payments') || ($item->getTable() == 'invoice_payments')) {
                 $type_item = $item->$type;
 
                 $item->category_id = $type_item->category_id;
             }
 
-            switch ($item->getTable()) {
-                case 'invoice_payments':
-                    $invoice = $item->invoice;
+            if ($item->getTable() == 'invoice_payments') {
+                $invoice = $item->invoice;
 
-                    if ($customers = request('customers')) {
-                        if (!in_array($invoice->customer_id, $customers)) {
-                            continue;
-                        }
+                if ($customers = request('customers')) {
+                    if (!in_array($invoice->customer_id, $customers)) {
+                        continue;
                     }
+                }
 
-                    $item->category_id = $invoice->category_id;
-                    break;
-                case 'bill_payments':
-                    $bill = $item->bill;
-
-                    if ($vendors = request('vendors')) {
-                        if (!in_array($bill->vendor_id, $vendors)) {
-                            continue;
-                        }
-                    }
-
-                    $item->category_id = $bill->category_id;
-                    break;
-                case 'invoices':
-                case 'bills':
-                    if ($accounts = request('accounts')) {
-                        foreach ($item->payments as $payment) {
-                            if (!in_array($payment->account_id, $accounts)) {
-                                continue 2;
-                            }
-                        }
-                    }
-                    break;
+                $item->category_id = $invoice->category_id;
             }
 
-            $date = Date::parse($item->$date_field)->format('F');
+            if ($item->getTable() == 'bill_payments') {
+                $bill = $item->bill;
+
+                if ($vendors = request('vendors')) {
+                    if (!in_array($bill->vendor_id, $vendors)) {
+                        continue;
+                    }
+                }
+
+                $item->category_id = $bill->category_id;
+            }
+
+            if (($item->getTable() == 'invoices') || ($item->getTable() == 'bills')) {
+                if ($accounts = request('accounts')) {
+                    foreach ($item->payments as $payment) {
+                        if (!in_array($payment->account_id, $accounts)) {
+                            continue 2;
+                        }
+                    }
+                }
+            }
+
+            $month = Date::parse($item->$date_field)->format('F');
+            $month_year = Date::parse($item->$date_field)->format('F-Y');
 
             $group = (($type == 'invoice') || ($type == 'revenue')) ? 'income' : 'expense';
 
-            if (!isset($compares[$group][$item->category_id])) {
+            if (!isset($compares[$group][$item->category_id]) || !isset($compares[$group][$item->category_id][$month]) || !isset($graph[$month_year])) {
                 continue;
             }
 
@@ -226,19 +260,44 @@ class IncomeExpenseSummary extends Controller
                 }
             }
 
-            $compares[$group][$item->category_id][$date]['amount'] += $amount;
-            $compares[$group][$item->category_id][$date]['currency_code'] = $item->currency_code;
-            $compares[$group][$item->category_id][$date]['currency_rate'] = $item->currency_rate;
+            $compares[$group][$item->category_id][$month]['amount'] += $amount;
+            $compares[$group][$item->category_id][$month]['currency_code'] = $item->currency_code;
+            $compares[$group][$item->category_id][$month]['currency_rate'] = $item->currency_rate;
 
             if ($group == 'income') {
-                $graph[Date::parse($item->$date_field)->format('F-Y')] += $amount;
+                $graph[$month_year] += $amount;
 
-                $totals[$date]['amount'] += $amount;
+                $totals[$month]['amount'] += $amount;
             } else {
-                $graph[Date::parse($item->$date_field)->format('F-Y')] -= $amount;
+                $graph[$month_year] -= $amount;
 
-                $totals[$date]['amount'] -= $amount;
+                $totals[$month]['amount'] -= $amount;
             }
         }
+    }
+
+    private function getPrintUrl($year)
+    {
+        $print_url = 'reports/income-expense-summary?print=1'
+            . '&status=' . request('status')
+            . '&year='. request('year', $year);
+
+        collect(request('accounts'))->each(function($item) use(&$print_url) {
+            $print_url .= '&accounts[]=' . $item;
+        });
+
+        collect(request('customers'))->each(function($item) use(&$print_url) {
+            $print_url .= '&customers[]=' . $item;
+        });
+
+        collect(request('vendors'))->each(function($item) use(&$print_url) {
+            $print_url .= '&vendors[]=' . $item;
+        });
+
+        collect(request('categories'))->each(function($item) use(&$print_url) {
+            $print_url .= '&categories[]=' . $item;
+        });
+
+        return $print_url;
     }
 }

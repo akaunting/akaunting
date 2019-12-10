@@ -60,6 +60,7 @@
                     dataType: 'JSON',
                     data: 'code=' + $(this).val(),
                     success: function(data) {
+                        $('#rate').val(data.rate);
                         $('#precision').val(data.precision);
                         $('#symbol').val(data.symbol);
                         $('#symbol_first').val(data.symbol_first);

@@ -11,6 +11,7 @@ return [
         'enabled'           => ':type abilitato!',
         'disabled'          => ':type disabilitato!',
     ],
+
     'error' => [
         'over_payment'      => 'Errore: pagamento non aggiunto! L\'importo inserito supera il totale: :amount',
         'not_user_company'  => 'Errore: Non hai i permessi per gestire questa azienda!',
@@ -21,9 +22,11 @@ return [
         'import_column'     => 'Errore: :message Foglio nome: :sheet. Riga numero: :line.',
         'import_sheet'      => 'Errore: Il nome del foglio non è valido. Vi preghiamo di controllare il file di esempio.',
     ],
+
     'warning' => [
         'deleted'           => 'Attenzione: Non è consentito eliminare <b>:name</b> perché ha :text collegato.',
         'disabled'          => 'Attenzione: Non è consentito disabilitare <b>:name</b> perché ha :text collegato.',
+        'disable_code'      => 'Avviso: Non è consentito disabilitare o modificare la valuta di <b>:nome</b> perché ha: testo correlato.',
     ],
 
 ];

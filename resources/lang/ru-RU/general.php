@@ -4,11 +4,11 @@ return [
 
     'items'                 => 'Пункт | Пункты',
     'incomes'               => 'Поступление | Поступления',
-    'invoices'              => 'Квитанция | Квитанции',
+    'invoices'              => 'Счёт | Счета',
     'revenues'              => 'Доход | Доходы',
     'customers'             => 'Клиент | Клиенты',
     'expenses'              => 'Расход | Расходы',
-    'bills'                 => 'Счёт | Счета',
+    'bills'                 => 'Закупка | Закупки',
     'payments'              => 'Платёж | Платежи',
     'vendors'               => 'Поставщик | Поставщики',
     'accounts'              => 'Аккаунт | Аккаунты',
@@ -40,8 +40,7 @@ return [
     'others'                => 'Другой|Другие',
     'contacts'              => 'Контакт | Контакты',
     'reconciliations'       => 'Reconciliation|Reconciliations',
-    'deposits'              => 'Депозит | Депозиты',
-    'withdrawals'           => 'Withdrawal|Withdrawals',
+    'developers'            => 'Developer|Developers',
 
     'dashboard'             => 'Панель управления',
     'banking'               => 'Банки',
@@ -122,7 +121,7 @@ return [
     'difference'            => 'Разница',
 
     'title' => [
-        'new'               => 'Создать :type',
+        'new'               => 'Новый :type',
         'edit'              => 'Изменить :type',
         'create'            => 'Создать :type',
         'send'              => 'Отправить :type',

@@ -41,6 +41,7 @@
                  <strong>{{ trans('general.tax_number') }}: </strong> {{ $invoice->customer_tax_number }} /  
             @endif
             @stack('tax_number_input_end')
+
             @stack('company_number_input_start')
             @if ($invoice->customer_company_number)
                  <strong>{{ trans('general.company_number') }}: </strong> {{ $invoice->customer_company_number}}  
@@ -226,6 +227,7 @@
     <div class="col-100">
             @stack('signature_input_start')
             <table class="text" style="page-break-inside: avoid;">
+
                 <tr>
                 <td>
                 <img width="150"

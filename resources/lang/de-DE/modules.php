@@ -5,6 +5,7 @@ return [
     'title'                 => 'API Token',
     'api_token'             => 'Token',
     'my_apps'               => 'Meine Apps',
+    'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'Top bezahlt',
     'new'                   => 'Neu',
     'top_free'              => 'Top kostenlos',
@@ -23,6 +24,9 @@ return [
     'added'                 => 'Hinzugefügt',
     'updated'               => 'Aktualisiert',
     'compatibility'         => 'Kompatibilität',
+    'documentation'         => 'Dokumentation',
+    'view'                  => 'Ansicht',
+    'back'                  => 'Zurück',
 
     'installed'             => ':module installiert',
     'uninstalled'           => ':module deinstalliert',
@@ -58,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Installiert',
+        'pre_sale' => 'Pre-Sale',
     ],
 
     'button' => [

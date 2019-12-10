@@ -62,6 +62,9 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ url('incomes/customers/' . $item->id) }}">{{ trans('general.show') }}</a></li>
+                                    @permission('read-reports-income-summary')
+                                    <li><a href="{{ url('reports/income-summary?customers[]=' . $item->id) }}">{{ trans_choice('general.reports', 1) }}</a></li>
+                                    @endpermission
                                     <li><a href="{{ url('incomes/customers/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>
                                     @if ($item->enabled)
                                     <li><a href="{{ route('customers.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>

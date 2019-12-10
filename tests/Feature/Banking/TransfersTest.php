@@ -120,7 +120,7 @@ class TransfersTest extends FeatureTestCase
             'payment_method' => 'offlinepayment.cash.1',
             'reference' => null,
             'currency_code' => setting('general.default_currency'),
-            'currency_rate' => '1',
+            'currency_rate' => '1'
         ];
     }
 
@@ -140,7 +140,7 @@ class TransfersTest extends FeatureTestCase
             'category_id' => $this->company->categories()->type('income')->first()->id,
             'reference' => $this->faker->text(5),
             'payment_method' => setting('general.default_payment_method'),
-            'attachment' => $attachment,
+            'attachment' => $attachment
         ];
     }
 
@@ -160,7 +160,7 @@ class TransfersTest extends FeatureTestCase
             'category_id' => $this->company->categories()->type('expense')->first()->id,
             'payment_method' => setting('general.default_payment_method'),
             'reference' => $this->faker->text(5),
-            'attachment' => $attachment,
+            'attachment' => $attachment
         ];
     }
 }

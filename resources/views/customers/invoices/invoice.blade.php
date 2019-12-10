@@ -89,8 +89,8 @@
                                 @endif
                             </td>
                             <td class="text-center">{{ $item->quantity }}</td>
-                            <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
-                            <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
+                            <td class="style-price text-right">@money($item->price, $invoice->currency_code, true)</td>
+                            <td class="style-price text-right">@money($item->total, $invoice->currency_code, true)</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -116,18 +116,18 @@
                             @if($total->code != 'total')
                                 <tr>
                                     <th>{{ trans($total['name']) }}:</th>
-                                    <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                                    <td class="style-price text-right">@money($total->amount, $invoice->currency_code, true)</td>
                                 </tr>
                             @else
                                 @if ($invoice->paid)
                                     <tr class="text-success">
                                         <th>{{ trans('invoices.paid') }}:</th>
-                                        <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
+                                        <td class="style-price text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
                                     </tr>
                                 @endif
                                 <tr>
                                     <th>{{ trans($total['name']) }}:</th>
-                                    <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
+                                    <td class="style-price text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
                                 </tr>
                             @endif
                         @endforeach
@@ -138,3 +138,14 @@
         </div>
     </section>
 @endsection
+
+@if (isset($currency_style) && $currency_style)
+    @push('stylesheet')
+        <style type="text/css">
+            .style-price {
+                font-family: sans-serif;
+                font-size: 15px;
+            }
+        </style>
+    @endpush
+@endif

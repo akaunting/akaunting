@@ -10,5 +10,7 @@ return [
     'start_date'            => 'Data di inzio',
     'end_date'              => 'Data di fine',
     'cleared_amount'        => 'Importo cancellato',
+    'deposit'               => 'Deposito',
+    'withdrawal'            => 'Prelievo',
 
 ];

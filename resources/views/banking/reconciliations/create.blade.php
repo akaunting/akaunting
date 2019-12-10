@@ -51,8 +51,8 @@
                                 <th class="col-md-2">{{ trans('general.date') }}</th>
                                 <th class="col-md-3">{{ trans('general.description') }}</th>
                                 <th class="col-md-2">{{ trans_choice('general.contacts', 1) }}</th>
-                                <th class="col-md-2 text-right">{{ trans_choice('general.deposits', 1) }}</th>
-                                <th class="col-md-2 text-right">{{ trans_choice('general.withdrawals', 1) }}</th>
+                                <th class="col-md-2 text-right">{{ trans('reconciliations.deposit') }}</th>
+                                <th class="col-md-2 text-right">{{ trans('reconciliations.withdrawal') }}</th>
                                 <th class="col-md-1 text-right">{{ trans('general.clear') }}</th>
                             </tr>
                             </thead>
@@ -62,7 +62,7 @@
                                     <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
                                     <td>{{ $item->description }}</td>
                                     <td>@if (!empty($item->contact)) {{ $item->contact->name }} @else {{ trans('general.na') }}@endif</td>
-                                    @if (($item->model == 'App\Models\Income\Invoice') || ($item->model == 'App\Models\Income\Revenue'))
+                                    @if (($item->model == 'App\Models\Income\InvoicePayment') || ($item->model == 'App\Models\Income\Revenue'))
                                     <td class="text-right">@money($item->amount, $item->currency_code, true)</td>
                                     <td>&nbsp;</td>
                                     @else

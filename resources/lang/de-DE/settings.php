@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Lokalisation',
+        'financial_start'   => 'Beginn des Finanzjahrs',
+        'timezone'          => 'Zeitzone',
         'date' => [
             'format'        => 'Datumsformat',
             'separator'     => 'Datumstrennzeichen',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Schrägstrich (/)',
             'space'         => 'Leerzeichen ( )',
         ],
-        'timezone'          => 'Zeitzone',
         'percent' => [
             'title'         => 'Position des Prozent (%)',
             'before'        => 'Vor der Zahl',

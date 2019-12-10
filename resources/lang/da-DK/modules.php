@@ -5,6 +5,7 @@ return [
     'title'                 => 'API Token',
     'api_token'             => 'Token',
     'my_apps'               => 'Mine apps',
+    'pre_sale'              => 'Pre-salg',
     'top_paid'              => 'Top betalt',
     'new'                   => 'Ny',
     'top_free'              => 'Top gratis',
@@ -23,6 +24,9 @@ return [
     'added'                 => 'Tilføjet',
     'updated'               => 'Opdateret',
     'compatibility'         => 'Kompatibilitet',
+    'documentation'         => 'Dokumentation',
+    'view'                  => 'Vis',
+    'back'                  => 'Tilbage',
 
     'installed'             => ':module installeret',
     'uninstalled'           => ':module afinstalleret',
@@ -58,6 +62,7 @@ return [
 
     'badge' => [
         'installed' => 'Installeret',
+        'pre_sale' => 'Pre-salg',
     ],
 
     'button' => [

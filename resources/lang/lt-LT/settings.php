@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'name'              => 'Vardas',
+        'name'              => 'Pavadinimas',
         'email'             => 'El. paštas',
         'phone'             => 'Telefonas',
         'address'           => 'Adresas',
@@ -11,6 +11,8 @@ return [
     ],
     'localisation' => [
         'tab'               => 'Lokalizacija',
+        'financial_start'   => 'Finansinių metų pradžia',
+        'timezone'          => 'Laiko juosta',
         'date' => [
             'format'        => 'Datos formatas',
             'separator'     => 'Datos skirtukas',
@@ -20,7 +22,6 @@ return [
             'slash'         => 'Pasvirasis brūkšnys (/)',
             'space'         => 'Tarpas ( )',
         ],
-        'timezone'          => 'Laiko juosta',
         'percent' => [
             'title'         => 'Procentų (%) Pozicija',
             'before'        => 'Prieš skaičių',
@@ -31,7 +32,7 @@ return [
         'tab'               => 'Sąskaita faktūra',
         'prefix'            => 'Sąskaitos serija',
         'digit'             => 'Skaitmenų kiekis',
-        'next'              => 'Sekantis numeris',
+        'next'              => 'Kitas numeris',
         'logo'              => 'Logotipas',
         'custom'            => 'Pasirinktinis',
         'item_name'         => 'Elemento pavadinimas',
@@ -75,9 +76,9 @@ return [
         'send_bill'         => 'Siųsti sąskaitos priminimą',
         'bill_days'         => 'Siųsti prieš pavėlavimą',
         'cron_command'      => 'Cron komanda',
-        'schedule_time'     => 'Paleisti valandą',
+        'schedule_time'     => 'Paleidimo valanda',
         'send_item_reminder'=> 'Siųsti priminimą',
-        'item_stocks'       => 'Send When Item Stock',
+        'item_stocks'       => 'Siųsti kai atsiras prekių',
     ],
     'appearance' => [
         'tab'               => 'Išvaizda',

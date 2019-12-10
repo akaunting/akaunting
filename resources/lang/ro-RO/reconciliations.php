@@ -6,9 +6,11 @@ return [
     'reconciled'            => 'Reconciled',
     'closing_balance'       => 'Closing Balance',
     'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
+    'list_transactions'     => 'Afișeayă tranzacție',
+    'start_date'            => 'Data de început',
+    'end_date'              => 'Data de sfârșit',
     'cleared_amount'        => 'Cleared Amount',
+    'deposit'               => 'Depozit',
+    'withdrawal'            => 'Withdrawal',
 
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
+use Module;
 
 class Import extends Controller
 {
@@ -17,6 +18,12 @@ class Import extends Controller
     {
         $path = $group . '/' . $type;
 
-        return view('common.import.create', compact('group', 'type', 'path'));
+        if (Module::findByAlias($group) instanceof \Nwidart\Modules\Module) {
+            $namespace = $group . '::';
+        } else {
+            $namespace = '';
+        }
+
+        return view('common.import.create', compact('group', 'type', 'path', 'namespace'));
     }
 }

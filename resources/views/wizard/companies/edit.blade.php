@@ -41,11 +41,11 @@
 
     <div class="box-body">
         <div class="col-md-12 {!! (!setting('general.api_token', null)) ?: 'hidden' !!}">
-            <div class="form-group required {{ $errors->has('api_token') ? 'has-error' : ''}}">
+            <div class="form-group {{ $errors->has('api_token') ? 'has-error' : ''}}">
                 {!! Form::label('sale_price', trans('modules.api_token'), ['class' => 'control-label']) !!}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                    {!! Form::text('api_token', setting('general.api_token', null), ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_token')])]) !!}
+                    {!! Form::text('api_token', setting('general.api_token', null), ['class' => 'form-control', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_token')])]) !!}
                 </div>
                 {!! $errors->first('api_token', '<p class="help-block">:message</p>') !!}
             </div>
@@ -54,10 +54,9 @@
             </p>
             </br>
         </div>
-
         {{ Form::textGroup('company_tax_number', trans('general.tax_number'), 'percent', []) }}
 
-        {{ Form::textGroup('company_phone', trans('settings.company.phone'), 'phone', []) }}
+        {{ Form::textGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar-check-o', ['id' => 'financial_start', 'class' => 'form-control', 'data-inputmask' => '\'alias\': \'dd-mm\'', 'data-mask' => '', 'autocomplete' => 'off'], Date::now()->startOfYear()->format('d-m')) }}
 
         {{ Form::textareaGroup('company_address', trans('settings.company.address')) }}
 
@@ -80,10 +79,15 @@
 @endsection
 
 @push('js')
+<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+@if (language()->getShortCode() != 'en')
+<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+@endif
 <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
+<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
 <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
 @endpush
 
@@ -93,6 +97,14 @@
     var text_no = '{{ trans('general.no') }}';
 
     $(document).ready(function() {
+        $('#financial_start').datepicker({
+            format: 'dd-mm',
+            todayBtn: 'linked',
+            weekStart: 1,
+            autoclose: true,
+            language: '{{ language()->getShortCode() }}'
+        });
+
         $('#company_logo').fancyfile({
             text  : '{{ trans('general.form.select.file') }}',
             style : 'btn-default',
@@ -104,27 +116,23 @@
         });
 
         @if($company->company_logo)
-        company_logo_html  = '<span class="company_logo">';
-        company_logo_html += '    <a href="{{ url('uploads/' . $company->company_logo->id . '/download') }}">';
-        company_logo_html += '        <span id="download-company_logo" class="text-primary">';
-        company_logo_html += '            <i class="fa fa-file-{{ $company->company_logo->aggregate_type }}-o"></i> {{ $company->company_logo->basename }}';
-        company_logo_html += '        </span>';
-        company_logo_html += '    </a>';
-        company_logo_html += '    {!! Form::open(['id' => 'company_logo-' . $company->company_logo->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $company->company_logo->id)], 'style' => 'display:inline']) !!}';
-        company_logo_html += '    <a id="remove-company_logo" href="javascript:void();">';
-        company_logo_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-        company_logo_html += '    </a>';
-        company_logo_html += '    <input type="hidden" name="page" value="setting" />';
-        company_logo_html += '    <input type="hidden" name="key" value="general.company_logo" />';
-        company_logo_html += '    <input type="hidden" name="value" value="{{ $company->company_logo->id }}" />';
-        company_logo_html += '    {!! Form::close() !!}';
-        company_logo_html += '</span>';
+        $.ajax({
+            url: '{{ url('uploads/' . $company->company_logo->id . '/show') }}',
+            type: 'GET',
+            data: {column_name: 'company_logo', page: 'setting', key: 'general.company_logo'},
+            dataType: 'JSON',
+            success: function(json) {
+                if (json['success']) {
+                    $('.form-group.col-md-6 .fancy-file').after(json['html']);
+                }
+            }
+        });
 
-        $('.form-group.col-md-6 .fancy-file .fake-file').append(company_logo_html);
-
+        @permission('delete-common-uploads')
         $(document).on('click', '#remove-company_logo', function (e) {
             confirmDelete("#company_logo-{!! $company->company_logo->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $company->company_logo->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
         });
+        @endpermission
         @endif
     });
 </script>

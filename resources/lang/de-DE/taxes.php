@@ -6,6 +6,6 @@ return [
     'rate_percent'          => 'Steuersatz (%)',
     'normal'                => 'Normal',
     'inclusive'             => 'Inklusive',
-    'compound'              => 'Compound',
+    'compound'              => 'zusammengesetzt',
 
 ];

@@ -102,7 +102,7 @@ return [
             'rule-name' => 'mesaj-personalizat',
         ],
         'invalid_currency' => 'Codul :attribute este invalid.',
-        'invalid_amount'   => 'The amount :attribute is invalid.',
+        'invalid_amount'   => 'Cantitatea de :attribute nu este valid.',
     ],
 
     /*

@@ -16,13 +16,16 @@ return [
     'no_apps'               => 'Inca nu exista aplicatii in aceasta categorie.',
     'developer'             => 'Esti un dezvoltator de aplicatii? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Aici</a> poti afla cum sa creezi o aplicatie si sa incepi sa vinzi astazi!',
 
-    'recommended_apps'      => 'Recommended Apps',
+    'recommended_apps'      => 'Aplicaţii recomandate',
 
     'about'                 => 'Despre',
 
     'added'                 => 'Adăugat',
     'updated'               => 'Actualizat',
     'compatibility'         => 'Compatibilitate',
+    'documentation'         => 'Documentație',
+    'view'                  => 'Vizualizare',
+    'back'                  => 'Înapoi',
 
     'installed'             => ':module instalat',
     'uninstalled'           => ':module dezinstalat',
@@ -34,26 +37,26 @@ return [
         'installation'      => 'Instalare',
         'faq'               => 'Întrebări frecvente',
         'changelog'         => 'Istoric modificări',
-        'reviews'            => 'Reviews',
+        'reviews'            => 'Opinii',
     ],
 
     'installation' => [
         'header'            => 'Instalare aplicatie',
         'download'          => 'Descărcare fisier :module.',
         'unzip'             => 'Dezarhivare fisiere :module.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
+        'file_copy'         => 'Dezarchivare fișiere pentru :module.',
+        'migrate'           => 'Se aplică un update pentru acest modul: :module.',
+        'finish'            => 'Acest update a fost instalat cu succes! Intr-o clipă vei fi redirectionat.',
         'install'           => 'Instalare fisiere :module.',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download' => ':module - Acest modul nu poate fi descărcat!',
+        'upload' => 'Modulul :module descărcat nu poate fi salvat!',
+        'unzip' => ':module nu poate fi dezarchivat!',
+        'file_copy' => 'Fișierele pentru :module nu pot fi copiate!',
+        'migrate' => 'Acest modul :module pare a fi defect!',
+        'migrate core' => ':module / Folosești deja versiunea recentă. Momentan nu poti actualiza.',
     ],
 
     'badge' => [
@@ -73,8 +76,8 @@ return [
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add' => 'Adaugă o Opinie'
         ],
-        'na' => 'There are no reviews.'
+        'na' => 'Inca nu sunt opinii salvate.'
     ]
 ];
