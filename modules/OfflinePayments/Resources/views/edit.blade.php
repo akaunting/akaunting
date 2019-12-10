@@ -39,7 +39,7 @@
 
                     <div class="card-footer">
                         <div class="row float-right">
-                            {{ Form::saveButtons('apps/offline-payments/settings') }}
+                            {{ Form::saveButtons('settings/offline-payments') }}
                         </div>
                     </div>
                 {!! Form::close() !!}
@@ -77,23 +77,23 @@
                                                     <i class="fa fa-ellipsis-h text-muted"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    {!! Form::button(trans('general.edit'), array(
-                                                        'type'    => 'button',
-                                                        'class'   => 'dropdown-item method-edit',
-                                                        'title'   => trans('general.edit'),
+                                                    {!! Form::button(trans('general.edit'), [
+                                                        'type' => 'button',
+                                                        'class' => 'dropdown-item method-edit',
+                                                        'title' => trans('general.edit'),
                                                         'data-code' => $item->code,
                                                         'id' => 'edit-' . $item->code,
-                                                        '@click'  => 'onEdit'
-                                                    )) !!}
+                                                        '@click' => 'onEdit',
+                                                    ]) !!}
                                                     <div class="dropdown-divider"></div>
-                                                    {!! Form::button(trans('general.delete'), array(
-                                                        'type'    => 'button',
-                                                        'class'   => 'dropdown-item method-delete',
-                                                        'title'   => trans('general.delete'),
+                                                    {!! Form::button(trans('general.delete'), [
+                                                        'type' => 'button',
+                                                        'class' => 'dropdown-item method-delete',
+                                                        'title' => trans('general.delete'),
                                                         'data-code' => $item->code,
                                                         'id' => 'delete-' . $item->code,
-                                                        '@click'  => 'confirmDelete("' . $item->code . '", "' . trans('general.delete') . ' ' . trans_choice('offline-payments::general.methods', 1) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans('offline-payments::general.name'))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
-                                                    )) !!}
+                                                        '@click' => 'confirmDelete("' . $item->code . '", "' . trans('general.delete') . ' ' . trans_choice('offline-payments::general.methods', 1) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $item->name . '</strong>', 'type' => mb_strtolower(trans('offline-payments::general.name'))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")',
+                                                    ]) !!}
                                                 </div>
                                             </div>
                                         </td>
