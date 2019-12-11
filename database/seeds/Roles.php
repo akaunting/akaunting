@@ -76,7 +76,7 @@ class Roles extends Seeder
                 'settings-schedule' => 'r',
                 'settings-taxes' => 'c,r,u,d',
                 'wizard-companies' => 'c,r,u',
-                'wizard-currencies' => 'c,r,u',
+                'wizard-currencies' => 'c,r,u,d',
                 'wizard-finish' => 'c,r,u',
                 'wizard-taxes' => 'c,r,u',
             ],

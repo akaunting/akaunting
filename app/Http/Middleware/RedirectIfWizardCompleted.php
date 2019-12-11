@@ -26,6 +26,11 @@ class RedirectIfWizardCompleted
             return $next($request);
         }
 
+        // Check callbacks from currency page of wizard
+        if (Str::contains($request->headers->get('referer'), 'wizard/currencies')) {
+            return $next($request);
+        }
+
         // Not wizard completed, redirect to wizard
         redirect()->route('wizard.edit')->send();
     }
