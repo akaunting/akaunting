@@ -112,7 +112,7 @@ class Login extends Controller
             'error' => false,
             'message' => null,
             'data' => null,
-            'redirect' => redirect()->intended('wizard')->getTargetUrl(),
+            'redirect' => redirect()->intended()->getTargetUrl(),
         ];
 
         return response()->json($response);

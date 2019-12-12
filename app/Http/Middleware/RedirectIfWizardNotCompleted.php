@@ -1,12 +1,12 @@
 <?php
+
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Str;
 
-class RedirectIfWizardCompleted
+class RedirectIfWizardNotCompleted
 {
-    
     /**
      * Handle an incoming request.
      *
@@ -16,17 +16,17 @@ class RedirectIfWizardCompleted
      */
     public function handle($request, Closure $next)
     {
-        // Check wizard is completed or not
+        // Check setting
         if (setting('wizard.completed', 0) == 1) {
             return $next($request);
         }
-        
-        // Already in the wizard
+
+        // Check url
         if (Str::startsWith($request->getPathInfo(), '/wizard')) {
             return $next($request);
         }
-        
-        // Not wizard completed, redirect to wizard
+
+        // Redirect to wizard
         redirect()->route('wizard.edit')->send();
     }
 }

@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
 
         'common' => [
             'web',
-            'wizard.completed',
+            'wizard.redirect',
         ],
 
         'guest' => [
@@ -75,7 +75,7 @@ class Kernel extends HttpKernel
             'web',
             'auth',
             'auth.disabled',
-            'wizard.completed',
+            'wizard.redirect',
             'menu.admin',
             'permission:read-admin-panel',
         ],
@@ -151,7 +151,7 @@ class Kernel extends HttpKernel
         'install.can' => \App\Http\Middleware\CanInstall::class,
         'install.redirect' => \App\Http\Middleware\RedirectIfNotInstalled::class,
         'money' => \App\Http\Middleware\Money::class,
-        'wizard.completed' => \App\Http\Middleware\RedirectIfWizardCompleted::class,
+        'wizard.redirect' => \App\Http\Middleware\RedirectIfWizardNotCompleted::class,
         'api.key' => \App\Http\Middleware\CanApiKey::class,
 
         // Vendor
