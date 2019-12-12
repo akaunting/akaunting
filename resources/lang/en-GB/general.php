@@ -165,4 +165,16 @@ return [
         'this_month' => 'This Month',
         'last_month' => 'Last Month',
     ],
+
+    'empty' => [
+        'documentation' => 'Check out the <a href=":url" target="_blank" class="text-success">documentation</a> for more details.',
+        'items' => 'Items can be products or services. You can use items when creating invoices and bills to have the price, tax etc fields populated.',
+        'invoices' => 'Invoices can be one time or recurring. You can send them to customers and start accepting online payments.',
+        'revenues' => 'Revenue is a paid income transaction. It can be an independent record (i.e. deposit) or attached to an invoice.',
+        'customers' => 'Customers are required if you want to create invoices. They may also log in to Client Portal and see their balance.',
+        'bills' => 'Bills can be one time or recurring. They indicate what you owe your vendors for the products or services you purchase.',
+        'payments' => 'Payment is a paid expense transaction. It can be an independent record (i.e. food receipt) or attached to a bill.',
+        'vendors' => 'Vendors are required if you want to create bills. You can see the balance you owe and filter reports by the vendor.',
+    ],
+
 ];

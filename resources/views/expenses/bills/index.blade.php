@@ -11,88 +11,92 @@
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
-            {!! Form::open([
-                'url' => 'expenses/bills',
-                'role' => 'form',
-                'method' => 'GET',
-                'class' => 'mb-0'
-            ]) !!}
-                <div class="row" v-if="!bulk_action.show">
-                    <div class="col-12 card-header-search">
-                        <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
-                        <akaunting-search></akaunting-search>
+    @if ($bills->count())
+        <div class="card">
+            <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
+                {!! Form::open([
+                    'url' => 'expenses/bills',
+                    'role' => 'form',
+                    'method' => 'GET',
+                    'class' => 'mb-0'
+                ]) !!}
+                    <div class="row" v-if="!bulk_action.show">
+                        <div class="col-12 card-header-search">
+                            <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
+                            <akaunting-search></akaunting-search>
+                        </div>
                     </div>
-                </div>
 
-                {{ Form::bulkActionRowGroup('general.bills', $bulk_actions, 'expenses/bills') }}
-            {!! Form::close() !!}
-        </div>
+                    {{ Form::bulkActionRowGroup('general.bills', $bulk_actions, 'expenses/bills') }}
+                {!! Form::close() !!}
+            </div>
 
-        <div class="table-responsive">
-            <table class="table table-flush table-hover">
-                <thead class="thead-light">
-                    <tr class="row table-head-line">
-                        <th class="col-sm-2 col-md-1 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
-                        <th class="col-sm-2 col-md-2 col-lg-1 col-xl-1 hidden-sm">@sortablelink('bill_number', trans_choice('general.numbers', 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                        <th class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">@sortablelink('contact_name', trans_choice('general.vendors', 1))</th>
-                        <th class="col-md-2 col-lg-2 col-xl-2 hidden-md text-right">@sortablelink('amount', trans('general.amount'))</th>
-                        <th class="col-lg-2 col-xl-2 hidden-lg">@sortablelink('billed_at', trans('bills.bill_date'))</th>
-                        <th class="col-lg-2 col-xl-2 hidden-lg">@sortablelink('due_at', trans('bills.due_date'))</th>
-                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">@sortablelink('bill_status_code', trans_choice('general.statuses', 1))</th>
-                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">{{ trans('general.actions') }}</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach($bills as $item)
-                        @php $paid = $item->paid; @endphp
-                        <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionGroup($item->id, $item->bill_number) }}</td>
-                            <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 hidden-sm"><a class="col-aka text-success" href="{{ route('bills.show', $item->id) }}">{{ $item->bill_number }}</a></td>
-                            <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">{{ $item->contact_name }}</td>
-                            <td class="col-md-2 col-lg-2 col-xl-2 hidden-md text-right">@money($item->amount, $item->currency_code, true)</td>
-                            <td class="col-lg-2 col-xl-2 hidden-lg">@date($item->billed_at)</td>
-                            <td class="col-lg-2 col-xl-2 hidden-lg">@date($item->due_at)</td>
-                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
-                                <span class="badge badge-pill badge-{{ $item->status->label }}">{{ trans('bills.status.' . $item->status->code) }}</span>
-                            </td>
-                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
-                                <div class="dropdown">
-                                    <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-ellipsis-h text-muted"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="{{ route('bills.show', $item->id) }}">{{ trans('general.show') }}</a>
-                                        @if (!$item->reconciled)
-                                            <a class="dropdown-item" href="{{ route('bills.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @endif
-                                        <div class="dropdown-divider"></div>
-                                        @permission('create-expenses-bills')
-                                            <a class="dropdown-item" href="{{ route('bills.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                        @endpermission
-                                        @permission('delete-expenses-bills')
-                                            <div class="dropdown-divider"></div>
-                                            @if (!$item->reconciled)
-                                                {!! Form::deleteLink($item, 'expenses/bills') !!}
-                                            @endif
-                                        @endpermission
-                                    </div>
-                                </div>
-                            </td>
+            <div class="table-responsive">
+                <table class="table table-flush table-hover">
+                    <thead class="thead-light">
+                        <tr class="row table-head-line">
+                            <th class="col-sm-2 col-md-1 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
+                            <th class="col-sm-2 col-md-2 col-lg-1 col-xl-1 hidden-sm">@sortablelink('bill_number', trans_choice('general.numbers', 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
+                            <th class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">@sortablelink('contact_name', trans_choice('general.vendors', 1))</th>
+                            <th class="col-md-2 col-lg-2 col-xl-2 hidden-md text-right">@sortablelink('amount', trans('general.amount'))</th>
+                            <th class="col-lg-2 col-xl-2 hidden-lg">@sortablelink('billed_at', trans('bills.bill_date'))</th>
+                            <th class="col-lg-2 col-xl-2 hidden-lg">@sortablelink('due_at', trans('bills.due_date'))</th>
+                            <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">@sortablelink('bill_status_code', trans_choice('general.statuses', 1))</th>
+                            <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">{{ trans('general.actions') }}</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </thead>
 
-        <div class="card-footer table-action">
-            <div class="row">
-                @include('partials.admin.pagination', ['items' => $bills, 'type' => 'bills'])
+                    <tbody>
+                        @foreach($bills as $item)
+                            @php $paid = $item->paid; @endphp
+                            <tr class="row align-items-center border-top-1">
+                                <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionGroup($item->id, $item->bill_number) }}</td>
+                                <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 hidden-sm"><a class="col-aka text-success" href="{{ route('bills.show', $item->id) }}">{{ $item->bill_number }}</a></td>
+                                <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">{{ $item->contact_name }}</td>
+                                <td class="col-md-2 col-lg-2 col-xl-2 hidden-md text-right">@money($item->amount, $item->currency_code, true)</td>
+                                <td class="col-lg-2 col-xl-2 hidden-lg">@date($item->billed_at)</td>
+                                <td class="col-lg-2 col-xl-2 hidden-lg">@date($item->due_at)</td>
+                                <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+                                    <span class="badge badge-pill badge-{{ $item->status->label }}">{{ trans('bills.status.' . $item->status->code) }}</span>
+                                </td>
+                                <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
+                                    <div class="dropdown">
+                                        <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h text-muted"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" href="{{ route('bills.show', $item->id) }}">{{ trans('general.show') }}</a>
+                                            @if (!$item->reconciled)
+                                                <a class="dropdown-item" href="{{ route('bills.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                            @endif
+                                            <div class="dropdown-divider"></div>
+                                            @permission('create-expenses-bills')
+                                                <a class="dropdown-item" href="{{ route('bills.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
+                                            @endpermission
+                                            @permission('delete-expenses-bills')
+                                                <div class="dropdown-divider"></div>
+                                                @if (!$item->reconciled)
+                                                    {!! Form::deleteLink($item, 'expenses/bills') !!}
+                                                @endif
+                                            @endpermission
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer table-action">
+                <div class="row">
+                    @include('partials.admin.pagination', ['items' => $bills, 'type' => 'bills'])
+                </div>
             </div>
         </div>
-    </div>
+    @else
+        @include('partials.admin.empty_page', ['page' => 'bills', 'docs_path' => 'expenses/bills'])
+    @endif
 @endsection
 
 @push('scripts_start')

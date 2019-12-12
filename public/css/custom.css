@@ -745,6 +745,12 @@
 /*--------Height 0 Finish--------*/
 
 
+table .align-items-center td span.badge {
+    height: 24px;
+    padding-top: 8px;
+    font-size: 9px;
+}
+
 /*----------------RESPONSIVE START LINE----------------*/
 /*--------Xs Breakpoint--------*/
 @media (min-width: 304px) and (max-width: 575.98px)
@@ -952,8 +958,3 @@
 /*--------XL Breakpoint Finish--------*/
 /*----------------RESPONSIVE END LINE----------------*/
 
-table .align-items-center td span.badge {
-    height: 24px;
-    padding-top: 8px;
-    font-size: 9px;
-}
