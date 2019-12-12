@@ -16,6 +16,6 @@ class Console
             return true;
         }
 
-        return false;
+        return $process->getExitCodeText();
     }
 }

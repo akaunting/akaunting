@@ -134,8 +134,10 @@ class Updater
 
         $command = "php artisan update:finish {$alias} {$company_id} {$new} {$old}";
 
-        if (!Console::run($command)) {
-            throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
+        if (true !== $result = Console::run($command)) {
+            $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $alias]);
+
+            throw new \Exception($message);
         }
     }
 
