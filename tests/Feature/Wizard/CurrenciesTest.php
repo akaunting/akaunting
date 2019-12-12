@@ -1,0 +1,70 @@
+<?php
+namespace Tests\Feature\Wizard;
+
+use App\Jobs\Setting\CreateCurrency;
+use Tests\Feature\FeatureTestCase;
+
+class CurrenciesTest extends FeatureTestCase
+{
+
+    public function testItShouldSeeCurrencyListPage()
+    {
+        $this->loginAs()
+            ->get(route('wizard.currencies.index'))
+            ->assertStatus(200)
+            ->assertSeeText(trans_choice('general.currencies', 2));
+    }
+
+    public function testItShouldCreateCurrency()
+    {
+        $this->loginAs()
+            ->post(route('wizard.currencies.store'), $this->getCurrencyRequest())
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+    }
+
+    public function testItShouldUpdateCurrency()
+    {
+        $request = $this->getCurrencyRequest();
+
+        $currency = $this->dispatch(new CreateCurrency($request));
+
+        $request['name'] = $this->faker->text(15);
+
+        $this->loginAs()
+            ->patch(route('wizard.currencies.update', $currency->id), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+    }
+
+    public function testItShouldDeleteCurrency()
+    {
+        $currency = $this->dispatch(new CreateCurrency($this->getCurrencyRequest()));
+
+        $this->loginAs()
+            ->delete(route('wizard.currencies.delete', $currency->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+    }
+
+    private function getCurrencyRequest()
+    {
+        return [
+            'company_id' => $this->company->id,
+            'name' => $this->faker->text(15),
+            'code' => $this->faker->text(strtoupper(5)),
+            'rate' => $this->faker->boolean(1),
+            'precision' => $this->faker->text(5),
+            'symbol' => $this->faker->text(5),
+            'symbol_first' => 1,
+            'symbol_position' => 'after_amount',
+            'decimal_mark' => $this->faker->text(5),
+            'thousands_separator' => $this->faker->text(5),
+            'enabled' => $this->faker->boolean ? 1 : 0,
+            'default_currency' => 0
+        ];
+    }
+}

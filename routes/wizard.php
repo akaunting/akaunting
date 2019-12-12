@@ -1,11 +1,12 @@
 <?php
-
-Route::group(['as' => 'wizard.'], function () {
+Route::group([
+    'as' => 'wizard.'
+], function () {
     Route::get('companies', 'Wizard\Companies@edit')->name('companies.edit');
     Route::patch('companies', 'Wizard\Companies@update')->name('companies.update');
 
     Route::get('currencies', 'Wizard\Currencies@index')->name('currencies.index');
-    Route::get('currencies/{currency}/delete', 'Wizard\Currencies@destroy')->name('currencies.delete');
+    Route::delete('currencies/{currency}', 'Wizard\Currencies@destroy')->name('currencies.delete');
     Route::post('currencies', 'Wizard\Currencies@store')->name('currencies.store');
     Route::patch('currencies/{currency}', 'Wizard\Currencies@update')->name('currencies.update');
 
@@ -16,3 +17,4 @@ Route::group(['as' => 'wizard.'], function () {
 
     Route::get('finish', 'Wizard\Finish@index')->name('finish.index');
 });
+    

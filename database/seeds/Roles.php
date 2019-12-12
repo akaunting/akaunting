@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
@@ -9,10 +8,11 @@ use Illuminate\Database\Seeder;
 
 class Roles extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
-     * @return  void
+     * @return void
      */
     public function run()
     {
@@ -76,9 +76,9 @@ class Roles extends Seeder
                 'settings-schedule' => 'r',
                 'settings-taxes' => 'c,r,u,d',
                 'wizard-companies' => 'c,r,u',
-                'wizard-currencies' => 'c,r,u',
+                'wizard-currencies' => 'c,r,u,d',
                 'wizard-finish' => 'c,r,u',
-                'wizard-taxes' => 'c,r,u',
+                'wizard-taxes' => 'c,r,u'
             ],
             'manager' => [
                 'admin-panel' => 'r',
@@ -118,14 +118,14 @@ class Roles extends Seeder
                 'settings-modules' => 'r,u',
                 'settings-settings' => 'r,u',
                 'settings-schedule' => 'r',
-                'settings-taxes' => 'c,r,u,d',
+                'settings-taxes' => 'c,r,u,d'
             ],
             'customer' => [
                 'client-portal' => 'r',
                 'portal-invoices' => 'r,u',
                 'portal-payments' => 'r,u',
-                'portal-profile' => 'r,u',
-            ],
+                'portal-profile' => 'r,u'
+            ]
         ];
 
         return $rows;
@@ -155,7 +155,7 @@ class Roles extends Seeder
                 'description' => ucwords(str_replace("_", " ", $key))
             ]);
 
-            $this->command->info('Creating Role '. strtoupper($key));
+            $this->command->info('Creating Role ' . strtoupper($key));
 
             // Reading role permission modules
             foreach ($modules as $module => $value) {
@@ -169,12 +169,12 @@ class Roles extends Seeder
                     $permission = Permission::firstOrCreate([
                         'name' => $permissionValue . '-' . $module,
                         'display_name' => ucfirst($permissionValue) . ' ' . $moduleName,
-                        'description' => ucfirst($permissionValue) . ' ' . $moduleName,
+                        'description' => ucfirst($permissionValue) . ' ' . $moduleName
                     ]);
 
-                    $this->command->info('Creating Permission to '.$permissionValue.' for '. $moduleName);
+                    $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $moduleName);
 
-                    if (!$role->hasPermission($permission->name)) {
+                    if (! $role->hasPermission($permission->name)) {
                         $role->attachPermission($permission);
                     } else {
                         $this->command->info($key . ': ' . $p . ' ' . $permissionValue . ' already exist');
