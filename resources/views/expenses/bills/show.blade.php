@@ -354,7 +354,7 @@
                 @stack('bill_item_end')
 
                 @stack('bill_total_start')
-                    <div class="row">
+                    <div class="row mt-5">
                         <div class="col-md-7">
                             @stack('notes_input_start')
                                 <div class="table-responsive">
@@ -494,7 +494,7 @@
                                                 <tr>
                                                     <td>@date($history->created_at)</td>
                                                     <td class="text-center">{{ $history->status->name }}</td>
-                                                    <td class="text-center">{{ $history->description }}</td>
+                                                    <td class="text-right">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
