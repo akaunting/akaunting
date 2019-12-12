@@ -50,12 +50,15 @@
                                     </span>
                                     <div class="timeline-content">
                                         @stack('timeline_body_create_invoice_head_start')
-                                            <h3 class="font-weight-bold">{{ trans('invoices.create_invoice') }}</h3>
+                                            <h2>{{ trans('invoices.create_invoice') }}</h2>
                                         @stack('timeline_body_create_invoice_head_end')
 
                                         @stack('timeline_body_create_invoice_body_start')
                                             @stack('timeline_body_create_invoice_body_message_start')
-                                                <span> {{ trans_choice('general.statuses', 1) .  ' :'  }}</span> <span class=" text-sm font-weight-300">{{ trans('invoices.messages.status.created', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</span>
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="mb-0 font-weight-500"> {{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
+                                                    <small class="pl-2">{{ trans('invoices.messages.status.created', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
+                                                </div>
                                             @stack('timeline_body_create_invoice_body_message_end')
 
                                             <div class="mt-3">
@@ -77,13 +80,15 @@
                                     </span>
                                     <div class="timeline-content">
                                         @stack('timeline_body_send_invoice_head_start')
-                                            <h3 class="font-weight-bold">{{ trans('invoices.send_invoice') }}</h3>
+                                            <h2>{{ trans('invoices.send_invoice') }}</h2>
                                         @stack('timeline_body_send_invoice_head_end')
 
                                         @stack('timeline_body_send_invoice_body_start')
                                             @if ($invoice->status->code != 'sent' && $invoice->status->code != 'partial' && $invoice->status->code != 'viewed')
                                                 @stack('timeline_body_send_invoice_body_message_start')
-                                                    <span>{{ trans_choice('general.statuses', 1) . ' :' }}</span> <span class=" text-sm font-weight-300">{{ trans('invoices.messages.status.send.draft') }}</span>
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4> <small class="pl-2">{{ trans('invoices.messages.status.send.draft') }}</small>
+                                                    </div>
                                                 @stack('timeline_body_send_invoice_body_message_end')
 
                                                 <div class="mt-3">
@@ -109,14 +114,17 @@
                                                         @endif
                                                     @stack('timeline_body_send_invoice_body_button_email_end')
                                                 </div>
-
                                             @elseif($invoice->status->code == 'viewed')
                                                 @stack('timeline_body_viewed_invoice_body_message_start')
-                                                    <span>{{ trans_choice('general.statuses', 1) . ' :' }}</span>  <span class=" text-sm font-weight-300">{{ trans('invoices.messages.status.viewed') }}</span>
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4>  <small class="pl-2">{{ trans('invoices.messages.status.viewed') }}</small>
+                                                    </div>
                                                 @stack('timeline_body_viewed_invoice_body_message_end')
                                             @else
                                                 @stack('timeline_body_send_invoice_body_message_start')
-                                                    <span>{{ trans_choice('general.statuses', 1) . ' :' }}</span>  <span class=" text-sm font-weight-300">{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</span>
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4>  <small class="pl-2">{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
+                                                    </div>
                                                 @stack('timeline_body_send_invoice_body_message_end')
                                             @endif
                                         @stack('timeline_body_send_invoice_body_end')
@@ -132,15 +140,19 @@
 
                                     <div class="timeline-content">
                                         @stack('timeline_body_get_paid_head_start')
-                                            <h3 class="font-weight-bold">{{ trans('invoices.get_paid') }}</h3>
+                                            <h2>{{ trans('invoices.get_paid') }}</h2>
                                         @stack('timeline_body_get_paid_head_end')
 
                                         @stack('timeline_body_get_paid_body_start')
                                             @stack('timeline_body_get_paid_body_message_start')
                                                 @if($invoice->status->code != 'paid' && empty($invoice->transactions->count()))
-                                                    <span>{{ trans_choice('general.statuses', 1) . ' :' }}</span> <span class=" text-sm font-weight-300">{{ trans('invoices.messages.status.paid.await') }}</span>
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4> <small class="pl-2">{{ trans('invoices.messages.status.paid.await') }}</small>
+                                                    </div>
                                                 @else
-                                                    <span>{{ trans_choice('general.statuses', 1) . ' :' }}</span> <span class=" text-sm font-weight-300">{{ trans('general.partially_paid') }}</span>
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4> <small class="pl-2">{{ trans('general.partially_paid') }}</small>
+                                                    </div>
                                                 @endif
                                             @stack('timeline_body_get_paid_body_message_end')
 
@@ -338,7 +350,7 @@
                                             @stack('quantity_th_end')
 
                                             @stack('price_th_start')
-                                                <th class="col-sm-3 text-center hidden-sm pl-5">{{ trans($text_override['price']) }}</th>
+                                                <th class="col-sm-3 text-center hidden-sm">{{ trans($text_override['price']) }}</th>
                                             @stack('price_th_end')
 
                                             @stack('total_th_start')
@@ -352,11 +364,11 @@
                                                 @stack('name_td_end')
 
                                                 @stack('quantity_td_start')
-                                                    <td class="col-xs-4 col-sm-3 text-center">{{ $item->quantity }}</td>
+                                                    <td class="col-xs-4 col-sm-3 text-center pl-6">{{ $item->quantity }}</td>
                                                 @stack('quantity_td_end')
 
                                                 @stack('price_td_start')
-                                                    <td class="col-sm-3 text-center hidden-sm pl-5">@money($item->price, $invoice->currency_code, true)</td>
+                                                    <td class="col-sm-3 text-center hidden-sm pl-8">@money($item->price, $invoice->currency_code, true)</td>
                                                 @stack('price_td_end')
 
                                                 @stack('total_td_start')
@@ -527,7 +539,7 @@
                                             <tr class="table-head-line">
                                                 <th>{{ trans('general.date') }}</th>
                                                 <th class="text-center">{{ trans_choice('general.statuses', 1) }}</th>
-                                                <th class="text-center">{{ trans('general.description') }}</th>
+                                                <th class="text-left">{{ trans('general.description') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -535,7 +547,7 @@
                                                 <tr>
                                                     <td>@date($history->created_at)</td>
                                                     <td class="text-center">{{ $history->status->name }}</td>
-                                                    <td class="text-right">{{ $history->description }}</td>
+                                                    <td class="text-left">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -570,7 +582,7 @@
                                                 @foreach($invoice->transactions as $transaction)
                                                     <tr>
                                                         <td>@date($transaction->paid_at)</td>
-                                                        <td>@money($transaction->amount, $transaction->currency_code, true)</td>
+                                                        <td class="text-right">@money($transaction->amount, $transaction->currency_code, true)</td>
                                                         <td>{{ $transaction->account->name }}</td>
                                                         <td>
                                                             @if ($transaction->reconciled)
@@ -584,23 +596,23 @@
                                                                     'route' => ['transactions.destroy', $transaction->id],
                                                                     'class' => 'd-inline'
                                                                 ]) !!}
-                                                                {{ Form::hidden('form_id', '#invoice-transaction-' . $transaction->id, ['id' => 'form_id-' . $transaction->id]) }}
-                                                                {{ Form::hidden('title', trans_choice('general.transactions', 2), ['id' => 'title-' . $transaction->id]) }}
-                                                                @php $message = trans('general.delete_confirm', [
-                                                                    'name' => '<strong>' . Date::parse($transaction->paid_at)->format($date_format) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>',
-                                                                    'type' => strtolower(trans_choice('general.transactions', 1))
-                                                                    ]);
-                                                                @endphp
-                                                                {{ Form::hidden('message', $message, ['id' => 'mesage-' . $transaction->id]) }}
-                                                                {{ Form::hidden('cancel', trans('general.cancel'), ['id' => 'cancel-' . $transaction->id]) }}
-                                                                {{ Form::hidden('delete', trans('general.delete'), ['id' => 'delete-' . $transaction->id]) }}
+                                                                    {{ Form::hidden('form_id', '#invoice-transaction-' . $transaction->id, ['id' => 'form_id-' . $transaction->id]) }}
+                                                                    {{ Form::hidden('title', trans_choice('general.transactions', 2), ['id' => 'title-' . $transaction->id]) }}
+                                                                    @php $message = trans('general.delete_confirm', [
+                                                                        'name' => '<strong>' . Date::parse($transaction->paid_at)->format($date_format) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>',
+                                                                        'type' => strtolower(trans_choice('general.transactions', 1))
+                                                                        ]);
+                                                                    @endphp
+                                                                    {{ Form::hidden('message', $message, ['id' => 'mesage-' . $transaction->id]) }}
+                                                                    {{ Form::hidden('cancel', trans('general.cancel'), ['id' => 'cancel-' . $transaction->id]) }}
+                                                                    {{ Form::hidden('delete', trans('general.delete'), ['id' => 'delete-' . $transaction->id]) }}
 
-                                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
-                                                                    'type'    => 'button',
-                                                                    'class'   => 'btn btn-danger btn-sm',
-                                                                    'title'   => trans('general.delete'),
-                                                                    '@click'  => 'onDeleteTransaction("invoice-transaction-' . $transaction->id . '")'
-                                                                )) !!}
+                                                                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                                                        'type'    => 'button',
+                                                                        'class'   => 'btn btn-danger btn-sm',
+                                                                        'title'   => trans('general.delete'),
+                                                                        '@click'  => 'onDeleteTransaction("invoice-transaction-' . $transaction->id . '")'
+                                                                    )) !!}
                                                                 {!! Form::close() !!}
                                                             @endif
                                                         </td>

@@ -39,110 +39,118 @@
 
     @stack('timeline_start')
         @if ($bill->status->code != 'paid')
-            <div class="row justify-content-center">
-                @stack('timeline_body_start')
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="timeline timeline-one-side" data-timeline-content="axis" data-timeline-axis-style="dashed">
-                                    @stack('timeline_body_create_bill_start')
-                                        <div class="timeline-block">
-                                            <span class="timeline-step badge-info">
-                                               <i class="fas fa-plus"></i>
-                                            </span>
-                                            <div class="timeline-content">
-                                                @stack('timeline_body_create_bill_head_start')
-                                                    <h3 class="font-weight-bold">{{ trans('bills.create_bill') }}</h3>
-                                                @stack('timeline_body_create_bill_head_end')
+            @stack('timeline_body_start')
+                <div class="card">
+                    <div class="card-body">
+                        <div class="timeline timeline-one-side" data-timeline-content="axis" data-timeline-axis-style="dashed">
+                            @stack('timeline_body_create_bill_start')
+                                <div class="timeline-block">
+                                    <span class="timeline-step badge-info">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        @stack('timeline_body_create_bill_head_start')
+                                            <h2>{{ trans('bills.create_bill') }}</h2>
+                                        @stack('timeline_body_create_bill_head_end')
 
-                                                @stack('timeline_body_create_bill_body_start')
+                                        @stack('timeline_body_create_bill_body_start')
+                                            @stack('timeline_body_create_bill_body_message_start')
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="mb-0 font-weight-500"> {{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
+                                                    <small class="pl-2">{{ trans('bills.messages.status.created', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</small>
+                                                </div>
+                                            @stack('timeline_body_create_bill_body_message_end')
 
-                                                    @stack('timeline_body_create_bill_body_message_start')
-                                                        <span> {{ trans_choice('general.statuses', 1) .  ' :'  }}</span> <span class=" text-sm font-weight-300">{{ trans('bills.messages.status.created', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</span>
-                                                    @stack('timeline_body_create_bill_body_message_end')
-
-                                                    <div class="mt-3">
-                                                        @stack('timeline_body_create_bill_body_button_edit_start')
-                                                            <a href="{{ url('expenses/bills/' . $bill->id . '/edit') }}" class="btn btn-info btn-sm btn-alone">
-                                                                {{ trans('general.edit') }}
-                                                            </a>
-                                                        @stack('timeline_body_create_bill_body_button_edit_end')
-                                                    </div>
-                                                @stack('timeline_body_create_bill_body_end')
+                                            <div class="mt-3">
+                                                @stack('timeline_body_create_bill_body_button_edit_start')
+                                                    <a href="{{ url('expenses/bills/' . $bill->id . '/edit') }}" class="btn btn-info btn-sm btn-alone">
+                                                        {{ trans('general.edit') }}
+                                                    </a>
+                                                @stack('timeline_body_create_bill_body_button_edit_end')
                                             </div>
-                                        </div>
-                                    @stack('timeline_body_create_bill_end')
+                                        @stack('timeline_body_create_bill_body_end')
+                                    </div>
+                                </div>
+                            @stack('timeline_body_create_bill_end')
 
-                                    @stack('timeline_body_receive_bill_start')
-                                        <div class="timeline-block">
-                                            <span class="timeline-step badge-warning">
-                                                <i class="far fa-envelope"></i>
-                                            </span>
-                                          <div class="timeline-content">
-                                              @stack('timeline_body_receive_bill_head_start')
-                                                 <h3 class="font-weight-bold">{{ trans('bills.receive_bill') }}</h3>
-                                              @stack('timeline_body_receive_bill_head_end')
+                            @stack('timeline_body_receive_bill_start')
+                                <div class="timeline-block">
+                                    <span class="timeline-step badge-warning">
+                                        <i class="far fa-envelope"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        @stack('timeline_body_receive_bill_head_start')
+                                            <h2>{{ trans('bills.receive_bill') }}</h2>
+                                        @stack('timeline_body_receive_bill_head_end')
 
-                                              @stack('timeline_body_receive_bill_body_start')
-                                                @if ($bill->status->code == 'draft')
-                                                    @stack('timeline_body_receive_bill_body_message_start')
-                                                        <span> {{ trans_choice('general.statuses', 1) .  ' :'  }}</span> <span class=" text-sm font-weight-300">{{ trans('bills.messages.status.receive.draft') }}</span>
-                                                    @stack('timeline_body_receive_bill_body_message_end')
+                                        @stack('timeline_body_receive_bill_body_start')
+                                            @if ($bill->status->code == 'draft')
+                                                @stack('timeline_body_receive_bill_body_message_start')
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
+                                                        <small class="pl-2">{{ trans('bills.messages.status.receive.draft') }}</small>
+                                                    </div>
+                                                @stack('timeline_body_receive_bill_body_message_end')
 
-                                                    <div class="mt-3">
-                                                        @stack('timeline_body_receive_bill_body_button_sent_start')
-                                                            @permission('update-expenses-bills')
-                                                                <a href="{{ url('expenses/bills/' . $bill->id . '/received') }}" class="btn btn-warning btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
-                                                            @endpermission
-                                                        @stack('timeline_body_receive_bill_body_button_sent_end')
+                                                <div class="mt-3">
+                                                    @stack('timeline_body_receive_bill_body_button_sent_start')
+                                                        @permission('update-expenses-bills')
+                                                            <a href="{{ url('expenses/bills/' . $bill->id . '/received') }}" class="btn btn-warning btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
+                                                        @endpermission
+                                                    @stack('timeline_body_receive_bill_body_button_sent_end')
+                                                </div>
+                                            @else
+                                                @stack('timeline_body_receive_bill_body_message_start')
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
+                                                        <small class="pl-2">{{ trans('bills.messages.status.receive.received', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</small>
+                                                    </div>
+                                                @stack('timeline_body_receive_bill_body_message_end')
+                                            @endif
+                                        @stack('timeline_body_receive_bill_body_end')
+                                    </div>
+                                </div>
+                            @stack('timeline_body_receive_bill_end')
+
+                            @stack('timeline_body_make_payment_start')
+                                <div class="timeline-block">
+                                    <span class="timeline-step badge-success">
+                                        <i class="far fa-money-bill-alt"></i>
+                                    </span>
+
+                                    <div class="timeline-content">
+                                        @stack('timeline_body_make_payment_head_start')
+                                            <h2>{{ trans('bills.make_payment') }}</h2>
+                                        @stack('timeline_body_make_payment_head_end')
+
+                                        @stack('timeline_body_make_payment_body_start')
+                                            @stack('timeline_body_get_paid_body_message_start')
+                                                @if($bill->status->code != 'paid' && empty($bill->transactions->count()))
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500"> {{ trans_choice('general.statuses', 1) .  ':'  }}</h4> <small class="pl-2">{{ trans('bills.messages.status.paid.await') }}</small>
                                                     </div>
                                                 @else
-                                                    @stack('timeline_body_receive_bill_body_message_start')
-                                                        <span> {{ trans_choice('general.statuses', 1) .  ' :'  }}</span> <span class=" text-sm font-weight-300">{{ trans('bills.messages.status.receive.received', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</span>
-                                                    @stack('timeline_body_receive_bill_body_message_end')
-                                                @endif
-                                              @stack('timeline_body_receive_bill_body_end')
-                                          </div>
-                                        </div>
-                                    @stack('timeline_body_receive_bill_end')
-
-                                    @stack('timeline_body_make_payment_start')
-                                        <div class="timeline-block">
-                                            <span class="timeline-step badge-success">
-                                                <i class="far fa-money-bill-alt"></i>
-                                            </span>
-
-                                            <div class="timeline-content">
-                                                @stack('timeline_body_make_payment_head_start')
-                                                    <h3 class="font-weight-bold">{{ trans('bills.make_payment') }}</h3>
-                                                @stack('timeline_body_make_payment_head_end')
-
-                                                @stack('timeline_body_make_payment_body_start')
-                                                    @stack('timeline_body_get_paid_body_message_start')
-                                                        @if($bill->status->code != 'paid' && empty($bill->transactions->count()))
-                                                            <span> {{ trans_choice('general.statuses', 1) .  ' :'  }}</span> <span class=" text-sm font-weight-300">{{ trans('bills.messages.status.paid.await') }}</span>
-                                                        @else
-                                                            <p class=" text-sm mt-1 mb-0">{{ trans_choice('general.statuses', 1) . ': ' . trans('general.partially_paid') }}</p>
-                                                        @endif
-                                                    @stack('timeline_body_make_payment_body_message_end')
-
-                                                    <div class="mt-3">
-                                                        @stack('timeline_body_make_payment_body_button_payment_start')
-                                                            @if(empty($bill->transactions->count()) || (!empty($bill->transactions->count()) && $bill->paid != $bill->amount))
-                                                                <button @click="onPayment" id="button-payment" class="btn btn-success btn-sm header-button-bottom">{{ trans('bills.add_payment') }}</button>
-                                                            @endif
-                                                        @stack('timeline_body_make_payment_body_button_payment_end')
+                                                    <div class="d-flex align-items-center">
+                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4> <small class="pl-2">{{ trans('general.partially_paid') }}</small>
                                                     </div>
-                                                @stack('timeline_body_make_payment_body_end')
+                                                @endif
+                                            @stack('timeline_body_make_payment_body_message_end')
+
+                                            <div class="mt-3">
+                                                @stack('timeline_body_make_payment_body_button_payment_start')
+                                                    @if(empty($bill->transactions->count()) || (!empty($bill->transactions->count()) && $bill->paid != $bill->amount))
+                                                        <button @click="onPayment" id="button-payment" class="btn btn-success btn-sm header-button-bottom">{{ trans('bills.add_payment') }}</button>
+                                                    @endif
+                                                @stack('timeline_body_make_payment_body_button_payment_end')
                                             </div>
-                                        </div>
-                                    @stack('timeline_body_make_payment_end')
+                                        @stack('timeline_body_make_payment_body_end')
+                                    </div>
                                 </div>
-                            </div>
+                            @stack('timeline_body_make_payment_end')
                         </div>
                     </div>
-                @stack('timeline_body_end')
-            </div>
+                </div>
+            @stack('timeline_body_end')
         @endif
     @stack('timeline_end')
 
@@ -334,11 +342,11 @@
                                                 @stack('name_td_end')
 
                                                 @stack('quantity_td_start')
-                                                    <td class="col-xs-4 col-sm-3 text-center">{{ $item->quantity }}</td>
+                                                    <td class="col-xs-4 col-sm-3 text-center pl-6">{{ $item->quantity }}</td>
                                                 @stack('quantity_td_end')
 
                                                 @stack('price_td_start')
-                                                    <td class="col-sm-3 text-center hidden-sm pl-5">@money($item->price, $bill->currency_code, true)</td>
+                                                    <td class="col-sm-3 text-center hidden-sm pl-8">@money($item->price, $bill->currency_code, true)</td>
                                                 @stack('price_td_end')
 
                                                 @stack('total_td_start')
@@ -485,8 +493,8 @@
                                         <thead class="thead-light">
                                             <tr class="table-head-line">
                                                 <th>{{ trans('general.date') }}</th>
-                                                <th>{{ trans_choice('general.statuses', 1) }}</th>
-                                                <th>{{ trans('general.description') }}</th>
+                                                <th class="text-center">{{ trans_choice('general.statuses', 1) }}</th>
+                                                <th class="text-left">{{ trans('general.description') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -494,7 +502,7 @@
                                                 <tr>
                                                     <td>@date($history->created_at)</td>
                                                     <td class="text-center">{{ $history->status->name }}</td>
-                                                    <td class="text-right">{{ $history->description }}</td>
+                                                    <td class="text-left">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -529,7 +537,7 @@
                                                 @foreach($bill->transactions as $transaction)
                                                     <tr>
                                                         <td>@date($item->paid_at)</td>
-                                                        <td>@money($transaction->amount, $transaction->currency_code, true)</td>
+                                                        <td class="text-right">@money($transaction->amount, $transaction->currency_code, true)</td>
                                                         <td>{{ $transaction->account->name }}</td>
                                                         <td>
                                                             @if ($transaction->reconciled)
