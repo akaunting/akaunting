@@ -46,21 +46,15 @@
                             <td class="col-xs-4 col-sm-3 col-md-2">{{ trans_choice('general.' . Str::plural($item->type), 1) }}</td>
                             <td class="col-sm-2 col-md-2 hidden-sm">{{ $item->category->name }}</td>
                             <td class="col-md-2 hidden-md">{{ $item->description }}</td>
-                            @if(!is_null(data_get($item, 'bill.id')))
                             <td class="col-xs-4 col-sm-2 col-md-2 text-right">
-                                <a href="{{ route('bills.show', $item->bill->id) }}">
+                                @php
+                                $id = !empty($item->document_id) ? $item->document_id : $item->id;
+                                $route = ($item->type == 'income') ? (!empty($item->document_id) ? 'invoices.show' : 'revenues.edit') : (!empty($item->document_id) ? 'bills.show' : 'payments.edit');
+                                @endphp
+                                <a href="{{ route($route, $id) }}" class="text-success">
                                     @money($item->amount, $item->currency_code, true)
                                 </a>
                             </td>
-                            @elseif(!is_null(data_get($item, 'invoice.id')))
-                            <td class="col-xs-4 col-sm-2 col-md-2 text-right">
-                                <a href="{{ route('invoices.show', $item->invoice->id) }}">
-                                    @money($item->amount, $item->currency_code, true)
-                                </a>
-                            </td>
-                            @else
-                            <td class="col-xs-4 col-sm-2 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
-                            @endif
                         </tr>
                     @endforeach
                 </tbody>
