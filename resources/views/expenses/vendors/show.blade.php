@@ -157,7 +157,7 @@
                                             @foreach($bills as $item)
                                                 <tr class="row align-items-center border-top-1">
                                                     <td class="col-xs-4 col-sm-3"><a href="{{ url('expenses/bills/' . $item->id . ' ') }}">{{ $item->bill_number }}</a></td>
-                                                    <td cclass="col-xs-4 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
+                                                    <td class="col-xs-4 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
                                                     <td class="col-sm-2 hidden-sm">@date($item->billed_at)</td>
                                                     <td class="col-sm-2 hidden-sm">@date($item->due_at)</td>
                                                     <td class="col-xs-4 col-sm-2"><span class="badge badge-pill badge-{{ $item->status->label }}">{{ trans('bills.status.' . $item->status->code) }}</span></td>
