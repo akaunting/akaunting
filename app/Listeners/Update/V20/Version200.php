@@ -713,7 +713,13 @@ class Version200 extends Listener
         foreach ($items as $role_name => $permissions) {
             $role = Role::where('name', $role_name)->first();
 
-            foreach ($permissions as $permission) {
+            foreach ($permissions as $permission_name) {
+                $permission = Permission::where('name', $permission_name)->first();
+
+                if (empty($permission)) {
+                    continue;
+                }
+
                 $role->detachPermission($permission);
                 $permission->delete();
             }
