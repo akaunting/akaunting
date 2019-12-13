@@ -14,9 +14,9 @@ use App\Models\Common\EmailTemplate;
 use App\Models\Common\Report;
 use App\Utilities\Overrider;
 use Artisan;
+use DB;
 use File;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Schema;
 
 class Version200 extends Listener
 {
