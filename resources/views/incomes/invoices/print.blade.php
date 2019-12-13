@@ -197,7 +197,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md-7">
                 <div class="table-responsive">
                     @stack('notes_input_start')
@@ -207,7 +207,7 @@
                                     <tr>
                                         <th>
                                             <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                            <p class="form-control text-muted show-note">{{ $invoice->notes }}</p>
+                                            <p class="form-control text-muted">{{ $invoice->notes }}</p>
                                         </th>
                                     </tr>
                                 </tbody>

@@ -50,14 +50,14 @@
                                     </span>
                                     <div class="timeline-content">
                                         @stack('timeline_body_create_invoice_head_start')
-                                            <h2>{{ trans('invoices.create_invoice') }}</h2>
+                                            <h2 class="font-weight-500">{{ trans('invoices.create_invoice') }}</h2>
                                         @stack('timeline_body_create_invoice_head_end')
 
                                         @stack('timeline_body_create_invoice_body_start')
                                             @stack('timeline_body_create_invoice_body_message_start')
                                                 <div class="d-flex align-items-center">
-                                                    <h4 class="mb-0 font-weight-500"> {{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
-                                                    <small class="pl-2">{{ trans('invoices.messages.status.created', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
+                                                    <h4 class="mb-0"> {{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
+                                                    <small class="pl-1">{{ trans('invoices.messages.status.created', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
                                                 </div>
                                             @stack('timeline_body_create_invoice_body_message_end')
 
@@ -80,14 +80,15 @@
                                     </span>
                                     <div class="timeline-content">
                                         @stack('timeline_body_send_invoice_head_start')
-                                            <h2>{{ trans('invoices.send_invoice') }}</h2>
+                                            <h2 class="font-weight-500">{{ trans('invoices.send_invoice') }}</h2>
                                         @stack('timeline_body_send_invoice_head_end')
 
                                         @stack('timeline_body_send_invoice_body_start')
                                             @if ($invoice->status->code != 'sent' && $invoice->status->code != 'partial' && $invoice->status->code != 'viewed')
                                                 @stack('timeline_body_send_invoice_body_message_start')
                                                     <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4> <small class="pl-2">{{ trans('invoices.messages.status.send.draft') }}</small>
+                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
+                                                        <small class="pl-1">{{ trans('invoices.messages.status.send.draft') }}</small>
                                                     </div>
                                                 @stack('timeline_body_send_invoice_body_message_end')
 
@@ -117,13 +118,15 @@
                                             @elseif($invoice->status->code == 'viewed')
                                                 @stack('timeline_body_viewed_invoice_body_message_start')
                                                     <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4>  <small class="pl-2">{{ trans('invoices.messages.status.viewed') }}</small>
+                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
+                                                        <small class="pl-1">{{ trans('invoices.messages.status.viewed') }}</small>
                                                     </div>
                                                 @stack('timeline_body_viewed_invoice_body_message_end')
                                             @else
                                                 @stack('timeline_body_send_invoice_body_message_start')
                                                     <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4>  <small class="pl-2">{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
+                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
+                                                        <small class="pl-1">{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
                                                     </div>
                                                 @stack('timeline_body_send_invoice_body_message_end')
                                             @endif
@@ -140,18 +143,20 @@
 
                                     <div class="timeline-content">
                                         @stack('timeline_body_get_paid_head_start')
-                                            <h2>{{ trans('invoices.get_paid') }}</h2>
+                                            <h2 class="font-weight-500">{{ trans('invoices.get_paid') }}</h2>
                                         @stack('timeline_body_get_paid_head_end')
 
                                         @stack('timeline_body_get_paid_body_start')
                                             @stack('timeline_body_get_paid_body_message_start')
                                                 @if($invoice->status->code != 'paid' && empty($invoice->transactions->count()))
                                                     <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4> <small class="pl-2">{{ trans('invoices.messages.status.paid.await') }}</small>
+                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
+                                                        <small class="pl-1">{{ trans('invoices.messages.status.paid.await') }}</small>
                                                     </div>
                                                 @else
                                                     <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0 font-weight-500">{{ trans_choice('general.statuses', 1) . ':' }}</h4> <small class="pl-2">{{ trans('general.partially_paid') }}</small>
+                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
+                                                        <small class="pl-1">{{ trans('general.partially_paid') }}</small>
                                                     </div>
                                                 @endif
                                             @stack('timeline_body_get_paid_body_message_end')
@@ -364,7 +369,7 @@
                                                 @stack('name_td_end')
 
                                                 @stack('quantity_td_start')
-                                                    <td class="col-xs-4 col-sm-3 text-center pl-6">{{ $item->quantity }}</td>
+                                                    <td class="col-xs-4 col-sm-3 text-center">{{ $item->quantity }}</td>
                                                 @stack('quantity_td_end')
 
                                                 @stack('price_td_start')
@@ -394,7 +399,7 @@
                                                 <tr>
                                                     <th>
                                                         <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                                        <p class="form-control text-muted show-note long-texts">{{ $invoice->notes }}</p>
+                                                        <p class="form-control text-muted long-texts">{{ $invoice->notes }}</p>
                                                     </th>
                                                 </tr>
                                             @endif
@@ -582,7 +587,7 @@
                                                 @foreach($invoice->transactions as $transaction)
                                                     <tr>
                                                         <td>@date($transaction->paid_at)</td>
-                                                        <td class="text-right">@money($transaction->amount, $transaction->currency_code, true)</td>
+                                                        <td>@money($transaction->amount, $transaction->currency_code, true)</td>
                                                         <td>{{ $transaction->account->name }}</td>
                                                         <td>
                                                             @if ($transaction->reconciled)

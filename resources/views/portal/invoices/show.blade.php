@@ -217,7 +217,7 @@
                                                 <th>
                                                     @if ($invoice->notes)
                                                         <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                                        <p class="form-control text-muted show-note">{{ $invoice->notes }}</p>
+                                                        <p class="form-control text-muted long-texts">{{ $invoice->notes }}</p>
                                                     @endif
                                                 </th>
                                             </tr>

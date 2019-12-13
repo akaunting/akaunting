@@ -19,14 +19,6 @@
 /*--------General Button Hover Finish--------*/
 
 
-/*--------Invoice, Bill Note--------*/
-.show-note
-{
-    width: 65% !important;
-}
-/*--------Invoice, Bill Note Finish--------*/
-
-
 /*--------Dashboard Categories--------*/
 .dashboard-categories
 {
@@ -35,22 +27,13 @@
 }
 /*--------Dashboard Categories Finish--------*/
 
-/*--------Recurring Form Element--------*/
-.recurring-hidden
-{
-    position: absolute;
-    overflow: hidden;
-    z-index: -1;
-}
-/*--------Recurring Form Element Finish--------*/
 
-
-/*--------Attachment Cursor--------*/
-.form-attachment
+/*--------Cursor Pointer--------*/
+.cursor-pointer
 {
-    cursor: pointer;
+    cursor: pointer !important;
 }
-/*--------Attachment Cursor Finish--------*/
+/*--------Cursor Pointer Finish--------*/
 
 
 /*--------Table Head Search--------*/
@@ -60,14 +43,6 @@
     width: auto;
 }
 /*--------Table Head Search Finish--------*/
-
-
-/*--------Login Logo--------*/
-.login-logo
-{
-    width: 22% !important;
-}
-/*--------Login Logo Finish--------*/
 
 
 /*--------Wizard Steps--------*/
@@ -289,14 +264,6 @@
 /*--------Index Page Tables Finish--------*/
 
 
-/*--------Categories Input--------*/
-.color-box
-{
-    min-width: 3rem;
-}
-/*--------Categories Input Finish--------*/
-
-
 /*--------Left Menu Dropdown--------*/
 .menu-dropdown
 {
@@ -431,7 +398,7 @@
 /*--------Company Name--------*/
 .d-grid
 {
-    display: grid;
+    display: grid !important;
 }
 /*--------Company Name Finish--------*/
 

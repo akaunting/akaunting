@@ -13,9 +13,9 @@
         </div>
 
         <div class="card-body">
-                <div class="row mx--4">
-                        <div class="col-md-7 border-bottom-1">
-                            <div class="table-responsive mt-2">
+            <div class="row mx--4">
+                <div class="col-md-7 border-bottom-1">
+                    <div class="table-responsive mt-2">
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
@@ -33,6 +33,7 @@
                         </table>
                     </div>
                 </div>
+
                 <div class="col-md-5 border-bottom-1">
                     <div class="table-responsive">
                         <table class="table table-borderless">
@@ -138,39 +139,48 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12 table-responsive">
-                <table class="table table-striped">
-                    <tbody>
-                        <tr>
-                            <th class="pl-5">{{ trans_choice('general.items', 1) }}</th>
-                            <th class="text-center">{{ trans('invoices.quantity') }}</th>
-                            <th class="text-center pl-7">{{ trans('invoices.price') }}</th>
-                            <th class="text-right pr-5">{{ trans('invoices.total') }}</th>
-                        </tr>
-                        @foreach($invoice->items as $item)
+            <div class="row show-table">
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-striped">
+                        <tbody>
                             <tr>
-                                <td class="pl-5">{{ $item->name }}</td>
-                                <td class="text-center">{{ $item->quantity }}</td>
-                                <td class="text-center pl-7">@money($item->price, $invoice->currency_code, true)</td>
-                                <td class="text-right pr-5">@money($item->total, $invoice->currency_code, true)</td>
+                                <th class="pl-5">{{ trans_choice('general.items', 1) }}</th>
+                                <th class="text-center">{{ trans('invoices.quantity') }}</th>
+                                <th class="text-center pl-7">{{ trans('invoices.price') }}</th>
+                                <th class="text-right pr-5">{{ trans('invoices.total') }}</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-7">
-                    @if ($invoice->notes)
-                        <p class="form-control-label pl-4">{{ trans_choice('general.notes', 2) }}</p>
-                        <p class="form-control text-muted show-note ml-4">{{ $invoice->notes }}</p>
-                    @endif
+                            @foreach($invoice->items as $item)
+                                <tr>
+                                    <td class="pl-5">{{ $item->name }}</td>
+                                    <td class="text-center">{{ $item->quantity }}</td>
+                                    <td class="text-center pl-7">@money($item->price, $invoice->currency_code, true)</td>
+                                    <td class="text-right pr-5">@money($item->total, $invoice->currency_code, true)</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-7">
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        @if ($invoice->notes)
+                                            <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
+                                            <p class="form-control text-muted long-texts">{{ $invoice->notes }}</p>
+                                        @endif
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div class="col-md-5">
                     <div class="table-responsive">
                         <table class="table">
@@ -219,6 +229,7 @@
                         @endif
                     @endif
                 </div>
+
                 <div class="col-md-8 text-right">
                     <a href="{{ $print_action }}" target="_blank" class="btn btn-success">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
