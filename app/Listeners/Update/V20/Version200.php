@@ -14,9 +14,9 @@ use App\Models\Common\EmailTemplate;
 use App\Models\Common\Report;
 use App\Utilities\Overrider;
 use Artisan;
+use File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
 
 class Version200 extends Listener
 {
@@ -887,11 +887,11 @@ class Version200 extends Listener
         ];
 
         foreach ($files as $file) {
-            Storage::delete(base_path($file));
+            File::delete(base_path($file));
         }
 
         foreach ($directories as $directory) {
-            Storage::deleteDirectory(base_path($directory));
+            File::deleteDirectory(base_path($directory));
         }
     }
 

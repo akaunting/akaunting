@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Blade;
 use Illuminate\Support\ServiceProvider as Provider;
+use Schema;
 
 class App extends Provider
 {
@@ -14,9 +16,12 @@ class App extends Provider
     public function boot()
     {
         // Laravel db fix
-        \Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
 
-        \Blade::withoutDoubleEncoding();
+        // @todo Remove the if control after 1.3 update
+        if (method_exists('Blade', 'withoutDoubleEncoding')) {
+            Blade::withoutDoubleEncoding();
+        }
     }
 
     /**
