@@ -43,7 +43,8 @@
         "monooso/unobserve": "1.0.*",
         "plank/laravel-mediable": "3.0.*",
         "santigarcor/laratrust": "5.2.*",
-        "simshaun/recurr": "4.0.*"
+        "simshaun/recurr": "4.0.*",
+        "staudenmeir/eloquent-has-many-deep": "1.11"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
