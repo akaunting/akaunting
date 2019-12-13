@@ -13,6 +13,7 @@ class Event extends Provider
      */
     protected $listen = [
         'App\Events\Install\UpdateFinished' => [
+            'App\Listeners\Update\CreateModuleUpdatedHistory',
             'App\Listeners\Update\V10\Version106',
             'App\Listeners\Update\V10\Version107',
             'App\Listeners\Update\V10\Version108',
@@ -72,9 +73,6 @@ class Event extends Provider
         ],
         'App\Events\Menu\PortalCreated' => [
             'App\Listeners\Menu\AddPortalItems',
-        ],
-        'App\Events\Install\UpdateFinished' => [
-            'App\Listeners\Update\CreateModuleUpdatedHistory',
         ],
     ];
 
