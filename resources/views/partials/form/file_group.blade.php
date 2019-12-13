@@ -6,7 +6,7 @@
 
         <div class="custom-file">
             {!! Form::file($name, array_merge([
-                'class' => 'custom-file-input form-attachment cursor',
+                'class' => 'custom-file-input cursor-pointer',
                 '@input' => 'onHandleFileUpload("' . $name .'", $event)'
             ], $attributes)) !!}
             {!! Form::label($name, $text, ['class' => 'custom-file-label']) !!}
