@@ -698,13 +698,11 @@ class Version200 extends Listener
                         'description' => ucfirst($permissionValue) . ' ' . $moduleName,
                     ]);
 
-                    $this->command->info('Creating Permission to '.$permissionValue.' for '. $moduleName);
-
-                    if (!$role->hasPermission($permission->name)) {
-                        $role->attachPermission($permission);
-                    } else {
-                        $this->command->info($role_name . ': ' . $p . ' ' . $permissionValue . ' already exist');
+                    if ($role->hasPermission($permission->name)) {
+                        continue;
                     }
+
+                    $role->attachPermission($permission);
                 }
             }
         }
