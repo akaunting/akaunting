@@ -1,4 +1,4 @@
-@extends('layouts.invoice')
+@extends('layouts.print')
 
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
@@ -261,6 +261,7 @@
             </div>
         </div>
 
+        @if ($invoice->footer)
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -268,9 +269,7 @@
                         <tbody>
                             <tr>
                                 <th>
-                                    @if ($invoice->footer)
-                                        {!! $invoice->footer !!}
-                                    @endif
+                                    {!! $invoice->footer !!}
                                 </th>
                             </tr>
                         </tbody>
@@ -278,5 +277,6 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 @endsection

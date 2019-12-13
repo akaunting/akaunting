@@ -300,7 +300,9 @@ class Bills extends Controller
     {
         $bill = $this->prepareBill($bill);
 
-        return view($bill->template_path, compact('bill'));
+        $view = view($bill->template_path, compact('bill'));
+
+        return mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
     }
 
     /**
@@ -317,7 +319,7 @@ class Bills extends Controller
         $currency_style = true;
 
         $view = view($bill->template_path, compact('bill', 'currency_style'))->render();
-        $html = mb_convert_encoding($view, 'HTML-ENTITIES');
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);

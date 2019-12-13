@@ -1,4 +1,4 @@
-@extends('layouts.bill')
+@extends('layouts.print')
 
 @section('title', trans_choice('general.bills', 1) . ': ' . $bill->bill_number)
 

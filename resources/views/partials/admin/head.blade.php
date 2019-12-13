@@ -1,7 +1,9 @@
 <head>
     @stack('head_start')
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8; charset=ISO-8859-1" />
 
         <title>@yield('title') - @setting('company.name')</title>
 
@@ -18,12 +20,8 @@
         <link rel="stylesheet" href="{{ asset('public/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css">
 
         <!-- Css -->
-        <!-- Argon -->
         <link rel="stylesheet" href="{{ asset('public/css/argon.css?v=1.1.0') }}" type="text/css">
-
-        <!-- Color -->
         <link rel="stylesheet" href="{{ asset('public/css/akaunting-color.css?v=' . version('short')) }}">
-        <!-- Custom -->
         <link rel="stylesheet" href="{{ asset('public/css/custom.css?v=' . version('short')) }}">
 
         @stack('css')
