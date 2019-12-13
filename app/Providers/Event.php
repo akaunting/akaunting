@@ -37,7 +37,6 @@ class Event extends Provider
             'App\Listeners\Update\V13\Version1313',
             'App\Listeners\Update\V13\Version1316',
             'App\Listeners\Update\V20\Version200',
-            'App\Listeners\Update\V20\Version201',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',
