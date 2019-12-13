@@ -13,7 +13,7 @@
         <link rel="icon" href="{{ asset('public/img/favicon.ico') }}" type="image/png">
 
         <!-- Font -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+        <link rel="stylesheet" href="{{ asset('public/vendor/opensans/css/opensans.css') }}" type="text/css">
 
         <!-- Icons -->
         <link rel="stylesheet" href="{{ asset('public/vendor/nucleo/css/nucleo.css') }}" type="text/css">
