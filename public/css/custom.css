@@ -1,7 +1,3 @@
-.select-tax .el-select .el-select__tags .el-tag {
-    margin-top: 30px;
-}
-
 @font-face {
     font-family: element-icons;
     src:url("./../fonts/vendor/element-ui/lib/theme-chalk/element-icons.woff") format("woff"),
@@ -9,6 +5,10 @@
     font-weight: 400;
     font-display: "auto";
     font-style: normal;
+}
+
+.select-tax .el-select .el-select__tags .el-tag {
+    margin-top: 30px;
 }
 
 /*--------General Button Hover--------*/
