@@ -241,7 +241,7 @@ class Version200 extends Listener
                 'group' => 'category',
                 'period' => 'quarterly',
                 'basis' => 'accrual',
-                'chart' => 'line',
+                'chart' => '0',
                 'enabled' => 1,
             ],
             [
@@ -252,7 +252,7 @@ class Version200 extends Listener
                 'group' => 'category',
                 'period' => 'quarterly',
                 'basis' => 'accrual',
-                'chart' => 'line',
+                'chart' => '0',
                 'enabled' => 1,
             ],
         ];
