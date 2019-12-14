@@ -6,15 +6,17 @@
 
     <div class="tab-pane tab-example-result fade show active" role="tabpanel" aria-labelledby="-component-tab">
         <div class="btn-group btn-group-toggle radio-yes-no" data-toggle="buttons">
-            <label class="btn btn-success" @click="form.{{ $name }}=1">
+            <label class="btn btn-success" @click="form.{{ $name }}=1"  v-bind:class="{ active: form.{{ $name }} }" >
                 {{ trans('general.yes') }}
-                <input type="radio" name="{{ $name }}" id="{{ $name }}-1" value="1" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $name }}">
+                <input type="radio" name="{{ $name }}-1" id="{{ $name }}-1" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $name }}">
             </label>
 
-            <label class="btn btn-danger" @click="form.{{ $name }}=0">
+            <label class="btn btn-danger" @click="form.{{ $name }}=0" v-bind:class="{ active: !form.{{ $name }} }" >
                 {{ trans('general.no') }}
-                <input type="radio" name="{{ $name }}" id="{{ $name }}-0" value="0" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $name }}">
+                <input type="radio" name="{{ $name }}-0" id="{{ $name }}-0" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $name }}">
             </label>
+            
+            <input type="radio" value="{{ $value ? true : false }}" name="{{ $name }}" class="d-none">
         </div>
     </div>
 

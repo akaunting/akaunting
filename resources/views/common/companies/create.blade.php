@@ -29,7 +29,7 @@
 
                     {{ Form::fileGroup('logo', trans('companies.logo')) }}
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
                 </div>
             </div>
 

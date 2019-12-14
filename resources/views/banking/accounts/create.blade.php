@@ -31,9 +31,9 @@
 
                     {{ Form::textareaGroup('bank_address', trans('accounts.bank_address')) }}
 
-                    {{ Form::radioGroup('default_account', trans('accounts.default_account')) }}
+                    {{ Form::radioGroup('default_account', trans('accounts.default_account'), false) }}
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
                 </div>
             </div>
 
