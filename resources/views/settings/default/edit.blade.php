@@ -30,7 +30,7 @@
 
                 {{ Form::selectGroup('list_limit', trans('settings.default.list_limit'), 'columns', ['10' => '10', '25' => '25', '50' => '50', '100' => '100'], !empty($setting['list_limit']) ? $setting['list_limit'] : null, []) }}
 
-                {{ Form::radioGroup('use_gravatar', trans('settings.default.use_gravatar'), $setting->use_gravatar) }}
+                {{ Form::radioGroup('use_gravatar', trans('settings.default.use_gravatar'), $setting->get('use_gravatar')) }}
             </div>
         </div>
 
