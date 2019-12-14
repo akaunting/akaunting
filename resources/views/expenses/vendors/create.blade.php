@@ -35,7 +35,7 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
                 </div>
             </div>
 

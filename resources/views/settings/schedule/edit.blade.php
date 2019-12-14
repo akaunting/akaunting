@@ -18,11 +18,11 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                {{ Form::radioGroup('send_invoice_reminder', trans('settings.scheduling.send_invoice')) }}
+                {{ Form::radioGroup('send_invoice_reminder', trans('settings.scheduling.send_invoice'), $setting->send_invoice_reminder) }}
 
                 {{ Form::textGroup('invoice_days', trans('settings.scheduling.invoice_days'), 'calendar', []) }}
 
-                {{ Form::radioGroup('send_bill_reminder', trans('settings.scheduling.send_bill')) }}
+                {{ Form::radioGroup('send_bill_reminder', trans('settings.scheduling.send_bill'), $setting->send_bill_reminder) }}
 
                 {{ Form::textGroup('bill_days', trans('settings.scheduling.bill_days'), 'calendar', []) }}
 

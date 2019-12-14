@@ -33,7 +33,7 @@
 
                 {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 
-                {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                {{ Form::radioGroup('enabled', trans('general.enabled'), $customer->enabled) }}
 
                 @stack('create_user_input_start')
                     <div id="customer-create-user" class="form-group col-md-12 margin-top">

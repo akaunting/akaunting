@@ -44,7 +44,7 @@ export default class Form {
 
             if (type == 'radio') {
                 if (!this[name]) {
-                    this[name] = form_element.getAttribute('value') || '';
+                    this[name] = (form_element.getAttribute('value') ? 1 : 0) || 0;
                 }
             } else if (type == 'checkbox') {
                 if (this[name]) {

@@ -32,7 +32,7 @@
 
                     {{ Form::fileGroup('picture', trans_choice('general.pictures', 1)) }}
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), $item->enabled) }}
                 </div>
             </div>
 

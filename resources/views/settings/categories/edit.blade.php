@@ -42,7 +42,7 @@
                         </div>
                     @stack('color_input_end')
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), $category->enabled) }}
                 </div>
             </div>
 
