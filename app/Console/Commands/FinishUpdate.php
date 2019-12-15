@@ -40,10 +40,21 @@ class FinishUpdate extends Command
 
         $this->info('Finishing update...');
 
-        session(['company_id' => $this->argument('company_id')]);
-
         $this->call('cache:clear');
 
-        event(new UpdateFinished($this->argument('alias'), $this->argument('new'), $this->argument('old')));
+        $alias = $this->argument('alias');
+        $company_id = $this->argument('company_id');
+        $new = $this->argument('new');
+        $old = $this->argument('old');
+
+        // Check if file mirror was successful
+        $version = ($alias == 'core') ? version('short') : module($alias)->get('version');
+        if ($version != $new) {
+            throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
+        }
+
+        session(['company_id' => $company_id]);
+
+        event(new UpdateFinished($alias, $new, $old));
     }
 }
