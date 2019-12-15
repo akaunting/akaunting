@@ -24,7 +24,7 @@
 
                     {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $tax->type) }}
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), $tax->enabled) }}
                 </div>
             </div>
 

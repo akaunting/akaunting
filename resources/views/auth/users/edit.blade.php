@@ -50,7 +50,7 @@
                         {{ Form::checkboxGroup('roles', trans_choice('general.roles', 2), $roles, 'display_name') }}
                     @endpermission
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), $user->enabled) }}
                 </div>
             </div>
 

@@ -33,9 +33,9 @@
 
                     {{ Form::textGroup('thousands_separator', trans('currencies.thousands_separator'), 'slash', []) }}
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
 
-                    {{ Form::radioGroup('default_currency', trans('currencies.default')) }}
+                    {{ Form::radioGroup('default_currency', trans('currencies.default'), false) }}
                 </div>
             </div>
 

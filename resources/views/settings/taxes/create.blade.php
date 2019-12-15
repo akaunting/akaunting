@@ -23,7 +23,7 @@
 
                     {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
 
-                    {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+                    {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
                 </div>
             </div>
 
