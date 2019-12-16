@@ -55,10 +55,8 @@
 
                                         @stack('timeline_body_create_invoice_body_start')
                                             @stack('timeline_body_create_invoice_body_message_start')
-                                                <div class="d-flex align-items-center">
-                                                    <h4 class="mb-0"> {{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
-                                                    <small class="pl-1">{{ trans('invoices.messages.status.created', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
-                                                </div>
+                                                <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
+                                                <small>{{ trans('invoices.messages.status.created', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
                                             @stack('timeline_body_create_invoice_body_message_end')
 
                                             <div class="mt-3">
@@ -86,10 +84,8 @@
                                         @stack('timeline_body_send_invoice_body_start')
                                             @if ($invoice->status->code != 'sent' && $invoice->status->code != 'partial' && $invoice->status->code != 'viewed')
                                                 @stack('timeline_body_send_invoice_body_message_start')
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
-                                                        <small class="pl-1">{{ trans('invoices.messages.status.send.draft') }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
+                                                    <small>{{ trans('invoices.messages.status.send.draft') }}</small>
                                                 @stack('timeline_body_send_invoice_body_message_end')
 
                                                 <div class="mt-3">
@@ -117,17 +113,13 @@
                                                 </div>
                                             @elseif($invoice->status->code == 'viewed')
                                                 @stack('timeline_body_viewed_invoice_body_message_start')
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
-                                                        <small class="pl-1">{{ trans('invoices.messages.status.viewed') }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
+                                                    <small>{{ trans('invoices.messages.status.viewed') }}</small>
                                                 @stack('timeline_body_viewed_invoice_body_message_end')
                                             @else
                                                 @stack('timeline_body_send_invoice_body_message_start')
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
-                                                        <small class="pl-1">{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
+                                                    <small>{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
                                                 @stack('timeline_body_send_invoice_body_message_end')
                                             @endif
                                         @stack('timeline_body_send_invoice_body_end')
@@ -149,15 +141,11 @@
                                         @stack('timeline_body_get_paid_body_start')
                                             @stack('timeline_body_get_paid_body_message_start')
                                                 @if($invoice->status->code != 'paid' && empty($invoice->transactions->count()))
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
-                                                        <small class="pl-1">{{ trans('invoices.messages.status.paid.await') }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
+                                                    <small>{{ trans('invoices.messages.status.paid.await') }}</small>
                                                 @else
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
-                                                        <small class="pl-1">{{ trans('general.partially_paid') }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
+                                                    <small>{{ trans('general.partially_paid') }}</small>
                                                 @endif
                                             @stack('timeline_body_get_paid_body_message_end')
 

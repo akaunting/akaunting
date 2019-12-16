@@ -55,10 +55,8 @@
 
                                         @stack('timeline_body_create_bill_body_start')
                                             @stack('timeline_body_create_bill_body_message_start')
-                                                <div class="d-flex align-items-center">
-                                                    <h4 class="mb-0"> {{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
-                                                    <small class="pl-1">{{ trans('bills.messages.status.created', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</small>
-                                                </div>
+                                                <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
+                                                <small>{{ trans('bills.messages.status.created', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</small>
                                             @stack('timeline_body_create_bill_body_message_end')
 
                                             <div class="mt-3">
@@ -86,10 +84,8 @@
                                         @stack('timeline_body_receive_bill_body_start')
                                             @if ($bill->status->code == 'draft')
                                                 @stack('timeline_body_receive_bill_body_message_start')
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
-                                                        <small class="pl-1">{{ trans('bills.messages.status.receive.draft') }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
+                                                    <small>{{ trans('bills.messages.status.receive.draft') }}</small>
                                                 @stack('timeline_body_receive_bill_body_message_end')
 
                                                 <div class="mt-3">
@@ -101,10 +97,8 @@
                                                 </div>
                                             @else
                                                 @stack('timeline_body_receive_bill_body_message_start')
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
-                                                        <small class="pl-1">{{ trans('bills.messages.status.receive.received', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
+                                                    <small>{{ trans('bills.messages.status.receive.received', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</small>
                                                 @stack('timeline_body_receive_bill_body_message_end')
                                             @endif
                                         @stack('timeline_body_receive_bill_body_end')
@@ -126,15 +120,11 @@
                                         @stack('timeline_body_make_payment_body_start')
                                             @stack('timeline_body_get_paid_body_message_start')
                                                 @if($bill->status->code != 'paid' && empty($bill->transactions->count()))
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0"> {{ trans_choice('general.statuses', 1) .  ':'  }}</h4>
-                                                        <small class="pl-1">{{ trans('bills.messages.status.paid.await') }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
+                                                    <small>{{ trans('bills.messages.status.paid.await') }}</small>
                                                 @else
-                                                    <div class="d-flex align-items-center">
-                                                        <h4 class="mb-0">{{ trans_choice('general.statuses', 1) . ':' }}</h4>
-                                                        <small class="pl-1">{{ trans('general.partially_paid') }}</small>
-                                                    </div>
+                                                    <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
+                                                    <small>{{ trans('general.partially_paid') }}</small>
                                                 @endif
                                             @stack('timeline_body_make_payment_body_message_end')
 
