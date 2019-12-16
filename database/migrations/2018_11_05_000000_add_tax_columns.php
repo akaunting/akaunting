@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddTaxColumns extends Migration
 {
@@ -11,7 +13,7 @@ class AddTaxColumns extends Migration
      */
     public function up()
     {
-        Schema::table('taxes', function ($table) {
+        Schema::table('taxes', function (Blueprint $table) {
             $table->string('type')->default('normal');
         });
     }
@@ -23,7 +25,7 @@ class AddTaxColumns extends Migration
      */
     public function down()
     {
-        Schema::table('taxes', function ($table) {
+        Schema::table('taxes', function (Blueprint $table) {
             $table->dropColumn([
                 'type',
             ]);

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddReferenceColumnVendors extends Migration
 {
@@ -11,7 +13,7 @@ class AddReferenceColumnVendors extends Migration
      */
     public function up()
     {
-        Schema::table('vendors', function ($table) {
+        Schema::table('vendors', function (Blueprint $table) {
             $table->string('reference')->nullable();
         });
     }
@@ -23,7 +25,7 @@ class AddReferenceColumnVendors extends Migration
 	 */
 	public function down()
 	{
-		Schema::table('vendors', function ($table) {
+		Schema::table('vendors', function (Blueprint $table) {
 			$table->dropColumn('reference');
 		});
 	}
