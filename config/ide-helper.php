@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -10,9 +10,10 @@ return array(
     | The default filename (without extension) and the format (php or json)
     |
     */
-
     'filename'  => '_ide_helper',
     'format'    => 'php',
+
+    'meta_filename' => '.phpstorm.meta.php',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,8 +23,42 @@ return array(
     | Set to true to generate commonly used Fluent methods
     |
     */
+    'include_fluent' => true,
 
-    'include_fluent' => false,
+    /*
+    |--------------------------------------------------------------------------
+    | Factory Builders
+    |--------------------------------------------------------------------------
+    |
+    | Set to true to generate factory generators for better factory()
+    | method auto-completion.
+    |
+    */
+    'include_factory_builders' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Write Model Magic methods
+    |--------------------------------------------------------------------------
+    |
+    | Set to false to disable write magic methods of model
+    |
+    */
+    'write_model_magic_where' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Write Eloquent Model Mixins
+    |--------------------------------------------------------------------------
+    |
+    | This will add the necessary DocBlock mixins to the model class
+    | contained in the Laravel Framework. This helps the IDE with
+    | auto-completion.
+    |
+    | Please be aware that this setting changes a file within the /vendor directory.
+    |
+    */
+    'write_eloquent_model_mixins' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -34,12 +69,11 @@ return array(
     | -- helpers (-H) option. Extra helper files can be included.
     |
     */
-
     'include_helpers' => false,
 
-    'helper_files' => array(
-        base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
-    ),
+    'helper_files' => [
+        base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -50,10 +84,9 @@ return array(
     | for models.
     |
     */
-
-    'model_locations' => array(
-        'app',
-    ),
+    'model_locations' => [
+        'app/Models',
+    ],
 
 
     /*
@@ -64,14 +97,13 @@ return array(
     | These implementations are not really extended, but called with magic functions
     |
     */
+    'extra' => [
+        'Eloquent' => ['Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'],
+        'Session' => ['Illuminate\Session\Store'],
+    ],
 
-    'extra' => array(
-        'Eloquent' => array('Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'),
-        'Session' => array('Illuminate\Session\Store'),
-    ),
-
-    'magic' => array(
-        'Log' => array(
+    'magic' => [
+        'Log' => [
             'debug'     => 'Monolog\Logger::addDebug',
             'info'      => 'Monolog\Logger::addInfo',
             'notice'    => 'Monolog\Logger::addNotice',
@@ -80,8 +112,8 @@ return array(
             'critical'  => 'Monolog\Logger::addCritical',
             'alert'     => 'Monolog\Logger::addAlert',
             'emergency' => 'Monolog\Logger::addEmergency',
-        )
-    ),
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -92,10 +124,9 @@ return array(
     | are detected by the helpers, others can be listed below.
     |
     */
+    'interfaces' => [
 
-    'interfaces' => array(
-
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -123,9 +154,9 @@ return array(
     |  ),
     |
     */
-    'custom_db_types' => array(
+    'custom_db_types' => [
 
-    ),
+    ],
 
     /*
      |--------------------------------------------------------------------------
@@ -161,8 +192,20 @@ return array(
     | Cast the given "real type" to the given "type".
     |
     */
-   'type_overrides' => array(
+   'type_overrides' => [
         'integer' => 'int',
         'boolean' => 'bool',
-   ),
-);
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Include DocBlocks from classes
+    |--------------------------------------------------------------------------
+    |
+    | Include DocBlocks from classes to allow additional code inspection for
+    | magic methods and properties.
+    |
+    */
+    'include_class_docblocks' => false,
+
+];

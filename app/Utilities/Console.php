@@ -16,6 +16,6 @@ class Console
             return true;
         }
 
-        return $process->getOutput();
+        return $process->getErrorOutput();
     }
 }

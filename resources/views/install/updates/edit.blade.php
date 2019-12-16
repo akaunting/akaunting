@@ -13,7 +13,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <span class="title-filter hidden-xs">{{ $name }}</span>
+            <span class="title-filter d-none d-sm-block">{{ $name }}</span>
         </div>
 
         <div class="card-body">

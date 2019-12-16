@@ -1,7 +1,5 @@
 <?php
 
-use Maatwebsite\Excel\Excel;
-
 return [
 
     'exports' => [
@@ -15,7 +13,7 @@ return [
         | Here you can specify how big the chunk should be.
         |
         */
-        'chunk_size'             => 1000,
+        'chunk_size' => 1000,
 
         /*
         |--------------------------------------------------------------------------
@@ -32,7 +30,7 @@ return [
         | Configure e.g. delimiter, enclosure and line ending for CSV exports.
         |
         */
-        'csv'                    => [
+        'csv' => [
             'delimiter'              => ',',
             'enclosure'              => '"',
             'line_ending'            => PHP_EOL,
@@ -42,7 +40,7 @@ return [
         ],
     ],
 
-    'imports'            => [
+    'imports' => [
 
         'read_only' => true,
 
@@ -68,7 +66,7 @@ return [
         | Configure e.g. delimiter, enclosure and line ending for CSV imports.
         |
         */
-        'csv'         => [
+        'csv' => [
             'delimiter'              => ',',
             'enclosure'              => '"',
             'escape_character'       => '\\',
@@ -88,21 +86,21 @@ return [
     |
     */
     'extension_detector' => [
-        'xlsx'     => Excel::XLSX,
-        'xlsm'     => Excel::XLSX,
-        'xltx'     => Excel::XLSX,
-        'xltm'     => Excel::XLSX,
-        'xls'      => Excel::XLS,
-        'xlt'      => Excel::XLS,
-        'ods'      => Excel::ODS,
-        'ots'      => Excel::ODS,
-        'slk'      => Excel::SLK,
-        'xml'      => Excel::XML,
-        'gnumeric' => Excel::GNUMERIC,
-        'htm'      => Excel::HTML,
-        'html'     => Excel::HTML,
-        'csv'      => Excel::CSV,
-        'tsv'      => Excel::TSV,
+        'xlsx'     => 'Xlsx',
+        'xlsm'     => 'Xlsx',
+        'xltx'     => 'Xlsx',
+        'xltm'     => 'Xlsx',
+        'xls'      => 'Xls',
+        'xlt'      => 'Xls',
+        'ods'      => 'Ods',
+        'ots'      => 'Ods',
+        'slk'      => 'Slk',
+        'xml'      => 'Xml',
+        'gnumeric' => 'Gnumeric',
+        'htm'      => 'Html',
+        'html'     => 'Html',
+        'csv'      => 'Csv',
+        'tsv'      => 'Csv',
 
         /*
         |--------------------------------------------------------------------------
@@ -113,7 +111,7 @@ return [
         | Available options: Excel::MPDF | Excel::TCPDF | Excel::DOMPDF
         |
         */
-        'pdf'      => Excel::DOMPDF,
+        'pdf' => 'Dompdf',
     ],
 
     'value_binder' => [
@@ -129,7 +127,7 @@ return [
         | you can implement your own default value binder.
         |
         */
-        'default' => Maatwebsite\Excel\DefaultValueBinder::class,
+        'default' => 'Maatwebsite\Excel\DefaultValueBinder',
     ],
 
     'transactions' => [
@@ -163,7 +161,7 @@ return [
         | storing reading or downloading. Here you can customize that path.
         |
         */
-        'local_path'  => storage_path('app/temp'),
+        'local_path' => storage_path('app/temp'),
 
         /*
         |--------------------------------------------------------------------------
@@ -182,4 +180,5 @@ return [
         'remote_disk' => null,
 
     ],
+
 ];

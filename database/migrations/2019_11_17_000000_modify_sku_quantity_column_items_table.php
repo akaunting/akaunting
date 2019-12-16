@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class ModifySkuQuantityColumnItemsTable extends Migration
 {
@@ -15,7 +16,17 @@ class ModifySkuQuantityColumnItemsTable extends Migration
         Schema::table('items', function (Blueprint $table) {
             $table->string('sku')->nullable()->change();
             $table->integer('quantity')->default(1)->change();
-            $table->dropUnique(['company_id', 'sku', 'deleted_at']);
+
+            $connection = Schema::getConnection();
+            $d_table = $connection->getDoctrineSchemaManager()->listTableDetails($connection->getTablePrefix() . 'items');
+
+            if ($d_table->hasIndex('items_company_id_sku_deleted_at_unique')) {
+                // 1.3 update
+                $table->dropUnique('items_company_id_sku_deleted_at_unique');
+            } else {
+                // 2.0 install
+                $table->dropUnique(['company_id', 'sku', 'deleted_at']);
+            }
         });
     }
 

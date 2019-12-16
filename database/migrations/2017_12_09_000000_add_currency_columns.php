@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddCurrencyColumns extends Migration
 {
@@ -11,7 +13,7 @@ class AddCurrencyColumns extends Migration
      */
     public function up()
     {
-        Schema::table('currencies', function ($table) {
+        Schema::table('currencies', function (Blueprint $table) {
             $table->string('precision')->nullable();
             $table->string('symbol')->nullable();
             $table->integer('symbol_first')->default(1);
@@ -27,7 +29,7 @@ class AddCurrencyColumns extends Migration
      */
     public function down()
     {
-        Schema::table('currencies', function ($table) {
+        Schema::table('currencies', function (Blueprint $table) {
             $table->dropColumn([
                 'precision',
                 'symbol',

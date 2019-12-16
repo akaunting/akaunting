@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddReconciledColumn extends Migration
 {
@@ -11,19 +13,19 @@ class AddReconciledColumn extends Migration
      */
     public function up()
     {
-        Schema::table('bill_payments', function ($table) {
+        Schema::table('bill_payments', function (Blueprint $table) {
             $table->boolean('reconciled')->default(0);
         });
 
-        Schema::table('invoice_payments', function ($table) {
+        Schema::table('invoice_payments', function (Blueprint $table) {
             $table->boolean('reconciled')->default(0);
         });
 
-        Schema::table('payments', function ($table) {
+        Schema::table('payments', function (Blueprint $table) {
             $table->boolean('reconciled')->default(0);
         });
 
-        Schema::table('revenues', function ($table) {
+        Schema::table('revenues', function (Blueprint $table) {
             $table->boolean('reconciled')->default(0);
         });
     }
@@ -35,19 +37,19 @@ class AddReconciledColumn extends Migration
 	 */
 	public function down()
 	{
-		Schema::table('bill_payments', function ($table) {
+		Schema::table('bill_payments', function (Blueprint $table) {
 			$table->dropColumn('reconciled');
 		});
 
-		Schema::table('invoice_payments', function ($table) {
+		Schema::table('invoice_payments', function (Blueprint $table) {
 			$table->dropColumn('reconciled');
 		});
 
-		Schema::table('payments', function ($table) {
+		Schema::table('payments', function (Blueprint $table) {
 			$table->dropColumn('reconciled');
 		});
 
-        Schema::table('revenues', function ($table) {
+        Schema::table('revenues', function (Blueprint $table) {
             $table->dropColumn('reconciled');
         });
 	}

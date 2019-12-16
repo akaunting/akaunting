@@ -8,6 +8,7 @@ use App\Models\Income\InvoiceTotal;
 use App\Models\Setting\Tax;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateInvoiceTotalsTable extends Migration
 {

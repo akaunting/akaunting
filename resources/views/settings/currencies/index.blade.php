@@ -18,8 +18,8 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="row" v-if="!bulk_action.show">
-                    <div class="col-12 card-header-search">
-                        <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
+                    <div class="col-12 d-flex align-items-center">
+                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
                         <akaunting-search></akaunting-search>
                     </div>
                 </div>
@@ -32,10 +32,10 @@
             <table class="table table-flush table-hover">
                 <thead class="thead-light">
                     <tr class="row table-head-line">
-                        <th class="col-sm-2 col-md-2 col-lg-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
+                        <th class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
                         <th class="col-xs-4 col-sm-3 col-md-2 col-lg-4">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                        <th class="col-md-2 col-lg-2 hidden-md">@sortablelink('code', trans('currencies.code'))</th>
-                        <th class="col-sm-2 col-md-2 col-lg-2 hidden-sm">@sortablelink('rate', trans('currencies.rate'))</th>
+                        <th class="col-md-2 col-lg-2 d-none d-md-block">@sortablelink('code', trans('currencies.code'))</th>
+                        <th class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">@sortablelink('rate', trans('currencies.rate'))</th>
                         <th class="col-xs-4 col-sm-3 col-md-2 col-lg-2">@sortablelink('enabled', trans('general.enabled'))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
@@ -44,10 +44,10 @@
                 <tbody>
                     @foreach($currencies as $item)
                         <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-2 col-lg-1 hidden-sm">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
+                            <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-4"><a class="col-aka text-success" href="{{ route('currencies.edit', $item->id) }}">{{ $item->name }}</a></td>
-                            <td class="col-md-2  col-lg-2 hidden-md">{{ $item->code }}</td>
-                            <td class="col-sm-2 col-md-2 col-lg-2 hidden-sm">{{ $item->rate }}</td>
+                            <td class="col-md-2  col-lg-2 d-none d-md-block">{{ $item->code }}</td>
+                            <td class="col-sm-2 col-md-2 col-lg-2 d-none d-sm-block">{{ $item->rate }}</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
                                 @if (user()->can('update-settings-currencies'))
                                     {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}

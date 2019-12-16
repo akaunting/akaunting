@@ -125,11 +125,6 @@ class Updater
 
     public static function finish($alias, $new, $old)
     {
-        // Check if the file mirror was successful
-        if (($alias == 'core') && (version('short') != $new)) {
-            throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
-        }
-
         $company_id = session('company_id');
 
         $command = "php artisan update:finish {$alias} {$company_id} {$new} {$old}";
