@@ -154,6 +154,9 @@ export default {
         options: function (options) {
             // update options
             this.selectOptions = options;
+        },
+        model: function (newValue){
+            this.real_model = newValue;
         }
     },
 }
