@@ -113,8 +113,8 @@
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-6 col-sm-3">{{ trans('general.date') }}</th>
                                                 <th class="col-xs-6 col-sm-3">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-3 hidden-sm">{{ trans_choice('general.categories', 1) }}</th>
-                                                <th class="col-sm-3 hidden-sm">{{ trans_choice('general.accounts', 1) }}</th>
+                                                <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.categories', 1) }}</th>
+                                                <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.accounts', 1) }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -122,8 +122,8 @@
                                                 <tr class="row align-items-center border-top-1">
                                                     <td class="col-xs-6 col-sm-3">@date($item->paid_at)</td>
                                                     <td class="col-xs-6 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-3 hidden-sm">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
-                                                    <td class="col-sm-3 hidden-sm">{{ $item->account->name }}</td>
+                                                    <td class="col-sm-3 d-none d-sm-block">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                                                    <td class="col-sm-3 d-none d-sm-block">{{ $item->account->name }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -143,8 +143,8 @@
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-4 col-sm-3">{{ trans_choice('general.numbers', 1) }}</th>
                                                 <th class="col-xs-4 col-sm-3">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-2 hidden-sm">{{ trans('invoices.invoice_date') }}</th>
-                                                <th class="col-sm-2 hidden-sm">{{ trans('invoices.due_date') }}</th>
+                                                <th class="col-sm-2 d-none d-sm-block">{{ trans('invoices.invoice_date') }}</th>
+                                                <th class="col-sm-2 d-none d-sm-block">{{ trans('invoices.due_date') }}</th>
                                                 <th class="col-xs-4 col-sm-2">{{ trans_choice('general.statuses', 1) }}</th>
                                             </tr>
                                         </thead>
@@ -153,8 +153,8 @@
                                                 <tr class="row align-items-center border-top-1">
                                                     <td class="col-xs-4 col-sm-3"><a href="{{ url('incomes/invoices/' . $item->id . ' ') }}">{{ $item->invoice_number }}</a></td>
                                                     <td class="col-xs-4 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-2 hidden-sm">@date($item->invoiced_at)</td>
-                                                    <td class="col-sm-2 hidden-sm">@date($item->due_at)</td>
+                                                    <td class="col-sm-2 d-none d-sm-block">@date($item->invoiced_at)</td>
+                                                    <td class="col-sm-2 d-none d-sm-block">@date($item->due_at)</td>
                                                     <td class="col-xs-4 col-sm-2"><span class="badge badge-pill badge-{{ $item->status->label }}">{{ trans('invoices.status.' . $item->status->code) }}</span></td>
                                                 </tr>
                                             @endforeach

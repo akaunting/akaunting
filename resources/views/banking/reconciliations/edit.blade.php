@@ -29,11 +29,11 @@
                     <thead class="thead-light">
                         <tr class="row">
                             <th  class="col-xs-4 col-sm-3 col-md-2 long-texts">{{ trans('general.date') }}</th>
-                            <th class="col-md-2 text-center hidden-md">{{ trans('general.description') }}</th>
-                            <th class="col-md-2 col-sm-3 col-md-3 hidden-sm">{{ trans_choice('general.contacts', 1) }}</th>
+                            <th class="col-md-2 text-center d-none d-md-block">{{ trans('general.description') }}</th>
+                            <th class="col-md-2 col-sm-3 col-md-3 d-none d-sm-block">{{ trans_choice('general.contacts', 1) }}</th>
                             <th class="col-xs-4 col-sm-3 col-md-2 text-right">{{ trans('reconciliations.deposit') }}</th>
                             <th class="col-xs-4 col-sm-3 col-md-2 text-right long-texts">{{ trans('reconciliations.withdrawal') }}</th>
-                            <th class="col-md-1 text-right hidden-md">{{ trans('general.clear') }}</th>
+                            <th class="col-md-1 text-right d-none d-md-block">{{ trans('general.clear') }}</th>
                         </tr>
                     </thead>
 
@@ -41,8 +41,8 @@
                         @foreach($transactions as $item)
                             <tr class="row">
                                 <td class="col-xs-4 col-sm-3 col-md-2 long-texts">@date($item->paid_at)</td>
-                                <td class="col-md-2 text-center hidden-md">{{ $item->description }}</td>
-                                <td class="col-sm-3 col-md-3 hidden-sm">{{ $item->contact->name }}</td>
+                                <td class="col-md-2 text-center d-none d-md-block">{{ $item->description }}</td>
+                                <td class="col-sm-3 col-md-3 d-none d-sm-block">{{ $item->contact->name }}</td>
                                 @if ($item->type == 'income')
                                     <td class="col-xs-4 col-sm-3 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                                     <td class="col-xs-4 col-sm-3 col-md-2 text-right"> </td>
@@ -50,7 +50,7 @@
                                     <td class="col-xs-4 col-sm-3 col-md-2 text-right">&nbsp;</td>
                                     <td class="col-xs-4 col-sm-3 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                                 @endif
-                                <td class="col-md-1 text-right hidden-md">{{ Form::checkbox('transactions['. $item->id . '_'. $item->type . ']', $item->amount, $item->reconciled) }}</td>
+                                <td class="col-md-1 text-right d-none d-md-block">{{ Form::checkbox('transactions['. $item->id . '_'. $item->type . ']', $item->amount, $item->reconciled) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -59,16 +59,16 @@
                     <table class="table">
                         <tbody>
                             <tr class="row">
-                                <th class="col-md-9 col-lg-11 text-right hidden-md">{{ trans('reconciliations.closing_balance') }}:</th>
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.closing_balance') }}:</th>
                                 <td id="closing-balance" class="col-md-1 text-right">@money($reconciliation->closing_balance, $account->currency_code, true)</td>
                             </tr>
                             <tr class="row">
-                                <th class="col-md-9 col-lg-11 text-right hidden-md">{{ trans('reconciliations.cleared_amount') }}:</th>
-                                <td id="cleared-amount" class="col-md-3 col-lg-1 text-right hidden-md">@money('0', $account->currency_code, true)</td>
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.cleared_amount') }}:</th>
+                                <td id="cleared-amount" class="col-md-3 col-lg-1 text-right d-none d-md-block">@money('0', $account->currency_code, true)</td>
                             </tr>
                             <tr class="row">
-                                <th class="col-md-9 col-lg-11 text-right hidden-md">{{ trans('general.difference') }}:</th>
-                                <td id="difference" class="col-md-3 col-lg-1 text-right hidden-md">@money('0', $account->currency_code, true)</td>
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('general.difference') }}:</th>
+                                <td id="difference" class="col-md-3 col-lg-1 text-right d-none d-md-block">@money('0', $account->currency_code, true)</td>
                             </tr>
                         </tbody>
                     </table>

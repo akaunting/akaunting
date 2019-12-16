@@ -173,7 +173,7 @@
                                             @stack('quantity_th_end')
 
                                             @stack('price_th_start')
-                                                <th class="col-sm-3 text-center hidden-sm pl-5">{{ trans($text_override['price']) }}</th>
+                                                <th class="col-sm-3 text-center  pl-5">{{ trans($text_override['price']) }}</th>
                                             @stack('price_th_end')
 
                                             @stack('total_th_start')
@@ -191,7 +191,7 @@
                                                 @stack('quantity_td_end')
 
                                                 @stack('price_td_start')
-                                                    <td class="col-sm-3 text-center hidden-sm pl-5">@money($item->price, $invoice->currency_code, true)</td>
+                                                    <td class="col-sm-3 text-center d-none d-sm-block pl-5">@money($item->price, $invoice->currency_code, true)</td>
                                                 @stack('price_td_end')
 
                                                 @stack('total_td_start')
@@ -207,7 +207,7 @@
                 @stack('invoice_item_end')
 
                 @stack('invoice_total_start')
-                    <div class="row">
+                    <div class="row mt-5">
                         <div class="col-md-7">
                             <div class="table-responsive">
                                 <table class="table table-borderless">

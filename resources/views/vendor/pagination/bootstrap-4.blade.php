@@ -8,7 +8,7 @@
         @endif
 
         @if($paginator->currentPage() > 3)
-            <li class="page-item hidden-xs"><a class="page-link" href="{{ $paginator->url(1) }}">1</a></li>
+            <li class="page-item d-none d-sm-block"><a class="page-link" href="{{ $paginator->url(1) }}">1</a></li>
         @endif
         @if($paginator->currentPage() > 4)
             <li class="page-item"><span class="page-link">...</span></li>
@@ -26,7 +26,7 @@
             <li class="page-item"><span class="page-link">...</span></li>
         @endif
         @if($paginator->currentPage() < $paginator->lastPage() - 2)
-            <li class="page-item hidden-xs"><a class="page-link" href="{{ $paginator->url($paginator->lastPage()) }}">{{ $paginator->lastPage() }}</a></li>
+            <li class="page-item d-none d-sm-block"><a class="page-link" href="{{ $paginator->url($paginator->lastPage()) }}">{{ $paginator->lastPage() }}</a></li>
         @endif
 
         {{-- Next Page Link --}}

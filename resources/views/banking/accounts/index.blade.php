@@ -18,8 +18,8 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="row" v-if="!bulk_action.show">
-                    <div class="col-12 card-header-search card-header-space">
-                        <span class="table-text hidden-lg card-header-search-text">{{ trans('general.search') }}:</span>
+                    <div class="col-12 d-flex align-items-center">
+                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
                         <akaunting-search></akaunting-search>
                     </div>
                 </div>
@@ -32,10 +32,10 @@
             <table class="table table-flush table-hover">
                 <thead class="thead-light">
                     <tr class="row table-head-line">
-                        <th class="col-sm-2 col-md-1 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
+                        <th class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
                         <th class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-4">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                        <th class="col-md-2 col-lg-2 col-xl-2 text-center hidden-md">@sortablelink('number', trans('accounts.number'))</th>
-                        <th class="col-sm-2 col-md-2 col-lg-3 col-xl-3 text-right hidden-sm">@sortablelink('opening_balance', trans('accounts.current_balance'))</th>
+                        <th class="col-md-2 col-lg-2 col-xl-2 text-center d-none d-md-block">@sortablelink('number', trans('accounts.number'))</th>
+                        <th class="col-sm-2 col-md-2 col-lg-3 col-xl-3 text-right d-none d-sm-block">@sortablelink('opening_balance', trans('accounts.current_balance'))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-xl-1">@sortablelink('enabled', trans('general.enabled'))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
@@ -44,12 +44,12 @@
                 <tbody>
                     @foreach($accounts as $item)
                         <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 hidden-sm">
+                            <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">
                                 {{ Form::bulkActionGroup($item->id, $item->name) }}
                             </td>
                             <td class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-4"><a class="col-aka text-success" href="{{ route('accounts.edit', $item->id) }}">{{ $item->name }}</a></td>
-                            <td class="col-md-2 col-lg-2 col-xl-2 text-center hidden-md">{{ $item->number }}</td>
-                            <td class="col-sm-2 col-md-2 col-lg-3 col-xl-3 text-right hidden-sm">@money($item->balance, $item->currency_code, true)</td>
+                            <td class="col-md-2 col-lg-2 col-xl-2 text-center d-none d-md-block">{{ $item->number }}</td>
+                            <td class="col-sm-2 col-md-2 col-lg-3 col-xl-3 text-right d-none d-sm-block">@money($item->balance, $item->currency_code, true)</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-xl-1">
                                 @if (user()->can('update-banking-accounts'))
                                     {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
