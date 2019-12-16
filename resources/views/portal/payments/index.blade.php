@@ -13,8 +13,8 @@
             ]) !!}
 
             <div class="row">
-                <div class="col-12 card-header-search card-header-space">
-                    <span class="table-text hidden-lg card-header-search-text">{{ trans('general.search') }}:</span>
+                <div class="col-12 d-flex align-items-center">
+                    <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
                     <akaunting-search></akaunting-search>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                         <th class="col-xs-3 col-sm-3">@sortablelink('paid_at', trans('general.date'))</th>
                         <th class="col-xs-3 col-sm-3">@sortablelink('amount', trans('general.amount'))</th>
                         <th class="col-xs-6 col-sm-3">@sortablelink('payment_method', trans_choice('general.payment_methods', 1))</th>
-                        <th class="col-sm-3 hidden-sm">@sortablelink('description', trans('general.description'))</th>
+                        <th class="col-sm-3 d-none d-sm-block">@sortablelink('description', trans('general.description'))</th>
                     </tr>
                 </thead>
 
@@ -39,7 +39,7 @@
                             <td class="col-xs-3 col-sm-3"><a class="text-success" href="{{ route('portal.payments.show', $item->id) }}">@date($item->paid_at)</a></td>
                             <td class="col-xs-3 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
                             <td class="col-xs-6 col-sm-3">{{ $payment_methods[$item->payment_method] }}</td>
-                            <td class="col-sm-3 hidden-sm">{{ $item->description }}</td>
+                            <td class="col-sm-3 d-none d-sm-block">{{ $item->description }}</td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -13,8 +13,8 @@
             ]) !!}
 
                 <div class="row">
-                    <div class="col-12 card-header-search card-header-space">
-                        <span class="table-text hidden-lg card-header-search-text">{{ trans('general.search') }}:</span>
+                    <div class="col-12 d-flex align-items-center">
+                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
                         <akaunting-search></akaunting-search>
                     </div>
                 </div>
@@ -28,8 +28,8 @@
                     <tr class="row table-head-line">
                         <th class="col-xs-4 col-sm-4 col-md-3">@sortablelink('invoice_number', trans('invoices.invoice_number'))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 text-right">@sortablelink('amount', trans('general.amount'))</th>
-                        <th class="col-sm-3 col-md-3 hidden-sm">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
-                        <th class="col-md-2 hidden-md">@sortablelink('due_at', trans('invoices.due_date'))</th>
+                        <th class="col-sm-3 col-md-3 d-none d-sm-block">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
+                        <th class="col-md-2 d-none d-md-block">@sortablelink('due_at', trans('invoices.due_date'))</th>
                         <th class="col-xs-4 col-sm-3 col-md-2 text-center">@sortablelink('status.name', trans_choice('general.statuses', 1))</th>
                     </tr>
                 </thead>
@@ -39,8 +39,8 @@
                         <tr class="row align-items-center border-top-1">
                             <td class="col-xs-4 col-sm-4 col-md-3"><a class="text-success" href="{{ route('portal.invoices.show', $item->id) }}">{{ $item->invoice_number }}</a></td>
                             <td class="col-xs-4 col-sm-2 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
-                            <td class="col-sm-3 col-md-3 hidden-sm">@date($item->invoiced_at)</td>
-                            <td class="col-md-2 hidden-md">@date($item->due_at)</td>
+                            <td class="col-sm-3 col-md-3 d-none d-sm-block">@date($item->invoiced_at)</td>
+                            <td class="col-md-2 d-none d-md-block">@date($item->due_at)</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 text-center"><span class="badge badge-pill badge-{{ $item->status->label }}">{{ trans('invoices.status.' . $item->status->code) }}</span></td>
                         </tr>
                     @endforeach

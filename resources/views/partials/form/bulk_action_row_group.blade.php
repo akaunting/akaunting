@@ -2,7 +2,7 @@
 
 <div class="align-items-center d-none" v-if="bulk_action.show" v-bind:class="[bulk_action.show ? 'show' : '']">
     <div class="mr-6">
-        <span class="hidden-sm text-white">
+        <span class="text-white d-none d-sm-block">
             <b v-text="bulk_action.count"></b>
                 <span v-if="bulk_action.count === 1">
                     {{ strtolower(trans_choice($text, 1)) }}

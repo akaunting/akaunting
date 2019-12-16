@@ -196,14 +196,6 @@
 /*--------Action Column Finish--------*/
 
 
-/*--------Table Search--------*/
-.table-text
-{
-    font-size: .875rem;
-}
-/*--------Table Search Finish--------*/
-
-
 /*--------Customer/Vendor Show--------*/
 .show-transaction-card-header
 {
@@ -733,14 +725,6 @@ table .align-items-center td span.badge {
     .col-xs-11 {width: 91.66%;}
     .col-xs-12 {width: 100%;}
 
-    .hidden-sm,
-    .hidden-md,
-    .hidden-lg,
-    .hidden-xl
-    {
-        display: none;
-    }
-
     .btn-alone
     {
         width: 100%;
@@ -776,11 +760,6 @@ table .align-items-center td span.badge {
         text-align: center;
         white-space: nowrap;
         font-size: 0.75rem !important;
-    }
-
-    .card-header-search
-    {
-        margin-left: -1rem;
     }
 
     .col-aka
@@ -823,18 +802,6 @@ table .align-items-center td span.badge {
 /*--------S Breakpoint--------*/
 @media (min-width: 576px) and (max-width: 767.98px)
 {
-    .hidden-md,
-    .hidden-lg,
-    .hidden-xl
-    {
-        display: none;
-    }
-
-    .card-header-search
-    {
-        margin-left: -1rem;
-    }
-
     .dashboard-action
     {
         margin-left: 4rem !important;
@@ -854,17 +821,6 @@ table .align-items-center td span.badge {
 /*--------M Breakpoint--------*/
 @media (min-width: 768px) and (max-width: 991.98px)
 {
-    .hidden-lg,
-    .hidden-xl
-    {
-        display: none;
-    }
-
-    .card-header-search
-    {
-        margin-left: -1rem;
-    }
-
     .sidenav .navbar-nav .dropdown-menu
     {
         left: 1rem !important;
@@ -880,26 +836,6 @@ table .align-items-center td span.badge {
 /*--------L Breakpoint--------*/
 @media (min-width: 992px) and (max-width: 1199.98px)
 {
-    .hidden-xl
-    {
-        display: none;
-    }
-
-    .card-header-search
-    {
-        margin-left: -1rem;
-    }
-
-    .card-header-search-text
-    {
-        padding-left: 17px;
-    }
-
-    .card-header-space
-    {
-        white-space: nowrap;
-    }
-
     .sidenav .navbar-nav .dropdown-menu
     {
         left: 1rem;
@@ -911,15 +847,5 @@ table .align-items-center td span.badge {
     }
 }
 /*--------L Breakpoint Finish--------*/
-
-/*--------XL Breakpoint--------*/
-@media (min-width: 1200px) and (max-width: 1327.98px)
-{
-    .hidden-xl
-    {
-        display: none;
-    }
-}
-/*--------XL Breakpoint Finish--------*/
 /*----------------RESPONSIVE END LINE----------------*/
 

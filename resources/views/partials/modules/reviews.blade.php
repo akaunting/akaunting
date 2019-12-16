@@ -37,7 +37,7 @@
         @if ($review_first_item)
             <div class="row d-none">
                 <div class="col-md-6">
-                    <span class="table-text hidden-lg">
+                    <span class="table-text d-none d-lg-block">
                         {{ trans('pagination.showing', ['first' => $review_first_item, 'last' => $review_last_item, 'total' => $reviews->total, 'type' => strtolower(trans('modules.tab.reviews'))]) }}
                     </span>
                 </div>
