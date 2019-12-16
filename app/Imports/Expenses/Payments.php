@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports\Income;
+namespace App\Imports\Expenses;
 
 use App\Models\Banking\Transaction as Model;
 use App\Http\Requests\Banking\Transaction as Request;
