@@ -18,8 +18,8 @@
                  'class' => 'mb-0'
              ]) !!}
                  <div class="row"  v-if="!bulk_action.show">
-                     <div class="col-12 card-header-search">
-                        <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
+                    <div class="col-12 d-flex align-items-center">
+                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
                         <akaunting-search></akaunting-search>
                      </div>
                  </div>
@@ -32,10 +32,10 @@
             <table class="table table-flush table-hover">
                 <thead class="thead-light">
                     <tr class="row table-head-line">
-                        <th class="col-sm-2 col-md-1 col-lg-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
+                        <th class="col-sm-2 col-md-1 col-lg-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
                         <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">@sortablelink('display_name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
                         <th class="col-xs-4 col-sm-4 col-md-3 col-lg-3 long-texts">@sortablelink('name', trans('general.code'))</th>
-                        <th class="col-md-2 col-lg-3 hidden-md long-texts">@sortablelink('description', trans('general.description'))</th>
+                        <th class="col-md-2 col-lg-3 d-none d-md-block long-texts">@sortablelink('description', trans('general.description'))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
@@ -43,10 +43,10 @@
                 <tbody>
                     @foreach($permissions as $item)
                         <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-1 col-lg-1 hidden-sm border-0">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
+                            <td class="col-sm-2 col-md-1 col-lg-1 d-none d-sm-block border-0">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
                             <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4 border-0"><a class="text-success col-aka" href="{{ route('permissions.edit', $item->id) }}">{{ $item->display_name }}</a></td>
                             <td class="col-xs-4 col-sm-4 col-md-3 col-lg-3 border-0 long-texts">{{ $item->name }}</td>
-                            <td class="col-md-2 col-lg-3 hidden-md border-0 long-texts">{{ $item->description }}</td>
+                            <td class="col-md-2 col-lg-3 d-none d-md-block border-0 long-texts">{{ $item->description }}</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center border-0">
                                 <div class="dropdown">
                                     <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

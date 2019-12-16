@@ -17,8 +17,8 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="row">
-                    <div class="col-12 card-header-search">
-                        <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
+                    <div class="col-12 d-flex align-items-center">
+                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
                         <akaunting-search></akaunting-search>
                     </div>
                 </div>
@@ -29,11 +29,11 @@
             <table class="table table-flush">
                 <thead class="thead-light">
                     <tr class="row table-head-line">
-                        <th class="col-sm-2 col-md-2 hidden-sm">@sortablelink('paid_at', trans('general.date'))</th>
+                        <th class="col-sm-2 col-md-2 d-none d-sm-block">@sortablelink('paid_at', trans('general.date'))</th>
                         <th class="col-xs-4 col-sm-3 col-md-2">@sortablelink('account.name', trans_choice('general.accounts', 1))</th>
                         <th class="col-xs-4 col-sm-3 col-md-2">@sortablelink('type', trans_choice('general.types', 1))</th>
-                        <th class="col-sm-2 col-md-2 hidden-sm">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
-                        <th class="col-md-2 hidden-md">@sortablelink('description', trans('general.description'))</th>
+                        <th class="col-sm-2 col-md-2 d-none d-sm-block">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
+                        <th class="col-md-2 d-none d-md-block">@sortablelink('description', trans('general.description'))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 text-right">@sortablelink('amount', trans('general.amount'))</th>
                     </tr>
                 </thead>
@@ -41,11 +41,11 @@
                 <tbody>
                     @foreach($transactions as $item)
                         <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-2 hidden-sm">@date($item->paid_at)</td>
+                            <td class="col-sm-2 col-md-2 d-none d-sm-block">@date($item->paid_at)</td>
                             <td class="col-xs-4 col-sm-3 col-md-2">{{ $item->account->name }}</td>
                             <td class="col-xs-4 col-sm-3 col-md-2">{{ trans_choice('general.' . Str::plural($item->type), 1) }}</td>
-                            <td class="col-sm-2 col-md-2 hidden-sm">{{ $item->category->name }}</td>
-                            <td class="col-md-2 hidden-md">{{ $item->description }}</td>
+                            <td class="col-sm-2 col-md-2 d-none d-sm-block">{{ $item->category->name }}</td>
+                            <td class="col-md-2 d-none d-md-block">{{ $item->description }}</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 text-right">
                                 @php
                                 $id = !empty($item->document_id) ? $item->document_id : $item->id;

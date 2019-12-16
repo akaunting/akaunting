@@ -5,7 +5,7 @@
                 <h4 class="mb-0">@yield('widget-title')</h4>
             </div>
 
-            <div class="col-8 text-right hidden-sm">
+            <div class="col-8 text-right d-none d-sm-block">
                 @yield('button')
 
                 <span>

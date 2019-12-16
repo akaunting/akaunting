@@ -21,8 +21,8 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="row" v-if="!bulk_action.show">
-                        <div class="col-12 card-header-search">
-                            <span class="table-text hidden-lg">{{ trans('general.search') }}:</span>
+                        <div class="col-12 d-flex align-items-center">
+                            <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
                             <akaunting-search></akaunting-search>
                         </div>
                     </div>
@@ -35,12 +35,12 @@
                 <table class="table table-flush table-hover">
                     <thead class="thead-light">
                         <tr class="row table-head-line">
-                            <th class="col-sm-2 col-md-2 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionAllGroup() }}</th>
+                            <th class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
                             <th class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-3">@sortablelink('paid_at', trans('general.date'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
                             <th class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1 text-right">@sortablelink('amount', trans('general.amount'))</th>
-                            <th class="col-md-2 col-lg-2 col-xl-3 hidden-md">@sortablelink('contact.name', trans_choice('general.customers', 1))</th>
-                            <th class="col-lg-2 col-xl-2 hidden-lg">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
-                            <th class="col-lg-2 col-xl-1 hidden-lg">@sortablelink('account.name', trans_choice('general.accounts', 1))</th>
+                            <th class="col-md-2 col-lg-2 col-xl-3 d-none d-md-block">@sortablelink('contact.name', trans_choice('general.customers', 1))</th>
+                            <th class="col-lg-2 col-xl-2 d-none d-lg-block">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
+                            <th class="col-lg-2 col-xl-1 d-none d-lg-block">@sortablelink('account.name', trans_choice('general.accounts', 1))</th>
                             <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center"><a>{{ trans('general.actions') }}</a></th>
                         </tr>
                     </thead>
@@ -49,16 +49,16 @@
                         @foreach($revenues as $item)
                             @php $is_transfer = ($item->category && ($item->category->id == $transfer_cat_id)); @endphp
                             <tr class="row align-items-center border-top-1">
-                                <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 hidden-sm">{{ Form::bulkActionGroup($item->id, $item->contact->name) }}</td>
+                                <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->contact->name) }}</td>
                                 @if ($item->reconciled)
                                     <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-3">@date($item->paid_at)</td>
                                 @else
                                     <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-3"><a class="text-success col-aka" href="{{ route('revenues.edit', $item->id) }}">@date($item->paid_at)</a></td>
                                 @endif
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                <td class="col-md-2 col-lg-2 col-xl-3 hidden-md">{{ !empty($item->contact->name) ? $item->contact->name : trans('general.na') }}</td>
-                                <td class="col-lg-2 col-xl-2 hidden-lg">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
-                                <td class="col-lg-2 col-xl-1 hidden-lg">{{ $item->account ? $item->account->name : trans('general.na') }}</td>
+                                <td class="col-md-2 col-lg-2 col-xl-3 d-none d-md-block">{{ !empty($item->contact->name) ? $item->contact->name : trans('general.na') }}</td>
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                                <td class="col-lg-2 col-xl-1 d-none d-lg-block">{{ $item->account ? $item->account->name : trans('general.na') }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
                                     @if (!$is_transfer)
                                         <div class="dropdown">

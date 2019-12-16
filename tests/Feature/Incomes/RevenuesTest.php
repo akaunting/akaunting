@@ -3,7 +3,7 @@
 namespace Tests\Feature\Incomes;
 
 use App\Jobs\Banking\CreateTransaction;
-use Illuminate\Http\UploadedFile;
+use App\Models\Banking\Transaction;
 use Tests\Feature\FeatureTestCase;
 
 class RevenuesTest extends FeatureTestCase
@@ -27,7 +27,7 @@ class RevenuesTest extends FeatureTestCase
    public function testItShouldCreateRevenue()
     {
         $this->loginAs()
-            ->post(route('revenues.store'), $this->getRevenueRequest())
+            ->post(route('revenues.store'), factory(Transaction::class)->raw())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -35,7 +35,7 @@ class RevenuesTest extends FeatureTestCase
 
     public function testItShouldUpdateRevenue()
     {
-        $request = $this->getRevenueRequest();
+        $request = factory(Transaction::class)->raw();
 
         $revenue = $this->dispatch(new CreateTransaction($request));
 
@@ -50,32 +50,12 @@ class RevenuesTest extends FeatureTestCase
 
     public function testItShouldDeleteRevenue()
     {
-        $revenue = $this->dispatch(new CreateTransaction($this->getRevenueRequest()));
+        $revenue = $this->dispatch(new CreateTransaction(factory(Transaction::class)->raw()));
 
         $this->loginAs()
             ->delete(route('revenues.destroy', $revenue->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
-    }
-
-    private function getRevenueRequest()
-    {
-        $attachment = UploadedFile::fake()->create('image.jpg');
-
-        return [
-            'company_id' => $this->company->id,
-            'type' => 'income',
-            'account_id' => setting('default.account'),
-            'paid_at' => $this->faker->date(),
-            'amount' => $this->faker->randomFloat(2, 2),
-            'currency_code' => setting('default.currency'),
-            'currency_rate' => '1',
-            'description' => $this->faker->text(5),
-            'category_id' => $this->company->categories()->type('income')->first()->id,
-            'reference' => $this->faker->text(5),
-            'payment_method' => setting('default.payment_method'),
-            'attachment' => $attachment,
-        ];
     }
 }
