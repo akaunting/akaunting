@@ -21,7 +21,7 @@ class AddAdminItems
         $attr = ['icon' => ''];
 
         // Dashboard
-        $dashboards = Dashboard::getByUser($user->id);
+        $dashboards = Dashboard::ofUser($user->id)->get();
 
         if ($dashboards->count() > 1) {
             $menu->dropdown(trim(trans_choice('general.dashboards', 2)), function ($sub) use ($user, $attr, $dashboards) {

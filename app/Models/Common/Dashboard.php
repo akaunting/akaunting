@@ -35,8 +35,8 @@ class Dashboard extends Model
         return $this->belongsTo('App\Models\Auth\User', 'user_id', 'id');
     }
 
-    public function scopeGetByUser($query, $user_id)
+    public function scopeOfUser($query, $user_id)
     {
-        return $query->where('user_id', $user_id)->get();
+        return $query->where('user_id', $user_id);
     }
 }
