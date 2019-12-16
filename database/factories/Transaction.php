@@ -3,15 +3,12 @@
 use App\Models\Auth\User;
 use App\Models\Banking\Transaction;
 use Faker\Generator as Faker;
-use Illuminate\Http\UploadedFile;
 
 $user = User::first();
 $company = $user->companies()->first();
 
 $factory->define(Transaction::class, function (Faker $faker) use ($company) {
 	setting()->setExtraColumns(['company_id' => $company->id]);
-
-	$attachment = UploadedFile::fake()->create('image.jpg');
 
 	return [
 		'company_id' => $company->id,
@@ -25,7 +22,6 @@ $factory->define(Transaction::class, function (Faker $faker) use ($company) {
 		'category_id' => $company->categories()->type('income')->pluck('id')->first(),
 		'reference' => $faker->text(5),
 		'payment_method' => setting('default.payment_method'),
-		//'attachment' => $attachment,
 	];
 });
 
