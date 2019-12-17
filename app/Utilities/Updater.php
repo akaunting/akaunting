@@ -139,39 +139,30 @@ class Updater
     public static function all()
     {
         // Get data from cache
-        $data = Cache::get('updates');
+        $updates = Cache::get('updates');
 
-        if (!empty($data)) {
-            return $data;
+        if (!empty($updates)) {
+            return $updates;
         }
 
-        // No data in cache, grab them from remote
-        $data = array();
+        $updates = [];
 
         $modules = module()->all();
 
         $versions = Versions::latest($modules);
 
-        foreach ($versions as $alias => $version) {
-            // Modules come as array
-            if ($alias == 'core') {
-                if (version_compare(version('short'), $version, '<')) {
-                    $data['core'] = $version;
-                }
-            } else {
-                $module = module($alias);
+        foreach ($versions as $alias => $latest_version) {
+            $installed_version = ($alias == 'core') ? version('short') : module($alias)->get('version');
 
-                // Up-to-date
-                if (version_compare($module->get('version'), $version, '>=')) {
-                    continue;
-                }
-
-                $data[$alias] = $version;
+            if (version_compare($installed_version, $latest_version, '>=')) {
+                continue;
             }
+
+            $updates[$alias] = $latest_version;
         }
 
-        Cache::put('updates', $data, Date::now()->addHour(6));
+        Cache::put('updates', $updates, Date::now()->addHour(6));
 
-        return $data;
+        return $updates;
     }
 }

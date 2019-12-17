@@ -52,24 +52,23 @@ class Versions
         return $output;
     }
 
-    public static function latest($modules = array())
+    public static function latest($modules = [])
     {
         // Get data from cache
-        $data = Cache::get('versions');
+        $versions = Cache::get('versions');
 
-        if (!empty($data)) {
-            return $data;
+        if (!empty($versions)) {
+            return $versions;
         }
 
         $info = Info::all();
 
-        // No data in cache, grab them from remote
-        $data = [];
+        $versions = [];
 
         // Check core first
         $url = 'core/version/' . $info['akaunting'] . '/' . $info['php'] . '/' . $info['mysql'] . '/' . $info['companies'];
 
-        $data['core'] = static::getLatestVersion($url, $info['akaunting']);
+        $versions['core'] = static::getLatestVersion($url, $info['akaunting']);
 
         // Then modules
         foreach ($modules as $module) {
@@ -78,12 +77,12 @@ class Versions
 
             $url = 'apps/' . $alias . '/version/' . $version . '/' . $info['akaunting'];
 
-            $data[$alias] = static::getLatestVersion($url, $version);
+            $versions[$alias] = static::getLatestVersion($url, $version);
         }
 
-        Cache::put('versions', $data, Date::now()->addHour(6));
+        Cache::put('versions', $versions, Date::now()->addHour(6));
 
-        return $data;
+        return $versions;
     }
 
     public static function getLatestVersion($url, $latest)
