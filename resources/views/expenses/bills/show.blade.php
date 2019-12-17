@@ -483,18 +483,18 @@
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead class="thead-light">
-                                            <tr class="table-head-line">
-                                                <th>{{ trans('general.date') }}</th>
-                                                <th class="text-center">{{ trans_choice('general.statuses', 1) }}</th>
-                                                <th class="text-left">{{ trans('general.description') }}</th>
+                                            <tr class="row table-head-line">
+                                                <th class="col-xs-4 col-sm-4">{{ trans('general.date') }}</th>
+                                                <th class="col-xs-4 col-sm-4 text-center">{{ trans_choice('general.statuses', 1) }}</th>
+                                                <th class="col-xs-4 col-sm-4 text-left long-texts">{{ trans('general.description') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($bill->histories as $history)
-                                                <tr>
-                                                    <td>@date($history->created_at)</td>
-                                                    <td class="text-center">{{ $history->status->name }}</td>
-                                                    <td class="text-left">{{ $history->description }}</td>
+                                                <tr class="row align-items-center">
+                                                    <td class="col-xs-4 col-sm-4">@date($history->created_at)</td>
+                                                    <td class="col-xs-4 col-sm-4 text-center">{{ $history->status->name }}</td>
+                                                    <td class="col-xs-4 col-sm-4 text-left long-texts">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -515,23 +515,23 @@
                             </div>
                             <div id="collapseTwo" class="collapse hide" aria-labelledby="headingTwo">
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table table-flush table-hover">
                                         <thead class="thead-light">
-                                            <tr class="table-head-line">
-                                                <th>{{ trans('general.date') }}</th>
-                                                <th>{{ trans('general.amount') }}</th>
-                                                <th>{{ trans_choice('general.accounts', 1) }}</th>
-                                                <th>{{ trans('general.actions') }}</th>
+                                            <tr class="row table-head-line">
+                                                <th class="col-xs-4 col-sm-3">{{ trans('general.date') }}</th>
+                                                <th class="col-xs-4 col-sm-3">{{ trans('general.amount') }}</th>
+                                                <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.accounts', 1) }}</th>
+                                                <th class="col-xs-4 col-sm-3">{{ trans('general.actions') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @if ($bill->transactions->count())
                                                 @foreach($bill->transactions as $transaction)
-                                                    <tr>
-                                                        <td>@date($item->paid_at)</td>
-                                                        <td>@money($transaction->amount, $transaction->currency_code, true)</td>
-                                                        <td>{{ $transaction->account->name }}</td>
-                                                        <td>
+                                                    <tr class="row align-items-center border-top-1">
+                                                        <td class="col-xs-4 col-sm-3">@date($item->paid_at)</td>
+                                                        <td class="col-xs-4 col-sm-3">@money($transaction->amount, $transaction->currency_code, true)</td>
+                                                        <td class="col-sm-3 d-none d-sm-block">{{ $transaction->account->name }}</td>
+                                                        <td class="col-xs-4 col-sm-3">
                                                             @if ($transaction->reconciled)
                                                                 <button type="button" class="btn btn-secondary btn-sm">
                                                                     <i class="fa fa-check"></i> {{ trans('reconciliations.reconciled') }}
