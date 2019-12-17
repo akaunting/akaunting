@@ -155,14 +155,14 @@ class Updater
         foreach ($versions as $alias => $version) {
             // Modules come as array
             if ($alias == 'core') {
-                if (version_compare(version('short'), $version) != 0) {
+                if (version_compare(version('short'), $version, '<')) {
                     $data['core'] = $version;
                 }
             } else {
                 $module = module($alias);
 
                 // Up-to-date
-                if (version_compare($module->get('version'), $version) == 0) {
+                if (version_compare($module->get('version'), $version, '>=')) {
                     continue;
                 }
 
