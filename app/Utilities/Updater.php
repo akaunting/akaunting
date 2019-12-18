@@ -35,7 +35,7 @@ class Updater
         if ($alias == 'core') {
             $url = 'core/download/' . $new . '/' . $info['php'] . '/' . $info['mysql'];
         } else {
-            $url = 'apps/' . $alias . '/download/' . $new . '/' . $info['akaunting'] . '/' . $info['token'];
+            $url = 'apps/' . $alias . '/download/' . $new . '/' . $info['akaunting'] . '/' . $info['api_key'];
         }
 
         if (!$response = static::getResponse('GET', $url, ['timeout' => 50, 'track_redirects' => true])) {
