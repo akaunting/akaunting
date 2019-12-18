@@ -2,34 +2,28 @@
 
 namespace App\Utilities;
 
-use DB;
+use App\Models\Auth\User;
 use App\Models\Common\Company;
+use DB;
 
 class Info
 {
+    public static function all()
+    {
+        return array_merge(static::versions(), [
+            'api_key' => setting('apps.api_key'),
+            'companies' => Company::all()->count(),
+            'users' => User::all()->count(),
+        ]);
+    }
 
     public static function versions()
     {
-        $v = array();
-
-        $v['akaunting'] = version('short');
-
-        $v['php'] = static::phpVersion();
-
-        $v['mysql'] = static::mysqlVersion();
-
-        return $v;
-    }
-
-    public static function all()
-    {
-        $data = static::versions();
-
-        $data['token'] = setting('apps.api_key');
-
-        $data['companies'] = Company::all()->count();
-
-        return $data;
+        return [
+            'akaunting' => version('short'),
+            'php' => static::phpVersion(),
+            'mysql' => static::mysqlVersion(),
+        ];
     }
 
     public static function phpVersion()
@@ -39,11 +33,10 @@ class Info
   
     public static function mysqlVersion()
     {
-        if(env('DB_CONNECTION') === 'mysql')
-        {
+        if (env('DB_CONNECTION') === 'mysql') {
             return DB::selectOne('select version() as mversion')->mversion;
         }
 
-        return "N/A";
+        return 'N/A';
     }
 }

@@ -16,7 +16,7 @@ trait SiteApi
         $headers['headers'] = [
             'Authorization' => 'Bearer ' . setting('apps.api_key'),
             'Accept'        => 'application/json',
-            'Referer'       => url('/'),
+            'Referer'       => app()->runningInConsole() ? config('app.url') : url('/'),
             'Akaunting'     => version('short'),
             'Language'      => language()->getShortCode(),
         ];
