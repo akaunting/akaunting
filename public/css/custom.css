@@ -7,8 +7,42 @@
     font-style: normal;
 }
 
-.select-tax .el-select .el-select__tags .el-tag {
-    margin-top: 30px;
+.el-select .el-select__tags .el-tag
+{
+    background: #55588b !important;
+}
+
+.el-tag.el-tag--info
+{
+    border-color: #55588b !important;
+}
+
+.el-select .el-select__tags
+{
+    padding-left: 6px !important;
+}
+
+.el-select .el-select__input
+{
+    margin-left: unset !important;
+}
+
+.select-tax .el-select .el-select__tags
+{
+    width: unset !important;
+    max-width: unset !important;
+}
+
+.select-tax .el-select span:first-of-type
+{
+    width: 60px !important;
+    overflow: hidden;
+}
+
+.select-tax .el-select .el-select__tags .el-select__tags-text
+{
+    width: 20px !important;
+    overflow: hidden;
 }
 
 /*--------General Button Hover--------*/
