@@ -57,6 +57,7 @@
         <td class="col-md-2 border-right-0 border-bottom-0">
             @stack('quantity_input_start')
                 <input class="form-control text-center"
+                       autocomplete="off"
                        required="required"
                        data-item="quantity"
                        v-model="row.quantity"
@@ -72,6 +73,7 @@
         <td class="col-md-2 border-right-0 border-bottom-0">
             @stack('price_input_start')
                 <input class="form-control text-right input-price"
+                       autocomplete="off"
                        required="required"
                        data-item="price"
                        v-model.lazy="row.price"
