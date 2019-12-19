@@ -54,6 +54,7 @@ class FinishUpdate extends Command
         }
 
         session(['company_id' => $company_id]);
+        setting()->setExtraColumns(['company_id' => $company_id]);
 
         event(new UpdateFinished($alias, $new, $old));
     }

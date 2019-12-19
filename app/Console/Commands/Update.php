@@ -56,6 +56,7 @@ class Update extends Command
         $this->old = $this->getOldVersion();
 
         session(['company_id' => $this->argument('company_id')]);
+        setting()->setExtraColumns(['company_id' => $this->argument('company_id')]);
 
         if (!$path = $this->download()) {
             return self::CMD_ERROR;
