@@ -2,7 +2,9 @@
 
 namespace App\Traits;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 
 trait SiteApi
@@ -31,27 +33,29 @@ trait SiteApi
 
         try {
             $response = $client->request($method, $path, $options);
-        } catch (RequestException $e) {
+        } catch (ConnectException | Exception | RequestException $e) {
             $response = $e;
         }
 
         return $response;
     }
 
-    public static function getResponse($method, $path, $data = [])
+    public static function getResponse($method, $path, $data = [], $status_code = 200)
     {
         $response = static::siteApiRequest($method, $path, $data);
 
-        if (!$response || ($response instanceof RequestException) || ($response->getStatusCode() != 200)) {
+        $is_exception = (($response instanceof ConnectException) || ($response instanceof Exception) || ($response instanceof RequestException));
+
+        if (!$response || $is_exception || ($response->getStatusCode() != $status_code)) {
             return false;
         }
 
         return $response;
     }
 
-    public static function getResponseData($method, $path, $data = [])
+    public static function getResponseData($method, $path, $data = [], $status_code = 200)
     {
-        if (!$response = static::getResponse($method, $path, $data)) {
+        if (!$response = static::getResponse($method, $path, $data, $status_code)) {
             return [];
         }
 
