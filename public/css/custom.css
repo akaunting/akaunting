@@ -701,6 +701,12 @@
 }
 /*--------Height 0 Finish--------*/
 
+/*--------Editor Text--------*/
+.ql-editor p
+{
+    font-size: 0.775rem !important;
+}
+/*--------Editor text Finish--------*/
 
 table .align-items-center td span.badge {
     height: 24px;
