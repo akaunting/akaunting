@@ -578,6 +578,7 @@
 @push('content_content_end')
     <akaunting-modal
         :show="payment.modal"
+        @cancel="payment.modal = false"
         :title="'{{ trans('general.title.new', ['type' => trans_choice('general.payments', 1)]) }}'"
         :message="payment.html"
         :button_cancel="'{{ trans('general.button.save') }}'"
