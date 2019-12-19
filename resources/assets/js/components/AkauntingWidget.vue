@@ -95,110 +95,11 @@
 </template>
 
 <style>
-    .form-group .el-select {
-        width: 100%
-    }
-
     .el-input__prefix
     {
         left: 20px;
         z-index: 999;
         top: 2px;
-    }
-
-    .el-select .el-input .el-input__inner {
-        font-size: .875rem;
-        width: 100%;
-        height: calc(1.5em + 1.25rem + 2px);
-        -webkit-transition: all .15s ease-in-out;
-        transition: all .15s ease-in-out
-    }
-
-    @media (prefers-reduced-motion:reduce) {
-        .el-select .el-input .el-input__inner {
-            -webkit-transition: none;
-            transition: none
-        }
-    }
-
-    .el-select .el-input .el-input__inner:focus {
-        border-color: #324cdd!important;
-        border: 1px solid #2a44db
-    }
-
-    .el-select .el-input .el-input__inner::-webkit-input-placeholder {
-        color: #adb5bd;
-        opacity: 1
-    }
-
-    .el-select .el-input .el-input__inner::-moz-placeholder {
-        color: #adb5bd;
-        opacity: 1
-    }
-
-    .el-select .el-input .el-input__inner::-ms-input-placeholder {
-        color: #adb5bd;
-        opacity: 1
-    }
-
-    .el-select .el-input .el-input__inner::placeholder {
-        color: #adb5bd;
-        opacity: 1
-    }
-
-    .el-select .el-input .el-input__inner:disabled {
-        background-color: #e9ecef;
-        opacity: 1
-    }
-
-    .el-select .el-input.is-focus .el-input__inner {
-        border-color: #324cdd!important;
-        border: 1px solid #2a44db
-    }
-
-    .el-select-dropdown.el-popper .el-select-dropdown__item.selected,.el-select-dropdown.el-popper.is-multiple .el-select-dropdown__item.selected {
-        color: #5e72e4
-    }
-
-    .el-select .el-select__tags {
-        padding-left: 10px
-    }
-
-    .el-select .el-select__tags .el-tag {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        padding: .625rem .625rem .5rem;
-        height: 25px;
-        margin: .125rem;
-        border-radius: .25rem;
-        background: #172b4d;
-        color: #fff;
-        line-height: 1.5;
-        cursor: pointer;
-        -webkit-box-shadow: 0 1px 2px rgba(68,68,68,.25);
-        box-shadow: 0 1px 2px rgba(68,68,68,.25);
-        -webkit-transition: all .15s ease;
-        transition: all .15s ease
-    }
-
-    @media (prefers-reduced-motion:reduce) {
-        .el-select .el-select__tags .el-tag {
-            -webkit-transition: none;
-            transition: none
-        }
-    }
-
-    .el-select .el-select__tags .el-tag .el-tag__close.el-icon-close {
-        background-color: transparent;
-        color: #fff;
-        font-size: 12px
     }
 </style>
 
