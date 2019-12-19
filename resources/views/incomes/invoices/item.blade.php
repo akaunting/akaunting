@@ -96,7 +96,8 @@
                     'data-item' => 'tax_id',
                     'v-model' => 'row.tax_id',
                     'change' => 'onCalculateTotal',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'path' => route('modals.taxes.create')
                 ], 'mb-0 select-tax') }}
             @stack('tax_id_input_end')
         </td>
