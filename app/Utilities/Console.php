@@ -9,6 +9,7 @@ class Console
     public static function run($command)
     {
         $process = new Process($command, base_path());
+        $process->setTimeout(900); // 15 minutes
 
         $process->run();
 
