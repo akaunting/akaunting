@@ -7,6 +7,7 @@
     font-style: normal;
 }
 
+/*--------Item Tax Tag--------*/
 .el-select .el-select__tags .el-tag
 {
     background: #55588b !important;
@@ -44,6 +45,8 @@
     width: 20px !important;
     overflow: hidden;
 }
+/*--------Item Tax Tag Finish--------*/
+
 
 /*--------General Button Hover--------*/
 .btn:hover
@@ -325,29 +328,29 @@
 /*--------Long Texts Finish--------*/
 
 
-/*--------Thead Row Margin--------*/
+/*--------Table Head Row Margin--------*/
 .thead-light .row
 {
     margin: 0;
 }
-/*--------Thead Row Margin Finish--------*/
+/*--------Table Head Row Margin Finish--------*/
 
 
-/*--------Tbody Row Margin--------*/
+/*--------Table Head Column Letter Spacing--------*/
+.table thead th
+{
+    letter-spacing: 0;
+}
+/*--------Table Head Column Letter Spacing Finish--------*/
+
+
+/*--------Table Body Row Margin--------*/
 .table, tbody .row
 {
     margin-right: 0;
     margin-left: 0;
 }
-/*--------Tbody Row Margin Finish--------*/
-
-
-/*--------Thead Column Letter Spacing--------*/
-.table thead th
-{
-    letter-spacing: 0;
-}
-/*--------Thead Column Letter Spacing Finish--------*/
+/*--------Table Body Row Margin Finish--------*/
 
 
 /*--------Card Footer--------*/
@@ -375,12 +378,12 @@
 /*--------Border Top Finish--------*/
 
 
-/*--------Border Top--------*/
+/*--------Border Bottom--------*/
 .border-bottom-1
 {
     border-bottom: 1px solid #e9ecef !important;
 }
-/*--------Border Top Finish--------*/
+/*--------Border Bottom Finish--------*/
 
 
 /*--------Border Top Style--------*/
@@ -460,18 +463,12 @@
 /*--------Card Action Button Finish--------*/
 
 
-/*--------Module Show Second Card--------*/
-.table-fixed
+/*--------Table Layout Fixed--------*/
+.table-layout-fixed
 {
     table-layout: fixed;
 }
-
-.long-module-detail
-{
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-/*--------Module Show Second Card Finish--------*/
+/*--------Table Layout Fixed Finish--------*/
 
 
 /*--------Akaunting Loader--------*/
@@ -549,7 +546,7 @@
 /*--------Akaunting Loader Finish--------*/
 
 
-/*--------Settings Index Page Icons--------*/
+/*--------Settings Index Page--------*/
 .settings-icons
 {
     position: relative;
@@ -558,14 +555,12 @@
     width: 45px;
     padding-top: 10px;
 }
-/*--------Settings Index Page Icons Finish--------*/
 
 
-/*--------Settings Button Clipboard--------*/
 .btn-icon-clipboard:focus {
     outline: none;
 }
-/*--------Settings Button Clipboard Finish--------*/
+/*--------Settings Index Page Finish--------*/
 
 
 /*--------Box Shadow None Focus--------*/
@@ -585,12 +580,12 @@
 /*--------Pagination Alignment Finish--------*/
 
 
-/*--------Akaunting Tables--------*/
+/*--------Akaunting Style Table Column--------*/
 .col-aka
 {
     margin-left: -51px;
 }
-/*--------Akaunting Tables--------*/
+/*--------Akaunting Style Table Column Finish--------*/
 
 
 /*--------Login Background--------*/
