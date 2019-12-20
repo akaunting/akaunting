@@ -232,52 +232,52 @@
             <h3>{{ trans('modules.about') }}</h3>
 
             <div class="card">
-                <table class="table table-fixed">
+                <table class="table">
                     <tbody>
                         @if ($module->vendor_name)
-                            <tr>
-                                <th>{{ trans_choice('general.developers', 1) }}</th>
-                                <td class="text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans_choice('general.developers', 1) }}</th>
+                                <td class="col-7 text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                             </tr>
                         @endif
                         @if ($module->version)
-                            <tr>
-                                <th>{{ trans('footer.version') }}</th>
-                                <td class="text-right">{{ $module->version }}</td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans('footer.version') }}</th>
+                                <td class="col-7 text-right">{{ $module->version }}</td>
                             </tr>
                         @endif
                         @if ($module->created_at)
-                            <tr>
-                                <th>{{ trans('modules.added') }}</th>
-                                <td class="text-right long-module-detail">@date($module->created_at)</td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans('modules.added') }}</th>
+                                <td class="col-7 text-right long-texts">@date($module->created_at)</td>
                             </tr>
                         @endif
                         @if ($module->updated_at)
-                            <tr>
-                                <th>{{ trans('modules.updated') }}</th>
-                                <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans('modules.updated') }}</th>
+                                <td class="col-7 text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                             </tr>
                         @endif
                         @if ($module->compatibility)
-                            <tr>
-                                <th>{{ trans('modules.compatibility') }}</th>
-                                <td class="text-right">{{ $module->compatibility }}</td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans('modules.compatibility') }}</th>
+                                <td class="col-7 text-right">{{ $module->compatibility }}</td>
                             </tr>
                         @endif
                         @if ($module->category)
-                            <tr>
-                                <th>{{ trans_choice('general.categories', 1) }}</th>
-                                <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans_choice('general.categories', 1) }}</th>
+                                <td class="col-7 text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                             </tr>
                         @endif
-                        <tr>
-                            <th>{{ trans('modules.documentation') }}</th>
+                        <tr class="row">
+                            <th class="col-5">{{ trans('modules.documentation') }}</th>
                             @if ($module->documentation)
-                                <td class="text-right">
+                                <td class="col-7 text-right">
                                     <a class="font-weight-bold" href="{{ url('apps/docs/' . $module->slug) }}">{{ trans('modules.view') }}</a>
                                 </td>
                             @else
-                               <th class="text-right">{{ trans('general.na') }}</th>
+                               <th class="col-7 text-right">{{ trans('general.na') }}</th>
                             @endif
                         </tr>
                     </tbody>
