@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-sm btn-secondary btn-secondary date-range-btn card-buttons filter-button">
+<button type="button" class="btn btn-sm btn-secondary btn-secondary">
     <span><i class="fa fa-{{ $icon }}"></i> {{ $text }}</span>
     <i class="fa fa-caret-down"></i>
     {!! Form::hidden($name, null, []) !!}

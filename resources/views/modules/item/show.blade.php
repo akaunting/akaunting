@@ -21,13 +21,13 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-xs-6 col-sm-6">
                     <div class="float-left">
                         <h3>{{ $module->name }}</h3>
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-xs-6 col-sm-6">
                     <div class="float-right">
                         @for($i = 1; $i <= $module->vote; $i++)
                             <i class="fa fa-star fa-sm text-yellow"></i>
@@ -151,7 +151,7 @@
                                 @endif
                             </div>
 
-                            <div class="card-footer pb-0 px-0 mt-4">
+                            <div class="card-footer mx--4 mt-4 mb--4">
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         @if (!empty($module->review_action))
