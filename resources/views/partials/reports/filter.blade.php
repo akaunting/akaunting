@@ -11,7 +11,7 @@
         @foreach($class->filters as $name => $values)
             {!! Form::select($name . '[]', $values, request($name), ['id' => 'filter-' . $name, 'class' => 'form-control form-control-sm table-header-search']) !!}
         @endforeach
-        {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-secondary btn-sm card-buttons']) !!}
+        {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-secondary']) !!}
     </div>
 
     {!! Form::close() !!}
