@@ -28,22 +28,49 @@ const app = new Vue({
     data: function () {
         return {
             form: new Form('setting'),
-            bulk_action: new BulkAction('settings')
+            bulk_action: new BulkAction('settings'),
+            email:{
+                sendmailPath:true,
+                smtpHost:true,
+                smtpPort:true,
+                smtpUsername:true,
+                smtpPassword:true,
+                smtpEncryption:true,
+            }
         }
     },
 
-    methods: {
-        onProtocolChange(protocol) {
-            if (protocol === 'smtp') {
-                document.getElementById('smtp_host').disabled = false
-                document.getElementById('smtp_port').disabled = false
-                document.getElementById('smtp_username').disabled = false
-                document.getElementById('smtp_password').disabled = false
-            } else {
-                document.getElementById('smtp_host').disabled = true
-                document.getElementById('smtp_port').disabled = true
-                document.getElementById('smtp_username').disabled = true
-                document.getElementById('smtp_password').disabled = true
+    mounted(){
+        this.onChangeProtocol(this.form.protocol);
+    },
+
+    methods:{
+        onChangeProtocol(protocol){
+            switch(protocol){
+                case "smtp":
+                    this.email.sendmailPath = true;
+                    this.email.smtpHost = false;
+                    this.email.smtpPort = false;
+                    this.email.smtpUsername = false;
+                    this.email.smtpPassword = false;
+                    this.email.smtpEncryption = false;
+                    break;
+                case "sendmail":
+                    this.email.sendmailPath = false;
+                    this.email.smtpHost = true;
+                    this.email.smtpPort = true;
+                    this.email.smtpUsername = true;
+                    this.email.smtpPassword = true;
+                    this.email.smtpEncryption = true;
+                    break;
+                default:
+                    this.email.sendmailPath = true;
+                    this.email.smtpHost = true;
+                    this.email.smtpPort = true;
+                    this.email.smtpUsername = true;
+                    this.email.smtpPassword = true;
+                    this.email.smtpEncryption = true;
+                    break;
             }
         }
     }
