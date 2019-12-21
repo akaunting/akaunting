@@ -1,3 +1,4 @@
+<div>
     <div class="d-none">
         @if (!empty($setting['name']))
             <h2>{{ $setting['name'] }}</h2>
@@ -24,4 +25,4 @@
             {!! Form::close() !!}
         </div>
     </div>
-
+</div>

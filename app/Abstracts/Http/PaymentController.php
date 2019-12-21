@@ -2,9 +2,9 @@
 
 namespace App\Abstracts\Http;
 
+use App\Events\Income\PaymentReceived;
 use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
 use App\Models\Income\Invoice;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\URL;
 use Monolog\Logger;
@@ -169,7 +169,7 @@ abstract class PaymentController extends BaseController
         $request['payment_method'] = $this->alias;
         $request['reference'] = $this->getReference($invoice);
 
-        event(new \App\Events\Income\PaymentReceived($invoice, $request));
+        event(new PaymentReceived($invoice, $request));
     }
 
     public function setReference($invoice, $reference)
