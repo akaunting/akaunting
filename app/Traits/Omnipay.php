@@ -2,18 +2,11 @@
 
 namespace App\Traits;
 
-use Omnipay\Omnipay as Library;
-
 trait Omnipay
 {
-    use Library;
-
     public $gateway;
 
-    public function create($name)
-    {
-        $this->gateway = Library::create($name);
-    }
+    public $factory;
 
     public function authorize($invoice, $request, $extra_options = [])
     {
@@ -155,5 +148,43 @@ trait Omnipay
             'success' => false,
             'data' => false,
         ]);
+    }
+
+    public function all()
+    {
+        return $this->callFactory('all');
+    }
+
+    public function replace($gateways)
+    {
+        return $this->callFactory('replace', [$gateways]);
+    }
+
+    public function register($class_name)
+    {
+        return $this->callFactory('register', [$class_name]);
+    }
+
+    public function create($class, $http_client = null, $http_request = null)
+    {
+        $this->gateway = $this->callFactory('create', [$class, $http_client, $http_request]);
+
+        return $this->gateway;
+    }
+
+    public function callFactory($method, $parameters = [])
+    {
+        $factory = $this->getFactory();
+
+        return call_user_func_array(array($factory, $method), (array) $parameters);
+    }
+
+    public function getFactory()
+    {
+        if (is_null($this->factory)) {
+            $this->factory = new \Omnipay\Common\GatewayFactory();
+        }
+
+        return $this->factory;
     }
 }
