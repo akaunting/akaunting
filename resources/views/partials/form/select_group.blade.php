@@ -12,6 +12,9 @@
         @if (!empty($attributes['change']))
         @change="{{ $attributes['change'] }}($event)"
         @endif
+        @if (isset($attributes['disabled']))
+        :disabled="{{ $attributes['disabled'] }}"
+        @endif
         @if(isset($attributes['v-error-message']))
         :form-error="{{ $attributes['v-error-message'] }}"
         @else

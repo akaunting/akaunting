@@ -252,20 +252,20 @@
                     <div id="collapse10" class="collapse hide" aria-labelledby="heading10" data-parent="#accordion10">
                         <div class="card-body">
                             <div class="row">
-                                {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, !empty($setting['protocol']) ? $setting['protocol'] : null, ['change' => 'onProtocolChange']) }}
+                                {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, !empty($setting['protocol']) ? $setting['protocol'] : null, ['change' => 'onChangeProtocol']) }}
 
-                                {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled' => '(form.protocol == "smtp") || (form.protocol != "sendmail") ? true : false']) }}
+                                {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled'=> 'email.sendmailPath']) }}
 
-                                {{ Form::textGroup('smtp_host', trans('settings.email.smtp.host'), 'paper-plane', [':disabled' => '(form.protocol != "smtp") ? true : false']) }}
+                                {{ Form::textGroup('smtp_host', trans('settings.email.smtp.host'), 'paper-plane', [':disabled' => 'email.smtpHost']) }}
 
-                                {{ Form::textGroup('smtp_port', trans('settings.email.smtp.port'), 'paper-plane', [':disabled' => '(form.protocol != "smtp") ? true : false']) }}
+                                {{ Form::textGroup('smtp_port', trans('settings.email.smtp.port'), 'paper-plane', [':disabled' => 'email.smtpPort']) }}
 
-                                {{ Form::textGroup('smtp_username', trans('settings.email.smtp.username'), 'paper-plane', [':disabled' => '(form.protocol != "smtp") ? true : false']) }}
+                                {{ Form::textGroup('smtp_username', trans('settings.email.smtp.username'), 'paper-plane', [':disabled' => 'email.smtpUsername']) }}
 
-                                {{ Form::textGroup('smtp_password', trans('settings.email.smtp.password'), 'paper-plane', ['type' => 'password', ':disabled' => '(form.protocol != "smtp") ? true : false']) }}
+                                {{ Form::textGroup('smtp_password', trans('settings.email.smtp.password'), 'paper-plane', ['type' => 'password', ':disabled' => 'email.smtpPassword']) }}
 
-                                {{ Form::selectGroup('smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], !empty($setting['smtp_encryption']) ? $setting['smtp_encryption'] : null, [':disabled' => '(form.protocol != "smtp") ? true : false']) }}
-                            </div>
+                                {{ Form::selectGroup('smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], !empty($setting['smtp_encryption']) ? $setting['smtp_encryption'] : null ,['disabled' => 'email.smtpEncryption']) }}
+                             </div>
                         </div>
                     </div>
                 </div>
