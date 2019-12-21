@@ -57,7 +57,7 @@ return [
             'prefix' => env('DB_PREFIX', 'ak_'),
             'prefix_indexes' => true,
             'strict' => true,
-            'engine' => null,
+            'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
             'modes' => [
                 //'ONLY_FULL_GROUP_BY', // conflicts with eloquence
                 'STRICT_TRANS_TABLES',
