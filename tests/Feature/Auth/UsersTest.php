@@ -90,8 +90,8 @@ class UsersTest extends FeatureTestCase
     {
         $user = $this->dispatch(new CreateUser($this->getUserRequest()));
 
-        $this->post(route('login'), ['email' => $user->email, $this->faker->password()])
-            ->assertStatus(302);
+        $this->post(route('login'), ['email' => $user->email, 'password' => $this->faker->password()])
+            ->assertStatus(200);
 
         $this->assertGuest();
     }
@@ -120,7 +120,7 @@ class UsersTest extends FeatureTestCase
             'locale' => 'en-GB',
             'companies' => [$this->company->id],
             'roles' => ['1'],
-            'enabled' => $this->faker->boolean ? 1 : 0,
+            'enabled' => 1,
         ];
     }
 }

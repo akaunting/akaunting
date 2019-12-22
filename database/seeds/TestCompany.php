@@ -41,6 +41,8 @@ class TestCompany extends Seeder
             'enabled' => '1',
             'settings' => [
                 'wizard.completed' => '1',
+                'schedule.send_invoice_reminder' => '1',
+                'schedule.send_bill_reminder' => '1',
             ],
         ]));
 
