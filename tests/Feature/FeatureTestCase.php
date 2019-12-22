@@ -19,6 +19,8 @@ abstract class FeatureTestCase extends TestCase
 	{
 		parent::setUp();
 
+		$this->withoutExceptionHandling();
+
 		$this->faker = Factory::create();
 		$this->user = User::first();
 		$this->company = $this->user->companies()->first();

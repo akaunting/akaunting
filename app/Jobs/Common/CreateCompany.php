@@ -36,7 +36,7 @@ class CreateCompany extends Job
 
         $this->callSeeds();
 
-        $this->createSettings();
+        $this->updateSettings();
 
         return $this->company;
     }
@@ -48,17 +48,21 @@ class CreateCompany extends Job
             'company' => $this->company->id
         ]);
 
+        if (!$user = user()) {
+            return;
+        }
+
         // Attach company to user logged in
-        user()->companies()->attach($this->company->id);
+        $user->companies()->attach($this->company->id);
 
         // User seeds
         Artisan::call('user:seed', [
-            'user' => user()->id,
+            'user' => $user->id,
             'company' => $this->company->id,
         ]);
     }
 
-    protected function createSettings()
+    protected function updateSettings()
     {
         setting()->setExtraColumns(['company_id' => $this->company->id]);
 
@@ -80,6 +84,12 @@ class CreateCompany extends Job
             'default.currency' => $this->request->get('currency'),
             'default.locale' => $this->request->get('locale', 'en-GB'),
         ]);
+
+        if (!empty($this->request->settings)) {
+            foreach ($this->request->settings as $name => $value) {
+                setting()->set([$name => $value]);
+            }
+        }
 
         setting()->save();
         setting()->forgetAll();
