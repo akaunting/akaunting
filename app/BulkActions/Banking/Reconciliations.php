@@ -8,7 +8,6 @@ use App\Models\Banking\Transaction;
 
 class Reconciliations extends BulkAction
 {
-
     public $model = Reconciliation::class;
 
     public $actions = [

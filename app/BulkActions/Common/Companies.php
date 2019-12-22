@@ -7,7 +7,6 @@ use App\Models\Common\Company;
 
 class Companies extends BulkAction
 {
-
     public $model = Company::class;
 
     public $actions = [

@@ -7,7 +7,6 @@ use App\Models\Auth\Role;
 
 class Roles extends BulkAction
 {
-
     public $model = Role::class;
 
     public $actions = [

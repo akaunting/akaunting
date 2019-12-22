@@ -2,11 +2,14 @@
 
 namespace App\Abstracts;
 
+use App\Traits\Jobs;
+use App\Traits\Relationships;
 use Artisan;
-use Illuminate\Database\Eloquent\Collection;
 
 abstract class BulkAction
 {
+    use Jobs, Relationships;
+
     public $model = false;
 
     public $actions = [
@@ -117,45 +120,5 @@ abstract class BulkAction
         }
 
         Artisan::call('cache:clear');
-    }
-
-    public function countRelationships($model, $relationships)
-    {
-        $counter = [];
-
-        foreach ($relationships as $relationship => $text) {
-            if ($c = $model->$relationship()->count()) {
-                $counter[] = $c . ' ' . strtolower(trans_choice('general.' . $text, ($c > 1) ? 2 : 1));
-            }
-        }
-
-        return $counter;
-    }
-
-    /**
-     * Mass delete relationships with events being fired.
-     *
-     * @param  $model
-     * @param  $relationships
-     *
-     * @return void
-     */
-    public function deleteRelationships($model, $relationships)
-    {
-        foreach ((array) $relationships as $relationship) {
-            if (empty($model->$relationship)) {
-                continue;
-            }
-
-            $items = $model->$relationship->all();
-
-            if ($items instanceof Collection) {
-                $items = $items->all();
-            }
-
-            foreach ((array) $items as $item) {
-                $item->delete();
-            }
-        }
     }
 }

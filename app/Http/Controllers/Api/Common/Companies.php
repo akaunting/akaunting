@@ -41,7 +41,7 @@ class Companies extends ApiController
             $this->owner($company);
 
             return $this->response->item($company, new Transformer());
-        } catch (\HttpException $e) {
+        } catch (\Exception $e) {
             $this->response->errorUnauthorized($e->getMessage());
         }
     }

@@ -4,12 +4,12 @@ namespace App\BulkActions\Expenses;
 
 use App\Abstracts\BulkAction;
 use App\Exports\Expenses\Bills as Export;
+use App\Jobs\Expense\DeleteBill;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillHistory;
 
 class Bills extends BulkAction
 {
-
     public $model = Bill::class;
 
     public $actions = [
@@ -67,8 +67,7 @@ class Bills extends BulkAction
         $bills = $this->model::find($selected);
 
         foreach ($bills as $bill) {
-            $this->deleteRelationships($bill, ['items', 'item_taxes', 'histories', 'payments', 'recurring', 'totals']);
-            $bill->delete();
+            $this->dispatch(new DeleteBill($bill));
         }
     }
 

@@ -8,7 +8,6 @@ use App\Models\Common\Contact;
 
 class Customers extends BulkAction
 {
-
     public $model = Contact::class;
 
     public $actions = [

@@ -7,6 +7,7 @@ use App\Events\Income\InvoiceCreated;
 use App\Events\Income\InvoiceSent;
 use App\Events\Income\PaymentReceived;
 use App\Exports\Incomes\Invoices as Export;
+use App\Jobs\Income\DeleteInvoice;
 use App\Models\Income\Invoice;
 use Date;
 
@@ -67,8 +68,7 @@ class Invoices extends BulkAction
         $invoices = $this->model::find($selected);
 
         foreach ($invoices as $invoice) {
-            $this->deleteRelationships($invoice, ['items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals']);
-            $invoice->delete();
+            $this->dispatch(new DeleteInvoice($invoice));
         }
     }
 

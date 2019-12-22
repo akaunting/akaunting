@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Common\Dashboard');
     }
 
+    public function dashboard_widgets()
+    {
+        return $this->hasMany('App\Models\Common\DashboardWidget');
+    }
+
     /**
      * Always capitalize the name when we retrieve it
      */

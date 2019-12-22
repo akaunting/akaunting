@@ -7,7 +7,6 @@ use App\Models\Setting\Currency;
 
 class Currencies extends BulkAction
 {
-
     public $model = Currency::class;
 
     public $actions = [

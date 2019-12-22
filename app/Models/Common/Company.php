@@ -43,6 +43,11 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Banking\Account');
     }
 
+    public function bills()
+    {
+        return $this->hasMany('App\Models\Expense\Bill');
+    }
+
     public function bill_histories()
     {
         return $this->hasMany('App\Models\Expense\BillHistory');
@@ -53,14 +58,19 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Expense\BillItem');
     }
 
+    public function bill_item_taxes()
+    {
+        return $this->hasMany('App\Models\Expense\BillItemTax');
+    }
+
     public function bill_statuses()
     {
         return $this->hasMany('App\Models\Expense\BillStatus');
     }
 
-    public function bills()
+    public function bill_totals()
     {
-        return $this->hasMany('App\Models\Expense\Bill');
+        return $this->hasMany('App\Models\Expense\BillTotal');
     }
 
     public function categories()
@@ -88,6 +98,16 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Common\Dashboard');
     }
 
+    public function dashboard_widgets()
+    {
+        return $this->hasMany('App\Models\Common\DashboardWidget');
+    }
+
+    public function email_templates()
+    {
+        return $this->hasMany('App\Models\Common\EmailTemplate');
+    }
+
     public function expense_transactions()
     {
         return $this->transactions()->where('type', 'expense');
@@ -96,6 +116,11 @@ class Company extends Eloquent
     public function income_transactions()
     {
         return $this->transactions()->where('type', 'income');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\Income\Invoice');
     }
 
     public function invoice_histories()
@@ -108,14 +133,19 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Income\InvoiceItem');
     }
 
+    public function invoice_item_taxes()
+    {
+        return $this->hasMany('App\Models\Income\InvoiceItemTax');
+    }
+
     public function invoice_statuses()
     {
         return $this->hasMany('App\Models\Income\InvoiceStatus');
     }
 
-    public function invoices()
+    public function invoice_totals()
     {
-        return $this->hasMany('App\Models\Income\Invoice');
+        return $this->hasMany('App\Models\Income\InvoiceTotal');
     }
 
     public function items()
@@ -123,9 +153,29 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Common\Item');
     }
 
+    public function modules()
+    {
+        return $this->hasMany('App\Models\Module\Module');
+    }
+
+    public function module_histories()
+    {
+        return $this->hasMany('App\Models\Module\ModuleHistory');
+    }
+
+    public function reconciliations()
+    {
+        return $this->hasMany('App\Models\Banking\Reconciliation');
+    }
+
     public function recurring()
     {
         return $this->hasMany('App\Models\Common\Recurring');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany('App\Models\Common\Report');
     }
 
     public function settings()
@@ -156,6 +206,11 @@ class Company extends Eloquent
     public function vendors()
     {
         return $this->contacts()->where('type', 'vendor');
+    }
+
+    public function widgets()
+    {
+        return $this->hasMany('App\Models\Common\Widget');
     }
 
     public function setSettings()

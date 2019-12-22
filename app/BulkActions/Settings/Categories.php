@@ -7,7 +7,6 @@ use App\Models\Setting\Category;
 
 class Categories extends BulkAction
 {
-
     public $model = Category::class;
 
     public $actions = [

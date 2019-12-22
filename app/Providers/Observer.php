@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Auth\User;
 use App\Models\Banking\Transaction;
-use App\Models\Common\Company;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class Observer extends Provider
@@ -16,8 +14,6 @@ class Observer extends Provider
      */
     public function boot()
     {
-        User::observe('App\Observers\User');
-        Company::observe('App\Observers\Company');
         Transaction::observe('App\Observers\Transaction');
     }
 

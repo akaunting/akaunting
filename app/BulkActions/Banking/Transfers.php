@@ -3,11 +3,11 @@
 namespace App\BulkActions\Banking;
 
 use App\Abstracts\BulkAction;
+use App\Jobs\Banking\DeleteTransfer;
 use App\Models\Banking\Transfer;
 
 class Transfers extends BulkAction
 {
-
     public $model = Transfer::class;
 
     public $actions = [
@@ -30,9 +30,7 @@ class Transfers extends BulkAction
         $transfers = $this->model::find($selected);
 
         foreach ($transfers as $transfer) {
-            $this->deleteRelationships($transfer, ['expense_transaction', 'income_transaction']);
-
-            $transfer->delete();
+            $this->dispatch(new DeleteTransfer($transfer));
         }
     }
 }

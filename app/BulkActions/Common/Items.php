@@ -8,7 +8,6 @@ use App\Models\Common\Item;
 
 class Items extends BulkAction
 {
-
     public $model = Item::class;
 
     public $actions = [

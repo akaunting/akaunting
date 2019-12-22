@@ -2,12 +2,15 @@
 
 namespace App\Observers;
 
+use App\Jobs\Expense\CreateBillHistory;
+use App\Jobs\Income\CreateInvoiceHistory;
 use App\Models\Banking\Transaction as Model;
-use App\Models\Income\InvoiceHistory;
-use App\Models\Expense\BillHistory;
+use App\Traits\Jobs;
 
 class Transaction
 {
+    use Jobs;
+
     /**
      * Listen to the deleted event.
      *
@@ -16,64 +19,41 @@ class Transaction
      */
     public function deleted(Model $transaction)
     {
-        if (!empty($transaction->document_id)) {
-            if ($transaction->type == 'income') {
-                $this->updateInvoice($transaction);
-            } else {
-                $this->updateBill($transaction);
-            }
+        if (empty($transaction->document_id)) {
+            return;
         }
+
+        $function = ($transaction->type == 'income') ? 'updateInvoice' : 'updateBill';
+
+        $this->$function($transaction);
     }
 
     protected function updateInvoice($transaction)
     {
         $invoice = $transaction->invoice;
 
-        if ($invoice->transactions->count() > 1) {
-            $invoice->invoice_status_code = 'partial';
-        } else {
-            $invoice->invoice_status_code = 'sent';
-        }
+        $invoice->invoice_status_code = ($invoice->transactions->count() > 1) ? 'partial' : 'sent';
 
         $invoice->save();
 
-        $desc_amount = money((float) $transaction->amount, (string) $transaction->currency_code, true)->format();
-
-        $description = $desc_amount . ' ' . trans_choice('general.payments', 1);
-
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => $invoice->company_id,
-            'invoice_id' => $invoice->id,
-            'status_code' => $invoice->invoice_status_code,
-            'notify' => 0,
-            'description' => trans('messages.success.deleted', ['type' => $description]),
-        ]);
+        $this->dispatch(new CreateInvoiceHistory($invoice, 0, $this->getDescription($transaction)));
     }
 
     protected function updateBill($transaction)
     {
         $bill = $transaction->bill;
 
-        if ($bill->transactions->count() > 1) {
-            $bill->bill_status_code = 'partial';
-        } else {
-            $bill->bill_status_code = 'received';
-        }
+        $bill->bill_status_code = ($bill->transactions->count() > 1) ? 'partial' : 'received';
 
         $bill->save();
 
-        $desc_amount = money((float) $transaction->amount, (string) $transaction->currency_code, true)->format();
+        $this->dispatch(new CreateBillHistory($bill, 0, $this->getDescription($transaction)));
+    }
 
-        $description = $desc_amount . ' ' . trans_choice('general.payments', 1);
+    protected function getDescription($transaction)
+    {
+        $amount = money((double) $transaction->amount, (string) $transaction->currency_code, true)->format();
 
-        // Add bill history
-        BillHistory::create([
-            'company_id' => $bill->company_id,
-            'bill_id' => $bill->id,
-            'status_code' => $bill->bill_status_code,
-            'notify' => 0,
-            'description' => trans('messages.success.deleted', ['type' => $description]),
-        ]);
+        return trans('messages.success.deleted', ['type' => $amount . ' ' . trans_choice('general.payments', 1)]);
     }
 }

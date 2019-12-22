@@ -3,11 +3,12 @@
 namespace App\BulkActions\Banking;
 
 use App\Abstracts\BulkAction;
+use App\Jobs\Banking\DeleteAccount;
+use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
 
 class Accounts extends BulkAction
 {
-
     public $model = Account::class;
 
     public $actions = [
@@ -35,21 +36,10 @@ class Accounts extends BulkAction
         $accounts = $this->model::find($selected);
 
         foreach ($accounts as $account) {
-            if ($account->id == setting('default.account')) {
-                $relationships[] = strtolower(trans_choice('general.companies', 1));
-            }
-
-            if (empty($relationships)) {
-                $account->enabled = 0;
-                $account->save();
-
-                $message = trans('messages.success.disabled', ['type' => $account->name]);
-
-                return $this->itemResponse($account->fresh(), new Transformer(), $message);
-            } else {
-                $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
-
-                $this->response->errorUnauthorized($message);
+            try {
+                $this->dispatch(new UpdateAccount($account, request()->merge(['enabled' => 1])));
+            } catch (\Exception $e) {
+                return $e->getMessage();
             }
         }
     }
@@ -66,33 +56,11 @@ class Accounts extends BulkAction
         $accounts = $this->model::find($selected);
 
         foreach ($accounts as $account) {
-            if ($relationships = $this->getRelationships($account)) {
-                if ($account->id == setting('default.account')) {
-                    $relationships[] = strtolower(trans_choice('general.companies', 1));
-                }
-            }
-
-            if (empty($relationships)) {
-                $account->delete();
-
-                $message = trans('messages.success.deleted', ['type' => $account->name]);
-
-                flash($message)->success();
-            } else {
-                $message = trans('messages.warning.deleted', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
-
-                $this->response->errorUnauthorized($message);
+            try {
+                $this->dispatch(new DeleteAccount($account));
+            } catch (\Exception $e) {
+                return $e->getMessage();
             }
         }
-    }
-
-    protected function getRelationships($account)
-    {
-        $relationships = $this->countRelationships($account, [
-            'expense_transactions' => 'transactions',
-            'income_transacions' => 'transactions',
-        ]);
-
-        return $relationships;
     }
 }

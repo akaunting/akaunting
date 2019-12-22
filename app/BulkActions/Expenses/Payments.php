@@ -9,7 +9,6 @@ use App\Models\Setting\Category;
 
 class Payments extends BulkAction
 {
-
     public $model = Transaction::class;
 
     public $actions = [

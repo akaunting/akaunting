@@ -7,7 +7,6 @@ use App\Models\Setting\Tax;
 
 class Taxes extends BulkAction
 {
-
     public $model = Tax::class;
 
     public $actions = [

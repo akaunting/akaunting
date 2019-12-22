@@ -12,7 +12,7 @@ trait Jobs
      */
     public function dispatch($job)
     {
-        $function = $this->getDispatchMethod();
+        $function = $this->getDispatchFunction();
 
         return $function($job);
     }
@@ -31,7 +31,7 @@ trait Jobs
         return $result;
     }
 
-    public function getDispatchMethod()
+    public function getDispatchFunction()
     {
         $config = config('queue.default');
 

@@ -7,7 +7,6 @@ use App\Models\Auth\Permission;
 
 class Permissions extends BulkAction
 {
-
     public $model = Permission::class;
 
     public $actions = [

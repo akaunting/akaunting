@@ -4,14 +4,13 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Models\Common\Company;
-use App\Traits\Users;
 use Artisan;
 
 class CreateCompany extends Job
 {
-    use Users;
-
     protected $request;
+
+    protected $company;
 
     /**
      * Create a new job instance.
@@ -33,20 +32,41 @@ class CreateCompany extends Job
         // Clear settings
         setting()->forgetAll();
 
-        $company = Company::create($this->request->all());
+        $this->company = Company::create($this->request->all());
 
-        Artisan::call('user:seed', [
-            'user' => user()->id,
-            'company' => $company->id,
+        $this->callSeeds();
+
+        $this->createSettings();
+
+        return $this->company;
+    }
+
+    protected function callSeeds()
+    {
+        // Company seeds
+        Artisan::call('company:seed', [
+            'company' => $this->company->id
         ]);
 
-        setting()->setExtraColumns(['company_id' => $company->id]);
+        // Attach company to user logged in
+        user()->companies()->attach($this->company->id);
+
+        // User seeds
+        Artisan::call('user:seed', [
+            'user' => user()->id,
+            'company' => $this->company->id,
+        ]);
+    }
+
+    protected function createSettings()
+    {
+        setting()->setExtraColumns(['company_id' => $this->company->id]);
 
         if ($this->request->file('logo')) {
-            $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $company->id);
+            $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->company->id);
 
             if ($company_logo) {
-                $company->attachMedia($company_logo, 'company_logo');
+                $this->company->attachMedia($company_logo, 'company_logo');
 
                 setting()->set('company.logo', $company_logo->id);
             }
@@ -63,7 +83,5 @@ class CreateCompany extends Job
 
         setting()->save();
         setting()->forgetAll();
-
-        return $company;
     }
 }
