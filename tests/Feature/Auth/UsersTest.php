@@ -3,7 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Jobs\Auth\CreateUser;
-use App\Models\Auth\Role;
+use App\Models\Auth\User;
 use Tests\Feature\FeatureTestCase;
 
 class UsersTest extends FeatureTestCase
@@ -27,7 +27,7 @@ class UsersTest extends FeatureTestCase
     public function testItShouldCreateUser()
     {
         $this->loginAs()
-            ->post(route('users.store'), $this->getUserRequest())
+            ->post(route('users.store'), factory(User::class)->raw())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -35,7 +35,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldSeeUserUpdatePage()
     {
-        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+        $user = $this->dispatch(new CreateUser(factory(User::class)->raw()));
 
         $this->loginAs()
             ->get(route('users.edit', ['user' => $user->id]))
@@ -45,7 +45,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldUpdateUser()
     {
-        $request = $this->getUserRequest();
+        $request = factory(User::class)->raw();
 
         $user = $this->dispatch(new CreateUser($request));
 
@@ -60,7 +60,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldDeleteUser()
     {
-        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+        $user = $this->dispatch(new CreateUser(factory(User::class)->raw()));
 
         $this->loginAs()
             ->delete(route('users.destroy', $user->id))
@@ -78,7 +78,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldLoginUser()
     {
-        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+        $user = $this->dispatch(new CreateUser(factory(User::class)->raw()));
 
         $this->post(route('login'), ['email' => $user->email, 'password' => $user->password])
             ->assertStatus(200);
@@ -88,7 +88,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldNotLoginUser()
     {
-        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+        $user = $this->dispatch(new CreateUser(factory(User::class)->raw()));
 
         $this->post(route('login'), ['email' => $user->email, 'password' => $this->faker->password()])
             ->assertStatus(200);
@@ -98,7 +98,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldLogoutUser()
     {
-        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+        $user = $this->dispatch(new CreateUser(factory(User::class)->raw()));
 
         $this->loginAs()
             ->get(route('logout', $user->id))
@@ -106,21 +106,5 @@ class UsersTest extends FeatureTestCase
             ->assertRedirect(route('login'));
 
         $this->assertGuest();
-    }
-
-    private function getUserRequest()
-    {
-        $password = $this->faker->password();
-
-        return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'password' => $password,
-            'password_confirmation' => $password,
-            'locale' => 'en-GB',
-            'companies' => [$this->company->id],
-            'roles' => ['1'],
-            'enabled' => 1,
-        ];
     }
 }
