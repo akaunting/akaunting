@@ -89,6 +89,7 @@ return [
     'reference'             => 'Reference',
     'attachment'            => 'Attachment',
     'change'                => 'Change',
+    'change_type'           => 'Change :type',
     'switch'                => 'Switch',
     'color'                 => 'Colour',
     'save'                  => 'Save',
