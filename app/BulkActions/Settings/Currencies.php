@@ -3,6 +3,8 @@
 namespace App\BulkActions\Settings;
 
 use App\Abstracts\BulkAction;
+use App\Jobs\Setting\DeleteCurrency;
+use App\Jobs\Setting\UpdateCurrency;
 use App\Models\Setting\Currency;
 
 class Currencies extends BulkAction
@@ -13,83 +15,43 @@ class Currencies extends BulkAction
         'enable' => [
             'name' => 'general.enable',
             'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-settings-currencies'
+            'permission' => 'update-settings-currencies',
         ],
         'disable' => [
             'name' => 'general.disable',
             'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-settings-currencies'
+            'permission' => 'update-settings-currencies',
         ],
         'delete' => [
             'name' => 'general.delete',
-            'message' => 'bulk_actions.message.deletes',
-            'permission' => 'delete-settings-currencies'
-        ]
+            'message' => 'bulk_actions.message.delete',
+            'permission' => 'delete-settings-currencies',
+        ],
     ];
 
     public function disable($request)
     {
-        $selected = $request->get('selected', []);
-
-        $currencies = $this->model::find($selected);
+        $currencies = $this->getSelectedRecords($request);
 
         foreach ($currencies as $currency) {
-            if (!$relationships = $this->getRelationships($currency)) {
-                $currency->enabled = 0;
-                $currency->save();
-
-                $message = trans('messages.success.disabled', ['type' => $currency->name]);
-
-                return $this->itemResponse($currency->fresh(), new Transformer(), $message);
-            } else {
-                $message = trans('messages.warning.disabled', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
-
-                $this->response->errorUnauthorized($message);
+            try {
+                $this->dispatch(new UpdateCurrency($currency, $request->merge(['enabled' => 0])));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error();
             }
         }
-    }
-
-    public function delete($request)
-    {
-        $this->destroy($request);
     }
 
     public function destroy($request)
     {
-        $selected = $request->get('selected', []);
-
-        $currencies = $this->model::find($selected);
+        $currencies = $this->getSelectedRecords($request);
 
         foreach ($currencies as $currency) {
-            if (!$relationships = $this->getRelationships($currency)) {
-                $currency->delete();
-
-                $message = trans('messages.success.deleted', ['type' => $currency->name]);
-
-                flash($message)->success();
-            } else {
-                $message = trans('messages.warning.deleted', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
-
-                $this->response->errorUnauthorized($message);
+            try {
+                $this->dispatch(new DeleteCurrency($currency));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error();
             }
         }
-    }
-
-    protected function getRelationships($currency)
-    {
-        $relationships = $this->countRelationships($currency, [
-            'accounts' => 'accounts',
-            'customers' => 'customers',
-            'invoices' => 'invoices',
-            'income_transactions' => 'transactions',
-            'bills' => 'bills',
-            'expense_transactions' => 'transactions',
-        ]);
-
-        if ($currency->code == setting('default.currency')) {
-            $relationships[] = strtolower(trans_choice('general.companies', 1));
-        }
-
-        return $relationships;
     }
 }

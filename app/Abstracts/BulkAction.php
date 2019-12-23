@@ -2,6 +2,9 @@
 
 namespace App\Abstracts;
 
+use App\Jobs\Common\DeleteContact;
+use App\Jobs\Common\UpdateContact;
+use App\Jobs\Banking\DeleteTransaction;
 use App\Traits\Jobs;
 use App\Traits\Relationships;
 use Artisan;
@@ -16,23 +19,33 @@ abstract class BulkAction
         'enable' => [
             'name' => 'general.enable',
             'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-common-items'
+            'permission' => 'update-common-items',
         ],
         'disable' => [
             'name' => 'general.disable',
             'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-common-items'
-        ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.exports',
+            'permission' => 'update-common-items',
         ],
         'delete' => [
             'name' => 'general.delete',
-            'message' => 'bulk_actions.message.deletes',
-            'permission' => 'delete-common-items'
-        ]
+            'message' => 'bulk_actions.message.delete',
+            'permission' => 'delete-common-items',
+        ],
+        'export' => [
+            'name' => 'general.export',
+            'message' => 'bulk_actions.message.export',
+        ],
     ];
+
+    public function getSelectedRecords($request)
+    {
+        return $this->model::find($this->getSelectedInput($request));
+    }
+
+    public function getSelectedInput($request)
+    {
+        return $request->get('selected', []);
+    }
 
     /**
      * Duplicate the specified resource.
@@ -43,9 +56,7 @@ abstract class BulkAction
      */
     public function duplicate($request)
     {
-        $selected = $request->get('selected', []);
-
-        $items = $this->model::find($selected);
+        $items = $this->getSelectedRecords($request);
 
         foreach ($items as $item) {
             $item->duplicate();
@@ -61,9 +72,7 @@ abstract class BulkAction
      */
     public function enable($request)
     {
-        $selected = $request->get('selected', []);
-
-        $items = $this->model::find($selected);
+        $items = $this->getSelectedRecords($request);
 
         foreach ($items as $item) {
             $item->enabled = 1;
@@ -80,9 +89,7 @@ abstract class BulkAction
      */
     public function disable($request)
     {
-        $selected = $request->get('selected', []);
-
-        $items = $this->model::find($selected);
+        $items = $this->getSelectedRecords($request);
 
         foreach ($items as $item) {
             $item->enabled = 0;
@@ -111,14 +118,51 @@ abstract class BulkAction
      */
     public function destroy($request)
     {
-        $selected = $request->get('selected', []);
-
-        $items = $this->model::find($selected);
+        $items = $this->getSelectedRecords($request);
 
         foreach ($items as $item) {
             $item->delete();
         }
 
         Artisan::call('cache:clear');
+    }
+
+    public function disableContacts($request)
+    {
+        $contacts = $this->getSelectedRecords($request);
+
+        foreach ($contacts as $contact) {
+            try {
+                $this->dispatch(new UpdateContact($contact, request()->merge(['enabled' => 0])));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error();
+            }
+        }
+    }
+
+    public function deleteContacts($request)
+    {
+        $contacts = $this->getSelectedRecords($request);
+
+        foreach ($contacts as $contact) {
+            try {
+                $this->dispatch(new DeleteContact($contact));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error();
+            }
+        }
+    }
+
+    public function deleteTransactions($request)
+    {
+        $transactions = $this->getSelectedRecords($request);
+
+        foreach ($transactions as $transaction) {
+            try {
+                $this->dispatch(new DeleteTransaction($transaction));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error();
+            }
+        }
     }
 }

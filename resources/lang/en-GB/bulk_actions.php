@@ -2,9 +2,8 @@
 
 return [
 
-    'select_to_action' => 'Select To Action',
-    'selected'         => 'selected',
     'bulk_actions'     => 'Bulk Action|Bulk Actions',
+    'selected'         => 'selected',
     'delete'           => 'Delete',
     'duplicate'        => 'Duplicate',
     'export'           => 'Export',
@@ -40,12 +39,15 @@ return [
     ],
 
     'message' => [
-        'sure'       => 'Are you sure?',
-        'duplicate'  => 'Do you really want to duplicate these record?',
-        'deletes'    => 'Do you really want to delete these record?|Do you really want to delete these records?',
-        'exports'    => 'Do you really want to export these record?|Do you really want to export these records?',
-        'enable'     => 'Do you really want to enable these record?|Do you really want to enable these records?',
-        'disable'    => 'Do your really want to disable these record?|Do your really want to disable these records?',
-    ]
+        'sure'          => 'Are you sure?',
+        'duplicate'     => 'Do you really want to duplicate these record?',
+        'delete'        => 'Do you really want to delete this record?|Do you really want to delete these records?',
+        'export'        => 'Do you really want to export this record?|Do you really want to export these records?',
+        'enable'        => 'Do you really want to enable this record?|Do you really want to enable these records?',
+        'disable'       => 'Do you really want to disable this record?|Do you really want to disable these records?',
+        'paid'          => 'Do you really want to mark this invoice as paid?|Do you really want to mark these invoices as paid?',
+        'sent'          => 'Do you really want to mark this invoice as sent?|Do you really want to mark these invoices as sent?',
+        'received'      => 'Do you really want to mark this bill as received?|Do you really want to mark these bills as received?',
+    ],
 
 ];

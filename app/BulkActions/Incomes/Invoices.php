@@ -9,7 +9,6 @@ use App\Events\Income\PaymentReceived;
 use App\Exports\Incomes\Invoices as Export;
 use App\Jobs\Income\DeleteInvoice;
 use App\Models\Income\Invoice;
-use Date;
 
 class Invoices extends BulkAction
 {
@@ -17,37 +16,53 @@ class Invoices extends BulkAction
 
     public $actions = [
         'paid' => [
-            'name' => 'general.disable',
-            'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-incomes-invoices'
+            'name' => 'invoices.mark_paid',
+            'message' => 'bulk_actions.message.paid',
+            'permission' => 'update-incomes-invoices',
         ],
         'sent' => [
-            'name' => 'general.enable',
-            'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-incomes-invoices'
+            'name' => 'invoice.mark_sent',
+            'message' => 'bulk_actions.message.sent',
+            'permission' => 'update-incomes-invoices',
         ],
         'duplicate' => [
             'name' => 'general.duplicate',
             'message' => 'bulk_actions.message.duplicate',
             'permission' => 'create-incomes-invoices',
-            'multiple' => true
-        ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.exports',
+            'multiple' => true,
         ],
         'delete' => [
             'name' => 'general.delete',
-            'message' => 'bulk_actions.message.deletes',
-            'permission' => 'delete-incomes-invoices'
-        ]
+            'message' => 'bulk_actions.message.delete',
+            'permission' => 'delete-incomes-invoices',
+        ],
+        'export' => [
+            'name' => 'general.export',
+            'message' => 'bulk_actions.message.export',
+        ],
     ];
+
+    public function paid($request)
+    {
+        $invoices = $this->getSelectedRecords($request);
+
+        foreach ($invoices as $invoice) {
+            event(new PaymentReceived($invoice, []));
+        }
+    }
+
+    public function sent($request)
+    {
+        $invoices = $this->getSelectedRecords($request);
+
+        foreach ($invoices as $invoice) {
+            event(new InvoiceSent($invoice));
+        }
+    }
 
     public function duplicate($request)
     {
-        $selected = $request->get('selected', []);
-
-        $invoices = $this->model::find($selected);
+        $invoices = $this->getSelectedRecords($request);
 
         foreach ($invoices as $invoice) {
             $clone = $invoice->duplicate();
@@ -63,43 +78,21 @@ class Invoices extends BulkAction
 
     public function destroy($request)
     {
-        $selected = $request->get('selected', []);
-
-        $invoices = $this->model::find($selected);
+        $invoices = $this->getSelectedRecords($request);
 
         foreach ($invoices as $invoice) {
-            $this->dispatch(new DeleteInvoice($invoice));
+            try {
+                $this->dispatch(new DeleteInvoice($invoice));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error();
+            }
         }
     }
 
     public function export($request)
     {
-        $selected = $request->get('selected', []);
+        $selected = $this->getSelectedInput($request);
 
         return \Excel::download(new Export($selected), trans_choice('general.invoices', 2) . '.xlsx');
-    }
-
-    public function sent($request)
-    {
-        $selected = $request->get('selected', []);
-
-        $invoices = $this->model::find($selected);
-
-        foreach ($invoices as $invoice) {
-            event(new InvoiceSent($invoice));
-
-            $message = trans('invoices.messages.marked_sent');
-        }
-    }
-
-    public function paid($request)
-    {
-        $selected = $request->get('selected', []);
-
-        $invoices = $this->model::find($selected);
-
-        foreach ($invoices as $invoice) {
-            event(new PaymentReceived($invoice, []));
-        }
     }
 }

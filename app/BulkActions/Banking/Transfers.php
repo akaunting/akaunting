@@ -14,23 +14,20 @@ class Transfers extends BulkAction
         'delete' => [
             'name' => 'general.delete',
             'message' => 'bulk_action.message.deletes',
-            'permission' => 'delete-banking-transfers'
-        ]
+            'permission' => 'delete-banking-transfers',
+        ],
     ];
-
-    public function delete($request)
-    {
-        $this->destroy($request);
-    }
 
     public function destroy($request)
     {
-        $selected = $request->get('selected', []);
-
-        $transfers = $this->model::find($selected);
+        $transfers = $this->getSelectedRecords($request);
 
         foreach ($transfers as $transfer) {
-            $this->dispatch(new DeleteTransfer($transfer));
+            try {
+                $this->dispatch(new DeleteTransfer($transfer));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error();
+            }
         }
     }
 }

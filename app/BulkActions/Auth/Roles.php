@@ -12,8 +12,8 @@ class Roles extends BulkAction
     public $actions = [
         'delete' => [
             'name' => 'general.delete',
-            'message' => 'bulk_actions.message.deletes',
-            'permission' => 'delete-auth-roles'
-        ]
+            'message' => 'bulk_actions.message.delete',
+            'permission' => 'delete-auth-roles',
+        ],
     ];
 }
