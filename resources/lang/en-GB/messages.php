@@ -19,7 +19,7 @@ return [
         'no_file'           => 'Error: No file selected!',
         'last_category'     => 'Error: Can not delete the last :type category!',
         'change_type'       => 'Error: Can not change the type because it has :text related!',
-        'invalid_apikey'    => 'Error: The token entered is invalid!',
+        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
     ],
