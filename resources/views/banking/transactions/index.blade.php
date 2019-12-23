@@ -45,7 +45,7 @@
                             <td class="col-xs-4 col-sm-3 col-md-2">{{ $item->account->name }}</td>
                             <td class="col-xs-4 col-sm-3 col-md-2">{{ trans_choice('general.' . Str::plural($item->type), 1) }}</td>
                             <td class="col-sm-2 col-md-2 d-none d-sm-block">{{ $item->category->name }}</td>
-                            <td class="col-md-2 d-none d-md-block">{{ $item->description }}</td>
+                            <td class="col-md-2 d-none d-md-block long-texts">{{ $item->description }}</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 text-right">
                                 @php
                                 $id = !empty($item->document_id) ? $item->document_id : $item->id;
