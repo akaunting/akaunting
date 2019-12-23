@@ -14,25 +14,23 @@ class Reconciliations extends BulkAction
         'enable' => [
             'name' => 'general.enable',
             'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-banking-reconciliations'
+            'permission' => 'update-banking-reconciliations',
         ],
         'disable' => [
             'name' => 'general.disable',
             'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-banking-reconciliations'
+            'permission' => 'update-banking-reconciliations',
         ],
         'delete' => [
             'name' => 'general.delete',
-            'message' => 'bulk_actions.message.deletes',
-            'permission' => 'delete-banking-reconciliations'
-        ]
+            'message' => 'bulk_actions.message.delete',
+            'permission' => 'delete-banking-reconciliations',
+        ],
     ];
 
     public function enable($request)
     {
-        $selected = $request->get('selected', []);
-
-        $reconciliations = $this->model::find($selected);
+        $reconciliations = $this->getSelectedRecords($request);
 
         foreach ($reconciliations as $reconciliation) {
             $reconciliation->enabled = 1;
@@ -49,9 +47,7 @@ class Reconciliations extends BulkAction
 
     public function disable($request)
     {
-        $selected = $request->get('selected', []);
-
-        $reconciliations = $this->model::find($selected);
+        $reconciliations = $this->getSelectedRecords($request);
 
         foreach ($reconciliations as $reconciliation) {
             $reconciliation->enabled = 0;
@@ -66,16 +62,9 @@ class Reconciliations extends BulkAction
         }
     }
 
-    public function delete($request)
-    {
-        $this->destroy($request);
-    }
-
     public function destroy($request)
     {
-        $selected = $request->get('selected', []);
-
-        $reconciliations = $this->model::find($selected);
+        $reconciliations = $this->getSelectedRecords($request);
 
         foreach ($reconciliations as $reconciliation) {
             $reconciliation->delete();

@@ -3,6 +3,7 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Models\Auth\User;
 use App\Models\Common\Contact;
 
 class UpdateContact extends Job

@@ -5,7 +5,6 @@ namespace App\BulkActions\Incomes;
 use App\Abstracts\BulkAction;
 use App\Exports\Incomes\Revenues as Export;
 use App\Models\Banking\Transaction;
-use App\Models\Setting\Category;
 
 class Revenues extends BulkAction
 {
@@ -14,62 +13,29 @@ class Revenues extends BulkAction
     public $actions = [
         'export' => [
             'name' => 'general.export',
-            'message' => 'bulk_actions.message.exports',
+            'message' => 'bulk_actions.message.export',
         ],
         'duplicate' => [
             'name' => 'general.duplicate',
             'message' => 'bulk_actions.message.duplicate',
             'permission' => 'create-incomes-revenues',
-            'multiple' => true
+            'multiple' => true,
         ],
         'delete' => [
             'name' => 'general.delete',
-            'message' => 'bulk_actions.message.deletes',
-            'permission' => 'delete-incomes-revenues'
-        ]
+            'message' => 'bulk_actions.message.delete',
+            'permission' => 'delete-incomes-revenues',
+        ],
     ];
-
-    public function duplicate($request)
-    {
-        $selected = $request->get('selected', []);
-
-        $transactions = $this->model::find($selected);
-
-        foreach ($transactions as $transaction) {
-            $clone = $transaction->duplicate();
-        }
-    }
-
-    public function delete($request)
-    {
-        $this->destroy($request);
-    }
 
     public function destroy($request)
     {
-        $selected = $request->get('selected', []);
-
-        $transactions = $this->model::find($selected);
-
-        foreach ($transactions as $transaction) {
-            if ($transaction->category->id != Category::transfer()) {
-                $type = $transaction->type;
-
-                $transaction->recurring()->delete();
-                $transaction->delete();
-
-                $message = trans('messages.success.deleted', ['type' => trans_choice('general.' . \Str::plural($type), 1)]);
-
-                flash($message)->success();
-            } else {
-                $this->response->errorUnauthorized();
-            }
-        }
+        $this->deleteTransactions($request);
     }
 
     public function export($request)
     {
-        $selected = $request->get('selected', []);
+        $selected = $this->getSelectedInput($request);
 
         return \Excel::download(new Export($selected), trans_choice('general.revenues', 2) . '.xlsx');
     }

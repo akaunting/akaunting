@@ -14,12 +14,12 @@ class Customers extends BulkAction
         'enable' => [
             'name' => 'general.enable',
             'message' => 'bulk_actions.message.enable',
-            'permission' => 'update-incomes-customers'
+            'permission' => 'update-incomes-customers',
         ],
         'disable' => [
             'name' => 'general.disable',
             'message' => 'bulk_actions.message.disable',
-            'permission' => 'update-incomes-customers'
+            'permission' => 'update-incomes-customers',
         ],
         'duplicate' => [
             'name' => 'general.duplicate',
@@ -27,70 +27,31 @@ class Customers extends BulkAction
             'permission' => 'create-incomes-customers',
             'multiple' => true
         ],
+        'delete' => [
+            'name' => 'general.delete',
+            'message' => 'bulk_actions.message.delete',
+            'permission' => 'delete-incomes-customers',
+        ],
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
         ],
-        'delete' => [
-            'name' => 'general.delete',
-            'message' => 'bulk_actions.message.deletes',
-            'permission' => 'delete-incomes-customers'
-        ]
     ];
 
-    public function duplicate($request)
+    public function disable($request)
     {
-        $selected = $request->get('selected', []);
-
-        $contacts = $this->model::find($selected);
-
-        foreach ($contacts as $contact) {
-            $clone = $contact->duplicate();
-        }
-    }
-
-    public function delete($request)
-    {
-        $this->destroy($request);
+        $this->disableContacts($request);
     }
 
     public function destroy($request)
     {
-        $selected = $request->get('selected', []);
-
-        $contacts = $this->model::find($selected);
-
-        foreach ($contacts as $contact) {
-            if (!$relationships = $this->getRelationships($contact)) {
-                $contact->delete();
-
-                $message = trans('messages.success.deleted', ['type' => $contact->name]);
-
-                flash($message)->success();
-            } else {
-                $message = trans('messages.warning.deleted', ['name' => $contact->name, 'text' => implode(', ', $relationships)]);
-
-                $this->response->errorUnauthorized($message);
-            }
-        }
+        $this->deleteContacts($request);
     }
 
     public function export($request)
     {
-        $selected = $request->get('selected', []);
+        $selected = $this->getSelectedInput($request);
 
         return \Excel::download(new Export($selected), trans_choice('general.customers', 2) . '.xlsx');
-    }
-
-    protected function getRelationships($contact)
-    {
-        $rels = [
-            'invoices' => 'invoices',
-            'income_transactions' => 'transactions',
-        ];
-
-        $relationships = $this->countRelationships($contact, $rels);
-
-        return $relationships;
     }
 }

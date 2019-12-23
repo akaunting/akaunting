@@ -4,9 +4,9 @@ namespace App\BulkActions\Expenses;
 
 use App\Abstracts\BulkAction;
 use App\Exports\Expenses\Bills as Export;
+use App\Jobs\Expense\CreateBillHistory;
 use App\Jobs\Expense\DeleteBill;
 use App\Models\Expense\Bill;
-use App\Models\Expense\BillHistory;
 
 class Bills extends BulkAction
 {
@@ -14,88 +14,71 @@ class Bills extends BulkAction
 
     public $actions = [
         'received' => [
-            'name' => 'general.received',
-            'message' => '',
-            'permission' => 'update-expenses-bills'
+            'name' => 'bills.mark_received',
+            'message' => 'bulk_actions.message.received',
+            'permission' => 'update-expenses-bills',
         ],
         'duplicate' => [
             'name' => 'general.duplicate',
             'message' => 'bulk_actions.message.duplicate',
             'permission' => 'create-expenses-bills',
-            'multiple' => true
-        ],
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.exports',
+            'multiple' => true,
         ],
         'delete' => [
             'name' => 'general.delete',
-            'message' => 'bulk_actions.message.deletes',
-            'permission' => 'delete-expenses-bills'
-        ]
+            'message' => 'bulk_actions.message.delete',
+            'permission' => 'delete-expenses-bills',
+        ],
+        'export' => [
+            'name' => 'general.export',
+            'message' => 'bulk_actions.message.export',
+        ],
     ];
-
-    public function duplicate($request)
-    {
-        $selected = $request->get('selected', []);
-
-        $bills = $this->model::find($selected);
-
-        foreach ($bills as $bill) {
-            $clone = $bill->duplicate();
-
-            // Add bill history
-            BillHistory::create([
-                'company_id' => session('company_id'),
-                'bill_id' => $clone->id,
-                'status_code' => 'draft',
-                'notify' => 0,
-                'description' => trans('messages.success.added', ['type' => $clone->bill_number]),
-            ]);
-        }
-    }
-
-    public function delete($request)
-    {
-        $this->destroy($request);
-    }
-
-    public function destroy($request)
-    {
-        $selected = $request->get('selected', []);
-
-        $bills = $this->model::find($selected);
-
-        foreach ($bills as $bill) {
-            $this->dispatch(new DeleteBill($bill));
-        }
-    }
-
-    public function export($request)
-    {
-        $selected = $request->get('selected', []);
-
-        return \Excel::download(new Export($selected), trans_choice('general.bills', 2) . '.xlsx');
-    }
 
     public function received($request)
     {
-        $selected = $request->get('selected', []);
-
-        $bills = $this->model::find($selected);
+        $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
             $bill->bill_status_code = 'received';
             $bill->save();
 
-            // Add bill history
-            BillHistory::create([
-                'company_id' => $bill->company_id,
-                'bill_id' => $bill->id,
-                'status_code' => 'received',
-                'notify' => 0,
-                'description' => trans('bills.mark_recevied'),
-            ]);
+            $description = trans('bills.mark_recevied');
+
+            $this->dispatch(new CreateBillHistory($bill, 0, $description));
         }
+    }
+
+    public function duplicate($request)
+    {
+        $bills = $this->getSelectedRecords($request);
+
+        foreach ($bills as $bill) {
+            $clone = $bill->duplicate();
+
+            $description = trans('messages.success.added', ['type' => $clone->bill_number]);
+
+            $this->dispatch(new CreateBillHistory($clone, 0, $description));
+        }
+    }
+
+    public function destroy($request)
+    {
+        $bills = $this->getSelectedRecords($request);
+
+        foreach ($bills as $bill) {
+            try {
+                $this->dispatch(new DeleteBill($bill));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error();
+            }
+        }
+    }
+
+    public function export($request)
+    {
+        $selected = $this->getSelectedInput($request);
+
+        return \Excel::download(new Export($selected), trans_choice('general.bills', 2) . '.xlsx');
     }
 }
