@@ -109,7 +109,7 @@ return [
     ],
 
     'currencies' => [
-        'description'       => 'Create and manage currencies and set utheir rates',
+        'description'       => 'Create and manage currencies and set their rates',
     ],
 
     'taxes' => [
