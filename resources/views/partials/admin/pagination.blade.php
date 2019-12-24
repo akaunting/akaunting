@@ -1,13 +1,10 @@
 @stack('pagination_start')
     @if ($items->firstItem())
         <div class="col-6 d-flex align-items-center">
-            <span class="table-text d-none d-lg-block mr-2">
-                {{ trans('general.show') }}
-            </span>
             {!! Form::select('limit', $limits, request('limit', setting('default.list_limit', '25')), ['class' => 'form-control form-control-sm table-header-search d-none d-md-block', '@change' => 'onChangePaginationLimit($event)']) !!}
             <span class="table-text d-none d-lg-block ml-2">
                 {{ trans('pagination.page') }}
-                {{ trans('pagination.showing', ['first' => $items->firstItem(), 'last' => $items->lastItem(), 'total' => $items->total(), 'type' => strtolower((isset($title)) ? $title : trans_choice('general.' . $type, 2))]) }}
+                {{ trans('pagination.showing', ['first' => $items->firstItem(), 'last' => $items->lastItem(), 'total' => $items->total()]) }}
             </span>
         </div>
 

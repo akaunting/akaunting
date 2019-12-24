@@ -18,7 +18,7 @@
         </div>
 
         <div class="card-footer">
-            @include('partials.admin.pagination', ['items' => $notifications, 'type' => 'notifications'])
+            @include('partials.admin.pagination', ['items' => $notifications])
         </div>
     </div>
 @endsection

@@ -92,7 +92,7 @@
 
             <div class="card-footer table-action">
                 <div class="row">
-                    @include('partials.admin.pagination', ['items' => $invoices, 'type' => 'invoices'])
+                    @include('partials.admin.pagination', ['items' => $invoices])
                 </div>
             </div>
         </div>

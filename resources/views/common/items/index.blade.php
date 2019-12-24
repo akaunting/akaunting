@@ -101,7 +101,7 @@
 
             <div class="card-footer table-action">
                 <div class="row align-items-center">
-                    @include('partials.admin.pagination', ['items' => $items, 'type' => 'items'])
+                    @include('partials.admin.pagination', ['items' => $items])
                 </div>
             </div>
         </div>
