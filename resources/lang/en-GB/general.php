@@ -48,6 +48,7 @@ return [
     'localisations'         => 'Localisation|Localisations',
     'defaults'              => 'Default|Defaults',
     'widgets'               => 'Widget|Widgets',
+    'templates'             => 'Template|Templates',
 
     'dashboard'             => 'Dashboard',
     'welcome'               => 'Welcome',

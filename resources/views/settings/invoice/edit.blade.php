@@ -41,7 +41,7 @@
                 {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, null, [], 'quantity_name_input', null) }}
 
                 <div class="form-group col-md-6">
-                    {!! Form::label('invoice_template', trans('settings.invoice.invoice_template'), ['class' => 'form-control-label']) !!}
+                    {!! Form::label('invoice_template', trans_choice('general.templates', 1), ['class' => 'form-control-label']) !!}
 
                     <div class="input-group">
                         <a href="#" class="btn btn-block btn-outline-primary" @click="onTemplate">
@@ -75,7 +75,7 @@
         :button_cancel="'{{ trans('general.button.save') }}'"
         :button_delete="'{{ trans('general.button.cancel') }}'">
         <template #modal-body>
-            @include('modals.settings.template')
+            @include('modals.settings.invoice_template')
         </template>
 
         <template #card-footer>
