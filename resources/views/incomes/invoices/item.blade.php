@@ -16,29 +16,14 @@
     @stack('name_td_start')
         <td class="col-md-3 border-right-0 border-bottom-0">
             @stack('name_input_start')
-                <input class="form-control"
-                       data-item="name"
-                       required="required"
-                       name="items[][name]"
-                       v-model="row.name"
-                       @input="onGetItem($event, index)"
-                       type="text"
-                       autocomplete="off">
-                <div class="dropdown-menu item-show dropdown-menu-center" ref="menu" :class="[{show: row.show}]">
-                    <div class="list-group list-group-flush">
-                        <a class="list-group-item list-group-item-action" v-for="(item, item_index) in items" @click="onSelectItem(item, index)">
-                            <div class="row align-items-center">
-                                <div class="col ml--2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="name" v-text="item.name"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                {{ Form::selectAddNewGroup('name', '', '', $items, '', [
+                    'data-item' => 'name',
+                    'v-model' => 'row.name',
+                    '@input' => 'onGetItem($event, index)',
+                    'class' => 'form-control',
+                    'autocomplete' => 'form-control',
+                    'path' => route('modals.taxes.create')
+                ], 'mb-0 select-item') }}
                 <input name="items[][show]"
                        value="false"
                        v-model="row.show"
@@ -99,6 +84,7 @@
                     'v-model' => 'row.tax_id',
                     'change' => 'onCalculateTotal',
                     'class' => 'form-control',
+                    'collapse' => 'false',
                     'path' => route('modals.taxes.create')
                 ], 'mb-0 select-tax') }}
             @stack('tax_id_input_end')

@@ -12,6 +12,9 @@
     :multiple="true"
     :add-new="true"
     :add-new-text="'{{ trans('general.form.add_new', ['field' => $text]) }}'"
+    @if (!empty($attributes['collapse']))
+    :collapse="true"
+    @endif
     @if (!empty($attributes['path']))
     :add-new-path="'{{ $attributes['path'] }}'"
     @endif

@@ -10,6 +10,9 @@
     :value="{{ json_encode(old($name, $selected)) }}"
     :icon="'{{ $icon }}'"
     :multiple="true"
+    @if (!empty($attributes['collapse']))
+    :collapse="true"
+    @endif
     @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' : 'form.' . $name . ' = $event' }}"
     @if (!empty($attributes['change']))
     @change="{{ $attributes['change'] }}($event)"

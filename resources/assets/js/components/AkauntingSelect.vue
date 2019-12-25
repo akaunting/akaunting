@@ -7,11 +7,7 @@
         <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled"
             :placeholder="placeholder">
             <div v-if="addNew" class="el-select-dropdown__wrap" slot="empty">
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item hover" @click="onAddItem">
-                        <span>{{ add_new_text }}</span>
-                    </li>
-                </ul>
+                <span></span>
             </div>
 
             <template slot="prefix">
@@ -38,16 +34,16 @@
                     :value="value">
                 </el-option>
             </el-option-group>
+
+            <li class="el-select-dropdown__item hover" @click="onAddItem">
+                <span>{{ add_new_text }}</span>
+            </li>
         </el-select>
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && !multiple"
             :placeholder="placeholder">
             <div v-if="addNew" class="el-select-dropdown__wrap" slot="empty">
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item hover" @click="onAddItem">
-                        <span>{{ add_new_text }}</span>
-                    </li>
-                </ul>
+                <span></span>
             </div>
 
             <template slot="prefix">
@@ -74,16 +70,16 @@
                     :value="value">
                 </el-option>
             </el-option-group>
+
+            <li class="el-select-dropdown__item hover" @click="onAddItem">
+                <span>{{ add_new_text }}</span>
+            </li>
         </el-select>
 
-        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple" multiple collapse-tags
+        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
             :placeholder="placeholder">
             <div v-if="addNew" class="el-select-dropdown__wrap" slot="empty">
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item hover" @click="onAddItem">
-                        <span>{{ add_new_text }}</span>
-                    </li>
-                </ul>
+                <span></span>
             </div>
 
             <template slot="prefix">
@@ -110,6 +106,46 @@
                     :value="value">
                 </el-option>
             </el-option-group>
+
+            <li class="el-select-dropdown__item hover" @click="onAddItem">
+                <span>{{ add_new_text }}</span>
+            </li>
+        </el-select>
+
+        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && collapse" multiple collapse-tags
+            :placeholder="placeholder">
+            <div v-if="addNew" class="el-select-dropdown__wrap" slot="empty">
+                <span></span>
+            </div>
+
+            <template slot="prefix">
+                <span class="el-input__suffix-inner el-select-icon">
+                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                </span>
+            </template>
+
+            <el-option v-if="!group" v-for="(label, value) in selectOptions"
+               :key="value"
+               :label="label"
+               :value="value">
+            </el-option>
+
+            <el-option-group
+                v-if="group"
+                v-for="(options, name) in selectOptions"
+                :key="name"
+                :label="name">
+                <el-option
+                    v-for="(label, value) in options"
+                    :key="value"
+                    :label="label"
+                    :value="value">
+                </el-option>
+            </el-option-group>
+
+            <li class="el-select-dropdown__item hover" @click="onAddItem">
+                <span>{{ add_new_text }}</span>
+            </li>
         </el-select>
     </base-input>
 </template>
@@ -152,7 +188,8 @@ export default {
         addNewPath: null,
         group: false,
         multiple:false,
-        disabled:false
+        disabled:false,
+        collapse: false
     },
 
     data() {
