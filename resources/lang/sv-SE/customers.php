@@ -2,15 +2,11 @@
 
 return [
 
-    'allow_login'           => 'Tillåt inloggning?',
+    'can_login'             => 'Kan Logga inn?',
     'user_created'          => 'Användaren skapad',
 
     'error' => [
         'email'             => 'e-postadressen används redan.'
     ],
 
-    'notification' => [
-        'message'       => ':customer har gjort en betalning på :amount till fakturanummer :invoice_number.',
-        'button'        => 'Visa',
-    ],
 ];

@@ -4,7 +4,7 @@ return [
 
     'installed_version'     => 'インストールバージョン',
     'latest_version'        => '最新バージョン',
-    'update'                => 'Akaunting を更新: バージョン',
+    'update'                => 'Akaunting を更新 :version バージョン',
     'changelog'             => '変更履歴',
     'check'                 => 'チェック',
     'new_core'              => 'Akaunting の更新バージョンが利用可能です。',

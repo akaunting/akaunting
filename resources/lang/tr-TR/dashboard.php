@@ -20,5 +20,4 @@ return [
     'account_balance'           => 'Hesap Bakiyesi',
     'latest_incomes'            => 'Son Gelirler',
     'latest_expenses'           => 'Son Giderler',
-
 ];

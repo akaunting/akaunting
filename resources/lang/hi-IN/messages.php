@@ -19,7 +19,7 @@ return [
         'no_file'           => 'त्रुटि: कोई फ़ाइल चयनित नहीं!',
         'last_category'     => 'त्रुटि: अंतिम :type श्रेणी को हटा नहीं सकते हैं!',
         'change_type'       => 'त्रुटि: प्रकार बदल नहीं सकता क्योंकि इसमें :text संबंधित है!',
-        'invalid_apikey'    => 'त्रुटि: दर्ज किया गया टोकन अमान्य है!',
+        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'त्रुटि: :message शीट का नाम: :sheet। पंक्ति संख्या::line।',
         'import_sheet'      => 'त्रुटि: शीट का नाम मान्य नहीं है। कृपया, नमूना फ़ाइल की जाँच करें।',
     ],

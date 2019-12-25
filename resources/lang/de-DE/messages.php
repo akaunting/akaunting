@@ -19,7 +19,7 @@ return [
         'no_file'           => 'Fehler: Keine Datei ausgewählt!',
         'last_category'     => 'Fehler: Kann die letzte Kategorie :type nicht löschen!',
         'change_type'       => 'Fehler: Der Typ kann nicht geändert werden, da :text verwandt ist!',
-        'invalid_apikey'    => 'Fehler: Der eingegebene Token ist ungültig!',
+        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'Fehler: :message. Name des Blattes: :sheet. Zeilennummer: :line.',
         'import_sheet'      => 'Fehler: Name des Blattes ist nicht gültig. Bitte die Beispieldatei überprüfen.',
     ],

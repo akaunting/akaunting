@@ -13,16 +13,17 @@ return [
     'current_email'         => 'Aktuální e-mail',
     'reset'                 => 'Obnovit',
     'never'                 => 'nikdy',
-    
+
     'password' => [
         'current'           => 'Heslo',
         'current_confirm'   => 'Potvrzení hesla',
         'new'               => 'Nové heslo',
         'new_confirm'       => 'Potvrzení nového hesla',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Chyba: nemůžete smazat sám sebe!',
+        'self_disable'      => 'Chyba: Nemůžete zakázat sebe!',
         'no_company'        => 'Chyba: Váš účet nemá přidělenou firmu/společnost. Prosím, kontaktujte systémového administrátora.',
     ],
 

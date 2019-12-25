@@ -20,5 +20,4 @@ return [
     'account_balance'           => 'Saldo del conto',
     'latest_incomes'            => 'Redditi più recenti',
     'latest_expenses'           => 'Spese più recenti',
-
 ];

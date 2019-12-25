@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Čistý zisk',
     'total_expenses'        => 'Celkové výdaje',
     'net'                   => 'NETTO',
+    'income-expense'        => 'Příjmy a výdaje',
 
     'summary' => [
         'income'            => 'Přehled příjmů',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Souhrn daně',
     ],
 
-    'quarter' => [
-        '1'                 => 'Led-Bře',
-        '2'                 => 'Dub-Čer',
-        '3'                 => 'Červ-Zář',
-        '4'                 => 'Říj-Pro',
+    'charts' => [
+        'line'              => 'Čárový',
+        'bar'               => 'Sloupcový',
+        'pie'               => 'Koláčový',
     ],
 
 ];

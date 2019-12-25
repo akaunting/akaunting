@@ -2,6 +2,7 @@
 
 return [
 
+    'dashboards'            => 'Instrumentpanel|Instrumentpaneler',
     'items'                 => 'Artikel | Artiklar',
     'incomes'               => 'Inkomst | Inkomster',
     'invoices'              => 'Faktura | Fakturor',
@@ -40,10 +41,16 @@ return [
     'others'                => 'Andra | Andra',
     'contacts'              => 'Kontakta|kontakter',
     'reconciliations'       => 'Stämma av|avstämningar',
-    'deposits'              => 'Insättning|insättningar',
-    'withdrawals'           => 'Uttag|uttag',
+    'developers'            => 'Utvecklare|Utvecklare',
+    'schedules'             => 'Schema|Scheman',
+    'groups'                => 'Grupp|grupper',
+    'charts'                => 'Diagram|Diagram',
+    'localisations'         => 'Lokalisering|Lokaliseringar',
+    'defaults'              => 'Standardvärde|Standardvärden',
+    'widgets'               => 'Widget|Widgetar',
 
     'dashboard'             => 'Översikt',
+    'welcome'               => 'Välkommen',
     'banking'               => 'Banktjänster',
     'general'               => 'Generell',
     'no_records'            => 'Inga poster.',
@@ -55,6 +62,7 @@ return [
     'no'                    => 'Nej',
     'na'                    => 'Ej tillgängligt',
     'daily'                 => 'Dagligen',
+    'weekly'                => 'Veckovis',
     'monthly'               => 'Månadsvis',
     'quarterly'             => 'Kvartalsvis',
     'yearly'                => 'Årligen',
@@ -81,9 +89,11 @@ return [
     'reference'             => 'Referens',
     'attachment'            => 'Bilaga',
     'change'                => 'Förändra',
+    'change_type'           => 'Ändra :type',
     'switch'                => 'Växla',
     'color'                 => 'Färg',
     'save'                  => 'Spara',
+    'confirm'               => 'Bekräfta',
     'cancel'                => 'Avbryt',
     'loading'               => 'Laddar...',
     'from'                  => 'Från',
@@ -116,17 +126,27 @@ return [
     'go_to'                 => 'Gå till :name',
     'created_date'          => 'Skapad Datum',
     'period'                => 'Period',
+    'frequency'             => 'Frekvens',
     'start'                 => 'Början',
     'end'                   => 'Slutet',
     'clear'                 => 'Töm',
     'difference'            => 'Skillnaden',
+    'footer'                => 'Sidfot',
+    'start_date'            => 'Startdatum',
+    'basis'                 => 'Grund',
+    'accrual'               => 'Periodisering',
+    'cash'                  => 'Kontant',
+    'group_by'              => 'Gruppera efter',
+    'accounting'            => 'Redovisning',
 
     'title' => [
         'new'               => 'Nytt :type',
         'edit'              => 'Redigera :type',
+        'delete'            => 'Ta bort :type',
         'create'            => 'Skapa :type',
         'send'              => 'Skicka :type',
         'get'               => 'Få :type',
+        'add'               => 'Lägg till :type',
     ],
 
     'form' => [
@@ -135,6 +155,7 @@ return [
             'field'         => '-Välj :field -',
             'file'          => 'Välj fil',
         ],
+        'add_new'           => 'Lägg till nytt :field',
         'no_file_selected'  => 'Ingen fil är vald...',
     ],
 
@@ -145,4 +166,16 @@ return [
         'this_month' => 'Denna månaden',
         'last_month' => 'Senaste månaden',
     ],
+
+    'empty' => [
+        'documentation' => 'Kolla in <a href=":url" target="_blank" class="text-success">dokumentationen</a> för mer information.',
+        'items' => 'Objekt kan vara produkter eller tjänster. Du kan använda objekt när du skapar fakturor och räkningar för att få priset, skatt etc fälten fyllda.',
+        'invoices' => 'Fakturor kan vara en gång eller återkommande. Du kan skicka dem till kunder och börja acceptera betalningar online.',
+        'revenues' => 'Intäkter är en betald inkomsttransaktion. Det kan vara en oberoende bokföring (dvs. insättning) eller en faktura.',
+        'customers' => 'Kunderna krävs om du vill skapa fakturor. De kan också logga in på Kundportalen och se deras saldo.',
+        'bills' => 'Räkningar kan vara en gång eller återkommande. De anger vad du är skyldig dina leverantörer för de produkter eller tjänster du köper.',
+        'payments' => 'Betalning är en betald kostnadstransaktion. Det kan vara en oberoende post (dvs. livsmedelskvittot) eller bifogas en räkning.',
+        'vendors' => 'Leverantörer krävs om du vill skapa räkningar. Du kan se det saldo du är skyldig och filtrera rapporter från leverantören.',
+    ],
+
 ];

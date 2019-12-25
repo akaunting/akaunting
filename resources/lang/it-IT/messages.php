@@ -18,7 +18,8 @@ return [
         'customer'          => 'Errore: Utente non creato! :name usa già questo indirizzo email.',
         'no_file'           => 'Errore: Nessun file selezionato!',
         'last_category'     => 'Errore: Non è possibile eliminare l\'ultimo categoria di :type!',
-        'invalid_apikey'     => 'Errore: Il token inserito non è valido!',
+        'change_type'       => 'Errore: non è possibile cambiare il tipo perchè il tipo è :text collegato!',
+        'invalid_apikey'    => 'Errore: La chiave API inserita non è valida!',
         'import_column'     => 'Errore: :message Foglio nome: :sheet. Riga numero: :line.',
         'import_sheet'      => 'Errore: Il nome del foglio non è valido. Vi preghiamo di controllare il file di esempio.',
     ],
@@ -27,6 +28,7 @@ return [
         'deleted'           => 'Attenzione: Non è consentito eliminare <b>:name</b> perché ha :text collegato.',
         'disabled'          => 'Attenzione: Non è consentito disabilitare <b>:name</b> perché ha :text collegato.',
         'disable_code'      => 'Avviso: Non è consentito disabilitare o modificare la valuta di <b>:nome</b> perché ha: testo correlato.',
+        'payment_cancel'    => 'Attenzione: hai annullato il tuo ultimo pagamento con :method !',
     ],
 
 ];

@@ -3,15 +3,17 @@
 return [
 
     'company' => [
+        'description'       => 'Změnit název společnosti, e-mail, adresu, číslo daně atd',
         'name'              => 'Název',
         'email'             => 'E-mail',
         'phone'             => 'Telefon',
         'address'           => 'Adresa',
         'logo'              => 'Logo',
     ],
+
     'localisation' => [
-        'tab'               => 'Lokalizace',
-        'financial_start'   => 'Financial Year Start',
+        'description'       => 'Nastavit fiskální rok, časové pásmo, formát data a další lokální',
+        'financial_start'   => 'Začátek rozpočtového roku',
         'timezone'          => 'Časové pásmo',
         'date' => [
             'format'        => 'Formát data',
@@ -28,8 +30,9 @@ return [
             'after'         => 'Za číslem',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Faktura',
+        'description'       => 'Přizpůsobit prefix faktury, číslo, termín, zápatí atd',
         'prefix'            => 'Předpona předčíslí',
         'digit'             => 'Předčíslí',
         'next'              => 'Následující číslo',
@@ -44,16 +47,21 @@ return [
         'rate'              => 'Sazba',
         'quantity_name'     => 'Název množství',
         'quantity'          => 'Množství',
+        'payment_terms'     => 'Platební podmínky',
+        'title'             => 'Název',
+        'subheading'        => 'Podtitul',
+        'due_receipt'       => 'Termín dle účtenky',
+        'due_days'          => 'Termín do :days',
     ],
+
     'default' => [
-        'tab'               => 'Výchozí',
-        'account'           => 'Výchozí účet',
-        'currency'          => 'Výchozí měna',
-        'tax'               => 'Výchozí daňová sazba',
-        'payment'           => 'Výchozí způsob platby',
-        'language'          => 'Výchozí jazyk',
+        'description'       => 'Výchozí účet, měna, jazyk vaší společnosti',
+        'list_limit'        => 'Záznamů na stránku',
+        'use_gravatar'      => 'Použít Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Změnit protokol a šablony e-mailů',
         'protocol'          => 'Protokol',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -68,36 +76,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail cesta',
         'log'               => 'Log e-mailů',
+
+        'templates' => [
+            'subject'                   => 'Předmět',
+            'body'                      => 'Tělo zprávy',
+            'tags'                      => '<strong>Dostupné štítky:</strong> :tag_list',
+            'invoice_new_customer'      => 'Nová šablona faktury (posíláno zákazníkovi)',
+            'invoice_remind_customer'   => 'Šablona připomenutí faktury (posíláno zákazníkovi)',
+            'invoice_remind_admin'      => 'Šablona připomenutí faktury (posíláno správci)',
+            'invoice_recur_customer'    => 'Šablona opakující se faktury (posíláno zákazníkovi)',
+            'invoice_recur_admin'       => 'Šablona pro opakování faktury (posíláno správci)',
+            'invoice_payment_customer'  => 'Šablona příjmu platby (posíláno zákazníkovi)',
+            'invoice_payment_admin'     => 'Šablona příjmu platby (posíláno správci)',
+            'bill_remind_admin'         => 'Šablona připomenutí účtu (posíláno správci)',
+            'bill_recur_admin'          => 'Šablona opakovaného účtu (posíláno správci)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Plánování',
+        'name'              => 'Plánování',
+        'description'       => 'Automatické připomenutí a příkaz pro opakování',
         'send_invoice'      => 'Odesílat upozornění o fakturách',
         'invoice_days'      => 'Odeslat po splatnosti (dnů)',
         'send_bill'         => 'Odeslat upozornění na dodavatelské faktury',
         'bill_days'         => 'Odeslat před splatností (dnů)',
         'cron_command'      => 'Příkaz Cronu',
         'schedule_time'     => 'Hodina spuštění',
-        'send_item_reminder'=> 'Odesílat upozornění na položku',
-        'item_stocks'       => 'Odeslat, když bude naskladněna',
     ],
-    'appearance' => [
-        'tab'               => 'Vzhled',
-        'theme'             => 'Téma',
-        'light'             => 'Světlé',
-        'dark'              => 'Tmavé',
-        'list_limit'        => 'Počet záznamů na stránku',
-        'use_gravatar'      => 'Použít Gravatar',
+
+    'categories' => [
+        'description'       => 'Neomezené kategorie příjmů, nákladů a položek',
     ],
-    'system' => [
-        'tab'               => 'Systém',
-        'session' => [
-            'lifetime'      => 'Doba trvání relace (minuty)',
-            'handler'       => 'Uložení relace',
-            'file'          => 'Soubor',
-            'database'      => 'Databáze',
-        ],
-        'file_size'         => 'Max. velikost souboru (MB)',
-        'file_types'        => 'Povolené typy souborů',
+
+    'currencies' => [
+        'description'       => 'Vytvářejte a spravujte měny a nastavte kurzy',
+    ],
+
+    'taxes' => [
+        'description'       => 'Pevné, normální, inkluzivní a složené daňové sazby',
     ],
 
 ];

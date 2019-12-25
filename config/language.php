@@ -102,7 +102,6 @@ return [
     | This option indicates the flags features.
     |
     */
-
     'flags'         => ['width' => '22px', 'ul_class' => 'menu', 'li_class' => '', 'img_class' => ''],
 
     /*
@@ -113,7 +112,6 @@ return [
     | This option indicates the language code to be used, short or long
     |
     */
-
     'mode'          => ['code' => 'long', 'name' => 'native'],
 
     /*
@@ -124,7 +122,6 @@ return [
     | This options indicates the allowed languages.
     |
     */
-
     'allowed'       => ['ar-SA', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-GB', 'es-ES', 'es-MX', 'fa-IR', 'fr-FR', 'he-IL', 'hi-IN', 'hr-HR', 'id-ID', 'is-IS', 'it-IT', 'ja-JP', 'ka-GE', 'ko-KR', 'lt-LT', 'lv-LV', 'mk-MK', 'nb-NO', 'nl-NL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sr-RS', 'sq-AL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'ur-PK', 'uz-UZ',  'vi-VN', 'zh-CN', 'zh-TW'],
 
     /*
@@ -135,7 +132,6 @@ return [
     | This option indicates the language codes and names.
     |
     */
-
     'all' => [
         ['short' => 'ar',       'long' => 'ar-SA',      'english' => 'Arabic',              'native' => 'العربية'],
         ['short' => 'bg',       'long' => 'bg-BG',      'english' => 'Bulgarian',           'native' => 'български'],
@@ -193,4 +189,5 @@ return [
         ['short' => 'uz',       'long' => 'uz-UZ',      'english' => 'Uzbek',               'native' => 'O‘zbekcha'],
         ['short' => 'vi',       'long' => 'vi-VN',      'english' => 'Vietnamese',          'native' => 'Tiếng Việt'],
     ],
+
 ];

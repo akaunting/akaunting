@@ -89,6 +89,7 @@ return [
     'reference'             => 'Referencia',
     'attachment'            => 'Adjunto',
     'change'                => 'Cambiar',
+    'change_type'           => 'Cambiar :type',
     'switch'                => 'Cambiar',
     'color'                 => 'Color',
     'save'                  => 'Guardar',
@@ -165,4 +166,16 @@ return [
         'this_month' => 'Este mes',
         'last_month' => 'Mes anterior',
     ],
+
+    'empty' => [
+        'documentation' => 'Revisa la <a href=":url" target="_blank" class="text-success">documentación</a> para más detalles.',
+        'items' => 'Los artículos pueden ser productos o servicios. Puede utilizar artículos al crear facturas y recibos para poblar los campos precio, impuestos, etc.',
+        'invoices' => 'Las facturas pueden ser una vez o recurrentes. Puedes enviarlas a los clientes y empezar a aceptar pagos en línea.',
+        'revenues' => 'El ingreso es una transacción de ingreso de pago. Puede ser un registro independiente (es decir, depósito) o adjunto a una factura.',
+        'customers' => 'Los clientes son requeridos si desea crear facturas. También pueden iniciar sesión en el Portal del Cliente y ver su balance de saldo.',
+        'bills' => 'Los recibos pueden ser de una vez o recurrentes. Indican lo que debe a sus proveedores por los productos o servicios que compra.',
+        'payments' => 'El pago es una transacción de gasto pagado. Puede ser un registro independiente (es decir, recibo de alimento) o adjunto a un recibo.',
+        'vendors' => 'Los proveedores son necesarios si desea crear recibos. Puede ver el saldo que debe y filtrar los informes por proveedor.',
+    ],
+
 ];

@@ -3,14 +3,18 @@
 return [
 
     'company' => [
+        'description'       => 'Ändra företagsnamn, e-postadress, adress, skattenummer etc',
         'name'              => 'Namn',
         'email'             => 'E-post',
         'phone'             => 'Telefon',
         'address'           => 'Adress',
         'logo'              => 'Logotyp',
     ],
+
     'localisation' => [
-        'tab'               => 'Plats',
+        'description'       => 'Ställ in räkenskapsår, tidszon, datumformat och andra lokala inställningar',
+        'financial_start'   => 'Räkenskapsår',
+        'timezone'          => 'Tidszon',
         'date' => [
             'format'        => 'Datumformat',
             'separator'     => 'Datumavgränsare',
@@ -20,15 +24,15 @@ return [
             'slash'         => 'Snedstreck (/)',
             'space'         => 'Mellanslag ( )',
         ],
-        'timezone'          => 'Tidszon',
         'percent' => [
             'title'         => 'Procent (%) Ställning',
             'before'        => 'Innan nummret',
             'after'         => 'Efter nummret',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Faktura',
+        'description'       => 'Anpassa prefix, nummer, villkor, sidfot osv',
         'prefix'            => 'Nummerprefix',
         'digit'             => 'Siffra',
         'next'              => 'Nästa nummer',
@@ -43,16 +47,21 @@ return [
         'rate'              => 'Kurs',
         'quantity_name'     => 'Antal namn',
         'quantity'          => 'Antal',
+        'payment_terms'     => 'Betalningsvillkor',
+        'title'             => 'Titel',
+        'subheading'        => 'Underrubrik',
+        'due_receipt'       => 'Förfaller vid mottagandet',
+        'due_days'          => 'Förfaller inom :days dagar',
     ],
+
     'default' => [
-        'tab'               => 'Huvudsakligt',
-        'account'           => 'Huvudsakligt Konto',
-        'currency'          => 'Huvudsaklig valuta',
-        'tax'               => 'Huvudsaklig skattesats',
-        'payment'           => 'Huvudsaklig betalningsmetod',
-        'language'          => 'Huvudspråk',
+        'description'       => 'Standardkonto, valuta, ditt företags språk',
+        'list_limit'        => 'Poster Per sida',
+        'use_gravatar'      => 'Använda Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Ändra sändningsprotokollet och e-postmallarna',
         'protocol'          => 'Protokoll',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -67,36 +76,45 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sökväg för Sendmail',
         'log'               => 'Logga e-post',
+
+        'templates' => [
+            'subject'                   => 'Ämne',
+            'body'                      => 'Brödtext',
+            'tags'                      => '<strong>Tillgängliga taggar:</strong> :tag_list',
+            'invoice_new_customer'      => 'Ny fakturamall (skickas till kund)',
+            'invoice_remind_customer'   => 'Fakturaminnesmall (skickad till kund)',
+            'invoice_remind_admin'      => 'Fakturaminnesmall (skickad till kund)',
+            'invoice_recur_customer'    => 'Återkommande fakturamall (skickad till kund)',
+            'invoice_recur_admin'       => 'Återkommande fakturamall (skickas till Admin)',
+            'invoice_payment_customer'  => '44/5000
+Mottagning av betalning (skickad till kund)',
+            'invoice_payment_admin'     => 'Mottagning av betalning (skickad till admin)',
+            'bill_remind_admin'         => 'Faktura påminnelsemall (skickad till admin)',
+            'bill_recur_admin'          => 'Räkning återkommande mall (skickad till admin)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Schemaläggning',
+        'name'              => 'Schemaläggning',
+        'description'       => 'Automatiska påminnelser och kommando för återkommande',
         'send_invoice'      => 'Skicka faktura påminnelse',
         'invoice_days'      => 'Skicka efter förfallodagar',
         'send_bill'         => 'Skicka faktura påminnelse',
         'bill_days'         => 'Skicka innan förfallodatum',
         'cron_command'      => 'Cron Kommando',
         'schedule_time'     => 'Tid att köra',
-        'send_item_reminder'=> 'Skicka objektet påminnelse',
-        'item_stocks'       => 'Skicka när objekt lager',
     ],
-    'appearance' => [
-        'tab'               => 'Utseende',
-        'theme'             => 'Tema',
-        'light'             => 'Ljust',
-        'dark'              => 'Mörkt',
-        'list_limit'        => 'Poster Per sida',
-        'use_gravatar'      => 'Använda Gravatar',
+
+    'categories' => [
+        'description'       => 'Obegränsade kategorier för inkomst, kostnad och artikel',
     ],
-    'system' => [
-        'tab'               => 'System',
-        'session' => [
-            'lifetime'      => 'Session-livstid (minuter)',
-            'handler'       => 'Sessionshanterare',
-            'file'          => 'Fil',
-            'database'      => 'Databas',
-        ],
-        'file_size'         => 'Max filstorlek (MB)',
-        'file_types'        => 'Tillåtna filtyper',
+
+    'currencies' => [
+        'description'       => 'Skapa och hantera valutor och ställ in dina kurser',
+    ],
+
+    'taxes' => [
+        'description'       => 'Fasta, normala, inklusive och sammansatta skattesatser',
     ],
 
 ];

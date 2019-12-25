@@ -3,14 +3,16 @@
 return [
 
     'company' => [
+        'description'       => 'Şirketin ismini, adresini, vergi numrasını vs. değiştirin',
         'name'              => 'Şirket İsmi',
         'email'             => 'Şirket Emaili',
         'phone'             => 'Telefon',
         'address'           => 'Şirket Adresi',
         'logo'              => 'Şirket Logosu',
     ],
+
     'localisation' => [
-        'tab'               => 'Yerelleştirme',
+        'description'       => 'Mali yıl başlangıcını, saat dilimini, tarih biçimini vs. ayarlayın',
         'financial_start'   => 'Mali Yıl Başlangıcı',
         'timezone'          => 'Saat Dilimi',
         'date' => [
@@ -28,8 +30,9 @@ return [
             'after'         => 'Sayıdan Sonra',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Fatura',
+        'description'       => 'Fatura numarasını, önekini, vadesini vs. özelleştirin',
         'prefix'            => 'Numara Öneki',
         'digit'             => 'Numara Rakam Sayısı',
         'next'              => 'Sonraki Numara',
@@ -44,16 +47,21 @@ return [
         'rate'              => 'Oran',
         'quantity_name'     => 'Miktar Adı',
         'quantity'          => 'Miktar',
+        'payment_terms'     => 'Ödeme Vadeleri',
+        'title'             => 'Başlık',
+        'subheading'        => 'Altbaşlık',
+        'due_receipt'       => 'Teslim alındığında vadeli',
+        'due_days'          => ':days vadeli',
     ],
+
     'default' => [
-        'tab'               => 'Varsayılanlar',
-        'account'           => 'Varsayılan Hesap',
-        'currency'          => 'Varsayılan Para Birimi',
-        'tax'               => 'Varsayılan Vergi Oranı',
-        'payment'           => 'Varsayılan Ödeme Yöntemi',
-        'language'          => 'Varsayılan Dil',
+        'description'       => 'Şirketinizin varsayılan hesap, para birimi, dil vs',
+        'list_limit'        => 'Sayfa Başına Kayıt Sayısı',
+        'use_gravatar'      => 'Gravatar kullanın',
     ],
+
     'email' => [
+        'description'       => 'E-posta şablonları ve gönderim protokolünü değiştirin',
         'protocol'          => 'Protokol',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -68,36 +76,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail Dizini',
         'log'               => 'E-mailleri logla',
+
+        'templates' => [
+            'subject'                   => 'Başlık',
+            'body'                      => 'İçerik',
+            'tags'                      => '<strong>Mevcut Etiketler:</strong> :tag_list',
+            'invoice_new_customer'      => 'Yeni Fatura Şablonu (müşteriye gönderilen)',
+            'invoice_remind_customer'   => 'Fatura Hatırlatma Şablonu (müşteriye gönderilen)',
+            'invoice_remind_admin'      => 'Fatura Hatırlatma Şablonu (yöneticiye gönderilen)',
+            'invoice_recur_customer'    => 'Tekrarlı Fatura Şablonu (müşteriye gönderilen)',
+            'invoice_recur_admin'       => 'Tekrarlı Fatura Şablonu (yöneticiye gönderilen)',
+            'invoice_payment_customer'  => 'Ödeme Alındı Şablonu (müşteriye gönderilen)',
+            'invoice_payment_admin'     => 'Ödeme Alındı Şablonu (yöneticiye gönderilen)',
+            'bill_remind_admin'         => 'Gider Faturası Hatırlatma Şablonu (yöneticiye gönderilen)',
+            'bill_recur_admin'          => 'Tekrarlı Gider Faturası Şablonu (yöneticiye gönderilen)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Zamanlama',
+        'name'              => 'Zamanlama',
+        'description'       => 'Otomatik hatırlatma ve tekrarlı işlemler için komut satırı',
         'send_invoice'      => 'Gelir Faturası Hatırlat',
         'invoice_days'      => 'Vade Gününden Sonra Gönder',
         'send_bill'         => 'Gider Faturası Hatırlat',
         'bill_days'         => 'Vade Gününden Önce Gönder',
         'cron_command'      => 'Cron Komutu',
         'schedule_time'     => 'Çalışma Saati',
-        'send_item_reminder'=> 'Ürün Hatırlatıcısı Gönder',
-        'item_stocks'       => 'Stoktataki Ürünü Gönderme Zamanı',
     ],
-    'appearance' => [
-        'tab'               => 'Görünüm',
-        'theme'             => 'Tema',
-        'light'             => 'Açık',
-        'dark'              => 'Koyu',
-        'list_limit'        => 'Sayfa Başına Kayıt Sayısı',
-        'use_gravatar'      => 'Gravatar kullanın',
+
+    'categories' => [
+        'description'       => 'Sınırsız gelir, gider ve ürün kategorisi oluşturun',
     ],
-    'system' => [
-        'tab'               => 'Sistem',
-        'session' => [
-            'lifetime'      => 'Oturum süresi (Dakika)',
-            'handler'       => 'Oturum Yöneticisi',
-            'file'          => 'Dosya',
-            'database'      => 'Veritabanı',
-        ],
-        'file_size'         => 'Maksimum dosya boyutu (MB)',
-        'file_types'        => 'İzin verilen dosya türleri',
+
+    'currencies' => [
+        'description'       => 'Para birimi oluşturup onların kurlarını ayarlayın',
+    ],
+
+    'taxes' => [
+        'description'       => 'Sabit, normal, dahil ve bileşik vergi sınıfları oluşturun',
     ],
 
 ];

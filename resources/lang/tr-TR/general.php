@@ -2,6 +2,7 @@
 
 return [
 
+    'dashboards'            => 'Kontrol Paneli|Kontrol Panelleri',
     'items'                 => 'Ürün / Hizmet|Ürünler / Hizmetler',
     'incomes'               => 'Gelir|Gelirler',
     'invoices'              => 'Fatura|Faturalar',
@@ -28,7 +29,7 @@ return [
     'taxes'                 => 'Vergi Oranı|Vergi Oranları',
     'logos'                 => 'Logo|Logolar',
     'pictures'              => 'Resim|Resimler',
-    'types'                 => 'Tip|Tipler',
+    'types'                 => 'Tür|Türler',
     'payment_methods'       => 'Ödeme Yöntemi|Ödeme Yöntemleri',
     'compares'              => 'Gelir ve Gider | Gelirler ve Giderler',
     'notes'                 => 'Açıklama|Açıklamalar',
@@ -41,8 +42,15 @@ return [
     'contacts'              => 'Kişi|Kişiler',
     'reconciliations'       => 'Mutabakat|Mutabakatlar',
     'developers'            => 'Geliştirici|Geliştiriciler',
+    'schedules'             => 'Planlama|Planlamalar',
+    'groups'                => 'Grup|Gruplar',
+    'charts'                => 'Grafik|Grafikler',
+    'localisations'         => 'Yerelleştirme|Yerelleştirmeler',
+    'defaults'              => 'Varsayılan|Varsayılanlar',
+    'widgets'               => 'Bileşen|Bileşenler',
 
     'dashboard'             => 'Kontrol Paneli',
+    'welcome'               => 'Hoş Geldiniz',
     'banking'               => 'Banka',
     'general'               => 'Genel',
     'no_records'            => 'Kayıt yok.',
@@ -54,6 +62,7 @@ return [
     'no'                    => 'Hayır',
     'na'                    => '- Yok -',
     'daily'                 => 'Günlük',
+    'weekly'                => 'Haftalık',
     'monthly'               => 'Aylık',
     'quarterly'             => 'Çeyrek',
     'yearly'                => 'Yıllık',
@@ -80,9 +89,11 @@ return [
     'reference'             => 'Referans',
     'attachment'            => 'Dosya',
     'change'                => 'Değiştir',
+    'change_type'           => ':type Değiştir',
     'switch'                => 'Değiştir',
     'color'                 => 'Renk',
     'save'                  => 'Kaydet',
+    'confirm'               => 'Onay',
     'cancel'                => 'İptal',
     'loading'               => 'Yükleniyor...',
     'from'                  => 'Tarafından',
@@ -115,17 +126,27 @@ return [
     'go_to'                 => 'Git :name',
     'created_date'          => 'Oluşturulma Tarihi',
     'period'                => 'Dönem',
+    'frequency'             => 'Sıklık',
     'start'                 => 'Başlat',
     'end'                   => 'Bitir',
     'clear'                 => 'Temizle',
     'difference'            => 'Fark',
+    'footer'                => 'Altbilgi',
+    'start_date'            => 'Başlangıç Tarihi',
+    'basis'                 => 'Esas',
+    'accrual'               => 'Tahakkuk',
+    'cash'                  => 'Nakit',
+    'group_by'              => 'Gruplandır',
+    'accounting'            => 'Muhasebe',
 
     'title' => [
         'new'               => 'Yeni :type',
         'edit'              => ':type Düzenle',
+        'delete'            => ':type Sil',
         'create'            => ':type Oluştur',
         'send'              => ':type Gönder',
         'get'               => ':type Getir',
+        'add'               => ':type Ekle',
     ],
 
     'form' => [
@@ -134,6 +155,7 @@ return [
             'field'         => '- :field Seçin -',
             'file'          => 'Dosya Seçin',
         ],
+        'add_new'           => ':field Yeni Ekle',
         'no_file_selected'  => 'Dosya seçilmemiş...',
     ],
 
@@ -144,4 +166,16 @@ return [
         'this_month' => 'Bu Ay',
         'last_month' => 'Son Ay',
     ],
+
+    'empty' => [
+        'documentation' => 'Daha fazla bilgi için <a href=":url" target="_blank" class="text-success">dokümantasyon</a> sayfasını inceleyebilirsiniz.',
+        'items' => 'Öğeler ürün veya hizmet olabilir. Öğeleri gelir/gider faturası oluştururken fiyat, vergi gibi alanları otomatik doldurmak için kullanbilirsiniz.',
+        'invoices' => 'Faturalar tek seferlik veya tekrarlı olabilir. Faturaları müşterilerinize göndererek online ödeme yapmasını sağlayabilirsiniz.',
+        'revenues' => 'Tahsilat, gerçekleşmiş bir gelir işlemidir. Tamamen bağımsız (depozito gibi) veya bir gelir faturasına bağlı olabilir.',
+        'customers' => 'Gelir faturası oluşturmak için müşteriler zorunludur. Erişim verdiğinizde Müşteri Paneline giriş yapıp bakiyelerini görebilirler.',
+        'bills' => 'Faturalar tek seferlik veya tekrarlı olabilir. Tedarikçilerinizden satın aldığınız ürün veya hizmetleri kolaylıkla takip edebilirsiniz.',
+        'payments' => 'Ödeme, gerçekleşmiş bir gider işlemidir. Tamamen bağımsız (yemek fişi gibi) veya bir gider faturasına bağlı olabilir.',
+        'vendors' => 'Gider faturası oluşturmak için tedarikçiler zorunludur. Onlara olan borç bakiyenizi görüntüleyebilir ve filtreleyebilirsiniz.',
+    ],
+
 ];

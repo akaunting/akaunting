@@ -2,50 +2,18 @@
 
 return [
 
-    'select_to_action' => 'Seleccione Acción',
-    'selected'         => 'seleccionado',
     'bulk_actions'     => 'Acción masiva|Acciones masivas',
-    'delete'           => 'Borrar',
-    'duplicate'        => 'Duplicar',
-    'export'           => 'Exportar',
-    'enable'           => 'Habilitar',
-    'disable'          => 'Deshabilitar',
-    'change_category'  => 'Cambio de categoría',
-    'change_type'      => 'Tipo de cambio',
-
-
-    'users' => [
-        'change_role'    => 'Cambio de rol',
-        'change_company' => 'Cambio de empresa',
-    ],
-
-    'bills' => [
-        'change_bill_status' => 'Cambio de estado de factura',
-    ],
-
-    'payments' => [
-        'change_payment_status' => 'Cambio de estado de pagos',
-    ],
-
-    'invoices' => [
-        'change_invoice_status' => 'Cambio de estado de factura',
-    ],
-
-    'revenues' => [
-        'change_revenue_status' => 'Cambio de estado de ingresos',
-    ],
-
-    'categories' => [
-        'change_category_status' => 'Cambio de estado de categoría',
-    ],
+    'selected'         => 'seleccionado',
 
     'message' => [
-        'sure'       => '¿Está seguro?',
-        'duplicate'  => '¿Realmente quiere duplicar este registro?',
-        'deletes'    => '¿Realmente quiere eliminar este registro?|¿Realmente quiere eliminar estos registros?',
-        'exports'    => '¿Realmente quiere exportar este registro?|¿Realmente quiere exportar estos registros?',
-        'enable'     => '¿Realmente quiere habilitar este registro?|¿Realmente quiere habilitar estos registros?',
-        'disable'    => '¿Realmente quiere deshabilitar este registro?|¿Realmente quiere deshabilitar estos registros?',
-    ]
+        'duplicate'     => '¿Está seguro que desea <b>duplicar</b> el registro seleccionado?',
+        'delete'        => '¿Está seguro que desea <b>eliminar</b> el registro seleccionado?|¿Está seguro que desea <b>eliminar</b> los registros seleccionados?',
+        'export'        => '¿Está seguro que desea <b>exportar</b> el registro seleccionado?|¿Está seguro que desea <b>exportar</b> los registros seleccionados?',
+        'enable'        => '¿Está seguro que desea <b>habilitar</b> el registro seleccionado?|¿Está seguro que desea <b>habilitar</b> los registros seleccionados?',
+        'disable'       => '¿Está seguro que desea <b>deshabilitar</b> el registro seleccionado?|¿Está seguro que desea <b>deshabilitar</b> los registros seleccionados?',
+        'paid'          => '¿Está seguro de que desea marcar la factura seleccionada como <b>pagada</b>? ¿Está seguro que desea marcar las facturas seleccionadas como <b>pagadas</b>?',
+        'sent'          => '¿Está seguro que desea marcar la factura seleccionada como <b>enviada</b>? ¿Está seguro que desea marcar las facturas seleccionadas como <b>enviadas</b>?',
+        'received'      => '¿Está seguro de que desea marcar el recibo seleccionado como <b>recibido</b>? ¿Está seguro que desea marcar los recibos seleccionados como <b>recibidos</b>?',
+    ],
 
 ];

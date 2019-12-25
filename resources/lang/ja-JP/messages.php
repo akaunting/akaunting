@@ -3,31 +3,31 @@
 return [
 
     'success' => [
-        'added'             => ':タイプ追加!',
-        'updated'           => '：タイプが更新されました！',
-        'deleted'           => '：タイプが削除されました！',
-        'duplicated'        => '：タイプが更新されました！',
-        'imported'          => '：タイプが更新されました！',
-        'enabled'           => '：タイプ 有効にしました!',
-        'disabled'          => ': タイプ無効!',
+        'added'             => ':type 追加されました！',
+        'updated'           => ':type 更新しました！',
+        'deleted'           => ':type 削除されました！',
+        'duplicated'        => ':type 複製されました！',
+        'imported'          => ':type インポートされました!',
+        'enabled'           => ':type 有効！',
+        'disabled'          => ':type は無効です！',
     ],
 
     'error' => [
         'over_payment'      => 'エラー: 支払いが追加されません!入力した金額が合計を渡します:: 量',
-        'not_user_company'  => 'エラー：この会社を管理することは許可されていません！',
-        'customer'          => 'エラー：ユーザーが作成されませんでした。 ：nameはすでにこのメールアドレスを使用しています。',
-        'no_file'           => 'エラー：ファイルが選択されていません。',
-        'last_category'     => 'エラー: 削除できません最後: 型に分類!',
-        'change_type'       => 'エラー：タイプに関連するテキストがあるため、タイプを変更できません！',
-        'invalid_apikey'    => 'エラー：入力されたトークンは無効です！',
-        'import_column'     => 'エラー:: メッセージ シート名:: シート。行番号:: 行。',
+        'not_user_company'  => 'エラー：この会社を管理することは許可されていません!',
+        'customer'          => 'エラー: ユーザーが作成されませんでした。 :name はすでにこのメールアドレスを使用しています。',
+        'no_file'           => 'エラー: ファイルが選択されていません!',
+        'last_category'     => 'エラー: 削除できません最後 :type category!',
+        'change_type'       => 'エラー: タイプを変更できません 持っているから :text related!',
+        'invalid_apikey'    => 'エラー: 入力されたAPIキーは無効です!',
+        'import_column'     => 'エラー: : メッセージ シート名: :sheet. Line number: :line.',
         'import_sheet'      => 'エラー: シート名が無効です。サンプル ファイルを下さい。',
     ],
 
     'warning' => [
-        'deleted'           => '警告: <b>を削除する権限がありません: それを持っているので</b> の名前: 関連するテキスト。',
-        'disabled'          => '警告: <b>を削除する権限がありません: それを持っているので</b> の名前: 関連するテキスト。',
-        'disable_code'      => '警告: ことはできません無効にするか、 <b>の通貨を変更する: それを持っているので</b> の名前: 関連するテキスト。',
+        'deleted'           => '警告: 削除することはできません <b>:name</b> テキストに関連しているからです。 :text related.',
+        'disabled'          => '警告: 無効にすることはできません <b>:name</b>テキストに関連しているため :text related.',
+        'disable_code'      => '警告: 通貨を無効化または変更することはできません <b>:name</b> のため :text related.',
         'payment_cancel'    => '警告：最近キャンセルされた：お支払い方法！',
     ],
 

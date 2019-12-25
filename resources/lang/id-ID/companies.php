@@ -4,10 +4,12 @@ return [
 
     'domain'                => 'Domain',
     'logo'                  => 'Logo',
-    'manage'                => 'Kelola Perusahaan',
+    'manage'                => 'Mengelola Perusahaan',
     'all'                   => 'Semua Perusahaan',
+
     'error' => [
-        'delete_active'     => 'Kesalahan: Tidak dapat menghapus perusahaan aktif, silahkan, ubah dulu!',
+        'not_user_company'  => 'Error: Anda tidak diperbolehkan merubah perusahaan ini!',
+        'delete_active'     => 'Error: Tidak dapat menghapus perusahaan aktif, silahkan, ubah status perusahaan terlebih dahulu!',
     ],
 
 ];

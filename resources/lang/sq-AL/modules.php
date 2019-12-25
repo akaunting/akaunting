@@ -2,8 +2,7 @@
 
 return [
 
-    'title'                 => 'Shenjë API',
-    'api_token'             => 'Shenjë',
+    'api_key'               => 'API Key',
     'my_apps'               => 'Aplikacionet e Mia',
     'pre_sale'              => 'Para Shitjet',
     'top_paid'              => 'Më të paguarat',
@@ -13,9 +12,9 @@ return [
     'search'                => 'Kërko',
     'install'               => 'Instalo',
     'buy_now'               => 'Bli Tani',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Kliko këtu</a>për të marrë shenjën tuaj API.',
+    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Click here</a> to get your API key.',
     'no_apps'               => 'Në këtë kategori akoma nuk ka aplikacione.',
-    'developer'             => 'A jeni një zhvillues?<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Këtu</a> mund të mësoni si të krijoni një aplikacion dhe të filloni shitjen sot!',
+    'developer'             => 'Are you a developer? <a href="https://akaunting.com/developers" target="_blank">Here</a> you can learn how to create an app and start selling today!',
 
     'recommended_apps'      => 'Aplikacionet e Rekomanduara',
 
@@ -38,31 +37,30 @@ return [
         'installation'      => 'Instalim',
         'faq'               => 'Pyetësori',
         'changelog'         => 'Ndryshimet',
-        'reviews'            => 'Shqyrtimet',
+        'reviews'           => 'Shqyrtimet',
     ],
 
     'installation' => [
         'header'            => 'Instalim Aplikacioni',
-        'download'          => 'Shkarkimi i :module skedarit.',
-        'unzip'             => 'Ekstraktimi i :module skedarit.',
-        'file_copy'         => 'Kopjimi i :module skedareve.',
-        'migrate'           => 'Aplikimi i :module përditësimeve.',
-        'finish'            => 'Azhurnimi u instalua me sukses. Ju do të ridrejtoni në Qendrën e Përditësimit.',
-        'install'           => 'Instalim i :module skedareve.',
+        'download'          => 'Downloading :module',
+        'unzip'             => 'Extracting :module files',
+        'file_copy'         => 'Copying :module files',
+        'finish'            => 'Finalizing :module installation',
+        'redirect'          => ':module installed, redirecting to updates page',
+        'install'           => 'Installing :module',
     ],
 
     'errors' => [
-        'download' => ':module nuk mund të shkarkohet!',
-        'upload' => ':module i shkarkuar nuk mund të ruhet!',
-        'unzip' => ':module nuk mund të hap zinxhirin!',
-        'file_copy' => ':module skedarët nuk mund të kopjohen!',
-        'migrate' => ':module migrimi i thyer!',
-        'migrate core' => ':module tashmë ka versionin e fundit kështu që atëherë nuk mund të azhurnohet.',
+        'download'          => 'Not able to download :module',
+        'zip'               => 'Not able to create :module zip file',
+        'unzip'             => 'Not able to unzip :module',
+        'file_copy'         => 'Not able to copy :module files',
+        'finish'            => 'Not able to finalize :module installation',
     ],
 
     'badge' => [
-        'installed' => 'Instaluar',
-        'pre_sale' => 'Para Shitjet',
+        'installed'         => 'Instaluar',
+        'pre_sale'          => 'Para Shitjet',
     ],
 
     'button' => [
@@ -72,14 +70,15 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Blerë',
-        'installed' => 'Instaluar',
+        'purchased'         => 'Blerë',
+        'installed'         => 'Instaluar',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Shto një Shqyrtim'
+            'add'           => 'Shto një Shqyrtim'
         ],
-        'na' => 'Nuk ka shqyrtime.'
+
+        'na'                => 'Nuk ka shqyrtime.'
     ]
 ];

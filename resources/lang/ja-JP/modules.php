@@ -27,11 +27,11 @@ return [
     'view'                  => 'ビュー',
     'back'                  => '前へ',
 
-    'installed'             => ': モジュールの取り付けは完了です。',
-    'uninstalled'           => ': モジュールがアンインストールされました',
+    'installed'             => ':module 取り付けは完了です。',
+    'uninstalled'           => ':module がアンインストールされました',
     //'updated'               => ':module updated',
-    'enabled'               => 'モジュール有効',
-    'disabled'              => ':モジュール無効',
+    'enabled'               => ':module 有効',
+    'disabled'              => ':module 無効',
 
     'tab' => [
         'installation'      => 'インストール',
@@ -42,20 +42,20 @@ return [
 
     'installation' => [
         'header'            => 'アプリのインストール',
-        'download'          => 'ダウンロード：モジュール',
-        'unzip'             => '抽出：モジュールファイル',
-        'file_copy'         => 'コピー中：モジュールファイル',
-        'finish'            => 'ファイナライズ：モジュールのインストール',
-        'redirect'          => '：インストールされたモジュール、更新ページにリダイレクト',
-        'install'           => 'インストール中：モジュール',
+        'download'          => 'ダウンロード :module',
+        'unzip'             => '抽出 :moduleファイル',
+        'file_copy'         => 'コピー中 :moduleファイル',
+        'finish'            => 'ファイナライズ :module のインストール',
+        'redirect'          => ':module されたモジュール、更新ページにリダイレクト',
+        'install'           => 'インストール中 :module',
     ],
 
     'errors' => [
-        'download'          => 'ダウンロードできません：モジュール',
-        'zip'               => '作成できません：モジュール zipファイル',
-        'unzip'             => '解凍できません：モジュール',
-        'file_copy'         => 'コピーできません：モジュールファイル',
-        'finish'            => 'ファイナライズできません：モジュールのインストール',
+        'download'          => 'ダウンロードできません :module',
+        'zip'               => '作成できません :module zip ファイル',
+        'unzip'             => '解凍できません :module',
+        'file_copy'         => 'コピーできません :module ファイル',
+        'finish'            => 'ファイナライズできません :module のインストール',
     ],
 
     'badge' => [

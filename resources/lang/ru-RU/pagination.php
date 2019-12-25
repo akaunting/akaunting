@@ -4,6 +4,7 @@ return [
 
     'previous'              => '&laquo; Предыдущее',
     'next'                  => 'Следующее &raquo;',
-    'showing'               => ':first-:last из :total :type.',
+    'showing'               => ':first-:last of :total records.',
     'page'                  => 'на странице.',
+
 ];

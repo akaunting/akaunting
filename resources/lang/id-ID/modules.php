@@ -2,9 +2,9 @@
 
 return [
 
-    'title'                 => 'API Token',
-    'api_token'             => 'Token',
+    'api_key'               => 'API Key',
     'my_apps'               => 'Aplikasi saya',
+    'pre_sale'              => 'Pra Penjualan',
     'top_paid'              => 'Dibayar atas',
     'new'                   => 'Baru',
     'top_free'              => 'Gratis Teratas',
@@ -12,20 +12,20 @@ return [
     'search'                => 'Cari',
     'install'               => 'Pasang',
     'buy_now'               => 'Beli Sekarang',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Klik disini</a> untuk mendapatkan API token anda.',
+    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Click here</a> to get your API key.',
     'no_apps'               => 'Belum ada aplikasi dalam kategori ini.',
-    'developer'             => 'Apakah kamu seorang pengembang<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Disini</a> Anda bisa belajar membuat aplikasi dan mulai menjual hari ini!',
+    'developer'             => 'Are you a developer? <a href="https://akaunting.com/developers" target="_blank">Here</a> you can learn how to create an app and start selling today!',
 
-    'recommended_apps'      => 'Recommended Apps',
+    'recommended_apps'      => 'Aplikasi yang direkomendasikan',
 
     'about'                 => 'Tentang',
 
     'added'                 => 'Menambahkan',
     'updated'               => 'Mempebarui',
     'compatibility'         => 'Kesesuaian',
-    'documentation'         => 'Documentation',
-    'view'                  => 'View',
-    'back'                  => 'Back',
+    'documentation'         => 'Dokumentasi',
+    'view'                  => 'Tampilan',
+    'back'                  => 'Kembali',
 
     'installed'             => ':module terpasang',
     'uninstalled'           => ':module dihapus',
@@ -37,30 +37,30 @@ return [
         'installation'      => 'Instalasi',
         'faq'               => 'FAQ',
         'changelog'         => 'Perubahan Catatan',
-        'reviews'            => 'Reviews',
+        'reviews'           => 'Ulasan',
     ],
 
     'installation' => [
         'header'            => 'Instalasi Aplikasi',
-        'download'          => 'Mengunduh :module file.',
-        'unzip'             => 'Mengekstrak :module file.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
-        'install'           => 'Instalasi :module.',
+        'download'          => 'Downloading :module',
+        'unzip'             => 'Extracting :module files',
+        'file_copy'         => 'Copying :module files',
+        'finish'            => 'Finalizing :module installation',
+        'redirect'          => ':module installed, redirecting to updates page',
+        'install'           => 'Installing :module',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download'          => 'Not able to download :module',
+        'zip'               => 'Not able to create :module zip file',
+        'unzip'             => 'Not able to unzip :module',
+        'file_copy'         => 'Not able to copy :module files',
+        'finish'            => 'Not able to finalize :module installation',
     ],
 
     'badge' => [
-        'installed' => 'Terpasang',
+        'installed'         => 'Terpasang',
+        'pre_sale'          => 'Pra-Penjualan',
     ],
 
     'button' => [
@@ -70,14 +70,15 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Dibeli',
-        'installed' => 'Terpasang',
+        'purchased'         => 'Dibeli',
+        'installed'         => 'Terpasang',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add'           => 'Tambah Ulasan'
         ],
-        'na' => 'Tidak ada ulasan.'
+
+        'na'                => 'Tidak ada ulasan.'
     ]
 ];

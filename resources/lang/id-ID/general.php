@@ -2,6 +2,7 @@
 
 return [
 
+    'dashboards'            => 'Dashboard|Dashboards',
     'items'                 => 'Item|Item',
     'incomes'               => 'Pendapatan| Pendapatan',
     'invoices'              => 'Faktur | faktur',
@@ -40,9 +41,16 @@ return [
     'others'                => 'Lain | Lain-lain',
     'contacts'              => 'Kontak',
     'reconciliations'       => 'Rekonsiliasi|Rekonsiliasi',
-    'developers'            => 'Developer|Developers',
+    'developers'            => 'Pengembang|Pengembang',
+    'schedules'             => 'Schedule|Schedules',
+    'groups'                => 'Group|Groups',
+    'charts'                => 'Chart|Charts',
+    'localisations'         => 'Localisation|Localisations',
+    'defaults'              => 'Default|Defaults',
+    'widgets'               => 'Widget|Widgets',
 
     'dashboard'             => 'Dasbor',
+    'welcome'               => 'Welcome',
     'banking'               => 'Perbankan',
     'general'               => 'Umum',
     'no_records'            => 'Tidak ada catatan.',
@@ -54,6 +62,7 @@ return [
     'no'                    => 'Tidak',
     'na'                    => 'N/A',
     'daily'                 => 'Harian',
+    'weekly'                => 'Weekly',
     'monthly'               => 'Bulanan',
     'quarterly'             => 'Tiga Bulan',
     'yearly'                => 'Tahunan',
@@ -80,9 +89,11 @@ return [
     'reference'             => 'Referensi',
     'attachment'            => 'Lampiran',
     'change'                => 'Perubahan',
+    'change_type'           => 'Change :type',
     'switch'                => 'Beralih',
     'color'                 => 'Warna',
     'save'                  => 'Simpan',
+    'confirm'               => 'Confirm',
     'cancel'                => 'Batal',
     'loading'               => 'Sedang memuat...',
     'from'                  => 'Dari',
@@ -115,17 +126,27 @@ return [
     'go_to'                 => 'Menuju ke :name',
     'created_date'          => 'Tanggal Dibuat',
     'period'                => 'Periode',
+    'frequency'             => 'Frequency',
     'start'                 => 'Mulai',
     'end'                   => 'Selesai',
     'clear'                 => 'Hapus',
     'difference'            => 'Perbedaan',
+    'footer'                => 'Footer',
+    'start_date'            => 'Start Date',
+    'basis'                 => 'Basis',
+    'accrual'               => 'Accrual',
+    'cash'                  => 'Cash',
+    'group_by'              => 'Group By',
+    'accounting'            => 'Accounting',
 
     'title' => [
         'new'               => 'Baru :type',
         'edit'              => 'Sunting :type',
+        'delete'            => 'Delete :type',
         'create'            => 'Buat :type',
         'send'              => 'Kirim :type',
         'get'               => 'Ambil :type',
+        'add'               => 'Add :type',
     ],
 
     'form' => [
@@ -134,6 +155,7 @@ return [
             'field'         => '-Pilih :field -',
             'file'          => 'Pilih Berkas',
         ],
+        'add_new'           => 'Add New :field',
         'no_file_selected'  => 'Tidak ada Berkas yang dipilih...',
     ],
 
@@ -144,4 +166,16 @@ return [
         'this_month' => 'Bulan Ini',
         'last_month' => 'Bulan Lalu',
     ],
+
+    'empty' => [
+        'documentation' => 'Check out the <a href=":url" target="_blank" class="text-success">documentation</a> for more details.',
+        'items' => 'Items can be products or services. You can use items when creating invoices and bills to have the price, tax etc fields populated.',
+        'invoices' => 'Invoices can be one time or recurring. You can send them to customers and start accepting online payments.',
+        'revenues' => 'Revenue is a paid income transaction. It can be an independent record (i.e. deposit) or attached to an invoice.',
+        'customers' => 'Customers are required if you want to create invoices. They may also log in to Client Portal and see their balance.',
+        'bills' => 'Bills can be one time or recurring. They indicate what you owe your vendors for the products or services you purchase.',
+        'payments' => 'Payment is a paid expense transaction. It can be an independent record (i.e. food receipt) or attached to a bill.',
+        'vendors' => 'Vendors are required if you want to create bills. You can see the balance you owe and filter reports by the vendor.',
+    ],
+
 ];

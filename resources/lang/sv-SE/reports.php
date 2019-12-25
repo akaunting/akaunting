@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Nettoförtjänst',
     'total_expenses'        => 'Summa kostnader',
     'net'                   => 'Netto',
+    'income-expense'        => 'Inkomster & Utlägg',
 
     'summary' => [
         'income'            => 'Inkomstrapport',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Skatt Sammanfattning',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Okt-Dec',
+    'charts' => [
+        'line'              => 'Linje',
+        'bar'               => 'Stapel',
+        'pie'               => 'Tårt',
     ],
 
 ];

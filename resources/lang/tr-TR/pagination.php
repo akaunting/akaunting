@@ -4,6 +4,7 @@ return [
 
     'previous'              => '&laquo; Önceki',
     'next'                  => 'Sonraki &raquo;',
-    'showing'               => ':total kayıttan :first ile :last arasındaki kayıtlar gösteriliyor',
+    'showing'               => ':total kayıttan :first-:last arası.',
+    'page'                  => 'sayfa başına.',
 
 ];

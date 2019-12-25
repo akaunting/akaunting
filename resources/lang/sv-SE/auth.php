@@ -13,16 +13,17 @@ return [
     'current_email'         => 'Aktuella e-post',
     'reset'                 => 'Återställ',
     'never'                 => 'aldrig',
-    
+
     'password' => [
         'current'           => 'Lösenord',
         'current_confirm'   => 'Bekräfta lösenord',
         'new'               => 'Nytt lösenord',
         'new_confirm'       => 'Ny lösenords bekräftelse',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Fel: Kan inte ta bort dig själv!',
+        'self_disable'      => 'Fel: Kan inte ta bort dig själv!',
         'no_company'        => 'Fel: Inget företag som tilldelats ditt konto. Kontakta systemadministratören.',
     ],
 

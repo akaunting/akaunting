@@ -18,7 +18,8 @@ return [
         'customer'          => 'Gabim: Përdoruesi nuk u krijua! :name tashmë përdor këtë adresë e-maili.',
         'no_file'           => 'Gabim: Asnjë skedar i përzgjedhur!',
         'last_category'     => 'Gabim: Nuk mund të fshihet :type kategoria e fundit!',
-        'invalid_apikey'     => 'Gabim: Marku i dhënë është i pavlefshëm!',
+        'change_type'       => 'Error: Can not change the type because it has :text related!',
+        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'Gabim: :message Fleta name: :sheet. Rreshti number: :line.',
         'import_sheet'      => 'Gabim: Emri i fletës nuk është i vlefshëm. Ju lutem, kontrolloni skedarin e mostrës.',
     ],
@@ -27,6 +28,7 @@ return [
         'deleted'           => 'Njoftim: <b>:name</b> nuk mund të fshihet sepse ka :text të lidhur.',
         'disabled'          => 'Njoftim: <b>:name</b> nuk mund të disable sepse ka :text të lidhur.',
         'disable_code'      => 'Njoftim: Nuk ju lejohet të çaktivizoni ose të ndryshoni monedhën e <b>:name</b>, sepse ajo ka :text e lidhur.',
+        'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
     ],
 
 ];
