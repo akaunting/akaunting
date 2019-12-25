@@ -103,6 +103,7 @@ class Version200 extends Listener
             'invoice.quantity_name'             => 'general.invoice_quantity',
             'invoice.title'                     => trans_choice('general.invoices', 1),
             'invoice.payment_terms'             => '0',
+            'invoice.template'                  => 'default',
             'default.account'                   => 'general.default_account',
             'default.currency'                  => 'general.default_currency',
             'default.locale'                    => 'general.default_locale',
@@ -137,6 +138,7 @@ class Version200 extends Listener
                     break;
                 case 'invoice.title':
                 case 'invoice.payment_terms':
+                case 'invoice.template':
                 case 'contact.type.customer':
                 case 'contact.type.vendor':
                     $value = $old;
