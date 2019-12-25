@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Utile netto',
     'total_expenses'        => 'Totale spese',
     'net'                   => 'NET',
+    'income-expense'        => 'Reddito & Spese',
 
     'summary' => [
         'income'            => 'Riepilogo di reddito',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Riepilogo fiscale',
     ],
 
-    'quarter' => [
-        '1'                 => 'Gen-Mar',
-        '2'                 => 'Apr-Giu',
-        '3'                 => 'Lug-Set',
-        '4'                 => 'Ott-Dic',
+    'charts' => [
+        'line'              => 'Linea',
+        'bar'               => 'Barra',
+        'pie'               => 'Torta',
     ],
 
 ];

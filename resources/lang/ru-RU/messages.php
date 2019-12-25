@@ -19,7 +19,7 @@ return [
         'no_file'           => 'Ошибка: Файл не выбран!',
         'last_category'     => 'Ошибка: Невозможно удалить последнюю категорию :type!',
         'change_type'       => 'Ошибка: Невозможно изменить тип, так как он имеет отношение :text!',
-        'invalid_apikey'    => 'Ошибка: Введенный токен недействителен!',
+        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'Ошибка: :message Sheet name: :sheet. Номер строки: :line.',
         'import_sheet'      => 'Ошибка: Имя листа неверно. Пожалуйста, проверьте файл образца.',
     ],

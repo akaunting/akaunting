@@ -4,6 +4,7 @@ return [
 
     'previous'              => '&laquo; Föregående',
     'next'                  => 'Nästa &raquo;',
-    'showing'               => 'Visar :first till :last av :total :type',
+    'showing'               => ':first-:last of :total records.',
+    'page'                  => 'per sida.',
 
 ];

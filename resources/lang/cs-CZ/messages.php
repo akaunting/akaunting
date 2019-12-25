@@ -18,7 +18,8 @@ return [
         'customer'          => 'Chyba: uživatel nebyl vytvořen! Uživatel :name již používá tuto emailovou adresu.',
         'no_file'           => 'Chyba: Nebyl vybrán žádný soubor!',
         'last_category'     => 'Chyba: Nemohu smazat poslední kategorii :type ! ',
-        'invalid_apikey'     => 'Chyba: Zadaný token je neplatný!',
+        'change_type'       => 'Chyba: Nelze změnit typ, je k :text relativní!',
+        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'Chyba: :message Tabulka :sheet. Řádek: :line.',
         'import_sheet'      => 'Chyba: Tabulka je neplatná. Prosím, zkontrolujte vzorový soubor.',
     ],
@@ -27,6 +28,7 @@ return [
         'deleted'           => 'Upozornění: Nemůžete odstranit <b>:name</b> protože je spojená s :text.',
         'disabled'          => 'Upozornění: Nemůžete zakázat <b>:name</b> protože je spojená s :text.',
         'disable_code'      => 'Upozornění: Není možné zakázat nebo změnit měnu <b>:name</b>, protože je spjata s :text.',
+        'payment_cancel'    => 'Upozornění: Zrušili jste aktuální :method placení!',
     ],
 
 ];

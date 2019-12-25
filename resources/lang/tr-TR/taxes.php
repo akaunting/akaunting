@@ -7,5 +7,5 @@ return [
     'normal'                => 'Normal',
     'inclusive'             => 'Dahil',
     'compound'              => 'Bileşik',
-
+    'fixed'                 => 'Sabit',
 ];

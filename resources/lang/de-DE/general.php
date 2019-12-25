@@ -43,10 +43,10 @@ return [
     'reconciliations'       => 'Kontenabgleich|Kontenabgleiche',
     'developers'            => 'Entwickler|Entwickler',
     'schedules'             => 'Zeitplan|Zeitpläne',
-    'groups'                => 'Gruppen|Gruppen',
+    'groups'                => 'Gruppe|Gruppen',
     'charts'                => 'Diagramm|Diagramme',
-    'localisations'         => 'Lokalisierungen',
-    'defaults'              => 'Standard|Standardwerte',
+    'localisations'         => 'Lokalisierung|Lokalisierungen',
+    'defaults'              => 'Standardwert|Standardwerte',
     'widgets'               => 'Widget|Widgets',
 
     'dashboard'             => 'Dashboard',
@@ -89,6 +89,7 @@ return [
     'reference'             => 'Referenz',
     'attachment'            => 'Anhang',
     'change'                => 'Ändern',
+    'change_type'           => 'Change :type',
     'switch'                => 'Wechseln',
     'color'                 => 'Farbe',
     'save'                  => 'Speichern',
@@ -130,7 +131,7 @@ return [
     'end'                   => 'Ende',
     'clear'                 => 'Löschen',
     'difference'            => 'Differenz',
-    'footer'                => 'Fusszeile',
+    'footer'                => 'Fußzeile',
     'start_date'            => 'Startdatum',
     'basis'                 => 'Basis',
     'accrual'               => 'Rückstellung',
@@ -154,7 +155,7 @@ return [
             'field'         => '- :field auswählen -',
             'file'          => 'Datei auswählen',
         ],
-        'add_new'           => 'Neues :field hinzufügen',
+        'add_new'           => ':field neu hinzufügen',
         'no_file_selected'  => 'Keine Datei ausgewählt...',
     ],
 
@@ -165,4 +166,16 @@ return [
         'this_month' => 'Dieser Monat',
         'last_month' => 'Letzter Monat',
     ],
+
+    'empty' => [
+        'documentation' => 'Weitere Details finden Sie in der <a href=":url" target="_blank" class="text-success">Dokumentation</a>.',
+        'items' => 'Artikel können Produkte oder Dienstleistungen sein. Sie können Artikel bei der Erstellung von Rechnungen verwenden, um den Preis, die Steuerfelder usw. zu füllen.',
+        'invoices' => 'Rechnungen können einmal oder wiederkehrend sein. Sie können die Rechnungen an Kunden senden und Online-Zahlungen anzunehmen.',
+        'revenues' => 'Revenue is a paid income transaction. It can be an independent record (i.e. deposit) or attached to an invoice.',
+        'customers' => 'Customers are required if you want to create invoices. They may also log in to Client Portal and see their balance.',
+        'bills' => 'Rechnungen können einmal oder wiederkehrend sein. Sie geben an, was Sie Ihren Händlern für die Produkte oder Dienstleistungen schulden, die Sie kaufen.',
+        'payments' => 'Payment is a paid expense transaction. It can be an independent record (i.e. food receipt) or attached to a bill.',
+        'vendors' => 'Vendors are required if you want to create bills. You can see the balance you owe and filter reports by the vendor.',
+    ],
+
 ];

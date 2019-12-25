@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'description'       => 'Firma, E-Mail, Adresse, Steuernummer usw. ändern',
+        'description'       => 'Firmenname, E-Mail, Adresse, Steuernummer usw. ändern',
         'name'              => 'Name',
         'email'             => 'E-Mail',
         'phone'             => 'Telefon',
@@ -12,7 +12,7 @@ return [
     ],
 
     'localisation' => [
-        'description'       => 'Steuerjahr, Zeitzone, Datumsformat und Position des Prozentzeichen festlegen',
+        'description'       => 'Steuerjahr, Zeitzone, Datumsformat und mehr lokale Variablen festlegen',
         'financial_start'   => 'Beginn des Finanzjahrs',
         'timezone'          => 'Zeitzone',
         'date' => [

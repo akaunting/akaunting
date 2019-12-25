@@ -89,6 +89,7 @@ return [
     'reference'             => 'Reference',
     'attachment'            => 'Bilag',
     'change'                => 'Ændre',
+    'change_type'           => 'Change :type',
     'switch'                => 'Skift',
     'color'                 => 'Farve',
     'save'                  => 'Gem',
@@ -165,4 +166,16 @@ return [
         'this_month' => 'Denne måned',
         'last_month' => 'Sidste måned',
     ],
+
+    'empty' => [
+        'documentation' => 'Check <a href=":url" target="_blank" class="text-success">dokumentationen</a> for flere oplysninger.',
+        'items' => 'Enheder kan være produkter eller services. Du kan bruge enheder når du opretter faktura og regninger.',
+        'invoices' => 'Faktura kan være engang eller gentagne. Du kan sende dem til kunder og begynde at modtage onlinebetaling.',
+        'revenues' => 'Omsætning er en betalt indtægts-transaktion. Det kan være en uafhængig post (ei. deponering) eller tilføjet til en faktura.',
+        'customers' => 'Kunder er obligatorisk hvis du vil oprette en faktura. De kan også logge ind i klientportalen og se deres balance.',
+        'bills' => 'Regninger kan være engang eller gentagne. De indikerer at du skylder leverandører for produkter eller services du har købt.',
+        'payments' => 'Betaling er en betalt udgiftstransaktion. Det kan være en uafhængig post (ie. kassebon) eller tilføjet til en regning.',
+        'vendors' => 'Leverandører er obligatorisk hvis du vil oprette en regning. Du kan se balancen og filtrere reporten efter leverandør.',
+    ],
+
 ];

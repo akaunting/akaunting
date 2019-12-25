@@ -14,7 +14,7 @@ return [
     'buy_now'               => 'Jetzt kaufen',
     'api_key_link'          => '<a href="https://akaunting.com/tokens" target="_blank">Hier klicken</a> um Ihren API Token zu erhalten.',
     'no_apps'               => 'Bisher existieren noch keine Apps in dieser Kategorie.',
-    'developer'             => 'Sind sie ein Entwickler? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> lernen Sie wie Sie eine App erzeugen und verkaufen können!',
+    'developer'             => 'Sind sie ein Entwickler? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> lernen Sie wie Sie eine App erstellen und verkaufen können!',
 
     'recommended_apps'      => 'Empfohlene Apps',
 
@@ -46,7 +46,7 @@ return [
         'unzip'             => 'Extrahiere :module Dateien.',
         'file_copy'         => ':module Dateien werden kopiert.',
         'finish'            => ':module Installation wird abgeschlossen',
-        'redirect'          => ':module installiert, wird zur Update-Seite weitergeleitet',
+        'redirect'          => ':module installiert, es wird zur Update-Seite weitergeleitet',
         'install'           => 'Installiere :module Dateien.',
     ],
 

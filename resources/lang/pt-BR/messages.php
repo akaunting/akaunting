@@ -19,7 +19,7 @@ return [
         'no_file'           => 'Erro: Nenhum arquivo selecionado!',
         'last_category'     => 'Erro: Não foi possível excluir a última :type categoria!',
         'change_type'       => 'Erro: Não é possível alterar o tipo porque possui :text related!',
-        'invalid_apikey'    => 'Erro: O token informado é inválido!',
+        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'Erro: :message Planilha: :sheet. Número da linha: :line.',
         'import_sheet'      => 'Erro: Planilha não é válida. Por favor, verifique o arquivo de exemplo.',
     ],

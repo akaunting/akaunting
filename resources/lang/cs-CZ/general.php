@@ -2,6 +2,7 @@
 
 return [
 
+    'dashboards'            => 'Nástěnka | Nástěnky',
     'items'                 => 'Položka | Položky',
     'incomes'               => 'Příjem | Příjmy',
     'invoices'              => 'Faktura | Faktury',
@@ -41,8 +42,15 @@ return [
     'contacts'              => 'Kontakt|Kontakty',
     'reconciliations'       => 'Vyrovnání|Vyrovnání',
     'developers'            => 'Vývojář | Vývojáři',
+    'schedules'             => 'Rozvrh | Rozvrhy',
+    'groups'                => 'Skupina|Skupiny',
+    'charts'                => 'Graf | Grafy',
+    'localisations'         => 'Lokalizace|Lokalizace',
+    'defaults'              => 'Výchozí|Výchozí',
+    'widgets'               => 'Widget|Widgety',
 
     'dashboard'             => 'Přehled',
+    'welcome'               => 'Vítejte',
     'banking'               => 'Bankovnictví',
     'general'               => 'Obecné',
     'no_records'            => 'Žádné záznamy.',
@@ -54,6 +62,7 @@ return [
     'no'                    => 'Ne',
     'na'                    => 'Neuvedeno',
     'daily'                 => 'Denně',
+    'weekly'                => 'Týdně',
     'monthly'               => 'Měsíčně',
     'quarterly'             => 'Čtvrtletně',
     'yearly'                => 'Ročně',
@@ -80,9 +89,11 @@ return [
     'reference'             => 'Reference',
     'attachment'            => 'Příloha',
     'change'                => 'Změnit',
+    'change_type'           => 'Change :type',
     'switch'                => 'Přepnout',
     'color'                 => 'Barva',
     'save'                  => 'Uložit',
+    'confirm'               => 'Potvrdit',
     'cancel'                => 'Storno',
     'loading'               => 'Načítání...',
     'from'                  => 'Od',
@@ -115,17 +126,27 @@ return [
     'go_to'                 => 'Jdi na :name',
     'created_date'          => 'Datum vytvoření',
     'period'                => 'Období',
+    'frequency'             => 'Frekvence',
     'start'                 => 'Začátek',
     'end'                   => 'Konec',
     'clear'                 => 'Vyčistit',
     'difference'            => 'Rozdíl',
+    'footer'                => 'Zápatí',
+    'start_date'            => 'Počáteční datum',
+    'basis'                 => 'Základy',
+    'accrual'               => 'Přírůstek',
+    'cash'                  => 'Hotovost',
+    'group_by'              => 'Seskupit podle',
+    'accounting'            => 'Účetnictví',
 
     'title' => [
         'new'               => 'Nová(ý) :type',
         'edit'              => 'Upravit :type',
+        'delete'            => 'Odstranit :type',
         'create'            => 'Vytvořit :type',
         'send'              => 'Odeslat :type',
         'get'               => 'Získat :type',
+        'add'               => 'Přidat :type',
     ],
 
     'form' => [
@@ -134,6 +155,7 @@ return [
             'field'         => '- Vyber :field -',
             'file'          => 'Vybrat soubor',
         ],
+        'add_new'           => 'Přidat nové :field',
         'no_file_selected'  => 'Nebyl vybrán žádný soubor...',
     ],
 
@@ -144,4 +166,16 @@ return [
         'this_month' => 'Aktuální měsíc',
         'last_month' => 'Minulý měsíc',
     ],
+
+    'empty' => [
+        'documentation' => 'Check out the <a href=":url" target="_blank" class="text-success">documentation</a> for more details.',
+        'items' => 'Items can be products or services. You can use items when creating invoices and bills to have the price, tax etc fields populated.',
+        'invoices' => 'Invoices can be one time or recurring. You can send them to customers and start accepting online payments.',
+        'revenues' => 'Revenue is a paid income transaction. It can be an independent record (i.e. deposit) or attached to an invoice.',
+        'customers' => 'Customers are required if you want to create invoices. They may also log in to Client Portal and see their balance.',
+        'bills' => 'Bills can be one time or recurring. They indicate what you owe your vendors for the products or services you purchase.',
+        'payments' => 'Payment is a paid expense transaction. It can be an independent record (i.e. food receipt) or attached to a bill.',
+        'vendors' => 'Vendors are required if you want to create bills. You can see the balance you owe and filter reports by the vendor.',
+    ],
+
 ];

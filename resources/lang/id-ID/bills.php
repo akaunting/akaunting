@@ -20,7 +20,7 @@ return [
 
     'show_discount'         => 'Diskon :discount%',
     'add_discount'          => 'Tambahkan diskon',
-    'discount_desc'         => 'dari subtotal',
+    'discount_desc'         => 'dari sub-total',
 
     'payment_due'           => 'Pembayaran Jatuh Tempo',
     'amount_due'            => 'Jumlah Jatuh Tempo',
@@ -33,7 +33,7 @@ return [
     'send_mail'             => 'Kirim Email',
     'create_bill'           => 'Membuat Tagihan',
     'receive_bill'          => 'Menerima Tagihan',
-    'make_payment'          => 'Membuat Pembayaran',
+    'make_payment'          => 'Melakukan Pembayaran',
 
     'status' => [
         'draft'             => 'Konsep',
@@ -43,17 +43,17 @@ return [
     ],
 
     'messages' => [
-        'received'          => 'Bill ditandai sebagai berhasil diterima!',
+        'received'          => 'Tagihan ditandai berhasil diterima!',
         'draft'             => 'Ini adalah <b>DRAFT</b> tagihan dan akan terlihat di grafik setelah dibayarkan.',
 
         'status' => [
-            'created'       => 'Dibuat pada: tanggal',
+            'created'       => 'Dibuat pada:date',
             'receive' => [
-                'draft'     => 'Tidak Terikirim',
-                'received'  => 'Diterima pada: tanggal',
+                'draft'     => 'Tidak terkirim',
+                'received'  => 'Diterima pada:date',
             ],
             'paid' => [
-                'await'     => 'Menunggu Pembayaran',
+                'await'     => 'Menunggu pembayaran',
             ],
         ],
     ],

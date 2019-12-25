@@ -35,6 +35,7 @@ return [
     'create_invoice'        => 'Vytvoření faktury',
     'send_invoice'          => 'Odeslání faktury',
     'get_paid'              => 'Uhrazení faktury',
+    'accept_payments'       => 'Přijímat online platby',
 
     'status' => [
         'draft'             => 'Koncept',
@@ -46,13 +47,15 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'E-mail s fakturou byl úspěšně odeslán!',
-        'marked_sent'       => 'Faktura byla úspěšně označena jako odeslaná!',
+        'email_sent'        => 'E-mail s fakturou byl odeslán!',
+        'marked_sent'       => 'Faktura byla označena jako odeslána!',
+        'marked_paid'       => 'Faktura označená jako zaplacená!',
         'email_required'    => 'Zákazník nemá uvedenou e-mailovou adresu!',
         'draft'             => 'Toto je <b>KONCEPT</b> faktury. Faktura bude promítnuta do grafů, jakmile bude odeslána.',
 
         'status' => [
             'created'       => 'Vytvořeno :date',
+            'viewed'        => 'Zobrazeno',
             'send' => [
                 'draft'     => 'Neodesláno',
                 'sent'      => 'Odesláno dne :date',
@@ -61,11 +64,6 @@ return [
                 'await'     => 'Čeká na platbu',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Obdrželi jste tento email, protože máte fakturovat :amount zákazníkovi :customer.',
-        'button'            => 'Zaplatit',
     ],
 
 ];

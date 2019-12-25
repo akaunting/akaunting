@@ -2,9 +2,9 @@
 
 return [
 
-    'title'                 => 'API-Token',
-    'api_token'             => 'Token',
+    'api_key'               => 'API nyckel',
     'my_apps'               => 'Mina appar',
+    'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'Bästa betal',
     'new'                   => 'Nytt',
     'top_free'              => 'Bästa gratis',
@@ -12,9 +12,9 @@ return [
     'search'                => 'Sök',
     'install'               => 'Installera',
     'buy_now'               => 'Köp nu',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Klicka här</a> att få din API-token.',
+    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Klicka här</a> för att få din API-nyckel.',
     'no_apps'               => 'Det finns inga appar i den här kategorin ännu.',
-    'developer'             => 'Är du en utvecklare? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">här</a> du kan lära dig hur du skapar en app och börja sälja idag!',
+    'developer'             => 'Är du utvecklare? <a href="https://akaunting.com/developers" target="_blank">Här</a> kan du lära dig att skapa en app och börja sälja idag!',
 
     'recommended_apps'      => 'Rekommenderade appar',
 
@@ -23,6 +23,9 @@ return [
     'added'                 => 'Tillagd',
     'updated'               => 'Uppdaterad',
     'compatibility'         => 'Kompatibilitet',
+    'documentation'         => 'Dokumentation',
+    'view'                  => 'Visa',
+    'back'                  => 'Tillbaka',
 
     'installed'             => ':module installerad',
     'uninstalled'           => ':module avinstallerad',
@@ -34,30 +37,30 @@ return [
         'installation'      => 'Installation',
         'faq'               => 'Vanliga frågor',
         'changelog'         => 'Ändringslog',
-        'reviews'            => 'Recensioner',
+        'reviews'           => 'Recensioner',
     ],
 
     'installation' => [
         'header'            => 'App-Installation',
-        'download'          => 'Laddar ner :module fil.',
-        'unzip'             => 'Packar upp :module filer.',
-        'file_copy'         => 'Kopierar :module filer.',
-        'migrate'           => 'Tillämpning :module uppdateringar.',
-        'finish'            => 'Uppdateringen har installerats. Du kommer att bli omdirigerad till Updaterings Center.',
-        'install'           => 'Installerar :module filer.',
+        'download'          => 'Laddar ner :module',
+        'unzip'             => 'Extraherar :module filer',
+        'file_copy'         => 'Kopierar :module filer',
+        'finish'            => 'Slutför :module installation',
+        'redirect'          => ':module installerad, omdirigerar till uppdateringssidan',
+        'install'           => 'Installerar :module',
     ],
 
     'errors' => [
-        'download' => ':modul kan inte laddas ner!',
-        'upload' => 'Hämtad :module kan inte sparas!',
-        'unzip' => ':module kan inte packas upp!',
-        'file_copy' => ':module filer kan inte kopieras!',
-        'migrate' => ':module migreringen trasig!',
-        'migrate core' => ':module är redan senaste versionen så du kan inte kan uppdatera.',
+        'download'          => 'Kan inte ladda ner :module',
+        'zip'               => 'Kan inte skapa :module zip-fil',
+        'unzip'             => 'Kan inte packa upp :module',
+        'file_copy'         => 'Kan inte kopiera :module filer',
+        'finish'            => 'Kan inte slutföra :module installation',
     ],
 
     'badge' => [
-        'installed' => 'Installerad',
+        'installed'         => 'Installerad',
+        'pre_sale'          => 'Pre-Sale',
     ],
 
     'button' => [
@@ -67,14 +70,15 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Köpt',
-        'installed' => 'Installerad',
+        'purchased'         => 'Köpt',
+        'installed'         => 'Installerad',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Lägg till en recension'
+            'add'           => 'Lägg till en recension'
         ],
-        'na' => 'Det finns inga recensioner.'
+
+        'na'                => 'Det finns inga recensioner.'
     ]
 ];

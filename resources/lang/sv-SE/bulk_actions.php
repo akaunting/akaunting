@@ -1,0 +1,19 @@
+<?php
+
+return [
+
+    'bulk_actions'     => 'Bulk Action|Bulk åtgärder',
+    'selected'         => 'vald',
+
+    'message' => [
+        'duplicate'     => 'Är du säker på att du vill <b>duplicera</b> vald post?',
+        'delete'        => 'Är du säker på att du vill <b>ta bort</b> markerade poster?|Är du säker på att du vill <b>ta bort</b> markerade poster?',
+        'export'        => 'Är du säker på att du vill <b>exportera</b> markerade poster?|Är du säker på att du vill <b>exportera</b> markerade poster?',
+        'enable'        => 'Är du säker på att du vill <b>aktivera</b> markerade poster?|Är du säker på att du vill <b>aktivera</b> markerade poster?',
+        'disable'       => 'Är du säker på att du vill <b>inaktivera</b> markerade post?|Är du säker på att du vill <b>inaktivera</b> markerade poster?',
+        'paid'          => 'Är du säker på att du vill markera vald faktura som <b>betald</b>?|Är du säker på att du vill markera markerade fakturor som <b>betalada</b>?',
+        'sent'          => 'Är du säker på att du vill markera vald faktura som <b>skickad</b>?|Vill du verkligen markera markerade fakturor som <b>skickade</b>?',
+        'received'      => 'Är du säker på att du vill markera vald faktura som <b>mottagen</b>?|Är du säker på att du vill markera markerade räkningar som <b>mottagna</b>?',
+    ],
+
+];

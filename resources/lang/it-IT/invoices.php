@@ -47,13 +47,15 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'La mail è stata inviata con successo.',
-        'marked_sent'       => 'La mail è stata contrassegnata con successo come inviata.',
+        'email_sent'        => 'E-mail di fattura inviata!',
+        'marked_sent'       => 'Fattura segnata come inviata!',
+        'marked_paid'       => 'Fattura contrassegnata come pagata!',
         'email_required'    => 'Nessun indirizzo email per questo cliente!',
         'draft'             => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà inviata.',
 
         'status' => [
             'created'       => 'Creato il :date',
+            'viewed'        => 'Visto',
             'send' => [
                 'draft'     => 'Non inviato',
                 'sent'      => 'Inviato il :date',
@@ -62,11 +64,6 @@ return [
                 'await'     => 'In attesa del pagamento',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Hai ricevuto questa e-mail perché avete un imminente importo di :amount a :customer cliente.',
-        'button'            => 'Paga adesso',
     ],
 
 ];

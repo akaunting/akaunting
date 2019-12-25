@@ -2,50 +2,18 @@
 
 return [
 
-    'select_to_action' => 'Aktion auswählen',
+    'bulk_actions'     => 'Sammelaktion|Sammelaktionen',
     'selected'         => 'ausgewählt',
-    'bulk_actions'     => 'Aktion|Aktionen',
-    'delete'           => 'Löschen',
-    'duplicate'        => 'Duplizieren',
-    'export'           => 'Exportieren',
-    'enable'           => 'Aktivieren',
-    'disable'          => 'Deaktivieren',
-    'change_category'  => 'Kategorie ändern',
-    'change_type'      => 'Typ ändern',
-
-
-    'users' => [
-        'change_role'    => 'Rolle ändern',
-        'change_company' => 'Firma wechseln',
-    ],
-
-    'bills' => [
-        'change_bill_status' => 'Status ändern',
-    ],
-
-    'payments' => [
-        'change_payment_status' => 'Zahlungsstatus ändern',
-    ],
-
-    'invoices' => [
-        'change_invoice_status' => 'Rechnungsstatus ändern',
-    ],
-
-    'revenues' => [
-        'change_revenue_status' => 'Rechnungsstatus ändern',
-    ],
-
-    'categories' => [
-        'change_category_status' => 'Kategorie-Status ändern',
-    ],
 
     'message' => [
-        'sure'       => 'Sind Sie sich sicher?',
-        'duplicate'  => 'Möchten Sie diesen Datensatz wirklich duplizieren?',
-        'deletes'    => 'Möchten Sie diesen Datensatz wirklich löschen? | Möchten Sie diese Datensätze wirklich löschen?',
-        'exports'    => 'Möchten Sie diesen Datensatz wirklich exportieren?|Möchten Sie diese Datensätze wirklich exportieren?',
-        'enable'     => 'Möchten Sie diesen Datensatz wirklich aktivieren?|Möchten Sie diese Datensätze wirklich aktivieren?',
-        'disable'    => 'Möchten Sie diesen Datensatz wirklich deaktivieren?|Möchten Sie diese Datensätze wirklich deaktivieren?',
-    ]
+        'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',
+        'delete'        => 'Are you sure you want to <b>delete</b> selected record?|Are you sure you want to <b>delete</b> selected records?',
+        'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
+        'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',
+        'disable'       => 'Are you sure you want to <b>disable</b> selected record?|Are you sure you want to <b>disable</b> selected records?',
+        'paid'          => 'Are you sure you want to mark selected invoice as <b>paid</b>?|Are you sure you want to mark selected invoices as <b>paid</b>?',
+        'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
+        'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
+    ],
 
 ];

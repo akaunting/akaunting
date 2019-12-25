@@ -2,6 +2,7 @@
 
 return [
 
+    'dashboards'            => 'Cruscotto|Cruscotti',
     'items'                 => 'Articolo|Articoli',
     'incomes'               => 'Entrata|Entrate',
     'invoices'              => 'Fattura|Fatture',
@@ -41,8 +42,15 @@ return [
     'contacts'              => 'Contatto|Contatti',
     'reconciliations'       => 'Riconciliazione | Riconciliazioni',
     'developers'            => 'Sviluppatore | Sviluppatori',
+    'schedules'             => 'Pianificata|Pianificate',
+    'groups'                => 'Gruppo|Gruppi',
+    'charts'                => 'Grafico|Grafici',
+    'localisations'         => 'Localizzazione|Localizzazioni',
+    'defaults'              => 'Predefinito|Predefiniti',
+    'widgets'               => 'Widget|Widget',
 
     'dashboard'             => 'Cruscotto',
+    'welcome'               => 'Benvenuto',
     'banking'               => 'Banca',
     'general'               => 'Generale',
     'no_records'            => 'Nessun record.',
@@ -54,6 +62,7 @@ return [
     'no'                    => 'No',
     'na'                    => 'N/A',
     'daily'                 => 'Giornaliero',
+    'weekly'                => 'Settimanale',
     'monthly'               => 'Mensile',
     'quarterly'             => 'Trimestrale',
     'yearly'                => 'Annuale',
@@ -80,9 +89,11 @@ return [
     'reference'             => 'Referenza',
     'attachment'            => 'Allegato',
     'change'                => 'Cambia',
+    'change_type'           => 'Cambia :type',
     'switch'                => 'Passa',
     'color'                 => 'Colore',
     'save'                  => 'Salva',
+    'confirm'               => 'Conferma',
     'cancel'                => 'Annulla',
     'loading'               => 'Caricamento...',
     'from'                  => 'Da',
@@ -115,17 +126,27 @@ return [
     'go_to'                 => 'Vai a :name',
     'created_date'          => 'Data di Creazione',
     'period'                => 'Periodo',
+    'frequency'             => 'Frequenza',
     'start'                 => 'Avvia',
     'end'                   => 'Fine',
     'clear'                 => 'Cancella',
     'difference'            => 'Differenza',
+    'footer'                => 'Piè di pagina',
+    'start_date'            => 'Data di inzio',
+    'basis'                 => 'Base',
+    'accrual'               => 'Rateo',
+    'cash'                  => 'Contanti',
+    'group_by'              => 'Raggruppa per',
+    'accounting'            => 'Contabilità',
 
     'title' => [
         'new'               => 'Nuovo :type',
         'edit'              => 'Modifica :type',
+        'delete'            => 'Elimina :type',
         'create'            => 'Crea :type',
         'send'              => 'Invia :type',
         'get'               => 'Ottieni :type',
+        'add'               => 'Aggiungi :type',
     ],
 
     'form' => [
@@ -134,6 +155,7 @@ return [
             'field'         => '-Seleziona :field -',
             'file'          => 'Seleziona File',
         ],
+        'add_new'           => 'Aggiungi nuovo :field',
         'no_file_selected'  => 'Nessun file selezionato...',
     ],
 
@@ -144,4 +166,16 @@ return [
         'this_month' => 'Questo mese',
         'last_month' => 'Ultimo mese',
     ],
+
+    'empty' => [
+        'documentation' => 'Consulta la <a href=":url" target="_blank" class="text-success">documentazione</a> per maggiori dettagli.',
+        'items' => 'Articoli possono essere prodotti o servizi. È possibile utilizzare articoli durante la creazione di fatture e fatture per avere il prezzo, campi tassi, ecc.',
+        'invoices' => 'Le fatture possono essere una tantum o ricorrenti. Puoi inviarle ai clienti e iniziare ad accettare pagamenti online.',
+        'revenues' => 'I ricavi sono una transazione a reddito pagata. Può essere un record indipendente (ad esempio deposito) o collegato a una fattura.',
+        'customers' => 'I clienti sono richiesti se vuoi creare fatture. Possono anche accedere al Portale Clienti e vedere il loro saldo.',
+        'bills' => 'Le fatture possono essere singole o ricorrenti. Indicano ciò che devi ai tuoi fornitori per i prodotti o servizi che acquisti.',
+        'payments' => 'I pagamenti sono una transazione di spese pagate. Può essere un record indipendente (ad esempio ricevuta per il vitto) o collegato a una fattura.',
+        'vendors' => 'I fornitori sono richiesti se si desidera creare fatture. È possibile visualizzare il saldo dovuto e filtrare i report dal fornitore.',
+    ],
+
 ];

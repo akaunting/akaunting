@@ -39,21 +39,23 @@ return [
 
     'status' => [
         'draft'             => 'Taslak',
-        'sent'              => 'Gönderilen',
+        'sent'              => 'Gönderildi',
         'viewed'            => 'Görüldü',
         'approved'          => 'Onaylandı',
         'partial'           => 'Kısmi',
-        'paid'              => 'Ödenmiş',
+        'paid'              => 'Ödendi',
     ],
 
     'messages' => [
-        'email_sent'        => 'Fatura emaili başarı ile gönderildi!',
-        'marked_sent'       => 'Fatura başarıyla gönderilmiş olarak işaretlendi!',
+        'email_sent'        => 'Fatura e-postası gönderildi!',
+        'marked_sent'       => 'Fatura gönderildi olarak işaretlendi!',
+        'marked_paid'       => 'Fatura ödendi olark işaretlendi!',
         'email_required'    => 'Bu müşteri için e-posta adresi yok!',
         'draft'             => 'Bu bir <b>TASLAK</b> faturadır ve gönderildikten sonra grafiklere yansıtılacaktır.',
 
         'status' => [
             'created'       => ':date tarihinde oluşturuldu',
+            'viewed'        => 'Görüldü',
             'send' => [
                 'draft'     => 'Gönderilmedi',
                 'sent'      => ':date tarihinde gönderildi',
@@ -62,11 +64,6 @@ return [
                 'await'     => 'Ödeme bekliyor',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => ':amount tutarında faturayı :customer ödemediği için bu iletiyi almaktasınız.',
-        'button'            => 'Şimdi Öde',
     ],
 
 ];

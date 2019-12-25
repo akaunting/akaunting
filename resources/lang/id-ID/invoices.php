@@ -7,7 +7,7 @@ return [
     'total_price'           => 'Total harga',
     'due_date'              => 'Batas tanggal terakhir',
     'order_number'          => 'Jumlah Pesanan',
-    'bill_to'               => 'Pembayaran Kepada',
+    'bill_to'               => 'Tagihan Kepada',
 
     'quantity'              => 'Kuantitas',
     'price'                 => 'Harga',
@@ -20,7 +20,7 @@ return [
 
     'show_discount'         => 'Diskon :discount%',
     'add_discount'          => 'Tambahkan diskon',
-    'discount_desc'         => 'of subtotal',
+    'discount_desc'         => 'Dari subtotal',
 
     'payment_due'           => 'Tanggal Pembayaran',
     'paid'                  => 'Dibayar',
@@ -31,11 +31,11 @@ return [
     'mark_sent'             => 'Tandai Dikirim',
     'download_pdf'          => 'Unduh PDF',
     'send_mail'             => 'Kirim Email',
-    'all_invoices'          => 'Login to view all invoices',
-    'create_invoice'        => 'Create Invoice',
-    'send_invoice'          => 'Send Invoice',
-    'get_paid'              => 'Get Paid',
-    'accept_payments'       => 'Accept Online Payments',
+    'all_invoices'          => 'Masuk untuk melihat seluruh faktur',
+    'create_invoice'        => 'Buat faktur',
+    'send_invoice'          => 'Kirim faktur',
+    'get_paid'              => 'Telah dibayar',
+    'accept_payments'       => 'Menerima pembayaran online',
 
     'status' => [
         'draft'             => 'Konsep',
@@ -47,26 +47,23 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Email faktur telah berhasil dikirim!',
-        'marked_sent'       => 'Faktur ditandai sebagai berhasil dikirim!',
+        'email_sent'        => 'Invoice email has been sent!',
+        'marked_sent'       => 'Invoice marked as sent!',
+        'marked_paid'       => 'Invoice marked as paid!',
         'email_required'    => 'Tidak ada alamat email untuk pelanggan ini!',
-        'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+        'draft'             => 'Faktur ini merupakan <b>DRAFT</b> dan akan terlihat pada grafik ketika sudah dibayarkan',
 
         'status' => [
-            'created'       => 'Created on :date',
+            'created'       => 'Dibuat pada :date',
+            'viewed'        => 'Viewed',
             'send' => [
-                'draft'     => 'Not sent',
-                'sent'      => 'Sent on :date',
+                'draft'     => 'Tidak terkirim',
+                'sent'      => 'Terkirim pada :date',
             ],
             'paid' => [
-                'await'     => 'Awaiting payment',
+                'await'     => 'Menunggu pembayaran',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Anda menerima email ini karena Anda memiliki faktur jumlah yang akan datang: pelanggan pelanggan.',
-        'button'            => 'Bayar sekarang',
     ],
 
 ];

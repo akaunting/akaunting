@@ -3,7 +3,7 @@
 return [
 
     'invoice_new_customer' => [
-        'subject'       => 'Rechnung {invoice_number}',
+        'subject'       => 'Rechnung {invoice_number} erstellt',
         'body'          => 'Hallo {customer_name},<br /><br />Wir haben Ihnen folgende Rechnung vorbereitet: <strong>{invoice_number}</strong>.<br /><br />Sie können die Rechnungsdaten einsehen und mit der Zahlung fortfahren: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Zögern Sie nicht, uns für jede Frage zu kontaktieren.<br /><br />Herzliche Grüße,<br />{company_name}',
     ],
 
@@ -18,18 +18,18 @@ return [
     ],
 
     'invoice_recur_customer' => [
-        'subject'       => 'Rechnung {invoice_number} - wiederkehrende Rechnung',
+        'subject'       => 'Rechnung {invoice_number} - wiederkehrende Rechnung erstellt',
         'body'          => 'Hallo {customer_name},<br /><br />Basierend auf Ihrem wiederkehrenden Kreis, wir haben für Sie folgende Rechnung vorbereitet: <strong>{invoice_number}</strong>.<br /><br />Sie können die Rechnungsdaten einsehen und mit der Zahlung fortfahren: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Zögern Sie nicht, uns für jede Frage zu kontaktieren.<br /><br />Herzliche Grüße,<br />{company_name}',
     ],
 
     'invoice_recur_admin' => [
-        'subject'       => 'Rechnung {invoice_number} - wiederkehrende Rechnung',
+        'subject'       => 'Rechnung {invoice_number} - wiederkehrende Rechnung erstellt',
         'body'          => 'Hallo,<br /><br /> Basierend auf {customer_name} wiederkehrenden Kreis, <strong>{invoice_number}</strong> Rechnung wurde automatisch erstellt.<br /><br />Sie können die Rechnungsdaten unter folgendem Link sehen: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Beste Grüße,<br />{company_name}',
     ],
 
     'invoice_payment_customer' => [
         'subject'       => 'Zahlung für Rechnung {invoice_number} erhalten',
-        'body'          => 'Hallo {customer_name},<br /><br />Vielen Dank für die Zahlung. Finden Sie die Zahlungsinformationen unten:<br /><br />-------------------------------------------------<br /><br />Betrag: <strong>{transaction_total}<br /></strong>Datum: <strong>{transaction_paid_date}</strong><br />Rechnungsnummer: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Sie können die Rechnungsdetails immer unter folgendem Link sehen: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Zögern Sie nicht, uns für jede Frage zu kontaktieren.<br /><br />Beste Grüße,<br />{company_name}',
+        'body'          => 'Hallo {customer_name},<br /><br />Vielen Dank für die Zahlung. Sie finden die Zahlungsinformationen unten:<br /><br />-------------------------------------------------<br /><br />Betrag: <strong>{transaction_total}<br /></strong>Datum: <strong>{transaction_paid_date}</strong><br />Rechnungsnummer: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Sie können die Rechnungsdetails immer unter folgendem Link sehen: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Zögern Sie nicht, uns für jede Frage zu kontaktieren.<br /><br />Beste Grüße,<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [

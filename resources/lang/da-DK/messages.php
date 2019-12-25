@@ -19,7 +19,7 @@ return [
         'no_file'           => 'Fejl: Ingen fil valgt!',
         'last_category'     => 'Fejl: Kan ikke slette sidste :type kategori!',
         'change_type'       => 'Fejl: Kan ikke ændre type fordi den har :text relateret!',
-        'invalid_apikey'    => 'Fejl: Den indtastede token er ikke gyldig!',
+        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'import_column'     => 'Error: :message arkets navn: :sheet. Linje nummer: :line.',
         'import_sheet'      => 'Error: Ark navn er ikke valid. Kontroller venligst eksempel filen.',
     ],

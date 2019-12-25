@@ -6,9 +6,11 @@ return [
     'reconciled'            => 'Avstämd',
     'closing_balance'       => 'Slutsaldo',
     'unreconciled'          => 'Oavstämd',
-    'list_transactions'     => 'Visa transaktion',
+    'transactions'          => 'Transaktioner',
     'start_date'            => 'Startdatum',
     'end_date'              => 'Slutdatum',
     'cleared_amount'        => 'Rensa Antal',
+    'deposit'               => 'Insättning',
+    'withdrawal'            => 'Uttag',
 
 ];

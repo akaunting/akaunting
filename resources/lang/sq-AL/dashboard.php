@@ -20,5 +20,4 @@ return [
     'account_balance'           => 'Bilanci i Llogarisë',
     'latest_incomes'            => 'Fitimet e Fundit',
     'latest_expenses'           => 'Shpenzimet e Fundit',
-
 ];

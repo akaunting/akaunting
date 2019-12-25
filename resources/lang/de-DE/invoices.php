@@ -47,7 +47,7 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Rechnung wurde per E-Mail versendet',
+        'email_sent'        => 'Rechnung wurde per E-Mail versendet!',
         'marked_sent'       => 'Rechnung als gesendet markiert!',
         'marked_paid'       => 'Rechnung als bezahlt markiert!',
         'email_required'    => 'Es existiert keine E-Mailadresse zu diesem Kunden!',

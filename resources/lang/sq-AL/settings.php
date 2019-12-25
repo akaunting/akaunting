@@ -3,14 +3,16 @@
 return [
 
     'company' => [
+        'description'       => 'Ndryshoni emrin e kompanisë, emailin, adresën, numrin e taksave etj',
         'name'              => 'Emri',
         'email'             => 'Email',
         'phone'             => 'Telefoni',
         'address'           => 'Adresa',
         'logo'              => 'Logoja',
     ],
+
     'localisation' => [
-        'tab'               => 'Lokalizimi',
+        'description'       => 'Vendosni vitin fiskal, zonën e kohës, formatin e datës dhe më shumë vendorë',
         'financial_start'   => 'Fillimi i Vitit Financiar',
         'timezone'          => 'Zona Kohore',
         'date' => [
@@ -28,8 +30,9 @@ return [
             'after'         => 'Pas Numrit',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Faturë',
+        'description'       => 'Rregulloni parashtesën e faturës, numrin, termat, footer etj',
         'prefix'            => 'Parashtesa e numrit',
         'digit'             => 'Gjatësia a numrit',
         'next'              => 'Numri tjetër',
@@ -44,16 +47,21 @@ return [
         'rate'              => 'Normë',
         'quantity_name'     => 'Emri i sasisë',
         'quantity'          => 'Sasia',
+        'payment_terms'     => 'Kushtet e Pagesës',
+        'title'             => 'Titulli',
+        'subheading'        => 'Nëntitull',
+        'due_receipt'       => 'Due upon receipt',
+        'due_days'          => 'Due within :days days',
     ],
+
     'default' => [
-        'tab'               => 'Parazgjedhjet',
-        'account'           => 'Llogaria e Parazgjedhur',
-        'currency'          => 'Valuta e Parazgjedhur',
-        'tax'               => 'Norma Tatimore e Parazgjedhur',
-        'payment'           => 'Metoda e Pagesës e Parazgjedhur',
-        'language'          => 'Gjuha e Parazgjedhur',
+        'description'       => 'Llogaria, monedha, gjuha e paracaktuar e kompanisë suaj',
+        'list_limit'        => 'Rekordet Për Faqe',
+        'use_gravatar'      => 'Përdorni Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Ndryshoni modelet e protokollit dërgues dhe modelet e postës elektronike',
         'protocol'          => 'Protokolli',
         'php'               => 'PHP Email',
         'smtp' => [
@@ -68,36 +76,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail Path',
         'log'               => 'Logo Emailet',
+
+        'templates' => [
+            'subject'                   => 'Subjekti',
+            'body'                      => 'Trupi',
+            'tags'                      => '<strong>Etiketa të Disponueshme:</strong> :tag_list',
+            'invoice_new_customer'      => 'New Invoice Template (sent to customer)',
+            'invoice_remind_customer'   => 'Invoice Reminder Template (sent to customer)',
+            'invoice_remind_admin'      => 'Invoice Reminder Template (sent to admin)',
+            'invoice_recur_customer'    => 'Invoice Recurring Template (sent to customer)',
+            'invoice_recur_admin'       => 'Invoice Recurring Template (sent to admin)',
+            'invoice_payment_customer'  => 'Payment Received Template (sent to customer)',
+            'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
+            'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
+            'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Planifikimi',
+        'name'              => 'Planifikimi',
+        'description'       => 'Automatic reminders and command for recurring',
         'send_invoice'      => 'Dërgo Faturën Rikujtimor',
         'invoice_days'      => 'Dërgo Pas Ditëve të Duhura',
         'send_bill'         => 'Dërgo Faturën Rikujtimor',
         'bill_days'         => 'Dërgo Para Ditëve të Duhura',
         'cron_command'      => 'Komanda Cron',
         'schedule_time'     => 'Ora për të Kandiduar',
-        'send_item_reminder'=> 'Dërgo Artikullin Rikujtimor',
-        'item_stocks'       => 'Dërgo Kur Artikulli në Stok',
     ],
-    'appearance' => [
-        'tab'               => 'Pamja',
-        'theme'             => 'Tema',
-        'light'             => 'E Çelur',
-        'dark'              => 'E Errët',
-        'list_limit'        => 'Regjistrimet Në Faqe',
-        'use_gravatar'      => 'Përdorni Gravatar',
+
+    'categories' => [
+        'description'       => 'Kategoritë e pakufizuara për të ardhurat, shpenzimet dhe sendet',
     ],
-    'system' => [
-        'tab'               => 'Sistemi',
-        'session' => [
-            'lifetime'      => 'Jetëgjatësia e Sesionit (Minuta)',
-            'handler'       => 'Menaxheri i Sesionit',
-            'file'          => 'Skedar',
-            'database'      => 'Database',
-        ],
-        'file_size'         => 'Madhësia e Skedarit Maksimal (MB)',
-        'file_types'        => 'Llojet Skedare të Lejuara',
+
+    'currencies' => [
+        'description'       => 'Krijoni dhe menaxhoni monedhat dhe vendosni normat e tyre',
+    ],
+
+    'taxes' => [
+        'description'       => 'Normat e taksave fikse, normale, gjithëpërfshirëse dhe komplekse',
     ],
 
 ];

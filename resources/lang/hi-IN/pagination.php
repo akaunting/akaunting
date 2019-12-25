@@ -4,6 +4,7 @@ return [
 
     'previous'              => '&laquo; पिछला',
     'next'                  => 'अगला &raquo;',
-    'showing'               => ':total :type में से :first-:last',
+    'showing'               => ':first-:last of :total records.',
     'page'                  => 'प्रति पेज।',
+
 ];

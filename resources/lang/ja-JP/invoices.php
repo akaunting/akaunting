@@ -18,7 +18,7 @@ return [
 
     'item_name'             => 'アイテム名|アイテム名',
 
-    'show_discount'         => '：ディスカウント％ディスカウント',
+    'show_discount'         => ':discount% ディスカウント',
     'add_discount'          => '割引を追加',
     'discount_desc'         => '小計の',
 
@@ -54,11 +54,11 @@ return [
         'draft'             => 'これは <b>ドラフト</b>請求書で、送信後にチャートに反映されます。',
 
         'status' => [
-            'created'       => '作成日：日付',
+            'created'       => '作成日 :date',
             'viewed'        => '見た',
             'send' => [
                 'draft'     => '送信されません',
-                'sent'      => '送信: 日付',
+                'sent'      => '送信 :date',
             ],
             'paid' => [
                 'await'     => '支払いを待っている',

@@ -47,13 +47,15 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Emaili i faturës është dërguar me sukses!',
-        'marked_sent'       => 'Fatura shënohet si e dërguar me sukses!',
+        'email_sent'        => 'Emaili i faturës është dërguar!',
+        'marked_sent'       => 'Fatura e shënuar si e dërguar!',
+        'marked_paid'       => 'Fatura e shënuar si e paguar!',
         'email_required'    => 'Ska adresë e-mail për këtë klient!',
         'draft'             => 'Kjo është një faturë <b>DRAFT</b> dhe do të pasqyrohet në skema pasi të jetë dërguar.',
 
         'status' => [
             'created'       => 'Krijuar më :date',
+            'viewed'        => 'E Shikuar',
             'send' => [
                 'draft'     => 'Nuk është dërguar',
                 'sent'      => 'Dërguar më :date',
@@ -62,11 +64,6 @@ return [
                 'await'     => 'Duke pritur pagesen',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Ju po merrni këtë email sepse keni një të ardhshme :amount fature e :customer klientit.',
-        'button'            => 'Paguaj Tani',
     ],
 
 ];

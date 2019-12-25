@@ -2,8 +2,7 @@
 
 return [
 
-    'title'                 => 'API Token',
-    'api_token'             => 'Token',
+    'api_key'               => 'Chiave API',
     'my_apps'               => 'Le mie Applicazioni',
     'pre_sale'              => 'Pre-vendita',
     'top_paid'              => 'Più pagate',
@@ -13,9 +12,9 @@ return [
     'search'                => 'Ricerca',
     'install'               => 'Installa',
     'buy_now'               => 'Acquista ora',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Clicca qui</a> per ottenere il tuo API token.',
+    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Clicca qui</a> per ottenere la tua chiave API.',
     'no_apps'               => 'Non c\'è nessuna apps in questa categoria, ancora.',
-    'developer'             => 'Sei uno sviluppatore? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Qui</a> si può imparare a creare un\'app e iniziare a vendere oggi!',
+    'developer'             => 'Sei uno sviluppatore? <a href="https://akaunting.com/developers" target="_blank">Qui</a> puoi imparare a creare un\'app e iniziare a vendere oggi!',
 
     'recommended_apps'      => 'App consigliate',
 
@@ -38,31 +37,30 @@ return [
         'installation'      => 'Installazione',
         'faq'               => 'FAQ',
         'changelog'         => 'Modifiche di Versione',
-        'reviews'            => 'Recensioni',
+        'reviews'           => 'Recensioni',
     ],
 
     'installation' => [
         'header'            => 'Installazione di App',
-        'download'          => 'Scaricamento del file del modulo :module.',
-        'unzip'             => 'Estrazione files del modulo :module.',
-        'file_copy'         => 'Copia file del :module.',
-        'migrate'           => 'Applicazione aggiornamenti del :module.',
-        'finish'            => 'L\'aggiornamento è stato installato con successo. Verrai reindirizzato al Centro aggiornamenti.',
-        'install'           => 'Installazione dei files del modulo :module.',
+        'download'          => 'Scaricamento :module',
+        'unzip'             => 'Estrazione file del modulo :module',
+        'file_copy'         => 'Copia file del :module',
+        'finish'            => 'Completamento installazione :module',
+        'redirect'          => ':module installato, reindirizzamento alla pagina Aggiornamenti',
+        'install'           => 'Installazione di :module',
     ],
 
     'errors' => [
-        'download' => ':module non può essere scaricato!',
-        'upload' => 'Il :module Scaricato non può essere salvato!',
-        'unzip' => ':module non può essere estratto!',
-        'file_copy' => 'I file del :module non possono essere copiati!',
-        'migrate' => 'Migrazione del :modulo interrotta!',
-        'migrate core' => ':module ha già la versione più recente, quindi non è possibile aggiornare.',
+        'download'          => 'Non è possibile scaricare :module',
+        'zip'               => 'Impossibile creare il file zip di :module',
+        'unzip'             => 'Non è possibile decomprimere :module',
+        'file_copy'         => 'Impossibile copiare i file :module',
+        'finish'            => 'Non è possibile completare l\'installazione di :module',
     ],
 
     'badge' => [
-        'installed' => 'Installato',
-        'pre_sale' => 'Pre-vendita',
+        'installed'         => 'Installato',
+        'pre_sale'          => 'Pre-vendita',
     ],
 
     'button' => [
@@ -72,14 +70,15 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Acquistato',
-        'installed' => 'Installato',
+        'purchased'         => 'Acquistato',
+        'installed'         => 'Installato',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Aggiungi una recensione'
+            'add'           => 'Aggiungi una recensione'
         ],
-        'na' => 'Non sono presenti recensioni.'
+
+        'na'                => 'Non sono presenti recensioni.'
     ]
 ];

@@ -7,5 +7,5 @@ return [
     'normal'                => 'Normale',
     'inclusive'             => 'Gjithëpërfshirës',
     'compound'              => 'Përbërës',
-
+    'fixed'                 => 'Fikse',
 ];

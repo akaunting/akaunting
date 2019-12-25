@@ -7,5 +7,5 @@ return [
     'normal'                => 'Normální',
     'inclusive'             => 'Daň zahrnuta',
     'compound'              => 'Složená daň',
-
+    'fixed'                 => 'Pevné',
 ];
