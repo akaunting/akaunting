@@ -40,10 +40,20 @@
     overflow: hidden;
 }
 
+.select-tax .el-input--prefix .el-input__inner {
+    padding-left: 23px !important;
+}
+
 .select-tax .el-select .el-select__tags .el-select__tags-text
 {
     width: 20px !important;
     overflow: hidden;
+}
+
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after
+{
+    right: 4px !important;
+    color: #6da252;
 }
 /*--------Item Tax Tag Finish--------*/
 
@@ -539,6 +549,8 @@
 
 
 /*--------Settings Index Page--------*/
+
+/*--------Settings Icons--------*/
 .settings-icons
 {
     position: relative;
@@ -547,20 +559,22 @@
     width: 45px;
     padding-top: 10px;
 }
+/*--------Settings Icons Finish--------*/
 
-
+/*--------Settings Button Focus--------*/
 .btn-icon-clipboard:focus {
     outline: none;
 }
-/*--------Settings Index Page Finish--------*/
+/*--------Settings Button Focus Finish--------*/
 
-
-/*--------Box Shadow None Focus--------*/
+/*--------Shadow None Focus--------*/
 .shadow-none--hover:focus
 {
     box-shadow: none !important;
 }
-/*--------Box Shadow None Focus Finish--------*/
+/*--------Shadow None Focus Finish--------*/
+
+/*--------Settings Index Page Finish--------*/
 
 
 /*--------Pagination Alignment--------*/
