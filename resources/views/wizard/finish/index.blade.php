@@ -70,7 +70,7 @@
                         <div class="col-md-12">
                             <ul>
                                 @if ($modules->current_page < $modules->last_page)
-                                    <li class="next"><a href="{{ url(request()->path()) }}?page={{ $modules->current_page + 1 }}" class="btn btn-default btn-sm">{{ trans('pagination.next') }}</a></li>
+                                    <li class="next"><a href="{{ url(request()->path()) }}?page={{ $modules->current_page + 1 }}" class="btn btn-default btn-sm">{!! trans('pagination.next') !!}</a></li>
                                 @endif
                                 @if ($modules->current_page > 1)
                                     <li class="previous"><a href="{{ url(request()->path()) }}?page={{ $modules->current_page - 1 }}" class="btn btn-default btn-sm">{{ trans('pagination.previous') }}</a></li>

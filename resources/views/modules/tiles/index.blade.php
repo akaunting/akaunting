@@ -24,13 +24,13 @@
                 <div class="row justify-content-center mb-4">
                     <div class="col-md-6 text-left">
                         @if ($modules->current_page > 1)
-                            <a href="{{ url(request()->path()) }}?page={{ $modules->current_page - 1 }}" class="btn btn-white btn-sm">{{ trans('pagination.previous') }}</a>
+                            <a href="{{ url(request()->path()) }}?page={{ $modules->current_page - 1 }}" class="btn btn-white btn-sm">{!! trans('pagination.previous') !!}</a>
                         @endif
                     </div>
 
                     <div class="col-md-6 text-right">
                         @if ($modules->current_page < $modules->last_page)
-                            <a href="{{ url(request()->path()) }}?page={{ $modules->current_page + 1 }}" class="btn btn-white btn-sm">{{ trans('pagination.next') }}</a>
+                            <a href="{{ url(request()->path()) }}?page={{ $modules->current_page + 1 }}" class="btn btn-white btn-sm">{!! trans('pagination.next') !!}</a>
                         @endif
                     </div>
                 </div>

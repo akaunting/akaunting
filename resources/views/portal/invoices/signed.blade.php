@@ -239,7 +239,7 @@
                     </a>
                 </div>
 
-                <div class="col-md-12" id="confirm" >
+                <div class="col-md-12" id="confirm">
                     <component v-bind:is="method_show_html" @interface="onRedirectConfirm"></component>
                 </div>
             </div>
@@ -249,7 +249,7 @@
 
 @push('footer_start')
     <script src="{{ asset('public/js/portal/invoices.js?v=' . version('short')) }}"></script>
-    <script>
-    var payment_action_path = {!! json_encode($payment_actions) !!};
+    <script type="text/javascript">
+        var payment_action_path = {!! json_encode($payment_actions) !!};
     </script>
 @endpush
