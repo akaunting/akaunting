@@ -58,7 +58,7 @@ class ViewComposer extends Provider
 
         // Add logo
         View::composer(
-            ['expenses.bills.print', 'expenses.bills.show', 'incomes.invoices.print', 'incomes.invoices.show', 'portal.invoices.show'],
+            ['expenses.bills.print', 'expenses.bills.show', 'incomes.invoices.print_default', 'incomes.invoices.print_classic', 'incomes.invoices.print_modern', 'incomes.invoices.show', 'portal.invoices.show'],
             'App\Http\ViewComposers\Logo'
         );
 
