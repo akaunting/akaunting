@@ -15,6 +15,7 @@
     @if (!empty($attributes['path']))
     :add-new-path="'{{ $attributes['path'] }}'"
     @endif
+    @new_item="onNewItem($event)"
     @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' : 'form.' . $name . ' = $event' }}"
     @if (!empty($attributes['change']))
     @change="{{ $attributes['change'] }}($event)"
