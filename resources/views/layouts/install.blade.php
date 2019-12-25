@@ -1,7 +1,5 @@
 <html>
-
     @include('partials.install.head')
-
     <body class="installation-page">
 
         <div class="main-content">
