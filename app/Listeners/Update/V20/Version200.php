@@ -50,6 +50,8 @@ class Version200 extends Listener
 
         $this->copyContacts();
 
+        $this->updateModules();
+
         $this->updatePermissions();
 
         $this->deleteOldFiles();
@@ -616,6 +618,21 @@ class Version200 extends Listener
         }
 
         DB::table('vendors')->delete();
+    }
+
+    public function updateModules()
+    {
+        DB::table('modules')
+            ->where('alias', 'offlinepayment')
+            ->update([
+                'alias' => 'offline-payments',
+            ]);
+
+        DB::table('modules')
+            ->where('alias', 'paypalstandard')
+            ->update([
+                'alias' => 'paypal-standard',
+            ]);
     }
 
     public function updatePermissions()
