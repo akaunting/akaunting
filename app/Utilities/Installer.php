@@ -2,8 +2,8 @@
 
 namespace App\Utilities;
 
-use App\Models\Auth\User;
-use App\Models\Common\Company;
+use App\Jobs\Auth\CreateUser;
+use App\Jobs\Common\CreateCompany;
 use Artisan;
 use Config;
 use DB;
@@ -19,7 +19,6 @@ use Illuminate\Support\Str;
  */
 class Installer
 {
-
     public static function checkServerRequirements()
     {
         $requirements = [];
@@ -228,42 +227,27 @@ class Installer
 
     public static function createCompany($name, $email, $locale)
     {
-        // Create company
-        $company = Company::create([
+        dispatch_now(new CreateCompany([
+            'name' => $name,
             'domain' => '',
-        ]);
-
-        // Set settings
-        setting()->setExtraColumns(['company_id' => $company->id]);
-        setting()->set([
-            'company.name'          => $name,
-            'company.email'         => $email,
-            'default.currency'     => 'USD',
-            'default.locale'       => $locale,
-        ]);
-        setting()->save();
+            'email' => $email,
+            'currency' => 'USD',
+            'locale' => $locale,
+            'enabled' => '1',
+        ]));
     }
 
     public static function createUser($email, $password, $locale)
     {
-        // Create the user
-        $user = User::create([
+        dispatch_now(new CreateUser([
             'name' => '',
             'email' => $email,
             'password' => $password,
             'locale' => $locale,
-        ]);
-
-        // Attach admin role
-        $user->roles()->attach('1');
-
-        // Attach company
-        $user->companies()->attach('1');
-
-        Artisan::call('user:seed', [
-            'user' => $user->id,
-            'company' => 1
-        ]);
+            'companies' => ['1'],
+            'roles' => ['1'],
+            'enabled' => '1',
+        ]));
     }
 
     public static function finalTouches()
