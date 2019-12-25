@@ -29,7 +29,7 @@ class Currencies extends Seeder
         $rows = [
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.currencies_usd'),
+                'name' => trans('demo.currencies.usd'),
                 'code' => 'USD',
                 'rate' => '1.00',
                 'enabled' => '1',
@@ -41,7 +41,7 @@ class Currencies extends Seeder
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.currencies_eur'),
+                'name' => trans('demo.currencies.eur'),
                 'code' => 'EUR',
                 'rate' => '1.25',
                 'precision' => config('money.EUR.precision'),
@@ -52,7 +52,7 @@ class Currencies extends Seeder
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.currencies_gbp'),
+                'name' => trans('demo.currencies.gbp'),
                 'code' => 'GBP',
                 'rate' => '1.60',
                 'precision' => config('money.GBP.precision'),
@@ -63,7 +63,7 @@ class Currencies extends Seeder
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.currencies_try'),
+                'name' => trans('demo.currencies.try'),
                 'code' => 'TRY',
                 'rate' => '0.80',
                 'precision' => config('money.TRY.precision'),

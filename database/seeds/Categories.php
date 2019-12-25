@@ -32,35 +32,35 @@ class Categories extends Seeder
                 'name' => trans_choice('general.transfers', 1),
                 'type' => 'other',
                 'color' => '#3c3f72',
-                'enabled' => '1'
+                'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.categories_deposit'),
+                'name' => trans('demo.categories.deposit'),
                 'type' => 'income',
                 'color' => '#efad32',
-                'enabled' => '1'
+                'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.categories_sales'),
+                'name' => trans('demo.categories.sales'),
                 'type' => 'income',
                 'color' => '#6da252',
-                'enabled' => '1'
+                'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans_choice('general.others', 1),
                 'type' => 'expense',
                 'color' => '#e5e5e5',
-                'enabled' => '1'
+                'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans('general.general'),
                 'type' => 'item',
                 'color' => '#328aef',
-                'enabled' => '1'
+                'enabled' => '1',
             ],
         ];
 

@@ -32,10 +32,10 @@ class Accounts extends Seeder
         $rows = [
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.accounts_cash'),
+                'name' => trans('demo.accounts.cash'),
                 'number' => '1',
                 'currency_code' => 'USD',
-                'bank_name' => trans('demo.accounts_cash'),
+                'bank_name' => trans('demo.accounts.cash'),
                 'enabled' => '1',
             ],
         ];
