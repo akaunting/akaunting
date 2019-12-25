@@ -216,6 +216,16 @@ export default {
             });
         },
 
+        onCancelNewItem() {
+            this.addNew.modal = false;
+            this.addNew.title = null;
+            this.addNew.html = null;
+        },
+
+        onNewItemSubmit() {
+            document.querySelector('.modal-body form').submit()
+        },
+
         // Change bank account get money and currency rate
         onChangeAccount(account_id) {
             axios.get(url + '/banking/accounts/currency', {

@@ -3,7 +3,10 @@
     '@submit.prevent' => 'onSubmit',
     '@keydown' => 'form.errors.clear($event.target.name)',
     'role' => 'form',
-    'class' => 'form-loading-button'
+    'class' => 'form-loading-button',
+    'route' => 'customers.store',
+    'novalidate' => true
+
 ]) !!}
     <div class="row">
         {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
