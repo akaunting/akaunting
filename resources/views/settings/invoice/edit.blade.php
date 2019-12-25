@@ -39,6 +39,16 @@
                 {{ Form::invoice_text('price_name', trans('settings.invoice.price_name'), 'font', $price_names, null, [], 'price_name_input', null) }}
 
                 {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, null, [], 'quantity_name_input', null) }}
+
+                <div class="form-group col-md-6">
+                    {!! Form::label('invoice_template', trans('settings.invoice.invoice_template'), ['class' => 'form-control-label']) !!}
+
+                    <div class="input-group">
+                        <a href="#" class="btn btn-block btn-outline-primary" @click="onTemplate">
+                            <i class="fas fa-palette"></i>&nbsp; {{ trans('settings.invoice.choose_template') }}
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -55,6 +65,33 @@
 
     {!! Form::close() !!}
 @endsection
+
+@push('content_content_end')
+    <akaunting-modal
+        :show="template.modal"
+        @cancel="template.modal = false"
+        :title="'{{ trans('settings.invoice.choose_template') }}'"
+        :message="template.html"
+        :button_cancel="'{{ trans('general.button.save') }}'"
+        :button_delete="'{{ trans('general.button.cancel') }}'">
+        <template #modal-body>
+            @include('modals.settings.template')
+        </template>
+
+        <template #card-footer>
+            <div class="float-right">
+                <button type="button" class="btn btn-outline-secondary" @click="closeTemplate">
+                    <span>{{ trans('general.cancel') }}</span>
+                </button>
+
+                <button type="button" class="btn btn-success button-submit" @click="addTemplate">
+                    <div class="aka-loader d-none"></div>
+                    <span>{{ trans('general.confirm') }}</span>
+                </button>
+            </div>
+        </template>
+    </akaunting-modal>
+@endpush
 
 @push('scripts_start')
     <script src="{{ asset('public/js/settings/settings.js?v=' . version('short')) }}"></script>

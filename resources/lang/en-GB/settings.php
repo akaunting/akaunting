@@ -52,6 +52,11 @@ return [
         'subheading'        => 'Subheading',
         'due_receipt'       => 'Due upon receipt',
         'due_days'          => 'Due within :days days',
+        'invoice_template'  => 'Invoice Template',
+        'choose_template'   => 'Choose a template',
+        'default'           => 'Default',
+        'classic'           => 'Classic',
+        'modern'            => 'Modern',
     ],
 
     'default' => [

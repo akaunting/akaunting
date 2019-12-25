@@ -36,6 +36,14 @@ const app = new Vue({
                 smtpUsername:true,
                 smtpPassword:true,
                 smtpEncryption:true,
+            },
+            invoice_form: new Form('template'),
+            template: {
+                modal: false,
+                title: '',
+                message: '',
+                html: '',
+                errors: new Error()
             }
         }
     },
@@ -72,6 +80,31 @@ const app = new Vue({
                     this.email.smtpEncryption = true;
                     break;
             }
-        }
+        },
+
+        onTemplate() {
+            this.template.modal = true;
+
+            this.invoice_form = new Form('template');
+
+            this.invoice_form.template = this.invoice_form._template;
+        },
+
+        addTemplate() {
+            if (this.invoice_form.template != 1) {
+                this.invoice_form.submit();
+
+                this.template.errors = this.invoice_form.errors;
+            }
+        },
+
+        closeTemplate() {
+            this.template = {
+                modal: false,
+                title: '',
+                message: '',
+                errors: this.invoice_form.errors
+            };
+        },
     }
 });
