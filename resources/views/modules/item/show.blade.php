@@ -82,43 +82,18 @@
                             {!! $module->description !!}
 
                             @if($module->screenshots || $module->video)
-                               <div class="carousel-inner">
-                                   <div class="carousel-item" data-ride="carousel">
-                                        @if($module->video)
-                                            @php
-                                                if (strpos($module->video->link, '=') !== false) {
-                                                    $code = explode('=', $module->video->link);
-                                                    $code[1]= str_replace('&list', '', $code[1]);
-
-                                                    if (empty($status)) {
-                                                        $status = 5;
-                                                    } else {
-                                                        $status = 1;
-                                                    }
-                                            @endphp
-                                            <div class="carousel-item @if($status == 5) {{ 'active' }} @endif">
-                                                <iframe width="100%" height="410px" src="https://www.youtube-nocookie.com/embed/{{ $code[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                                <div class="image-description text-center">
-                                                    {{ $module->name }}
-                                                </div>
-                                            </div>
-                                            @php } @endphp
-                                        @endif
-
-                                       @foreach($module->screenshots as $screenshot)
-                                           @php if (empty($status)) { $status = 5; } else { $status = 1; } @endphp
-                                           <div class="carousel-item @if($status == 5) {{ 'active' }} @endif">
-                                               <a href="{{ $screenshot->path_string }}" data-toggle="lightbox" data-gallery="{{ $module->slug}}">
-                                                   <img class="d-block w-100" src="{{ $screenshot->path_string }}" alt="{{ $screenshot->alt_attribute }}">
-                                               </a>
-
-                                               <div class="image-description text-center">
-                                                   {{ $screenshot->description }}
-                                               </div>
-                                           </div>
-                                       @endforeach
-                                   </div>
-                                </div>
+                               <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'"
+                                    @if($module->video)
+                                        @php
+                                            if (strpos($module->video->link, '=') !== false) {
+                                                $code = explode('=', $module->video->link);
+                                                $code[1]= str_replace('&list', '', $code[1]);
+                                            }
+                                        @endphp
+                                        :video="'{{ $code[1] }}'"
+                                    @endif
+                                    :screenshots="{{ json_encode($module->screenshots) }}">
+                                </akaunting-carousel>
                             @endif
                         </div>
 

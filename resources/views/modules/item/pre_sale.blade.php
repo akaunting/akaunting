@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.modules', 2))
 
 @section('new_button')
-<span class="new-button">
+    <span class="new-button">
         <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm header-button-top">
             <span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_key') }}
         </a>
@@ -36,64 +36,25 @@
                             {!! $module->description !!}
 
                             @if($module->screenshots || $module->video)
-                                <div id="carousel-screenshot-generic" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        @if($module->video)
-                                            @php
-                                                if (strpos($module->video->link, '=') !== false) {
-                                                    $code = explode('=', $module->video->link);
-                                                    $code[1]= str_replace('&list', '', $code[1]);
-
-                                                    if (empty($status)) {
-                                                        $status = 5;
-                                                    } else {
-                                                        $status = 1;
-                                                    }
-                                            @endphp
-
-                                                <div class="item @if($status == 5) {{ 'active' }} @endif">
-                                                    <iframe width="100%" height="410px" src="https://www.youtube-nocookie.com/embed/{{ $code[1] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-                                                    <div class="image-description text-center">
-                                                        {{ $module->name }}
-                                                    </div>
-                                                </div>
-                                            @php } @endphp
-                                        @endif
-
-                                        @foreach($module->screenshots as $screenshot)
-                                            @php if (empty($status)) { $status = 5; } else { $status = 1; } @endphp
-                                            <div class="item @if($status == 5) {{ 'active' }} @endif">
-                                                <a href="{{ $screenshot->path_string }}" data-toggle="lightbox" data-gallery="{{ $module->slug}}">
-                                                    <img class="img-fluid d-block w-100" src="{{ $screenshot->path_string }}" alt="{{ $screenshot->alt_attribute }}">
-                                                </a>
-
-                                                <div class="image-description text-center">
-                                                    {{ $screenshot->description }}
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-                                        <div class="carousel-navigation-message">
-                                            @if (($module->video && (count($module->screenshots) > 1)) || (!$module->video && (count($module->screenshots) > 1)))
-                                                <a href="#carousel-screenshot-generic" class="left carousel-control" role="button" data-slide="prev">
-                                                    <i class="fa fa-chevron-left"></i>
-                                                    <span class="sr-only">{{ trans('pagination.previous') }}</span>
-                                                </a>
-                                                <a href="#carousel-screenshot-generic" class="right carousel-control" role="button" data-slide="next">
-                                                    <i class="fa fa-chevron-right"></i>
-                                                    <span class="sr-only">{{ trans('pagination.next') }}</span>
-                                                </a>
-                                            @endif()
-                                        </div>
-                                    </div>
-                                </div>
+                               <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'"
+                                    @if($module->video)
+                                        @php
+                                            if (strpos($module->video->link, '=') !== false) {
+                                                $code = explode('=', $module->video->link);
+                                                $code[1]= str_replace('&list', '', $code[1]);
+                                            }
+                                        @endphp
+                                        :video="'{{ $code[1] }}'"
+                                    @endif
+                                    :screenshots="{{ json_encode($module->screenshots) }}">
+                                </akaunting-carousel>
                             @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-4">
             <h3>{{ trans_choice('general.actions', 1) }}</h3>
             <div class="card">

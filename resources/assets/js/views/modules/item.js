@@ -12,6 +12,8 @@ import Global from '../../mixins/global';
 
 import {Progress} from 'element-ui';
 
+import AkauntingCarousel from './../../components/AkauntingCarousel';
+
 Vue.use(Progress);
 
 const app = new Vue({
@@ -23,6 +25,7 @@ const app = new Vue({
 
     components: {
         [Progress.name]: Progress,
+        AkauntingCarousel
     },
 
     mounted() {
