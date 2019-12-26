@@ -25,7 +25,7 @@
                 )) !!}
 
                 @if ($dashboards->count() > 1)
-                {!! Form::deleteLink($dashboard, 'common/dashboards') !!}
+                    {!! Form::deleteLink($dashboard, 'common/dashboards') !!}
                 @endif
 
                 <div class="dropdown-divider"></div>
@@ -58,7 +58,7 @@
             'width' => trans('general.form.enter', ['field' => 'Width']),
             'sort' => trans('general.form.enter', ['field' => 'Sort'])
         ]);
-     @endphp
+    @endphp
 
     <akaunting-dashboard
         v-if="dashboard_modal"
@@ -92,7 +92,6 @@
 
 @section('new_button')
     <!--Dashboard General Filter-->
-    <div class="pull-right">
         <el-date-picker
             v-model="value2"
             type="daterange"
@@ -105,8 +104,7 @@
             start-placeholder="Start date"
             end-placeholder="End date"
             :picker-options="pickerOptions">
-          </el-date-picker>
-    </div>
+        </el-date-picker>
 @endsection
 
 @section('content')
