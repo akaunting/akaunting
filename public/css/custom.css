@@ -59,11 +59,6 @@
 
 
 /*--------Carousel Arrows--------*/
-button:focus
-{
-    outline: none !important;
-}
-
 .carousel-description
 {
     background-color: #3c3f72 !important;
@@ -78,7 +73,20 @@ button:focus
     background-color: unset !important;
     font-size: 24px !important;
 }
+
+.carousel-frame
+{
+    border: 1px solid #3c3f72;
+}
 /*--------Carousel Arrows Finish--------*/
+
+
+/*--------General Button Focus--------*/
+button:focus
+{
+    outline: none !important;
+}
+/*--------General Button Focus Finish--------*/
 
 
 /*--------General Button Hover--------*/

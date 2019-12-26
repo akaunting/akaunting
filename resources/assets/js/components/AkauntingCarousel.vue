@@ -8,7 +8,7 @@
             :interval="interval" :arrow="arrow">
 
             <el-carousel-item v-if="video">
-                <iframe width="100%" height="365px"
+                <iframe class="carousel-frame" width="100%" height="365px"
                 :src="'https://www.youtube-nocookie.com/embed/' + video"
                 frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -18,7 +18,7 @@
             </el-carousel-item>
 
             <el-carousel-item v-for="(screenshot, index) in screenshots" :key="index">
-                <img class="d-block w-100" :src="screenshot.path_string" :alt="screenshot.alt_attribute">
+                <img class="d-block w-100 carousel-frame" :src="screenshot.path_string" :alt="screenshot.alt_attribute">
                 <div class="carousel-description py-2">
                     {{ screenshot.description }}
                 </div>
