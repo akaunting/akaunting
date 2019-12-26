@@ -2,23 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Forbidden Access',
-    'error_page'       => 'Error Page',
-    'page_not_found'   => 'Page Not Found',
-
-    'body'   => [
-        'forbidden_access' => 'Oops! Forbidden Access.',
-        'error_page' => 'Oops! Something went wrong.',
-        'page_not_found' => 'Oops! Page not found.',
+    'title' => [
+        '403' => 'Oops! Forbidden Access',
+        '404' => 'Oops! Page not found',
+        '500' => 'Oops! Something went wrong',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'You can not access this page.
-        Meanwhile, you may <a href=":link">return to dashboard</a>.',
-        'error_page' => 'We will work on fixing that right away.
-        Meanwhile, you may <a href=":link">return to dashboard</a>.',
-        'page_not_found' => 'We could not find the page you were looking for.
-        Meanwhile, you may <a href=":link">return to dashboard</a>.',
+    'header' => [
+        '403' => '403 Forbidden',
+        '404' => '404 Not Found',
+        '500' => '500 Internal Server Error',
+    ],
+
+    'message' => [
+        '403' => 'You can not access this page.',
+        '404' => 'We could not find the page you were looking for.',
+        '500' => 'We will work on fixing that right away.',
     ],
 
 ];

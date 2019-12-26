@@ -9,13 +9,11 @@
     </style>
 
     <body onload="window.print();">
-
         @stack('body_start')
 
-            @yield('content')
+        @yield('content')
 
         @stack('body_end')
-
     </body>
 
 </html>
