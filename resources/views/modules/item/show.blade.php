@@ -82,7 +82,7 @@
                             {!! $module->description !!}
 
                             @if($module->screenshots || $module->video)
-                               <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'"
+                               <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'" arrow="always"
                                     @if($module->video)
                                         @php
                                             if (strpos($module->video->link, '=') !== false) {
