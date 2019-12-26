@@ -3,35 +3,33 @@
     @include('partials.portal.head')
 
     <body class="g-sidenav-show g-sidenav-pinned">
-
         @stack('body_start')
 
-            @include('partials.portal.menu')
+        @include('partials.portal.menu')
 
-            <div class="main-content" id="panel">
+        <div class="main-content" id="panel">
 
-                @include('partials.portal.navbar')
+            @include('partials.portal.navbar')
 
-                <div id="main-body">
+            <div id="main-body">
 
-                    @include('partials.portal.header')
+                @include('partials.portal.header')
 
-                    <div class="container-fluid content-layout mt--6">
+                <div class="container-fluid content-layout mt--6">
 
-                        @include('partials.portal.content')
+                    @include('partials.portal.content')
 
-                        @include('partials.portal.footer')
-
-                    </div>
+                    @include('partials.portal.footer')
 
                 </div>
 
             </div>
 
+        </div>
+
         @stack('body_end')
 
         @include('partials.portal.scripts')
-
     </body>
 
 </html>
