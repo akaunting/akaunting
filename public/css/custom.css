@@ -58,6 +58,29 @@
 /*--------Item Tax Tag Finish--------*/
 
 
+/*--------Carousel Arrows--------*/
+button:focus
+{
+    outline: none !important;
+}
+
+.carousel-description
+{
+    background-color: #3c3f72 !important;
+    color: #ffffff;
+    text-align: center;
+}
+
+.el-carousel__arrow
+{
+    margin-top: 10.55rem !important;
+    color: #ffffff;
+    background-color: unset !important;
+    font-size: 24px !important;
+}
+/*--------Carousel Arrows Finish--------*/
+
+
 /*--------General Button Hover--------*/
 .btn:hover
 {
