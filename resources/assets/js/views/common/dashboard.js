@@ -13,13 +13,15 @@ import Global from './../../mixins/global';
 import AkauntingDashboard from './../../components/AkauntingDashboard';
 import AkauntingWidget from './../../components/AkauntingWidget';
 
-import Form from './../../plugins/form';
-import BulkAction from './../../plugins/bulk-action';
+import {DatePicker} from 'element-ui';
 
-const app = new Vue({
+Vue.use(DatePicker);
+
+const dashboard = new Vue({
     el: '#main-body',
 
     components: {
+        [DatePicker.name]: DatePicker,
         AkauntingDashboard,
         AkauntingWidget
     },
@@ -46,7 +48,35 @@ const app = new Vue({
                 action: 'create',
                 sort: 0,
                 widget_id: 0
-            }
+            },
+            pickerOptions: {
+                shortcuts: [{
+                text: 'Last week',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                    picker.$emit('pick', [start, end]);
+                }
+                }, {
+                text: 'Last month',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                    picker.$emit('pick', [start, end]);
+                }
+                }, {
+                text: 'Last 3 months',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                    picker.$emit('pick', [start, end]);
+                }
+                }]
+            },
+            value2: ''
         };
     },
 

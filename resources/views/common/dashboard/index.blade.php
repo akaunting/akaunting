@@ -92,6 +92,21 @@
 
 @section('new_button')
     <!--Dashboard General Filter-->
+    <div class="pull-right">
+        <el-date-picker
+            v-model="value2"
+            type="daterange"
+            align="right"
+            unlink-panels
+            :class="datepicker"
+            :format="'yyyy-MM-dd'"
+            :default-time="['00:00:00', '23:59:59']"
+            range-separator="To"
+            start-placeholder="Start date"
+            end-placeholder="End date"
+            :picker-options="pickerOptions">
+          </el-date-picker>
+    </div>
 @endsection
 
 @section('content')
