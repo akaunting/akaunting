@@ -1,15 +1,11 @@
 <html lang="{{ app()->getLocale() }}">
 
-    @include('partials.modules.head')
+    @include('partials.admin.head')
 
     <body class="g-sidenav-show g-sidenav-pinned">
         @stack('body_start')
 
-        @include('partials.admin.menu')
-
         <div class="main-content" id="panel">
-
-            @include('partials.admin.navbar')
 
             <div id="main-body">
 

@@ -4,21 +4,18 @@
     <body class="wizard-page">
 
         <div class="container mt--5">
-
             @stack('body_start')
 
-                <div id="app">
+            <div id="app">
 
-                    @include('partials.wizard.content')
+                @include('partials.wizard.content')
 
-                </div>
+            </div>
 
             @stack('body_end')
-
         </div>
 
         @include('partials.wizard.scripts')
-
     </body>
 
 </html>
