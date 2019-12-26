@@ -88,7 +88,8 @@
 
 .el-date-table td.in-range div
 {
-    background-color: #F2F6FC;
+    background-color: #55588b !important;
+    color: #ffffff !important;
 }
 
 .el-range-editor.is-active
