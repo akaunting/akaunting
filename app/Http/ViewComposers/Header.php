@@ -2,7 +2,6 @@
 
 namespace App\Http\ViewComposers;
 
-use Auth;
 use App\Utilities\Updater;
 use Illuminate\View\View;
 use App\Traits\Modules as RemoteModules;
@@ -21,41 +20,42 @@ class Header
     {
         $user = user();
 
-        $bills = [];
-        $invoices = [];
-        $notifications = 0;
+        $invoices = $bills = [];
+        $updates = $notifications = 0;
         $company = null;
 
-        // Get customer company
-        if ($user->can('read-client-portal')) {
-            $company = (object) [
-                'company_name' => setting('company.name'),
-                'company_email' => setting('company.email'),
-                'company_address' => setting('company.address'),
-                'company_logo' => setting('company.logo'),
-            ];
-        }
-
-        $undereads = $user->unreadNotifications;
-
-        foreach ($undereads as $underead) {
-            $data = $underead->getAttribute('data');
-
-            switch ($underead->getAttribute('type')) {
-                case 'App\Notifications\Expense\Bill':
-                    $bills[$data['bill_id']] = $data['amount'];
-                    $notifications++;
-                    break;
-                case 'App\Notifications\Income\Invoice':
-                    $invoices[$data['invoice_id']] = $data['amount'];
-                    $notifications++;
-                    break;
+        if (!empty($user)) {
+            // Get customer company
+            if ($user->can('read-client-portal')) {
+                $company = (object) [
+                    'company_name' => setting('company.name'),
+                    'company_email' => setting('company.email'),
+                    'company_address' => setting('company.address'),
+                    'company_logo' => setting('company.logo'),
+                ];
             }
+
+            $undereads = $user->unreadNotifications;
+
+            foreach ($undereads as $underead) {
+                $data = $underead->getAttribute('data');
+
+                switch ($underead->getAttribute('type')) {
+                    case 'App\Notifications\Expense\Bill':
+                        $bills[$data['bill_id']] = $data['amount'];
+                        $notifications++;
+                        break;
+                    case 'App\Notifications\Income\Invoice':
+                        $invoices[$data['invoice_id']] = $data['amount'];
+                        $notifications++;
+                        break;
+                }
+            }
+
+            $updates = count(Updater::all());
+
+            $this->loadSuggestions();
         }
-
-        $updates = count(Updater::all());
-
-        $this->loadSuggestions();
 
         $view->with([
             'user' => $user,
