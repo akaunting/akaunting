@@ -14,7 +14,7 @@
     <div class="row mb-4">
 
         <div class="col-md-12">
-            <h3 id="stats">{{ trans('reports.income-expense') }}</h3>
+            <h3 id="stats">{{ trans('reports.income_expense') }}</h3>
         </div>
 
         @foreach($reports['income-expense'] as $report)
