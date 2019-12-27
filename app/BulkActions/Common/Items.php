@@ -23,12 +23,6 @@ class Items extends BulkAction
             'message' => 'bulk_actions.message.disable',
             'permission' => 'update-common-items',
         ],
-        'duplicate' => [
-            'name' => 'general.duplicate',
-            'message' => 'bulk_actions.message.duplicate',
-            'permission' => 'create-common-items',
-            'multiple' => true,
-        ],
         'delete' => [
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
@@ -37,7 +31,7 @@ class Items extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ],
+        ]
     ];
 
     public function destroy($request)

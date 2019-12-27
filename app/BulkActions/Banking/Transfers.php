@@ -15,7 +15,7 @@ class Transfers extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_action.message.deletes',
             'permission' => 'delete-banking-transfers',
-        ],
+        ]
     ];
 
     public function destroy($request)

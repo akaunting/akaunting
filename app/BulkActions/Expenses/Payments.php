@@ -11,12 +11,6 @@ class Payments extends BulkAction
     public $model = Transaction::class;
 
     public $actions = [
-        'duplicate' => [
-            'name' => 'general.duplicate',
-            'message' => 'bulk_actions.message.duplicate',
-            'permission' => 'create-expenses-payments',
-            'multiple' => true,
-        ],
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
@@ -25,7 +19,7 @@ class Payments extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-expenses-payments',
-        ],
+        ]
     ];
 
     public function destroy($request)

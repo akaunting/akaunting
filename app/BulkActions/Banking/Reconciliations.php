@@ -25,7 +25,7 @@ class Reconciliations extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-banking-reconciliations',
-        ],
+        ]
     ];
 
     public function enable($request)

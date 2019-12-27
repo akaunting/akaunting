@@ -21,9 +21,6 @@
                 @foreach($actions as $key => $action)
                     <option
                         value="{{ $key }}"
-                        @if(isset($action['multiple']) && $action['multiple'])
-                        v-if="bulk_action.count <= 1"
-                        @endif
                         @if(!empty($action['message']))
                         data-message="{{ trans_choice($action['message'], 2, ['type' => $text]) }}"
                         @endif

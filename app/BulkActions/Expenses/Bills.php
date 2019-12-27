@@ -18,12 +18,6 @@ class Bills extends BulkAction
             'message' => 'bulk_actions.message.received',
             'permission' => 'update-expenses-bills',
         ],
-        'duplicate' => [
-            'name' => 'general.duplicate',
-            'message' => 'bulk_actions.message.duplicate',
-            'permission' => 'create-expenses-bills',
-            'multiple' => true,
-        ],
         'delete' => [
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
@@ -32,7 +26,7 @@ class Bills extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ],
+        ]
     ];
 
     public function received($request)

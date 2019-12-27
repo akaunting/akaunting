@@ -21,12 +21,6 @@ class Customers extends BulkAction
             'message' => 'bulk_actions.message.disable',
             'permission' => 'update-incomes-customers',
         ],
-        'duplicate' => [
-            'name' => 'general.duplicate',
-            'message' => 'bulk_actions.message.duplicate',
-            'permission' => 'create-incomes-customers',
-            'multiple' => true
-        ],
         'delete' => [
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
@@ -35,7 +29,7 @@ class Customers extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ],
+        ]
     ];
 
     public function disable($request)

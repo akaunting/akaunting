@@ -26,7 +26,7 @@ class Categories extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-settings-categories',
-        ],
+        ]
     ];
 
     public function disable($request)

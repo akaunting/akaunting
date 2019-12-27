@@ -26,7 +26,7 @@ class Currencies extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-settings-currencies',
-        ],
+        ]
     ];
 
     public function disable($request)

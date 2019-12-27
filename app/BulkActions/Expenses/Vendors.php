@@ -22,12 +22,6 @@ class Vendors extends BulkAction
             'message' => 'bulk_actions.message.disable',
             'permission' => 'update-expenses-vendors',
         ],
-        'duplicate' => [
-            'name' => 'general.duplicate',
-            'message' => 'bulk_actions.message.duplicate',
-            'permission' => 'create-expenses-vendors',
-            'multiple' => true
-        ],
         'delete' => [
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
@@ -36,7 +30,7 @@ class Vendors extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ],
+        ]
     ];
 
     public function disable($request)

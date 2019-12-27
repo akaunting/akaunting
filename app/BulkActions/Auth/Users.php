@@ -26,7 +26,7 @@ class Users extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-auth-users',
-        ],
+        ]
     ];
 
     public function disable($request)

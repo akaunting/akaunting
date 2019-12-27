@@ -11,21 +11,15 @@ class Revenues extends BulkAction
     public $model = Transaction::class;
 
     public $actions = [
-        'export' => [
-            'name' => 'general.export',
-            'message' => 'bulk_actions.message.export',
-        ],
-        'duplicate' => [
-            'name' => 'general.duplicate',
-            'message' => 'bulk_actions.message.duplicate',
-            'permission' => 'create-incomes-revenues',
-            'multiple' => true,
-        ],
         'delete' => [
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-incomes-revenues',
         ],
+        'export' => [
+            'name' => 'general.export',
+            'message' => 'bulk_actions.message.export',
+        ]
     ];
 
     public function destroy($request)

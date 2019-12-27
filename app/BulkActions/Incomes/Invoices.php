@@ -25,12 +25,6 @@ class Invoices extends BulkAction
             'message' => 'bulk_actions.message.sent',
             'permission' => 'update-incomes-invoices',
         ],
-        'duplicate' => [
-            'name' => 'general.duplicate',
-            'message' => 'bulk_actions.message.duplicate',
-            'permission' => 'create-incomes-invoices',
-            'multiple' => true,
-        ],
         'delete' => [
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
@@ -39,7 +33,7 @@ class Invoices extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ],
+        ]
     ];
 
     public function paid($request)
