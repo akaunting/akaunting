@@ -73,52 +73,72 @@ export default class BulkAction {
 
         this.loading = true;
 
-        axios.post(url +'/common/bulk-actions/' + path, {
-            'handle': this.value,
-            'selected': this.selected
-        })
-        .then(response => {
-            //this.loading = false;
-            //this.modal = false;
-            if (response.data.redirect) {
-                window.location.reload(false);
-            } else {
-                this.loading = false;
-                this.modal = false;
+        if (this.value != 'export') {
+            axios.post(url +'/common/bulk-actions/' + path, {
+                'handle': this.value,
+                'selected': this.selected
+            })
+            .then(response => {
+                //this.loading = false;
+                //this.modal = false;
+                if (response.data.redirect) {
+                    window.location.reload(false);
+                } else {
+                }
+            })
+            .catch(error => {
+                //this.loading = false;
+                //this.modal = false;
 
-                // It is necessary to create a new blob object with mime-type explicitly set
-                // otherwise only Chrome works like it should
-                var newBlob = new Blob([response.body], {type: 'application/pdf'})
+                //window.location.reload(false);
+            })
+            .finally(function () {
+                //window.location.reload(false);
+            });
+        } else {
+            axios({
+                url: url +'/common/bulk-actions/' + path,
+                method: 'POST',
+                data:{
+                    'handle': this.value,
+                    'selected': this.selected
+                },
+                responseType: 'blob',
+            }).then((response) => {
+                console.log(response.data);
+                const blob = new Blob([response.data], {type: response.data.type});
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
 
-                // IE doesn't allow using a blob object directly as link href
-                // instead it is necessary to use msSaveOrOpenBlob
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    window.navigator.msSaveOrOpenBlob(newBlob)
-                    return
+                link.href = url;
+
+                const contentDisposition = response.headers['content-disposition'];
+
+                let fileName = 'unknown';
+
+                if (contentDisposition) {
+                    const fileNameMatch = contentDisposition.match(/filename=(.+)/);
+
+                    if (fileNameMatch.length === 2) {
+                        fileName = fileNameMatch[1];
+                    }
                 }
 
-                // For other browsers:
-                // Create a link pointing to the ObjectURL containing the blob.
-                const data = window.URL.createObjectURL(newBlob)
-                var link = document.createElement('a')
-                link.href = data
-                link.download = filename + '.pdf'
-                link.click()
-                setTimeout(function () {
-                    // For Firefox it is necessary to delay revoking the ObjectURL
-                    window.URL.revokeObjectURL(data)
-                }, 100)
-            }
-        })
-        .catch(error => {
-            //this.loading = false;
-            //this.modal = false;
+                link.setAttribute('download', fileName);
 
-            //window.location.reload(false);
-        })
-        .finally(function () {
-            //window.location.reload(false);
-        });
+                document.body.appendChild(link);
+
+                link.click();
+                link.remove();
+
+                window.URL.revokeObjectURL(url);
+
+                 this.loading = false;
+                 this.modal = false;
+                 this.value = '*';
+                 this.clear();
+            });
+        }
     }
 
     // Selected items clear

@@ -31,14 +31,8 @@ BulkActions extends Controller
 
         $result = $bulk_actions->{$request->get('handle')}($request);
 
-        if (!empty($result) && isset($result->file)) {
-            /*return response()->json([
-                'success' => true,
-                'redirect' => false,
-                'error' => false,
-                'data' => [],
-                'message' => ''
-            ]);*/
+        if (!empty($result) && ($result instanceof \Symfony\Component\HttpFoundation\BinaryFileResponse)) {
+            return $result;
         } else {
             return response()->json([
                 'success' => true,
