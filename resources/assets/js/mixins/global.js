@@ -122,8 +122,6 @@ export default {
         // Bulk Action use selected Action
         onAction() {
             this.bulk_action.action();
-
-            window.location.reload(false);
         },
 
         // Bulk Action modal cancel

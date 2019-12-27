@@ -33,7 +33,7 @@ class Invoices extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ]
+        ],
     ];
 
     public function paid($request)

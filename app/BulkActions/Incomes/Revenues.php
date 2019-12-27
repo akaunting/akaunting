@@ -19,7 +19,7 @@ class Revenues extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ]
+        ],
     ];
 
     public function destroy($request)

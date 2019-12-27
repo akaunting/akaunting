@@ -5,7 +5,6 @@ namespace App\BulkActions\Common;
 use App\Abstracts\BulkAction;
 use App\Exports\Common\Items as Export;
 use App\Jobs\Common\DeleteItem;
-use App\Jobs\Common\UpdateItem;
 use App\Models\Common\Item;
 
 class Items extends BulkAction
@@ -31,7 +30,7 @@ class Items extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ]
+        ],
     ];
 
     public function destroy($request)

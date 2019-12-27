@@ -26,7 +26,7 @@ class Taxes extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-settings-taxes',
-        ]
+        ],
     ];
 
     public function disable($request)

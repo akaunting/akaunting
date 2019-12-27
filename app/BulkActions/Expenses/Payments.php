@@ -19,7 +19,7 @@ class Payments extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-expenses-payments',
-        ]
+        ],
     ];
 
     public function destroy($request)

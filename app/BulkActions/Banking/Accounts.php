@@ -26,7 +26,7 @@ class Accounts extends BulkAction
             'name' => 'general.delete',
             'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-banking-accounts',
-        ]
+        ],
     ];
 
     public function disable($request)

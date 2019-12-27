@@ -115,6 +115,9 @@ export default class BulkAction {
             //this.modal = false;
 
             //window.location.reload(false);
+        })
+        .finally(function () {
+            //window.location.reload(false);
         });
     }
 

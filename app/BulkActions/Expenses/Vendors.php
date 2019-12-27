@@ -4,7 +4,6 @@ namespace App\BulkActions\Expenses;
 
 use App\Abstracts\BulkAction;
 use App\Exports\Expenses\Vendors as Export;
-use App\Jobs\Common\UpdateContact;
 use App\Models\Common\Contact;
 
 class Vendors extends BulkAction
@@ -30,7 +29,7 @@ class Vendors extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
-        ]
+        ],
     ];
 
     public function disable($request)
