@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Net Profit',
     'total_expenses'        => 'Total Expenses',
     'net'                   => 'NET',
-    'income-expense'        => 'Income Expense Balance',
+    'income-expense'        => 'Income & Expense',
     
     'summary' => [
         'income'            => 'Income Summary',
