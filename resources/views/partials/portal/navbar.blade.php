@@ -92,8 +92,8 @@
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="media align-items-center">
                             <img src="{{ asset('public/img/user.png') }}" height="36" width="36" alt="User"/>
-                            <div class="media-body ml-2 d-none d-lg-block">
-                                <span class="mb-0 text-sm  font-weight-bold">
+                            <div class="media-body ml-2">
+                                <span class="mb-0 text-sm font-weight-bold">
                                     @if (!empty($user->name))
                                         {{ $user->name }}
                                     @endif
