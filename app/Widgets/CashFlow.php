@@ -13,9 +13,6 @@ class CashFlow extends AbstractWidget
 {
     use Currencies, DateTime;
 
-    // get any custom financial year beginning
-    public $financial_start;
-
     /**
      * The configuration array.
      *
@@ -31,21 +28,11 @@ class CashFlow extends AbstractWidget
      */
     public function run()
     {
-        $this->financial_start = $this->getFinancialStart()->format('Y-m-d');
+        $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
-        $cashflow = $this->getCashFlow();
-
-        return view('widgets.cash_flow', [
-            'config' => (object) $this->config,
-            'cashflow' => $cashflow,
-        ]);
-    }
-
-    private function getCashFlow()
-    {
         // check and assign year start
-        if (($year_start = Date::today()->startOfYear()->format('Y-m-d')) !== $this->financial_start) {
-            $year_start = $this->financial_start;
+        if (($year_start = Date::today()->startOfYear()->format('Y-m-d')) !== $financial_start) {
+            $year_start = $financial_start;
         }
 
         $start = Date::parse(request('start', $year_start));
@@ -80,66 +67,15 @@ class CashFlow extends AbstractWidget
             }
         }
 
-        $income = $this->calculateCashFlowTotals('income', $start, $end, $period);
-        $expense = $this->calculateCashFlowTotals('expense', $start, $end, $period);
-        $profit = $this->calculateCashFlowProfit($income, $expense);
-
-        $options = [
-            'tooltips' => [
-                'backgroundColor' => '#f5f5f5',
-                'titleFontColor' => '#333',
-                'bodyFontColor' => '#666',
-                'bodySpacing' => 4,
-                'YrPadding' => 12,
-                'mode' => 'nearest',
-                'intersect' => 0,
-                'position' => 'nearest'
-            ],
-
-              'responsive' => true,
-
-              'scales' => [
-                'yAxes' => [
-                    [
-                        'barPercentage' => 1.6,
-                        'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.1)',
-                        'zeroLineColor' => 'transparent',
-                        'borderDash' => [2],
-                        'borderDashOffset' => [2],
-                        ],
-                        'ticks' => [
-                        'padding' => 10,
-                        'fontColor' => '#9e9e9e'
-                        ]
-                    ]
-                ],
-
-                'xAxes' => [
-                    [
-                        'barPercentage' => 1.6,
-                        'gridLines' => [
-                          'drawBorder' => false,
-                          'color' => 'rgba(29,140,248,0.0)',
-                          'zeroLineColor' => 'transparent'
-                        ],
-                        'ticks' => [
-                          'suggestedMin' => 60,
-                          'suggestedMax' => 125,
-                          'padding' => 20,
-                          'fontColor' => '#9e9e9e'
-                        ]
-                    ]
-                ]
-            ]
-        ];
+        $income = $this->calculateTotals('income', $start, $end, $period);
+        $expense = $this->calculateTotals('expense', $start, $end, $period);
+        $profit = $this->calculateProfit($income, $expense);
 
         $chart = new Chartjs();
         $chart->type('line')
             ->width(0)
             ->height(300)
-            ->options($options)
+            ->options($this->getChartOptions())
             ->labels(array_values($labels));
 
         $chart->dataset(trans_choice('general.profits', 1), 'line', array_values($profit))
@@ -169,10 +105,13 @@ class CashFlow extends AbstractWidget
             ])
             ->fill(false);
 
-        return $chart;
+        return view('widgets.cash_flow', [
+            'config' => (object) $this->config,
+            'chart' => $chart,
+        ]);
     }
 
-    private function calculateCashFlowTotals($type, $start, $end, $period)
+    private function calculateTotals($type, $start, $end, $period)
     {
         $totals = array();
 
@@ -209,12 +148,12 @@ class CashFlow extends AbstractWidget
 
         $items = Transaction::type($type)->whereBetween('paid_at', [$start, $end])->isNotTransfer()->get();
 
-        $this->setCashFlowTotals($totals, $items, $date_format, $period);
+        $this->setTotals($totals, $items, $date_format, $period);
 
         return $totals;
     }
 
-    private function setCashFlowTotals(&$totals, $items, $date_format, $period)
+    private function setTotals(&$totals, $items, $date_format, $period)
     {
         foreach ($items as $item) {
             if ($period == 'month') {
@@ -231,7 +170,7 @@ class CashFlow extends AbstractWidget
         }
     }
 
-    private function calculateCashFlowProfit($incomes, $expenses)
+    private function calculateProfit($incomes, $expenses)
     {
         $profit = [];
 
@@ -244,5 +183,52 @@ class CashFlow extends AbstractWidget
         }
 
         return $profit;
+    }
+
+    private function getChartOptions()
+    {
+        return [
+            'tooltips' => [
+                'backgroundColor' => '#f5f5f5',
+                'titleFontColor' => '#333',
+                'bodyFontColor' => '#666',
+                'bodySpacing' => 4,
+                'YrPadding' => 12,
+                'mode' => 'nearest',
+                'intersect' => 0,
+                'position' => 'nearest',
+            ],
+            'responsive' => true,
+            'scales' => [
+                'yAxes' => [[
+                    'barPercentage' => 1.6,
+                    'ticks' => [
+                        'padding' => 10,
+                        'fontColor' => '#9e9e9e',
+                    ],
+                    'gridLines' => [
+                        'drawBorder' => false,
+                        'color' => 'rgba(29,140,248,0.1)',
+                        'zeroLineColor' => 'transparent',
+                        'borderDash' => [2],
+                        'borderDashOffset' => [2],
+                    ],
+                ]],
+                'xAxes' => [[
+                    'barPercentage' => 1.6,
+                    'ticks' => [
+                        'suggestedMin' => 60,
+                        'suggestedMax' => 125,
+                        'padding' => 20,
+                        'fontColor' => '#9e9e9e',
+                    ],
+                    'gridLines' => [
+                        'drawBorder' => false,
+                        'color' => 'rgba(29,140,248,0.0)',
+                        'zeroLineColor' => 'transparent',
+                    ],
+                ]],
+            ],
+        ];
     }
 }

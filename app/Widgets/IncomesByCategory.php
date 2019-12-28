@@ -195,26 +195,9 @@ class IncomesByCategory extends AbstractWidget
             'scales' => [
                 'yAxes' => [
                     'display' => 0,
-                    'ticks' => [
-                        'display' => false,
-                    ],
-                    'gridLines' => [
-                        'drawBorder' => false,
-                        'zeroLineColor' => 'transparent',
-                        'color' => 'rgba(255,255,255,0.05)',
-                    ],
                 ],
                 'xAxes' => [
                     'display' => 0,
-                    'barPercentage' => 1.6,
-                    'ticks' => [
-                        'display' => false,
-                    ],
-                    'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(255,255,255,0.1)',
-                        'zeroLineColor' => 'transparent',
-                    ],
                 ],
             ],
         ];

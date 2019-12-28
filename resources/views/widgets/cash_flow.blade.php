@@ -31,7 +31,7 @@
 
         <div class="card-body pt-0" id="cashflow">
             <div class="chart">
-                {!! $cashflow->container() !!}
+                {!! $chart->container() !!}
             </div>
         </div>
     </div>
@@ -46,5 +46,5 @@
 @endpush
 
 @push('body_scripts')
-    {!! $cashflow->script() !!}
+    {!! $chart->script() !!}
 @endpush
