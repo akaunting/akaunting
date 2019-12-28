@@ -133,11 +133,13 @@
 }
 /*--------Carousel Arrows Finish--------*/
 
+
 /*--------Credit Card--------*/
 .card-input__input:hover, .card-input__input:focus {
     border-color: #55588b !important;
 }
 /*--------Credit Card Finish--------*/
+
 
 /*--------General Button Focus--------*/
 button:focus
@@ -937,7 +939,7 @@ table .align-items-center td span.badge {
         width: 100%;
         height: 40px;
         font-size: .875rem;
-        padding: .425rem;
+        padding: .425rem 1.25rem;
         margin-top: 16px;
     }
 
