@@ -15,30 +15,14 @@ import BulkAction from './../../plugins/bulk-action';
 
 const app = new Vue({
     el: '#app',
+
     mixins: [
         Global
     ],
+
     data: function () {
         return {
             form: new Form('login')
-        }
-    },
-    watch:{
-        'form.response'(notify) {
-            /*
-            if (!notify.message) {
-                return {};
-            }
-
-            var type = (notify.success) ? 'success' : 'warning';
-
-            this.$notify({
-                message: notify.message,
-                timeout: 5000,
-                icon: 'ni ni-bell-55',
-                type
-            });
-            */
         }
     }
 });
