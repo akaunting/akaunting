@@ -21,9 +21,9 @@
 
         {{ Form::passwordGroup('password', false, 'unlock-alt', ['placeholder' => trans('auth.password.current')], 'has-feedback', 'input-group-alternative') }}
 
-        <div class="row">
+        <div class="row align-items-center">
             @stack('remember_input_start')
-                <div class="col-8">
+                <div class="col-xs-12 col-sm-8">
                     <div class="custom-control custom-control-alternative custom-checkbox">
                         {{ Form::checkbox('remember', 1, null, [
                             'id' => 'checkbox-remember',
@@ -37,16 +37,16 @@
                 </div>
             @stack('remember_input_end')
 
-            <div class="col-4">
+            <div class="col-xs-12 col-sm-4">
                 {!! Form::button(
                 '<div class="aka-loader"></div> <span>' . trans('auth.login') . '</span>',
-                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-success float-right', 'data-loading-text' => trans('general.loading')]) !!}
+                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-success header-button-top float-right', 'data-loading-text' => trans('general.loading')]) !!}
             </div>
         </div>
 
         @stack('forgotten-password-start')
             <div class="mt-5 mb--4">
-                <a href="{{ url('auth/forgot') }}" class="text-white"><small>{{ trans('auth.forgot_password') }}</small></a>
+                <a href="{{ url('auth/forgot') }}" class="text-white"><small class="forgot-text">{{ trans('auth.forgot_password') }}</small></a>
             </div>
         @stack('forgotten-password-end')
     {!! Form::close() !!}

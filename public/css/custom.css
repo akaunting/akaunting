@@ -150,6 +150,14 @@ button:focus
 /*--------General Button Hover Finish--------*/
 
 
+/*--------Forgot Text--------*/
+.forgot-text:hover
+{
+    color: #3c3f72;
+}
+/*--------Forgot Text Finish--------*/
+
+
 /*--------Dashboard Categories--------*/
 .dashboard-categories
 {

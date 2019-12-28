@@ -14,12 +14,17 @@
         'novalidate' => true
     ]) !!}
 
-
         @stack('email_input_start')
             {{ Form::emailGroup('email', false, 'envelope', ['placeholder' => trans('general.email')], null, 'has-feedback', 'input-group-alternative') }}
         @stack('email_input_end')
 
-        <button type="submit" class="btn btn-success float-right">{{ trans('general.send') }}</button>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                {!! Form::button(
+                '<div class="aka-loader"></div> <span>' . trans('general.send') . '</span>',
+                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-success header-button-top float-right', 'data-loading-text' => trans('general.loading')]) !!}
+            </div>
+        </div>
     {!! Form::close() !!}
 @endsection
 
