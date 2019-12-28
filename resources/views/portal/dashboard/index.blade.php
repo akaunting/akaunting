@@ -103,13 +103,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col-4 text-nowrap">
-                            <h4 class="mb-0">{{ trans('dashboard.cash_flow') }}</h4>
-                        </div>
-                    </div>
+                    <h4 class="mb-0">{{ trans('dashboard.cash_flow') }}</h4>
                 </div>
-                <div class="card-body" id="chart">
+                <div class="card-body pt-0" id="chart">
                     {!! $chart->container() !!}
                 </div>
             </div>
