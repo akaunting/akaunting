@@ -13,6 +13,8 @@ import Global from './../../mixins/global';
 
 import Form from './../../plugins/form';
 
+import CardForm from './../../components/CreditCard/CardForm';
+
 const app = new Vue({
     el: '#app',
 
@@ -20,11 +22,22 @@ const app = new Vue({
         Global
     ],
 
+    components: {
+        CardForm
+    },
+
     data: function () {
         return {
             form:  new Form('invoice-payment'),
             redirectForm: new Form('redirect-form'),
-            method_show_html: ''
+            method_show_html: '',
+            formData: {
+                cardName: '',
+                cardNumber: '',
+                cardMonth: '',
+                cardYear: '',
+                cardCvv: ''
+            }
         }
     },
 
@@ -117,6 +130,21 @@ const app = new Vue({
             .catch(error => {
                 this.method_show_html = error.message;
             });
+        },
+
+        updateCardNumber (val) {
+        },
+
+        updateCardName (val) {
+        },
+
+        updateCardMonth (val) {
+        },
+
+        updateCardYear (val) {
+        },
+
+        updateCardCvv (val) {
         }
     }
 });

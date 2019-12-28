@@ -131,6 +131,11 @@
 }
 /*--------Carousel Arrows Finish--------*/
 
+/*--------Credit Card--------*/
+.card-input__input:hover, .card-input__input:focus {
+    border-color: #55588b !important;
+}
+/*--------Credit Card Finish--------*/
 
 /*--------General Button Focus--------*/
 button:focus

@@ -15,13 +15,15 @@ import BulkAction from './../../plugins/bulk-action';
 
 const app = new Vue({
     el: '#app',
+
     mixins: [
         Global
     ],
+
     data: function () {
         return {
             form: new Form('item'),
-            bulk_action: new BulkAction('items')
+            bulk_action: new BulkAction('items'),
         }
     }
 });
