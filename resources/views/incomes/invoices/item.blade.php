@@ -33,7 +33,6 @@
                        v-model="row.item_id"
                        data-item="item_id"
                        type="hidden">
-                {!! $errors->first('item.name', '<p class="help-block">:message</p>') !!}
             @stack('name_input_end')
         </td>
     @stack('name_td_end')

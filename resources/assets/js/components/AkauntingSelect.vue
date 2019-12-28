@@ -35,7 +35,7 @@
                 </el-option>
             </el-option-group>
 
-            <li class="el-select-dropdown__item hover" @click="onAddItem">
+            <li v-if="addNew" class="el-select-dropdown__item hover" @click="onAddItem">
                 <span>{{ add_new_text }}</span>
             </li>
         </el-select>
@@ -71,7 +71,7 @@
                 </el-option>
             </el-option-group>
 
-            <li class="el-select-dropdown__item hover" @click="onAddItem">
+            <li v-if="addNew" class="el-select-dropdown__item hover" @click="onAddItem">
                 <span>{{ add_new_text }}</span>
             </li>
         </el-select>
@@ -107,7 +107,7 @@
                 </el-option>
             </el-option-group>
 
-            <li class="el-select-dropdown__item hover" @click="onAddItem">
+            <li v-if="addNew" class="el-select-dropdown__item hover" @click="onAddItem">
                 <span>{{ add_new_text }}</span>
             </li>
         </el-select>
@@ -143,7 +143,7 @@
                 </el-option>
             </el-option-group>
 
-            <li class="el-select-dropdown__item hover" @click="onAddItem">
+            <li v-if="addNew" class="el-select-dropdown__item hover" @click="onAddItem">
                 <span>{{ add_new_text }}</span>
             </li>
         </el-select>
