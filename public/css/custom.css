@@ -60,7 +60,9 @@
 /*--------Date Style--------*/
 .el-date-table td.today span
 {
-    color: #3c3f72 !important;
+    color: #ffffff !important;
+    border: 1px solid #3c3f72;
+    background-color: #3c3f72;
 }
 
 .el-date-table td.end-date span, .el-date-table td.start-date span
@@ -83,12 +85,12 @@
 
 .el-date-table td.today.end-date span, .el-date-table td.today.start-date span
 {
-    color: #ffffff !important;
+    color: #ffffff;
 }
 
 .el-date-table td.in-range div
 {
-    background-color: #55588b !important;
+    background-color: #3c3f72 !important;
     color: #ffffff !important;
 }
 
@@ -922,8 +924,8 @@ table .align-items-center td span.badge {
         width: 100%;
         height: 40px;
         font-size: .875rem;
-        padding: .425rem 1.25rem;
-        margin-top: 0.5rem;
+        padding: .425rem;
+        margin-top: 16px;
     }
 
     .header-button-bottom
