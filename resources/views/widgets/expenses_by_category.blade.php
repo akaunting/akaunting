@@ -33,7 +33,7 @@
 
         <div class="card-body" id="expense-category-doughnut">
             <div class="dashboard-categories">
-                {!! $donut_expenses->container() !!}
+                {!! $chart->container() !!}
             </div>
         </div>
     </div>
@@ -48,5 +48,5 @@
 @endpush
 
 @push('body_scripts')
-    {!! $donut_expenses->script() !!}
+    {!! $chart->script() !!}
 @endpush

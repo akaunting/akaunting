@@ -9,7 +9,7 @@ use Date;
 
 class ExpensesByCategory extends AbstractWidget
 {
-    public $expense_donut = ['colors' => [], 'labels' => [], 'values' => []];
+    public $donut = ['colors' => [], 'labels' => [], 'values' => []];
 
     /**
      * The configuration array.
@@ -17,7 +17,7 @@ class ExpensesByCategory extends AbstractWidget
      * @var array
      */
     protected $config = [
-        'width' => 'col-md-6'
+        'width' => 'col-md-6',
     ];
 
     /**
@@ -50,96 +50,39 @@ class ExpensesByCategory extends AbstractWidget
                 $overdue_bill += $overdue;
             }
 
-            $this->addToExpenseDonut($category->color, $amount, $category->name);
+            $this->addToDonut($category->color, $amount, $category->name);
         }
 
         // Show donut prorated if there is no expense
-        if (array_sum($this->expense_donut['values']) == 0) {
-            foreach ($this->expense_donut['values'] as $key => $value) {
-                $this->expense_donut['values'][$key] = 1;
+        if (array_sum($this->donut['values']) == 0) {
+            foreach ($this->donut['values'] as $key => $value) {
+                $this->donut['values'][$key] = 1;
             }
         }
 
         // Get 6 categories by amount
         $colors = $labels = [];
-        $values = collect($this->expense_donut['values'])->sort()->reverse()->take(6)->all();
+        $values = collect($this->donut['values'])->sort()->reverse()->take(6)->all();
+
         foreach ($values as $id => $val) {
-            $colors[$id] = $this->expense_donut['colors'][$id];
-            $labels[$id] = $this->expense_donut['labels'][$id];
+            $colors[$id] = $this->donut['colors'][$id];
+            $labels[$id] = $this->donut['labels'][$id];
         }
 
-        $options = [
-            'color' => $colors,
+        $chart = new Chartjs();
 
-            'cutoutPercentage' => 80,
-
-            'legend' => [
-                'position' => 'right'
-            ],
-
-            'tooltips' => [
-                'backgroundColor' => '#f5f5f5',
-                'titleFontColor' => '#333',
-                'bodyFontColor' => '#666',
-                'bodySpacing' => 4,
-                'xPadding' => 12,
-                'mode' => 'nearest',
-                'intersect' => 0,
-                'position' => 'nearest'
-            ],
-
-            'scales' => [
-
-            'yAxes' => [
-                [
-                'display' => 0,
-
-                'ticks' => [
-                    'display' => false
-                    ],
-
-                'gridLines' => [
-                    'drawBorder' => false,
-                    'zeroLineColor' => 'transparent',
-                    'color' => 'rgba(255,255,255,0.05)'
-                    ]
-                ]
-            ],
-
-            'xAxes' => [
-                [
-                'display' => 0,
-
-                'barPercentage' => 1.6,
-
-                'gridLines' => [
-                    'drawBorder' => false,
-                    'color' => 'rgba(255,255,255,0.1)',
-                    'zeroLineColor' => 'transparent'
-                    ],
-
-                'ticks' => [
-                    'display' => false
-                    ]
-                ]
-            ]
-        ]
-    ];
-
-        $donut_expenses = new Chartjs();
-
-        $donut_expenses->type('doughnut')
+        $chart->type('doughnut')
             ->width(0)
             ->height(160)
-            ->options($options)
+            ->options($this->getChartOptions($colors))
             ->labels(array_values($labels));
 
-        $donut_expenses->dataset(trans_choice('general.expenses', 2), 'doughnut', array_values($values))
+        $chart->dataset(trans_choice('general.expenses', 2), 'doughnut', array_values($values))
         ->backgroundColor(array_values($colors));
 
         return view('widgets.expenses_by_category', [
             'config' => (object) $this->config,
-            'donut_expenses' => $donut_expenses,
+            'chart' => $chart,
         ]);
     }
 
@@ -170,23 +113,23 @@ class ExpensesByCategory extends AbstractWidget
                 $overdue_bill += $overdue;
             }
 
-            $this->addToExpenseDonut($category->color, $amount, $category->name);
+            $this->addToDonut($category->color, $amount, $category->name);
         }
 
         // Show donut prorated if there is no expense
-        if (array_sum($this->expense_donut['values']) == 0) {
-            foreach ($this->expense_donut['values'] as $key => $value) {
-                $this->expense_donut['values'][$key] = 1;
+        if (array_sum($this->donut['values']) == 0) {
+            foreach ($this->donut['values'] as $key => $value) {
+                $this->donut['values'][$key] = 1;
             }
         }
 
         // Get 6 categories by amount
         $colors = $labels = [];
-        $values = collect($this->expense_donut['values'])->sort()->reverse()->take(6)->all();
+        $values = collect($this->donut['values'])->sort()->reverse()->take(6)->all();
 
         foreach ($values as $id => $val) {
-            $colors[$id] = $this->expense_donut['colors'][$id];
-            $labels[$id] = $this->expense_donut['labels'][$id];
+            $colors[$id] = $this->donut['colors'][$id];
+            $labels[$id] = $this->donut['labels'][$id];
         }
 
         return [
@@ -224,10 +167,56 @@ class ExpensesByCategory extends AbstractWidget
         return [$open, $overdue];
     }
 
-    private function addToExpenseDonut($color, $amount, $text)
+    private function addToDonut($color, $amount, $text)
     {
-        $this->expense_donut['colors'][] = $color;
-        $this->expense_donut['labels'][] = money($amount, setting('default.currency'), true)->format() . ' - ' . $text;
-        $this->expense_donut['values'][] = (int) $amount;
+        $this->donut['colors'][] = $color;
+        $this->donut['labels'][] = money($amount, setting('default.currency'), true)->format() . ' - ' . $text;
+        $this->donut['values'][] = (int) $amount;
+    }
+
+    private function getChartOptions($colors)
+    {
+        return [
+            'color' => array_values($colors),
+            'cutoutPercentage' => 80,
+            'legend' => [
+                'position' => 'right',
+            ],
+            'tooltips' => [
+                'backgroundColor' => '#f5f5f5',
+                'titleFontColor' => '#333',
+                'bodyFontColor' => '#666',
+                'bodySpacing' => 4,
+                'xPadding' => 12,
+                'mode' => 'nearest',
+                'intersect' => 0,
+                'position' => 'nearest',
+            ],
+            'scales' => [
+                'yAxes' => [
+                    'display' => 0,
+                    'ticks' => [
+                        'display' => false,
+                    ],
+                    'gridLines' => [
+                        'drawBorder' => false,
+                        'zeroLineColor' => 'transparent',
+                        'color' => 'rgba(255,255,255,0.05)',
+                    ],
+                ],
+                'xAxes' => [
+                    'display' => 0,
+                    'barPercentage' => 1.6,
+                    'ticks' => [
+                        'display' => false,
+                    ],
+                    'gridLines' => [
+                        'drawBorder' => false,
+                        'color' => 'rgba(255,255,255,0.1)',
+                        'zeroLineColor' => 'transparent',
+                    ],
+                ],
+            ],
+        ];
     }
 }
