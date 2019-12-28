@@ -19,7 +19,7 @@
 
                     <div class="col-md-12">
                         <p class="mb-0 mt--3">
-                            <small>{!! trans('modules.api_key_link') !!}</small>
+                            <small>{!! trans('modules.get_api_key', ['url' => 'https://akaunting.com/dashboard']) !!}</small>
                         </p>
                     </div>
                 </div>
@@ -30,6 +30,7 @@
                     {{ Form::saveButtons('apps/home') }}
                 </div>
             </div>
+
         {!! Form::close() !!}
     </div>
 @endsection
