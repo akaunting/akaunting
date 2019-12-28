@@ -1,28 +1,28 @@
 @extends('layouts.auth')
 
-@section('title', trans('auth.reset_password'))
 @section('message', trans('auth.reset_password'))
 
 @section('content')
-    <form role="form" method="POST" action="{{ url('auth/forgot') }}">
-        {{ csrf_field() }}
+    {!! Form::open([
+        'route' => 'forgot',
+        'id' => 'forgot',
+        '@submit.prevent' => 'onSubmit',
+        '@keydown' => 'form.errors.clear($event.target.name)',
+        'files' => true,
+        'role' => 'form',
+        'class' => 'form-loading-button',
+        'novalidate' => true
+    ]) !!}
+
 
         @stack('email_input_start')
-            <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-                <div class="input-group input-group-merge input-group-alternative">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="{{ trans('general.email') }}" name="email" type="email">
-                </div>
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                @endif
-            </div>
+            {{ Form::emailGroup('email', false, 'envelope', ['placeholder' => trans('general.email')], null, 'has-feedback', 'input-group-alternative') }}
         @stack('email_input_end')
 
         <button type="submit" class="btn btn-success float-right">{{ trans('general.send') }}</button>
-    </form>
+    {!! Form::close() !!}
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/auth/forgot.js?v=' . version('short')) }}"></script>
+@endpush
