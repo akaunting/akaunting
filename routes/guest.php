@@ -9,5 +9,5 @@ Route::group(['prefix' => 'auth'], function () {
 
     //Route::get('reset', 'Auth\Reset@create');
     Route::get('reset/{token}', 'Auth\Reset@create')->name('reset');
-    Route::post('reset', 'Auth\Reset@store');
+    Route::post('reset', 'Auth\Reset@store')->name('reset.store');
 });

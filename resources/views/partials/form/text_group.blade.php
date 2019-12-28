@@ -3,7 +3,7 @@
 <div
     class="form-group {{ $col }} {{ isset($attributes['required']) ? 'required' : '' }}"
     :class="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]">
-    {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
+    {!! Form::label($name, $text, ['class' => 'form-control-label']) !!}
 
     <div class="input-group input-group-merge {{ $group_class }}">
         <div class="input-group-prepend">
