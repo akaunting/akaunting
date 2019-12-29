@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col">
                     <h5 class="text-uppercase text-white mb-0">{{ trans('dashboard.total_profit') }}</h5>
-                    <span class="font-weight-bold text-white mb-0">@money($total_profit['total'], setting('default.currency'), true)</span>
+                    <span class="font-weight-bold text-white mb-0">@money($totals['current'], setting('default.currency'), true)</span>
                 </div>
 
                 <div class="col-auto">
@@ -33,9 +33,9 @@
                 </div>
             </div>
 
-            <p class="mt-3 mb-0 text-sm" title="{{ trans('dashboard.open_profit') }}: {{ $total_profit['open'] }}<br>{{ trans('dashboard.overdue_profit') }}: {{ $total_profit['overdue'] }}" data-toggle="tooltip" data-html="true">
+            <p class="mt-3 mb-0 text-sm" title="{{ trans('dashboard.open_profit') }}: {{ $totals['open'] }}<br>{{ trans('dashboard.overdue_profit') }}: {{ $totals['overdue'] }}" data-toggle="tooltip" data-html="true">
                 <span class="text-white">{{ trans('general.upcoming') }}</span>
-                <span class="text-white font-weight-bold float-right">{{ $total_profit['open'] }} / {{ $total_profit['overdue'] }}</span>
+                <span class="text-white font-weight-bold float-right">{{ $totals['open'] }} / {{ $totals['overdue'] }}</span>
             </p>
         </div>
     </div>

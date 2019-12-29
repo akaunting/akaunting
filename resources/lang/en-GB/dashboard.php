@@ -2,7 +2,7 @@
 
 return [
 
-    'total_incomes'             => 'Total Incomes',
+    'total_income'              => 'Total Income',
     'receivables'               => 'Receivables',
     'open_invoices'             => 'Open Invoices',
     'overdue_invoices'          => 'Overdue Invoices',
@@ -15,9 +15,9 @@ return [
     'overdue_profit'            => 'Overdue Profit',
     'cash_flow'                 => 'Cash Flow',
     'no_profit_loss'            => 'No Profit Loss',
-    'incomes_by_category'       => 'Incomes By Category',
+    'income_by_category'        => 'Income By Category',
     'expenses_by_category'      => 'Expenses By Category',
     'account_balance'           => 'Account Balance',
-    'latest_incomes'            => 'Latest Incomes',
+    'latest_income'             => 'Latest Income',
     'latest_expenses'           => 'Latest Expenses',
 ];

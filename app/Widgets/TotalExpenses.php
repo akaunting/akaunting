@@ -2,97 +2,43 @@
 
 namespace App\Widgets;
 
-use Arrilot\Widgets\AbstractWidget;
-use App\Models\Setting\Category;
-use Date;
+use App\Abstracts\Widget;
+use App\Models\Banking\Transaction;
+use App\Models\Expense\Bill;
 
-class TotalExpenses extends AbstractWidget
+class TotalExpenses extends Widget
 {
-    /**
-     * The configuration array.
-     *
-     * @var array
-     */
-    protected $config = [
-        'width' => 'col-md-4'
-    ];
-
-    /**
-     * Treat this method as a controller action.
-     * Return view() or other content to display.
-     */
-    public function run()
+    public function show()
     {
-        //
-        $expenses_amount = $open_bill = $overdue_bill = 0;
+        $current = $open = $overdue = 0;
 
-        // Get categories
-        $categories = Category::with(['bills', 'expense_transactions'])->type(['expense'])->enabled()->get();
+        Transaction::type('expense')->isNotTransfer()->each(function ($transaction) use (&$current) {
+            $current += $transaction->getAmountConvertedToDefault();
+        });
 
-        foreach ($categories as $category) {
-            $amount = 0;
+        Bill::accrued()->notPaid()->each(function ($bill) use (&$open, &$overdue) {
+            list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($bill);
 
-            // Transactions
-            foreach ($category->expense_transactions as $transaction) {
-                $amount += $transaction->getAmountConvertedToDefault();
-            }
+            $open += $open_tmp;
+            $overdue += $overdue_tmp;
+        });
 
-            $expenses_amount += $amount;
+        $progress = 100;
 
-            // Bills
-            $bills = $category->bills()->accrued()->get();
-            foreach ($bills as $bill) {
-                list($open, $overdue) = $this->calculateInvoiceBillTotals($bill, 'bill');
-
-                $open_bill += $open;
-                $overdue_bill += $overdue;
-            }
+        if (!empty($open) && !empty($overdue)) {
+            $progress = (int) ($open * 100) / ($open + $overdue);
         }
 
-        $expenses_progress = 100;
-
-        if (!empty($open_bill) && !empty($overdue_bill)) {
-            $expenses_progress = (int) ($open_bill * 100) / ($open_bill + $overdue_bill);
-        }
-
-        $total_expenses = array(
-            'total'         => $expenses_amount,
-            'open_bill'     => money($open_bill, setting('default.currency'), true),
-            'overdue_bill'  => money($overdue_bill, setting('default.currency'), true),
-            'progress'      => $expenses_progress
-        );
+        $totals = [
+            'current'       => $current,
+            'open'          => money($open, setting('default.currency'), true),
+            'overdue'       => money($overdue, setting('default.currency'), true),
+            'progress'      => $progress,
+        ];
 
         return view('widgets.total_expenses', [
             'config' => (object) $this->config,
-            'total_expenses' => $total_expenses,
+            'totals' => $totals,
         ]);
-    }
-
-    private function calculateInvoiceBillTotals($item, $type)
-    {
-        $open = $overdue = 0;
-
-        $today = Date::today()->toDateString();
-
-        $code_field = $type . '_status_code';
-
-        if ($item->$code_field != 'paid') {
-            $payments = 0;
-
-            if ($item->$code_field == 'partial') {
-                foreach ($item->transactions as $transaction) {
-                    $payments += $transaction->getAmountConvertedToDefault();
-                }
-            }
-
-            // Check if it's open or overdue invoice
-            if ($item->due_at > $today) {
-                $open += $item->getAmountConvertedToDefault() - $payments;
-            } else {
-                $overdue += $item->getAmountConvertedToDefault() - $payments;
-            }
-        }
-
-        return [$open, $overdue];
     }
 }

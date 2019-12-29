@@ -3,7 +3,7 @@
         <div class="card-header border-bottom-0">
             <div class="row align-items-center">
                 <div class="col-6 text-nowrap">
-                    <h4 class="mb-0">{{ trans('dashboard.latest_incomes') }}</h4>
+                    <h4 class="mb-0">{{ trans('dashboard.latest_income') }}</h4>
                 </div>
 
                 <div class="col-6 hidden-sm">
@@ -34,16 +34,16 @@
                 <thead class="thead-light">
                     <tr class="row table-head-line">
                         <th class="col-xs-4 col-md-4 text-left">{{ trans('general.date') }}</th>
-                        <th class="col-xs-4 col-md-4 text-center">{{ trans_choice('general.categories', 1) }}</th>
+                        <th class="col-xs-4 col-md-4 text-left">{{ trans_choice('general.categories', 1) }}</th>
                         <th class="col-xs-4 col-md-4 text-right">{{ trans('general.amount') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($latest_incomes->count())
-                        @foreach($latest_incomes as $item)
+                    @if ($transactions->count())
+                        @foreach($transactions as $item)
                             <tr class="row border-top-1">
                                 <td class="col-xs-4 col-md-4 text-left">@date($item->paid_at)</td>
-                                <td class="col-xs-4 col-md-4 text-center">{{ $item->category ? $item->category->name : trans_choice('general.invoices', 2) }}</td>
+                                <td class="col-xs-4 col-md-4 text-left">{{ $item->category->name }}</td>
                                 <td class="col-xs-4 col-md-4 text-right">@money($item->amount, $item->currency_code, true)</td>
                             </tr>
                         @endforeach
