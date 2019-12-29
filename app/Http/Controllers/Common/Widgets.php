@@ -17,9 +17,9 @@ class Widgets extends Controller
      */
     public function index()
     {
-        $dashboard_widgets = Widget::enabled()->get();
+        $widgets = Widget::enabled()->get();
 
-        return response()->json($dashboard_widgets);
+        return response()->json($widgets);
     }
 
     /**
@@ -33,7 +33,7 @@ class Widgets extends Controller
         $request['user_id'] = user()->id;
 
         $request['settings'] = [
-            'width' => $request->get('width')
+            'width' => $request->get('width'),
         ];
 
         $widget = Model::create($request->input());
@@ -52,7 +52,7 @@ class Widgets extends Controller
                 'settings' => $settings,
                 'sort' => $widget->sort,
             ],
-            'redirect' => route('dashboard')
+            'redirect' => route('dashboard'),
         ]);
     }
 
@@ -88,7 +88,7 @@ class Widgets extends Controller
         $request['user_id'] = user()->id;
 
         $request['settings'] = [
-            'width' => $request->get('width')
+            'width' => $request->get('width'),
         ];
 
         $widget->update($request->input());
@@ -107,7 +107,7 @@ class Widgets extends Controller
                 'settings' => $settings,
                 'sort' => $widget->sort,
             ],
-            'redirect' => route('dashboard')
+            'redirect' => route('dashboard'),
         ]);
     }
 
@@ -130,7 +130,7 @@ class Widgets extends Controller
             'error' => false,
             'message' => $message,
             'data' => null,
-            'redirect' => route('dashboard')
+            'redirect' => route('dashboard'),
         ]);
     }
 

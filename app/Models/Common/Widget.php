@@ -31,7 +31,7 @@ class Widget extends Model
      * @var array
      */
     protected $casts = [
-        'settings' => 'array'
+        'settings' => 'array',
     ];
 
     public function dashboard_widgets()

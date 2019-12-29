@@ -6,7 +6,6 @@ use App\Abstracts\Model;
 
 class DashboardWidget extends Model
 {
-
     protected $table = 'dashboard_widgets';
 
     /**
@@ -22,7 +21,7 @@ class DashboardWidget extends Model
      * @var array
      */
     protected $casts = [
-        'settings' => 'array'
+        'settings' => 'array',
     ];
 
     public function user()
@@ -57,7 +56,7 @@ class DashboardWidget extends Model
             $value['widget'] = $this;
         } else {
             $value = [
-                'widget' => $this
+                'widget' => $this,
             ];
         }
 
