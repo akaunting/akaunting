@@ -4,14 +4,15 @@ namespace App\Abstracts;
 
 use App\Exports\Common\Reports as Export;
 use App\Models\Common\Report as Model;
-use App\Utilities\Chartjs;
+use App\Traits\Charts;
 use App\Traits\DateTime;
+use App\Utilities\Chartjs;
 use Date;
 use Illuminate\Support\Str;
 
 abstract class Report
 {
-    use DateTime;
+    use Charts, DateTime;
 
     public $report;
 
@@ -125,56 +126,7 @@ abstract class Report
 
         $config = $this->chart[$this->report->chart];
 
-        $default_options = [
-            'tooltips' => [
-                'backgroundColor' => '#f5f5f5',
-                'titleFontColor' => '#333',
-                'bodyFontColor' => '#666',
-                'bodySpacing' => 4,
-                'YrPadding' => 12,
-                'mode' => 'nearest',
-                'intersect' => 0,
-                'position' => 'nearest'
-            ],
-
-            'responsive' => true,
-
-            'scales' => [
-                'yAxes' => [
-                    [
-                        'barPercentage' => '1.6',
-                        'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.1)',
-                        'zeroLineColor' => 'transparent',
-                        'borderDash' => [2],
-                        'borderDashOffset' => [2],
-                        ],
-                        'ticks' => [
-                        'padding' => 10,
-                        'fontColor' => '#9e9e9e'
-                        ]
-                    ]
-                ],
-
-                'xAxes' => [
-                    [
-                        'barPercentage' => '1.6',
-                        'gridLines' => [
-                          'drawBorder' => false,
-                          'color' => 'rgba(29,140,248,0.0)',
-                          'zeroLineColor' => 'transparent'
-                        ],
-                        'ticks' => [
-                          'suggestedMin' => 60,
-                          'suggestedMax' => 125,
-                          'padding' => 20,
-                          'fontColor' => '#9e9e9e'
-                        ]
-                    ]
-                ]
-            ]
-        ];
+        $default_options = $this->getLineChartOptions();
 
         $options = array_merge($default_options, (array) $config['options']);
 

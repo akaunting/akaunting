@@ -22,8 +22,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <h5 class="text-uppercase text-white mb-0">{{ trans('dashboard.total_incomes') }}</h5>
-                    <span class="font-weight-bold text-white mb-0">@money($total_incomes['total'], setting('default.currency'), true)</span>
+                    <h5 class="text-uppercase text-white mb-0">{{ trans('dashboard.total_income') }}</h5>
+                    <span class="font-weight-bold text-white mb-0">@money($totals['current'], setting('default.currency'), true)</span>
                 </div>
 
                 <div class="col-auto">
@@ -33,9 +33,9 @@
                 </div>
             </div>
 
-            <p class="mt-3 mb-0 text-sm" title="{{ trans('dashboard.open_invoices') }}: {{ $total_incomes['open_invoice'] }}<br>{{ trans('dashboard.overdue_invoices') }}: {{ $total_incomes['overdue_invoice'] }}" data-toggle="tooltip" data-html="true">
+            <p class="mt-3 mb-0 text-sm" title="{{ trans('dashboard.open_invoices') }}: {{ $totals['open'] }}<br>{{ trans('dashboard.overdue_invoices') }}: {{ $totals['overdue'] }}" data-toggle="tooltip" data-html="true">
                 <span class="text-white">{{ trans('dashboard.receivables') }}</span>
-                <span class="text-white font-weight-bold float-right">{{ $total_incomes['open_invoice'] }} / {{ $total_incomes['overdue_invoice'] }}</span>
+                <span class="text-white font-weight-bold float-right">{{ $totals['open'] }} / {{ $totals['overdue'] }}</span>
             </p>
         </div>
     </div>

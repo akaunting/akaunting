@@ -2,31 +2,22 @@
 
 namespace App\Widgets;
 
-use Arrilot\Widgets\AbstractWidget;
+use App\Abstracts\Widget;
 use App\Models\Banking\Transaction;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Utilities\Chartjs;
 use Date;
 
-class CashFlow extends AbstractWidget
+class CashFlow extends Widget
 {
     use Currencies, DateTime;
 
-    /**
-     * The configuration array.
-     *
-     * @var array
-     */
     protected $config = [
-        'width' => 'col-md-12'
+        'width' => 'col-md-12',
     ];
 
-    /**
-     * Treat this method as a controller action.
-     * Return view() or other content to display.
-     */
-    public function run()
+    public function show()
     {
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
@@ -44,7 +35,7 @@ class CashFlow extends AbstractWidget
         $end_month = $end->month;
 
         // Monthly
-        $labels = array();
+        $labels = [];
 
         $s = clone $start;
 
@@ -75,17 +66,8 @@ class CashFlow extends AbstractWidget
         $chart->type('line')
             ->width(0)
             ->height(300)
-            ->options($this->getChartOptions())
+            ->options($this->getLineChartOptions())
             ->labels(array_values($labels));
-
-        $chart->dataset(trans_choice('general.profits', 1), 'line', array_values($profit))
-            ->backgroundColor('#6da252')
-            ->color('#6da252')
-            ->options([
-                'borderWidth' => 4,
-                'pointStyle' => 'line',
-             ])
-            ->fill(false);
 
         $chart->dataset(trans_choice('general.incomes', 1), 'line', array_values($income))
             ->backgroundColor('#328aef')
@@ -96,13 +78,22 @@ class CashFlow extends AbstractWidget
             ])
             ->fill(false);
 
-        $chart->dataset(trans_choice('general.expenses', 1), 'line', array_values($expense))
+        $chart->dataset(trans_choice('general.expenses', 2), 'line', array_values($expense))
             ->backgroundColor('#ef3232')
             ->color('#ef3232')
             ->options([
                 'borderWidth' => 4,
                 'pointStyle' => 'line',
             ])
+            ->fill(false);
+
+        $chart->dataset(trans_choice('general.profits', 1), 'line', array_values($profit))
+            ->backgroundColor('#6da252')
+            ->color('#6da252')
+            ->options([
+                'borderWidth' => 4,
+                'pointStyle' => 'line',
+                ])
             ->fill(false);
 
         return view('widgets.cash_flow', [
@@ -113,7 +104,7 @@ class CashFlow extends AbstractWidget
 
     private function calculateTotals($type, $start, $end, $period)
     {
-        $totals = array();
+        $totals = [];
 
         $date_format = 'Y-m';
 
@@ -183,52 +174,5 @@ class CashFlow extends AbstractWidget
         }
 
         return $profit;
-    }
-
-    private function getChartOptions()
-    {
-        return [
-            'tooltips' => [
-                'backgroundColor' => '#f5f5f5',
-                'titleFontColor' => '#333',
-                'bodyFontColor' => '#666',
-                'bodySpacing' => 4,
-                'YrPadding' => 12,
-                'mode' => 'nearest',
-                'intersect' => 0,
-                'position' => 'nearest',
-            ],
-            'responsive' => true,
-            'scales' => [
-                'yAxes' => [[
-                    'barPercentage' => 1.6,
-                    'ticks' => [
-                        'padding' => 10,
-                        'fontColor' => '#9e9e9e',
-                    ],
-                    'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.1)',
-                        'zeroLineColor' => 'transparent',
-                        'borderDash' => [2],
-                        'borderDashOffset' => [2],
-                    ],
-                ]],
-                'xAxes' => [[
-                    'barPercentage' => 1.6,
-                    'ticks' => [
-                        'suggestedMin' => 60,
-                        'suggestedMax' => 125,
-                        'padding' => 20,
-                        'fontColor' => '#9e9e9e',
-                    ],
-                    'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.0)',
-                        'zeroLineColor' => 'transparent',
-                    ],
-                ]],
-            ],
-        ];
     }
 }

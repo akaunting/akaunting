@@ -2,20 +2,11 @@
 
 namespace App\Widgets;
 
-use Arrilot\Widgets\AbstractWidget;
+use App\Abstracts\Widget;
 use App\Models\Banking\Account;
 
-class AccountBalance extends AbstractWidget
+class AccountBalance extends Widget
 {
-    /**
-     * The configuration array.
-     *
-     * @var array
-     */
-    protected $config = [
-        'width' => 'col-md-4'
-    ];
-
     /**
      * Treat this method as a controller action.
      * Return view() or other content to display.

@@ -4,7 +4,7 @@
             <div class="row align-items-center">
 
                 <div class="col-6 text-nowrap">
-                    <h4 class="mb-0">{{ trans('dashboard.incomes_by_category') }}</h4>
+                    <h4 class="mb-0">{{ trans('dashboard.income_by_category') }}</h4>
                 </div>
 
                 <div class="col-6 hidden-sm">

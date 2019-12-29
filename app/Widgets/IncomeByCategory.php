@@ -5,7 +5,7 @@ namespace App\Widgets;
 use App\Abstracts\Widget;
 use App\Models\Setting\Category;
 
-class ExpensesByCategory extends Widget
+class IncomeByCategory extends Widget
 {
     protected $config = [
         'width' => 'col-md-6',
@@ -13,19 +13,19 @@ class ExpensesByCategory extends Widget
 
     public function show()
     {
-        Category::with(['expense_transactions'])->type(['expense'])->enabled()->each(function ($category) {
+        Category::with(['income_transacions'])->type(['income'])->enabled()->each(function ($category) {
             $amount = 0;
 
-            foreach ($category->expense_transactions as $transacion) {
+            foreach ($category->income_transacions as $transacion) {
                 $amount += $transacion->getAmountConvertedToDefault();
             }
 
             $this->addMoneyToDonut($category->color, $amount, $category->name);
         });
 
-        $chart = $this->getDonutChart(trans_choice('general.expenses', 2), 0, 160, 6);
+        $chart = $this->getDonutChart(trans_choice('general.incomes', 1), 0, 160, 6);
 
-        return view('widgets.expenses_by_category', [
+        return view('widgets.income_by_category', [
             'config' => (object) $this->config,
             'chart' => $chart,
         ]);
