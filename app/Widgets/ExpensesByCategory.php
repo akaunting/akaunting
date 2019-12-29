@@ -13,7 +13,7 @@ class ExpensesByCategory extends Widget
 
     public function show()
     {
-        Category::with(['expense_transactions'])->type(['expense'])->enabled()->each(function ($category) {
+        Category::with('expense_transactions')->type('expense')->enabled()->each(function ($category) {
             $amount = 0;
 
             foreach ($category->expense_transactions as $transacion) {

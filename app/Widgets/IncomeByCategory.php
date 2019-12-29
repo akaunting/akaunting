@@ -13,7 +13,7 @@ class IncomeByCategory extends Widget
 
     public function show()
     {
-        Category::with(['income_transacions'])->type(['income'])->enabled()->each(function ($category) {
+        Category::with('income_transacions')->type('income')->enabled()->each(function ($category) {
             $amount = 0;
 
             foreach ($category->income_transacions as $transacion) {
