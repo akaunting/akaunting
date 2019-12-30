@@ -7,9 +7,12 @@ use App\Abstracts\Http\Controller;
 use App\Models\Common\Dashboard as Model;
 use App\Models\Common\DashboardWidget;
 use App\Http\Requests\Common\Dashboard as Request;
+use App\Traits\DateTime;
 
 class Dashboard extends Controller
 {
+    use DateTime;
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +45,9 @@ class Dashboard extends Controller
             ->where('user_id', $user_id)
             ->orderBy('sort', 'asc')->get();
 
-        return view('common.dashboard.index', compact('dashboards','dashboard', 'widgets'));
+        $financial_start = $this->getFinancialStart()->format('Y-m-d');
+
+        return view('common.dashboard.index', compact('dashboards','dashboard', 'widgets', 'financial_start'));
     }
 
     /**

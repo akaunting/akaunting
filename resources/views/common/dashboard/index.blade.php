@@ -92,19 +92,84 @@
 
 @section('new_button')
     <!--Dashboard General Filter-->
-        <el-date-picker
-            v-model="value2"
-            type="daterange"
-            align="right"
-            unlink-panels
-            :class="datepicker"
-            :format="'yyyy-MM-dd'"
-            :default-time="['00:00:00', '23:59:59']"
-            range-separator="To"
-            start-placeholder="Start date"
-            end-placeholder="End date"
-            :picker-options="pickerOptions">
-        </el-date-picker>
+    <el-date-picker
+        v-model="filter_date"
+        type="daterange"
+        align="right"
+        unlink-panels
+        :format="'yyyy-MM-dd'"
+        value-format="yyyy-MM-dd"
+        @change="onChangeFilterDate"
+        range-separator="{{ trans('general.to')}}"
+        start-placeholder="{{ trans('general.start_date')}}"
+        end-placeholder="{{ trans('general.end_date')}}"
+        :picker-options="{
+            shortcuts: [
+                {
+                    text: '{{ trans("reports.this_year") }}',
+                    onClick(picker) {
+                        const end = new Date('{{ $financial_start }}');
+                        const start = new Date('{{ $financial_start }}');
+
+                        end.setFullYear(start.getFullYear() + 1);
+                        end.setTime(end.getTime() - 3600 * 1000 * 24 * 1);
+
+                        picker.$emit('pick', [start, end]);
+                    }
+                },
+                {
+                    text: '{{ trans("reports.previous_year") }}',
+                    onClick(picker) {
+                        const end = new Date('{{ $financial_start }}');
+                        const start = new Date('{{ $financial_start }}');
+
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
+
+                        end.setFullYear(start.getFullYear() + 1);
+                        end.setTime(end.getTime() - 3600 * 1000 * 24 * 1);
+
+                        picker.$emit('pick', [start, end]);
+                    }
+                },
+                {
+                    text: '{{ trans("reports.this_quarter") }}',
+                    onClick(picker) {
+                        const now = new Date();
+                        const quarter = Math.floor((now.getMonth() / 3));
+                        const start = new Date(now.getFullYear(), quarter * 3, 1);
+                        const end = new Date(start.getFullYear(), start.getMonth() + 3, 0);
+
+                        picker.$emit('pick', [start, end]);
+                    }
+                },
+                {
+                    text: '{{ trans("reports.previous_quarter") }}',
+                    onClick(picker) {
+                        const now = new Date();
+                        const quarter = Math.floor((now.getMonth() / 3));
+                        const start = new Date(now.getFullYear(), quarter * 3, 1);
+                        const end = new Date(start.getFullYear(), start.getMonth() + 3, 0);
+
+                        start.setMonth(start.getMonth() - 3);
+                        end.setMonth(end.getMonth() - 3);
+
+                        picker.$emit('pick', [start, end]);
+                    }
+                },
+                {
+                    text: '{{ trans("reports.last_12_months") }}',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
+
+                        picker.$emit('pick', [start, end]);
+                    }
+                }
+            ]
+        }">
+    </el-date-picker>
 @endsection
 
 @section('content')

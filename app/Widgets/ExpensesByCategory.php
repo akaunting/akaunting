@@ -16,7 +16,9 @@ class ExpensesByCategory extends Widget
         Category::with('expense_transactions')->type('expense')->enabled()->each(function ($category) {
             $amount = 0;
 
-            foreach ($category->expense_transactions as $transacion) {
+            $transactions = $this->applyFilters($category->expense_transactions())->get();
+
+            foreach ($transactions as $transacion) {
                 $amount += $transacion->getAmountConvertedToDefault();
             }
 

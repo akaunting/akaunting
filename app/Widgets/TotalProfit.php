@@ -14,7 +14,7 @@ class TotalProfit extends Widget
         $current_income = $open_invoice = $overdue_invoice = 0;
         $current_expenses = $open_bill = $overdue_bill = 0;
 
-        Transaction::isNotTransfer()->each(function ($transaction) use (&$current_income, &$current_expenses) {
+        $this->applyFilters(Transaction::isNotTransfer())->each(function ($transaction) use (&$current_income, &$current_expenses) {
             $amount = $transaction->getAmountConvertedToDefault();
 
             if ($transaction->type == 'income') {
@@ -24,14 +24,14 @@ class TotalProfit extends Widget
             }
         });
 
-        Invoice::accrued()->notPaid()->each(function ($invoice) use (&$open_invoice, &$overdue_invoice) {
+        $this->applyFilters(Invoice::accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($invoice) use (&$open_invoice, &$overdue_invoice) {
             list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($invoice);
 
             $open_invoice += $open_tmp;
             $overdue_invoice += $overdue_tmp;
         });
 
-        Bill::accrued()->notPaid()->each(function ($bill) use (&$open_bill, &$overdue_bill) {
+        $this->applyFilters(Bill::accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($bill) use (&$open_bill, &$overdue_bill) {
             list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($bill);
 
             $open_bill += $open_tmp;

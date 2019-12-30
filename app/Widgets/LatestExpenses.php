@@ -9,7 +9,7 @@ class LatestExpenses extends Widget
 {
     public function show()
     {
-        $transactions = Transaction::with('category')->type('expense')->orderBy('paid_at', 'desc')->isNotTransfer()->take(5)->get();
+        $transactions = $this->applyFilters(Transaction::with('category')->type('expense')->orderBy('paid_at', 'desc')->isNotTransfer()->take(5))->get();
 
         return view('widgets.latest_expenses', [
             'config' => (object) $this->config,

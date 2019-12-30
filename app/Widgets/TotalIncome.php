@@ -12,11 +12,11 @@ class TotalIncome extends Widget
     {
         $current = $open = $overdue = 0;
 
-        Transaction::type('income')->isNotTransfer()->each(function ($transaction) use (&$current) {
+        $this->applyFilters(Transaction::type('income')->isNotTransfer())->each(function ($transaction) use (&$current) {
             $current += $transaction->getAmountConvertedToDefault();
         });
 
-        Invoice::accrued()->notPaid()->each(function ($invoice) use (&$open, &$overdue) {
+        $this->applyFilters(Invoice::accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($invoice) use (&$open, &$overdue) {
             list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($invoice);
 
             $open += $open_tmp;

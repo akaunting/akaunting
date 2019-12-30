@@ -134,6 +134,7 @@ return [
     'difference'            => 'Difference',
     'footer'                => 'Footer',
     'start_date'            => 'Start Date',
+    'end_date'              => 'End Date',
     'basis'                 => 'Basis',
     'accrual'               => 'Accrual',
     'cash'                  => 'Cash',

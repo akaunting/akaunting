@@ -12,11 +12,11 @@ class TotalExpenses extends Widget
     {
         $current = $open = $overdue = 0;
 
-        Transaction::type('expense')->isNotTransfer()->each(function ($transaction) use (&$current) {
+        $this->applyFilters(Transaction::type('expense')->isNotTransfer())->each(function ($transaction) use (&$current) {
             $current += $transaction->getAmountConvertedToDefault();
         });
 
-        Bill::accrued()->notPaid()->each(function ($bill) use (&$open, &$overdue) {
+        $this->applyFilters(Bill::accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($bill) use (&$open, &$overdue) {
             list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($bill);
 
             $open += $open_tmp;

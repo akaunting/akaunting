@@ -9,6 +9,7 @@ require('./../../bootstrap');
 import Vue from 'vue';
 
 import Global from './../../mixins/global';
+import {getQueryVariable} from './../../plugins/functions';
 
 import AkauntingDashboard from './../../components/AkauntingDashboard';
 import AkauntingWidget from './../../components/AkauntingWidget';
@@ -49,38 +50,20 @@ const dashboard = new Vue({
                 sort: 0,
                 widget_id: 0
             },
-            pickerOptions: {
-                shortcuts: [{
-                text: 'Last week',
-                onClick(picker) {
-                    const end = new Date();
-                    const start = new Date();
-                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                    picker.$emit('pick', [start, end]);
-                }
-                }, {
-                text: 'Last month',
-                onClick(picker) {
-                    const end = new Date();
-                    const start = new Date();
-                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                    picker.$emit('pick', [start, end]);
-                }
-                }, {
-                text: 'Last 3 months',
-                onClick(picker) {
-                    const end = new Date();
-                    const start = new Date();
-                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                    picker.$emit('pick', [start, end]);
-                }
-                }]
-            },
-            value2: ''
+            filter_date: [],
         };
     },
 
     mounted() {
+        let start_date = getQueryVariable('start_date');
+
+        if (start_date) {
+            let end_date = getQueryVariable('end_date');
+
+            this.filter_date.push(start_date);
+            this.filter_date.push(end_date);
+        }
+
         this.getWidgets();
     },
 
@@ -165,6 +148,14 @@ const dashboard = new Vue({
             this.widget.action = 'create';
             this.widget.sort = 0;
             this.widget.widget_id = 0;
+        },
+
+        onChangeFilterDate() {
+            if (this.filter_date) {
+                window.location.href = url + '?start_date=' + this.filter_date[0] + '&end_date=' + this.filter_date[1];
+            } else {
+                window.location.href = url;
+            }
         },
     }
 });

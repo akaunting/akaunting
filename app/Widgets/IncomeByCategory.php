@@ -16,7 +16,9 @@ class IncomeByCategory extends Widget
         Category::with('income_transacions')->type('income')->enabled()->each(function ($category) {
             $amount = 0;
 
-            foreach ($category->income_transacions as $transacion) {
+            $transactions = $this->applyFilters($category->income_transacions())->get();
+
+            foreach ($transactions as $transacion) {
                 $amount += $transacion->getAmountConvertedToDefault();
             }
 
