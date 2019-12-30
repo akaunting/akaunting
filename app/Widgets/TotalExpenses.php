@@ -36,9 +36,13 @@ class TotalExpenses extends Widget
             'progress'      => $progress,
         ];
 
-        return view('widgets.total_expenses', [
-            'config' => (object) $this->config,
+        return $this->view('widgets.total_expenses', [
             'totals' => $totals,
         ]);
+    }
+
+    public function getDefaultName()
+    {
+        return trans('widgets.total_expenses');
     }
 }

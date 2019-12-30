@@ -1,4 +1,4 @@
-<div id="widgets-total-expenses" class="{{ $config->width }}">
+<div id="widgets-total-expenses" class="{{ $model->settings->width }}">
     <div class="card bg-gradient-danger card-stats">
         <span>
             <div class="dropdown card-action-button">
@@ -11,10 +11,10 @@
                         'type'    => 'button',
                         'class'   => 'dropdown-item',
                         'title'   => trans('general.edit'),
-                        '@click'  => 'onEditWidget(' . $config->widget->id . ')'
+                        '@click'  => 'onEditWidget(' . $model->id . ')'
                     )) !!}
                     <div class="dropdown-divider"></div>
-                    {!! Form::deleteLink($config->widget, 'common/widgets') !!}
+                    {!! Form::deleteLink($model, 'common/widgets') !!}
                 </div>
             </div>
         </span>
@@ -22,7 +22,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <h5 class="text-uppercase text-white mb-0">{{ trans('dashboard.total_expenses') }}</h5>
+                    <h5 class="text-uppercase text-white mb-0">{{ $model->name }}</h5>
                     <span class="font-weight-bold text-white mb-0">@money($totals['current'], setting('default.currency'), true)</span>
                 </div>
 

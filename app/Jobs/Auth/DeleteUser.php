@@ -28,7 +28,7 @@ class DeleteUser extends Job
     {
         $this->authorize();
 
-        $this->deleteRelationships($this->user, ['dashboards', 'dashboard_widgets']);
+        $this->deleteRelationships($this->user, ['widgets', 'dashboards']);
 
         $this->user->delete();
 

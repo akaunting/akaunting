@@ -11,9 +11,13 @@ class LatestExpenses extends Widget
     {
         $transactions = $this->applyFilters(Transaction::with('category')->type('expense')->orderBy('paid_at', 'desc')->isNotTransfer()->take(5))->get();
 
-        return view('widgets.latest_expenses', [
-            'config' => (object) $this->config,
+        return $this->view('widgets.latest_expenses', [
             'transactions' => $transactions,
         ]);
+    }
+
+    public function getDefaultName()
+    {
+        return trans('widgets.latest_expenses');
     }
 }

@@ -55,9 +55,13 @@ class TotalProfit extends Widget
             'progress'      => $progress,
         ];
 
-        return view('widgets.total_profit', [
-            'config' => (object) $this->config,
+        return $this->view('widgets.total_profit', [
             'totals' => $totals,
         ]);
+    }
+
+    public function getDefaultName()
+    {
+        return trans('widgets.total_profit');
     }
 }

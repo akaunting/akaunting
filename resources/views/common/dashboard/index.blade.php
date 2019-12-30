@@ -174,8 +174,8 @@
 
 @section('content')
     <div class="row">
-        @foreach($widgets as $dashboard_widget)
-            @widget($dashboard_widget->widget->alias, $dashboard_widget->settings)
+        @foreach($widgets as $widget)
+            @widget($widget)
         @endforeach
     </div>
 @endsection

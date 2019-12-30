@@ -33,9 +33,9 @@ class DeleteCompany extends Job
 
         $this->deleteRelationships($this->company, [
             'accounts', 'bills', 'bill_histories', 'bill_items', 'bill_item_taxes', 'bill_statuses', 'bill_totals', 'categories',
-            'contacts', 'currencies', 'dashboards', 'dashboard_widgets', 'email_templates', 'invoices', 'invoice_histories',
-            'invoice_items', 'invoice_item_taxes', 'invoice_statuses', 'invoice_totals', 'items', 'modules', 'module_histories',
-            'reconciliations', 'recurring', 'reports', 'settings', 'taxes', 'transactions', 'transfers', 'widgets',
+            'contacts', 'currencies', 'dashboards', 'email_templates', 'invoices', 'invoice_histories', 'invoice_items',
+            'invoice_item_taxes', 'invoice_statuses', 'invoice_totals', 'items', 'modules', 'module_histories', 'reconciliations',
+            'recurring', 'reports', 'settings', 'taxes', 'transactions', 'transfers', 'widgets',
         ]);
 
         $this->company->delete();

@@ -30,15 +30,19 @@ class TotalIncome extends Widget
         }
 
         $totals = [
-            'current'           => $current,
-            'open'              => money($open, setting('default.currency'), true),
-            'overdue'           => money($overdue, setting('default.currency'), true),
-            'progress'          => $progress,
+            'current'       => $current,
+            'open'          => money($open, setting('default.currency'), true),
+            'overdue'       => money($overdue, setting('default.currency'), true),
+            'progress'      => $progress,
         ];
 
-        return view('widgets.total_income', [
-            'config' => (object) $this->config,
+        return $this->view('widgets.total_income', [
             'totals' => $totals,
         ]);
+    }
+
+    public function getDefaultName()
+    {
+        return trans('widgets.total_income');
     }
 }

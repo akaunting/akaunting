@@ -62,9 +62,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Common\Dashboard');
     }
 
-    public function dashboard_widgets()
+    public function widgets()
     {
-        return $this->hasMany('App\Models\Common\DashboardWidget');
+        return $this->hasManyThrough('App\Models\Common\Widget', 'App\Models\Common\Dashboard');
     }
 
     /**
