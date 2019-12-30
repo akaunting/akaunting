@@ -11,9 +11,13 @@ class AccountBalance extends Widget
     {
         $accounts = Account::enabled()->take(5)->get();
 
-        return view('widgets.account_balance', [
-            'config' => (object) $this->config,
+        return $this->view('widgets.account_balance', [
             'accounts' => $accounts,
         ]);
+    }
+
+    public function getDefaultName()
+    {
+        return trans('widgets.account_balance');
     }
 }

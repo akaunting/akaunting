@@ -20,6 +20,10 @@ class Blade extends ServiceProvider
         Facade::directive('date', function ($expression) {
             return "<?php echo company_date($expression); ?>";
         });
+
+        Facade::directive('widget', function ($expression) {
+            return "<?php echo show_widget($expression); ?>";
+        });
     }
 
     /**

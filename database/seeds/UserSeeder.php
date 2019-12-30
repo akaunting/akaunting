@@ -11,7 +11,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(Database\Seeds\Widgets::class);
         $this->call(Database\Seeds\Dashboards::class);
     }
 }

@@ -2,31 +2,31 @@
 
 namespace App\Abstracts;
 
-use Arrilot\Widgets\AbstractWidget;
 use App\Models\Income\Invoice;
 use App\Traits\Charts;
 use Date;
 
-abstract class Widget extends AbstractWidget
+abstract class Widget
 {
     use Charts;
 
-    /**
-     * The configuration array.
-     *
-     * @var array
-     */
-    protected $config = [
-        'width' => 'col-md-4',
-    ];
+    public $model;
 
-    /**
-     * Treat this method as a controller action.
-     * Return view() or other content to display.
-     */
-    public function run()
+    public function __construct($model = null)
     {
-        return $this->show();
+        $this->model = $model;
+    }
+
+    public function getDefaultSettings()
+    {
+        return [
+            'width' => 'col-md-4',
+        ];
+    }
+
+    public function view($name, $data = [])
+    {
+        return view($name, array_merge(['model' => $this->model], (array) $data));
     }
 
     public function applyFilters($model, $args = ['date_field' => 'paid_at'])
@@ -38,7 +38,7 @@ abstract class Widget extends AbstractWidget
         $start_date = request()->get('start_date') . ' 00:00:00';
         $end_date = request()->get('end_date') . ' 23:59:59';
 
-        return  $model->whereBetween($args['date_field'], [$start_date, $end_date]);
+        return $model->whereBetween($args['date_field'], [$start_date, $end_date]);
     }
 
     public function calculateDocumentTotals($model)

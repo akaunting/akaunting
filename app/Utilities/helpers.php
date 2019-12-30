@@ -1,6 +1,7 @@
 <?php
 
 use App\Traits\DateTime;
+use App\Utilities\Widgets;
 use Jenssegers\Date\Date;
 
 if (!function_exists('user')) {
@@ -35,5 +36,17 @@ if (!function_exists('company_date')) {
         };
 
         return Date::parse($date)->format($date_time->getCompanyDateFormat());
+    }
+}
+
+if (!function_exists('show_widget')) {
+    /**
+     * Format the given date based on company settings.
+     *
+     * @return string
+     */
+    function show_widget($model)
+    {
+        return Widgets::show($model);
     }
 }

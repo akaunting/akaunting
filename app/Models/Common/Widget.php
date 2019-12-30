@@ -16,14 +16,7 @@ class Widget extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'alias', 'settings', 'enabled'];
-
-    /**
-     * Sortable columns.
-     *
-     * @var array
-     */
-    public $sortable = ['name', 'alias', 'enabled'];
+    protected $fillable = ['company_id', 'dashboard_id', 'class', 'name', 'settings', 'sort'];
 
     /**
      * The attributes that should be casted to native types.
@@ -31,16 +24,11 @@ class Widget extends Model
      * @var array
      */
     protected $casts = [
-        'settings' => 'array',
+        'settings' => 'object',
     ];
 
-    public function dashboard_widgets()
+    public function dashboard()
     {
-        return $this->hasMany('App\Models\Common\DashboardWidget');
-    }
-
-    public function dashboard_widget()
-    {
-        return $this->belongsTo('App\Models\Common\DashboardWidget', 'id', 'widget_id')->where('dashboard_id', 1);
+        return $this->belongsTo('App\Models\Common\Dashboard');
     }
 }

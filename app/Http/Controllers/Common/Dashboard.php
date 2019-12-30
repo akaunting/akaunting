@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Common;
 
 use App\Abstracts\Http\Controller;
-
-use App\Models\Common\Dashboard as Model;
-use App\Models\Common\DashboardWidget;
 use App\Http\Requests\Common\Dashboard as Request;
+use App\Models\Common\Dashboard as Model;
+use App\Models\Common\Widget;
 use App\Traits\DateTime;
 
 class Dashboard extends Controller
@@ -40,14 +39,12 @@ class Dashboard extends Controller
         // Dashboard
         $dashboard = Model::find($dashboard_id);
 
-        // Dashboard Widgets
-        $widgets = DashboardWidget::where('dashboard_id', $dashboard->id)
-            ->where('user_id', $user_id)
-            ->orderBy('sort', 'asc')->get();
+        // Widgets
+        $widgets = Widget::where('dashboard_id', $dashboard->id)->orderBy('sort', 'asc')->get();
 
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
-        return view('common.dashboard.index', compact('dashboards','dashboard', 'widgets', 'financial_start'));
+        return view('common.dashboard.index', compact('dashboards', 'dashboard', 'widgets', 'financial_start'));
     }
 
     /**

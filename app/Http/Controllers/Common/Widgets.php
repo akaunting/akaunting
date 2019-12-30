@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Common;
 
 use App\Abstracts\Http\Controller;
-
-use App\Models\Common\DashboardWidget as Model;
-use App\Models\Common\Widget;
 use App\Http\Requests\Common\Widget as Request;
+use App\Models\Common\Widget;
+use App\Utilities\Widgets as Utility;
 
 class Widgets extends Controller
 {
@@ -17,7 +16,7 @@ class Widgets extends Controller
      */
     public function index()
     {
-        $widgets = Widget::enabled()->get();
+        $widgets = Utility::getClasses();
 
         return response()->json($widgets);
     }
@@ -30,13 +29,11 @@ class Widgets extends Controller
      */
     public function store(Request $request)
     {
-        $request['user_id'] = user()->id;
-
         $request['settings'] = [
             'width' => $request->get('width'),
         ];
 
-        $widget = Model::create($request->input());
+        $widget = Widget::create($request->input());
 
         $settings = $widget->settings;
         unset($settings['widget']);
@@ -59,17 +56,17 @@ class Widgets extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Model  $dashboard
+     * @param  Widget  $widget
      *
      * @return Response
      */
-    public function edit(Model $widget)
+    public function edit(Widget $widget)
     {
         $settings = $widget->settings;
         unset($settings['widget']);
 
         return response()->json([
-            'widget_id' => $widget->widget_id,
+            'class' => $widget->class,
             'name' => $widget->name,
             'settings' => $settings,
             'sort' => $widget->sort,
@@ -79,14 +76,12 @@ class Widgets extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Model  $dashboard
+     * @param  Widget  $widget
      * @param  $request
      * @return Response
      */
-    public function update(Model $widget, Request $request)
+    public function update(Widget $widget, Request $request)
     {
-        $request['user_id'] = user()->id;
-
         $request['settings'] = [
             'width' => $request->get('width'),
         ];
@@ -102,7 +97,7 @@ class Widgets extends Controller
             'error' => false,
             'message' => trans('messages.success.added', ['type' => $widget->name]),
             'data' => [
-                'widget_id' => $widget->widget_id,
+                'class' => $widget->class,
                 'name' => $widget->name,
                 'settings' => $settings,
                 'sort' => $widget->sort,
@@ -114,11 +109,11 @@ class Widgets extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Model $dashboard
+     * @param  Widget $widget
      *
      * @return Response
      */
-    public function destroy(Model $widget)
+    public function destroy(Widget $widget)
     {
         $message = trans('messages.success.deleted', ['type' => $widget->name]);
 

@@ -1,9 +1,9 @@
-<div id="widgets-latest-expenses" class="{{ $config->width }}">
+<div id="widgets-latest-expenses" class="{{ $model->settings->width }}">
     <div class="card">
         <div class="card-header border-bottom-0">
             <div class="row align-items-center">
                 <div class="col-6 text-nowrap">
-                    <h4 class="mb-0">{{ trans('dashboard.latest_expenses') }}</h4>
+                    <h4 class="mb-0">{{ $model->name }}</h4>
                 </div>
 
                 <div class="col-6 hidden-sm">
@@ -18,10 +18,10 @@
                                     'type'    => 'button',
                                     'class'   => 'dropdown-item',
                                     'title'   => trans('general.edit'),
-                                    '@click'  => 'onEditWidget(' . $config->widget->id . ')'
+                                    '@click'  => 'onEditWidget(' . $model->id . ')'
                                 )) !!}
                                 <div class="dropdown-divider"></div>
-                                {!! Form::deleteLink($config->widget, 'common/widgets') !!}
+                                {!! Form::deleteLink($model, 'common/widgets') !!}
                             </div>
                         </div>
                     </span>

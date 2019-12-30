@@ -27,7 +27,7 @@ class Dashboard extends Model
 
     public function widgets()
     {
-        return $this->hasMany('App\Models\Common\DashboardWidget')->orderBy('sort', 'asc');
+        return $this->hasMany('App\Models\Common\Widget')->orderBy('sort', 'asc');
     }
 
     public function user()

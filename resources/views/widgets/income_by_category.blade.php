@@ -1,10 +1,10 @@
-<div id="widgets-incomes-by-category" class="{{ $config->width }}">
+<div id="widgets-incomes-by-category" class="{{ $model->settings->width }}">
     <div class="card">
         <div class="card-header">
             <div class="row align-items-center">
 
                 <div class="col-6 text-nowrap">
-                    <h4 class="mb-0">{{ trans('dashboard.income_by_category') }}</h4>
+                    <h4 class="mb-0">{{ $model->name }}</h4>
                 </div>
 
                 <div class="col-6 hidden-sm">
@@ -19,10 +19,10 @@
                                     'type'    => 'button',
                                     'class'   => 'dropdown-item',
                                     'title'   => trans('general.edit'),
-                                    '@click'  => 'onEditWidget(' . $config->widget->id . ')'
+                                    '@click'  => 'onEditWidget(' . $model->id . ')'
                                 )) !!}
                                 <div class="dropdown-divider"></div>
-                                {!! Form::deleteLink($config->widget, 'common/widgets') !!}
+                                {!! Form::deleteLink($model, 'common/widgets') !!}
                             </div>
                         </div>
                     </span>

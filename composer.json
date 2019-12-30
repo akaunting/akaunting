@@ -20,7 +20,6 @@
         "akaunting/money": "1.0.*",
         "akaunting/setting": "1.1.*",
         "akaunting/version": "1.0.*",
-        "arrilot/laravel-widgets": "3.13.*",
         "barryvdh/laravel-debugbar": "3.2.*",
         "barryvdh/laravel-dompdf": "0.*",
         "barryvdh/laravel-ide-helper": "2.6.*",

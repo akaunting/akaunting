@@ -11,9 +11,13 @@ class LatestIncome extends Widget
     {
         $transactions = $this->applyFilters(Transaction::with('category')->type('income')->orderBy('paid_at', 'desc')->isNotTransfer()->take(5))->get();
 
-        return view('widgets.latest_income', [
-            'config' => (object) $this->config,
+        return $this->view('widgets.latest_income', [
             'transactions' => $transactions,
         ]);
+    }
+
+    public function getDefaultName()
+    {
+        return trans('widgets.latest_income');
     }
 }

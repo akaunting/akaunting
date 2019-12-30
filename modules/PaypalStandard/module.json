@@ -11,6 +11,7 @@
     "files": [],
     "requires": [],
     "reports": [],
+    "widgets": [],
     "settings": [
         {
             "type": "textGroup",
@@ -77,6 +78,5 @@
             "icon": "sort",
             "attributes": {}
         }
-    ],
-    "widgets": []
+    ]
 }

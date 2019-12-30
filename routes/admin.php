@@ -10,9 +10,7 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('companies/{company}/disable', 'Common\Companies@disable')->name('companies.disable');
     Route::resource('companies', 'Common\Companies');
 
-    Route::get('dashboard/cashflow', 'Common\Dashboard@cashFlow')->name('dashboards.cashflow');
     Route::resource('dashboards', 'Common\Dashboard');
-
     Route::post('widgets/getData', 'Common\Widgets@getData')->name('widgets.getData');
     Route::resource('widgets', 'Common\Widgets');
 

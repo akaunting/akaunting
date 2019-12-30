@@ -98,11 +98,6 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Common\Dashboard');
     }
 
-    public function dashboard_widgets()
-    {
-        return $this->hasMany('App\Models\Common\DashboardWidget');
-    }
-
     public function email_templates()
     {
         return $this->hasMany('App\Models\Common\EmailTemplate');
