@@ -87,7 +87,7 @@
                                     v-html="form.errors.get('api_key')"></div>
                         </div>
                         <p class="mb-0 mt--3">
-                            <small>{!! trans('modules.api_key_link') !!}</small>
+                            <small>{!! trans('modules.get_api_key', ['url' => 'https://akaunting.com/dashboard']) !!}</small>
                         </p>
                         <br>
                     </div>
