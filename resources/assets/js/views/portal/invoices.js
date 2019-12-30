@@ -60,7 +60,23 @@ const app = new Vue({
                 if (response.data.html) {
                     this.method_show_html = Vue.component('payment-method-confirm', function (resolve, reject) {
                           resolve({
-                            template: response.data.html,
+                            template: '<div>' + response.data.html + '</div>',
+
+                            components: {
+                                CardForm
+                            },
+
+                            data: function () {
+                                return {
+                                    formData: {
+                                        cardName: '',
+                                        cardNumber: '',
+                                        cardMonth: '',
+                                        cardYear: '',
+                                        cardCvv: ''
+                                    }
+                                }
+                            },
 
                             methods: {
                                 onRedirectConfirm() {
@@ -97,8 +113,6 @@ const app = new Vue({
         },
 
         onChangePaymentMethodSigned(event) {
-            let method = event.split('.');
-
             this.form.payment_action = event;
 
             let payment_action = payment_action_path[event];
@@ -114,7 +128,23 @@ const app = new Vue({
                 if (response.data.html) {
                     this.method_show_html = Vue.component('payment-method-confirm', function (resolve, reject) {
                           resolve({
-                            template: response.data.html,
+                            template: '<div>' + response.data.html + '</div>',
+
+                            components: {
+                                CardForm
+                            },
+
+                            data: function () {
+                                return {
+                                    formData: {
+                                        cardName: '',
+                                        cardNumber: '',
+                                        cardMonth: '',
+                                        cardYear: '',
+                                        cardCvv: ''
+                                    }
+                                }
+                            },
 
                             methods: {
                                 onRedirectConfirm() {
@@ -131,20 +161,5 @@ const app = new Vue({
                 this.method_show_html = error.message;
             });
         },
-
-        updateCardNumber (val) {
-        },
-
-        updateCardName (val) {
-        },
-
-        updateCardMonth (val) {
-        },
-
-        updateCardYear (val) {
-        },
-
-        updateCardCvv (val) {
-        }
     }
 });

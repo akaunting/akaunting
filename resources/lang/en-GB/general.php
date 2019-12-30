@@ -141,6 +141,16 @@ return [
     'group_by'              => 'Group By',
     'accounting'            => 'Accounting',
 
+    'month'                => 'Month',
+    'year'                => 'Year',
+
+    'card' => [
+        'name'                  => 'Name on Card',
+        'number'                => 'Card Number',
+        'expiration_date'       => 'Expiration Date',
+        'cvv'                   => 'Card CVV',
+    ],
+
     'title' => [
         'new'               => 'New :type',
         'edit'              => 'Edit :type',
