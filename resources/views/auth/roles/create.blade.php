@@ -42,15 +42,13 @@
                 </ul>
             </div>
 
-            <div class="card shadow">
+            <div class="card">
                 <div class="card-body">
                     <div class="tab-content">
                         @foreach($permissions as $code => $code_permissions)
                             <div class="tab-pane fade show @php echo ($code == 'read') ? 'active' : ''; @endphp" id="tab-{{ $code }}"  role="tabpanel">
-                                <div class="permission-button-group">
-                                    <span class="btn btn-primary btn-sm" @click="select('{{ $code }}')">{{trans('general.select_all')}}</span>
-                                    <span class="btn btn-primary btn-sm" @click="unselect('{{ $code }}')">{{trans('general.unselect_all')}}</span>
-                                </div>
+                                <span class="btn btn-primary btn-sm" @click="select('{{ $code }}')">{{ trans('general.select_all') }}</span>
+                                <span class="btn btn-primary btn-sm" @click="unselect('{{ $code }}')">{{ trans('general.unselect_all') }}</span>
 
                                 @stack('permissions_input_start')
                                     <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }}">
