@@ -29,10 +29,11 @@ class CreateCompany extends Job
      */
     public function handle()
     {
-        // Clear settings
-        setting()->forgetAll();
-
         $this->company = Company::create($this->request->all());
+
+        // Clear settings
+        setting()->setExtraColumns(['company_id' => $this->company->id]);
+        setting()->forgetAll();
 
         $this->callSeeds();
 
@@ -64,8 +65,6 @@ class CreateCompany extends Job
 
     protected function updateSettings()
     {
-        setting()->setExtraColumns(['company_id' => $this->company->id]);
-
         if ($this->request->file('logo')) {
             $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->company->id);
 

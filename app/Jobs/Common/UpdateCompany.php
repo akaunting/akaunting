@@ -40,10 +40,10 @@ class UpdateCompany extends Job
         $this->company->update($this->request->all());
 
         // Clear current settings
+        setting()->setExtraColumns(['company_id' => $this->company->id]);
         setting()->forgetAll();
 
         // Load settings based on the given company
-        setting()->setExtraColumns(['company_id' => $this->company->id]);
         setting()->load(true);
 
         if ($this->request->has('name')) {

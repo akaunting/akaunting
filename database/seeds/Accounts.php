@@ -26,8 +26,8 @@ class Accounts extends Seeder
     {
         $company_id = $this->command->argument('company');
 
-        setting()->forgetAll();
         setting()->setExtraColumns(['company_id' => $company_id]);
+        setting()->forgetAll();
 
         $rows = [
             [
