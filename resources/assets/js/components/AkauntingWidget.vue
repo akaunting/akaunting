@@ -27,13 +27,13 @@
                             </span>
                             <el-select
                                     class="select-primary"
-                                    v-model="form.widget_id" filterable
+                                    v-model="form.class" filterable
                                     :placeholder="placeholder.type">
-                                <el-option v-for="option in types"
+                                <el-option v-for="(name, value) in types"
                                            class="select-primary"
-                                           :key="option.name"
-                                           :label="option.name"
-                                           :value="option.id">
+                                           :key="name"
+                                           :label="name"
+                                           :value="value">
                                 </el-option>
                             </el-select>
                         </base-input>
@@ -122,47 +122,65 @@ export default {
     },
 
     props: {
-        show: Boolean,
+        show: {
+            type: Boolean,
+            default: false,
+            description: "Modal Status"
+        },
         action: {
             type: String,
             default: 'create',
-            description: "Modal header title"
+            description: "Widget modal action create/edit"
         },
         title: {
             type: String,
             default: '',
             description: "Modal header title"
         },
-        text: {},
-        placeholder: {},
+        text: {
+            type: Object,
+            default: {},
+            description: "Widget form texts"
+        },
+        placeholder: {
+            type: Object,
+            default: {},
+            description: "Widget form placeholder"
+        },
         name: {
             type: String,
-            default: ''
+            default: '',
+            description: "Widget Name Field"
         },
         width: {
             type: String,
-            default: ''
+            default: '',
+            description: "Widget Width Field"
         },
         type: {
             type: String,
-            default: 'create',
-            description: "Modal header title"
+            default: '',
+            description: "Widget Class Field"
+        },
+        types: {
+            type: Object,
+            default: {},
+            description: "Widget Get Classes"
         },
         sort: {
-            type: String,
-            default: 'create',
-            description: "Modal header title"
+            type: Number,
+            default: 0,
+            description: "Widget Sort Field"
         },
-        types: {},
         dashboard_id: {
             type: Number,
             default: 0,
-            description: "Modal header title"
+            description: "Widget Dashboard Id"
         },
         widget_id: {
             type: Number,
             default: 0,
-            description: "Modal header title"
+            description: "Edit Widget ID"
         },
     },
 
@@ -188,9 +206,9 @@ export default {
             ],
             form: {
                 loading: false,
+                class: this.type,
                 name: this.name,
                 width: this.width,
-                widget_id: this.type,
                 sort: this.sort,
                 dashboard_id: this.dashboard_id
             },

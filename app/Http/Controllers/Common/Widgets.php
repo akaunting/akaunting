@@ -36,7 +36,6 @@ class Widgets extends Controller
         $widget = Widget::create($request->input());
 
         $settings = $widget->settings;
-        unset($settings['widget']);
 
         return response()->json([
             'status' => 200,
@@ -44,10 +43,10 @@ class Widgets extends Controller
             'error' => false,
             'message' => trans('messages.success.added', ['type' => $widget->name]),
             'data' => [
-                'widget_id' => $widget->widget_id,
-                'name' => $widget->name,
-                'settings' => $settings,
-                'sort' => $widget->sort,
+                'class'     => $widget->class,
+                'name'      => $widget->name,
+                'settings'  => $settings,
+                'sort'      => $widget->sort,
             ],
             'redirect' => route('dashboard'),
         ]);
@@ -63,7 +62,6 @@ class Widgets extends Controller
     public function edit(Widget $widget)
     {
         $settings = $widget->settings;
-        unset($settings['widget']);
 
         return response()->json([
             'class' => $widget->class,
@@ -89,7 +87,6 @@ class Widgets extends Controller
         $widget->update($request->input());
 
         $settings = $widget->settings;
-        unset($settings['widget']);
 
         return response()->json([
             'status' => 200,
@@ -97,10 +94,10 @@ class Widgets extends Controller
             'error' => false,
             'message' => trans('messages.success.added', ['type' => $widget->name]),
             'data' => [
-                'class' => $widget->class,
-                'name' => $widget->name,
-                'settings' => $settings,
-                'sort' => $widget->sort,
+                'class'     => $widget->class,
+                'name'      => $widget->name,
+                'settings'  => $settings,
+                'sort'      => $widget->sort,
             ],
             'redirect' => route('dashboard'),
         ]);

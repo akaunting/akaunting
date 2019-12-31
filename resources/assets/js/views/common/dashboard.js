@@ -43,12 +43,12 @@ const dashboard = new Vue({
             widget_modal: false,
             widgets: {},
             widget: {
+                id: 0,
                 name: '',
-                type: '',
+                class: '',
                 width: '',
                 action: 'create',
                 sort: 0,
-                widget_id: 0
             },
             filter_date: [],
         };
@@ -118,12 +118,12 @@ const dashboard = new Vue({
 
             axios.get(url + '/common/widgets/' + widget_id + '/edit')
             .then(function (response) {
+                self.widget.id = widget_id;
                 self.widget.name = response.data.name;
-                self.widget.type = response.data.widget_id;
+                self.widget.class = response.data.class;
                 self.widget.width = response.data.settings.width;
                 self.widget.action = 'edit';
                 self.widget.sort = response.data.sort;
-                self.widget.widget_id = widget_id;
 
                 self.widget_modal = true;
             })
@@ -142,12 +142,12 @@ const dashboard = new Vue({
 
             this.widget_modal = false;
 
+            this.widget.id = 0;
             this.widget.name = '';
-            this.widget.type = '';
+            this.widget.class = '';
             this.widget.width = '';
             this.widget.action = 'create';
             this.widget.sort = 0;
-            this.widget.widget_id = 0;
         },
 
         onChangeFilterDate() {
