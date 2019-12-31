@@ -19,7 +19,6 @@ locale.use(lang);
 
 // asset imports
 import './../../sass/argon.scss';
-import './../../css/nucleo/css/nucleo.css';
 import 'element-ui/lib/theme-chalk/index.css';
 
 export default {
