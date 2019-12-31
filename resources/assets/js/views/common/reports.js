@@ -15,9 +15,11 @@ import BulkAction from './../../plugins/bulk-action';
 
 const app = new Vue({
     el: '#app',
+
     mixins: [
         Global
     ],
+
     data: function () {
         return {
             form: new Form('report'),
