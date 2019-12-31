@@ -28,9 +28,7 @@ class Dashboard extends Controller
             session(['dashboard_id' => $dashboard_id]);
         }
 
-        $user_id = user()->id;
-
-        $dashboards = Model::where('user_id', $user_id)->enabled()->get();
+        $dashboards = Model::where('user_id', user()->id)->enabled()->get();
 
         if (!$dashboard_id) {
             $dashboard_id = $dashboards->first()->id;

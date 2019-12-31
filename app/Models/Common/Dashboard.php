@@ -25,14 +25,14 @@ class Dashboard extends Model
      */
     public $sortable = ['name', 'enabled'];
 
-    public function widgets()
-    {
-        return $this->hasMany('App\Models\Common\Widget')->orderBy('sort', 'asc');
-    }
-
     public function user()
     {
         return $this->belongsTo('App\Models\Auth\User', 'user_id', 'id');
+    }
+
+    public function widgets()
+    {
+        return $this->hasMany('App\Models\Common\Widget')->orderBy('sort', 'asc');
     }
 
     public function scopeOfUser($query, $user_id)

@@ -31,4 +31,9 @@ class Widget extends Model
     {
         return $this->belongsTo('App\Models\Common\Dashboard');
     }
+
+    public function user()
+    {
+        return $this->hasOneThrough('App\Models\Auth\User', 'App\Models\Common\Dashboard');
+    }
 }
