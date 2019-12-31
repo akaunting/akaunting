@@ -14,9 +14,11 @@ import Form from './../../plugins/form';
 
 const app = new Vue({
     el: '#app',
+
     mixins: [
         Global
     ],
+
     data: function () {
         return {
             form: new Form('company')
