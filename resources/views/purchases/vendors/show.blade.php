@@ -71,7 +71,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('dashboard.open_bills') }}</h5>
+                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('widgets.open_bills') }}</h5>
                                     <div class="dropdown-divider"></div>
                                     <span class="h2 font-weight-bold mb-0 text-white">@money($amounts['open'], setting('default.currency'), true)</span>
                                 </div>
@@ -85,7 +85,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('dashboard.overdue_bills') }}</h5>
+                                    <h5 class="text-uppercase text-muted mb-0 text-white">{{ trans('widgets.overdue_bills') }}</h5>
                                     <div class="dropdown-divider"></div>
                                     <span class="h2 font-weight-bold mb-0 text-white">@money($amounts['overdue'], setting('default.currency'), true)</span>
                                 </div>
