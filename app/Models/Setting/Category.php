@@ -24,7 +24,7 @@ class Category extends Model
 
     public function bills()
     {
-        return $this->hasMany('App\Models\Expense\Bill');
+        return $this->hasMany('App\Models\Purchase\Bill');
     }
 
     public function expense_transactions()
@@ -39,7 +39,7 @@ class Category extends Model
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Income\Invoice');
+        return $this->hasMany('App\Models\Sale\Invoice');
     }
 
     public function items()

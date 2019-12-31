@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Events\Expense\BillCreated;
-use App\Events\Expense\BillRecurring;
-use App\Events\Income\InvoiceCreated;
-use App\Events\Income\InvoiceRecurring;
+use App\Events\Purchase\BillCreated;
+use App\Events\Purchase\BillRecurring;
+use App\Events\Sale\InvoiceCreated;
+use App\Events\Sale\InvoiceRecurring;
 use App\Models\Common\Company;
 use App\Traits\Incomes;
 use App\Utilities\Overrider;
@@ -93,7 +93,7 @@ class RecurringCheck extends Command
         }
 
         switch ($recurring->recurable_type) {
-            case 'App\Models\Expense\Bill':
+            case 'App\Models\Purchase\Bill':
                 if (!$clone = $this->getDocumentClone($model, 'billed_at')) {
                     break;
                 }
@@ -103,7 +103,7 @@ class RecurringCheck extends Command
                 event(new BillRecurring($clone));
 
                 break;
-            case 'App\Models\Income\Invoice':
+            case 'App\Models\Sale\Invoice':
                 if (!$clone = $this->getDocumentClone($model, 'invoiced_at')) {
                     break;
                 }

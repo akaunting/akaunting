@@ -47,7 +47,7 @@ class Transaction extends Model
 
     public function bill()
     {
-        return $this->belongsTo('App\Models\Expense\Bill', 'document_id');
+        return $this->belongsTo('App\Models\Purchase\Bill', 'document_id');
     }
 
     public function category()
@@ -67,7 +67,7 @@ class Transaction extends Model
 
     public function invoice()
     {
-        return $this->belongsTo('App\Models\Income\Invoice', 'document_id');
+        return $this->belongsTo('App\Models\Sale\Invoice', 'document_id');
     }
 
     public function recurring()

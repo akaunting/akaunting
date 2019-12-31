@@ -4,8 +4,8 @@ namespace App\Reports;
 
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
-use App\Models\Expense\Bill;
-use App\Models\Income\Invoice;
+use App\Models\Purchase\Bill;
+use App\Models\Sale\Invoice;
 use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Utilities\Recurring;

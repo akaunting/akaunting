@@ -3,7 +3,7 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Models\Income\InvoiceStatus;
+use App\Models\Sale\InvoiceStatus;
 use Illuminate\Database\Seeder;
 
 class InvoiceStatuses extends Seeder

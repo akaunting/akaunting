@@ -15,10 +15,10 @@ class Vendors extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-expenses-vendors')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-expenses-vendors')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-expenses-vendors')->only(['update', 'enable', 'disable']);
-        $this->middleware('permission:delete-expenses-vendors')->only('destroy');
+        $this->middleware('permission:create-purchases-vendors')->only(['create', 'store', 'duplicate', 'import']);
+        $this->middleware('permission:read-purchases-vendors')->only(['index', 'show', 'edit', 'export']);
+        $this->middleware('permission:update-purchases-vendors')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:delete-purchases-vendors')->only('destroy');
     }
 
     /**

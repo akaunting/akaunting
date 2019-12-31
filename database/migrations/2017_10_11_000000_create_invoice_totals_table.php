@@ -2,9 +2,9 @@
 
 use App\Abstracts\Model;
 use App\Models\Common\Company;
-use App\Models\Income\Invoice;
-use App\Models\Income\InvoiceItem;
-use App\Models\Income\InvoiceTotal;
+use App\Models\Sale\Invoice;
+use App\Models\Sale\InvoiceItem;
+use App\Models\Sale\InvoiceTotal;
 use App\Models\Setting\Tax;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Jobs\Expense\CreateBillHistory;
-use App\Jobs\Income\CreateInvoiceHistory;
+use App\Jobs\Purchase\CreateBillHistory;
+use App\Jobs\Sale\CreateInvoiceHistory;
 use App\Models\Banking\Transaction as Model;
 use App\Traits\Jobs;
 

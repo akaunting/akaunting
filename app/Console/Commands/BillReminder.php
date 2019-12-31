@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Common\Company;
-use App\Models\Expense\Bill;
-use App\Notifications\Expense\Bill as Notification;
+use App\Models\Purchase\Bill;
+use App\Notifications\Purchase\Bill as Notification;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;

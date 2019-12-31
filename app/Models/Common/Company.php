@@ -45,32 +45,32 @@ class Company extends Eloquent
 
     public function bills()
     {
-        return $this->hasMany('App\Models\Expense\Bill');
+        return $this->hasMany('App\Models\Purchase\Bill');
     }
 
     public function bill_histories()
     {
-        return $this->hasMany('App\Models\Expense\BillHistory');
+        return $this->hasMany('App\Models\Purchase\BillHistory');
     }
 
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Expense\BillItem');
+        return $this->hasMany('App\Models\Purchase\BillItem');
     }
 
     public function bill_item_taxes()
     {
-        return $this->hasMany('App\Models\Expense\BillItemTax');
+        return $this->hasMany('App\Models\Purchase\BillItemTax');
     }
 
     public function bill_statuses()
     {
-        return $this->hasMany('App\Models\Expense\BillStatus');
+        return $this->hasMany('App\Models\Purchase\BillStatus');
     }
 
     public function bill_totals()
     {
-        return $this->hasMany('App\Models\Expense\BillTotal');
+        return $this->hasMany('App\Models\Purchase\BillTotal');
     }
 
     public function categories()
@@ -115,32 +115,32 @@ class Company extends Eloquent
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Income\Invoice');
+        return $this->hasMany('App\Models\Sale\Invoice');
     }
 
     public function invoice_histories()
     {
-        return $this->hasMany('App\Models\Income\InvoiceHistory');
+        return $this->hasMany('App\Models\Sale\InvoiceHistory');
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Income\InvoiceItem');
+        return $this->hasMany('App\Models\Sale\InvoiceItem');
     }
 
     public function invoice_item_taxes()
     {
-        return $this->hasMany('App\Models\Income\InvoiceItemTax');
+        return $this->hasMany('App\Models\Sale\InvoiceItemTax');
     }
 
     public function invoice_statuses()
     {
-        return $this->hasMany('App\Models\Income\InvoiceStatus');
+        return $this->hasMany('App\Models\Sale\InvoiceStatus');
     }
 
     public function invoice_totals()
     {
-        return $this->hasMany('App\Models\Income\InvoiceTotal');
+        return $this->hasMany('App\Models\Sale\InvoiceTotal');
     }
 
     public function items()

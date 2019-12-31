@@ -30,7 +30,7 @@ class Currency extends Model
 
     public function bills()
     {
-        return $this->hasMany('App\Models\Expense\Bill', 'currency_code', 'code');
+        return $this->hasMany('App\Models\Purchase\Bill', 'currency_code', 'code');
     }
 
     public function contacts()
@@ -55,7 +55,7 @@ class Currency extends Model
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Income\Invoice', 'currency_code', 'code');
+        return $this->hasMany('App\Models\Sale\Invoice', 'currency_code', 'code');
     }
 
     public function transactions()

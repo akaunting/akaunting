@@ -201,7 +201,7 @@ class Users extends Controller
         // Mark bill notifications as read
         foreach ($user->unreadNotifications as $notification) {
             // Not a bill notification
-            if ($notification->getAttribute('type') != 'App\Notifications\Expense\Bill') {
+            if ($notification->getAttribute('type') != 'App\Notifications\Purchase\Bill') {
                 continue;
             }
 
@@ -223,7 +223,7 @@ class Users extends Controller
         // Mark invoice notifications as read
         foreach ($user->unreadNotifications as $notification) {
             // Not an invoice notification
-            if ($notification->getAttribute('type') != 'App\Notifications\Income\Invoice') {
+            if ($notification->getAttribute('type') != 'App\Notifications\Sale\Invoice') {
                 continue;
             }
 

@@ -3,7 +3,7 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Models\Expense\BillStatus;
+use App\Models\Purchase\BillStatus;
 use Illuminate\Database\Seeder;
 
 class BillStatuses extends Seeder

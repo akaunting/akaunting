@@ -41,11 +41,11 @@ class Header
                 $data = $underead->getAttribute('data');
 
                 switch ($underead->getAttribute('type')) {
-                    case 'App\Notifications\Expense\Bill':
+                    case 'App\Notifications\Purchase\Bill':
                         $bills[$data['bill_id']] = $data['amount'];
                         $notifications++;
                         break;
-                    case 'App\Notifications\Income\Invoice':
+                    case 'App\Notifications\Sale\Invoice':
                         $invoices[$data['invoice_id']] = $data['amount'];
                         $notifications++;
                         break;

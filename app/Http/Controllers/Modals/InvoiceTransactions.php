@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
-use App\Events\Income\PaymentReceived;
+use App\Events\Sale\PaymentReceived;
 use App\Http\Requests\Banking\Transaction as Request;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
-use App\Models\Income\Invoice;
+use App\Models\Sale\Invoice;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
@@ -22,10 +22,10 @@ class InvoiceTransactions extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-incomes-invoices')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-incomes-invoices')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-incomes-invoices')->only(['update', 'enable', 'disable']);
-        $this->middleware('permission:delete-incomes-invoices')->only('destroy');
+        $this->middleware('permission:create-sales-invoices')->only(['create', 'store', 'duplicate', 'import']);
+        $this->middleware('permission:read-sales-invoices')->only(['index', 'show', 'edit', 'export']);
+        $this->middleware('permission:update-sales-invoices')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:delete-sales-invoices')->only('destroy');
     }
 
     /**

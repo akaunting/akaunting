@@ -32,7 +32,7 @@ class AddAdminItems
                 }
             }, 1, [
                 'url' => '/',
-                'title' => trans_choice('general.incomes', 2),
+                'title' => trans_choice('general.dashboards', 2),
                 'icon' => 'fa fa-tachometer-alt',
             ]);
         } else {
@@ -49,42 +49,42 @@ class AddAdminItems
             $menu->route('items.index', trans_choice('general.items', 2), [], 2, ['icon' => 'fa fa-cube']);
         }
 
-        // Incomes
-        if ($user->can(['read-incomes-invoices', 'read-incomes-revenues', 'read-incomes-customers'])) {
-            $menu->dropdown(trim(trans_choice('general.incomes', 2)), function ($sub) use ($user, $attr) {
-                if ($user->can('read-incomes-invoices')) {
+        // Sales
+        if ($user->can(['read-sales-invoices', 'read-sales-revenues', 'read-sales-customers'])) {
+            $menu->dropdown(trim(trans_choice('general.sales', 2)), function ($sub) use ($user, $attr) {
+                if ($user->can('read-sales-invoices')) {
                     $sub->route('invoices.index', trans_choice('general.invoices', 2), [], 1, $attr);
                 }
 
-                if ($user->can('read-incomes-revenues')) {
+                if ($user->can('read-sales-revenues')) {
                     $sub->route('revenues.index', trans_choice('general.revenues', 2), [], 2, $attr);
                 }
 
-                if ($user->can('read-incomes-customers')) {
+                if ($user->can('read-sales-customers')) {
                     $sub->route('customers.index', trans_choice('general.customers', 2), [], 3, $attr);
                 }
             }, 3, [
-                'title' => trans_choice('general.incomes', 2),
+                'title' => trans_choice('general.sales', 2),
                 'icon' => 'fa fa-money-bill',
             ]);
         }
 
-        // Expenses
-        if ($user->can(['read-expenses-bills', 'read-expenses-payments', 'read-expenses-vendors'])) {
-            $menu->dropdown(trim(trans_choice('general.expenses', 2)), function ($sub) use ($user, $attr) {
-                if ($user->can('read-expenses-bills')) {
+        // Purchases
+        if ($user->can(['read-purchases-bills', 'read-purchases-payments', 'read-purchases-vendors'])) {
+            $menu->dropdown(trim(trans_choice('general.purchases', 2)), function ($sub) use ($user, $attr) {
+                if ($user->can('read-purchases-bills')) {
                     $sub->route('bills.index', trans_choice('general.bills', 2), [], 1, $attr);
                 }
 
-                if ($user->can('read-expenses-payments')) {
+                if ($user->can('read-purchases-payments')) {
                     $sub->route('payments.index', trans_choice('general.payments', 2), [], 2, $attr);
                 }
 
-                if ($user->can('read-expenses-vendors')) {
+                if ($user->can('read-purchases-vendors')) {
                     $sub->route('vendors.index', trans_choice('general.vendors', 2), [], 3, $attr);
                 }
             }, 4, [
-                'title' => trans_choice('general.expenses', 2),
+                'title' => trans_choice('general.purchases', 2),
                 'icon' => 'fa fa-shopping-cart',
             ]);
         }

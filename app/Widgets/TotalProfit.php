@@ -4,8 +4,8 @@ namespace App\Widgets;
 
 use App\Abstracts\Widget;
 use App\Models\Banking\Transaction;
-use App\Models\Expense\Bill;
-use App\Models\Income\Invoice;
+use App\Models\Purchase\Bill;
+use App\Models\Sale\Invoice;
 
 class TotalProfit extends Widget
 {

@@ -4,7 +4,7 @@ namespace App\Widgets;
 
 use App\Abstracts\Widget;
 use App\Models\Banking\Transaction;
-use App\Models\Expense\Bill;
+use App\Models\Purchase\Bill;
 
 class TotalExpenses extends Widget
 {

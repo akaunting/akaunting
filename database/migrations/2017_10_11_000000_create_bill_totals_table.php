@@ -3,9 +3,9 @@
 
 use App\Abstracts\Model;
 use App\Models\Common\Company;
-use App\Models\Expense\Bill;
-use App\Models\Expense\BillItem;
-use App\Models\Expense\BillTotal;
+use App\Models\Purchase\Bill;
+use App\Models\Purchase\BillItem;
+use App\Models\Purchase\BillTotal;
 use App\Models\Setting\Tax;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
