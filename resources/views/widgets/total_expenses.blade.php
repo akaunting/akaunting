@@ -16,8 +16,8 @@
                 </div>
             </div>
 
-            <p class="mt-3 mb-0 text-sm"  title="{{ trans('dashboard.open_bills') }}: {{ $totals['open'] }}<br>{{ trans('dashboard.overdue_bills') }}: {{ $totals['overdue'] }}" data-toggle="tooltip" data-html="true">
-                <span class="text-white">{{ trans('dashboard.payables') }}</span>
+            <p class="mt-3 mb-0 text-sm"  title="{{ trans('widgets.open_bills') }}: {{ $totals['open'] }}<br>{{ trans('widgets.overdue_bills') }}: {{ $totals['overdue'] }}" data-toggle="tooltip" data-html="true">
+                <span class="text-white">{{ trans('widgets.payables') }}</span>
                 <span class="text-white font-weight-bold float-right">{{ $totals['open'] }} / {{ $totals['overdue'] }}</span>
             </p>
         </div>
