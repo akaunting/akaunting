@@ -126,13 +126,13 @@ class Installer
 	public static function createDefaultEnvFile()
 	{
         // Rename file
-        if (is_file(base_path('.env.example'))) {
+        if (!is_file(base_path('.env')) && is_file(base_path('.env.example'))) {
             File::move(base_path('.env.example'), base_path('.env'));
         }
 
         // Update .env file
         static::updateEnv([
-            'APP_KEY'   =>  'base64:'.base64_encode(random_bytes(32)),
+            'APP_KEY' => 'base64:'.base64_encode(random_bytes(32)),
         ]);
 	}
 
