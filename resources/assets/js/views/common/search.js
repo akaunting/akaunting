@@ -20,6 +20,7 @@ Vue.directive('click-outside', clickOutside);
 
 const search = new Vue({
     el: '#global-search',
+
     data: function () {
         return {
             show: false,
