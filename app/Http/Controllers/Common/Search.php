@@ -6,8 +6,8 @@ use App\Abstracts\Http\Controller;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
-use App\Models\Expense\Bill;
-use App\Models\Income\Invoice;
+use App\Models\Purchase\Bill;
+use App\Models\Sale\Invoice;
 use App\Models\Common\Item;
 use App\Traits\Contacts;
 
@@ -63,7 +63,7 @@ class Search extends Controller
                     'name'  => $invoice->invoice_number . ' - ' . $invoice->contact_name,
                     'type'  => trans_choice('general.invoices', 1),
                     'color' => '#6da252',
-                    'href'  => url('incomes/invoices/' . $invoice->id),
+                    'href'  => url('sales/invoices/' . $invoice->id),
                 ];
             }
         }/*
@@ -77,7 +77,7 @@ class Search extends Controller
                     'name'  => $transaction->contact_name,
                     'type'  => trans_choice('general.revenues', 1),
                     'color' => '#00c0ef',
-                    'href'  => url('incomes/revenues/' . $transaction->id),
+                    'href'  => url('sales/revenues/' . $transaction->id),
                 ];
             }
         }*/
@@ -91,7 +91,7 @@ class Search extends Controller
                     'name'  => $customer->name,
                     'type'  => trans_choice('general.customers', 1),
                     'color' => '#328aef',
-                    'href'  => url('incomes/customers/' . $customer->id),
+                    'href'  => url('sales/customers/' . $customer->id),
                 ];
             }
         }
@@ -105,7 +105,7 @@ class Search extends Controller
                     'name'  => $bill->bill_number . ' - ' . $bill->contact_name,
                     'type'  => trans_choice('general.bills', 1),
                     'color' => '#ef3232',
-                    'href'  => url('expenses/bills/' . $bill->id),
+                    'href'  => url('purchases/bills/' . $bill->id),
                 ];
             }
         }
@@ -119,7 +119,7 @@ class Search extends Controller
                     'name'  => $revenue->contact_name,
                     'type'  => trans_choice('general.revenues', 1),
                     'color' => '#00c0ef',
-                    'href'  => url('incomes/revenues/' . $revenue->id),
+                    'href'  => url('sales/revenues/' . $revenue->id),
                 ];
             }
         }*/
@@ -133,7 +133,7 @@ class Search extends Controller
                     'name'  => $vendor->name,
                     'type'  => trans_choice('general.vendors', 1),
                     'color' => '#efef32',
-                    'href'  => url('expenses/vendors/' . $vendor->id),
+                    'href'  => url('purchases/vendors/' . $vendor->id),
                 ];
             }
         }

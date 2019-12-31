@@ -4,7 +4,7 @@ namespace App\Reports;
 
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
-use App\Models\Income\Invoice;
+use App\Models\Sale\Invoice;
 use App\Utilities\Recurring;
 
 class IncomeSummary extends Report

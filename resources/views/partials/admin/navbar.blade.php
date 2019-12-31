@@ -53,14 +53,14 @@
                     </a>
                 </li>
 
-                @permission(['create-incomes-invoices', 'create-incomes-revenues', 'create-incomes-customers', 'create-expenses-bills', 'create-expenses-payments', 'create-expenses-vendors'])
+                @permission(['create-sales-invoices', 'create-sales-revenues', 'create-sales-invoices', 'create-purchases-bills', 'create-purchases-payments', 'create-purchases-vendors'])
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-plus"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark dropdown-menu-right">
                             <div class="row shortcuts px-4">
-                                @permission('create-incomes-invoices')
+                                @permission('create-sales-invoices')
                                     <a href="{{ route('invoices.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                         <i class="fa fa-money-bill"></i>
@@ -69,7 +69,7 @@
                                     </a>
                                 @endpermission
 
-                                @permission('create-incomes-revenues')
+                                @permission('create-sales-revenues')
                                     <a href="{{ route('revenues.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                             <i class="fas fa-hand-holding-usd"></i>
@@ -78,7 +78,7 @@
                                     </a>
                                 @endpermission
 
-                                @permission('create-incomes-customers')
+                                @permission('create-sales-customers')
                                     <a href="{{ route('customers.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                         <i class="fas fa-user"></i>
@@ -87,7 +87,7 @@
                                     </a>
                                 @endpermission
 
-                                @permission('create-expenses-bills')
+                                @permission('create-purchases-bills')
                                     <a href="{{ route('bills.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                         <i class="fa fa-shopping-cart"></i>
@@ -96,7 +96,7 @@
                                     </a>
                                 @endpermission
 
-                                @permission('create-expenses-payments')
+                                @permission('create-purchases-payments')
                                     <a href="{{ route('payments.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                             <i class="fas fa-hand-holding-usd"></i>
@@ -105,7 +105,7 @@
                                     </a>
                                 @endpermission
 
-                                @permission('create-expenses-vendors')
+                                @permission('create-purchases-vendors')
                                     <a href="{{ route('vendors.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                         <i class="fas fa-user"></i>

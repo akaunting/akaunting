@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Common\Company;
-use App\Models\Income\Invoice;
-use App\Notifications\Income\Invoice as Notification;
+use App\Models\Sale\Invoice;
+use App\Notifications\Sale\Invoice as Notification;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;

@@ -7,7 +7,7 @@ use App\Http\Requests\Banking\Transaction as Request;
 use App\Jobs\Banking\CreateDocumentTransaction;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
-use App\Models\Expense\Bill;
+use App\Models\Purchase\Bill;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
@@ -22,10 +22,10 @@ class BillTransactions extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-expenses-bills')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-expenses-bills')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-expenses-bills')->only(['update', 'enable', 'disable']);
-        $this->middleware('permission:delete-expenses-bills')->only('destroy');
+        $this->middleware('permission:create-purchases-bills')->only(['create', 'store', 'duplicate', 'import']);
+        $this->middleware('permission:read-purchases-bills')->only(['index', 'show', 'edit', 'export']);
+        $this->middleware('permission:update-purchases-bills')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:delete-purchases-bills')->only('destroy');
     }
 
     /**

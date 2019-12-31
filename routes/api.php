@@ -20,13 +20,13 @@ $api->version('v1', ['middleware' => ['api']], function($api) {
         $api->get('contacts/{contact}/disable', 'Common\Contacts@disable')->name('contacts.disable');
         $api->resource('contacts', 'Common\Contacts');
 
-        // Incomes
-        $api->resource('invoices', 'Incomes\Invoices');
-        $api->resource('invoices.transactions', 'Incomes\InvoiceTransactions');
+        // Sales
+        $api->resource('invoices', 'Sales\Invoices');
+        $api->resource('invoices.transactions', 'Sales\InvoiceTransactions');
 
-        // Expenses
-        $api->get('bills/{bill}/received', 'Expenses\Bills@received')->name('bills.received');
-        $api->resource('bills', 'Expenses\Bills');
+        // Purchases
+        $api->get('bills/{bill}/received', 'Purchases\Bills@received')->name('bills.received');
+        $api->resource('bills', 'Purchases\Bills');
 
         // Banking
         $api->get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');

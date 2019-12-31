@@ -2,9 +2,9 @@
 
 namespace App\Abstracts\Http;
 
-use App\Events\Income\PaymentReceived;
+use App\Events\Sale\PaymentReceived;
 use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
-use App\Models\Income\Invoice;
+use App\Models\Sale\Invoice;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\URL;
 use Monolog\Logger;

@@ -46,12 +46,12 @@ class Item extends Model
 
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Expense\BillItem');
+        return $this->hasMany('App\Models\Purchase\BillItem');
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Income\InvoiceItem');
+        return $this->hasMany('App\Models\Sale\InvoiceItem');
     }
 
     /**

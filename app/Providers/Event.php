@@ -14,28 +14,6 @@ class Event extends Provider
     protected $listen = [
         'App\Events\Install\UpdateFinished' => [
             'App\Listeners\Update\CreateModuleUpdatedHistory',
-            'App\Listeners\Update\V10\Version106',
-            'App\Listeners\Update\V10\Version107',
-            'App\Listeners\Update\V10\Version108',
-            'App\Listeners\Update\V10\Version109',
-            'App\Listeners\Update\V11\Version110',
-            'App\Listeners\Update\V11\Version112',
-            'App\Listeners\Update\V11\Version113',
-            'App\Listeners\Update\V11\Version119',
-            'App\Listeners\Update\V12\Version120',
-            'App\Listeners\Update\V12\Version126',
-            'App\Listeners\Update\V12\Version127',
-            'App\Listeners\Update\V12\Version129',
-            'App\Listeners\Update\V12\Version1210',
-            'App\Listeners\Update\V12\Version1211',
-            'App\Listeners\Update\V13\Version130',
-            'App\Listeners\Update\V13\Version132',
-            'App\Listeners\Update\V13\Version135',
-            'App\Listeners\Update\V13\Version138',
-            'App\Listeners\Update\V13\Version139',
-            'App\Listeners\Update\V13\Version1311',
-            'App\Listeners\Update\V13\Version1313',
-            'App\Listeners\Update\V13\Version1316',
             'App\Listeners\Update\V20\Version200',
         ],
         'Illuminate\Auth\Events\Login' => [
@@ -44,28 +22,28 @@ class Event extends Provider
         'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\Auth\Logout',
         ],
-        'App\Events\Expense\BillCreated' => [
-            'App\Listeners\Expense\CreateBillCreatedHistory',
+        'App\Events\Purchase\BillCreated' => [
+            'App\Listeners\Purchase\CreateBillCreatedHistory',
         ],
-        'App\Events\Expense\BillRecurring' => [
-            'App\Listeners\Expense\SendBillRecurringNotification',
+        'App\Events\Purchase\BillRecurring' => [
+            'App\Listeners\Purchase\SendBillRecurringNotification',
         ],
-        'App\Events\Income\PaymentReceived' => [
-            'App\Listeners\Income\CreateInvoiceTransaction',
-            'App\Listeners\Income\SendInvoicePaymentNotification',
+        'App\Events\Sale\PaymentReceived' => [
+            'App\Listeners\Sale\CreateInvoiceTransaction',
+            'App\Listeners\Sale\SendInvoicePaymentNotification',
         ],
-        'App\Events\Income\InvoiceCreated' => [
-            'App\Listeners\Income\CreateInvoiceCreatedHistory',
-            'App\Listeners\Income\IncreaseNextInvoiceNumber',
+        'App\Events\Sale\InvoiceCreated' => [
+            'App\Listeners\Sale\CreateInvoiceCreatedHistory',
+            'App\Listeners\Sale\IncreaseNextInvoiceNumber',
         ],
-        'App\Events\Income\InvoiceSent' => [
-            'App\Listeners\Income\MarkInvoiceSent',
+        'App\Events\Sale\InvoiceSent' => [
+            'App\Listeners\Sale\MarkInvoiceSent',
         ],
-        'App\Events\Income\InvoiceViewed' => [
-            'App\Listeners\Income\MarkInvoiceViewed',
+        'App\Events\Sale\InvoiceViewed' => [
+            'App\Listeners\Sale\MarkInvoiceViewed',
         ],
-        'App\Events\Income\InvoiceRecurring' => [
-            'App\Listeners\Income\SendInvoiceRecurringNotification',
+        'App\Events\Sale\InvoiceRecurring' => [
+            'App\Listeners\Sale\SendInvoiceRecurringNotification',
         ],
         'App\Events\Menu\AdminCreated' => [
             'App\Listeners\Menu\AddAdminItems',

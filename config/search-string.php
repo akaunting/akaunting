@@ -135,7 +135,7 @@ return [
         ],
     ],
 
-    App\Models\Expense\Bill::class => [
+    App\Models\Purchase\Bill::class => [
         'columns' => [
             'bill_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
@@ -155,7 +155,7 @@ return [
         ],
     ],
 
-    App\Models\Income\Invoice::class => [
+    App\Models\Sale\Invoice::class => [
         'columns' => [
             'invoice_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],

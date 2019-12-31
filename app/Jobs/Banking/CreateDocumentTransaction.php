@@ -4,10 +4,10 @@ namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
 use App\Jobs\Banking\CreateTransaction;
-use App\Jobs\Expense\CreateBillHistory;
-use App\Jobs\Income\CreateInvoiceHistory;
+use App\Jobs\Purchase\CreateBillHistory;
+use App\Jobs\Sale\CreateInvoiceHistory;
 use App\Models\Banking\Transaction;
-use App\Models\Income\Invoice;
+use App\Models\Sale\Invoice;
 use App\Models\Setting\Currency;
 use Date;
 

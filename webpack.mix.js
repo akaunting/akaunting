@@ -35,15 +35,15 @@ mix
     .js('resources/assets/js/views/common/reports.js', 'public/js/common')
     .js('resources/assets/js/views/common/search.js', 'public/js/common')
 
-    // Expenses
-    .js('resources/assets/js/views/expenses/bills.js', 'public/js/expenses')
-    .js('resources/assets/js/views/expenses/payments.js', 'public/js/expenses')
-    .js('resources/assets/js/views/expenses/vendors.js', 'public/js/expenses')
+    // Sales
+    .js('resources/assets/js/views/sales/invoices.js', 'public/js/sales')
+    .js('resources/assets/js/views/sales/revenues.js', 'public/js/sales')
+    .js('resources/assets/js/views/sales/customers.js', 'public/js/sales')
 
-    // Incomes
-    .js('resources/assets/js/views/incomes/invoices.js', 'public/js/incomes')
-    .js('resources/assets/js/views/incomes/revenues.js', 'public/js/incomes')
-    .js('resources/assets/js/views/incomes/customers.js', 'public/js/incomes')
+    // Purchases
+    .js('resources/assets/js/views/purchases/bills.js', 'public/js/purchases')
+    .js('resources/assets/js/views/purchases/payments.js', 'public/js/purchases')
+    .js('resources/assets/js/views/purchases/vendors.js', 'public/js/purchases')
 
     // Install
     .js('resources/assets/js/install.js', 'public/js')

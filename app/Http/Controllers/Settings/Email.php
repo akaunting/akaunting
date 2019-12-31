@@ -50,9 +50,9 @@ class Email extends Controller
             'log' => trans('settings.email.log'),
         ];
 
-        $invoice_tags = implode(', ', app('App\Notifications\Income\Invoice')->getTags());
+        $invoice_tags = implode(', ', app('App\Notifications\Sale\Invoice')->getTags());
         $payment_tags = implode(', ', app('App\Notifications\Portal\PaymentReceived')->getTags());
-        $bill_tags = implode(', ', app('App\Notifications\Expense\Bill')->getTags());
+        $bill_tags = implode(', ', app('App\Notifications\Purchase\Bill')->getTags());
 
         return view('settings.email.edit', compact(
             'setting',

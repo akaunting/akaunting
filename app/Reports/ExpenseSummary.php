@@ -4,7 +4,7 @@ namespace App\Reports;
 
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
-use App\Models\Expense\Bill;
+use App\Models\Purchase\Bill;
 use App\Utilities\Recurring;
 
 class ExpenseSummary extends Report

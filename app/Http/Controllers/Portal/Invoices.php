@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Portal;
 use App\Abstracts\Http\Controller;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
-use App\Models\Income\Invoice;
-use App\Models\Income\InvoiceStatus;
+use App\Models\Sale\Invoice;
+use App\Models\Sale\InvoiceStatus;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Traits\Currencies;
@@ -61,7 +61,7 @@ class Invoices extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        event(new \App\Events\Income\InvoiceViewed($invoice));
+        event(new \App\Events\Sale\InvoiceViewed($invoice));
 
         return view('portal.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
     }
@@ -124,9 +124,9 @@ class Invoices extends Controller
 
         $invoice->paid = $paid;
 
-        $invoice->template_path = 'incomes.invoices.print';
+        $invoice->template_path = 'sales.invoices.print';
 
-        event(new \App\Events\Income\InvoicePrinting($invoice));
+        event(new \App\Events\Sale\InvoicePrinting($invoice));
 
         return $invoice;
     }
@@ -178,7 +178,7 @@ class Invoices extends Controller
         $print_action = URL::signedRoute('signed.invoices.print', [$invoice->id, 'company_id' => session('company_id')]);
         $pdf_action = URL::signedRoute('signed.invoices.pdf', [$invoice->id, 'company_id' => session('company_id')]);
 
-        event(new \App\Events\Income\InvoiceViewed($invoice));
+        event(new \App\Events\Sale\InvoiceViewed($invoice));
 
         return view('portal.invoices.signed', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'payment_actions', 'print_action', 'pdf_action'));
     }

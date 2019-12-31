@@ -37,12 +37,12 @@ class Tax extends Model
 
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Expense\BillItemTax');
+        return $this->hasMany('App\Models\Purchase\BillItemTax');
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Income\InvoiceItemTax');
+        return $this->hasMany('App\Models\Sale\InvoiceItemTax');
     }
 
     /**

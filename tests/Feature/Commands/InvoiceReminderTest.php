@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Commands;
 
-use App\Jobs\Income\CreateInvoice;
-use App\Notifications\Income\Invoice as InvoiceNotification;
+use App\Jobs\Sale\CreateInvoice;
+use App\Notifications\Sale\Invoice as InvoiceNotification;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Date\Date;
 use Tests\Feature\FeatureTestCase;

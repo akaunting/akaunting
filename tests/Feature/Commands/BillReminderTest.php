@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Commands;
 
-use App\Jobs\Expense\CreateBill;
-use App\Notifications\Expense\Bill as BillNotification;
+use App\Jobs\Purchase\CreateBill;
+use App\Notifications\Purchase\Bill as BillNotification;
 use Illuminate\Support\Facades\Notification as Notification;
 use Jenssegers\Date\Date;
 use Tests\Feature\FeatureTestCase;

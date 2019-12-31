@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Abstracts\Http\Controller;
-use App\Models\Income\Invoice;
+use App\Models\Sale\Invoice;
 use App\Utilities\Chartjs;
 use Date;
 

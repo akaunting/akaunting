@@ -2,7 +2,7 @@
 
 namespace App\Abstracts;
 
-use App\Models\Income\Invoice;
+use App\Models\Sale\Invoice;
 use App\Traits\Charts;
 use Date;
 

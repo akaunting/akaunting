@@ -48,6 +48,10 @@ class Version200 extends Listener
 
         $this->copyTransactions();
 
+        $this->updateInvoices();
+
+        $this->updateBills();
+
         $this->copyContacts();
 
         $this->updateModules();
@@ -527,6 +531,58 @@ class Version200 extends Listener
         DB::table('payments')->delete();
     }
 
+    public function updateInvoices()
+    {
+        DB::table('recurring')
+            ->where('recurable_type', 'App\Models\Income\Invoice')
+            ->update([
+                'recurable_type' => 'App\Models\Sale\Invoice',
+            ]);
+
+        DB::table('mediables')
+            ->where('mediable_type', 'App\Models\Income\Invoice')
+            ->update([
+                'mediable_type' => 'App\Models\Sale\Invoice',
+            ]);
+
+        if (Schema::hasTable('double_entry_ledger')) {
+            DB::table('double_entry_ledger')
+                ->where('ledgerable_type', 'App\Models\Income\Invoice')
+                ->update([
+                    'ledgerable_type' => 'App\Models\Sale\Invoice',
+                ]);
+        }
+    }
+
+    public function updateBills()
+    {
+        DB::table('recurring')
+            ->where('recurable_type', 'App\Models\Expense\Bill')
+            ->update([
+                'recurable_type' => 'App\Models\Purchase\Bill',
+            ]);
+
+        DB::table('mediables')
+            ->where('mediable_type', 'App\Models\Expense\Bill')
+            ->update([
+                'mediable_type' => 'App\Models\Purchase\Bill',
+            ]);
+
+        DB::table('mediables')
+            ->where('mediable_type', 'App\Models\Expense\Vendor')
+            ->update([
+                'mediable_type' => 'App\Models\Purchase\Vendor',
+            ]);
+
+        if (Schema::hasTable('double_entry_ledger')) {
+            DB::table('double_entry_ledger')
+                ->where('ledgerable_type', 'App\Models\Expense\Bill')
+                ->update([
+                    'ledgerable_type' => 'App\Models\Purchase\Bill',
+                ]);
+        }
+    }
+
     public function copyContacts()
     {
         $this->copyCustomers();
@@ -688,6 +744,15 @@ class Version200 extends Listener
                 'update-customers-profile',
             ],
         ]);
+
+        $this->updatePermissionNames([
+            'expenses-bills' => 'purchases-bills',
+            'expenses-payments' => 'purchases-payments',
+            'expenses-vendors' => 'purchases-vendors',
+            'incomes-customers' => 'sales-customers',
+            'incomes-invoices' => 'sales-invoices',
+            'incomes-revenues' => 'sales-revenues',
+        ]);
     }
 
     public function attachPermissions($items)
@@ -741,6 +806,29 @@ class Version200 extends Listener
 
                 $role->detachPermission($permission);
                 $permission->delete();
+            }
+        }
+    }
+
+    public function updatePermissionNames($items)
+    {
+        $prefixes = [
+            'create',
+            'read',
+            'update',
+            'delete',
+        ];
+
+        foreach ($items as $old => $new) {
+            foreach ($prefixes as $prefix) {
+                $old_name = $prefix . '-' . $old;
+                $new_name = $prefix . '-' . $new;
+
+                DB::table('permissions')
+                    ->where('name', $old_name)
+                    ->update([
+                        'name' => $new_name,
+                    ]);
             }
         }
     }
@@ -859,8 +947,8 @@ class Version200 extends Listener
             'resources/assets/js/components/Example.vue',
             'resources/assets/sass/_variables.scss',
             'resources/assets/sass/app.scss',
-            'resources/views/expenses/bills/bill.blade.php',
-            'resources/views/incomes/invoices/invoice.blade.php',
+            'resources/views/purchases/bills/bill.blade.php',
+            'resources/views/sales/invoices/invoice.blade.php',
             'resources/views/layouts/customer.blade.php',
             'resources/views/layouts/link.blade.php',
             'resources/views/modules/token/create.blade.php',
@@ -885,12 +973,26 @@ class Version200 extends Listener
 
         $directories = [
             'app/Filters',
+            'app/Http/Controllers/Api/Expenses',
+            'app/Http/Controllers/Api/Incomes',
+            'app/Http/Controllers/Expenses',
+            'app/Http/Controllers/Incomes',
             'app/Http/Controllers/Customers',
             'app/Http/Controllers/Reports',
             'app/Http/Requests/Customer',
+            'app/Http/Requests/Expense',
+            'app/Http/Requests/Income',
+            'app/Jobs/Expense',
+            'app/Jobs/Income',
             'app/Listeners/Incomes',
             'app/Listeners/Updates',
+            'app/Models/Expense',
+            'app/Models/Income',
+            'app/Notifications/Expense',
+            'app/Notifications/Income',
             'app/Overrides',
+            'app/Transformers/Expense',
+            'app/Transformers/Income',
             'modules/OfflinePayment',
             'public/js/chartjs',
             'public/js/daterangepicker',
@@ -898,10 +1000,14 @@ class Version200 extends Listener
             'public/js/lightbox',
             'public/js/moment',
             'resources/views/customers',
+            'resources/views/expenses',
+            'resources/views/incomes',
             'resources/views/partials/customer',
             'resources/views/reports/expense_summary',
             'resources/views/reports/income_expense_summary',
             'resources/views/reports/income_summary',
+            'tests/Feature/Expenses',
+            'tests/Feature/Incomes',
             'tests/Feature/Reports',
         ];
 
