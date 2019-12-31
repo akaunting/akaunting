@@ -76,7 +76,7 @@ const app = new Vue({
 
     methods:{
         onChangeContact(contact_id) {
-            axios.get(url + '/incomes/customers/' + contact_id + '/currency')
+            axios.get(url + '/sales/customers/' + contact_id + '/currency')
             .then(response => {
                 this.form.contact_name = response.data.name;
                 this.form.contact_email = response.data.email;

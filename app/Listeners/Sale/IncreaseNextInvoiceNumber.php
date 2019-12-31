@@ -3,11 +3,11 @@
 namespace App\Listeners\Sale;
 
 use App\Events\Sale\InvoiceCreated as Event;
-use App\Traits\Incomes;
+use App\Traits\Sales;
 
 class IncreaseNextInvoiceNumber
 {
-    use Incomes;
+    use Sales;
 
     /**
      * Handle the event.

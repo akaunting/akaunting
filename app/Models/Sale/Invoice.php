@@ -7,15 +7,15 @@ use App\Models\Banking\Transaction;
 use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use App\Traits\Incomes;
 use App\Traits\Media;
 use App\Traits\Recurring;
+use App\Traits\Sales;
 use Bkwld\Cloner\Cloneable;
 use Date;
 
 class Invoice extends Model
 {
-    use Cloneable, Currencies, DateTime, Incomes, Media, Recurring;
+    use Cloneable, Currencies, DateTime, Media, Recurring, Sales;
 
     protected $table = 'invoices';
 

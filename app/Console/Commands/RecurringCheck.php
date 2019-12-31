@@ -7,7 +7,7 @@ use App\Events\Purchase\BillRecurring;
 use App\Events\Sale\InvoiceCreated;
 use App\Events\Sale\InvoiceRecurring;
 use App\Models\Common\Company;
-use App\Traits\Incomes;
+use App\Traits\Sales;
 use App\Utilities\Overrider;
 use Carbon\Carbon;
 use Date;
@@ -15,7 +15,7 @@ use Illuminate\Console\Command;
 
 class RecurringCheck extends Command
 {
-    use Incomes;
+    use Sales;
 
     /**
      * The name and signature of the console command.

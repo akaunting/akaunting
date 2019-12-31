@@ -24,14 +24,14 @@ use App\Notifications\Sale\Invoice as Notification;
 use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use App\Traits\Incomes;
+use App\Traits\Sales;
 use App\Utilities\Modules;
 use File;
 use Illuminate\Support\Facades\URL;
 
 class Invoices extends Controller
 {
-    use Contacts, Currencies, DateTime, Incomes;
+    use Contacts, Currencies, DateTime, Sales;
 
     /**
      * Display a listing of the resource.
@@ -168,7 +168,7 @@ class Invoices extends Controller
         \Excel::import(new Import(), $request->file('import'));
 
         if (!$success) {
-            return redirect('common/import/sales/invoices');
+            return redirect()->route('import.create', ['sales', 'invoices']);
         }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.invoices', 2)]);

@@ -162,7 +162,7 @@ class Bills extends Controller
         \Excel::import(new Import(), $request->file('import'));
 
         if (!$success) {
-            return redirect()->route('import.create', ['expenses', 'bills']);
+            return redirect()->route('import.create', ['purchases', 'bills']);
         }
 
         $message = trans('messages.success.imported', ['type' => trans_choice('general.bills', 2)]);

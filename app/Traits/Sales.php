@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait Incomes
+trait Sales
 {
     /**
      * Generate next invoice number
