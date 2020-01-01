@@ -1,6 +1,6 @@
 <div id="widgets-account-balance" class="{{ $model->settings->width }}">
     <div class="card">
-        @include('partials.widgets.standard_header')
+        @include('partials.widgets.standard_header', ['header_class' => 'border-bottom-0'])
 
         <div class="table-responsive">
             <table class="table align-items-center table-flush">

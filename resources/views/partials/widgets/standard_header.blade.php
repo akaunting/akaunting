@@ -1,4 +1,4 @@
-<div class="card-header border-bottom-0">
+<div class="card-header {{ $header_class }}">
     <div class="row align-items-center">
 
         <div class="col-6 text-nowrap">
