@@ -2112,19 +2112,6 @@ div.required .form-control-label:not(span):after, td.required:after
 }
 /*--------Bulk Action Card Header Color Finish--------*/
 
-/*--------Select Input Color--------*/
-.el-input__inner
-{
-    height: 46px !important;
-    color: #8696a9 !important;
-}
-
-.el-input__inner:focus
-{
-    color: #8696a9 !important;
-}
-/*--------Select Input Color Finish--------*/
-
 
 /*--------Form Input Colors--------*/
 .form-control-label
@@ -2261,24 +2248,6 @@ option:focus
 }
 /*--------Language Selection Page Finish--------*/
 
-/*--------El Select--------*/
-.el-select .el-input.is-focus .el-input__inner
-{
-    border-color: #3c3f72 !important;
-    border: 1px solid #3c3f72;
-}
-
-.el-select .el-input .el-input__inner:focus
-{
-    border-color: #3c3f72 !important;
-    border: 1px solid #3c3f72;
-}
-
-.el-select-dropdown__item
-{
-    color: #3c3f72 !important;
-}
-/*--------El Select Finish--------*/
 
 
 /*--------Datepicker Color--------*/
