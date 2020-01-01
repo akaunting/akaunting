@@ -4,6 +4,28 @@
         <div class="row align-items-center">
             <div class="col-md-6 p-5">
                 <div class="form-group">
+                    <label for="cardName" class="form-control-label">{{ textCardName }}</label>
+                    <div class="input-group input-group-merge">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-font"></i>
+                            </span>
+                        </div>
+                        <input
+                            type="text"
+                            :id="fields.cardName"
+                            v-letter-only
+                            @input="changeName"
+                            class="form-control"
+                            :placeholder="placeholderCardName"
+                            :value="formData.cardName"
+                            data-card-field
+                            autocomplete="off"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="cardNumber" class="form-control-label">{{ textCardNumber }}</label>
                     <div class="input-group input-group-merge">
                         <div class="input-group-prepend">
@@ -21,28 +43,6 @@
                             :placeholder="placeholderCardNumber"
                             :value="formData.cardNumber"
                             :maxlength="cardNumberMaxLength"
-                            data-card-field
-                            autocomplete="off"
-                        />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="cardName" class="form-control-label">{{ textCardName }}</label>
-                    <div class="input-group input-group-merge">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fas fa-font"></i>
-                            </span>
-                        </div>
-                        <input
-                            type="text"
-                            :id="fields.cardName"
-                            v-letter-only
-                            @input="changeName"
-                            class="form-control"
-                            :placeholder="placeholderCardName"
-                            :value="formData.cardName"
                             data-card-field
                             autocomplete="off"
                         />
