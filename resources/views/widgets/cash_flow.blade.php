@@ -1,6 +1,6 @@
 <div id="widgets-cash-flow" class="{{ $model->settings->width }}">
     <div class="card">
-        @include('partials.widgets.standard_header', ['header_class' => 'border-bottom-1'])
+        @include('partials.widgets.standard_header')
 
         <div class="card-body pt-0" id="cashflow">
             <div class="chart">

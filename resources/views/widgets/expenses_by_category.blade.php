@@ -1,6 +1,6 @@
 <div id="widgets-expenses-by-category" class="{{ $model->settings->width }}">
     <div class="card">
-        @include('partials.widgets.standard_header', ['header_class' => 'border-bottom-1'])
+        @include('partials.widgets.standard_header')
 
         <div class="card-body" id="expenses-category-doughnut">
             <div class="dashboard-categories">

@@ -1,4 +1,4 @@
-<div class="card-header {{ $header_class }}">
+<div class="card-header{{ !empty($header_class) ? ' ' . $header_class : '' }}">
     <div class="row align-items-center">
 
         <div class="col-6 text-nowrap">
