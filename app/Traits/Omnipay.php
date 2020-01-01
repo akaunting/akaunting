@@ -38,13 +38,22 @@ trait Omnipay
         if ($response->isSuccessful()) {
             $this->setReference($invoice, $response->getTransactionReference());
 
-            $response = $this->gateway->capture([
-                'amount' => $invoice->amount,
-                'currency' => $invoice->currency_code,
-                'transactionId' => $this->getReference($invoice),
-            ])->send();
+            $options['transactionReference'] = $response->getTransactionReference();
+
+            $response = $this->gateway->capture($options)->send();
 
             return $this->finish($invoice, $request);
+        }
+
+        if ($response->isRedirect()) {
+            $this->setReference($invoice, $response->getTransactionReference());
+
+            return response()->json([
+                'error' => false,
+                'redirect' => $response->getRedirectUrl(),
+                'success' => false,
+                'data' => $response->getRedirectData(),
+            ]);
         }
 
         return $this->failure($invoice, $response);
@@ -186,5 +195,16 @@ trait Omnipay
         }
 
         return $this->factory;
+    }
+
+    public function setCardFirstLastName(&$request)
+    {
+        $contact = explode(" ", $request['cardName']);
+
+        $last_name = array_pop($contact);
+        $first_name = implode(" ", $contact);
+
+        $request['cardFirstName'] = $first_name;
+        $request['cardLastName'] = $last_name;
     }
 }
