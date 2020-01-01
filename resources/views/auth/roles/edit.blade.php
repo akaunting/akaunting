@@ -28,8 +28,7 @@
         </div>
 
         <div id="role-permissions">
-            <label for="permissions" class="form-control-label">{{trans_choice('general.permissions', 2)}}</label>
-            <br>
+            <label for="permissions" class="form-control-label d-block">{{trans_choice('general.permissions', 2)}}</label>
             <span class="btn btn-outline-primary btn-sm" @click="permissionSelectAll">{{trans('general.select_all')}}</span>
             <span class="btn btn-outline-primary btn-sm" @click="permissionUnselectAll">{{trans('general.unselect_all')}}</span>
 

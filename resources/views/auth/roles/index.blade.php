@@ -46,7 +46,7 @@
                             <td class="col-sm-3 col-md-2 col-lg-1 d-none d-sm-block border-0">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
                             <td class="col-xs-4 col-sm-3 col-md-4 col-lg-4 border-0"><a class="text-success col-aka" href="{{ route('roles.edit', $item->id) }}">{{ $item->display_name }}</a></td>
                             <td class="col-xs-4 col-sm-3 col-md-4 col-lg-3 border-0">{{ $item->name }}</td>
-                            <td class="col-lg-3 d-none d-sm-block border-0">{{ $item->description }}</td>
+                            <td class="col-lg-3 d-none d-lg-block border-0">{{ $item->description }}</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center border-0">
                                 <div class="dropdown">
                                     <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
