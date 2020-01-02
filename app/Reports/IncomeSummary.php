@@ -17,17 +17,13 @@ class IncomeSummary extends Report
         'line' => [
             'width' => '0',
             'height' => '300',
-
             'options' => [
-
-                'color' => '#328aef'
+                'color' => '#328aef',
             ],
-
             'backgroundColor' => '#328aef',
             'color' => '#328aef',
         ],
     ];
-
 
     public function getName()
     {
