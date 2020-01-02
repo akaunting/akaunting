@@ -131,7 +131,18 @@ class Transaction extends Model
      */
     public function scopeIsDocument($query)
     {
-        return $query->where('document_id', '<>', '');
+        return $query->whereNotNull('document_id');
+    }
+
+    /**
+     * Get only transactions (revenue/payment).
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsNotDocument($query)
+    {
+        return $query->whereNull('document_id');
     }
 
     /**
