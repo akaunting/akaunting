@@ -43,12 +43,28 @@ abstract class PaymentController extends BaseController
 
     public function show(Invoice $invoice, PaymentRequest $request)
     {
-        return $this->getInvoiceShow($invoice, 'show');
+        $this->setContactFirstLastName($invoice);
+
+        $confirm_url = $this->getConfirmUrl($invoice);
+
+        $html = view('partials.portal.payment_method.' . $this->type, [
+            'setting' => $this->setting,
+            'invoice' => $invoice,
+            'confirm_url' => $confirm_url,
+        ])->render();
+
+        return response()->json([
+            'code' => $this->setting['code'],
+            'name' => $this->setting['name'],
+            'description' => trans($this->alias . '::general.description'),
+            'redirect' => false,
+            'html' => $html,
+        ]);
     }
 
     public function signed(Invoice $invoice, PaymentRequest $request)
     {
-        return $this->getInvoiceShow($invoice, 'signed');
+        return $this->show($invoice, $request);
     }
 
     public function cancel(Invoice $invoice, $force_redirect = false)
@@ -96,27 +112,6 @@ abstract class PaymentController extends BaseController
             'redirect' => $invoice_url,
             'success' => true,
             'data' => false,
-        ]);
-    }
-
-    public function getInvoiceShow(Invoice $invoice, $view = 'show')
-    {
-        $this->setContactFirstLastName($invoice);
-
-        $confirm_url = $this->getConfirmUrl($invoice);
-
-        $html = view('partials.portal.payment_method.' . $this->type . '.' . $view, [
-            'setting' => $this->setting,
-            'invoice' => $invoice,
-            'confirm_url' => $confirm_url,
-        ])->render();
-
-        return response()->json([
-            'code' => $this->setting['code'],
-            'name' => $this->setting['name'],
-            'description' => trans($this->alias . '::general.description'),
-            'redirect' => false,
-            'html' => $html,
         ]);
     }
 
