@@ -82,10 +82,10 @@ trait Charts
             ],
             'scales' => [
                 'yAxes' => [
-                    'display' => 0,
+                    'display' => false,
                 ],
                 'xAxes' => [
-                    'display' => 0,
+                    'display' => false,
                 ],
             ],
         ];

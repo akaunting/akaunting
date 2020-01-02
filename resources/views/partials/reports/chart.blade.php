@@ -1,6 +1,6 @@
 @php $chart = $class->getChart(); @endphp
 
-<div id="report-chart" class="card-body pt-0">
+<div id="report-chart" class="card-body">
     {!! $chart->container() !!}
 </div>
 

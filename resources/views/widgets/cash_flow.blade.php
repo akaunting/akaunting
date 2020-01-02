@@ -2,7 +2,7 @@
     <div class="card">
         @include('partials.widgets.standard_header')
 
-        <div class="card-body pt-0" id="cashflow">
+        <div class="card-body" id="cashflow">
             <div class="chart">
                 {!! $chart->container() !!}
             </div>

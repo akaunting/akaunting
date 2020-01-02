@@ -19,6 +19,9 @@ class IncomeSummary extends Report
             'height' => '300',
             'options' => [
                 'color' => '#328aef',
+                'legend' => [
+                    'display' => false,
+                ],
             ],
             'backgroundColor' => '#328aef',
             'color' => '#328aef',

@@ -47,6 +47,9 @@ abstract class Report
             'height' => '300',
             'options' => [
                 'color' => '#6da252',
+                'legend' => [
+                    'display' => false,
+                ],
             ],
         ],
         'dates' => [],

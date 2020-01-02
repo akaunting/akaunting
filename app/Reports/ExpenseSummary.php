@@ -19,6 +19,9 @@ class ExpenseSummary extends Report
             'height' => '300',
             'options' => [
                 'color' => '#ef3232',
+                'legend' => [
+                    'display' => false,
+                ],
             ],
             'backgroundColor' => '#ef3232',
             'color' => '#ef3232',
