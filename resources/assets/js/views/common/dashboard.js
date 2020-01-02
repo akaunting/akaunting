@@ -14,15 +14,16 @@ import {getQueryVariable} from './../../plugins/functions';
 import AkauntingDashboard from './../../components/AkauntingDashboard';
 import AkauntingWidget from './../../components/AkauntingWidget';
 
-import {DatePicker} from 'element-ui';
+import {DatePicker, Tooltip} from 'element-ui';
 
-Vue.use(DatePicker);
+Vue.use(DatePicker, Tooltip);
 
 const dashboard = new Vue({
     el: '#main-body',
 
     components: {
         [DatePicker.name]: DatePicker,
+        [Tooltip.name]: Tooltip,
         AkauntingDashboard,
         AkauntingWidget
     },
@@ -51,6 +52,7 @@ const dashboard = new Vue({
                 sort: 0,
             },
             filter_date: [],
+
         };
     },
 

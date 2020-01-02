@@ -16,9 +16,16 @@
                 </div>
             </div>
 
-            <p class="mt-3 mb-0 text-sm"  title="{{ trans('widgets.open_bills') }}: {{ $totals['open'] }}<br>{{ trans('widgets.overdue_bills') }}: {{ $totals['overdue'] }}" data-toggle="tooltip" data-html="true">
+            <p class="mt-3 mb-0 text-sm cursor-default">
                 <span class="text-white">{{ trans('widgets.payables') }}</span>
-                <span class="text-white font-weight-bold float-right">{{ $totals['open'] }} / {{ $totals['overdue'] }}</span>
+                <el-tooltip
+                content="{{ trans('widgets.open_bills') }}: {{ $totals['open'] }} / {{ trans('widgets.overdue_bills') }}: {{ $totals['overdue'] }}"
+                effect="light"
+                :open-delay="200"
+                placement="top"
+                popper-class="text-dark">
+                    <span class="text-white font-weight-bold float-right">{{ $totals['open'] }} / {{ $totals['overdue'] }}</span>
+                </el-tooltip>
             </p>
         </div>
     </div>
