@@ -146,6 +146,19 @@ button:focus
     overflow: hidden;
 }
 
+/*--------Left Menu--------*/
+.overflow-y-hidden
+{
+    overflow-y: hidden !important;
+}
+
+.g-sidenav-hidden .navbar-vertical.navbar-expand-xs
+{
+    overflow: hidden !important;
+}
+/*--------Left Menu Finish--------*/
+
+
 /*--------Action Column--------*/
 .action-column
 {
