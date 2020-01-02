@@ -231,7 +231,7 @@ button:focus
 .menu-dropdown
 {
     position: absolute !important;
-    right: -1.6rem;
+    left: 1.5rem;
 }
 /*--------Left Menu Dropdown Finish--------*/
 
