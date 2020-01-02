@@ -20,11 +20,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="progress progress-xs mb-0"  data-toggle="tooltip" data-placement="top" title="{{ $progress['total'] }} / {{ $progress['unpaid'] }}">
-                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['unpaid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['unpaid'] : '0' }}%"></div>
+                <el-tooltip
+                content="{{ $progress['total'] }} / {{ $progress['unpaid'] }}"
+                effect="light"
+                :open-delay="200"
+                placement="top"
+                popper-class="text-dark">
+                    <div class="card-footer">
+                        <div class="progress progress-xs mb-0">
+                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['unpaid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['unpaid'] : '0' }}%"></div>
+                        </div>
                     </div>
-                </div>
+                </el-tooltip>
             </div>
         </div>
 
@@ -44,11 +51,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="progress progress-xs mb-0" data-toggle="tooltip" data-placement="top" title="{{ $progress['total'] }} / {{ $progress['paid'] }}">
-                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['paid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['paid'] : '0' }}%"></div>
+                <el-tooltip
+                content="{{ $progress['total'] }} / {{ $progress['paid'] }}"
+                effect="light"
+                :open-delay="200"
+                placement="top"
+                popper-class="text-dark">
+                    <div class="card-footer">
+                        <div class="progress progress-xs mb-0">
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['paid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['paid'] : '0' }}%"></div>
+                        </div>
                     </div>
-                </div>
+                </el-tooltip>
             </div>
         </div>
 
@@ -68,11 +82,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="progress progress-xs mb-0" data-toggle="tooltip" data-placement="top" title="{{ $progress['total'] }} / {{ $progress['overdue'] }}">
-                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['overdue'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['overdue'] : '0' }}%"></div>
+                <el-tooltip
+                content="{{ $progress['total'] }} / {{ $progress['overdue'] }}"
+                effect="light"
+                :open-delay="200"
+                placement="top"
+                popper-class="text-dark">
+                    <div class="card-footer">
+                        <div class="progress progress-xs mb-0">
+                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['overdue'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['overdue'] : '0' }}%"></div>
+                        </div>
                     </div>
-                </div>
+                </el-tooltip>
             </div>
         </div>
 
@@ -92,18 +113,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="progress progress-xs mb-0"  data-toggle="tooltip" data-placement="top" title="{{ $progress['total'] }} / {{ $progress['partially_paid'] }}">
-                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['partially_paid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['partially_paid'] : '0' }}%"></div>
+                <el-tooltip
+                content="{{ $progress['total'] }} / {{ $progress['partially_paid'] }}"
+                effect="light"
+                :open-delay="200"
+                placement="top"
+                popper-class="text-dark">
+                    <div class="card-footer">
+                        <div class="progress progress-xs mb-0">
+                            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="{{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['partially_paid'] : '0' }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ !empty($progress['total']) ? (100 / $progress['total']) * $progress['partially_paid'] : '0' }}%"></div>
+                        </div>
                     </div>
-                </div>
+                </el-tooltip>
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0">{{ trans('dashboard.cash_flow') }}</h4>
+                    <h4 class="mb-0">{{ trans('widgets.cash_flow') }}</h4>
                 </div>
                 <div class="card-body pt-0" id="chart">
                     {!! $chart->container() !!}
@@ -115,4 +143,8 @@
 
 @push('body_js')
     {!! $chart->script() !!}
+@endpush
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/portal/dashboard.js?v=' . version('short')) }}"></script>
 @endpush

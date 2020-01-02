@@ -55,6 +55,12 @@ button:focus
 }
 /*--------Cursor Pointer Finish--------*/
 
+/*--------Cursor Default--------*/
+.cursor-default
+{
+    cursor: default !important;
+}
+/*--------Cursor Default Finish--------*/
 
 /*--------Table Head Search--------*/
 .table-header-search

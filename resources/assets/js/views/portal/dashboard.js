@@ -11,11 +11,16 @@ import Vue from 'vue';
 
 import Global from './../../mixins/global';
 
-import Form from './../../plugins/form';
-import BulkAction from './../../plugins/bulk-action';
+import {Tooltip} from 'element-ui';
+
+Vue.use(Tooltip);
 
 const app = new Vue({
     el: '#app',
+
+    components: {
+        [Tooltip.name]: Tooltip,
+    },
 
     mixins: [
         Global
