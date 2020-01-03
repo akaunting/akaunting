@@ -8,6 +8,8 @@ require('../../bootstrap');
 
 import Vue from 'vue';
 
+import DashboardPlugin from './../../plugins/dashboard-plugin';
+
 import Global from '../../mixins/global';
 
 import {Progress} from 'element-ui';
@@ -15,6 +17,9 @@ import {Progress} from 'element-ui';
 import AkauntingCarousel from './../../components/AkauntingCarousel';
 
 Vue.use(Progress);
+
+// plugin setup
+Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',

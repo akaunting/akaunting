@@ -8,17 +8,10 @@ require('./../../bootstrap');
 
 import Vue from 'vue';
 
-import Global from './../../mixins/global';
-
 import Form from './../../plugins/form';
-import BulkAction from './../../plugins/bulk-action';
 
 const app = new Vue({
     el: '#app',
-
-    mixins: [
-        Global
-    ],
 
     data: function () {
         return {

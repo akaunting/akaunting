@@ -55,7 +55,6 @@ export default {
             default: false,
             description: "App Screenshots"
         },
-
         height: {
             type: String,
             default: null,

@@ -8,6 +8,8 @@ require('./../../bootstrap');
 
 import Vue from 'vue';
 
+import DashboardPlugin from './../../plugins/dashboard-plugin';
+
 import Global from './../../mixins/global';
 
 import Form from './../../plugins/form';
@@ -16,6 +18,9 @@ import BulkAction from './../../plugins/bulk-action';
 import {ColorPicker} from 'element-ui';
 
 Vue.use(ColorPicker);
+
+// plugin setup
+Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',

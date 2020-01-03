@@ -8,6 +8,8 @@ require('./../../bootstrap');
 
 import Vue from 'vue';
 
+import DashboardPlugin from './../../plugins/dashboard-plugin';
+
 import Global from './../../mixins/global';
 import {getQueryVariable} from './../../plugins/functions';
 
@@ -17,6 +19,9 @@ import AkauntingWidget from './../../components/AkauntingWidget';
 import {DatePicker, Tooltip} from 'element-ui';
 
 Vue.use(DatePicker, Tooltip);
+
+// plugin setup
+Vue.use(DashboardPlugin);
 
 const dashboard = new Vue({
     el: '#main-body',

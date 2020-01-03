@@ -8,11 +8,16 @@ require('./../../bootstrap');
 
 import Vue from 'vue';
 
+import DashboardPlugin from './../../plugins/dashboard-plugin';
+
 import Global from './../../mixins/global';
 
 import Form from './../../plugins/form';
 import Error from './../../plugins/error';
 import BulkAction from './../../plugins/bulk-action';
+
+// plugin setup
+Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',

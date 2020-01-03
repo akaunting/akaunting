@@ -9,11 +9,16 @@ require('./../../bootstrap');
 
 import Vue from 'vue';
 
+import DashboardPlugin from './../../plugins/dashboard-plugin';
+
 import Global from './../../mixins/global';
 
 import {Tooltip} from 'element-ui';
 
 Vue.use(Tooltip);
+
+// plugin setup
+Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',

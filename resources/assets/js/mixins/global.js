@@ -1,7 +1,3 @@
-import Vue from 'vue';
-
-import DashboardPlugin from './../plugins/dashboard-plugin';
-
 import axios from 'axios';
 
 import AkauntingSearch from './../components/AkauntingSearch';
@@ -18,9 +14,6 @@ import NProgressAxios from './../plugins/nprogress-axios';
 import {VMoney} from 'v-money';
 import { Select, Option } from 'element-ui';
 
-// plugin setup
-Vue.use(DashboardPlugin);
-
 export default {
     components: {
         AkauntingSearch,
@@ -35,11 +28,6 @@ export default {
 
     data: function () {
         return {
-            addNew: {
-                modal: false,
-                title: '',
-                html: null
-            },
             confirm: {
                 url: '',
                 title: '',
@@ -178,50 +166,6 @@ export default {
             this.confirm.title = '';
             this.confirm.message = '';
             this.confirm.show = false;
-        },
-
-        onNewItem(event) {
-            console.log(event);
-
-            axios.get(event.path)
-            .then(response => {
-                this.addNew.modal = true;
-                this.addNew.title = event.title;
-                this.addNew.html = response.data.html;
-
-                /*
-                this.selectOptions[3] = value;
-
-                let newOption = {
-                    value: "3",
-                    currentLabel: value,
-                    label: value
-                };
-
-                this.$children[0].$children[0].handleOptionSelect(newOption);
-                this.$children[0].$children[0].onInputChange('3');
-
-                this.real_model = "3";
-
-                this.$emit('change', this.real_model);
-                */
-            })
-            .catch(e => {
-                this.errors.push(e)
-            })
-            .finally(function () {
-                // always executed
-            });
-        },
-
-        onCancelNewItem() {
-            this.addNew.modal = false;
-            this.addNew.title = null;
-            this.addNew.html = null;
-        },
-
-        onNewItemSubmit() {
-            document.querySelector('.modal-body form').submit()
         },
 
         // Change bank account get money and currency rate
