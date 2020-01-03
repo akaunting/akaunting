@@ -17,5 +17,34 @@ const app = new Vue({
         return {
             form: new Form('login')
         }
+    },
+
+    mounted() {
+        this.checkNotify();
+    },
+
+    methods: {
+        // Check Default set notify > store / update action
+        checkNotify: function () {
+            if (!flash_notification) {
+                return false;
+            }
+
+            flash_notification.forEach(notify => {
+                let type = notify.level;
+
+                this.$notify({
+                    message: notify.message,
+                    timeout: 5000,
+                    icon: 'fas fa-bell',
+                    type
+                });
+            });
+        },
+
+        // Form Submit
+        onSubmit() {
+            this.form.submit();
+        },
     }
 });

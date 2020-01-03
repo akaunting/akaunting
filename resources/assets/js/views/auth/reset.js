@@ -8,12 +8,7 @@ require('./../../bootstrap');
 
 import Vue from 'vue';
 
-import DashboardPlugin from './../../plugins/dashboard-plugin';
-
 import Form from './../../plugins/form';
-
-// plugin setup
-Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',
@@ -22,6 +17,10 @@ const app = new Vue({
         return {
             form: new Form('reset')
         }
+    },
+
+    mounted() {
+        this.checkNotify();
     },
 
     methods: {

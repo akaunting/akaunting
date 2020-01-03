@@ -8,25 +8,43 @@ require('./../../bootstrap');
 
 import Vue from 'vue';
 
-import DashboardPlugin from './../../plugins/dashboard-plugin';
-
-import Global from './../../mixins/global';
-
 import Form from './../../plugins/form';
-
-// plugin setup
-Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',
-
-    mixins: [
-        Global
-    ],
 
     data: function () {
         return {
             form: new Form('forgot')
         }
     },
+
+    mounted() {
+        this.checkNotify();
+    },
+
+    methods: {
+        // Check Default set notify > store / update action
+        checkNotify: function () {
+            if (!flash_notification) {
+                return false;
+            }
+
+            flash_notification.forEach(notify => {
+                let type = notify.level;
+
+                this.$notify({
+                    message: notify.message,
+                    timeout: 5000,
+                    icon: 'fas fa-bell',
+                    type
+                });
+            });
+        },
+
+        // Form Submit
+        onSubmit() {
+            this.form.submit();
+        },
+    }
 });
