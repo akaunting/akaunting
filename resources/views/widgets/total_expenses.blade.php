@@ -1,4 +1,4 @@
-<div id="widgets-total-expenses" class="{{ $model->settings->width }}">
+<div id="widget-{{ $model->id }}" class="{{ $model->settings->width }}">
     <div class="card bg-gradient-danger card-stats">
         @include('partials.widgets.stats_header', ['header_class' => 'border-bottom-0'])
 

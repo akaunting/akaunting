@@ -1,4 +1,4 @@
-<div id="widgets-cash-flow" class="{{ $model->settings->width }}">
+<div id="widget-{{ $model->id }}" class="{{ $model->settings->width }}">
     <div class="card">
         @include('partials.widgets.standard_header')
 
