@@ -161,7 +161,7 @@
 
                     {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $bill->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense']) }}
+                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $bill->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=purchase']) }}
 
                     {{ Form::recurring('edit', $bill) }}
 

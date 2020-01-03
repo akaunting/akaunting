@@ -163,7 +163,7 @@
 
                     {{ Form::textareaGroup('footer', trans('general.footer')) }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $invoice->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income']) }}
+                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $invoice->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=sale']) }}
 
                     {{ Form::recurring('edit', $invoice) }}
 
