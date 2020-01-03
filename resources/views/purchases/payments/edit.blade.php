@@ -66,7 +66,7 @@
                     </div>
                 </div>
             @endpermission
-            {{ Form::hidden('type', 'expense') }}
+            {{ Form::hidden('type', 'purchase') }}
         {!! Form::close() !!}
     </div>
 @endsection
