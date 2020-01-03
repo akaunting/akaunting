@@ -23,7 +23,6 @@ class CreateReportsTable extends Migration
             $table->string('period');
             $table->string('basis');
             $table->string('chart');
-            $table->boolean('enabled');
             $table->timestamps();
             $table->softDeletes();
 
