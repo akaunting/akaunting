@@ -8,13 +8,14 @@
         :options="{{ json_encode($values) }}"
         :value="'{{ old($name, $selected) }}'"
         :icon="'{{ $icon }}'"
-        :add-new="true"
-        :add-new-text="'{{ trans('general.form.add_new', ['field' => $text]) }}'"
-        @if (!empty($attributes['path']))
-        :add-new-path="'{{ $attributes['path'] }}'"
-        @endif
-        @new_item="onNewItem($event)"
-        @interface="form.{{ $name }} = $event"
+        :add-new="{{ json_encode([
+            'status' => true,
+            'text' => trans('general.form.add_new', ['field' => $text]),
+            'path' => isset($attributes['path']) ? $attributes['path']: false,
+            'type' => isset($attributes['type']) ? $attributes['type'] : 'modal',
+            'field' => isset($attributes['field']) ? $attributes['field'] : 'name'
+        ])}}"
+        @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' : 'form.' . $name . ' = $event' }}"
         @if (!empty($attributes['change']))
         @change="{{ $attributes['change'] }}($event)"
         @endif

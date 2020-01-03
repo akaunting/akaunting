@@ -6,7 +6,6 @@
     'class' => 'form-loading-button',
     'route' => 'customers.store',
     'novalidate' => true
-
 ]) !!}
     <div class="row">
         {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}

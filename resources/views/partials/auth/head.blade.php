@@ -36,7 +36,7 @@
     <script type="text/javascript"><!--
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
-        ]); ?>
+        ]); ?>;
 
         var aka_currency = 'false';
 

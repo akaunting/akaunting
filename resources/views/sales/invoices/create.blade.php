@@ -17,7 +17,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, config('general.customers'), ['required' => 'required', 'change' => 'onChangeContact', 'path' => route('modals.customers.create')]) }}
+                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, config('general.customers'), ['required' => 'required', 'path' => route('modals.customers.create'), 'change' => 'onChangeContact']) }}
 
                     {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'change' => 'onChangeCurrency']) }}
 
@@ -162,7 +162,7 @@
 
                     {{ Form::textareaGroup('footer', trans('general.footer'), '', setting('invoice.footer')) }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('defaults.category')) }}
+                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('defaults.category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income']) }}
 
                     {{ Form::recurring('create') }}
 

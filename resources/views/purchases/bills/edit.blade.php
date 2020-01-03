@@ -18,7 +18,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $bill->contact_id, ['required' => 'required', 'change' => 'onChangeContact']) }}
+                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $bill->contact_id, ['required' => 'required', 'path' => route('modals.vendors.create'), 'change' => 'onChangeContact']) }}
 
                     {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, $bill->currency_code, ['required' => 'required', 'change' => 'onChangeCurrency']) }}
 
@@ -161,7 +161,7 @@
 
                     {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $bill->category_id) }}
+                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $bill->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense']) }}
 
                     {{ Form::recurring('edit', $bill) }}
 

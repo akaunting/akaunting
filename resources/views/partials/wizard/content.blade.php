@@ -15,11 +15,4 @@
     @stack('content_content_end')
 
     <notifications></notifications>
-
-    <akaunting-modal
-        v-if="addNew.modal"
-        :show="addNew.modal"
-        :title="addNew.title"
-        :message="addNew.html">
-    </akaunting-modal>
 @stack('content_end')
