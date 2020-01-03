@@ -23,7 +23,7 @@ class IncomeByCategory extends Widget
 
         $chart = $this->getDonutChart(trans_choice('general.incomes', 1), 0, 160, 6);
 
-        return $this->view('widgets.income_by_category', [
+        return $this->view('widgets.donut_chart', [
             'chart' => $chart,
         ]);
     }

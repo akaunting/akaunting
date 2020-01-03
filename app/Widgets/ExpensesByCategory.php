@@ -23,7 +23,7 @@ class ExpensesByCategory extends Widget
 
         $chart = $this->getDonutChart(trans_choice('general.expenses', 2), 0, 160, 6);
 
-        return $this->view('widgets.expenses_by_category', [
+        return $this->view('widgets.donut_chart', [
             'chart' => $chart,
         ]);
     }

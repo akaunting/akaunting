@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="col-auto">
-                    <div class="icon icon-shape  bg-white text-danger rounded-circle shadow">
+                    <div class="icon icon-shape bg-white text-danger rounded-circle shadow">
                         <i class="fa fa-shopping-cart"></i>
                     </div>
                 </div>

@@ -2,8 +2,8 @@
     <div class="card">
         @include('partials.widgets.standard_header')
 
-        <div class="card-body" id="income-category-doughnut">
-            <div class="dashboard-categories">
+        <div class="card-body" id="widget-line-{{ $model->id }}">
+            <div class="chart">
                 {!! $chart->container() !!}
             </div>
         </div>
@@ -12,8 +12,8 @@
 
 @push('charts')
     <script>
-        var income_category_doughnut = new Vue({
-            el: '#income-category-doughnut',
+        var widget_line_{{ $model->id }} = new Vue({
+            el: '#widget-line-{{ $model->id }}',
         });
     </script>
 @endpush
