@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.invoices', 2))
 
 @section('content')
-     <div class="card">
+    <div class="card">
         <div class="card-header border-bottom-0">
             {!! Form::open([
                 'route' => 'portal.invoices.index',

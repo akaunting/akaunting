@@ -12,12 +12,12 @@
                 'class' => 'mb-0'
             ]) !!}
 
-            <div class="row">
-                <div class="col-12 d-flex align-items-center">
-                    <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
-                    <akaunting-search></akaunting-search>
+                <div class="row">
+                    <div class="col-12 d-flex align-items-center">
+                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
+                        <akaunting-search></akaunting-search>
+                    </div>
                 </div>
-            </div>
 
             {!! Form::close() !!}
         </div>
@@ -55,5 +55,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="{{ asset('public/js/customers/payments.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset('public/js/portal/payments.js?v=' . version('short')) }}"></script>
 @endpush
