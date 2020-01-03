@@ -238,8 +238,6 @@ export default {
 
     methods: {
         change() {
-            alert('Helooo');
-
             this.$emit('change', this.real_model);
             this.$emit('interface', this.real_model);
         },
