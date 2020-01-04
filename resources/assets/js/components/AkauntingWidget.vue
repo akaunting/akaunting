@@ -39,7 +39,7 @@
                         </base-input>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <base-input
                                 :label="text.width">
                             <span class="el-input__prefix">
@@ -61,7 +61,7 @@
                         </base-input>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <base-input
                                 v-model="form.sort"
                                 :label="text.sort"
