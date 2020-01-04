@@ -36,8 +36,10 @@ class InstallCommand extends Command
 
         $old_company_id = session('company_id');
 
-        // Set company id
         session(['company_id' => $company_id]);
+        setting()->setExtraColumns(['company_id' => $company_id]);
+        setting()->forgetAll();
+        setting()->load(true);
 
         $module = module($alias);
 
@@ -47,7 +49,6 @@ class InstallCommand extends Command
             'enabled' => '1',
         ]);
 
-        // Add history
         ModuleHistory::create([
             'company_id' => $company_id,
             'module_id' => $model->id,
@@ -56,21 +57,21 @@ class InstallCommand extends Command
             'description' => trans('modules.installed', ['module' => $alias]),
         ]);
 
-        // Clear cache
         $this->call('cache:clear');
 
         // Update database
         $this->call('migrate', ['--force' => true]);
 
-        // Trigger event
         event(new \App\Events\Module\Installed($alias, $company_id));
 
-        // Unset company id
         session()->forget('company_id');
+        setting()->forgetAll();
 
-        // Set company id
         if (!empty($old_company_id)) {
             session(['company_id' => $old_company_id]);
+
+            setting()->setExtraColumns(['company_id' => $old_company_id]);
+            setting()->load(true);
         }
 
         $this->info('Module installed!');

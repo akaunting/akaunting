@@ -19,24 +19,23 @@ class Reports extends Controller
      */
     public function index()
     {
-        $classes = [];
-        $reports = ['income-expense' => [], 'accounting' => []];
+        $classes = $categories = [];
 
-        $items = Report::collect();
+        $reports = Report::collect();
 
-        foreach ($items as $item) {
-            $class = Utility::getClassInstance($item);
+        foreach ($reports as $report) {
+            $class = Utility::getClassInstance($report);
 
             if (!$class->canRead()) {
                 continue;
             }
 
-            $reports[$class->getCategory()][] = $item;
+            $classes[$report->id] = $class;
 
-            $classes[$item->id] = $class;
+            $categories[$class->getCategory()][] = $report;
         }
 
-        return view('common.reports.index', compact('reports', 'classes'));
+        return view('common.reports.index', compact('categories', 'classes'));
     }
 
     /**

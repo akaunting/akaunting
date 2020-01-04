@@ -1,8 +1,8 @@
-<div id="widgets-cash-flow" class="{{ $model->settings->width }}">
+<div id="widget-{{ $model->id }}" class="{{ $model->settings->width }}">
     <div class="card">
         @include('partials.widgets.standard_header')
 
-        <div class="card-body" id="cashflow">
+        <div class="card-body" id="widget-line-{{ $model->id }}">
             <div class="chart">
                 {!! $chart->container() !!}
             </div>
@@ -12,8 +12,8 @@
 
 @push('charts')
     <script>
-        var cash_flow = new Vue({
-            el: '#cashflow',
+        var widget_line_{{ $model->id }} = new Vue({
+            el: '#widget-line-{{ $model->id }}',
         });
     </script>
 @endpush

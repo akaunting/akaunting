@@ -1,6 +1,6 @@
 <div class="card-header">
     {!! Form::open([
-        'url' => 'common/reports/' . $class->report->id . '/display',
+        'url' => 'common/reports/' . $class->report->id,
         'role' => 'form',
         'method' => 'GET',
     ]) !!}

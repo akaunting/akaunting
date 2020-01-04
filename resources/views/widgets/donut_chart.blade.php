@@ -1,9 +1,9 @@
-<div id="widgets-expenses-by-category" class="{{ $model->settings->width }}">
+<div id="widget-{{ $model->id }}" class="{{ $model->settings->width }}">
     <div class="card">
         @include('partials.widgets.standard_header')
 
-        <div class="card-body" id="expenses-category-doughnut">
-            <div class="dashboard-categories">
+        <div class="card-body" id="widget-donut-{{ $model->id }}">
+            <div class="chart-donut">
                 {!! $chart->container() !!}
             </div>
         </div>
@@ -12,8 +12,8 @@
 
 @push('charts')
     <script>
-        var expenses_category_doughnut = new Vue({
-            el: '#expenses-category-doughnut',
+        var widget_donut_{{ $model->id }} = new Vue({
+            el: '#widget-donut-{{ $model->id }}',
         });
     </script>
 @endpush

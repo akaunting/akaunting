@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Models\Common\Report;
 use App\Models\Module\Module;
 
 class Reports
@@ -10,7 +11,7 @@ class Reports
     {
         $classes = [];
 
-        $core_classes = [
+        $list = [
             'App\Reports\IncomeSummary',
             'App\Reports\ExpenseSummary',
             'App\Reports\IncomeExpenseSummary',
@@ -18,35 +19,25 @@ class Reports
             'App\Reports\ProfitLoss',
         ];
 
-        static::parseClasses($classes, $core_classes);
-
-        $modules = Module::enabled()->get();
-
-        foreach ($modules as $module) {
+        Module::enabled()->each(function ($module) use (&$list) {
             $m = module($module->alias);
 
-            // Check if the module exists and has reports
             if (!$m || empty($m->get('reports'))) {
-                continue;
+                return;
             }
 
-            static::parseClasses($classes, $m->get('reports'));
-        }
+            $list = array_merge($list, (array) $m->get('reports'));
+        });
 
-        return $classes;
-    }
-
-    protected static function parseClasses(&$classes, $list)
-    {
         foreach ($list as $class) {
             if (!class_exists($class)) {
                 continue;
             }
 
-            $name = (new $class())->getName();
-
-            $classes[$class] = $name;
+            $classes[$class] = (new $class())->getDefaultName();
         }
+
+        return $classes;
     }
 
     public static function getGroups()
@@ -81,8 +72,18 @@ class Reports
         ];
     }
 
-    public static function getClassInstance($report, $get_totals = true)
+    public static function getClassInstance($model, $get_totals = true)
     {
-        return (new $report->class($report, $get_totals));
+        if (is_string($model)) {
+            $model = Report::where('class', $model)->first();
+        }
+
+        if ((!$model instanceof Report) || !class_exists($model->class)) {
+            return false;
+        }
+
+        $class = $model->class;
+
+        return new $class($model, $get_totals);
     }
 }

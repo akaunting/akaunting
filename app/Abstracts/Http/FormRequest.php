@@ -8,22 +8,15 @@ use Illuminate\Support\Arr;
 abstract class FormRequest extends BaseFormRequest
 {
     /**
-     * Set the company id to the request.
+     * Prepare the data for validation.
      *
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return void
      */
-    protected function getValidatorInstance()
+    protected function prepareForValidation()
     {
-        // Get request data
-        $data = $this->all();
-
-        // Add active company id
-        $data['company_id'] = session('company_id');
-
-        // Reset the request data
-        $this->getInputSource()->replace($data);
-
-        return parent::getValidatorInstance();
+        $this->merge([
+            'company_id' => session('company_id'),
+        ]);
     }
 
     /**

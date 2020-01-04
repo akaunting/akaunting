@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Models\Common\Widget;
 use App\Models\Module\Module;
 
 class Widgets
@@ -10,7 +11,7 @@ class Widgets
     {
         $classes = [];
 
-        $core_classes = [
+        $list = [
             'App\Widgets\TotalIncome',
             'App\Widgets\TotalExpenses',
             'App\Widgets\TotalProfit',
@@ -22,46 +23,48 @@ class Widgets
             'App\Widgets\LatestExpenses',
         ];
 
-        static::parseClasses($classes, $core_classes);
-
-        $modules = Module::enabled()->get();
-
-        foreach ($modules as $module) {
+        Module::enabled()->each(function ($module) use (&$list) {
             $m = module($module->alias);
 
-            // Check if the module exists and has widgets
             if (!$m || empty($m->get('widgets'))) {
-                continue;
+                return;
             }
 
-            static::parseClasses($classes, $m->get('widgets'));
-        }
+            $list = array_merge($list, (array) $m->get('widgets'));
+        });
 
-        return $classes;
-    }
-
-    protected static function parseClasses(&$classes, $list)
-    {
         foreach ($list as $class) {
             if (!class_exists($class)) {
                 continue;
             }
 
-            $name = (new $class())->getDefaultName();
-
-            $classes[$class] = $name;
+            $classes[$class] = (new $class())->getDefaultName();
         }
+
+        return $classes;
     }
 
-    public static function getInstance($model)
+    public static function getClassInstance($model)
     {
+        if (is_string($model)) {
+            $model = Widget::where('class', $model)->first();
+        }
+
+        if ((!$model instanceof Widget) || !class_exists($model->class)) {
+            return false;
+        }
+
         $class = $model->class;
 
         return new $class($model);
     }
 
-    public static function show($model)
+    public static function show($model, ...$arguments)
     {
-        return static::getInstance($model)->show();
+        if (!$class = static::getClassInstance($model)) {
+            return '';
+        }
+
+        return $class->show(...$arguments);
     }
 }

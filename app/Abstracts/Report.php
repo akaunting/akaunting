@@ -32,8 +32,6 @@ abstract class Report
 
     public $filters = [];
 
-    public $category = 'income-expense';
-
     public $icon = 'fa fa-chart-pie';
 
     public $indents = [
@@ -80,14 +78,14 @@ abstract class Report
 
     abstract public function getTotals();
 
-    public function getName()
+    public function getDefaultName()
     {
         return Str::title(str_replace('_', ' ', Str::snake((new \ReflectionClass($this))->getShortName())));
     }
 
     public function getCategory()
     {
-        return $this->category;
+        return trans('reports.income_expense');
     }
 
     public function getIcon()

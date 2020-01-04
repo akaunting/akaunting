@@ -41,12 +41,16 @@ if (!function_exists('company_date')) {
 
 if (!function_exists('show_widget')) {
     /**
-     * Format the given date based on company settings.
+     * Show a widget.
      *
      * @return string
      */
-    function show_widget($model)
+    function show_widget()
     {
-        return Widgets::show($model);
+        $arguments = func_get_args();
+
+        $model = array_shift($arguments);
+
+        return Widgets::show($model, ...$arguments);
     }
 }

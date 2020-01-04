@@ -9,8 +9,6 @@ use App\Utilities\Recurring;
 
 class ExpenseSummary extends Report
 {
-    public $category = 'income-expense';
-
     public $icon = 'fa fa-shopping-cart';
 
     public $chart = [
@@ -28,9 +26,14 @@ class ExpenseSummary extends Report
         ],
     ];
 
-    public function getName()
+    public function getDefaultName()
     {
         return trans('reports.summary.expense');
+    }
+
+    public function getCategory()
+    {
+        return trans('reports.income_expense');
     }
 
     public function getTotals()

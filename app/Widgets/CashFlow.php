@@ -92,7 +92,7 @@ class CashFlow extends Widget
                 ])
             ->fill(false);
 
-        return $this->view('widgets.cash_flow', [
+        return $this->view('widgets.line_chart', [
             'chart' => $chart,
         ]);
     }

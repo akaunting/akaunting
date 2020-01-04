@@ -39,13 +39,13 @@ button:focus
 /*--------Forgot Text Finish--------*/
 
 
-/*--------Dashboard Categories--------*/
-.dashboard-categories
+/*--------Chart Donut Height--------*/
+.chart-donut
 {
     position:relative !important;
     height:23vh !important;
 }
-/*--------Dashboard Categories Finish--------*/
+/*--------Chart Donut Height Finish--------*/
 
 
 /*--------Cursor Pointer--------*/
