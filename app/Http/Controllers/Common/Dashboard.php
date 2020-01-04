@@ -41,7 +41,7 @@ class Dashboard extends Controller
         // Widgets
         $widgets = Widget::where('dashboard_id', $dashboard->id)->orderBy('sort', 'asc')->get()->filter(function ($widget) {
             return WidgetUtility::canRead($widget->class);
-        })->all();
+        });
 
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
 

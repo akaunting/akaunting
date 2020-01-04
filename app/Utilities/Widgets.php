@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class Widgets
 {
-    public static function getClasses()
+    public static function getClasses($check_permission = true)
     {
         $classes = [];
 
@@ -35,7 +35,7 @@ class Widgets
         });
 
         foreach ($list as $class) {
-            if (!class_exists($class) || !static::canRead($class)) {
+            if (!class_exists($class) || ($check_permission && !static::canRead($class))) {
                 continue;
             }
 

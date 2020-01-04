@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class Reports
 {
-    public static function getClasses()
+    public static function getClasses($check_permission = true)
     {
         $classes = [];
 
@@ -31,7 +31,7 @@ class Reports
         });
 
         foreach ($list as $class) {
-            if (!class_exists($class) || !static::canRead($class)) {
+            if (!class_exists($class) || ($check_permission && !static::canRead($class))) {
                 continue;
             }
 

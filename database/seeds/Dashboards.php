@@ -36,7 +36,7 @@ class Dashboards extends Seeder
             'enabled' => 1,
         ]);
 
-        $widgets = WidgetUtility::getClasses();
+        $widgets = WidgetUtility::getClasses(false);
 
         $sort = 1;
 
