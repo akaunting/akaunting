@@ -4,6 +4,7 @@ namespace App\Utilities;
 
 use App\Models\Common\Report;
 use App\Models\Module\Module;
+use Illuminate\Support\Str;
 
 class Reports
 {
@@ -30,7 +31,7 @@ class Reports
         });
 
         foreach ($list as $class) {
-            if (!class_exists($class)) {
+            if (!class_exists($class) || !static::canRead($class)) {
                 continue;
             }
 
@@ -85,5 +86,19 @@ class Reports
         $class = $model->class;
 
         return new $class($model, $get_totals);
+    }
+
+    public static function canRead($class)
+    {
+        return user()->can(static::getPermission($class));
+    }
+
+    public static function getPermission($class)
+    {
+        $class_name = (new \ReflectionClass($class))->getShortName();
+
+        $permission = 'read-reports-' . Str::kebab($class_name);
+
+        return $permission;
     }
 }

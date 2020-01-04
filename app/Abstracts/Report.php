@@ -372,16 +372,4 @@ abstract class Report
 
         return $print_url;
     }
-
-    public function getPermission()
-    {
-        $permission = 'read-reports-' . Str::kebab((new \ReflectionClass($this))->getShortName());
-
-        return $permission;
-    }
-
-    public function canRead()
-    {
-        return user()->can($this->getPermission());
-    }
 }

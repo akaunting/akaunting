@@ -54,7 +54,7 @@
                                     <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }}">
                                         <div class="row pt-4">
                                             @foreach($code_permissions as $item)
-                                                <div class="col-md-3 role-list">
+                                                <div class="col-md-4 role-list">
                                                     <div class="custom-control custom-checkbox">
                                                         {{ Form::checkbox('permissions', $item->id, null, ['id' => 'permissions-' . $item->id, 'class' => 'custom-control-input', 'v-model' => 'form.permissions']) }}
                                                         <label class="custom-control-label" for="permissions-{{ $item->id }}">

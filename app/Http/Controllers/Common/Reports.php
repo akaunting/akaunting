@@ -24,11 +24,11 @@ class Reports extends Controller
         $reports = Report::collect();
 
         foreach ($reports as $report) {
-            $class = Utility::getClassInstance($report);
-
-            if (!$class->canRead()) {
+            if (!Utility::canRead($report->class)) {
                 continue;
             }
+
+            $class = Utility::getClassInstance($report);
 
             $classes[$report->id] = $class;
 
@@ -46,13 +46,11 @@ class Reports extends Controller
      */
     public function show(Report $report)
     {
-        $class = Utility::getClassInstance($report);
-
-        if (!$class->canRead()) {
+        if (!Utility::canRead($report->class)) {
             abort(403);
         }
 
-        return $class->show();
+        return Utility::getClassInstance($report)->show();
     }
 
     /**
@@ -186,13 +184,11 @@ class Reports extends Controller
      */
     public function print(Report $report)
     {
-        $class = Utility::getClassInstance($report);
-
-        if (!$class->canRead()) {
+        if (!Utility::canRead($report->class)) {
             abort(403);
         }
 
-        return $class->print();
+        return Utility::getClassInstance($report)->print();
     }
 
     /**
@@ -203,13 +199,11 @@ class Reports extends Controller
      */
     public function export(Report $report)
     {
-        $class = Utility::getClassInstance($report);
-
-        if (!$class->canRead()) {
+        if (!Utility::canRead($report->class)) {
             abort(403);
         }
 
-        return $class->export();
+        return Utility::getClassInstance($report)->export();
     }
 
     /**

@@ -75,10 +75,19 @@ class Roles extends Seeder
                 'settings-settings' => 'r,u',
                 'settings-schedule' => 'r',
                 'settings-taxes' => 'c,r,u,d',
+                'widgets-account-balance' => 'r',
+                'widgets-cash-flow' => 'r',
+                'widgets-expenses-by-category' => 'r',
+                'widgets-income-by-category' => 'r',
+                'widgets-latest-expenses' => 'r',
+                'widgets-latest-income' => 'r',
+                'widgets-total-expenses' => 'r',
+                'widgets-total-income' => 'r',
+                'widgets-total-profit' => 'r',
                 'wizard-companies' => 'c,r,u',
                 'wizard-currencies' => 'c,r,u,d',
                 'wizard-finish' => 'c,r,u',
-                'wizard-taxes' => 'c,r,u'
+                'wizard-taxes' => 'c,r,u',
             ],
             'manager' => [
                 'admin-panel' => 'r',
@@ -118,13 +127,22 @@ class Roles extends Seeder
                 'settings-modules' => 'r,u',
                 'settings-settings' => 'r,u',
                 'settings-schedule' => 'r',
-                'settings-taxes' => 'c,r,u,d'
+                'settings-taxes' => 'c,r,u,d',
+                'widgets-account-balance' => 'r',
+                'widgets-cash-flow' => 'r',
+                'widgets-expenses-by-category' => 'r',
+                'widgets-income-by-category' => 'r',
+                'widgets-latest-expenses' => 'r',
+                'widgets-latest-income' => 'r',
+                'widgets-total-expenses' => 'r',
+                'widgets-total-income' => 'r',
+                'widgets-total-profit' => 'r',
             ],
             'customer' => [
                 'client-portal' => 'r',
                 'portal-invoices' => 'r,u',
                 'portal-payments' => 'r,u',
-                'portal-profile' => 'r,u'
+                'portal-profile' => 'r,u',
             ]
         ];
 
