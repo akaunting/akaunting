@@ -4,6 +4,7 @@ namespace App\Utilities;
 
 use App\Models\Common\Widget;
 use App\Models\Module\Module;
+use Illuminate\Support\Str;
 
 class Widgets
 {
@@ -34,7 +35,7 @@ class Widgets
         });
 
         foreach ($list as $class) {
-            if (!class_exists($class)) {
+            if (!class_exists($class) || !static::canRead($class)) {
                 continue;
             }
 
@@ -66,5 +67,19 @@ class Widgets
         }
 
         return $class->show(...$arguments);
+    }
+
+    public static function canRead($class)
+    {
+        return user()->can(static::getPermission($class));
+    }
+
+    public static function getPermission($class)
+    {
+        $class_name = (new \ReflectionClass($class))->getShortName();
+
+        $permission = 'read-widgets-' . Str::kebab($class_name);
+
+        return $permission;
     }
 }

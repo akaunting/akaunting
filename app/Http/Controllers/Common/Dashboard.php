@@ -7,6 +7,7 @@ use App\Http\Requests\Common\Dashboard as Request;
 use App\Models\Common\Dashboard as Model;
 use App\Models\Common\Widget;
 use App\Traits\DateTime;
+use App\Utilities\Widgets as WidgetUtility;
 
 class Dashboard extends Controller
 {
@@ -31,14 +32,16 @@ class Dashboard extends Controller
         $dashboards = Model::where('user_id', user()->id)->enabled()->get();
 
         if (!$dashboard_id) {
-            $dashboard_id = $dashboards->first()->id;
+            $dashboard_id = $dashboards->pluck('id')->first();
         }
 
         // Dashboard
         $dashboard = Model::find($dashboard_id);
 
         // Widgets
-        $widgets = Widget::where('dashboard_id', $dashboard->id)->orderBy('sort', 'asc')->get();
+        $widgets = Widget::where('dashboard_id', $dashboard->id)->orderBy('sort', 'asc')->get()->filter(function ($widget) {
+            return WidgetUtility::canRead($widget->class);
+        })->all();
 
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
