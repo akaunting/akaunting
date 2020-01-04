@@ -10,13 +10,16 @@ use App\Utilities\Recurring;
 
 class IncomeExpenseSummary extends Report
 {
-    public $category = 'income-expense';
-
     public $icon = 'fa fa-chart-pie';
 
-    public function getName()
+    public function getDefaultName()
     {
         return trans('reports.summary.income_expense');
+    }
+
+    public function getCategory()
+    {
+        return trans('reports.income_expense');
     }
 
     public function getTotals()

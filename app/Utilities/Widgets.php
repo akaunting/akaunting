@@ -38,15 +38,13 @@ class Widgets
                 continue;
             }
 
-            $name = (new $class())->getDefaultName();
-
-            $classes[$class] = $name;
+            $classes[$class] = (new $class())->getDefaultName();
         }
 
         return $classes;
     }
 
-    public static function getInstance($model)
+    public static function getClassInstance($model)
     {
         if (is_string($model)) {
             $model = Widget::where('class', $model)->first();
@@ -63,7 +61,7 @@ class Widgets
 
     public static function show($model, ...$arguments)
     {
-        if (!$class = static::getInstance($model)) {
+        if (!$class = static::getClassInstance($model)) {
             return '';
         }
 

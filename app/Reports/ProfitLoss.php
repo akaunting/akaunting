@@ -11,15 +11,18 @@ use App\Utilities\Recurring;
 
 class ProfitLoss extends Report
 {
-    public $category = 'accounting';
-
     public $icon = 'fa fa-heart';
 
     public $chart = false;
 
-    public function getName()
+    public function getDefaultName()
     {
         return trans('reports.profit_loss');
+    }
+
+    public function getCategory()
+    {
+        return trans('general.accounting');
     }
 
     public function setViews()

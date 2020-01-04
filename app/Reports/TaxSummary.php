@@ -15,15 +15,18 @@ class TaxSummary extends Report
 {
     use Currencies;
 
-    public $category = 'accounting';
-
     public $icon = 'fa fa-percent';
 
     public $chart = false;
 
-    public function getName()
+    public function getDefaultName()
     {
         return trans('reports.summary.tax');
+    }
+
+    public function getCategory()
+    {
+        return trans('general.accounting');
     }
 
     public function setViews()
