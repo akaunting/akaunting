@@ -74,9 +74,9 @@ class Dashboard extends Controller
 
         $options = [
             'tooltips' => [
-                'backgroundColor' => '#f5f5f5',
-                'titleFontColor' => '#333',
-                'bodyFontColor' => '#666',
+                'backgroundColor' => '#000000',
+                'titleFontColor' => '#ffffff',
+                'bodyFontColor' => '#e5e5e5',
                 'bodySpacing' => 4,
                 'YrPadding' => 12,
                 'mode' => 'nearest',
