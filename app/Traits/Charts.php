@@ -71,9 +71,9 @@ trait Charts
                 'position' => 'right',
             ],
             'tooltips' => [
-                'backgroundColor' => '#f5f5f5',
-                'titleFontColor' => '#333',
-                'bodyFontColor' => '#666',
+                'backgroundColor' => '#000000',
+                'titleFontColor' => '#ffffff',
+                'bodyFontColor' => '#e5e5e5',
                 'bodySpacing' => 4,
                 'xPadding' => 12,
                 'mode' => 'nearest',
@@ -95,9 +95,9 @@ trait Charts
     {
         return [
             'tooltips' => [
-                'backgroundColor' => '#f5f5f5',
-                'titleFontColor' => '#333',
-                'bodyFontColor' => '#666',
+                'backgroundColor' => '#000000',
+                'titleFontColor' => '#ffffff',
+                'bodyFontColor' => '#e5e5e5',
                 'bodySpacing' => 4,
                 'YrPadding' => 12,
                 'mode' => 'nearest',
