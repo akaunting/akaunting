@@ -6169,14 +6169,14 @@
 
 .el-tooltip__popper[x-placement^=top] .popper__arrow {
     bottom: -6px;
-    border-top-color: #303133;
+    border-top-color: #000000;
     border-bottom-width: 0
 }
 
 .el-tooltip__popper[x-placement^=top] .popper__arrow::after {
     bottom: 1px;
     margin-left: -5px;
-    border-top-color: #303133;
+    border-top-color: #000000;
     border-bottom-width: 0
 }
 
@@ -6187,14 +6187,14 @@
 .el-tooltip__popper[x-placement^=bottom] .popper__arrow {
     top: -6px;
     border-top-width: 0;
-    border-bottom-color: #303133
+    border-bottom-color: #000000
 }
 
 .el-tooltip__popper[x-placement^=bottom] .popper__arrow::after {
     top: 1px;
     margin-left: -5px;
     border-top-width: 0;
-    border-bottom-color: #303133
+    border-bottom-color: #000000
 }
 
 .el-tooltip__popper[x-placement^=right] {
@@ -6203,14 +6203,14 @@
 
 .el-tooltip__popper[x-placement^=right] .popper__arrow {
     left: -6px;
-    border-right-color: #303133;
+    border-right-color: #000000;
     border-left-width: 0
 }
 
 .el-tooltip__popper[x-placement^=right] .popper__arrow::after {
     bottom: -5px;
     left: 1px;
-    border-right-color: #303133;
+    border-right-color: #000000;
     border-left-width: 0
 }
 
@@ -6221,7 +6221,7 @@
 .el-tooltip__popper[x-placement^=left] .popper__arrow {
     right: -6px;
     border-right-width: 0;
-    border-left-color: #303133
+    border-left-color: #000000
 }
 
 .el-tooltip__popper[x-placement^=left] .popper__arrow::after {
@@ -6229,11 +6229,11 @@
     bottom: -5px;
     margin-left: -5px;
     border-right-width: 0;
-    border-left-color: #303133
+    border-left-color: #000000
 }
 
 .el-tooltip__popper.is-dark {
-    background: #303133;
+    background: #000000;
     color: #FFF
 }
 
