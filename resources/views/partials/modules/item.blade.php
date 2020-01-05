@@ -19,7 +19,7 @@
         <a href="{{ route('apps.app.show', [$module->slug]) }}">
             @foreach ($module->files as $file)
                 @if (($file->media_type == 'image') && ($file->pivot->zone == 'thumbnail'))
-                    <img src="{{ $file->path_string }}" alt="{{ $module->name }}" class="card-img-top border-radius-0">
+                    <img src="{{ $file->path_string }}" alt="{{ $module->name }}" class="card-img-top border-radius-none">
                 @endif
             @endforeach
         </a>

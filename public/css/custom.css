@@ -77,7 +77,6 @@ button:focus
     border-radius: calc(0.375rem - 1px) calc(0.375rem - 1px) 0 0;
 }
 
-
 .wizard-steps
 {
     width: 3.375rem;
@@ -119,21 +118,20 @@ button:focus
 /*--------Wizard Steps Finish--------*/
 
 
-/*--------Border Radius 0--------*/
-.border-radius-0
+/*--------Border Radius None--------*/
+.border-radius-none
 {
     border-radius: 0 !important;
 }
-/*--------Border Radius 0 Finished--------*/
+/*--------Border Radius None Finished--------*/
 
 
-/*--------Border Radius 5--------*/
-.border-radius-5
+/*--------Border Radius Default--------*/
+.border-radius-default
 {
-    border-radius: 5px !important;
+    border-radius: 0.25rem !important
 }
-/*--------Border Radius 5 Finished--------*/
-
+/*--------Border Radius Default Finished--------*/
 
 .dropup .dropdown-toggle::after
 {
@@ -310,6 +308,13 @@ button:focus
     border-top: 1px solid #e9ecef !important;
 }
 /*--------Border Top Finish--------*/
+
+/*--------Border--------*/
+.border-1
+{
+    border: 1px solid #e5e5e5 !important;
+}
+/*--------Border Finish--------*/
 
 
 /*--------Border Bottom--------*/
