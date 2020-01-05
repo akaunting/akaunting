@@ -20,10 +20,10 @@
                 <span class="text-white">{{ trans('general.upcoming') }}</span>
                 <el-tooltip
                 content="{{ trans('widgets.open_profit') }}: {{ $totals['open'] }} / {{ trans('widgets.overdue_profit') }}: {{ $totals['overdue'] }}"
-                effect="light"
+                effect="dark"
                 :open-delay="100"
                 placement="top"
-                popper-class="text-dark">
+                popper-class="text-white">
                     <span class="text-white font-weight-bold float-right">{{ $totals['open'] }} / {{ $totals['overdue'] }}</span>
                 </el-tooltip>
             </p>
