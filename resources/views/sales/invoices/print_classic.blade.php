@@ -120,7 +120,7 @@
 
             @foreach ($invoice->totals as $total)
                 @if ($total->code == 'total')
-                    <p class="bg-light border-radius-5 float-right text-center w-50">
+                    <p class="bg-light border-radius-default float-right text-center w-50">
                         <b>{{ trans($total->name) }}:</b>
                         @money($total->amount - $invoice->paid, $invoice->currency_code, true)
                     </p>

@@ -29,10 +29,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_new_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_invoice_new_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_new_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_new_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_new_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -54,10 +56,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_remind_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_invoice_remind_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_remind_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_remind_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_remind_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -79,10 +83,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_remind_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_invoice_remind_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_remind_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_remind_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_remind_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -104,10 +110,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_recur_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_invoice_recur_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_recur_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_recur_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_recur_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -129,10 +137,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_recur_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_invoice_recur_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_recur_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_recur_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_recur_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -154,10 +164,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_payment_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_invoice_payment_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_payment_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_payment_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_payment_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $payment_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $payment_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -179,10 +191,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_invoice_payment_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_invoice_payment_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_payment_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_invoice_payment_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_payment_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $payment_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $payment_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -204,10 +218,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_bill_remind_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_bill_remind_admin_body', trans('settings.email.templates.body'), null, $setting['template_bill_remind_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_bill_remind_admin_body', trans('settings.email.templates.body'), null, $setting['template_bill_remind_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $bill_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $bill_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -229,10 +245,12 @@
                             <div class="row">
                                 {{ Form::textGroup('template_bill_recur_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_bill_recur_admin_body', trans('settings.email.templates.body'), null, $setting['template_bill_recur_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12') }}
+                                {{ Form::textEditorGroup('template_bill_recur_admin_body', trans('settings.email.templates.body'), null, $setting['template_bill_recur_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
-                                    <small class="text-gray">{!! trans('settings.email.templates.tags', ['tag_list' => $bill_tags]) !!}</small>
+                                    <div class="bg-secondary border-radius-default border-1 p-2">
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $bill_tags]) !!}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
