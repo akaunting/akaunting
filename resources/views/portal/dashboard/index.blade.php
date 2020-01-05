@@ -23,7 +23,7 @@
                 <el-tooltip
                 content="{{ $progress['total'] }} / {{ $progress['unpaid'] }}"
                 effect="light"
-                :open-delay="200"
+                :open-delay="100"
                 placement="top"
                 popper-class="text-dark">
                     <div class="card-footer">
@@ -54,7 +54,7 @@
                 <el-tooltip
                 content="{{ $progress['total'] }} / {{ $progress['paid'] }}"
                 effect="light"
-                :open-delay="200"
+                :open-delay="100"
                 placement="top"
                 popper-class="text-dark">
                     <div class="card-footer">
@@ -85,7 +85,7 @@
                 <el-tooltip
                 content="{{ $progress['total'] }} / {{ $progress['overdue'] }}"
                 effect="light"
-                :open-delay="200"
+                :open-delay="100"
                 placement="top"
                 popper-class="text-dark">
                     <div class="card-footer">
@@ -116,7 +116,7 @@
                 <el-tooltip
                 content="{{ $progress['total'] }} / {{ $progress['partially_paid'] }}"
                 effect="light"
-                :open-delay="200"
+                :open-delay="100"
                 placement="top"
                 popper-class="text-dark">
                     <div class="card-footer">
