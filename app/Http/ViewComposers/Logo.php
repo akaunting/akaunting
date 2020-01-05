@@ -10,7 +10,6 @@ use Storage;
 
 class Logo
 {
-
     /**
      * Bind data to the view.
      *
