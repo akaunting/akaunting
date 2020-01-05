@@ -21,7 +21,7 @@
                 <el-tooltip
                 content="{{ trans('widgets.open_invoices') }}: {{ $totals['open'] }} / {{ trans('widgets.overdue_invoices') }}: {{ $totals['overdue'] }}"
                 effect="light"
-                :open-delay="200"
+                :open-delay="100"
                 placement="top"
                 popper-class="text-dark">
                     <span class="text-white font-weight-bold float-right">{{ $totals['open'] }} / {{ $totals['overdue'] }}</span>
