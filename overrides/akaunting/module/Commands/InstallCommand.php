@@ -2,13 +2,13 @@
 
 namespace Akaunting\Module\Commands;
 
+use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
 use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
-use App\Models\Auth\Permission;
-use App\Models\Auth\Role;
 
 class InstallCommand extends Command
 {
