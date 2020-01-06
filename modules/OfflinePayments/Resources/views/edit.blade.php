@@ -12,7 +12,7 @@
 
                 {!! Form::open([
                     'id' => 'offline-payments',
-                    'route' => ['settings.module.update', 'offline-payments'],
+                    'route' => 'offline-payments.update',
                     '@submit.prevent' => 'onSubmit',
                     '@keydown' => 'form.errors.clear($event.target.name)',
                     'files' => true,
@@ -56,13 +56,13 @@
 
                 <div class="table-responsive">
                     <table class="table table-flush table-hover" id="tbl-items">
-                            <thead class="thead-light">
-                                <tr class="row table-head-line">
-                                    <th class="col-xs-6 col-sm-4 col-md-4 col-lg-3">{{ trans('general.name') }}</th>
-                                    <th class="col-sm-4  col-md-4 col-lg-4 hidden-sm">{{ trans('offline-payments::general.form.code') }}</th>
-                                    <th class="col-lg-2 hidden-lg">{{ trans('offline-payments::general.form.order') }}</th>
-                                    <th class="col-xs-6 col-sm-4 col-md-4 col-lg-3 text-center">{{ trans('general.actions') }}</th>
-                                </tr>
+                        <thead class="thead-light">
+                            <tr class="row table-head-line">
+                                <th class="col-xs-6 col-sm-4 col-md-4 col-lg-3">{{ trans('general.name') }}</th>
+                                <th class="col-sm-4  col-md-4 col-lg-4 hidden-sm">{{ trans('offline-payments::general.form.code') }}</th>
+                                <th class="col-lg-2 hidden-lg">{{ trans('offline-payments::general.form.order') }}</th>
+                                <th class="col-xs-6 col-sm-4 col-md-4 col-lg-3 text-center">{{ trans('general.actions') }}</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @if($items)

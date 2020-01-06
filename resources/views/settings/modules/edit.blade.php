@@ -13,7 +13,7 @@
             'files' => true,
             'role' => 'form',
             'class' => 'form-loading-button',
-            'novalidate' => true
+            'novalidate' => true,
         ]) !!}
 
             <div class="card-body">

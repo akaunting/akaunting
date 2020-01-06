@@ -39,7 +39,7 @@ const app = new Vue({
 
             this.form.loading = true;
 
-            axios.post('offline-payments/get', {
+            axios.post('offline-payments/settings/get', {
                 code: code
             })
             .then(response => {
@@ -76,7 +76,7 @@ const app = new Vue({
         onDelete() {
             axios({
                 method: 'DELETE',
-                url: 'offline-payments/delete',
+                url: 'offline-payments/settings/delete',
                 data: {
                     code: this.confirm.code
                 }
