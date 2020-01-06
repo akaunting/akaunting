@@ -4,9 +4,11 @@ use App\Models\Auth\User;
 use App\Models\Common\Item;
 use Faker\Generator as Faker;
 
-$factory->define(Item::class, function (Faker $faker) {
-	$user = User::first();
-	$company = $user->companies()->first();
+$user = User::first();
+$company = $user->companies()->first();
+
+$factory->define(Item::class, function (Faker $faker) use ($company) {
+	setting()->setExtraColumns(['company_id' => $company->id]);
 
 	return [
 		'company_id' => $company->id,

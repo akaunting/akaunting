@@ -37,9 +37,6 @@ class InstallCommand extends Command
         $old_company_id = session('company_id');
 
         session(['company_id' => $company_id]);
-        setting()->setExtraColumns(['company_id' => $company_id]);
-        setting()->forgetAll();
-        setting()->load(true);
 
         $module = module($alias);
 
@@ -65,13 +62,9 @@ class InstallCommand extends Command
         event(new \App\Events\Module\Installed($alias, $company_id));
 
         session()->forget('company_id');
-        setting()->forgetAll();
 
         if (!empty($old_company_id)) {
             session(['company_id' => $old_company_id]);
-
-            setting()->setExtraColumns(['company_id' => $old_company_id]);
-            setting()->load(true);
         }
 
         $this->info('Module installed!');

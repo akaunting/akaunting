@@ -26,8 +26,8 @@ abstract class FeatureTestCase extends TestCase
 		$this->company = $this->user->companies()->first();
 
 		// Set Company settings
-        setting()->forgetAll();
         setting()->setExtraColumns(['company_id' => $this->company->id]);
+        setting()->forgetAll();
         setting()->load(true);
 	}
 

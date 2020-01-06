@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "akaunting/firewall",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/firewall.git",
-                "reference": "8ea7afac1d545fa66bf741284310c684340ecb4c"
+                "reference": "924529c4ae1db454745aa59a2731679e8ff287b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/firewall/zipball/8ea7afac1d545fa66bf741284310c684340ecb4c",
-                "reference": "8ea7afac1d545fa66bf741284310c684340ecb4c",
+                "url": "https://api.github.com/repos/akaunting/firewall/zipball/924529c4ae1db454745aa59a2731679e8ff287b8",
+                "reference": "924529c4ae1db454745aa59a2731679e8ff287b8",
                 "shasum": ""
             },
             "require": {
@@ -67,7 +67,7 @@
                 "waf",
                 "xss"
             ],
-            "time": "2019-12-20T12:15:04+00:00"
+            "time": "2020-01-04T18:36:44+00:00"
         },
         {
             "name": "akaunting/language",
@@ -1181,16 +1181,16 @@
         },
         {
             "name": "dingo/api",
-            "version": "v2.4.0",
+            "version": "v2.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dingo/api.git",
-                "reference": "512eb1a0cd55a6f9f997d60183bf8bfb2a0f3187"
+                "reference": "05299b02e98c2833fed7fee8ce223b4ba8d2b2d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dingo/api/zipball/512eb1a0cd55a6f9f997d60183bf8bfb2a0f3187",
-                "reference": "512eb1a0cd55a6f9f997d60183bf8bfb2a0f3187",
+                "url": "https://api.github.com/repos/dingo/api/zipball/05299b02e98c2833fed7fee8ce223b4ba8d2b2d4",
+                "reference": "05299b02e98c2833fed7fee8ce223b4ba8d2b2d4",
                 "shasum": ""
             },
             "require": {
@@ -1259,7 +1259,7 @@
                 "laravel",
                 "restful"
             ],
-            "time": "2019-09-27T04:15:05+00:00"
+            "time": "2020-01-06T12:31:51+00:00"
         },
         {
             "name": "dingo/blueprint",
@@ -3165,16 +3165,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.62",
+            "version": "1.0.63",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0"
+                "reference": "8132daec326565036bc8e8d1876f77ec183a7bd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0",
-                "reference": "14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/8132daec326565036bc8e8d1876f77ec183a7bd6",
+                "reference": "8132daec326565036bc8e8d1876f77ec183a7bd6",
                 "shasum": ""
             },
             "require": {
@@ -3245,7 +3245,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-12-29T14:46:55+00:00"
+            "time": "2020-01-04T16:30:31+00:00"
         },
         {
             "name": "league/fractal",
@@ -7125,16 +7125,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "1.13.0",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "1d2103aefecc9c4e6975bcc77fc5eceb330adb33"
+                "reference": "c6d36683b40e005cd395ddff1bbfbf0aa0fcd3c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/1d2103aefecc9c4e6975bcc77fc5eceb330adb33",
-                "reference": "1d2103aefecc9c4e6975bcc77fc5eceb330adb33",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/c6d36683b40e005cd395ddff1bbfbf0aa0fcd3c5",
+                "reference": "c6d36683b40e005cd395ddff1bbfbf0aa0fcd3c5",
                 "shasum": ""
             },
             "require": {
@@ -7192,7 +7192,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2019-11-27T11:17:18+00:00"
+            "time": "2020-01-06T09:32:42+00:00"
         },
         {
             "name": "facade/ignition-contracts",

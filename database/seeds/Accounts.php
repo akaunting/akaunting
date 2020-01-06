@@ -27,23 +27,16 @@ class Accounts extends Seeder
         $company_id = $this->command->argument('company');
 
         setting()->setExtraColumns(['company_id' => $company_id]);
-        setting()->forgetAll();
 
-        $rows = [
-            [
-                'company_id' => $company_id,
-                'name' => trans('demo.accounts.cash'),
-                'number' => '1',
-                'currency_code' => 'USD',
-                'bank_name' => trans('demo.accounts.cash'),
-                'enabled' => '1',
-            ],
-        ];
+        $account = Account::create([
+            'company_id' => $company_id,
+            'name' => trans('demo.accounts.cash'),
+            'number' => '1',
+            'currency_code' => 'USD',
+            'bank_name' => trans('demo.accounts.cash'),
+            'enabled' => '1',
+        ]);
 
-        foreach ($rows as $row) {
-            $account = Account::create($row);
-
-            setting()->set('default.account', $account->id);
-        }
+        setting()->set('default.account', $account->id);
     }
 }

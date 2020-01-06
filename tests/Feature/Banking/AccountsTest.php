@@ -3,6 +3,7 @@
 namespace Tests\Feature\Banking;
 
 use App\Jobs\Banking\CreateAccount;
+use App\Models\Banking\Account;
 use Tests\Feature\FeatureTestCase;
 
 class AccountsTest extends FeatureTestCase
@@ -26,7 +27,7 @@ class AccountsTest extends FeatureTestCase
     public function testItShouldCreateAccount()
     {
         $this->loginAs()
-            ->post(route('accounts.index'), $this->getAccountRequest())
+            ->post(route('accounts.index'), factory(Account::class)->raw())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -34,7 +35,7 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldSeeAccountUpdatePage()
     {
-        $account = $this->dispatch(new CreateAccount($this->getAccountRequest()));
+        $account = $this->dispatch(new CreateAccount(factory(Account::class)->raw()));
 
         $this->loginAs()
             ->get(route('accounts.edit', ['account' => $account->id]))
@@ -44,7 +45,7 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldUpdateAccount()
     {
-        $request = $this->getAccountRequest();
+        $request = factory(Account::class)->raw();
 
         $account = $this->dispatch(new CreateAccount($request));
 
@@ -59,28 +60,12 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldDeleteAccount()
     {
-        $account = $this->dispatch(new CreateAccount($this->getAccountRequest()));
+        $account = $this->dispatch(new CreateAccount(factory(Account::class)->raw()));
 
         $this->loginAs()
             ->delete(route('accounts.destroy', ['account' => $account]))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
-    }
-
-    private function getAccountRequest()
-    {
-        return [
-	        'company_id' => $this->company->id,
-	        'name' => $this->faker->text(5),
-	        'number' => (string) $this->faker->randomNumber(2),
-	        'currency_code' => setting('default.currency', 'USD'),
-	        'opening_balance' => '0',
-	        'bank_name' => $this->faker->text(5),
-	        'bank_phone' => null,
-	        'bank_address' => null,
-	        'default_account' => 0,
-	        'enabled' => $this->faker->boolean ? 1 : 0,
-        ];
     }
 }
