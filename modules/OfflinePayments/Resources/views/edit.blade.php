@@ -12,7 +12,7 @@
 
                 {!! Form::open([
                     'id' => 'offline-payments',
-                    'route' => 'offline-payments.update',
+                    'route' => 'offline-payments.settings.update',
                     '@submit.prevent' => 'onSubmit',
                     '@keydown' => 'form.errors.clear($event.target.name)',
                     'files' => true,
@@ -39,7 +39,7 @@
 
                     <div class="card-footer">
                         <div class="row float-right">
-                            {{ Form::saveButtons('offline-payments/settings') }}
+                            {{ Form::saveButtons(url()->previous()) }}
                         </div>
                     </div>
                 {!! Form::close() !!}
