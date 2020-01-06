@@ -67,6 +67,7 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
             'contact_name',
             'contact_email',
             'contact_tax_number',
+            'contact_phone',
             'contact_address',
             'notes',
             'category_id',
