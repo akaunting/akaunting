@@ -27,7 +27,7 @@ class AccountsTest extends FeatureTestCase
     public function testItShouldCreateAccount()
     {
         $this->loginAs()
-            ->post(route('accounts.index'), factory(Account::class)->raw())
+            ->post(route('accounts.index'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -35,7 +35,7 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldSeeAccountUpdatePage()
     {
-        $account = $this->dispatch(new CreateAccount(factory(Account::class)->raw()));
+        $account = $this->dispatch(new CreateAccount($this->getRequest()));
 
         $this->loginAs()
             ->get(route('accounts.edit', ['account' => $account->id]))
@@ -45,7 +45,7 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldUpdateAccount()
     {
-        $request = factory(Account::class)->raw();
+        $request = $this->getRequest();
 
         $account = $this->dispatch(new CreateAccount($request));
 
@@ -60,12 +60,17 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldDeleteAccount()
     {
-        $account = $this->dispatch(new CreateAccount(factory(Account::class)->raw()));
+        $account = $this->dispatch(new CreateAccount($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('accounts.destroy', ['account' => $account]))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+    }
+
+    public function getRequest()
+    {
+        return factory(Account::class)->states('enabled')->raw();
     }
 }

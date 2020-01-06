@@ -24,3 +24,15 @@ $factory->define(Account::class, function (Faker $faker) use ($company) {
 		'enabled' => $faker->boolean ? 1 : 0,
 	];
 });
+
+$factory->state(Account::class, 'enabled', function (Faker $faker) {
+    return [
+		'enabled' => 1,
+    ];
+});
+
+$factory->state(Account::class, 'disabled', function (Faker $faker) {
+    return [
+		'enabled' => 0,
+    ];
+});

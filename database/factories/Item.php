@@ -21,3 +21,15 @@ $factory->define(Item::class, function (Faker $faker) use ($company) {
 		'enabled' => $faker->boolean ? 1 : 0,
 	];
 });
+
+$factory->state(Item::class, 'enabled', function (Faker $faker) {
+    return [
+		'enabled' => 1,
+    ];
+});
+
+$factory->state(Item::class, 'disabled', function (Faker $faker) {
+    return [
+		'enabled' => 0,
+    ];
+});

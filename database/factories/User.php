@@ -19,3 +19,15 @@ $factory->define(User::class, function (Faker $faker) {
         'enabled' => $this->faker->boolean ? 1 : 0,
     ];
 });
+
+$factory->state(User::class, 'enabled', function (Faker $faker) {
+    return [
+		'enabled' => 1,
+    ];
+});
+
+$factory->state(User::class, 'disabled', function (Faker $faker) {
+    return [
+		'enabled' => 0,
+    ];
+});
