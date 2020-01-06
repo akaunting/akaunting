@@ -10,22 +10,29 @@ $company = $user->companies()->first();
 $factory->define(Transaction::class, function (Faker $faker) use ($company) {
 	setting()->setExtraColumns(['company_id' => $company->id]);
 
+	$type = $faker->boolean ? 'income' : 'expense';
+
 	return [
 		'company_id' => $company->id,
-		'type' => 'income',
+		'type' => $type,
 		'account_id' => setting('default.account'),
-		'paid_at' => $faker->date(),
+		'paid_at' => $faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d'),
 		'amount' => $faker->randomFloat(2, 2, 1000),
 		'currency_code' => setting('default.currency'),
 		'currency_rate' => '1',
 		'description' => $faker->text(5),
-		'category_id' => $company->categories()->type('income')->pluck('id')->first(),
+		'category_id' => $company->categories()->type($type)->pluck('id')->first(),
 		'reference' => $faker->text(5),
 		'payment_method' => setting('default.payment_method'),
 	];
 });
 
-$factory->state(Transaction::class, 'income', []);
+$factory->state(Transaction::class, 'income', function (Faker $faker) use ($company) {
+    return [
+		'type' => 'income',
+		'category_id' => $company->categories()->type('income')->pluck('id')->first(),
+    ];
+});
 
 $factory->state(Transaction::class, 'expense', function (Faker $faker) use ($company) {
     return [

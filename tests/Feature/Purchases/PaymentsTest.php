@@ -27,7 +27,7 @@ class PaymentsTest extends FeatureTestCase
     public function testItShouldCreatePayment()
     {
         $this->loginAs()
-            ->post(route('payments.store'), factory(Transaction::class)->states('expense')->raw())
+            ->post(route('payments.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -35,7 +35,7 @@ class PaymentsTest extends FeatureTestCase
 
     public function testItShouldUpdatePayment()
     {
-        $request = factory(Transaction::class)->states('expense')->raw();
+        $request = $this->getRequest();
 
         $payment = $this->dispatch(new CreateTransaction($request));
 
@@ -50,12 +50,17 @@ class PaymentsTest extends FeatureTestCase
 
     public function testItShouldDeletePayment()
     {
-        $payment = $this->dispatch(new CreateTransaction(factory(Transaction::class)->states('expense')->raw()));
+        $payment = $this->dispatch(new CreateTransaction($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('payments.destroy', $payment->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+    }
+
+    public function getRequest()
+    {
+        return factory(Transaction::class)->states('expense')->raw();
     }
 }

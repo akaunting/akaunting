@@ -4,6 +4,7 @@ namespace Tests\Feature\Sales;
 
 use App\Jobs\Common\CreateContact;
 use App\Models\Auth\User;
+use App\Models\Common\Contact;
 use Tests\Feature\FeatureTestCase;
 
 class CustomersTest extends FeatureTestCase
@@ -27,7 +28,7 @@ class CustomersTest extends FeatureTestCase
 	public function testItShouldCreateOnlyCustomerWithoutUser()
 	{
 		$this->loginAs()
-			->post(route('customers.store'), $this->getCustomerRequest())
+			->post(route('customers.store'), $this->getRequest())
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
@@ -35,7 +36,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldCreateCustomerWithUser()
 	{
-        $customer = $this->getCustomerRequestWithUser();
+        $customer = $this->getRequestWithUser();
 
 		$this->loginAs()
 			->post(route('customers.store'), $customer)
@@ -51,7 +52,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldSeeCustomerDetailPage()
 	{
-		$customer = $this->dispatch(new CreateContact($this->getCustomerRequest()));
+		$customer = $this->dispatch(new CreateContact($this->getRequest()));
 
 		$this->loginAs()
 			->get(route('customers.show', ['customer' => $customer->id]))
@@ -61,7 +62,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldSeeCustomerUpdatePage()
 	{
-		$customer = $this->dispatch(new CreateContact($this->getCustomerRequest()));
+		$customer = $this->dispatch(new CreateContact($this->getRequest()));
 
 		$this->loginAs()
 			->get(route('customers.edit', ['customer' => $customer->id]))
@@ -72,7 +73,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldUpdateCustomer()
 	{
-		$request = $this->getCustomerRequest();
+		$request = $this->getRequest();
 
 		$customer = $this->dispatch(new CreateContact($request));
 
@@ -87,7 +88,7 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldDeleteCustomer()
 	{
-		$customer = $this->dispatch(new CreateContact($this->getCustomerRequest()));
+		$customer = $this->dispatch(new CreateContact($this->getRequest()));
 
 		$this->loginAs()
 			->delete(route('customers.destroy', $customer->id))
@@ -103,31 +104,20 @@ class CustomersTest extends FeatureTestCase
 		//TODO : This will write after done invoice and revenues tests.
 	}
 
-	private function getCustomerRequest()
-	{
-		return [
-			'company_id' => $this->company->id,
-            'type' => 'customer',
-			'name' => $this->faker->name,
-			'email' => $this->faker->email,
-			'tax_number' => $this->faker->randomNumber(9),
-			'phone' => $this->faker->phoneNumber,
-			'address' => $this->faker->address,
-			'website' => 'www.akaunting.com',
-			'currency_code' => $this->company->currencies()->enabled()->first()->code,
-			'enabled' => $this->faker->boolean ? 1 : 0
-		];
-	}
+    public function getRequest()
+    {
+        return factory(Contact::class)->states('customer', 'enabled')->raw();
+    }
 
-	private function getCustomerRequestWithUser()
+	public function getRequestWithUser()
 	{
 		$password = $this->faker->password;
 
-		return $this->getCustomerRequest() + [
+		return $this->getRequest() + [
 			'create_user' => 1,
 			'locale' => 'en-GB',
 			'password' => $password,
-			'password_confirmation' => $password
+			'password_confirmation' => $password,
 		];
 	}
 }

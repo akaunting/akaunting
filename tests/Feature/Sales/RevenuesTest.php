@@ -27,7 +27,7 @@ class RevenuesTest extends FeatureTestCase
    public function testItShouldCreateRevenue()
     {
         $this->loginAs()
-            ->post(route('revenues.store'), factory(Transaction::class)->raw())
+            ->post(route('revenues.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -35,7 +35,7 @@ class RevenuesTest extends FeatureTestCase
 
     public function testItShouldUpdateRevenue()
     {
-        $request = factory(Transaction::class)->raw();
+        $request = $this->getRequest();
 
         $revenue = $this->dispatch(new CreateTransaction($request));
 
@@ -50,12 +50,17 @@ class RevenuesTest extends FeatureTestCase
 
     public function testItShouldDeleteRevenue()
     {
-        $revenue = $this->dispatch(new CreateTransaction(factory(Transaction::class)->raw()));
+        $revenue = $this->dispatch(new CreateTransaction($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('revenues.destroy', $revenue->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+    }
+
+    public function getRequest()
+    {
+        return factory(Transaction::class)->states('income')->raw();
     }
 }

@@ -27,7 +27,7 @@ class ItemsTest extends FeatureTestCase
 	public function testItShouldCreateItem()
 	{
 		$this->loginAs()
-			->post(route('items.store'), factory(Item::class)->raw())
+			->post(route('items.store'), $this->getRequest())
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
@@ -35,7 +35,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldSeeItemUpdatePage()
 	{
-        $item = $this->dispatch(new CreateItem(factory(Item::class)->raw()));
+        $item = $this->dispatch(new CreateItem($this->getRequest()));
 
 		$this->loginAs()
 			->get(route('items.edit', ['item' => $item->id]))
@@ -45,7 +45,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldUpdateItem()
 	{
-		$request = factory(Item::class)->raw();
+		$request = $this->getRequest();
 
 		$item = $this->dispatch(new CreateItem($request));
 
@@ -60,7 +60,7 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldDeleteItem()
 	{
-		$item = $this->dispatch(new CreateItem(factory(Item::class)->raw()));
+		$item = $this->dispatch(new CreateItem($this->getRequest()));
 
 		$this->loginAs()
 			->delete(route('items.destroy', ['item' => $item]))
@@ -68,4 +68,9 @@ class ItemsTest extends FeatureTestCase
 
 		$this->assertFlashLevel('success');
 	}
+
+    public function getRequest()
+    {
+        return factory(Item::class)->states('enabled')->raw();
+    }
 }

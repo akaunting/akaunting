@@ -3,6 +3,7 @@
 namespace Tests\Feature\Purchases;
 
 use App\Jobs\Common\CreateContact;
+use App\Models\Common\Contact;
 use Tests\Feature\FeatureTestCase;
 
 class VendorsTest extends FeatureTestCase
@@ -26,7 +27,7 @@ class VendorsTest extends FeatureTestCase
     public function testItShouldCreateVendor()
     {
         $this->loginAs()
-            ->post(route('vendors.store'), $this->getVendorRequest())
+            ->post(route('vendors.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -34,7 +35,7 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldSeeVendorDetailPage()
     {
-        $vendor = $this->dispatch(new CreateContact($this->getVendorRequest()));
+        $vendor = $this->dispatch(new CreateContact($this->getRequest()));
 
         $this->loginAs()
             ->get(route('vendors.show', ['vendor' => $vendor->id]))
@@ -44,7 +45,7 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldSeeVendorUpdatePage()
     {
-        $vendor = $this->dispatch(new CreateContact($this->getVendorRequest()));
+        $vendor = $this->dispatch(new CreateContact($this->getRequest()));
 
         $this->loginAs()
             ->get(route('vendors.edit', ['vendor' => $vendor->id]))
@@ -55,7 +56,7 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldUpdateVendor()
     {
-        $request = $this->getVendorRequest();
+        $request = $this->getRequest();
 
         $vendor = $this->dispatch(new CreateContact($request));
 
@@ -70,7 +71,7 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldDeleteVendor()
     {
-        $vendor = $this->dispatch(new CreateContact($this->getVendorRequest()));
+        $vendor = $this->dispatch(new CreateContact($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('vendors.destroy', $vendor->id))
@@ -79,19 +80,8 @@ class VendorsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getVendorRequest()
+    public function getRequest()
     {
-        return [
-            'company_id' => $this->company->id,
-            'type' => 'vendor',
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'tax_number' => $this->faker->randomNumber(9),
-            'phone' => $this->faker->phoneNumber,
-            'address' => $this->faker->address,
-            'website' => 'www.akaunting.com',
-            'currency_code' => $this->company->currencies()->enabled()->first()->code,
-            'enabled' => $this->faker->boolean ? 1 : 0
-        ];
+        return factory(Contact::class)->states('vendor', 'enabled')->raw();
     }
 }

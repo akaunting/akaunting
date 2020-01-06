@@ -69,11 +69,11 @@ class TransfersTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getRequest()
+    public function getRequest()
     {
-        $income_transaction = factory(Transaction::class)->create();
+        $income_transaction = factory(Transaction::class)->states('income')->create();
 
-        $expense_transaction = factory(Transaction::class)->state('expense')->create();
+        $expense_transaction = factory(Transaction::class)->states('expense')->create();
 
         return [
             'company_id' => $this->company->id,
