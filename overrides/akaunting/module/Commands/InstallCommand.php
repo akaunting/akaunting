@@ -7,6 +7,8 @@ use App\Models\Module\ModuleHistory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
+use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
 
 class InstallCommand extends Command
 {
@@ -54,6 +56,10 @@ class InstallCommand extends Command
             'description' => trans('modules.installed', ['module' => $alias]),
         ]);
 
+        if (!empty($module->get('settings'))) {
+            $this->updatePermissions($module);
+        }
+
         $this->call('cache:clear');
 
         // Update database
@@ -81,5 +87,33 @@ class InstallCommand extends Command
             array('alias', InputArgument::REQUIRED, 'Module alias.'),
             array('company_id', InputArgument::REQUIRED, 'Company ID.'),
         );
+    }
+
+    protected function updatePermissions($module)
+    {
+        $permissions = [];
+
+        $permissions[] = Permission::firstOrCreate([
+            'name' => 'read-' . $module->getAlias() . '-settings',
+            'display_name' => 'Read ' . $module->getName() . ' Settings',
+            'description' => 'Read ' . $module->getName() . ' Settings',
+        ]);
+
+        $permissions[] = Permission::firstOrCreate([
+            'name' => 'update-' . $module->getAlias() . '-settings',
+            'display_name' => 'Update ' . $module->getName() . ' Settings',
+            'description' => 'Update ' . $module->getName() . ' Settings',
+        ]);
+
+        // Attach permission to roles
+        $roles = Role::all()->filter(function ($r) {
+            return $r->hasPermission('read-admin-panel');
+        });
+
+        foreach ($roles as $role) {
+            foreach ($permissions as $permission) {
+                $role->attachPermission($permission);
+            }
+        }
     }
 }
