@@ -6,6 +6,8 @@ use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
+use App\Utilities\Reports;
+use App\Utilities\Widgets;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
@@ -56,16 +58,16 @@ class InstallCommand extends Command
             'description' => trans('modules.installed', ['module' => $alias]),
         ]);
 
-        if (!empty($module->get('settings'))) {
-            $this->updatePermissions($module);
-        }
-
         $this->call('cache:clear');
 
         // Update database
         $this->call('migrate', ['--force' => true]);
 
         event(new \App\Events\Module\Installed($alias, $company_id));
+
+        if (!empty($module->get('reports')) || !empty($module->get('widgets')) || !empty($module->get('settings'))) {
+            $this->updatePermissions($module);
+        }
 
         session()->forget('company_id');
 
@@ -93,17 +95,53 @@ class InstallCommand extends Command
     {
         $permissions = [];
 
-        $permissions[] = Permission::firstOrCreate([
-            'name' => 'read-' . $module->getAlias() . '-settings',
-            'display_name' => 'Read ' . $module->getName() . ' Settings',
-            'description' => 'Read ' . $module->getName() . ' Settings',
-        ]);
+        if (!empty($module->get('reports'))) {
+            foreach ($module->get('reports') as $class) {
+                if (!class_exists($class)) {
+                    continue;
+                }
 
-        $permissions[] = Permission::firstOrCreate([
-            'name' => 'update-' . $module->getAlias() . '-settings',
-            'display_name' => 'Update ' . $module->getName() . ' Settings',
-            'description' => 'Update ' . $module->getName() . ' Settings',
-        ]);
+                $name = Reports::getPermission($class);
+                $display_name = (new $class())->getDefaultName();
+
+                $permissions[] = Permission::firstOrCreate([
+                    'name' => $name,
+                    'display_name' => 'Read ' . $module->getName() . ' Reports ' . $display_name,
+                    'description' => 'Read ' . $module->getName() . ' Reports ' . $display_name,
+                ]);
+            }
+        }
+
+        if (!empty($module->get('widgets'))) {
+            foreach ($module->get('widgets') as $class) {
+                if (!class_exists($class)) {
+                    continue;
+                }
+
+                $name = Widgets::getPermission($class);
+                $display_name = (new $class())->getDefaultName();
+
+                $permissions[] = Permission::firstOrCreate([
+                    'name' => $name,
+                    'display_name' => 'Read ' . $module->getName() . ' Widgets ' . $display_name,
+                    'description' => 'Read ' . $module->getName() . ' Widgets ' . $display_name,
+                ]);
+            }
+        }
+
+        if (!empty($module->get('settings'))) {
+            $permissions[] = Permission::firstOrCreate([
+                'name' => 'read-' . $module->getAlias() . '-settings',
+                'display_name' => 'Read ' . $module->getName() . ' Settings',
+                'description' => 'Read ' . $module->getName() . ' Settings',
+            ]);
+
+            $permissions[] = Permission::firstOrCreate([
+                'name' => 'update-' . $module->getAlias() . '-settings',
+                'display_name' => 'Update ' . $module->getName() . ' Settings',
+                'description' => 'Update ' . $module->getName() . ' Settings',
+            ]);
+        }
 
         // Attach permission to roles
         $roles = Role::all()->filter(function ($r) {
