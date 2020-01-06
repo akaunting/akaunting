@@ -43,7 +43,7 @@ class Settings extends Controller
             $modules->settings[$m->getAlias()] = [
                 'name' => $m->getName(),
                 'description' => $m->getDescription(),
-                'url' => $m->getAlias() . '/settings',
+                'url' => route('settings.module.edit', ['alias' => $m->getAlias()]),
                 'icon' => $m->get('icon', 'fa fa-cog'),
             ];
         }

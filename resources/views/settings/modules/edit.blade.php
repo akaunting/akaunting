@@ -7,7 +7,7 @@
         {!! Form::model($setting, [
             'id' => 'module',
             'method' => 'PATCH',
-            'url' => [$module->getAlias() . '/settings'],
+            'route' => ['settings.module.update', $module->getAlias()],
             '@submit.prevent' => 'onSubmit',
             '@keydown' => 'form.errors.clear($event.target.name)',
             'files' => true,

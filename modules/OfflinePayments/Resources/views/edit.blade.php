@@ -12,7 +12,7 @@
 
                 {!! Form::open([
                     'id' => 'offline-payments',
-                    'route' => 'offline-payments.update',
+                    'route' => ['settings.module.update', 'offline-payments'],
                     '@submit.prevent' => 'onSubmit',
                     '@keydown' => 'form.errors.clear($event.target.name)',
                     'files' => true,

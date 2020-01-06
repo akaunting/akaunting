@@ -152,8 +152,8 @@ Route::group(['prefix' => 'settings'], function () {
 });
 
 Route::group(['as' => 'settings.'], function () {
-    Route::get('{alias}/settings', 'Settings\Modules@edit');
-    Route::patch('{alias}/settings', 'Settings\Modules@update');
+    Route::get('{alias}/settings', 'Settings\Modules@edit')->name('module.edit');
+    Route::patch('{alias}/settings', 'Settings\Modules@update')->name('module.update');
 });
 
 Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
