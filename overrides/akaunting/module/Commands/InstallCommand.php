@@ -112,6 +112,10 @@ class InstallCommand extends Command
 
         foreach ($roles as $role) {
             foreach ($permissions as $permission) {
+                if ($role->hasPermission($permission->name)) {
+                    continue;
+                }
+
                 $role->attachPermission($permission);
             }
         }
