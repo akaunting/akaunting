@@ -24,7 +24,7 @@
 
                     {{ Form::textGroup('rate', trans('currencies.rate'), 'sliders-h', ['@input' => 'RateReplace', 'required' => 'required']) }}
 
-                    {{ Form::numberGroup('precision', trans('currencies.precision'), 'dot-circle') }}
+                    {{ Form::textGroup('precision', trans('currencies.precision'), 'dot-circle') }}
 
                     {{ Form::textGroup('symbol', trans('currencies.symbol.symbol'), 'font') }}
 

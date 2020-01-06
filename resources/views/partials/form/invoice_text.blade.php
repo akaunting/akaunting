@@ -16,7 +16,7 @@
             'class' => 'form-control',
             'data-name' => $input_name,
             'data-value' => $input_value,
-            'placeholder' => trans('general.form.select.field', ['field' => $text]),
+            'placeholder' => trans('general.form.enter', ['field' => $text]),
             'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $input_name
         ]) !!}
     </div>
