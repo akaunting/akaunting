@@ -16,7 +16,7 @@
         {!! Form::password($name, array_merge([
             'class' => 'form-control',
             'data-name' => $name,
-            'placeholder' => trans('general.form.select.field', ['field' => $text]),
+            'placeholder' => trans('general.form.enter', ['field' => $text]),
             'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $name
         ], $attributes)) !!}
     </div>
