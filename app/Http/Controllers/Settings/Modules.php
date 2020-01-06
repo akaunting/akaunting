@@ -9,6 +9,20 @@ use App\Http\Requests\Setting\Module as Request;
 class Modules extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        $alias = request()->segment(1);
+
+        // Add CRUD permission check
+        $this->middleware('permission:create-' . $alias . '-settings')->only(['create', 'store', 'duplicate', 'import']);
+        $this->middleware('permission:read-' . $alias . '-settings')->only(['index', 'show', 'edit', 'export']);
+        $this->middleware('permission:update-' . $alias . '-settings')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:delete-' . $alias . '-settings')->only('destroy');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @return Response

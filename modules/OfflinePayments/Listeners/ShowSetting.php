@@ -17,7 +17,7 @@ class ShowSetting
         $event->modules->settings['offline-payments'] = [
             'name' => trans('offline-payments::general.name'),
             'description' => trans('offline-payments::general.description'),
-            'url' => 'settings/offline-payments',
+            'url' => 'offline-payments/settings',
             'icon' => 'fas fa-credit-card',
         ];
     }

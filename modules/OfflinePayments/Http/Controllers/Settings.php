@@ -2,16 +2,15 @@
 
 namespace Modules\OfflinePayments\Http\Controllers;
 
+use App\Abstracts\Http\Controller;
 use Artisan;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
 use Modules\OfflinePayments\Http\Requests\Setting as Request;
 use Modules\OfflinePayments\Http\Requests\SettingGet as GRequest;
 use Modules\OfflinePayments\Http\Requests\SettingDelete as DRequest;
 
 class Settings extends Controller
 {
-
     /**
      * Show the form for editing the specified resource.
      *

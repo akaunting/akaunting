@@ -43,14 +43,24 @@ class Settings extends Controller
             $modules->settings[$m->getAlias()] = [
                 'name' => $m->getName(),
                 'description' => $m->getDescription(),
-                'url' => 'settings/' . $m->getAlias(),
+                'url' => $m->getAlias() . '/settings',
                 'icon' => $m->get('icon', 'fa fa-cog'),
             ];
         }
 
         event(new \App\Events\Module\SettingShowing($modules));
 
-        return view('settings.settings.index', ['modules' => $modules->settings]);
+        $settings = [];
+
+        foreach ($modules->settings as $alias => $setting) {
+            if (!user()->can('read-' . $alias . '-settings')) {
+                continue;
+            }
+
+            $settings[$alias] = $setting;
+        }
+
+        return view('settings.settings.index', ['modules' => $settings]);
     }
 
     /**

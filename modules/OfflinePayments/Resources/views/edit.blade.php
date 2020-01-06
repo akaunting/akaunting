@@ -39,7 +39,7 @@
 
                     <div class="card-footer">
                         <div class="row float-right">
-                            {{ Form::saveButtons('settings/offline-payments') }}
+                            {{ Form::saveButtons('offline-payments/settings') }}
                         </div>
                     </div>
                 {!! Form::close() !!}
