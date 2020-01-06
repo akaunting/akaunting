@@ -7,7 +7,7 @@
         {!! Form::model($setting, [
             'id' => 'module',
             'method' => 'PATCH',
-            'url' => ['settings/' . $module->getAlias()],
+            'route' => ['settings.module.update', $module->getAlias()],
             '@submit.prevent' => 'onSubmit',
             '@keydown' => 'form.errors.clear($event.target.name)',
             'files' => true,
@@ -40,13 +40,16 @@
                 </div>
             </div>
 
+            @permission('update-' . $module->getAlias() . '-settings')
             <div class="card-footer">
                 <div class="float-right">
                     <div class="row">
-                        {{ Form::saveButtons(URL::previous()) }}
+                        {{ Form::saveButtons(url()->previous()) }}
                     </div>
                 </div>
             </div>
+            @endpermission
+
         {!! Form::close() !!}
     </div>
 @endsection

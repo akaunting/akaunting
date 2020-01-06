@@ -76,9 +76,20 @@ class Widgets
 
     public static function getPermission($class)
     {
-        $class_name = (new \ReflectionClass($class))->getShortName();
+        $arr = explode('\\', $class);
 
-        $permission = 'read-widgets-' . Str::kebab($class_name);
+        $prefix = 'read-';
+
+        // Add module
+        if (strtolower($arr[0]) == 'modules') {
+            $prefix .= Str::kebab($arr[1]) . '-';
+        }
+
+        $prefix .= 'widgets-';
+
+        $class_name = end($arr);
+
+        $permission = $prefix . Str::kebab($class_name);
 
         return $permission;
     }

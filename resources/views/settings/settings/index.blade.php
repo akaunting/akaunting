@@ -126,59 +126,65 @@
                     </div>
                 @endpermission
 
-                <div class="col-md-4">
-                    <a href="{{ route('categories.index') }}">
-                        <button type="button" class="btn-icon-clipboard p-2">
-                            <div class="row mx-0">
-                                <div class="col-auto">
-                                    <div class="badge badge-secondary settings-icons">
-                                        <i class="fa fa-folder"></i>
+                @permission('read-settings-categories')
+                    <div class="col-md-4">
+                        <a href="{{ route('categories.index') }}">
+                            <button type="button" class="btn-icon-clipboard p-2">
+                                <div class="row mx-0">
+                                    <div class="col-auto">
+                                        <div class="badge badge-secondary settings-icons">
+                                            <i class="fa fa-folder"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col ml--2">
+                                        <h4 class="mb-0">{{ trans_choice('general.categories', 2) }}</h4>
+                                        <p class="text-sm text-muted mb-0">{{ trans('settings.categories.description') }}</p>
                                     </div>
                                 </div>
-                                <div class="col ml--2">
-                                    <h4 class="mb-0">{{ trans_choice('general.categories', 2) }}</h4>
-                                    <p class="text-sm text-muted mb-0">{{ trans('settings.categories.description') }}</p>
-                                </div>
-                            </div>
-                        </button>
-                    </a>
-                </div>
+                            </button>
+                        </a>
+                    </div>
+                    @endpermission
 
-                <div class="col-md-4">
-                    <a href="{{ route('currencies.index') }}">
-                        <button type="button" class="btn-icon-clipboard p-2">
-                            <div class="row mx-0">
-                                <div class="col-auto">
-                                    <div class="badge badge-secondary settings-icons">
-                                        <i class="fa fa-dollar-sign"></i>
+                @permission('read-settings-currencies')
+                    <div class="col-md-4">
+                        <a href="{{ route('currencies.index') }}">
+                            <button type="button" class="btn-icon-clipboard p-2">
+                                <div class="row mx-0">
+                                    <div class="col-auto">
+                                        <div class="badge badge-secondary settings-icons">
+                                            <i class="fa fa-dollar-sign"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col ml--2">
+                                        <h4 class="mb-0">{{ trans_choice('general.currencies', 2) }}</h4>
+                                        <p class="text-sm text-muted mb-0">{{ trans('settings.currencies.description') }}</p>
                                     </div>
                                 </div>
-                                <div class="col ml--2">
-                                    <h4 class="mb-0">{{ trans_choice('general.currencies', 2) }}</h4>
-                                    <p class="text-sm text-muted mb-0">{{ trans('settings.currencies.description') }}</p>
-                                </div>
-                            </div>
-                        </button>
-                    </a>
-                </div>
+                            </button>
+                        </a>
+                    </div>
+                @endpermission
 
-                <div class="col-md-4">
-                    <a href="{{ route('taxes.index') }}">
-                        <button type="button" class="btn-icon-clipboard p-2">
-                            <div class="row mx-0">
-                                <div class="col-auto">
-                                    <div class="badge badge-secondary settings-icons">
-                                        <i class="fas fa-percent"></i>
+                @permission('read-settings-taxes')
+                    <div class="col-md-4">
+                        <a href="{{ route('taxes.index') }}">
+                            <button type="button" class="btn-icon-clipboard p-2">
+                                <div class="row mx-0">
+                                    <div class="col-auto">
+                                        <div class="badge badge-secondary settings-icons">
+                                            <i class="fas fa-percent"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col ml--2">
+                                        <h4 class="mb-0">{{ trans_choice('general.taxes', 2) }}</h4>
+                                        <p class="text-sm text-muted mb-0">{{ trans('settings.taxes.description') }}</p>
                                     </div>
                                 </div>
-                                <div class="col ml--2">
-                                    <h4 class="mb-0">{{ trans_choice('general.taxes', 2) }}</h4>
-                                    <p class="text-sm text-muted mb-0">{{ trans('settings.taxes.description') }}</p>
-                                </div>
-                            </div>
-                        </button>
-                    </a>
-                </div>
+                            </button>
+                        </a>
+                    </div>
+                @endpermission
 
                 @foreach($modules as $module)
                     <div class="col-md-4">
