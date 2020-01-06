@@ -67,6 +67,7 @@ class Invoices implements FromCollection, ShouldAutoSize, WithHeadings, WithMapp
             'contact_name',
             'contact_email',
             'contact_tax_number',
+            'contact_phone',
             'contact_address',
             'notes',
             'category_id',
