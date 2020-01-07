@@ -35,7 +35,7 @@ class TestCompany extends Seeder
 
     private function createCompany()
     {
-        $this->dispatch(new CreateCompany([
+        $company = $this->dispatch(new CreateCompany([
             'name' => 'My Company',
             'domain' => 'company.com',
             'address' => 'New Street 1254',
@@ -49,22 +49,22 @@ class TestCompany extends Seeder
             ],
         ]));
 
+        session(['company_id' => $company->id]);
+
         $this->command->info('Test company created.');
     }
 
     public function createUser()
     {
-        $user = $this->dispatch(new CreateUser([
+        $this->dispatch(new CreateUser([
             'name' => 'Test User',
             'email' => 'test@company.com',
             'password' => '123456',
             'locale' => 'en-GB',
-            'companies' => ['1'],
+            'companies' => [session('company_id')],
             'roles' => ['1'],
             'enabled' => '1',
         ]));
-
-        session(['company_id' => $user->companies()->pluck('id')->first()]);
 
         $this->command->info('Test user created.');
     }
