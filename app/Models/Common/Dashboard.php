@@ -16,7 +16,7 @@ class Dashboard extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'user_id', 'name', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'enabled'];
 
     /**
      * Sortable columns.
@@ -25,18 +25,13 @@ class Dashboard extends Model
      */
     public $sortable = ['name', 'enabled'];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\Models\Auth\User', 'user_id', 'id');
+        return $this->morphedByMany('App\Models\Auth\User', 'user', 'user_dashboards', 'dashboard_id', 'user_id');
     }
 
     public function widgets()
     {
         return $this->hasMany('App\Models\Common\Widget')->orderBy('sort', 'asc');
-    }
-
-    public function scopeOfUser($query, $user_id)
-    {
-        return $query->where('user_id', $user_id);
     }
 }

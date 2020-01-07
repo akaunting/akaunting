@@ -3,6 +3,7 @@
 @section('title', $dashboard->name)
 
 @section('dashboard_action')
+    @permission(['create-common-widgets', 'read-common-dashboards'])
     <span class="dashboard-action">
         <div class="dropdown">
             <a class="btn btn-sm items-align-center py-2 mt--1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -10,41 +11,32 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
-                {!! Form::button(trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]), array(
+                @permission('create-common-widgets')
+                {!! Form::button(trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]), [
                     'type'    => 'button',
                     'class'   => 'dropdown-item',
                     'title'   => trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]),
-                    '@click'  => 'onCreateWidget()'
-                )) !!}
-
-                {!! Form::button(trans('general.title.edit', ['type' => trans_choice('general.dashboard', 1)]), array(
-                    'type'    => 'button',
-                    'class'   => 'dropdown-item',
-                    'title'   => trans('general.title.edit', ['type' => trans_choice('general.dashboard', 1)]),
-                    '@click'  => 'onEditDashboard(' . $dashboard->id . ')'
-                )) !!}
-
-                @if ($dashboards->count() > 1)
-                    {!! Form::deleteLink($dashboard, 'common/dashboards') !!}
-                @endif
-
+                    '@click'  => 'onCreateWidget()',
+                ]) !!}
+                @endpermission
+                @permission('read-common-dashboards')
                 <div class="dropdown-divider"></div>
-                {!! Form::button(trans('general.title.add', ['type' => trans_choice('general.dashboard', 1)]), array(
-                    'type'    => 'button',
-                    'class'   => 'dropdown-item',
-                    'title'   => trans('general.title.add', ['type' => trans_choice('general.dashboard', 1)]),
-                    '@click'  => 'onCreateDashboard()'
-                )) !!}
+                @permission('create-common-dashboards')
+                <a class="dropdown-item" href="{{ route('dashboards.create') }}">{{ trans('general.title.create', ['type' => trans_choice('general.dashboards', 1)]) }}</a>
+                @endpermission
+                <a class="dropdown-item" href="{{ route('dashboards.index') }}">{{ trans('general.title.manage', ['type' => trans_choice('general.dashboards', 2)]) }}</a>
+                @endpermission
             </div>
         </div>
     </span>
+    @endpermission
 
     @php
         $text = json_encode([
             'name' => trans('general.name'),
-            'type' => 'Type',
-            'width' => 'Width',
-            'sort' => 'Sort',
+            'type' => trans_choice('general.types', 1),
+            'width' => trans('general.width'),
+            'sort' => trans('general.sort'),
             'enabled' => trans('general.enabled'),
             'yes' => trans('general.yes'),
             'no' => trans('general.no'),
@@ -54,23 +46,11 @@
 
         $placeholder = json_encode([
             'name' => trans('general.form.enter', ['field' => trans('general.name')]),
-            'type' => trans('general.form.enter', ['field' => 'Type']),
-            'width' => trans('general.form.enter', ['field' => 'Width']),
-            'sort' => trans('general.form.enter', ['field' => 'Sort'])
+            'type' => trans('general.form.enter', ['field' => trans_choice('general.types', 1)]),
+            'width' => trans('general.form.enter', ['field' => trans('general.width')]),
+            'sort' => trans('general.form.enter', ['field' => trans('general.sprt')])
         ]);
     @endphp
-
-    <akaunting-dashboard
-        v-if="dashboard_modal"
-        :title="'{{ trans('general.dashboard') }}'"
-        :show="dashboard_modal"
-        :name="dashboard.name"
-        :enabled="dashboard.enabled"
-        :type="dashboard.type"
-        :dashboard_id="dashboard.dashboard_id"
-        :text="{{ $text }}"
-        @cancel="onCancel">
-    </akaunting-dashboard>
 
     <akaunting-widget
         v-if="widget_modal"
@@ -181,5 +161,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="{{ asset('public/js/common/dashboard.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset('public/js/common/dashboards.js?v=' . version('short')) }}"></script>
 @endpush

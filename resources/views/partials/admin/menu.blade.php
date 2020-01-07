@@ -23,7 +23,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('companies.index') }}" class="dropdown-item">
                                     <i class="fas fa-cogs"></i>
-                                    <span>{{ trans('companies.manage') }}</span>
+                                    <span>{{ trans('general.title.manage', ['type' => trans_choice('general.companies', 2)]) }}</span>
                                 </a>
                             @endpermission
                         </div>

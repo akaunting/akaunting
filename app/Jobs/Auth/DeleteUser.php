@@ -28,8 +28,6 @@ class DeleteUser extends Job
     {
         $this->authorize();
 
-        $this->deleteRelationships($this->user, ['widgets', 'dashboards']);
-
         $this->user->delete();
 
         Artisan::call('cache:clear');

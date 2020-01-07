@@ -3,7 +3,6 @@
 namespace App\Listeners\Menu;
 
 use App\Events\Menu\AdminCreated as Event;
-use App\Models\Common\Dashboard;
 
 class AddAdminItems
 {
@@ -21,7 +20,7 @@ class AddAdminItems
         $attr = ['icon' => ''];
 
         // Dashboard
-        $dashboards = Dashboard::ofUser($user->id)->get();
+        $dashboards = user()->dashboards()->enabled()->get();
 
         if ($dashboards->count() > 1) {
             $menu->dropdown(trim(trans_choice('general.dashboards', 2)), function ($sub) use ($user, $attr, $dashboards) {

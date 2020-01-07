@@ -11,9 +11,11 @@ import Vue from 'vue';
 import DashboardPlugin from './../../plugins/dashboard-plugin';
 
 import Global from './../../mixins/global';
+
+import Form from './../../plugins/form';
+import BulkAction from './../../plugins/bulk-action';
 import {getQueryVariable} from './../../plugins/functions';
 
-import AkauntingDashboard from './../../components/AkauntingDashboard';
 import AkauntingWidget from './../../components/AkauntingWidget';
 
 import {DatePicker, Tooltip} from 'element-ui';
@@ -29,7 +31,6 @@ const dashboard = new Vue({
     components: {
         [DatePicker.name]: DatePicker,
         [Tooltip.name]: Tooltip,
-        AkauntingDashboard,
         AkauntingWidget
     },
 
@@ -39,13 +40,6 @@ const dashboard = new Vue({
 
     data: function () {
         return {
-            dashboard_modal: false,
-            dashboard: {
-                name: '',
-                enabled: 1,
-                type: 'create',
-                dashboard_id: 0
-            },
             widget_modal: false,
             widgets: {},
             widget: {
@@ -57,7 +51,8 @@ const dashboard = new Vue({
                 sort: 0,
             },
             filter_date: [],
-
+            form: new Form('dashboard'),
+            bulk_action: new BulkAction('dashboards')
         };
     },
 
@@ -75,33 +70,6 @@ const dashboard = new Vue({
     },
 
     methods:{
-        // Create Dashboard form open
-        onCreateDashboard() {
-            this.dashboard_modal = true;
-            this.dashboard.name = '';
-            this.dashboard.enabled = 1;
-            this.dashboard.type = 'create';
-            this.dashboard.dashboard_id = 0;
-        },
-
-        // Edit Dashboard information
-        onEditDashboard(dashboard_id) {
-            var self = this;
-
-            axios.get(url + '/common/dashboards/' + dashboard_id + '/edit')
-                .then(function (response) {
-                    self.dashboard.name = response.data.name;
-                    self.dashboard.enabled = response.data.enabled;
-                    self.dashboard.type = 'edit';
-                    self.dashboard.dashboard_id = dashboard_id;
-
-                    self.dashboard_modal = true;
-                })
-                .catch(function (error) {
-                    self.dashboard_modal = false;
-                });
-        },
-
         // Get All Widgets
         getWidgets() {
             var self = this;
@@ -140,13 +108,6 @@ const dashboard = new Vue({
         },
 
         onCancel() {
-            this.dashboard_modal = false;
-
-            this.dashboard.name = '';
-            this.dashboard.enabled = 1;
-            this.dashboard.type = 'create';
-            this.dashboard.dashboard_id = 0;
-
             this.widget_modal = false;
 
             this.widget.id = 0;

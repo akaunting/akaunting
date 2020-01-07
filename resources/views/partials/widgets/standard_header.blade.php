@@ -1,3 +1,4 @@
+@permission(['update-common-widgets', 'delete-common-widgets'])
 <div class="card-header{{ !empty($header_class) ? ' ' . $header_class : '' }}">
     <div class="row align-items-center">
 
@@ -13,17 +14,22 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        @permission('update-common-widgets')
                         {!! Form::button(trans('general.edit'), [
                             'type'    => 'button',
                             'class'   => 'dropdown-item',
                             'title'   => trans('general.edit'),
                             '@click'  => 'onEditWidget(' . $model->id . ')'
                         ]) !!}
+                        @endpermission
+                        @permission('delete-common-widgets')
                         <div class="dropdown-divider"></div>
                         {!! Form::deleteLink($model, 'common/widgets') !!}
+                        @endpermission
                     </div>
                 </div>
             </span>
         </div>
     </div>
 </div>
+@endpermission
