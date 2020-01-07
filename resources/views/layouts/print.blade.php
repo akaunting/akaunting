@@ -1,12 +1,6 @@
 <html lang="{{ app()->getLocale() }}">
 
-    @include('partials.admin.head')
-
-    <style type="text/css">
-        * {
-            font-family: DejaVu Sans, sans-serif !important;
-        }
-    </style>
+    @include('partials.print.head')
 
     <body onload="window.print();">
         @stack('body_start')
