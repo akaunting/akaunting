@@ -34,8 +34,9 @@
             <div class="nav-wrapper">
                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                     @foreach($names as $name)
+                        @php $active_tab_name = ($name == 'read') ? 'active' : ''; @endphp
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0 @php echo ($name == 'read') ? 'active' : ''; @endphp" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tab-{{ $name }}" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">{{ ucwords($name) }}</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 {{ $active_tab_name }}" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tab-{{ $name }}" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">{{ ucwords($name) }}</a>
                         </li>
                     @endforeach
                 </ul>
@@ -45,7 +46,8 @@
                 <div class="card-body">
                     <div class="tab-content">
                         @foreach($permissions as $code => $code_permissions)
-                            <div class="tab-pane fade show @php echo ($code == 'read') ? 'active' : ''; @endphp" id="tab-{{ $code }}"  role="tabpanel">
+                            @php $active_tab_code = ($code == 'read') ? 'active' : ''; @endphp
+                            <div class="tab-pane fade show {{ $active_tab_code }}" id="tab-{{ $code }}"  role="tabpanel">
                                 <span class="btn btn-primary btn-sm" @click="select('{{ $code }}')">{{ trans('general.select_all') }}</span>
                                 <span class="btn btn-primary btn-sm" @click="unselect('{{ $code }}')">{{ trans('general.unselect_all') }}</span>
 
@@ -57,7 +59,7 @@
                                                     <div class="custom-control custom-checkbox">
                                                         {{ Form::checkbox('permissions', $item->id, null, ['id' => 'permissions-' . $item->id, 'class' => 'custom-control-input', 'v-model' => 'form.permissions']) }}
                                                         <label class="custom-control-label" for="permissions-{{ $item->id }}">
-                                                            {{ $item->display_name }}
+                                                            {{ $item->title }}
                                                         </label>
                                                     </div>
                                                 </div>

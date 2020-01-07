@@ -6,7 +6,6 @@ use App\Abstracts\Model;
 
 class Tax extends Model
 {
-
     protected $table = 'taxes';
 
     /**

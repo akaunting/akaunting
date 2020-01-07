@@ -14,6 +14,13 @@ class Permission extends LaratrustPermission
     protected $table = 'permissions';
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['title'];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -36,5 +43,25 @@ class Permission extends LaratrustPermission
         $limit = $request->get('limit', setting('default.list_limit', '25'));
 
         return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
+    }
+
+    /**
+     * Get the name including rate.
+     *
+     * @return string
+     */
+    public function getTitleAttribute()
+    {
+        $replaces = [
+            'Create ' => '',
+            'Read ' => '',
+            'Update ' => '',
+            'Delete ' => '',
+            'Modules' => 'Apps',
+        ];
+
+        $title = str_replace(array_keys($replaces), array_values($replaces), $this->display_name);
+
+        return $title;
     }
 }
