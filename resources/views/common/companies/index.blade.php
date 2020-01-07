@@ -74,7 +74,7 @@
                                         <a class="dropdown-item" href="{{ url('common/companies/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a>
                                         @permission('delete-common-companies')
                                             <div class="dropdown-divider"></div>
-                                            {!! Form::deleteLink($item, 'common/companies', '', 'company_name') !!}
+                                            {!! Form::deleteLink($item, 'common/companies') !!}
                                         @endpermission
                                     </div>
                                 </div>
