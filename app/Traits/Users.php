@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use App\Models\Auth\User;
-
 trait Users
 {
     /**
@@ -34,6 +32,30 @@ trait Users
         $companies = $user->companies()->pluck('id')->toArray();
 
         if (in_array($id, $companies)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check user dashboard assignment
+     *
+     * @param  $id
+     *
+     * @return boolean
+     */
+    public function isUserDashboard($id)
+    {
+        $user = user();
+
+        if (empty($user)) {
+            return false;
+        }
+
+        $dashboards = $user->dashboards()->pluck('id')->toArray();
+
+        if (in_array($id, $dashboards)) {
             return true;
         }
 

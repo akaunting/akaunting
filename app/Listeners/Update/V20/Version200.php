@@ -695,6 +695,7 @@ class Version200 extends Listener
     {
         $this->attachPermissions([
             'admin' => [
+                'common-dashboards' => 'c,r,u,d',
                 'common-reports' => 'c,r,u,d',
                 'common-search' => 'r',
                 'common-widgets' => 'c,r,u,d',
@@ -720,9 +721,10 @@ class Version200 extends Listener
                 'widgets-total-profit' => 'r',
             ],
             'manager' => [
+                'common-dashboards' => 'c,r,u,d',
                 'common-reports' => 'c,r,u,d',
                 'common-search' => 'r',
-                'common-widgets' => 'r',
+                'common-widgets' => 'c,r,u,d',
                 'offline-payments-settings' => 'r,u,d',
                 'paypal-standard-settings' => 'r,u',
                 'settings-company' => 'r',
@@ -885,6 +887,7 @@ class Version200 extends Listener
             'app/Http/Controllers/Api/Incomes/Revenues.php',
             'app/Http/Controllers/ApiController.php',
             'app/Http/Controllers/Controller.php',
+            'app/Http/Controllers/Common/Dashboard.php',
             'app/Http/Controllers/Modals/BillPayments.php',
             'app/Http/Controllers/Modals/InvoicePayments.php',
             'app/Http/Controllers/modules/Token.php',
@@ -1021,6 +1024,7 @@ class Version200 extends Listener
             'public/js/highchart',
             'public/js/lightbox',
             'public/js/moment',
+            'resources/views/common/dashboard',
             'resources/views/customers',
             'resources/views/expenses',
             'resources/views/incomes',

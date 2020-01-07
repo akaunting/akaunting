@@ -59,12 +59,7 @@ class User extends Authenticatable
 
     public function dashboards()
     {
-        return $this->hasMany('App\Models\Common\Dashboard');
-    }
-
-    public function widgets()
-    {
-        return $this->hasManyThrough('App\Models\Common\Widget', 'App\Models\Common\Dashboard');
+        return $this->morphToMany('App\Models\Common\Dashboard', 'user', 'user_dashboards', 'user_id', 'dashboard_id');
     }
 
     /**

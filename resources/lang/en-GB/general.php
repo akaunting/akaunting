@@ -52,7 +52,6 @@ return [
     'sales'                 => 'Sale|Sales',
     'purchases'             => 'Purchases|Purchases',
 
-    'dashboard'             => 'Dashboard',
     'welcome'               => 'Welcome',
     'banking'               => 'Banking',
     'general'               => 'General',
@@ -142,6 +141,8 @@ return [
     'cash'                  => 'Cash',
     'group_by'              => 'Group By',
     'accounting'            => 'Accounting',
+    'sort'                  => 'Sort',
+    'width'                 => 'Width',
 
     'month'                => 'Month',
     'year'                => 'Year',
@@ -161,6 +162,7 @@ return [
         'send'              => 'Send :type',
         'get'               => 'Get :type',
         'add'               => 'Add :type',
+        'manage'            => 'Manage :type',
     ],
 
     'form' => [

@@ -108,6 +108,13 @@ return [
         ],
     ],
 
+    App\Models\Common\Dashboard::class => [
+        'columns' => [
+            'name' => ['searchable' => true],
+            'enabled' => ['boolean' => true],
+        ],
+    ],
+
     App\Models\Common\Item::class => [
         'columns' => [
             'name' => ['searchable' => true],

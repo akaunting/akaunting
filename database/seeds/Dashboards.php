@@ -3,9 +3,10 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
+use App\Models\Auth\User;
 use App\Models\Common\Widget;
 use App\Models\Common\Dashboard;
-use App\Utilities\Widgets as WidgetUtility;
+use App\Utilities\Widgets;
 use Illuminate\Database\Seeder;
 
 class Dashboards extends Seeder
@@ -31,12 +32,11 @@ class Dashboards extends Seeder
 
         $dashboard = Dashboard::create([
             'company_id' => $company_id,
-            'user_id' => $user_id,
-            'name' => trans('general.dashboard'),
+            'name' => trans_choice('general.dashboards', 1),
             'enabled' => 1,
         ]);
 
-        $widgets = WidgetUtility::getClasses(false);
+        $widgets = Widgets::getClasses(false);
 
         $sort = 1;
 
@@ -52,5 +52,7 @@ class Dashboards extends Seeder
 
             $sort++;
         }
+
+        User::find($user_id)->dashboards()->attach($dashboard->id);
     }
 }

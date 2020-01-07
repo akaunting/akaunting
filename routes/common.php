@@ -9,7 +9,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['permission:read-admin-panel']], function () {
         Route::group(['middleware' => ['menu.admin']], function () {
-            Route::get('/', 'Common\Dashboard@index')->name('dashboard');
+            Route::get('/', 'Common\Dashboards@show')->name('dashboard');
         });
 
         Route::get('wizard', 'Wizard\Companies@edit')->name('wizard.edit');

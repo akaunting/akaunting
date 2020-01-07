@@ -58,7 +58,7 @@ abstract class Controller extends BaseController
         $controller .= Str::kebab($arr[0]);
 
         // Skip ACL
-        $skip = ['common-dashboard', 'portal-dashboard'];
+        $skip = ['portal-dashboard'];
         if (in_array($controller, $skip)) {
             return;
         }

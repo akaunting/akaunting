@@ -29,10 +29,6 @@ class CreateUser extends Job
     {
         $user = User::create($this->request->input());
 
-        if ($this->request->has('permissions')) {
-            $user->permissions()->attach($this->request->get('permissions'));
-        }
-
         // Upload picture
         if ($this->request->file('picture')) {
             $media = $this->getMedia($this->request->file('picture'), 'users');
@@ -40,10 +36,16 @@ class CreateUser extends Job
             $user->attachMedia($media, 'picture');
         }
 
-        // Attach roles
+        if ($this->request->has('dashboards')) {
+            $user->dashboards()->attach($this->request->get('dashboards'));
+        }
+
+        if ($this->request->has('permissions')) {
+            $user->permissions()->attach($this->request->get('permissions'));
+        }
+
         $user->roles()->attach($this->request->get('roles'));
 
-        // Attach companies
         $user->companies()->attach($this->request->get('companies'));
 
         Artisan::call('cache:clear');
