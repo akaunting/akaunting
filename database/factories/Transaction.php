@@ -21,7 +21,7 @@ $factory->define(Transaction::class, function (Faker $faker) use ($company) {
 		'currency_code' => setting('default.currency'),
 		'currency_rate' => '1',
 		'description' => $faker->text(5),
-		'category_id' => $company->categories()->type($type)->pluck('id')->first(),
+		'category_id' => $company->categories()->type($type)->get()->random(1)->pluck('id')->first(),
 		'reference' => $faker->text(5),
 		'payment_method' => setting('default.payment_method'),
 	];
@@ -30,13 +30,13 @@ $factory->define(Transaction::class, function (Faker $faker) use ($company) {
 $factory->state(Transaction::class, 'income', function (Faker $faker) use ($company) {
     return [
 		'type' => 'income',
-		'category_id' => $company->categories()->type('income')->pluck('id')->first(),
+		'category_id' => $company->categories()->type('income')->get()->random(1)->pluck('id')->first(),
     ];
 });
 
 $factory->state(Transaction::class, 'expense', function (Faker $faker) use ($company) {
     return [
 		'type' => 'expense',
-		'category_id' => $company->categories()->type('expense')->pluck('id')->first(),
+		'category_id' => $company->categories()->type('expense')->get()->random(1)->pluck('id')->first(),
     ];
 });

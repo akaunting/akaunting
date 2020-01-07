@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Banking;
 
-use App\Models\Banking\Transaction;
-use App\Models\Banking\Transfer;
+use App\Models\Banking\Account;
 use Tests\Feature\FeatureTestCase;
+use App\Jobs\Banking\CreateTransfer;
 
 class TransfersTest extends FeatureTestCase
 {
@@ -35,7 +35,7 @@ class TransfersTest extends FeatureTestCase
 
     public function testItShouldSeeTransferUpdatePage()
     {
-        $transfer = Transfer::create($this->getRequest());
+        $transfer = $this->dispatch(new CreateTransfer($this->getRequest()));
 
         $this->loginAs()
             ->get(route('transfers.edit', ['transfer' => $transfer->id]))
@@ -47,7 +47,7 @@ class TransfersTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $transfer = Transfer::create($request);
+        $transfer = $this->dispatch(new CreateTransfer($request));
 
         $request['description'] = $this->faker->text(10);
 
@@ -60,7 +60,7 @@ class TransfersTest extends FeatureTestCase
 
     public function testItShouldDeleteTransfer()
     {
-        $transfer = Transfer::create($this->getRequest());
+        $transfer = $this->dispatch(new CreateTransfer($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('transfers.destroy', ['transfer' => $transfer->id]))
@@ -71,21 +71,19 @@ class TransfersTest extends FeatureTestCase
 
     public function getRequest()
     {
-        $income_transaction = factory(Transaction::class)->states('income')->create();
+        $from_account = factory(Account::class)->states('enabled')->create();
 
-        $expense_transaction = factory(Transaction::class)->states('expense')->create();
+        $to_account = factory(Account::class)->states('enabled')->create();
 
         return [
             'company_id' => $this->company->id,
-            'income_transaction_id' => $income_transaction->id,
-            'expense_transaction_id' => $expense_transaction->id,
-            'from_account_id' => $income_transaction->account_id,
-            'to_account_id' => $expense_transaction->account_id,
-            'amount' => '5',
+            'from_account_id' => $from_account->id,
+            'to_account_id' => $to_account->id,
+            'amount' => $this->faker->randomFloat(2, 2, 1000),
             'transferred_at' => $this->faker->date(),
             'description'=> $this->faker->text(5),
             'payment_method' => setting('default.payment_method'),
-            'reference' => null,
+            'reference' => $this->faker->text(5),
         ];
     }
 }
