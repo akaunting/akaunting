@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', trans('general.dashboard'))
+@section('title', trans_choice('general.dashboards', 1))
 
 @section('content')
     <div class="row">

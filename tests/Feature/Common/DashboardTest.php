@@ -11,6 +11,6 @@ class DashboardTest extends FeatureTestCase
         $this->loginAs()
             ->get(route('dashboard'))
             ->assertStatus(200)
-            ->assertSeeText(trans('general.dashboard'));
+            ->assertSeeText(trans_choice('general.dashboards', 1));
     }
 }
