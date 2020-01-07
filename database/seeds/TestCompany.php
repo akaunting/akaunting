@@ -5,6 +5,7 @@ namespace Database\Seeds;
 use App\Abstracts\Model;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateCompany;
+use App\Jobs\Common\CreateContact;
 use App\Traits\Jobs;
 use Illuminate\Database\Seeder;
 
@@ -27,12 +28,14 @@ class TestCompany extends Seeder
 
         $this->createUser();
 
+        $this->createContact();
+
         Model::reguard();
     }
 
     private function createCompany()
     {
-        $this->dispatch(new CreateCompany([
+        $company = $this->dispatch(new CreateCompany([
             'name' => 'My Company',
             'domain' => 'company.com',
             'address' => 'New Street 1254',
@@ -46,6 +49,8 @@ class TestCompany extends Seeder
             ],
         ]));
 
+        session(['company_id' => $company->id]);
+
         $this->command->info('Test company created.');
     }
 
@@ -56,11 +61,28 @@ class TestCompany extends Seeder
             'email' => 'test@company.com',
             'password' => '123456',
             'locale' => 'en-GB',
-            'companies' => ['1'],
+            'companies' => [session('company_id')],
             'roles' => ['1'],
             'enabled' => '1',
         ]));
 
         $this->command->info('Test user created.');
+    }
+
+    private function createContact()
+    {
+        $this->dispatch(new CreateContact([
+            'type' => 'customer',
+            'name' => 'Test Contact',
+            'email' => 'contact@company.com',
+            'currency_code' => setting('default.currency', 'USD'),
+            'password' => '123456',
+            'password_confirmation' => '123456',
+            'company_id' => session('company_id'),
+            'enabled' => '1',
+            'create_user' => 1,
+        ]));
+
+        $this->command->info('Test contact created.');
     }
 }
