@@ -12,7 +12,7 @@
     <div class="card">
         <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
             {!! Form::open([
-                'url' => 'common/companies',
+                'route' => 'companies.index',
                 'role' => 'form',
                 'method' => 'GET',
                 'class' => 'mb-0'
@@ -47,7 +47,7 @@
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
                             <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block"><a class="col-aka">{{ $item->id }}</a></td>
-                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-3 col-xl-3 long-texts"><a class="text-success" href="{{ url('common/companies/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
+                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-3 col-xl-3 long-texts"><a class="text-success" href="{{ route('companies.edit', $item->id) }}">{{ $item->name }}</a></td>
                             <td class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block long-texts">{{ $item->email }}</td>
                             <td class="col-lg-2 col-xl-2 d-none d-lg-block border-0">@date($item->created_at)</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2 col-xl-2">
@@ -71,7 +71,7 @@
                                             <a  class="dropdown-item" href="{{ route('companies.switch', $item->id) }}">{{ trans('general.switch') }}</a>
                                             <div class="dropdown-divider"></div>
                                         @endif
-                                        <a class="dropdown-item" href="{{ url('common/companies/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a>
+                                        <a class="dropdown-item" href="{{ route('companies.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                         @permission('delete-common-companies')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'common/companies') !!}
