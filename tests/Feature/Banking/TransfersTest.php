@@ -71,9 +71,9 @@ class TransfersTest extends FeatureTestCase
 
     public function getRequest()
     {
-        $from_account = factory(Account::class)->states('enabled')->create();
+        $from_account = factory(Account::class)->states('enabled', 'default_currency')->create();
 
-        $to_account = factory(Account::class)->states('enabled')->create();
+        $to_account = factory(Account::class)->states('enabled', 'default_currency')->create();
 
         return [
             'company_id' => $this->company->id,
