@@ -31,11 +31,7 @@ trait Users
 
         $companies = $user->companies()->pluck('id')->toArray();
 
-        if (in_array($id, $companies)) {
-            return true;
-        }
-
-        return false;
+        return in_array($id, $companies);
     }
 
     /**
@@ -55,10 +51,6 @@ trait Users
 
         $dashboards = $user->dashboards()->pluck('id')->toArray();
 
-        if (in_array($id, $dashboards)) {
-            return true;
-        }
-
-        return false;
+        return in_array($id, $dashboards);
     }
 }
