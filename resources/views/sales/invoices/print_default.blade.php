@@ -3,173 +3,141 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('content')
-    <div class="row mx--4">
-        <div class="col-md-7 border-bottom-1">
-            <div class="table-responsive mt-4">
-                <table class="table table-borderless">
-                    <tbody>
-                        <tr>
-                            <th>
-                                <img src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="row">
+            <div class="col-58">
+                <div class="border-bottom-1">
+                    <div class="text company">
+                        <img class="d-logo" src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-5 border-bottom-1">
-            <div class="table-responsive">
-                <table class="table table-borderless">
-                    <tbody>
-                        <tr>
-                            <th>
-                                {{ setting('company.name') }}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                {!! nl2br(setting('company.address')) !!}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                @if (setting('company.tax_number'))
-                                    {{ trans('general.tax_number') }}: {{ setting('company.tax_number') }}
-                                @endif
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                @if (setting('company.phone'))
-                                    {{ setting('company.phone') }}
-                                @endif
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ setting('company.email') }}
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <div class="col-42">
+                <div class="border-bottom-1">
+                    <div class="text company">
+                        <strong>{{ setting('company.name') }}</strong><br>
+                        <p>{!! nl2br(setting('company.address')) !!}</p>
+
+                        <p>
+                            @if (setting('company.tax_number'))
+                                {{ trans('general.tax_number') }}: {{ setting('company.tax_number') }}
+                            @endif
+                        </p>
+
+                        <p>
+                            @if (setting('company.phone'))
+                                {{ setting('company.phone') }}
+                            @endif
+                        </p>
+
+                        <p>{{ setting('company.email') }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-7">
-            <div class="table-responsive">
-                <table class="table table-borderless">
-                    <tbody>
-                        <tr>
-                            <th>
-                                {{ trans('invoices.bill_to') }}
-                                @stack('name_input_start')
-                                    <strong class="d-block">{{ $invoice->contact_name }}</strong>
-                                @stack('name_input_end')
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                @stack('address_input_start')
-                                    {!! nl2br($invoice->contact_address) !!}
-                                @stack('address_input_end')
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                @stack('tax_number_input_start')
-                                    @if ($invoice->contact_tax_number)
-                                        {{ trans('general.tax_number') }}: {{ $invoice->contact_tax_number }}<br>
-                                    @endif
-                                @stack('tax_number_input_end')
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                @stack('phone_input_start')
-                                    @if ($invoice->contact_phone)
-                                        {{ $invoice->contact_phone }}
-                                    @endif
-                                @stack('phone_input_end')
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                @stack('email_start')
-                                    {{ $invoice->contact_email }}
-                                @stack('email_input_end')
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="col-58">
+            <div class="text company">
+                <br>
+                <strong>{{ trans('invoices.bill_to') }}</strong><br>
+                @stack('name_input_start')
+                    <strong>{{ $invoice->contact_name }}</strong><br>
+                @stack('name_input_end')
+
+                @stack('address_input_start')
+                    <p>{!! nl2br($invoice->contact_address) !!}</p>
+                @stack('address_input_end')
+
+                @stack('tax_number_input_start')
+                    <p>
+                        @if ($invoice->contact_tax_number)
+                            {{ trans('general.tax_number') }}: {{ $invoice->contact_tax_number }}
+                        @endif
+                    </p>
+                @stack('tax_number_input_end')
+
+                @stack('phone_input_start')
+                    <p>
+                        @if ($invoice->contact_phone)
+                            {{ $invoice->contact_phone }}
+                        @endif
+                    </p>
+                @stack('phone_input_end')
+
+                @stack('email_start')
+                    <p>
+                        {{ $invoice->contact_email }}
+                    </p>
+                @stack('email_input_end')
             </div>
         </div>
-        <div class="col-md-5">
-            <div class="table-responsive">
-                <table class="table table-borderless">
-                    <tbody>
-                        @stack('invoice_number_input_start')
-                            <tr>
-                                <th>{{ trans('invoices.invoice_number') }}:</th>
-                                <td class="text-right">{{ $invoice->invoice_number }}</td>
-                            </tr>
-                        @stack('invoice_number_input_end')
 
-                        @stack('order_number_input_start')
-                            @if ($invoice->order_number)
-                                <tr>
-                                    <th>{{ trans('invoices.order_number') }}:</th>
-                                    <td class="text-right">{{ $invoice->order_number }}</td>
-                                </tr>
-                            @endif
-                        @stack('order_number_input_end')
+        <div class="col-42">
+            <div class="text company">
+                <br>
+                @stack('invoice_number_input_start')
+                    <strong>
+                        {{ trans('invoices.invoice_number') }}:
+                    </strong>
+                    {{ $invoice->invoice_number }}<br><br>
+                @stack('invoice_number_input_end')
 
-                        @stack('invoiced_at_input_start')
-                            <tr>
-                                <th>{{ trans('invoices.invoice_date') }}:</th>
-                                <td class="text-right">@date($invoice->invoiced_at)</td>
-                            </tr>
-                        @stack('invoiced_at_input_end')
+                @stack('order_number_input_start')
+                    @if ($invoice->order_number)
+                        <strong>
+                            {{ trans('invoices.order_number') }}:
+                        </strong>
+                        {{ $invoice->order_number }}<br><br>
+                    @endif
+                @stack('order_number_input_end')
 
-                        @stack('due_at_input_start')
-                            <tr>
-                                <th>{{ trans('invoices.payment_due') }}:</th>
-                                <td class="text-right">@date($invoice->due_at)</td>
-                            </tr>
-                        @stack('due_at_input_end')
-                    </tbody>
-                </table>
+                @stack('invoiced_at_input_start')
+                    <strong>
+                        {{ trans('invoices.invoice_date') }}:
+                    </strong>
+                    @date($invoice->invoiced_at)<br><br>
+                @stack('invoiced_at_input_end')
+
+                @stack('due_at_input_start')
+                    <strong>
+                        {{ trans('invoices.payment_due') }}:
+                    </strong>
+                    @date($invoice->due_at)<br><br>
+                @stack('due_at_input_end')
             </div>
         </div>
     </div>
 
-    <div class="row show-table">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <table class="table">
-                    <tbody>
-                        <tr class="row bg-default text-white">
+    <div class="row">
+        <div class="col-100">
+            <div class="text">
+                <table class="lines">
+                    <thead class="bg-default">
+                        <tr>
                             @stack('name_th_start')
-                                <th class="col-xs-4 col-sm-3 pl-5 text-white">{{ trans_choice($text_override['items'], 2) }}</th>
+                                <th class="item text-white">{{ trans_choice($text_override['items'], 2) }}</th>
                             @stack('name_th_end')
 
                             @stack('quantity_th_start')
-                                <th class="col-xs-4 col-sm-3 text-center text-white">{{ trans($text_override['quantity']) }}</th>
+                                <th class="quantity text-white">{{ trans($text_override['quantity']) }}</th>
                             @stack('quantity_th_end')
 
                             @stack('price_th_start')
-                                <th class="col-sm-3 text-center d-none d-sm-block pl-5 text-white">{{ trans($text_override['price']) }}</th>
+                                <th class="price text-white">{{ trans($text_override['price']) }}</th>
                             @stack('price_th_end')
 
                             @stack('total_th_start')
-                                <th class="col-xs-4 col-sm-3 text-right pr-5 text-white">{{ trans('invoices.total') }}</th>
+                                <th class="total text-white">{{ trans('invoices.total') }}</th>
                             @stack('total_th_end')
                         </tr>
+                    </thead>
+                    <tbody>
                         @foreach($invoice->items as $item)
-                            <tr class="row">
+                            <tr>
                                 @stack('name_td_start')
-                                    <td class="col-xs-4 col-sm-3 pl-5">
+                                    <td class="item">
                                         {{ $item->name }}
                                         @if ($item->desc)
                                             <br><small>{!! $item->desc !!}</small>
@@ -178,15 +146,15 @@
                                 @stack('name_td_end')
 
                                 @stack('quantity_td_start')
-                                    <td class="col-xs-4 col-sm-3 text-center">{{ $item->quantity }}</td>
+                                    <td class="quantity">{{ $item->quantity }}</td>
                                 @stack('quantity_td_end')
 
                                 @stack('price_td_start')
-                                    <td class="col-sm-3 text-center d-none d-sm-block pl-5">@money($item->price, $invoice->currency_code, true)</td>
+                                    <td class="price">@money($item->price, $invoice->currency_code, true)</td>
                                 @stack('price_td_end')
 
                                 @stack('total_td_start')
-                                    <td class="col-xs-4 col-sm-3 text-right pr-5">@money($item->total, $invoice->currency_code, true)</td>
+                                    <td class="total">@money($item->total, $invoice->currency_code, true)</td>
                                 @stack('total_td_end')
                             </tr>
                         @endforeach
@@ -196,83 +164,57 @@
         </div>
     </div>
 
-    <div class="row mt-5">
-        <div class="col-md-7">
-            <div class="table-responsive">
+    <div class="row mt-9">
+        <div class="col-58">
+            <div class="text company">
                 @stack('notes_input_start')
                     @if ($invoice->notes)
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                        <p class="form-control text-muted">{{ $invoice->notes }}</p>
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <strong>{{ trans_choice('general.notes', 2) }}</strong><br><br>
+                        <div class="border-1 py-1 border-radius-default pl-2 d-note">
+                            {{ $invoice->notes }}
+                        </div>
                     @endif
                 @stack('notes_input_end')
             </div>
         </div>
-        <div class="col-md-5">
-            <div class="table-responsive">
-                <table class="table">
-                    <tbody>
-                            @foreach ($invoice->totals as $total)
-                                @if ($total->code != 'total')
-                                    @stack($total->code . '_td_start')
-                                        <tr>
-                                        <th>
-                                            {{ trans($total->title) }}:
-                                        </th>
-                                        <td class="text-right">
-                                            @money($total->amount, $invoice->currency_code, true)
-                                        </td>
-                                    </tr>
-                                    @stack($total->code . '_td_end')
-                                @else
-                                    @if ($invoice->paid)
-                                        <tr>
-                                        <th>
-                                            {{ trans('invoices.paid') }}:
-                                        </th>
-                                        <td class="text-right">
-                                            - @money($invoice->paid, $invoice->currency_code, true)
-                                        </td>
-                                    </tr>
-                                    @endif
-                                    @stack('grand_total_td_start')
-                                        <tr>
-                                        <th>
-                                            {{ trans($total->name) }}:
-                                        </th>
-                                        <td class="text-right">
-                                            @money($total->amount - $invoice->paid, $invoice->currency_code, true)
-                                        </td>
-                                    </tr>
-                                    @stack('grand_total_td_end')
-                                @endif
-                        @endforeach
-                    </tbody>
-                </table>
+
+        <div class="col-42 text-right">
+            <div class="text company pr-2">
+                @foreach ($invoice->totals as $total)
+                    @if ($total->code != 'total')
+                        @stack($total->code . '_td_start')
+                            <div class="border-top-1">
+                                <br>
+                                <strong>{{ trans($total->title) }}:</strong>
+                                <strong>@money($total->amount, $invoice->currency_code, true)</strong><br><br>
+                            </div>
+                        @stack($total->code . '_td_end')
+                    @else
+                        @if ($invoice->paid)
+                            <div class="border-top-1">
+                                <br>
+                                <strong>{{ trans('invoices.paid') }}:</strong>
+                                <strong>- @money($invoice->paid, $invoice->currency_code, true)</strong><br><br>
+                            </div>
+                        @endif
+                        @stack('grand_total_td_start')
+                            <div class="border-top-1">
+                                <br>
+                                <strong>{{ trans($total->name) }}:</strong>
+                                <strong>@money($total->amount - $invoice->paid, $invoice->currency_code, true)</strong>
+                            </div>
+                        @stack('grand_total_td_end')
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>
 
     @if ($invoice->footer)
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-borderless">
-                        <tbody>
-                            <tr>
-                                <th>
-                                    {!! $invoice->footer !!}
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="row mt-4">
+            <div class="col-100 text-left">
+                <div class="text company">
+                    <strong>{!! $invoice->footer !!}<strong>
                 </div>
             </div>
         </div>
