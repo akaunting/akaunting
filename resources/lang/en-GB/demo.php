@@ -18,6 +18,11 @@ return [
         'try'               => 'Turkish Lira',
     ],
 
+    'offline_payments' => [
+        'cash'              => 'Cash',
+        'bank'              => 'Bank Transfer',
+    ],
+
     'reports' => [
         'income'            => 'Monthly income summary by category.',
         'expense'           => 'Monthly expense summary by category.',

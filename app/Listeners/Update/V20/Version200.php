@@ -39,8 +39,7 @@ class Version200 extends Listener
         // Cache Clear
         Artisan::call('cache:clear');
 
-        // Update database
-        Artisan::call('migrate', ['--force' => true]);
+        $this->updateDatabase();
 
         $this->updateCompanies();
 
@@ -59,6 +58,17 @@ class Version200 extends Listener
         $this->updatePermissions();
 
         $this->deleteOldFiles();
+    }
+
+    public function updateDatabase()
+    {
+        DB::table('migrations')->insert([
+            'id' => DB::table('migrations')->max('id') + 1,
+            'migration' => '2017_09_14_000000_core_v1',
+            'batch' => DB::table('migrations')->max('batch') + 1,
+        ]);
+
+        Artisan::call('migrate', ['--force' => true]);
     }
 
     protected function updateCompanies()

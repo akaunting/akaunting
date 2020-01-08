@@ -4,7 +4,6 @@ namespace Database\Seeds;
 
 use App\Abstracts\Model;
 use Illuminate\Database\Seeder;
-use Date;
 
 class Settings extends Seeder
 {
@@ -28,8 +27,26 @@ class Settings extends Seeder
 
         setting()->setExtraColumns(['company_id' => $company_id]);
 
+        $offline_payments = [];
+
+        $offline_payments[] = [
+            'code' => 'offline-payments.cash.1',
+            'name' => trans('demo.offline_payments.cash'),
+            'customer' => '0',
+            'order' => '1',
+            'description' => null,
+        ];
+
+        $offline_payments[] = [
+            'code' => 'offline-payments.bank_transfer.2',
+            'name' => trans('demo.offline_payments.bank'),
+            'customer' => '0',
+            'order' => '2',
+            'description' => null,
+        ];
+
         setting()->set([
-            'localisation.financial_start'      => Date::now()->startOfYear()->format('d-m'),
+            'localisation.financial_start'      => now()->startOfYear()->format('d-m'),
             'localisation.timezone'             => 'Europe/London',
             'localisation.date_format'          => 'd M Y',
             'localisation.date_separator'       => 'space',
@@ -54,7 +71,7 @@ class Settings extends Seeder
             'schedule.bill_days'                => '10,5,3,1',
             'schedule.time'                     => '09:00',
             'wizard.completed'                  => '0',
-            'offline-payments.methods'          => '[{"code":"offline-payments.cash.1","name":"Cash","order":"1","description":null},{"code":"offline-payments.bank_transfer.2","name":"Bank Transfer","order":"2","description":null}]',
+            'offline-payments.methods'          => json_encode($offline_payments),
             'contact.type.customer'             => 'customer',
             'contact.type.vendor'               => 'vendor',
         ]);
