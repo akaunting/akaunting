@@ -41,7 +41,7 @@ const app = new Vue({
         return {
             form: new Form('category'),
             bulk_action: new BulkAction('categories'),
-            color: '#6DA252',
+            color: '#55588b',
             predefineColors: [
                 '#3c3f72',
                 '#55588b',

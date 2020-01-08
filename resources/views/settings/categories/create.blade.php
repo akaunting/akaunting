@@ -30,7 +30,7 @@
                                         <el-color-picker v-model="color" size="mini" :predefine="predefineColors" @change="onChangeColor"></el-color-picker>
                                     </span>
                                 </div>
-                                {!! Form::text('color', '#6DA252', ['v-model' => 'form.color', '@input' => 'onChangeColorInput', 'id' => 'color', 'class' => 'form-control color-hex', 'required' => 'required']) !!}
+                                {!! Form::text('color', '#55588b', ['v-model' => 'form.color', '@input' => 'onChangeColorInput', 'id' => 'color', 'class' => 'form-control color-hex', 'required' => 'required']) !!}
                             </div>
                             {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
                         </div>

@@ -15,9 +15,10 @@ import Global from './../../mixins/global';
 import Form from './../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
 import HtmlEditor from './../../components/Inputs/HtmlEditor';
+import {ColorPicker} from 'element-ui';
 
 // plugin setup
-Vue.use(DashboardPlugin);
+Vue.use(DashboardPlugin, ColorPicker);
 
 const app = new Vue({
     el: '#app',
@@ -27,7 +28,13 @@ const app = new Vue({
     ],
 
     components: {
-        HtmlEditor
+        HtmlEditor,
+        [ColorPicker.name]: ColorPicker,
+    },
+
+    mounted() {
+        this.onChangeProtocol(this.form.protocol);
+        this.color = this.form.color;
     },
 
     data: function () {
@@ -42,6 +49,7 @@ const app = new Vue({
                 smtpPassword:true,
                 smtpEncryption:true,
             },
+
             invoice_form: new Form('template'),
             template: {
                 modal: false,
@@ -49,17 +57,24 @@ const app = new Vue({
                 message: '',
                 html: '',
                 errors: new Error()
-            }
+            },
+
+            color: '#55588b',
+            predefineColors:[
+                '#3c3f72',
+                '#55588b',
+                '#e5e5e5',
+                '#328aef',
+                '#efad32',
+                '#ef3232',
+                '#efef32'
+            ],
         }
     },
 
-    mounted(){
-        this.onChangeProtocol(this.form.protocol);
-    },
-
     methods:{
-        onChangeProtocol(protocol){
-            switch(protocol){
+        onChangeProtocol(protocol) {
+            switch(protocol) {
                 case "smtp":
                     this.email.sendmailPath = true;
                     this.email.smtpHost = false;
@@ -68,6 +83,7 @@ const app = new Vue({
                     this.email.smtpPassword = false;
                     this.email.smtpEncryption = false;
                     break;
+
                 case "sendmail":
                     this.email.sendmailPath = false;
                     this.email.smtpHost = true;
@@ -76,6 +92,7 @@ const app = new Vue({
                     this.email.smtpPassword = true;
                     this.email.smtpEncryption = true;
                     break;
+
                 default:
                     this.email.sendmailPath = true;
                     this.email.smtpHost = true;
@@ -97,6 +114,7 @@ const app = new Vue({
 
         addTemplate() {
             if (this.invoice_form.template != 1) {
+
                 this.invoice_form.submit();
 
                 this.template.errors = this.invoice_form.errors;
@@ -111,5 +129,13 @@ const app = new Vue({
                 errors: this.invoice_form.errors
             };
         },
+
+        onChangeColor() {
+            this.form.color = this.color;
+        },
+
+        onChangeColorInput() {
+            this.color = this.form.color;
+        }
     }
 });
