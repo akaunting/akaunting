@@ -120,6 +120,7 @@ class Version200 extends Listener
             'invoice.title'                     => trans_choice('general.invoices', 1),
             'invoice.payment_terms'             => '0',
             'invoice.template'                  => 'default',
+            'invoice.color'                     => '#55588b',
             'default.account'                   => 'general.default_account',
             'default.currency'                  => 'general.default_currency',
             'default.locale'                    => 'general.default_locale',
