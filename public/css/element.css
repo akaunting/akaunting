@@ -15326,8 +15326,7 @@
 
 .el-color-dropdown.el-color-picker__panel
 {
-    top: 360px !important;
-    left: 580px !important;
+    left: 341px !important;
 }
 
 .el-color-picker__color
@@ -15393,7 +15392,6 @@
 {
     margin-top: 10px !important;
 }
-
 
 /*--------El Select Icon--------*/
 .select-icon-position

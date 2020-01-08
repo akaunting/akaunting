@@ -114,7 +114,9 @@
         <div class="col-100">
             <div class="text">
                 <table class="lines">
-                    <thead class="bg-default">
+                    @foreach($invoice as $item)
+                        <thead style="background-color:{{ setting('invoice.color') }};">
+                    @endforeach
                         <tr>
                             @stack('name_th_start')
                                 <th class="item text-white">{{ trans_choice($text_override['items'], 2) }}</th>

@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('content')
-    <div class="row bg-primary">
+    <div class="row"  style="background-color:{{ setting('invoice.color') }};">
         <div class="col-58 m-first-column">
             <div class="text company pl-2 m-fc-left">
                 <img src="{{ $logo }}" class="m-logo" alt="{{ setting('company.name') }}"/>
@@ -12,7 +12,7 @@
                 <strong class="text-white">{{ setting('company.name') }}</strong>
             </div>
         </div>
-        
+
         <div class="col-42">
             <div class="text company">
                 <br>
@@ -43,7 +43,7 @@
                 @stack('name_input_start')
                     <strong>{{ $invoice->contact_name }}</strong><br><br>
                 @stack('name_input_end')
-        
+
                 @stack('address_input_start')
                     {!! nl2br($invoice->contact_address) !!}<br><br>
                 @stack('address_input_end')
@@ -53,7 +53,7 @@
                        {{ trans('general.tax_number') }}: {{ $invoice->contact_tax_number }}<br><br>
                     @endif
                 @stack('tax_number_input_end')
-            
+
                 @stack('phone_input_start')
                     @if ($invoice->contact_phone)
                         {{ $invoice->contact_phone }}<br><br>
@@ -105,7 +105,7 @@
         <div class="col-100">
             <div class="text">
                 <table class="m-lines">
-                    <thead class="bg-default">
+                    <thead  style="background-color:{{ setting('invoice.color') }};">
                         <tr>
                             @stack('name_th_start')
                                 <th class="item text-white">{{ trans_choice($text_override['items'], 2) }}</th>
@@ -168,7 +168,7 @@
                 @stack('notes_input_end')
             </div>
         </div>
-        
+
         <div class="col-42 text-right">
             <div class="text company pr-2">
                 @foreach ($invoice->totals as $total)
@@ -194,7 +194,7 @@
 
     @if ($invoice->footer)
         <div class="row mt-7">
-            <div class="col-100 bg-default py-2">
+            <div class="col-100 py-2"  style="background-color:{{ setting('invoice.color') }};">
                 <div class="text company pl-2">
                     <strong class="text-white">{!! $invoice->footer !!}</strong>
                 </div>

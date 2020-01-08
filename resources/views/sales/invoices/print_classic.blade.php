@@ -35,8 +35,8 @@
 
     <div class="row mt-2">
         <div class="col-33">
-            <hr class="bg-default invoice-classic-line mb-1 mt-4">
-            <hr class="bg-default invoice-classic-line">
+            <hr class="invoice-classic-line mb-1 mt-4" style="background-color:{{ setting('invoice.color') }};">
+            <hr class="invoice-classic-line" style="background-color:{{ setting('invoice.color') }};">
         </div>
 
         <div class="col-33">
@@ -53,8 +53,8 @@
         </div>
 
         <div class="col-33">
-            <hr class="bg-default invoice-classic-line mb-1 mt-4">
-            <hr class="bg-default invoice-classic-line">
+            <hr class="invoice-classic-line mb-1 mt-4" style="background-color:{{ setting('invoice.color') }};">
+            <hr class="invoice-classic-line" style="background-color:{{ setting('invoice.color') }};">
         </div>
     </div>
 

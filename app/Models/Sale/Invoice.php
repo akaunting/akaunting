@@ -11,7 +11,6 @@ use App\Traits\Media;
 use App\Traits\Recurring;
 use App\Traits\Sales;
 use Bkwld\Cloner\Cloneable;
-use Date;
 
 class Invoice extends Model
 {
