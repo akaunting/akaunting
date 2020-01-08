@@ -16,7 +16,6 @@ class Main extends Provider
     public function boot()
     {
         $this->loadTranslations();
-        $this->loadMigrations();
         $this->loadViews();
         $this->loadEvents();
     }
@@ -49,16 +48,6 @@ class Main extends Provider
     public function loadTranslations()
     {
         $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'offline-payments');
-    }
-
-    /**
-     * Load migrations.
-     *
-     * @return void
-     */
-    public function loadMigrations()
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 
     /**
