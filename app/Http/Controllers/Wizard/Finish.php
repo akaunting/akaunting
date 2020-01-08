@@ -4,11 +4,19 @@ namespace App\Http\Controllers\Wizard;
 
 use Illuminate\Routing\Controller;
 use App\Traits\Modules;
-use App\Models\Module\Module;
 
 class Finish extends Controller
 {
     use Modules;
+
+    /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        // Add CRUD permission check
+        $this->middleware('permission:read-admin-panel')->only(['index', 'show', 'edit', 'export']);
+    }
 
     /**
      * Show the form for creating a new resource.

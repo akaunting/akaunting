@@ -86,10 +86,6 @@ class Roles extends Seeder
                 'widgets-total-expenses' => 'r',
                 'widgets-total-income' => 'r',
                 'widgets-total-profit' => 'r',
-                'wizard-companies' => 'c,r,u',
-                'wizard-currencies' => 'c,r,u,d',
-                'wizard-finish' => 'c,r,u',
-                'wizard-taxes' => 'c,r,u',
             ],
             'manager' => [
                 'admin-panel' => 'r',

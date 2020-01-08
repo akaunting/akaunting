@@ -13,6 +13,18 @@ class Companies extends Controller
     use Uploads;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        // Add CRUD permission check
+        $this->middleware('permission:create-common-companies')->only(['create', 'store', 'duplicate', 'import']);
+        $this->middleware('permission:read-common-companies')->only(['index', 'show', 'edit', 'export']);
+        $this->middleware('permission:update-common-companies')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:delete-common-companies')->only('destroy');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
