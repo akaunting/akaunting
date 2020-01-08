@@ -46,7 +46,7 @@ class Permission extends LaratrustPermission
     }
 
     /**
-     * Get the name including rate.
+     * Remove extras from name.
      *
      * @return string
      */
