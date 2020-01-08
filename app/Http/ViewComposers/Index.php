@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use Akaunting\Module\Module;
 use Date;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -15,6 +16,13 @@ class Index
      * @return void
      */
     public function compose(View $view)
+    {
+        $this->addLimits($view);
+
+        $this->addBulkActions($view);
+    }
+
+    protected function addLimits(&$view)
     {
         $limits = ['10' => '10', '25' => '25', '50' => '50', '100' => '100'];
 
@@ -30,38 +38,39 @@ class Index
         }
 
         $view->with(['limits' => $limits, 'this_year' => $this_year, 'years' => $years]);
+    }
 
-        // Add Bulk Action
-        $module = false;
-        $view_name = $view->getName();
+    protected function addBulkActions(&$view)
+    {
+        $class_name = '';
+        $view_name = str_replace('.index', '', $view->getName());
 
         if (Str::contains($view_name, '::')) {
+            // my-blog::posts
             $names = explode('::', $view_name);
 
-            $params = explode('.', $names[1]);
-
-            $group = $params[0];
-            $type = $params[1];
-
-            // Check is module
             $module = module($names[0]);
+
+            if (!$module instanceof Module) {
+                return;
+            }
+
+            $tmp = explode('.', $names[1]);
+            $file_name = !empty($tmp[1]) ? Str::studly($tmp[0]) . '\\' . Str::studly($tmp[1]) : Str::studly($tmp[0]);
+
+            $class_name = 'Modules\\' . $module->getStudlyName() . '\BulkActions\\' . $file_name;
         } else {
-            $params = explode('.', $view_name);
+            // common.items
+            $tmp = explode('.', $view_name);
+            $file_name = !empty($tmp[1]) ? Str::studly($tmp[0]) . '\\' . Str::studly($tmp[1]) : Str::studly($tmp[0]);
 
-            $group = $params[0];
-            $type = $params[1];
+            $class_name = 'App\BulkActions\\' .  $file_name;
         }
 
-        if ($module instanceof \Akaunting\Module\Module) {
-            $class = 'Modules\\' . $module->getStudlyName() . '\BulkActions\\' . ucfirst($group) . '\\' . ucfirst($type);
-        } else {
-            $class = 'App\BulkActions\\' .  ucfirst($group) . '\\' . ucfirst($type);
+        if (!class_exists($class_name)) {
+            return;
         }
 
-        if (class_exists($class)) {
-            $bulk_actions = app($class);
-
-            $view->with(['bulk_actions' => $bulk_actions->actions]);
-        }
+        $view->with(['bulk_actions' => app($class_name)->actions]);
     }
 }
