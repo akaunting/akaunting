@@ -3,6 +3,7 @@
         <div class="card-body">
             <div class="row">
                 <hr class="install-line">
+
                 <div class="col-md-4 text-center">
                     <router-link to='./language'>
                         <button type="button" class="btn btn-secondary btn-lg wizard-steps wizard-steps-color-active rounded-circle">
@@ -20,7 +21,6 @@
                         <p class="mt-2 text-muted step-text">Database</p>
                     </router-link>
                 </div>
-
 
                 <div class="col-md-4 text-center">
                     <button type="button" class="btn btn-default btn-lg wizard-steps rounded-circle">
