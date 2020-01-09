@@ -109,6 +109,8 @@ class CoreV200 extends Migration
             $table->increments('id');
             $table->integer('company_id');
             $table->string('alias');
+            $table->string('class');
+            $table->string('name');
             $table->string('subject');
             $table->text('body');
             $table->text('params')->nullable();
