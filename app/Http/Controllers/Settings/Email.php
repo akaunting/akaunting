@@ -37,11 +37,7 @@ class Email extends Controller
             return $s;
         })->pluck('value', 'key');
 
-        EmailTemplate::all()->each(function ($template) use ($setting) {
-            $setting->put('template_' . $template->alias . '_subject', $template->subject);
-            $setting->put('template_' . $template->alias . '_body', $template->body);
-            $setting->put('template_' . $template->alias . '_params', $template->params);
-        });
+        $templates = EmailTemplate::all();
 
         $email_protocols = [
             'mail' => trans('settings.email.php'),
@@ -50,16 +46,10 @@ class Email extends Controller
             'log' => trans('settings.email.log'),
         ];
 
-        $invoice_tags = implode(', ', app('App\Notifications\Sale\Invoice')->getTags());
-        $payment_tags = implode(', ', app('App\Notifications\Portal\PaymentReceived')->getTags());
-        $bill_tags = implode(', ', app('App\Notifications\Purchase\Bill')->getTags());
-
         return view('settings.email.edit', compact(
             'setting',
+            'templates',
             'email_protocols',
-            'invoice_tags',
-            'payment_tags',
-            'bill_tags'
         ));
     }
 
@@ -117,8 +107,6 @@ class Email extends Controller
         $template = EmailTemplate::alias($alias)->first();
 
         $template->update([
-            'company_id' => $template->company_id,
-            'alias' => $template->alias,
             'subject' => $fields[$subject_key],
             'body' => $fields[$body_key],
         ]);

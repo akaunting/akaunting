@@ -15,25 +15,32 @@
         'novalidate' => true,
     ]) !!}
 
+    @php $card = 1; @endphp
+
     <div class="row">
+
+    @foreach($templates as $template)
+        @php $aria_expanded_status = in_array($card, [1, 2]) ? 'true' : 'false'; @endphp
+        @php $collapse_status = in_array($card, [1, 2]) ? 'show' : ''; @endphp
+
         <div class="col-md-6">
-            <div class="accordion" id="accordion1">
+            <div class="accordion" id="accordion{{ $card }}">
                 <div class="card">
-                    <div class="card-header" id="heading1" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                    <div class="card-header" id="heading{{ $card }}" data-toggle="collapse" data-target="#collapse{{ $card }}" aria-expanded="{{ $aria_expanded_status }}" aria-controls="collapse{{ $card }}">
                         <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.invoice_new_customer') }}</h4>
+                            <h4 class="mb-0">{{ trans($template->name) }}</h4>
                         </div>
                     </div>
-                    <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion1">
+                    <div id="collapse{{ $card }}" class="collapse {{ $collapse_status }}" aria-labelledby="heading{{ $card }}" data-parent="#accordion{{ $card }}">
                         <div class="card-body">
                             <div class="row">
-                                {{ Form::textGroup('template_invoice_new_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
+                                {{ Form::textGroup('template_' . $template->alias . '_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], $template->subject, 'col-md-12') }}
 
-                                {{ Form::textEditorGroup('template_invoice_new_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_new_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
+                                {{ Form::textEditorGroup('template_' . $template->alias . '_body', trans('settings.email.templates.body'), null, $template->body, ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
 
                                 <div class="col-md-12">
                                     <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
+                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => implode(', ', app($template->class)->getTags())]) !!}</small>
                                     </div>
                                 </div>
                             </div>
@@ -43,231 +50,18 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="accordion" id="accordion2">
-                <div class="card">
-                    <div class="card-header" id="heading2" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                        <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.invoice_remind_customer') }}</h4>
-                        </div>
-                    </div>
-                    <div id="collapse2" class="collapse show" aria-labelledby="heading2" data-parent="#accordion2">
-                        <div class="card-body">
-                            <div class="row">
-                                {{ Form::textGroup('template_invoice_remind_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
-
-                                {{ Form::textEditorGroup('template_invoice_remind_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_remind_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
-
-                                <div class="col-md-12">
-                                    <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="accordion" id="accordion3">
-                <div class="card">
-                    <div class="card-header" id="heading3" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                        <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.invoice_remind_admin') }}</h4>
-                        </div>
-                    </div>
-                    <div id="collapse3" class="collapse hide" aria-labelledby="heading3" data-parent="#accordion3">
-                        <div class="card-body">
-                            <div class="row">
-                                {{ Form::textGroup('template_invoice_remind_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
-
-                                {{ Form::textEditorGroup('template_invoice_remind_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_remind_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
-
-                                <div class="col-md-12">
-                                    <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="accordion" id="accordion4">
-                <div class="card">
-                    <div class="card-header" id="heading4" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                        <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.invoice_recur_customer') }}</h4>
-                        </div>
-                    </div>
-                    <div id="collapse4" class="collapse hide" aria-labelledby="heading4" data-parent="#accordion4">
-                        <div class="card-body">
-                            <div class="row">
-                                {{ Form::textGroup('template_invoice_recur_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
-
-                                {{ Form::textEditorGroup('template_invoice_recur_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_recur_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
-
-                                <div class="col-md-12">
-                                    <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="accordion" id="accordion5">
-                <div class="card">
-                    <div class="card-header" id="heading5" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                        <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.invoice_recur_admin') }}</h4>
-                        </div>
-                    </div>
-                    <div id="collapse5" class="collapse hide" aria-labelledby="heading5" data-parent="#accordion5">
-                        <div class="card-body">
-                            <div class="row">
-                                {{ Form::textGroup('template_invoice_recur_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
-
-                                {{ Form::textEditorGroup('template_invoice_recur_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_recur_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
-
-                                <div class="col-md-12">
-                                    <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $invoice_tags]) !!}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="accordion" id="accordion6">
-                <div class="card">
-                    <div class="card-header" id="heading6" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
-                        <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.invoice_payment_customer') }}</h4>
-                        </div>
-                    </div>
-                    <div id="collapse6" class="collapse hide" aria-labelledby="heading6" data-parent="#accordion6">
-                        <div class="card-body">
-                            <div class="row">
-                                {{ Form::textGroup('template_invoice_payment_customer_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
-
-                                {{ Form::textEditorGroup('template_invoice_payment_customer_body', trans('settings.email.templates.body'), null, $setting['template_invoice_payment_customer_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
-
-                                <div class="col-md-12">
-                                    <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $payment_tags]) !!}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="accordion" id="accordion7">
-                <div class="card">
-                    <div class="card-header" id="heading7" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
-                        <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.invoice_payment_admin') }}</h4>
-                        </div>
-                    </div>
-                    <div id="collapse7" class="collapse hide" aria-labelledby="heading7" data-parent="#accordion7">
-                        <div class="card-body">
-                            <div class="row">
-                                {{ Form::textGroup('template_invoice_payment_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
-
-                                {{ Form::textEditorGroup('template_invoice_payment_admin_body', trans('settings.email.templates.body'), null, $setting['template_invoice_payment_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
-
-                                <div class="col-md-12">
-                                    <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $payment_tags]) !!}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="accordion" id="accordion8">
-                <div class="card">
-                    <div class="card-header" id="heading8" data-toggle="collapse" data-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
-                        <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.bill_remind_admin') }}</h4>
-                        </div>
-                    </div>
-                    <div id="collapse8" class="collapse hide" aria-labelledby="heading8" data-parent="#accordion8">
-                        <div class="card-body">
-                            <div class="row">
-                                {{ Form::textGroup('template_bill_remind_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
-
-                                {{ Form::textEditorGroup('template_bill_remind_admin_body', trans('settings.email.templates.body'), null, $setting['template_bill_remind_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
-
-                                <div class="col-md-12">
-                                    <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $bill_tags]) !!}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="accordion" id="accordion9">
-                <div class="card">
-                    <div class="card-header" id="heading9" data-toggle="collapse" data-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
-                        <div class="align-items-center">
-                            <h4 class="mb-0">{{ trans('settings.email.templates.bill_recur_admin') }}</h4>
-                        </div>
-                    </div>
-                    <div id="collapse9" class="collapse hide" aria-labelledby="heading9" data-parent="#accordion9">
-                        <div class="card-body">
-                            <div class="row">
-                                {{ Form::textGroup('template_bill_recur_admin_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], null, 'col-md-12') }}
-
-                                {{ Form::textEditorGroup('template_bill_recur_admin_body', trans('settings.email.templates.body'), null, $setting['template_bill_recur_admin_body'], ['required' => 'required', 'rows' => '5', 'data-toggle' => 'quill'], 'col-md-12 mb-0') }}
-
-                                <div class="col-md-12">
-                                    <div class="bg-secondary border-radius-default border-1 p-2">
-                                        <small class="text-default">{!! trans('settings.email.templates.tags', ['tag_list' => $bill_tags]) !!}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @php $card++; @endphp
+    @endforeach
 
         <div class="col-md-12">
-            <div class="accordion" id="accordion10">
+            <div class="accordion" id="accordion{{ $card }}">
                 <div class="card">
-                    <div class="card-header" id="heading10" data-toggle="collapse" data-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                    <div class="card-header" id="heading{{ $card }}" data-toggle="collapse" data-target="#collapse{{ $card }}" aria-expanded="false" aria-controls="collapse{{ $card }}">
                         <div class="align-items-center">
                             <h4 class="mb-0">{{ trans('settings.email.protocol') }}</h4>
                         </div>
                     </div>
-                    <div id="collapse10" class="collapse hide" aria-labelledby="heading10" data-parent="#accordion10">
+                    <div id="collapse{{ $card }}" class="collapse hide" aria-labelledby="heading{{ $card }}" data-parent="#accordion{{ $card }}">
                         <div class="card-body">
                             <div class="row">
                                 {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, !empty($setting['protocol']) ? $setting['protocol'] : null, ['change' => 'onChangeProtocol']) }}
