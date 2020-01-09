@@ -3,12 +3,12 @@
 @section('title', trans_choice('general.modules', 2))
 
 @section('new_button')
-    <span class="new-button">
+    <span>
         <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm header-button-top">
             <span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_key') }}
         </a>
     </span>
-    <span class="new-button">
+    <span>
         <a href="{{ route('apps.my.index')  }}" class="btn btn-white btn-sm header-button-bottom">
             <span class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}
         </a>

@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('new_button')
-    <span class="new-button"><a href="{{ route('portal.dashboard') }}" class="btn btn-success btn-sm"><span class="fa fa-user"></span> &nbsp;{{ trans('invoices.all_invoices') }}</a></span>
+    <span><a href="{{ route('portal.dashboard') }}" class="btn btn-success btn-sm"><span class="fa fa-user"></span> &nbsp;{{ trans('invoices.all_invoices') }}</a></span>
 @endsection
 
 @section('content')

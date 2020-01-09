@@ -4,7 +4,7 @@
 
 @section('new_button')
     @permission('create-common-reports')
-    <span class="new-button">
+    <span>
         <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     </span>
     @endpermission
