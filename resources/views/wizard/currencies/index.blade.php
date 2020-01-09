@@ -8,6 +8,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <hr class="wizard-line">
+
                     <div class="col-md-3">
                         <div class="text-center">
                             <a href="{{ url('wizard/companies') }}">
@@ -52,7 +53,7 @@
         <div class="card-body border-bottom-0">
             <div class="row">
                 <div class="col-12 text-right">
-                    <span class="new-button">
+                    <span>
                         <button type="button" @click="onAddCurrency" class="btn btn-success btn-sm">
                             <span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}
                         </button>
@@ -137,12 +138,11 @@
                             </td>
                             <td class="col-xs-4 col-sm-2 text-center">
                                 {!! Form::button(
-                                    '<div v-if="form.loading" :class="(form.loading) ? \'show \' : \'\'"  class="aka-loader-frame d-none"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>', [
+                                    '<span class="btn-inner--icon"><i class="fas fa-save"></i></span>', [
                                     ':disabled' => 'form.loading',
                                     'type' => 'submit',
-                                    'class' => 'btn btn-success  currency-submit',
+                                    'class' => 'btn btn-success',
                                     'data-loading-text' => trans('general.loading'),
-                                    'style' => 'padding: 9px 14px; margin-top: 10px;'
                                 ]) !!}
 
                                 <div class="d-none">
@@ -160,7 +160,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <input type="hidden" name="bulk_action_path" value="settings/currencies" />
+                <input type="hidden" name="bulk_action_path" value="settings/currencies"/>
             {!! Form::close() !!}
         </div>
 
