@@ -12246,6 +12246,7 @@
     position: absolute;
     z-index: 10;
     padding: 6px;
+    left: 341px !important;
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
     background-color: #FFF;
@@ -15316,17 +15317,14 @@
 }
 
 /*--------Import Components--------*/
-
-
 .el-color-picker__icon
 {
     padding-left: 16px;
     padding-top: 5px;
 }
 
-.el-color-dropdown.el-color-picker__panel
-{
-    left: 341px !important;
+.template-color-picker {
+    left: 492px !important;
 }
 
 .el-color-picker__color
