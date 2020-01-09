@@ -5,6 +5,7 @@
 
             <div class="row">
                 <hr class="install-line">
+
                 <div class="col-md-4 text-center">
                     <router-link to='./language'>
                         <button type="button" class="btn btn-secondary btn-lg wizard-steps wizard-steps-color-active rounded-circle">
