@@ -15,11 +15,13 @@
             'class' => 'form-loading-button mb-0',
             'novalidate' => true
         ]) !!}
-        <div id="wizard-loading"></div>
+
+            <div id="wizard-loading"></div>
             <div class="card-header wizard-header pb-0">
                 <div class="container-fluid">
                     <div class="row">
                         <hr class="wizard-line">
+
                         <div class="col-md-3">
                             <div class="text-center">
                                 <button href="#step-1" type="button" class="btn btn-default btn-lg wizard-steps rounded-circle">
@@ -82,9 +84,7 @@
                                 ], [])) !!}
                             </div>
 
-                            <div class="invalid-feedback d-block"
-                                    v-if="form.errors.has('api_key')"
-                                    v-html="form.errors.get('api_key')"></div>
+                            <div class="invalid-feedback d-block" v-if="form.errors.has('api_key')" v-html="form.errors.get('api_key')"></div>
                         </div>
                         <p class="mb-0 mt--3">
                             <small>{!! trans('modules.get_api_key', ['url' => 'https://akaunting.com/dashboard']) !!}</small>
@@ -109,7 +109,9 @@
                             '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
                                 [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
 
-                        <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-white header-button-top"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
+                        <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-white header-button-top">
+                            <span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}
+                        </a>
                     </div>
                 </div>
             </div>
