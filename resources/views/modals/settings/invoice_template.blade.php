@@ -49,7 +49,7 @@
                     <div class="input-group input-group-merge" id="invoice-color-picker">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
-                                <el-color-picker v-model="invoice_form.color" size="mini" :predefine="predefineColors" @change="onChangeColor"></el-color-picker>
+                                <el-color-picker popper-class="template-color-picker" v-model="invoice_form.color" size="mini" :predefine="predefineColors" @change="onChangeColor"></el-color-picker>
                             </span>
                         </div>
                         {!! Form::text('color', $setting['color'], ['v-model' => 'invoice_form.color', '@input' => 'onChangeColorInput', 'id' => 'color', 'class' => 'form-control color-hex', 'required' => 'required']) !!}
