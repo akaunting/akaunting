@@ -3,6 +3,7 @@
         <div class="card-body">
             <div class="row">
                 <hr class="install-line">
+
                 <div class="col-md-4 text-center">
                     <button type="button" class="btn btn-default btn-lg wizard-steps rounded-circle">
                         <span class="btn-inner--icon wizard-steps-inner">1</span>
