@@ -3,7 +3,6 @@
 namespace App\Notifications\Purchase;
 
 use App\Abstracts\Notification;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class Bill extends Notification
 {

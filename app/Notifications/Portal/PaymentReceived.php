@@ -3,7 +3,6 @@
 namespace App\Notifications\Portal;
 
 use App\Abstracts\Notification;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\URL;
 
 class PaymentReceived extends Notification
