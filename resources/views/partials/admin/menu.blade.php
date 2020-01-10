@@ -12,7 +12,7 @@
                         <i class="fas fa-sort-down pl-2"></i>
                     </a>
                     @permission('read-common-companies')
-                        <div class="dropdown-menu dropdown-menu-right menu-dropdown">
+                        <div class="dropdown-menu dropdown-menu-right menu-dropdown menu-dropdown-width">
                             @foreach($companies as $com)
                                 <a href="{{ route('companies.switch', $com->id) }}" class="dropdown-item">
                                     <i class="fas fa-building"></i>
