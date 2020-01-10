@@ -22,8 +22,8 @@ class CashFlow extends Widget
             $year_start = $financial_start;
         }
 
-        $start = Date::parse(request('start', $year_start));
-        $end = Date::parse(request('end', Date::parse($year_start)->addYear(1)->subDays(1)->format('Y-m-d')));
+        $start = Date::parse(request('start_date', $year_start));
+        $end = Date::parse(request('end_date', Date::parse($year_start)->addYear(1)->subDays(1)->format('Y-m-d')));
         $period = request('period', 'month');
         $range = request('range', 'custom');
 
