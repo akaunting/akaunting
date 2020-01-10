@@ -229,8 +229,15 @@ button:focus
 .menu-dropdown
 {
     position: absolute !important;
-    left: 1.5rem;
+    left: 1.2rem;
+
 }
+.menu-dropdown-width
+{
+    min-width: 13rem !important;
+}
+
+
 /*--------Left Menu Dropdown Finish--------*/
 
 
