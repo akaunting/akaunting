@@ -21,7 +21,7 @@ class Invoices extends BulkAction
             'permission' => 'update-sales-invoices',
         ],
         'sent' => [
-            'name' => 'invoice.mark_sent',
+            'name' => 'invoices.mark_sent',
             'message' => 'bulk_actions.message.sent',
             'permission' => 'update-sales-invoices',
         ],
