@@ -7,6 +7,18 @@ use App\Models\Setting\Category;
 
 class IncomeByCategory extends Widget
 {
+    public function getDefaultName()
+    {
+        return trans('widgets.income_by_category');
+    }
+
+    public function getDefaultSettings()
+    {
+        return [
+            'width' => 'col-md-6',
+        ];
+    }
+
     public function show()
     {
         Category::with('income_transacions')->type('income')->enabled()->each(function ($category) {
@@ -26,17 +38,5 @@ class IncomeByCategory extends Widget
         return $this->view('widgets.donut_chart', [
             'chart' => $chart,
         ]);
-    }
-
-    public function getDefaultName()
-    {
-        return trans('widgets.income_by_category');
-    }
-
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-6',
-        ];
     }
 }

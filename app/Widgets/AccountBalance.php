@@ -7,6 +7,18 @@ use App\Models\Banking\Account;
 
 class AccountBalance extends Widget
 {
+    public function getDefaultName()
+    {
+        return trans('widgets.account_balance');
+    }
+
+    public function getDefaultSettings()
+    {
+        return [
+            'width' => 'col-md-4',
+        ];
+    }
+
     public function show()
     {
         $accounts = Account::enabled()->take(5)->get();
@@ -14,10 +26,5 @@ class AccountBalance extends Widget
         return $this->view('widgets.account_balance', [
             'accounts' => $accounts,
         ]);
-    }
-
-    public function getDefaultName()
-    {
-        return trans('widgets.account_balance');
     }
 }

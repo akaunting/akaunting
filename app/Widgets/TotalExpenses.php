@@ -8,6 +8,18 @@ use App\Models\Purchase\Bill;
 
 class TotalExpenses extends Widget
 {
+    public function getDefaultName()
+    {
+        return trans('widgets.total_expenses');
+    }
+
+    public function getDefaultSettings()
+    {
+        return [
+            'width' => 'col-md-4',
+        ];
+    }
+
     public function show()
     {
         $current = $open = $overdue = 0;
@@ -39,10 +51,5 @@ class TotalExpenses extends Widget
         return $this->view('widgets.total_expenses', [
             'totals' => $totals,
         ]);
-    }
-
-    public function getDefaultName()
-    {
-        return trans('widgets.total_expenses');
     }
 }

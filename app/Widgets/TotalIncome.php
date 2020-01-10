@@ -8,6 +8,18 @@ use App\Models\Sale\Invoice;
 
 class TotalIncome extends Widget
 {
+    public function getDefaultName()
+    {
+        return trans('widgets.total_income');
+    }
+
+    public function getDefaultSettings()
+    {
+        return [
+            'width' => 'col-md-4',
+        ];
+    }
+
     public function show()
     {
         $current = $open = $overdue = 0;
@@ -39,10 +51,5 @@ class TotalIncome extends Widget
         return $this->view('widgets.total_income', [
             'totals' => $totals,
         ]);
-    }
-
-    public function getDefaultName()
-    {
-        return trans('widgets.total_income');
     }
 }

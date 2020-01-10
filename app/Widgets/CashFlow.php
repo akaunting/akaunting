@@ -13,6 +13,18 @@ class CashFlow extends Widget
 {
     use Currencies, DateTime;
 
+    public function getDefaultName()
+    {
+        return trans('widgets.cash_flow');
+    }
+
+    public function getDefaultSettings()
+    {
+        return [
+            'width' => 'col-md-12',
+        ];
+    }
+
     public function show()
     {
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
@@ -169,17 +181,5 @@ class CashFlow extends Widget
         }
 
         return $profit;
-    }
-
-    public function getDefaultName()
-    {
-        return trans('widgets.cash_flow');
-    }
-
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-12',
-        ];
     }
 }

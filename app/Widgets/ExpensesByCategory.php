@@ -7,6 +7,18 @@ use App\Models\Setting\Category;
 
 class ExpensesByCategory extends Widget
 {
+    public function getDefaultName()
+    {
+        return trans('widgets.expenses_by_category');
+    }
+
+    public function getDefaultSettings()
+    {
+        return [
+            'width' => 'col-md-6',
+        ];
+    }
+
     public function show()
     {
         Category::with('expense_transactions')->type('expense')->enabled()->each(function ($category) {
@@ -26,17 +38,5 @@ class ExpensesByCategory extends Widget
         return $this->view('widgets.donut_chart', [
             'chart' => $chart,
         ]);
-    }
-
-    public function getDefaultName()
-    {
-        return trans('widgets.expenses_by_category');
-    }
-
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-6',
-        ];
     }
 }
