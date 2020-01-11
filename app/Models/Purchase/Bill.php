@@ -23,7 +23,7 @@ class Bill extends Model
      *
      * @var array
      */
-    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid'];
+    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'status_label'];
 
     protected $dates = ['deleted_at', 'billed_at', 'due_at'];
 
@@ -32,14 +32,14 @@ class Bill extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'bill_number', 'order_number', 'bill_status_code', 'billed_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'contact_id', 'contact_name', 'contact_email', 'contact_tax_number', 'contact_phone', 'contact_address', 'notes', 'category_id', 'parent_id'];
+    protected $fillable = ['company_id', 'bill_number', 'order_number', 'status', 'billed_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'contact_id', 'contact_name', 'contact_email', 'contact_tax_number', 'contact_phone', 'contact_address', 'notes', 'category_id', 'parent_id'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['bill_number', 'contact_name', 'amount', 'status.name', 'billed_at', 'due_at', 'bill_status_code'];
+    public $sortable = ['bill_number', 'contact_name', 'amount', 'status', 'billed_at', 'due_at'];
 
     /**
      * Clonable relationships.
@@ -83,11 +83,6 @@ class Bill extends Model
         return $this->morphOne('App\Models\Common\Recurring', 'recurable');
     }
 
-    public function status()
-    {
-        return $this->belongsTo('App\Models\Purchase\BillStatus', 'bill_status_code', 'code');
-    }
-
     public function totals()
     {
         return $this->hasMany('App\Models\Purchase\BillTotal');
@@ -110,22 +105,22 @@ class Bill extends Model
 
     public function scopeAccrued($query)
     {
-        return $query->where('bill_status_code', '<>', 'draft');
+        return $query->where('status', '<>', 'draft');
     }
 
     public function scopePaid($query)
     {
-        return $query->where('bill_status_code', '=', 'paid');
+        return $query->where('status', '=', 'paid');
     }
 
     public function scopeNotPaid($query)
     {
-        return $query->where('bill_status_code', '<>', 'paid');
+        return $query->where('status', '<>', 'paid');
     }
 
     public function onCloning($src, $child = null)
     {
-        $this->bill_status_code = 'draft';
+        $this->status = 'draft';
     }
 
     /**
@@ -255,5 +250,31 @@ class Bill extends Model
         $this->setAttribute('reconciled', $reconciled);
 
         return $paid;
+    }
+
+    /**
+     * Get the status label.
+     *
+     * @return string
+     */
+    public function getLabelAttribute()
+    {
+        switch ($this->code) {
+            case 'paid':
+                $label = 'success';
+                break;
+            case 'delete':
+                $label = 'danger';
+                break;
+            case 'partial':
+            case 'received':
+                $label = 'warning';
+                break;
+            default:
+                $label = 'info';
+                break;
+        }
+
+        return $label;
     }
 }

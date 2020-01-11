@@ -33,7 +33,7 @@ class BillHistories implements FromCollection, ShouldAutoSize, WithHeadings, Wit
     {
         return [
             $model->bill_id,
-            $model->status_code,
+            $model->status,
             $model->notify,
             $model->description,
         ];
@@ -43,7 +43,7 @@ class BillHistories implements FromCollection, ShouldAutoSize, WithHeadings, Wit
     {
         return [
             'bill_id',
-            'status_code',
+            'status',
             'notify',
             'description',
         ];

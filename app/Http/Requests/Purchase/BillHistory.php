@@ -25,7 +25,7 @@ class BillHistory extends FormRequest
     {
         return [
             'bill_id' => 'required|integer',
-            'status_code' => 'required|string',
+            'status' => 'required|string',
             'notify' => 'required|integer',
         ];
     }

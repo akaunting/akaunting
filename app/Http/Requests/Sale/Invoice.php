@@ -42,7 +42,7 @@ class Invoice extends FormRequest
 
         return [
             'invoice_number' => 'required|string|unique:invoices,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
-            'invoice_status_code' => 'required|string',
+            'status' => 'required|string',
             'invoiced_at' => 'required|date_format:Y-m-d H:i:s',
             'due_at' => 'required|date_format:Y-m-d H:i:s',
             'amount' => 'required',

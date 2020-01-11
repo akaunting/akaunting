@@ -8,8 +8,8 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header status-{{ $invoice->status->label }}">
-            <h3 class="text-white mb-0 float-right pr-4">{{ trans('invoices.status.' . $invoice->status->code) }}</h3>
+        <div class="card-header status-{{ $invoice->status_label }}">
+            <h3 class="text-white mb-0 float-right pr-4">{{ trans('invoices.statuses.' . $invoice->status) }}</h3>
         </div>
 
         <div class="card-body">
@@ -214,7 +214,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-md-4">
-                    @if($invoice->invoice_status_code != 'paid')
+                    @if($invoice->status != 'paid')
                         @if ($payment_methods)
                             {!! Form::open([
                                 'id' => 'invoice-payment',

@@ -35,11 +35,13 @@ return [
     'receive_bill'          => 'Receive Bill',
     'make_payment'          => 'Make Payment',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Draft',
         'received'          => 'Received',
         'partial'           => 'Partial',
         'paid'              => 'Paid',
+        'overdue'           => 'Overdue',
+        'unpaid'            => 'Unpaid',
     ],
 
     'messages' => [

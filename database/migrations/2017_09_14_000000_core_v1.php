@@ -556,7 +556,6 @@ class CoreV1 extends Migration
         Schema::drop('bill_histories');
         Schema::drop('bill_items');
         Schema::drop('bill_item_taxes');
-        Schema::drop('bill_statuses');
         Schema::drop('bill_totals');
         Schema::drop('categories');
         Schema::drop('companies');
@@ -565,7 +564,6 @@ class CoreV1 extends Migration
         Schema::drop('invoice_histories');
         Schema::drop('invoice_items');
         Schema::drop('invoice_item_taxes');
-        Schema::drop('invoice_statuses');
         Schema::drop('invoice_totals');
         Schema::drop('items');
         Schema::drop('jobs');

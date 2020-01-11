@@ -17,15 +17,10 @@ class BillHistory extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'bill_id', 'status_code', 'notify', 'description'];
+    protected $fillable = ['company_id', 'bill_id', 'status', 'notify', 'description'];
 
     public function bill()
     {
         return $this->belongsTo('App\Models\Purchase\Bill');
-    }
-
-    public function status()
-    {
-        return $this->belongsTo('App\Models\Purchase\BillStatus', 'status_code', 'code');
     }
 }

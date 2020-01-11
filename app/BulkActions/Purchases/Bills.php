@@ -34,7 +34,7 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            $bill->bill_status_code = 'received';
+            $bill->status = 'received';
             $bill->save();
 
             $description = trans('bills.mark_recevied');

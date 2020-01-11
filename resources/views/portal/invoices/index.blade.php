@@ -30,7 +30,7 @@
                         <th class="col-xs-4 col-sm-2 col-md-2 text-right">@sortablelink('amount', trans('general.amount'))</th>
                         <th class="col-sm-3 col-md-3 d-none d-sm-block">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
                         <th class="col-md-2 d-none d-md-block">@sortablelink('due_at', trans('invoices.due_date'))</th>
-                        <th class="col-xs-4 col-sm-3 col-md-2 text-center">@sortablelink('status.name', trans_choice('general.statuses', 1))</th>
+                        <th class="col-xs-4 col-sm-3 col-md-2 text-center">@sortablelink('status', trans_choice('general.statuses', 1))</th>
                     </tr>
                 </thead>
 
@@ -41,7 +41,7 @@
                             <td class="col-xs-4 col-sm-2 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                             <td class="col-sm-3 col-md-3 d-none d-sm-block">@date($item->invoiced_at)</td>
                             <td class="col-md-2 d-none d-md-block">@date($item->due_at)</td>
-                            <td class="col-xs-4 col-sm-3 col-md-2 text-center"><span class="badge badge-pill badge-{{ $item->status->label }}">{{ trans('invoices.status.' . $item->status->code) }}</span></td>
+                            <td class="col-xs-4 col-sm-3 col-md-2 text-center"><span class="badge badge-pill badge-{{ $item->status_label }}">{{ trans('invoices.statuses.' . $item->status) }}</span></td>
                         </tr>
                     @endforeach
                 </tbody>

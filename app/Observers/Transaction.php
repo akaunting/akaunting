@@ -32,7 +32,7 @@ class Transaction
     {
         $invoice = $transaction->invoice;
 
-        $invoice->invoice_status_code = ($invoice->transactions->count() > 1) ? 'partial' : 'sent';
+        $invoice->status = ($invoice->transactions->count() > 1) ? 'partial' : 'sent';
 
         $invoice->save();
 
@@ -43,7 +43,7 @@ class Transaction
     {
         $bill = $transaction->bill;
 
-        $bill->bill_status_code = ($bill->transactions->count() > 1) ? 'partial' : 'received';
+        $bill->status = ($bill->transactions->count() > 1) ? 'partial' : 'received';
 
         $bill->save();
 

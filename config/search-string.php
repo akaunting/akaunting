@@ -146,7 +146,7 @@ return [
         'columns' => [
             'bill_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
-            'bill_status_code',
+            'status',
             'billed_at' => ['date' => true],
             'due_at' => ['date' => true],
             'amount',
@@ -166,7 +166,7 @@ return [
         'columns' => [
             'invoice_number' => ['searchable' => true],
             'order_number' => ['searchable' => true],
-            'invoice_status_code',
+            'status',
             'invoiced_at' => ['date' => true],
             'due_at' => ['date' => true],
             'amount',

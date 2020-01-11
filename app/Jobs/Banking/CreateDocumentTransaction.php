@@ -144,7 +144,7 @@ class CreateDocumentTransaction extends Job
 
             throw new \Exception($message);
         } else {
-            $this->setStatusCode($amount_check, $total_amount_check);
+            $this->model->status = ($amount_check == $total_amount_check) ? 'paid' : 'partial';
         }
 
         return true;
@@ -187,17 +187,6 @@ class CreateDocumentTransaction extends Job
         }
 
         return $paid;
-    }
-
-    protected function setStatusCode($amount_check, $total_amount_check)
-    {
-        $column = ($this->model instanceof Invoice) ? 'invoice_status_code' : 'bill_status_code';
-
-        if ($amount_check == $total_amount_check) {
-            $this->model->$column = 'paid';
-        } else {
-            $this->model->$column = 'partial';
-        }
     }
 
     protected function createHistory($transaction)

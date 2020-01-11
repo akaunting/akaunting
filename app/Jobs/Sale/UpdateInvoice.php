@@ -57,7 +57,7 @@ class UpdateInvoice extends Job
         unset($this->invoice->reconciled);
 
         if (($invoice_paid) && $this->request['amount'] > $invoice_paid) {
-            $this->request['invoice_status_code'] = 'partial';
+            $this->request['status'] = 'partial';
         }
 
         $this->invoice->update($this->request->all());

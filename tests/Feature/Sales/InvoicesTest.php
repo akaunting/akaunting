@@ -103,7 +103,7 @@ class InvoicesTest extends FeatureTestCase
             'contact_tax_number' => null,
             'contact_phone' =>  null,
             'contact_address' =>  $this->faker->address,
-            'invoice_status_code' => 'draft',
+            'status' => 'draft',
             'amount' => $amount,
         ];
 

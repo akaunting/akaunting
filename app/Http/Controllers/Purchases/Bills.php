@@ -15,7 +15,6 @@ use App\Jobs\Purchase\UpdateBill;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
-use App\Models\Purchase\BillStatus;
 use App\Models\Purchase\Bill;
 use App\Models\Purchase\BillHistory;
 use App\Models\Setting\Category;
@@ -24,12 +23,13 @@ use App\Models\Setting\Tax;
 use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Purchases;
 use App\Traits\Uploads;
 use App\Utilities\Modules;
 
 class Bills extends Controller
 {
-    use Contacts, Currencies, DateTime, Uploads;
+    use Contacts, Currencies, DateTime, Purchases, Uploads;
 
     /**
      * Display a listing of the resource.
@@ -44,10 +44,7 @@ class Bills extends Controller
 
         $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $statuses = collect(BillStatus::get()->each(function ($item) {
-            $item->name = trans('bills.status.' . $item->code);
-            return $item;
-        })->pluck('name', 'code'));
+        $statuses = $this->getBillStatuses();
 
         return view('purchases.bills.index', compact('bills', 'vendors', 'categories', 'statuses'));
     }
@@ -270,14 +267,14 @@ class Bills extends Controller
      */
     public function markReceived(Bill $bill)
     {
-        $bill->bill_status_code = 'received';
+        $bill->status = 'received';
         $bill->save();
 
         // Add bill history
         BillHistory::create([
             'company_id' => $bill->company_id,
             'bill_id' => $bill->id,
-            'status_code' => 'received',
+            'status' => 'received',
             'notify' => 0,
             'description' => trans('bills.mark_received'),
         ]);

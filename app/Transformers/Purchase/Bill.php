@@ -13,7 +13,7 @@ class Bill extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['contact', 'currency', 'histories', 'items', 'status', 'transactions'];
+    protected $defaultIncludes = ['contact', 'currency', 'histories', 'items', 'transactions'];
 
     /**
      * @param Model $model
@@ -26,7 +26,7 @@ class Bill extends TransformerAbstract
             'company_id' => $model->company_id,
             'bill_number' => $model->bill_number,
             'order_number' => $model->order_number,
-            'bill_status_code' => $model->invoice_status_code,
+            'status' => $model->status,
             'billed_at' => $model->billed_at ? $model->billed_at->toIso8601String() : '',
             'due_at' => $model->due_at ? $model->due_at->toIso8601String() : '',
             'amount' => $model->amount,
@@ -79,15 +79,6 @@ class Bill extends TransformerAbstract
     public function includeItems(Model $model)
     {
         return $this->collection($model->items, new BillItems());
-    }
-
-    /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeStatus(Model $model)
-    {
-        return $this->item($model->status, new BillStatus());
     }
 
     /**

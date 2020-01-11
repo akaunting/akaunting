@@ -34,7 +34,7 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
         return [
             $model->bill_number,
             $model->order_number,
-            $model->bill_status_code,
+            $model->status,
             $model->billed_at,
             $model->due_at,
             $model->amount,
@@ -57,7 +57,7 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
         return [
             'bill_number',
             'order_number',
-            'bill_status_code',
+            'status',
             'billed_at',
             'due_at',
             'amount',

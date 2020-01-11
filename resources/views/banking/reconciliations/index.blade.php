@@ -37,7 +37,7 @@
                         <th class="col-xs-4 col-sm-3 col-md-3 col-lg-3">@sortablelink('account_id', trans_choice('general.accounts', 1))</th>
                         <th class="col-lg-2 d-none d-lg-block">{{ trans('general.period') }}</th>
                         <th class="col-md-2 col-lg-2 d-none d-md-block text-right">@sortablelink('closing_balance', trans('reconciliations.closing_balance'))</th>
-                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1">@sortablelink('invoice_status_code', trans_choice('general.statuses', 1))</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1">@sortablelink('status', trans_choice('general.statuses', 1))</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>

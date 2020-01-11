@@ -68,7 +68,7 @@ class BillReminderTest extends FeatureTestCase
             'contact_tax_number' => null,
             'contact_phone' =>  null,
             'contact_address' =>  $this->faker->address,
-            'bill_status_code' => 'received',
+            'status' => 'received',
             'amount' => $amount,
         ];
 

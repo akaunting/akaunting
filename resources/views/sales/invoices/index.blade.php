@@ -41,7 +41,7 @@
                             <th class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1 text-right">@sortablelink('amount', trans('general.amount'))</th>
                             <th class="col-lg-2 col-xl-2 d-none d-lg-block">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
                             <th class="col-lg-2 col-xl-2 d-none d-lg-block">@sortablelink('due_at', trans('invoices.due_date'))</th>
-                            <th class="col-lg-1 col-xl-1 d-none d-lg-block">@sortablelink('invoice_status_code', trans_choice('general.statuses', 1))</th>
+                            <th class="col-lg-1 col-xl-1 d-none d-lg-block">@sortablelink('status', trans_choice('general.statuses', 1))</th>
                             <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center"><a>{{ trans('general.actions') }}</a></th>
                         </tr>
                     </thead>
@@ -57,7 +57,7 @@
                                 <td class="col-lg-2 col-xl-2 d-none d-lg-block">@date($item->invoiced_at)</td>
                                 <td class="col-lg-2 col-xl-2 d-none d-lg-block">@date($item->due_at)</td>
                                 <td class="col-lg-1 col-xl-1 d-none d-lg-block">
-                                    <span class="badge badge-pill badge-{{ $item->status->label }}">{{ trans('invoices.status.' . $item->status->code) }}</span>
+                                    <span class="badge badge-pill badge-{{ $item->status_label }}">{{ trans('invoices.statuses.' . $item->status) }}</span>
                                 </td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
                                     <div class="dropdown">

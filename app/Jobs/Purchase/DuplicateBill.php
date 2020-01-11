@@ -33,7 +33,7 @@ class DuplicateBill extends Job
         BillHistory::create([
             'company_id' => session('company_id'),
             'bill_id' => $clone->id,
-            'status_code' => 'draft',
+            'status' => 'draft',
             'notify' => 0,
             'description' => trans('messages.success.added', ['type' => $clone->bill_number]),
         ]);

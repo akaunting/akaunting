@@ -23,7 +23,7 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid'];
+    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'status_label'];
 
     protected $dates = ['deleted_at', 'invoiced_at', 'due_at'];
 
@@ -32,14 +32,14 @@ class Invoice extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_number', 'order_number', 'invoice_status_code', 'invoiced_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'contact_id', 'contact_name', 'contact_email', 'contact_tax_number', 'contact_phone', 'contact_address', 'notes', 'category_id', 'parent_id', 'footer'];
+    protected $fillable = ['company_id', 'invoice_number', 'order_number', 'status', 'invoiced_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'contact_id', 'contact_name', 'contact_email', 'contact_tax_number', 'contact_phone', 'contact_address', 'notes', 'category_id', 'parent_id', 'footer'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['invoice_number', 'contact_name', 'amount', 'status' , 'invoiced_at', 'due_at', 'invoice_status_code'];
+    public $sortable = ['invoice_number', 'contact_name', 'amount', 'status' , 'invoiced_at', 'due_at'];
 
     protected $reconciled_amount = [];
 
@@ -90,11 +90,6 @@ class Invoice extends Model
         return $this->morphOne('App\Models\Common\Recurring', 'recurable');
     }
 
-    public function status()
-    {
-        return $this->belongsTo('App\Models\Sale\InvoiceStatus', 'invoice_status_code', 'code');
-    }
-
     public function totals()
     {
         return $this->hasMany('App\Models\Sale\InvoiceTotal');
@@ -117,22 +112,22 @@ class Invoice extends Model
 
     public function scopeAccrued($query)
     {
-        return $query->where('invoice_status_code', '<>', 'draft');
+        return $query->where('status', '<>', 'draft');
     }
 
     public function scopePaid($query)
     {
-        return $query->where('invoice_status_code', '=', 'paid');
+        return $query->where('status', '=', 'paid');
     }
 
     public function scopeNotPaid($query)
     {
-        return $query->where('invoice_status_code', '<>', 'paid');
+        return $query->where('status', '<>', 'paid');
     }
 
     public function onCloning($src, $child = null)
     {
-        $this->invoice_status_code = 'draft';
+        $this->status = 'draft';
         $this->invoice_number = $this->getNextInvoiceNumber();
     }
 
@@ -263,5 +258,31 @@ class Invoice extends Model
         $this->setAttribute('reconciled', $reconciled);
 
         return $paid;
+    }
+
+    /**
+     * Get the status label.
+     *
+     * @return string
+     */
+    public function getStatusLabelAttribute()
+    {
+        switch ($this->status) {
+            case 'paid':
+                $label = 'success';
+                break;
+            case 'delete':
+                $label = 'danger';
+                break;
+            case 'partial':
+            case 'sent':
+                $label = 'warning';
+                break;
+            default:
+                $label = 'info';
+                break;
+        }
+
+        return $label;
     }
 }

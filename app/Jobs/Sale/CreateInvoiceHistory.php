@@ -39,7 +39,7 @@ class CreateInvoiceHistory extends Job
         $invoice_history = InvoiceHistory::create([
             'company_id' => $this->invoice->company_id,
             'invoice_id' => $this->invoice->id,
-            'status_code' => $this->invoice->invoice_status_code,
+            'status' => $this->invoice->status,
             'notify' => $this->notify,
             'description' => $description,
         ]);

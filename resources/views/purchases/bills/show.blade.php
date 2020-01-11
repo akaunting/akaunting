@@ -22,7 +22,7 @@
     @stack('recurring_message_end')
 
     @stack('status_message_start')
-        @if ($bill->status->code == 'draft')
+        @if ($bill->status == 'draft')
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="alert alert-warning fade show" role="alert">
@@ -38,7 +38,7 @@
     @stack('status_message_end')
 
     @stack('timeline_start')
-        @if ($bill->status->code != 'paid')
+        @if ($bill->status != 'paid')
             @stack('timeline_body_start')
                 <div class="card">
                     <div class="card-body">
@@ -82,7 +82,7 @@
                                         @stack('timeline_body_receive_bill_head_end')
 
                                         @stack('timeline_body_receive_bill_body_start')
-                                            @if ($bill->status->code == 'draft')
+                                            @if ($bill->status == 'draft')
                                                 @stack('timeline_body_receive_bill_body_message_start')
                                                     <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
                                                     <small>{{ trans('bills.messages.status.receive.draft') }}</small>
@@ -119,7 +119,7 @@
 
                                         @stack('timeline_body_make_payment_body_start')
                                             @stack('timeline_body_get_paid_body_message_start')
-                                                @if($bill->status->code != 'paid' && empty($bill->transactions->count()))
+                                                @if($bill->status != 'paid' && empty($bill->transactions->count()))
                                                     <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
                                                     <small>{{ trans('bills.messages.status.paid.await') }}</small>
                                                 @else
@@ -149,8 +149,8 @@
     @stack('bill_start')
         <div class="card">
             @stack('bill_status_start')
-                <div class="card-header status-{{ $bill->status->label }}">
-                    <h3 class="text-white mb-0 float-right">{{ trans('bills.status.' . $bill->status->code) }}</h3>
+                <div class="card-header status-{{ $bill->status_label }}">
+                    <h3 class="text-white mb-0 float-right">{{ trans('bills.statuses.' . $bill->status) }}</h3>
                 </div>
             @stack('bill_status_end')
 
@@ -430,12 +430,12 @@
                                 <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
                                 <div class="dropdown-menu" role="menu">
                                     @stack('button_pay_start')
-                                        @if($bill->status->code != 'paid')
+                                        @if($bill->status != 'paid')
                                             @if(empty($bill->paid) || ($bill->paid != $bill->amount))
                                                 <a class="dropdown-item" href="#" id="button-payment">{{ trans('bills.add_payment') }}</a>
                                             @endif
                                             @permission('update-purchases-bills')
-                                                @if($bill->bill_status_code == 'draft')
+                                                @if($bill->status == 'draft')
                                                     <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
                                                 @else
                                                     <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
@@ -493,7 +493,7 @@
                                             @foreach($bill->histories as $history)
                                                 <tr class="row align-items-center">
                                                     <td class="col-xs-4 col-sm-4">@date($history->created_at)</td>
-                                                    <td class="col-xs-4 col-sm-4 text-center">{{ $history->status->name }}</td>
+                                                    <td class="col-xs-4 col-sm-4 text-center">{{ trans('bills.statuses.' . $history->status) }}</td>
                                                     <td class="col-xs-4 col-sm-4 text-left long-texts">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach

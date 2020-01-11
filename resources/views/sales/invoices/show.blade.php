@@ -22,7 +22,7 @@
     @stack('recurring_message_end')
 
     @stack('status_message_start')
-        @if ($invoice->status->code == 'draft')
+        @if ($invoice->status == 'draft')
             <div class="row">
                 <div class="col-sm-12">
                     <div class="alert alert-warning fade show" role="alert">
@@ -38,7 +38,7 @@
     @stack('status_message_end')
 
     @stack('timeline_start')
-        @if ($invoice->status->code != 'paid')
+        @if ($invoice->status != 'paid')
             @stack('timeline_body_start')
                 <div class="card">
                     <div class="card-body">
@@ -82,7 +82,7 @@
                                         @stack('timeline_body_send_invoice_head_end')
 
                                         @stack('timeline_body_send_invoice_body_start')
-                                            @if ($invoice->status->code != 'sent' && $invoice->status->code != 'partial' && $invoice->status->code != 'viewed')
+                                            @if ($invoice->status != 'sent' && $invoice->status != 'partial' && $invoice->status != 'viewed')
                                                 @stack('timeline_body_send_invoice_body_message_start')
                                                     <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
                                                     <small>{{ trans('invoices.messages.status.send.draft') }}</small>
@@ -91,7 +91,7 @@
                                                 <div class="mt-3">
                                                     @stack('timeline_body_send_invoice_body_button_sent_start')
                                                         @permission('update-sales-invoices')
-                                                            @if($invoice->invoice_status_code == 'draft')
+                                                            @if($invoice->status == 'draft')
                                                                 <a href="{{ url('sales/invoices/' . $invoice->id . '/sent') }}" class="btn btn-white btn-sm header-button-top">{{ trans('invoices.mark_sent') }}</a>
                                                             @else
                                                                 <button type="button" class="btn btn-secondary btn-sm header-button-top" disabled="disabled">
@@ -111,7 +111,7 @@
                                                         @endif
                                                     @stack('timeline_body_send_invoice_body_button_email_end')
                                                 </div>
-                                            @elseif($invoice->status->code == 'viewed')
+                                            @elseif($invoice->status == 'viewed')
                                                 @stack('timeline_body_viewed_invoice_body_message_start')
                                                     <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
                                                     <small>{{ trans('invoices.messages.status.viewed') }}</small>
@@ -140,7 +140,7 @@
 
                                         @stack('timeline_body_get_paid_body_start')
                                             @stack('timeline_body_get_paid_body_message_start')
-                                                @if($invoice->status->code != 'paid' && empty($invoice->transactions->count()))
+                                                @if($invoice->status != 'paid' && empty($invoice->transactions->count()))
                                                     <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
                                                     <small>{{ trans('invoices.messages.status.paid.await') }}</small>
                                                 @else
@@ -176,8 +176,8 @@
     @stack('invoice_start')
         <div class="card">
             @stack('invoice_status_start')
-                <div class="card-header status-{{ $invoice->status->label }}">
-                    <h3 class="text-white mb-0 float-right">{{ trans('invoices.status.' . $invoice->status->code) }}</h3>
+                <div class="card-header status-{{ $invoice->status_label }}">
+                    <h3 class="text-white mb-0 float-right">{{ trans('invoices.statuses.' . $invoice->status) }}</h3>
                 </div>
             @stack('invoice_status_end')
 
@@ -459,7 +459,7 @@
                                 <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
                                 <div class="dropdown-menu" role="menu">
                                     @stack('button_pay_start')
-                                        @if($invoice->status->code != 'paid')
+                                        @if($invoice->status != 'paid')
                                             @permission('update-sales-invoices')
                                                 <a class="dropdown-item" href="{{ url('sales/invoices/' . $invoice->id . '/pay') }}">{{ trans('invoices.mark_paid') }}</a>
                                             @endpermission
@@ -473,7 +473,7 @@
 
                                     @stack('button_sent_start')
                                         @permission('update-sales-invoices')
-                                            @if($invoice->invoice_status_code == 'draft')
+                                            @if($invoice->status == 'draft')
                                                 <a class="dropdown-item" href="{{ url('sales/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a>
                                             @else
                                                 <button type="button" class="dropdown-item" disabled="disabled"><span class="text-disabled">{{ trans('invoices.mark_sent') }}</span></button>
@@ -539,7 +539,7 @@
                                             @foreach($invoice->histories as $history)
                                                 <tr class="row align-items-center">
                                                     <td class="col-xs-4 col-sm-4">@date($history->created_at)</td>
-                                                    <td class="col-xs-4 col-sm-4 text-center">{{ $history->status->name }}</td>
+                                                    <td class="col-xs-4 col-sm-4 text-center">{{ trans('invoices.statuses.' . $history->status) }}</td>
                                                     <td class="col-xs-4 col-sm-4 text-left long-texts">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach
