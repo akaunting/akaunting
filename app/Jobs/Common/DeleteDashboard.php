@@ -47,8 +47,12 @@ class DeleteDashboard extends Job
      */
     public function authorize()
     {
-        // Can't delete your last dashboard
-        if (user()->dashboards()->enabled()->count() == 1) {
+        // Can't delete last dashboard for any shared user
+        foreach ($this->dashboard->users as $user) {
+            if ($user->dashboards()->enabled()->count() > 1) {
+                continue;
+            }
+
             $message = trans('dashboards.error.delete_last');
 
             throw new \Exception($message);

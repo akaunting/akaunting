@@ -51,13 +51,27 @@ class UpdateDashboard extends Job
      */
     public function authorize()
     {
-        $user = user();
+        // Can't disable last dashboard for any shared user
+        if ($this->request->has('enabled') && !$this->request->get('enabled')) {
+            foreach ($this->dashboard->users as $user) {
+                if ($user->dashboards()->enabled()->count() > 1) {
+                    continue;
+                }
 
-        // Can't delete your last dashboard
-        if ($this->request->has('users') && !in_array($user->id, (array) $this->request->get('users')) && ($user->dashboards()->enabled()->count() == 1)) {
-            $message = trans('dashboards.error.delete_last');
+                $message = trans('dashboards.error.disable_last');
 
-            throw new \Exception($message);
+                throw new \Exception($message);
+            }
+        }
+
+        if ($this->request->has('users')) {
+            $user = user();
+
+            if (!in_array($user->id, (array) $this->request->get('users')) && ($user->dashboards()->enabled()->count() == 1)) {
+                $message = trans('dashboards.error.delete_last');
+
+                throw new \Exception($message);
+            }
         }
 
         // Check if user can access dashboard

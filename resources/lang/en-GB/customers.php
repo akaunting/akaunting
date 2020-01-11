@@ -6,7 +6,7 @@ return [
     'user_created'          => 'User Created',
 
     'error' => [
-        'email'             => 'The email has already been taken.'
+        'email'             => 'The email has already been taken.',
     ],
 
 ];
