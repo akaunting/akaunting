@@ -188,7 +188,7 @@ button:focus
 {
     max-width: 1116px !important;
 }
-/*--------Content Width- Finish-------*/
+/*--------Content Width Finish-------*/
 
 
 /*--------Navbar Notification--------*/
@@ -688,6 +688,15 @@ table .align-items-center td span.badge {
     width: 140px;
 }
 /*--------Print Template Finish--------*/
+
+
+/*--------Font Size 50--------*/
+.font-size-50
+{
+    font-size: 50px !important;
+}
+/*--------Font Size 50 Finish--------*/
+
 
 
 /*----------------RESPONSIVE START LINE----------------*/

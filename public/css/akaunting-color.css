@@ -2345,7 +2345,15 @@ option:focus
 /*--------General Progress Bar Color Finish--------*/
 
 
-/*------------------------*/
+/*--------List Group Item Active-------*/
+.list-group-item.active
+{
+    z-index: 2;
+    color: #ffffff;
+    background-color: #3c3f72 !important;
+    border-color: #3c3f72 !important;
+}
+/*--------List Group Item Active Finish-------*/
 
 
 /*--Create Category Button Color--*/
