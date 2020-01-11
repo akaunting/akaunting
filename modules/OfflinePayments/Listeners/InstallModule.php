@@ -39,6 +39,12 @@ class InstallModule
             'description' => 'Update Offline Payments Settings',
         ]);
 
+        $permissions[] = Permission::firstOrCreate([
+            'name' => 'delete-offline-payments-settings',
+            'display_name' => 'Delete Offline Payments Settings',
+            'description' => 'Delete Offline Payments Settings',
+        ]);
+
         $roles = Role::all()->filter(function ($r) {
             return $r->hasPermission('read-admin-panel');
         });
