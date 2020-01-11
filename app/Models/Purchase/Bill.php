@@ -257,7 +257,7 @@ class Bill extends Model
      *
      * @return string
      */
-    public function getLabelAttribute()
+    public function getStatusLabelAttribute()
     {
         switch ($this->code) {
             case 'paid':
