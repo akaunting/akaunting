@@ -30,4 +30,33 @@ trait Sales
         setting(['invoice.number_next' => $next]);
         setting()->save();
     }
+
+    /**
+     * Get a collection invoice statuses
+     *
+     * @return Collection
+     */
+    public function getInvoiceStatuses()
+    {
+        $list = [
+            'draft',
+            'sent',
+            'viewed',
+            'approved',
+            'partial',
+            'paid',
+            'overdue',
+            'unpaid',
+        ];
+
+        $statuses = collect($list)->each(function ($code) {
+            $item = new \stdClass();
+            $item->code = $code;
+            $item->name = trans('invoices.statuses.' . $code);
+
+            return $item;
+        });
+
+        return $statuses;
+    }
 }

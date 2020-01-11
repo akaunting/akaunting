@@ -40,7 +40,7 @@ class Dashboard extends Controller
         $unpaid = $paid = $overdue = $partial_paid = [];
 
         foreach ($invoices as $invoice) {
-            switch ($invoice->invoice_status_code) {
+            switch ($invoice->status) {
                 case 'paid':
                     $paid[] = $invoice;
                     break;

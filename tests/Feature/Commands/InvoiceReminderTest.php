@@ -68,7 +68,7 @@ class InvoiceReminderTest extends FeatureTestCase
             'contact_tax_number' => null,
             'contact_phone' =>  null,
             'contact_address' =>  $this->faker->address,
-            'invoice_status_code' => 'sent',
+            'status' => 'sent',
             'amount' => $amount,
         ];
 

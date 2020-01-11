@@ -37,13 +37,15 @@ return [
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Draft',
         'sent'              => 'Sent',
         'viewed'            => 'Viewed',
         'approved'          => 'Approved',
         'partial'           => 'Partial',
         'paid'              => 'Paid',
+        'overdue'           => 'Overdue',
+        'unpaid'            => 'Unpaid',
     ],
 
     'messages' => [

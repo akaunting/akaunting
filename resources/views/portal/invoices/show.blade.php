@@ -6,8 +6,8 @@
     @stack('invoice_start')
         <div class="card">
             @stack('invoice_status_start')
-                <div class="card-header status-{{ $invoice->status->label }}">
-                    <h3 class="text-white mb-0 float-right">{{ trans('invoices.status.' . $invoice->status->code) }}</h3>
+                <div class="card-header status-{{ $invoice->status_label }}">
+                    <h3 class="text-white mb-0 float-right">{{ trans('invoices.statuses.' . $invoice->status) }}</h3>
                 </div>
             @stack('invoice_status_end')
 
@@ -278,7 +278,7 @@
                         @stack('button_pdf_end')
                     </div>
                     <div class="col-md-4">
-                        @if($invoice->invoice_status_code != 'paid')
+                        @if($invoice->status != 'paid')
                             @if ($payment_methods)
                             {!! Form::open([
                                 'id' => 'invoice-payment',

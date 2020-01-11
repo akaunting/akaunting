@@ -100,7 +100,7 @@ class PaymentReceived extends Notification
             $this->invoice->invoice_number,
             money($this->invoice->amount, $this->invoice->currency_code, true),
             $this->invoice->due_at,
-            trans('invoices.status.' . $this->invoice->invoice_status_code),
+            trans('invoices.statuses.' . $this->invoice->status),
             URL::signedRoute('signed.invoices.show', [$this->invoice->id, 'company_id' => $this->invoice->company_id]),
             route('invoices.show', $this->invoice->id),
             route('portal.invoices.show', $this->invoice->id),

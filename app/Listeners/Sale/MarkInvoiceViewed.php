@@ -16,13 +16,13 @@ class MarkInvoiceViewed
     {
         $invoice = $event->invoice;
 
-        if ($invoice->invoice_status_code != 'sent') {
+        if ($invoice->status != 'sent') {
             return;
         }
 
         unset($invoice->paid);
 
-        $invoice->invoice_status_code = 'viewed';
+        $invoice->status = 'viewed';
         $invoice->save();
     }
 }

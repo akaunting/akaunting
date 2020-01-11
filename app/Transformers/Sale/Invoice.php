@@ -13,7 +13,7 @@ class Invoice extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['contact', 'currency', 'histories', 'items', 'status', 'transactions'];
+    protected $defaultIncludes = ['contact', 'currency', 'histories', 'items', 'transactions'];
 
     /**
      * @param Model $model
@@ -26,7 +26,7 @@ class Invoice extends TransformerAbstract
             'company_id' => $model->company_id,
             'invoice_number' => $model->invoice_number,
             'order_number' => $model->order_number,
-            'invoice_status_code' => $model->invoice_status_code,
+            'status' => $model->status,
             'invoiced_at' => $model->invoiced_at ? $model->invoiced_at->toIso8601String() : '',
             'due_at' => $model->due_at ? $model->due_at->toIso8601String() : '',
             'amount' => $model->amount,
@@ -79,15 +79,6 @@ class Invoice extends TransformerAbstract
     public function includeItems(Model $model)
     {
         return $this->collection($model->items, new InvoiceItems());
-    }
-
-    /**
-     * @param Model $model
-     * @return \League\Fractal\Resource\Item
-     */
-    public function includeStatus(Model $model)
-    {
-        return $this->item($model->status, new InvoiceStatus());
     }
 
     /**

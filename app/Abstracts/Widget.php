@@ -47,17 +47,13 @@ abstract class Widget
 
         $today = Date::today()->toDateString();
 
-        $type = ($model instanceof Invoice) ? 'invoice' : 'bill';
-
-        $status_field = $type . '_status_code';
-
-        if ($model->$status_field == 'paid') {
+        if ($model->status == 'paid') {
             return [$open, $overdue];
         }
 
         $payments = 0;
 
-        if ($model->$status_field == 'partial') {
+        if ($model->status == 'partial') {
             foreach ($model->transactions as $transaction) {
                 $payments += $transaction->getAmountConvertedToDefault();
             }

@@ -57,7 +57,7 @@ class UpdateBill extends Job
         unset($this->bill->reconciled);
 
         if (($bill_paid) && $this->request['amount'] > $bill_paid) {
-            $this->request['bill_status_code'] = 'partial';
+            $this->request['status'] = 'partial';
         }
 
         $this->bill->update($this->request->input());

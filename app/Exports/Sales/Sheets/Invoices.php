@@ -34,7 +34,7 @@ class Invoices implements FromCollection, ShouldAutoSize, WithHeadings, WithMapp
         return [
             $model->invoice_number,
             $model->order_number,
-            $model->invoice_status_code,
+            $model->status,
             $model->invoiced_at,
             $model->due_at,
             $model->amount,
@@ -57,7 +57,7 @@ class Invoices implements FromCollection, ShouldAutoSize, WithHeadings, WithMapp
         return [
             'invoice_number',
             'order_number',
-            'invoice_status_code',
+            'status',
             'invoiced_at',
             'due_at',
             'amount',

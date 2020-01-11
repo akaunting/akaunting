@@ -33,7 +33,7 @@ class InvoiceHistories implements FromCollection, ShouldAutoSize, WithHeadings, 
     {
         return [
             $model->invoice_id,
-            $model->status_code,
+            $model->status,
             $model->notify,
             $model->description,
         ];
@@ -43,7 +43,7 @@ class InvoiceHistories implements FromCollection, ShouldAutoSize, WithHeadings, 
     {
         return [
             'invoice_id',
-            'status_code',
+            'status',
             'notify',
             'description',
         ];

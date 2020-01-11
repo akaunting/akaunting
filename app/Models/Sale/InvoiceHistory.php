@@ -7,7 +7,6 @@ use App\Traits\Currencies;
 
 class InvoiceHistory extends Model
 {
-
     use Currencies;
 
     protected $table = 'invoice_histories';
@@ -17,15 +16,10 @@ class InvoiceHistory extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_id', 'status_code', 'notify', 'description'];
+    protected $fillable = ['company_id', 'invoice_id', 'status', 'notify', 'description'];
 
     public function invoice()
     {
         return $this->belongsTo('App\Models\Sale\Invoice');
-    }
-
-    public function status()
-    {
-        return $this->belongsTo('App\Models\Sale\InvoiceStatus', 'status_code', 'code');
     }
 }

@@ -16,8 +16,8 @@ class MarkInvoiceSent
     public function handle(Event $event)
     {
         // Mark invoice as sent
-        if ($event->invoice->invoice_status_code != 'partial') {
-            $event->invoice->invoice_status_code = 'sent';
+        if ($event->invoice->status != 'partial') {
+            $event->invoice->status = 'sent';
 
             $event->invoice->save();
         }
@@ -26,7 +26,7 @@ class MarkInvoiceSent
         InvoiceHistory::create([
             'company_id' => $event->invoice->company_id,
             'invoice_id' => $event->invoice->id,
-            'status_code' => 'sent',
+            'status' => 'sent',
             'notify' => 0,
             'description' => trans('invoices.mark_sent'),
         ]);

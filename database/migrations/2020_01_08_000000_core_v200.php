@@ -41,6 +41,7 @@ class CoreV200 extends Migration
         });
 
         $rename_bills = [
+            'bill_status_code' => 'status',
             'vendor_id' => 'contact_id',
             'vendor_name' => 'contact_name',
             'vendor_email' => 'contact_email',
@@ -55,7 +56,14 @@ class CoreV200 extends Migration
             });
         }
 
+        Schema::table('bill_histories', function (Blueprint $table) {
+            $table->renameColumn('status_code', 'status');
+        });
+
+        Schema::drop('bill_statuses');
+
         $rename_invoices = [
+            'invoice_status_code' => 'status',
             'customer_id' => 'contact_id',
             'customer_name' => 'contact_name',
             'customer_email' => 'contact_email',
@@ -69,6 +77,12 @@ class CoreV200 extends Migration
                 $table->renameColumn($from, $to);
             });
         }
+
+        Schema::table('invoice_histories', function (Blueprint $table) {
+            $table->renameColumn('status_code', 'status');
+        });
+
+        Schema::drop('invoice_statuses');
 
         // Dashboards
         Schema::create('dashboards', function (Blueprint $table) {
@@ -129,7 +143,7 @@ class CoreV200 extends Migration
             $table->boolean('blocked')->default(1);
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('ip');
             $table->unique(['ip', 'deleted_at']);
         });
@@ -145,7 +159,7 @@ class CoreV200 extends Migration
             $table->text('request')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('ip');
         });
 

@@ -39,7 +39,7 @@ class CreateBillHistory extends Job
         $bill_history = BillHistory::create([
             'company_id' => $this->bill->company_id,
             'bill_id' => $this->bill->id,
-            'status_code' => $this->bill->bill_status_code,
+            'status' => $this->bill->status,
             'notify' => $this->notify,
             'description' => $description,
         ]);

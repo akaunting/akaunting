@@ -63,11 +63,6 @@ class Company extends Eloquent
         return $this->hasMany('App\Models\Purchase\BillItemTax');
     }
 
-    public function bill_statuses()
-    {
-        return $this->hasMany('App\Models\Purchase\BillStatus');
-    }
-
     public function bill_totals()
     {
         return $this->hasMany('App\Models\Purchase\BillTotal');
@@ -131,11 +126,6 @@ class Company extends Eloquent
     public function invoice_item_taxes()
     {
         return $this->hasMany('App\Models\Sale\InvoiceItemTax');
-    }
-
-    public function invoice_statuses()
-    {
-        return $this->hasMany('App\Models\Sale\InvoiceStatus');
     }
 
     public function invoice_totals()

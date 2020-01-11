@@ -6,18 +6,18 @@ use App\Abstracts\Http\Controller;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Sale\Invoice;
-use App\Models\Sale\InvoiceStatus;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Sales;
 use App\Traits\Uploads;
 use App\Utilities\Modules;
 use Illuminate\Support\Facades\URL;
 
 class Invoices extends Controller
 {
-    use DateTime, Currencies, Uploads;
+    use DateTime, Currencies, Sales, Uploads;
 
     /**
      * Display a listing of the resource.
@@ -32,10 +32,7 @@ class Invoices extends Controller
 
         $categories = collect(Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id'));
 
-        $statuses = collect(InvoiceStatus::get()->each(function ($item) {
-            $item->name = trans('invoices.status.' . $item->code);
-            return $item;
-        })->pluck('name', 'code'));
+        $statuses = $this->getInvoiceStatuses();
 
         return view('portal.invoices.index', compact('invoices', 'categories', 'statuses'));
     }

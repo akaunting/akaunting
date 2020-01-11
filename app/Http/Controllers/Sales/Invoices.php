@@ -16,7 +16,6 @@ use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
-use App\Models\Sale\InvoiceStatus;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
@@ -46,10 +45,7 @@ class Invoices extends Controller
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $statuses = collect(InvoiceStatus::get()->each(function ($item) {
-            $item->name = trans('invoices.status.' . $item->code);
-            return $item;
-        })->pluck('name', 'code'));
+        $statuses = $this->getInvoiceStatuses();
 
         return view('sales.invoices.index', compact('invoices', 'customers', 'categories', 'statuses'));
     }

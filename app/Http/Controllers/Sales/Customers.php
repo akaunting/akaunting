@@ -60,7 +60,7 @@ class Customers extends Controller
 
         foreach ($invoices as $item) {
             // Already in transactions
-            if ($item->invoice_status_code == 'paid') {
+            if ($item->status == 'paid') {
                 continue;
             }
 

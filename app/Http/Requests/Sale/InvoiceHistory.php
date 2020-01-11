@@ -25,7 +25,7 @@ class InvoiceHistory extends FormRequest
     {
         return [
             'invoice_id' => 'required|integer',
-            'status_code' => 'required|string',
+            'status' => 'required|string',
             'notify' => 'required|integer',
         ];
     }
