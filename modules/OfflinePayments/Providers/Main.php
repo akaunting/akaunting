@@ -3,8 +3,6 @@
 namespace Modules\OfflinePayments\Providers;
 
 use Illuminate\Support\ServiceProvider as Provider;
-use Modules\OfflinePayments\Listeners\ShowPaymentMethod;
-use Modules\OfflinePayments\Listeners\ShowSetting;
 
 class Main extends Provider
 {
@@ -17,7 +15,6 @@ class Main extends Provider
     {
         $this->loadTranslations();
         $this->loadViews();
-        $this->loadEvents();
     }
 
     /**
@@ -48,17 +45,6 @@ class Main extends Provider
     public function loadTranslations()
     {
         $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'offline-payments');
-    }
-
-    /**
-     * Load events.
-     *
-     * @return void
-     */
-    public function loadEvents()
-    {
-        $this->app['events']->listen(\App\Events\Module\PaymentMethodShowing::class, ShowPaymentMethod::class);
-        $this->app['events']->listen(\App\Events\Module\SettingShowing::class, ShowSetting::class);
     }
 
     /**

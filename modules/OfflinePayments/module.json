@@ -4,6 +4,7 @@
     "category": "payment-method",
     "active": 1,
     "providers": [
+        "Modules\\OfflinePayments\\Providers\\Event",
         "Modules\\OfflinePayments\\Providers\\Main"
     ],
     "aliases": {},
