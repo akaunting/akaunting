@@ -21,11 +21,11 @@
 
                 {{ Form::emailGroup('email', trans('general.email'), 'envelope') }}
 
-                {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
+                {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', [], $user->contact->tax_number) }}
 
-                {{ Form::textGroup('phone', trans('general.phone'), 'phone', []) }}
+                {{ Form::textGroup('phone', trans('general.phone'), 'phone', [], $user->contact->phone) }}
 
-                {{ Form::textareaGroup('address', trans('general.address')) }}
+                {{ Form::textareaGroup('address', trans('general.address'), [], $user->contact->address) }}
 
                 {{ Form::passwordGroup('password', trans('auth.password.current'), 'key', []) }}
 
