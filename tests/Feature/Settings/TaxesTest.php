@@ -3,6 +3,7 @@
 namespace Tests\Feature\Settings;
 
 use App\Jobs\Setting\CreateTax;
+use App\Models\Setting\Tax;
 use Tests\Feature\FeatureTestCase;
 
 class TaxesTest extends FeatureTestCase
@@ -26,7 +27,7 @@ class TaxesTest extends FeatureTestCase
     public function testItShouldCreateTax()
     {
         $this->loginAs()
-            ->post(route('taxes.store'), $this->getTaxRequest())
+            ->post(route('taxes.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -34,7 +35,7 @@ class TaxesTest extends FeatureTestCase
 
     public function testItShouldUpdateTax()
     {
-        $request = $this->getTaxRequest();
+        $request = $this->getRequest();
 
         $tax = $this->dispatch(new CreateTax($request));
 
@@ -49,7 +50,7 @@ class TaxesTest extends FeatureTestCase
 
     public function testItShouldDeleteTax()
     {
-        $tax = $this->dispatch(new CreateTax($this->getTaxRequest()));
+        $tax = $this->dispatch(new CreateTax($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('taxes.destroy', $tax->id))
@@ -58,14 +59,8 @@ class TaxesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getTaxRequest()
+    public function getRequest()
     {
-        return [
-            'company_id' => $this->company->id,
-            'name' => $this->faker->text(15),
-            'rate' => $this->faker->randomFloat(2, 10, 20),
-            'type' => $this->faker->randomElement(['normal', 'inclusive', 'compound']),
-            'enabled' => $this->faker->boolean ? 1 : 0
-        ];
+        return factory(Tax::class)->states('enabled')->raw();
     }
 }
