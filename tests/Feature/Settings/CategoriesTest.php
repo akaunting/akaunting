@@ -3,6 +3,7 @@
 namespace Tests\Feature\Settings;
 
 use App\Jobs\Setting\CreateCategory;
+use App\Models\Setting\Category;
 use Tests\Feature\FeatureTestCase;
 
 class CategoriesTest extends FeatureTestCase
@@ -26,7 +27,7 @@ class CategoriesTest extends FeatureTestCase
     public function testItShouldCreateCategory()
     {
         $this->loginAs()
-            ->post(route('categories.store'), $this->getCategoryRequest())
+            ->post(route('categories.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -34,7 +35,7 @@ class CategoriesTest extends FeatureTestCase
 
     public function testItShouldSeeCategoryUpdatePage()
     {
-        $category = $this->dispatch(new CreateCategory($this->getCategoryRequest()));
+        $category = $this->dispatch(new CreateCategory($this->getRequest()));
 
         $this->loginAs()
             ->get(route('categories.edit', ['category' => $category->id]))
@@ -44,7 +45,7 @@ class CategoriesTest extends FeatureTestCase
 
     public function testItShouldUpdateCategory()
     {
-        $request = $this->getCategoryRequest();
+        $request = $this->getRequest();
 
         $category = $this->dispatch(new CreateCategory($request));
 
@@ -59,7 +60,7 @@ class CategoriesTest extends FeatureTestCase
 
     public function testItShouldDeleteCategory()
     {
-        $category = $this->dispatch(new CreateCategory($this->getCategoryRequest()));
+        $category = $this->dispatch(new CreateCategory($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('categories.destroy', $category->id))
@@ -68,14 +69,8 @@ class CategoriesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getCategoryRequest()
+    public function getRequest()
     {
-        return [
-            'company_id' => $this->company->id,
-            'name' => $this->faker->text(15),
-            'type' => 'item',
-            'color' => $this->faker->text(15),
-            'enabled' => $this->faker->boolean ? 1 : 0
-        ];
+        return factory(Category::class)->states('enabled')->raw();
     }
 }
