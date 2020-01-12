@@ -10,9 +10,11 @@ $company = $user->companies()->first();
 $factory->define(Contact::class, function (Faker $faker) use ($company) {
     setting()->setExtraColumns(['company_id' => $company->id]);
 
+    $types = ['customer', 'vendor'];
+
     return [
         'company_id' => $company->id,
-        'type' => $faker->boolean ? 'customer' : 'vendor',
+        'type' => $faker->randomElement($types),
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'user_id' => null,
@@ -26,26 +28,10 @@ $factory->define(Contact::class, function (Faker $faker) use ($company) {
     ];
 });
 
-$factory->state(Contact::class, 'customer', function (Faker $faker) {
-    return [
-        'type' => 'customer',
-    ];
-});
+$factory->state(Contact::class, 'enabled', ['enabled' => 1]);
 
-$factory->state(Contact::class, 'vendor', function (Faker $faker) {
-    return [
-        'type' => 'vendor',
-    ];
-});
+$factory->state(Contact::class, 'disabled', ['enabled' => 0]);
 
-$factory->state(Contact::class, 'enabled', function (Faker $faker) {
-    return [
-        'enabled' => 1,
-    ];
-});
+$factory->state(Contact::class, 'customer', ['type' => 'customer']);
 
-$factory->state(Contact::class, 'disabled', function (Faker $faker) {
-    return [
-        'enabled' => 0,
-    ];
-});
+$factory->state(Contact::class, 'vendor', ['type' => 'vendor']);

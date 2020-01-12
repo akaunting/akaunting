@@ -10,7 +10,8 @@ $company = $user->companies()->first();
 $factory->define(Transaction::class, function (Faker $faker) use ($company) {
 	setting()->setExtraColumns(['company_id' => $company->id]);
 
-	$type = $faker->boolean ? 'income' : 'expense';
+	$types = ['income', 'expense'];
+	$type = $faker->randomElement($types);
 
 	return [
 		'company_id' => $company->id,

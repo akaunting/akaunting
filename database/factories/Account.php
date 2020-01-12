@@ -23,20 +23,8 @@ $factory->define(Account::class, function (Faker $faker) use ($company) {
     ];
 });
 
-$factory->state(Account::class, 'enabled', function (Faker $faker) {
-    return [
-        'enabled' => 1,
-    ];
-});
+$factory->state(Account::class, 'enabled', ['enabled' => 1]);
 
-$factory->state(Account::class, 'disabled', function (Faker $faker) {
-    return [
-        'enabled' => 0,
-    ];
-});
+$factory->state(Account::class, 'disabled', ['enabled' => 0]);
 
-$factory->state(Account::class, 'default_currency', function (Faker $faker) {
-    return [
-        'currency_code' => setting('default.currency'),
-    ];
-});
+$factory->state(Account::class, 'default_currency', ['currency_code' => setting('default.currency')]);
