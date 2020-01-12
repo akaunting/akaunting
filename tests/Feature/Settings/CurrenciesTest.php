@@ -3,6 +3,7 @@
 namespace Tests\Feature\Settings;
 
 use App\Jobs\Setting\CreateCurrency;
+use App\Models\Setting\Currency;
 use Tests\Feature\FeatureTestCase;
 
 class CurrenciesTest extends FeatureTestCase
@@ -26,7 +27,7 @@ class CurrenciesTest extends FeatureTestCase
     public function testItShouldCreateCurrency()
     {
         $this->loginAs()
-            ->post(route('currencies.store'), $this->getCurrencyRequest())
+            ->post(route('currencies.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -34,7 +35,7 @@ class CurrenciesTest extends FeatureTestCase
 
     public function testItShouldUpdateCurrency()
     {
-        $request = $this->getCurrencyRequest();
+        $request = $this->getRequest();
 
         $currency = $this->dispatch(new CreateCurrency($request));
 
@@ -49,7 +50,7 @@ class CurrenciesTest extends FeatureTestCase
 
     public function testItShouldDeleteCurrency()
     {
-        $currency = $this->dispatch(new CreateCurrency($this->getCurrencyRequest()));
+        $currency = $this->dispatch(new CreateCurrency($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('currencies.destroy', $currency->id))
@@ -58,21 +59,8 @@ class CurrenciesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getCurrencyRequest()
+    public function getRequest()
     {
-        return [
-            'company_id' => $this->company->id,
-            'name' => $this->faker->text(15),
-            'code' => $this->faker->text(strtoupper(5)),
-            'rate' => $this->faker->boolean(1),
-            'precision' => $this->faker->text(5),
-            'symbol' => $this->faker->text(5),
-            'symbol_first' => 1,
-            'symbol_position' => 'after_amount',
-            'decimal_mark' => $this->faker->text(5),
-            'thousands_separator' => $this->faker->text(5),
-            'enabled' => $this->faker->boolean ? 1 : 0,
-            'default_currency' => 0,
-        ];
+        return factory(Currency::class)->states('enabled')->raw();
     }
 }
