@@ -38,7 +38,7 @@ class Invoice extends FormRequest
         }
 
         // Get company id
-        $company_id = $this->request->get('company_id', 1);
+        $company_id = $this->request->get('company_id');
 
         return [
             'invoice_number' => 'required|string|unique:invoices,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
