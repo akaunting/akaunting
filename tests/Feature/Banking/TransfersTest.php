@@ -49,7 +49,7 @@ class TransfersTest extends FeatureTestCase
 
         $transfer = $this->dispatch(new CreateTransfer($request));
 
-        $request['description'] = $this->faker->text(10);
+        $request['description'] = $this->faker->text(15);
 
         $this->loginAs()
             ->patch(route('transfers.update', $transfer->id), $request)
@@ -79,11 +79,11 @@ class TransfersTest extends FeatureTestCase
             'company_id' => $this->company->id,
             'from_account_id' => $from_account->id,
             'to_account_id' => $to_account->id,
-            'amount' => $this->faker->randomFloat(2, 2, 1000),
+            'amount' => $this->faker->randomFloat(2, 1, 1000),
             'transferred_at' => $this->faker->date(),
-            'description'=> $this->faker->text(5),
+            'description'=> $this->faker->text(20),
             'payment_method' => setting('default.payment_method'),
-            'reference' => $this->faker->text(5),
+            'reference' => $this->faker->text(20),
         ];
     }
 }

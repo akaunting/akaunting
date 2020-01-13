@@ -49,7 +49,7 @@ class AccountsTest extends FeatureTestCase
 
         $account = $this->dispatch(new CreateAccount($request));
 
-        $request['name'] = $this->faker->text(5);
+        $request['name'] = $this->faker->text(10);
 
         $this->loginAs()
             ->patch(route('accounts.update', $account->id), $request)
