@@ -387,9 +387,9 @@
                                                 @stack($total->code . '_td_end')
                                             @else
                                                 @if ($bill->paid)
-                                                    <tr class="text-success">
-                                                        <th>{{ trans('bills.paid') }}:</th>
-                                                        <td class="text-right">- @money($bill->paid, $bill->currency_code, true)</td>
+                                                    <tr>
+                                                        <th class="text-success">{{ trans('bills.paid') }}:</th>
+                                                        <td class="text-success text-right">- @money($bill->paid, $bill->currency_code, true)</td>
                                                     </tr>
                                                 @endif
                                                 @stack('grand_total_td_start')
