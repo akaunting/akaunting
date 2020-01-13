@@ -690,6 +690,13 @@ table .align-items-center td span.badge {
 }
 /*--------Font Size 50 Finish--------*/
 
+/*--------Report Column--------*/
+.report-column
+{
+    width: 160px !important;
+    max-width: 100px !important;
+}
+/*--------Report Column Finish--------*/
 
 
 /*----------------RESPONSIVE START LINE----------------*/
