@@ -6,15 +6,16 @@
 
         <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled"
             :placeholder="placeholder">
-            <div v-if="addNew.status && selectOptions.lenght > 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <span></span>
             </div>
-            <div v-if="selectOptions.lenght <= 0" class="el-select-dropdown__wrap" slot="empty">
-                <span>
-                    <li v-if="addNew.status" class="el-select-dropdown__item hover" @click="onAddItem">
+
+            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item hover" @click="onAddItem">
                         <span>{{ add_new_text }}</span>
                     </li>
-                </span>
+                </ul>
             </div>
 
             <template slot="prefix">
@@ -49,8 +50,16 @@
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && !multiple"
             :placeholder="placeholder">
-            <div v-if="addNew.status" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <span></span>
+            </div>
+
+            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item hover" @click="onAddItem">
+                        <span>{{ add_new_text }}</span>
+                    </li>
+                </ul>
             </div>
 
             <template slot="prefix">
@@ -85,8 +94,16 @@
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
             :placeholder="placeholder">
-            <div v-if="addNew.status" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <span></span>
+            </div>
+
+            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item hover" @click="onAddItem">
+                        <span>{{ add_new_text }}</span>
+                    </li>
+                </ul>
             </div>
 
             <template slot="prefix">
@@ -121,8 +138,16 @@
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && collapse" multiple collapse-tags
             :placeholder="placeholder">
-            <div v-if="addNew.status" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <span></span>
+            </div>
+
+            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item hover" @click="onAddItem">
+                        <span>{{ add_new_text }}</span>
+                    </li>
+                </ul>
             </div>
 
             <template slot="prefix">
@@ -155,13 +180,14 @@
             </li>
         </el-select>
 
-        <component v-bind:is="add_new_html" @interface="onRedirectConfirm"></component>
+        <component v-bind:is="add_new_html" @submit="onSubmit"></component>
     </base-input>
 </template>
 
 <script>
-import { Select, Option, OptionGroup } from 'element-ui';
+import { Select, Option, OptionGroup, ColorPicker } from 'element-ui';
 
+import AkauntingModalAddNew from './AkauntingModalAddNew';
 import AkauntingModal from './AkauntingModal';
 import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
@@ -177,6 +203,13 @@ export default {
         [Select.name]: Select,
         [Option.name]: Option,
         [OptionGroup.name]: OptionGroup,
+        [ColorPicker.name]: ColorPicker,
+        AkauntingModalAddNew,
+        AkauntingRadioGroup,
+        AkauntingSelect,
+        AkauntingModal,
+        AkauntingDate,
+        AkauntingRecurring,
     },
 
     props: {
@@ -209,7 +242,8 @@ export default {
                     status: false,
                     path: null,
                     type: 'modal', // modal, inline
-                    field: 'name'
+                    field: 'name',
+                    buttons: {}
                 };
             },
             description: "Selectbox Add New Item Feature"
@@ -223,10 +257,12 @@ export default {
 
     data() {
         return {
+            add_new: this.addNew,
             add_new_text: this.addNew.text,
             selectOptions: this.options,
             real_model: this.model,
             add_new_html: '',
+            form: {},
         }
     },
 
@@ -246,18 +282,11 @@ export default {
             // Get Select Input value
             var value = this.$children[0].$children[0].$children[0].$refs.input.value;
 
-            if (this.addNew.type == 'inline') {
+            if (this.add_new.type == 'inline') {
                 this.addInline(value);
             } else {
                 this.onModal(value);
             }
-            /*
-            this.$emit('new_item', {
-                value: value,
-                path: this.addNew.path,
-                title: this.addNew.text,
-            });
-            */
         },
 
         addInline(value) {
@@ -265,70 +294,42 @@ export default {
         },
 
         onModal(value) {
-            let add_new = this.addNew;
+            let add_new = this.add_new;
 
-            axios.get(this.addNew.path)
+            axios.get(this.add_new.path)
             .then(response => {
-                add_new.modal = true;
+                add_new.status = true;
                 add_new.html = response.data.html;
+
+                this.$children[0].$children[0].visible = false;
 
                 this.add_new_html = Vue.component('add-new-component', function (resolve, reject) {
                     resolve({
-                        template: '<div><akaunting-modal :show="addNew.modal" @cancel="addNew.modal = false" :title="addNew.text" :message="addNew.html">' +
-                        +    '<template #card-footer>'
-                        +        '<div class="float-right">'
-                        +            '<button type="button" class="btn btn-outline-secondary">'
-                        +                '<span>Cancel</span>'
-                        +            '</button>'
-                        +            '<button type="button" class="btn btn-success button-submit">'
-                        +                '<div class="aka-loader d-none"></div>'
-                        +                '<span>Confirm</span>'
-                        +            '</button>'
-                        +        '</div>'
-                        +    '</template>'
-                        + '</akaunting-modal></div>',
+                        template: '<div><akaunting-modal-add-new :show="add_new.status" @submit="onSubmit" @cancel="add_new.status = false" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
 
                         components: {
+                            AkauntingModalAddNew,
                             AkauntingRadioGroup,
                             AkauntingSelect,
                             AkauntingModal,
                             AkauntingDate,
                             AkauntingRecurring,
+                            [ColorPicker.name]: ColorPicker,
                         },
 
                         data: function () {
                             return {
-                                form:  new Form('form-create-category'),
-                                addNew: add_new,
+                                add_new: add_new,
                             }
                         },
 
                         methods: {
-                            onRedirectConfirm() {
-                                let redirect_form = new Form('redirect-form');
-
-                                this.$emit('interface', redirect_form);
+                            onSubmit(event) {
+                                this.$emit('submit', event);
                             }
                         }
                     })
                 });
-
-                /*
-                this.selectOptions[3] = value;
-
-                let newOption = {
-                    value: "3",
-                    currentLabel: value,
-                    label: value
-                };
-
-                this.$children[0].$children[0].handleOptionSelect(newOption);
-                this.$children[0].$children[0].onInputChange('3');
-
-                this.real_model = "3";
-
-                this.$emit('change', this.real_model);
-                */
             })
             .catch(e => {
                 this.errors.push(e);
@@ -338,20 +339,27 @@ export default {
             });
         },
 
-        onRedirectConfirm() {
-            this.redirectForm = new Form('redirect-form');
+        onSubmit(event) {
+            this.form = event;
 
-            axios.post(this.redirectForm.action, this.redirectForm.data())
+            axios.post(this.form.action, this.form.data())
             .then(response => {
-                if (response.data.redirect) {
-                    location = response.data.redirect;
-                }
+                this.form.loading = false;
 
                 if (response.data.success) {
-                    location.reload();
+                    this.selectOptions[response.data.data.id] = response.data.data['name'];
+                    this.real_model = response.data.data.id.toString();
+
+                    this.change();
+
+                    this.add_new.status = false;
                 }
             })
             .catch(error => {
+                this.form.loading = false;
+
+                this.form.onFail(error);
+
                 this.method_show_html = error.message;
             });
         },
@@ -364,8 +372,14 @@ export default {
     watch: {
         options: function (options) {
             // update options
-            this.selectOptions = options;
+            //this.selectOptions = options;
         }
     },
 }
 </script>
+
+<style scoped>
+    .form-group .modal {
+        z-index: 3050;
+    }
+</style>
