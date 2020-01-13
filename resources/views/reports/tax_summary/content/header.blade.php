@@ -2,11 +2,13 @@
     <table class="table align-items-center">
         <thead class="border-top-style">
             <tr>
-                <th style="width: 152px;"></th>
+                <th class="long-texts report-column"></th>
                 @foreach($class->dates as $date)
-                    <th class="text-right">{{ $date }}</th>
+                    <th class="long-texts report-column">{{ $date }}</th>
                 @endforeach
-                <th class="text-right">{{ trans_choice('general.totals', 1) }}</th>
+                <th class="long-texts report-column">
+                    <h5>{{ trans_choice('general.totals', 1) }}</h5>
+                </th>
             </tr>
         </thead>
     </table>

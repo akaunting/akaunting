@@ -16,23 +16,15 @@
     @stack('name_td_start')
         <td class="col-md-3 border-right-0 border-bottom-0">
             @stack('name_input_start')
-                {{ Form::selectAddNewGroup('name', '', '', $items, '', [
-                    'data-item' => 'name',
-                    'v-model' => 'row.name',
-                    '@input' => 'onGetItem($event, index)',
-                    'class' => 'form-control',
-                    'autocomplete' => 'form-control',
-                    'path' => route('modals.taxes.create')
-                ], 'mb-0 select-item') }}
-                <input name="items[][show]"
-                       value="false"
-                       v-model="row.show"
-                       data-item="show"
-                       type="hidden">
-                <input name="items[][item_id]"
-                       v-model="row.item_id"
-                       data-item="item_id"
-                       type="hidden">
+                <input class="form-control text-center"
+                       autocomplete="off"
+                       required="required"
+                       data-item="name"
+                       v-model="row.name"
+                       @input="onCalculateTotal"
+                       name="item[][name]"
+                       type="text">
+                {!! $errors->first('item.name', '<p class="help-block">:message</p>') !!}
             @stack('name_input_end')
         </td>
     @stack('name_td_end')
