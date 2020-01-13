@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Jobs\Auth\CreatePermission;
+use App\Models\Auth\Permission;
 use Tests\Feature\FeatureTestCase;
 
 class PermissionsTest extends FeatureTestCase
@@ -27,7 +28,7 @@ class PermissionsTest extends FeatureTestCase
     public function testItShouldCreatePermission()
     {
         $this->loginAs()
-            ->post(route('permissions.store'), $this->getPermissionRequest())
+            ->post(route('permissions.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -35,7 +36,7 @@ class PermissionsTest extends FeatureTestCase
 
     public function testItShouldSeePermissionUpdatePage()
     {
-        $permission = $this->dispatch(new CreatePermission($this->getPermissionRequest()));
+        $permission = $this->dispatch(new CreatePermission($this->getRequest()));
 
         $this->loginAs()
             ->get(route('permissions.edit', $permission->id))
@@ -45,7 +46,7 @@ class PermissionsTest extends FeatureTestCase
 
     public function testItShouldUpdatePermission()
     {
-        $request = $this->getPermissionRequest();
+        $request = $this->getRequest();
 
         $permission = $this->dispatch(new CreatePermission($request));
 
@@ -60,7 +61,7 @@ class PermissionsTest extends FeatureTestCase
 
     public function testItShouldDeletePermission()
     {
-        $permission = $this->dispatch(new CreatePermission($this->getPermissionRequest()));
+        $permission = $this->dispatch(new CreatePermission($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('permissions.destroy', $permission->id))
@@ -70,12 +71,8 @@ class PermissionsTest extends FeatureTestCase
 
     }
 
-    private function getPermissionRequest()
+    public function getRequest()
     {
-        return [
-            'name' => $this->faker->text(5),
-            'display_name' => $this->faker->text(5),
-            'description' => $this->faker->text(5),
-        ];
+        return factory(Permission::class)->raw();
     }
 }
