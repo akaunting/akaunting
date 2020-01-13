@@ -36,7 +36,7 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
         'invoiced_at' => $invoiced_at,
         'due_at' => $due_at,
         'invoice_number' => setting('invoice.number_prefix') . $faker->randomNumber(setting('invoice.number_digit')),
-        'currency_code' => setting('default.currency', 'USD'),
+        'currency_code' => setting('default.currency'),
         'currency_rate' => '1',
         'notes' => $faker->text(5),
         'category_id' => $company->categories()->type('income')->get()->random(1)->pluck('id')->first(),
@@ -44,8 +44,8 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
         'contact_name' =>  $contact->name,
         'contact_email' =>$contact->email,
         'contact_tax_number' => $contact->tax_number,
-        'contact_phone' =>  $contact->phone,
-        'contact_address' =>  $contact->address,
+        'contact_phone' => $contact->phone,
+        'contact_address' => $contact->address,
         'status' => $faker->randomElement($statuses),
         'amount' => '0',
     ];
@@ -72,7 +72,7 @@ $factory->state(Invoice::class, 'items', function (Faker $faker) use ($company) 
     session(['company_id' => $company->id]);
     setting()->setExtraColumns(['company_id' => $company->id]);
 
-    $amount = $faker->randomFloat(2, 10, 1000);
+    $amount = $faker->randomFloat(2, 1, 1000);
 
     $items = Item::enabled()->get();
 
@@ -82,7 +82,7 @@ $factory->state(Invoice::class, 'items', function (Faker $faker) use ($company) 
         $item = factory(Item::class)->create();
     }
 
-    $items = [['name' => $item->name, 'item_id' => $item->id, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
+    $items = [['name' => $item->name, 'item_id' => $item->id, 'quantity' => '1', 'price' => $amount, 'currency' => setting('default.currency')]];
 
     return [
         'items' => $items,
@@ -100,7 +100,7 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
         event(new InvoiceSent($invoice));
     }
 
-    $amount = $faker->randomFloat(2, 10, 1000);
+    $amount = $faker->randomFloat(2, 1, 1000);
 
     $items = Item::enabled()->get();
 
@@ -110,7 +110,7 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
         $item = factory(Item::class)->create();
     }
 
-    $items = [['name' => $item->name, 'item_id' => $item->id, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
+    $items = [['name' => $item->name, 'item_id' => $item->id, 'quantity' => '1', 'price' => $amount, 'currency' => $invoice->currency_code]];
 
     $request = [
         'items' => $items,
