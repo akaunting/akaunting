@@ -3,7 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Jobs\Auth\CreateRole;
-use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
 use Tests\Feature\FeatureTestCase;
 
 class RolesTest extends FeatureTestCase
@@ -28,7 +28,7 @@ class RolesTest extends FeatureTestCase
     public function testItShouldCreateRole()
     {
         $this->loginAs()
-            ->post(route('roles.store'), $this->getRoleRequest())
+            ->post(route('roles.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -36,7 +36,7 @@ class RolesTest extends FeatureTestCase
 
     public function testItShouldSeeRoleUpdatePage()
     {
-        $role = $this->dispatch(new CreateRole($this->getRoleRequest()));
+        $role = $this->dispatch(new CreateRole($this->getRequest()));
 
         $this->loginAs()
             ->get(route('roles.edit', $role->id))
@@ -46,22 +46,23 @@ class RolesTest extends FeatureTestCase
 
     public function testItShouldUpdateRole()
     {
-        $request = $this->getRoleRequest();
+        $request = $this->getRequest();
 
         $role = $this->dispatch(new CreateRole($request));
 
-        $request['name'] = $this->faker->name;
+        $request['display_name'] = $this->faker->word;
 
         $this->loginAs()
             ->patch(route('roles.update', $role->id), $request)
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertSee($request['display_name']);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldDeleteRole()
     {
-        $role = $this->dispatch(new CreateRole($this->getRoleRequest()));
+        $role = $this->dispatch(new CreateRole($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('roles.destroy', $role->id))
@@ -70,13 +71,8 @@ class RolesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getRoleRequest()
+    public function getRequest()
     {
-        return [
-            'name' => $this->faker->text(5),
-            'display_name' => $this->faker->text(5),
-            'description' => $this->faker->text(5),
-            'permissions' => Permission::take(10)->pluck('id')->toArray(),
-        ];
+        return factory(Role::class)->raw();
     }
 }
