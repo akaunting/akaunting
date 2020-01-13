@@ -320,7 +320,7 @@
                                             @stack('quantity_th_end')
 
                                             @stack('price_th_start')
-                                                <th class="col-sm-3 text-center d-none d-sm-block pl-5">{{ trans('bills.price') }}</th>
+                                                <th class="col-sm-3 text-right d-none d-sm-block pl-5">{{ trans('bills.price') }}</th>
                                             @stack('price_th_end')
 
                                             @stack('total_th_start')
@@ -338,7 +338,7 @@
                                                 @stack('quantity_td_end')
 
                                                 @stack('price_td_start')
-                                                    <td class="col-sm-3 text-center d-none d-sm-block pl-8">@money($item->price, $bill->currency_code, true)</td>
+                                                    <td class="col-sm-3 text-right d-none d-sm-block pl-8">@money($item->price, $bill->currency_code, true)</td>
                                                 @stack('price_td_end')
 
                                                 @stack('total_td_start')
