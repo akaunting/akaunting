@@ -49,11 +49,12 @@ class PaymentsTest extends FeatureTestCase
 
         $payment = $this->dispatch(new CreateTransaction($request));
 
-        $request['name'] = $this->faker->text(15);
+        $request['amount'] = $this->faker->randomFloat(2, 1, 1000);
 
         $this->loginAs()
             ->patch(route('payments.update', $payment->id), $request)
-            ->assertStatus(200);
+            ->assertStatus(200)
+			->assertSee($request['amount']);
 
         $this->assertFlashLevel('success');
     }

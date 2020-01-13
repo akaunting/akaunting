@@ -80,7 +80,8 @@ class CustomersTest extends FeatureTestCase
 
 		$this->loginAs()
 			->patch(route('customers.update', $customer->id), $request)
-			->assertStatus(200);
+			->assertStatus(200)
+			->assertSee($request['name']);
 
 		$this->assertFlashLevel('success');
 	}

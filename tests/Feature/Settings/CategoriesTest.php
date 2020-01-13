@@ -53,7 +53,8 @@ class CategoriesTest extends FeatureTestCase
 
         $this->loginAs()
             ->patch(route('categories.update', $category->id), $request)
-            ->assertStatus(200);
+            ->assertStatus(200)
+			->assertSee($request['name']);
 
         $this->assertFlashLevel('success');
     }

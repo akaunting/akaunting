@@ -50,11 +50,12 @@ class PermissionsTest extends FeatureTestCase
 
         $permission = $this->dispatch(new CreatePermission($request));
 
-        $request['name'] = $this->faker->name;
+        $request['display_name'] = $this->faker->word;
 
         $this->loginAs()
             ->patch(route('permissions.update', $permission->id), $request)
-            ->assertStatus(200);
+            ->assertStatus(200)
+			->assertSee($request['display_name']);
 
         $this->assertFlashLevel('success');
     }

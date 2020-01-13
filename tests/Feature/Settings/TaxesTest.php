@@ -53,7 +53,8 @@ class TaxesTest extends FeatureTestCase
 
         $this->loginAs()
             ->patch(route('taxes.update', $tax->id), $request)
-            ->assertStatus(200);
+            ->assertStatus(200)
+			->assertSee($request['name']);
 
         $this->assertFlashLevel('success');
     }

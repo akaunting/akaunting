@@ -61,7 +61,8 @@ class DashboardsTest extends FeatureTestCase
 
 		$this->loginAs()
 			->patch(route('dashboards.update', $dashboard->id), $request)
-			->assertStatus(200);
+			->assertStatus(200)
+			->assertSee($request['name']);
 
 		$this->assertFlashLevel('success');
 	}
