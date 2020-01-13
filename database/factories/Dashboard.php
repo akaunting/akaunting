@@ -23,7 +23,7 @@ $factory->state(Dashboard::class, 'disabled', ['enabled' => 0]);
 
 $factory->state(Dashboard::class, 'users', function (Faker $faker) use ($company) {
     return [
-		'users' => $company->users()->enabled()->get()->pluck('id')->toArray(),
+        'users' => $company->users()->enabled()->get()->pluck('id')->toArray(),
     ];
 });
 
