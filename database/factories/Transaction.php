@@ -18,7 +18,7 @@ $factory->define(Transaction::class, function (Faker $faker) use ($company) {
 		'type' => $type,
 		'account_id' => setting('default.account'),
 		'paid_at' => $faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d'),
-		'amount' => $faker->randomFloat(2, 2, 1000),
+		'amount' => $faker->randomFloat(2, 1, 1000),
 		'currency_code' => setting('default.currency'),
 		'currency_rate' => '1',
 		'description' => $faker->text(5),
