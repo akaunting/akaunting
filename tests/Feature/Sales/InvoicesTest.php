@@ -3,6 +3,7 @@
 namespace Tests\Feature\Sales;
 
 use App\Jobs\Sale\CreateInvoice;
+use App\Models\Sale\Invoice;
 use Tests\Feature\FeatureTestCase;
 
 class InvoicesTest extends FeatureTestCase
@@ -26,7 +27,7 @@ class InvoicesTest extends FeatureTestCase
     public function testItShouldCreateInvoice()
     {
         $this->loginAs()
-            ->post(route('invoices.store'), $this->getInvoiceRequest())
+            ->post(route('invoices.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -35,7 +36,7 @@ class InvoicesTest extends FeatureTestCase
     public function testItShouldCreateInvoiceWithRecurring()
     {
         $this->loginAs()
-            ->post(route('invoices.store'), $this->getInvoiceRequest(true))
+            ->post(route('invoices.store'), $this->getRequest(true))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -43,7 +44,7 @@ class InvoicesTest extends FeatureTestCase
 
     public function testItShouldSeeInvoiceUpdatePage()
     {
-        $invoice = $this->dispatch(new CreateInvoice($this->getInvoiceRequest()));
+        $invoice = $this->dispatch(new CreateInvoice($this->getRequest()));
 
         $this->loginAs()
             ->get(route('invoices.edit', $invoice->id))
@@ -53,7 +54,7 @@ class InvoicesTest extends FeatureTestCase
 
     public function testItShouldUpdateInvoice()
     {
-        $request = $this->getInvoiceRequest();
+        $request = $this->getRequest();
 
         $invoice = $this->dispatch(new CreateInvoice($request));
 
@@ -68,7 +69,7 @@ class InvoicesTest extends FeatureTestCase
 
     public function testItShouldDeleteInvoice()
     {
-        $invoice = $this->dispatch(new CreateInvoice($this->getInvoiceRequest()));
+        $invoice = $this->dispatch(new CreateInvoice($this->getRequest()));
 
         $this->loginAs()
             ->delete(route('invoices.destroy', $invoice->id))
@@ -77,42 +78,12 @@ class InvoicesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getInvoiceRequest($recurring = false)
+    public function getRequest($recurring = false)
     {
-        $amount = $this->faker->randomFloat(2, 2);
+        $factory = factory(Invoice::class);
 
-        $items = [['name' => $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
+        $recurring ? $factory->states('items', 'recurring') : $factory->states('items');
 
-        $data = [
-            'company_id' => $this->company->id,
-            'invoiced_at' => $this->faker->date(),
-            'due_at' => $this->faker->date(),
-            'invoice_number' => '1',
-            'order_number' =>  '1',
-            'currency_code' => setting('default.currency', 'USD'),
-            'currency_rate' => '1',
-            'items' => $items,
-            'discount' => '0',
-            'notes' => $this->faker->text(5),
-            'category_id' => $this->company->categories()->type('income')->pluck('id')->first(),
-            'recurring_frequency' => 'no',
-            'contact_id' => '0',
-            'contact_name' =>  $this->faker->name,
-            'contact_email' =>$this->faker->email,
-            'contact_tax_number' => null,
-            'contact_phone' =>  null,
-            'contact_address' =>  $this->faker->address,
-            'status' => 'draft',
-            'amount' => $amount,
-        ];
-
-        if ($recurring) {
-            $data['recurring_frequency'] = 'yes';
-            $data['recurring_interval'] = '1';
-            $data['recurring_custom_frequency'] = $this->faker->randomElement(['monthly', 'weekly']);
-            $data['recurring_count'] = '1';
-        }
-
-        return $data;
+        return $factory->raw();
     }
 }
