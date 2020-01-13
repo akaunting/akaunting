@@ -11,8 +11,7 @@
                placeholder="Type to search.."
                name="search"
                type="text"
-               class="form-control form-control-sm table-header-search"
-               style="width: 100%;">
+               class="form-control form-control-sm w-100">
         <div class="dropdown-menu"
              ref="menu"
              :class="[{'dropdown-menu-right': position === 'right'}, {show: isOpen}, menuClasses]"
