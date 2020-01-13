@@ -38,7 +38,7 @@ class CategoriesTest extends FeatureTestCase
         $category = $this->dispatch(new CreateCategory($this->getRequest()));
 
         $this->loginAs()
-            ->get(route('categories.edit', ['category' => $category->id]))
+            ->get(route('categories.edit', $category->id))
             ->assertStatus(200)
             ->assertSee($category->name);
     }

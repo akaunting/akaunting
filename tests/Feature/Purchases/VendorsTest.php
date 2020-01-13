@@ -38,7 +38,7 @@ class VendorsTest extends FeatureTestCase
         $vendor = $this->dispatch(new CreateContact($this->getRequest()));
 
         $this->loginAs()
-            ->get(route('vendors.show', ['vendor' => $vendor->id]))
+            ->get(route('vendors.show', $vendor->id))
             ->assertStatus(200)
             ->assertSee($vendor->email);
     }
@@ -48,10 +48,9 @@ class VendorsTest extends FeatureTestCase
         $vendor = $this->dispatch(new CreateContact($this->getRequest()));
 
         $this->loginAs()
-            ->get(route('vendors.edit', ['vendor' => $vendor->id]))
+            ->get(route('vendors.edit', $vendor->id))
             ->assertStatus(200)
-            ->assertSee($vendor->email)
-            ->assertSee($vendor->name);
+            ->assertSee($vendor->email);
     }
 
     public function testItShouldUpdateVendor()

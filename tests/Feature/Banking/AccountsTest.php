@@ -38,7 +38,7 @@ class AccountsTest extends FeatureTestCase
         $account = $this->dispatch(new CreateAccount($this->getRequest()));
 
         $this->loginAs()
-            ->get(route('accounts.edit', ['account' => $account->id]))
+            ->get(route('accounts.edit', $account->id))
             ->assertStatus(200)
             ->assertSee($account->name);
     }
@@ -52,7 +52,7 @@ class AccountsTest extends FeatureTestCase
         $request['name'] = $this->faker->text(5);
 
         $this->loginAs()
-            ->patch(route('accounts.update', ['account' => $account->id]), $request)
+            ->patch(route('accounts.update', $account->id), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -63,7 +63,7 @@ class AccountsTest extends FeatureTestCase
         $account = $this->dispatch(new CreateAccount($this->getRequest()));
 
         $this->loginAs()
-            ->delete(route('accounts.destroy', ['account' => $account]))
+            ->delete(route('accounts.destroy', $account->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');

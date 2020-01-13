@@ -46,9 +46,8 @@ class BillsTest extends FeatureTestCase
         $bill = $this->dispatch(new CreateBill($this->getBillRequest()));
 
         $this->loginAs()
-            ->get(route('bills.edit', ['bill' => $bill->id]))
+            ->get(route('bills.edit', $bill->id))
             ->assertStatus(200)
-            ->assertSee($bill->contact_name)
             ->assertSee($bill->contact_email);
     }
 

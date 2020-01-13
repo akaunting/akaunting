@@ -38,7 +38,7 @@ class PermissionsTest extends FeatureTestCase
         $permission = $this->dispatch(new CreatePermission($this->getPermissionRequest()));
 
         $this->loginAs()
-            ->get(route('permissions.edit', ['permission' => $permission->id]))
+            ->get(route('permissions.edit', $permission->id))
             ->assertStatus(200)
             ->assertSee($permission->name);
     }

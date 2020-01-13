@@ -33,6 +33,16 @@ class TaxesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
+    public function testItShouldSeeTaxUpdatePage()
+    {
+        $tax = $this->dispatch(new CreateTax($this->getRequest()));
+
+        $this->loginAs()
+            ->get(route('taxes.edit', $tax->id))
+            ->assertStatus(200)
+            ->assertSee($tax->name);
+    }
+
     public function testItShouldUpdateTax()
     {
         $request = $this->getRequest();

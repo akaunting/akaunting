@@ -33,6 +33,16 @@ class PaymentsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
+	public function testItShouldSeePaymentUpdatePage()
+	{
+        $payment = $this->dispatch(new CreateTransaction($this->getRequest()));
+
+		$this->loginAs()
+			->get(route('payments.edit', $payment->id))
+			->assertStatus(200)
+			->assertSee($payment->amount);
+	}
+
     public function testItShouldUpdatePayment()
     {
         $request = $this->getRequest();

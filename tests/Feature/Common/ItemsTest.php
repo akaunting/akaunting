@@ -38,7 +38,7 @@ class ItemsTest extends FeatureTestCase
         $item = $this->dispatch(new CreateItem($this->getRequest()));
 
 		$this->loginAs()
-			->get(route('items.edit', ['item' => $item->id]))
+			->get(route('items.edit', $item->id))
 			->assertStatus(200)
 			->assertSee($item->name);
 	}
@@ -63,7 +63,7 @@ class ItemsTest extends FeatureTestCase
 		$item = $this->dispatch(new CreateItem($this->getRequest()));
 
 		$this->loginAs()
-			->delete(route('items.destroy', ['item' => $item]))
+			->delete(route('items.destroy', $item->id))
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');

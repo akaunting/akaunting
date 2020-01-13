@@ -37,7 +37,7 @@ class ReconciliationsTest extends FeatureTestCase
         $reconciliation = $this->dispatch(new CreateReconciliation($this->getReconciliationRequest()));
 
         $this->loginAs()
-            ->get(route('reconciliations.edit', ['reconciliation' => $reconciliation->id]))
+            ->get(route('reconciliations.edit', $reconciliation->id))
             ->assertStatus(200)
             ->assertSeeText(trans_choice('general.reconciliations', 2));
     }
@@ -62,7 +62,7 @@ class ReconciliationsTest extends FeatureTestCase
         $reconciliation = $this->dispatch(new CreateReconciliation($this->getReconciliationRequest()));
 
         $this->loginAs()
-            ->delete(route('reconciliations.destroy', ['reconciliation' => $reconciliation]))
+            ->delete(route('reconciliations.destroy', $reconciliation->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');

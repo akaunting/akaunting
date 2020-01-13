@@ -39,7 +39,7 @@ class RolesTest extends FeatureTestCase
         $role = $this->dispatch(new CreateRole($this->getRoleRequest()));
 
         $this->loginAs()
-            ->get(route('roles.edit', ['role' => $role->id]))
+            ->get(route('roles.edit', $role->id))
             ->assertStatus(200)
             ->assertSee($role->name);
     }

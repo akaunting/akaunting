@@ -33,6 +33,16 @@ class RevenuesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
+	public function testItShouldSeeRevenueUpdatePage()
+	{
+        $revenue = $this->dispatch(new CreateTransaction($this->getRequest()));
+
+		$this->loginAs()
+			->get(route('revenues.edit', $revenue->id))
+			->assertStatus(200)
+			->assertSee($revenue->amount);
+	}
+
     public function testItShouldUpdateRevenue()
     {
         $request = $this->getRequest();

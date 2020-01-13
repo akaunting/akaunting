@@ -38,7 +38,7 @@ class UsersTest extends FeatureTestCase
         $user = $this->dispatch(new CreateUser($this->getRequest()));
 
         $this->loginAs()
-            ->get(route('users.edit', ['user' => $user->id]))
+            ->get(route('users.edit', $user->id))
             ->assertStatus(200)
             ->assertSee($user->name);
     }

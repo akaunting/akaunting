@@ -38,7 +38,7 @@ class TransfersTest extends FeatureTestCase
         $transfer = $this->dispatch(new CreateTransfer($this->getRequest()));
 
         $this->loginAs()
-            ->get(route('transfers.edit', ['transfer' => $transfer->id]))
+            ->get(route('transfers.edit', $transfer->id))
             ->assertStatus(200)
             ->assertSee($transfer->description);
     }
@@ -52,7 +52,7 @@ class TransfersTest extends FeatureTestCase
         $request['description'] = $this->faker->text(10);
 
         $this->loginAs()
-            ->patch(route('transfers.update', ['transfer' => $transfer->id]), $request)
+            ->patch(route('transfers.update', $transfer->id), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -63,7 +63,7 @@ class TransfersTest extends FeatureTestCase
         $transfer = $this->dispatch(new CreateTransfer($this->getRequest()));
 
         $this->loginAs()
-            ->delete(route('transfers.destroy', ['transfer' => $transfer->id]))
+            ->delete(route('transfers.destroy', $transfer->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');

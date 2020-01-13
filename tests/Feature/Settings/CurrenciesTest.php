@@ -33,6 +33,16 @@ class CurrenciesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
+    public function testItShouldSeeCurrencyUpdatePage()
+    {
+        $currency = $this->dispatch(new CreateCurrency($this->getRequest()));
+
+        $this->loginAs()
+            ->get(route('currencies.edit', $currency->id))
+            ->assertStatus(200)
+            ->assertSee($currency->code);
+    }
+
     public function testItShouldUpdateCurrency()
     {
         $request = $this->getRequest();

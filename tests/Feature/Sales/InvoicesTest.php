@@ -46,9 +46,8 @@ class InvoicesTest extends FeatureTestCase
         $invoice = $this->dispatch(new CreateInvoice($this->getInvoiceRequest()));
 
         $this->loginAs()
-            ->get(route('invoices.edit', ['invoice' => $invoice->id]))
+            ->get(route('invoices.edit', $invoice->id))
             ->assertStatus(200)
-            ->assertSee($invoice->contact_name)
             ->assertSee($invoice->contact_email);
     }
 

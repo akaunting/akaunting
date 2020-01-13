@@ -24,7 +24,7 @@ class CustomersTest extends FeatureTestCase
 			->assertStatus(200)
 			->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.customers', 1)]));
 	}
-    
+
 	public function testItShouldCreateOnlyCustomerWithoutUser()
 	{
 		$this->loginAs()
@@ -45,7 +45,7 @@ class CustomersTest extends FeatureTestCase
 		$this->assertFlashLevel('success');
 
 		$user = User::where('email', $customer['email'])->first();
-		
+
 		$this->assertNotNull($user);
 		$this->assertEquals($customer['email'], $user->email);
 	}
@@ -55,7 +55,7 @@ class CustomersTest extends FeatureTestCase
 		$customer = $this->dispatch(new CreateContact($this->getRequest()));
 
 		$this->loginAs()
-			->get(route('customers.show', ['customer' => $customer->id]))
+			->get(route('customers.show', $customer->id))
 			->assertStatus(200)
 			->assertSee($customer->email);
 	}
@@ -65,10 +65,9 @@ class CustomersTest extends FeatureTestCase
 		$customer = $this->dispatch(new CreateContact($this->getRequest()));
 
 		$this->loginAs()
-			->get(route('customers.edit', ['customer' => $customer->id]))
+			->get(route('customers.edit', $customer->id))
 			->assertStatus(200)
-			->assertSee($customer->email)
-			->assertSee($customer->name);
+			->assertSee($customer->email);
 	}
 
 	public function testItShouldUpdateCustomer()
@@ -93,7 +92,7 @@ class CustomersTest extends FeatureTestCase
 		$this->loginAs()
 			->delete(route('customers.destroy', $customer->id))
 			->assertStatus(200);
-		
+
 		$this->assertFlashLevel('success');
 
 	}
