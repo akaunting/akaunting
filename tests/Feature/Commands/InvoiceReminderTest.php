@@ -3,6 +3,7 @@
 namespace Tests\Feature\Commands;
 
 use App\Jobs\Sale\CreateInvoice;
+use App\Models\Sale\Invoice;
 use App\Notifications\Sale\Invoice as InvoiceNotification;
 use Illuminate\Support\Facades\Notification;
 use Jenssegers\Date\Date;
@@ -10,7 +11,7 @@ use Tests\Feature\FeatureTestCase;
 
 class InvoiceReminderTest extends FeatureTestCase
 {
-    private $add_days;
+    public $add_days;
 
     protected function setUp(): void
     {
@@ -23,7 +24,7 @@ class InvoiceReminderTest extends FeatureTestCase
     {
         Notification::fake();
 
-        $invoice = $this->dispatch(new CreateInvoice($this->getInvoiceRequest()));
+        $invoice = $this->dispatch(new CreateInvoice($this->getRequest()));
 
         Date::setTestNow(Date::now()->addDay($this->add_days));
 
@@ -38,40 +39,10 @@ class InvoiceReminderTest extends FeatureTestCase
         );
     }
 
-    /**
-     * Invoice request
-     *
-     * @return array
-     */
-    private function getInvoiceRequest()
+    public function getRequest()
     {
-        $amount = $this->faker->randomFloat(2, 2);
-
-        $items = [['name' => $this->faker->text(5), 'item_id' => null, 'quantity' => '1', 'price' => $amount, 'currency' => 'USD']];
-
-        $data = [
-            'company_id' => $this->company->id,
-            'invoiced_at' => $this->faker->date(),
+        return factory(Invoice::class)->states('items')->raw([
             'due_at' => Date::now()->subDays($this->add_days - 1),
-            'invoice_number' => '1',
-            'order_number' =>  '1',
-            'currency_code' => setting('default.currency', 'USD'),
-            'currency_rate' => '1',
-            'items' => $items,
-            'discount' => '0',
-            'notes' => $this->faker->text(5),
-            'category_id' => $this->company->categories()->type('income')->pluck('id')->first(),
-            'recurring_frequency' => 'no',
-            'contact_id' => '0',
-            'contact_name' =>  $this->faker->name,
-            'contact_email' =>$this->faker->email,
-            'contact_tax_number' => null,
-            'contact_phone' =>  null,
-            'contact_address' =>  $this->faker->address,
-            'status' => 'sent',
-            'amount' => $amount,
-        ];
-
-        return $data;
+        ]);
     }
 }
