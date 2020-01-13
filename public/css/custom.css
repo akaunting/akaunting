@@ -693,8 +693,8 @@ table .align-items-center td span.badge {
 /*--------Report Column--------*/
 .report-column
 {
+    max-width: 100px;
     width: 160px !important;
-    max-width: 100px !important;
 }
 /*--------Report Column Finish--------*/
 

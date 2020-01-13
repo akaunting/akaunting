@@ -4,9 +4,9 @@
             <tr>
                 <th class="long-texts report-column">{{ trans('reports.net_profit') }}</th>
                 @foreach($class->net_profit as $profit)
-                    <th class="long-texts report-column">@money($profit, setting('default.currency'), true)</th>
+                    <th class="long-texts report-column text-right">@money($profit, setting('default.currency'), true)</th>
                 @endforeach
-                <th class="long-texts report-column">
+                <th class="long-texts report-column text-right">
                     @money(array_sum($class->net_profit), setting('default.currency'), true)
                 </th>
             </tr>
