@@ -55,20 +55,13 @@ button:focus
 }
 /*--------Cursor Pointer Finish--------*/
 
+
 /*--------Cursor Default--------*/
 .cursor-default
 {
     cursor: default !important;
 }
 /*--------Cursor Default Finish--------*/
-
-/*--------Table Head Search--------*/
-.table-header-search
-{
-    display: inline-block;
-    width: auto;
-}
-/*--------Table Head Search Finish--------*/
 
 
 /*--------Wizard Steps--------*/

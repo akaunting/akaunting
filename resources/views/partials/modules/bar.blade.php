@@ -5,7 +5,7 @@
                 <div class="row align-items-center">
                     <div class="col-xs-9 col-sm-9">
                         <akaunting-select
-                            class="form-control-sm table-header-search"
+                            class="form-control-sm d-inline-block w-auto"
                             :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}'"
                             :name="'category'"
                             :icon="'folder'"
@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-xs-3 col-sm-3 text-right">
                         {!! Form::open(['route' => ['apps.search'], 'role' => 'form', 'method' => 'GET', 'class' => 'm-0']) !!}
-                            <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control form-control-sm table-header-search" placeholder="Search Apps">
+                            <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control form-control-sm d-inline-block w-auto" placeholder="Search Apps">
                             <span class="glyphicon glyphicon-search form-control-feedback"></span>
                         {!! Form::close() !!}
                     </div>
