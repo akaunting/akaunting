@@ -3,11 +3,11 @@
         @if ($table == 'default')
             <th>{{ $class->groups[$class->report->group] }}</th>
         @else
-            <th class="text-right pl-0">{{ $table }}</th>
+            <th class="text-center">{{ $table }}</th>
         @endif
         @foreach($class->dates as $date)
-            <th class="text-right pl-0">{{ $date }}</th>
+            <th class="text-center">{{ $date }}</th>
         @endforeach
-        <th class="text-right pl-0">{{ trans_choice('general.totals', 1) }}</th>
+        <th class="text-center">{{ trans_choice('general.totals', 1) }}</th>
     </tr>
 </thead>
