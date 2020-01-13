@@ -259,7 +259,7 @@ class Bill extends Model
      */
     public function getStatusLabelAttribute()
     {
-        switch ($this->code) {
+        switch ($this->status) {
             case 'paid':
                 $label = 'success';
                 break;
