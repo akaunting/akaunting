@@ -410,9 +410,9 @@
                                                 @stack($total->code . '_td_end')
                                             @else
                                                 @if ($invoice->paid)
-                                                    <tr class="text-success">
-                                                        <th>{{ trans('invoices.paid') }}:</th>
-                                                        <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
+                                                    <tr>
+                                                        <th class="text-success">{{ trans('invoices.paid') }}:</th>
+                                                        <td class="text-success text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
                                                     </tr>
                                                 @endif
                                                 @stack('grand_total_td_start')
