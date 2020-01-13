@@ -30,7 +30,10 @@ abstract class FeatureTestCase extends TestCase
 		// Set Company settings
         setting()->setExtraColumns(['company_id' => $this->company->id]);
         setting()->forgetAll();
-        setting()->load(true);
+		setting()->load(true);
+
+		// Disable debugbar
+		config(['debugbar.enabled', false]);
 	}
 
 	/**
