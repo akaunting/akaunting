@@ -19,7 +19,7 @@ class Bills extends ApiController
      */
     public function index()
     {
-        $bills = Bill::with(['contact', 'status', 'items', 'transactions', 'histories'])->collect(['billed_at'=> 'desc']);
+        $bills = Bill::with(['contact', 'items', 'transactions', 'histories'])->collect(['billed_at'=> 'desc']);
 
         return $this->response->paginator($bills, new Transformer());
     }

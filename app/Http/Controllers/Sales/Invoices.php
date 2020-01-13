@@ -39,7 +39,7 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with(['contact', 'items', 'histories', 'status', 'transactions'])->collect(['invoice_number'=> 'desc']);
+        $invoices = Invoice::with(['contact', 'items', 'histories', 'transactions'])->collect(['invoice_number'=> 'desc']);
 
         $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
 
