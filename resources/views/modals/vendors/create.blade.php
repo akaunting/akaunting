@@ -18,6 +18,7 @@
 
         {{ Form::textareaGroup('address', trans('general.address')) }}
 
+        {{ Form::hidden('type', 'vendor') }}
         {!! Form::hidden('enabled', '1', []) !!}
     </div>
 {!! Form::close() !!}
