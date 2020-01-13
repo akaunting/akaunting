@@ -40,7 +40,7 @@
                             <th class="col-lg-1 col-xl-2 d-none d-lg-block">@sortablelink('category', trans_choice('general.categories', 1))</th>
                             <th class="col-md-3 col-lg-3 col-xl-2 text-right d-none d-md-block">@sortablelink('sale_price', trans('items.sales_price'))</th>
                             <th class="col-lg-2 col-xl-2 text-right d-none d-lg-block">@sortablelink('purchase_price', trans('items.purchase_price'))</th>
-                            <th class="col-xs-4 col-sm-3 col-md-2 col-lg-1 col-xl-1">@sortablelink('enabled', trans('general.enabled'))</th>
+                            <th class="col-xs-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 text-center">@sortablelink('enabled', trans('general.enabled'))</th>
                             <th class="col-xs-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 text-center"><a>{{ trans('general.actions') }}</a></th>
                         </tr>
                     </thead>
@@ -64,7 +64,7 @@
                                 <td class="col-lg-2 col-xl-2 text-right d-none d-lg-block">
                                     {{ money($item->purchase_price, setting('default.currency'), true) }}
                                 </td>
-                                <td class="col-xs-4 col-sm-3 col-md-2 col-lg-1 col-xl-1">
+                                <td class="col-xs-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 text-center">
                                     @if (user()->can('update-common-items'))
                                         {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
                                     @else

@@ -74,7 +74,7 @@
                                     @endif
                                 @endif
                             </td>
-                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center border-0">
+                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 border-0 text-center">
                                 <div class="dropdown">
                                     <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h text-muted"></i>

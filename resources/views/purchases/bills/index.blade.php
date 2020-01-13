@@ -39,9 +39,9 @@
                             <th class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">@sortablelink('bill_number', trans_choice('general.numbers', 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
                             <th class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">@sortablelink('contact_name', trans_choice('general.vendors', 1))</th>
                             <th class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block text-right">@sortablelink('amount', trans('general.amount'))</th>
-                            <th class="col-lg-2 col-xl-2 d-none d-lg-block">@sortablelink('billed_at', trans('bills.bill_date'))</th>
-                            <th class="col-lg-2 col-xl-2 d-none d-lg-block">@sortablelink('due_at', trans('bills.due_date'))</th>
-                            <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">@sortablelink('status', trans_choice('general.statuses', 1))</th>
+                            <th class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@sortablelink('billed_at', trans('bills.bill_date'))</th>
+                            <th class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@sortablelink('due_at', trans('bills.due_date'))</th>
+                            <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">@sortablelink('status', trans_choice('general.statuses', 1))</th>
                             <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">{{ trans('general.actions') }}</th>
                         </tr>
                     </thead>
@@ -54,9 +54,9 @@
                                 <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block"><a class="col-aka text-success" href="{{ route('bills.show', $item->id) }}">{{ $item->bill_number }}</a></td>
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">{{ $item->contact_name }}</td>
                                 <td class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block text-right">@money($item->amount, $item->currency_code, true)</td>
-                                <td class="col-lg-2 col-xl-2 d-none d-lg-block">@date($item->billed_at)</td>
-                                <td class="col-lg-2 col-xl-2 d-none d-lg-block">@date($item->due_at)</td>
-                                <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@date($item->billed_at)</td>
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@date($item->due_at)</td>
+                                <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
                                     <span class="badge badge-pill badge-{{ $item->status_label }}">{{ trans('bills.statuses.' . $item->status) }}</span>
                                 </td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
