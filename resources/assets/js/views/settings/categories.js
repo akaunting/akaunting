@@ -17,10 +17,8 @@ import BulkAction from './../../plugins/bulk-action';
 
 import {ColorPicker} from 'element-ui';
 
-Vue.use(ColorPicker);
-
 // plugin setup
-Vue.use(DashboardPlugin);
+Vue.use(DashboardPlugin, ColorPicker);
 
 const app = new Vue({
     el: '#app',

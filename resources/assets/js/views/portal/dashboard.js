@@ -15,10 +15,8 @@ import Global from './../../mixins/global';
 
 import {Tooltip} from 'element-ui';
 
-Vue.use(Tooltip);
-
 // plugin setup
-Vue.use(DashboardPlugin);
+Vue.use(DashboardPlugin, Tooltip);
 
 const app = new Vue({
     el: '#app',
