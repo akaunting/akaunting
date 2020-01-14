@@ -1,7 +1,6 @@
 <div id="review-items">
     @foreach($reviews->data as $review)
         <div class="media media-comment">
-            <img alt="Image placeholder" class="avatar avatar-lg media-comment-avatar rounded-circle" src="{{ $review->thumb }}" alt="{{ $review->author }}">
             <div class="media-body">
                 <div class="media-comment-text">
                     <div class="d-flex">
