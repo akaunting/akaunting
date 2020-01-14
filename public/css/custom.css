@@ -699,6 +699,16 @@ table .align-items-center td span.badge {
 /*--------Report Column Finish--------*/
 
 
+/*--------App Comment--------*/
+.media-comment-text
+{
+    border-top-left-radius: 0.4375rem;
+    background-color: #ebebf0;
+    padding: 1rem;
+}
+/*--------App Comment Finish--------*/
+
+
 /*----------------RESPONSIVE START LINE----------------*/
 /*--------Xs Breakpoint--------*/
 @media (min-width: 304px) and (max-width: 575.98px)
