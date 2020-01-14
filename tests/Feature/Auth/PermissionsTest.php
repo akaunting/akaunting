@@ -8,7 +8,6 @@ use Tests\Feature\FeatureTestCase;
 
 class PermissionsTest extends FeatureTestCase
 {
-
     public function testItShouldSeePermissionListPage()
     {
         $this->loginAs()

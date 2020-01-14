@@ -8,7 +8,6 @@ use Tests\Feature\FeatureTestCase;
 
 class RolesTest extends FeatureTestCase
 {
-
     public function testItShouldSeeRoleListPage()
     {
         $this->loginAs()
