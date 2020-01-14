@@ -41,7 +41,7 @@ class BillReminderTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Bill::class)->states('items')->raw([
+        return factory(Bill::class)->states('items', 'received')->raw([
             'due_at' => Date::now()->subDays($this->add_days - 1),
         ]);
     }
