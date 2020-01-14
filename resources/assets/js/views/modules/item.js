@@ -16,10 +16,8 @@ import {Progress} from 'element-ui';
 
 import AkauntingCarousel from './../../components/AkauntingCarousel';
 
-Vue.use(Progress);
-
 // plugin setup
-Vue.use(DashboardPlugin);
+Vue.use(DashboardPlugin, Progress);
 
 const app = new Vue({
     el: '#app',
