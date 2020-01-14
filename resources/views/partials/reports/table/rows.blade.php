@@ -1,9 +1,9 @@
 @php $row_total = 0; @endphp
 <tr>
-    <td class="long-texts report-column">{{ $class->getTableRowList()[$id] }}</td>
+    <td class="report-column">{{ $class->getTableRowList()[$id] }}</td>
     @foreach($items as $item)
         @php $row_total += $item; @endphp
-        <td class="long-texts report-column text-right">@money($item, setting('default.currency'), true)</td>
+        <td class="report-column text-right px-0">@money($item, setting('default.currency'), true)</td>
     @endforeach
-    <td class="long-texts report-column text-right">@money($row_total, setting('default.currency'), true)</td>
+    <td class="report-column text-right">@money($row_total, setting('default.currency'), true)</td>
 </tr>
