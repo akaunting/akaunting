@@ -212,7 +212,7 @@
                         @if ($module->vendor_name)
                             <tr class="row">
                                 <th class="col-5">{{ trans_choice('general.developers', 1) }}</th>
-                                <td class="col-7 text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
+                                <td class="col-7 text-right"><a  class="text-success" href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                             </tr>
                         @endif
                         @if ($module->version)
@@ -242,14 +242,14 @@
                         @if ($module->category)
                             <tr class="row">
                                 <th class="col-5">{{ trans_choice('general.categories', 1) }}</th>
-                                <td class="col-7 text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                                <td class="col-7 text-right"><a class="text-success" href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
                             </tr>
                         @endif
                         <tr class="row">
                             <th class="col-5">{{ trans('modules.documentation') }}</th>
                             @if ($module->documentation)
                                 <td class="col-7 text-right">
-                                    <a class="font-weight-bold" href="{{ url('apps/docs/' . $module->slug) }}">{{ trans('modules.view') }}</a>
+                                    <a class="text-success font-weight-bold" href="{{ url('apps/docs/' . $module->slug) }}">{{ trans('modules.view') }}</a>
                                 </td>
                             @else
                                <th class="col-7 text-right">{{ trans('general.na') }}</th>
