@@ -49,7 +49,12 @@
 
         <div class="card-footer">
             <div class="row">
-                <div class="col-md-12 text-right">
+                <div class="col-md-6">
+                    <a href="{{ url('wizard/taxes') }}" class="btn btn-white header-button-top">
+                        <span class="fas fa-arrow-left"></span> &nbsp;{{ trans('modules.back') }}
+                    </a>
+                </div>
+                <div class="col-md-6 text-right">
                     <a href="{{ url('/') }}" class="btn btn-lg btn-success header-button-top" @click="next">
                         <span class="fa fa-tachometer-alt"></span> &nbsp;{{ trans('general.go_to', ['name' => trans_choice('general.dashboards', 1)]) }}
                     </a>

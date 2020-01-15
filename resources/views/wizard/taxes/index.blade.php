@@ -105,9 +105,14 @@
 
         <div class="card-footer">
             <div class="row">
-                <div class="col-12 text-right">
+                <div class="col-md-6">
+                    <a href="{{ url('wizard/currencies') }}" class="btn btn-white header-button-top">
+                        <span class="fas fa-arrow-left"></span> &nbsp;{{ trans('modules.back') }}
+                    </a>
+                </div>
+                <div class="col-md-6 text-right">
                     <a href="{{ url('wizard/finish') }}" id="wizard-skip" class="btn btn-white header-button-top" @click="next">
-                        <span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}
+                        <span class="fas fa-arrow-right"></span> &nbsp;{{ trans('general.skip') }}
                     </a>
                 </div>
             </div>

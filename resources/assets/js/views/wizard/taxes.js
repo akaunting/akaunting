@@ -80,7 +80,7 @@ const app = new Vue({
         },
 
         next() {
-            if (this.active++ > 1) this.active = 0;
+            if (this.active++ > 3) this.active = 0;
         }
     }
 });
