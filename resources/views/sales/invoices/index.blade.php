@@ -36,8 +36,8 @@
                     <thead class="thead-light">
                         <tr class="row table-head-line">
                             <th class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
-                            <th class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block">@sortablelink('invoice_number', trans_choice('general.numbers', 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 text-center">@sortablelink('contact_name', trans_choice('general.customers', 1))</th>
+                            <th class="col-md-2 col-lg-2 col-xl-1 d-none d-md-block">@sortablelink('invoice_number', trans_choice('general.numbers', 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
+                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-3 text-center">@sortablelink('contact_name', trans_choice('general.customers', 1))</th>
                             <th class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1 text-right">@sortablelink('amount', trans('general.amount'))</th>
                             <th class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
                             <th class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@sortablelink('due_at', trans('invoices.due_date'))</th>
@@ -51,8 +51,8 @@
                             @php $paid = $item->paid; @endphp
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->invoice_number) }}</td>
-                                <td class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block"><a class="col-aka text-success" href="{{ route('invoices.show' , $item->id) }}">{{ $item->invoice_number }}</a></td>
-                                <td class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 text-center">{{ $item->contact_name }}</td>
+                                <td class="col-md-2 col-lg-2 col-xl-1 d-none d-md-block"><a class="col-aka text-success" href="{{ route('invoices.show' , $item->id) }}">{{ $item->invoice_number }}</a></td>
+                                <td class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-3 text-center">{{ $item->contact_name }}</td>
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1 text-right">@money($item->amount, $item->currency_code, true)</td>
                                 <td class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@date($item->invoiced_at)</td>
                                 <td class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@date($item->due_at)</td>
