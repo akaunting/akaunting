@@ -8,17 +8,11 @@ use App\Models\Sale\Invoice;
 
 class TotalIncome extends Widget
 {
-    public function getDefaultName()
-    {
-        return trans('widgets.total_income');
-    }
+    public $default_name = 'widgets.total_income';
 
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-4',
-        ];
-    }
+    public $views = [
+        'header' => 'partials.widgets.stats_header',
+    ];
 
     public function show()
     {

@@ -1,6 +1,6 @@
-<div id="widget-{{ $model->id }}" class="{{ $model->settings->width }}">
+<div id="widget-{{ $class->model->id }}" class="{{ $class->model->settings->width }}">
     <div class="card">
-        @include('partials.widgets.standard_header', ['header_class' => 'border-bottom-0'])
+        @include($class->views['header'], ['header_class' => 'border-bottom-0'])
 
         <div class="table-responsive">
             <table class="table align-items-center table-flush">

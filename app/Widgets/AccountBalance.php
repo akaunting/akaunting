@@ -7,17 +7,7 @@ use App\Models\Banking\Account;
 
 class AccountBalance extends Widget
 {
-    public function getDefaultName()
-    {
-        return trans('widgets.account_balance');
-    }
-
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-4',
-        ];
-    }
+    public $default_name = 'widgets.account_balance';
 
     public function show()
     {

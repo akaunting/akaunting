@@ -8,17 +8,11 @@ use App\Models\Purchase\Bill;
 
 class TotalExpenses extends Widget
 {
-    public function getDefaultName()
-    {
-        return trans('widgets.total_expenses');
-    }
+    public $default_name = 'widgets.total_expenses';
 
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-4',
-        ];
-    }
+    public $views = [
+        'header' => 'partials.widgets.stats_header',
+    ];
 
     public function show()
     {

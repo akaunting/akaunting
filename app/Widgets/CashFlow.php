@@ -13,17 +13,11 @@ class CashFlow extends Widget
 {
     use Currencies, DateTime;
 
-    public function getDefaultName()
-    {
-        return trans('widgets.cash_flow');
-    }
+    public $default_name = 'widgets.cash_flow';
 
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-12',
-        ];
-    }
+    public $default_settings = [
+        'width' => 'col-md-12',
+    ];
 
     public function show()
     {

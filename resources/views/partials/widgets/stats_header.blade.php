@@ -11,12 +11,12 @@
                 'type'    => 'button',
                 'class'   => 'dropdown-item',
                 'title'   => trans('general.edit'),
-                '@click'  => 'onEditWidget(' . $model->id . ')'
+                '@click'  => 'onEditWidget(' . $class->model->id . ')'
             ]) !!}
             @endpermission
             @permission('delete-common-widgets')
             <div class="dropdown-divider"></div>
-            {!! Form::deleteLink($model, 'common/widgets') !!}
+            {!! Form::deleteLink($class->model, 'common/widgets') !!}
             @endpermission
         </div>
     </div>

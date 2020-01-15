@@ -3,7 +3,7 @@
     <div class="row align-items-center">
 
         <div class="col-6 text-nowrap">
-            <h4 class="mb-0">{{ $model->name }}</h4>
+            <h4 class="mb-0">{{ $class->model->name }}</h4>
         </div>
 
         <div class="col-6 hidden-sm">
@@ -19,12 +19,12 @@
                             'type'    => 'button',
                             'class'   => 'dropdown-item',
                             'title'   => trans('general.edit'),
-                            '@click'  => 'onEditWidget(' . $model->id . ')'
+                            '@click'  => 'onEditWidget(' . $class->model->id . ')'
                         ]) !!}
                         @endpermission
                         @permission('delete-common-widgets')
                         <div class="dropdown-divider"></div>
-                        {!! Form::deleteLink($model, 'common/widgets') !!}
+                        {!! Form::deleteLink($class->model, 'common/widgets') !!}
                         @endpermission
                     </div>
                 </div>

@@ -1,8 +1,8 @@
-<div id="widget-{{ $model->id }}" class="{{ $model->settings->width }}">
+<div id="widget-{{ $class->model->id }}" class="{{ $class->model->settings->width }}">
     <div class="card">
-        @include('partials.widgets.standard_header')
+        @include($class->views['header'])
 
-        <div class="card-body" id="widget-donut-{{ $model->id }}">
+        <div class="card-body" id="widget-donut-{{ $class->model->id }}">
             <div class="chart-donut">
                 {!! $chart->container() !!}
             </div>
@@ -12,8 +12,8 @@
 
 @push('charts')
     <script>
-        var widget_donut_{{ $model->id }} = new Vue({
-            el: '#widget-donut-{{ $model->id }}',
+        var widget_donut_{{ $class->model->id }} = new Vue({
+            el: '#widget-donut-{{ $class->model->id }}',
         });
     </script>
 @endpush

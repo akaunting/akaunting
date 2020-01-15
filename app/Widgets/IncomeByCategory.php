@@ -7,17 +7,11 @@ use App\Models\Setting\Category;
 
 class IncomeByCategory extends Widget
 {
-    public function getDefaultName()
-    {
-        return trans('widgets.income_by_category');
-    }
+    public $default_name = 'widgets.income_by_category';
 
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-6',
-        ];
-    }
+    public $default_settings = [
+        'width' => 'col-md-6',
+    ];
 
     public function show()
     {

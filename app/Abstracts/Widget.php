@@ -2,7 +2,6 @@
 
 namespace App\Abstracts;
 
-use App\Models\Sale\Invoice;
 use App\Traits\Charts;
 use Date;
 
@@ -12,21 +11,39 @@ abstract class Widget
 
     public $model;
 
+    public $default_name = '';
+
+    public $default_settings = [
+        'width' => 'col-md-4',
+    ];
+
+    public $views = [
+        'header' => 'partials.widgets.standard_header',
+    ];
+
     public function __construct($model = null)
     {
         $this->model = $model;
     }
 
+    public function getDefaultName()
+    {
+        return trans($this->default_name);
+    }
+
     public function getDefaultSettings()
     {
-        return [
-            'width' => 'col-md-4',
-        ];
+        return $this->default_settings;
+    }
+
+    public function getViews()
+    {
+        return $this->views;
     }
 
     public function view($name, $data = [])
     {
-        return view($name, array_merge(['model' => $this->model], (array) $data));
+        return view($name, array_merge(['class' => $this], (array) $data));
     }
 
     public function applyFilters($model, $args = ['date_field' => 'paid_at'])

@@ -7,17 +7,11 @@ use App\Models\Setting\Category;
 
 class ExpensesByCategory extends Widget
 {
-    public function getDefaultName()
-    {
-        return trans('widgets.expenses_by_category');
-    }
+    public $default_name = 'widgets.expenses_by_category';
 
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-6',
-        ];
-    }
+    public $default_settings = [
+        'width' => 'col-md-6',
+    ];
 
     public function show()
     {

@@ -7,17 +7,7 @@ use App\Models\Banking\Transaction;
 
 class LatestExpenses extends Widget
 {
-    public function getDefaultName()
-    {
-        return trans('widgets.latest_expenses');
-    }
-
-    public function getDefaultSettings()
-    {
-        return [
-            'width' => 'col-md-4',
-        ];
-    }
+    public $default_name = 'widgets.latest_expenses';
 
     public function show()
     {
