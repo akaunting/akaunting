@@ -12,8 +12,6 @@ import DashboardPlugin from './../../plugins/dashboard-plugin';
 
 import Global from './../../mixins/global';
 
-import Form from './../../plugins/form';
-
 import {Step, Steps} from 'element-ui';
 
 // plugin setup
@@ -33,14 +31,13 @@ const app = new Vue({
 
     data: function () {
         return {
-            form: new Form('company'),
-            active: 0
+            active: 3
         }
     },
 
     methods: {
         next() {
             if (this.active++ > 1) this.active = 0;
-        }
+          }
     }
 });
