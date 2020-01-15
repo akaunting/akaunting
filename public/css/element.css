@@ -10547,12 +10547,6 @@
     background: #6da252;
 }
 
-.el-step__head.is-success .el-step__icon:hover {
-    cursor: pointer;
-    border: 5px solid #3c3f72;
-    background: #3c3f72;
-}
-
 .el-step__head.is-wait .el-step__icon-inner {
     color: #999999;
 }
