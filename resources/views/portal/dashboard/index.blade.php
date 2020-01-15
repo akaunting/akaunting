@@ -129,7 +129,7 @@
                 <div class="card-header">
                     <h4 class="mb-0">{{ trans('widgets.cash_flow') }}</h4>
                 </div>
-                <div class="card-body pt-0" id="chart">
+                <div class="card-body" id="chart">
                     {!! $chart->container() !!}
                 </div>
             </div>
