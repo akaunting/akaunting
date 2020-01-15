@@ -4,55 +4,7 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header pb-0">
-            <div class="container-fluid">
-                <div class="row">
-                    <hr class="wizard-line">
-
-                    <div class="col-md-3">
-                        <div class="text-center">
-                           <a href="{{ url('wizard/companies') }}">
-                                <button type="button" class="btn btn-secondary btn-lg wizard-steps wizard-steps-color-active rounded-circle">
-                                    <span class="btn-inner--icon wizard-steps-inner"><i class="fa fa-check"></i></span>
-                                </button>
-                                <p class="mt-2 text-muted step-text">{{ trans_choice('general.companies', 1) }}</p>
-                           </a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <a href="{{ url('wizard/currencies') }}">
-                                <button type="button" class="btn btn-secondary btn-lg wizard-steps wizard-steps-color-active rounded-circle">
-                                    <span class="btn-inner--icon wizard-steps-inner"><i class="fa fa-check"></i></span>
-                                </button>
-                                <p class="mt-2 text-muted step-text">{{ trans_choice('general.currencies', 2) }}</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <a href="{{ url('wizard/taxes') }}">
-                                <button type="button" class="btn btn-secondary btn-lg wizard-steps wizard-steps-color-active rounded-circle">
-                                    <span class="btn-inner--icon wizard-steps-inner"><i class="fa fa-check"></i></span>
-                                </button>
-                                <p class="mt-2 text-muted step-text">{{ trans_choice('general.taxes', 2) }}</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <button href="#step-4" type="button" class="btn btn-default btn-lg wizard-steps rounded-circle">
-                                <span class="btn-inner--icon wizard-steps-inner">4</span>
-                            </button>
-                            <p class="mt-2 after-step-text">{{ trans_choice('general.finish', 1) }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('partials.wizard.steps')
 
         <div class="card-body bg-default">
             <div class="row">
@@ -98,11 +50,15 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <a href="{{ url('/') }}" class="btn btn-lg btn-success header-button-top">
-                    <span class="fa fa-tachometer-alt"></span> &nbsp;{{ trans('general.go_to', ['name' => trans_choice('general.dashboards', 1)]) }}
+                    <a href="{{ url('/') }}" class="btn btn-lg btn-success header-button-top" @click="next">
+                        <span class="fa fa-tachometer-alt"></span> &nbsp;{{ trans('general.go_to', ['name' => trans_choice('general.dashboards', 1)]) }}
                     </a>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/wizard/finish.js?v=' . version('short')) }}"></script>
+@endpush

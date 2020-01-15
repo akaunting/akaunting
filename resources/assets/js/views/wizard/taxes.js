@@ -15,8 +15,10 @@ import Global from '../../mixins/global';
 import Form from '../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
 
+import {Step, Steps} from 'element-ui';
+
 // plugin setup
-Vue.use(DashboardPlugin);
+Vue.use(DashboardPlugin, Step, Steps);
 
 const app = new Vue({
     el: '#app',
@@ -25,9 +27,15 @@ const app = new Vue({
         Global
     ],
 
+    components: {
+        [Step.name]: Step,
+        [Steps.name]: Steps,
+    },
+
     data: function () {
         return {
             form: new Form('tax'),
+            active: 2,
             bulk_action: new BulkAction(url + '/settings/taxes'),
             show: false,
             tax: {
@@ -69,6 +77,10 @@ const app = new Vue({
             });
 
             this.show = true;
+        },
+
+        next() {
+            if (this.active++ > 1) this.active = 0;
         }
     }
 });

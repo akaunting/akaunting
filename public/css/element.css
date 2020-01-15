@@ -10493,13 +10493,13 @@
 }
 
 .el-step__head.is-process {
-    color: #303133;
-    border-color: #303133
+    color: #3c3f72;
+    border-color: #3c3f72
 }
 
 .el-step__head.is-wait {
-    color: #C0C4CC;
-    border-color: #C0C4CC
+    color: #e5e5e5;
+    border-color: #e5e5e5
 }
 
 .el-step__head.is-success {
@@ -10529,19 +10529,37 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    width: 24px;
-    height: 24px;
-    font-size: 14px;
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    background: #FFF;
+    background: #3c3f72;
     -webkit-transition: .15s ease-out;
     transition: .15s ease-out
 }
 
+.el-step__head.is-wait .el-step__icon {
+    background: #e5e5e5 ;
+}
+
+.el-step__head.is-success .el-step__icon {
+    background: #6da252;
+}
+
+.el-step__head.is-success .el-step__icon:hover {
+    cursor: pointer;
+    border: 5px solid #3c3f72;
+    background: #3c3f72;
+}
+
+.el-step__head.is-wait .el-step__icon-inner {
+    color: #999999;
+}
+
 .el-step__icon.is-text {
     border-radius: 50%;
-    border: 2px solid;
+    border: 5px solid;
     border-color: inherit
 }
 
@@ -10555,7 +10573,7 @@
     text-align: center;
     font-weight: 700;
     line-height: 1;
-    color: inherit
+    color: #ffffff;
 }
 
 .el-button,.el-checkbox,.el-image-viewer__btn {
@@ -10577,12 +10595,12 @@
 .el-step__line {
     position: absolute;
     border-color: inherit;
-    background-color: #C0C4CC
+    background-color: #e5e5e5;
 }
 
 .el-step__line-inner {
     display: block;
-    border-width: 1px;
+    border-width: 2px !important;
     border-style: solid;
     border-color: inherit;
     -webkit-transition: .15s ease-out;
@@ -10605,7 +10623,7 @@
 
 .el-step__title.is-process {
     font-weight: 700;
-    color: #303133
+    color: #3c3f72;
 }
 
 .el-step__title.is-wait {
@@ -10657,8 +10675,8 @@
 }
 
 .el-step.is-horizontal .el-step__line {
-    height: 2px;
-    top: 11px;
+    height: 5px;
+    top: 40px;
     left: 0;
     right: 0
 }
