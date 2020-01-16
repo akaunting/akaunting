@@ -1,7 +1,7 @@
 <thead class="thead-light">
     <tr>
-        @if ($table == 'default')
-            <th>{{ $class->groups[$class->report->group] }}</th>
+        @if (($table == 'default') && !empty($class->groups))
+            <th>{{ $class->groups[$class->model->settings->group] }}</th>
         @else
             <th>{{ $table }}</th>
         @endif

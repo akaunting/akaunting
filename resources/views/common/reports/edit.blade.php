@@ -12,7 +12,7 @@
             '@keydown' => 'form.errors.clear($event.target.name)',
             'role' => 'form',
             'class' => 'form-loading-button',
-            'novalidate' => true
+            'novalidate' => true,
         ]) !!}
 
             <div class="card-body">
@@ -23,13 +23,21 @@
 
                     {{ Form::textareaGroup('description', trans('general.description'), null, null, ['rows' => '3', 'required' => 'required']) }}
 
-                    {{ Form::selectGroup('group', trans('general.group_by'), 'folder', $groups, $report->group) }}
+                    @foreach($class->getFields() as $field)
+                        @php $type = $field['type']; @endphp
 
-                    {{ Form::selectGroup('period', trans('general.period'), 'calendar', $periods, $report->period) }}
-
-                    {{ Form::selectGroup('basis', trans('general.basis'), 'file', $basises, $report->basis) }}
-
-                    {{ Form::selectGroup('chart', trans_choice('general.charts', 1), 'chart-pie', $charts, $report->chart) }}
+                        @if (($type == 'textGroup') || ($type == 'emailGroup') || ($type == 'passwordGroup'))
+                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title'], $field['icon'], $field['attributes']) }}
+                        @elseif ($type == 'textareaGroup')
+                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title']) }}
+                        @elseif ($type == 'selectGroup')
+                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title'], $field['icon'], $field['values'], $report->settings->{$field['name']}, $field['attributes']) }}
+                        @elseif ($type == 'radioGroup')
+                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title'], isset($report->settings->{$field['name']}) ? $report->settings->{$field['name']} : 1, $field['enable'], $field['disable'], $field['attributes']) }}
+                        @elseif ($type == 'checkboxGroup')
+                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title'], $field['items'], $report->settings->{$field['name']}, $field['id'], $field['attributes']) }}
+                        @endif
+                    @endforeach
                 </div>
             </div>
 

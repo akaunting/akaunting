@@ -11,7 +11,7 @@
             '@keydown' => 'form.errors.clear($event.target.name)',
             'role' => 'form',
             'class' => 'form-loading-button',
-            'novalidate' => true
+            'novalidate' => true,
         ]) !!}
 
             <div class="card-body">
@@ -22,13 +22,7 @@
 
                     {{ Form::textareaGroup('description', trans('general.description'), null, null, ['rows' => '3', 'required' => 'required']) }}
 
-                    {{ Form::selectGroup('group', trans('general.group_by'), 'folder', $groups, 'category') }}
-
-                    {{ Form::selectGroup('period', trans('general.period'), 'calendar', $periods, 'yearly') }}
-
-                    {{ Form::selectGroup('basis', trans('general.basis'), 'file', $basises, 'accrual') }}
-
-                    {{ Form::selectGroup('chart', trans_choice('general.charts', 1), 'chart-pie', $charts, 'line') }}
+                    <component v-bind:is="report_fields"></component>
                 </div>
             </div>
 

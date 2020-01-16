@@ -1,9 +1,9 @@
 @extends('layouts.print')
 
-@section('title', $class->report->name)
+@section('title', $class->model->name)
 
 @section('content')
-    @if($class->report->chart)
+    @if($class->model->settings->chart)
         @include($class->views['chart'])
     @endif
 

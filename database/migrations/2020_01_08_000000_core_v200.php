@@ -110,8 +110,8 @@ class CoreV200 extends Migration
             $table->integer('dashboard_id');
             $table->string('class');
             $table->string('name');
-            $table->text('settings')->nullable();
             $table->integer('sort')->default(0);
+            $table->text('settings')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -170,10 +170,7 @@ class CoreV200 extends Migration
             $table->string('class');
             $table->string('name');
             $table->text('description');
-            $table->string('group');
-            $table->string('period');
-            $table->string('basis');
-            $table->string('chart');
+            $table->text('settings')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

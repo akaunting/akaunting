@@ -41,38 +41,6 @@ class Reports
         return $classes;
     }
 
-    public static function getGroups()
-    {
-        return [
-            'category' => trans_choice('general.categories', 1),
-        ];
-    }
-
-    public static function getPeriods()
-    {
-        return [
-            'monthly' => trans('general.monthly'),
-            'quarterly' => trans('general.quarterly'),
-            'yearly' => trans('general.yearly'),
-        ];
-    }
-
-    public static function getBasises()
-    {
-        return [
-            'accrual' => trans('general.accrual'),
-            'cash' => trans('general.cash'),
-        ];
-    }
-
-    public static function getCharts()
-    {
-        return [
-            '0' => trans('general.disabled'),
-            'line' => trans('reports.charts.line'),
-        ];
-    }
-
     public static function getClassInstance($model, $get_totals = true)
     {
         if (is_string($model)) {

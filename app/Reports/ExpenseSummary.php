@@ -9,6 +9,8 @@ use App\Utilities\Recurring;
 
 class ExpenseSummary extends Report
 {
+    public $default_name = 'reports.summary.expense';
+
     public $icon = 'fa fa-shopping-cart';
 
     public $chart = [
@@ -26,21 +28,11 @@ class ExpenseSummary extends Report
         ],
     ];
 
-    public function getDefaultName()
-    {
-        return trans('reports.summary.expense');
-    }
-
-    public function getCategory()
-    {
-        return trans('reports.income_expense');
-    }
-
     public function getTotals()
     {
         $payments = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
 
-        switch ($this->report->basis) {
+        switch ($this->model->settings->basis) {
             case 'cash':
                 // Payments
                 $this->setTotals($payments, 'paid_at');

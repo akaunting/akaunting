@@ -28,7 +28,7 @@ return [
         'expense'           => 'Monthly expense summary by category.',
         'income_expense'    => 'Monthly income vs expense by category.',
         'tax'               => 'Quarterly tax summary by category.',
-        'pl'                => 'Quarterly profit & loss by category.',
+        'profit_loss'       => 'Quarterly profit & loss by category.',
     ],
 
 ];

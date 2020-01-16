@@ -6,7 +6,7 @@
     <div class="card">
         @include($class->views['filter'])
 
-        @if($class->report->chart)
+        @if(!empty($class->model->settings->chart))
             @include($class->views['chart'])
         @endif
 

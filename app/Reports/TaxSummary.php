@@ -15,19 +15,13 @@ class TaxSummary extends Report
 {
     use Currencies;
 
+    public $default_name = 'reports.summary.tax';
+
+    public $category = 'general.accounting';
+
     public $icon = 'fa fa-percent';
 
     public $chart = false;
-
-    public function getDefaultName()
-    {
-        return trans('reports.summary.tax');
-    }
-
-    public function getCategory()
-    {
-        return trans('general.accounting');
-    }
 
     public function setViews()
     {
@@ -54,7 +48,7 @@ class TaxSummary extends Report
 
     public function getTotals()
     {
-        switch ($this->report->basis) {
+        switch ($this->model->settings->basis) {
             case 'cash':
                 // Invoice Payments
                 $invoices = $this->applyFilters(Transaction::type('income')->isDocument()->with(['invoice', 'invoice.totals'])->isNotTransfer(), ['date_field' => 'paid_at'])->get();
