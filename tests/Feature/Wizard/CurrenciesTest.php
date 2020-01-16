@@ -44,7 +44,7 @@ class CurrenciesTest extends FeatureTestCase
         $currency = $this->dispatch(new CreateCurrency($this->getRequest()));
 
         $this->loginAs()
-            ->delete(route('wizard.currencies.delete', $currency->id))
+            ->delete(route('wizard.currencies.destroy', $currency->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
