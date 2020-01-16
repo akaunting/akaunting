@@ -46,8 +46,8 @@ class Dashboards extends Seeder
                 'dashboard_id' => $dashboard->id,
                 'class' => $class,
                 'name' => $name,
-                'settings' => (new $class())->getDefaultSettings(),
                 'sort' => $sort,
+                'settings' => (new $class())->getDefaultSettings(),
             ]);
 
             $sort++;

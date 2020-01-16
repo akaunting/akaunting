@@ -48,16 +48,35 @@ class Widgets
     public static function getClassInstance($model)
     {
         if (is_string($model)) {
-            $model = Widget::where('class', $model)->first();
+            $class_name = $model;
+
+            if (!class_exists($class_name)) {
+                return false;
+            }
+
+            $model = Widget::where('dashboard_id', session('dashboard_id'))->where('class', $class_name)->first();
+
+            if (!$model instanceof Widget) {
+                $class = (new $class_name());
+
+                $model = new Widget();
+                $model->id = 0;
+                $model->company_id = session('company_id');
+                $model->dashboard_id = session('dashboard_id');
+                $model->class = $class_name;
+                $model->name = $class->getDefaultName();
+                $model->sort = 99;
+                $model->settings = $class->getDefaultSettings();
+            }
+        } else {
+            if ((!$model instanceof Widget) || !class_exists($model->class)) {
+                return false;
+            }
+
+            $class_name = $model->class;
         }
 
-        if ((!$model instanceof Widget) || !class_exists($model->class)) {
-            return false;
-        }
-
-        $class = $model->class;
-
-        return new $class($model);
+        return new $class_name($model);
     }
 
     public static function show($model, ...$arguments)

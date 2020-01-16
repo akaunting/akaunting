@@ -16,7 +16,7 @@ class Widget extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'dashboard_id', 'class', 'name', 'settings', 'sort'];
+    protected $fillable = ['company_id', 'dashboard_id', 'class', 'name', 'sort', 'settings'];
 
     /**
      * The attributes that should be casted to native types.
@@ -32,8 +32,8 @@ class Widget extends Model
         return $this->belongsTo('App\Models\Common\Dashboard');
     }
 
-    public function user()
+    public function users()
     {
-        return $this->hasOneThrough('App\Models\Auth\User', 'App\Models\Common\Dashboard');
+        return $this->hasManyThrough('App\Models\Auth\User', 'App\Models\Common\Dashboard');
     }
 }
