@@ -1,35 +1,16 @@
 <template>
     <div>
+        <div class="card-header wizard-header p-3">
+            <el-steps :active="active" finish-status="success" align-center>
+                <el-step title="Language"></el-step>
+                <el-step title="Database"></el-step>
+                <el-step title="Admin"></el-step>
+            </el-steps>
+        </div>
+
         <div class="card-body">
             <div class="row">
-                <hr class="install-line">
-
-                <div class="col-md-4 text-center">
-                    <router-link to='./language'>
-                        <button type="button" class="btn btn-secondary btn-lg wizard-steps wizard-steps-color-active rounded-circle">
-                            <span class="btn-inner--icon wizard-steps-inner"><i class="fa fa-check"></i></span>
-                        </button>
-                        <p class="mt-2 text-muted step-text">Language</p>
-                    </router-link>
-                </div>
-
-                <div class="col-md-4 text-center">
-                    <router-link to='./database'>
-                        <button type="button" class="btn btn-secondary btn-lg wizard-steps wizard-steps-color-active rounded-circle">
-                            <span class="btn-inner--icon wizard-steps-inner"><i class="fa fa-check"></i></span>
-                        </button>
-                        <p class="mt-2 text-muted step-text">Database</p>
-                    </router-link>
-                </div>
-
-                <div class="col-md-4 text-center">
-                    <button type="button" class="btn btn-default btn-lg wizard-steps rounded-circle">
-                        <span class="btn-inner--icon wizard-steps-inner">3</span>
-                    </button>
-                    <p class="mt-2 after-step-text">Admin</p>
-                </div>
-
-                <div class="form-group col-md-12 required" :class="[{'has-error': form.errors.get('company_name')}]">
+                <div class="col-md-12 form-group required" :class="[{'has-error': form.errors.get('company_name')}]">
                     <label for="company_name" class="form-control-label">Company Name</label>
 
                     <div class="input-group input-group-merge">
@@ -44,7 +25,7 @@
                     <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('company_name')" v-html="form.errors.get('company_name')"></div>
                 </div>
 
-                <div class="form-group col-md-12 required" :class="[{'has-error': form.errors.get('company_email')}]">
+                <div class="col-md-12 form-group required" :class="[{'has-error': form.errors.get('company_email')}]">
                     <label for="company_email" class="form-control-label">Company Email</label>
 
                     <div class="input-group input-group-merge">
@@ -59,7 +40,7 @@
                     <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('company_email')" v-html="form.errors.get('company_email')"></div>
                 </div>
 
-                <div class="form-group col-md-12 required" :class="[{'has-error': form.errors.get('user_email')}]">
+                <div class=" col-md-12 form-group required" :class="[{'has-error': form.errors.get('user_email')}]">
                     <label for="user_email" class="form-control-label">Admin Email</label>
 
                     <div class="input-group input-group-merge">
@@ -74,7 +55,7 @@
                     <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('user_email')" v-html="form.errors.get('user_email')"></div>
                 </div>
 
-                <div class="form-group col-md-12 mb--2 required" :class="[{'has-error': form.errors.get('user_password')}]">
+                <div class="col-md-12 form-group mb--2 required" :class="[{'has-error': form.errors.get('user_password')}]">
                     <label for="user_password" class="form-control-label">Admin Password</label>
 
                     <div class="input-group input-group-merge ">
@@ -107,13 +88,21 @@
 <script>
     import axios from "axios";
     import Form from './../../plugins/form';
+    import {Step, Steps} from 'element-ui';
 
     export default {
         name: 'settings',
+
+        components: {
+            [Step.name]: Step,
+            [Steps.name]: Steps
+        },
+
         data() {
             return {
                 form: new Form('form-install'),
-                languages: []
+                languages: [],
+                active: 2
             }
         },
         methods: {
@@ -121,6 +110,10 @@
             onSubmit() {
                 this.form.submit();
             },
+
+            next() {
+                if (this.active++ > 2) this.active = 0;
+            }
         }
     }
 </script>

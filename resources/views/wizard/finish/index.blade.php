@@ -55,7 +55,7 @@
                     </a>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="{{ url('/') }}" class="btn btn-lg btn-success header-button-top" @click="next">
+                    <a href="{{ url('/') }}" class="btn btn-success header-button-top" @click="next">
                         <span class="fa fa-tachometer-alt"></span> &nbsp;{{ trans('general.go_to', ['name' => trans_choice('general.dashboards', 1)]) }}
                     </a>
                 </div>

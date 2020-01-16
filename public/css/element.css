@@ -10529,9 +10529,9 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
-    font-size: 40px;
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     background: #3c3f72;
@@ -10545,6 +10545,10 @@
 
 .el-step__head.is-success .el-step__icon {
     background: #6da252;
+}
+
+.el-step__head.is-success .el-step__line {
+    background-color: #3c3f72;
 }
 
 .el-step__head.is-wait .el-step__icon-inner {
@@ -10670,7 +10674,7 @@
 
 .el-step.is-horizontal .el-step__line {
     height: 5px;
-    top: 40px;
+    top: 35px;
     left: 0;
     right: 0
 }
