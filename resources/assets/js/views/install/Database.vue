@@ -1,35 +1,18 @@
 <template>
     <div>
+        <div class="card-header wizard-header p-3">
+            <el-steps :active="active" finish-status="success" align-center>
+                <el-step title="Language"></el-step>
+                <el-step title="Database"></el-step>
+                <el-step title="Admin"></el-step>
+            </el-steps>
+        </div>
+
         <div class="card-body">
             <div role="alert" class="alert alert-danger d-none" :class="(form.response.error) ? 'show' : ''" v-if="form.response.error" v-html="form.response.message"></div>
 
             <div class="row">
-                <hr class="install-line">
-
-                <div class="col-md-4 text-center">
-                    <router-link to='./language'>
-                        <button type="button" class="btn btn-secondary btn-lg wizard-steps wizard-steps-color-active rounded-circle">
-                            <span class="btn-inner--icon wizard-steps-inner"><i class="fa fa-check"></i></span>
-                        </button>
-                        <p class="mt-2 text-muted step-text">Language</p>
-                    </router-link>
-                </div>
-
-                <div class="col-md-4 text-center">
-                    <button type="button" class="btn btn-default btn-lg wizard-steps rounded-circle">
-                        <span class="btn-inner--icon wizard-steps-inner">2</span>
-                    </button>
-                    <p class="mt-2 after-step-text">Database</p>
-                </div>
-
-                <div class="col-md-4 text-center">
-                    <button type="button" class="btn btn-secondary btn-lg wizard-steps rounded-circle steps">
-                        <span class="btn-inner--icon wizard-steps-inner wizard-steps-color">3</span>
-                    </button>
-                    <p class="mt-2 text-muted step-text">Admin</p>
-                </div>
-
-                <div class="form-group col-md-12 required" :class="[{'has-error': form.errors.get('hostname')}]">
+                <div class="col-md-12 form-group required" :class="[{'has-error': form.errors.get('hostname')}]">
                     <label for="hostname" class="form-control-label">Hostname</label>
 
                     <div class="input-group input-group-merge">
@@ -44,7 +27,7 @@
                     <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('hostname')" v-html="form.errors.get('hostname')"></div>
                 </div>
 
-                <div class="form-group col-md-12 required" :class="[{'has-error': form.errors.get('username')}]">
+                <div class="col-md-12 form-group required" :class="[{'has-error': form.errors.get('username')}]">
                     <label for="username" class="form-control-label">Username</label>
 
                     <div class="input-group input-group-merge">
@@ -59,7 +42,7 @@
                     <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('username')" v-html="form.errors.get('username')"></div>
                 </div>
 
-                <div class="form-group col-md-12" :class="[{'has-error': form.errors.get('password')}]">
+                <div class="col-md-12 form-group" :class="[{'has-error': form.errors.get('password')}]">
                     <label for="password" class="form-control-label">Password</label>
 
                     <div class="input-group input-group-merge ">
@@ -74,7 +57,7 @@
                     <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('password')" v-html="form.errors.get('password')"></div>
                 </div>
 
-                <div class="form-group col-md-12 mb--2 required" :class="[{'has-error': form.errors.get('database')}]">
+                <div class="col-md-12 form-group mb--2 required" :class="[{'has-error': form.errors.get('database')}]">
                     <label for="database" class="form-control-label">Database</label>
 
                     <div class="input-group input-group-merge">
@@ -93,7 +76,7 @@
 
         <div class="card-footer">
             <div class="float-right">
-                <button v-on:click="onSubmit" :disabled="form.loading" type="submit" id="next-button" class="btn btn-success" data-loading-text="Loading...">
+                <button v-on:click="onSubmit" :disabled="form.loading" type="submit" id="next-button" class="btn btn-success header-button-top" data-loading-text="Loading...">
                     <div class="aka-loader"></div>
                     <span>Next &nbsp;
                         <i  class="fa fa-arrow-right"></i>
@@ -107,19 +90,32 @@
 <script>
     import axios from "axios";
     import Form from './../../plugins/form';
+    import {Step, Steps} from 'element-ui';
 
     export default {
         name: 'database',
+
+        components: {
+            [Step.name]: Step,
+            [Steps.name]: Steps
+        },
+
         data() {
             return {
-                form: new Form('form-install')
+                form: new Form('form-install'),
+                active: 1
             }
         },
+
         methods: {
             // Form Submit
             onSubmit() {
                 this.form.submit();
             },
+
+            next() {
+                if (this.active++ > 2) this.active = 0;
+            }
         }
     }
 </script>

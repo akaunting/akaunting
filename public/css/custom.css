@@ -70,44 +70,6 @@ button:focus
     border-radius: calc(0.375rem - 1px) calc(0.375rem - 1px) 0 0;
 }
 
-.wizard-steps
-{
-    width: 3.375rem;
-    height: 3.375rem;
-    padding: 0;
-}
-
-.wizard-steps-inner
-{
-    font-size: 1.875rem;
-}
-
-.step-text
-{
-    cursor: default !important;
-    font-weight: 400;
-}
-
-.after-step-text
-{
-    cursor: default !important;
-    font-weight: 600;
-}
-
-.steps:not(:disabled):not(.disabled)
-{
-    cursor: default !important;
-}
-
-.wizard-line
-{
-    width: 75%;
-    position: absolute;
-    margin-left: 7rem;
-    margin-top: 1.7rem;
-    margin-bottom: 1.7rem;
-    border-top: 5px solid rgba(0, 0, 0, 0.1);
-}
 /*--------Wizard Steps Finish--------*/
 
 
