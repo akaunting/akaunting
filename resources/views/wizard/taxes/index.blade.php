@@ -8,9 +8,9 @@
 
         <div class="card-body border-bottom-0">
             <div class="row">
-                <div class="col-12 text-right">
+                <div class="col-md-12 text-right">
                     <span>
-                        <button type="button" @click="onAddTax" class="btn btn-success btn-sm">
+                        <button type="button" @click="onAddTax" class="btn btn-success header-button-top btn-sm">
                             <span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}
                         </button>
                     </span>
@@ -32,22 +32,22 @@
                 <table class="table table-flush table-hover" id='tbl-taxes'>
                     <thead class="thead-light">
                         <tr class="row table-head-line">
-                            <th class="col-xs-4 col-sm-3">@sortablelink('name', trans('general.name'))</th>
-                            <th class="col-sm-3 hidden-sm">@sortablelink('rate', trans('taxes.rate_percent'))</th>
-                            <th class="col-xs-4 col-sm-3">@sortablelink('enabled', trans('general.enabled'))</th>
-                            <th class="col-xs-4 col-sm-3 text-center">{{ trans('general.actions') }}</th>
+                            <th class="col-xs-4 col-sm-4 col-md-3">@sortablelink('name', trans('general.name'))</th>
+                            <th class="col-md-3 d-none d-md-block">@sortablelink('rate', trans('taxes.rate_percent'))</th>
+                            <th class="col-xs-4 col-sm-4 col-md-3">@sortablelink('enabled', trans('general.enabled'))</th>
+                            <th class="col-xs-4 col-sm-4 col-md-3 text-center">{{ trans('general.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($taxes as $item)
                             <tr class="row align-items-center border-top-1" id="tax-{{ $item->id }}">
-                                <td class="col-xs-4 col-sm-3 tax-name">
+                                <td class="col-xs-4 col-sm-4 col-md-3 tax-name">
                                     <a href="javascript:void(0);" class="text-success" @click="onEditTax('{{ $item->id }}')">
                                         {{ $item->name }}
                                     </a>
                                 </td>
-                                <td class="col-sm-3 hidden-sm">{{ $item->rate }}</td>
-                                <td class="col-xs-4 col-sm-3">
+                                <td class="col-md-3 d-none d-md-block">{{ $item->rate }}</td>
+                                <td class="col-xs-4 col-sm-4 col-md-3">
                                     @if (user()->can('update-settings-taxes'))
                                         {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
                                     @else
@@ -58,7 +58,7 @@
                                         @endif
                                     @endif
                                 </td>
-                                <td class="col-xs-4 col-sm-3 text-center">
+                                <td class="col-xs-4 col-sm-4 col-md-3 text-center">
                                     <div class="dropdown">
                                         <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-ellipsis-h text-muted"></i>
@@ -78,16 +78,16 @@
                         @endforeach
 
                         <tr class="row align-items-center border-top-1" v-show="show">
-                            <td class="col-xs-4 col-sm-3 tax-name">
+                            <td class="col-xs-4 col-sm-4 col-md-3">
                                 {{ Form::textGroup('name', trans('general.name'), 'font', [], null, '') }}
                             </td>
-                            <td class="col-sm-3 hidden-sm tax-rate">
+                            <td class="col-md-3 d-none d-md-block">
                                 {{ Form::textGroup('rate', trans('currencies.rate'), 'percentage', ['required' => 'required'], null, '') }}
                             </td>
-                            <td class="col-xs-4 col-sm-3 tax-status">
+                            <td class="col-xs-4 col-sm-4 col-md-3">
                                 {{ Form::radioGroup('enabled', trans('general.enabled')) }}
                             </td>
-                            <td class="col-xs-4 col-sm-3 text-center">
+                            <td class="col-xs-4 col-sm-4 col-md-3 text-center">
                                 {!! Form::button(
                                     '<span class="btn-inner--icon"><i class="fas fa-save"></i></span>', [
                                     ':disabled' => 'form.loading',
@@ -105,12 +105,12 @@
 
         <div class="card-footer">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <a href="{{ url('wizard/currencies') }}" class="btn btn-white header-button-top">
                         <span class="fas fa-arrow-left"></span> &nbsp;{{ trans('modules.back') }}
                     </a>
                 </div>
-                <div class="col-md-6 text-right">
+                <div class="col-sm-6 text-right">
                     <a href="{{ url('wizard/finish') }}" id="wizard-skip" class="btn btn-white header-button-top" @click="next">
                         <span class="fas fa-arrow-right"></span> &nbsp;{{ trans('general.skip') }}
                     </a>

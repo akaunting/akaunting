@@ -73,7 +73,7 @@
             },
 
             next() {
-                if (this.active++ > 2) this.active = 0;
+                if (this.active++ > 2);
             }
         }
     }
