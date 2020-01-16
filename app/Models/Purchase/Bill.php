@@ -10,7 +10,6 @@ use App\Traits\DateTime;
 use App\Traits\Media;
 use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
-use Date;
 
 class Bill extends Model
 {
@@ -90,7 +89,7 @@ class Bill extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\Models\Banking\Transaction', 'document_id');
+        return $this->hasMany('App\Models\Banking\Transaction', 'document_id')->where('type', 'expense');
     }
 
     public function scopeDue($query, $date)

@@ -97,7 +97,7 @@ class Invoice extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\Models\Banking\Transaction', 'document_id');
+        return $this->hasMany('App\Models\Banking\Transaction', 'document_id')->where('type', 'income');
     }
 
     public function scopeDue($query, $date)
