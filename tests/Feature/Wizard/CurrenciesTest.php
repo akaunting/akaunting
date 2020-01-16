@@ -12,7 +12,7 @@ class CurrenciesTest extends FeatureTestCase
         $this->loginAs()
             ->get(route('wizard.currencies.index'))
             ->assertStatus(200)
-            ->assertSeeText(trans_choice('general.currencies', 2));
+            ->assertSeeText(trans('demo.currencies.usd'));
     }
 
     public function testItShouldCreateCurrency()
