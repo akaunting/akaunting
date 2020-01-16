@@ -10,24 +10,16 @@ use App\Utilities\Recurring;
 
 class IncomeExpenseSummary extends Report
 {
+    public $default_name = 'reports.summary.income_expense';
+
     public $icon = 'fa fa-chart-pie';
-
-    public function getDefaultName()
-    {
-        return trans('reports.summary.income_expense');
-    }
-
-    public function getCategory()
-    {
-        return trans('reports.income_expense');
-    }
 
     public function getTotals()
     {
         $income_transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
         $expense_transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
 
-        switch ($this->report->basis) {
+        switch ($this->model->settings->basis) {
             case 'cash':
                 // Income Transactions
                 $this->setTotals($income_transactions, 'paid_at', true);

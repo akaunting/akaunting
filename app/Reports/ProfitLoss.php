@@ -11,19 +11,13 @@ use App\Utilities\Recurring;
 
 class ProfitLoss extends Report
 {
+    public $default_name = 'reports.profit_loss';
+
+    public $category = 'general.accounting';
+
     public $icon = 'fa fa-heart';
 
     public $chart = false;
-
-    public function getDefaultName()
-    {
-        return trans('reports.profit_loss');
-    }
-
-    public function getCategory()
-    {
-        return trans('general.accounting');
-    }
 
     public function setViews()
     {
@@ -73,7 +67,7 @@ class ProfitLoss extends Report
         $income_transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
         $expense_transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
 
-        switch ($this->report->basis) {
+        switch ($this->model->settings->basis) {
             case 'cash':
                 // Income Transactions
                 $this->setTotals($income_transactions, 'paid_at', true, $this->tables['income']);

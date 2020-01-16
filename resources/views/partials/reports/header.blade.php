@@ -1,4 +1,4 @@
-@section('title', $class->report->name)
+@section('title', $class->model->name)
 
 @section('new_button')
     <span>

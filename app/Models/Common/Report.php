@@ -6,7 +6,6 @@ use App\Abstracts\Model;
 
 class Report extends Model
 {
-
     protected $table = 'reports';
 
     /**
@@ -14,5 +13,14 @@ class Report extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'description', 'class', 'group', 'period', 'basis', 'chart'];
+    protected $fillable = ['company_id', 'class', 'name', 'description', 'settings'];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'settings' => 'object',
+    ];
 }

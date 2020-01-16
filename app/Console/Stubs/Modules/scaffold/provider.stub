@@ -13,8 +13,8 @@ class $NAME$ extends Provider
      */
     public function boot()
     {
-        $this->loadTranslations();
         $this->loadViews();
+        $this->loadTranslations();
         $this->loadMigrations();
     }
 

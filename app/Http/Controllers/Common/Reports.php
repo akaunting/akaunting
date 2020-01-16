@@ -21,7 +21,7 @@ class Reports extends Controller
     {
         $classes = $categories = [];
 
-        $reports = Report::collect();
+        $reports = Report::all();
 
         foreach ($reports as $report) {
             if (!Utility::canRead($report->class)) {
@@ -62,15 +62,7 @@ class Reports extends Controller
     {
         $classes = Utility::getClasses();
 
-        $groups = Utility::getGroups();
-
-        $periods = Utility::getPeriods();
-
-        $basises = Utility::getBasises();
-
-        $charts = Utility::getCharts();
-
-        return view('common.reports.create', compact('classes', 'groups', 'periods', 'basises', 'charts'));
+        return view('common.reports.create', compact('classes'));
     }
 
     /**
@@ -111,15 +103,9 @@ class Reports extends Controller
     {
         $classes = Utility::getClasses();
 
-        $groups = Utility::getGroups();
+        $class = Utility::getClassInstance($report);
 
-        $periods = Utility::getPeriods();
-
-        $basises = Utility::getBasises();
-
-        $charts = Utility::getCharts();
-
-        return view('common.reports.edit', compact('report', 'classes', 'groups', 'periods', 'basises', 'charts'));
+        return view('common.reports.edit', compact('report', 'classes', 'class'));
     }
 
     /**
@@ -207,11 +193,11 @@ class Reports extends Controller
     }
 
     /**
-     * Get groups of the specified resource.
+     * Get fields of the specified resource.
      *
      * @return Response
      */
-    public function groups()
+    public function fields()
     {
         $class = request('class');
 
@@ -219,16 +205,20 @@ class Reports extends Controller
             return response()->json([
                 'success' => false,
                 'error' => true,
-                'data' => false,
-                'message' => "Class doesn't exist",
+                'message' => 'Class does not exist',
+                'html' => '',
             ]);
         }
+
+        $fields = (new $class())->getFields();
+
+        $html = view('partials.reports.fields', compact('fields'))->render();
 
         return response()->json([
             'success' => true,
             'error' => false,
-            'data' => (new $class())->groups,
             'message' => '',
+            'html' => $html,
         ]);
     }
 }

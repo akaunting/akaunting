@@ -2,6 +2,10 @@
 
 namespace App\Abstracts;
 
+use App\Events\Common\ReportFilterShowing;
+use App\Events\Common\ReportFilterApplying;
+use App\Events\Common\ReportGroupApplying;
+use App\Events\Common\ReportGroupShowing;
 use App\Exports\Common\Reports as Export;
 use App\Models\Common\Report as Model;
 use App\Traits\Charts;
@@ -14,7 +18,13 @@ abstract class Report
 {
     use Charts, DateTime;
 
-    public $report;
+    public $model;
+
+    public $default_name = '';
+
+    public $category = 'reports.income_expense';
+
+    public $icon = 'fa fa-chart-pie';
 
     public $year;
 
@@ -28,11 +38,7 @@ abstract class Report
 
     public $totals = [];
 
-    public $groups = [];
-
     public $filters = [];
-
-    public $icon = 'fa fa-chart-pie';
 
     public $indents = [
         'table_header' => '0px',
@@ -54,15 +60,15 @@ abstract class Report
         'datasets' => [],
     ];
 
-    public function __construct(Model $report = null, $get_totals = true)
+    public function __construct(Model $model = null, $get_totals = true)
     {
         $this->setGroups();
 
-        if (!$report) {
+        if (!$model) {
             return;
         }
 
-        $this->report = $report;
+        $this->model = $model;
 
         $this->setYear();
         $this->setViews();
@@ -80,12 +86,16 @@ abstract class Report
 
     public function getDefaultName()
     {
+        if (!empty($this->default_name)) {
+            return trans($this->default_name);
+        }
+
         return Str::title(str_replace('_', ' ', Str::snake((new \ReflectionClass($this))->getShortName())));
     }
 
     public function getCategory()
     {
-        return trans('reports.income_expense');
+        return trans($this->category);
     }
 
     public function getIcon()
@@ -108,7 +118,7 @@ abstract class Report
 
     public function getTableRowList()
     {
-        $group_prl = Str::plural($this->report->group);
+        $group_prl = Str::plural($this->model->settings->group);
 
         if ($group_filter = request($group_prl)) {
             $rows = collect($this->filters[$group_prl])->filter(function ($value, $key) use ($group_filter) {
@@ -125,13 +135,13 @@ abstract class Report
     {
         $chart = new Chartjs();
 
-        $config = $this->chart[$this->report->chart];
+        $config = $this->chart[$this->model->settings->chart];
 
         $default_options = $this->getLineChartOptions();
 
         $options = array_merge($default_options, (array) $config['options']);
 
-        $chart->type($this->report->chart)
+        $chart->type($this->model->settings->chart)
             ->width((int) $config['width'])
             ->height((int) $config['height'])
             ->options($options)
@@ -147,7 +157,7 @@ abstract class Report
             }
         } else {
             foreach ($this->totals as $total) {
-                $chart->dataset($this->report->name, 'line', array_values($total))
+                $chart->dataset($this->model->name, 'line', array_values($total))
                     ->backgroundColor(isset($config['backgroundColor']) ? $config['backgroundColor'] : '#6da252')
                     ->color(isset($config['color']) ? $config['color'] : '#6da252')
                     ->options([
@@ -173,7 +183,7 @@ abstract class Report
 
     public function export()
     {
-        return \Excel::download(new Export($this->views['content'], $this), $this->report->name . '.xlsx');
+        return \Excel::download(new Export($this->views['content'], $this), $this->model->name . '.xlsx');
     }
 
     public function setYear()
@@ -208,12 +218,12 @@ abstract class Report
 
     public function setDates()
     {
-        $function = 'sub' . ucfirst(str_replace('ly', '', $this->report->period));
+        $function = 'sub' . ucfirst(str_replace('ly', '', $this->model->settings->period));
 
         $start = $this->getFinancialStart()->copy()->$function();
 
         for ($j = 1; $j <= 12; $j++) {
-            switch ($this->report->period) {
+            switch ($this->model->settings->period) {
                 case 'yearly':
                     $start->addYear();
 
@@ -260,12 +270,14 @@ abstract class Report
 
     public function setFilters()
     {
-        event(new \App\Events\Common\ReportFilterShowing($this));
+        event(new ReportFilterShowing($this));
     }
 
     public function setGroups()
     {
-        event(new \App\Events\Common\ReportGroupShowing($this));
+        $this->groups = [];
+
+        event(new ReportGroupShowing($this));
     }
 
     public function setRows()
@@ -289,7 +301,7 @@ abstract class Report
 
             $date = $this->getFormattedDate(Date::parse($item->$date_field));
 
-            $id_field = $this->report->group . '_id';
+            $id_field = $this->model->settings->group . '_id';
 
             if (!isset($this->rows[$table][$item->$id_field]) ||
                 !isset($this->rows[$table][$item->$id_field][$date]) ||
@@ -322,21 +334,21 @@ abstract class Report
 
     public function applyFilters($model, $args = [])
     {
-        event(new \App\Events\Common\ReportFilterApplying($this, $model, $args));
+        event(new ReportFilterApplying($this, $model, $args));
 
         return $model;
     }
 
     public function applyGroups($model, $args = [])
     {
-        event(new \App\Events\Common\ReportGroupApplying($this, $model, $args));
+        event(new ReportGroupApplying($this, $model, $args));
 
         return $model;
     }
 
     public function getFormattedDate($date)
     {
-        switch ($this->report->period) {
+        switch ($this->model->settings->period) {
             case 'yearly':
                 $i = $date->copy()->format($this->getYearlyDateFormat());
                 break;
@@ -356,7 +368,7 @@ abstract class Report
 
     public function getUrl($action = 'print')
     {
-        $print_url = 'common/reports/' . $this->report->id . '/' . $action . '?year='. $this->year;
+        $print_url = 'common/reports/' . $this->model->id . '/' . $action . '?year='. $this->year;
 
         collect(request('accounts'))->each(function($item) use(&$print_url) {
             $print_url .= '&accounts[]=' . $item;
@@ -371,5 +383,87 @@ abstract class Report
         });
 
         return $print_url;
+    }
+
+    public function getFields()
+    {
+        return [
+            $this->getGroupField(),
+            $this->getPeriodField(),
+            $this->getBasisField(),
+            $this->getChartField(),
+        ];
+    }
+
+    public function getGroupField()
+    {
+        $this->setGroups();
+
+        return [
+            'type' => 'selectGroup',
+            'name' => 'group',
+            'title' => trans('general.group_by'),
+            'icon' => 'folder',
+            'values' => $this->groups,
+            'selected' => 'category',
+            'attributes' => [
+                'required' => 'required',
+            ],
+        ];
+    }
+
+    public function getPeriodField()
+    {
+        return [
+            'type' => 'selectGroup',
+            'name' => 'period',
+            'title' => trans('general.period'),
+            'icon' => 'calendar',
+            'values' => [
+                'monthly' => trans('general.monthly'),
+                'quarterly' => trans('general.quarterly'),
+                'yearly' => trans('general.yearly'),
+            ],
+            'selected' => 'quarterly',
+            'attributes' => [
+                'required' => 'required',
+            ],
+        ];
+    }
+
+    public function getBasisField()
+    {
+        return [
+            'type' => 'selectGroup',
+            'name' => 'basis',
+            'title' => trans('general.basis'),
+            'icon' => 'file',
+            'values' => [
+                'accrual' => trans('general.accrual'),
+                'cash' => trans('general.cash'),
+            ],
+            'selected' => 'accrual',
+            'attributes' => [
+                'required' => 'required',
+            ],
+        ];
+    }
+
+    public function getChartField()
+    {
+        return [
+            'type' => 'selectGroup',
+            'name' => 'chart',
+            'title' => trans_choice('general.charts', 1),
+            'icon' => 'chart-pie',
+            'values' => [
+                '0' => trans('general.disabled'),
+                'line' => trans('reports.charts.line'),
+            ],
+            'selected' => '0',
+            'attributes' => [
+                'required' => 'required',
+            ],
+        ];
     }
 }
