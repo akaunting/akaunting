@@ -91,7 +91,7 @@ th, td {
 
 .pr-2 {
     padding-right: 16px;
-} 
+}
 
 .pl-2 {
     padding-left: 16px;
@@ -134,6 +134,10 @@ th, td {
 .text {
     color: #3c3f72;
     font-size: 16px;
+}
+
+.text-left {
+    text-align: left;
 }
 
 .text-right {
@@ -192,7 +196,7 @@ th, td {
 
 .d-note {
     width: 80%;
-    background-color: #e5e5e5; 
+    background-color: #e5e5e5;
 }
 
 /*!
@@ -285,12 +289,12 @@ th, td {
 */
 
 .m-first-column {
-    padding-top: 35px; 
+    padding-top: 35px;
     padding-bottom:48px;
 }
 
 .m-logo {
-    padding-top: 10px; 
+    padding-top: 10px;
     padding-bottom: -36px;
 }
 
@@ -337,4 +341,37 @@ th, td {
 * Print Template - Modern ------------ Finish
 =========================================================
 
+=========================================================
+* Print Reports  ------------ Start
+=========================================================
+
 */
+
+.rp-border-top-1 {
+    border-top: 1px solid #3c3f72;
+}
+
+.rp-border-bottom-1 {
+    border-bottom: 1px solid #3c3f72;
+}
+
+
+.rp-float-left {
+    float: left;
+}
+
+.rp-float-right {
+    float: right;
+}
+
+/*!
+
+=========================================================
+* Print Reports ------------ Finish
+=========================================================
+
+*/
+
+
+
+
