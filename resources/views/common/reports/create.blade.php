@@ -22,7 +22,9 @@
 
                     {{ Form::textareaGroup('description', trans('general.description'), null, null, ['rows' => '3', 'required' => 'required']) }}
 
-                    <component v-bind:is="report_fields"></component>
+                    {{ Form::hidden('report', 'invalid', ['data-field' => 'settings']) }}
+
+                    <component v-bind:is="report_fields" @change="onChangeReportFields"></component>
                 </div>
             </div>
 

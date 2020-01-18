@@ -42,6 +42,20 @@ export default class Form {
                 continue;
             }
 
+            if (form_element.getAttribute('data-field')) {
+                if (!this[form_element.getAttribute('data-field')]) {
+                    var field = {};
+
+                    this[form_element.getAttribute('data-field')] = field;
+                }
+
+                if (!this[form_element.getAttribute('data-field')][name]) {
+                    this[form_element.getAttribute('data-field')][name] = '';
+                }
+
+                continue;
+            }
+
             if (type == 'radio') {
                 if (!this[name]) {
                     this[name] = (form_element.getAttribute('value') ? 1 : 0) || 0;

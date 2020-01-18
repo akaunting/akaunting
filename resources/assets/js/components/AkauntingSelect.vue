@@ -281,6 +281,10 @@
         </el-select>
 
         <component v-bind:is="add_new_html" @submit="onSubmit"></component>
+
+        <select :name="name" class="d-none" v-model="real_model">
+            <option v-for="(label, value) in selectOptions" :value="value">{{ label }}</option>
+        </select>
     </base-input>
 </template>
 
