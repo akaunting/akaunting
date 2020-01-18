@@ -324,7 +324,7 @@ export default {
             description: "Selectbox input placeholder text"
         },
         formClasses: {
-            type: String,
+            type: Array,
             default: null,
             description: "Selectbox input class name"
         },
@@ -343,11 +343,7 @@ export default {
             default: null,
             description: "Selectbox selected value"
         },
-        options: {
-            type: Array,
-            default: [],
-            description: "Selectbox options"
-        },
+        options: null,
 
         model: null,
 
