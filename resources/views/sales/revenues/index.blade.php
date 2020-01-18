@@ -47,7 +47,6 @@
 
                     <tbody>
                         @foreach($revenues as $item)
-                            @php $is_transfer = ($item->category && ($item->category->id == $transfer_cat_id)); @endphp
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->contact->name) }}</td>
                                 @if ($item->reconciled)
@@ -60,35 +59,27 @@
                                 <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->category->name }}</td>
                                 <td class="col-lg-2 col-xl-1 d-none d-lg-block text-left">{{ $item->account->name }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
-                                    @if (!$is_transfer)
-                                        <div class="dropdown">
-                                            <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-ellipsis-h text-muted"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                @if (!$item->reconciled)
-                                                    <a class="dropdown-item" href="{{ route('revenues.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                                    <div class="dropdown-divider"></div>
-                                                @endif
-                                                @permission('create-sales-revenues')
-                                                    <a class="dropdown-item" href="{{ route('revenues.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                                @endpermission
+                                    <div class="dropdown">
+                                        <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h text-muted"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            @if (!$item->reconciled)
+                                                <a class="dropdown-item" href="{{ route('revenues.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                                <div class="dropdown-divider"></div>
+                                            @endif
+                                            @permission('create-sales-revenues')
+                                                <a class="dropdown-item" href="{{ route('revenues.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
+                                            @endpermission
 
-                                                @permission('delete-sales-revenues')
-                                                    @if (!$item->reconciled)
-                                                        <div class="dropdown-divider"></div>
-                                                        {!! Form::deleteLink($item, 'sales/revenues') !!}
-                                                    @endif
-                                                @endpermission
-                                            </div>
+                                            @permission('delete-sales-revenues')
+                                                @if (!$item->reconciled)
+                                                    <div class="dropdown-divider"></div>
+                                                    {!! Form::deleteLink($item, 'sales/revenues') !!}
+                                                @endif
+                                            @endpermission
                                         </div>
-                                    @else
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="tooltip" aria-haspopup="true" aria-expanded="false" title="This Transfer, If you want to action redirect">
-                                                <i class="fa fa-exchange-alt text-muted"></i>
-                                            </button>
-                                        </div>
-                                    @endif
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
