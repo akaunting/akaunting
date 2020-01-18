@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\Purchase\BillCreated;
+use App\Jobs\Banking\CreateDocumentTransaction;
 use App\Jobs\Purchase\CreateBillHistory;
 use App\Jobs\Purchase\UpdateBill;
 use App\Models\Auth\User;
@@ -28,7 +29,7 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
         $contact = factory(Contact::class)->states('vendor')->create();
     }
 
-    $statuses = ['draft', 'received'];
+    $statuses = ['draft', 'received', 'paid'];
 
     return [
         'company_id' => $company->id,
@@ -53,6 +54,8 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
 $factory->state(Bill::class, 'draft', ['status' => 'draft']);
 
 $factory->state(Bill::class, 'received', ['status' => 'received']);
+
+$factory->state(Bill::class, 'paid', ['status' => 'paid']);
 
 $factory->state(Bill::class, 'recurring', function (Faker $faker) {
     $frequencies = ['monthly', 'weekly'];
@@ -91,7 +94,12 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
     session(['company_id' => $company->id]);
     setting()->setExtraColumns(['company_id' => $company->id]);
 
+    $status = $bill->status;
+    $bill->status = 'draft';
+
     event(new BillCreated($bill));
+
+    $bill->status = $status;
 
     if ($bill->status == 'received') {
         $bill->status = 'received';
@@ -118,4 +126,8 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
     ];
 
     $updated_bill = dispatch_now(new UpdateBill($bill, $request));
+
+    if ($bill->status == 'paid') {
+        $transaction = dispatch_now(new CreateDocumentTransaction($updated_bill, []));
+    }
 });
