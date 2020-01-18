@@ -58,24 +58,20 @@ class CreateDocumentTransaction extends Job
 
     protected function prepareRequest()
     {
-        if ($this->request->missing('currency_code')) {
-            $this->request['currency_code'] = $this->model->currency_code;
-        }
+        $this->request['company_id'] = session('company_id');
+        $this->request['currency_code'] = isset($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
 
         $this->currency = Currency::where('code', $this->request['currency_code'])->first();
 
         $this->request['type'] = ($this->model instanceof Invoice) ? 'income' : 'expense';
-        $this->request['currency_rate'] = $this->currency->rate;
-
-        $this->request['amount'] = isset($this->request['amount']) ? $this->request['amount'] : ($this->model->amount - $this->getPaidAmount());
         $this->request['paid_at'] = isset($this->request['paid_at']) ? $this->request['paid_at'] : Date::now()->format('Y-m-d');
-        $this->request['company_id'] = isset($this->request['company_id']) ? $this->request['company_id'] : session('company_id');
+        $this->request['amount'] = isset($this->request['amount']) ? $this->request['amount'] : ($this->model->amount - $this->getPaidAmount());
+        $this->request['currency_rate'] = $this->currency->rate;
         $this->request['account_id'] = isset($this->request['account_id']) ? $this->request['account_id'] : setting('default.account');
-        $this->request['payment_method'] = isset($this->request['payment_method']) ? $this->request['payment_method'] : setting('default.payment_method');
-        $this->request['currency_code'] = isset($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
         $this->request['document_id'] = isset($this->request['document_id']) ? $this->request['document_id'] : $this->model->id;
         $this->request['contact_id'] = isset($this->request['contact_id']) ? $this->request['contact_id'] : $this->model->contact_id;
         $this->request['category_id'] = isset($this->request['category_id']) ? $this->request['category_id'] : $this->model->category_id;
+        $this->request['payment_method'] = isset($this->request['payment_method']) ? $this->request['payment_method'] : setting('default.payment_method');
         $this->request['notify'] = isset($this->request['notify']) ? $this->request['notify'] : 0;
     }
 
