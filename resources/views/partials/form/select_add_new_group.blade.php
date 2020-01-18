@@ -32,7 +32,7 @@
         @change="{{ $attributes['change'] }}($event)"
         @endif
         :form-error="{{ isset($attributes['v-error-message']) ? $attributes['v-error-message'] : 'form.errors.get("' . $name . '")' }}"
-        :no-data="'{{ trans('general.no_data') }}'"
-        :no-matching-data="'{{ trans('general.no_matching_data') }}'"
+        :no-data-text="'{{ trans('general.no_data') }}'"
+        :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
     ></akaunting-select>
 @stack($name . '_input_end')

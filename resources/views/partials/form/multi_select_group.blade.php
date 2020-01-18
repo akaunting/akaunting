@@ -21,8 +21,8 @@
     :form-error="{{ $attributes['v-error-message'] }}"
     @else
     :form-error="form.errors.get('{{ $name }}')"
-    :no-data="'{{ trans('general.no_data') }}'"
-    :no-matching-data="'{{ trans('general.no_matching_data') }}'"
+    :no-data-text="'{{ trans('general.no_data') }}'"
+    :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
     @endif
 ></akaunting-select>
 

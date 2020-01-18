@@ -8,7 +8,7 @@
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
-                    {{ noMatchingData }}
+                    {{ noMatchingDataText }}
                 </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
@@ -24,7 +24,7 @@
 
             <div v-else-if="addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
-                    {{ noData }}
+                    {{ noDataText }}
                 </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
@@ -77,7 +77,7 @@
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
-                    {{ noMatchingData }}
+                    {{ noMatchingDataText }}
                 </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
@@ -93,7 +93,7 @@
 
             <div v-else-if="addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
-                    {{ noData }}
+                    {{ noDataText }}
                 </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
@@ -146,7 +146,7 @@
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
-                    {{ noMatchingData }}
+                    {{ noMatchingDataText }}
                 </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
@@ -162,7 +162,7 @@
 
             <div v-else-if="addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
-                    {{ noData }}
+                    {{ noDataText }}
                 </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
@@ -215,7 +215,7 @@
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
-                    {{ noMatchingData }}
+                    {{ noMatchingDataText }}
                 </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
@@ -231,7 +231,7 @@
 
             <div v-else-if="addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
-                    {{ noData }}
+                    {{ noDataText }}
                 </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
                     <li class="el-select-dropdown__item el-select__footer">
@@ -316,19 +316,41 @@ export default {
         title: {
             type: String,
             default: '',
-            description: "Selectbox label"
+            description: "Selectbox label text"
         },
         placeholder: {
             type: String,
             default: '',
-            description: "Selectbox input placeholder"
+            description: "Selectbox input placeholder text"
         },
-        formClasses: null,
-        formError: null,
-        name: null,
-        value: null,
-        options: null,
+        formClasses: {
+            type: String,
+            default: null,
+            description: "Selectbox input class name"
+        },
+        formError: {
+            type: String,
+            default: null,
+            description: "Selectbox input error message"
+        },
+        name: {
+            type: String,
+            default: null,
+            description: "Selectbox attribute name"
+        },
+        value: {
+            type: String,
+            default: null,
+            description: "Selectbox selected value"
+        },
+        options: {
+            type: Array,
+            default: [],
+            description: "Selectbox options"
+        },
+
         model: null,
+
         icon: {
             type: String,
             description: "Prepend icon (left)"
@@ -349,13 +371,37 @@ export default {
             description: "Selectbox Add New Item Feature"
         },
 
-        group: false,
-        multiple:false,
-        disabled:false,
-        collapse: false,
+        group:  {
+            type: Boolean,
+            default: false,
+            description: "Selectbox option group status"
+        },
+        multiple: {
+            type: Boolean,
+            default: false,
+            description: "Multible feature status"
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+            description: "Selectbox disabled status"
+        },
+        collapse:  {
+            type: Boolean,
+            default: false,
+            description: "Selectbox collapse status"
+        },
 
-        noData: '',
-        noMatchingData: ''
+        noDataText: {
+            type: String,
+            default: 'No Data',
+            description: "Selectbox empty options message"
+        },
+        noMatchingDataText: {
+            type: String,
+            default: 'No Matchign Data',
+            description: "Selectbox search option not found item message"
+        }
     },
 
     data() {
