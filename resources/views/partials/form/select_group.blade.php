@@ -20,5 +20,7 @@
         @else
         :form-error="form.errors.get('{{ $name }}')"
         @endif
+        :no-data="'{{ trans('general.no_data') }}'"
+        :no-matching-data="'{{ trans('general.no_matching_data') }}'"
     ></akaunting-select>
 @stack($name . '_input_end')

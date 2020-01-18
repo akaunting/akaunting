@@ -7,13 +7,33 @@
         <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled"
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <span></span>
+                <p class="el-select-dropdown__empty">
+                    {{ noMatchingData }}
+                </p>
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <p class="el-select-dropdown__empty">
+                    {{ noData }}
+                </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item hover" @click="onAddItem">
-                        <span>{{ add_new_text }}</span>
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -43,21 +63,46 @@
                 </el-option>
             </el-option-group>
 
-            <li v-if="addNew.status" class="el-select-dropdown__item hover" @click="onAddItem">
-                <span>{{ add_new_text }}</span>
-            </li>
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+                <div @click="onAddItem">
+                    <i class="fas fa-plus"></i>
+                    <span>
+                        {{ add_new_text }}
+                    </span>
+                </div>
+            </el-option>
         </el-select>
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && !multiple"
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <span></span>
+                <p class="el-select-dropdown__empty">
+                    {{ noMatchingData }}
+                </p>
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <p class="el-select-dropdown__empty">
+                    {{ noData }}
+                </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item hover" @click="onAddItem">
-                        <span>{{ add_new_text }}</span>
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -87,21 +132,46 @@
                 </el-option>
             </el-option-group>
 
-            <li v-if="addNew.status" class="el-select-dropdown__item hover" @click="onAddItem">
-                <span>{{ add_new_text }}</span>
-            </li>
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+                <div @click="onAddItem">
+                    <i class="fas fa-plus"></i>
+                    <span>
+                        {{ add_new_text }}
+                    </span>
+                </div>
+            </el-option>
         </el-select>
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <span></span>
+                <p class="el-select-dropdown__empty">
+                    {{ noMatchingData }}
+                </p>
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <p class="el-select-dropdown__empty">
+                    {{ noData }}
+                </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item hover" @click="onAddItem">
-                        <span>{{ add_new_text }}</span>
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -131,21 +201,46 @@
                 </el-option>
             </el-option-group>
 
-            <li v-if="addNew.status" class="el-select-dropdown__item hover" @click="onAddItem">
-                <span>{{ add_new_text }}</span>
-            </li>
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+                <div @click="onAddItem">
+                    <i class="fas fa-plus"></i>
+                    <span>
+                        {{ add_new_text }}
+                    </span>
+                </div>
+            </el-option>
         </el-select>
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && collapse" multiple collapse-tags
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <span></span>
+                <p class="el-select-dropdown__empty">
+                    {{ noMatchingData }}
+                </p>
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <p class="el-select-dropdown__empty">
+                    {{ noData }}
+                </p>
                 <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item hover" @click="onAddItem">
-                        <span>{{ add_new_text }}</span>
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -175,9 +270,14 @@
                 </el-option>
             </el-option-group>
 
-            <li v-if="addNew.status" class="el-select-dropdown__item hover" @click="onAddItem">
-                <span>{{ add_new_text }}</span>
-            </li>
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+                <div @click="onAddItem">
+                    <i class="fas fa-plus"></i>
+                    <span>
+                        {{ add_new_text }}
+                    </span>
+                </div>
+            </el-option>
         </el-select>
 
         <component v-bind:is="add_new_html" @submit="onSubmit"></component>
@@ -216,12 +316,12 @@ export default {
         title: {
             type: String,
             default: '',
-            description: "Modal header title"
+            description: "Selectbox label"
         },
         placeholder: {
             type: String,
             default: '',
-            description: "Modal header title"
+            description: "Selectbox input placeholder"
         },
         formClasses: null,
         formError: null,
@@ -252,7 +352,10 @@ export default {
         group: false,
         multiple:false,
         disabled:false,
-        collapse: false
+        collapse: false,
+
+        noData: '',
+        noMatchingData: ''
     },
 
     data() {
@@ -381,5 +484,38 @@ export default {
 <style scoped>
     .form-group .modal {
         z-index: 3050;
+    }
+
+    .el-select-dropdown__empty {
+        padding: 10px 0 0 !important;
+    }
+
+    .el-select__footer {
+        text-align: center;
+        border-top: 1px solid #dee2e6;
+        padding: 0px;
+        cursor: pointer;
+        color: #3c3f72;
+        font-weight: bold;
+        height: 38px;
+        line-height: 38px;
+        margin-top: 5px;
+        margin-bottom: -6px;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .el-select__footer.el-select-dropdown__item.hover {
+        background-color: inherit !important;
+    }
+
+    .el-select__footer.el-select-dropdown__item:hover, .el-select__footer.el-select-dropdown__item:focus {
+        background-color: #3c3f72 !important;
+        color: white !important;
+        border-top-color: #3c3f72;
+    }
+
+    .el-select__footer div span {
+        margin-left: 5px;
     }
 </style>

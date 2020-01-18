@@ -147,6 +147,9 @@ return [
     'month'                => 'Month',
     'year'                => 'Year',
 
+    'no_data'           => 'No data',
+    'no_matching_data'  => 'No matching data',
+
     'card' => [
         'name'                  => 'Name on Card',
         'number'                => 'Card Number',

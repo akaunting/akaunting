@@ -4,12 +4,12 @@
     <div class="mr-6">
         <span class="text-white d-none d-sm-block">
             <b v-text="bulk_action.count"></b>
-                <span v-if="bulk_action.count === 1">
-                    {{ strtolower(trans_choice($text, 1)) }}
-                </span>
-                <span  v-else-if="bulk_action.count > 1">
-                    {{ strtolower(trans_choice($text, 2)) }}
-                </span>
+            <span v-if="bulk_action.count === 1">
+                {{ strtolower(trans_choice($text, 1)) }}
+            </span>
+            <span v-else-if="bulk_action.count > 1">
+                {{ strtolower(trans_choice($text, 2)) }}
+            </span>
              {{ trans('bulk_actions.selected') }}
         </span>
     </div>
@@ -17,7 +17,7 @@
     <div class="w-25 mr-4" v-if="bulk_action.count">
         <div class="form-group mb-0">
             <select class="form-control form-control-sm" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'bulk_action.value' }}" @change="onChange">
-                <option value="*">{{ trans_choice('bulk_actions.bulk_actions',2) }}</option>
+                <option value="*">{{ trans_choice('bulk_actions.bulk_actions', 2) }}</option>
                 @foreach($actions as $key => $action)
                     <option
                         value="{{ $key }}"
