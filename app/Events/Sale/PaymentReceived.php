@@ -17,7 +17,7 @@ class PaymentReceived
      *
      * @param $invoice
      */
-    public function __construct($invoice, $request)
+    public function __construct($invoice, $request = [])
     {
         $this->invoice = $invoice;
         $this->request = $request;

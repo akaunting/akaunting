@@ -3,6 +3,7 @@
 namespace Modules\PaypalStandard\Http\Controllers;
 
 use App\Abstracts\Http\PaymentController;
+use App\Events\Sale\PaymentReceived;
 use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
 use App\Models\Sale\Invoice;
 use GuzzleHttp\Client;
@@ -117,7 +118,7 @@ class Payment extends PaymentController
                 $total_paid_match = ((double) $request['mc_gross'] == $invoice->amount);
 
                 if ($receiver_match && $total_paid_match) {
-                    event(new \App\Events\Sale\PaymentReceived($invoice, $request));
+                    event(new PaymentReceived($invoice, $request));
                 }
 
                 if (!$receiver_match) {

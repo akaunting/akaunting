@@ -41,7 +41,7 @@ class Invoices extends BulkAction
         $invoices = $this->getSelectedRecords($request);
 
         foreach ($invoices as $invoice) {
-            event(new PaymentReceived($invoice, []));
+            event(new PaymentReceived($invoice));
         }
     }
 

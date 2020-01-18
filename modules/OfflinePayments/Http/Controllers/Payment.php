@@ -3,6 +3,7 @@
 namespace Modules\OfflinePayments\Http\Controllers;
 
 use App\Abstracts\Http\PaymentController;
+use \App\Events\Sale\PaymentReceived;
 use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
 use App\Models\Sale\Invoice;
 use Illuminate\Http\Request;
@@ -69,7 +70,7 @@ class Payment extends PaymentController
     public function confirm(Invoice $invoice, Request $request)
     {
         try {
-            event(new \App\Events\Sale\PaymentReceived($invoice, $request));
+            event(new PaymentReceived($invoice, $request));
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 

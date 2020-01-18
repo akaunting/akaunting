@@ -379,7 +379,7 @@ class Invoices extends Controller
     public function markPaid(Invoice $invoice)
     {
         try {
-            event(new \App\Events\Sale\PaymentReceived($invoice, []));
+            event(new \App\Events\Sale\PaymentReceived($invoice));
 
             $message = trans('invoices.messages.marked_paid');
 
