@@ -5,12 +5,13 @@ namespace App\Abstracts;
 use App\Scopes\Company;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Kyslik\ColumnSortable\Sortable;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 abstract class Model extends Eloquent
 {
-    use SearchString, SoftDeletes, Sortable;
+    use Cachable, SearchString, SoftDeletes, Sortable;
 
     protected $dates = ['deleted_at'];
 

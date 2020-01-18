@@ -28,6 +28,7 @@
         "dingo/api": "2.4.*",
         "doctrine/dbal": "2.9.*",
         "fideloper/proxy": "4.2.*",
+        "genealabs/laravel-model-caching": "0.7.*",
         "guzzlehttp/guzzle": "6.5.*",
         "intervention/image": "2.5.*",
         "jenssegers/date": "3.5.*",
