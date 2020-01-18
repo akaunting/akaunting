@@ -7,7 +7,9 @@ use App\Events\Common\ReportFilterApplying;
 use App\Events\Common\ReportGroupApplying;
 use App\Events\Common\ReportGroupShowing;
 use App\Exports\Common\Reports as Export;
+use App\Models\Banking\Transaction;
 use App\Models\Common\Report as Model;
+use App\Models\Sale\Invoice;
 use App\Traits\Charts;
 use App\Traits\DateTime;
 use App\Utilities\Chartjs;
@@ -317,7 +319,7 @@ abstract class Report
 
                 $this->totals[$table][$date] += $amount;
             } else {
-                $type = (($item->getTable() == 'invoices') || (($item->getTable() == 'transactions') && ($item->type == 'income'))) ? 'income' : 'expense';
+                $type = (($item instanceof Invoice) || (($item instanceof Transaction) && ($item->type == 'income'))) ? 'income' : 'expense';
 
                 if ($type == 'income') {
                     $this->rows[$table][$item->$id_field][$date] += $amount;

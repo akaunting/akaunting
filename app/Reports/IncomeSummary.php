@@ -41,11 +41,11 @@ class IncomeSummary extends Report
             default:
                 // Invoices
                 $invoices = $this->applyFilters(Invoice::accrued(), ['date_field' => 'invoiced_at'])->get();
-                Recurring::reflect($invoices, 'invoice', 'invoiced_at');
+                Recurring::reflect($invoices, 'invoiced_at');
                 $this->setTotals($invoices, 'invoiced_at');
 
                 // Transactions
-                Recurring::reflect($transactions, 'transaction', 'paid_at');
+                Recurring::reflect($transactions, 'paid_at');
                 $this->setTotals($transactions, 'paid_at');
 
                 break;

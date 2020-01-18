@@ -41,11 +41,11 @@ class ExpenseSummary extends Report
             default:
                 // Bills
                 $bills = $this->applyFilters(Bill::accrued(), ['date_field' => 'billed_at'])->get();
-                Recurring::reflect($bills, 'bill', 'billed_at');
+                Recurring::reflect($bills, 'billed_at');
                 $this->setTotals($bills, 'billed_at');
 
                 // Payments
-                Recurring::reflect($payments, 'payment', 'paid_at');
+                Recurring::reflect($payments, 'paid_at');
                 $this->setTotals($payments, 'paid_at');
 
                 break;
