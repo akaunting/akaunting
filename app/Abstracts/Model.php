@@ -3,9 +3,9 @@
 namespace App\Abstracts;
 
 use App\Scopes\Company;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Kyslik\ColumnSortable\Sortable;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
