@@ -94,7 +94,12 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
     session(['company_id' => $company->id]);
     setting()->setExtraColumns(['company_id' => $company->id]);
 
+    $status = $invoice->status;
+    $invoice->status = 'draft';
+
     event(new InvoiceCreated($invoice));
+
+    $invoice->status = $status;
 
     if ($invoice->status == 'sent') {
         event(new InvoiceSent($invoice));
@@ -120,6 +125,6 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
     $updated_invoice = dispatch_now(new UpdateInvoice($invoice, $request));
 
     if ($invoice->status == 'paid') {
-        event(new PaymentReceived($updated_invoice, []));
+        event(new PaymentReceived($updated_invoice));
     }
 });
