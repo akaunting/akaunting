@@ -2,12 +2,13 @@
 
 namespace App\Utilities;
 
+use App\Models\Purchase\Bill;
+use App\Models\Sale\Invoice;
 use Date;
 
 class Recurring
 {
-
-    public static function reflect(&$items, $type, $issued_date_field)
+    public static function reflect(&$items, $issued_date_field)
     {
         foreach ($items as $key => $item) {
             if (!$item->recurring || !empty($item->parent_id)) {
@@ -30,7 +31,7 @@ class Recurring
 
                 $start_date = Date::parse($start->format('Y-m-d'));
 
-                if (($type == 'invoice') || ($type == 'bill')) {
+                if (($item instanceof Invoice) || ($item instanceof Bill)) {
                     // Days between invoiced/billed and due date
                     $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
 

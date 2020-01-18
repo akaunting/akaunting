@@ -19,7 +19,7 @@ class Reports extends Controller
      */
     public function index()
     {
-        $classes = $categories = [];
+        $totals = $icons = $categories = [];
 
         $reports = Report::all();
 
@@ -30,12 +30,12 @@ class Reports extends Controller
 
             $class = Utility::getClassInstance($report);
 
-            $classes[$report->id] = $class;
-
+            $totals[$report->id] = $class->getTotal();
+            $icons[$report->id] = $class->getIcon();
             $categories[$class->getCategory()][] = $report;
         }
 
-        return view('common.reports.index', compact('categories', 'classes'));
+        return view('common.reports.index', compact('categories', 'totals', 'icons'));
     }
 
     /**

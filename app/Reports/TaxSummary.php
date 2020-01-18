@@ -62,12 +62,12 @@ class TaxSummary extends Report
             default:
                 // Invoices
                 $invoices = $this->applyFilters(Invoice::accrued(), ['date_field' => 'invoiced_at'])->get();
-                Recurring::reflect($invoices, 'invoice', 'invoiced_at');
+                Recurring::reflect($invoices, 'invoiced_at');
                 $this->setTotals($invoices, 'invoiced_at');
 
                 // Bills
                 $bills = $this->applyFilters(Bill::accrued(), ['date_field' => 'billed_at'])->get();
-                Recurring::reflect($bills, 'bill', 'billed_at');
+                Recurring::reflect($bills, 'billed_at');
                 $this->setTotals($bills, 'billed_at');
 
                 break;
@@ -80,7 +80,7 @@ class TaxSummary extends Report
             // Make groups extensible
             $item = $this->applyGroups($item);
 
-            $db_table = $item->getTable();
+            $type = (($item instanceof Invoice) || (($item instanceof Transaction) && ($item->type == 'income'))) ? 'income' : 'expense';
 
             $date = $this->getFormattedDate(Date::parse($item->$date_field));
 
@@ -96,8 +96,6 @@ class TaxSummary extends Report
                 if ($item_total->code != 'tax') {
                     continue;
                 }
-
-                $type = (($db_table == 'invoices') || (($db_table == 'transactions') && ($item->type == 'income'))) ? 'income' : 'expense';
 
                 if (!isset($this->rows[$item_total->name][$type][$date]) ||
                     !isset($this->totals[$item_total->name][$date]))

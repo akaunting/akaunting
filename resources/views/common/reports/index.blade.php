@@ -42,13 +42,13 @@
                                 <div class="col">
                                     <a href="{{ route('reports.show', $report->id) }}">
                                         <h5 class="card-title text-uppercase text-muted mb-0">{{ $report->name }}</h5>
-                                        <span class="h2 font-weight-bold mb-0">{{ $classes[$report->id]->getTotal() }}</span>
+                                        <span class="h2 font-weight-bold mb-0">{{ $totals[$report->id] }}</span>
                                     </a>
                                 </div>
                                 <div class="col-auto">
                                     <a href="{{ route('reports.show', $report->id) }}">
                                         <div class="icon icon-shape bg-orange text-white rounded-circle shadow">
-                                            <i class="{{ $classes[$report->id]->getIcon() }}"></i>
+                                            <i class="{{ $icons[$report->id] }}"></i>
                                         </div>
                                     </a>
                                 </div>
