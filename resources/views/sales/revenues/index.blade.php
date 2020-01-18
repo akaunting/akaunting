@@ -56,9 +56,9 @@
                                     <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2"><a class="text-success col-aka" href="{{ route('revenues.edit', $item->id) }}">@date($item->paid_at)</a></td>
                                 @endif
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                <td class="col-md-2 col-lg-2 col-xl-3 d-none d-md-block text-left">{{ !empty($item->contact->name) ? $item->contact->name : trans('general.na') }}</td>
-                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
-                                <td class="col-lg-2 col-xl-1 d-none d-lg-block text-left">{{ $item->account ? $item->account->name : trans('general.na') }}</td>
+                                <td class="col-md-2 col-lg-2 col-xl-3 d-none d-md-block text-left">{{ $item->contact->name }}</td>
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->category->name }}</td>
+                                <td class="col-lg-2 col-xl-1 d-none d-lg-block text-left">{{ $item->account->name }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
                                     @if (!$is_transfer)
                                         <div class="dropdown">
