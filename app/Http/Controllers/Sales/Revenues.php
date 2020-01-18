@@ -39,9 +39,7 @@ class Revenues extends Controller
 
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $transfer_cat_id = Category::transfer();
-
-        return view('sales.revenues.index', compact('revenues', 'customers', 'categories', 'accounts', 'transfer_cat_id'));
+        return view('sales.revenues.index', compact('revenues', 'customers', 'categories', 'accounts'));
     }
 
     /**

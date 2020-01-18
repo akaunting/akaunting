@@ -39,9 +39,7 @@ class Payments extends Controller
 
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $transfer_cat_id = Category::transfer();
-
-        return view('purchases.payments.index', compact('payments', 'vendors', 'categories', 'accounts', 'transfer_cat_id'));
+        return view('purchases.payments.index', compact('payments', 'vendors', 'categories', 'accounts'));
     }
 
     /**

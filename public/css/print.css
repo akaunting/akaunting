@@ -348,13 +348,25 @@ th, td {
 */
 
 .rp-border-top-1 {
-    border-top: 1px solid #3c3f72;
+    border-top: 1px solid #e5e5e5;
 }
 
 .rp-border-bottom-1 {
-    border-bottom: 1px solid #3c3f72;
+    border-bottom: 1px solid #e5e5e5;
 }
 
+.rp-border-top-1 {
+    border-top: 1px solid #e5e5e5;
+}
+
+.rp-border-0 {
+    border: 0 !important;
+}
+
+.rp-border-collapse
+{
+    border-collapse: collapse;
+}
 
 .rp-float-left {
     float: left;
@@ -371,7 +383,3 @@ th, td {
 =========================================================
 
 */
-
-
-
-

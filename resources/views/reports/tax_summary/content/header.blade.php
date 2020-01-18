@@ -1,5 +1,5 @@
 <div class="table-responsive overflow-auto">
-    <table class="table align-items-center">
+    <table class="table align-items-center rp-border-collapse">
         <thead class="border-top-style">
             <tr>
                 <th class="report-column text-right rp-border-bottom-1"></th>
