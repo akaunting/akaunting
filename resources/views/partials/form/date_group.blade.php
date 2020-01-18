@@ -18,7 +18,7 @@
         @endif
      }"
     :icon="'fa fa-{{ $icon }}'"
-    @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' :  !empty($attributes['data-field'])  ? 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' : 'form.' . $name . ' = $event' }}"
+    @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' :  (!empty($attributes['data-field'])  ? 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' : 'form.' . $name . ' = $event') }}"
     :form-error="{{ isset($attributes['v-error-message']) ? $attributes['v-error-message'] : 'form.errors.get("' . $name . '")' }}"
 ></akaunting-date>
 

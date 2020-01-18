@@ -12,7 +12,7 @@
                     {{ Form::checkbox($name, $item->$id, null, [
                         'id' => 'checkbox-' . $name . '-' . $item->$id,
                         'class' => 'custom-control-input',
-                        'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : !empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name
+                        'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name),
                     ]) }}
 
                     <label class="custom-control-label" for="checkbox-{{ $name . '-' . $item->$id}}">

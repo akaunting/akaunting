@@ -8,12 +8,12 @@
         <div class="btn-group btn-group-toggle radio-yes-no" data-toggle="buttons">
             <label class="btn btn-success" @click="form.{{ $name }}=1" v-bind:class="{ active: form.{{ $name }} == 1 }">
                 {{ trans('general.yes') }}
-            <input type="radio" name="{{ $name }}" id="{{ $name }}-1" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : !empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name }}">
+            <input type="radio" name="{{ $name }}" id="{{ $name }}-1" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}">
             </label>
 
             <label class="btn btn-danger" @click="form.{{ $name }}=0" v-bind:class="{ active: form.{{ $name }} == 0 }">
                 {{ trans('general.no') }}
-                <input type="radio" name="{{ $name }}" id="{{ $name }}-0" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : !empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name }}">
+                <input type="radio" name="{{ $name }}" id="{{ $name }}-0" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}">
             </label>
         </div>
         <input type="hidden" name="{{ $name }}" value="{{ ($value) ? true : false }}" />
