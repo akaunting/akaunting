@@ -1,7 +1,7 @@
 <thead class="border-top-style">
     <tr>
-        <th colspan="{{ count($class->dates) + 2 }}">
-            <h5>{{ $table }}</h5>
+        <th class="rp-float-left" colspan="{{ count($class->dates) + 2 }}">
+            <h4>{{ $table }}</h4>
         </th>
     </tr>
 </thead>
