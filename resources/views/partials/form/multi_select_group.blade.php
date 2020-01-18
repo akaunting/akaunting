@@ -13,7 +13,7 @@
     @if (!empty($attributes['collapse']))
     :collapse="true"
     @endif
-    @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' : 'form.' . $name . ' = $event' }}"
+    @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' :  !empty($attributes['data-field'])  ? 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' : 'form.' . $name . ' = $event' }}"
     @if (!empty($attributes['change']))
     @change="{{ $attributes['change'] }}($event)"
     @endif

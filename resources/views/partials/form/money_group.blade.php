@@ -22,7 +22,7 @@
             'class' => 'form-control',
             'data-name' => $name,
             'data-value' => $value,
-            'v-model.lazy' => !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $name,
+            'v-model.lazy' => !empty($attributes['v-model']) ? $attributes['v-model'] : !empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name,
             'v-money' => 'money'
         ], $attributes)) !!}
     </div>

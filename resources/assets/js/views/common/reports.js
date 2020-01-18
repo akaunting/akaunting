@@ -28,28 +28,54 @@ const app = new Vue({
     data: function () {
         return {
             form: new Form('report'),
-            bulk_action: new BulkAction('reports')
+            bulk_action: new BulkAction('reports'),
+            report_fields: '',
         }
     },
 
     methods: {
         onChangeClass(class_name) {
-            axios.get(url + '/common/reports/groups', {
+            axios.get(url + '/common/reports/fields', {
                 params: {
                     class: class_name
                 }
               })
             .then(response => {
-                let options = response.data.data;
+                let form = this.form;
+                let html = response.data.html;
 
-                this.$children.forEach(select => {
-                    if (select.name == 'group') {
-                        select.selectOptions = options;
-                    }
+                this.report_fields = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template : '<div id="report-fields" class="row col-md-12">' + html + '</div>',
+
+                        mixins: [
+                            Global
+                        ],
+
+                        created: function() {
+                            this.form = form;
+                        },
+
+                        data: function () {
+                            return {
+                                form: {},
+                            }
+                        },
+
+                        watch: {
+                            form: function (form) {
+                                this.$emit("change", form);
+                            }
+                        },
+                    })
                 });
             })
             .catch(error => {
             });
+        },
+
+        onChangeReportFields(event) {
+            this.form = event;
         }
     }
 });

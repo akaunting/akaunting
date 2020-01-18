@@ -17,7 +17,7 @@
             'data-name' => $input_name,
             'data-value' => $input_value,
             'placeholder' => trans('general.form.enter', ['field' => $text]),
-            'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : 'form.' . $input_name
+            'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : !empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name
         ]) !!}
     </div>
 

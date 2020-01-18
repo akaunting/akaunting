@@ -18,10 +18,6 @@ class Report extends FormRequest
             'name' => 'required|string',
             'description' => 'required|string',
             'class' => 'required|string',
-            'group' => 'required|string',
-            'period' => 'required|string',
-            'basis' => 'required|string',
-            'chart' => 'required|string',
         ];
     }
 }

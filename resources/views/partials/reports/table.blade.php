@@ -1,5 +1,5 @@
 <div class="table-responsive overflow-auto mt-4">
-    <table class="table align-items-center">
+    <table class="table align-items-center rp-border-collapse">
         @include($class->views['table.header'])
             <tbody>
                 @if (!empty($class->rows[$table]))
