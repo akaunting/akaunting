@@ -2,22 +2,11 @@
 
 namespace App\Exports\Purchases;
 
+use App\Abstracts\Export;
 use App\Models\Common\Contact as Model;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithTitle;
 
-class Vendors implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping, WithTitle
+class Vendors extends Export
 {
-    public $ids;
-
-    public function __construct($ids = null)
-    {
-        $this->ids = $ids;
-    }
-
     public function collection()
     {
         $model = Model::type('vendor')->usingSearchString(request('search'));
@@ -29,23 +18,7 @@ class Vendors implements FromCollection, ShouldAutoSize, WithHeadings, WithMappi
         return $model->get();
     }
 
-    public function map($model): array
-    {
-        return [
-            $model->name,
-            $model->email,
-            $model->tax_number,
-            $model->phone,
-            $model->address,
-            $model->website,
-            $model->currency_code,
-            $model->reference,
-            $model->enabled,
-            $model->user_id,
-        ];
-    }
-
-    public function headings(): array
+    public function fields(): array
     {
         return [
             'name',
@@ -59,10 +32,5 @@ class Vendors implements FromCollection, ShouldAutoSize, WithHeadings, WithMappi
             'enabled',
             'user_id',
         ];
-    }
-
-    public function title(): string
-    {
-        return 'vendors';
     }
 }

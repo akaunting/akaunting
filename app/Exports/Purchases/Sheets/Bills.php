@@ -2,23 +2,11 @@
 
 namespace App\Exports\Purchases\Sheets;
 
+use App\Abstracts\Export;
 use App\Models\Purchase\Bill as Model;
-use Jenssegers\Date\Date;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithTitle;
 
-class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping, WithTitle
+class Bills extends Export
 {
-    public $ids;
-
-    public function __construct($ids = null)
-    {
-        $this->ids = $ids;
-    }
-
     public function collection()
     {
         $model = Model::usingSearchString(request('search'));
@@ -30,30 +18,7 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
         return $model->get();
     }
 
-    public function map($model): array
-    {
-        return [
-            $model->bill_number,
-            $model->order_number,
-            $model->status,
-            Date::parse($model->billed_at)->format('Y-m-d'),
-            Date::parse($model->due_at)->format('Y-m-d'),
-            $model->amount,
-            $model->currency_code,
-            $model->currency_rate,
-            $model->category_id,
-            $model->contact_id,
-            $model->contact_name,
-            $model->contact_email,
-            $model->contact_tax_number,
-            $model->contact_phone,
-            $model->contact_address,
-            $model->notes,
-            $model->footer,
-        ];
-    }
-
-    public function headings(): array
+    public function fields(): array
     {
         return [
             'bill_number',
@@ -74,10 +39,5 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
             'notes',
             'footer',
         ];
-    }
-
-    public function title(): string
-    {
-        return 'bills';
     }
 }
