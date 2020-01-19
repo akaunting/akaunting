@@ -3,6 +3,7 @@
 namespace App\Exports\Banking;
 
 use App\Models\Banking\Transaction as Model;
+use Jenssegers\Date\Date;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -20,14 +21,17 @@ class Transactions implements FromCollection, ShouldAutoSize, WithHeadings, With
     {
         return [
             $model->type,
-            $model->account_id,
-            $model->paid_at,
+            Date::parse($model->paid_at)->format('Y-m-d'),
             $model->amount,
             $model->currency_code,
             $model->currency_rate,
+            $model->account_id,
             $model->document_id,
             $model->contact_id,
+            $model->category_id,
+            $model->description,
             $model->payment_method,
+            $model->reference,
             $model->reconciled,
         ];
     }
@@ -36,14 +40,17 @@ class Transactions implements FromCollection, ShouldAutoSize, WithHeadings, With
     {
         return [
             'type',
-            'account_id',
             'paid_at',
             'amount',
             'currency_code',
             'currency_rate',
+            'account_id',
             'document_id',
             'contact_id',
+            'category_id',
+            'description',
             'payment_method',
+            'reference',
             'reconciled',
         ];
     }

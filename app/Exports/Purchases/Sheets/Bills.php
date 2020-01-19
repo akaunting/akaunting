@@ -3,6 +3,7 @@
 namespace App\Exports\Purchases\Sheets;
 
 use App\Models\Purchase\Bill as Model;
+use Jenssegers\Date\Date;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -35,11 +36,12 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
             $model->bill_number,
             $model->order_number,
             $model->status,
-            $model->billed_at,
-            $model->due_at,
+            Date::parse($model->billed_at)->format('Y-m-d'),
+            Date::parse($model->due_at)->format('Y-m-d'),
             $model->amount,
             $model->currency_code,
             $model->currency_rate,
+            $model->category_id,
             $model->contact_id,
             $model->contact_name,
             $model->contact_email,
@@ -47,7 +49,6 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
             $model->contact_phone,
             $model->contact_address,
             $model->notes,
-            $model->category_id,
             $model->footer,
         ];
     }
@@ -63,6 +64,7 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
             'amount',
             'currency_code',
             'currency_rate',
+            'category_id',
             'contact_id',
             'contact_name',
             'contact_email',
@@ -70,7 +72,6 @@ class Bills implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
             'contact_phone',
             'contact_address',
             'notes',
-            'category_id',
             'footer',
         ];
     }

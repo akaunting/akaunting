@@ -3,13 +3,14 @@
 namespace App\Exports\Sales\Sheets;
 
 use App\Models\Banking\Transaction as Model;
+use Jenssegers\Date\Date;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class InvoicePayments implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping, WithTitle
+class InvoiceTransactions implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping, WithTitle
 {
     public $invoice_ids;
 
@@ -23,7 +24,7 @@ class InvoicePayments implements FromCollection, ShouldAutoSize, WithHeadings, W
         $model = Model::type('income')->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->invoice_ids)) {
-            $model->whereIn('invoice_id', (array) $this->invoice_ids);
+            $model->whereIn('document_id', (array) $this->invoice_ids);
         }
 
         return $model->get();
@@ -32,14 +33,17 @@ class InvoicePayments implements FromCollection, ShouldAutoSize, WithHeadings, W
     public function map($model): array
     {
         return [
-            $model->account_id,
-            $model->paid_at,
+            Date::parse($model->paid_at)->format('Y-m-d'),
             $model->amount,
             $model->currency_code,
             $model->currency_rate,
+            $model->account_id,
             $model->document_id,
             $model->contact_id,
+            $model->category_id,
+            $model->description,
             $model->payment_method,
+            $model->reference,
             $model->reconciled,
         ];
     }
@@ -47,20 +51,23 @@ class InvoicePayments implements FromCollection, ShouldAutoSize, WithHeadings, W
     public function headings(): array
     {
         return [
-            'account_id',
             'paid_at',
             'amount',
             'currency_code',
             'currency_rate',
+            'account_id',
             'document_id',
             'contact_id',
+            'category_id',
+            'description',
             'payment_method',
+            'reference',
             'reconciled',
         ];
     }
 
     public function title(): string
     {
-        return 'invoice_payments';
+        return 'invoice_transactions';
     }
 }
