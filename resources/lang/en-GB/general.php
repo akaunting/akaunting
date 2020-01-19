@@ -70,6 +70,8 @@ return [
     'yearly'                => 'Yearly',
     'add'                   => 'Add',
     'add_new'               => 'Add New',
+    'add_income'            => 'Add Income',
+    'add_expense'           => 'Add Expense',
     'show'                  => 'Show',
     'edit'                  => 'Edit',
     'delete'                => 'Delete',
