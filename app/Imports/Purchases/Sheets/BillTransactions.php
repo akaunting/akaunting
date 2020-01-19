@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Imports\Purchases;
+namespace App\Imports\Purchases\Sheets;
 
 use App\Abstracts\Import;
 use App\Models\Banking\Transaction as Model;
 use App\Http\Requests\Banking\Transaction as Request;
 use Jenssegers\Date\Date;
 
-class Payments extends Import
+class BillTransactions extends Import
 {
     public function model(array $row)
     {
