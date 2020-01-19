@@ -182,15 +182,15 @@ class CoreV200 extends Migration
             $table->increments('id');
             $table->integer('company_id');
             $table->string('type');
-            $table->integer('account_id');
             $table->dateTime('paid_at');
             $table->double('amount', 15, 4);
             $table->string('currency_code', 3);
             $table->double('currency_rate', 15, 8);
+            $table->integer('account_id');
             $table->integer('document_id')->nullable();
             $table->integer('contact_id')->nullable();
-            $table->text('description')->nullable();
             $table->integer('category_id')->default(1);
+            $table->text('description')->nullable();
             $table->string('payment_method');
             $table->string('reference')->nullable();
             $table->integer('parent_id')->default(0);

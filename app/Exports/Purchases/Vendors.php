@@ -34,7 +34,6 @@ class Vendors implements FromCollection, ShouldAutoSize, WithHeadings, WithMappi
         return [
             $model->name,
             $model->email,
-            $model->user_id,
             $model->tax_number,
             $model->phone,
             $model->address,
@@ -42,6 +41,7 @@ class Vendors implements FromCollection, ShouldAutoSize, WithHeadings, WithMappi
             $model->currency_code,
             $model->reference,
             $model->enabled,
+            $model->user_id,
         ];
     }
 
@@ -50,7 +50,6 @@ class Vendors implements FromCollection, ShouldAutoSize, WithHeadings, WithMappi
         return [
             'name',
             'email',
-            'user_id',
             'tax_number',
             'phone',
             'address',
@@ -58,6 +57,7 @@ class Vendors implements FromCollection, ShouldAutoSize, WithHeadings, WithMappi
             'currency_code',
             'reference',
             'enabled',
+            'user_id',
         ];
     }
 

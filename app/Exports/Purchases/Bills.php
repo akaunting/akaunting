@@ -6,8 +6,8 @@ use App\Exports\Purchases\Sheets\Bills as Base;
 use App\Exports\Purchases\Sheets\BillItems;
 use App\Exports\Purchases\Sheets\BillItemTaxes;
 use App\Exports\Purchases\Sheets\BillHistories;
-use App\Exports\Purchases\Sheets\BillPayments;
 use App\Exports\Purchases\Sheets\BillTotals;
+use App\Exports\Purchases\Sheets\BillTransactions;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class Bills implements WithMultipleSheets
@@ -26,8 +26,8 @@ class Bills implements WithMultipleSheets
             'bill_items' => new BillItems($this->ids),
             'bill_item_taxes' => new BillItemTaxes($this->ids),
             'bill_histories' => new BillHistories($this->ids),
-            'bill_payments' => new BillPayments($this->ids),
             'bill_totals' => new BillTotals($this->ids),
+            'bill_transactions' => new BillTransactions($this->ids),
         ];
     }
 }

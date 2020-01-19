@@ -3,13 +3,14 @@
 namespace App\Exports\Purchases\Sheets;
 
 use App\Models\Banking\Transaction as Model;
+use Jenssegers\Date\Date;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class BillPayments implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping, WithTitle
+class BillTransactions implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping, WithTitle
 {
     public $bill_ids;
 
@@ -23,7 +24,7 @@ class BillPayments implements FromCollection, ShouldAutoSize, WithHeadings, With
         $model = Model::type('expense')->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->bill_ids)) {
-            $model->whereIn('bill_id', (array) $this->bill_ids);
+            $model->whereIn('document_id', (array) $this->bill_ids);
         }
 
         return $model->get();
@@ -32,14 +33,17 @@ class BillPayments implements FromCollection, ShouldAutoSize, WithHeadings, With
     public function map($model): array
     {
         return [
-            $model->account_id,
-            $model->paid_at,
+            Date::parse($model->paid_at)->format('Y-m-d'),
             $model->amount,
             $model->currency_code,
             $model->currency_rate,
+            $model->account_id,
             $model->document_id,
             $model->contact_id,
+            $model->category_id,
+            $model->description,
             $model->payment_method,
+            $model->reference,
             $model->reconciled,
         ];
     }
@@ -47,20 +51,23 @@ class BillPayments implements FromCollection, ShouldAutoSize, WithHeadings, With
     public function headings(): array
     {
         return [
-            'account_id',
             'paid_at',
             'amount',
             'currency_code',
             'currency_rate',
+            'account_id',
             'document_id',
             'contact_id',
+            'category_id',
+            'description',
             'payment_method',
+            'reference',
             'reconciled',
         ];
     }
 
     public function title(): string
     {
-        return 'bill_payments';
+        return 'bill_transactions';
     }
 }
