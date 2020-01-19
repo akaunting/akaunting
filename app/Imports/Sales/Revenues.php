@@ -2,15 +2,12 @@
 
 namespace App\Imports\Income;
 
+use App\Abstracts\Import;
 use App\Models\Banking\Transaction as Model;
 use App\Http\Requests\Banking\Transaction as Request;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Validators\Failure;
+use Jenssegers\Date\Date;
 
-class Revenues implements ToModel, WithHeadingRow, WithMapping, WithValidation
+class Revenues extends Import
 {
     public function model(array $row)
     {
@@ -21,6 +18,7 @@ class Revenues implements ToModel, WithHeadingRow, WithMapping, WithValidation
     {
         $row['company_id'] = session('company_id');
         $row['type'] = 'income';
+        $row['paid_at'] = Date::parse($row['paid_at'])->format('Y-m-d H:i:s');
 
         // Make reconciled field integer
         if (isset($row['reconciled'])) {
@@ -33,18 +31,5 @@ class Revenues implements ToModel, WithHeadingRow, WithMapping, WithValidation
     public function rules(): array
     {
         return (new Request())->rules();
-    }
-
-    public function onFailure(Failure ...$failures)
-    {
-        foreach ($failures as $failure) {
-            $message = trans('messages.error.import_column', [
-                'message' => $failure->errors()->first(),
-                'sheet' => 'revenues',
-                'line' => $failure->attribute(),
-            ]);
-    
-            flash($message)->error()->important();
-       }
     }
 }

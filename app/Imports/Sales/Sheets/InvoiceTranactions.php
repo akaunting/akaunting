@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Imports\Purchases;
+namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
 use App\Models\Banking\Transaction as Model;
 use App\Http\Requests\Banking\Transaction as Request;
-use Jenssegers\Date\Date;
 
-class Payments extends Import
+class InvoiceTranactions extends Import
 {
     public function model(array $row)
     {
@@ -17,8 +16,7 @@ class Payments extends Import
     public function map($row): array
     {
         $row['company_id'] = session('company_id');
-        $row['type'] = 'expense';
-        $row['paid_at'] = Date::parse($row['paid_at'])->format('Y-m-d H:i:s');
+        $row['type'] = 'income';
 
         // Make reconciled field integer
         if (isset($row['reconciled'])) {

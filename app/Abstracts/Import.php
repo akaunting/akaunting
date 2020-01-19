@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Imports\Purchases\Sheets;
+namespace App\Abstracts;
 
-use App\Models\Banking\Transaction as Model;
-use App\Http\Requests\Banking\Transaction as Request;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
 
-class BillPayments implements ToModel, WithHeadingRow, WithMapping, WithValidation
+abstract class Import implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
 {
-    public function model(array $row)
-    {
-        return new Model($row);
-    }
-
     public function map($row): array
     {
         $row['company_id'] = session('company_id');
-        $row['type'] = 'expense';
+
+        // Make enabled field integer
+        if (isset($row['enabled'])) {
+            $row['enabled'] = (int) $row['enabled'];
+        }
 
         // Make reconciled field integer
         if (isset($row['reconciled'])) {
@@ -32,18 +32,30 @@ class BillPayments implements ToModel, WithHeadingRow, WithMapping, WithValidati
 
     public function rules(): array
     {
-        return (new Request())->rules();
+        return [];
+    }
+
+    public function batchSize(): int
+    {
+        return 100;
+    }
+
+    public function chunkSize(): int
+    {
+        return 100;
     }
 
     public function onFailure(Failure ...$failures)
     {
+        $sheet = Str::snake((new \ReflectionClass($this))->getShortName());
+
         foreach ($failures as $failure) {
             $message = trans('messages.error.import_column', [
                 'message' => $failure->errors()->first(),
-                'sheet' => 'bill_payments',
+                'sheet' => $sheet,
                 'line' => $failure->attribute(),
             ]);
-    
+
             flash($message)->error()->important();
        }
     }

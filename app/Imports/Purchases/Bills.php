@@ -6,8 +6,8 @@ use App\Imports\Purchases\Sheets\Bills as Base;
 use App\Imports\Purchases\Sheets\BillItems;
 use App\Imports\Purchases\Sheets\BillItemTaxes;
 use App\Imports\Purchases\Sheets\BillHistories;
-use App\Imports\Purchases\Sheets\BillPayments;
 use App\Imports\Purchases\Sheets\BillTotals;
+use App\Imports\Purchases\Sheets\BillTransactions;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class Bills implements WithMultipleSheets
@@ -19,8 +19,8 @@ class Bills implements WithMultipleSheets
             'bill_items' => new BillItems(),
             'bill_item_taxes' => new BillItemTaxes(),
             'bill_histories' => new BillHistories(),
-            'bill_payments' => new BillPayments(),
             'bill_totals' => new BillTotals(),
+            'bill_transactions' => new BillTransactions(),
         ];
     }
 }
