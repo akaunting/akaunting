@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Install;
 
-use Artisan;
 use App\Http\Requests\Install\Database as Request;
 use App\Utilities\Installer;
 use Illuminate\Routing\Controller;
