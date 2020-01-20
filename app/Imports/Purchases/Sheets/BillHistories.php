@@ -13,6 +13,15 @@ class BillHistories extends Import
         return new Model($row);
     }
 
+    public function map($row): array
+    {
+        $row = parent::map($row);
+
+        $row['notify'] = (int) $row['notify'];
+
+        return $row;
+    }
+
     public function rules(): array
     {
         return (new Request())->rules();
