@@ -7,7 +7,7 @@ use App\Imports\Sales\Sheets\InvoiceItems;
 use App\Imports\Sales\Sheets\InvoiceItemTaxes;
 use App\Imports\Sales\Sheets\InvoiceHistories;
 use App\Imports\Sales\Sheets\InvoiceTotals;
-use App\Imports\Sales\Sheets\InvoiceTranactions;
+use App\Imports\Sales\Sheets\InvoiceTransactions;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class Invoices implements WithMultipleSheets
@@ -20,7 +20,7 @@ class Invoices implements WithMultipleSheets
             'invoice_item_taxes' => new InvoiceItemTaxes(),
             'invoice_histories' => new InvoiceHistories(),
             'invoice_totals' => new InvoiceTotals(),
-            'invoice_transactions' => new InvoiceTranactions(),
+            'invoice_transactions' => new InvoiceTransactions(),
         ];
     }
 }

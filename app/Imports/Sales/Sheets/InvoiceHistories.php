@@ -3,8 +3,9 @@
 namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
-use App\Models\Sale\InvoiceHistory as Model;
 use App\Http\Requests\Sale\InvoiceHistory as Request;
+use App\Models\Sale\Invoice;
+use App\Models\Sale\InvoiceHistory as Model;
 
 class InvoiceHistories extends Import
 {
@@ -17,6 +18,8 @@ class InvoiceHistories extends Import
     {
         $row = parent::map($row);
 
+        $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
+
         $row['notify'] = (int) $row['notify'];
 
         return $row;
@@ -24,6 +27,11 @@ class InvoiceHistories extends Import
 
     public function rules(): array
     {
-        return (new Request())->rules();
+        $rules = (new Request())->rules();
+
+        $rules['invoice_number'] = 'required|string';
+        unset($rules['invoice_id']);
+
+        return $rules;
     }
 }

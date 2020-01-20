@@ -9,7 +9,7 @@ class InvoiceHistories extends Export
 {
     public function collection()
     {
-        $model = Model::usingSearchString(request('search'));
+        $model = Model::with(['invoice'])->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('invoice_id', (array) $this->ids);
@@ -18,10 +18,17 @@ class InvoiceHistories extends Export
         return $model->get();
     }
 
+    public function map($model): array
+    {
+        $model->invoice_number = $model->invoice->invoice_number;
+
+        return parent::map($model);
+    }
+
     public function fields(): array
     {
         return [
-            'invoice_id',
+            'invoice_number',
             'status',
             'notify',
             'description',

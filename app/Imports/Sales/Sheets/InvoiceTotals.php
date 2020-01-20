@@ -3,8 +3,9 @@
 namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
-use App\Models\Sale\InvoiceTotal as Model;
 use App\Http\Requests\Sale\InvoiceTotal as Request;
+use App\Models\Sale\Invoice;
+use App\Models\Sale\InvoiceTotal as Model;
 
 class InvoiceTotals extends Import
 {
@@ -13,8 +14,22 @@ class InvoiceTotals extends Import
         return new Model($row);
     }
 
+    public function map($row): array
+    {
+        $row = parent::map($row);
+
+        $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
+
+        return $row;
+    }
+
     public function rules(): array
     {
-        return (new Request())->rules();
+        $rules = (new Request())->rules();
+
+        $rules['invoice_number'] = 'required|string';
+        unset($rules['invoice_id']);
+
+        return $rules;
     }
 }

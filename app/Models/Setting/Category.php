@@ -68,6 +68,11 @@ class Category extends Model
         return $query->whereIn('type', (array) $types);
     }
 
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', '=', $name);
+    }
+
     /**
      * Scope transfer category.
      *

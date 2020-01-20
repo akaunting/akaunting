@@ -49,6 +49,16 @@ class Account extends Model
         return $this->hasMany('App\Models\Banking\Transaction');
     }
 
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', '=', $name);
+    }
+
+    public function scopeNumber($query, $number)
+    {
+        return $query->where('number', '=', $number);
+    }
+
     /**
      * Convert opening balance to double.
      *

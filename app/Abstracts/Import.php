@@ -4,7 +4,10 @@ namespace App\Abstracts;
 
 use Illuminate\Support\Str;
 use Jenssegers\Date\Date;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -12,8 +15,12 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
 
-abstract class Import implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
+abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatchInserts, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
 {
+    use Importable;
+
+    public $empty_field = 'empty---';
+
     public function map($row): array
     {
         $row['company_id'] = session('company_id');
@@ -60,13 +67,23 @@ abstract class Import implements ToModel, WithBatchInserts, WithChunkReading, Wi
         $sheet = Str::snake((new \ReflectionClass($this))->getShortName());
 
         foreach ($failures as $failure) {
+            // @todo remove after 3.2 release https://github.com/Maatwebsite/Laravel-Excel/issues/1834#issuecomment-474340743
+            if (collect($failure->values())->first() == $this->empty_field) {
+                continue;
+            }
+
             $message = trans('messages.error.import_column', [
-                'message' => $failure->errors()->first(),
+                'message' => collect($failure->errors())->first(),
                 'sheet' => $sheet,
-                'line' => $failure->attribute(),
+                'line' => $failure->row(),
             ]);
 
             flash($message)->error()->important();
        }
+    }
+
+    public function onError(\Throwable $e)
+    {
+        flash($e->getMessage())->error()->important();
     }
 }

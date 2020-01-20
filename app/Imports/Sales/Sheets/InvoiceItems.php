@@ -3,8 +3,10 @@
 namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
-use App\Models\Sale\InvoiceItem as Model;
 use App\Http\Requests\Sale\InvoiceItem as Request;
+use App\Models\Common\Item;
+use App\Models\Sale\Invoice;
+use App\Models\Sale\InvoiceItem as Model;
 
 class InvoiceItems extends Import
 {
@@ -13,8 +15,38 @@ class InvoiceItems extends Import
         return new Model($row);
     }
 
+    public function map($row): array
+    {
+        $row = parent::map($row);
+
+        $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
+
+        if (empty($row['item_id']) && !empty($row['item_name'])) {
+            $row['item_id'] = Item::firstOrCreate([
+                'name'              => $row['item_name'],
+            ], [
+                'company_id'        => session('company_id'),
+                'sale_price'        => $row['price'],
+                'purchase_price'    => $row['price'],
+                'enabled'           => 1,
+            ])->id;
+
+            $row['name'] = $row['item_name'];
+        }
+
+        $row['tax'] = (double) $row['tax'];
+        $row['tax_id'] = 0;
+
+        return $row;
+    }
+
     public function rules(): array
     {
-        return (new Request())->rules();
+        $rules = (new Request())->rules();
+
+        $rules['invoice_number'] = 'required|string';
+        unset($rules['invoice_id']);
+
+        return $rules;
     }
 }

@@ -9,7 +9,7 @@ class InvoiceTransactions extends Export
 {
     public function collection()
     {
-        $model = Model::type('income')->isDocument()->usingSearchString(request('search'));
+        $model = Model::with(['account', 'category', 'contact', 'invoice'])->type('income')->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('document_id', (array) $this->ids);
@@ -18,17 +18,27 @@ class InvoiceTransactions extends Export
         return $model->get();
     }
 
+    public function map($model): array
+    {
+        $model->invoice_number = $model->invoice->invoice_number;
+        $model->account_name = $model->account->name;
+        $model->category_name = $model->category->name;
+        $model->contact_email = $model->contact->email;
+
+        return parent::map($model);
+    }
+
     public function fields(): array
     {
         return [
+            'invoice_number',
             'paid_at',
             'amount',
             'currency_code',
             'currency_rate',
-            'account_id',
-            'document_id',
-            'contact_id',
-            'category_id',
+            'account_name',
+            'contact_email',
+            'category_name',
             'description',
             'payment_method',
             'reference',

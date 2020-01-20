@@ -9,7 +9,7 @@ class InvoiceItems extends Export
 {
     public function collection()
     {
-        $model = Model::usingSearchString(request('search'));
+        $model = Model::with(['invoice', 'item'])->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('invoice_id', (array) $this->ids);
@@ -18,12 +18,19 @@ class InvoiceItems extends Export
         return $model->get();
     }
 
+    public function map($model): array
+    {
+        $model->invoice_number = $model->invoice->invoice_number;
+        $model->item_name = $model->item->name;
+
+        return parent::map($model);
+    }
+
     public function fields(): array
     {
         return [
-            'invoice_id',
-            'item_id',
-            'name',
+            'invoice_number',
+            'item_name',
             'quantity',
             'price',
             'total',
