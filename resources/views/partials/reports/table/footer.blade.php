@@ -1,6 +1,6 @@
 <tfoot>
     <tr class="rp-border-top-1">
-        <th class="report-column">{{ trans_choice('general.totals', 1) }}</th>
+        <th class="report-column text-left">{{ trans_choice('general.totals', 1) }}</th>
         @php $total_total = 0; @endphp
         @foreach($class->totals[$table] as $total)
             @php $total_total += $total; @endphp
