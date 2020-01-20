@@ -6,7 +6,6 @@ use App\Abstracts\Http\Controller;
 use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
 use App\Traits\Modules;
-use Artisan;
 use Illuminate\Http\Request;
 
 class Item extends Controller
