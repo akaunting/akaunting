@@ -36,12 +36,12 @@ class Item extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Setting\Category');
+        return $this->belongsTo('App\Models\Setting\Category')->withDefault(['name' => trans('general.na')]);
     }
 
     public function tax()
     {
-        return $this->belongsTo('App\Models\Setting\Tax');
+        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na')]);
     }
 
     public function bill_items()
@@ -52,6 +52,11 @@ class Item extends Model
     public function invoice_items()
     {
         return $this->hasMany('App\Models\Sale\InvoiceItem');
+    }
+
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', '=', $name);
     }
 
     /**

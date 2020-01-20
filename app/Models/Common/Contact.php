@@ -79,6 +79,11 @@ class Contact extends Model
         return $query->whereIn('type', (array) $types);
     }
 
+    public function scopeEmail($query, $email)
+    {
+        return $query->where('email', '=', $email);
+    }
+
     public function onCloning($src, $child = null)
     {
         $this->user_id = null;

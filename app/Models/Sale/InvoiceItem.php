@@ -34,7 +34,7 @@ class InvoiceItem extends Model
 
     public function item()
     {
-        return $this->belongsTo('App\Models\Common\Item');
+        return $this->belongsTo('App\Models\Common\Item')->withDefault(['name' => trans('general.na')]);
     }
 
     public function taxes()

@@ -44,6 +44,16 @@ class Tax extends Model
         return $this->hasMany('App\Models\Sale\InvoiceItemTax');
     }
 
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', '=', $name);
+    }
+
+    public function scopeRate($query, $rate)
+    {
+        return $query->where('rate', '=', $rate);
+    }
+
     /**
      * Convert rate to double.
      *

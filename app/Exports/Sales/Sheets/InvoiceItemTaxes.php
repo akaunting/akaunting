@@ -9,7 +9,7 @@ class InvoiceItemTaxes extends Export
 {
     public function collection()
     {
-        $model = Model::usingSearchString(request('search'));
+        $model = Model::with(['invoice', 'item', 'tax'])->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('invoice_id', (array) $this->ids);
@@ -18,13 +18,21 @@ class InvoiceItemTaxes extends Export
         return $model->get();
     }
 
+    public function map($model): array
+    {
+        $model->invoice_number = $model->invoice->invoice_number;
+        $model->item_name = $model->item->name;
+        $model->tax_rate = $model->tax->rate;
+
+        return parent::map($model);
+    }
+
     public function fields(): array
     {
         return [
-            'invoice_id',
-            'invoice_item_id',
-            'tax_id',
-            'name',
+            'invoice_number',
+            'item_name',
+            'tax_rate',
             'amount',
         ];
     }
