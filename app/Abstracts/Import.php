@@ -3,6 +3,7 @@
 namespace App\Abstracts;
 
 use Illuminate\Support\Str;
+use Jenssegers\Date\Date;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -25,6 +26,15 @@ abstract class Import implements ToModel, WithBatchInserts, WithChunkReading, Wi
         // Make reconciled field integer
         if (isset($row['reconciled'])) {
             $row['reconciled'] = (int) $row['reconciled'];
+        }
+
+        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'created_at'];
+        foreach ($date_fields as $date_field) {
+            if (!isset($row[$date_field])) {
+                continue;
+            }
+
+            $row[$date_field] = Date::parse($row[$date_field])->format('Y-m-d H:i:s');
         }
 
         return $row;

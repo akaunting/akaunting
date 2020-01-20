@@ -15,13 +15,9 @@ class Customers extends Import
 
     public function map($row): array
     {
-        $row['company_id'] = session('company_id');
-        $row['type'] = 'customer';
+        $row = parent::map($row);
 
-        // Make enabled field integer
-        if (isset($row['enabled'])) {
-            $row['enabled'] = (int) $row['enabled'];
-        }
+        $row['type'] = 'customer';
 
         return $row;
     }

@@ -15,13 +15,9 @@ class Vendors extends Import
 
     public function map($row): array
     {
-        $row['company_id'] = session('company_id');
-        $row['type'] = 'vendor';
+        $row = parent::map($row);
 
-        // Make enabled field integer
-        if (isset($row['enabled'])) {
-            $row['enabled'] = (int) $row['enabled'];
-        }
+        $row['type'] = 'vendor';
 
         return $row;
     }
