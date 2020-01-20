@@ -19,23 +19,42 @@
                 <div class="row">
                     {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
-                    {{ Form::selectGroup('class', trans_choice('general.types', 1), 'bars', $classes, $report->class, ['required' => 'required', 'change' => 'onChangeClass']) }}
+                    {{ Form::textGroup('class_disabled', trans_choice('general.types', 1), 'bars', ['required' => 'required', 'disabled' => 'disabled'], $classes[$report->class]) }}
+                    {{ Form::hidden('class', $report->class) }}
 
                     {{ Form::textareaGroup('description', trans('general.description'), null, null, ['rows' => '3', 'required' => 'required']) }}
+
+                    {{ Form::hidden('report', 'invalid', ['data-field' => 'settings']) }}
 
                     @foreach($class->getFields() as $field)
                         @php $type = $field['type']; @endphp
 
                         @if (($type == 'textGroup') || ($type == 'emailGroup') || ($type == 'passwordGroup'))
-                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title'], $field['icon'], $field['attributes']) }}
+                            {{ Form::$type($field['name'], $field['title'], $field['icon'], array_merge([
+                                    'data-field' => 'settings'
+                                ],
+                                $field['attributes'])
+                            ) }}
                         @elseif ($type == 'textareaGroup')
-                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title']) }}
+                            {{ Form::$type($field['name'], $field['title']) }}
                         @elseif ($type == 'selectGroup')
-                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title'], $field['icon'], $field['values'], $report->settings->{$field['name']}, $field['attributes']) }}
+                            {{ Form::$type($field['name'], $field['title'], $field['icon'], $field['values'], $report->settings->{$field['name']}, array_merge([
+                                    'data-field' => 'settings'
+                                ],
+                                $field['attributes'])
+                            ) }}
                         @elseif ($type == 'radioGroup')
-                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title'], isset($report->settings->{$field['name']}) ? $report->settings->{$field['name']} : 1, $field['enable'], $field['disable'], $field['attributes']) }}
+                            {{ Form::$type($field['name'], $field['title'], isset($report->settings->{$field['name']}) ? $report->settings->{$field['name']} : 1, $field['enable'], $field['disable'], array_merge([
+                                    'data-field' => 'settings'
+                                ],
+                                $field['attributes'])
+                            ) }}
                         @elseif ($type == 'checkboxGroup')
-                            {{ Form::$type('settings[' . $field['name'] . ']', $field['title'], $field['items'], $report->settings->{$field['name']}, $field['id'], $field['attributes']) }}
+                            {{ Form::$type($field['name'], $field['title'], $field['items'], $report->settings->{$field['name']}, $field['id'], array_merge([
+                                    'data-field' => 'settings'
+                                ],
+                                $field['attributes'])
+                            ) }}
                         @endif
                     @endforeach
                 </div>
@@ -51,9 +70,5 @@
 @endsection
 
 @push('scripts_start')
-    <script type="text/javascript">
-        var class = '';
-    </script>
-
     <script src="{{ asset('public/js/common/reports.js?v=' . version('short')) }}"></script>
 @endpush
