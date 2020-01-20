@@ -4,11 +4,6 @@ namespace App\Exports\Purchases\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Purchase\BillItem as Model;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithTitle;
 
 class BillItems extends Export
 {

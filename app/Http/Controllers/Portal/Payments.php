@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\portal;
+namespace App\Http\Controllers\Portal;
 
 use App\Abstracts\Http\Controller;
 use App\Models\Banking\Transaction;
