@@ -9,13 +9,21 @@ class Items extends Export
 {
     public function collection()
     {
-        $model = Model::usingSearchString(request('search'));
+        $model = Model::with(['category', 'tax'])->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('id', (array) $this->ids);
         }
 
         return $model->get();
+    }
+
+    public function map($model): array
+    {
+        $model->category_name = $model->category->name;
+        $model->tax_rate = $model->tax->rate;
+
+        return parent::map($model);
     }
 
     public function fields(): array
@@ -25,8 +33,8 @@ class Items extends Export
             'description',
             'sale_price',
             'purchase_price',
-            'category_id',
-            'tax_id',
+            'category_name',
+            'tax_rate',
             'enabled',
         ];
     }
