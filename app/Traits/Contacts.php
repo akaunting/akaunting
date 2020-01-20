@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use App\Models\Common\Contact;
-
 trait Contacts
 {
     public function getCustomerTypes($return = 'array')
