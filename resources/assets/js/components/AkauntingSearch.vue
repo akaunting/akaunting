@@ -1,68 +1,86 @@
 <template>
-    <component class="dropdown col-md-11 pl-0"
-               :is="tag"
-               :class="[{show: isOpen}, {'dropdown': direction === 'down'}, {'dropup': direction ==='up'}]"
-               aria-haspopup="true"
-               :aria-expanded="isOpen"
-               @click="toggleDropDown"
-               v-click-outside="closeDropDown">
-        <input
-               autocomplete="off"
-               placeholder="Type to search.."
-               name="search"
-               type="text"
-               class="form-control form-control-sm w-100">
-        <div class="dropdown-menu"
-             ref="menu"
-             :class="[{'dropdown-menu-right': position === 'right'}, {show: isOpen}, menuClasses]"
-        >
-            <a class="dropdown-item d-none" href="#about">About</a>
-        </div>
-    </component>
+
+    <base-input :label="title"
+        :name="name"
+        :class="formClasses"
+        :error="formError">
+
+        <el-select  @input="change" filterable :placeholder="placeholder">
+
+            <template slot="prefix">
+                <span class="el-input__suffix-inner el-select-icon">
+                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                </span>
+            </template>
+
+            <el-option v-if="!group" v-for="(label, value) in selectOptions"
+                :key="value"
+                :label="label"
+                :value="value">
+            </el-option>
+
+            <el-option-group
+                v-if="group"
+                v-for="(options, name) in selectOptions"
+                :key="name"
+                :label="name">
+                <el-option
+                    v-for="(label, value) in options"
+                    :key="value"
+                    :label="label"
+                    :value="value">
+                </el-option>
+            </el-option-group>
+
+        </el-select>
+
+    </base-input>
+
 </template>
 
 <script>
+import { Select, Option, OptionGroup } from 'element-ui';
+
 export default {
+    components: {
+        [Select.name]: Select,
+        [Option.name]: Option,
+        [OptionGroup.name]: OptionGroup,
+    },
+
     props: {
-        direction: {
-            type: String,
-            default: "down"
-        },
         title: {
             type: String,
-            description: "Dropdown title"
+            default: '',
+            description: "Modal header title"
         },
+        placeholder: {
+            type: String,
+            default: '',
+            description: "Modal header title"
+        },
+        formClasses: null,
+        formError: null,
+        name: null,
+        value: null,
+        options: null,
+        model: null,
         icon: {
             type: String,
-            description: "Icon for dropdown title"
+            description: "Prepend icon (left)"
         },
-        position: {
-            type: String,
-            description: "Position of dropdown menu (e.g right|left)"
-        },
-        menuClasses: {
-            type: [String, Object],
-            description: "Dropdown menu classes"
-        },
-        hideArrow: {
-            type: Boolean,
-            description: "Whether dropdown arrow should be hidden"
-        },
-        appendToBody: {
-            type: Boolean,
-            default: true,
-            description: "Whether dropdown should be appended to document body"
-        },
-        tag: {
-            type: String,
-            default: "div",
-            description: "Dropdown html tag (e.g div, li etc)"
-        }
+
+        group: false,
+        multiple:false,
+        disabled:false,
+        collapse: false
     },
 
     data() {
         return {
-            isOpen: false
+            isOpen: false,
+            selectOptions: this.options,
+            real_model: this.model,
         }
     },
 

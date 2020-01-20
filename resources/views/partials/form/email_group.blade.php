@@ -13,6 +13,7 @@
                 <i class="fa fa-{{ $icon }}"></i>
             </span>
         </div>
+
         {!! Form::email($name, $value, array_merge([
             'class' => 'form-control',
             'data-name' => $name,

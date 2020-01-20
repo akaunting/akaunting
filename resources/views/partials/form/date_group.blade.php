@@ -2,7 +2,14 @@
 
 <akaunting-date
     class="{{ $col }} {{ isset($attributes['required']) ? 'required' : '' }}"
-    :form-classes="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]"
+
+    @if (!empty($attributes['v-error']))
+    :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
+    @else
+    :form-classes="[{'has-error': form.errors.get('{{ $name }}') }]"
+    @endif
+
+    :icon="'fa fa-{{ $icon }}'"
     :title="'{{ $text }}'"
     :placeholder="'{{ trans('general.form.select.field', ['field' => $text]) }}'"
     :name="'{{ $name }}'"
@@ -16,10 +23,21 @@
         @if (!empty($attributes['date-format']))
         dateFormat: '{{ $attributes['date-format'] }}'
         @endif
-     }"
-    :icon="'fa fa-{{ $icon }}'"
-    @interface="{{ !empty($attributes['v-model']) ? $attributes['v-model'] . ' = $event' : (!empty($attributes['data-field'])  ? 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' : 'form.' . $name . ' = $event') }}"
-    :form-error="{{ isset($attributes['v-error-message']) ? $attributes['v-error-message'] : 'form.errors.get("' . $name . '")' }}"
-></akaunting-date>
+    }"
+
+    @if (!empty($attributes['v-model']))
+    @interface="{{ $attributes['v-model'] . ' = $event' }}"
+    @elseif (!empty($attributes['data-field']))
+    @interface="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
+    @else
+    @interface="form.{{ $name }} = $event"
+    @endif
+
+    @if(isset($attributes['v-error-message']))
+    :form-error="{{ $attributes['v-error-message'] }}"
+    @else
+    :form-error="form.errors.get('{{ $name }}')"
+    @endif
+    ></akaunting-date>
 
 @stack($name . '_input_end')

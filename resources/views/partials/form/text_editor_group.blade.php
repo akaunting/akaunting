@@ -7,8 +7,23 @@
 
     <html-editor
         :name="'{{ $name }}'"
+
+        @if (!empty($attributes['v-model']))
+        :value="{{ $attributes['v-model'] . ' = ' . $value }}"
+        @elseif (!empty($attributes['data-field']))
+        :value="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = '. $value }}"
+        @else
         :value="form.{{ $name }} = '{{ $value }}'"
-        @input="form.{{ $name }} = $event"></html-editor>
+        @endif
+
+        @if (!empty($attributes['v-model']))
+        @input="{{ $attributes['v-model'] . ' = $event' }}"
+        @elseif (!empty($attributes['data-field']))
+        @input="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
+        @else
+        @input="form.{{ $name }} = $event"
+        @endif
+        ></html-editor>
 
     <div class="invalid-feedback d-block"
          v-if="{{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.has("' . $name . '")' }}"
