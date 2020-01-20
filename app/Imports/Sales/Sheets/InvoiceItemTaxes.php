@@ -40,14 +40,7 @@ class InvoiceItemTaxes extends Import
         }
 
         if (empty($row['tax_id']) && !empty($row['tax_rate'])) {
-            $row['tax_id'] = Tax::firstOrCreate([
-                'rate'          => $row['tax_rate'],
-            ], [
-                'company_id'    => session('company_id'),
-                'type'          => 'normal',
-                'name'          => $row['tax_rate'],
-                'enabled'       => 1,
-            ])->id;
+            $row['tax_id'] = $this->getTaxIdFromRate($row);
         }
 
         if (empty($row['name']) && !empty($row['item_name'])) {
