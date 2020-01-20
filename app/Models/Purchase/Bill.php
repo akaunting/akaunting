@@ -117,6 +117,11 @@ class Bill extends Model
         return $query->where('status', '<>', 'paid');
     }
 
+    public function scopeNumber($query, $number)
+    {
+        return $query->where('bill_number', '=', $number);
+    }
+
     public function onCloning($src, $child = null)
     {
         $this->status = 'draft';

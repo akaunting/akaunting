@@ -4,11 +4,11 @@ namespace App\Models\Purchase;
 
 use App\Abstracts\Model;
 use App\Traits\Currencies;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 class BillItemTax extends Model
 {
-
-    use Currencies;
+    use Currencies, BelongsToThrough;
 
     protected $table = 'bill_item_taxes';
 
@@ -24,9 +24,14 @@ class BillItemTax extends Model
         return $this->belongsTo('App\Models\Purchase\Bill');
     }
 
+    public function item()
+    {
+        return $this->belongsToThrough('App\Models\Common\Item', 'App\Models\Purchase\BillItem', 'bill_item_id');
+    }
+
     public function tax()
     {
-        return $this->belongsTo('App\Models\Setting\Tax');
+        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na')]);
     }
 
     /**
