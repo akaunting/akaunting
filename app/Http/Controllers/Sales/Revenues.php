@@ -6,7 +6,7 @@ use App\Abstracts\Http\Controller;
 use App\Exports\Sales\Revenues as Export;
 use App\Http\Requests\Banking\Transaction as Request;
 use App\Http\Requests\Common\Import as ImportRequest;
-use App\Imports\Common\Items as Import;
+use App\Imports\Sales\Revenues as Import;
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Banking\DeleteTransaction;
 use App\Jobs\Banking\UpdateTransaction;

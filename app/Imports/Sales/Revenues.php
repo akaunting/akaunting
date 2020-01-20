@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports\Income;
+namespace App\Imports\Sales;
 
 use App\Abstracts\Import;
 use App\Models\Banking\Transaction as Model;
