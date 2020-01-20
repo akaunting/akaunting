@@ -1,6 +1,6 @@
 @stack($name . '_input_start')
 
-<akaunting-select
+<akaunting-select-remote
     class="{{ $col }} {{ isset($attributes['required']) ? 'required' : '' }}"
 
     @if (!empty($attributes['v-error']))
@@ -40,6 +40,6 @@
 
     :no-data-text="'{{ trans('general.no_data') }}'"
     :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
-></akaunting-select>
+></akaunting-select-remote>
 
 @stack($name . '_input_end')

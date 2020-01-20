@@ -16,15 +16,43 @@
     @stack('name_td_start')
         <td class="col-md-3 border-right-0 border-bottom-0">
             @stack('name_input_start')
-                <input class="form-control text-center"
-                       autocomplete="off"
-                       required="required"
+            <akaunting-select-remote
+                :form-classes="[{'has-error': form.errors.get('name') }]"
+                :placeholder="'{{ trans('general.type_item_name') }}'"
+                :name="'item_id'"
+                :options="{{ json_encode($items) }}"
+                :value="'{{ old('item_id', '') }}'"
+                :add-new="{{ json_encode([
+                    'status' => true,
+                    'text' => trans('general.form.add_new', ['field' => trans_choice('general.items', 1)]),
+                    'path' => isset($attributes['path']) ? $attributes['path']: false,
+                    'type' => isset($attributes['type']) ? $attributes['type'] : 'modal',
+                    'field' => isset($attributes['field']) ? $attributes['field'] : 'name',
+                    'buttons' => [
+                        'cancel' => [
+                            'text' => trans('general.cancel'),
+                            'icon' => 'fas fa-times',
+                            'class' => 'btn-outline-secondary'
+                        ],
+                        'confirm' => [
+                            'text' => trans('general.save'),
+                            'icon' => 'fas fa-save',
+                            'class' => 'btn-success'
+                        ]
+                    ]
+                ])}}"
+                @interface="row.item_id = $event"
+                @label="row.name = $event"
+                :form-error="form.errors.get('name')"
+                :no-data-text="'{{ trans('general.no_data') }}'"
+                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
+            ></akaunting-select-remote>
+            <input type="hidden"
                        data-item="name"
                        v-model="row.name"
                        @input="onCalculateTotal"
-                       name="item[][name]"
-                       type="text">
-                {!! $errors->first('item.name', '<p class="help-block">:message</p>') !!}
+                       name="item[][name]">
+            {!! $errors->first('item.name', '<p class="help-block">:message</p>') !!}
             @stack('name_input_end')
         </td>
     @stack('name_td_end')

@@ -15,10 +15,6 @@ class Form extends Provider
     public function boot()
     {
         // Form components
-        Facade::component('aliasGroup', 'partials.form.alias_group', [
-            'original', 'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6', 'group_class' => null
-        ]);
-
         Facade::component('moneyGroup', 'partials.form.money_group', [
             'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6', 'group_class' => null
         ]);
@@ -64,6 +60,10 @@ class Form extends Provider
         ]);
 
         Facade::component('selectGroupAddNewGroup', 'partials.form.select_group_add_new_group', [
+            'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6', 'group_class' => null
+        ]);
+
+        Facade::component('selectRemoteGroup', 'partials.form.select_remote_group', [
             'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6', 'group_class' => null
         ]);
 

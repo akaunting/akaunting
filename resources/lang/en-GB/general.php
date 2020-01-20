@@ -149,6 +149,7 @@ return [
     'month'                => 'Month',
     'year'                => 'Year',
 
+    'type_item_name'    => 'Type an item name',
     'no_data'           => 'No data',
     'no_matching_data'  => 'No matching data',
 

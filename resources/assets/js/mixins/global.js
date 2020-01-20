@@ -4,6 +4,7 @@ import AkauntingSearch from './../components/AkauntingSearch';
 import AkauntingModal from './../components/AkauntingModal';
 import AkauntingRadioGroup from './../components/forms/AkauntingRadioGroup';
 import AkauntingSelect from './../components/AkauntingSelect';
+import AkauntingSelectRemote from './../components/AkauntingSelectRemote';
 import AkauntingDate from './../components/AkauntingDate';
 import AkauntingRecurring from './../components/AkauntingRecurring';
 
@@ -19,6 +20,7 @@ export default {
         AkauntingSearch,
         AkauntingRadioGroup,
         AkauntingSelect,
+        AkauntingSelectRemote,
         AkauntingModal,
         AkauntingDate,
         AkauntingRecurring,

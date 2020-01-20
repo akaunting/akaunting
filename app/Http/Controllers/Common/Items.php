@@ -278,7 +278,13 @@ class Items extends Controller
             }
         }
 
-        return response()->json($items);
+        return response()->json([
+            'success' => true,
+            'message' => 'Get all items.',
+            'errors' => [],
+            'count' => $items->count(),
+            'data' => ($items->count()) ? $items : null,
+        ]);
     }
 
     public function total(TotalRequest $request)
