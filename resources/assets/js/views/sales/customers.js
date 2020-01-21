@@ -46,7 +46,7 @@ const app = new Vue({
                             column: 'email',
                             value : this.form.email
                         }
-                      })
+                    })
                     .then(response => {
                         if (response.data.errors) {
                             if (response.data.data) {

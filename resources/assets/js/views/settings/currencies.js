@@ -42,7 +42,7 @@ const app = new Vue({
                 params: {
                     code: code
                 }
-              })
+            })
             .then(response => {
                 this.form.rate = response.data.rate;
                 this.form.precision = response.data.precision;

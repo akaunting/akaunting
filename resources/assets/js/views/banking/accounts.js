@@ -38,7 +38,7 @@ const app = new Vue({
                 params: {
                   code: currency_code
                 }
-              })
+            })
             .then(response => {
                 this.money.decimal = response.data.decimal_mark;
                 this.money.thousands = response.data.thousands_separator;

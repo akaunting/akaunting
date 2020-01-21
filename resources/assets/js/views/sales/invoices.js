@@ -101,7 +101,7 @@ const app = new Vue({
                 params: {
                   code: currency_code
                 }
-              })
+            })
             .then(response => {
                 this.form.currency_code = response.data.currency_code;
                 this.form.currency_rate = response.data.currency_rate;
@@ -162,7 +162,7 @@ const app = new Vue({
                     type: 'invoice',
                     currency_code: this.form.currency_code
                 }
-              })
+            })
             .then(response => {
                 this.items = response.data;
 
@@ -229,7 +229,7 @@ const app = new Vue({
                 params: {
                     account_id: account_id
                 }
-              })
+            })
             .then(response => {
                 this.transaction_form.currency = response.data.currency_name;
                 this.transaction_form.currency_code = response.data.currency_code;

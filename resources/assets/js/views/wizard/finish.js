@@ -38,6 +38,6 @@ const app = new Vue({
     methods: {
         next() {
             if (this.active++ > 3);
-          }
+        }
     }
 });
