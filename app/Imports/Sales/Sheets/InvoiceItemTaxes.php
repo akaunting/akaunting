@@ -8,7 +8,6 @@ use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
 use App\Models\Sale\InvoiceItem;
 use App\Models\Sale\InvoiceItemTax as Model;
-use App\Models\Setting\Tax;
 
 class InvoiceItemTaxes extends Import
 {
@@ -18,8 +17,6 @@ class InvoiceItemTaxes extends Import
         if ($row['invoice_number'] == $this->empty_field) {
             return null;
         }
-
-        $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
 
         return new Model($row);
     }

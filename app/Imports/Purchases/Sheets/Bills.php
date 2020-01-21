@@ -13,6 +13,16 @@ class Bills extends Import
         return new Model($row);
     }
 
+    public function map($row): array
+    {
+        $row = parent::map($row);
+
+        $row['category_id'] = $this->getCategoryId($row, 'expense');
+        $row['contact_id'] = $this->getContactId($row, 'vendor');
+
+        return $row;
+    }
+
     public function rules(): array
     {
         return (new Request())->rules();

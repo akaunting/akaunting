@@ -11,6 +11,11 @@ class InvoiceHistories extends Import
 {
     public function model(array $row)
     {
+        // @todo remove after 3.2 release
+        if ($row['invoice_number'] == $this->empty_field) {
+            return null;
+        }
+
         return new Model($row);
     }
 

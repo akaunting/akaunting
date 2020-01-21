@@ -50,12 +50,12 @@ trait Import
 
         $type = !empty($type) ? $type : (!empty($row['type']) ? (($row['type'] == 'income') ? 'customer' : 'vendor') : 'customer');
 
-        if (empty($id) && !empty($row['contact_name'])) {
-            $id = $this->getContactIdFromName($row, $type);
-        }
-
         if (empty($row['contact_id']) && !empty($row['contact_email'])) {
             $id = $this->getContactIdFromEmail($row, $type);
+        }
+
+        if (empty($id) && !empty($row['contact_name'])) {
+            $id = $this->getContactIdFromName($row, $type);
         }
 
         return $id;
@@ -116,9 +116,9 @@ trait Import
             'currency_code'     => $row['currency_code'],
         ], [
             'company_id'        => session('company_id'),
-            'name'              => $row['currency_code'],
-            'number'            => Account::max('number') + 1,
-            'opening_balance'   => 0,
+            'name'              => !empty($row['account_name']) ? $row['account_name'] : $row['currency_code'],
+            'number'            => !empty($row['account_number']) ? $row['account_number'] : Account::max('number') + 1,
+            'opening_balance'   => !empty($row['opening_balance']) ? $row['opening_balance'] : 0,
             'enabled'           => 1,
         ])->id;
     }
@@ -129,9 +129,9 @@ trait Import
             'name'              => $row['account_name'],
         ], [
             'company_id'        => session('company_id'),
-            'number'            => Account::max('number') + 1,
-            'currency_code'     => setting('default.currency'),
-            'opening_balance'   => 0,
+            'number'            => !empty($row['account_number']) ? $row['account_number'] : Account::max('number') + 1,
+            'currency_code'     => !empty($row['currency_code']) ? $row['currency_code'] : setting('default.currency'),
+            'opening_balance'   => !empty($row['opening_balance']) ? $row['opening_balance'] : 0,
             'enabled'           => 1,
         ])->id;
     }
@@ -142,9 +142,9 @@ trait Import
             'number'            => $row['account_number'],
         ], [
             'company_id'        => session('company_id'),
-            'name'              => $row['account_number'],
-            'currency_code'     => setting('default.currency'),
-            'opening_balance'   => 0,
+            'name'              => !empty($row['account_name']) ? $row['account_name'] : $row['account_number'],
+            'currency_code'     => !empty($row['currency_code']) ? $row['currency_code'] : setting('default.currency'),
+            'opening_balance'   => !empty($row['opening_balance']) ? $row['opening_balance'] : 0,
             'enabled'           => 1,
         ])->id;
     }
@@ -156,7 +156,7 @@ trait Import
         ], [
             'company_id'        => session('company_id'),
             'type'              => $type,
-            'color'             => '#' . dechex(rand(0x000000, 0xFFFFFF)),
+            'color'             => !empty($row['category_color']) ? $row['category_color'] : '#' . dechex(rand(0x000000, 0xFFFFFF)),
             'enabled'           => 1,
         ])->id;
     }
@@ -168,8 +168,8 @@ trait Import
         ], [
             'company_id'        => session('company_id'),
             'type'              => $type,
-            'name'              => $row['contact_email'],
-            'currency_code'     => setting('default.currency'),
+            'name'              => !empty($row['contact_name']) ? $row['contact_name'] : $row['contact_email'],
+            'currency_code'     => !empty($row['contact_currency']) ? $row['contact_currency'] : setting('default.currency'),
             'enabled'           => 1,
         ])->id;
     }
@@ -181,7 +181,7 @@ trait Import
         ], [
             'company_id'        => session('company_id'),
             'type'              => $type,
-            'currency_code'     => setting('default.currency'),
+            'currency_code'     => !empty($row['contact_currency']) ? $row['contact_currency'] : setting('default.currency'),
             'enabled'           => 1,
         ])->id;
     }
@@ -192,8 +192,8 @@ trait Import
             'name'              => $row['item_name'],
         ], [
             'company_id'        => session('company_id'),
-            'sale_price'        => $row['price'],
-            'purchase_price'    => $row['price'],
+            'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : $row['price'],
+            'purchase_price'    => !empty($row['purchase_price']) ? $row['purchase_price'] : $row['price'],
             'enabled'           => 1,
         ])->id;
     }
@@ -205,7 +205,7 @@ trait Import
         ], [
             'company_id'        => session('company_id'),
             'type'              => $type,
-            'name'              => $row['tax_rate'],
+            'name'              => !empty($row['tax_name']) ? $row['tax_name'] : $row['tax_rate'],
             'enabled'           => 1,
         ])->id;
     }
