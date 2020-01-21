@@ -16,7 +16,7 @@
         ]) !!}
 
             <div class="card-body">
-                <div class="form-row align-items-center">
+                <div class="row align-items-center">
                     {{ Form::dateGroup('started_at', trans('reconciliations.start_date'), 'calendar',['id' => 'started_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], request('started_at'), 'col-xl-3') }}
 
                     {{ Form::dateGroup('ended_at', trans('reconciliations.end_date'), 'calendar',['id' => 'ended_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], request('started_at'), 'col-xl-3') }}
@@ -26,9 +26,7 @@
                     {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, request('account_id', setting('default.account')), ['required' => 'required'], 'col-xl-2') }}
 
                     <div class="col-xl-2">
-                        <div class="input-group mt-1">
-                            {!! Form::button('<span class="fa fa-list"></span> &nbsp;' . trans('reconciliations.transactions'), ['type' => 'submit', 'class' => 'btn btn-success header-button-top']) !!}
-                        </div>
+                        {!! Form::button('<span class="fa fa-list"></span> &nbsp;' . trans('reconciliations.transactions'), ['type' => 'submit', 'class' => 'btn btn-success header-button-top']) !!}
                     </div>
                 </div>
             </div>
@@ -42,7 +40,7 @@
         </div>
 
         {!! Form::open([
-            'url' => 'banking/reconciliations',
+            'url' => 'banking/reconciliations/create',
             'role' => 'form',
             'class' => 'form-loading-button',
             'id' => 'form-reconciliations',
@@ -78,10 +76,8 @@
                                 <td class="col-sm-3 col-md-3 d-none d-sm-block">{{ $item->contact->name }}</td>
                                 @if ($item->type == 'income')
                                     <td class="col-xs-4 col-sm-3 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                    <td class="col-xs-4 col-sm-3 col-md-2 text-right">N/A</td>
                                 @else
                                     <td class="col-xs-4 col-sm-3 col-md-2 text-right">N/A</td>
-                                    <td class="col-xs-4 col-sm-3 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                                 @endif
                                 <td class="col-md-1 text-right d-none d-md-block">{{ Form::checkbox('transactions['. $item->id . '_'. $item->type . ']', $item->amount, $item->reconciled) }}</td>
                             </tr>
@@ -114,13 +110,14 @@
                         @if ($transactions->count())
                             <div class="float-right">
                                 <a href="{{ route('reconciliations.index') }}" class="btn btn-outline-secondary header-button-top"><span class="fa fa-times"></span> &nbsp;{{ trans('general.cancel') }}</a>
+
                                 {!! Form::button(
                                     '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-check"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('reconciliations.reconcile') . '</span>',
-                                    [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-info button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+                                    [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-info header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
 
                                 {!! Form::button(
                                     '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
-                                    [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+                                    [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
                             </div>
                         @else
                             <div class="text-sm text-muted" id="datatable-basic_info" role="status" aria-live="polite">

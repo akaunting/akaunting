@@ -25,7 +25,7 @@
                         <div class="fallback">
                             <div class="custom-file">
                                 <input type="file" name="import" class="custom-file-input" id="projectCoverUploads">
-                                <label class="custom-file-label" for="projectCoverUploads">Choose file</label>
+                                <label class="custom-file-label" for="projectCoverUploads">{{ trans('general.form.no_file_selected') }}</label>
                             </div>
                         </div>
                         <div class="dz-preview dz-preview-single">
@@ -40,8 +40,8 @@
 
             <div class="card-footer">
                 <div class="float-right">
-                    <a href="{{ url($path) }}" class="btn btn-outline-secondary"><span class="fa fa-times"></span> &nbsp;{{ trans('general.cancel') }}</a>
-                    {!! Form::button('<span class="fa fa-download"></span> &nbsp;' . trans('import.import'), ['type' => 'submit', 'class' => 'btn btn-success']) !!}
+                    <a href="{{ url($path) }}" class="btn btn-outline-secondary header-button-top"><span class="fa fa-times"></span> &nbsp;{{ trans('general.cancel') }}</a>
+                    {!! Form::button('<span class="fa fa-download"></span> &nbsp;' . trans('import.import'), ['type' => 'submit', 'class' => 'btn btn-success header-button-top']) !!}
                 </div>
             </div>
         {!! Form::close() !!}

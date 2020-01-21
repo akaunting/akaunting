@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.updates', 2))
 
 @section('new_button')
-    <span><a href="{{ route('updates.check') }}" class="btn btn-warning btn-sm btn-alone"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a></span>
+    <a href="{{ route('updates.check') }}" class="btn btn-warning btn-sm header-button-top"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a>
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
 
     <div class="card">
         <div class="card-header border-bottom-0">
-            <span class="table-text">{{ trans_choice('general.modules', 2) }}</span>
+            {{ trans_choice('general.modules', 2) }}
         </div>
 
         <div class="table-responsive">

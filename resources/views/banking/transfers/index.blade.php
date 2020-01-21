@@ -56,8 +56,8 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('transfers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        <div class="dropdown-divider"></div>
                                         @permission('delete-banking-transfers')
+                                            <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'banking/transfers') !!}
                                         @endpermission
                                     </div>
