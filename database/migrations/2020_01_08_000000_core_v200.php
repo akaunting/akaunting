@@ -235,6 +235,11 @@ class CoreV200 extends Migration
                 $table->dropUnique(['company_id', 'sku', 'deleted_at']);
             }
         });
+
+        // Landing page column
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('landing_page', 70)->nullable()->default('dashboard');
+        });
     }
 
     /**

@@ -17,11 +17,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (auth()->guard($guard)->check()) {
-            if (user()->contact) {
+            $user = user();
+
+            if ($user->contact) {
                 return redirect()->route('portal.dashboard');
             }
 
-            return redirect()->route('dashboard');
+            return redirect()->route($user->landing_page);
         }
 
         return $next($request);

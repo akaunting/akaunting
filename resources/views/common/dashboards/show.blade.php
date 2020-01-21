@@ -19,7 +19,7 @@
                     '@click'  => 'onCreateWidget()',
                 ]) !!}
                 @endpermission
-                @permission('read-common-dashboards')
+                @permission('update-common-dashboards')
                 <div class="dropdown-divider"></div>
                 @permission('create-common-dashboards')
                 <a class="dropdown-item" href="{{ route('dashboards.create') }}">{{ trans('general.title.create', ['type' => trans_choice('general.dashboards', 1)]) }}</a>
