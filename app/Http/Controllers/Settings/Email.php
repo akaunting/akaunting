@@ -49,7 +49,7 @@ class Email extends Controller
         return view('settings.email.edit', compact(
             'setting',
             'templates',
-            'email_protocols',
+            'email_protocols'
         ));
     }
 
