@@ -4,7 +4,7 @@
 
 @section('new_button')
     @permission('create-common-items')
-        <span><a href="{{ route('items.create') }}" class="btn btn-sm btn-success header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <span><a href="{{ route('items.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
         <span><a href="{{ route('import.create', ['common', 'items']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload "></span> &nbsp;{{ trans('import.import') }}</a></span>
     @endpermission
     <span><a href="{{ route('items.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
@@ -85,9 +85,9 @@
                                             <div class="dropdown-divider"></div>
                                             @permission('create-common-items')
                                                 <a class="dropdown-item" href="{{ route('items.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                                <div class="dropdown-divider"></div>
                                             @endpermission
                                             @permission('delete-common-items')
+                                                <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'common/items') !!}
                                             @endpermission
                                         </div>

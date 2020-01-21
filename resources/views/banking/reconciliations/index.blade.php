@@ -4,7 +4,7 @@
 
 @section('new_button')
     @permission('create-banking-reconciliations')
-        <span><a href="{{ route('reconciliations.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <a href="{{ route('reconciliations.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endpermission
 @endsection
 
@@ -12,7 +12,7 @@
     <div class="card">
         <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
             {!! Form::open([
-                'url' => 'banking/reconciliations',
+                'route' => 'reconciliations.index',
                 'role' => 'form',
                 'method' => 'GET',
                 'class' => 'mb-0'

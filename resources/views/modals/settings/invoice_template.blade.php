@@ -59,7 +59,6 @@
             @stack('color_input_end')
         </div>
 
-
         {!! Form::hidden('_template', $setting['template']) !!}
         {!! Form::hidden('_prefix', 'invoice') !!}
     {!! Form::close() !!}

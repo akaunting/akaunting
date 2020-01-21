@@ -44,8 +44,8 @@
                 <tbody>
                     @foreach($users as $item)
                         <tr class="row align-items-center border-top-1">
-                            <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block border-0">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
-                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-3 border-0">
+                            <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
+                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-3">
                                 <a class="text-success col-aka" href="{{ route('users.edit', $item->id) }}">
                                     @if (setting('default.use_gravatar', '0') == '1')
                                         <img src="{{ $item->picture }}" alt="{{ $item->name }}" title="{{ $item->name }}">
@@ -57,13 +57,13 @@
                                     {{ $item->name }}
                                 </a>
                             </td>
-                            <td class="col-sm-2 col-md-2 col-lg-3 border-0 d-none d-sm-block long-texts">{{ $item->email }}</td>
-                            <td class="col-md-2 col-lg-2 d-none d-md-block border-0">
+                            <td class="col-sm-2 col-md-2 col-lg-3 d-none d-sm-block long-texts">{{ $item->email }}</td>
+                            <td class="col-md-2 col-lg-2 d-none d-md-block">
                                 @foreach($item->roles as $role)
                                     <label class="label label-default">{{ $role->display_name }}</label>
                                 @endforeach
                             </td>
-                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2 border-0">
+                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
                                 @if (user()->can('update-auth-users'))
                                     {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
                                 @else
@@ -74,7 +74,7 @@
                                     @endif
                                 @endif
                             </td>
-                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 border-0 text-center">
+                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">
                                 <div class="dropdown">
                                     <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h text-muted"></i>

@@ -4,31 +4,31 @@
 
 @section('dashboard_action')
     @permission(['create-common-widgets', 'read-common-dashboards'])
-    <span class="dashboard-action">
-        <div class="dropdown">
-            <a class="btn btn-sm items-align-center py-2 mt--1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-ellipsis-v"></i>
-            </a>
+        <span class="dashboard-action">
+            <div class="dropdown">
+                <a class="btn btn-sm items-align-center py-2 mt--1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v"></i>
+                </a>
 
-            <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
-                @permission('create-common-widgets')
-                {!! Form::button(trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]), [
-                    'type'    => 'button',
-                    'class'   => 'dropdown-item',
-                    'title'   => trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]),
-                    '@click'  => 'onCreateWidget()',
-                ]) !!}
-                @endpermission
-                @permission('update-common-dashboards')
-                <div class="dropdown-divider"></div>
-                @permission('create-common-dashboards')
-                <a class="dropdown-item" href="{{ route('dashboards.create') }}">{{ trans('general.title.create', ['type' => trans_choice('general.dashboards', 1)]) }}</a>
-                @endpermission
-                <a class="dropdown-item" href="{{ route('dashboards.index') }}">{{ trans('general.title.manage', ['type' => trans_choice('general.dashboards', 2)]) }}</a>
-                @endpermission
+                <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+                    @permission('create-common-widgets')
+                        {!! Form::button(trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]), [
+                            'type'    => 'button',
+                            'class'   => 'dropdown-item',
+                            'title'   => trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]),
+                            '@click'  => 'onCreateWidget()',
+                        ]) !!}
+                    @endpermission
+                    @permission('update-common-dashboards')
+                        <div class="dropdown-divider"></div>
+                        @permission('create-common-dashboards')
+                            <a class="dropdown-item" href="{{ route('dashboards.create') }}">{{ trans('general.title.create', ['type' => trans_choice('general.dashboards', 1)]) }}</a>
+                        @endpermission
+                        <a class="dropdown-item" href="{{ route('dashboards.index') }}">{{ trans('general.title.manage', ['type' => trans_choice('general.dashboards', 2)]) }}</a>
+                    @endpermission
+                </div>
             </div>
-        </div>
-    </span>
+        </span>
     @endpermission
 
     @php

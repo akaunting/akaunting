@@ -4,9 +4,7 @@
 
 @section('new_button')
     @permission('create-common-reports')
-    <span>
-        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
-    </span>
+        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endpermission
 @endsection
 
@@ -27,11 +25,11 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     @permission('create-common-reports')
-                                    <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
-                                    <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
+                                        <div class="dropdown-divider"></div>
                                     @endpermission
                                     @permission('delete-common-reports')
-                                    {!! Form::deleteLink($report, 'common/reports') !!}
+                                        {!! Form::deleteLink($report, 'common/reports') !!}
                                     @endpermission
                                 </div>
                             </div>

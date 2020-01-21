@@ -4,7 +4,7 @@
 
 @permission('create-common-companies')
     @section('new_button')
-        <span><a href="{{ route('companies.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <a href="{{ route('companies.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endsection
 @endpermission
 
@@ -49,7 +49,7 @@
                             <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block"><a class="col-aka">{{ $item->id }}</a></td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-3 col-xl-3 long-texts"><a class="text-success" href="{{ route('companies.edit', $item->id) }}">{{ $item->name }}</a></td>
                             <td class="col-md-2 col-lg-2 col-xl-2 d-none d-md-block long-texts">{{ $item->email }}</td>
-                            <td class="col-lg-2 col-xl-2 d-none d-lg-block border-0">@date($item->created_at)</td>
+                            <td class="col-lg-2 col-xl-2 d-none d-lg-block">@date($item->created_at)</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2 col-xl-2">
                                 @if (user()->can('update-common-companies'))
                                     {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}

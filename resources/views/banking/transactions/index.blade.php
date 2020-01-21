@@ -17,7 +17,7 @@
     <div class="card">
         <div class="card-header border-bottom-0">
             {!! Form::open([
-                'url' => 'banking/transactions',
+                'route' => 'transactions.index',
                 'role' => 'form',
                 'method' => 'GET',
                 'class' => 'mb-0'
