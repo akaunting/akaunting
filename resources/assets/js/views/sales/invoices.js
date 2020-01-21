@@ -179,9 +179,8 @@ const app = new Vue({
             this.form.items[index].name = item.name;
             this.form.items[index].price = (item.purchase_price).toFixed(2);
             this.form.items[index].quantity = 1;
+            this.form.items[index].tax_id = [item.tax_id.toString()];
             this.form.items[index].total = item.total;
-
-            this.form.items[index].show = false;
         },
 
         onDeleteItem(index) {

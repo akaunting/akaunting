@@ -43,15 +43,20 @@
                 ])}}"
                 @interface="row.item_id = $event"
                 @label="row.name = $event"
+                @option="onSelectItem($event, index)"
+                :remote-action="'{{ route('items.autocomplete') }}'"
+                :remote-type="'invoice'"
+                :currency-code="form.currency_code"
                 :form-error="form.errors.get('name')"
+                :loading-text="'{{ trans('general.loading') }}'"
                 :no-data-text="'{{ trans('general.no_data') }}'"
                 :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
             ></akaunting-select-remote>
             <input type="hidden"
-                       data-item="name"
-                       v-model="row.name"
-                       @input="onCalculateTotal"
-                       name="item[][name]">
+                data-item="name"
+                v-model="row.name"
+                @input="onCalculateTotal"
+                name="item[][name]">
             {!! $errors->first('item.name', '<p class="help-block">:message</p>') !!}
             @stack('name_input_end')
         </td>

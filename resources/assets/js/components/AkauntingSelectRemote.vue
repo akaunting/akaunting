@@ -284,6 +284,7 @@
     </base-input>
 
     <el-select v-else
+        :class="'pl-20 mr-40'"
         v-model="real_model"
         @input="change"
         filterable
@@ -292,7 +293,13 @@
         :placeholder="placeholder"
         :remote-method="remoteMethod"
         :loading="loading">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty loading">
+                    {{ loadingText }}
+                </p>
+            </div>
+
+            <div v-else-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
@@ -330,10 +337,10 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
+            <el-option v-if="!group" v-for="option in selectOptions"
+               :key="option.id"
+               :label="option.name"
+               :value="option.id">
             </el-option>
 
             <el-option-group
@@ -349,7 +356,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && selectOptions.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="!loading && addNew.status && selectOptions != null && selectOptions.length != 0" class="el-select__footer" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -464,6 +471,11 @@ export default {
             description: "Selectbox collapse status"
         },
 
+        loadingText: {
+            type: String,
+            default: 'Loading...',
+            description: "Selectbox loading message"
+        },
         noDataText: {
             type: String,
             default: 'No Data',
@@ -474,6 +486,10 @@ export default {
             default: 'No Matchign Data',
             description: "Selectbox search option not found item message"
         },
+
+        remoteAction: null,
+        remoteType: 'invoice',
+        currecnyCode: 'USD',
     },
 
     data() {
@@ -499,6 +515,7 @@ export default {
         remoteMethod(query) {
             if (query !== '') {
                 this.loading = true;
+
                 /*
                 this.list = [];
                 this.selectOptions = this.options;
@@ -513,12 +530,15 @@ export default {
 
                 this.selectOptions = this.list;
                 */
+               if (!this.remoteAction) {
+                   this.remoteAction = url + '/common/items/autocomplete';
+               }
 
-                axios.get(url + '/common/items/autocomplete', {
+                axios.get(this.remoteAction, {
                     params: {
-                        type: 'email',
+                        type: this.remoteType,
                         query: query,
-                        currency_code: 'USD',
+                        currency_code: this.currencyCode,
                     }
                 })
                 .then(response => {
@@ -539,9 +559,15 @@ export default {
         change() {
             this.$emit('change', this.real_model);
             this.$emit('interface', this.real_model);
-            this.$emit('label', this.selectOptions[this.real_model]);
 
-            alert(this.selectOptions[this.real_model]);
+            this.selectOptions.forEach(item => {
+                if (item.id == this.real_model) {
+                    this.$emit('label', item.name);
+                    this.$emit('option', item);
+
+                    return;
+                }
+            });
         },
 
         onAddItem() {
@@ -647,6 +673,10 @@ export default {
 
     .el-select-dropdown__empty {
         padding: 10px 0 0 !important;
+    }
+
+    .el-select-dropdown__empty.loading {
+        padding: 10px 0 !important;
     }
 
     .el-select__footer {

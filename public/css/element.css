@@ -2596,6 +2596,14 @@
     padding-right: 35px
 }
 
+.el-select.pl-20 .el-input .el-input__inner {
+    padding-left: 20px !important;
+}
+
+.el-select.mr-40 .el-input .el-input__inner {
+    margin-right: 40px !important;
+}
+
 .select-tax .el-select .el-select__tags {
     width: unset !important;
     max-width: unset !important;

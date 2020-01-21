@@ -38,6 +38,7 @@
     :form-error="form.errors.get('{{ $name }}')"
     @endif
 
+    :loading-text="'{{ trans('general.loading') }}'"
     :no-data-text="'{{ trans('general.no_data') }}'"
     :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
 ></akaunting-select-remote>
