@@ -4,7 +4,7 @@
 
 @permission('create-banking-transfers')
     @section('new_button')
-        <span><a href="{{ route('transfers.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <a href="{{ route('transfers.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endsection
 @endpermission
 

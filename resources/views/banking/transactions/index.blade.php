@@ -32,7 +32,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-flush">
+            <table class="table table-flush table-hover">
                 <thead class="thead-light">
                     <tr class="row table-head-line">
                         <th class="col-sm-2 col-md-2 d-none d-sm-block">@sortablelink('paid_at', trans('general.date'))</th>
@@ -54,8 +54,8 @@
                             <td class="col-md-2 d-none d-md-block long-texts">{{ $item->description }}</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 text-right">
                                 @php
-                                $id = !empty($item->document_id) ? $item->document_id : $item->id;
-                                $route = ($item->type == 'income') ? (!empty($item->document_id) ? 'invoices.show' : 'revenues.edit') : (!empty($item->document_id) ? 'bills.show' : 'payments.edit');
+                                    $id = !empty($item->document_id) ? $item->document_id : $item->id;
+                                    $route = ($item->type == 'income') ? (!empty($item->document_id) ? 'invoices.show' : 'revenues.edit') : (!empty($item->document_id) ? 'bills.show' : 'payments.edit');
                                 @endphp
                                 <a href="{{ route($route, $id) }}" class="text-success">
                                     @money($item->amount, $item->currency_code, true)
