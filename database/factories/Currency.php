@@ -8,9 +8,15 @@ $user = User::first();
 $company = $user->companies()->first();
 
 $factory->define(Currency::class, function (Faker $faker) use ($company) {
+    session(['company_id' => $company->id]);
     setting()->setExtraColumns(['company_id' => $company->id]);
 
     $currencies = config('money');
+
+    Currency::pluck('code')->each(function ($db_code) use (&$currencies) {
+        unset($currencies[$db_code]);
+    });
+
     $random = $faker->randomElement($currencies);
 
     $filtered = array_filter($currencies, function ($value) use ($random) {
