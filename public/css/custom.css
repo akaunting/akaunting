@@ -673,7 +673,7 @@ table .align-items-center td span.badge {
 
 /*----------------RESPONSIVE START LINE----------------*/
 /*--------Xs Breakpoint--------*/
-@media (min-width: 304px) and (max-width: 575.98px)
+@media (max-width: 575.98px)
 {
     .col-xs-1 {width: 8.33%;}
     .col-xs-2 {width: 16.66%;}

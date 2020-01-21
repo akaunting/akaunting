@@ -17,7 +17,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::textGroup('display_name', trans('general.name'), 'tasks') }}
+                    {{ Form::textGroup('display_name', trans('general.name'), 'font') }}
 
                     {{ Form::textGroup('name', trans('general.code'), 'code') }}
 
