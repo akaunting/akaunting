@@ -8,6 +8,7 @@ use App\Models\Common\Contact;
 use App\Models\Sale\Invoice;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
+use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Sales;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\URL;
 
 class Invoices extends Controller
 {
-    use DateTime, Currencies, Sales, Uploads;
+    use DateTime, Currencies, Sales, Uploads, Contacts;
 
     /**
      * Display a listing of the resource.
@@ -52,7 +53,7 @@ class Invoices extends Controller
 
         $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
 
-        $customers = Contact::type('customer')->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -156,7 +157,7 @@ class Invoices extends Controller
 
         $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
 
-        $customers = Contact::type('customer')->enabled()->pluck('name', 'id');
+        $customers = Contact::type($this->getCustomerTypes())->enabled()->pluck('name', 'id');
 
         $categories = Category::type('income')->enabled()->pluck('name', 'id');
 

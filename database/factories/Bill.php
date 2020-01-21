@@ -21,7 +21,9 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
     $billed_at = $faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d');
     $due_at = Date::parse($billed_at)->addDays(10)->format('Y-m-d');
 
-    $contacts = Contact::type('vendor')->enabled()->get();
+    $types = (string) setting('contact.type.vendor', 'vendor');
+
+    $contacts = Contact::type(explode(',', $types))->enabled()->get();
 
     if ($contacts->count()) {
         $contact = $contacts->random(1)->first();
