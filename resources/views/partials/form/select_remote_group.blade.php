@@ -38,6 +38,10 @@
     :form-error="form.errors.get('{{ $name }}')"
     @endif
 
+    :remote-action="'{{ $attributes['remote_action'] }}'"
+    :remote-type="'{{ $attributes['remote_type'] }}'"
+    :currency-code="{{ $attributes['currecny_code'] }}"
+
     :loading-text="'{{ trans('general.loading') }}'"
     :no-data-text="'{{ trans('general.no_data') }}'"
     :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"

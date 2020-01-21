@@ -16,8 +16,10 @@ import Form from './../../plugins/form';
 import Error from './../../plugins/error';
 import BulkAction from './../../plugins/bulk-action';
 
+import { Link } from 'element-ui';
+
 // plugin setup
-Vue.use(DashboardPlugin);
+Vue.use(DashboardPlugin, Link);
 
 const app = new Vue({
     el: '#app',

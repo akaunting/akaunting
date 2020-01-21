@@ -487,9 +487,21 @@ export default {
             description: "Selectbox search option not found item message"
         },
 
-        remoteAction: null,
-        remoteType: 'invoice',
-        currecnyCode: 'USD',
+        remoteAction: {
+            type: String,
+            default: null,
+            description: "Selectbox remote action path"
+        },
+        remoteType: {
+            type: String,
+            default: 'invoice',
+            description: "Ger remote item type."
+        },
+        currencyCode: {
+            type: String,
+            default: 'USD',
+            description: "Get remote item price currecy code"
+        },
     },
 
     data() {
@@ -572,7 +584,11 @@ export default {
 
         onAddItem() {
             // Get Select Input value
-            var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+            if (this.title) {
+                var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+            } else {
+                var value = this.$children[0].$children[0].$refs.input.value;
+            }
 
             if (this.add_new.type == 'inline') {
                 this.addInline(value);
@@ -582,7 +598,31 @@ export default {
         },
 
         addInline(value) {
+            axios.post(this.add_new.path, {
+                '_token': window.Laravel.csrfToken,
+                'type': 'inline',
+                field: this.add_new.field,
+                value: value,
+            })
+            .then(response => {
+                if (response.data.success) {
+                    this.selectOptions = [];
 
+                    this.selectOptions.push(response.data.data);
+                    this.real_model = response.data.data.id;
+
+                    this.change();
+
+                    if (this.title) {
+                        this.$children[0].$children[0].visible = false;
+                    } else {
+                        this.$children[0].visible = false;
+                    }
+                    //this.add_new.status = false;
+                }
+            })
+            .catch(error => {
+            });
         },
 
         onModal(value) {
@@ -593,7 +633,11 @@ export default {
                 add_new.status = true;
                 add_new.html = response.data.html;
 
-                this.$children[0].$children[0].visible = false;
+                if (this.title) {
+                    this.$children[0].$children[0].visible = false;
+                } else {
+                    this.$children[0].visible = false;
+                }
 
                 this.add_new_html = Vue.component('add-new-component', function (resolve, reject) {
                     resolve({
@@ -644,7 +688,7 @@ export default {
 
                     this.change();
 
-                    this.add_new.status = false;
+                    //this.add_new.status = false;
                 }
             })
             .catch(error => {

@@ -24,22 +24,10 @@
                 :value="'{{ old('item_id', '') }}'"
                 :add-new="{{ json_encode([
                     'status' => true,
-                    'text' => trans('general.form.add_new', ['field' => trans_choice('general.items', 1)]),
-                    'path' => isset($attributes['path']) ? $attributes['path']: false,
-                    'type' => isset($attributes['type']) ? $attributes['type'] : 'modal',
-                    'field' => isset($attributes['field']) ? $attributes['field'] : 'name',
-                    'buttons' => [
-                        'cancel' => [
-                            'text' => trans('general.cancel'),
-                            'icon' => 'fas fa-times',
-                            'class' => 'btn-outline-secondary'
-                        ],
-                        'confirm' => [
-                            'text' => trans('general.save'),
-                            'icon' => 'fas fa-save',
-                            'class' => 'btn-success'
-                        ]
-                    ]
+                    'text' => trans('general.form.add_new', ['field' => '']),
+                    'path' => route('modals.items.store'),
+                    'type' => 'inline',
+                    'field' => 'name',
                 ])}}"
                 @interface="row.item_id = $event"
                 @label="row.name = $event"
