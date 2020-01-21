@@ -17,13 +17,8 @@ class Items extends Import
     {
         $row = parent::map($row);
 
-        if (empty($row['category_id']) && !empty($row['category_name'])) {
-            $row['category_id'] = $this->getCategoryIdFromName($row, 'item');
-        }
-
-        if (empty($row['tax_id']) && !empty($row['tax_rate'])) {
-            $row['tax_id'] = $this->getTaxIdFromRate($row);
-        }
+        $row['category_id'] = $this->getCategoryId($row, 'item');
+        $row['tax_id'] = $this->getTaxId($row);
 
         return $row;
     }

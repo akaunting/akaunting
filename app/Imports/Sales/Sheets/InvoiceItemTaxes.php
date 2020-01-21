@@ -35,13 +35,7 @@ class InvoiceItemTaxes extends Import
             $row['invoice_item_id'] = InvoiceItem::where('item_id', $item_id)->pluck('id')->first();
         }
 
-        if (empty($row['tax_id']) && !empty($row['tax_name'])) {
-            $row['tax_id'] = Tax::name($row['tax_name'])->pluck('id')->first();
-        }
-
-        if (empty($row['tax_id']) && !empty($row['tax_rate'])) {
-            $row['tax_id'] = $this->getTaxIdFromRate($row);
-        }
+        $row['tax_id'] = $this->getTaxId($row);
 
         if (empty($row['name']) && !empty($row['item_name'])) {
             $row['name'] = $row['item_name'];

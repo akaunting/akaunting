@@ -9,7 +9,28 @@ class Transactions extends Export
 {
     public function collection()
     {
-        return Model::usingSearchString(request('search'))->get();
+        $model = Model::with(['account', 'bill', 'category', 'contact', 'invoice'])->usingSearchString(request('search'))->get();
+
+        if (!empty($this->ids)) {
+            $model->whereIn('id', (array) $this->ids);
+        }
+
+        return $model->get();
+    }
+
+    public function map($model): array
+    {
+        $model->account_name = $model->account->name;
+        $model->contact_email = $model->contact->email;
+        $model->category_name = $model->category->name;
+
+        if ($model->type == 'income') {
+            $model->invoice_bill_number = $model->invoice ? $model->invoice->invoice_number : 0;
+        } else {
+            $model->invoice_bill_number = $model->bill ? $model->bill->bill_number : 0;
+        }
+
+        return parent::map($model);
     }
 
     public function fields(): array
@@ -20,10 +41,10 @@ class Transactions extends Export
             'amount',
             'currency_code',
             'currency_rate',
-            'account_id',
-            'document_id',
-            'contact_id',
-            'category_id',
+            'account_name',
+            'invoice_bill_number',
+            'contact_email',
+            'category_name',
             'description',
             'payment_method',
             'reference',

@@ -17,17 +17,8 @@ class Invoices extends Import
     {
         $row = parent::map($row);
 
-        if (empty($row['contact_id']) && !empty($row['contact_name'])) {
-            $row['contact_id'] = $this->getContactIdFromName($row, 'customer');
-        }
-
-        if (empty($row['contact_id']) && !empty($row['contact_email'])) {
-            $row['contact_id'] = $this->getContactIdFromEmail($row, 'customer');
-        }
-
-        if (empty($row['category_id']) && !empty($row['category_name'])) {
-            $row['category_id'] = $this->getCategoryIdFromName($row, 'income');
-        }
+        $row['category_id'] = $this->getCategoryId($row, 'income');
+        $row['contact_id'] = $this->getContactId($row, 'customer');
 
         return $row;
     }
