@@ -87,11 +87,14 @@ class BillTransactions extends Controller
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
+            flash($message)->success();
+
             $response = [
                 'success' => true,
                 'error' => false,
                 'message' => $message,
                 'data' => $transaction,
+                'redirect' => route('bills.show', $bill->id),
             ];
         } catch(\Exception $e) {
             $response = [
@@ -99,6 +102,7 @@ class BillTransactions extends Controller
                 'error' => true,
                 'message' => $e->getMessage(),
                 'data' => 'null',
+                'redirect' => null,
             ];
         }
 
