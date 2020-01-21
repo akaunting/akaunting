@@ -18,7 +18,7 @@ class Dashboard extends Controller
     {
         $contact = user()->contact;
 
-        $invoices = Invoice::with('status')->accrued()->where('contact_id', $contact->id)->get();
+        $invoices = Invoice::accrued()->where('contact_id', $contact->id)->get();
 
         $start = Date::parse(request('start', Date::today()->startOfYear()->format('Y-m-d')));
         $end = Date::parse(request('end', Date::today()->endOfYear()->format('Y-m-d')));
