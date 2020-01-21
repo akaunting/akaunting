@@ -19,28 +19,30 @@ class AddAdminItems
         $user = user();
         $attr = ['icon' => ''];
 
-        // Dashboard
-        $dashboards = user()->dashboards()->enabled()->get();
+        // Dashboards
+        if ($user->can('read-common-dashboards')) {
+            $dashboards = $user->dashboards()->enabled()->get();
 
-        if ($dashboards->count() > 1) {
-            $menu->dropdown(trim(trans_choice('general.dashboards', 2)), function ($sub) use ($user, $attr, $dashboards) {
-                foreach ($dashboards as $key => $dashboard) {
-                    $path = (session('dashboard_id') == $dashboard->id) ? '/' : '/?dashboard_id=' . $dashboard->id;
+            if ($dashboards->count() > 1) {
+                $menu->dropdown(trim(trans_choice('general.dashboards', 2)), function ($sub) use ($user, $attr, $dashboards) {
+                    foreach ($dashboards as $key => $dashboard) {
+                        $path = (session('dashboard_id') == $dashboard->id) ? '/' : '/?dashboard_id=' . $dashboard->id;
 
-                    $sub->url($path, $dashboard->name, $key, $attr);
-                }
-            }, 1, [
-                'url' => '/',
-                'title' => trans_choice('general.dashboards', 2),
-                'icon' => 'fa fa-tachometer-alt',
-            ]);
-        } else {
-            $menu->add([
-                'url' => '/',
-                'title' => trans_choice('general.dashboards', 1),
-                'icon' => 'fa fa-tachometer-alt',
-                'order' => 1,
-            ]);
+                        $sub->url($path, $dashboard->name, $key, $attr);
+                    }
+                }, 1, [
+                    'url' => '/',
+                    'title' => trans_choice('general.dashboards', 2),
+                    'icon' => 'fa fa-tachometer-alt',
+                ]);
+            } else {
+                $menu->add([
+                    'url' => '/',
+                    'title' => trans_choice('general.dashboards', 1),
+                    'icon' => 'fa fa-tachometer-alt',
+                    'order' => 1,
+                ]);
+            }
         }
 
         // Items

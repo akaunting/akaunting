@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Current Email',
     'reset'                 => 'Reset',
     'never'                 => 'never',
+    'landing_page'          => 'Landing Page',
 
     'password' => [
         'current'           => 'Password',

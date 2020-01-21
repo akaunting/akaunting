@@ -225,6 +225,6 @@ class Companies extends Controller
             }
         }
 
-        return redirect('/');
+        return redirect()->route('dashboard');
     }
 }

@@ -28,6 +28,8 @@
 
                     {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed(), $user->locale) }}
 
+                    {{ Form::selectGroup('landing_page', trans('auth.landing_page'), 'sign-in-alt', $routes, $user->landing_page) }}
+
                     @if (setting('default.use_gravatar', '0') == '1')
                         @stack('picture_input_start')
                             <div class="form-group col-md-6">
