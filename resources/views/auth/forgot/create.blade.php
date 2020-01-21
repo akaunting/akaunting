@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', trans('auth.forgot_password'))
+
 @section('message', trans('auth.reset_password'))
 
 @section('content')
@@ -22,7 +24,7 @@
             <div class="col-xs-12 col-sm-12">
                 {!! Form::button(
                 '<div class="aka-loader"></div> <span>' . trans('general.send') . '</span>',
-                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-success header-button-top float-right', 'data-loading-text' => trans('general.loading')]) !!}
+                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-success float-right header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
             </div>
         </div>
     {!! Form::close() !!}

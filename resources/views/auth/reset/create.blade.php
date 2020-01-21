@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', trans('auth.reset_password'))
+
 @section('message', trans('auth.reset_password'))
 
 @section('content')
