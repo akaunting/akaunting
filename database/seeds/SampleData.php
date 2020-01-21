@@ -36,25 +36,11 @@ class SampleData extends Seeder
 
         $count = $this->command->option('count');
 
-        for ($i = 0; $i < $count; $i++) {
-            $this->dispatch(new CreateContact(factory(Contact::class)->raw()));
-        }
-
-        for ($i = 0; $i < $count; $i++) {
-            $this->dispatch(new CreateItem(factory(Item::class)->raw()));
-        }
-
-        for ($i = 0; $i < $count; $i++) {
-            $this->dispatch(new CreateAccount(factory(Account::class)->raw()));
-        }
-
-        for ($i = 0; $i < $count; $i++) {
-            $this->dispatch(new CreateBill(factory(Bill::class)->state('items')->raw()));
-        }
-
-        for ($i = 0; $i < $count; $i++) {
-            $this->dispatch(new CreateInvoice(factory(Invoice::class)->state('items')->raw()));
-        }
+        factory(Contact::class, (int)$count)->create();
+        factory(Item::class, (int)$count)->create();
+        factory(Account::class, (int)$count)->create();
+        factory(Bill::class, (int)$count)->create();
+        factory(Invoice::class, (int)$count)->create();
 
         for ($i = 0; $i < $count; $i++) {
             $amount   = $faker->randomFloat(2, 1, 1000);
