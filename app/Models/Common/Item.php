@@ -41,7 +41,7 @@ class Item extends Model
 
     public function tax()
     {
-        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na')]);
+        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na'), 'rate' => 0]);
     }
 
     public function bill_items()

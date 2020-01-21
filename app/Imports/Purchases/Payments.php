@@ -18,6 +18,10 @@ class Payments extends Import
         $row = parent::map($row);
 
         $row['type'] = 'expense';
+        $row['account_id'] = $this->getAccountId($row);
+        $row['category_id'] = $this->getCategoryId($row, 'expense');
+        $row['contact_id'] = $this->getContactId($row, 'vendor');
+        $row['document_id'] = $this->getDocumentId($row);
 
         return $row;
     }

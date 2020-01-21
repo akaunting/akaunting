@@ -4,7 +4,6 @@ namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
 use App\Http\Requests\Sale\InvoiceItem as Request;
-use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
 use App\Models\Sale\InvoiceItem as Model;
 
@@ -22,14 +21,7 @@ class InvoiceItems extends Import
         $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
 
         if (empty($row['item_id']) && !empty($row['item_name'])) {
-            $row['item_id'] = Item::firstOrCreate([
-                'name'              => $row['item_name'],
-            ], [
-                'company_id'        => session('company_id'),
-                'sale_price'        => $row['price'],
-                'purchase_price'    => $row['price'],
-                'enabled'           => 1,
-            ])->id;
+            $row['item_id'] = $this->getItemIdFromName($row);
 
             $row['name'] = $row['item_name'];
         }

@@ -8,7 +8,6 @@ use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
 use App\Models\Sale\InvoiceItem;
 use App\Models\Sale\InvoiceItemTax as Model;
-use App\Models\Setting\Tax;
 
 class InvoiceItemTaxes extends Import
 {
@@ -18,8 +17,6 @@ class InvoiceItemTaxes extends Import
         if ($row['invoice_number'] == $this->empty_field) {
             return null;
         }
-
-        $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
 
         return new Model($row);
     }
@@ -35,20 +32,7 @@ class InvoiceItemTaxes extends Import
             $row['invoice_item_id'] = InvoiceItem::where('item_id', $item_id)->pluck('id')->first();
         }
 
-        if (empty($row['tax_id']) && !empty($row['tax_name'])) {
-            $row['tax_id'] = Tax::name($row['tax_name'])->pluck('id')->first();
-        }
-
-        if (empty($row['tax_id']) && !empty($row['tax_rate'])) {
-            $row['tax_id'] = Tax::firstOrCreate([
-                'rate'          => $row['tax_rate'],
-            ], [
-                'company_id'    => session('company_id'),
-                'type'          => 'normal',
-                'name'          => $row['tax_rate'],
-                'enabled'       => 1,
-            ])->id;
-        }
+        $row['tax_id'] = $this->getTaxId($row);
 
         if (empty($row['name']) && !empty($row['item_name'])) {
             $row['name'] = $row['item_name'];

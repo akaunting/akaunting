@@ -9,7 +9,7 @@ class BillTotals extends Export
 {
     public function collection()
     {
-        $model = Model::usingSearchString(request('search'));
+        $model = Model::with(['bill'])->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('bill_id', (array) $this->ids);
@@ -18,11 +18,17 @@ class BillTotals extends Export
         return $model->get();
     }
 
+    public function map($model): array
+    {
+        $model->bill_number = $model->bill->bill_number;
+
+        return parent::map($model);
+    }
 
     public function fields(): array
     {
         return [
-            'bill_id',
+            'bill_number',
             'code',
             'name',
             'amount',

@@ -2,6 +2,7 @@
 
 namespace App\Abstracts;
 
+use App\Traits\Import as ImportHelper;
 use Illuminate\Support\Str;
 use Jenssegers\Date\Date;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -17,7 +18,7 @@ use Maatwebsite\Excel\Validators\Failure;
 
 abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatchInserts, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
 {
-    use Importable;
+    use Importable, ImportHelper;
 
     public $empty_field = 'empty---';
 

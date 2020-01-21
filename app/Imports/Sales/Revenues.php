@@ -3,8 +3,8 @@
 namespace App\Imports\Sales;
 
 use App\Abstracts\Import;
-use App\Models\Banking\Transaction as Model;
 use App\Http\Requests\Banking\Transaction as Request;
+use App\Models\Banking\Transaction as Model;
 
 class Revenues extends Import
 {
@@ -18,6 +18,10 @@ class Revenues extends Import
         $row = parent::map($row);
 
         $row['type'] = 'income';
+        $row['account_id'] = $this->getAccountId($row);
+        $row['category_id'] = $this->getCategoryId($row, 'income');
+        $row['contact_id'] = $this->getContactId($row, 'customer');
+        $row['document_id'] = $this->getDocumentId($row);
 
         return $row;
     }
