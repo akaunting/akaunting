@@ -26,11 +26,15 @@ class DeleteInvoice extends Job
      */
     public function handle()
     {
+        session(['deleting_invoice' => true]);
+
         $this->deleteRelationships($this->invoice, [
             'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
         ]);
 
         $this->invoice->delete();
+
+        session()->forget('deleting_invoice');
 
         return true;
     }
