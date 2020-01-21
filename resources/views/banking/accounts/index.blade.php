@@ -4,7 +4,7 @@
 
 @section('new_button')
     @permission('create-banking-accounts')
-        <span><a href="{{ route('accounts.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <a href="{{ route('accounts.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endpermission
 @endsection
 
@@ -61,7 +61,7 @@
                                     @endif
                                 @endif
                             </td>
-                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center border-0">
+                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
                                 <div class="dropdown">
                                     <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h text-muted"></i>
