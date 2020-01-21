@@ -32,7 +32,7 @@
                     <div class="col-md-12 mb-4">
                         {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'form-control-label']) !!}
                         <div class="table-responsive">
-                            <table class="table table-bordered"  id="items">
+                            <table class="table table-bordered" id="items">
                                 <thead class="thead-light">
                                     <tr class="row">
                                         @stack('actions_th_start')
@@ -99,7 +99,7 @@
                                                                                 <i class="fa fa-percent"></i>
                                                                             </span>
                                                                         </div>
-                                                                        {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}
+                                                                        {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control']) !!}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -109,18 +109,18 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                            <div class="discount card-footer">
-                                                                <div class="row text-center">
-                                                                    <div class="col-md-12">
-                                                                        <a href="javascript:void(0)" @click="discount = false"  class="btn btn-icon btn-outline-secondary">
-                                                                            <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
-                                                                            <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
-                                                                        </a>
-                                                                        {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount', '@click' => 'onAddDiscount', 'class' => 'btn btn-success']) !!}
-                                                                    </div>
+                                                        <div class="discount card-footer">
+                                                            <div class="row text-center">
+                                                                <div class="col-md-12">
+                                                                    <a href="javascript:void(0)" @click="discount = false"  class="btn btn-icon btn-outline-secondary">
+                                                                        <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
+                                                                        <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
+                                                                    </a>
+                                                                    {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount', '@click' => 'onAddDiscount', 'class' => 'btn btn-success']) !!}
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                     <el-link class="cursor-pointer text-info" slot="reference" type="primary" v-if="!totals.discount_text">{{ trans('invoices.add_discount') }}</el-link>
                                                     <el-link slot="reference" type="primary" v-if="totals.discount_text" v-html="totals.discount_text"></el-link>
                                                 </el-popover>

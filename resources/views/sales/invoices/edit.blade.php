@@ -193,7 +193,7 @@
 
 @push('scripts_start')
     <script type="text/javascript">
-        var invoice_items = {!! json_encode($invoice->items()->select(['item_id', 'name', 'quantity', 'price', 'total', 'tax'])->get()) !!};
+        var invoice_items = {!! json_encode($invoice->items()->get()) !!};
     </script>
 
     <script src="{{ asset('public/js/sales/invoices.js?v=' . version('short')) }}"></script>

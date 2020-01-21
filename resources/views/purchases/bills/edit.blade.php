@@ -113,7 +113,7 @@
                                                         <div class="discount card-footer">
                                                             <div class="row text-center">
                                                                 <div class="col-md-12">
-                                                                    <a href="javascript:void(0)" @click="discount = false"  class="btn btn-icon btn-outline-secondary">
+                                                                    <a href="javascript:void(0)" @click="discount = false" class="btn btn-icon btn-outline-secondary">
                                                                         <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
                                                                         <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
                                                                     </a>
@@ -191,7 +191,7 @@
 
 @push('scripts_start')
     <script type="text/javascript">
-        var bill_items = {!! json_encode($bill->items()->select(['item_id', 'name', 'quantity', 'price', 'total', 'tax'])->get()) !!};
+        var bill_items = {!! json_encode($bill->items()->get()) !!};
     </script>
 
     <script src="{{ asset('public/js/purchases/bills.js?v=' . version('short')) }}"></script>

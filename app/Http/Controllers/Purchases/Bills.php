@@ -90,7 +90,7 @@ class Bills extends Controller
 
         $currency = Currency::where('code', setting('default.currency'))->first();
 
-        $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
+        $items = Item::enabled()->orderBy('name')->get();
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
@@ -184,7 +184,7 @@ class Bills extends Controller
 
         $currency = Currency::where('code', $bill->currency_code)->first();
 
-        $items = Item::enabled()->orderBy('name')->pluck('name', 'id');
+        $items = Item::enabled()->orderBy('name')->get();
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
@@ -225,7 +225,7 @@ class Bills extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param  $bill
      *
      * @return Response
      */

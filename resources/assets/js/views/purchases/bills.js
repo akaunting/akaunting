@@ -16,8 +16,10 @@ import Form from './../../plugins/form';
 import Error from './../../plugins/error';
 import BulkAction from './../../plugins/bulk-action';
 
+import { Link } from 'element-ui';
+
 // plugin setup
-Vue.use(DashboardPlugin);
+Vue.use(DashboardPlugin, Link);
 
 const app = new Vue({
     el: '#app',
@@ -179,9 +181,8 @@ const app = new Vue({
             this.form.items[index].name = item.name;
             this.form.items[index].price = (item.purchase_price).toFixed(2);
             this.form.items[index].quantity = 1;
+            this.form.items[index].tax_id = [item.tax_id.toString()];
             this.form.items[index].total = item.total;
-
-            this.form.items[index].show = false;
         },
 
         onDeleteItem(index) {

@@ -16,39 +16,36 @@
     @stack('name_td_start')
         <td class="col-md-3 border-right-0 border-bottom-0">
             @stack('name_input_start')
-                <input class="form-control"
-                       data-item="name"
-                       required="required"
-                       name="items[][name]"
-                       v-model="row.name"
-                       @input="onGetItem($event, index)"
-                       type="text"
-                       autocomplete="off">
-                <div class="dropdown-menu item-show dropdown-menu-center" ref="menu" :class="[{show: row.show}]">
-                    <div class="list-group list-group-flush">
-                        <a class="list-group-item list-group-item-action" v-for="(item, item_index) in items" @click="onSelectItem(item, index)">
-                            <div class="row align-items-center">
-                                <div class="col ml--2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="name" v-text="item.name"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <input name="items[][show]"
-                       value="false"
-                       v-model="row.show"
-                       data-item="show"
-                       type="hidden">
-                <input name="items[][item_id]"
-                       v-model="row.item_id"
-                       data-item="item_id"
-                       type="hidden">
-                {!! $errors->first('item.name', '<p class="help-block">:message</p>') !!}
+            <akaunting-select-remote
+                :form-classes="[{'has-error': form.errors.get('name') }]"
+                :placeholder="'{{ trans('general.type_item_name') }}'"
+                :name="'item_id'"
+                :options="{{ json_encode($items) }}"
+                :value="'{{ old('item_id', '') }}'"
+                :add-new="{{ json_encode([
+                    'status' => true,
+                    'text' => trans('general.form.add_new', ['field' => '']),
+                    'path' => route('modals.items.store'),
+                    'type' => 'inline',
+                    'field' => 'name',
+                ])}}"
+                @interface="row.item_id = $event"
+                @label="row.name = $event"
+                @option="onSelectItem($event, index)"
+                :remote-action="'{{ route('items.autocomplete') }}'"
+                :remote-type="'bill'"
+                :currency-code="form.currency_code"
+                :form-error="form.errors.get('name')"
+                :loading-text="'{{ trans('general.loading') }}'"
+                :no-data-text="'{{ trans('general.no_data') }}'"
+                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
+            ></akaunting-select-remote>
+            <input type="hidden"
+                data-item="name"
+                v-model="row.name"
+                @input="onCalculateTotal"
+                name="item[][name]">
+            {!! $errors->first('item.name', '<p class="help-block">:message</p>') !!}
             @stack('name_input_end')
         </td>
     @stack('name_td_end')
@@ -73,8 +70,8 @@
         <td class="col-md-2 border-right-0 border-bottom-0">
             @stack('price_input_start')
                 <input class="form-control text-right input-price"
-                       required="required"
                        autocomplete="off"
+                       required="required"
                        data-item="price"
                        v-model.lazy="row.price"
                        v-money="money"
@@ -98,7 +95,9 @@
                     'data-item' => 'tax_id',
                     'v-model' => 'row.tax_id',
                     'change' => 'onCalculateTotal',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'collapse' => 'false',
+                    'path' => route('modals.taxes.create')
                 ], 'mb-0 select-tax') }}
             @stack('tax_id_input_end')
         </td>
