@@ -13,6 +13,7 @@ use App\Jobs\Sale\DeleteInvoice;
 use App\Jobs\Sale\DuplicateInvoice;
 use App\Jobs\Sale\UpdateInvoice;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
@@ -76,6 +77,21 @@ class Invoices extends Controller
         $signed_url = URL::signedRoute('signed.invoices.show', [$invoice->id, 'company_id' => session('company_id')]);
 
         $date_format = $this->getCompanyDateFormat();
+
+        $paid = $this->getPaidAmount($invoice);
+
+        // Get Invoice Totals
+        foreach ($invoice->totals as $invoice_total) {
+            $invoice->{$invoice_total->code} = $invoice_total->amount;
+        }
+
+        $total = money($invoice->total, $currency->code, true)->format();
+
+        $invoice->grand_total = money($total, $currency->code)->getAmount();
+
+        if (!empty($paid)) {
+            $invoice->grand_total = round($invoice->total - $paid, $currency->precision);
+        }
 
         return view('sales.invoices.show', compact('invoice', 'accounts', 'currencies', 'currency', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'signed_url', 'date_format'));
     }
@@ -447,5 +463,45 @@ class Invoices extends Controller
         event(new \App\Events\Sale\InvoicePrinting($invoice));
 
         return $invoice;
+    }
+
+    protected function getPaidAmount($invoice)
+    {
+        $paid = 0;
+
+        // Get invoice transactions
+        if (!$invoice->transactions->count()) {
+            return $paid;
+        }
+
+        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+
+        foreach ($invoice->transactions as $item) {
+            $default_amount = $item->amount;
+
+            if ($invoice->currency_code == $item->currency_code) {
+                $amount = (double) $default_amount;
+            } else {
+                $default_amount_model = new Transaction();
+                $default_amount_model->default_currency_code = $invoice->currency_code;
+                $default_amount_model->amount = $default_amount;
+                $default_amount_model->currency_code = $item->currency_code;
+                $default_amount_model->currency_rate = $currencies[$item->currency_code];
+
+                $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+                $convert_amount_model = new Transaction();
+                $convert_amount_model->default_currency_code = $item->currency_code;
+                $convert_amount_model->amount = $default_amount;
+                $convert_amount_model->currency_code = $invoice->currency_code;
+                $convert_amount_model->currency_rate = $currencies[$invoice->currency_code];
+
+                $amount = (double) $convert_amount_model->getAmountConvertedFromCustomDefault();
+            }
+
+            $paid += $amount;
+        }
+
+        return $paid;
     }
 }

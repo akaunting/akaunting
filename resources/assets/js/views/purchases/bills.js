@@ -206,7 +206,6 @@ const app = new Vue({
             this.transaction_form.paid_at = form.paid_at;
             this.transaction_form.account_id = form.account_id;
             this.transaction_form.payment_method = form.payment_method;
-            this.transaction_form.amount = form.amount;
         },
 
         addPayment() {

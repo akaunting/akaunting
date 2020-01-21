@@ -13,6 +13,7 @@ use App\Jobs\Purchase\DeleteBill;
 use App\Jobs\Purchase\DuplicateBill;
 use App\Jobs\Purchase\UpdateBill;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Purchase\Bill;
@@ -73,6 +74,21 @@ class Bills extends Controller
         $payment_methods = Modules::getPaymentMethods();
 
         $date_format = $this->getCompanyDateFormat();
+
+        $paid = $this->getPaidAmount($bill);
+
+        // Get Bill Totals
+        foreach ($bill->totals as $bill_total) {
+            $bill->{$bill_total->code} = $bill_total->amount;
+        }
+
+        $total = money($bill->total, $currency->code, true)->format();
+
+        $bill->grand_total = money($total, $currency->code)->getAmount();
+
+        if (!empty($paid)) {
+            $bill->grand_total = round($bill->total - $paid, $currency->precision) ;
+        }
 
         return view('purchases.bills.show', compact('bill', 'accounts', 'currencies', 'currency', 'account_currency_code', 'vendors', 'categories', 'payment_methods', 'date_format'));
     }
@@ -378,5 +394,45 @@ class Bills extends Controller
         $bill->template_path = 'purchases.bills.print';
 
         return $bill;
+    }
+
+    protected function getPaidAmount($bill)
+    {
+        $paid = 0;
+
+        // Get Bill Transactions
+        if (!$bill->transactions->count()) {
+            return $paid;
+        }
+
+        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+
+        foreach ($bill->transactions as $item) {
+            $default_amount = (double) $item->amount;
+
+            if ($bill->currency_code == $item->currency_code) {
+                $amount = $default_amount;
+            } else {
+                $default_amount_model = new Transaction();
+                $default_amount_model->default_currency_code = $bill->currency_code;
+                $default_amount_model->amount = $default_amount;
+                $default_amount_model->currency_code = $item->currency_code;
+                $default_amount_model->currency_rate = $currencies[$item->currency_code];
+
+                $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+
+                $convert_amount_model = new Transaction();
+                $convert_amount_model->default_currency_code = $item->currency_code;
+                $convert_amount_model->amount = $default_amount;
+                $convert_amount_model->currency_code = $bill->currency_code;
+                $convert_amount_model->currency_rate = $currencies[$bill->currency_code];
+
+                $amount = (double) $convert_amount_model->getAmountConvertedFromCustomDefault();
+            }
+
+            $paid += $amount;
+        }
+
+        return $paid;
     }
 }
