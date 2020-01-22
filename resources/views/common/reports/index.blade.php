@@ -40,7 +40,7 @@
                                 <div class="col">
                                     <a href="{{ route('reports.show', $report->id) }}">
                                         <h5 class="card-title text-uppercase text-muted mb-0">{{ $report->name }}</h5>
-                                        <span class="h2 font-weight-bold mb-0">{{ $totals[$report->id] }}</span>
+                                        <h2 class="font-weight-bold mb-0">{{ $totals[$report->id] }}</h2>
                                     </a>
                                 </div>
                                 <div class="col-auto">
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <p class="mt-3 mb-0 text-sm">
-                                <a href="{{ route('reports.show', $report->id) }}">
+                                <a class="text-default" href="{{ route('reports.show', $report->id) }}">
                                     <span class="text-nowrap">{{ $report->description }}</span>
                                 </a>
                             </p>
