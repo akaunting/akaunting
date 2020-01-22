@@ -22,9 +22,13 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{  url($back) }}" class="btn btn-white btn-md header-button-top"><span class="fas fa-arrow-left"></span> &nbsp;{{ trans('modules.back') }}</a>
+                    <a href="{{  url($back) }}" class="btn btn-white btn-sm header-button-top"><span class="fas fa-arrow-left"></span> &nbsp;{{ trans('modules.back') }}</a>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts_start')
+    <script src="{{ asset('public/js/modules/apps.js?v=' . version('short')) }}"></script>
+@endpush

@@ -12,7 +12,7 @@ return [
     'search'                => 'Search',
     'install'               => 'Install',
     'buy_now'               => 'Buy Now',
-    'get_api_key'           => '<a class="text-red" href=":url" target="_blank">Click here</a> to get your API key.',
+    'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
     'no_apps'               => 'There are no apps in this category, yet.',
     'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
     'recommended_apps'      => 'Recommended Apps',

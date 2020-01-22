@@ -18,9 +18,7 @@
                     {{ Form::textGroup('api_key', trans('modules.api_key'), 'key', ['required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_key')])], setting('apps.api_key', null), 'col-md-12') }}
 
                     <div class="col-md-12">
-                        <p class="mb-0 mt--3">
                             <small>{!! trans('modules.get_api_key', ['url' => 'https://akaunting.com/dashboard']) !!}</small>
-                        </p>
                     </div>
                 </div>
             </div>
