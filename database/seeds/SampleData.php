@@ -22,10 +22,11 @@ class SampleData extends Seeder
         Model::reguard();
 
         $count = (int) $this->command->option('count');
+        $acc_count = ($count <= 10) ? $count : 10;
 
         factory(Contact::class, $count)->create();
         factory(Item::class, $count)->create();
-        factory(Account::class, $count)->create();
+        factory(Account::class, $acc_count)->create();
         factory(Bill::class, $count)->create();
         factory(Invoice::class, $count)->create();
 
