@@ -670,6 +670,14 @@ table .align-items-center td span.badge {
 }
 /*--------App Comment Finish--------*/
 
+/*--------Empty Page Image--------*/
+.empty-image
+{
+    height: 300px;
+}
+/*--------Empty Page Image Finish--------*/
+
+
 
 /*----------------RESPONSIVE START LINE----------------*/
 /*--------Xs Breakpoint--------*/
@@ -723,6 +731,11 @@ table .align-items-center td span.badge {
         text-align: center;
         white-space: nowrap;
         font-size: 0.75rem !important;
+    }
+
+    .empty-image
+    {
+        height: 200px;
     }
 
     .col-aka

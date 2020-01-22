@@ -36,7 +36,7 @@
                 <tbody>
                     @foreach($payments as $item)
                         <tr class="row align-items-center border-top-1">
-                            <td class="col-xs-3 col-sm-3"><a class="text-success" href="{{ route('portal.payments.show', $item->id) }}">@date($item->paid_at)</a></td>
+                            <td class="col-xs-3 col-sm-3"><a href="{{ route('portal.payments.show', $item->id) }}">@date($item->paid_at)</a></td>
                             <td class="col-xs-3 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
                             <td class="col-xs-6 col-sm-3">{{ $payment_methods[$item->payment_method] }}</td>
                             <td class="col-sm-3 d-none d-sm-block">{{ $item->description }}</td>

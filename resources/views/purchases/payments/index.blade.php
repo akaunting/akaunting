@@ -52,7 +52,7 @@
                                 @if ($item->reconciled)
                                     <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">@date($item->paid_at)</td>
                                 @else
-                                    <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2"><a class="col-aka text-success " href="{{ route('payments.edit', $item->id) }}">@date($item->paid_at)</a></td>
+                                    <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2"><a class="col-aka" href="{{ route('payments.edit', $item->id) }}">@date($item->paid_at)</a></td>
                                 @endif
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right">@money($item->amount, $item->currency_code, true)</td>
                                 <td class="col-md-2 col-lg-2 col-xl-3 d-none d-md-block text-left">{{ $item->contact->name }}</td>

@@ -49,9 +49,9 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-xl-between">
                         <div class="col-xl-12">
-                            <div class="copyright text-center text-lg-center text-white">
+                            <div class="copyright text-center">
                                 <small>
-                                    <a>{{ trans('footer.powered') }}:</a> <a class="text-success"  href="{{ trans('footer.link') }}" target="_blank">{{ trans('footer.software') }}</a>
+                                    <a class="text-white">{{ trans('footer.powered') }}:</a> <a href="{{ trans('footer.link') }}" target="_blank">{{ trans('footer.software') }}</a>
                                 </small>
                             </div>
                         </div>
