@@ -136,7 +136,7 @@
                     <thead>
                         <tr>
                             @stack('name_th_start')
-                                <th class="item">{{ trans_choice($text_override['items'], 2) }}</th>
+                                <th class="text-left item">{{ trans_choice($text_override['items'], 2) }}</th>
                             @stack('name_th_end')
 
                             @stack('quantity_th_start')

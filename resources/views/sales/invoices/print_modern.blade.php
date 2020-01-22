@@ -3,10 +3,9 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('content')
-    <div class="row" style="background-color:{{ setting('invoice.color') }};">
+    <div class="row" style="background-color:{{ setting('invoice.color') }} !important; -webkit-print-color-adjust: exact;">
         <div class="col-58 m-first-column">
             <div class="text company pl-2 m-fc-left">
-                <img src="{{ $logo }}" class="m-logo" alt="{{ setting('company.name') }}"/>
             </div>
             <div class="text company m-fc-right">
                 <strong class="text-white">{{ setting('company.name') }}</strong>
@@ -105,10 +104,10 @@
         <div class="col-100">
             <div class="text">
                 <table class="m-lines">
-                    <thead style="background-color:{{ setting('invoice.color') }};">
+                    <thead style="background-color:{{ setting('invoice.color') }} !important; -webkit-print-color-adjust: exact;">
                         <tr>
                             @stack('name_th_start')
-                                <th class="item text-white">{{ trans_choice($text_override['items'], 2) }}</th>
+                                <th class="item text-left text-white">{{ trans_choice($text_override['items'], 2) }}</th>
                             @stack('name_th_end')
 
                             @stack('quantity_th_start')
@@ -194,8 +193,8 @@
 
     @if ($invoice->footer)
         <div class="row mt-7">
-            <div class="col-100 py-2" style="background-color:{{ setting('invoice.color') }};">
-                <div class="text company pl-2">
+            <div class="col-100 py-2" style="background-color:{{ setting('invoice.color') }} !important; -webkit-print-color-adjust: exact;">
+                <div class="text pl-2">
                     <strong class="text-white">{!! $invoice->footer !!}</strong>
                 </div>
             </div>
