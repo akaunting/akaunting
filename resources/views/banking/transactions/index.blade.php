@@ -57,7 +57,7 @@
                                     $id = !empty($item->document_id) ? $item->document_id : $item->id;
                                     $route = ($item->type == 'income') ? (!empty($item->document_id) ? 'invoices.show' : 'revenues.edit') : (!empty($item->document_id) ? 'bills.show' : 'payments.edit');
                                 @endphp
-                                <a href="{{ route($route, $id) }}" class="text-success">
+                                <a href="{{ route($route, $id) }}">
                                     @money($item->amount, $item->currency_code, true)
                                 </a>
                             </td>
