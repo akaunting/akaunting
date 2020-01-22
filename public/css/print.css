@@ -133,6 +133,7 @@ th, td {
 
 .text {
     color: #3c3f72;
+    margin-top:10px;
     font-size: 16px;
 }
 
@@ -212,7 +213,7 @@ th, td {
 */
 
 .c-logo {
-    padding-top: 50px;
+    padding-top: 25px;
 }
 
 .c-note {
@@ -234,7 +235,7 @@ th, td {
 .invoice-classic-inline-frame
 {
     margin: 0.3% 1% 0.3% 1%;
-    width: 95%;
+    width: 95 !important%;
     height: 59px;
     border: 3px solid #3c3f72;
 }
@@ -289,7 +290,7 @@ th, td {
 */
 
 .m-first-column {
-    padding-top: 35px;
+    padding-top: 15px;
     padding-bottom:48px;
 }
 
@@ -304,7 +305,7 @@ th, td {
 
 .m-fc-right {
     padding-left: 170px;
-     margin-top: -40px;
+     margin-top: -70px;
 }
 
 .m-note {

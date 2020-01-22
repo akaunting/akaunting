@@ -3,35 +3,31 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('content')
-    <div class="row">
+    <div class="row border-bottom-1">
             <div class="col-58">
-                <div class="border-bottom-1">
-                    <div class="text company">
-                        <img class="d-logo" src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
-                    </div>
+                <div class="text company">
+                    <img class="d-logo" src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
                 </div>
             </div>
 
             <div class="col-42">
-                <div class="border-bottom-1">
-                    <div class="text company">
-                        <strong>{{ setting('company.name') }}</strong><br>
-                        <p>{!! nl2br(setting('company.address')) !!}</p>
+                <div class="text company">
+                    <strong>{{ setting('company.name') }}</strong><br>
+                    <p>{!! nl2br(setting('company.address')) !!}</p>
 
-                        <p>
-                            @if (setting('company.tax_number'))
-                                {{ trans('general.tax_number') }}: {{ setting('company.tax_number') }}
-                            @endif
-                        </p>
+                    <p>
+                        @if (setting('company.tax_number'))
+                            {{ trans('general.tax_number') }}: {{ setting('company.tax_number') }}
+                        @endif
+                    </p>
 
-                        <p>
-                            @if (setting('company.phone'))
-                                {{ setting('company.phone') }}
-                            @endif
-                        </p>
+                    <p>
+                        @if (setting('company.phone'))
+                            {{ setting('company.phone') }}
+                        @endif
+                    </p>
 
-                        <p>{{ setting('company.email') }}</p>
-                    </div>
+                    <p>{{ setting('company.email') }}</p>
                 </div>
             </div>
         </div>
@@ -115,11 +111,11 @@
             <div class="text">
                 <table class="lines">
                     @foreach($invoice as $item)
-                        <thead style="background-color:{{ setting('invoice.color') }};">
+                        <thead style="background-color:{{ setting('invoice.color') }} !important; -webkit-print-color-adjust: exact;">
                     @endforeach
                         <tr>
                             @stack('name_th_start')
-                                <th class="item text-white">{{ trans_choice($text_override['items'], 2) }}</th>
+                                <th class="item text-left text-white">{{ trans_choice($text_override['items'], 2) }}</th>
                             @stack('name_th_end')
 
                             @stack('quantity_th_start')
