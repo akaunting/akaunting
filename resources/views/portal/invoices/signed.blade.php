@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('new_button')
-    <span><a href="{{ route('portal.dashboard') }}" class="btn btn-success btn-sm"><span class="fa fa-user"></span> &nbsp;{{ trans('invoices.all_invoices') }}</a></span>
+    <a href="{{ route('portal.dashboard') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-user"></span> &nbsp;{{ trans('invoices.all_invoices') }}</a>
 @endsection
 
 @section('content')
@@ -236,10 +236,10 @@
                 </div>
 
                 <div class="col-md-8 text-right">
-                    <a href="{{ $print_action }}" target="_blank" class="btn btn-success">
+                    <a href="{{ $print_action }}" target="_blank" class="btn btn-success header-button-top">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
-                    <a href="{{ $pdf_action }}" class="btn btn-white" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
+                    <a href="{{ $pdf_action }}" class="btn btn-white header-button-top" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
                         <i class="fa fa-file-pdf"></i>&nbsp; {{ trans('general.download') }}
                     </a>
                 </div>
