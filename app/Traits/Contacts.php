@@ -18,17 +18,17 @@ trait Contacts
         return ($return == 'array') ? explode(',', $types) : $types;
     }
 
-    public function setCustomerType($new_type)
+    public function addCustomerType($new_type)
     {
-        $this->setType($new_type, 'customer');
+        $this->addType($new_type, 'customer');
     }
 
-    public function setVendorType($new_type)
+    public function addVendorType($new_type)
     {
-        $this->setType($new_type, 'vendor');
+        $this->addType($new_type, 'vendor');
     }
 
-    public function setType($new_type, $index)
+    public function addType($new_type, $index)
     {
         $types = explode(',', setting('contact.type.' . $index, $index));
 
