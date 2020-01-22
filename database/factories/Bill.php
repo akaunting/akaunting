@@ -132,7 +132,9 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
     $updated_bill = dispatch_now(new UpdateBill($bill, $request));
 
     if (in_array($bill->status, ['partial', 'paid'])) {
-        $payment_request = [];
+        $payment_request = [
+            'paid_at' => $bill->due_at,
+        ];
 
         if ($bill->status == 'partial') {
             $payment_request['amount'] = (double) $amount / 2;

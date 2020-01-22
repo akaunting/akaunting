@@ -129,7 +129,9 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
     $updated_invoice = dispatch_now(new UpdateInvoice($invoice, $request));
 
     if (in_array($invoice->status, ['partial', 'paid'])) {
-        $payment_request = [];
+        $payment_request = [
+            'paid_at' => $invoice->due_at,
+        ];
 
         if ($invoice->status == 'partial') {
             $payment_request['amount'] = (double) $amount / 2;

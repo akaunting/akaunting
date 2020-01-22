@@ -8,6 +8,7 @@ $user = User::first();
 $company = $user->companies()->first();
 
 $factory->define(Contact::class, function (Faker $faker) use ($company) {
+    session(['company_id' => $company->id]);
     setting()->setExtraColumns(['company_id' => $company->id]);
 
     $types = ['customer', 'vendor'];
