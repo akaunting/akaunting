@@ -31,7 +31,7 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
         $contact = factory(Contact::class)->states('customer')->create();
     }
 
-    $statuses = ['draft', 'sent', 'paid'];
+    $statuses = ['draft', 'sent', 'partial', 'paid'];
 
     return [
         'company_id' => $company->id,
@@ -43,8 +43,8 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
         'notes' => $faker->text(5),
         'category_id' => $company->categories()->type('income')->get()->random(1)->pluck('id')->first(),
         'contact_id' => $contact->id,
-        'contact_name' =>  $contact->name,
-        'contact_email' =>$contact->email,
+        'contact_name' => $contact->name,
+        'contact_email' => $contact->email,
         'contact_tax_number' => $contact->tax_number,
         'contact_phone' => $contact->phone,
         'contact_address' => $contact->address,
@@ -56,6 +56,8 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
 $factory->state(Invoice::class, 'draft', ['status' => 'draft']);
 
 $factory->state(Invoice::class, 'sent', ['status' => 'sent']);
+
+$factory->state(Invoice::class, 'partial', ['status' => 'partial']);
 
 $factory->state(Invoice::class, 'paid', ['status' => 'paid']);
 
@@ -126,7 +128,13 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
 
     $updated_invoice = dispatch_now(new UpdateInvoice($invoice, $request));
 
-    if ($invoice->status == 'paid') {
-        event(new PaymentReceived($updated_invoice));
+    if (in_array($invoice->status, ['partial', 'paid'])) {
+        $payment_request = [];
+
+        if ($invoice->status == 'partial') {
+            $payment_request['amount'] = (double) $amount / 2;
+        }
+
+        event(new PaymentReceived($updated_invoice, $payment_request));
     }
 });

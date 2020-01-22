@@ -31,7 +31,7 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
         $contact = factory(Contact::class)->states('vendor')->create();
     }
 
-    $statuses = ['draft', 'received', 'paid'];
+    $statuses = ['draft', 'received', 'partial', 'paid'];
 
     return [
         'company_id' => $company->id,
@@ -43,8 +43,8 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
         'notes' => $faker->text(5),
         'category_id' => $company->categories()->type('expense')->get()->random(1)->pluck('id')->first(),
         'contact_id' => $contact->id,
-        'contact_name' =>  $contact->name,
-        'contact_email' =>$contact->email,
+        'contact_name' => $contact->name,
+        'contact_email' => $contact->email,
         'contact_tax_number' => $contact->tax_number,
         'contact_phone' => $contact->phone,
         'contact_address' => $contact->address,
@@ -56,6 +56,8 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
 $factory->state(Bill::class, 'draft', ['status' => 'draft']);
 
 $factory->state(Bill::class, 'received', ['status' => 'received']);
+
+$factory->state(Bill::class, 'partial', ['status' => 'partial']);
 
 $factory->state(Bill::class, 'paid', ['status' => 'paid']);
 
@@ -129,7 +131,13 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
 
     $updated_bill = dispatch_now(new UpdateBill($bill, $request));
 
-    if ($bill->status == 'paid') {
-        $transaction = dispatch_now(new CreateDocumentTransaction($updated_bill, []));
+    if (in_array($bill->status, ['partial', 'paid'])) {
+        $payment_request = [];
+
+        if ($bill->status == 'partial') {
+            $payment_request['amount'] = (double) $amount / 2;
+        }
+
+        $transaction = dispatch_now(new CreateDocumentTransaction($updated_bill, $payment_request));
     }
 });
