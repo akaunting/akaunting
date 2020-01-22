@@ -2,10 +2,6 @@
 
 namespace App\Abstracts\Listeners;
 
-use App\Events\Common\ReportFilterApplying;
-use App\Events\Common\ReportFilterShowing;
-use App\Events\Common\ReportGroupApplying;
-use App\Events\Common\ReportGroupShowing;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Setting\Category;
@@ -16,7 +12,7 @@ abstract class Report
 {
     use Contacts;
 
-    protected $class = '';
+    protected $classes = [];
 
     protected $events = [
         'App\Events\Common\ReportFilterShowing',
@@ -25,9 +21,9 @@ abstract class Report
         'App\Events\Common\ReportGroupApplying',
     ];
 
-    public function checkClass($event)
+    public function skipThisClass($event)
     {
-        return (get_class($event->class) == $this->class);
+        return (empty($event->class) || !in_array(get_class($event->class), $this->classes));
     }
 
     public function getYears()
@@ -135,70 +131,6 @@ abstract class Report
 
             $event->model->$id_field = $event->model->contact_id;
         }
-    }
-
-    /**
-     * Handle filter showing event.
-     *
-     * @param  $event
-     * @return void
-     */
-    public function handleReportFilterShowing(ReportFilterShowing $event)
-    {
-        if (!$this->checkClass($event)) {
-            return;
-        }
-
-        $event->class->filters['years'] = $this->getYears();
-    }
-
-    /**
-     * Handle filter applying event.
-     *
-     * @param  $event
-     * @return void
-     */
-    public function handleReportFilterApplying(ReportFilterApplying $event)
-    {
-        if (!$this->checkClass($event)) {
-            return;
-        }
-
-        // Apply date
-        $this->applyDateFilter($event);
-
-        // Apply search
-        $this->applySearchStringFilter($event);
-    }
-
-    /**
-     * Handle group showing event.
-     *
-     * @param  $event
-     * @return void
-     */
-    public function handleReportGroupShowing(ReportGroupShowing $event)
-    {
-        if (!$this->checkClass($event)) {
-            return;
-        }
-
-        $event->class->groups['category'] = trans_choice('general.categories', 1);
-    }
-
-    /**
-     * Handle group applying event.
-     *
-     * @param  $event
-     * @return void
-     */
-    public function handleReportGroupApplying(ReportGroupApplying $event)
-    {
-        if (!$this->checkClass($event)) {
-            return;
-        }
-
-        $this->applyAccountGroup($event);
     }
 
     /**

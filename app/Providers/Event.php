@@ -59,10 +59,12 @@ class Event extends Provider
      * @var array
      */
     protected $subscribe = [
-        'App\Listeners\Common\IncomeSummaryReport',
-        'App\Listeners\Common\ExpenseSummaryReport',
-        'App\Listeners\Common\IncomeExpenseSummaryReport',
-        'App\Listeners\Common\TaxSummaryReport',
-        'App\Listeners\Common\ProfitLossReport',
+        'App\Listeners\Common\AddDateToReports',
+        'App\Listeners\Common\AddAccountsToReports',
+        'App\Listeners\Common\AddCustomersToReports',
+        'App\Listeners\Common\AddVendorsToReports',
+        'App\Listeners\Common\AddExpenseCategoriesToReports',
+        'App\Listeners\Common\AddIncomeCategoriesToReports',
+        'App\Listeners\Common\AddSearchToReports',
     ];
 }

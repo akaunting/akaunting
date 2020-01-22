@@ -3,14 +3,16 @@
 namespace App\Listeners\Common;
 
 use App\Abstracts\Listeners\Report as Listener;
-use App\Events\Common\ReportFilterApplying;
 use App\Events\Common\ReportFilterShowing;
 use App\Events\Common\ReportGroupApplying;
 use App\Events\Common\ReportGroupShowing;
 
-class IncomeExpenseSummaryReport extends Listener
+class AddCustomersToReports extends Listener
 {
-    protected $class = 'App\Reports\IncomeExpenseSummary';
+    protected $classes = [
+        'App\Reports\IncomeSummary',
+        'App\Reports\IncomeExpenseSummary',
+    ];
 
     /**
      * Handle filter showing event.
@@ -20,15 +22,11 @@ class IncomeExpenseSummaryReport extends Listener
      */
     public function handleReportFilterShowing(ReportFilterShowing $event)
     {
-        if (!$this->checkClass($event)) {
+        if ($this->skipThisClass($event)) {
             return;
         }
 
-        $event->class->filters['years'] = $this->getYears();
-        $event->class->filters['accounts'] = $this->getAccounts();
-        $event->class->filters['categories'] = $this->getIncomeExpenseCategories();
         $event->class->filters['customers'] = $this->getCustomers();
-        $event->class->filters['vendors'] = $this->getVendors();
     }
 
     /**
@@ -39,14 +37,11 @@ class IncomeExpenseSummaryReport extends Listener
      */
     public function handleReportGroupShowing(ReportGroupShowing $event)
     {
-        if (!$this->checkClass($event)) {
+        if ($this->skipThisClass($event)) {
             return;
         }
 
-        $event->class->groups['category'] = trans_choice('general.categories', 1);
-        $event->class->groups['account'] = trans_choice('general.accounts', 1);
         $event->class->groups['customer'] = trans_choice('general.customers', 1);
-        $event->class->groups['vendor'] = trans_choice('general.vendors', 1);
     }
 
     /**
@@ -57,12 +52,10 @@ class IncomeExpenseSummaryReport extends Listener
      */
     public function handleReportGroupApplying(ReportGroupApplying $event)
     {
-        if (!$this->checkClass($event)) {
+        if ($this->skipThisClass($event)) {
             return;
         }
 
         $this->applyCustomerGroup($event);
-        $this->applyVendorGroup($event);
-        $this->applyAccountGroup($event);
     }
 }
