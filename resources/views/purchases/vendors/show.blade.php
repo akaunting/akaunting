@@ -117,8 +117,8 @@
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-6 col-sm-3">{{ trans('general.date') }}</th>
                                                 <th class="col-xs-6 col-sm-2">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-4 d-none d-sm-none">{{ trans_choice('general.categories', 1) }}</th>
-                                                <th class="col-sm-3 d-none d-sm-none">{{ trans_choice('general.accounts', 1) }}</th>
+                                                <th class="col-sm-4 d-none d-sm-block">{{ trans_choice('general.categories', 1) }}</th>
+                                                <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.accounts', 1) }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -126,8 +126,8 @@
                                                 <tr class="row align-items-center border-top-1">
                                                     <td class="col-xs-6 col-sm-3">@date($item->paid_at)</td>
                                                     <td class="col-xs-6 col-sm-2">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-4 d-none d-sm-none">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
-                                                    <td class="col-sm-3 d-none d-sm-none">{{ $item->account->name }}</td>
+                                                    <td class="col-sm-4 d-none d-sm-block">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                                                    <td class="col-sm-3 d-none d-sm-block">{{ $item->account->name }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
