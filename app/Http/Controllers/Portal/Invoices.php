@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Abstracts\Http\Controller;
-use App\Models\Banking\Account;
-use App\Models\Common\Contact;
 use App\Models\Sale\Invoice;
 use App\Models\Setting\Category;
-use App\Models\Setting\Currency;
 use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
@@ -47,21 +44,12 @@ class Invoices extends Controller
      */
     public function show(Invoice $invoice)
     {
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
-        $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
-
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
         event(new \App\Events\Sale\InvoiceViewed($invoice));
 
-        return view('portal.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
+        return view('portal.invoices.show', compact('invoice', 'payment_methods'));
     }
 
     /**
@@ -151,16 +139,6 @@ class Invoices extends Controller
 
         $invoice->paid = $paid;
 
-        $accounts = Account::enabled()->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
-
-        $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
-
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->pluck('name', 'id');
-
-        $categories = Category::type('income')->enabled()->pluck('name', 'id');
-
         $payment_methods = Modules::getPaymentMethods();
 
         $payment_actions = [];
@@ -178,6 +156,6 @@ class Invoices extends Controller
 
         event(new \App\Events\Sale\InvoiceViewed($invoice));
 
-        return view('portal.invoices.signed', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'payment_actions', 'print_action', 'pdf_action'));
+        return view('portal.invoices.signed', compact('invoice', 'payment_methods', 'payment_actions', 'print_action', 'pdf_action'));
     }
 }
