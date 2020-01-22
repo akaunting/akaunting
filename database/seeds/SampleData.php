@@ -8,14 +8,10 @@ use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Purchase\Bill;
 use App\Models\Sale\Invoice;
-use App\Traits\Jobs;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class SampleData extends Seeder
 {
-    use Jobs;
-
     /**
      * Run the database seeds.
      *
