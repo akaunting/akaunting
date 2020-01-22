@@ -112,7 +112,7 @@ class Login extends Controller
             'error' => false,
             'message' => null,
             'data' => null,
-            'redirect' => redirect()->intended($user->landing_page)->getTargetUrl(),
+            'redirect' => redirect()->intended(route($user->landing_page))->getTargetUrl(),
         ];
 
         return response()->json($response);
