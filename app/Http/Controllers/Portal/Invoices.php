@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Portal;
 use App\Abstracts\Http\Controller;
 use App\Models\Sale\Invoice;
 use App\Models\Setting\Category;
-use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Sales;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\URL;
 
 class Invoices extends Controller
 {
-    use DateTime, Currencies, Sales, Uploads, Contacts;
+    use DateTime, Currencies, Sales, Uploads;
 
     /**
      * Display a listing of the resource.
