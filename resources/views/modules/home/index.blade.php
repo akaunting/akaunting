@@ -9,8 +9,9 @@
 
 @section('content')
     @include('partials.modules.bar')
+
         @if ($pre_sale)
-            <h2 class="text-primary">{{ trans('modules.pre_sale') }}</h2>
+            <h2>{{ trans('modules.pre_sale') }}</h2>
             <div class="row">
                 @if ($pre_sale->data)
                     @foreach ($pre_sale->data as $module)
@@ -23,7 +24,7 @@
         @endif
 
         @if ($paid)
-            <h2 class="text-primary">{{ trans('modules.top_paid') }}</h2>
+            <h2>{{ trans('modules.top_paid') }}</h2>
             <div class="row">
                 @if ($paid->data)
                     @foreach ($paid->data as $module)
@@ -36,7 +37,7 @@
         @endif
 
         @if ($new)
-            <h2 class="text-primary">{{ trans('modules.new') }}</h2>
+            <h2>{{ trans('modules.new') }}</h2>
             <div class="row">
                 @if ($new->data)
                     @foreach ($new->data as $module)
@@ -49,7 +50,7 @@
         @endif
 
         @if ($free)
-            <h2 class="text-primary">{{ trans('modules.top_free') }}</h2>
+            <h2>{{ trans('modules.top_free') }}</h2>
             <div class="row">
                 @if ($free->data)
                     @foreach ($free->data as $module)
