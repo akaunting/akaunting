@@ -327,22 +327,27 @@
                                                 <th class="col-xs-4 col-sm-3 text-right pr-5">{{ trans('bills.total') }}</th>
                                             @stack('total_th_end')
                                         </tr>
-                                        @foreach($bill->items as $item)
+                                        @foreach($bill->items as $bill_item)
                                             <tr class="row">
                                                 @stack('name_td_start')
-                                                    <td class="col-xs-4 col-sm-3 pl-5">{{ $item->name }}</td>
+                                                    <td class="col-xs-4 col-sm-3 pl-5">
+                                                        {{ $bill_item->name }}
+                                                        @if (!empty($bill_item->item->description))
+                                                            <br><small>{!! \Illuminate\Support\Str::limit($bill_item->item->description, 500) !!}<small>
+                                                        @endif
+                                                    </td>
                                                 @stack('name_td_end')
 
                                                 @stack('quantity_td_start')
-                                                    <td class="col-xs-4 col-sm-3 text-center">{{ $item->quantity }}</td>
+                                                    <td class="col-xs-4 col-sm-3 text-center">{{ $bill_item->quantity }}</td>
                                                 @stack('quantity_td_end')
 
                                                 @stack('price_td_start')
-                                                    <td class="col-sm-3 text-right d-none d-sm-block pl-8">@money($item->price, $bill->currency_code, true)</td>
+                                                    <td class="col-sm-3 text-right d-none d-sm-block pl-8">@money($bill_item->price, $bill->currency_code, true)</td>
                                                 @stack('price_td_end')
 
                                                 @stack('total_td_start')
-                                                    <td class="col-xs-4 col-sm-3 text-right pr-5">@money($item->total, $bill->currency_code, true)</td>
+                                                    <td class="col-xs-4 col-sm-3 text-right pr-5">@money($bill_item->total, $bill->currency_code, true)</td>
                                                 @stack('total_td_end')
                                             </tr>
                                         @endforeach

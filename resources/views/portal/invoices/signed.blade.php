@@ -150,12 +150,17 @@
                                 <th class="text-center pl-7">{{ trans('invoices.price') }}</th>
                                 <th class="text-right pr-5">{{ trans('invoices.total') }}</th>
                             </tr>
-                            @foreach($invoice->items as $item)
+                            @foreach($invoice->items as $invoice_item)
                                 <tr>
-                                    <td class="pl-5">{{ $item->name }}</td>
-                                    <td class="text-center">{{ $item->quantity }}</td>
-                                    <td class="text-center pl-7">@money($item->price, $invoice->currency_code, true)</td>
-                                    <td class="text-right pr-5">@money($item->total, $invoice->currency_code, true)</td>
+                                    <td class="pl-5">
+                                        {{ $invoice_item->name }}
+                                        @if (!empty($invoice_item->item->description))
+                                            <br><small>{!! \Illuminate\Support\Str::limit($invoice_item->item->description, 500) !!}<small>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">{{ $invoice_item->quantity }}</td>
+                                    <td class="text-center pl-7">@money($invoice_item->price, $invoice->currency_code, true)</td>
+                                    <td class="text-right pr-5">@money($invoice_item->total, $invoice->currency_code, true)</td>
                                 </tr>
                             @endforeach
                         </tbody>

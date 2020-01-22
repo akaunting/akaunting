@@ -178,22 +178,27 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($bill->items as $item)
+                @foreach($bill->items as $bill_item)
                     <tr>
                         @stack('name_td_start')
-                            <td>{{ $item->name }}</td>
+                            <td>
+                                {{ $bill_item->name }}
+                                @if (!empty($bill_item->item->description))
+                                    <br><small>{!! \Illuminate\Support\Str::limit($bill_item->item->description, 500) !!}<small>
+                                @endif
+                            </td>
                         @stack('name_td_end')
 
                         @stack('quantity_td_start')
-                            <td class="text-center">{{ $item->quantity }}</td>
+                            <td class="text-center">{{ $bill_item->quantity }}</td>
                         @stack('quantity_td_end')
 
                         @stack('price_td_start')
-                            <td class="text-center pr-5">@money($item->price, $bill->currency_code, true)</td>
+                            <td class="text-center pr-5">@money($bill_item->price, $bill->currency_code, true)</td>
                         @stack('price_td_end')
 
                         @stack('total_td_start')
-                            <td class="text-right">@money($item->total, $bill->currency_code, true)</td>
+                            <td class="text-right">@money($bill_item->total, $bill->currency_code, true)</td>
                         @stack('total_td_end')
                     </tr>
                 @endforeach

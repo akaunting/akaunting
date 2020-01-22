@@ -125,27 +125,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($invoice->items as $item)
+                        @foreach($invoice->items as $invoice_item)
                             <tr>
                                 @stack('name_td_start')
                                     <td class="item">
-                                        {{ $item->name }}
-                                        @if ($item->desc)
-                                            {!! $item->desc !!}
+                                        {{ $invoice_item->name }}
+                                        @if (!empty($invoice_item->item->description))
+                                            <br><small>{!! \Illuminate\Support\Str::limit($invoice_item->item->description, 500) !!}</small>
                                         @endif
                                     </td>
                                 @stack('name_td_end')
 
                                 @stack('quantity_td_start')
-                                    <td class="quantity">{{ $item->quantity }}</td>
+                                    <td class="quantity">{{ $invoice_item->quantity }}</td>
                                 @stack('quantity_td_end')
 
                                 @stack('price_td_start')
-                                    <td class="price">@money($item->price, $invoice->currency_code, true)</td>
+                                    <td class="price">@money($invoice_item->price, $invoice->currency_code, true)</td>
                                 @stack('price_td_end')
 
                                 @stack('total_td_start')
-                                    <td class="total">@money($item->total, $invoice->currency_code, true)</td>
+                                    <td class="total">@money($invoice_item->total, $invoice->currency_code, true)</td>
                                 @stack('total_td_end')
                             </tr>
                         @endforeach
