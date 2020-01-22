@@ -21,13 +21,13 @@ class SampleData extends Seeder
     {
         Model::reguard();
 
-        $count = $this->command->option('count');
+        $count = (int) $this->command->option('count');
 
-        factory(Contact::class, (int)$count)->create();
-        factory(Item::class, (int)$count)->create();
-        factory(Account::class, (int)$count)->create();
-        factory(Bill::class, (int)$count)->create();
-        factory(Invoice::class, (int)$count)->create();
+        factory(Contact::class, $count)->create();
+        factory(Item::class, $count)->create();
+        factory(Account::class, $count)->create();
+        factory(Bill::class, $count)->create();
+        factory(Invoice::class, $count)->create();
 
         Model::unguard();
     }
