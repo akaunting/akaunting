@@ -3,9 +3,12 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Traits\Contacts;
 
 class DeleteContact extends Job
 {
+    use Contacts;
+
     protected $contact;
 
     /**
@@ -52,7 +55,7 @@ class DeleteContact extends Job
             'transactions' => 'transactions',
         ];
 
-        if ($this->contact->type == 'customer') {
+        if (in_array($this->contact->type, $this->getCustomerTypes())) {
             $rels['invoices'] = 'invoices';
         } else {
             $rels['bills'] = 'bills';
