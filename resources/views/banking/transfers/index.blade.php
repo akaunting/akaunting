@@ -45,7 +45,7 @@
                     @foreach($transfers as $item)
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-2 col-md-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->from_account) }}</td>
-                            <td class="col-md-2 d-none d-md-block"><a class="col-aka text-success" href="{{ route('transfers.edit', $item->id) }}">@date($item->paid_at)</a></td>
+                            <td class="col-md-2 d-none d-md-block"><a class="col-aka" href="{{ route('transfers.edit', $item->id) }}">@date($item->paid_at)</a></td>
                             <td class="col-sm-2 col-md-3 d-none d-sm-block">{{ $item->from_account }}</td>
                             <td class="col-xs-4 col-sm-4 col-md-2">{{ $item->to_account }}</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>

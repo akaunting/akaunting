@@ -43,7 +43,7 @@
                         @foreach($currencies as $item)
                             <tr class="row align-items-center border-top-1" id="currency-{{ $item->id }}">
                                 <td class="col-xs-4 col-sm-4 col-md-3">
-                                    <a href="javascript:void(0);" class="text-success" @click="onEditCurrency('{{ $item->id }}')">
+                                    <a href="javascript:void(0);" @click="onEditCurrency('{{ $item->id }}')">
                                         {{ $item->name }}
                                     </a>
                                 </td>

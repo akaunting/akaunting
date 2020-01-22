@@ -44,7 +44,7 @@
                     @foreach($roles as $item)
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-3 col-md-2 col-lg-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->name) }}</td>
-                            <td class="col-xs-4 col-sm-3 col-md-4 col-lg-4"><a class="text-success col-aka" href="{{ route('roles.edit', $item->id) }}">{{ $item->display_name }}</a></td>
+                            <td class="col-xs-4 col-sm-3 col-md-4 col-lg-4"><a class="col-aka" href="{{ route('roles.edit', $item->id) }}">{{ $item->display_name }}</a></td>
                             <td class="col-xs-4 col-sm-3 col-md-4 col-lg-3">{{ $item->name }}</td>
                             <td class="col-lg-3 d-none d-lg-block">{{ $item->description }}</td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-1 text-center">

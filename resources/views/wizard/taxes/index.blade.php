@@ -42,7 +42,7 @@
                         @foreach($taxes as $item)
                             <tr class="row align-items-center border-top-1" id="tax-{{ $item->id }}">
                                 <td class="col-xs-4 col-sm-4 col-md-3 tax-name">
-                                    <a href="javascript:void(0);" class="text-success" @click="onEditTax('{{ $item->id }}')">
+                                    <a href="javascript:void(0);" @click="onEditTax('{{ $item->id }}')">
                                         {{ $item->name }}
                                     </a>
                                 </td>

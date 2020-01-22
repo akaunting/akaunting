@@ -52,7 +52,7 @@
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 </td>
                                 <td class="col-xs-4 col-sm-3 col-md-3 col-lg-3 col-xl-2">
-                                    <a class="col-aka text-success" href="{{ route('customers.show', $item->id) }}">{{ $item->name }}</a>
+                                    <a class="col-aka" href="{{ route('customers.show', $item->id) }}">{{ $item->name }}</a>
                                 </td>
                                 <td class="col-md-2 col-lg-2 col-xl-3 d-none d-md-block long-texts text-left">
                                     {{ !empty($item->email) ? $item->email : trans('general.na') }}
