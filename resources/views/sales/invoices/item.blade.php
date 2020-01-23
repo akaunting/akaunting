@@ -24,7 +24,7 @@
                 :value="'{{ old('item_id', '') }}'"
                 :add-new="{{ json_encode([
                     'status' => true,
-                    'text' => trans('general.form.add_new', ['field' => '']),
+                    'text' => trans('general.add_new'),
                     'path' => route('modals.items.store'),
                     'type' => 'inline',
                     'field' => 'name',

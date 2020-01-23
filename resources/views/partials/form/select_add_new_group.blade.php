@@ -16,7 +16,7 @@
         :value="'{{ old($name, $selected) }}'"
         :add-new="{{ json_encode([
             'status' => true,
-            'text' => trans('general.form.add_new', ['field' => $text]),
+            'text' => trans('general.add_new'),
             'path' => isset($attributes['path']) ? $attributes['path']: false,
             'type' => isset($attributes['type']) ? $attributes['type'] : 'modal',
             'field' => isset($attributes['field']) ? $attributes['field'] : 'name',

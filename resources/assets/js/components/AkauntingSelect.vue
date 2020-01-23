@@ -501,7 +501,7 @@ export default {
 
                     this.change();
 
-                    this.add_new.status = false;
+                    //this.add_new.status = false;
                 }
             })
             .catch(error => {
