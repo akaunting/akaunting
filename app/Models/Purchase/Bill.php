@@ -267,15 +267,14 @@ class Bill extends Model
             case 'paid':
                 $label = 'success';
                 break;
-            case 'delete':
+            case 'partial':
+                $label = 'info';
+                break;
+            case 'received':
                 $label = 'danger';
                 break;
-            case 'partial':
-            case 'received':
-                $label = 'warning';
-                break;
             default:
-                $label = 'info';
+                $label = 'primary';
                 break;
         }
 
