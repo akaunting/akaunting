@@ -1852,11 +1852,18 @@ button.bg-green:focus {
 
 /*--------Transaction Status Colors--------*/
 /*--Draft Color--*/
+.status-primary
+{
+    background-image: linear-gradient(to right, #ffffff , #55588b);
+}
+/*--Draft Color Finish--*/
+
+/*--Partial Color--*/
 .status-info
 {
     background-image: linear-gradient(to right, #ffffff , #328aef);
 }
-/*--Draft Color Finish--*/
+/*--Partial Color Finish--*/
 
 /*--Paid Color--*/
 .status-success
@@ -1865,19 +1872,19 @@ button.bg-green:focus {
 }
 /*--Paid Color Finish--*/
 
-/*--Delete Color--*/
+/*--Sent Color--*/
 .status-danger
 {
     background-image: linear-gradient(to right, #ffffff , #ef3232);
 }
-/*--Delete Color Finish--*/
+/*--Sent Color Finish--*/
 
-/*--Sent Color--*/
+/*--Viewed Color--*/
 .status-warning
 {
     background-image: linear-gradient(to right, #ffffff , #efad32);
 }
-/*--Sent Color Finish--*/
+/*--Viewed Color Finish--*/
 /*--------Transaction Status Colors Finish--------*/
 
 
