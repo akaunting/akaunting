@@ -8,6 +8,7 @@ return [
         'deleted'           => ':type silindi!',
         'duplicated'        => ':type çoğaltıldı!',
         'imported'          => ':type içe aktarıldı!',
+        'exported'          => ':type dışa aktarıldı!',
         'enabled'           => ':type etkinleştirildi!',
         'disabled'          => ':type devre dışı bırakıldı!',
     ],
