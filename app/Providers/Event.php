@@ -25,6 +25,9 @@ class Event extends Provider
         'App\Events\Purchase\BillCreated' => [
             'App\Listeners\Purchase\CreateBillCreatedHistory',
         ],
+        'App\Events\Purchase\BillReceived' => [
+            'App\Listeners\Purchase\MarkBillReceived',
+        ],
         'App\Events\Purchase\BillRecurring' => [
             'App\Listeners\Purchase\SendBillRecurringNotification',
         ],

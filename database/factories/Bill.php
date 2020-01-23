@@ -1,8 +1,8 @@
 <?php
 
 use App\Events\Purchase\BillCreated;
+use App\Events\Purchase\BillReceived;
 use App\Jobs\Banking\CreateDocumentTransaction;
-use App\Jobs\Purchase\CreateBillHistory;
 use App\Jobs\Purchase\UpdateBill;
 use App\Models\Auth\User;
 use App\Models\Common\Contact;
@@ -98,19 +98,11 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
     session(['company_id' => $company->id]);
     setting()->setExtraColumns(['company_id' => $company->id]);
 
-    $status = $bill->status;
+    $init_status = $bill->status;
+
     $bill->status = 'draft';
-
     event(new BillCreated($bill));
-
-    $bill->status = $status;
-
-    if ($bill->status == 'received') {
-        $bill->status = 'received';
-        $bill->save();
-
-        dispatch_now(new CreateBillHistory($bill, 0, trans('bills.mark_received')));
-    }
+    $bill->status = $init_status;
 
     $amount = $faker->randomFloat(2, 1, 1000);
 
@@ -131,15 +123,23 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
 
     $updated_bill = dispatch_now(new UpdateBill($bill, $request));
 
-    if (in_array($bill->status, ['partial', 'paid'])) {
-        $payment_request = [
-            'paid_at' => $bill->due_at,
-        ];
+    switch ($init_status) {
+        case 'received':
+            event(new BillReceived($bill));
 
-        if ($bill->status == 'partial') {
-            $payment_request['amount'] = (double) $amount / 2;
-        }
+            break;
+        case 'partial':
+        case 'paid':
+            $payment_request = [
+                'paid_at' => $bill->due_at,
+            ];
 
-        $transaction = dispatch_now(new CreateDocumentTransaction($updated_bill, $payment_request));
+            if ($init_status == 'partial') {
+                $payment_request['amount'] = (double) $amount / 3;
+            }
+
+            $transaction = dispatch_now(new CreateDocumentTransaction($updated_bill, $payment_request));
+
+            break;
     }
 });

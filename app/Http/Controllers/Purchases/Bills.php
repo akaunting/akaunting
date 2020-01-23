@@ -16,7 +16,6 @@ use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Purchase\Bill;
-use App\Models\Purchase\BillHistory;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
@@ -267,17 +266,7 @@ class Bills extends Controller
      */
     public function markReceived(Bill $bill)
     {
-        $bill->status = 'received';
-        $bill->save();
-
-        // Add bill history
-        BillHistory::create([
-            'company_id' => $bill->company_id,
-            'bill_id' => $bill->id,
-            'status' => 'received',
-            'notify' => 0,
-            'description' => trans('bills.mark_received'),
-        ]);
+        event(new \App\Events\Purchase\BillReceived($bill));
 
         $message = trans('bills.messages.received');
 
