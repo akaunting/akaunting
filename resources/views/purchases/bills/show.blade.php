@@ -379,7 +379,7 @@
                                                 <tr>
                                                     <th>
                                                         <p class="form-control-label">{{ trans_choice('general.notes', 2) }}:</p>
-                                                        <p class="form-control text-muted long-texts">{{ $bill->notes }}</p>
+                                                        <p class="text-muted long-texts">{{ $bill->notes }}</p>
                                                     </th>
                                                 </tr>
                                             @endif
