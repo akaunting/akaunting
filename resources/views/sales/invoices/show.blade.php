@@ -254,7 +254,7 @@
                                         <tr>
                                             <th>
                                                 @stack('address_input_start')
-                                                {!! nl2br($invoice->contact_address) !!}
+                                                    {!! nl2br($invoice->contact_address) !!}
                                                 @stack('address_input_end')
                                             </th>
                                         </tr>
@@ -532,20 +532,20 @@
                             </div>
                             <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne">
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
-                                                <th class="col-xs-4 col-sm-4">{{ trans('general.date') }}</th>
+                                                <th class="col-xs-4 col-sm-2">{{ trans('general.date') }}</th>
                                                 <th class="col-xs-4 col-sm-4 text-center">{{ trans_choice('general.statuses', 1) }}</th>
-                                                <th class="col-xs-4 col-sm-4 text-left long-texts">{{ trans('general.description') }}</th>
+                                                <th class="col-xs-4 col-sm-6 text-left long-texts">{{ trans('general.description') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($invoice->histories as $history)
                                                 <tr class="row align-items-center">
-                                                    <td class="col-xs-4 col-sm-4">@date($history->created_at)</td>
+                                                    <td class="col-xs-4 col-sm-2">@date($history->created_at)</td>
                                                     <td class="col-xs-4 col-sm-4 text-center">{{ trans('invoices.statuses.' . $history->status) }}</td>
-                                                    <td class="col-xs-4 col-sm-4 text-left long-texts">{{ $history->description }}</td>
+                                                    <td class="col-xs-4 col-sm-6 text-left long-texts">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -582,10 +582,10 @@
                                                         <td class="col-xs-4 col-sm-3">@date($transaction->paid_at)</td>
                                                         <td class="col-xs-4 col-sm-3">@money($transaction->amount, $transaction->currency_code, true)</td>
                                                         <td class="col-sm-3 d-none d-sm-block">{{ $transaction->account->name }}</td>
-                                                        <td class="col-xs-4 col-sm-3">
+                                                        <td class="col-xs-4 col-sm-3 py-0">
                                                             @if ($transaction->reconciled)
-                                                                <button type="button" class="btn btn-default btn-xs">
-                                                                    <i class="fa fa-check"></i> {{ trans('reconciliations.reconciled') }}
+                                                                <button type="button" class="btn btn-default btn-sm">
+                                                                    {{ trans('reconciliations.reconciled') }}
                                                                 </button>
                                                             @else
                                                                 {!! Form::open([
