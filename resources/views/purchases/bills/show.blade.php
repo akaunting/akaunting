@@ -5,18 +5,28 @@
 @section('content')
     @stack('recurring_message_start')
         @if (($recurring = $bill->recurring) && ($next = $recurring->next()))
-            <div class="callout callout-info">
-                @stack('recurring_message_head_start')
-                    <h4>{{ trans('recurring.recurring') }}</h4>
-                @stack('recurring_message_head_end')
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <div class="media">
+                        <div class="media-body">
+                            <div class="media-comment-text">
+                                <div class="d-flex">
+                                    @stack('recurring_message_head_start')
+                                        <h5 class="mt-0">{{ trans('recurring.recurring') }}</h5>
+                                    @stack('recurring_message_head_end')
+                                </div>
 
-                @stack('recurring_message_body_start')
-                    <p>{{ trans('recurring.message', [
-                        'type' => mb_strtolower(trans_choice('general.bills', 1)),
-                        'date' => $next->format($date_format)
-                    ]) }}
-                    </p>
-                @stack('recurring_message_body_end')
+                                @stack('recurring_message_body_start')
+                                    <p class="text-sm lh-160 mb-0">{{ trans('recurring.message', [
+                                        'type' => mb_strtolower(trans_choice('general.bills', 1)),
+                                        'date' => $next->format($date_format)
+                                    ]) }}
+                                    </p>
+                                @stack('recurring_message_body_end')
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         @endif
     @stack('recurring_message_end')
@@ -25,7 +35,7 @@
         @if ($bill->status == 'draft')
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="alert alert-warning fade show" role="alert">
+                    <div class="alert alert-danger fade show" role="alert">
                         @stack('status_message_body_start')
                             <span class="alert-text">
                                 <strong>{!! trans('bills.messages.draft') !!}</strong>
@@ -45,7 +55,7 @@
                         <div class="timeline timeline-one-side" data-timeline-content="axis" data-timeline-axis-style="dashed">
                             @stack('timeline_body_create_bill_start')
                                 <div class="timeline-block">
-                                    <span class="timeline-step badge-info">
+                                    <span class="timeline-step badge-primary">
                                         <i class="fas fa-plus"></i>
                                     </span>
                                     <div class="timeline-content">
@@ -61,7 +71,7 @@
 
                                             <div class="mt-3">
                                                 @stack('timeline_body_create_bill_body_button_edit_start')
-                                                    <a href="{{ url('purchases/bills/' . $bill->id . '/edit') }}" class="btn btn-info btn-sm btn-alone">
+                                                    <a href="{{ url('purchases/bills/' . $bill->id . '/edit') }}" class="btn btn-primary btn-sm btn-alone">
                                                         {{ trans('general.edit') }}
                                                     </a>
                                                 @stack('timeline_body_create_bill_body_button_edit_end')
@@ -73,7 +83,7 @@
 
                             @stack('timeline_body_receive_bill_start')
                                 <div class="timeline-block">
-                                    <span class="timeline-step badge-warning">
+                                    <span class="timeline-step badge-danger">
                                         <i class="far fa-envelope"></i>
                                     </span>
                                     <div class="timeline-content">
@@ -91,7 +101,7 @@
                                                 <div class="mt-3">
                                                     @stack('timeline_body_receive_bill_body_button_sent_start')
                                                         @permission('update-purchases-bills')
-                                                            <a href="{{ url('purchases/bills/' . $bill->id . '/received') }}" class="btn btn-warning btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
+                                                            <a href="{{ url('purchases/bills/' . $bill->id . '/received') }}" class="btn btn-danger btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
                                                         @endpermission
                                                     @stack('timeline_body_receive_bill_body_button_sent_end')
                                                 </div>
@@ -490,16 +500,16 @@
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-4 col-sm-2">{{ trans('general.date') }}</th>
-                                                <th class="col-xs-4 col-sm-4 text-center">{{ trans_choice('general.statuses', 1) }}</th>
-                                                <th class="col-xs-4 col-sm-6 text-left long-texts">{{ trans('general.description') }}</th>
+                                                <th class="col-xs-4 col-sm-3 text-left">{{ trans_choice('general.statuses', 1) }}</th>
+                                                <th class="col-xs-4 col-sm-7 text-left long-texts">{{ trans('general.description') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($bill->histories as $history)
                                                 <tr class="row align-items-center">
                                                     <td class="col-xs-4 col-sm-2">@date($history->created_at)</td>
-                                                    <td class="col-xs-4 col-sm-4 text-center">{{ trans('bills.statuses.' . $history->status) }}</td>
-                                                    <td class="col-xs-4 col-sm-6 text-left long-texts">{{ $history->description }}</td>
+                                                    <td class="col-xs-4 col-sm-3 text-left">{{ trans('bills.statuses.' . $history->status) }}</td>
+                                                    <td class="col-xs-4 col-sm-7 text-left long-texts">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

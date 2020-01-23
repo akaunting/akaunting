@@ -5,18 +5,28 @@
 @section('content')
     @stack('recurring_message_start')
         @if (($recurring = $invoice->recurring) && ($next = $recurring->next()))
-            <div class="callout callout-info">
-                @stack('recurring_message_head_start')
-                    <h4>{{ trans('recurring.recurring') }}</h4>
-                @stack('recurring_message_head_end')
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <div class="media">
+                        <div class="media-body">
+                            <div class="media-comment-text">
+                                <div class="d-flex">
+                                    @stack('recurring_message_head_start')
+                                        <h5 class="mt-0">{{ trans('recurring.recurring') }}</h5>
+                                    @stack('recurring_message_head_end')
+                                </div>
 
-                @stack('recurring_message_body_start')
-                    <p>{{ trans('recurring.message', [
-                        'type' => mb_strtolower(trans_choice('general.invoices', 1)),
-                        'date' => $next->format($date_format)
-                    ]) }}
-                    </p>
-                @stack('recurring_message_body_end')
+                                @stack('recurring_message_body_start')
+                                    <p class="text-sm lh-160 mb-0">{{ trans('recurring.message', [
+                                        'type' => mb_strtolower(trans_choice('general.invoices', 1)),
+                                        'date' => $next->format($date_format)
+                                    ]) }}
+                                    </p>
+                                @stack('recurring_message_body_end')
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         @endif
     @stack('recurring_message_end')
@@ -25,7 +35,7 @@
         @if ($invoice->status == 'draft')
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="alert alert-warning fade show" role="alert">
+                    <div class="alert alert-danger fade show" role="alert">
                         @stack('status_message_body_start')
                             <span class="alert-text">
                                 <strong>{!! trans('invoices.messages.draft') !!}</strong>
@@ -45,7 +55,7 @@
                         <div class="timeline timeline-one-side" data-timeline-content="axis" data-timeline-axis-style="dashed">
                             @stack('timeline_body_create_invoice_start')
                                 <div class="timeline-block">
-                                    <span class="timeline-step badge-info">
+                                    <span class="timeline-step badge-primary">
                                         <i class="fas fa-plus"></i>
                                     </span>
                                     <div class="timeline-content">
@@ -61,7 +71,7 @@
 
                                             <div class="mt-3">
                                                 @stack('timeline_body_create_invoice_body_button_edit_start')
-                                                    <a href="{{ url('sales/invoices/' . $invoice->id . '/edit') }}" class="btn btn-info btn-sm btn-alone">
+                                                    <a href="{{ url('sales/invoices/' . $invoice->id . '/edit') }}" class="btn btn-primary btn-sm btn-alone">
                                                         {{ trans('general.edit') }}
                                                     </a>
                                                 @stack('timeline_body_create_invoice_body_button_edit_end')
@@ -73,7 +83,7 @@
 
                             @stack('timeline_body_send_invoice_start')
                                 <div class="timeline-block">
-                                    <span class="timeline-step badge-warning">
+                                    <span class="timeline-step badge-danger">
                                         <i class="far fa-envelope"></i>
                                     </span>
                                     <div class="timeline-content">
@@ -103,7 +113,7 @@
 
                                                     @stack('timeline_body_send_invoice_body_button_email_start')
                                                         @if($invoice->contact_email)
-                                                            <a href="{{ url('sales/invoices/' . $invoice->id . '/email') }}" class="btn btn-warning btn-sm header-button-bottom">{{ trans('invoices.send_mail') }}</a>
+                                                            <a href="{{ url('sales/invoices/' . $invoice->id . '/email') }}" class="btn btn-danger btn-sm header-button-bottom">{{ trans('invoices.send_mail') }}</a>
                                                         @else
                                                             <button type="button" class="btn btn-white btn-sm header-button-bottom green-tooltip" disabled="disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
                                                                 <span class="text-disabled">{{ trans('invoices.send_mail') }}</span>
@@ -335,7 +345,7 @@
                                     <tbody>
                                         <tr class="row">
                                             @stack('name_th_start')
-                                                <th class="col-xs-4 col-sm-3 pl-5">{{ trans_choice($text_override['items'], 2) }}</th>
+                                                <th class="col-xs-4 col-sm-3 pl-5 long-texts">{{ trans_choice($text_override['items'], 2) }}</th>
                                             @stack('name_th_end')
 
                                             @stack('quantity_th_start')
@@ -536,16 +546,16 @@
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-4 col-sm-2">{{ trans('general.date') }}</th>
-                                                <th class="col-xs-4 col-sm-4 text-center">{{ trans_choice('general.statuses', 1) }}</th>
-                                                <th class="col-xs-4 col-sm-6 text-left long-texts">{{ trans('general.description') }}</th>
+                                                <th class="col-xs-4 col-sm-3 text-left">{{ trans_choice('general.statuses', 1) }}</th>
+                                                <th class="col-xs-4 col-sm-7 text-left long-texts">{{ trans('general.description') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($invoice->histories as $history)
                                                 <tr class="row align-items-center">
                                                     <td class="col-xs-4 col-sm-2">@date($history->created_at)</td>
-                                                    <td class="col-xs-4 col-sm-4 text-center">{{ trans('invoices.statuses.' . $history->status) }}</td>
-                                                    <td class="col-xs-4 col-sm-6 text-left long-texts">{{ $history->description }}</td>
+                                                    <td class="col-xs-4 col-sm-3 text-left">{{ trans('invoices.statuses.' . $history->status) }}</td>
+                                                    <td class="col-xs-4 col-sm-7 text-left long-texts">{{ $history->description }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
