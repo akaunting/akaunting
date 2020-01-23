@@ -4,14 +4,20 @@
 
 @section('content')
     @if (($recurring = $payment->recurring) && ($next = $recurring->next()))
-        <div class="callout callout-info">
-            <h4>{{ trans('recurring.recurring') }}</h4>
+        <div class="media mb-3">
+            <div class="media-body">
+                <div class="media-comment-text">
+                    <div class="d-flex">
+                        <h5 class="mt-0">{{ trans('recurring.recurring') }}</h5>
+                    </div>
 
-            <p>{{ trans('recurring.message', [
-                    'type' => mb_strtolower(trans_choice('general.payments', 1)),
-                    'date' => $next->format($date_format)
-                ]) }}
-            </p>
+                    <p class="text-sm lh-160 mb-0">{{ trans('recurring.message', [
+                            'type' => mb_strtolower(trans_choice('general.payments', 1)),
+                            'date' => $next->format($date_format)
+                        ]) }}
+                    </p>
+                </div>
+            </div>
         </div>
     @endif
 
