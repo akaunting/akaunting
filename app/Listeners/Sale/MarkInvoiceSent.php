@@ -3,10 +3,13 @@
 namespace App\Listeners\Sale;
 
 use App\Events\Sale\InvoiceSent as Event;
-use App\Models\Sale\InvoiceHistory;
+use App\Jobs\Sale\CreateInvoiceHistory;
+use App\Traits\Jobs;
 
 class MarkInvoiceSent
 {
+    use Jobs;
+
     /**
      * Handle the event.
      *
@@ -15,20 +18,12 @@ class MarkInvoiceSent
      */
     public function handle(Event $event)
     {
-        // Mark invoice as sent
         if ($event->invoice->status != 'partial') {
             $event->invoice->status = 'sent';
 
             $event->invoice->save();
         }
 
-        // Add invoice history
-        InvoiceHistory::create([
-            'company_id' => $event->invoice->company_id,
-            'invoice_id' => $event->invoice->id,
-            'status' => 'sent',
-            'notify' => 0,
-            'description' => trans('invoices.mark_sent'),
-        ]);
+        $this->dispatch(new CreateInvoiceHistory($event->invoice, 0, trans('invoices.mark_sent')));
     }
 }

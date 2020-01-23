@@ -43,7 +43,6 @@ class Invoices extends Controller
      */
     public function show(Invoice $invoice)
     {
-
         $payment_methods = Modules::getPaymentMethods();
 
         event(new \App\Events\Sale\InvoiceViewed($invoice));

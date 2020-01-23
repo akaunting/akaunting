@@ -29,6 +29,7 @@ return [
     'add_payment'           => 'Add Payment',
     'mark_paid'             => 'Mark Paid',
     'mark_sent'             => 'Mark Sent',
+    'mark_viewed'           => 'Mark Viewed',
     'download_pdf'          => 'Download PDF',
     'send_mail'             => 'Send Email',
     'all_invoices'          => 'Login to view all invoices',

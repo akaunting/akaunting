@@ -3,9 +3,13 @@
 namespace App\Listeners\Sale;
 
 use App\Events\Sale\InvoiceViewed as Event;
+use App\Jobs\Sale\CreateInvoiceHistory;
+use App\Traits\Jobs;
 
 class MarkInvoiceViewed
 {
+    use Jobs;
+
     /**
      * Handle the event.
      *
@@ -24,5 +28,7 @@ class MarkInvoiceViewed
 
         $invoice->status = 'viewed';
         $invoice->save();
+
+        $this->dispatch(new CreateInvoiceHistory($event->invoice, 0, trans('invoices.mark_viewed')));
     }
 }

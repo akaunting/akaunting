@@ -2,6 +2,7 @@
 
 use App\Events\Sale\InvoiceCreated;
 use App\Events\Sale\InvoiceSent;
+use App\Events\Sale\InvoiceViewed;
 use App\Events\Sale\PaymentReceived;
 use App\Jobs\Sale\UpdateInvoice;
 use App\Models\Auth\User;
@@ -31,7 +32,7 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
         $contact = factory(Contact::class)->states('customer')->create();
     }
 
-    $statuses = ['draft', 'sent', 'partial', 'paid'];
+    $statuses = ['draft', 'sent', 'viewed', 'partial', 'paid'];
 
     return [
         'company_id' => $company->id,
@@ -56,6 +57,8 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
 $factory->state(Invoice::class, 'draft', ['status' => 'draft']);
 
 $factory->state(Invoice::class, 'sent', ['status' => 'sent']);
+
+$factory->state(Invoice::class, 'viewed', ['status' => 'viewed']);
 
 $factory->state(Invoice::class, 'partial', ['status' => 'partial']);
 
@@ -98,16 +101,11 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
     session(['company_id' => $company->id]);
     setting()->setExtraColumns(['company_id' => $company->id]);
 
-    $status = $invoice->status;
+    $init_status = $invoice->status;
+
     $invoice->status = 'draft';
-
     event(new InvoiceCreated($invoice));
-
-    $invoice->status = $status;
-
-    if ($invoice->status == 'sent') {
-        event(new InvoiceSent($invoice));
-    }
+    $invoice->status = $init_status;
 
     $amount = $faker->randomFloat(2, 1, 1000);
 
@@ -128,15 +126,29 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
 
     $updated_invoice = dispatch_now(new UpdateInvoice($invoice, $request));
 
-    if (in_array($invoice->status, ['partial', 'paid'])) {
-        $payment_request = [
-            'paid_at' => $invoice->due_at,
-        ];
+    switch ($init_status) {
+        case 'sent':
+            event(new InvoiceSent($invoice));
 
-        if ($invoice->status == 'partial') {
-            $payment_request['amount'] = (double) $amount / 2;
-        }
+            break;
+        case 'viewed':
+            $invoice->status = 'sent';
+            event(new InvoiceViewed($invoice));
+            $invoice->status = $init_status;
 
-        event(new PaymentReceived($updated_invoice, $payment_request));
+            break;
+        case 'partial':
+        case 'paid':
+            $payment_request = [
+                'paid_at' => $invoice->due_at,
+            ];
+
+            if ($init_status == 'partial') {
+                $payment_request['amount'] = (double) $amount / 3;
+            }
+
+            event(new PaymentReceived($updated_invoice, $payment_request));
+
+            break;
     }
 });
