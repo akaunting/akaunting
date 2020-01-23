@@ -25,9 +25,7 @@
         </div>
     @endforeach
 
-
-
-        @stack('pagination_start')
+    @stack('pagination_start')
         @php
             $review_first_item = count($reviews->data) > 0 ? ($reviews->current_page - 1) * $reviews->per_page + 1 : null;
             $review_last_item = count($reviews->data) > 0 ? $review_first_item + count($reviews->data) - 1 : null;
