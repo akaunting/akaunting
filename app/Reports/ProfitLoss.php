@@ -109,4 +109,13 @@ class ProfitLoss extends Report
             }
         }
     }
+
+    public function getFields()
+    {
+        return [
+            $this->getGroupField(),
+            $this->getPeriodField(),
+            $this->getBasisField(),
+        ];
+    }
 }

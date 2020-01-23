@@ -283,14 +283,14 @@ class Version200 extends Listener
                 'class' => 'App\Reports\ProfitLoss',
                 'name' => trans('reports.profit_loss'),
                 'description' => trans('demo.reports.profit_loss'),
-                'settings' => ['group' => 'category', 'period' => 'quarterly', 'basis' => 'accrual', 'chart' => '0'],
+                'settings' => ['group' => 'category', 'period' => 'quarterly', 'basis' => 'accrual'],
             ],
             [
                 'company_id' => $company->id,
                 'class' => 'App\Reports\TaxSummary',
                 'name' => trans('reports.summary.tax'),
                 'description' => trans('demo.reports.tax'),
-                'settings' => ['group' => 'category', 'period' => 'quarterly', 'basis' => 'accrual', 'chart' => '0'],
+                'settings' => ['group' => 'category', 'period' => 'quarterly', 'basis' => 'accrual'],
             ],
         ];
 
