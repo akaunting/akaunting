@@ -39,8 +39,8 @@
                             <th class="col-md-2 col-lg-2 col-xl-1 d-none d-md-block">@sortablelink('invoice_number', trans_choice('general.numbers', 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
                             <th class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-3 text-left">@sortablelink('contact_name', trans_choice('general.customers', 1))</th>
                             <th class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1 text-right">@sortablelink('amount', trans('general.amount'))</th>
-                            <th class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
-                            <th class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@sortablelink('due_at', trans('invoices.due_date'))</th>
+                            <th class="col-lg-2 col-xl-2 d-none d-lg-block text-left">@sortablelink('invoiced_at', trans('invoices.invoice_date'))</th>
+                            <th class="col-lg-2 col-xl-2 d-none d-lg-block text-left">@sortablelink('due_at', trans('invoices.due_date'))</th>
                             <th class="col-lg-1 col-xl-1 d-none d-lg-block text-center">@sortablelink('status', trans_choice('general.statuses', 1))</th>
                             <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center"><a>{{ trans('general.actions') }}</a></th>
                         </tr>
@@ -54,8 +54,8 @@
                                 <td class="col-md-2 col-lg-2 col-xl-1 d-none d-md-block"><a class="col-aka" href="{{ route('invoices.show' , $item->id) }}">{{ $item->invoice_number }}</a></td>
                                 <td class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-3 text-left">{{ $item->contact_name }}</td>
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-1 col-xl-1 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@date($item->invoiced_at)</td>
-                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@date($item->due_at)</td>
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">@date($item->invoiced_at)</td>
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">@date($item->due_at)</td>
                                 <td class="col-lg-1 col-xl-1 d-none d-lg-block text-center">
                                     <span class="badge badge-pill badge-{{ $item->status_label }}">{{ trans('invoices.statuses.' . $item->status) }}</span>
                                 </td>
