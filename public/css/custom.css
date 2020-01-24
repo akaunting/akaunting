@@ -677,6 +677,11 @@ table .align-items-center td span.badge {
 }
 /*--------Empty Page Image Finish--------*/
 
+.text-pre-nowrap
+{
+    white-space: pre-wrap !important;
+}
+
 
 
 /*----------------RESPONSIVE START LINE----------------*/
