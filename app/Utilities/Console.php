@@ -6,7 +6,7 @@ use Symfony\Component\Process\Process;
 
 class Console
 {
-    public static function run($command)
+    public static function run($command, $all_output = false)
     {
         $process = new Process($command, base_path());
         $process->setTimeout(900); // 15 minutes
@@ -17,6 +17,6 @@ class Console
             return true;
         }
 
-        return $process->getErrorOutput();
+        return $all_output ? $process->getOutput() : $process->getErrorOutput();
     }
 }
