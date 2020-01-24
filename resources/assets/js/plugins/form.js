@@ -88,6 +88,38 @@ export default class Form {
                 continue;
             }
 
+            if (form_element.getAttribute('data-item')) {
+                if (!this['items']) {
+                    var item = {};
+                    var row = {};
+
+                    item[0] = row;
+                    this['items'] = item;
+                }
+
+                if (!this['items'][0][form_element.getAttribute('data-item')]) {
+                    this['items'][0][form_element.getAttribute('data-item')] = '';
+                }
+
+                this['item_backup'] = this['items'];
+
+                continue;
+            }
+
+            if (form_element.getAttribute('data-field')) {
+                if (!this[form_element.getAttribute('data-field')]) {
+                    var field = {};
+
+                    this[form_element.getAttribute('data-field')] = field;
+                }
+
+                if (!this[form_element.getAttribute('data-field')][name]) {
+                    this[form_element.getAttribute('data-field')][name] = '';
+                }
+
+                continue;
+            }
+
             if (this[name]) {
                 if (!this[name].push) {
                     this[name] = [this[name]];
@@ -103,6 +135,38 @@ export default class Form {
             var name = form_element.getAttribute('name');
 
             if (name == 'method') {
+                continue;
+            }
+
+            if (form_element.getAttribute('data-item')) {
+                if (!this['items']) {
+                    var item = {};
+                    var row = {};
+
+                    item[0] = row;
+                    this['items'] = item;
+                }
+
+                if (!this['items'][0][form_element.getAttribute('data-item')]) {
+                    this['items'][0][form_element.getAttribute('data-item')] = '';
+                }
+
+                this['item_backup'] = this['items'];
+
+                continue;
+            }
+
+            if (form_element.getAttribute('data-field')) {
+                if (!this[form_element.getAttribute('data-field')]) {
+                    var field = {};
+
+                    this[form_element.getAttribute('data-field')] = field;
+                }
+
+                if (!this[form_element.getAttribute('data-field')][name]) {
+                    this[form_element.getAttribute('data-field')][name] = '';
+                }
+
                 continue;
             }
 
