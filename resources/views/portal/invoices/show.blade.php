@@ -222,7 +222,7 @@
                                                 <th>
                                                     @if ($invoice->notes)
                                                         <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                                        <p class="form-control text-muted long-texts">{{ $invoice->notes }}</p>
+                                                        <p class="text-muted long-texts">{{ $invoice->notes }}</p>
                                                     @endif
                                                 </th>
                                             </tr>
@@ -268,38 +268,40 @@
             </div>
 
             @stack('card_footer_start')
-                <div class="card-footer">
-                    <div class="float-right">
-                        @stack('button_print_start')
-                            <a href="{{ route('portal.invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
-                            </a>
-                        @stack('button_print_end')
-
-                        @stack('button_pdf_start')
-                            <a href="{{ route('portal.invoices.pdf', $invoice->id) }}" class="btn btn-white header-button-top" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
-                                <i class="fa fa-file-pdf"></i>&nbsp; {{ trans('general.download') }}
-                            </a>
-                        @stack('button_pdf_end')
-                    </div>
-                    <div class="col-md-4">
-                        @if($invoice->status != 'paid')
-                            @if ($payment_methods)
-                            {!! Form::open([
-                                'id' => 'invoice-payment',
-                                'role' => 'form',
-                                'autocomplete' => "off",
-                                'novalidate' => 'true'
-                            ]) !!}
-                                {{ Form::selectGroup('payment_method', '', 'money el-icon-money', $payment_methods, '', ['change' => 'onChangePaymentMethod', 'id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])], 'col-md-12') }}
-                                {!! Form::hidden('invoice_id', $invoice->id, ['v-model' => 'form.invoice_id']) !!}
-                            {!! Form::close() !!}
+                <div class="card-footer pb-0">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            @if($invoice->status != 'paid')
+                                @if ($payment_methods)
+                                {!! Form::open([
+                                    'id' => 'invoice-payment',
+                                    'role' => 'form',
+                                    'autocomplete' => "off",
+                                    'novalidate' => 'true',
+                                    'class' => 'mb-0'
+                                ]) !!}
+                                    {{ Form::selectGroup('payment_method', '', 'money el-icon-money', $payment_methods, '', ['change' => 'onChangePaymentMethod', 'id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])], 'col-sm-12') }}
+                                    {!! Form::hidden('invoice_id', $invoice->id, ['v-model' => 'form.invoice_id']) !!}
+                                {!! Form::close() !!}
+                                @endif
                             @endif
-                        @endif
-                    </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 text-right">
+                            @stack('button_print_start')
+                                <a href="{{ route('portal.invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
+                                    <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                                </a>
+                            @stack('button_print_end')
 
-                    <div id="confirm" class="col-md-12">
-                        <component v-bind:is="method_show_html" @interface="onRedirectConfirm"></component>
+                            @stack('button_pdf_start')
+                                <a href="{{ route('portal.invoices.pdf', $invoice->id) }}" class="btn btn-white header-button-top">
+                                    <i class="fa fa-file-pdf"></i>&nbsp; {{ trans('general.download') }}
+                                </a>
+                            @stack('button_pdf_end')
+                        </div>
+                        <div id="confirm" class="col-sm-12">
+                            <component v-bind:is="method_show_html" @interface="onRedirectConfirm"></component>
+                        </div>
                     </div>
                 </div>
             @stack('card_footer_end')
