@@ -144,23 +144,23 @@
                 <div class="col-md-12 table-responsive">
                     <table class="table table-striped">
                         <tbody>
-                            <tr>
-                                <th class="pl-5">{{ trans_choice('general.items', 1) }}</th>
-                                <th class="text-center">{{ trans('invoices.quantity') }}</th>
-                                <th class="text-center pl-7">{{ trans('invoices.price') }}</th>
-                                <th class="text-right pr-5">{{ trans('invoices.total') }}</th>
+                            <tr class="row">
+                                <th class="col-xs-4 col-sm-5 pl-5">{{ trans_choice('general.items', 1) }}</th>
+                                <th class="col-xs-4 col-sm-1 text-center">{{ trans('invoices.quantity') }}</th>
+                                <th class="col-sm-3 text-right d-none d-sm-block">{{ trans('invoices.price') }}</th>
+                                <th class="col-xs-4 col-sm-3 text-right pr-5">{{ trans('invoices.total') }}</th>
                             </tr>
                             @foreach($invoice->items as $invoice_item)
-                                <tr>
-                                    <td class="pl-5">
+                                <tr class="row">
+                                    <td class="col-xs-4 col-sm-5 pl-5">
                                         {{ $invoice_item->name }}
                                         @if (!empty($invoice_item->item->description))
-                                            <br><small>{!! \Illuminate\Support\Str::limit($invoice_item->item->description, 500) !!}<small>
+                                            <br><small class="text-pre-nowrap">{!! \Illuminate\Support\Str::limit($invoice_item->item->description, 500) !!}<small>
                                         @endif
                                     </td>
-                                    <td class="text-center">{{ $invoice_item->quantity }}</td>
-                                    <td class="text-center pl-7">@money($invoice_item->price, $invoice->currency_code, true)</td>
-                                    <td class="text-right pr-5">@money($invoice_item->total, $invoice->currency_code, true)</td>
+                                    <td class="col-xs-4 col-sm-1 text-center">{{ $invoice_item->quantity }}</td>
+                                    <td class="col-sm-3 text-right d-none d-sm-block">@money($invoice_item->price, $invoice->currency_code, true)</td>
+                                    <td class="col-xs-4 col-sm-3 text-right pr-5">@money($invoice_item->total, $invoice->currency_code, true)</td>
                                 </tr>
                             @endforeach
                         </tbody>

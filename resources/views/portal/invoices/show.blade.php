@@ -165,15 +165,15 @@
                                     <tbody>
                                         <tr class="row">
                                             @stack('name_th_start')
-                                                <th class="col-xs-4 col-sm-3 pl-5">{{ trans_choice($text_override['items'], 2) }}</th>
+                                                <th class="col-xs-4 col-sm-5 pl-5">{{ trans_choice($text_override['items'], 2) }}</th>
                                             @stack('name_th_end')
 
                                             @stack('quantity_th_start')
-                                                <th class="col-xs-4 col-sm-3 text-center">{{ trans($text_override['quantity']) }}</th>
+                                                <th class="col-xs-4 col-sm-1 text-center">{{ trans($text_override['quantity']) }}</th>
                                             @stack('quantity_th_end')
 
                                             @stack('price_th_start')
-                                                <th class="col-sm-3 text-center  pl-5">{{ trans($text_override['price']) }}</th>
+                                                <th class="col-sm-3 text-right d-none d-sm-block">{{ trans($text_override['price']) }}</th>
                                             @stack('price_th_end')
 
                                             @stack('total_th_start')
@@ -183,20 +183,20 @@
                                         @foreach($invoice->items as $invoice_item)
                                             <tr class="row">
                                                 @stack('name_td_start')
-                                                    <td class="col-xs-4 col-sm-3 pl-5">
+                                                    <td class="col-xs-4 col-sm-5 pl-5">
                                                         {{ $invoice_item->name }}
                                                         @if (!empty($invoice_item->item->description))
-                                                            <br><small>{!! \Illuminate\Support\Str::limit($invoice_item->item->description, 500) !!}<small>
+                                                            <br><small class="text-pre-nowrap">{!! \Illuminate\Support\Str::limit($invoice_item->item->description, 500) !!}<small>
                                                         @endif
                                                     </td>
                                                 @stack('name_td_end')
 
                                                 @stack('quantity_td_start')
-                                                    <td class="col-xs-4 col-sm-3 text-center">{{ $invoice_item->quantity }}</td>
+                                                    <td class="col-xs-4 col-sm-1 text-center">{{ $invoice_item->quantity }}</td>
                                                 @stack('quantity_td_end')
 
                                                 @stack('price_td_start')
-                                                    <td class="col-sm-3 text-center d-none d-sm-block pl-5">@money($invoice_item->price, $invoice->currency_code, true)</td>
+                                                    <td class="col-sm-3 text-right d-none d-sm-block">@money($invoice_item->price, $invoice->currency_code, true)</td>
                                                 @stack('price_td_end')
 
                                                 @stack('total_td_start')
@@ -268,7 +268,7 @@
             </div>
 
             @stack('card_footer_start')
-                <div class="card-footer pb-0">
+                <div class="card-footer">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             @if($invoice->status != 'paid')
