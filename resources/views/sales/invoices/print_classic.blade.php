@@ -192,25 +192,22 @@
                 @foreach ($invoice->totals as $total)
                     @if ($total->code != 'total')
                         @stack($total->code . '_td_start')
-                            <div class="border-top-dashed">
-                                <br>
+                            <div class="border-top-dashed py-2">
                                 <strong>{{ trans($total->title) }}:</strong>
-                                <strong class="float-right">@money($total->amount, $invoice->currency_code, true)</strong><br><br>
+                                <span class="float-right">@money($total->amount, $invoice->currency_code, true)</span>
                             </div>
                         @stack($total->code . '_td_end')
                     @else
                         @if ($invoice->paid)
-                            <div class="border-top-dashed">
-                                <br>
+                            <div class="border-top-dashed py-2">
                                 <strong>{{ trans('invoices.paid') }}:</strong>
-                                <strong class="float-right">- @money($invoice->paid, $invoice->currency_code, true)</strong><br><br>
+                                <span class="float-right">- @money($invoice->paid, $invoice->currency_code, true)</span>
                             </div>
                         @endif
                         @stack('grand_total_td_start')
-                            <div class="border-top-dashed">
-                                <br>
+                            <div class="border-top-dashed py-2">
                                 <strong>{{ trans($total->name) }}:</strong>
-                                <strong class="float-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</strong>
+                                <span class="float-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</span>
                             </div>
                         @stack('grand_total_td_end')
                     @endif

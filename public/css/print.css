@@ -20,7 +20,7 @@ table {
 }
 
 th, td {
-    padding: 18px;
+    padding: 18px 9px 18px 9px;
 }
 
 .row {
@@ -181,11 +181,11 @@ th, td {
 }
 
 .lines .item {
-    width: 40%;
+    width: 50%;
 }
 
 .lines .quantity {
-    width: 20%;
+    width: 10%;
     text-align: center;
 }
 
@@ -264,11 +264,11 @@ th, td {
 }
 
 .c-lines .item {
-    width: 40%;
+    width: 50%;
 }
 
 .c-lines .quantity {
-    width: 20%;
+    width: 10%;
     text-align: center;
 }
 
@@ -322,11 +322,11 @@ th, td {
 }
 
 .m-lines .item {
-    width: 40%;
+    width: 50%;
 }
 
 .m-lines .quantity {
-    width: 20%;
+    width: 10%;
     text-align: center;
 }
 
