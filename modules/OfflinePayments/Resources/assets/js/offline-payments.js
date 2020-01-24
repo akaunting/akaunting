@@ -39,7 +39,7 @@ const app = new Vue({
 
             this.form.loading = true;
 
-            axios.post('offline-payments/settings/get', {
+            axios.post('settings/get', {
                 code: code
             })
             .then(response => {
@@ -48,7 +48,7 @@ const app = new Vue({
                 this.form.customer = response.data.data.customer;
                 this.form.order = response.data.data.order;
                 this.form.description = response.data.data.description;
-                this.form.update = response.data.data.update;
+                this.form.update_code = response.data.data.update_code;
                 this.form.loading = false;
             })
             .catch(error => {
@@ -76,7 +76,7 @@ const app = new Vue({
         onDelete() {
             axios({
                 method: 'DELETE',
-                url: 'offline-payments/settings/delete',
+                url: 'settings/delete',
                 data: {
                     code: this.confirm.code
                 }

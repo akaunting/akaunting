@@ -18,9 +18,9 @@ class Settings extends Controller
      */
     public function edit()
     {
-        $items = json_decode(setting('offline-payments.methods'));
+        $methods = json_decode(setting('offline-payments.methods'));
 
-        return view('offline-payments::edit', compact('items'));
+        return view('offline-payments::edit', compact('methods'));
     }
 
     /**
@@ -34,35 +34,36 @@ class Settings extends Controller
     {
         $methods = json_decode(setting('offline-payments.methods'), true);
 
-        if (isset($request['method'])) {
+        if (isset($request['update_code'])) {
             foreach ($methods as $key => $method) {
-                if ($method['code'] != $request['method']) {
+                if ($method['code'] != $request['update_code']) {
                     continue;
                 }
 
-                $method = explode('.', $request['method']);
+                $method = explode('.', $request['update_code']);
 
-                $methods[$key]['code'] = 'offline-payments.' . $request['code'] . '.' . $method[2];
-                $methods[$key]['name'] = $request['name'];
-                $methods[$key]['customer'] = $request['customer'];
-                $methods[$key]['order'] = $request['order'];
-                $methods[$key]['description'] = $request['description'];
+                $methods[$key] = [
+                    'code' => 'offline-payments.' . $request['code'] . '.' . $method[2],
+                    'name' => $request['name'],
+                    'customer' => $request['customer'],
+                    'order' => $request['order'],
+                    'description' => $request['description'],
+                ];
             }
 
             $message = trans('messages.success.updated', ['type' => $request['name']]);
         } else {
-            $methods[] = array(
+            $methods[] = [
                 'code' => 'offline-payments.' . $request['code'] . '.' . (count($methods) + 1),
                 'name' => $request['name'],
                 'customer' => $request['customer'],
                 'order' => $request['order'],
-                'description' => $request['description']
-            );
+                'description' => $request['description'],
+            ];
 
             $message = trans('messages.success.added', ['type' => $request['name']]);
         }
 
-        // Set Api Token
         setting()->set('offline-payments.methods', json_encode($methods));
 
         setting()->save();
@@ -75,7 +76,7 @@ class Settings extends Controller
             'error' => false,
             'message' => $message,
             'data' => null,
-            'redirect' => route('offline-payments.edit'),
+            'redirect' => route('offline-payments.settings.edit'),
         ];
 
         flash($message)->success();
@@ -104,7 +105,7 @@ class Settings extends Controller
             }
 
             $method['title'] = trans('offline-payments::offline-payments.edit', ['method' => $method['name']]);
-            $method['update'] = $code;
+            $method['update_code'] = $code;
 
             $code = explode('.', $method['code']);
 
@@ -118,7 +119,7 @@ class Settings extends Controller
         return response()->json([
             'errors' => false,
             'success' => true,
-            'data'    => $data
+            'data'    => $data,
         ]);
     }
 
@@ -161,7 +162,7 @@ class Settings extends Controller
             'errors' => false,
             'success' => true,
             'message' => $message,
-            'redirect' => route('offline-payments.edit'),
+            'redirect' => route('offline-payments.settings.edit'),
         ]);
     }
 }

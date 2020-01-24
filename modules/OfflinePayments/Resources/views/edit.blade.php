@@ -18,7 +18,7 @@
                     'files' => true,
                     'role' => 'form',
                     'class' => 'form-loading-button',
-                    'novalidate' => true
+                    'novalidate' => true,
                 ]) !!}
 
                     <div class="card-body">
@@ -33,7 +33,7 @@
 
                             {{ Form::textareaGroup('description', trans('general.description')) }}
 
-                            {!! Form::hidden('update', null) !!}
+                            {!! Form::hidden('update_code', null) !!}
                         </div>
                     </div>
 
@@ -65,8 +65,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if($items)
-                                @foreach($items as $item)
+                            @if($methods)
+                                @foreach($methods as $item)
                                     <tr class="row align-items-center border-top-1" id="method-{{ $item->code }}">
                                         <td class="col-xs-6 col-sm-4 col-md-4 col-lg-3">{{ $item->name }}</td>
                                         <td class="col-sm-4 col-md-4 col-lg-4 hidden-sm">{{ $item->code }}</td>
