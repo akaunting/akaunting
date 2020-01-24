@@ -77,7 +77,7 @@
                     <strong>
                         {{ trans('invoices.invoice_number') }}:
                     </strong>
-                    {{ $invoice->invoice_number }}<br><br>
+                    <span class="float-right">{{ $invoice->invoice_number }}</span><br><br>
                 @stack('invoice_number_input_end')
 
                 @stack('order_number_input_start')
@@ -85,7 +85,7 @@
                         <strong>
                             {{ trans('invoices.order_number') }}:
                         </strong>
-                        {{ $invoice->order_number }}<br><br>
+                        <span class="float-right">{{ $invoice->order_number }}</span><br><br>
                     @endif
                 @stack('order_number_input_end')
 
@@ -93,14 +93,14 @@
                     <strong>
                         {{ trans('invoices.invoice_date') }}:
                     </strong>
-                    @date($invoice->invoiced_at)<br><br>
+                    <span class="float-right">@date($invoice->invoiced_at)</span><br><br>
                 @stack('invoiced_at_input_end')
 
                 @stack('due_at_input_start')
                     <strong>
                         {{ trans('invoices.payment_due') }}:
                     </strong>
-                    @date($invoice->due_at)<br><br>
+                    <span class="float-right">@date($invoice->due_at)</span><br><br>
                 @stack('due_at_input_end')
             </div>
         </div>
@@ -168,15 +168,13 @@
                 @stack('notes_input_start')
                     @if ($invoice->notes)
                         <strong>{{ trans_choice('general.notes', 2) }}</strong><br><br>
-                        <div class="border-1 py-1 border-radius-default pl-2 d-note">
-                            {{ $invoice->notes }}
-                        </div>
+                        {{ $invoice->notes }}
                     @endif
                 @stack('notes_input_end')
             </div>
         </div>
 
-        <div class="col-42 text-right">
+        <div class="col-42">
             <div class="text company pr-2">
                 @foreach ($invoice->totals as $total)
                     @if ($total->code != 'total')
@@ -184,7 +182,7 @@
                             <div class="border-top-1">
                                 <br>
                                 <strong>{{ trans($total->title) }}:</strong>
-                                <strong>@money($total->amount, $invoice->currency_code, true)</strong><br><br>
+                                <strong class="float-right">@money($total->amount, $invoice->currency_code, true)</strong><br><br>
                             </div>
                         @stack($total->code . '_td_end')
                     @else
@@ -192,14 +190,14 @@
                             <div class="border-top-1">
                                 <br>
                                 <strong>{{ trans('invoices.paid') }}:</strong>
-                                <strong>- @money($invoice->paid, $invoice->currency_code, true)</strong><br><br>
+                                <strong class="float-right">- @money($invoice->paid, $invoice->currency_code, true)</strong><br><br>
                             </div>
                         @endif
                         @stack('grand_total_td_start')
                             <div class="border-top-1">
                                 <br>
                                 <strong>{{ trans($total->name) }}:</strong>
-                                <strong>@money($total->amount - $invoice->paid, $invoice->currency_code, true)</strong>
+                                <strong class="float-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</strong>
                             </div>
                         @stack('grand_total_td_end')
                     @endif
