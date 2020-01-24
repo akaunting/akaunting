@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Portal;
 
-use App\Abstracts\Http\Controller;
 use App\Models\Sale\Invoice;
+use App\Traits\Charts;
 use App\Utilities\Chartjs;
 use Date;
 
-class Dashboard extends Controller
+class Dashboard
 {
+    use Charts;
+
     /**
      * Display a listing of the resource.
      *
@@ -72,63 +74,12 @@ class Dashboard extends Controller
         $partial_paid = $this->calculateTotals($partial_paid, $start, $end, 'partial');
         $overdue = $this->calculateTotals($overdue, $start, $end, 'overdue');
 
-        $options = [
-            'tooltips' => [
-                'backgroundColor' => '#000000',
-                'titleFontColor' => '#ffffff',
-                'bodyFontColor' => '#e5e5e5',
-                'bodySpacing' => 4,
-                'YrPadding' => 12,
-                'mode' => 'nearest',
-                'intersect' => 0,
-                'position' => 'nearest'
-            ],
-              'responsive' => true,
-              'scales' => [
-
-                'yAxes' => [
-                    [
-                        'barPercentage' => 1.6,
-                        'gridLines' => [
-                        'drawBorder' => false,
-                        'color' => 'rgba(29,140,248,0.1)',
-                        'zeroLineColor' => 'transparent',
-                        'borderDash' => [2],
-                        'borderDashOffset' => [2],
-                        ],
-                        'ticks' => [
-                        'padding' => 10,
-                        'fontColor' => '#9e9e9e'
-                        ]
-                    ]
-                ],
-
-                'xAxes' => [
-                    [
-                        'barPercentage' => 1.6,
-                        'gridLines' => [
-                          'drawBorder' => false,
-                          'color' => 'rgba(29,140,248,0.0)',
-                          'zeroLineColor' => 'transparent'
-                        ],
-                        'ticks' => [
-                          'suggestedMin' => 60,
-                          'suggestedMax' => 125,
-                          'padding' => 20,
-                          'fontColor' => '#9e9e9e'
-                        ]
-                    ]
-                ]
-
-            ]
-        ];
-
         $chart = new Chartjs();
         $chart->type('line')
             ->width(0)
             ->height(300)
-            ->options($options)
-            ->labels($labels);
+            ->options($this->getLineChartOptions())
+            ->labels(array_values($labels));
 
         $chart->dataset(trans('general.unpaid'), 'line', array_values($unpaid))
         ->backgroundColor('#ef3232')
