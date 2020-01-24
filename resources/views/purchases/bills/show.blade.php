@@ -340,7 +340,7 @@
                                         @foreach($bill->items as $bill_item)
                                             <tr class="row">
                                                 @stack('name_td_start')
-                                                    <td class="col-xs-4 col-sm-3 pl-5">
+                                                    <td class="col-xs-4 col-sm-3 pl-5 long-texts">
                                                         {{ $bill_item->name }}
                                                         @if (!empty($bill_item->item->description))
                                                             <br><small>{!! \Illuminate\Support\Str::limit($bill_item->item->description, 500) !!}<small>

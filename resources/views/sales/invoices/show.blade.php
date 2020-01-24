@@ -345,7 +345,7 @@
                                     <tbody>
                                         <tr class="row">
                                             @stack('name_th_start')
-                                                <th class="col-xs-4 col-sm-3 pl-5 long-texts">{{ trans_choice($text_override['items'], 2) }}</th>
+                                                <th class="col-xs-4 col-sm-3 pl-5">{{ trans_choice($text_override['items'], 2) }}</th>
                                             @stack('name_th_end')
 
                                             @stack('quantity_th_start')
@@ -363,7 +363,7 @@
                                         @foreach($invoice->items as $invoice_item)
                                             <tr class="row">
                                                 @stack('name_td_start')
-                                                    <td class="col-xs-4 col-sm-3 pl-5">
+                                                    <td class="col-xs-4 col-sm-3 pl-5 long-texts">
                                                         {{ $invoice_item->name }}
                                                         @if (!empty($invoice_item->item->description))
                                                             <br><small>{!! \Illuminate\Support\Str::limit($invoice_item->item->description, 500) !!}<small>
