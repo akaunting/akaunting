@@ -131,6 +131,15 @@ th, td {
     border-radius: 0.25rem
 }
 
+.float-left {
+    float: left !important;
+}
+
+
+.float-right {
+    float: right !important;
+}
+
 .text {
     color: #3c3f72;
     margin-top:10px;
@@ -292,11 +301,6 @@ th, td {
 .m-first-column {
     padding-top: 15px;
     padding-bottom:48px;
-}
-
-.m-logo {
-    padding-top: 10px;
-    padding-bottom: -36px;
 }
 
 .m-fc-left {
