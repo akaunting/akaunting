@@ -167,6 +167,7 @@
             <div class="text company">
                 @stack('notes_input_start')
                     @if ($invoice->notes)
+                        <br>
                         <strong>{{ trans_choice('general.notes', 2) }}</strong><br><br>
                         {{ $invoice->notes }}
                     @endif
@@ -179,25 +180,22 @@
                 @foreach ($invoice->totals as $total)
                     @if ($total->code != 'total')
                         @stack($total->code . '_td_start')
-                            <div class="border-top-1">
-                                <br>
+                            <div class="border-top-1 py-2">
                                 <strong>{{ trans($total->title) }}:</strong>
-                                <strong class="float-right">@money($total->amount, $invoice->currency_code, true)</strong><br><br>
+                                <span class="float-right">@money($total->amount, $invoice->currency_code, true)</s><br><br>
                             </div>
                         @stack($total->code . '_td_end')
                     @else
                         @if ($invoice->paid)
-                            <div class="border-top-1">
-                                <br>
+                            <div class="border-top-1 py-2">
                                 <strong>{{ trans('invoices.paid') }}:</strong>
-                                <strong class="float-right">- @money($invoice->paid, $invoice->currency_code, true)</strong><br><br>
+                                <span class="float-right">- @money($invoice->paid, $invoice->currency_code, true)</span><br><br>
                             </div>
                         @endif
                         @stack('grand_total_td_start')
-                            <div class="border-top-1">
-                                <br>
+                            <div class="border-top-1 py-2">
                                 <strong>{{ trans($total->name) }}:</strong>
-                                <strong class="float-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</strong>
+                                <span class="float-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</span>
                             </div>
                         @stack('grand_total_td_end')
                     @endif
