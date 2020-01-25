@@ -15,14 +15,12 @@ class ExpensesByCategory extends Widget
 
     public function show()
     {
-        Category::with('expense_transactions')->type('expense')->enabled()->each(function ($category) {
+        Category::with('expense_transactions')->type('expense')->each(function ($category) {
             $amount = 0;
 
-            $transactions = $this->applyFilters($category->expense_transactions())->get();
-
-            foreach ($transactions as $transacion) {
-                $amount += $transacion->getAmountConvertedToDefault();
-            }
+            $this->applyFilters($category->expense_transactions())->each(function ($transaction) use (&$amount) {
+                $amount += $transaction->getAmountConvertedToDefault();
+            });
 
             $this->addMoneyToDonut($category->color, $amount, $category->name);
         });

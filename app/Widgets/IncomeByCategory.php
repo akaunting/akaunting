@@ -15,14 +15,12 @@ class IncomeByCategory extends Widget
 
     public function show()
     {
-        Category::with('income_transacions')->type('income')->enabled()->each(function ($category) {
+        Category::with('income_transacions')->type('income')->each(function ($category) {
             $amount = 0;
 
-            $transactions = $this->applyFilters($category->income_transacions())->get();
-
-            foreach ($transactions as $transacion) {
-                $amount += $transacion->getAmountConvertedToDefault();
-            }
+            $this->applyFilters($category->income_transacions())->each(function ($transaction) use (&$amount) {
+                $amount += $transaction->getAmountConvertedToDefault();
+            });
 
             $this->addMoneyToDonut($category->color, $amount, $category->name);
         });
