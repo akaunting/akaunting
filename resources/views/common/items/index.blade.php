@@ -82,8 +82,8 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('items.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            <div class="dropdown-divider"></div>
                                             @permission('create-common-items')
+                                                <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route('items.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
                                             @endpermission
                                             @permission('delete-common-items')

@@ -37,6 +37,7 @@ Route::group(['prefix' => 'common'], function () {
 
     Route::get('reports/{report}/print', 'Common\Reports@print')->name('reports.print');
     Route::get('reports/{report}/export', 'Common\Reports@export')->name('reports.export');
+    Route::get('reports/{report}/duplicate', 'Common\Reports@duplicate')->name('reports.duplicate');
     Route::get('reports/clear', 'Common\Reports@clear')->name('reports.clear');
     Route::get('reports/fields', 'Common\Reports@fields')->name('reports.fields');
     Route::resource('reports', 'Common\Reports');

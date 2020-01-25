@@ -3,9 +3,12 @@
 namespace App\Models\Common;
 
 use App\Abstracts\Model;
+use Bkwld\Cloner\Cloneable;
 
 class Report extends Model
 {
+    use Cloneable;
+
     protected $table = 'reports';
 
     /**

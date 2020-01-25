@@ -22,7 +22,7 @@ class Reports extends Controller
     {
         $totals = $icons = $categories = [];
 
-        $reports = Report::all();
+        $reports = Report::orderBy('name')->get();
 
         foreach ($reports as $report) {
             if (!Utility::canRead($report->class)) {
@@ -101,6 +101,24 @@ class Reports extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  Report  $report
+     *
+     * @return Response
+     */
+    public function duplicate(Report $report)
+    {
+        $clone = $report->duplicate();
+
+        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.reports', 1)]);
+
+        flash($message)->success();
+
+        return redirect()->route('reports.edit', $clone->id);
     }
 
     /**

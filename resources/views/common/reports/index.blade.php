@@ -29,6 +29,10 @@
                                         <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
                                         <div class="dropdown-divider"></div>
                                     @endpermission
+                                    @permission('create-common-reports')
+                                        <a class="dropdown-item" href="{{ route('reports.duplicate', $report->id) }}">{{ trans('general.duplicate') }}</a>
+                                        <div class="dropdown-divider"></div>
+                                    @endpermission
                                     @permission('delete-common-reports')
                                         {!! Form::deleteLink($report, 'common/reports') !!}
                                     @endpermission
