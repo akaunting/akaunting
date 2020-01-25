@@ -9,6 +9,7 @@ use App\Jobs\Common\DeleteReport;
 use App\Jobs\Common\UpdateReport;
 use App\Models\Common\Report;
 use App\Utilities\Reports as Utility;
+use Illuminate\Support\Facades\Cache;
 
 class Reports extends Controller
 {
@@ -28,9 +29,14 @@ class Reports extends Controller
                 continue;
             }
 
-            $class = Utility::getClassInstance($report);
+            $class = Utility::getClassInstance($report, false);
 
-            $totals[$report->id] = $class->getTotal();
+            $ttl = 3600 * 6; // 6 hours
+
+            $totals[$report->id] = Cache::remember('reports.totals.' . $report->id, $ttl, function () use ($class) {
+                return $class->getTotal();
+            });
+
             $icons[$report->id] = $class->getIcon();
             $categories[$class->getCategory()][] = $report;
         }
@@ -50,7 +56,12 @@ class Reports extends Controller
             abort(403);
         }
 
-        return Utility::getClassInstance($report)->show();
+        $class = Utility::getClassInstance($report);
+
+        // Update cache
+        Cache::put('reports.totals.' . $report->id, $class->getTotal());
+
+        return $class->show();
     }
 
     /**
@@ -103,7 +114,7 @@ class Reports extends Controller
     {
         $classes = Utility::getClasses();
 
-        $class = Utility::getClassInstance($report);
+        $class = Utility::getClassInstance($report, false);
 
         return view('common.reports.edit', compact('report', 'classes', 'class'));
     }
@@ -220,5 +231,23 @@ class Reports extends Controller
             'message' => '',
             'html' => $html,
         ]);
+    }
+
+    /**
+     * Clear the cache of the resource.
+     *
+     * @return Response
+     */
+    public function clear()
+    {
+        Report::all()->each(function ($report) {
+            if (!Utility::canRead($report->class)) {
+                return;
+            }
+
+            Cache::put('reports.totals.' . $report->id, Utility::getClassInstance($report)->getTotal());
+        });
+
+        return redirect()->back();
     }
 }

@@ -41,7 +41,7 @@ class Reports
         return $classes;
     }
 
-    public static function getClassInstance($model, $get_totals = true)
+    public static function getClassInstance($model, $load_data = true)
     {
         if (is_string($model)) {
             $model = Report::where('class', $model)->first();
@@ -53,7 +53,7 @@ class Reports
 
         $class = $model->class;
 
-        return new $class($model, $get_totals);
+        return new $class($model, $load_data);
     }
 
     public static function canRead($class)

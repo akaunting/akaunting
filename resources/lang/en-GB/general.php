@@ -145,13 +145,12 @@ return [
     'accounting'            => 'Accounting',
     'sort'                  => 'Sort',
     'width'                 => 'Width',
-
-    'month'                => 'Month',
-    'year'                => 'Year',
-
-    'type_item_name'    => 'Type an item name',
-    'no_data'           => 'No data',
-    'no_matching_data'  => 'No matching data',
+    'month'                 => 'Month',
+    'year'                  => 'Year',
+    'type_item_name'        => 'Type an item name',
+    'no_data'               => 'No data',
+    'no_matching_data'      => 'No matching data',
+    'clear_cache'           => 'Clear Cache',
 
     'card' => [
         'name'                  => 'Name on Card',
