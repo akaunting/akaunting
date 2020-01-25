@@ -182,7 +182,7 @@
                         @stack($total->code . '_td_start')
                             <div class="border-top-1 py-2">
                                 <strong>{{ trans($total->title) }}:</strong>
-                                <span class="float-right">@money($total->amount, $invoice->currency_code, true)</s><br><br>
+                                <span class="float-right">@money($total->amount, $invoice->currency_code, true)</span><br><br>
                             </div>
                         @stack($total->code . '_td_end')
                     @else
