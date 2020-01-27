@@ -157,22 +157,22 @@
             </div>
         </div>
 
-        <div class="col-42">
+        <div class="col-42 float-right text-right">
             <div class="text company pr-2">
                 @foreach ($invoice->totals as $total)
                     @if ($total->code != 'total')
                         @stack($total->code . '_td_start')
-                            <strong>{{ trans($total->title) }}:</strong>
-                            <span class="float-right">@money($total->amount, $invoice->currency_code, true)</span><br><br>
+                            <strong class="float-left">{{ trans($total->title) }}:</strong>
+                            <span>@money($total->amount, $invoice->currency_code, true)</span><br><br>
                         @stack($total->code . '_td_end')
                     @else
                         @if ($invoice->paid)
-                            <strong>{{ trans('invoices.paid') }}:</strong>
-                            <span class="float-right">- @money($invoice->paid, $invoice->currency_code, true)</span><br><br>
+                            <strong class="float-left">{{ trans('invoices.paid') }}:</strong>
+                            <span>- @money($invoice->paid, $invoice->currency_code, true)</span><br><br>
                         @endif
                         @stack('grand_total_td_start')
-                            <strong>{{ trans($total->name) }}:</strong>
-                            <span class="float-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</span>
+                            <strong class="float-left">{{ trans($total->name) }}:</strong>
+                            <span>@money($total->amount - $invoice->paid, $invoice->currency_code, true)</span>
                         @stack('grand_total_td_end')
                     @endif
                 @endforeach
