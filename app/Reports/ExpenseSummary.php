@@ -30,11 +30,12 @@ class ExpenseSummary extends Report
 
     public function getTotals()
     {
-        $payments = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+        $transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at']);
 
         switch ($this->model->settings->basis) {
             case 'cash':
                 // Payments
+                $payments = $transactions->get();
                 $this->setTotals($payments, 'paid_at');
 
                 break;
@@ -45,6 +46,7 @@ class ExpenseSummary extends Report
                 $this->setTotals($bills, 'billed_at');
 
                 // Payments
+                $payments = $transactions->isNotDocument()->get();
                 Recurring::reflect($payments, 'paid_at');
                 $this->setTotals($payments, 'paid_at');
 

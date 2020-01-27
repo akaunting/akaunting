@@ -6,7 +6,6 @@ use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
 use App\Models\Purchase\Bill;
 use App\Models\Sale\Invoice;
-use App\Models\Setting\Category;
 use App\Utilities\Recurring;
 
 class ProfitLoss extends Report
@@ -36,44 +35,20 @@ class ProfitLoss extends Report
         ];
     }
 
-    public function getTableRowList()
-    {
-        $this->cat_list = Category::type(['income', 'expense'])->enabled()->orderBy('name')->get();
-
-        return collect($this->cat_list)->pluck('name', 'id')->toArray();
-    }
-
-    public function setRows()
-    {
-        $list = $this->getTableRowList();
-
-        foreach ($this->dates as $date) {
-            foreach ($this->tables as $t_id => $t_name) {
-                foreach ($list as $id => $name) {
-                    $cat = $this->cat_list->where('id', $id)->first();
-
-                    if ($cat->type != $t_id) {
-                        continue;
-                    }
-
-                    $this->rows[$t_name][$id][$date] = 0;
-                }
-            }
-        }
-    }
-
     public function getTotals()
     {
-        $income_transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
-        $expense_transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+        $income_transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at']);
+        $expense_transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at']);
 
         switch ($this->model->settings->basis) {
             case 'cash':
-                // Income Transactions
-                $this->setTotals($income_transactions, 'paid_at', true, $this->tables['income']);
+                // Revenues
+                $revenues = $income_transactions->get();
+                $this->setTotals($revenues, 'paid_at', true, $this->tables['income']);
 
-                // Expense Transactions
-                $this->setTotals($expense_transactions, 'paid_at', true, $this->tables['expense']);
+                // Payments
+                $payments = $expense_transactions->get();
+                $this->setTotals($payments, 'paid_at', true, $this->tables['expense']);
 
                 break;
             default:
@@ -82,24 +57,26 @@ class ProfitLoss extends Report
                 Recurring::reflect($invoices, 'invoiced_at');
                 $this->setTotals($invoices, 'invoiced_at', true, $this->tables['income']);
 
-                // Income Transactions
-                Recurring::reflect($income_transactions, 'paid_at');
-                $this->setTotals($income_transactions, 'paid_at', true, $this->tables['income']);
+                // Revenues
+                $revenues = $income_transactions->isNotDocument()->get();
+                Recurring::reflect($revenues, 'paid_at');
+                $this->setTotals($revenues, 'paid_at', true, $this->tables['income']);
 
                 // Bills
                 $bills = $this->applyFilters(Bill::accrued(), ['date_field' => 'billed_at'])->get();
                 Recurring::reflect($bills, 'bill', 'billed_at');
                 $this->setTotals($bills, 'billed_at', true, $this->tables['expense']);
 
-                // Expense Transactions
-                Recurring::reflect($expense_transactions, 'paid_at');
-                $this->setTotals($expense_transactions, 'paid_at', true, $this->tables['expense']);
+                // Payments
+                $payments = $expense_transactions->isNotDocument()->get();
+                Recurring::reflect($payments, 'paid_at');
+                $this->setTotals($payments, 'paid_at', true, $this->tables['expense']);
 
                 break;
         }
 
         // TODO: move to views
-        foreach ($this->totals as $table => $dates) {
+        foreach ($this->footer_totals as $table => $dates) {
             foreach ($dates as $date => $total) {
                 if (!isset($this->net_profit[$date])) {
                     $this->net_profit[$date] = 0;

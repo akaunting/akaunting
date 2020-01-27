@@ -6,6 +6,7 @@ use App\Abstracts\Listeners\Report as Listener;
 use App\Events\Common\ReportFilterShowing;
 use App\Events\Common\ReportGroupApplying;
 use App\Events\Common\ReportGroupShowing;
+use App\Events\Common\ReportRowsShowing;
 
 class AddCustomersToReports extends Listener
 {
@@ -57,5 +58,28 @@ class AddCustomersToReports extends Listener
         }
 
         $this->applyCustomerGroup($event);
+    }
+
+    /**
+     * Handle rows showing event.
+     *
+     * @param  $event
+     * @return void
+     */
+    public function handleReportRowsShowing(ReportRowsShowing $event)
+    {
+        if ($this->skipRowsShowing($event, 'customer')) {
+            return;
+        }
+
+        if ($customers = request('customers')) {
+            $rows = collect($event->class->filters['customers'])->filter(function ($value, $key) use ($customers) {
+                return in_array($key, $customers);
+            });
+        } else {
+            $rows = $event->class->filters['customers'];
+        }
+
+        $this->setRowNamesAndValues($event, $rows);
     }
 }

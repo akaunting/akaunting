@@ -6,11 +6,12 @@ use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Setting\Category;
 use App\Traits\Contacts;
+use App\Traits\DateTime;
 use Date;
 
 abstract class Report
 {
-    use Contacts;
+    use Contacts, DateTime;
 
     protected $classes = [];
 
@@ -19,11 +20,19 @@ abstract class Report
         'App\Events\Common\ReportFilterApplying',
         'App\Events\Common\ReportGroupShowing',
         'App\Events\Common\ReportGroupApplying',
+        'App\Events\Common\ReportRowsShowing',
     ];
 
     public function skipThisClass($event)
     {
         return (empty($event->class) || !in_array(get_class($event->class), $this->classes));
+    }
+
+    public function skipRowsShowing($event, $group)
+    {
+        return $this->skipThisClass($event)
+                || empty($event->class->model->settings->group)
+                || ($event->class->model->settings->group != $group);
     }
 
     public function getYears()
@@ -68,7 +77,7 @@ abstract class Report
 
     public function getCategories($types)
     {
-        return Category::type($types)->enabled()->orderBy('name')->pluck('name', 'id')->toArray();
+        return Category::type($types)->orderBy('name')->pluck('name', 'id')->toArray();
     }
 
     public function getCustomers()
@@ -83,7 +92,7 @@ abstract class Report
 
     public function getContacts($types)
     {
-        return Contact::type($types)->enabled()->orderBy('name')->pluck('name', 'id')->toArray();
+        return Contact::type($types)->orderBy('name')->pluck('name', 'id')->toArray();
     }
 
     public function applyDateFilter($event)
@@ -112,6 +121,8 @@ abstract class Report
             }
 
             $event->model->account_id = $transaction->account_id;
+
+            break;
         }
     }
 
@@ -131,6 +142,42 @@ abstract class Report
 
             $event->model->$id_field = $event->model->contact_id;
         }
+    }
+
+    public function setRowNamesAndValues($event, $rows)
+    {
+        foreach ($event->class->dates as $date) {
+            foreach ($event->class->tables as $table) {
+                foreach ($rows as $id => $name) {
+                    $event->class->row_names[$table][$id] = $name;
+                    $event->class->row_values[$table][$id][$date] = 0;
+                }
+            }
+        }
+    }
+
+    public function getFormattedDate($event, $date)
+    {
+        if (empty($event->class->model->settings->period)) {
+            return $date->copy()->format('Y-m-d');
+        }
+
+        switch ($event->class->model->settings->period) {
+            case 'yearly':
+                $d = $date->copy()->format($this->getYearlyDateFormat());
+                break;
+            case 'quarterly':
+                $start = $date->copy()->startOfQuarter()->format($this->getQuarterlyDateFormat());
+                $end = $date->copy()->endOfQuarter()->format($this->getQuarterlyDateFormat());
+
+                $d = $start . '-' . $end;
+                break;
+            default:
+                $d = $date->copy()->format($this->getMonthlyDateFormat());
+                break;
+        }
+
+        return $d;
     }
 
     /**

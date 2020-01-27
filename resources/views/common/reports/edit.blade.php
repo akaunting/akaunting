@@ -60,11 +60,14 @@
                 </div>
             </div>
 
-            <div class="card-footer">
-                <div class="row float-right">
-                    {{ Form::saveButtons('common/reports') }}
+            @permission('update-common-reports')
+                <div class="card-footer">
+                    <div class="row float-right">
+                        {{ Form::saveButtons('common/reports') }}
+                    </div>
                 </div>
-            </div>
+            @endpermission
+
         {!! Form::close() !!}
     </div>
 @endsection

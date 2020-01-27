@@ -59,6 +59,8 @@ trait DateTime
 
     public function getTimezones()
     {
+        $groups = [];
+
         // The list of available timezone groups to use.
         $use_zones = array('Africa', 'America', 'Antarctica', 'Arctic', 'Asia', 'Atlantic', 'Australia', 'Europe', 'Indian', 'Pacific');
 
