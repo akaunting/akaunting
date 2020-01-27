@@ -68,6 +68,8 @@ class Event extends Provider
         'App\Listeners\Common\AddVendorsToReports',
         'App\Listeners\Common\AddExpenseCategoriesToReports',
         'App\Listeners\Common\AddIncomeCategoriesToReports',
+        'App\Listeners\Common\AddIncomeExpenseCategoriesToReports',
         'App\Listeners\Common\AddSearchToReports',
+        'App\Listeners\Common\AddRowsToTaxReport',
     ];
 }

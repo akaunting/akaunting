@@ -25,15 +25,13 @@
                                     <i class="fa fa-ellipsis-v text-primary"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
                                     @permission('create-common-reports')
-                                        <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
                                         <div class="dropdown-divider"></div>
-                                    @endpermission
-                                    @permission('create-common-reports')
                                         <a class="dropdown-item" href="{{ route('reports.duplicate', $report->id) }}">{{ trans('general.duplicate') }}</a>
-                                        <div class="dropdown-divider"></div>
                                     @endpermission
                                     @permission('delete-common-reports')
+                                        <div class="dropdown-divider"></div>
                                         {!! Form::deleteLink($report, 'common/reports') !!}
                                     @endpermission
                                 </div>

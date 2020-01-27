@@ -6,6 +6,7 @@ use App\Events\Common\ReportFilterShowing;
 use App\Events\Common\ReportFilterApplying;
 use App\Events\Common\ReportGroupApplying;
 use App\Events\Common\ReportGroupShowing;
+use App\Events\Common\ReportRowsShowing;
 use App\Exports\Common\Reports as Export;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Report as Model;
@@ -36,11 +37,15 @@ abstract class Report
 
     public $dates = [];
 
-    public $rows = [];
+    public $row_names = [];
 
-    public $totals = [];
+    public $row_values = [];
+
+    public $footer_totals = [];
 
     public $filters = [];
+
+    public $loaded = false;
 
     public $indents = [
         'table_header' => '0px',
@@ -62,7 +67,7 @@ abstract class Report
         'datasets' => [],
     ];
 
-    public function __construct(Model $model = null, $get_totals = true)
+    public function __construct(Model $model = null, $load_data = true)
     {
         $this->setGroups();
 
@@ -72,19 +77,27 @@ abstract class Report
 
         $this->model = $model;
 
+        if (!$load_data) {
+            return;
+        }
+
+        $this->load();
+    }
+
+    abstract public function getTotals();
+
+    public function load()
+    {
         $this->setYear();
         $this->setViews();
         $this->setTables();
         $this->setDates();
         $this->setFilters();
         $this->setRows();
+        $this->getTotals();
 
-        if ($get_totals) {
-            $this->getTotals();
-        }
+        $this->loaded = true;
     }
-
-    abstract public function getTotals();
 
     public function getDefaultName()
     {
@@ -107,30 +120,19 @@ abstract class Report
 
     public function getTotal()
     {
+        if (!$this->loaded) {
+            $this->load();
+        }
+
         $sum = 0;
 
-        foreach ($this->totals as $total) {
+        foreach ($this->footer_totals as $total) {
             $sum += is_array($total) ? array_sum($total) : $total;
         }
 
         $total = money($sum, setting('default.currency'), true);
 
         return $total;
-    }
-
-    public function getTableRowList()
-    {
-        $group_prl = Str::plural($this->model->settings->group);
-
-        if ($group_filter = request($group_prl)) {
-            $rows = collect($this->filters[$group_prl])->filter(function ($value, $key) use ($group_filter) {
-                return in_array($key, $group_filter);
-            });
-        } else {
-            $rows = $this->filters[$group_prl];
-        }
-
-        return $rows;
     }
 
     public function getChart()
@@ -158,7 +160,7 @@ abstract class Report
                     ->fill(false);
             }
         } else {
-            foreach ($this->totals as $total) {
+            foreach ($this->footer_totals as $total) {
                 $chart->dataset($this->model->name, 'line', array_values($total))
                     ->backgroundColor(isset($config['backgroundColor']) ? $config['backgroundColor'] : '#6da252')
                     ->color(isset($config['color']) ? $config['color'] : '#6da252')
@@ -214,12 +216,16 @@ abstract class Report
     public function setTables()
     {
         $this->tables = [
-            'default' => 'default'
+            'default' => 'default',
         ];
     }
 
     public function setDates()
     {
+        if (empty($this->model->settings->period)) {
+            return;
+        }
+
         $function = 'sub' . ucfirst(str_replace('ly', '', $this->model->settings->period));
 
         $start = $this->getFinancialStart()->copy()->$function();
@@ -234,7 +240,7 @@ abstract class Report
                     $this->dates[$j] = $date;
 
                     foreach ($this->tables as $table) {
-                        $this->totals[$table][$date] = 0;
+                        $this->footer_totals[$table][$date] = 0;
                     }
 
                     $j += 11;
@@ -248,7 +254,7 @@ abstract class Report
                     $this->dates[$j] = $date;
 
                     foreach ($this->tables as $table) {
-                        $this->totals[$table][$date] = 0;
+                        $this->footer_totals[$table][$date] = 0;
                     }
 
                     $j += 2;
@@ -262,7 +268,7 @@ abstract class Report
                     $this->dates[$j] = $date;
 
                     foreach ($this->tables as $table) {
-                        $this->totals[$table][$date] = 0;
+                        $this->footer_totals[$table][$date] = 0;
                     }
 
                     break;
@@ -284,15 +290,7 @@ abstract class Report
 
     public function setRows()
     {
-        $list = $this->getTableRowList();
-
-        foreach ($this->dates as $date) {
-            foreach ($this->tables as $table) {
-                foreach ($list as $id => $name) {
-                    $this->rows[$table][$id][$date] = 0;
-                }
-            }
-        }
+        event(new ReportRowsShowing($this));
     }
 
     public function setTotals($items, $date_field, $check_type = false, $table = 'default')
@@ -305,31 +303,26 @@ abstract class Report
 
             $id_field = $this->model->settings->group . '_id';
 
-            if (!isset($this->rows[$table][$item->$id_field]) ||
-                !isset($this->rows[$table][$item->$id_field][$date]) ||
-                !isset($this->totals[$table][$date]))
+            if (
+                !isset($this->row_values[$table][$item->$id_field])
+                || !isset($this->row_values[$table][$item->$id_field][$date])
+                || !isset($this->footer_totals[$table][$date]))
             {
                 continue;
             }
 
             $amount = $item->getAmountConvertedToDefault();
 
-            if (!$check_type) {
-                $this->rows[$table][$item->$id_field][$date] += $amount;
+            $type = (($item instanceof Invoice) || (($item instanceof Transaction) && ($item->type == 'income'))) ? 'income' : 'expense';
 
-                $this->totals[$table][$date] += $amount;
+            if (($check_type == false) || ($type == 'income')) {
+                $this->row_values[$table][$item->$id_field][$date] += $amount;
+
+                $this->footer_totals[$table][$date] += $amount;
             } else {
-                $type = (($item instanceof Invoice) || (($item instanceof Transaction) && ($item->type == 'income'))) ? 'income' : 'expense';
+                $this->row_values[$table][$item->$id_field][$date] -= $amount;
 
-                if ($type == 'income') {
-                    $this->rows[$table][$item->$id_field][$date] += $amount;
-
-                    $this->totals[$table][$date] += $amount;
-                } else {
-                    $this->rows[$table][$item->$id_field][$date] -= $amount;
-
-                    $this->totals[$table][$date] -= $amount;
-                }
+                $this->footer_totals[$table][$date] -= $amount;
             }
         }
     }

@@ -43,6 +43,7 @@
                     </div>
                 </div>
             @endpermission
+
         {!! Form::close() !!}
     </div>
 @endsection

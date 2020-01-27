@@ -2,8 +2,8 @@
     <table class="table align-items-center rp-border-collapse">
         @include($class->views['table.header'])
             <tbody>
-                @if (!empty($class->rows[$table]))
-                    @foreach($class->rows[$table] as $id => $items)
+                @if (!empty($class->row_values[$table]))
+                    @foreach($class->row_values[$table] as $id => $rows)
                         @include($class->views['table.rows'])
                     @endforeach
                 @else

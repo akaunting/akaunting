@@ -6,6 +6,7 @@ use App\Abstracts\Listeners\Report as Listener;
 use App\Events\Common\ReportFilterShowing;
 use App\Events\Common\ReportGroupApplying;
 use App\Events\Common\ReportGroupShowing;
+use App\Events\Common\ReportRowsShowing;
 
 class AddAccountsToReports extends Listener
 {
@@ -13,8 +14,6 @@ class AddAccountsToReports extends Listener
         'App\Reports\IncomeSummary',
         'App\Reports\ExpenseSummary',
         'App\Reports\IncomeExpenseSummary',
-        'App\Reports\ProfitLoss',
-        'App\Reports\TaxSummary',
     ];
 
     /**
@@ -60,5 +59,28 @@ class AddAccountsToReports extends Listener
         }
 
         $this->applyAccountGroup($event);
+    }
+
+    /**
+     * Handle rows showing event.
+     *
+     * @param  $event
+     * @return void
+     */
+    public function handleReportRowsShowing(ReportRowsShowing $event)
+    {
+        if ($this->skipRowsShowing($event, 'account')) {
+            return;
+        }
+
+        if ($accounts = request('accounts')) {
+            $rows = collect($event->class->filters['accounts'])->filter(function ($value, $key) use ($accounts) {
+                return in_array($key, $accounts);
+            });
+        } else {
+            $rows = $event->class->filters['accounts'];
+        }
+
+        $this->setRowNamesAndValues($event, $rows);
     }
 }

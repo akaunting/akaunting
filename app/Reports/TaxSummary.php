@@ -38,24 +38,16 @@ class TaxSummary extends Report
         $this->tables = array_combine($taxes, $taxes);
     }
 
-    public function getTableRowList()
-    {
-        return [
-            'income' => trans_choice('general.incomes', 2),
-            'expense' => trans_choice('general.expenses', 2),
-        ];
-    }
-
     public function getTotals()
     {
         switch ($this->model->settings->basis) {
             case 'cash':
                 // Invoice Payments
-                $invoices = $this->applyFilters(Transaction::type('income')->isDocument()->with(['invoice', 'invoice.totals'])->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+                $invoices = $this->applyFilters(Transaction::with(['invoice', 'invoice.totals'])->type('income')->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
                 $this->setTotals($invoices, 'paid_at');
 
                 // Bill Payments
-                $bills = $this->applyFilters(Transaction::type('expense')->isDocument()->with(['bill', 'bill.totals'])->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+                $bills = $this->applyFilters(Transaction::with(['bill', 'bill.totals'])->type('expense')->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
                 $this->setTotals($bills, 'paid_at');
 
                 break;
@@ -97,8 +89,9 @@ class TaxSummary extends Report
                     continue;
                 }
 
-                if (!isset($this->rows[$item_total->name][$type][$date]) ||
-                    !isset($this->totals[$item_total->name][$date]))
+                if (
+                    !isset($this->row_values[$item_total->name][$type][$date])
+                    || !isset($this->footer_totals[$item_total->name][$date]))
                 {
                     continue;
                 }
@@ -113,13 +106,13 @@ class TaxSummary extends Report
                 $amount = $this->convertToDefault($item_amount, $item->currency_code, $item->currency_rate);
 
                 if ($type == 'income') {
-                    $this->rows[$item_total->name][$type][$date] += $amount;
+                    $this->row_values[$item_total->name][$type][$date] += $amount;
 
-                    $this->totals[$item_total->name][$date] += $amount;
+                    $this->footer_totals[$item_total->name][$date] += $amount;
                 } else {
-                    $this->rows[$item_total->name][$type][$date] -= $amount;
+                    $this->row_values[$item_total->name][$type][$date] -= $amount;
 
-                    $this->totals[$item_total->name][$date] -= $amount;
+                    $this->footer_totals[$item_total->name][$date] -= $amount;
                 }
             }
         }
@@ -128,7 +121,6 @@ class TaxSummary extends Report
     public function getFields()
     {
         return [
-            $this->getGroupField(),
             $this->getPeriodField(),
             $this->getBasisField(),
         ];

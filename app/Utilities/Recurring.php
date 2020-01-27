@@ -11,6 +11,7 @@ class Recurring
     public static function reflect(&$items, $issued_date_field)
     {
         foreach ($items as $key => $item) {
+            // @todo cache recurrings
             if (!$item->recurring || !empty($item->parent_id)) {
                 continue;
             }

@@ -6,7 +6,7 @@
 
     {{ setting('company.name') }}
 
-    @if($class->model->settings->chart)
+    @if(!empty($class->model->settings->chart))
         @include($class->views['chart'])
     @endif
 

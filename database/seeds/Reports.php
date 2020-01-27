@@ -60,7 +60,7 @@ class Reports extends Seeder
                 'class' => 'App\Reports\TaxSummary',
                 'name' => trans('reports.summary.tax'),
                 'description' => trans('demo.reports.tax'),
-                'settings' => ['group' => 'category', 'period' => 'quarterly', 'basis' => 'accrual'],
+                'settings' => ['period' => 'quarterly', 'basis' => 'accrual'],
             ],
         ];
 

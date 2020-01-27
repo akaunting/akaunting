@@ -8,7 +8,6 @@ use Bkwld\Cloner\Cloneable;
 
 class InvoiceItem extends Model
 {
-
     use Cloneable, Currencies;
 
     protected $table = 'invoice_items';

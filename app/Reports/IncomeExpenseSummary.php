@@ -16,16 +16,18 @@ class IncomeExpenseSummary extends Report
 
     public function getTotals()
     {
-        $income_transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
-        $expense_transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+        $income_transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at']);
+        $expense_transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at']);
 
         switch ($this->model->settings->basis) {
             case 'cash':
-                // Income Transactions
-                $this->setTotals($income_transactions, 'paid_at', true);
+                // Revenues
+                $revenues = $income_transactions->get();
+                $this->setTotals($revenues, 'paid_at', true);
 
-                // Expense Transactions
-                $this->setTotals($expense_transactions, 'paid_at', true);
+                // Payments
+                $payments = $expense_transactions->get();
+                $this->setTotals($payments, 'paid_at', true);
 
                 break;
             default:
@@ -34,18 +36,20 @@ class IncomeExpenseSummary extends Report
                 Recurring::reflect($invoices, 'invoiced_at');
                 $this->setTotals($invoices, 'invoiced_at', true);
 
-                // Income Transactions
-                Recurring::reflect($income_transactions, 'paid_at');
-                $this->setTotals($income_transactions, 'paid_at', true);
+                // Revenues
+                $revenues = $income_transactions->isNotDocument()->get();
+                Recurring::reflect($revenues, 'paid_at');
+                $this->setTotals($revenues, 'paid_at', true);
 
                 // Bills
                 $bills = $this->applyFilters(Bill::accrued(), ['date_field' => 'billed_at'])->get();
                 Recurring::reflect($bills, 'bill', 'billed_at');
                 $this->setTotals($bills, 'billed_at', true);
 
-                // Expense Transactions
-                Recurring::reflect($expense_transactions, 'paid_at');
-                $this->setTotals($expense_transactions, 'paid_at', true);
+                // Payments
+                $payments = $expense_transactions->isNotDocument()->get();
+                Recurring::reflect($payments, 'paid_at');
+                $this->setTotals($payments, 'paid_at', true);
 
                 break;
         }
