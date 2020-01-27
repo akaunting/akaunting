@@ -21,8 +21,6 @@ class TaxSummary extends Report
 
     public $icon = 'fa fa-percent';
 
-    public $chart = false;
-
     public function setViews()
     {
         parent::setViews();

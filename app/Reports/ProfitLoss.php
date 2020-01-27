@@ -16,8 +16,6 @@ class ProfitLoss extends Report
 
     public $icon = 'fa fa-heart';
 
-    public $chart = false;
-
     public function setViews()
     {
         parent::setViews();

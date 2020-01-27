@@ -139,6 +139,10 @@ abstract class Report
     {
         $chart = new Chartjs();
 
+        if (empty($this->model->settings->chart)) {
+            return $chart;
+        }
+
         $config = $this->chart[$this->model->settings->chart];
 
         $default_options = $this->getLineChartOptions();
