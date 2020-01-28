@@ -213,6 +213,10 @@ const app = new Vue({
             this.transaction_form.submit();
 
             this.payment.errors = this.transaction_form.errors;
+
+            this.form.loading = true;
+
+            this.$emit("confirm");
         },
 
         closePayment() {

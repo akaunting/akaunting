@@ -436,6 +436,11 @@ button:focus
 .btn-delete{
     width: 73.10px;
 }
+
+.btn-confirm
+{
+    width: 86px;
+}
 /*--------Akaunting Loader Finish--------*/
 
 
@@ -677,11 +682,24 @@ table .align-items-center td span.badge {
 }
 /*--------Empty Page Image Finish--------*/
 
+
+/*--------Text Pre Nowrap--------*/
 .text-pre-nowrap
 {
     white-space: pre-wrap !important;
 }
+/*--------Text Pre Nowrap Finish--------*/
 
+
+/*--------Modal Dialog Resizing--------*/
+@media (min-width: 576px)
+{
+    .modal-payment .modal-dialog
+    {
+      max-width: 559px !important;
+    }
+}
+/*--------Modal Dialog Resizing Finish--------*/
 
 
 /*----------------RESPONSIVE START LINE----------------*/
