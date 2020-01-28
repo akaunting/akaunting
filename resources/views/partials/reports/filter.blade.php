@@ -6,8 +6,10 @@
     ]) !!}
 
         <div id="items" class="float-left">
+            @if(isset($class->filters['years']))
             {!! Form::select('year', $class->filters['years'], request('year', $class->year), ['class' => 'form-control form-control-sm d-inline-block w-auto']) !!}
             @php unset($class->filters['years']) @endphp
+            @endif
             @foreach($class->filters as $name => $values)
                 {!! Form::select($name . '[]', $values, request($name), ['id' => 'filter-' . $name, 'class' => 'form-control form-control-sm d-inline-block w-auto']) !!}
             @endforeach
