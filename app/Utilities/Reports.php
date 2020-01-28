@@ -78,6 +78,6 @@ class Reports
 
         $permission = $prefix . Str::kebab($class_name);
 
-        return $permission;
+        return str_replace('--', '-', $permission);
     }
 }
