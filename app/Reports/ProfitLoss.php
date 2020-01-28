@@ -38,7 +38,7 @@ class ProfitLoss extends Report
         ];
     }
 
-    public function getTotals()
+    public function setData()
     {
         $income_transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at']);
         $expense_transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at']);

@@ -38,7 +38,7 @@ class Reports extends Controller
             $ttl = 3600 * 6; // 6 hours
 
             $totals[$report->id] = Cache::remember('reports.totals.' . $report->id, $ttl, function () use ($class) {
-                return $class->getTotal();
+                return $class->getGrandTotal();
             });
 
             $icons[$report->id] = $class->getIcon();
@@ -63,7 +63,7 @@ class Reports extends Controller
         $class = Utility::getClassInstance($report);
 
         // Update cache
-        Cache::put('reports.totals.' . $report->id, $class->getTotal());
+        Cache::put('reports.totals.' . $report->id, $class->getGrandTotal());
 
         return $class->show();
     }
@@ -267,7 +267,7 @@ class Reports extends Controller
                 return;
             }
 
-            Cache::put('reports.totals.' . $report->id, Utility::getClassInstance($report)->getTotal());
+            Cache::put('reports.totals.' . $report->id, Utility::getClassInstance($report)->getGrandTotal());
         });
 
         return redirect()->back();

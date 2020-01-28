@@ -84,7 +84,7 @@ abstract class Report
         $this->load();
     }
 
-    abstract public function getTotals();
+    abstract public function setData();
 
     public function load()
     {
@@ -94,7 +94,7 @@ abstract class Report
         $this->setDates();
         $this->setFilters();
         $this->setRows();
-        $this->getTotals();
+        $this->setData();
 
         $this->loaded = true;
     }
@@ -118,19 +118,23 @@ abstract class Report
         return $this->icon;
     }
 
-    public function getTotal()
+    public function getGrandTotal()
     {
         if (!$this->loaded) {
             $this->load();
         }
 
-        $sum = 0;
+        if (!empty($this->footer_totals)) {
+            $sum = 0;
 
-        foreach ($this->footer_totals as $total) {
-            $sum += is_array($total) ? array_sum($total) : $total;
+            foreach ($this->footer_totals as $total) {
+                $sum += is_array($total) ? array_sum($total) : $total;
+            }
+
+            $total = money($sum, setting('default.currency'), true);
+        } else {
+            $total = trans('general.na');
         }
-
-        $total = money($sum, setting('default.currency'), true);
 
         return $total;
     }
@@ -369,15 +373,15 @@ abstract class Report
     {
         $print_url = 'common/reports/' . $this->model->id . '/' . $action . '?year='. $this->year;
 
-        collect(request('accounts'))->each(function($item) use(&$print_url) {
+        collect(request('accounts'))->each(function($item) use (&$print_url) {
             $print_url .= '&accounts[]=' . $item;
         });
 
-        collect(request('customers'))->each(function($item) use(&$print_url) {
+        collect(request('customers'))->each(function($item) use (&$print_url) {
             $print_url .= '&customers[]=' . $item;
         });
 
-        collect(request('categories'))->each(function($item) use(&$print_url) {
+        collect(request('categories'))->each(function($item) use (&$print_url) {
             $print_url .= '&categories[]=' . $item;
         });
 

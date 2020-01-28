@@ -28,7 +28,7 @@ class IncomeSummary extends Report
         ],
     ];
 
-    public function getTotals()
+    public function setData()
     {
         $transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at']);
 

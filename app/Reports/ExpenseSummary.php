@@ -28,7 +28,7 @@ class ExpenseSummary extends Report
         ],
     ];
 
-    public function getTotals()
+    public function setData()
     {
         $transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at']);
 

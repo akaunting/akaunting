@@ -42,7 +42,7 @@ class TaxSummary extends Report
         $this->tables = array_combine($taxes, $taxes);
     }
 
-    public function getTotals()
+    public function setData()
     {
         switch ($this->model->settings->basis) {
             case 'cash':
