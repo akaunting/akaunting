@@ -24,7 +24,7 @@
                         <input class="form-control" data-name="hostname" data-value="localhost" @keydown="form.errors.clear('hostname')" v-model="form.hostname" required="required" name="hostname" type="text" value="localhost" id="hostname">
                     </div>
 
-                    <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('hostname')" v-html="form.errors.get('hostname')"></div>
+                    <div class="invalid-feedback d-block" v-if="form.errors.has('hostname')" v-html="form.errors.get('hostname')"></div>
                 </div>
 
                 <div class="col-md-12 form-group required" :class="[{'has-error': form.errors.get('username')}]">
@@ -39,7 +39,7 @@
                         <input class="form-control" data-name="username" @keydown="form.errors.clear('username')" v-model="form.username" required="required" name="username" type="text" id="username">
                     </div>
 
-                    <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('username')" v-html="form.errors.get('username')"></div>
+                    <div class="invalid-feedback d-block" v-if="form.errors.has('username')" v-html="form.errors.get('username')"></div>
                 </div>
 
                 <div class="col-md-12 form-group" :class="[{'has-error': form.errors.get('password')}]">
@@ -54,7 +54,7 @@
                         <input class="form-control" data-name="password" v-model="form.password" name="password" type="password" value="" id="password">
                     </div>
 
-                    <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('password')" v-html="form.errors.get('password')"></div>
+                    <div class="invalid-feedback d-block" v-if="form.errors.has('password')" v-html="form.errors.get('password')"></div>
                 </div>
 
                 <div class="col-md-12 form-group mb--2 required" :class="[{'has-error': form.errors.get('database')}]">
@@ -69,7 +69,7 @@
                         <input class="form-control" data-name="database" @keydown="form.errors.clear('database')" v-model="form.database" required="required" name="database" type="text" id="database">
                     </div>
 
-                    <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('database')" v-html="form.errors.get('database')"></div>
+                    <div class="invalid-feedback d-block" v-if="form.errors.has('database')" v-html="form.errors.get('database')"></div>
                 </div>
             </div>
         </div>
