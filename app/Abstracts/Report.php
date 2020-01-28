@@ -49,7 +49,7 @@ abstract class Report
 
     public $indents = [
         'table_header' => '0px',
-        'table_rows' => '0px',
+        'table_rows' => '24px',
     ];
 
     public $chart = [
