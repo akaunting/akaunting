@@ -22,7 +22,7 @@
                         <input class="form-control" data-name="company_name" @keydown="form.errors.clear('company_name')" v-model="form.company_name" required="required" name="company_name" type="text" id="company_name">
                     </div>
 
-                    <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('company_name')" v-html="form.errors.get('company_name')"></div>
+                    <div class="invalid-feedback d-block" v-if="form.errors.has('company_name')" v-html="form.errors.get('company_name')"></div>
                 </div>
 
                 <div class="col-md-12 form-group required" :class="[{'has-error': form.errors.get('company_email')}]">
@@ -37,7 +37,7 @@
                         <input class="form-control" data-name="company_email" @keydown="form.errors.clear('company_email')" v-model="form.company_email" required="required" name="company_email" type="text" id="company_email">
                     </div>
 
-                    <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('company_email')" v-html="form.errors.get('company_email')"></div>
+                    <div class="invalid-feedback d-block" v-if="form.errors.has('company_email')" v-html="form.errors.get('company_email')"></div>
                 </div>
 
                 <div class=" col-md-12 form-group required" :class="[{'has-error': form.errors.get('user_email')}]">
@@ -52,7 +52,7 @@
                         <input class="form-control" data-name="user_email" @keydown="form.errors.clear('user_email')" v-model="form.user_email" required="required" name="user_email" type="text" id="user_email">
                     </div>
 
-                    <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('user_email')" v-html="form.errors.get('user_email')"></div>
+                    <div class="invalid-feedback d-block" v-if="form.errors.has('user_email')" v-html="form.errors.get('user_email')"></div>
                 </div>
 
                 <div class="col-md-12 form-group mb--2 required" :class="[{'has-error': form.errors.get('user_password')}]">
@@ -67,7 +67,7 @@
                         <input class="form-control" data-name="user_password" @keydown="form.errors.clear('user_password')" v-model="form.user_password" required="required" name="user_password" type="password" value="" id="user_password">
                     </div>
 
-                    <div class="invalid-feedback" style="display: block;" v-if="form.errors.has('user_password')" v-html="form.errors.get('user_password')"></div>
+                    <div class="invalid-feedback d-block" v-if="form.errors.has('user_password')" v-html="form.errors.get('user_password')"></div>
                 </div>
             </div>
         </div>
