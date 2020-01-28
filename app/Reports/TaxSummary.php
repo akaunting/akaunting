@@ -21,10 +21,16 @@ class TaxSummary extends Report
 
     public $icon = 'fa fa-percent';
 
+    public $indents = [
+        'table_header' => '0px',
+        'table_rows' => '48px',
+    ];
+
     public function setViews()
     {
         parent::setViews();
         $this->views['content.header'] = 'reports.tax_summary.content.header';
+        $this->views['content.footer'] = 'reports.tax_summary.content.footer';
         $this->views['table.header'] = 'reports.tax_summary.table.header';
         $this->views['table.footer'] = 'reports.tax_summary.table.footer';
     }
@@ -61,6 +67,17 @@ class TaxSummary extends Report
                 $this->setTotals($bills, 'billed_at');
 
                 break;
+        }
+
+        // TODO: move to views
+        foreach ($this->footer_totals as $table => $dates) {
+            foreach ($dates as $date => $total) {
+                if (!isset($this->net_profit[$date])) {
+                    $this->net_profit[$date] = 0;
+                }
+
+                $this->net_profit[$date] += $total;
+            }
         }
     }
 
