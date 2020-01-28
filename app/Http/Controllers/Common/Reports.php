@@ -31,6 +31,10 @@ class Reports extends Controller
 
             $class = Utility::getClassInstance($report, false);
 
+            if (empty($class)) {
+                continue;
+            }
+
             $ttl = 3600 * 6; // 6 hours
 
             $totals[$report->id] = Cache::remember('reports.totals.' . $report->id, $ttl, function () use ($class) {
