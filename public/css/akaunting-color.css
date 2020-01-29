@@ -2391,3 +2391,12 @@ option:focus
     border: 0;
 }
 /*--Wizard Delete Button Text Finish--*/
+
+
+/*--Disabled Form Group--*/
+.form-control:disabled,.input-group-text
+{
+    background-color: #e9ecef;
+    color: #8898aa;
+}
+/*--Disabled Form Group Finish--*/
