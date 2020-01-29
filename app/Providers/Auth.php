@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as Provider;
-use Illuminate\Support\Facades\Gate;
 
 class Auth extends Provider
 {

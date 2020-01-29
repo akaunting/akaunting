@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Broadcast as Facade;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class Broadcast extends Provider
