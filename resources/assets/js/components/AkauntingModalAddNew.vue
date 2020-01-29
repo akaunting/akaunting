@@ -7,7 +7,7 @@
          tabindex="-1"
          role="dialog"
          :aria-hidden="!show">
-        <div class="modal-dialog">
+        <div class="modal-dialog" :class="modalDialogClass">
             <slot name="modal-content">
             <div class="modal-content">
                 <div class="card-header pb-2">
@@ -73,6 +73,7 @@ export default {
 
     props: {
         show: Boolean,
+        modalDialogClass: '',
         is_component: Boolean,
 
         title: {

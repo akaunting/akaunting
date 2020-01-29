@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import AkauntingSearch from './../components/AkauntingSearch';
 import AkauntingModal from './../components/AkauntingModal';
+import AkauntingModalAddNew from './../components/AkauntingModalAddNew';
 import AkauntingRadioGroup from './../components/forms/AkauntingRadioGroup';
 import AkauntingSelect from './../components/AkauntingSelect';
 import AkauntingSelectRemote from './../components/AkauntingSelectRemote';
@@ -13,7 +14,7 @@ import 'nprogress/nprogress.css';
 import NProgressAxios from './../plugins/nprogress-axios';
 
 import {VMoney} from 'v-money';
-import { Select, Option } from 'element-ui';
+import { Select, Option, Steps, Step, Button } from 'element-ui';
 
 export default {
     components: {
@@ -22,10 +23,14 @@ export default {
         AkauntingSelect,
         AkauntingSelectRemote,
         AkauntingModal,
+        AkauntingModalAddNew,
         AkauntingDate,
         AkauntingRecurring,
         [Select.name]: Select,
-        [Option.name]: Option
+        [Option.name]: Option,
+        [Steps.name]: Steps,
+        [Step.name]: Step,
+        [Button.name]: Button,
     },
 
     data: function () {
@@ -45,7 +50,8 @@ export default {
                 suffix: '',
                 precision: 2,
                 masked: false /* doesn't work with directive */
-            }
+            },
+            component: '',
         }
     },
 
@@ -228,6 +234,64 @@ export default {
             }
 
             window.location.href = path;
-        }
+        },
+
+        onDynamicComponent(path)
+        {
+            axios.get(path)
+            .then(response => {
+                let html = response.data.html;
+
+                this.component = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template : '<div id="dynamic-component">' + html + '</div>',
+
+                        components: {
+                            AkauntingSearch,
+                            AkauntingRadioGroup,
+                            AkauntingSelect,
+                            AkauntingSelectRemote,
+                            AkauntingModal,
+                            AkauntingModalAddNew,
+                            AkauntingDate,
+                            AkauntingRecurring,
+                            [Select.name]: Select,
+                            [Option.name]: Option,
+                            [Steps.name]: Steps,
+                            [Step.name]: Step,
+                            [Button.name]: Button,
+                        },
+
+                        created: function() {
+                            this.form = new Form('form-create');
+                        },
+
+                        mounted() {
+                            let form_id = document.getElementById('dynamic-component').children[0].id;
+
+                            this.form = new Form(form_id);
+                        },
+
+                        data: function () {
+                            return {
+                                form: {},
+                                dynamic: {
+                                    data: dynamic_data
+                                }
+                            }
+                        },
+
+                        methods: {
+                        }
+                    })
+                });
+            })
+            .catch(e => {
+                this.errors.push(e);
+            })
+            .finally(function () {
+                // always executed
+            });
+        },
     }
 }
