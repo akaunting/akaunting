@@ -51,7 +51,7 @@
     @stack('name_td_end')
 
     @stack('quantity_td_start')
-        <td class="col-md-2 border-right-0 border-bottom-0">
+        <td class="col-md-1 border-right-0 border-bottom-0">
             @stack('quantity_input_start')
                 <input class="form-control text-center"
                        autocomplete="off"
@@ -89,7 +89,7 @@
     @stack('price_td_end')
 
     @stack('taxes_td_start')
-        <td class="col-md-2 border-right-0 border-bottom-0">
+        <td class="col-md-3 border-right-0 border-bottom-0">
             @stack('tax_id_input_start')
                 {{ Form::multiSelectAddNewGroup('tax_id', '', '', $taxes, '', [
                     'data-item' => 'tax_id',
