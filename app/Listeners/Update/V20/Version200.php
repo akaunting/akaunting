@@ -12,6 +12,7 @@ use App\Models\Common\Company;
 use App\Models\Common\Contact;
 use App\Models\Common\EmailTemplate;
 use App\Models\Common\Report;
+use App\Utilities\Installer;
 use App\Utilities\Overrider;
 use Artisan;
 use DB;
@@ -58,6 +59,8 @@ class Version200 extends Listener
         $this->updatePermissions();
 
         $this->deleteOldFiles();
+
+        $this->updateEnv();
     }
 
     public function updateDatabase()
@@ -1103,6 +1106,15 @@ class Version200 extends Listener
         foreach ($directories as $directory) {
             File::deleteDirectory(base_path($directory));
         }
+    }
+
+    public function updateEnv()
+    {
+        Installer::updateEnv([
+            'QUEUE_CONNECTION'  =>  'sync',
+            'LOG_CHANNEL'       =>  'stack',
+            'FIREWALL_ENABLED'  =>  'true',
+        ]);
     }
 
     protected function create($model, $data)
