@@ -2,7 +2,7 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['middleware' => ['api']], function($api) {
+$api->version('v2', ['middleware' => ['api']], function($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api'], function($api) {
         // Companies
         $api->get('companies/{company}/owner', 'Common\Companies@owner')->name('companies.owner');
