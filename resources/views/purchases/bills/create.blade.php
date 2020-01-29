@@ -44,7 +44,7 @@
                                         @stack('name_th_end')
 
                                         @stack('quantity_th_start')
-                                            <th class="col-md-2 text-center border-right-0 border-bottom-0">{{ trans('bills.quantity') }}</th>
+                                            <th class="col-md-1 text-center border-right-0 border-bottom-0">{{ trans('bills.quantity') }}</th>
                                         @stack('quantity_th_end')
 
                                         @stack('price_th_start')
@@ -52,7 +52,7 @@
                                         @stack('price_th_end')
 
                                         @stack('taxes_th_start')
-                                            <th class="col-md-2 text-right border-right-0 border-bottom-0">{{ trans_choice('general.taxes', 1) }}</th>
+                                            <th class="col-md-3 text-right border-right-0 border-bottom-0">{{ trans_choice('general.taxes', 1) }}</th>
                                         @stack('taxes_th_end')
 
                                         @stack('total_th_start')

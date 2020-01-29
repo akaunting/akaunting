@@ -2609,8 +2609,13 @@
     max-width: unset !important;
 }
 
-.select-tax .el-select span:first-of-type {
-    width: 60px !important;
+:first-of-type.select-tax .el-select span:first-of-type {
+    width: 125px !important;
+    overflow: hidden;
+}
+
+.select-tax .el-select span:last-of-type {
+    width: 40px !important;
     overflow: hidden;
 }
 
@@ -2619,7 +2624,7 @@
 }
 
 .select-tax .el-select .el-select__tags .el-select__tags-text {
-    width: 20px !important;
+    width: 82px !important;
     overflow: hidden;
 }
 
@@ -15459,20 +15464,8 @@
     max-width: unset !important;
 }
 
-.select-tax .el-select span:first-of-type
-{
-    width: 60px !important;
-    overflow: hidden;
-}
-
 .select-tax .el-input--prefix .el-input__inner {
     padding-left: 23px !important;
-}
-
-.select-tax .el-select .el-select__tags .el-select__tags-text
-{
-    width: 20px !important;
-    overflow: hidden;
 }
 
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after
