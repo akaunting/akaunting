@@ -2002,7 +2002,7 @@ button.bg-green:focus {
 div.required .form-control-label:not(span):after, td.required:after
 {
     content: ' *';
-    color: #e74c3c;
+    color: #ef3232;
     font-weight: bold;
 }
 /*--Required Sign Color Finish--*/
@@ -2010,14 +2010,14 @@ div.required .form-control-label:not(span):after, td.required:after
 /*--Input Error Border Color--*/
 .form-group.has-error .form-control, .form-group.has-error .input-group-merge .input-group-prepend .input-group-text
 {
-    border-color: #e74c3c !important;
+    border-color: #ef3232 !important;
 }
 /*--Input Error Border Color Finish--*/
 
 /*--Error Message Color--*/
 .help-block
 {
-    color : #e74c3c !important;
+    color : #ef3232 !important;
 }
 /*--Error Message Color Finish--*/
 /*--------Form Error Color--------*/
