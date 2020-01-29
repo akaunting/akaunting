@@ -8,7 +8,7 @@
                 </span>
             </div>
             <input type="text" :name="name" :value="value" :id="name" class="form-control" v-bind="attributes" v-on:input="onChange" v-model:input="forms.data[name]">
-            <div class="text-danger invalid-feedback" v-text="" style="display: block;" v-if="errors[name]">
+            <div class="text-danger invalid-feedback d-block" v-text="" v-if="errors[name]">
                 {{ errors[name][0] }}
             </div>
         </div>

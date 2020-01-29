@@ -20,9 +20,11 @@ Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',
+
     mixins: [
         Global
     ],
+
     data: function () {
         return {
             form: new Form('revenue'),
