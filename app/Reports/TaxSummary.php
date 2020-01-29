@@ -68,17 +68,6 @@ class TaxSummary extends Report
 
                 break;
         }
-
-        // TODO: move to views
-        foreach ($this->footer_totals as $table => $dates) {
-            foreach ($dates as $date => $total) {
-                if (!isset($this->net_profit[$date])) {
-                    $this->net_profit[$date] = 0;
-                }
-
-                $this->net_profit[$date] += $total;
-            }
-        }
     }
 
     public function setTotals($items, $date_field, $check_type = false, $table = 'default')
