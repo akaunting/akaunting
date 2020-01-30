@@ -105,7 +105,8 @@ class InstallCommand extends Command
                 $display_name = (new $class())->getDefaultName();
 
                 $permissions[] = Permission::firstOrCreate([
-                    'name' => $name,
+                    'name' => $name
+                ], [
                     'display_name' => 'Read ' . $module->getName() . ' Reports ' . $display_name,
                     'description' => 'Read ' . $module->getName() . ' Reports ' . $display_name,
                 ]);
@@ -122,7 +123,8 @@ class InstallCommand extends Command
                 $display_name = (new $class())->getDefaultName();
 
                 $permissions[] = Permission::firstOrCreate([
-                    'name' => $name,
+                    'name' => $name
+                ], [
                     'display_name' => 'Read ' . $module->getName() . ' Widgets ' . $display_name,
                     'description' => 'Read ' . $module->getName() . ' Widgets ' . $display_name,
                 ]);
@@ -131,13 +133,15 @@ class InstallCommand extends Command
 
         if (!empty($module->get('settings'))) {
             $permissions[] = Permission::firstOrCreate([
-                'name' => 'read-' . $module->getAlias() . '-settings',
+                'name' => 'read-' . $module->getAlias() . '-settings'
+            ], [
                 'display_name' => 'Read ' . $module->getName() . ' Settings',
                 'description' => 'Read ' . $module->getName() . ' Settings',
             ]);
 
             $permissions[] = Permission::firstOrCreate([
-                'name' => 'update-' . $module->getAlias() . '-settings',
+                'name' => 'update-' . $module->getAlias() . '-settings'
+            ], [
                 'display_name' => 'Update ' . $module->getName() . ' Settings',
                 'description' => 'Update ' . $module->getName() . ' Settings',
             ]);

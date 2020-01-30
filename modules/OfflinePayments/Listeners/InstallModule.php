@@ -28,19 +28,22 @@ class InstallModule
         $permissions = [];
 
         $permissions[] = Permission::firstOrCreate([
-            'name' => 'read-offline-payments-settings',
+            'name' => 'read-offline-payments-settings'
+        ], [
             'display_name' => 'Read Offline Payments Settings',
             'description' => 'Read Offline Payments Settings',
         ]);
 
         $permissions[] = Permission::firstOrCreate([
-            'name' => 'update-offline-payments-settings',
+            'name' => 'update-offline-payments-settings'
+        ], [
             'display_name' => 'Update Offline Payments Settings',
             'description' => 'Update Offline Payments Settings',
         ]);
 
         $permissions[] = Permission::firstOrCreate([
-            'name' => 'delete-offline-payments-settings',
+            'name' => 'delete-offline-payments-settings'
+        ], [
             'display_name' => 'Delete Offline Payments Settings',
             'description' => 'Delete Offline Payments Settings',
         ]);
