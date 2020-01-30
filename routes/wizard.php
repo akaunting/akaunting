@@ -1,5 +1,7 @@
 <?php
 
+// 'wizard' middleware applied via App\Providers\Route
+
 Route::group(['as' => 'wizard.'], function () {
     Route::get('companies', 'Wizard\Companies@edit')->name('companies.edit');
     Route::patch('companies', 'Wizard\Companies@update')->name('companies.update');

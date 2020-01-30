@@ -1,5 +1,7 @@
 <?php
 
+// 'admin' middleware applied via App\Providers\Route
+
 Route::group(['as' => 'uploads.', 'prefix' => 'uploads'], function () {
     Route::delete('{id}', 'Common\Uploads@destroy')->name('destroy');
 });

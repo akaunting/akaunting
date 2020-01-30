@@ -1,5 +1,7 @@
 <?php
 
+// 'install' middleware applied via App\Providers\Route
+
 Route::get('/', 'Install\Requirements@show');
 Route::get('requirements', 'Install\Requirements@show')->name('install.requirements');
 

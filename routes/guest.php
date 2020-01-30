@@ -1,5 +1,7 @@
 <?php
 
+// 'guest' middleware applied via App\Providers\Route
+
 Route::group(['prefix' => 'auth'], function () {
     Route::get('login', 'Auth\Login@create')->name('login');
     Route::post('login', 'Auth\Login@store');

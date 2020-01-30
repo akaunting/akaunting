@@ -1,5 +1,7 @@
 <?php
 
+// 'common' middleware applied via App\Providers\Route
+
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['as' => 'uploads.', 'prefix' => 'uploads'], function () {
         Route::get('{id}', 'Common\Uploads@get')->name('get');

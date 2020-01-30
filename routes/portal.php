@@ -1,5 +1,7 @@
 <?php
 
+// 'portal' middleware applied via App\Providers\Route
+
 Route::group(['as' => 'portal.'], function () {
     Route::get('invoices/{invoice}/print', 'Portal\Invoices@printInvoice')->name('invoices.print');
     Route::get('invoices/{invoice}/pdf', 'Portal\Invoices@pdfInvoice')->name('invoices.pdf');
