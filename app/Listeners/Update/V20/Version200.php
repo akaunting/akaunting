@@ -159,6 +159,7 @@ class Version200 extends Listener
                 case 'invoice.title':
                 case 'invoice.payment_terms':
                 case 'invoice.template':
+                case 'invoice.color':
                 case 'contact.type.customer':
                 case 'contact.type.vendor':
                     $value = $old;
