@@ -183,7 +183,8 @@ class Roles extends Seeder
                     $moduleName = ucwords(str_replace("-", " ", $module));
 
                     $permission = Permission::firstOrCreate([
-                        'name' => $permissionValue . '-' . $module,
+                        'name' => $permissionValue . '-' . $module
+                    ], [
                         'display_name' => ucfirst($permissionValue) . ' ' . $moduleName,
                         'description' => ucfirst($permissionValue) . ' ' . $moduleName
                     ]);
