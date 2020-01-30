@@ -1,6 +1,11 @@
 <?php
 
-// 'guest' middleware applied via App\Providers\Route
+/**
+ * 'guest' middleware applied to all routes
+ *
+ * @see \App\Providers\Route::mapGuestRoutes
+ * @see \modules\PaypalStandard\Routes\guest.php for module example
+ */
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('login', 'Auth\Login@create')->name('login');

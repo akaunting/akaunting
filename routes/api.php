@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * 'api' prefix applied to all routes
+ *
+ * @see \App\Providers\Route::mapApiRoutes
+ */
+
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v2', ['middleware' => ['api']], function($api) {

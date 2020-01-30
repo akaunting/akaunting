@@ -1,6 +1,11 @@
 <?php
 
-// 'admin' middleware applied via App\Providers\Route
+/**
+ * 'admin' middleware applied to all routes
+ *
+ * @see \App\Providers\Route::mapAdminRoutes
+ * @see \modules\OfflinePayments\Routes\admin.php for module example
+ */
 
 Route::group(['as' => 'uploads.', 'prefix' => 'uploads'], function () {
     Route::delete('{id}', 'Common\Uploads@destroy')->name('destroy');

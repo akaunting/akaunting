@@ -1,6 +1,10 @@
 <?php
 
-// 'install' middleware applied via App\Providers\Route
+/**
+ * 'install' middleware and prefix applied to all routes
+ *
+ * @see \App\Providers\Route::mapInstallRoutes
+ */
 
 Route::get('/', 'Install\Requirements@show');
 Route::get('requirements', 'Install\Requirements@show')->name('install.requirements');

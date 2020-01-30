@@ -1,6 +1,10 @@
 <?php
 
-// 'common' middleware applied via App\Providers\Route
+/**
+ * 'common' middleware applied to all routes
+ *
+ * @see \App\Providers\Route::mapCommonRoutes
+ */
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['as' => 'uploads.', 'prefix' => 'uploads'], function () {
