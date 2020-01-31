@@ -383,7 +383,7 @@ class Version200 extends Listener
             }
         }
 
-        DB::table('customers')->delete();
+        Schema::drop('customers');
     }
 
     public function copyVendors()
@@ -409,7 +409,7 @@ class Version200 extends Listener
                 ]);
         }
 
-        DB::table('vendors')->delete();
+        Schema::drop('vendors');
     }
 
     public function copyTransactions()
@@ -464,7 +464,7 @@ class Version200 extends Listener
             }
         }
 
-        DB::table('invoice_payments')->delete();
+        Schema::drop('invoice_payments');
     }
 
     public function copyRevenues()
@@ -533,7 +533,7 @@ class Version200 extends Listener
             }
         }
 
-        DB::table('revenues')->delete();
+        Schema::drop('revenues');
     }
 
     public function copyBillPayments()
@@ -577,7 +577,7 @@ class Version200 extends Listener
             }
         }
 
-        DB::table('bill_payments')->delete();
+        Schema::drop('bill_payments');
     }
 
     public function copyPayments()
@@ -654,7 +654,7 @@ class Version200 extends Listener
             }
         }
 
-        DB::table('payments')->delete();
+        Schema::drop('payments');
     }
 
     public function updateInvoices()
