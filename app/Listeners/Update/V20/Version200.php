@@ -46,13 +46,13 @@ class Version200 extends Listener
 
         $this->createDashboards();
 
+        $this->copyContacts();
+
         $this->copyTransactions();
 
         $this->updateInvoices();
 
         $this->updateBills();
-
-        $this->copyContacts();
 
         $this->updateModules();
 
@@ -317,6 +317,99 @@ class Version200 extends Listener
                 ]);
             }
         }
+    }
+
+    public function copyContacts()
+    {
+        $this->copyCustomers();
+
+        $this->copyVendors();
+    }
+
+    public function copyCustomers()
+    {
+        $customers = DB::table('customers')->cursor();
+
+        foreach ($customers as $customer) {
+            $data = (array) $customer;
+            $data['type'] = 'customer';
+
+            $contact = $this->create(new Contact(), $data);
+
+            DB::table('invoices')
+                ->where('contact_id', $customer->id)
+                ->update([
+                    'contact_id' => $contact->id,
+                ]);
+
+            DB::table('revenues')
+                ->where('customer_id', $customer->id)
+                ->update([
+                    'customer_id' => $contact->id,
+                ]);
+
+            if (Schema::hasTable('estimates')) {
+                DB::table('estimates')
+                    ->where('customer_id', $customer->id)
+                    ->update([
+                        'customer_id' => $contact->id,
+                    ]);
+            }
+
+            if (Schema::hasTable('crm_companies')) {
+                DB::table('crm_companies')
+                    ->where('core_customer_id', $customer->id)
+                    ->update([
+                        'core_customer_id' => $contact->id,
+                    ]);
+            }
+
+            if (Schema::hasTable('crm_contacts')) {
+                DB::table('crm_contacts')
+                    ->where('core_customer_id', $customer->id)
+                    ->update([
+                        'core_customer_id' => $contact->id,
+                    ]);
+            }
+
+            if (Schema::hasTable('idea_soft_histories')) {
+                DB::table('idea_soft_histories')
+                    ->where('model_id', $customer->id)
+                    ->where('model_type', 'App\Models\Income\Customer')
+                    ->update([
+                        'model_id' => $contact->id,
+                        'model_type' => 'App\Models\Common\Contact',
+                    ]);
+            }
+        }
+
+        DB::table('customers')->delete();
+    }
+
+    public function copyVendors()
+    {
+        $vendors = DB::table('vendors')->cursor();
+
+        foreach ($vendors as $vendor) {
+            $data = (array) $vendor;
+            $data['type'] = 'vendor';
+
+            $contact = $this->create(new Contact(), $data);
+
+            DB::table('bills')
+                ->where('contact_id', $vendor->id)
+                ->update([
+                    'contact_id' => $contact->id,
+                ]);
+
+            DB::table('payments')
+                ->where('vendor_id', $vendor->id)
+                ->update([
+                    'vendor_id' => $contact->id,
+                ]);
+        }
+
+        DB::table('vendors')->delete();
     }
 
     public function copyTransactions()
@@ -614,99 +707,6 @@ class Version200 extends Listener
                     'ledgerable_type' => 'App\Models\Purchase\Bill',
                 ]);
         }
-    }
-
-    public function copyContacts()
-    {
-        $this->copyCustomers();
-
-        $this->copyVendors();
-    }
-
-    public function copyCustomers()
-    {
-        $customers = DB::table('customers')->cursor();
-
-        foreach ($customers as $customer) {
-            $data = (array) $customer;
-            $data['type'] = 'customer';
-
-            $contact = $this->create(new Contact(), $data);
-
-            DB::table('invoices')
-                ->where('contact_id', $customer->id)
-                ->update([
-                    'contact_id' => $contact->id,
-                ]);
-
-            DB::table('transactions')
-                ->where('contact_id', $customer->id)
-                ->update([
-                    'contact_id' => $contact->id,
-                ]);
-
-            if (Schema::hasTable('estimates')) {
-                DB::table('estimates')
-                    ->where('customer_id', $customer->id)
-                    ->update([
-                        'customer_id' => $contact->id,
-                    ]);
-            }
-
-            if (Schema::hasTable('crm_companies')) {
-                DB::table('crm_companies')
-                    ->where('core_customer_id', $customer->id)
-                    ->update([
-                        'core_customer_id' => $contact->id,
-                    ]);
-            }
-
-            if (Schema::hasTable('crm_contacts')) {
-                DB::table('crm_contacts')
-                    ->where('core_customer_id', $customer->id)
-                    ->update([
-                        'core_customer_id' => $contact->id,
-                    ]);
-            }
-
-            if (Schema::hasTable('idea_soft_histories')) {
-                DB::table('idea_soft_histories')
-                    ->where('model_id', $customer->id)
-                    ->where('model_type', 'App\Models\Income\Customer')
-                    ->update([
-                        'model_id' => $contact->id,
-                        'model_type' => 'App\Models\Common\Contact',
-                    ]);
-            }
-        }
-
-        DB::table('customers')->delete();
-    }
-
-    public function copyVendors()
-    {
-        $vendors = DB::table('vendors')->cursor();
-
-        foreach ($vendors as $vendor) {
-            $data = (array) $vendor;
-            $data['type'] = 'vendor';
-
-            $contact = $this->create(new Contact(), $data);
-
-            DB::table('bills')
-                ->where('contact_id', $vendor->id)
-                ->update([
-                    'contact_id' => $contact->id,
-                ]);
-
-            DB::table('transactions')
-                ->where('contact_id', $vendor->id)
-                ->update([
-                    'contact_id' => $contact->id,
-                ]);
-        }
-
-        DB::table('vendors')->delete();
     }
 
     public function updateModules()
