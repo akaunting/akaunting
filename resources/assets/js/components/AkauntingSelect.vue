@@ -4,7 +4,7 @@
             :class="formClasses"
             :error="formError">
 
-        <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled"
+        <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled && !multiple && !collapse"
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
@@ -143,6 +143,75 @@
         </el-select>
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
+            :placeholder="placeholder">
+            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty">
+                    {{ noMatchingDataText }}
+                </p>
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                <p class="el-select-dropdown__empty">
+                    {{ noDataText }}
+                </p>
+                <ul class="el-scrollbar__view el-select-dropdown__list">
+                    <li class="el-select-dropdown__item el-select__footer">
+                        <div @click="onAddItem">
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                {{ add_new_text }}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <template slot="prefix">
+                <span class="el-input__suffix-inner el-select-icon">
+                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                </span>
+            </template>
+
+            <el-option v-if="!group" v-for="(label, value) in selectOptions"
+               :key="value"
+               :label="label"
+               :value="value">
+            </el-option>
+
+            <el-option-group
+                v-if="group"
+                v-for="(options, name) in selectOptions"
+                :key="name"
+                :label="name">
+                <el-option
+                    v-for="(label, value) in options"
+                    :key="value"
+                    :label="label"
+                    :value="value">
+                </el-option>
+            </el-option-group>
+
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+                <div @click="onAddItem">
+                    <i class="fas fa-plus"></i>
+                    <span>
+                        {{ add_new_text }}
+                    </span>
+                </div>
+            </el-option>
+        </el-select>
+
+        <el-select v-model="real_model" @input="change" filterable disabled v-if="disabled && multiple && !collapse" multiple
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
