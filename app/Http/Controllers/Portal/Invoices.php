@@ -108,7 +108,7 @@ class Invoices extends Controller
 
         $invoice->paid = $paid;
 
-        $invoice->template_path = 'sales.invoices.print';
+        $invoice->template_path = 'sales.invoices.print_' . setting('invoice.template' ,'default');
 
         event(new \App\Events\Sale\InvoicePrinting($invoice));
 
