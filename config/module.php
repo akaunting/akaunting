@@ -162,7 +162,7 @@ return [
     |
     */
     'cache' => [
-        'enabled' => true,
+        'enabled' => false,
         'key' => 'module',
         'lifetime' => 60,
     ],
