@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Listeners\Common;
+namespace App\Listeners\Report;
 
 use App\Abstracts\Listeners\Report as Listener;
-use App\Events\Common\ReportRowsShowing;
+use App\Events\Report\RowsShowing;
 
-class AddRowsToTaxReport extends Listener
+class AddRowsToTax extends Listener
 {
     protected $classes = [
         'App\Reports\TaxSummary',
@@ -17,7 +17,7 @@ class AddRowsToTaxReport extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportRowsShowing(ReportRowsShowing $event)
+    public function handleRowsShowing(RowsShowing $event)
     {
         if ($this->skipThisClass($event)) {
             return;

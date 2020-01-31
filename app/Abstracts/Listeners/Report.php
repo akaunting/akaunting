@@ -16,11 +16,11 @@ abstract class Report
     protected $classes = [];
 
     protected $events = [
-        'App\Events\Common\ReportFilterShowing',
-        'App\Events\Common\ReportFilterApplying',
-        'App\Events\Common\ReportGroupShowing',
-        'App\Events\Common\ReportGroupApplying',
-        'App\Events\Common\ReportRowsShowing',
+        'App\Events\Report\FilterShowing',
+        'App\Events\Report\FilterApplying',
+        'App\Events\Report\GroupShowing',
+        'App\Events\Report\GroupApplying',
+        'App\Events\Report\RowsShowing',
     ];
 
     public function skipThisClass($event)

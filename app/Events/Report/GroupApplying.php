@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Events\Common;
+namespace App\Events\Report;
 
 use Illuminate\Queue\SerializesModels;
 
-class ReportFilterApplying
+class GroupApplying
 {
     use SerializesModels;
 
     public $class;
-    
+
     public $model;
-    
+
     public $args;
 
     /**

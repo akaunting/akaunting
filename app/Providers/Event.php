@@ -62,14 +62,14 @@ class Event extends Provider
      * @var array
      */
     protected $subscribe = [
-        'App\Listeners\Common\AddDateToReports',
-        'App\Listeners\Common\AddAccountsToReports',
-        'App\Listeners\Common\AddCustomersToReports',
-        'App\Listeners\Common\AddVendorsToReports',
-        'App\Listeners\Common\AddExpenseCategoriesToReports',
-        'App\Listeners\Common\AddIncomeCategoriesToReports',
-        'App\Listeners\Common\AddIncomeExpenseCategoriesToReports',
-        'App\Listeners\Common\AddSearchToReports',
-        'App\Listeners\Common\AddRowsToTaxReport',
+        'App\Listeners\Report\AddDate',
+        'App\Listeners\Report\AddAccounts',
+        'App\Listeners\Report\AddCustomers',
+        'App\Listeners\Report\AddVendors',
+        'App\Listeners\Report\AddExpenseCategories',
+        'App\Listeners\Report\AddIncomeCategories',
+        'App\Listeners\Report\AddIncomeExpenseCategories',
+        'App\Listeners\Report\AddSearch',
+        'App\Listeners\Report\AddRowsToTax',
     ];
 }

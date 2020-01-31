@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Events\Common;
+namespace App\Events\Report;
 
 use Illuminate\Queue\SerializesModels;
 
-class ReportGroupShowing
+class GroupShowing
 {
     use SerializesModels;
 

@@ -2,11 +2,11 @@
 
 namespace App\Abstracts;
 
-use App\Events\Common\ReportFilterShowing;
-use App\Events\Common\ReportFilterApplying;
-use App\Events\Common\ReportGroupApplying;
-use App\Events\Common\ReportGroupShowing;
-use App\Events\Common\ReportRowsShowing;
+use App\Events\Report\FilterApplying;
+use App\Events\Report\FilterShowing;
+use App\Events\Report\GroupApplying;
+use App\Events\Report\GroupShowing;
+use App\Events\Report\RowsShowing;
 use App\Exports\Common\Reports as Export;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Report as Model;
@@ -286,19 +286,19 @@ abstract class Report
 
     public function setFilters()
     {
-        event(new ReportFilterShowing($this));
+        event(new FilterShowing($this));
     }
 
     public function setGroups()
     {
         $this->groups = [];
 
-        event(new ReportGroupShowing($this));
+        event(new GroupShowing($this));
     }
 
     public function setRows()
     {
-        event(new ReportRowsShowing($this));
+        event(new RowsShowing($this));
     }
 
     public function setTotals($items, $date_field, $check_type = false, $table = 'default')
@@ -337,14 +337,14 @@ abstract class Report
 
     public function applyFilters($model, $args = [])
     {
-        event(new ReportFilterApplying($this, $model, $args));
+        event(new FilterApplying($this, $model, $args));
 
         return $model;
     }
 
     public function applyGroups($model, $args = [])
     {
-        event(new ReportGroupApplying($this, $model, $args));
+        event(new GroupApplying($this, $model, $args));
 
         return $model;
     }

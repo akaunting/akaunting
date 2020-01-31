@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Listeners\Common;
+namespace App\Listeners\Report;
 
 use App\Abstracts\Listeners\Report as Listener;
-use App\Events\Common\ReportFilterApplying;
-use App\Events\Common\ReportFilterShowing;
+use App\Events\Report\FilterApplying;
+use App\Events\Report\FilterShowing;
 
-class AddDateToReports extends Listener
+class AddSearch extends Listener
 {
     protected $classes = [
         'App\Reports\IncomeSummary',
@@ -22,13 +22,13 @@ class AddDateToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportFilterShowing(ReportFilterShowing $event)
+    public function handleFilterShowing(FilterShowing $event)
     {
         if ($this->skipThisClass($event)) {
             return;
         }
 
-        $event->class->filters['years'] = $this->getYears();
+        //$event->class->filters['search'] = $this->getSearch();
     }
 
     /**
@@ -37,13 +37,13 @@ class AddDateToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportFilterApplying(ReportFilterApplying $event)
+    public function handleFilterApplying(FilterApplying $event)
     {
         if ($this->skipThisClass($event)) {
             return;
         }
 
         // Apply date
-        $this->applyDateFilter($event);
+        $this->applySearchStringFilter($event);
     }
 }

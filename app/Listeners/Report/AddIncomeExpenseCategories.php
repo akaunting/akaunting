@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Listeners\Common;
+namespace App\Listeners\Report;
 
 use App\Abstracts\Listeners\Report as Listener;
-use App\Events\Common\ReportFilterShowing;
-use App\Events\Common\ReportGroupShowing;
-use App\Events\Common\ReportRowsShowing;
+use App\Events\Report\FilterShowing;
+use App\Events\Report\GroupShowing;
+use App\Events\Report\RowsShowing;
 use App\Models\Setting\Category;
 
-class AddIncomeExpenseCategoriesToReports extends Listener
+class AddIncomeExpenseCategories extends Listener
 {
     /**
      * Handle filter showing event.
@@ -16,7 +16,7 @@ class AddIncomeExpenseCategoriesToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportFilterShowing(ReportFilterShowing $event)
+    public function handleFilterShowing(FilterShowing $event)
     {
         $classes = [
             'App\Reports\IncomeExpenseSummary',
@@ -35,7 +35,7 @@ class AddIncomeExpenseCategoriesToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportGroupShowing(ReportGroupShowing $event)
+    public function handleGroupShowing(GroupShowing $event)
     {
         $classes = [
             'App\Reports\IncomeExpenseSummary',
@@ -55,7 +55,7 @@ class AddIncomeExpenseCategoriesToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportRowsShowing(ReportRowsShowing $event)
+    public function handleRowsShowing(RowsShowing $event)
     {
         if (
             empty($event->class)

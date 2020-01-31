@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Listeners\Common;
+namespace App\Listeners\Report;
 
 use App\Abstracts\Listeners\Report as Listener;
-use App\Events\Common\ReportFilterShowing;
-use App\Events\Common\ReportGroupApplying;
-use App\Events\Common\ReportGroupShowing;
-use App\Events\Common\ReportRowsShowing;
+use App\Events\Report\FilterShowing;
+use App\Events\Report\GroupApplying;
+use App\Events\Report\GroupShowing;
+use App\Events\Report\RowsShowing;
 
-class AddVendorsToReports extends Listener
+class AddVendors extends Listener
 {
     protected $classes = [
         'App\Reports\ExpenseSummary',
@@ -21,7 +21,7 @@ class AddVendorsToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportFilterShowing(ReportFilterShowing $event)
+    public function handleFilterShowing(FilterShowing $event)
     {
         if ($this->skipThisClass($event)) {
             return;
@@ -36,7 +36,7 @@ class AddVendorsToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportGroupShowing(ReportGroupShowing $event)
+    public function handleGroupShowing(GroupShowing $event)
     {
         if ($this->skipThisClass($event)) {
             return;
@@ -51,7 +51,7 @@ class AddVendorsToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportGroupApplying(ReportGroupApplying $event)
+    public function handleGroupApplying(GroupApplying $event)
     {
         if ($this->skipThisClass($event)) {
             return;
@@ -66,7 +66,7 @@ class AddVendorsToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportRowsShowing(ReportRowsShowing $event)
+    public function handleRowsShowing(RowsShowing $event)
     {
         if ($this->skipRowsShowing($event, 'vendor')) {
             return;

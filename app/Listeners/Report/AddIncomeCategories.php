@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Listeners\Common;
+namespace App\Listeners\Report;
 
 use App\Abstracts\Listeners\Report as Listener;
-use App\Events\Common\ReportFilterShowing;
-use App\Events\Common\ReportGroupShowing;
-use App\Events\Common\ReportRowsShowing;
+use App\Events\Report\FilterShowing;
+use App\Events\Report\GroupShowing;
+use App\Events\Report\RowsShowing;
 
-class AddExpenseCategoriesToReports extends Listener
+class AddIncomeCategories extends Listener
 {
     protected $classes = [
-        'App\Reports\ExpenseSummary',
+        'App\Reports\IncomeSummary',
     ];
 
     /**
@@ -19,13 +19,13 @@ class AddExpenseCategoriesToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportFilterShowing(ReportFilterShowing $event)
+    public function handleFilterShowing(FilterShowing $event)
     {
         if ($this->skipThisClass($event)) {
             return;
         }
 
-        $event->class->filters['categories'] = $this->getExpenseCategories();
+        $event->class->filters['categories'] = $this->getIncomeCategories();
     }
 
     /**
@@ -34,7 +34,7 @@ class AddExpenseCategoriesToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportGroupShowing(ReportGroupShowing $event)
+    public function handleGroupShowing(GroupShowing $event)
     {
         if ($this->skipThisClass($event)) {
             return;
@@ -49,7 +49,7 @@ class AddExpenseCategoriesToReports extends Listener
      * @param  $event
      * @return void
      */
-    public function handleReportRowsShowing(ReportRowsShowing $event)
+    public function handleRowsShowing(RowsShowing $event)
     {
         if ($this->skipRowsShowing($event, 'category')) {
             return;
