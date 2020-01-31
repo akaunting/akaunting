@@ -330,6 +330,11 @@ class Version200 extends Listener
     {
         $customers = DB::table('customers')->cursor();
 
+        $has_estimates = Schema::hasTable('estimates');
+        $has_crm_companies = Schema::hasTable('crm_companies');
+        $has_crm_contacts = Schema::hasTable('crm_contacts');
+        $has_idea_soft_histories = Schema::hasTable('idea_soft_histories');
+
         foreach ($customers as $customer) {
             $data = (array) $customer;
             $data['type'] = 'customer';
@@ -348,7 +353,7 @@ class Version200 extends Listener
                     'customer_id' => $contact->id,
                 ]);
 
-            if (Schema::hasTable('estimates')) {
+            if ($has_estimates) {
                 DB::table('estimates')
                     ->where('customer_id', $customer->id)
                     ->update([
@@ -356,7 +361,7 @@ class Version200 extends Listener
                     ]);
             }
 
-            if (Schema::hasTable('crm_companies')) {
+            if ($has_crm_companies) {
                 DB::table('crm_companies')
                     ->where('core_customer_id', $customer->id)
                     ->update([
@@ -364,7 +369,7 @@ class Version200 extends Listener
                     ]);
             }
 
-            if (Schema::hasTable('crm_contacts')) {
+            if ($has_crm_contacts) {
                 DB::table('crm_contacts')
                     ->where('core_customer_id', $customer->id)
                     ->update([
@@ -372,7 +377,7 @@ class Version200 extends Listener
                     ]);
             }
 
-            if (Schema::hasTable('idea_soft_histories')) {
+            if ($has_idea_soft_histories) {
                 DB::table('idea_soft_histories')
                     ->where('model_id', $customer->id)
                     ->where('model_type', 'App\Models\Income\Customer')
@@ -427,6 +432,8 @@ class Version200 extends Listener
     {
         $invoice_payments = DB::table('invoice_payments')->cursor();
 
+        $has_double_entry_ledger = Schema::hasTable('double_entry_ledger');
+
         foreach ($invoice_payments as $invoice_payment) {
             $invoice = DB::table('invoices')->where('id', $invoice_payment->invoice_id)->first();
 
@@ -453,7 +460,7 @@ class Version200 extends Listener
                 'deleted_at' => $invoice_payment->deleted_at,
             ]);
 
-            if (Schema::hasTable('double_entry_ledger')) {
+            if ($has_double_entry_ledger) {
                 DB::table('double_entry_ledger')
                     ->where('ledgerable_id', $invoice_payment->id)
                     ->where('ledgerable_type', 'App\Models\Income\InvoicePayment')
@@ -470,6 +477,9 @@ class Version200 extends Listener
     public function copyRevenues()
     {
         $revenues = DB::table('revenues')->cursor();
+
+        $has_double_entry_ledger = Schema::hasTable('double_entry_ledger');
+        $has_project_revenues = Schema::hasTable('project_revenues');
 
         foreach ($revenues as $revenue) {
             $transaction = $this->create(new Transaction(), [
@@ -514,7 +524,7 @@ class Version200 extends Listener
                     'mediable_type' => 'App\Models\Banking\Transaction',
                 ]);
 
-            if (Schema::hasTable('double_entry_ledger')) {
+            if ($has_double_entry_ledger) {
                 DB::table('double_entry_ledger')
                     ->where('ledgerable_id', $revenue->id)
                     ->where('ledgerable_type', 'App\Models\Income\Revenue')
@@ -524,7 +534,7 @@ class Version200 extends Listener
                     ]);
             }
 
-            if (Schema::hasTable('project_revenues')) {
+            if ($has_project_revenues) {
                 DB::table('project_revenues')
                     ->where('revenue_id', $revenue->id)
                     ->update([
@@ -539,6 +549,8 @@ class Version200 extends Listener
     public function copyBillPayments()
     {
         $bill_payments = DB::table('bill_payments')->cursor();
+
+        $has_double_entry_ledger = Schema::hasTable('double_entry_ledger');
 
         foreach ($bill_payments as $bill_payment) {
             $bill = DB::table('bills')->where('id', $bill_payment->bill_id)->first();
@@ -566,7 +578,7 @@ class Version200 extends Listener
                 'deleted_at' => $bill_payment->deleted_at,
             ]);
 
-            if (Schema::hasTable('double_entry_ledger')) {
+            if ($has_double_entry_ledger) {
                 DB::table('double_entry_ledger')
                     ->where('ledgerable_id', $bill_payment->id)
                     ->where('ledgerable_type', 'App\Models\Expense\BillPayment')
@@ -583,6 +595,10 @@ class Version200 extends Listener
     public function copyPayments()
     {
         $payments = DB::table('payments')->cursor();
+
+        $has_double_entry_ledger = Schema::hasTable('double_entry_ledger');
+        $has_project_payments = Schema::hasTable('project_payments');
+        $has_receipts = Schema::hasTable('receipts');
 
         foreach ($payments as $payment) {
             $transaction = $this->create(new Transaction(), [
@@ -627,7 +643,7 @@ class Version200 extends Listener
                     'mediable_type' => 'App\Models\Banking\Transaction',
                 ]);
 
-            if (Schema::hasTable('double_entry_ledger')) {
+            if ($has_double_entry_ledger) {
                 DB::table('double_entry_ledger')
                     ->where('ledgerable_id', $payment->id)
                     ->where('ledgerable_type', 'App\Models\Expense\Payment')
@@ -637,7 +653,7 @@ class Version200 extends Listener
                     ]);
             }
 
-            if (Schema::hasTable('project_payments')) {
+            if ($has_project_payments) {
                 DB::table('project_payments')
                     ->where('payment_id', $payment->id)
                     ->update([
@@ -645,7 +661,7 @@ class Version200 extends Listener
                     ]);
             }
 
-            if (Schema::hasTable('receipts')) {
+            if ($has_receipts) {
                 DB::table('receipts')
                     ->where('payment_id', $payment->id)
                     ->update([
