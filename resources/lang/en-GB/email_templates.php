@@ -29,7 +29,7 @@ return [
 
     'invoice_payment_customer' => [
         'subject'       => 'Payment received for {invoice_number} invoice',
-        'body'          => 'Dear {customer_name},<br /><br />Thank you for the payment. Find the payment details below:<br /><br />-------------------------------------------------<br /><br />Amount: <strong>{transaction_total}<br /></strong>Date: <strong>{transaction_paid_date}</strong><br /><br />Invoice Number: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br />You can always see the invoice details from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Dear {customer_name},<br /><br />Thank you for the payment. Find the payment details below:<br /><br />-------------------------------------------------<br />Amount: <strong>{transaction_total}</strong><br />Date: <strong>{transaction_paid_date}</strong><br />Invoice Number: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />You can always see the invoice details from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
