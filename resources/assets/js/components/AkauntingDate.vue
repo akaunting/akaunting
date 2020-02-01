@@ -3,14 +3,16 @@
             :name="name"
             :class="formClasses"
             :error="formError"
-            :prependIcon="icon">
+            :prependIcon="icon"
+            >
         <flat-picker slot-scope="{focus, blur}"
                      @on-open="focus"
                      @on-close="blur"
                      :config="config"
                      class="form-control datepicker"
                      v-model="real_model"
-                     @input="change">
+                     @input="change"
+                     :disabled="disabled">
         </flat-picker>
     </base-input>
 </template>
@@ -36,6 +38,11 @@ export default {
             type: String,
             default: '',
             description: "Modal header title"
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
+            description: "Input disabled status"
         },
         formClasses: null,
         formError: null,
