@@ -849,3 +849,8 @@ table .align-items-center td span.badge {
 /*--------L Breakpoint Finish--------*/
 /*----------------RESPONSIVE END LINE----------------*/
 
+/*--------From Group Disabled--------*/
+.form-group.disabled .input-group-text {
+    background-color: #e9ecef;
+}
+/*--------From Group Disabled Finish--------*/

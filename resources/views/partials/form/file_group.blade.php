@@ -1,6 +1,7 @@
 @stack($name . '_input_start')
+
     <div
-        class="form-group {{ $col }} {{ isset($attributes['required']) ? 'required' : '' }}"
+        class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
         :class="[{'has-error': errors.{{ $name }}}]">
         {!! Form::label($name, $text, ['class' => 'form-control-label']) !!}
 
@@ -17,4 +18,5 @@
             v-html="{{ isset($attributes['v-error-message']) ? $attributes['v-error-message'] : 'form.errors.get("' . $name . '")' }}">
         </div>
     </div>
+
 @stack($name . '_input_end')

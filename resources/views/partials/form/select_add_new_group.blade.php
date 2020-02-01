@@ -1,6 +1,7 @@
 @stack($name . '_input_start')
+
     <akaunting-select
-        class="{{ $col }} {{ isset($attributes['required']) ? 'required' : '' }}"
+        class="{{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
 
         @if (!empty($attributes['v-error']))
         :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
@@ -55,4 +56,5 @@
         :no-data-text="'{{ trans('general.no_data') }}'"
         :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
     ></akaunting-select>
+
 @stack($name . '_input_end')
