@@ -146,6 +146,10 @@ th, td {
     font-size: 16px;
 }
 
+.text-nowrap {
+    white-space: nowrap;
+}
+
 .text-left {
     text-align: left;
 }
@@ -244,7 +248,7 @@ th, td {
 .invoice-classic-inline-frame
 {
     margin: 0.3% 1% 0.3% 1%;
-    width: 95 !important%;
+    width: 95 !important;
     height: 59px;
     border: 3px solid #3c3f72;
 }
@@ -379,6 +383,19 @@ th, td {
 
 .rp-float-right {
     float: right;
+}
+
+.report-column {
+    max-width: 100px;
+    width: 160px !important;
+}
+
+.rp-value-left--48 {
+    padding-left:-48px;
+}
+
+.rp-value-left-48 {
+    padding-left:48px;
 }
 
 /*!
