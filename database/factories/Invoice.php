@@ -128,19 +128,19 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
 
     switch ($init_status) {
         case 'sent':
-            event(new InvoiceSent($invoice));
+            event(new InvoiceSent($updated_invoice));
 
             break;
         case 'viewed':
-            $invoice->status = 'sent';
-            event(new InvoiceViewed($invoice));
-            $invoice->status = $init_status;
+            $updated_invoice->status = 'sent';
+            event(new InvoiceViewed($updated_invoice));
+            $updated_invoice->status = $init_status;
 
             break;
         case 'partial':
         case 'paid':
             $payment_request = [
-                'paid_at' => $invoice->due_at,
+                'paid_at' => $updated_invoice->due_at,
             ];
 
             if ($init_status == 'partial') {

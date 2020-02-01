@@ -125,13 +125,13 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
 
     switch ($init_status) {
         case 'received':
-            event(new BillReceived($bill));
+            event(new BillReceived($updated_bill));
 
             break;
         case 'partial':
         case 'paid':
             $payment_request = [
-                'paid_at' => $bill->due_at,
+                'paid_at' => $updated_bill->due_at,
             ];
 
             if ($init_status == 'partial') {
