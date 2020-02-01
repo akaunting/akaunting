@@ -20,7 +20,7 @@
                 </label>
             </div>
 
-            <input type="hidden" name="{{ $name }}" value="{{ ($value) ? true : false }}" />
+            <input type="hidden" name="{{ $name }}" value="{{ ($value) ? 1 : 0 }}" />
         </div>
 
         <div class="invalid-feedback d-block"
