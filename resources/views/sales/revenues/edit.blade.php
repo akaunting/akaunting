@@ -60,7 +60,8 @@
                     {{ Form::fileGroup('attachment', trans('general.attachment')) }}
 
                     @if ($revenue->invoice)
-                        {{ Form::textGroup('document_id', trans_choice('general.invoices', 1), 'file-invoice', ['disabled' => 'disabled'], $revenue->invoice->invoice_number) }}
+                        {{ Form::textGroup('document', trans_choice('general.invoices', 1), 'file-invoice', ['disabled' => 'disabled'], $revenue->invoice->invoice_number) }}
+                        {{ Form::hidden('document_id', $revenue->invoice->id) }}
                     @endif
                 </div>
             </div>

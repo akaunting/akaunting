@@ -15,6 +15,7 @@
         :name="'{{ $name }}'"
         :options="{{ json_encode($values) }}"
         :value="{{ json_encode(old($name, $selected)) }}"
+
         :multiple="true"
 
         @if (!empty($attributes['collapse']))
@@ -31,6 +32,14 @@
 
         @if (!empty($attributes['change']))
         @change="{{ $attributes['change'] }}($event)"
+        @endif
+
+        @if (isset($attributes['readonly']))
+        :readonly="'{{ $attributes['readonly'] }}'"
+        @endif
+
+        @if (isset($attributes['disabled']))
+        :disabled="'{{ $attributes['disabled'] }}'"
         @endif
 
         @if(isset($attributes['v-error-message']))

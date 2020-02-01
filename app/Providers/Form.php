@@ -19,7 +19,15 @@ class Form extends Provider
             'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6', 'group_class' => null
         ]);
 
+        Facade::component('dateTimeGroup', 'partials.form.date_time_group', [
+            'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6', 'group_class' => null
+        ]);
+
         Facade::component('dateGroup', 'partials.form.date_group', [
+            'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6', 'group_class' => null
+        ]);
+
+        Facade::component('timeGroup', 'partials.form.time_group', [
             'name', 'text', 'icon', 'attributes' => ['required' => 'required'], 'value' => null, 'col' => 'col-md-6', 'group_class' => null
         ]);
 

@@ -850,7 +850,7 @@ table .align-items-center td span.badge {
 /*----------------RESPONSIVE END LINE----------------*/
 
 /*--------From Group Disabled--------*/
-.form-group.disabled .input-group-text {
+.form-group.disabled .input-group-text, .form-group.readonly .input-group-text {
     background-color: #e9ecef;
 }
 /*--------From Group Disabled Finish--------*/

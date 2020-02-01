@@ -1,10 +1,10 @@
 @stack($name . '_input_start')
 
     <div
-        class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
+        class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['readonly']) ? ' readonly' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
         :class="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]">
-        @if ($text)
-        {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
+        @if (!empty($text))
+            {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
         @endif
 
         <div class="input-group input-group-merge {{ $group_class }}">

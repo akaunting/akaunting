@@ -1,9 +1,11 @@
 @stack($name . '_input_start')
 
     <div
-        class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
+        class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['readonly']) ? ' readonly' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
         :class="[{'has-error': errors.{{ $name }}}]">
-        {!! Form::label($name, $text, ['class' => 'form-control-label']) !!}
+        @if (!empty($text))
+            {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
+        @endif
 
         <div class="custom-file">
             {!! Form::file($name, array_merge([

@@ -1,7 +1,7 @@
 @stack($name . '_input_start')
 
     <akaunting-date
-        class="{{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
+        class="{{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}"
 
         @if (!empty($attributes['v-error']))
         :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
@@ -31,6 +31,14 @@
         @interface="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
         @interface="form.{{ $name }} = $event"
+        @endif
+
+        @if (isset($attributes['readonly']))
+        :readonly="'{{ $attributes['readonly'] }}'"
+        @endif
+
+        @if (isset($attributes['disabled']))
+        :disabled="'{{ $attributes['disabled'] }}'"
         @endif
 
         @if(isset($attributes['v-error-message']))

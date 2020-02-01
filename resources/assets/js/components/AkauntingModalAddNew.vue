@@ -57,6 +57,7 @@ import AkauntingRecurring from './AkauntingRecurring';
 
 import Form from './../plugins/form';
 import { Alert, ColorPicker } from 'element-ui';
+import {VMoney} from 'v-money';
 
 export default {
     name: 'akaunting-modal-add-new',
@@ -69,6 +70,10 @@ export default {
         AkauntingDate,
         AkauntingRecurring,
         [ColorPicker.name]: ColorPicker,
+    },
+
+    directives: {
+        money: VMoney
     },
 
     props: {
@@ -120,6 +125,14 @@ export default {
 
             display: this.show,
             component:'',
+            money: {
+                decimal: '.',
+                thousands: ',',
+                prefix: '$ ',
+                suffix: '',
+                precision: 2,
+                masked: false /* doesn't work with directive */
+            },
         };
     },
 
@@ -138,6 +151,10 @@ export default {
                         [ColorPicker.name]: ColorPicker,
                     },
 
+                    directives: {
+                        money: VMoney
+                    },
+
                     created: function() {
                         this.form = new Form('form-create');
                     },
@@ -151,6 +168,14 @@ export default {
                     data: function () {
                         return {
                             form: {},
+                            money: {
+                                decimal: '.',
+                                thousands: ',',
+                                prefix: '$ ',
+                                suffix: '',
+                                precision: 2,
+                                masked: false /* doesn't work with directive */
+                            },
                             color: '#55588b',
                             predefineColors: [
                                 '#3c3f72',

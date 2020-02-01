@@ -1,9 +1,11 @@
 @stack($name . '_input_start')
 
     <div
-        class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
+        class="form-group {{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['readonly']) ? ' readonly' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
         :class="[{'has-error': {{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }} }]">
-        {!! Form::label($name, $text, ['class' => 'form-control-label']) !!}
+        @if (!empty($text))
+            {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
+        @endif
 
         <html-editor
             :name="'{{ $name }}'"
@@ -23,7 +25,11 @@
             @else
             @input="form.{{ $name }} = $event"
             @endif
-            ></html-editor>
+
+            @if (isset($attributes['disabled']))
+            :disabled="'{{ $attributes['disabled'] }}'"
+            @endif
+        ></html-editor>
 
         <div class="invalid-feedback d-block"
             v-if="{{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.has("' . $name . '")' }}"

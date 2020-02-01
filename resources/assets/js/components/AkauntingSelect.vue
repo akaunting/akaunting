@@ -1,10 +1,17 @@
 <template>
-    <base-input :label="title"
-            :name="name"
-            :class="formClasses"
-            :error="formError">
+    <base-input
+        :label="title"
+        :name="name"
+        :readonly="readonly"
+        :disabled="disabled"
+        :class="[
+            {'readonly': readonly},
+            {'disabled': disabled},
+            formClasses
+        ]"
+        :error="formError">
 
-        <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled && !multiple && !collapse"
+        <el-select v-model="real_model" @input="change" :disabled="disabled" filterable v-if="(disabled) && !multiple && !collapse"
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
@@ -351,7 +358,7 @@
 
         <component v-bind:is="add_new_html" @submit="onSubmit"></component>
 
-        <select :name="name" class="d-none" v-model="real_model">
+        <select :name="name" v-model="real_model" class="d-none">
             <option v-for="(label, value) in selectOptions" :value="value">{{ label }}</option>
         </select>
     </base-input>
@@ -449,6 +456,11 @@ export default {
             type: Boolean,
             default: false,
             description: "Multible feature status"
+        },
+        readonly: {
+            type: Boolean,
+            default: false,
+            description: "Selectbox disabled status"
         },
         disabled: {
             type: Boolean,
@@ -590,7 +602,7 @@ export default {
     watch: {
         options: function (options) {
             // update options
-            //this.selectOptions = options;
+            this.selectOptions = options;
         }
     },
 }

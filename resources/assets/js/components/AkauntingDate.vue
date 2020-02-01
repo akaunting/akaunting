@@ -1,18 +1,25 @@
 <template>
     <base-input :label="title"
-            :name="name"
-            :class="formClasses"
-            :error="formError"
-            :prependIcon="icon"
-            >
+        :name="name"
+        :class="[
+            {'readonly': readonly},
+            {'disabled': disabled},
+            formClasses
+        ]"
+        :error="formError"
+        :prependIcon="icon"
+        :readonly="readonly"
+        :disabled="disabled"
+        >
         <flat-picker slot-scope="{focus, blur}"
-                     @on-open="focus"
-                     @on-close="blur"
-                     :config="config"
-                     class="form-control datepicker"
-                     v-model="real_model"
-                     @input="change"
-                     :disabled="disabled">
+            @on-open="focus"
+            @on-close="blur"
+            :config="config"
+            class="form-control datepicker"
+            v-model="real_model"
+            @input="change"
+            :readonly="readonly"
+            :disabled="disabled">
         </flat-picker>
     </base-input>
 </template>
@@ -38,6 +45,11 @@ export default {
             type: String,
             default: '',
             description: "Modal header title"
+        },
+        readonly: {
+            type: Boolean,
+            default: false,
+            description: "Input readonly status"
         },
         disabled: {
             type: Boolean,

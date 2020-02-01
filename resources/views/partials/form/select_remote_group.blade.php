@@ -28,8 +28,12 @@
         @change="{{ $attributes['change'] }}($event)"
         @endif
 
+        @if (isset($attributes['readonly']))
+        :readonly="'{{ $attributes['readonly'] }}'"
+        @endif
+
         @if (isset($attributes['disabled']))
-        :disabled="{{ $attributes['disabled'] }}"
+        :disabled="'{{ $attributes['disabled'] }}'"
         @endif
 
         @if(isset($attributes['v-error-message']))

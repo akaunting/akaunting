@@ -1,7 +1,7 @@
 @stack($name . '_input_start')
 
-    <akaunting-select
-        class="{{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
+    <akaunting-date
+        class="{{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}"
 
         @if (!empty($attributes['v-error']))
         :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
@@ -9,14 +9,26 @@
         :form-classes="[{'has-error': form.errors.get('{{ $name }}') }]"
         @endif
 
-        :icon="'{{ $icon }}'"
+        :icon="'fa fa-{{ $icon }}'"
         :title="'{{ $text }}'"
         :placeholder="'{{ trans('general.form.select.field', ['field' => $text]) }}'"
         :name="'{{ $name }}'"
-        :options="{{ json_encode($values) }}"
-        :value="'{{ old($name, $selected) }}'"
-
-        :group="true"
+        :value="'{{ old($name, $value) }}'"
+        :config="{
+            allowInput: true,
+            @if (!empty($attributes['show-date-format']))
+            altInput: true,
+            altFormat: '{{ $attributes['show-date-format'] }}',
+            @endif
+            @if (!empty($attributes['date-format']))
+            dateFormat: '{{ $attributes['date-format'] }}',
+            @endif
+            wrap: true,
+            enableTime: true,
+            @if (!empty($attributes['seconds']))
+            enableSeconds: true
+            @endif
+        }"
 
         @if (!empty($attributes['v-model']))
         @interface="{{ $attributes['v-model'] . ' = $event' }}"
@@ -24,10 +36,6 @@
         @interface="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
         @interface="form.{{ $name }} = $event"
-        @endif
-
-        @if (!empty($attributes['change']))
-        @change="{{ $attributes['change'] }}($event)"
         @endif
 
         @if (isset($attributes['readonly']))
@@ -43,9 +51,6 @@
         @else
         :form-error="form.errors.get('{{ $name }}')"
         @endif
-
-        :no-data-text="'{{ trans('general.no_data') }}'"
-        :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
-    ></akaunting-select>
+    ></akaunting-date>
 
 @stack($name . '_input_end')
