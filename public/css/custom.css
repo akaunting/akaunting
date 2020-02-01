@@ -618,6 +618,7 @@ button:focus
 .ql-editor p
 {
     font-size: 0.775rem !important;
+    margin-bottom: 0 !important;
 }
 /*--------Editor text Finish--------*/
 
