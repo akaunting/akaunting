@@ -40,7 +40,7 @@
 
                     {{ Form::fileGroup('attachment', trans('general.attachment')) }}
 
-                    {{ Form::selectGroup('document_id', trans_choice('general.invoices', 1), 'file-invoice', [], null, ['disabled']) }}
+                    {{ Form::selectGroup('document_id', trans_choice('general.invoices', 1), 'file-invoice', [], null, ['disabled' => 'disabled']) }}
                 </div>
             </div>
 
