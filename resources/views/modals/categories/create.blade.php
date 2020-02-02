@@ -8,7 +8,7 @@
     'novalidate' => true
 ]) !!}
     <div class="row">
-        {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+        {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
         @stack('color_input_start')
             <div class="form-group col-md-6 required {{ $errors->has('color') ? 'has-error' : ''}}">

@@ -17,14 +17,14 @@
                     </slot>
                 </div>
                 <slot name="modal-body">
-                    <div class="modal-body" v-if="!is_component" v-html="message">
+                    <div class="modal-body pb-0" v-if="!is_component" v-html="message">
                     </div>
-                    <div class="modal-body" v-else>
+                    <div class="modal-body pb-0" v-else>
                         <form id="form-create" method="POST" action="#"/>
                         <component v-bind:is="component"></component>
                     </div>
                 </slot>
-                <div class="card-footer border-top-0">
+                <div class="card-footer border-top-0 pt-0">
                     <slot name="card-footer">
                         <div class="float-right">
                             <button type="button" class="btn btn-icon" :class="buttons.cancel.class" @click="onCancel">

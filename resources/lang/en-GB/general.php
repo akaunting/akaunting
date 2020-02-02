@@ -76,6 +76,7 @@ return [
     'edit'                  => 'Edit',
     'delete'                => 'Delete',
     'send'                  => 'Send',
+    'share'                 => 'Share',
     'download'              => 'Download',
     'delete_confirm'        => 'Confirm delete :name :type?',
     'name'                  => 'Name',

@@ -1,4 +1,4 @@
-<div class="modal-body">
+<div class="modal-body pb-0">
     {!! Form::open([
             'route' => 'modals.invoice-templates.update',
             'method' => 'PATCH',

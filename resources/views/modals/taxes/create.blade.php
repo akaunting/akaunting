@@ -3,12 +3,12 @@
     '@submit.prevent' => 'onSubmit',
     '@keydown' => 'form.errors.clear($event.target.name)',
     'role' => 'form',
-    'class' => 'form-loading-button',
+    'class' => 'form-loading-button m--3',
     'route' => 'taxes.store',
     'novalidate' => true
 ]) !!}
     <div class="row">
-        {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+        {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
         {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
 

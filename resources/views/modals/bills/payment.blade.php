@@ -1,13 +1,13 @@
 <div class="modal-body">
     {!! Form::open([
-            'url' => 'modals/bills/' . $bill->id . '/transactions',
-            'id' => 'transaction',
-            '@submit.prevent' => 'onSubmit',
-            '@keydown' => 'transaction_form.errors.clear($event.target.name)',
-            'files' => true,
-            'role' => 'form',
-            'class' => 'form-loading-button',
-            'novalidate' => true
+        'url' => 'modals/bills/' . $bill->id . '/transactions',
+        'id' => 'transaction',
+        '@submit.prevent' => 'onSubmit',
+        '@keydown' => 'transaction_form.errors.clear($event.target.name)',
+        'files' => true,
+        'role' => 'form',
+        'class' => 'form-loading-button',
+        'novalidate' => true
     ]) !!}
         <div class="row">
             <base-alert type="warning" v-if="typeof transaction_form.response !== 'undefined' && transaction_form.response.error" v-html="transaction_form.response.message"></base-alert>
@@ -19,13 +19,7 @@
             {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'v-model' => 'transaction_form.account_id', 'v-error' => 'payment.errors.get("account_id")', 'v-error-message' => 'payment.errors.get("account_id")', 'change' => 'onChangePaymentAccount']) }}
 
             @stack('currency_code_input_start')
-                <div class="form-group col-md-6 required">
-                    {!! Form::label('currency_code', trans_choice('general.currencies', 1), ['class' => 'control-label']) !!}
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-exchange"></i></div>
-                        {!! Form::text('currency', $currencies[$bill->currency_code], ['v-model' => 'transaction_form.currency', 'v-error' => 'payment.errors.get("currency")', 'v-error-message' => 'payment.errors.get("currency")','id' => 'currency', 'class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled']) !!}
-                    </div>
-                </div>
+                {{ Form::textGroup('currency', trans_choice('general.currencies', 1), 'exchange-alt', ['disabled' => 'disabled', 'v-model' => 'transaction_form.currency', 'v-error' => 'payment.errors.get("currency")', 'v-error-message' => 'payment.errors.get("currency")'], $currencies[$bill->currency_code]) }}
             @stack('currency_code_input_end')
 
             {{ Form::textareaGroup('description', trans('general.description'), '', null, ['rows' => '3', 'v-model' => 'transaction_form.description', 'v-error' => 'payment.errors.get("description")', 'v-error-message' => 'payment.errors.get("description")']) }}

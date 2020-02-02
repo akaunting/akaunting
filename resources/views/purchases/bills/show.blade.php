@@ -447,7 +447,7 @@
                                     @stack('button_pay_start')
                                         @if($bill->status != 'paid')
                                             @if(empty($bill->paid) || ($bill->paid != $bill->amount))
-                                                <a class="dropdown-item" href="#" id="button-payment">{{ trans('bills.add_payment') }}</a>
+                                                <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
                                             @endif
                                             @permission('update-purchases-bills')
                                                 @if($bill->status == 'draft')
@@ -592,6 +592,7 @@
 
 @push('content_content_end')
     <akaunting-modal
+        class="modal-payment"
         :show="payment.modal"
         @cancel="payment.modal = false"
         :title="'{{ trans('general.title.new', ['type' => trans_choice('general.payments', 1)]) }}'"
@@ -622,3 +623,4 @@
 @push('scripts_start')
     <script src="{{ asset('public/js/purchases/bills.js?v=' . version('short')) }}"></script>
 @endpush
+
