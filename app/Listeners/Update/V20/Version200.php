@@ -517,9 +517,9 @@ class Version200 extends Listener
             ]);
 
             DB::table('transfers')
-                ->where('expense_transaction_id', $revenue->id)
+                ->where('income_transaction_id', $revenue->id)
                 ->update([
-                    'expense_transaction_id' => $transaction->id,
+                    'income_transaction_id' => $transaction->id,
                 ]);
 
             DB::table('recurring')
