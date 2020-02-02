@@ -19,7 +19,6 @@
             <div id="wizard-loading"></div>
             @include('partials.wizard.steps')
 
-
             <div class="card-body">
                 <div id="wizard-loading"></div>
                 <div class="row mb--4">
@@ -68,8 +67,9 @@
                             '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
                                 [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
 
-                        <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-white header-button-top" @click="next">
-                            <span class="fas fa-arrow-right"></span> &nbsp;{{ trans('general.skip') }}
+                        <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
+                            <span class="btn-inner--icon"><i class="fas fa-arrow-right"></i></span>
+                            <span class="btn-inner--text">{{ trans('general.skip') }}</span>
                         </a>
                     </div>
                 </div>

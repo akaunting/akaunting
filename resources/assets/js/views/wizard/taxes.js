@@ -78,9 +78,5 @@ const app = new Vue({
 
             this.show = true;
         },
-
-        next() {
-            if (this.active++ > 3);
-        }
     }
 });

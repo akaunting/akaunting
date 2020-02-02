@@ -31,13 +31,11 @@ const app = new Vue({
 
     data: function () {
         return {
-            active: 3
+            active: 3,
         }
     },
 
     methods: {
-        next() {
-            if (this.active++ > 3);
-        }
+
     }
 });

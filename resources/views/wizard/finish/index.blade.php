@@ -50,13 +50,15 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="{{ url('wizard/taxes') }}" class="btn btn-white header-button-top">
-                        <span class="fas fa-arrow-left"></span> &nbsp;{{ trans('modules.back') }}
+                    <a href="{{ url('wizard/taxes') }}" class="btn btn-icon btn-white header-button-top">
+                        <span class="btn-inner--icon"><i class="fas fa-arrow-left"></i></span>
+                        <span class="btn-inner--text">{{ trans('modules.back') }}</span>
                     </a>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ url('/') }}" class="btn btn-success header-button-top" @click="next">
-                        <span class="fa fa-tachometer-alt"></span> &nbsp;{{ trans('general.go_to', ['name' => trans_choice('general.dashboards', 1)]) }}
+                    <a href="{{ url('/') }}" id="wizard-skip" class="btn btn-icon btn-success header-button-top">
+                        <span class="btn-inner--icon"><i class="fa fa-tachometer-alt"></i></span>
+                        <span class="btn-inner--text">{{ trans('general.go_to', ['name' => trans_choice('general.dashboards', 1)]) }}</span>
                     </a>
                 </div>
             </div>
