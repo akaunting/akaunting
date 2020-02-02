@@ -15538,6 +15538,9 @@
     background-color: #3c3f72 !important;
     color: #ffffff;
     text-align: center;
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+
 }
 
 .el-carousel__arrow

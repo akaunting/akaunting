@@ -426,7 +426,9 @@
                                             @else
                                                 @if ($invoice->paid)
                                                     <tr>
-                                                        <th class="text-success">{{ trans('invoices.paid') }}:</th>
+                                                        <th class="text-success">
+                                                            {{ trans('invoices.paid') }}:
+                                                        </th>
                                                         <td class="text-success text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
                                                     </tr>
                                                 @endif
