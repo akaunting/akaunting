@@ -17,7 +17,7 @@
                     </slot>
                 </div>
                 <slot name="modal-body">
-                    <div class="modal-body pb-0" v-html="message">
+                    <div class="modal-body" v-html="message">
                     </div>
                 </slot>
                 <div class="card-footer border-top-0 pt-0">
