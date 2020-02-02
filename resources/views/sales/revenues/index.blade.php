@@ -13,21 +13,21 @@
 @section('content')
     @if ($revenues->count())
         <div class="card">
-            <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
+            <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
-                    'url' => 'sales/revenues',
-                    'role' => 'form',
                     'method' => 'GET',
+                    'route' => 'revenues.index',
+                    'role' => 'form',
                     'class' => 'mb-0'
                 ]) !!}
-                    <div class="row" v-if="!bulk_action.show">
-                        <div class="col-12 d-flex align-items-center">
-                            <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
-                            <akaunting-search></akaunting-search>
-                        </div>
+                    <div class="align-items-center" v-if="!bulk_action.show">
+                        <akaunting-search
+                            :placeholder="'{{ trans('general.search_placeholder') }}'"
+                            :options="{{ json_encode([]) }}"
+                        ></akaunting-search>
                     </div>
 
-                    {{ Form::bulkActionRowGroup('general.revenues', $bulk_actions, 'sales/revenues') }}
+                    {{ Form::bulkActionRowGroup('general.revenues', $bulk_actions, ['group' => 'sales', 'type' => 'revenues']) }}
                 {!! Form::close() !!}
             </div>
 
@@ -75,7 +75,7 @@
                                             @permission('delete-sales-revenues')
                                                 @if (!$item->reconciled)
                                                     <div class="dropdown-divider"></div>
-                                                    {!! Form::deleteLink($item, 'sales/revenues') !!}
+                                                    {!! Form::deleteLink($item, 'revenues.destroy') !!}
                                                 @endif
                                             @endpermission
                                         </div>

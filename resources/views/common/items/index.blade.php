@@ -13,21 +13,21 @@
 @section('content')
     @if ($items->count())
         <div class="card">
-            <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
+            <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
+                    'method' => 'GET',
                     'route' => 'items.index',
                     'role' => 'form',
-                    'method' => 'GET',
                     'class' => 'mb-0'
                 ]) !!}
-                    <div class="row" v-if="!bulk_action.show">
-                        <div class="col-12 d-flex align-items-center">
-                            <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
-                            <akaunting-search></akaunting-search>
-                        </div>
+                    <div class="align-items-center" v-if="!bulk_action.show">
+                        <akaunting-search
+                            :placeholder="'{{ trans('general.search_placeholder') }}'"
+                            :options="{{ json_encode([]) }}"
+                        ></akaunting-search>
                     </div>
 
-                    {{ Form::bulkActionRowGroup('general.items', $bulk_actions, 'common/items') }}
+                    {{ Form::bulkActionRowGroup('general.items', $bulk_actions, ['group' => 'common', 'type' => 'items']) }}
                 {!! Form::close() !!}
             </div>
 
@@ -88,7 +88,7 @@
                                             @endpermission
                                             @permission('delete-common-items')
                                                 <div class="dropdown-divider"></div>
-                                                {!! Form::deleteLink($item, 'common/items') !!}
+                                                {!! Form::deleteLink($item, 'items.destroy') !!}
                                             @endpermission
                                         </div>
                                     </div>

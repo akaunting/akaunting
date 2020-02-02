@@ -10,22 +10,22 @@
 
 @section('content')
     <div class="card">
-         <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
-             {!! Form::open([
-                 'url' => 'auth/permissions',
-                 'role' => 'form',
-                 'method' => 'GET',
-                 'class' => 'mb-0'
-             ]) !!}
-                 <div class="row"  v-if="!bulk_action.show">
-                    <div class="col-12 d-flex align-items-center">
-                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
-                        <akaunting-search></akaunting-search>
-                     </div>
-                 </div>
+        <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
+            {!! Form::open([
+                'method' => 'GET',
+                'route' => 'permissions.index',
+                'role' => 'form',
+                'class' => 'mb-0'
+            ]) !!}
+                <div class="align-items-center" v-if="!bulk_action.show">
+                    <akaunting-search
+                        :placeholder="'{{ trans('general.search_placeholder') }}'"
+                        :options="{{ json_encode([]) }}"
+                    ></akaunting-search>
+                </div>
 
-                {{ Form::bulkActionRowGroup('general.permissions', $bulk_actions, 'auth/permissions') }}
-             {!! Form::close() !!}
+                {{ Form::bulkActionRowGroup('general.permissions', $bulk_actions, ['group' => 'auth', 'type' => 'permissions']) }}
+            {!! Form::close() !!}
         </div>
 
         <div class="table-responsive">
@@ -56,7 +56,7 @@
                                         <a class="dropdown-item" href="{{ route('permissions.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                         @permission('delete-auth-permissions')
                                             <div class="dropdown-divider"></div>
-                                            {!! Form::deleteLink($item, 'auth/permissions') !!}
+                                            {!! Form::deleteLink($item, 'permissions.destroy') !!}
                                         @endpermission
                                     </div>
                                 </div>

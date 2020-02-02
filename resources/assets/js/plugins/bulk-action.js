@@ -74,7 +74,7 @@ export default class BulkAction {
         this.loading = true;
 
         if (this.value != 'export') {
-            axios.post(url +'/common/bulk-actions/' + path, {
+            axios.post(path, {
                 'handle': this.value,
                 'selected': this.selected
             })
@@ -97,7 +97,7 @@ export default class BulkAction {
             });
         } else {
             axios({
-                url: url +'/common/bulk-actions/' + path,
+                url: path,
                 method: 'POST',
                 data:{
                     'handle': this.value,

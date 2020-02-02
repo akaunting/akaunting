@@ -40,7 +40,7 @@ Route::group(['prefix' => 'common'], function () {
 
     Route::post('notifications/disable', 'Common\Notifications@disable')->name('notifications.disable');
 
-    Route::post('bulk-actions/{group}/{type}', 'Common\BulkActions@action');
+    Route::post('bulk-actions/{group}/{type}', 'Common\BulkActions@action')->name('bulk-actions.action');
 
     Route::get('reports/{report}/print', 'Common\Reports@print')->name('reports.print');
     Route::get('reports/{report}/export', 'Common\Reports@export')->name('reports.export');

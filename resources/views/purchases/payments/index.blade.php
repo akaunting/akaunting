@@ -13,21 +13,21 @@
 @section('content')
     @if ($payments->count())
         <div class="card">
-            <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
+            <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
-                    'url' => 'purchases/payments',
-                    'role' => 'form',
                     'method' => 'GET',
+                    'route' => 'payments.index',
+                    'role' => 'form',
                     'class' => 'mb-0'
                 ]) !!}
-                    <div class="row" v-if="!bulk_action.show">
-                        <div class="col-12 d-flex align-items-center">
-                            <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
-                            <akaunting-search></akaunting-search>
-                        </div>
+                    <div class="align-items-center" v-if="!bulk_action.show">
+                        <akaunting-search
+                            :placeholder="'{{ trans('general.search_placeholder') }}'"
+                            :options="{{ json_encode([]) }}"
+                        ></akaunting-search>
                     </div>
 
-                    {{ Form::bulkActionRowGroup('general.payments', $bulk_actions, 'purchases/payments') }}
+                    {{ Form::bulkActionRowGroup('general.payments', $bulk_actions, ['group' => 'purchases', 'type' => 'payments']) }}
                 {!! Form::close() !!}
             </div>
 
@@ -74,7 +74,7 @@
                                             @permission('delete-purchases-payments')
                                                 @if (!$item->reconciled)
                                                     <div class="dropdown-divider"></div>
-                                                    {!! Form::deleteLink($item, 'purchases/payments') !!}
+                                                    {!! Form::deleteLink($item, 'payments.destroy') !!}
                                                 @endif
                                             @endpermission
                                         </div>

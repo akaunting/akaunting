@@ -1,5 +1,12 @@
 @php
-    $page = explode('/', $url)[1];
+    if (\Str::contains($url, ['.'])) {
+        $url = route($url, $item->$id);
+        $page = explode('.', $url)[0];
+    } else {
+        $url = url($url, $item->$id);
+        $page = explode('/', $url)[1];
+    }
+
     $text = $text ? $text : $page;
 
     $name = addslashes($item->$value);
@@ -9,7 +16,7 @@
     'type'    => 'button',
     'class'   => 'dropdown-item action-delete',
     'title'   => trans('general.delete'),
-    '@click'  => 'confirmDelete("' . url($url, $item->$id) . '", "' . trans_choice('general.' . $text, 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $name . '</strong>', 'type' => mb_strtolower(trans_choice('general.' . $text, 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
+    '@click'  => 'confirmDelete("' . $url . '", "' . trans_choice('general.' . $text, 2) . '", "' . trans('general.delete_confirm', ['name' => '<strong>' . $name . '</strong>', 'type' => mb_strtolower(trans_choice('general.' . $text, 1))]) . '", "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
 )) !!}
 
 @push('content_content_end')

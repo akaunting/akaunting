@@ -1,6 +1,15 @@
 @stack('bulk_action_row_input_start')
+    @php
+        if (is_array($path)) {
+            $path = route('bulk-actions.action', $path);
+        } else {
+            $path = url('common/bulk-actions/' . $path);
+        }
+    @endphp
 
-    <div class="align-items-center d-none" v-if="bulk_action.show" v-bind:class="[bulk_action.show ? 'show' : '']">
+    <div class="align-items-center d-none"
+        v-if="bulk_action.show"
+        :class="[{'show': bulk_action.show}]">
         <div class="mr-6">
             <span class="text-white d-none d-sm-block">
                 <b v-text="bulk_action.count"></b>
@@ -16,7 +25,10 @@
 
         <div class="w-25 mr-4" v-if="bulk_action.count">
             <div class="form-group mb-0">
-                <select class="form-control form-control-sm" v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'bulk_action.value' }}" @change="onChange">
+                <select
+                    class="form-control form-control-sm"
+                    v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'bulk_action.value' }}"
+                    @change="onChange">
                     <option value="*">{{ trans_choice('bulk_actions.bulk_actions', 2) }}</option>
                     @foreach($actions as $key => $action)
                         <option
@@ -33,16 +45,21 @@
         </div>
 
         <div class="mr-4" v-if="bulk_action.count">
-            <button type="button" class="btn btn-sm btn-outline-confirm" v-if="bulk_action.message.length" @click="bulk_action.modal=true">
+            <button type="button" class="btn btn-sm btn-outline-confirm"
+                v-if="bulk_action.message.length"
+                @click="bulk_action.modal=true">
                 <span>{{ trans('general.confirm') }}</span>
             </button>
-            <button type="button" class="btn btn-sm btn-outline-confirm " v-if="!bulk_action.message.length" @click="onAction">
+            <button type="button" class="btn btn-sm btn-outline-confirm"
+                v-if="!bulk_action.message.length"
+                @click="onAction">
                 <span>{{ trans('general.confirm') }}</span>
             </button>
         </div>
 
         <div class="mr-4" v-if="bulk_action.count">
-            <button type="button" class="btn btn-outline-clear btn-sm" @click="onClear">
+            <button type="button" class="btn btn-outline-clear btn-sm"
+                @click="onClear">
                 <span>{{ trans('general.clear') }}</span>
             </button>
         </div>

@@ -13,21 +13,21 @@
 @section('content')
     @if ($customers->count())
         <div class="card">
-            <div class="card-header border-bottom-0" v-bind:class="[bulk_action.show ? 'bg-gradient-primary' : '']">
+            <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
-                    'url' => 'sales/customers',
-                    'role' => 'form',
                     'method' => 'GET',
+                    'route' => 'customers.index',
+                    'role' => 'form',
                     'class' => 'mb-0'
                 ]) !!}
-                    <div class="row" v-if="!bulk_action.show">
-                        <div class="col-12 d-flex align-items-center">
-                            <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
-                            <akaunting-search></akaunting-search>
-                        </div>
+                    <div class="align-items-center" v-if="!bulk_action.show">
+                        <akaunting-search
+                            :placeholder="'{{ trans('general.search_placeholder') }}'"
+                            :options="{{ json_encode([]) }}"
+                        ></akaunting-search>
                     </div>
 
-                    {{ Form::bulkActionRowGroup('general.customers', $bulk_actions, 'sales/customers') }}
+                    {{ Form::bulkActionRowGroup('general.customers', $bulk_actions, ['group' => 'sales', 'type' => 'customers']) }}
                 {!! Form::close() !!}
             </div>
 
@@ -90,7 +90,7 @@
                                                 <div class="dropdown-divider"></div>
                                             @endpermission
                                             @permission('delete-sales-customers')
-                                                {!! Form::deleteLink($item, 'sales/customers') !!}
+                                                {!! Form::deleteLink($item, 'customers.destroy') !!}
                                             @endpermission
                                         </div>
                                     </div>
