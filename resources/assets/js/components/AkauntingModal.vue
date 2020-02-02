@@ -17,10 +17,10 @@
                     </slot>
                 </div>
                 <slot name="modal-body">
-                    <div class="modal-body" v-html="message">
+                    <div class="modal-body pb-0" v-html="message">
                     </div>
                 </slot>
-                <div class="card-footer border-top-0">
+                <div class="card-footer border-top-0 pt-0">
                     <slot name="card-footer">
                         <div class="float-right">
                             <button type="button" class="btn btn-icon btn-outline-secondary" @click="onCancel">

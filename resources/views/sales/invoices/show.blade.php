@@ -467,7 +467,7 @@
 
                         @stack('button_share_start')
                             <a href="{{ $signed_url }}" target="_blank" class="btn btn-white header-button-top">
-                                <i class="fa fa-share"></i>&nbsp; Share
+                                <i class="fa fa-share"></i>&nbsp; {{ trans('general.share') }}
                             </a>
                         @stack('button_share_end')
 
