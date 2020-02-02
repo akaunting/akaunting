@@ -78,7 +78,7 @@ class Version200 extends Listener
     {
         $company_id = session('company_id');
 
-        $companies = Company::enabled()->cursor();
+        $companies = Company::cursor();
 
         foreach ($companies as $company) {
             $this->updateSettings($company);
@@ -109,6 +109,8 @@ class Version200 extends Listener
             'company.email'                     => 'general.company_email',
             'company.address'                   => 'general.company_address',
             'company.logo'                      => 'general.company_logo',
+            'company.phone'                     => 'general.company_phone',
+            'company.tax_number'                => 'general.company_tax_number',
             'localisation.financial_start'      => 'general.financial_start',
             'localisation.timezone'             => 'general.timezone',
             'localisation.date_format'          => 'general.date_format',
@@ -118,25 +120,29 @@ class Version200 extends Listener
             'invoice.number_digit'              => 'general.invoice_number_digit',
             'invoice.number_next'               => 'general.invoice_number_next',
             'invoice.item_name'                 => 'general.invoice_item',
+            'invoice.item_input'                => 'general.invoice_item_input',
             'invoice.price_name'                => 'general.invoice_price',
+            'invoice.price_input'               => 'general.invoice_price_input',
             'invoice.quantity_name'             => 'general.invoice_quantity',
+            'invoice.quantity_input'            => 'general.invoice_quantity_input',
             'invoice.title'                     => trans_choice('general.invoices', 1),
             'invoice.payment_terms'             => '0',
             'invoice.template'                  => 'default',
             'invoice.color'                     => '#55588b',
             'default.account'                   => 'general.default_account',
             'default.currency'                  => 'general.default_currency',
+            'default.tax'                       => 'general.default_tax',
             'default.locale'                    => 'general.default_locale',
             'default.list_limit'                => 'general.list_limit',
             'default.payment_method'            => 'general.default_payment_method',
             'default.use_gravatar'              => 'general.use_gravatar',
             'email.protocol'                    => 'general.email_protocol',
             'email.sendmail_path'               => 'general.email_sendmail_path',
-            'email.smtp_host'                   => 'general.smtp_host',
-            'email.smtp_port'                   => 'general.smtp_port',
-            'email.smtp_username'               => 'general.smtp_username',
-            'email.smtp_password'               => 'general.smtp_password',
-            'email.smtp_encryption'             => 'general.smtp_encryption',
+            'email.smtp_host'                   => 'general.email_smtp_host',
+            'email.smtp_port'                   => 'general.email_smtp_port',
+            'email.smtp_username'               => 'general.email_smtp_username',
+            'email.smtp_password'               => 'general.email_smtp_password',
+            'email.smtp_encryption'             => 'general.email_smtp_encryption',
             'schedule.send_invoice_reminder'    => 'general.send_invoice_reminder',
             'schedule.invoice_days'             => 'general.schedule_invoice_days',
             'schedule.send_bill_reminder'       => 'general.send_bill_reminder',
@@ -153,7 +159,7 @@ class Version200 extends Listener
             switch($new) {
                 case 'offline-payments.methods':
                 case 'default.payment_method':
-                    $value = str_replace('offlinepayment.', 'offline-payments.', setting($old));
+                    $value = str_replace('offlinepayment.', 'offline-payments.', setting($old, 'missing_old_setting_value'));
 
                     break;
                 case 'invoice.title':
@@ -166,17 +172,21 @@ class Version200 extends Listener
 
                     break;
                 default:
-                    $value = setting($old);
+                    $value = setting($old, 'missing_old_setting_value');
 
                     break;
             }
 
-            if (($value != '0') && empty($value)) {
+            if ($value == 'missing_old_setting_value') {
                 continue;
             }
 
             setting()->set([$new => $value]);
             setting()->forget($old);
+        }
+
+        if ($invoice_logo = setting('general.invoice_logo')) {
+            setting()->set(['company.logo' => $invoice_logo]);
         }
 
         $removed_settings = [
@@ -187,6 +197,10 @@ class Version200 extends Listener
             'general.file_types',
             'general.send_item_reminder',
             'general.schedule_item_stocks',
+            'general.invoice_prefix',
+            'general.invoice_digit',
+            'general.invoice_start',
+            'general.invoice_logo',
         ];
 
         foreach ($removed_settings as $removed_setting) {
@@ -305,7 +319,7 @@ class Version200 extends Listener
 
     public function createDashboards()
     {
-        $users = User::enabled()->cursor();
+        $users = User::cursor();
 
         foreach ($users as $user) {
             $companies = $user->companies;
