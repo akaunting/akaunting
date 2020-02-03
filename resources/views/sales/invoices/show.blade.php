@@ -664,20 +664,16 @@
 
         <template #card-footer>
             <div class="float-right">
-                <button type="button" class="btn btn-icon btn-outline-secondary header-button-top" @click="closePayment">
-                    <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
-                    <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
+                <button type="button" class="btn btn-outline-secondary header-button-top" @click="closePayment">
+                    {{ trans('general.cancel') }}
                 </button>
 
-                <a href="{{ route('apps.categories.show', 'payment-method') }}" class="btn btn-icon btn-white header-button-top long-texts">
-                    <span class="btn-inner--icon"><i class="fas fa-credit-card"></i></span>
-                    <span class="btn-inner--text">{{ trans('invoices.accept_payments') }}</span>
+                <a href="{{ route('apps.categories.show', 'payment-method') }}" class="btn btn-white header-button-top long-texts">
+                    {{ trans('invoices.accept_payments') }}</span>
                 </a>
 
-                <button :disabled="form.loading" type="button" class="btn btn-icon btn-success button-submit header-button-top" @click="addPayment">
-                    <div v-if="form.loading" class="aka-loader-frame btn-confirm"><div class="aka-loader"></div></div>
-                    <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-check"></i></span>
-                    <span v-if="!form.loading" class="btn-inner--text">{{ trans('general.confirm') }}</span>
+                <button :disabled="form.loading" type="button" class="btn btn-success button-submit header-button-top" @click="addPayment">
+                    <div class="aka-loader"></div><span>{{ trans('general.confirm') }}</span>
                 </button>
             </div>
         </template>

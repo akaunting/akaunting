@@ -119,6 +119,10 @@ const app = new Vue({
 
                 this.template.errors = this.invoice_form.errors;
             }
+
+            this.form.loading = true;
+
+            this.$emit("confirm");
         },
 
         closeTemplate() {

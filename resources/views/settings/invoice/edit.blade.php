@@ -81,12 +81,11 @@
         <template #card-footer>
             <div class="float-right">
                 <button type="button" class="btn btn-outline-secondary" @click="closeTemplate">
-                    <span>{{ trans('general.cancel') }}</span>
+                    {{ trans('general.cancel') }}
                 </button>
 
-                <button type="button" class="btn btn-success button-submit" @click="addTemplate">
-                    <div class="aka-loader d-none"></div>
-                    <span>{{ trans('general.confirm') }}</span>
+                <button :disabled="form.loading"  type="button" class="btn btn-success button-submit" @click="addTemplate">
+                    <div class="aka-loader"></div><span>{{ trans('general.confirm') }}</span>
                 </button>
             </div>
         </template>
