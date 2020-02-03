@@ -183,37 +183,52 @@
             <div class="row">
                 <div class="col-md-7">
                     <label for="cardMonth" class="form-control-label">{{ textExpirationDate }}</label>
-                    <div class="card-form__group">
-                        <select
-                            class="card-input__input -select"
-                            :id="fields.cardMonth"
-                            v-model="formData.cardMonth"
-                            @change="changeMonth"
-                            data-card-field
-                        >
-                            <option value disabled selected>{{ textMonth }}</option>
-                            <option
-                                v-bind:value="n < 10 ? '0' + n : n"
-                                v-for="n in 12"
-                                v-bind:disabled="n < minCardMonth"
-                                v-bind:key="n"
-                            >{{generateMonthValue(n)}}</option>
-                        </select>
-
-                        <select
-                            class="card-input__input -select"
-                            :id="fields.cardYear"
-                            v-model="formData.cardYear"
-                            @change="changeYear"
-                            data-card-field
+                    <div class="form-group d-flex">
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <select
+                                class="form-control w-50"
+                                :id="fields.cardMonth"
+                                v-model="formData.cardMonth"
+                                @change="changeMonth"
+                                data-card-field
                             >
-                                <option value disabled selected>{{ textYear }}</option>
+                                <option value="" disabled>{{ textMonth }}</option>
                                 <option
-                                    v-bind:value="$index + minCardYear"
-                                    v-for="(n, $index) in 12"
+                                    v-bind:value="n < 10 ? '0' + n : n"
+                                    v-for="n in 12"
+                                    v-bind:disabled="n < minCardMonth"
                                     v-bind:key="n"
-                                >{{$index + minCardYear}}</option>
-                        </select>
+                                    :selected="selected == value"
+                                >{{generateMonthValue(n)}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group input-group-merge ml-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <select
+                                class="form-control w-50"
+                                :id="fields.cardYear"
+                                v-model="formData.cardYear"
+                                @change="changeYear"
+                                data-card-field
+                                >
+                                    <option value="" disabled>{{ textYear }}</option>
+                                    <option
+                                        v-bind:value="$index + minCardYear"
+                                        v-for="(n, $index) in 12"
+                                        v-bind:key="n"
+                                        :selected="selected == value"
+                                    >{{$index + minCardYear}}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -312,6 +327,7 @@ export default {
         card: {
             type: Boolean,
             default: false,
+            icon: '',
             description: "Add Card Style"
         },
 
