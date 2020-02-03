@@ -16,6 +16,8 @@ import NProgressAxios from './../plugins/nprogress-axios';
 import {VMoney} from 'v-money';
 import { Select, Option, Steps, Step, Button } from 'element-ui';
 
+import Form from './../plugins/form';
+
 export default {
     components: {
         AkauntingSearch,
