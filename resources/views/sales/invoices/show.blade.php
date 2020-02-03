@@ -478,7 +478,7 @@
                                     @stack('button_pay_start')
                                         @if($invoice->status != 'paid')
                                             @permission('update-sales-invoices')
-                                                <a class="dropdown-item" href="{{ route('invoices.pay', $invoice->id) }}">{{ trans('invoices.mark_paid') }}</a>
+                                                <a class="dropdown-item" href="{{ route('invoices.paid', $invoice->id) }}">{{ trans('invoices.mark_paid') }}</a>
                                             @endpermission
 
                                             @if(empty($invoice->paid) || ($invoice->paid != $invoice->amount))
@@ -509,7 +509,7 @@
                                     @stack('button_email_end')
 
                                     @stack('button_pdf_start')
-                                        <a class="dropdown-item" href="{{ route('invoices.pdf'i, $invoice->id) }}">{{ trans('invoices.download_pdf') }}</a>
+                                        <a class="dropdown-item" href="{{ route('invoices.pdf', $invoice->id) }}">{{ trans('invoices.download_pdf') }}</a>
                                     @stack('button_pdf_end')
 
                                     @stack('button_delete_start')

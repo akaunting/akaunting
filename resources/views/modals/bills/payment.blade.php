@@ -1,6 +1,6 @@
 <div class="modal-body">
     {!! Form::open([
-        'route' => 'modals.bills.bill.transactions.store', $bill->id,
+        'route' => ['modals.bills.bill.transactions.store', $bill->id],
         'id' => 'transaction',
         '@submit.prevent' => 'onSubmit',
         '@keydown' => 'transaction_form.errors.clear($event.target.name)',

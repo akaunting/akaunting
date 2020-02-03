@@ -1,6 +1,6 @@
 <div class="modal-body pb-0">
     {!! Form::open([
-        'route' => 'modals.invoices.invoice.transactions.store', $invoice->id,
+        'route' => ['modals.invoices.invoice.transactions.store', $invoice->id],
         'id' => 'transaction',
         '@submit.prevent' => 'onSubmit',
         '@keydown' => 'transaction_form.errors.clear($event.target.name)',
