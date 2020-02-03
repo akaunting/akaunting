@@ -20,7 +20,7 @@
                 <div class="row">
                     {{ Form::textGroup('name', trans('general.name'), 'chart-bar') }}
 
-                    {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, $currency->code, ['required' => 'required', 'change' => 'onCodeAccount']) }}
+                    {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, $currency->code, ['required' => 'required', 'change' => 'onChangeCode']) }}
 
                     {{ Form::textGroup('rate', trans('currencies.rate'), 'sliders-h', ['@input' => 'RateReplace', 'required' => 'required']) }}
 
