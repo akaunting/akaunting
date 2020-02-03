@@ -31,7 +31,7 @@
             @permission('update-settings-taxes')
                 <div class="card-footer">
                     <div class="row float-right">
-                        {{ Form::saveButtons('settings/taxes') }}
+                        {{ Form::saveButtons('taxes.index') }}
                     </div>
                 </div>
             @endpermission

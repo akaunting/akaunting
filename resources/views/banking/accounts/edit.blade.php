@@ -41,7 +41,7 @@
             @permission('update-banking-accounts')
                 <div class="card-footer">
                     <div class="row float-right">
-                        {{ Form::saveButtons('banking/accounts') }}
+                        {{ Form::saveButtons('accounts.index') }}
                     </div>
                 </div>
             @endpermission

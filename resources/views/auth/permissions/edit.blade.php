@@ -29,7 +29,7 @@
             @permission('update-auth-permissions')
                 <div class="card-footer">
                     <div class="row float-right">
-                        {{ Form::saveButtons('auth/permissions') }}
+                        {{ Form::saveButtons('permissions.index') }}
                     </div>
                 </div>
             @endpermission

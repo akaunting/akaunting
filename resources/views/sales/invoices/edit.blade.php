@@ -183,7 +183,7 @@
             @permission('update-sales-invoices')
                 <div class="card-footer">
                     <div class="row float-right">
-                        {{ Form::saveButtons('sales/invoices') }}
+                        {{ Form::saveButtons('invoices.index') }}
                     </div>
                 </div>
             @endpermission

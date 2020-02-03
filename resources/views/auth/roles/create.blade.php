@@ -78,7 +78,7 @@
 
                 <div class="card-footer">
                     <div class="row float-right">
-                        {{ Form::saveButtons('auth/roles') }}
+                        {{ Form::saveButtons('roles.index') }}
                     </div>
                 </div>
             </div>

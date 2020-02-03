@@ -69,7 +69,7 @@
             @permission('update-purchases-payments')
                 <div class="card-footer">
                     <div class="row float-right">
-                        {{ Form::saveButtons('purchases/payments') }}
+                        {{ Form::saveButtons('payments.index') }}
                     </div>
                 </div>
             @endpermission

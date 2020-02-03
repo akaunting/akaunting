@@ -29,7 +29,7 @@
 
             <div class="card-footer">
                 <div class="row float-right">
-                    {{ Form::saveButtons('common/dashboards') }}
+                    {{ Form::saveButtons('dashboards.index') }}
                 </div>
             </div>
         {!! Form::close() !!}

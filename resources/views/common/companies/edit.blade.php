@@ -37,7 +37,7 @@
             @permission('update-common-companies')
                 <div class="card-footer">
                     <div class="row float-right">
-                        {{ Form::saveButtons('common/companies') }}
+                        {{ Form::saveButtons('companies.index') }}
                     </div>
                 </div>
             @endpermission

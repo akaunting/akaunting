@@ -40,7 +40,7 @@
         @permission(['update-portal-profile'])
             <div class="card-footer">
                 <div class="row float-right">
-                    {{ Form::saveButtons('portal') }}
+                    {{ Form::saveButtons('portal.dashboard') }}
                 </div>
             </div>
         @endpermission

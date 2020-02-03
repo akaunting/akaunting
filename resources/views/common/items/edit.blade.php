@@ -39,7 +39,7 @@
             @permission('update-common-items')
                 <div class="card-footer">
                     <div class="row float-right">
-                        {{ Form::saveButtons('common/items') }}
+                        {{ Form::saveButtons('items.index') }}
                     </div>
                 </div>
             @endpermission

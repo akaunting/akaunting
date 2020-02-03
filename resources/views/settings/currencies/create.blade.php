@@ -41,7 +41,7 @@
 
             <div class="card-footer">
                 <div class="row float-right">
-                    {{ Form::saveButtons('settings/currencies') }}
+                    {{ Form::saveButtons('currencies.index') }}
                 </div>
             </div>
         {!! Form::close() !!}
