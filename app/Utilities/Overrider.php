@@ -51,9 +51,7 @@ class Overrider
 
         // Locale
         if (session('locale') == '') {
-            //App::setLocale(setting('default.locale'));
-            //Session::put('locale', setting('default.locale'));
-            config(['app.locale' => setting('default.locale')]);
+            app()->setLocale(setting('default.locale'));
         }
 
         // Set app url dynamically

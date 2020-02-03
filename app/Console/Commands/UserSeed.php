@@ -19,7 +19,7 @@ class UserSeed extends Command
      * @var string
      */
     protected $description = 'Seed for specific user';
-    
+
     /**
      * Create a new command instance.
      *

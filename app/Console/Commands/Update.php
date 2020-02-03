@@ -23,7 +23,7 @@ class Update extends Command
      *
      * @var string
      */
-    protected $signature = 'update {alias} {company_id} {new=latest}';
+    protected $signature = 'update {alias} {company} {new=latest}';
 
     /**
      * The console command description.
@@ -31,7 +31,7 @@ class Update extends Command
      * @var string
      */
     protected $description = 'Allows to update Akaunting and modules directly through CLI';
-    
+
     /**
      * Create a new command instance.
      */
@@ -55,8 +55,8 @@ class Update extends Command
 
         $this->old = $this->getOldVersion();
 
-        session(['company_id' => $this->argument('company_id')]);
-        setting()->setExtraColumns(['company_id' => $this->argument('company_id')]);
+        session(['company_id' => $this->argument('company')]);
+        setting()->setExtraColumns(['company_id' => $this->argument('company')]);
 
         if (!$path = $this->download()) {
             return self::CMD_ERROR;

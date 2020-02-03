@@ -407,12 +407,13 @@ trait Modules
         $data = [
             'path' => $path,
             'name' => Str::studly($module->alias),
-            'alias' => $module->alias
+            'alias' => $module->alias,
         ];
 
         $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        Console::run("php artisan module:install {$module->alias} {$company_id}");
+        Console::run("php artisan module:install {$module->alias} {$company_id} {$locale}");
 
         return [
             'success' => true,

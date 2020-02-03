@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Events\Install\UpdateFinished;
+use App\Models\Common\Company;
 use Illuminate\Console\Command;
 
 class FinishUpdate extends Command
@@ -12,7 +13,7 @@ class FinishUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'update:finish {alias} {company_id} {new} {old}';
+    protected $signature = 'update:finish {alias} {company} {new} {old}';
 
     /**
      * The console command description.
@@ -43,7 +44,7 @@ class FinishUpdate extends Command
         $this->call('cache:clear');
 
         $alias = $this->argument('alias');
-        $company_id = $this->argument('company_id');
+        $company_id = $this->argument('company');
         $new = $this->argument('new');
         $old = $this->argument('old');
 
@@ -51,6 +52,11 @@ class FinishUpdate extends Command
         $version = ($alias == 'core') ? version('short') : module($alias)->get('version');
         if ($version != $new) {
             throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
+        }
+
+        // Set locale for modules
+        if ($alias != 'core') {
+            app()->setLocale(Company::find($company_id)->locale);
         }
 
         session(['company_id' => $company_id]);

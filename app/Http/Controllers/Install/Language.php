@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Install;
 
-use Session;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -28,7 +27,8 @@ class Language extends Controller
     public function store(Request $request)
     {
         // Set locale
-        Session::put('locale', $request['lang']);
+        session(['locale' => $request->get('lang')]);
+        app()->setLocale($request->get('lang'));
 
         $response['redirect'] = route('install.database');
 
@@ -43,7 +43,7 @@ class Language extends Controller
     public function getLanguages()
     {
         $response = [
-            'languages' => $languages = language()->allowed(),
+            'languages' => language()->allowed(),
         ];
 
         return response()->json($response);

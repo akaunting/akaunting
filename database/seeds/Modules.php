@@ -26,7 +26,16 @@ class Modules extends Seeder
     {
         $company_id = $this->command->argument('company');
 
-        Artisan::call('module:install', ['alias' => 'offline-payments', 'company_id' => $company_id]);
-        Artisan::call('module:install', ['alias' => 'paypal-standard', 'company_id' => $company_id]);
+        Artisan::call('module:install', [
+            'alias'     => 'offline-payments',
+            'company'   => $company_id,
+            'locale'    => session('locale', app()->getLocale()),
+        ]);
+
+        Artisan::call('module:install', [
+            'alias'     => 'paypal-standard',
+            'company'   => $company_id,
+            'locale'    => session('locale', app()->getLocale()),
+        ]);
     }
 }

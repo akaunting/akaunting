@@ -19,7 +19,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'module:install {alias} {company_id}';
+    protected $signature = 'module:install {alias} {company} {locale=en-GB}';
 
     /**
      * The console command description.
@@ -36,11 +36,14 @@ class InstallCommand extends Command
     public function handle()
     {
         $alias = Str::kebab($this->argument('alias'));
-        $company_id = $this->argument('company_id');
+        $company_id = $this->argument('company');
+        $locale = $this->argument('locale');
 
         $old_company_id = session('company_id');
 
         session(['company_id' => $company_id]);
+
+        app()->setLocale($locale);
 
         $module = module($alias);
 

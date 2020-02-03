@@ -5,6 +5,7 @@ namespace App\Utilities;
 use App\Events\Install\UpdateCopied;
 use App\Events\Install\UpdateDownloaded;
 use App\Events\Install\UpdateUnzipped;
+use App\Models\Module\Module;
 use App\Utilities\Console;
 use App\Traits\SiteApi;
 use Artisan;
@@ -125,14 +126,20 @@ class Updater
 
     public static function finish($alias, $new, $old)
     {
-        $company_id = session('company_id');
+        if ($alias == 'core') {
+            $companies = [session('company_id')];
+        } else {
+            $companies = Module::alias($alias)->where('company_id', '<>', '0')->pluck('company_id')->toArray();
+        }
 
-        $command = "php artisan update:finish {$alias} {$company_id} {$new} {$old}";
+        foreach ($companies as $company) {
+            $command = "php artisan update:finish {$alias} {$company} {$new} {$old}";
 
-        if (true !== $result = Console::run($command)) {
-            $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $alias]);
+            if (true !== $result = Console::run($command)) {
+                $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $alias]);
 
-            throw new \Exception($message);
+                throw new \Exception($message);
+            }
         }
     }
 

@@ -19,7 +19,7 @@ class CompanySeed extends Command
      * @var string
      */
     protected $description = 'Seed for specific company';
-    
+
     /**
      * Create a new command instance.
      *

@@ -81,6 +81,8 @@ class Version200 extends Listener
         $companies = Company::cursor();
 
         foreach ($companies as $company) {
+            session(['company_id' => $company->id]);
+
             $this->updateSettings($company);
 
             $this->createEmailTemplates($company);
@@ -97,12 +99,16 @@ class Version200 extends Listener
 
     public function updateSettings($company)
     {
-        // Clear current settings
+        // Set the active company settings
+        setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->forgetAll();
+        setting()->load(true);
 
-        session(['company_id' => $company->id]);
-
-        Overrider::load('settings');
+        // Override settings
+        config(['app.url' => url('/')]);
+        config(['app.timezone' => setting('general.timezone', 'UTC')]);
+        date_default_timezone_set(config('app.timezone'));
+        app()->setLocale(setting('general.default_locale'));
 
         $updated_settings = [
             'company.name'                      => 'general.company_name',
@@ -325,6 +331,8 @@ class Version200 extends Listener
             $companies = $user->companies;
 
             foreach ($companies as $company) {
+                app()->setLocale($company->locale);
+
                 Artisan::call('user:seed', [
                     'user' => $user->id,
                     'company' => $company->id,

@@ -27,7 +27,7 @@ class Install extends Command
      *
      * @var string
      */
-    protected $signature = 'install 
+    protected $signature = 'install
                             {--db-host=localhost : Database host}
                             {--db-port=3306 : Port of the database host}
                             {--db-name= : Name of the database}
@@ -64,6 +64,7 @@ class Install extends Command
 
         $this->line('Setting locale ' . $this->locale);
         Session::put(self::OPT_LOCALE, $this->locale);
+        app()->setLocale($this->locale);
 
         $this->prompt();
 
