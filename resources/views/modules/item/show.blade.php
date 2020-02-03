@@ -241,7 +241,7 @@
                             <th class="col-5">{{ trans('modules.documentation') }}</th>
                             @if ($module->documentation)
                                 <td class="col-7 text-right">
-                                    <a href="{{ rotue('apps.docs.show', $module->slug) }}">{{ trans('modules.view') }}</a>
+                                    <a href="{{ route('apps.docs.show', $module->slug) }}">{{ trans('modules.view') }}</a>
                                 </td>
                             @else
                                <th class="col-7 text-right">{{ trans('general.na') }}</th>

@@ -44,7 +44,7 @@
                             @endif
 
                             @if (count($invoices))
-                                <a href="{{ rotue('users.read.invoices', $user->id) }}" class="list-group-item list-group-item-action">
+                                <a href="{{ route('users.read.invoices', $user->id) }}" class="list-group-item list-group-item-action">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <i class="fa fa-money-bill"></i>
