@@ -1,8 +1,8 @@
 <div class="card-header">
     {!! Form::open([
-        'url' => 'common/reports/' . $class->model->id,
-        'role' => 'form',
         'method' => 'GET',
+        'route' => 'reports.show', $class->model->id,
+        'role' => 'form',
     ]) !!}
 
         <div id="items" class="float-left">

@@ -71,7 +71,7 @@
 
                                             <div class="mt-3">
                                                 @stack('timeline_body_create_invoice_body_button_edit_start')
-                                                    <a href="{{ url('sales/invoices/' . $invoice->id . '/edit') }}" class="btn btn-primary btn-sm btn-alone">
+                                                    <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-primary btn-sm btn-alone">
                                                         {{ trans('general.edit') }}
                                                     </a>
                                                 @stack('timeline_body_create_invoice_body_button_edit_end')
@@ -102,7 +102,7 @@
                                                     @stack('timeline_body_send_invoice_body_button_sent_start')
                                                         @permission('update-sales-invoices')
                                                             @if($invoice->status == 'draft')
-                                                                <a href="{{ url('sales/invoices/' . $invoice->id . '/sent') }}" class="btn btn-white btn-sm header-button-top">{{ trans('invoices.mark_sent') }}</a>
+                                                                <a href="{{ route('invoices.sent', $invoice->id) }}" class="btn btn-white btn-sm header-button-top">{{ trans('invoices.mark_sent') }}</a>
                                                             @else
                                                                 <button type="button" class="btn btn-secondary btn-sm header-button-top" disabled="disabled">
                                                                     <span class="text-disabled">{{ trans('invoices.mark_sent') }}</span>
@@ -113,7 +113,7 @@
 
                                                     @stack('timeline_body_send_invoice_body_button_email_start')
                                                         @if($invoice->contact_email)
-                                                            <a href="{{ url('sales/invoices/' . $invoice->id . '/email') }}" class="btn btn-danger btn-sm header-button-bottom">{{ trans('invoices.send_mail') }}</a>
+                                                            <a href="{{ route('invoices.email', $invoice->id) }}" class="btn btn-danger btn-sm header-button-bottom">{{ trans('invoices.send_mail') }}</a>
                                                         @else
                                                             <button type="button" class="btn btn-white btn-sm header-button-bottom green-tooltip" disabled="disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
                                                                 <span class="text-disabled">{{ trans('invoices.send_mail') }}</span>
@@ -453,14 +453,14 @@
                     <div class="float-right">
                         @stack('button_edit_start')
                             @if(!$invoice->reconciled)
-                                <a href="{{ url('sales/invoices/' . $invoice->id . '/edit') }}" class="btn btn-info header-button-top">
+                                <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-info header-button-top">
                                     <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
                                 </a>
                             @endif
                         @stack('button_edit_end')
 
                         @stack('button_print_start')
-                            <a href="{{ url('sales/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-success header-button-top">
+                            <a href="{{ route('invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
                                 <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                             </a>
                         @stack('button_print_end')
@@ -478,7 +478,7 @@
                                     @stack('button_pay_start')
                                         @if($invoice->status != 'paid')
                                             @permission('update-sales-invoices')
-                                                <a class="dropdown-item" href="{{ url('sales/invoices/' . $invoice->id . '/pay') }}">{{ trans('invoices.mark_paid') }}</a>
+                                                <a class="dropdown-item" href="{{ route('invoices.pay', $invoice->id) }}">{{ trans('invoices.mark_paid') }}</a>
                                             @endpermission
 
                                             @if(empty($invoice->paid) || ($invoice->paid != $invoice->amount))
@@ -491,7 +491,7 @@
                                     @stack('button_sent_start')
                                         @permission('update-sales-invoices')
                                             @if($invoice->status == 'draft')
-                                                <a class="dropdown-item" href="{{ url('sales/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a>
+                                                <a class="dropdown-item" href="{{ route('invoices.sent', $invoice->id) }}">{{ trans('invoices.mark_sent') }}</a>
                                             @else
                                                 <button type="button" class="dropdown-item" disabled="disabled"><span class="text-disabled">{{ trans('invoices.mark_sent') }}</span></button>
                                             @endif
@@ -500,7 +500,7 @@
 
                                     @stack('button_email_start')
                                         @if($invoice->contact_email)
-                                            <a class="dropdown-item" href="{{ url('sales/invoices/' . $invoice->id . '/email') }}">{{ trans('invoices.send_mail') }}</a>
+                                            <a class="dropdown-item" href="{{ route('invoices.email', $invoice->id) }}">{{ trans('invoices.send_mail') }}</a>
                                         @else
                                             <button type="button" class="dropdown-item" disabled="disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
                                                 <span class="text-disabled">{{ trans('invoices.send_mail') }}</span>
@@ -509,7 +509,7 @@
                                     @stack('button_email_end')
 
                                     @stack('button_pdf_start')
-                                        <a class="dropdown-item" href="{{ url('sales/invoices/' . $invoice->id . '/pdf') }}">{{ trans('invoices.download_pdf') }}</a>
+                                        <a class="dropdown-item" href="{{ route('invoices.pdf'i, $invoice->id) }}">{{ trans('invoices.download_pdf') }}</a>
                                     @stack('button_pdf_end')
 
                                     @stack('button_delete_start')
@@ -669,7 +669,7 @@
                     <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
                 </button>
 
-                <a href="{{ url('apps/categories/payment-method') }}" class="btn btn-icon btn-white header-button-top long-texts">
+                <a href="{{ route('apps.categories.show', 'payment-method') }}" class="btn btn-icon btn-white header-button-top long-texts">
                     <span class="btn-inner--icon"><i class="fas fa-credit-card"></i></span>
                     <span class="btn-inner--text">{{ trans('invoices.accept_payments') }}</span>
                 </a>

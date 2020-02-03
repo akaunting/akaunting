@@ -102,7 +102,7 @@
                         @if ($module->vendor_name)
                             <tr>
                                 <th>{{ trans_choice('general.developers', 1) }}</th>
-                                <td class="text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
+                                <td class="text-right"><a href="{{ route('apps.vendors.show', $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                             </tr>
                         @endif
                         @if ($module->version)
@@ -132,7 +132,7 @@
                         @if ($module->category)
                             <tr>
                                 <th>{{ trans_choice('general.categories', 1) }}</th>
-                                <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                                <td class="text-right"><a href="{{ route('apps.categories.show', $module->category->slug) }}">{{ $module->category->name }}</a></td>
                             </tr>
                         @endif
                     </tbody>

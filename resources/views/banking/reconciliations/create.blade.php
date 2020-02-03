@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         {!! Form::open([
-            'url' => 'banking/reconciliations/create',
+            'route' => 'reconciliations.store',
             'id' => 'reconciliation',
             '@submit.prevent' => 'onSubmit',
             '@keydown' => 'form.errors.clear($event.target.name)',
@@ -40,7 +40,7 @@
         </div>
 
         {!! Form::open([
-            'url' => 'banking/reconciliations/create',
+            'route' => 'reconciliations.store',
             'role' => 'form',
             'class' => 'form-loading-button',
             'id' => 'form-reconciliations',

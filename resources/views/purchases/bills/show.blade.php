@@ -71,7 +71,7 @@
 
                                             <div class="mt-3">
                                                 @stack('timeline_body_create_bill_body_button_edit_start')
-                                                    <a href="{{ url('purchases/bills/' . $bill->id . '/edit') }}" class="btn btn-primary btn-sm btn-alone">
+                                                    <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-primary btn-sm btn-alone">
                                                         {{ trans('general.edit') }}
                                                     </a>
                                                 @stack('timeline_body_create_bill_body_button_edit_end')
@@ -101,7 +101,7 @@
                                                 <div class="mt-3">
                                                     @stack('timeline_body_receive_bill_body_button_sent_start')
                                                         @permission('update-purchases-bills')
-                                                            <a href="{{ url('purchases/bills/' . $bill->id . '/received') }}" class="btn btn-danger btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
+                                                            <a href="{{ url('bills.received', $bill->id) }}" class="btn btn-danger btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
                                                         @endpermission
                                                     @stack('timeline_body_receive_bill_body_button_sent_end')
                                                 </div>

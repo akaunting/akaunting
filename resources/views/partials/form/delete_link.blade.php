@@ -1,10 +1,12 @@
 @php
     if (\Str::contains($url, ['.'])) {
-        $url = route($url, $item->$id);
         $page = explode('.', $url)[0];
+
+        $url = route($url, $item->$id);
     } else {
-        $url = url($url, $item->$id);
         $page = explode('/', $url)[1];
+
+        $url = url($url, $item->$id);
     }
 
     $text = $text ? $text : $page;

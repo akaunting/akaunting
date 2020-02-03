@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <a href="{{ url('purchases/vendors/' . $vendor->id . '/edit') }}" class="btn btn-default btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
+            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-default btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
         </div>
 
         <div class="col-xl-9">
@@ -156,7 +156,7 @@
                                         <tbody>
                                             @foreach($bills as $item)
                                                 <tr class="row align-items-center border-top-1">
-                                                    <td class="col-xs-4 col-sm-3"><a href="{{ url('purchases/bills/' . $item->id . ' ') }}">{{ $item->bill_number }}</a></td>
+                                                    <td class="col-xs-4 col-sm-3"><a href="{{ route('bills.show', $item->id) }}">{{ $item->bill_number }}</a></td>
                                                     <td class="col-xs-4 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
                                                     <td class="col-sm-2 d-none d-sm-none">@date($item->billed_at)</td>
                                                     <td class="col-sm-2 d-none d-sm-none">@date($item->due_at)</td>

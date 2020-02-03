@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         {!! Form::model($user, [
-            'url' => 'portal/profile/update',
+            'route' => 'portal.profile.update',
             'id' => 'profile',
             '@submit.prevent' => 'onSubmit',
             '@keydown' => 'form.errors.clear($event.target.name)',

@@ -1,7 +1,14 @@
 @stack('save_buttons_start')
+    @php
+        if (\Str::contains($cancel, ['.'])) {
+            $url = route($cancel);
+        } else {
+            $url = url($cancel);
+        }
+    @endphp
 
     <div class="{{ $col }}">
-        <a href="{{ url($cancel) }}" class="btn btn-icon btn-outline-secondary header-button-top">
+        <a href="{{ $url }}" class="btn btn-icon btn-outline-secondary header-button-top">
             <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
             <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
         </a>

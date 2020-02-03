@@ -177,9 +177,9 @@ Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
 
         Route::resource('my', 'Modules\My');
 
-        Route::get('categories/{alias}', 'Modules\Tiles@categoryModules');
-        Route::get('vendors/{alias}', 'Modules\Tiles@vendorModules');
-        Route::get('docs/{alias}', 'Modules\Item@documentation');
+        Route::get('categories/{alias}', 'Modules\Tiles@categoryModules')->name('categories.show');
+        Route::get('vendors/{alias}', 'Modules\Tiles@vendorModules')->name('vendors.show');
+        Route::get('docs/{alias}', 'Modules\Item@documentation')->name('docs.show');
 
         Route::get('paid', 'Modules\Tiles@paidModules')->name('paid');
         Route::get('new', 'Modules\Tiles@newModules')->name('new');
@@ -218,7 +218,7 @@ Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
     Route::resource('vendors', 'Modals\Vendors');
     Route::resource('items', 'Modals\Items');
     Route::patch('invoice-templates', 'Modals\InvoiceTemplates@update')->name('invoice-templates.update');
-    Route::resource('invoices/{invoice}/transactions', 'Modals\InvoiceTransactions', ['middleware' => ['date.format', 'money']]);
-    Route::resource('bills/{bill}/transactions', 'Modals\BillTransactions', ['middleware' => ['date.format', 'money']]);
+    Route::resource('invoices/{invoice}/transactions', 'Modals\InvoiceTransactions', ['names' => 'invoices.invoice.transactions', 'middleware' => ['date.format', 'money']]);
+    Route::resource('bills/{bill}/transactions', 'Modals\BillTransactions', ['names' => 'bills.bill.transactions', 'middleware' => ['date.format', 'money']]);
     Route::resource('taxes', 'Modals\Taxes');
 });

@@ -151,7 +151,7 @@
                                         <tbody>
                                             @foreach($invoices as $item)
                                                 <tr class="row align-items-center border-top-1">
-                                                    <td class="col-xs-4 col-sm-3"><a href="{{ url('sales/invoices/' . $item->id . ' ') }}">{{ $item->invoice_number }}</a></td>
+                                                    <td class="col-xs-4 col-sm-3"><a href="{{ route('invoices.show', $item->id) }}">{{ $item->invoice_number }}</a></td>
                                                     <td class="col-xs-4 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
                                                     <td class="col-sm-2 d-none d-sm-block">@date($item->invoiced_at)</td>
                                                     <td class="col-sm-2 d-none d-sm-block">@date($item->due_at)</td>

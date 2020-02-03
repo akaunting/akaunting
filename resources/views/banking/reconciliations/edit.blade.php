@@ -5,11 +5,11 @@
 @section('content')
     <div class="card">
         {!! Form::model($reconciliation, [
-        'method' => 'PATCH',
-        'url' => ['banking/reconciliations', $reconciliation->id],
-        'role' => 'form',
-        'id' => 'form-reconciliations',
-        'class' => 'form-loading-button mb-0'
+            'method' => 'PATCH',
+            'route' => ['reconciliations.update', $reconciliation->id],
+            'role' => 'form',
+            'id' => 'form-reconciliations',
+            'class' => 'form-loading-button mb-0'
         ]) !!}
 
             <div class="card-header border-0">

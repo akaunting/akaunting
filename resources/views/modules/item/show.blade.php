@@ -164,14 +164,14 @@
                 <div class="card-footer">
                     @if ($installed)
                         @permission('delete-modules-item')
-                            <a href="{{ url('apps/' . $module->slug . '/uninstall') }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
+                            <a href="{{ route('apps.app.uninstall', $module->slug) }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
                         @endpermission
 
                         @permission('update-modules-item')
                             @if ($enable)
-                                <a href="{{ url('apps/' . $module->slug . '/disable') }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
+                                <a href="{{ route('apps.app.disable', $module->slug) }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
                             @else
-                                <a href="{{ url('apps/' . $module->slug . '/enable') }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
+                                <a href="{{ route('app.app.enable', $module->slug) }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
                             @endif
                         @endpermission
                     @else
@@ -204,7 +204,7 @@
                         @if ($module->vendor_name)
                             <tr class="row">
                                 <th class="col-5">{{ trans_choice('general.developers', 1) }}</th>
-                                <td class="col-7 text-right"><a href="{{ url('apps/vendors/' . $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
+                                <td class="col-7 text-right"><a href="{{ route('apps.vendors.show', $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                             </tr>
                         @endif
                         @if ($module->version)
@@ -234,14 +234,14 @@
                         @if ($module->category)
                             <tr class="row">
                                 <th class="col-5">{{ trans_choice('general.categories', 1) }}</th>
-                                <td class="col-7 text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                                <td class="col-7 text-right"><a href="{{ route('apps.categories.show', $module->category->slug) }}">{{ $module->category->name }}</a></td>
                             </tr>
                         @endif
                         <tr class="row">
                             <th class="col-5">{{ trans('modules.documentation') }}</th>
                             @if ($module->documentation)
                                 <td class="col-7 text-right">
-                                    <a href="{{ url('apps/docs/' . $module->slug) }}">{{ trans('modules.view') }}</a>
+                                    <a href="{{ rotue('apps.docs.show', $module->slug) }}">{{ trans('modules.view') }}</a>
                                 </td>
                             @else
                                <th class="col-7 text-right">{{ trans('general.na') }}</th>

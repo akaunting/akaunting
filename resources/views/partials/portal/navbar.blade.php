@@ -29,7 +29,7 @@
 
                         <div class="list-group list-group-flush">
                             @if (count($bills))
-                                <a href="{{ url('auth/users/' . $user->id . '/read-bills') }}" class="list-group-item list-group-item-action">
+                                <a href="{{ route('users.read.bills', $user->id) }}" class="list-group-item list-group-item-action">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <i class="fa fa-shopping-cart"></i>
@@ -44,7 +44,7 @@
                             @endif
 
                             @if (count($invoices))
-                                <a href="{{ url('auth/users/' . $user->id . '/read-invoices') }}" class="list-group-item list-group-item-action">
+                                <a href="{{ rotue('users.read.invoices', $user->id) }}" class="list-group-item list-group-item-action">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <i class="fa fa-money-bill"></i>
@@ -105,7 +105,7 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">{{ trans('general.welcome') }}</h6>
                         </div>
-                        <a href="{{ url('portal/profile/edit') }}" class="dropdown-item">
+                        <a href="{{ route('portal.profile.edit') }}" class="dropdown-item">
                             <i class="fas fa-user"></i>
                             <span>{{ trans('auth.profile') }}</span>
                         </a>
