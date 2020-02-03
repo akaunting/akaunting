@@ -23,15 +23,12 @@
                 <div class="card-footer border-top-0 pt-0">
                     <slot name="card-footer">
                         <div class="float-right">
-                            <button type="button" class="btn btn-icon btn-outline-secondary" @click="onCancel">
-                                <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
-                                <span class="btn-inner--text">{{ button_cancel }}</span>
+                            <button type="button" class="btn btn-outline-secondary" @click="onCancel">
+                               {{ button_cancel }}
                             </button>
 
-                            <button :disabled="form.loading" type="button" class="btn btn-icon btn-danger button-submit" @click="onConfirm">
-                                <div v-if="form.loading" class="aka-loader-frame btn-delete"><div class="aka-loader"></div></div>
-                                <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-trash"></i></span>
-                                <span v-if="!form.loading" class="btn-inner--text">{{ button_delete }}</span>
+                            <button :disabled="form.loading" type="button" class="btn btn-danger button-submit" @click="onConfirm">
+                                <div class="aka-loader"></div><span>{{ button_delete }}</span>
                             </button>
                         </div>
                     </slot>
