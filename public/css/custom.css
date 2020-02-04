@@ -115,6 +115,11 @@ button:focus
     overflow-y: hidden !important;
 }
 
+.overflow-y-scroll
+{
+    overflow-y: scroll !important;
+}
+
 .g-sidenav-hidden .navbar-vertical.navbar-expand-xs
 {
     overflow: hidden !important;

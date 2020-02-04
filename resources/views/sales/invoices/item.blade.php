@@ -1,4 +1,4 @@
-<tr class="row" v-for="(row, index) in form.items"
+<tr class="d-flex flex-nowrap" v-for="(row, index) in form.items"
     :index="index">
     @stack('actions_td_start')
         <td class="col-md-1 action-column border-right-0 border-bottom-0">
