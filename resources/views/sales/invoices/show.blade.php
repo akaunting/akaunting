@@ -340,10 +340,10 @@
                 @stack('invoice_item_start')
                     <div class="row show-table">
                         <div class="col-md-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive overflow-y-scroll">
                                 <table class="table table-striped">
                                     <tbody>
-                                        <tr class="row">
+                                        <tr class="d-flex flex-nowrap">
                                             @stack('name_th_start')
                                                 <th class="col-xs-4 col-sm-5 pl-5">{{ trans_choice($text_override['items'], 2) }}</th>
                                             @stack('name_th_end')
@@ -361,7 +361,7 @@
                                             @stack('total_th_end')
                                         </tr>
                                         @foreach($invoice->items as $invoice_item)
-                                            <tr class="row">
+                                            <tr class="d-flex flex-nowrap">
                                                 @stack('name_td_start')
                                                     <td class="col-xs-4 col-sm-5 pl-5">
                                                         {{ $invoice_item->name }}
