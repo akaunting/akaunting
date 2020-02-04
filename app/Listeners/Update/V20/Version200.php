@@ -459,6 +459,10 @@ class Version200 extends Listener
         foreach ($invoice_payments as $invoice_payment) {
             $invoice = DB::table('invoices')->where('id', $invoice_payment->invoice_id)->first();
 
+            if (empty($invoice)) {
+                continue;
+            }
+
             $payment_method = str_replace('offlinepayment.', 'offline-payments.', $invoice_payment->payment_method);
 
             $transaction_id = DB::table('transactions')->insertGetId([
@@ -576,6 +580,10 @@ class Version200 extends Listener
 
         foreach ($bill_payments as $bill_payment) {
             $bill = DB::table('bills')->where('id', $bill_payment->bill_id)->first();
+
+            if (empty($bill)) {
+                continue;
+            }
 
             $payment_method = str_replace('offlinepayment.', 'offline-payments.', $bill_payment->payment_method);
 
