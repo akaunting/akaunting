@@ -1,7 +1,7 @@
 <div class="card-header">
     {!! Form::open([
         'method' => 'GET',
-        'route' => 'reports.show', $class->model->id,
+        'route' => ['reports.show', $class->model->id],
         'role' => 'form',
     ]) !!}
 
