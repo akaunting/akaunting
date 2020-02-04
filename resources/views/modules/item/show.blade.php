@@ -122,7 +122,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         @if (!empty($module->review_action))
-                                            <a href="{{ $module->review_action }}" class="btn btn-success" target="_blank">
+                                            <a href="{{ $module->review_action }}" class="btn btn-success header-button-top" target="_blank">
                                                 {{ trans('modules.reviews.button.add') }}
                                             </a>
                                         @endif

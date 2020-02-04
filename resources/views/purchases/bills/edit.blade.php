@@ -32,10 +32,10 @@
 
                     <div class="col-md-12 mb-4">
                         {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'control-label']) !!}
-                        <div class="table-responsive">
+                        <div class="table-responsive overflow-y-scroll">
                             <table class="table table-bordered" id="items">
                                 <thead class="thead-light">
-                                    <tr class="row">
+                                    <tr class="d-flex flex-nowrap">
                                         @stack('actions_th_start')
                                             <th class="col-md-1 action-column border-right-0 border-bottom-0">{{ trans('general.actions') }}</th>
                                         @stack('actions_th_end')
