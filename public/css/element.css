@@ -15428,12 +15428,17 @@
 
 .el-select-icon
 {
-   padding-left: 4px;
+   padding-left: 0.2rem;
 }
 
 .el-select .el-input .el-input__inner
 {
-    padding-left: 39px;
+    padding-left: 38px;
+}
+
+.form-control.datepicker.flatpickr-input
+{
+    padding-left: 2px;
 }
 /*--------El Select Icon Finish--------*/
 
