@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-default btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
+            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
         </div>
 
         <div class="col-xl-9">
@@ -116,8 +116,8 @@
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-6 col-sm-3">{{ trans('general.date') }}</th>
-                                                <th class="col-xs-6 col-sm-2">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-4 d-none d-sm-block">{{ trans_choice('general.categories', 1) }}</th>
+                                                <th class="col-xs-6 col-sm-3 text-right">{{ trans('general.amount') }}</th>
+                                                <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.categories', 1) }}</th>
                                                 <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.accounts', 1) }}</th>
                                             </tr>
                                         </thead>
@@ -125,8 +125,8 @@
                                             @foreach($transactions as $item)
                                                 <tr class="row align-items-center border-top-1">
                                                     <td class="col-xs-6 col-sm-3">@date($item->paid_at)</td>
-                                                    <td class="col-xs-6 col-sm-2">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-4 d-none d-sm-block">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
+                                                    <td class="col-xs-6 col-sm-3 text-right">@money($item->amount, $item->currency_code, true)</td>
+                                                    <td class="col-sm-3 d-none d-sm-block">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
                                                     <td class="col-sm-3 d-none d-sm-block">{{ $item->account->name }}</td>
                                                 </tr>
                                             @endforeach
@@ -146,20 +146,20 @@
                                     <table class="table table-flush" id="tbl-bills">
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
-                                                <th class="col-xs-4 col-sm-3">{{ trans_choice('general.numbers', 1) }}</th>
-                                                <th class="col-xs-4 col-sm-3">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-2 d-none d-sm-none">{{ trans('bills.bill_date') }}</th>
-                                                <th class="col-sm-2 d-none d-sm-none">{{ trans('bills.due_date') }}</th>
+                                                <th class="col-xs-4 col-sm-1">{{ trans_choice('general.numbers', 1) }}</th>
+                                                <th class="col-xs-4 col-sm-3 text-right">{{ trans('general.amount') }}</th>
+                                                <th class="col-sm-3 d-none d-sm-block text-left">{{ trans('bills.bill_date') }}</th>
+                                                <th class="col-sm-3 d-none d-sm-block text-left">{{ trans('bills.due_date') }}</th>
                                                 <th class="col-xs-4 col-sm-2">{{ trans_choice('general.statuses', 1) }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($bills as $item)
                                                 <tr class="row align-items-center border-top-1">
-                                                    <td class="col-xs-4 col-sm-3"><a href="{{ route('bills.show', $item->id) }}">{{ $item->bill_number }}</a></td>
-                                                    <td class="col-xs-4 col-sm-3">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-2 d-none d-sm-none">@date($item->billed_at)</td>
-                                                    <td class="col-sm-2 d-none d-sm-none">@date($item->due_at)</td>
+                                                    <td class="col-xs-4 col-sm-1"><a href="{{ route('bills.show', $item->id) }}">{{ $item->bill_number }}</a></td>
+                                                    <td class="col-xs-4 col-sm-3 text-right">@money($item->amount, $item->currency_code, true)</td>
+                                                    <td class="col-sm-3 d-none d-sm-block text-left">@date($item->billed_at)</td>
+                                                    <td class="col-sm-3 d-none d-sm-block text-left">@date($item->due_at)</td>
                                                     <td class="col-xs-4 col-sm-2"><span class="badge badge-pill badge-{{ $item->status_label }}">{{ trans('bills.statuses.' . $item->status) }}</span></td>
                                                 </tr>
                                             @endforeach

@@ -8,8 +8,18 @@
 }
 
 
+/*--------Selection Reference--------*/
+::selection
+{
+    background-color: #3c3f72;
+    color: #ffffff;
+}
+/*--------Selection Reference Finish--------*/
+
+
 /*--------Credit Card--------*/
-.card-input__input:hover, .card-input__input:focus {
+.card-input__input:hover, .card-input__input:focus
+{
     border-color: #55588b !important;
 }
 /*--------Credit Card Finish--------*/
