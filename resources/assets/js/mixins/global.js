@@ -269,7 +269,7 @@ export default {
                         },
 
                         mounted() {
-                            let form_id = document.getElementById('dynamic-component').children[0].id;
+                            let form_id = document.getElementById('dynamic-component').querySelectorAll('form')[1].id;
 
                             this.form = new Form(form_id);
                         },
