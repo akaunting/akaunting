@@ -360,26 +360,27 @@ class Version200 extends Listener
         foreach ($customers as $customer) {
             $data = (array) $customer;
             $data['type'] = 'customer';
+            unset($data['id']);
 
-            $contact = $this->create(new Contact(), $data);
+            $contact_id = DB::table('contacts')->insertGetId($data);
 
             DB::table('invoices')
                 ->where('contact_id', $customer->id)
                 ->update([
-                    'contact_id' => $contact->id,
+                    'contact_id' => $contact_id,
                 ]);
 
             DB::table('revenues')
                 ->where('customer_id', $customer->id)
                 ->update([
-                    'customer_id' => $contact->id,
+                    'customer_id' => $contact_id,
                 ]);
 
             if ($has_estimates) {
                 DB::table('estimates')
                     ->where('customer_id', $customer->id)
                     ->update([
-                        'customer_id' => $contact->id,
+                        'customer_id' => $contact_id,
                     ]);
             }
 
@@ -387,7 +388,7 @@ class Version200 extends Listener
                 DB::table('crm_companies')
                     ->where('core_customer_id', $customer->id)
                     ->update([
-                        'core_customer_id' => $contact->id,
+                        'core_customer_id' => $contact_id,
                     ]);
             }
 
@@ -395,7 +396,7 @@ class Version200 extends Listener
                 DB::table('crm_contacts')
                     ->where('core_customer_id', $customer->id)
                     ->update([
-                        'core_customer_id' => $contact->id,
+                        'core_customer_id' => $contact_id,
                     ]);
             }
 
@@ -404,7 +405,7 @@ class Version200 extends Listener
                     ->where('model_id', $customer->id)
                     ->where('model_type', 'App\Models\Income\Customer')
                     ->update([
-                        'model_id' => $contact->id,
+                        'model_id' => $contact_id,
                         'model_type' => 'App\Models\Common\Contact',
                     ]);
             }
@@ -420,19 +421,20 @@ class Version200 extends Listener
         foreach ($vendors as $vendor) {
             $data = (array) $vendor;
             $data['type'] = 'vendor';
+            unset($data['id']);
 
-            $contact = $this->create(new Contact(), $data);
+            $contact_id = DB::table('contacts')->insertGetId($data);
 
             DB::table('bills')
                 ->where('contact_id', $vendor->id)
                 ->update([
-                    'contact_id' => $contact->id,
+                    'contact_id' => $contact_id,
                 ]);
 
             DB::table('payments')
                 ->where('vendor_id', $vendor->id)
                 ->update([
-                    'vendor_id' => $contact->id,
+                    'vendor_id' => $contact_id,
                 ]);
         }
 
@@ -461,7 +463,7 @@ class Version200 extends Listener
 
             $payment_method = str_replace('offlinepayment.', 'offline-payments.', $invoice_payment->payment_method);
 
-            $transaction = $this->create(new Transaction(), [
+            $transaction_id = DB::table('transactions')->insertGetId([
                 'company_id' => $invoice_payment->company_id,
                 'type' => 'income',
                 'account_id' => $invoice_payment->account_id,
@@ -487,7 +489,7 @@ class Version200 extends Listener
                     ->where('ledgerable_id', $invoice_payment->id)
                     ->where('ledgerable_type', 'App\Models\Income\InvoicePayment')
                     ->update([
-                        'ledgerable_id' => $transaction->id,
+                        'ledgerable_id' => $transaction_id,
                         'ledgerable_type' => 'App\Models\Banking\Transaction',
                     ]);
             }
@@ -504,7 +506,7 @@ class Version200 extends Listener
         $has_project_revenues = Schema::hasTable('project_revenues');
 
         foreach ($revenues as $revenue) {
-            $transaction = $this->create(new Transaction(), [
+            $transaction_id = DB::table('transactions')->insertGetId([
                 'company_id' => $revenue->company_id,
                 'type' => 'income',
                 'account_id' => $revenue->account_id,
@@ -527,14 +529,14 @@ class Version200 extends Listener
             DB::table('transfers')
                 ->where('income_transaction_id', $revenue->id)
                 ->update([
-                    'income_transaction_id' => $transaction->id,
+                    'income_transaction_id' => $transaction_id,
                 ]);
 
             DB::table('recurring')
                 ->where('recurable_id', $revenue->id)
                 ->where('recurable_type', 'App\Models\Income\Revenue')
                 ->update([
-                    'recurable_id' => $transaction->id,
+                    'recurable_id' => $transaction_id,
                     'recurable_type' => 'App\Models\Banking\Transaction',
                 ]);
 
@@ -542,7 +544,7 @@ class Version200 extends Listener
                 ->where('mediable_id', $revenue->id)
                 ->where('mediable_type', 'App\Models\Income\Revenue')
                 ->update([
-                    'mediable_id' => $transaction->id,
+                    'mediable_id' => $transaction_id,
                     'mediable_type' => 'App\Models\Banking\Transaction',
                 ]);
 
@@ -551,7 +553,7 @@ class Version200 extends Listener
                     ->where('ledgerable_id', $revenue->id)
                     ->where('ledgerable_type', 'App\Models\Income\Revenue')
                     ->update([
-                        'ledgerable_id' => $transaction->id,
+                        'ledgerable_id' => $transaction_id,
                         'ledgerable_type' => 'App\Models\Banking\Transaction',
                     ]);
             }
@@ -560,7 +562,7 @@ class Version200 extends Listener
                 DB::table('project_revenues')
                     ->where('revenue_id', $revenue->id)
                     ->update([
-                        'revenue_id' => $transaction->id,
+                        'revenue_id' => $transaction_id,
                     ]);
             }
         }
@@ -579,7 +581,7 @@ class Version200 extends Listener
 
             $payment_method = str_replace('offlinepayment.', 'offline-payments.', $bill_payment->payment_method);
 
-            $transaction = $this->create(new Transaction(), [
+            $transaction_id = DB::table('transactions')->insertGetId([
                 'company_id' => $bill_payment->company_id,
                 'type' => 'expense',
                 'account_id' => $bill_payment->account_id,
@@ -605,7 +607,7 @@ class Version200 extends Listener
                     ->where('ledgerable_id', $bill_payment->id)
                     ->where('ledgerable_type', 'App\Models\Expense\BillPayment')
                     ->update([
-                        'ledgerable_id' => $transaction->id,
+                        'ledgerable_id' => $transaction_id,
                         'ledgerable_type' => 'App\Models\Banking\Transaction',
                     ]);
             }
@@ -623,7 +625,7 @@ class Version200 extends Listener
         $has_receipts = Schema::hasTable('receipts');
 
         foreach ($payments as $payment) {
-            $transaction = $this->create(new Transaction(), [
+            $transaction_id = DB::table('transactions')->insertGetId([
                 'company_id' => $payment->company_id,
                 'type' => 'expense',
                 'account_id' => $payment->account_id,
@@ -646,14 +648,14 @@ class Version200 extends Listener
             DB::table('transfers')
                 ->where('expense_transaction_id', $payment->id)
                 ->update([
-                    'expense_transaction_id' => $transaction->id,
+                    'expense_transaction_id' => $transaction_id,
                 ]);
 
             DB::table('recurring')
                 ->where('recurable_id', $payment->id)
                 ->where('recurable_type', 'App\Models\Expense\Payment')
                 ->update([
-                    'recurable_id' => $transaction->id,
+                    'recurable_id' => $transaction_id,
                     'recurable_type' => 'App\Models\Banking\Transaction',
                 ]);
 
@@ -661,7 +663,7 @@ class Version200 extends Listener
                 ->where('mediable_id', $payment->id)
                 ->where('mediable_type', 'App\Models\Expense\Payment')
                 ->update([
-                    'mediable_id' => $transaction->id,
+                    'mediable_id' => $transaction_id,
                     'mediable_type' => 'App\Models\Banking\Transaction',
                 ]);
 
@@ -670,7 +672,7 @@ class Version200 extends Listener
                     ->where('ledgerable_id', $payment->id)
                     ->where('ledgerable_type', 'App\Models\Expense\Payment')
                     ->update([
-                        'ledgerable_id' => $transaction->id,
+                        'ledgerable_id' => $transaction_id,
                         'ledgerable_type' => 'App\Models\Banking\Transaction',
                     ]);
             }
@@ -679,7 +681,7 @@ class Version200 extends Listener
                 DB::table('project_payments')
                     ->where('payment_id', $payment->id)
                     ->update([
-                        'payment_id' => $transaction->id,
+                        'payment_id' => $transaction_id,
                     ]);
             }
 
@@ -687,7 +689,7 @@ class Version200 extends Listener
                 DB::table('receipts')
                     ->where('payment_id', $payment->id)
                     ->update([
-                        'payment_id' => $transaction->id,
+                        'payment_id' => $transaction_id,
                     ]);
             }
         }
@@ -1155,17 +1157,5 @@ class Version200 extends Listener
             'LOG_CHANNEL'       =>  'stack',
             'FIREWALL_ENABLED'  =>  'true',
         ]);
-    }
-
-    protected function create($model, $data)
-    {
-        $model->timestamps = false;
-
-        $model->fillable(array_merge($model->getFillable(), ['created_at', 'updated_at', 'deleted_at']));
-        $model->fill($data);
-
-        $model->save();
-
-        return $model;
     }
 }
