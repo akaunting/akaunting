@@ -15,6 +15,7 @@ use App\Utilities\Overrider;
 use Artisan;
 use DB;
 use File;
+use Illuminate\Support\Str;
 use Schema;
 
 class Version200 extends Listener
@@ -890,30 +891,29 @@ class Version200 extends Listener
 
     public function attachPermissions($items)
     {
-        $map = collect([
+        $actions_map = collect([
             'c' => 'create',
             'r' => 'read',
             'u' => 'update',
-            'd' => 'delete'
+            'd' => 'delete',
         ]);
 
-        foreach ($items as $role_name => $modules) {
+        foreach ($items as $role_name => $permissions) {
             $role = Role::where('name', $role_name)->first();
 
-            // Reading role permission modules
-            foreach ($modules as $module => $value) {
-                $permissions = explode(',', $value);
+            foreach ($permissions as $page => $action_list) {
+                $actions = explode(',', $action_list);
 
-                foreach ($permissions as $p => $perm) {
-                    $permissionValue = $map->get($perm);
+                foreach ($actions as $short_action) {
+                    $action = $actions_map->get($short_action);
 
-                    $moduleName = ucwords(str_replace("-", " ", $module));
+                    $display_name = Str::title($action . ' ' . str_replace('-', ' ', $page));
 
                     $permission = Permission::firstOrCreate([
-                        'name' => $permissionValue . '-' . $module
+                        'name' => $action . '-' . $page,
                     ], [
-                        'display_name' => ucfirst($permissionValue) . ' ' . $moduleName,
-                        'description' => ucfirst($permissionValue) . ' ' . $moduleName,
+                        'display_name' => $display_name,
+                        'description' => $display_name,
                     ]);
 
                     if ($role->hasPermission($permission->name)) {

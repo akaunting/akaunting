@@ -5,6 +5,7 @@ use App\Abstracts\Model;
 use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class Roles extends Seeder
 {
@@ -18,7 +19,7 @@ class Roles extends Seeder
     {
         Model::unguard();
 
-        $this->create($this->roles(), $this->map());
+        $this->create();
 
         Model::reguard();
     }
@@ -147,55 +148,56 @@ class Roles extends Seeder
         return $rows;
     }
 
-    private function map()
+    private function actions()
     {
-        $rows = [
+        return collect([
             'c' => 'create',
             'r' => 'read',
             'u' => 'update',
-            'd' => 'delete'
-        ];
-
-        return $rows;
+            'd' => 'delete',
+        ]);
     }
 
-    private function create($roles, $map)
+    private function create()
     {
-        $mapPermission = collect($map);
+        $roles = $this->roles();
 
-        foreach ($roles as $key => $modules) {
-            // Create a new role
-            $role = Role::create([
-                'name' => $key,
-                'display_name' => ucwords(str_replace("_", " ", $key)),
-                'description' => ucwords(str_replace("_", " ", $key))
+        $actions_map = $this->actions();
+
+        foreach ($roles as $role_name => $permissions) {
+            $this->command->info('Creating Role ' . Str::title($role_name));
+
+            $role = Role::firstOrCreate([
+                'name' => $role_name,
+            ], [
+                'display_name' => Str::title($role_name),
+                'description' => Str::title($role_name),
             ]);
 
-            $this->command->info('Creating Role ' . strtoupper($key));
+            foreach ($permissions as $page => $action_list) {
+                $actions = explode(',', $action_list);
 
-            // Reading role permission modules
-            foreach ($modules as $module => $value) {
-                $permissions = explode(',', $value);
+                foreach ($actions as $short_action) {
+                    $action = $actions_map->get($short_action);
 
-                foreach ($permissions as $p => $perm) {
-                    $permissionValue = $mapPermission->get($perm);
+                    $display_name = Str::title($action . ' ' . str_replace('-', ' ', $page));
 
-                    $moduleName = ucwords(str_replace("-", " ", $module));
+                    $this->command->info('Creating Permission ' . $display_name);
 
                     $permission = Permission::firstOrCreate([
-                        'name' => $permissionValue . '-' . $module
+                        'name' => $action . '-' . $page,
                     ], [
-                        'display_name' => ucfirst($permissionValue) . ' ' . $moduleName,
-                        'description' => ucfirst($permissionValue) . ' ' . $moduleName
+                        'display_name' => $display_name,
+                        'description' => $display_name,
                     ]);
 
-                    $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $moduleName);
+                    if ($role->hasPermission($permission->name)) {
+                        $this->command->info($role_name . ': ' . $display_name . ' already exist');
 
-                    if (! $role->hasPermission($permission->name)) {
-                        $role->attachPermission($permission);
-                    } else {
-                        $this->command->info($key . ': ' . $p . ' ' . $permissionValue . ' already exist');
+                        continue;
                     }
+
+                    $role->attachPermission($permission);
                 }
             }
         }
