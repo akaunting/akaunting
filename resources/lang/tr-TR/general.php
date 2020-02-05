@@ -48,8 +48,10 @@ return [
     'localisations'         => 'Yerelleştirme|Yerelleştirmeler',
     'defaults'              => 'Varsayılan|Varsayılanlar',
     'widgets'               => 'Bileşen|Bileşenler',
+    'templates'             => 'Şablon|Şablonlar',
+    'sales'                 => 'Satış|Satışlar',
+    'purchases'             => 'Alış|Alışlar',
 
-    'dashboard'             => 'Kontrol Paneli',
     'welcome'               => 'Hoş Geldiniz',
     'banking'               => 'Banka',
     'general'               => 'Genel',
@@ -68,6 +70,8 @@ return [
     'yearly'                => 'Yıllık',
     'add'                   => 'Ekle',
     'add_new'               => 'Yeni Ekle',
+    'add_income'            => 'Gelir Ekle',
+    'add_expense'           => 'Gider Ekle',
     'show'                  => 'Göster',
     'edit'                  => 'Düzenle',
     'delete'                => 'Sil',
@@ -133,11 +137,27 @@ return [
     'difference'            => 'Fark',
     'footer'                => 'Altbilgi',
     'start_date'            => 'Başlangıç Tarihi',
+    'end_date'              => 'Bitiş Tarihi',
     'basis'                 => 'Esas',
     'accrual'               => 'Tahakkuk',
     'cash'                  => 'Nakit',
     'group_by'              => 'Gruplandır',
     'accounting'            => 'Muhasebe',
+    'sort'                  => 'Sıralama',
+    'width'                 => 'Genişlik',
+    'month'                 => 'Ay',
+    'year'                  => 'Yıl',
+    'type_item_name'        => 'Ürün/Hizmet ismi yazın',
+    'no_data'               => 'Veri yok',
+    'no_matching_data'      => 'Eşleşen veri yok',
+    'clear_cache'           => 'Önbelleği Temizle',
+
+    'card' => [
+        'name'                  => 'Kart Sahibi',
+        'number'                => 'Kart Numarası',
+        'expiration_date'       => 'Geçerlilik Tarihi',
+        'cvv'                   => 'CVV Numarası',
+    ],
 
     'title' => [
         'new'               => 'Yeni :type',
@@ -147,6 +167,7 @@ return [
         'send'              => ':type Gönder',
         'get'               => ':type Getir',
         'add'               => ':type Ekle',
+        'manage'            => ':type Yönet',
     ],
 
     'form' => [

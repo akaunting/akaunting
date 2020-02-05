@@ -35,11 +35,13 @@ return [
     'receive_bill'          => 'Rechnung erhalten',
     'make_payment'          => 'Zahlung vornehmen',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Entwurf',
         'received'          => 'Erhalten',
         'partial'           => 'Teilweise',
         'paid'              => 'Bezahlt',
+        'overdue'           => 'Überfällig',
+        'unpaid'            => 'Unbezahlt',
     ],
 
     'messages' => [

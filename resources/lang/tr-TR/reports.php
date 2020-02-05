@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Net Kar',
     'total_expenses'        => 'Toplam Gider',
     'net'                   => 'NET',
-    'income-expense'        => 'Gelir Gider Dengesi',
+    'income_expense'        => 'Gelir - Gider',
 
     'summary' => [
         'income'            => 'Gelir Özeti',

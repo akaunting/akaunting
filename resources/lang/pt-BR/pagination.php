@@ -2,9 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Anterior',
-    'next'                  => 'Próximo &raquo;',
-    'showing'               => ':first-:last of :total records.',
+    'previous'              => 'Anterior',
+    'next'                  => 'Próximo',
+    'showing'               => ':first-:last de :total de registros.',
     'page'                  => 'por página.',
 
 ];

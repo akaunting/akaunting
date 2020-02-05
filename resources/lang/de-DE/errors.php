@@ -2,23 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Zugriff nicht erlaubt',
-    'error_page'       => 'Fehlerseite',
-    'page_not_found'   => 'Seite nicht gefunden',
-
-    'body'   => [
-        'forbidden_access' => 'Ooops! Zugriff nicht erlaubt.',
-        'error_page' => 'Oops! Da ist etwas schiefgelaufen.',
-        'page_not_found' => 'Oops! Seite nicht gefunden.',
+    'title' => [
+        '403' => 'Ooops! Zugriff nicht erlaubt.',
+        '404' => 'Oops! Seite nicht gefunden.',
+        '500' => 'Oops! Da ist etwas schiefgelaufen.',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'Sie können diese Seite nicht aufrufen.
-Hier gehts zurück zum <a href=":link">Dashboard</a>.',
-        'error_page' => 'Wir werden uns gleich um eine Lösung kümmern.
-Hier geht es zurück zum <a href=":link">Dashboard</a>.',
-        'page_not_found' => 'Die gewünschte Seite konnte nicht gefunden werden.
-Hier geht es zurück zum <a href=":link">Dashboard</a>.',
+    'header' => [
+        '403' => '403 - Verboten',
+        '404' => '404 - Seite nicht gefunden',
+        '500' => '500 - Interner Server Fehler',
+    ],
+
+    'message' => [
+        '403' => 'Sie können auf diese Seite nicht zugreifen.',
+        '404' => 'Wir konnten die gesuchte Seite nicht finden.',
+        '500' => 'Wir werden uns sofort darum kümmern.',
     ],
 
 ];

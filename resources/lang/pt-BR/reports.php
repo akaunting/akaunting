@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Lucro líquido',
     'total_expenses'        => 'Total Despesas',
     'net'                   => 'Líquido',
-    'income-expense'        => 'Receita vs Despesa',
+    'income_expense'        => 'Receita vs Despesa',
 
     'summary' => [
         'income'            => 'Resumo de Venda',

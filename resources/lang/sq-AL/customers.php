@@ -6,7 +6,7 @@ return [
     'user_created'          => 'Përdoruesi u Krijua',
 
     'error' => [
-        'email'             => 'Emaili tashmë është marrë.'
+        'email'             => 'Emaili tashmë është marrë.',
     ],
 
 ];

@@ -2,7 +2,7 @@
 
 return [
 
-    'api_key'               => 'Chave API',
+    'api_key'               => 'Token de API',
     'my_apps'               => 'Meus Apps',
     'pre_sale'              => 'Pré-Venda',
     'top_paid'              => 'Pago a maior',
@@ -12,10 +12,9 @@ return [
     'search'                => 'Pesquisa',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar Agora',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Clique aqui</a> para pegar sua API key.',
+    'get_api_key'           => '<a href=":url" target="_blank">Clique aqui</a> para obter sua chave de API.',
     'no_apps'               => 'Não há nenhum apps nesta categoria, ainda.',
-    'developer'             => 'Você é um desenvolvedor? <a href="https://akaunting.com/developers" target="_blank">Aqui</a> você pode aprender como criar um app e começar a vender hoje!',
-
+    'become_developer'      => 'Você é um desenvolvedor? <a href=":url" target="_blank">Aqui</a> você pode aprender como criar um app e começar a vender hoje!',
     'recommended_apps'      => 'Apps Recomendados',
 
     'about'                 => 'Sobre',
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'Não existem avaliações.'
-    ]
+    ],
+
 ];

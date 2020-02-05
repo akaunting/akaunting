@@ -12,10 +12,9 @@ return [
     'search'                => 'Arama',
     'install'               => 'Yükle',
     'buy_now'               => 'Şimdi Satın Al',
-    'api_key_link'          => 'API Anahtarını elde etmek için <a class="text-red" href="https://akaunting.com/profile" target="_blank">buraya</a> tıklayın.',
+    'get_api_key'           => 'API Anahterını almak için <a href=":url" target="_blank">buraya tıklayın</a>.',
     'no_apps'               => 'Henüz bu kategoride uygulama bulunmamaktadır.',
-    'developer'             => 'Geliştirici misiniz? <a href="https://akaunting.com/tr/developers" target="_blank">Buraya</a> tıklayarak Akaunting için uygulama geliştirmeyi öğrenebilir ve hemen para kazanmaya başlayabilirsiniz!',
-
+    'become_developer'      => 'Geliştirici misiniz? <a href=":url" target="_blank">Buraya</a> tıklayarak Akaunting için uygulama geliştirmeyi öğrenebilir ve hemen para kazanmaya başlayabilirsiniz!',
     'recommended_apps'      => 'Önerilen Uygulamalar',
 
     'about'                 => 'Hakkında',
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'Herhangi bir yorum yok.'
-    ]
+    ],
+
 ];

@@ -29,29 +29,32 @@ return [
     'add_payment'           => 'Novo Pagamento',
     'mark_paid'             => 'Marcar como pago',
     'mark_sent'             => 'Marcar Como Enviada',
+    'mark_viewed'           => 'Marcar como visualizado',
     'download_pdf'          => 'Baixar em PDF',
     'send_mail'             => 'Enviar E-mail',
     'all_invoices'          => 'Faça login para ver todas as faturas',
     'create_invoice'        => 'Criar fatura',
     'send_invoice'          => 'Enviar fatura',
-    'get_paid'              => 'Quitar',
-    'accept_payments'       => 'Aceitar os Termos de Pagamento Online',
+    'get_paid'              => 'Pagar',
+    'accept_payments'       => 'Aceitar Pagamentos Online',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Rascunho',
-        'sent'              => 'Enviar',
-        'viewed'            => 'Visto',
+        'sent'              => 'Enviado',
+        'viewed'            => 'Visualizado',
         'approved'          => 'Aprovado',
         'partial'           => 'Parcial',
         'paid'              => 'Pago',
+        'overdue'           => 'Vencido',
+        'unpaid'            => 'Não Pago',
     ],
 
     'messages' => [
-        'email_sent'        => 'O email da fatura foi enviado!',
+        'email_sent'        => 'E-mail da fatura foi enviado!',
         'marked_sent'       => 'Fatura marcada como enviada!',
         'marked_paid'       => 'Fatura marcada como paga!',
         'email_required'    => 'Nenhum endereço de e-mail para este cliente!',
-        'draft'             => 'Este é um <b>RASCUNHO</b> de fatura e será refletida nos gráficos depois que ela for enviada.',
+        'draft'             => 'Isto é um <b>RASCUNHO</b> da fatura e será refletida nos gráficos depois de enviada.',
 
         'status' => [
             'created'       => 'Criado em :date',

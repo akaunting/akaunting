@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Geçerli Email',
     'reset'                 => 'Sıfırla',
     'never'                 => 'hiçbir zaman',
+    'landing_page'          => 'Açılış Sayfası',
 
     'password' => [
         'current'           => 'Şifre',

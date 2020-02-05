@@ -2,23 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Yasaklanmış Erişim',
-    'error_page'       => 'Hata Sayfası',
-    'page_not_found'   => 'Sayfa Bulunamadı',
-
-    'body'   => [
-        'forbidden_access' => 'Ups! Yasaklanmış Erişim.',
-        'error_page' => 'Ups! Bir sorun oluştu.',
-        'page_not_found' => 'Ups! Sayfa bulunamadı.',
+    'title' => [
+        '403' => 'Üzgünüz! Erişim Yasak',
+        '404' => 'Üzgünüz! Sayfa bulunamadı',
+        '500' => 'Üzgünüz! Bir hata oluştu',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'Bu sayfaya erişemezsiniz.
-        Bu arada, <a href=":link">kontrol paneline</a> geri dönebilirsiniz.',
-        'error_page' => 'Bunu hemen düzeltmek için çalışacağız.
-        Bu arada, <a href=":link">kontrol paneline</a> geri dönebilirsiniz.',
-        'page_not_found' => 'Aradığınız sayfayı bulamadık.
-        Bu arada, <a href=":link">kontrol paneline</a> geri dönebilirsiniz.',
+    'header' => [
+        '403' => '403 Yasak',
+        '404' => '404 Bulunamadı',
+        '500' => '500 Sunucu Hatası',
+    ],
+
+    'message' => [
+        '403' => 'Bu sayfaya erişim yasak.',
+        '404' => 'Ulaşmaya çalıştığınız sayfayı bulamadık.',
+        '500' => 'Bu sorun gidermek için hemen işe başlıyoruz.',
     ],
 
 ];

@@ -2,7 +2,7 @@
 
 return [
 
-    'api_key'               => 'API Key',
+    'api_key'               => 'Çelësi API',
     'my_apps'               => 'Aplikacionet e Mia',
     'pre_sale'              => 'Para Shitjet',
     'top_paid'              => 'Më të paguarat',
@@ -12,10 +12,9 @@ return [
     'search'                => 'Kërko',
     'install'               => 'Instalo',
     'buy_now'               => 'Bli Tani',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Click here</a> to get your API key.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klikoni këtu</a> për të marrë çelësin tuaj API.',
     'no_apps'               => 'Në këtë kategori akoma nuk ka aplikacione.',
-    'developer'             => 'Are you a developer? <a href="https://akaunting.com/developers" target="_blank">Here</a> you can learn how to create an app and start selling today!',
-
+    'become_developer'      => 'A jeni një zhvillues? <a href=":url" target="_blank">Këtu</a> mund të mësoni se si të krijoni një aplikacion dhe të filloni shitjen sot!',
     'recommended_apps'      => 'Aplikacionet e Rekomanduara',
 
     'about'                 => 'Rreth nesh',
@@ -42,20 +41,20 @@ return [
 
     'installation' => [
         'header'            => 'Instalim Aplikacioni',
-        'download'          => 'Downloading :module',
-        'unzip'             => 'Extracting :module files',
-        'file_copy'         => 'Copying :module files',
-        'finish'            => 'Finalizing :module installation',
-        'redirect'          => ':module installed, redirecting to updates page',
-        'install'           => 'Installing :module',
+        'download'          => 'Duke shkarkuar :module',
+        'unzip'             => 'Duke ekstraktuar :module skedaret',
+        'file_copy'         => 'Duke kopjuar :module skedaret',
+        'finish'            => 'Finalizimi :module instalimit',
+        'redirect'          => ':module e instaluar, ridrejtimi tek faqja e azhurnimeve',
+        'install'           => 'Duke instaluar :module',
     ],
 
     'errors' => [
-        'download'          => 'Not able to download :module',
-        'zip'               => 'Not able to create :module zip file',
-        'unzip'             => 'Not able to unzip :module',
-        'file_copy'         => 'Not able to copy :module files',
-        'finish'            => 'Not able to finalize :module installation',
+        'download'          => 'Nuk mund të shkarkohet :module',
+        'zip'               => 'Nuk mund të krijojë :module skedar zip',
+        'unzip'             => 'Nuk mund të hiqet nga zipi :module',
+        'file_copy'         => 'Nuk mund të kopjohen :module skedaret',
+        'finish'            => 'Nuk mund të finalizohet :module instalimi',
     ],
 
     'badge' => [
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'Nuk ka shqyrtime.'
-    ]
+    ],
+
 ];

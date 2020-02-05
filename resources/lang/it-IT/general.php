@@ -48,8 +48,10 @@ return [
     'localisations'         => 'Localizzazione|Localizzazioni',
     'defaults'              => 'Predefinito|Predefiniti',
     'widgets'               => 'Widget|Widget',
+    'templates'             => 'Modelli Template',
+    'sales'                 => 'Vendita - Vendite',
+    'purchases'             => 'Acquisto|Acquisti',
 
-    'dashboard'             => 'Cruscotto',
     'welcome'               => 'Benvenuto',
     'banking'               => 'Banca',
     'general'               => 'Generale',
@@ -68,6 +70,8 @@ return [
     'yearly'                => 'Annuale',
     'add'                   => 'Aggiungi',
     'add_new'               => 'Aggiungi nuovo',
+    'add_income'            => 'Aggiungi Reddito',
+    'add_expense'           => 'Aggiungi Spesa',
     'show'                  => 'Mostra',
     'edit'                  => 'Modifica',
     'delete'                => 'Elimina',
@@ -133,11 +137,27 @@ return [
     'difference'            => 'Differenza',
     'footer'                => 'Piè di pagina',
     'start_date'            => 'Data di inzio',
+    'end_date'              => 'Data di Fine',
     'basis'                 => 'Base',
     'accrual'               => 'Rateo',
     'cash'                  => 'Contanti',
     'group_by'              => 'Raggruppa per',
     'accounting'            => 'Contabilità',
+    'sort'                  => 'Ordine',
+    'width'                 => 'Larghezza',
+    'month'                 => 'Mese',
+    'year'                  => 'Anno',
+    'type_item_name'        => 'Digita un nome articolo',
+    'no_data'               => 'Nessun dato',
+    'no_matching_data'      => 'Nessun dato corrispondente',
+    'clear_cache'           => 'Svuota Cache',
+
+    'card' => [
+        'name'                  => 'Nome sulla carta',
+        'number'                => 'Numero della carta',
+        'expiration_date'       => 'Data di scadenza',
+        'cvv'                   => 'CVV carta',
+    ],
 
     'title' => [
         'new'               => 'Nuovo :type',
@@ -147,6 +167,7 @@ return [
         'send'              => 'Invia :type',
         'get'               => 'Ottieni :type',
         'add'               => 'Aggiungi :type',
+        'manage'            => 'Gestisci :tipo',
     ],
 
     'form' => [

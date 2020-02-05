@@ -6,7 +6,7 @@ return [
     'user_created'          => 'Usuário criado',
 
     'error' => [
-        'email'             => 'Este e-mail já foi utilizado.'
+        'email'             => 'Este e-mail já foi utilizado.',
     ],
 
 ];
