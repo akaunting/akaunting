@@ -946,7 +946,7 @@ class Version200 extends Listener
 
     public function updatePermissionNames($items)
     {
-        $prefixes = [
+        $actions = [
             'create',
             'read',
             'update',
@@ -954,14 +954,16 @@ class Version200 extends Listener
         ];
 
         foreach ($items as $old => $new) {
-            foreach ($prefixes as $prefix) {
-                $old_name = $prefix . '-' . $old;
-                $new_name = $prefix . '-' . $new;
+            foreach ($actions as $action) {
+                $old_name = $action . '-' . $old;
+                $new_name = $action . '-' . $new;
+                $new_display_name = Str::title(str_replace('-', ' ', $new_name));
 
                 DB::table('permissions')
                     ->where('name', $old_name)
                     ->update([
                         'name' => $new_name,
+                        'display_name' => $new_display_name,
                     ]);
             }
         }
