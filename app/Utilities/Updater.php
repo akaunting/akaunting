@@ -101,7 +101,7 @@ class Updater
                 throw new \Exception(trans('modules.errors.file_copy', ['module' => $alias]));
             }
         } else {
-            if ($module = Module::findByAlias($alias)) {
+            if ($module = module($alias)) {
                 $module_path = $module->getPath();
             } else {
                 $module_path = base_path('modules/' . Str::studly($alias));
