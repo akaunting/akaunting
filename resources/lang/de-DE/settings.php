@@ -52,6 +52,10 @@ return [
         'subheading'        => 'Unterüberschrift',
         'due_receipt'       => 'Fälligkeit: sofort',
         'due_days'          => 'Fällig innerhalb von :days Tagen',
+        'choose_template'   => 'Wählen Sie eine Vorlage aus',
+        'default'           => 'Standard',
+        'classic'           => 'Klassisch',
+        'modern'            => 'Modern',
     ],
 
     'default' => [

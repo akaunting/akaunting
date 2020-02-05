@@ -2,23 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Qasje e ndaluar',
-    'error_page'       => 'Faqe e Gabuar',
-    'page_not_found'   => 'Faqja nuk u gjet',
-
-    'body'   => [
-        'forbidden_access' => 'Ups! Qasje e ndaluar.',
-        'error_page' => 'Ups! Diçka shkoi keq.',
-        'page_not_found' => 'Ups! Faqja nuk u gjet.',
+    'title' => [
+        '403' => 'Ups! Qasje e ndaluar',
+        '404' => 'Ups! Faqja nuk u gjet',
+        '500' => 'Ups! Diçka shkoi keq',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'Nuk mund të hyni në këtë faqe.
-        Ndërkohë, ju mund të <a href=":link"> ktheheni në panelin kryesor</a>.',
-        'error_page' => 'Ne do të punojmë që ta rregullojmë atë menjëherë.
-        Ndërkohë, ju mund të <a href=":link"> ktheheni në panelin kryesor</a>.',
-        'page_not_found' => 'Ne nuk mund ta gjejmë faqen që po kërkoni.
-        Ndërkohë, ju mund të <a href=":link"> ktheheni në panelin kryesor</a>.',
+    'header' => [
+        '403' => '403 E ndaluar',
+        '404' => '404 Nuk u gjet',
+        '500' => '500 Gabim i brendshëm i serverit',
+    ],
+
+    'message' => [
+        '403' => 'Ju nuk mund të përdorni këtë faqe.',
+        '404' => 'Ne nuk mundëm të gjenim faqen që ju po kërkoni.',
+        '500' => 'Ne do të punojmë për rregullimin menjëherë.',
     ],
 
 ];

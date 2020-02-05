@@ -35,11 +35,13 @@ return [
     'receive_bill'          => 'Faturayı Al',
     'make_payment'          => 'Ödeme Yap',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Taslak',
-        'received'          => 'Teslim Alındı',
-        'partial'           => 'Kısmi',
-        'paid'              => 'Ödenmiş',
+        'received'          => 'Alındı',
+        'partial'           => 'Kısmi Ödeme',
+        'paid'              => 'Ödendi',
+        'overdue'           => 'Gecikmiş',
+        'unpaid'            => 'Ödenmemiş',
     ],
 
     'messages' => [

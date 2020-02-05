@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Fitimi Neto',
     'total_expenses'        => 'Shpenzimet Totale',
     'net'                   => 'NETO',
-    'income-expense'        => 'Të Ardhurat & Shpenzimet',
+    'income_expense'        => 'Të Ardhurat & Shpenzimet',
 
     'summary' => [
         'income'            => 'Përmbledhje e të Ardhurave',

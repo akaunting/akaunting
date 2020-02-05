@@ -6,14 +6,14 @@ return [
     'selected'         => 'ausgewählt',
 
     'message' => [
-        'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',
-        'delete'        => 'Are you sure you want to <b>delete</b> selected record?|Are you sure you want to <b>delete</b> selected records?',
-        'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
-        'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',
-        'disable'       => 'Are you sure you want to <b>disable</b> selected record?|Are you sure you want to <b>disable</b> selected records?',
-        'paid'          => 'Are you sure you want to mark selected invoice as <b>paid</b>?|Are you sure you want to mark selected invoices as <b>paid</b>?',
-        'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
-        'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
+        'duplicate'     => 'Sind Sie sicher das Sie die ausgewählten Datensätze <b>duplizieren</b> möchten?',
+        'delete'        => 'Sind Sie sicher das Sie den ausgewählten Datensatz <b>löschen</b> möchten?|Sind Sie sicher das Sie die ausgewählten Datensätze <b>löschen</b> möchten?',
+        'export'        => 'Sind Sie sicher das Sie den ausgewählten Datensatz <b>exportieren</b> möchten?|Sind Sie sicher das Sie die ausgewählten Datensätze <b>exportieren</b> möchten?',
+        'enable'        => 'Sind Sie sicher das Sie den ausgewählten Datensatz <b>aktivieren</b> möchten?|Sind Sie sicher das Sie die ausgewählten Datensätze <b>aktivieren</b> möchten?',
+        'disable'       => 'Sind Sie sicher das Sie den ausgewählten Datensatz <b>deaktivieren</b> möchten?|Sind Sie sicher das Sie die ausgewählten Datensätze <b>deaktivieren</b> möchten?',
+        'paid'          => 'Sind Sie sicher das Sie die ausgewählte Rechnung als <b>bezahlt</b> markieren möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen als <b>bezahlt</b> markieren möchten?',
+        'sent'          => 'Sind Sie sicher das Sie die ausgewählte Rechnung als <b>versendet</b> markieren möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen als <b>versendet</b> markieren möchten?',
+        'received'      => 'Sind Sie sicher das Sie die ausgewählte Rechnung als <b>empfangen</b> markieren möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen als <b>empfangen</b> markieren möchten?',
     ],
 
 ];

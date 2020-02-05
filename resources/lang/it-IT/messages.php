@@ -8,6 +8,7 @@ return [
         'deleted'           => ':type eliminato!',
         'duplicated'        => ':type duplicato!',
         'imported'          => ':type importato!',
+        'exported'          => ':tipo esportato!',
         'enabled'           => ':type abilitato!',
         'disabled'          => ':type disabilitato!',
     ],

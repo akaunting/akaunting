@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Utile netto',
     'total_expenses'        => 'Totale spese',
     'net'                   => 'NET',
-    'income-expense'        => 'Reddito & Spese',
+    'income_expense'        => 'Entrate e Uscite',
 
     'summary' => [
         'income'            => 'Riepilogo di reddito',

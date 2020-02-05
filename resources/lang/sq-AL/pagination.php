@@ -2,9 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Prapa',
-    'next'                  => 'Para &raquo;',
-    'showing'               => ':first-:last of :total records.',
-    'page'                  => 'per page.',
+    'previous'              => 'Paraardhëse',
+    'next'                  => 'Vijues',
+    'showing'               => ':first-:last nga :total rekordet.',
+    'page'                  => 'per faqe.',
 
 ];

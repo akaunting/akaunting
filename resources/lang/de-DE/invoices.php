@@ -29,6 +29,7 @@ return [
     'add_payment'           => 'Zahlung hinzufügen',
     'mark_paid'             => 'Als bezahlt markieren',
     'mark_sent'             => 'Als gesendet markieren',
+    'mark_viewed'           => 'Als gelesen markieren',
     'download_pdf'          => 'PDF herunterladen',
     'send_mail'             => 'E-Mail senden',
     'all_invoices'          => 'Melden Sie sich an, um alle Rechnungen anzuzeigen',
@@ -37,13 +38,15 @@ return [
     'get_paid'              => 'Zahlung erhalten',
     'accept_payments'       => 'Onlinezahlungen akzeptieren',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Entwurf',
-        'sent'              => 'Gesendet',
-        'viewed'            => 'Angesehen',
-        'approved'          => 'Bestätigt',
+        'sent'              => 'Versandt',
+        'viewed'            => 'Gelesen',
+        'approved'          => 'Freigegeben',
         'partial'           => 'Teilweise',
         'paid'              => 'Bezahlt',
+        'overdue'           => 'Überfällig',
+        'unpaid'            => 'Unbezahlt',
     ],
 
     'messages' => [

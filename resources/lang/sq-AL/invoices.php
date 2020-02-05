@@ -29,6 +29,7 @@ return [
     'add_payment'           => 'Shto Pagesë',
     'mark_paid'             => 'Shënoje të Paguar',
     'mark_sent'             => 'Shënoje të Dërguar',
+    'mark_viewed'           => 'Shënoje të Shikuar',
     'download_pdf'          => 'Shkarko PDF',
     'send_mail'             => 'Dërgo Email',
     'all_invoices'          => 'Identifikohu për të parë të gjitha faturat',
@@ -37,13 +38,15 @@ return [
     'get_paid'              => 'Merre Pagesen',
     'accept_payments'       => 'Pranoni Pagesat Online',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Draft',
         'sent'              => 'E Dërguar',
         'viewed'            => 'E Shikuar',
         'approved'          => 'I Miratuar',
         'partial'           => 'I pjesshëm',
         'paid'              => 'I paguar',
+        'overdue'           => 'I vonuar',
+        'unpaid'            => 'I papaguar',
     ],
 
     'messages' => [

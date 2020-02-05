@@ -52,6 +52,10 @@ return [
         'subheading'        => 'Altbaşlık',
         'due_receipt'       => 'Teslim alındığında vadeli',
         'due_days'          => ':days vadeli',
+        'choose_template'   => 'Fatura şablonu seçin',
+        'default'           => 'Varsayılan',
+        'classic'           => 'Klasik',
+        'modern'            => 'Modern',
     ],
 
     'default' => [

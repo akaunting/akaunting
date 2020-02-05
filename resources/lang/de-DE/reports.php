@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Reingewinn',
     'total_expenses'        => 'Gesamtausgaben',
     'net'                   => 'Netto',
-    'income-expense'        => 'Einkommen vs Ausgaben',
+    'income_expense'        => 'Einkommen vs Ausgaben',
 
     'summary' => [
         'income'            => 'Einkommensübersicht',

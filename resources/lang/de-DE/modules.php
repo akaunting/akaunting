@@ -12,10 +12,9 @@ return [
     'search'                => 'Suchen',
     'install'               => 'Installieren',
     'buy_now'               => 'Jetzt kaufen',
-    'api_key_link'          => '<a href="https://akaunting.com/tokens" target="_blank">Hier klicken</a> um Ihren API Token zu erhalten.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klicke hier</a> um Ihren API-Schlüssel zu erhalten.',
     'no_apps'               => 'Bisher existieren noch keine Apps in dieser Kategorie.',
-    'developer'             => 'Sind sie ein Entwickler? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> lernen Sie wie Sie eine App erstellen und verkaufen können!',
-
+    'become_developer'      => 'Sind sie ein Entwickler? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> lernen Sie wie Sie eine App erstellen und verkaufen können!',
     'recommended_apps'      => 'Empfohlene Apps',
 
     'about'                 => 'Über',
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'Es existieren noch keine Rezensionen.'
-    ]
+    ],
+
 ];

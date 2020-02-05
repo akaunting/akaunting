@@ -29,6 +29,7 @@ return [
     'add_payment'           => 'Ödeme Ekle',
     'mark_paid'             => 'Ödendi İşaretle',
     'mark_sent'             => 'Gönderildi İşaretle',
+    'mark_viewed'           => 'Görüntülendi İşaretle',
     'download_pdf'          => 'PDF İndir',
     'send_mail'             => 'Email Gönder',
     'all_invoices'          => 'Tüm faturaları görüntülemek için giriş yapın',
@@ -37,13 +38,15 @@ return [
     'get_paid'              => 'Ödeme Al',
     'accept_payments'       => 'Online Tahsilat Al',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Taslak',
         'sent'              => 'Gönderildi',
-        'viewed'            => 'Görüldü',
+        'viewed'            => 'Görüntülendi',
         'approved'          => 'Onaylandı',
-        'partial'           => 'Kısmi',
+        'partial'           => 'Kısmi Ödeme',
         'paid'              => 'Ödendi',
+        'overdue'           => 'Gecikmiş',
+        'unpaid'            => 'Ödenmemiş',
     ],
 
     'messages' => [

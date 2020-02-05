@@ -52,6 +52,10 @@ return [
         'subheading'        => 'Subtítulo',
         'due_receipt'       => 'Vence após recebimento',
         'due_days'          => 'Vence em :days dias',
+        'choose_template'   => 'Escolha o modelo da fatura',
+        'default'           => 'Padrão',
+        'classic'           => 'Clássico',
+        'modern'            => 'Moderno',
     ],
 
     'default' => [

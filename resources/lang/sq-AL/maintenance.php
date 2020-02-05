@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Maintenance Mode',
+    'title' => 'Mënyra e Mirëmbajtjes',
 
-    'message' => 'We\'re currently working on the site, please try again later!',
+    'message' => 'Tani jemi duke punuar në sit, ju lutemi provoni përsëri më vonë!',
 
-    'last-updated' => 'This message was last updated :timestamp',
+    'last-updated' => 'Ky mesazh u azhurnua për herë të fundit :timestamp',
 
 ];

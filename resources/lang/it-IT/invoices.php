@@ -29,6 +29,7 @@ return [
     'add_payment'           => 'Aggiungere pagamento',
     'mark_paid'             => 'Segna come pagata',
     'mark_sent'             => 'Segna come inviata',
+    'mark_viewed'           => 'Segna come visto',
     'download_pdf'          => 'Scarica PDF',
     'send_mail'             => 'Invia email',
     'all_invoices'          => 'Accedi per visualizzare tutte le fatture',
@@ -37,13 +38,15 @@ return [
     'get_paid'              => 'Essere pagato',
     'accept_payments'       => 'Accetta pagamenti online',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Bozza',
         'sent'              => 'Inviato',
         'viewed'            => 'Visto',
         'approved'          => 'Approvato',
         'partial'           => 'Parziale',
         'paid'              => 'Pagato',
+        'overdue'           => 'In Ritardo',
+        'unpaid'            => 'Non pagato',
     ],
 
     'messages' => [

@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Emaili Aktual',
     'reset'                 => 'Rivendos',
     'never'                 => 'asnjëherë',
+    'landing_page'          => 'Faqja e Hyrjes',
 
     'password' => [
         'current'           => 'Fjalëkalimi',

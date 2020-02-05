@@ -6,14 +6,14 @@ return [
     'selected'         => 'selecionado',
 
     'message' => [
-        'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',
-        'delete'        => 'Are you sure you want to <b>delete</b> selected record?|Are you sure you want to <b>delete</b> selected records?',
-        'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
-        'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',
-        'disable'       => 'Are you sure you want to <b>disable</b> selected record?|Are you sure you want to <b>disable</b> selected records?',
-        'paid'          => 'Are you sure you want to mark selected invoice as <b>paid</b>?|Are you sure you want to mark selected invoices as <b>paid</b>?',
-        'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
-        'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
+        'duplicate'     => 'Tem certeza de que deseja <b>duplicar</b> o registro selecionado?',
+        'delete'        => 'Tem certeza de que deseja <b>excluir</b> o registro selecionado? | Você tem certeza de que deseja <b>excluir </b> os registros selecionados?',
+        'export'        => 'Tem certeza de que deseja <b>exportar</b> o registro selecionado? || Tem certeza de que deseja <b>exportar</b> os registros selecionados?',
+        'enable'        => 'Tem certeza de que deseja <b>habilitar</b> o registro selecionado?|Tem certeza de que deseja <b>habilitar</b> os registros selecionados?',
+        'disable'       => 'Tem certeza de que deseja <b>desabilitar</b> o registro selecionado?|Tem certeza de que deseja <b>desabilitar</b> os registros selecionados?',
+        'paid'          => 'Tem certeza de que deseja marcar a fatura selecionada como <b>paga</b>?|Tem certeza de que deseja marcar as faturas selecionadas como <b>pagas</b>?',
+        'sent'          => 'Tem certeza de que deseja marcar a fatura selecionada como <b>enviada</b>?|Tem certeza de que deseja marcar as faturas selecionadas como <b>enviadas</b>?',
+        'received'      => 'Tem certeza de que deseja marcar a fatura selecionada como <b>recebida</b>?|Tem certeza de que deseja marcar as faturas selecionadas como <b>recebidas</b>?',
     ],
 
 ];

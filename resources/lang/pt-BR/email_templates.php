@@ -34,12 +34,12 @@ return [
 
     'invoice_payment_admin' => [
         'subject'       => 'Pagamento recebido para fatura {invoice_number}',
-        'body'          => 'Olá,<br /><br />{customer_name} recebeu um aviso de fatura em atraso <strong>{invoice_number}</strong>.<br /><br />O total da fatura é {invoice_total} e venceu em <strong>{invoice_due_date}</strong>.<br /><br />Você pode ver os detalhes da fatura do seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
+        'body'          => 'Olá,<br /><br />{customer_name} registrou um pagamento para a fatura <strong>{invoice_number}</strong>.<br /><br />Você pode ver os detalhes da fatura no seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'bill_remind_admin' => [
-        'subject'       => '{bill_number} aviso de lembrete de cobrança',
-        'body'          => 'Olá,<br /><br /> Este é um aviso para a fatura <strong>{bill_number}</strong> de {vendor_name}.<br /><br />O total da fatura é {bill_total} e vence <strong>{bill_due_date} </strong>.<br /><br />Você pode ver os detalhes da fatura no seguinte link: <a href="{bill_admin_link}"> {bill_number} </a>.<br /><br />Atenciosamente,<br />{company_name}',
+        'subject'       => 'Notificação lembrete de cobrança {bill_number}',
+        'body'          => 'Olá,<br /><br /> Este é um lembrete de vencimento da fatura <strong>{bill_number}</strong> de {vendor_name}.<br /><br />O total da fatura é {bill_total} e vence em <strong>{bill_due_date} </strong>.<br /><br />Você poderá visualizar os detalhes da fatura no seguinte link: <a href="{bill_admin_link}"> {bill_number} </a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'bill_recur_admin' => [

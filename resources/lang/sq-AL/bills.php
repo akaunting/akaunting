@@ -35,11 +35,13 @@ return [
     'receive_bill'          => 'Merre Faturën',
     'make_payment'          => 'Bëj Pagesën',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Draft',
         'received'          => 'Marrë',
         'partial'           => 'I pjesshëm',
         'paid'              => 'I paguar',
+        'overdue'           => 'I vonuar',
+        'unpaid'            => 'I papaguar',
     ],
 
     'messages' => [

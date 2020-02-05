@@ -52,6 +52,10 @@ return [
         'subheading'        => 'Sottotitolo',
         'due_receipt'       => 'Scaduto al ricevimento',
         'due_days'          => 'Scade entro :days',
+        'choose_template'   => 'Scegli modello di fattura',
+        'default'           => 'Predefinito',
+        'classic'           => 'Classico',
+        'modern'            => 'Moderno',
     ],
 
     'default' => [
