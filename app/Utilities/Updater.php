@@ -12,6 +12,7 @@ use Artisan;
 use Cache;
 use Date;
 use File;
+use Illuminate\Support\Str;
 use ZipArchive;
 
 class Updater
@@ -100,10 +101,11 @@ class Updater
                 throw new \Exception(trans('modules.errors.file_copy', ['module' => $alias]));
             }
         } else {
-            // Get module instance
-            $module = module($alias);
-
-            $module_path = $module->getPath();
+            if ($module = Module::findByAlias($alias)) {
+                $module_path = $module->getPath();
+            } else {
+                $module_path = base_path('modules/' . Str::studly($alias));
+            }
 
             // Create module directory
             if (!File::isDirectory($module_path)) {
