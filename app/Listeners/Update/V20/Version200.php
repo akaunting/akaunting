@@ -12,11 +12,11 @@ use App\Models\Common\EmailTemplate;
 use App\Models\Common\Report;
 use App\Utilities\Installer;
 use App\Utilities\Overrider;
-use Artisan;
-use DB;
-use File;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Schema;
 
 class Version200 extends Listener
 {
@@ -35,9 +35,6 @@ class Version200 extends Listener
         if ($this->skipThisUpdate($event)) {
             return;
         }
-
-        // Cache Clear
-        Artisan::call('cache:clear');
 
         $this->updateDatabase();
 
