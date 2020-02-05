@@ -32,7 +32,7 @@
                         @endpermission
                     </li>
                 </ul>
-                <div class="ml-auto left-menu-toggle-position overflow-y-hidden">
+                <div class="ml-auto left-menu-toggle-position overflow-hidden">
                     <div class="sidenav-toggler d-none d-xl-block left-menu-toggle" data-action="sidenav-unpin" data-target="#sidenav-main">
                         <div class="sidenav-toggler-inner">
                             <i class="sidenav-toggler-line"></i>
