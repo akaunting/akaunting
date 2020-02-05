@@ -2605,13 +2605,14 @@
 }
 
 .select-tax .el-select .el-select__tags {
-    width: unset !important;
+    width: 179px !important;
     max-width: unset !important;
+    top: 24px;
+    flex-wrap: unset;
 }
 
 :first-of-type.select-tax .el-select span:first-of-type {
     width: 125px !important;
-    overflow: hidden;
 }
 
 .select-tax .el-select span:last-of-type {
@@ -15456,17 +15457,6 @@
 .el-select .el-select__tags
 {
     padding-left: 6px !important;
-}
-
-.el-select .el-select__input
-{
-    margin-left: unset !important;
-}
-
-.select-tax .el-select .el-select__tags
-{
-    width: unset !important;
-    max-width: unset !important;
 }
 
 .select-tax .el-input--prefix .el-input__inner {

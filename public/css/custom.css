@@ -115,6 +115,11 @@ button:focus
     overflow-y: hidden !important;
 }
 
+.overflow-x-hidden
+{
+    overflow-x: hidden !important;
+}
+
 .overflow-y-scroll
 {
     overflow-y: scroll !important;

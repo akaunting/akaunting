@@ -31,7 +31,7 @@
 
                     <div class="col-md-12 mb-4">
                         {!! Form::label('items', trans_choice($text_override['items'], 2), ['class' => 'form-control-label']) !!}
-                        <div class="table-responsive overflow-y-scroll">
+                        <div class="table-responsive overflow-y-scroll overflow-x-hidden">
                             <table class="table table-bordered" id="items">
                                 <thead class="thead-light">
                                     <tr class="d-flex flex-nowrap">
@@ -65,7 +65,10 @@
 
                                     @stack('add_item_td_start')
                                         <tr class="row" id="addItem">
-                                            <td class="col-md-1 action-column border-right-0 border-bottom-0"><button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i></button></td>
+                                            <td class="col-md-1 action-column border-right-0 border-bottom-0">
+                                                <button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i>
+                                                </button>
+                                            </td>
                                             <td class="col-md-11 text-right border-bottom-0"></td>
                                         </tr>
                                     @stack('add_item_td_end')

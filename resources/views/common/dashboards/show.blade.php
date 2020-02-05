@@ -46,7 +46,7 @@
 
         $placeholder = json_encode([
             'name' => trans('general.form.enter', ['field' => trans('general.name')]),
-            'type' => trans('general.form.enter', ['field' => trans_choice('general.types', 1)]),
+            'type' => trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]),
             'width' => trans('general.form.enter', ['field' => trans('general.width')]),
             'sort' => trans('general.form.enter', ['field' => trans('general.sprt')])
         ]);
