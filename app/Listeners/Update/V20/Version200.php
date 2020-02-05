@@ -506,6 +506,8 @@ class Version200 extends Listener
         $has_project_revenues = Schema::hasTable('project_revenues');
 
         foreach ($revenues as $revenue) {
+            $payment_method = str_replace('offlinepayment.', 'offline-payments.', $revenue->payment_method);
+
             $transaction_id = DB::table('transactions')->insertGetId([
                 'company_id' => $revenue->company_id,
                 'type' => 'income',
@@ -517,7 +519,7 @@ class Version200 extends Listener
                 'contact_id' => $revenue->customer_id,
                 'description' => $revenue->description,
                 'category_id' => $revenue->category_id,
-                'payment_method' => $revenue->payment_method,
+                'payment_method' => $payment_method,
                 'reference' => $revenue->reference,
                 'parent_id' => $revenue->parent_id,
                 'reconciled' => $revenue->reconciled,
@@ -629,6 +631,8 @@ class Version200 extends Listener
         $has_receipts = Schema::hasTable('receipts');
 
         foreach ($payments as $payment) {
+            $payment_method = str_replace('offlinepayment.', 'offline-payments.', $payment->payment_method);
+
             $transaction_id = DB::table('transactions')->insertGetId([
                 'company_id' => $payment->company_id,
                 'type' => 'expense',
@@ -640,7 +644,7 @@ class Version200 extends Listener
                 'contact_id' => $payment->vendor_id,
                 'description' => $payment->description,
                 'category_id' => $payment->category_id,
-                'payment_method' => $payment->payment_method,
+                'payment_method' => $payment_method,
                 'reference' => $payment->reference,
                 'parent_id' => $payment->parent_id,
                 'reconciled' => $payment->reconciled,
