@@ -92,9 +92,15 @@ class Update extends Command
 
     public function getOldVersion()
     {
-        return ($this->alias == 'core')
-                ? version('short')
-                : module($this->alias)->get('version');
+        if ($this->alias == 'core') {
+            return version('short');
+        }
+
+        if ($module = module($this->alias)) {
+            return $module->get('version');
+        }
+
+        return '1.0.0';
     }
 
     public function download()
