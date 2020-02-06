@@ -2,12 +2,12 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Traits\Permissions;
+use App\Traits\Permissions as Helper;
 use Illuminate\Database\Seeder;
 
-class Roles extends Seeder
+class Permissions extends Seeder
 {
-    use Permissions;
+    use Helper;
 
     /**
      * Run the database seeds.
@@ -144,6 +144,6 @@ class Roles extends Seeder
             ]
         ];
 
-        $this->attachPermissions($rows);
+        $this->attachPermissionsByRoleNames($rows);
     }
 }

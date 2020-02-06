@@ -39,7 +39,7 @@ class Widgets
                 continue;
             }
 
-            $classes[$class] = (new $class())->getDefaultName();
+            $classes[$class] = static::getDefaultName($class);
         }
 
         return $classes;
@@ -111,5 +111,10 @@ class Widgets
         $permission = $prefix . Str::kebab($class_name);
 
         return str_replace('--', '-', $permission);
+    }
+
+    public static function getDefaultName($class)
+    {
+        return (new $class())->getDefaultName();
     }
 }

@@ -774,7 +774,7 @@ class Version200 extends Listener
 
     public function updatePermissions()
     {
-        $this->attachPermissions([
+        $this->attachPermissionsByRoleNames([
             'admin' => [
                 'common-dashboards' => 'c,r,u,d',
                 'common-reports' => 'c,r,u,d',
@@ -833,7 +833,7 @@ class Version200 extends Listener
             ],
         ]);
 
-        $this->detachPermissions([
+        $this->detachPermissionsByRoleNames([
             'admin' => [
                 'read-modules-token',
                 'update-modules-token',
@@ -970,6 +970,7 @@ class Version200 extends Listener
             'config/menus.php',
             'config/modules.php',
             'docker-compose.yml',
+            'database/seeds/Roles.php',
             'Dockerfile',
             'modules/PaypalStandard/Http/Controllers/PaypalStandard.php',
             'modules/PaypalStandard/Http/routes.php',

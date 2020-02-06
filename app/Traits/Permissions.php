@@ -4,6 +4,8 @@ namespace App\Traits;
 
 use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
+use App\Utilities\Reports;
+use App\Utilities\Widgets;
 use Illuminate\Support\Str;
 
 trait Permissions
@@ -18,46 +20,41 @@ trait Permissions
         ];
     }
 
-    public function attachPermissions($roles)
+    public function attachPermissionsByRoleNames($roles)
     {
-        $actions_map = collect($this->getActionsMap());
-
         foreach ($roles as $role_name => $permissions) {
-            $role_display_name = Str::title($role_name);
+            $role = $this->createRole($role_name);
 
-            $role = Role::firstOrCreate([
-                'name' => $role_name,
-            ], [
-                'display_name' => $role_display_name,
-                'description' => $role_display_name,
-            ]);
-
-            foreach ($permissions as $page => $action_list) {
-                $actions = explode(',', $action_list);
-
-                foreach ($actions as $short_action) {
-                    $action = $actions_map->get($short_action);
-
-                    $display_name = Str::title($action . ' ' . str_replace('-', ' ', $page));
-
-                    $permission = Permission::firstOrCreate([
-                        'name' => $action . '-' . $page,
-                    ], [
-                        'display_name' => $display_name,
-                        'description' => $display_name,
-                    ]);
-
-                    if ($role->hasPermission($permission->name)) {
-                        continue;
-                    }
-
-                    $role->attachPermission($permission);
-                }
+            foreach ($permissions as $id => $permission) {
+                $this->attachPermissionsByAction($role, $id, $permission);
             }
         }
     }
 
-    public function detachPermissions($roles)
+    public function attachPermissionsToAdminRoles($permissions)
+    {
+        $this->attachPermissionsToAllRoles($permissions, 'read-admin-panel');
+    }
+
+    public function attachPermissionsToPortalRoles($permissions)
+    {
+        $this->attachPermissionsToAllRoles($permissions, 'read-client-portal');
+    }
+
+    public function attachPermissionsToAllRoles($permissions, $require = 'read-admin-panel')
+    {
+        $roles = Role::all()->filter(function ($r) use ($require) {
+            return $require ? $r->hasPermission($require) : true;
+        });
+
+        foreach ($roles as $role) {
+            foreach ($permissions as $permission) {
+                $this->attachPermission($role, $permission);
+            }
+        }
+    }
+
+    public function detachPermissionsByRoleNames($roles)
     {
         foreach ($roles as $role_name => $permissions) {
             $role = Role::where('name', $role_name)->first();
@@ -67,14 +64,7 @@ trait Permissions
             }
 
             foreach ($permissions as $permission_name) {
-                $permission = Permission::where('name', $permission_name)->first();
-
-                if (empty($permission)) {
-                    continue;
-                }
-
-                $role->detachPermission($permission);
-                $permission->delete();
+                $this->detachPermission($role, $permission_name);
             }
         }
     }
@@ -94,7 +84,7 @@ trait Permissions
                 }
 
                 $new_name = $action . '-' . $new;
-                $new_display_name = Str::title(str_replace('-', ' ', $new_name));
+                $new_display_name = $this->getPermissionDisplayName($new_name);
 
                 $permission->update([
                     'name' => $new_name,
@@ -102,5 +92,210 @@ trait Permissions
                 ]);
             }
         }
+    }
+
+    public function attachDefaultModulePermissions($module, $require = 'read-admin-panel')
+    {
+        $this->attachModuleReportPermissions($module, $require);
+
+        $this->attachModuleWidgetPermissions($module, $require);
+
+        $this->attachModuleSettingPermissions($module, $require);
+    }
+
+    public function attachModuleReportPermissions($module, $require = 'read-admin-panel')
+    {
+        if (is_string($module)) {
+            $module = module($module);
+        }
+
+        if (empty($module->get('reports'))) {
+            return;
+        }
+
+        $permissions = [];
+
+        foreach ($module->get('reports') as $class) {
+            if (!class_exists($class)) {
+                continue;
+            }
+
+            $permissions[] = $this->createModuleReportPermission($module, $class);
+        }
+
+        $this->attachPermissionsToAllRoles($permissions, $require);
+    }
+
+    public function attachModuleWidgetPermissions($module, $require = 'read-admin-panel')
+    {
+        if (is_string($module)) {
+            $module = module($module);
+        }
+
+        if (empty($module->get('widgets'))) {
+            return;
+        }
+
+        $permissions = [];
+
+        foreach ($module->get('widgets') as $class) {
+            if (!class_exists($class)) {
+                continue;
+            }
+
+            $permissions[] = $this->createModuleWidgetPermission($module, $class);
+        }
+
+        $this->attachPermissionsToAllRoles($permissions, $require);
+    }
+
+    public function attachModuleSettingPermissions($module, $require = 'read-admin-panel')
+    {
+        if (is_string($module)) {
+            $module = module($module);
+        }
+
+        if (empty($module->get('settings'))) {
+            return;
+        }
+
+        $permissions = [];
+
+        $permissions[] = $this->createModuleSettingPermission($module, 'read');
+        $permissions[] = $this->createModuleSettingPermission($module, 'update');
+
+        $this->attachPermissionsToAllRoles($permissions, $require);
+    }
+
+    public function createModuleReportPermission($module, $class)
+    {
+        if (is_string($module)) {
+            $module = module($module);
+        }
+
+        if (!class_exists($class)) {
+            return;
+        }
+
+        $name = Reports::getPermission($class);
+        $display_name = 'Read ' . $module->getName() . ' Reports ' . Reports::getDefaultName($class);
+
+        return $this->createPermission($name, $display_name);
+    }
+
+    public function createModuleWidgetPermission($module, $class)
+    {
+        if (is_string($module)) {
+            $module = module($module);
+        }
+
+        if (!class_exists($class)) {
+            return;
+        }
+
+        $name = Widgets::getPermission($class);
+        $display_name = 'Read ' . $module->getName() . ' Widgets ' . Widgets::getDefaultName($class);
+
+        return $this->createPermission($name, $display_name);
+    }
+
+    public function createModuleSettingPermission($module, $action)
+    {
+        if (is_string($module)) {
+            $module = module($module);
+        }
+
+        $name = $action . '-' . $module->getAlias() . '-settings';
+        $display_name = Str::title($action) . ' ' . $module->getName() . ' Settings';
+
+        return $this->createPermission($name, $display_name);
+    }
+
+    public function createRole($name, $display_name = null, $description = null)
+    {
+        $display_name = $display_name ?? Str::title($name);
+
+        return Role::firstOrCreate([
+            'name' => $name,
+        ], [
+            'display_name' => $display_name,
+            'description' => $description ?? $display_name,
+        ]);
+    }
+
+    public function createPermission($name, $display_name = null, $description = null)
+    {
+        $display_name = $display_name ?? $this->getPermissionDisplayName($name);
+
+        return Permission::firstOrCreate([
+            'name' => $name,
+        ], [
+            'display_name' => $display_name,
+            'description' => $description ?? $display_name,
+        ]);
+    }
+
+    public function attachPermission($role, $permission)
+    {
+        if (is_string($permission)) {
+            $permission = $this->createPermission($permission);
+        }
+
+        if ($role->hasPermission($permission->name)) {
+            return;
+        }
+
+        $role->attachPermission($permission);
+    }
+
+    public function detachPermission($role, $permission)
+    {
+        if (is_string($role)) {
+            $role = Role::where('name', $role)->first();
+        }
+
+        if (empty($role)) {
+            return;
+        }
+
+        if (is_string($permission)) {
+            $permission = Permission::where('name', $permission)->first();
+        }
+
+        if (empty($permission)) {
+            return;
+        }
+
+        $role->detachPermission($permission);
+        $permission->delete();
+    }
+
+    public function isActionList($permission)
+    {
+        if (!is_string($permission)) {
+            return false;
+        }
+
+        return (strlen($permission) == '1') || Str::contains($permission, ',');
+    }
+
+    public function attachPermissionsByAction($role, $page, $action_list)
+    {
+        $actions_map = collect($this->getActionsMap());
+
+        $actions = explode(',', $action_list);
+
+        foreach ($actions as $short_action) {
+            $action = $actions_map->get($short_action);
+
+            $name = $action . '-' . $page;
+
+            $this->attachPermission($role, $name);
+        }
+    }
+
+    public function getPermissionDisplayName($name)
+    {
+        return Str::title(str_replace('-', ' ', $name));
     }
 }
