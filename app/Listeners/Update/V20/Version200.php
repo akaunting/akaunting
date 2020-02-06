@@ -5,21 +5,21 @@ namespace App\Listeners\Update\V20;
 use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
 use App\Models\Auth\User;
-use App\Models\Auth\Role;
-use App\Models\Auth\Permission;
 use App\Models\Common\Company;
 use App\Models\Common\EmailTemplate;
 use App\Models\Common\Report;
+use App\Traits\Permissions;
 use App\Utilities\Installer;
 use App\Utilities\Overrider;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 
 class Version200 extends Listener
 {
+    use Permissions;
+
     const ALIAS = 'core';
 
     const VERSION = '2.0.0';
@@ -888,86 +888,6 @@ class Version200 extends Listener
             'incomes-invoices' => 'sales-invoices',
             'incomes-revenues' => 'sales-revenues',
         ]);
-    }
-
-    public function attachPermissions($items)
-    {
-        $actions_map = collect([
-            'c' => 'create',
-            'r' => 'read',
-            'u' => 'update',
-            'd' => 'delete',
-        ]);
-
-        foreach ($items as $role_name => $permissions) {
-            $role = Role::where('name', $role_name)->first();
-
-            foreach ($permissions as $page => $action_list) {
-                $actions = explode(',', $action_list);
-
-                foreach ($actions as $short_action) {
-                    $action = $actions_map->get($short_action);
-
-                    $display_name = Str::title($action . ' ' . str_replace('-', ' ', $page));
-
-                    $permission = Permission::firstOrCreate([
-                        'name' => $action . '-' . $page,
-                    ], [
-                        'display_name' => $display_name,
-                        'description' => $display_name,
-                    ]);
-
-                    if ($role->hasPermission($permission->name)) {
-                        continue;
-                    }
-
-                    $role->attachPermission($permission);
-                }
-            }
-        }
-    }
-
-    public function detachPermissions($items)
-    {
-        foreach ($items as $role_name => $permissions) {
-            $role = Role::where('name', $role_name)->first();
-
-            foreach ($permissions as $permission_name) {
-                $permission = Permission::where('name', $permission_name)->first();
-
-                if (empty($permission)) {
-                    continue;
-                }
-
-                $role->detachPermission($permission);
-                $permission->delete();
-            }
-        }
-    }
-
-    public function updatePermissionNames($items)
-    {
-        $actions = [
-            'create',
-            'read',
-            'update',
-            'delete',
-        ];
-
-        foreach ($items as $old => $new) {
-            foreach ($actions as $action) {
-                $old_name = $action . '-' . $old;
-                $new_name = $action . '-' . $new;
-                $new_display_name = Str::title(str_replace('-', ' ', $new_name));
-
-                DB::table('permissions')
-                    ->where('name', $old_name)
-                    ->update([
-                        'name' => $new_name,
-                        'display_name' => $new_display_name,
-                    ]);
-            }
-        }
     }
 
     public function deleteOldFiles()

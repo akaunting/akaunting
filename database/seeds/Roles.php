@@ -2,13 +2,12 @@
 namespace Database\Seeds;
 
 use App\Abstracts\Model;
-use App\Models\Auth\Role;
-use App\Models\Auth\Permission;
+use App\Traits\Permissions;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class Roles extends Seeder
 {
+    use Permissions;
 
     /**
      * Run the database seeds.
@@ -24,7 +23,7 @@ class Roles extends Seeder
         Model::reguard();
     }
 
-    private function roles()
+    private function create()
     {
         $rows = [
             'admin' => [
@@ -145,61 +144,6 @@ class Roles extends Seeder
             ]
         ];
 
-        return $rows;
-    }
-
-    private function actions()
-    {
-        return collect([
-            'c' => 'create',
-            'r' => 'read',
-            'u' => 'update',
-            'd' => 'delete',
-        ]);
-    }
-
-    private function create()
-    {
-        $roles = $this->roles();
-
-        $actions_map = $this->actions();
-
-        foreach ($roles as $role_name => $permissions) {
-            $this->command->info('Creating Role ' . Str::title($role_name));
-
-            $role = Role::firstOrCreate([
-                'name' => $role_name,
-            ], [
-                'display_name' => Str::title($role_name),
-                'description' => Str::title($role_name),
-            ]);
-
-            foreach ($permissions as $page => $action_list) {
-                $actions = explode(',', $action_list);
-
-                foreach ($actions as $short_action) {
-                    $action = $actions_map->get($short_action);
-
-                    $display_name = Str::title($action . ' ' . str_replace('-', ' ', $page));
-
-                    $this->command->info('Creating Permission ' . $display_name);
-
-                    $permission = Permission::firstOrCreate([
-                        'name' => $action . '-' . $page,
-                    ], [
-                        'display_name' => $display_name,
-                        'description' => $display_name,
-                    ]);
-
-                    if ($role->hasPermission($permission->name)) {
-                        $this->command->info($role_name . ': ' . $display_name . ' already exist');
-
-                        continue;
-                    }
-
-                    $role->attachPermission($permission);
-                }
-            }
-        }
+        $this->attachPermissions($rows);
     }
 }
