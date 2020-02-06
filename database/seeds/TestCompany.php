@@ -22,7 +22,7 @@ class TestCompany extends Seeder
     {
         Model::unguard();
 
-        $this->call(Roles::class);
+        $this->call(Permissions::class);
 
         $this->createCompany();
 
