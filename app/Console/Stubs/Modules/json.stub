@@ -1,5 +1,6 @@
 {
     "alias": "$ALIAS$",
+    "icon": "fa fa-cog",
     "version": "1.0.0",
     "category": "accounting",
     "active": 1,
