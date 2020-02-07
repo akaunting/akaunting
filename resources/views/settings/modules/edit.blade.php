@@ -44,7 +44,7 @@
             <div class="card-footer">
                 <div class="float-right">
                     <div class="row">
-                        {{ Form::saveButtons(url()->previous()) }}
+                        {{ Form::saveButtons('settings.index') }}
                     </div>
                 </div>
             </div>
