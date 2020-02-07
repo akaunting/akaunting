@@ -994,6 +994,7 @@ class Version200 extends Listener
             'QUEUE_CONNECTION'      =>  'sync',
             'LOG_CHANNEL'           =>  'stack',
             'FIREWALL_ENABLED'      =>  'true',
+            'MODEL_CACHE_ENABLED'   =>  'true',
         ]);
     }
 }

@@ -62,6 +62,9 @@ class InstallCommand extends Command
 
         $this->call('cache:clear');
 
+        // Disable model cache during installation
+        config(['laravel-model-caching.enabled' => false]);
+
         // Update database
         $this->call('migrate', ['--force' => true]);
 

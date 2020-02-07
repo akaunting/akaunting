@@ -62,6 +62,9 @@ class FinishUpdate extends Command
         session(['company_id' => $company_id]);
         setting()->setExtraColumns(['company_id' => $company_id]);
 
+        // Disable model cache during update
+        config(['laravel-model-caching.enabled' => false]);
+
         event(new UpdateFinished($alias, $new, $old));
     }
 }

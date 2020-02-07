@@ -254,10 +254,11 @@ class Installer
     {
         // Update .env file
         static::updateEnv([
-            'APP_LOCALE'        =>  session('locale'),
-            'APP_INSTALLED'     =>  'true',
-            'APP_DEBUG'         =>  'false',
-            'FIREWALL_ENABLED'  =>  'true',
+            'APP_LOCALE'            =>  session('locale'),
+            'APP_INSTALLED'         =>  'true',
+            'APP_DEBUG'             =>  'false',
+            'FIREWALL_ENABLED'      =>  'true',
+            'MODEL_CACHE_ENABLED'   =>  'true',
         ]);
 
         // Rename the robots.txt file
