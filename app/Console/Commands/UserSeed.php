@@ -37,10 +37,8 @@ class UserSeed extends Command
      */
     public function handle()
     {
-        $class = $this->laravel->make('UserSeeder');
+        $class = $this->laravel->make('Database\Seeds\User');
 
-        $seeder = $class->setContainer($this->laravel)->setCommand($this);
-
-        $seeder->__invoke();
+        $class->setContainer($this->laravel)->setCommand($this)->__invoke();
     }
 }

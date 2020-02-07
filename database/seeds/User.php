@@ -1,8 +1,10 @@
 <?php
 
+namespace Database\Seeds;
+
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class User extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +13,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(Database\Seeds\Dashboards::class);
+        $this->call(Dashboards::class);
     }
 }

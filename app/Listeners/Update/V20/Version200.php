@@ -214,109 +214,18 @@ class Version200 extends Listener
 
     public function createEmailTemplates($company)
     {
-        $templates = [
-            [
-                'alias' => 'invoice_new_customer',
-                'class' => 'App\Notifications\Sale\Invoice',
-                'name' => 'settings.email.templates.invoice_new_customer',
-            ],
-            [
-                'alias' => 'invoice_remind_customer',
-                'class' => 'App\Notifications\Sale\Invoice',
-                'name' => 'settings.email.templates.invoice_remind_customer',
-            ],
-            [
-                'alias' => 'invoice_remind_admin',
-                'class' => 'App\Notifications\Sale\Invoice',
-                'name' => 'settings.email.templates.invoice_remind_admin',
-            ],
-            [
-                'alias' => 'invoice_recur_customer',
-                'class' => 'App\Notifications\Sale\Invoice',
-                'name' => 'settings.email.templates.invoice_recur_customer',
-            ],
-            [
-                'alias' => 'invoice_recur_admin',
-                'class' => 'App\Notifications\Sale\Invoice',
-                'name' => 'settings.email.templates.invoice_recur_admin',
-            ],
-            [
-                'alias' => 'invoice_payment_customer',
-                'class' => 'App\Notifications\Portal\PaymentReceived',
-                'name' => 'settings.email.templates.invoice_payment_customer',
-            ],
-            [
-                'alias' => 'invoice_payment_admin',
-                'class' => 'App\Notifications\Portal\PaymentReceived',
-                'name' => 'settings.email.templates.invoice_payment_admin',
-            ],
-            [
-                'alias' => 'bill_remind_admin',
-                'class' => 'App\Notifications\Purchase\Bill',
-                'name' => 'settings.email.templates.bill_remind_admin',
-            ],
-            [
-                'alias' => 'bill_recur_admin',
-                'class' => 'App\Notifications\Purchase\Bill',
-                'name' => 'settings.email.templates.bill_recur_admin',
-            ],
-        ];
-
-        foreach ($templates as $template) {
-            EmailTemplate::create([
-                'company_id' => $company->id,
-                'alias' => $template['alias'],
-                'class' => $template['class'],
-                'name' => $template['name'],
-                'subject' => trans('email_templates.' . $template['alias'] . '.subject'),
-                'body' => trans('email_templates.' . $template['alias'] . '.body'),
-            ]);
-        }
+        Artisan::call('company:seed', [
+            'company' => $company->id,
+            '--class' => 'Database\Seeders\EmailTemplates',
+        ]);
     }
 
     public function createReports($company)
     {
-        $rows = [
-            [
-                'company_id' => $company->id,
-                'class' => 'App\Reports\IncomeSummary',
-                'name' => trans('reports.summary.income'),
-                'description' => trans('demo.reports.income'),
-                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual', 'chart' => 'line'],
-            ],
-            [
-                'company_id' => $company->id,
-                'class' => 'App\Reports\ExpenseSummary',
-                'name' => trans('reports.summary.expense'),
-                'description' => trans('demo.reports.expense'),
-                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual', 'chart' => 'line'],
-            ],
-            [
-                'company_id' => $company->id,
-                'class' => 'App\Reports\IncomeExpenseSummary',
-                'name' => trans('reports.summary.income_expense'),
-                'description' => trans('demo.reports.income_expense'),
-                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual', 'chart' => 'line'],
-            ],
-            [
-                'company_id' => $company->id,
-                'class' => 'App\Reports\ProfitLoss',
-                'name' => trans('reports.profit_loss'),
-                'description' => trans('demo.reports.profit_loss'),
-                'settings' => ['group' => 'category', 'period' => 'quarterly', 'basis' => 'accrual'],
-            ],
-            [
-                'company_id' => $company->id,
-                'class' => 'App\Reports\TaxSummary',
-                'name' => trans('reports.summary.tax'),
-                'description' => trans('demo.reports.tax'),
-                'settings' => ['period' => 'quarterly', 'basis' => 'accrual'],
-            ],
-        ];
-
-        foreach ($rows as $row) {
-            Report::create($row);
-        }
+        Artisan::call('company:seed', [
+            'company' => $company->id,
+            '--class' => 'Database\Seeders\Reports',
+        ]);
     }
 
     public function createDashboards()
@@ -971,6 +880,7 @@ class Version200 extends Listener
             'config/modules.php',
             'docker-compose.yml',
             'database/seeds/Roles.php',
+            'database/seeds/CompanySeeder.php',
             'Dockerfile',
             'modules/PaypalStandard/Http/Controllers/PaypalStandard.php',
             'modules/PaypalStandard/Http/routes.php',
@@ -1083,9 +993,9 @@ class Version200 extends Listener
     public function updateEnv()
     {
         Installer::updateEnv([
-            'QUEUE_CONNECTION'  =>  'sync',
-            'LOG_CHANNEL'       =>  'stack',
-            'FIREWALL_ENABLED'  =>  'true',
+            'QUEUE_CONNECTION'      =>  'sync',
+            'LOG_CHANNEL'           =>  'stack',
+            'FIREWALL_ENABLED'      =>  'true',
         ]);
     }
 }
