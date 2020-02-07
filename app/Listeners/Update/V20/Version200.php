@@ -339,6 +339,14 @@ class Version200 extends Listener
                 ->update([
                     'vendor_id' => $contact_id,
                 ]);
+
+            DB::table('mediables')
+                ->where('mediable_id', $vendor->id)
+                ->where('mediable_type', 'App\Models\Expense\Vendor')
+                ->update([
+                    'mediable_id' => $contact_id,
+                    'mediable_type' => 'App\Models\Common\Contact',
+                ]);
         }
 
         Schema::drop('vendors');
@@ -625,14 +633,6 @@ class Version200 extends Listener
             ->update([
                 'mediable_type' => 'App\Models\Sale\Invoice',
             ]);
-
-        if (Schema::hasTable('double_entry_ledger')) {
-            DB::table('double_entry_ledger')
-                ->where('ledgerable_type', 'App\Models\Income\Invoice')
-                ->update([
-                    'ledgerable_type' => 'App\Models\Sale\Invoice',
-                ]);
-        }
     }
 
     public function updateBills()
@@ -648,20 +648,6 @@ class Version200 extends Listener
             ->update([
                 'mediable_type' => 'App\Models\Purchase\Bill',
             ]);
-
-        DB::table('mediables')
-            ->where('mediable_type', 'App\Models\Expense\Vendor')
-            ->update([
-                'mediable_type' => 'App\Models\Purchase\Vendor',
-            ]);
-
-        if (Schema::hasTable('double_entry_ledger')) {
-            DB::table('double_entry_ledger')
-                ->where('ledgerable_type', 'App\Models\Expense\Bill')
-                ->update([
-                    'ledgerable_type' => 'App\Models\Purchase\Bill',
-                ]);
-        }
     }
 
     public function updateModules()
