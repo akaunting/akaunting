@@ -450,83 +450,87 @@
 
             @stack('card_footer_start')
                 <div class="card-footer">
-                    <div class="float-right">
-                        @stack('button_edit_start')
-                            @if(!$invoice->reconciled)
-                                <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-info header-button-top">
-                                    <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
-                                </a>
+                    <div class="row align-items-center">
+                        <div class="col-xs-12 col-sm-6">
+                            @if($invoice->attachment)
+                                @php $file = $invoice->attachment; @endphp
+                                @include('partials.media.file')
                             @endif
-                        @stack('button_edit_end')
+                        </div>
 
-                        @stack('button_print_start')
-                            <a href="{{ route('invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
-                            </a>
-                        @stack('button_print_end')
+                        <div class="col-xs-12 col-sm-6 text-right">
+                            @stack('button_edit_start')
+                                @if(!$invoice->reconciled)
+                                    <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-info header-button-top">
+                                        <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                                    </a>
+                                @endif
+                            @stack('button_edit_end')
 
-                        @stack('button_share_start')
-                            <a href="{{ $signed_url }}" target="_blank" class="btn btn-white header-button-top">
-                                <i class="fa fa-share"></i>&nbsp; {{ trans('general.share') }}
-                            </a>
-                        @stack('button_share_end')
+                            @stack('button_print_start')
+                                <a href="{{ route('invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
+                                    <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                                </a>
+                            @stack('button_print_end')
 
-                        @stack('button_group_start')
-                            <div class="dropup">
-                                <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
-                                <div class="dropdown-menu" role="menu">
-                                    @stack('button_pay_start')
-                                        @if($invoice->status != 'paid')
+                            @stack('button_share_start')
+                                <a href="{{ $signed_url }}" target="_blank" class="btn btn-white header-button-top">
+                                    <i class="fa fa-share"></i>&nbsp; {{ trans('general.share') }}
+                                </a>
+                            @stack('button_share_end')
+
+                            @stack('button_group_start')
+                                <div class="dropup">
+                                    <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+                                    <div class="dropdown-menu" role="menu">
+                                        @stack('button_pay_start')
+                                            @if($invoice->status != 'paid')
+                                                @permission('update-sales-invoices')
+                                                    <a class="dropdown-item" href="{{ route('invoices.paid', $invoice->id) }}">{{ trans('invoices.mark_paid') }}</a>
+                                                @endpermission
+
+                                                @if(empty($invoice->paid) || ($invoice->paid != $invoice->amount))
+                                                    <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('invoices.add_payment') }}</button>
+                                                @endif
+                                                <div class="dropdown-divider"></div>
+                                            @endif
+                                        @stack('button_pay_end')
+
+                                        @stack('button_sent_start')
                                             @permission('update-sales-invoices')
-                                                <a class="dropdown-item" href="{{ route('invoices.paid', $invoice->id) }}">{{ trans('invoices.mark_paid') }}</a>
+                                                @if($invoice->status == 'draft')
+                                                    <a class="dropdown-item" href="{{ route('invoices.sent', $invoice->id) }}">{{ trans('invoices.mark_sent') }}</a>
+                                                @else
+                                                    <button type="button" class="dropdown-item" disabled="disabled"><span class="text-disabled">{{ trans('invoices.mark_sent') }}</span></button>
+                                                @endif
                                             @endpermission
+                                        @stack('button_sent_end')
 
-                                            @if(empty($invoice->paid) || ($invoice->paid != $invoice->amount))
-                                                <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('invoices.add_payment') }}</button>
-                                            @endif
-                                            <div class="dropdown-divider"></div>
-                                        @endif
-                                    @stack('button_pay_end')
-
-                                    @stack('button_sent_start')
-                                        @permission('update-sales-invoices')
-                                            @if($invoice->status == 'draft')
-                                                <a class="dropdown-item" href="{{ route('invoices.sent', $invoice->id) }}">{{ trans('invoices.mark_sent') }}</a>
+                                        @stack('button_email_start')
+                                            @if($invoice->contact_email)
+                                                <a class="dropdown-item" href="{{ route('invoices.email', $invoice->id) }}">{{ trans('invoices.send_mail') }}</a>
                                             @else
-                                                <button type="button" class="dropdown-item" disabled="disabled"><span class="text-disabled">{{ trans('invoices.mark_sent') }}</span></button>
+                                                <button type="button" class="dropdown-item" disabled="disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
+                                                    <span class="text-disabled">{{ trans('invoices.send_mail') }}</span>
+                                                </button>
                                             @endif
-                                        @endpermission
-                                    @stack('button_sent_end')
+                                        @stack('button_email_end')
 
-                                    @stack('button_email_start')
-                                        @if($invoice->contact_email)
-                                            <a class="dropdown-item" href="{{ route('invoices.email', $invoice->id) }}">{{ trans('invoices.send_mail') }}</a>
-                                        @else
-                                            <button type="button" class="dropdown-item" disabled="disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
-                                                <span class="text-disabled">{{ trans('invoices.send_mail') }}</span>
-                                            </button>
-                                        @endif
-                                    @stack('button_email_end')
+                                        @stack('button_pdf_start')
+                                            <a class="dropdown-item" href="{{ route('invoices.pdf', $invoice->id) }}">{{ trans('invoices.download_pdf') }}</a>
+                                        @stack('button_pdf_end')
 
-                                    @stack('button_pdf_start')
-                                        <a class="dropdown-item" href="{{ route('invoices.pdf', $invoice->id) }}">{{ trans('invoices.download_pdf') }}</a>
-                                    @stack('button_pdf_end')
-
-                                    @stack('button_delete_start')
-                                        @permission('delete-sales-invoices')
-                                            @if(!$invoice->reconciled)
-                                                {!! Form::deleteLink($invoice, 'sales/invoices') !!}
-                                            @endif
-                                        @endpermission
-                                    @stack('button_delete_end')
+                                        @stack('button_delete_start')
+                                            @permission('delete-sales-invoices')
+                                                @if(!$invoice->reconciled)
+                                                    {!! Form::deleteLink($invoice, 'sales/invoices') !!}
+                                                @endif
+                                            @endpermission
+                                        @stack('button_delete_end')
+                                    </div>
                                 </div>
-                            </div>
-                        @stack('button_group_end')
-
-                        @if($invoice->attachment)
-                            @php $file = $invoice->attachment; @endphp
-                            @include('partials.media.file')
-                        @endif
+                            @stack('button_group_end')
+                        </div>
                     </div>
                 </div>
             @stack('card_footer_end')

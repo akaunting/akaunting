@@ -72,17 +72,17 @@
         </div>
 
         @if ($payment->attachment)
-            <div class="card-footer pb-0">
+            <div class="card-footer">
                 <div class="row float-right">
                     <div class="col-md-12">
                         @if (1)
-                            <div class="card w-50">
+                            <div class="card mb-0">
                                 <div class="card-body text-center">
                                     <i class="far fa-file-pdf font-size-50"></i>
                                 </div>
                                 <div class="card-footer">
                                     <div class="row align-items-center">
-                                        <div class="col-xs-6 col-md-6">
+                                        <div class="col-xs-6 col-sm-6">
                                             <a class="btn btn-icon btn-white" type="button">
                                                 <span class="btn-inner--icon">
                                                     <i class="fas fa-paperclip"></i>
@@ -91,8 +91,8 @@
                                             </a>
                                         </div>
 
-                                        <div class="col-xs-6 col-md-6">
-                                            <a class="btn btn-icon btn-white float-right" type="button">
+                                        <div class="col-xs-6 col-sm-6">
+                                            <a class="btn btn-icon btn-info float-right" type="button">
                                                 <span class="btn-inner--icon">
                                                     <i class="fas fa-file-download"></i>
                                                     {{ basename($payment->attachment) }}
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                         @else
-                            <div class="card w-50">
+                            <div class="card mb-0">
                                 <div class="card-body text-center">
                                     @if($payment->attachment)
                                         <img src="public/img/invoice_templates/classic.png" alt="Attachment">
@@ -123,7 +123,7 @@
                                         </div>
 
                                         <div class="col-xs-6 col-md-6">
-                                            <a class="btn btn-icon btn-white float-right" type="button">
+                                            <a class="btn btn-icon btn-info float-right" type="button">
                                                 <span class="btn-inner--icon">
                                                     <i class="fas fa-file-download"></i>
                                                     {{ basename($payment->attachment) }}
