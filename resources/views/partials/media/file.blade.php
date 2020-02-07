@@ -7,7 +7,7 @@
         <div class="row align-items-center">
             <div class="col-auto">
                 @if ($file->aggregate_type != 'image')
-                    <i class="fas fa-file-image"></i>
+                    <i class="fas fa-file-image font-size-50"></i>
                 @else
                     <a href="#" class="avatar">
                         <img src="{{ url('uploads/' . $file->id) }}" alt="{{ $file->basename }}">

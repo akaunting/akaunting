@@ -425,60 +425,63 @@
 
             @stack('box_footer_start')
                 <div class="card-footer">
-                    <div class="float-right">
-                        @stack('button_edit_start')
-                            @if(!$bill->reconciled)
-                                <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
-                                    <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
-                                </a>
+                    <div class="row align-items-center">
+                        <div class="col-xs-12 col-sm-6">
+                            @if($bill->attachment)
+                                @php $file = $bill->attachment; @endphp
+                                @include('partials.media.file')
                             @endif
-                        @stack('button_edit_end')
+                        </div>
+                        <div class="col-xs-12 col-sm-6 text-right">
+                            @stack('button_edit_start')
+                                @if(!$bill->reconciled)
+                                    <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
+                                        <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                                    </a>
+                                @endif
+                            @stack('button_edit_end')
 
-                        @stack('button_print_start')
-                            <a href="{{ route('bills.print', $bill->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
-                            </a>
-                        @stack('button_print_end')
+                            @stack('button_print_start')
+                                <a href="{{ route('bills.print', $bill->id) }}" target="_blank" class="btn btn-success header-button-top">
+                                    <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                                </a>
+                            @stack('button_print_end')
 
-                        @stack('button_group_start')
-                            <div class="dropup">
-                                <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
-                                <div class="dropdown-menu" role="menu">
-                                    @stack('button_pay_start')
-                                        @if($bill->status != 'paid')
-                                            @if(empty($bill->paid) || ($bill->paid != $bill->amount))
-                                                <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
+                            @stack('button_group_start')
+                                <div class="dropup">
+                                    <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+                                    <div class="dropdown-menu" role="menu">
+                                        @stack('button_pay_start')
+                                            @if($bill->status != 'paid')
+                                                @if(empty($bill->paid) || ($bill->paid != $bill->amount))
+                                                    <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
+                                                @endif
+                                                @permission('update-purchases-bills')
+                                                    @if($bill->status == 'draft')
+                                                        <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
+                                                    @else
+                                                        <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
+                                                    @endif
+                                                @endpermission
+                                                <div class="dropdown-divider"></div>
                                             @endif
-                                            @permission('update-purchases-bills')
-                                                @if($bill->status == 'draft')
-                                                    <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
-                                                @else
-                                                    <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
+                                        @stack('button_pay_end')
+
+                                        @stack('button_pdf_start')
+                                            <a class="dropdown-item" href="{{ route('bills.pdf', $bill->id) }}">{{ trans('bills.download_pdf') }}</a>
+                                        @stack('button_pdf_end')
+
+                                        @stack('button_delete_start')
+                                            @permission('delete-purchases-bills')
+                                                @if(!$bill->reconciled)
+                                                    {!! Form::deleteLink($bill, 'purchases/bills') !!}
                                                 @endif
                                             @endpermission
-                                            <div class="dropdown-divider"></div>
-                                        @endif
-                                    @stack('button_pay_end')
-
-                                    @stack('button_pdf_start')
-                                        <a class="dropdown-item" href="{{ route('bills.pdf', $bill->id) }}">{{ trans('bills.download_pdf') }}</a>
-                                    @stack('button_pdf_end')
-
-                                    @stack('button_delete_start')
-                                        @permission('delete-purchases-bills')
-                                            @if(!$bill->reconciled)
-                                                {!! Form::deleteLink($bill, 'purchases/bills') !!}
-                                            @endif
-                                        @endpermission
-                                    @stack('button_delete_end')
+                                        @stack('button_delete_end')
+                                    </div>
                                 </div>
-                            </div>
-                        @stack('button_group_end')
-
-                        @if($bill->attachment)
-                            @php $file = $bill->attachment; @endphp
-                            @include('partials.media.file')
-                        @endif
+                            @stack('button_group_end')
+                        </div>
                     </div>
                 </div>
             @stack('box_footer_end')
