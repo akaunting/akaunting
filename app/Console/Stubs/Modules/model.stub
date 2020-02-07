@@ -2,7 +2,7 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Abstracts\Model;
 
 class $CLASS$ extends Model
 {

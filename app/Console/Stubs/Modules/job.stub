@@ -2,13 +2,10 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Foundation\Bus\Dispatchable;
+use App\Abstracts\Job;
 
-class $CLASS$ implements ShouldQueue
+class $CLASS$ extends Job
 {
-    use Dispatchable, Queueable;
-
     /**
      * Create a new job instance.
      *

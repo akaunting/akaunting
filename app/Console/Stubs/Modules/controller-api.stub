@@ -2,11 +2,12 @@
 
 namespace $CLASS_NAMESPACE$;
 
+use App\Abstracts\Http\ApiController;
+use App\Abstracts\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
 
-class $CLASS$ extends Controller
+class $CLASS$ extends ApiController
 {
     /**
      * Display a listing of the resource.
