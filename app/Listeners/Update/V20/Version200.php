@@ -6,8 +6,6 @@ use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
 use App\Models\Auth\User;
 use App\Models\Common\Company;
-use App\Models\Common\EmailTemplate;
-use App\Models\Common\Report;
 use App\Traits\Permissions;
 use App\Utilities\Installer;
 use App\Utilities\Overrider;
@@ -216,7 +214,7 @@ class Version200 extends Listener
     {
         Artisan::call('company:seed', [
             'company' => $company->id,
-            '--class' => 'Database\Seeders\EmailTemplates',
+            '--class' => 'Database\Seeds\EmailTemplates',
         ]);
     }
 
@@ -224,7 +222,7 @@ class Version200 extends Listener
     {
         Artisan::call('company:seed', [
             'company' => $company->id,
-            '--class' => 'Database\Seeders\Reports',
+            '--class' => 'Database\Seeds\Reports',
         ]);
     }
 
