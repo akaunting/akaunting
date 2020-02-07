@@ -359,6 +359,11 @@ button:focus
     display : flex !important;
 }
 
+.form-group.d-none.show
+{
+    display : unset !important;
+}
+
 .btn .d-none.show
 {
     display : inherit !important;

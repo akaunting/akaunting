@@ -90,7 +90,7 @@
             <div class="card col-md-12">
                 <div class="card-body mr--3">
                     <div class="row float-right">
-                        {{ Form::saveButtons(URL::previous()) }}
+                        {{ Form::saveButtons('settings.index') }}
                     </div>
                 </div>
             </div>
