@@ -105,7 +105,7 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">{{ trans('general.welcome') }}</h6>
                         </div>
-                        <a href="{{ route('portal.profile.edit') }}" class="dropdown-item">
+                        <a href="{{ route('portal.profile.edit', $user->id) }}" class="dropdown-item">
                             <i class="fas fa-user"></i>
                             <span>{{ trans('auth.profile') }}</span>
                         </a>

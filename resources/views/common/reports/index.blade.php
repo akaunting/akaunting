@@ -56,7 +56,7 @@
                             </div>
                             <p class="mt-3 mb-0 text-sm">
                                 <a class="text-default" href="{{ route('reports.show', $report->id) }}">
-                                    <span class="text-nowrap">{{ $report->description }}</span>
+                                    <span class="pre">{{ $report->description }}</span>
                                 </a>
                             </p>
                         </div>
