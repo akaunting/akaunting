@@ -66,7 +66,15 @@ class Profile extends Controller
 
         flash($message)->success();
 
-        return redirect()->route('portal.profile.edit');
+        $response = [
+            'success' => true,
+            'error' => false,
+            'data' => null,
+            'message' => '',
+            'redirect' => route('portal.profile.edit', $user->id),
+        ];
+
+        return response()->json($response);
     }
 
     /**
