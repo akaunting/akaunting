@@ -204,7 +204,7 @@ class Company extends Eloquent
 
         $groups = [
             'company',
-            'default'
+            'default',
         ];
 
         foreach ($settings as $setting) {
@@ -236,7 +236,7 @@ class Company extends Eloquent
 
         $groups = [
             'company',
-            'default'
+            'default',
         ];
 
         foreach ($settings as $setting) {
@@ -310,7 +310,7 @@ class Company extends Eloquent
     public function emailSortable($query, $direction)
     {
         return $query->join('settings', 'companies.id', '=', 'settings.company_id')
-            ->where('key', 'general.company_email')
+            ->where('key', 'company.email')
             ->orderBy('value', $direction)
             ->select('companies.*');
     }
