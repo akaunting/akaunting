@@ -32,7 +32,7 @@
 
                     <div class="col-md-12 mb-4">
                         {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'control-label']) !!}
-                        <div class="table-responsive overflow-y-scroll overflow-x-hidden">
+                        <div class="table-responsive overflow-x-scroll overflow-y-hidden">
                             <table class="table table-bordered" id="items">
                                 <thead class="thead-light">
                                     <tr class="d-flex flex-nowrap">
