@@ -52,7 +52,7 @@
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 </td>
                                 <td class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 py-2">
-                                    <img src="{{ $item->picture ? Storage::url($item->picture->id) : asset('public/img/akaunting-logo-green.png') }}" class="avatar image-style p-1 mr-3 item-img hidden-md col-aka" alt="{{ $item->name }}">
+                                    <img src="{{ $item->picture ? Storage::url($item->picture->id) : asset('public/img/akaunting-logo-green.svg') }}" class="avatar image-style p-1 mr-3 item-img hidden-md col-aka" alt="{{ $item->name }}">
                                     <a href="{{ route('items.edit', $item->id) }}">{{ $item->name }}</a>
                                 </td>
                                 <td class="col-lg-1 col-xl-2 d-none d-lg-block">

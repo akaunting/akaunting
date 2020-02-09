@@ -6,7 +6,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="avatar avatar-xs background-unset">
-                                <img class="border-radius-none border-0 mr-3" alt="Akaunting" src="{{ asset('public/img/akaunting-logo-white.png') }}">
+                                <img class="border-radius-none border-0 mr-3" alt="Akaunting" src="{{ asset('public/img/akaunting-logo-white.svg') }}">
                             </span>
                             <span class="nav-link-text long-texts pl-2 mwpx-100">{{ Str::limit(setting('company.name'), 22) }}</span>
                             @permission('read-common-companies')
