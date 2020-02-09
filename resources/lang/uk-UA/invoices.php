@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Отримати Оплату',
     'accept_payments'       => 'Приймати онлайн-платежі',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Створено',
         'sent'              => 'Надіслано',
         'viewed'            => 'Переглянуто',

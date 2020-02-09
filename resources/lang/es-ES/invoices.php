@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Recibir Pago',
     'accept_payments'       => 'Aceptar Pagos Online',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Borrador',
         'sent'              => 'Enviado',
         'viewed'            => 'Visto',

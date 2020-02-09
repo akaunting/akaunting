@@ -32,7 +32,7 @@ return [
     'download_pdf'      => 'Preuzmite PDF',
     'send_mail'         => 'Pošalji e-mail',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'Skica',
         'received'      => 'Primljeno',
         'partial'       => 'Djelomično',

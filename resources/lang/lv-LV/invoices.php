@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Saņemt apmaksu',
     'accept_payments'       => 'Pieņemt tiešsaistes maksājumus',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Sagatave',
         'sent'              => 'Nosūtīts',
         'viewed'            => 'Skatīts',

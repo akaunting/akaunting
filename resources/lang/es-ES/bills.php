@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Recibir factura',
     'make_payment'          => 'Pagar',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Borrador',
         'received'          => 'Recibido',
         'partial'           => 'Parcial',

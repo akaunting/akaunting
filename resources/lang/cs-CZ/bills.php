@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Příjem faktury',
     'make_payment'          => 'Platba faktury',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Koncept',
         'received'          => 'Přijato',
         'partial'           => 'Částečně',

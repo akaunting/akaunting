@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Получить закупку',
     'make_payment'          => 'Сделать оплату',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Черновик',
         'received'          => 'Получено',
         'partial'           => 'Частично',

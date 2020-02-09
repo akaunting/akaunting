@@ -32,7 +32,7 @@ return [
     'download_pdf'      => '下載 PDF格式',
     'send_mail'         => '傳送電子郵件',
 
-    'status' => [
+    'statuses' => [
         'draft'         => '草稿',
         'received'      => '已收到',
         'partial'       => '部分',

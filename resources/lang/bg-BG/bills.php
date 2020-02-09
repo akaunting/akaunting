@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Приеми фактура',
     'make_payment'          => 'Направи плащане',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Неплатен',
         'received'          => 'Приета',
         'partial'           => 'Частичен',

@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'გადახდის მიღება',
     'accept_payments'       => 'ონლაინ გადახდის მიღება',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'პროექტი',
         'sent'              => 'გაგზავნა',
         'viewed'            => 'ნახვა',

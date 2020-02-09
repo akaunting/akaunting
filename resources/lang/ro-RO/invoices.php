@@ -38,7 +38,7 @@ Nume articol|Nume articole',
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Ciornă',
         'sent'              => 'Trimis',
         'viewed'            => 'Vizualizat',

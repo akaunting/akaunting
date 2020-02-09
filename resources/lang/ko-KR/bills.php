@@ -35,7 +35,7 @@ return [
     'receive_bill'          => '계산서를 받음',
     'make_payment'          => '지불',
 
-    'status' => [
+    'statuses' => [
         'draft'             => '초안',
         'received'          => '수신됨',
         'partial'           => '부분',

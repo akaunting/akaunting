@@ -33,7 +33,7 @@ return [
     'send_mail'         => '发送邮件',
     'all_invoices'      => 'Login to view all invoices',
 
-    'status' => [
+    'statuses' => [
         'draft'         => '草稿',
         'sent'          => '已发送',
         'viewed'        => '已浏览',

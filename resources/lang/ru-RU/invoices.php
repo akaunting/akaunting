@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Оплачено',
     'accept_payments'       => 'Принимать онлайн-платежи',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Черновик',
         'sent'              => 'Отправлено',
         'viewed'            => 'Просмотрено',

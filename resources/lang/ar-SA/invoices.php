@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Get Paid',
     'accept_payments'       => 'Accept Online Payments',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'مسودة',
         'sent'              => 'تم الإرسال',
         'viewed'            => 'المشاهدات',

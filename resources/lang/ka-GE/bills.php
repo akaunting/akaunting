@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'ანგარიშის გაგზავნა',
     'make_payment'          => 'გადახდის შესრულება',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'დრაფტი',
         'received'          => 'მიღებულია',
         'partial'           => 'ნაწილობრივი',

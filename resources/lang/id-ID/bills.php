@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Menerima Tagihan',
     'make_payment'          => 'Melakukan Pembayaran',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Konsep',
         'received'          => 'Diterima',
         'partial'           => 'Sebagian',

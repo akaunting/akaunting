@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Отримати рахунок',
     'make_payment'          => 'Оплатити',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Створено',
         'received'          => 'Отримано',
         'partial'           => 'Частково оплачено',

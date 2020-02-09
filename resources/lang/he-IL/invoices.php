@@ -33,7 +33,7 @@ return [
     'send_mail'         => 'שלח דואר אלקטרוני',
     'all_invoices'      => 'Login to view all invoices',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'טיוטה',
         'sent'          => 'נשלח',
         'viewed'        => 'נצפה',
