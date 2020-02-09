@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Telah dibayar',
     'accept_payments'       => 'Menerima pembayaran online',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Konsep',
         'sent'              => 'Mengirim',
         'viewed'            => 'Lihat',

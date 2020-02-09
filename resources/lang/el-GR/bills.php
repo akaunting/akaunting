@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Παραλαβή Λογαριασμού',
     'make_payment'          => 'Δημιουργία Πληρωμής',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Προσχέδιο',
         'received'          => 'Ληφθέντα',
         'partial'           => 'Μερική',

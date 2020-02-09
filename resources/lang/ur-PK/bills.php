@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'بل وصول کریں',
     'make_payment'          => 'ادائیگی کریں',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'ڈرافٹ',
         'received'          => 'وصول',
         'partial'           => 'جزوی',

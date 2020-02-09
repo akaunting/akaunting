@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Hisobni oling',
     'make_payment'          => 'To\'lovni amalga oshiring',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Qoralama',
         'received'          => 'Qabul qildi',
         'partial'           => 'Qisman',

@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Получи плащане',
     'accept_payments'       => 'Приеми на онлайн плащане',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Неплатен',
         'sent'              => 'Изпратено',
         'viewed'            => 'Разгледани',

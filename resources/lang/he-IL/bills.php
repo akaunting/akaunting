@@ -32,7 +32,7 @@ return [
     'download_pdf'      => 'הורדת PDF',
     'send_mail'         => 'שלח דואר אלקטרוני',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'טיוטה',
         'received'      => 'התקבל',
         'partial'       => 'חלקי',

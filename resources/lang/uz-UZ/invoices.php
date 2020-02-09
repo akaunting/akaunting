@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'To\'lang',
     'accept_payments'       => 'Onlayn to\'lovlarni qabul qiling',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Qoralama',
         'sent'              => 'Yuborildi',
         'viewed'            => 'Ko\'rilgan',

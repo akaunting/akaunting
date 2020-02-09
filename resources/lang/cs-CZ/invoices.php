@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Uhrazení faktury',
     'accept_payments'       => 'Přijímat online platby',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Koncept',
         'sent'              => 'Odesláno',
         'viewed'            => 'Zobrazeno',

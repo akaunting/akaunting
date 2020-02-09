@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Factuur ontvangen',
     'make_payment'          => 'Betaling',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Concept',
         'received'          => 'Ontvangen',
         'partial'           => 'Gedeeltelijk',

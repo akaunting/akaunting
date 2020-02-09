@@ -33,7 +33,7 @@ return [
     'send_mail'         => 'ارسال ایمیل',
     'all_invoices'      => 'Login to view all invoices',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'پیش‌ نویس',
         'sent'          => 'ارسال شده',
         'viewed'        => 'مشاهده شده',

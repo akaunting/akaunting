@@ -36,7 +36,7 @@ return [
     'send_invoice'          => '청구서 전송',
     'get_paid'              => '돈을 받음',
 
-    'status' => [
+    'statuses' => [
         'draft'             => '초안',
         'sent'              => '보낸 메시지',
         'viewed'            => '읽음',

@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'भुगतान प्राप्त करना',
     'accept_payments'       => 'ऑनलाइन भुगतान स्वीकार करें',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'ड्राफ्ट',
         'sent'              => 'भेजें',
         'viewed'            => 'देखा गया',

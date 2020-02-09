@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Motta faktura',
     'make_payment'          => 'Opprett betaling',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Utkast',
         'received'          => 'Mottatt',
         'partial'           => 'Delvis',

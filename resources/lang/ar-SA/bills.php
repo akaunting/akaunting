@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'إستلام فاتورة',
     'make_payment'          => 'القيام بالدفع',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'مسودة',
         'received'          => 'مستلم',
         'partial'           => 'جزئي',

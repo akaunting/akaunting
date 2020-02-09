@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'बिल प्राप्त करें',
     'make_payment'          => 'भुगतान करो',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'ड्राफ्ट',
         'received'          => 'स्वीकार किया',
         'partial'           => 'आंशिक',

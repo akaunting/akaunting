@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Saņemt rēķinu',
     'make_payment'          => 'Veikt maksājumu',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Melnraksts',
         'received'          => 'Saņemts',
         'partial'           => 'Daļējs',

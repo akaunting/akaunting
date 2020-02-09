@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Fá greitt',
     'accept_payments'       => 'Taka á moti netgreiðslu',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Uppkast',
         'sent'              => 'Sent',
         'viewed'            => 'Skoðað',

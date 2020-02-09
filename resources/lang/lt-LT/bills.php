@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Gauti sąskaitą',
     'make_payment'          => 'Atlikti mokėjimą',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Juodraštis',
         'received'          => 'Gauta',
         'partial'           => 'Dalinis',

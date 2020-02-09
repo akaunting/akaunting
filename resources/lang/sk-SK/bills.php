@@ -32,7 +32,7 @@ return [
     'download_pdf'      => 'Stiahnuť PDF',
     'send_mail'         => 'Odoslať e-mail',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'Koncept',
         'received'      => 'Prijaté',
         'partial'       => 'Čiastočné',

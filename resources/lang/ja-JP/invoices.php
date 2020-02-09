@@ -37,7 +37,7 @@ return [
     'get_paid'              => '支払いを受ける',
     'accept_payments'       => 'オンラインでの支払いを受け入れる',
 
-    'status' => [
+    'statuses' => [
         'draft'             => '下書き',
         'sent'              => '送信',
         'viewed'            => '閲覧',

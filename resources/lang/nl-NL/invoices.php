@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Betaling afstemmen',
     'accept_payments'       => 'Accept Online Payments',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Concept',
         'sent'              => 'Verzonden',
         'viewed'            => 'Bekeken',

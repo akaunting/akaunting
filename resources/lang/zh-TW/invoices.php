@@ -33,7 +33,7 @@ return [
     'send_mail'         => '傳送電子郵件',
     'all_invoices'      => '登錄以查看所有發票',
 
-    'status' => [
+    'statuses' => [
         'draft'         => '草稿',
         'sent'          => '已傳送',
         'viewed'        => '已瀏覽',
