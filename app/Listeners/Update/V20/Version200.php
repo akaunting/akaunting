@@ -259,6 +259,7 @@ class Version200 extends Listener
         $has_crm_companies = Schema::hasTable('crm_companies');
         $has_crm_contacts = Schema::hasTable('crm_contacts');
         $has_idea_soft_histories = Schema::hasTable('idea_soft_histories');
+        $has_custom_fields_field_values = Schema::hasTable('custom_fields_field_values');
 
         foreach ($customers as $customer) {
             $data = (array) $customer;
@@ -312,6 +313,16 @@ class Version200 extends Listener
                         'model_type' => 'App\Models\Common\Contact',
                     ]);
             }
+
+            if ($has_custom_fields_field_values) {
+                DB::table('custom_fields_field_values')
+                    ->where('model_id', $customer->id)
+                    ->where('model_type', 'App\Models\Income\Customer')
+                    ->update([
+                        'model_id' => $contact_id,
+                        'model_type' => 'App\Models\Common\Contact',
+                    ]);
+            }
         }
 
         Schema::drop('customers');
@@ -320,6 +331,8 @@ class Version200 extends Listener
     public function copyVendors()
     {
         $vendors = DB::table('vendors')->cursor();
+
+        $has_custom_fields_field_values = Schema::hasTable('custom_fields_field_values');
 
         foreach ($vendors as $vendor) {
             $data = (array) $vendor;
@@ -347,6 +360,16 @@ class Version200 extends Listener
                     'mediable_id' => $contact_id,
                     'mediable_type' => 'App\Models\Common\Contact',
                 ]);
+
+            if ($has_custom_fields_field_values) {
+                DB::table('custom_fields_field_values')
+                    ->where('model_id', $vendor->id)
+                    ->where('model_type', 'App\Models\Expense\Vendor')
+                    ->update([
+                        'model_id' => $contact_id,
+                        'model_type' => 'App\Models\Common\Contact',
+                    ]);
+            }
         }
 
         Schema::drop('vendors');
@@ -419,6 +442,7 @@ class Version200 extends Listener
 
         $has_double_entry_ledger = Schema::hasTable('double_entry_ledger');
         $has_project_revenues = Schema::hasTable('project_revenues');
+        $has_custom_fields_field_values = Schema::hasTable('custom_fields_field_values');
 
         foreach ($revenues as $revenue) {
             $payment_method = str_replace('offlinepayment.', 'offline-payments.', $revenue->payment_method);
@@ -480,6 +504,16 @@ class Version200 extends Listener
                     ->where('revenue_id', $revenue->id)
                     ->update([
                         'revenue_id' => $transaction_id,
+                    ]);
+            }
+
+            if ($has_custom_fields_field_values) {
+                DB::table('custom_fields_field_values')
+                    ->where('model_id', $revenue->id)
+                    ->where('model_type', 'App\Models\Income\Revenue')
+                    ->update([
+                        'model_id' => $transaction_id,
+                        'model_type' => 'App\Models\Banking\Transaction',
                     ]);
             }
         }
@@ -544,6 +578,7 @@ class Version200 extends Listener
         $has_double_entry_ledger = Schema::hasTable('double_entry_ledger');
         $has_project_payments = Schema::hasTable('project_payments');
         $has_receipts = Schema::hasTable('receipts');
+        $has_custom_fields_field_values = Schema::hasTable('custom_fields_field_values');
 
         foreach ($payments as $payment) {
             $payment_method = str_replace('offlinepayment.', 'offline-payments.', $payment->payment_method);
@@ -613,6 +648,16 @@ class Version200 extends Listener
                     ->where('payment_id', $payment->id)
                     ->update([
                         'payment_id' => $transaction_id,
+                    ]);
+            }
+
+            if ($has_custom_fields_field_values) {
+                DB::table('custom_fields_field_values')
+                    ->where('model_id', $payment->id)
+                    ->where('model_type', 'App\Models\Expense\Payment')
+                    ->update([
+                        'model_id' => $transaction_id,
+                        'model_type' => 'App\Models\Banking\Transaction',
                     ]);
             }
         }
