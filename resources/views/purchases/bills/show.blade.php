@@ -499,7 +499,7 @@
                             </div>
                             <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne">
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                    <table class="table table-flush table-hover">
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-4 col-sm-2">{{ trans('general.date') }}</th>
@@ -509,7 +509,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($bill->histories as $history)
-                                                <tr class="row align-items-center">
+                                                <tr class="row align-items-center border-top-1 tr-py">
                                                     <td class="col-xs-4 col-sm-2">@date($history->created_at)</td>
                                                     <td class="col-xs-4 col-sm-3 text-left">{{ trans('bills.statuses.' . $history->status) }}</td>
                                                     <td class="col-xs-4 col-sm-7 text-left long-texts">{{ $history->description }}</td>
@@ -545,7 +545,7 @@
                                         <tbody>
                                             @if ($bill->transactions->count())
                                                 @foreach($bill->transactions as $transaction)
-                                                    <tr class="row align-items-center border-top-1">
+                                                    <tr class="row align-items-center border-top-1 tr-py">
                                                         <td class="col-xs-4 col-sm-3">@date($transaction->paid_at)</td>
                                                         <td class="col-xs-4 col-sm-3">@money($transaction->amount, $transaction->currency_code, true)</td>
                                                         <td class="col-sm-3 d-none d-sm-block">{{ $transaction->account->name }}</td>
@@ -575,7 +575,7 @@
                                             @else
                                                 <tr>
                                                     <td colspan="4">
-                                                        <div class="text-muted" id="datatable-basic_info" role="status" aria-live="polite">
+                                                        <div class="text-muted nr-py" id="datatable-basic_info" role="status" aria-live="polite">
                                                             {{ trans('general.no_records') }}
                                                         </div>
                                                     </td>

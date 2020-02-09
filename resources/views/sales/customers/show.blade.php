@@ -104,11 +104,11 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="card shadow">
+                    <div class="card">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                                 <div class="table-responsive">
-                                    <table class="table table-flush" id="tbl-transactions">
+                                    <table class="table table-flush table-hover" id="tbl-transactions">
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-6 col-sm-3">{{ trans('general.date') }}</th>
@@ -119,7 +119,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($transactions as $item)
-                                                <tr class="row align-items-center border-top-1">
+                                                <tr class="row align-items-center border-top-1 tr-py">
                                                     <td class="col-xs-6 col-sm-3">@date($item->paid_at)</td>
                                                     <td class="col-xs-6 col-sm-3 text-right">@money($item->amount, $item->currency_code, true)</td>
                                                     <td class="col-sm-3 d-none d-sm-block">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
@@ -138,7 +138,7 @@
 
                             <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                                 <div class="table-responsive">
-                                    <table class="table table-flush" id="tbl-invoices">
+                                    <table class="table table-flush table-hover" id="tbl-invoices">
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
                                                 <th class="col-xs-4 col-sm-1">{{ trans_choice('general.numbers', 1) }}</th>
@@ -150,12 +150,12 @@
                                         </thead>
                                         <tbody>
                                             @foreach($invoices as $item)
-                                                <tr class="row align-items-center border-top-1">
+                                                <tr class="row align-items-center border-top-1 tr-py">
                                                     <td class="col-xs-4 col-sm-1"><a href="{{ route('invoices.show', $item->id) }}">{{ $item->invoice_number }}</a></td>
                                                     <td class="col-xs-4 col-sm-3 text-right">@money($item->amount, $item->currency_code, true)</td>
                                                     <td class="col-sm-3 d-none d-sm-block text-left">@date($item->invoiced_at)</td>
                                                     <td class="col-sm-3 d-none d-sm-block text-left">@date($item->due_at)</td>
-                                                    <td class="col-xs-4 col-sm-2"><span class="badge badge-pill badge-{{ $item->status_label }}">{{ trans('invoices.statuses.' . $item->status) }}</span></td>
+                                                    <td class="col-xs-4 col-sm-2"><span class="badge badge-pill badge-{{ $item->status_label }} my--2">{{ trans('invoices.statuses.' . $item->status) }}</span></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

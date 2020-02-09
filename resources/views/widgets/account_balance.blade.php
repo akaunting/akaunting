@@ -12,7 +12,7 @@
                 </thead>
                 <tbody class="thead-light">
                     @foreach($accounts as $item)
-                        <tr class="row border-top-1">
+                        <tr class="row border-top-1 tr-py">
                             <td class="col-xs-6 col-md-6 text-left">{{ $item->name }}</td>
                             <td class="col-xs-6 col-md-6 text-right">@money($item->balance, $item->currency_code, true)</td>
                         </tr>

@@ -717,6 +717,24 @@ table .align-items-center td span.badge {
 /*--------Text Pre Nowrap Finish--------*/
 
 
+/*--------Table Without toggle button--------*/
+.tr-py
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+/*--------Table Without toggle button Finish--------*/
+
+
+/*--------Table No Records--------*/
+.nr-py
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+/*--------Table No Records Finish--------*/
+
+
 /*--------Modal Dialog Resizing--------*/
 @media (min-width: 576px)
 {
