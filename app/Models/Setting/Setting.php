@@ -38,7 +38,7 @@ class Setting extends Eloquent
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function scopePrefix($query, $prefix = 'company')
+    public function scopePrefix($query, $prefix = 'company')
     {
         return $query->where('key', 'like', $prefix . '.%');
     }
