@@ -317,7 +317,7 @@
                 @stack('bill_item_start')
                     <div class="row show-table">
                         <div class="col-md-12">
-                            <div class="table-responsive overflow-y-scroll">
+                            <div class="table-responsive overflow-y-hidden">
                                 <table class="table table-striped">
                                     <tbody>
                                         <tr class="d-flex flex-nowrap">
