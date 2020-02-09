@@ -198,6 +198,9 @@ return [
         'bills' => 'Bills can be one time or recurring. They indicate what you owe your vendors for the products or services you purchase.',
         'payments' => 'Payment is a paid expense transaction. It can be an independent record (i.e. food receipt) or attached to a bill.',
         'vendors' => 'Vendors are required if you want to create bills. You can see the balance you owe and filter reports by the vendor.',
+        'transfers' => 'Sometimes you may want to transfer money from one account to another.',
+        'taxes' => 'The following fields are displayed as blank to be filled, some are required and some not. Those marked with red star are required.',
+        'reconciliations' => 'Bank reconciliation is a process performed to ensure that your company bank records are also correct.',
     ],
 
 ];
