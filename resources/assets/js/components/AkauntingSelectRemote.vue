@@ -705,6 +705,9 @@ export default {
         options: function (options) {
             // update options
             //this.selectOptions = options;
+        },
+        value: function (value) {
+            this.real_model = value;
         }
     },
 }

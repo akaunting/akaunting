@@ -21,7 +21,7 @@
                 :placeholder="'{{ trans('general.type_item_name') }}'"
                 :name="'item_id'"
                 :options="{{ json_encode($items) }}"
-                :value="'{{ old('item_id', '') }}'"
+                :value="form.items[index].item_id"
                 :add-new="{{ json_encode([
                     'status' => true,
                     'text' => trans('general.add_new'),
@@ -69,15 +69,7 @@
     @stack('price_td_start')
         <td class="col-md-2 border-right-0 border-bottom-0">
             @stack('price_input_start')
-                <input class="form-control text-right input-price"
-                       autocomplete="off"
-                       required="required"
-                       data-item="price"
-                       v-model.lazy="row.price"
-                       v-money="money"
-                       @input="onCalculateTotal"
-                       name="items[][price]"
-                       type="text">
+                {{ Form::moneyGroup('name', '', '', ['required' => 'required', 'v-model' => 'row.price', 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; onCalculateTotal'], 0.00, 'text-right input-price') }}
                 <input name="items[][currency]"
                        data-item="currency"
                        v-model="row.currency"
@@ -91,30 +83,55 @@
     @stack('taxes_td_start')
         <td class="col-md-3 border-right-0 border-bottom-0">
             @stack('tax_id_input_start')
-                {{ Form::multiSelectAddNewGroup('tax_id', '', '', $taxes, '', [
-                    'data-item' => 'tax_id',
-                    'v-model' => 'row.tax_id',
-                    'change' => 'onCalculateTotal',
-                    'class' => 'form-control',
-                    'collapse' => 'false',
-                    'path' => route('modals.taxes.create')
-                ], 'mb-0 select-tax') }}
+            <akaunting-select
+                class="mb-0 select-tax"
+                :form-classes="[{'has-error': form.errors.get('tax_id') }]"
+                :icon="''"
+                :title="''"
+                :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
+                :name="'tax_id'"
+                :options="{{ json_encode($taxes) }}"
+                :value="row.tax_id"
+                :multiple="true"
+                :add-new="{{ json_encode([
+                    'status' => true,
+                    'text' => trans('general.add_new'),
+                    'path' => route('modals.taxes.create'),
+                    'type' => 'modal',
+                    'field' => 'name',
+                    'buttons' => [
+                        'cancel' => [
+                            'text' => trans('general.cancel'),
+                            'icon' => 'fas fa-times',
+                            'class' => 'btn-outline-secondary'
+                        ],
+                        'confirm' => [
+                            'text' => trans('general.save'),
+                            'icon' => 'fas fa-save',
+                            'class' => 'btn-success'
+                        ]
+                    ]
+                ])}}"
+                :collapse="false"
+                @interface="row.tax_id = $event"
+                @change="onCalculateTotal($event)"
+                :form-error="form.errors.get('tax_id')"
+                :no-data-text="'{{ trans('general.no_data') }}'"
+                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
+            ></akaunting-select>
             @stack('tax_id_input_end')
         </td>
     @stack('taxes_td_end')
 
     @stack('total_td_start')
         <td class="col-md-2 text-right total-column border-bottom-0 long-texts">
-            <input name="item[][total]"
-                data-item="total"
-                v-model.lazy="row.total"
-                v-money="money"
-                type="hidden">
+            {{ Form::moneyGroup('total', '', '', ['required' => 'required', 'v-model' => 'row.total', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right input-price d-none') }}
             @stack('total_input_start')
+                <span id="item-total" v-if="row.total" v-html="row.total">0</span>
                 @if (empty($item) || !isset($item->total))
-                    <span id="item-total" v-html="row.total">0</span>
+                    <span id="item-total" v-else>@money(0, $currency->code, true)</span>
                 @else
-                    <span id="item-total" v-html="row.total">@money($item->total, $bill->currency_code, true)</span>
+                    <span id="item-total" v-else>@money($item->total, $bill->currency_code, true)</span>
                 @endif
             @stack('total_input_end')
         </td>

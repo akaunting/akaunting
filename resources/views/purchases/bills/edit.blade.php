@@ -66,7 +66,10 @@
 
                                     @stack('add_item_td_start')
                                         <tr class="row" id="addItem">
-                                            <td class="col-md-1 action-column border-right-0 border-bottom-0"><button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i></button></td>
+                                            <td class="col-md-1 action-column border-right-0 border-bottom-0">
+                                                <button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i>
+                                                </button>
+                                            </td>
                                             <td class="col-md-11 text-right border-bottom-0"></td>
                                         </tr>
                                     @stack('add_item_td_end')
@@ -77,6 +80,7 @@
                                                 <strong>{{ trans('bills.sub_total') }}</strong>
                                             </td>
                                             <td class="col-md-2 text-right border-bottom-0 long-texts">
+                                                {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="sub-total" v-html="totals.sub">0</span>
                                             </td>
                                         </tr>
@@ -139,6 +143,7 @@
                                                 <strong>{{ trans_choice('general.taxes', 1) }}</strong>
                                             </td>
                                             <td class="col-md-2 text-right border-bottom-0 long-texts">
+                                                {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.tax', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="tax-total" v-html="totals.tax">0</span>
                                             </td>
                                         </tr>
@@ -150,6 +155,7 @@
                                                 <strong>{{ trans('bills.total') }}</strong>
                                             </td>
                                             <td class="col-md-2 text-right long-texts">
+                                                {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="grand-total" v-html="totals.total">0</span>
                                             </td>
                                         </tr>

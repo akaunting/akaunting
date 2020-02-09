@@ -10,7 +10,7 @@
                 </span>
             </div>
 
-            <money :name="name" :placeholder="placeholder" v-model="model" v-bind="money" class="form-control"></money>
+            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="value" :masked="masked" class="form-control"></money>
         </div>
 
         <div class="invalid-feedback d-block" v-if="error" v-html="error"></div>
@@ -43,11 +43,7 @@ export default {
             default: null,
             description: "Selectbox attribute name"
         },
-        value: {
-            type: String,
-            default: null,
-            description: "Selectbox selected value"
-        },
+        value: 0,
         icon: {
             type: String,
             description: "Prepend icon (left)"
@@ -67,6 +63,11 @@ export default {
             default: null,
             description: "Selectbox disabled status"
         },
+        required: {
+            type: Boolean,
+            default: false,
+            description: "Selectbox disabled status"
+        },
         readonly: {
             type: Boolean,
             default: false,
@@ -77,6 +78,19 @@ export default {
             default: false,
             description: "Selectbox disabled status"
         },
+        dynamicCurrency: {
+            type: Object,
+            default: function () {
+                return {
+                    decimal_mark: '.',
+                    thousands_separator: ',',
+                    symbol_first: 1,
+                    symbol: '$',
+                    precision: 2,
+                };
+            },
+            description: "Dynamic currency"
+        },
         currency: {
             type: Object,
             default: function () {
@@ -85,7 +99,7 @@ export default {
                     thousands_separator: ',',
                     symbol_first: 1,
                     symbol: '$',
-                    precision: '2',
+                    precision: 2,
                 };
             },
             description: "Default currency"
@@ -105,7 +119,7 @@ export default {
                 thousands: this.currency.thousands_separator,
                 prefix: (this.currency.symbol_first) ? this.currency.symbol : '',
                 suffix: (!this.currency.symbol_first) ? this.currency.symbol : '',
-                precision: this.currency.precision,
+                precision: parseInt(this.currency.precision),
                 masked: this.masked
             }
         }
@@ -117,16 +131,41 @@ export default {
 
     methods: {
         change() {
-            this.$emit('change', this.model);
-            this.$emit('interface', this.model);
+            //this.$emit('change', this.model);
+            //this.$emit('interface', this.model);
         },
+        input(event) {
+            console.log(event);
+            this.model = event;
+            this.$emit('change', event);
+            this.$emit('interface', event);
+        }
     },
 
     watch: {
-        model: function (options) {
-
+        dynamicCurrency: function (currency) {
+            this.money = {
+                decimal: currency.decimal_mark,
+                thousands: currency.thousands_separator,
+                prefix: (currency.symbol_first) ? currency.symbol : '',
+                suffix: (!currency.symbol_first) ? currency.symbol : '',
+                precision: parseInt(currency.precision),
+                masked: this.masked
+            };
+        },
+        value: function (value) {
+            this.model = value;
+        },
+        model: function (model) {
+            this.$emit('change', this.model);
             this.$emit('interface', this.model);
         }
     },
 }
 </script>
+
+<style scoped>
+    .text-right.input-price .v-money {
+        text-align: right;
+    }
+</style>

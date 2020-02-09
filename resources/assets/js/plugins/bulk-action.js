@@ -79,11 +79,8 @@ export default class BulkAction {
                 'selected': this.selected
             })
             .then(response => {
-                //this.loading = false;
-                //this.modal = false;
                 if (response.data.redirect) {
                     window.location.reload(false);
-                } else {
                 }
             })
             .catch(error => {

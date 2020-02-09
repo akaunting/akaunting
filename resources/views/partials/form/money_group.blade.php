@@ -1,7 +1,9 @@
 @stack($name . '_input_start')
 
     <akaunting-money :col="'{{ $col }}'"
-        :required="{{ isset($attributes['required']) ? true : false }}"
+        @if (isset($attributes['readonly']))
+        :required="{{ $attributes['required'] }}"
+        @endif
 
         @if (isset($attributes['readonly']))
         :readonly="'{{ $attributes['readonly'] }}'"
@@ -12,7 +14,7 @@
         @endif
 
         @if (isset($attributes['masked']))
-        :masked="'{{ $attributes['masked'] }}'"
+        :masked="{{ ($attributes['masked']) ? 'true' : 'false' }}"
         @endif
 
         :error="{{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }}"
@@ -22,6 +24,18 @@
         :icon="'{{ $icon }}'"
         :currency="{{ json_encode($attributes['currency']) }}"
         :value="{{ $value }}"
+
+        @if (!empty($attributes['dynamic-currency']))
+        :dynamic-currency="{{ $attributes['dynamic-currency'] }}"
+        @endif
+
+        @if (!empty($attributes['v-model']))
+        v-model="{{ $attributes['v-model'] }}"
+        @endif
+
+        @if (!empty($attributes['change']))
+        @change="{{ $attributes['change'] }}($event)"
+        @endif
 
         @if (!empty($attributes['v-model']))
         @interface="{{ $attributes['v-model'] . ' = $event' }}"

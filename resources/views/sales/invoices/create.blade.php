@@ -79,6 +79,7 @@
                                                 <strong>{{ trans('invoices.sub_total') }}</strong>
                                             </td>
                                             <td class="col-md-2 text-right border-bottom-0 long-texts">
+                                                {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="sub-total" v-html="totals.sub">0</span>
                                             </td>
                                         </tr>
@@ -115,7 +116,7 @@
                                                         <div class="discount card-footer">
                                                             <div class="row text-center">
                                                                 <div class="col-md-12">
-                                                                    <a href="javascript:void(0)" @click="discount = false"  class="btn btn-icon btn-outline-secondary">
+                                                                    <a href="javascript:void(0)" @click="discount = false" class="btn btn-icon btn-outline-secondary">
                                                                         <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
                                                                         <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
                                                                     </a>
@@ -141,6 +142,7 @@
                                                 <strong>{{ trans_choice('general.taxes', 1) }}</strong>
                                             </td>
                                             <td class="col-md-2 text-right border-bottom-0 long-texts">
+                                                {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.tax', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="tax-total" v-html="totals.tax">0</span>
                                             </td>
                                         </tr>
@@ -152,6 +154,7 @@
                                                 <strong>{{ trans('invoices.total') }}</strong>
                                             </td>
                                             <td class="col-md-2 text-right long-texts">
+                                                {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="grand-total" v-html="totals.total">0</span>
                                             </td>
                                         </tr>

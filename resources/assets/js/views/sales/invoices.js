@@ -50,7 +50,8 @@ const app = new Vue({
             },
             transaction: [],
             items: '',
-            discount: false
+            discount: false,
+            currency: null,
         }
     },
 
@@ -105,6 +106,7 @@ const app = new Vue({
                 }
             })
             .then(response => {
+                this.currency = response.data;
                 this.form.currency_code = response.data.currency_code;
                 this.form.currency_rate = response.data.currency_rate;
             })
@@ -113,6 +115,37 @@ const app = new Vue({
         },
 
         onCalculateTotal() {
+            let sub_total = 0;
+            let discount_total = 0;
+            let tax_total = 0;
+            let grand_total = 0;
+            let items = this.form.items;
+            let discount = this.form.discount;
+
+            if (items.length) {
+                let index = 0;
+
+                for (index = 0; index < items.length; index++) {
+                    let item = items[index];
+
+                    let item_sub_total = item.price * item.quantity;
+                    let item_tax_total = 0;
+                    let item_discount_total = (discount) ? item_sub_total - (item_sub_total * (discount / 100)) : 0;
+
+                    items[index].total = item_sub_total;
+
+                    sub_total += items[index].total;
+                    discount_total += item_discount_total;
+                    tax_total += item_tax_total;
+                    grand_total += sub_total + tax_total;
+                }
+            }
+
+            this.totals.sub = sub_total;
+            this.totals.discount = discount_total;
+            this.totals.tax = tax_total;
+            this.totals.total = grand_total;
+            /*
             axios.post(url + '/common/items/total', {
                 items: this.form.items,
                 discount: this.form.discount,
@@ -134,9 +167,10 @@ const app = new Vue({
                 this.totals.discount_text = response.data.discount_text;
             })
             .catch(error => {
-            });
+            });*/
         },
 
+        // add invoice item row
         onAddItem() {
             let row = [];
 
@@ -182,9 +216,10 @@ const app = new Vue({
             this.form.items[index].price = (item.purchase_price).toFixed(2);
             this.form.items[index].quantity = 1;
             this.form.items[index].tax_id = [item.tax_id.toString()];
-            this.form.items[index].total = item.total;
+            this.form.items[index].total = (item.purchase_price).toFixed(2);
         },
 
+        // remove invocie item row => row_id = index
         onDeleteItem(index) {
             this.form.items.splice(index, 1);
         },
