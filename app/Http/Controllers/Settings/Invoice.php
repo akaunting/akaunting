@@ -9,7 +9,7 @@ class Invoice extends Controller
 {
     public function edit()
     {
-        $setting = Setting::all('invoice')->map(function ($s) {
+        $setting = Setting::prefix('invoice')->get()->transform(function ($s) {
             $s->key = str_replace('invoice.', '', $s->key);
 
             return $s;

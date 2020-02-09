@@ -13,7 +13,7 @@ class Defaults extends Controller
 {
     public function edit()
     {
-        $setting = Setting::all('default')->map(function ($s) {
+        $setting = Setting::prefix('default')->get()->transform(function ($s) {
             $s->key = str_replace('default.', '', $s->key);
 
             return $s;

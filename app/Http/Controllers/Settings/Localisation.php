@@ -12,7 +12,7 @@ class Localisation extends Controller
 
     public function edit()
     {
-        $setting = Setting::all('localisation')->map(function ($s) {
+        $setting = Setting::prefix('localisation')->get()->transform(function ($s) {
             $s->key = str_replace('localisation.', '', $s->key);
 
             return $s;

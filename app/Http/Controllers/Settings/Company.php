@@ -9,7 +9,7 @@ class Company extends Controller
 {
     public function edit()
     {
-        $setting = Setting::all('company')->map(function ($s) {
+        $setting = Setting::prefix('company')->get()->transform(function ($s) {
             $s->key = str_replace('company.', '', $s->key);
 
             return $s;

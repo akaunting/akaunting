@@ -2,10 +2,9 @@
 
 namespace App\Scopes;
 
-use App;
-use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
 
 class Company implements Scope
 {
@@ -21,7 +20,12 @@ class Company implements Scope
         $table = $model->getTable();
 
         // Skip for specific tables
-        $skip_tables = ['companies', 'jobs', 'migrations', 'notifications', 'permissions', 'role_user', 'roles', 'sessions', 'users'];
+        $skip_tables = [
+            'companies', 'jobs', 'firewall_ips', 'firewall_logs', 'media', 'mediables', 'migrations', 'notifications',
+            'permissions', 'roles', 'role_companies', 'role_permissions', 'sessions', 'users', 'user_companies',
+            'user_dashboards', 'user_permissions', 'user_roles',
+        ];
+
         if (in_array($table, $skip_tables)) {
             return;
         }

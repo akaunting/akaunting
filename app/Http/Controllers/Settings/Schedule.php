@@ -9,7 +9,7 @@ class Schedule extends Controller
 {
     public function edit()
     {
-        $setting = Setting::all('schedule')->map(function ($s) {
+        $setting = Setting::prefix('schedule')->get()->transform(function ($s) {
             $s->key = str_replace('schedule.', '', $s->key);
 
             return $s;

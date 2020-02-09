@@ -31,7 +31,7 @@ class Email extends Controller
 
     public function edit()
     {
-        $setting = Setting::all('email')->map(function ($s) {
+        $setting = Setting::prefix('email')->get()->transform(function ($s) {
             $s->key = str_replace('email.', '', $s->key);
 
             return $s;

@@ -29,7 +29,7 @@ class Modules extends Controller
      */
     public function edit($alias)
     {
-        $setting = Setting::all($alias)->map(function ($s) use ($alias) {
+        $setting = Setting::prefix($alias)->get()->transform(function ($s) use ($alias) {
             $s->key = str_replace($alias . '.', '', $s->key);
             return $s;
         })->pluck('value', 'key');
