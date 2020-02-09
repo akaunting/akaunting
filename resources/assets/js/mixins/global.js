@@ -37,14 +37,6 @@ export default {
 
     data: function () {
         return {
-            confirm: {
-                url: '',
-                title: '',
-                message: '',
-                button_cancel: '',
-                button_delete: '',
-                show: false
-            },
             money: {
                 decimal: '.',
                 thousands: ',',
@@ -141,41 +133,54 @@ export default {
 
         // Actions > Delete
         confirmDelete(url, title, message, button_cancel, button_delete) {
-            this.confirm.url = url;
-            this.confirm.title = title;
-            this.confirm.message = message;
-            this.confirm.button_cancel = button_cancel;
-            this.confirm.button_delete = button_delete;
-            this.confirm.show = true;
-        },
+            let confirm = {
+                url: url,
+                title: title,
+                message: message,
+                button_cancel: button_cancel,
+                button_delete: button_delete,
+                show: true
+            };
 
-        // Delete action post
-        onDelete() {
-            axios({
-                method: 'DELETE',
-                url: this.confirm.url,
-            })
-            .then(response => {
-                if (response.data.redirect) {
-                    this.confirm.url = '';
-                    this.confirm.title = '';
-                    this.confirm.message = '';
-                    this.confirm.show = false;
+            this.component = Vue.component('add-new-component', (resolve, reject) => {
+                resolve({
+                    template : '<div id="dynamic-component"><akaunting-modal v-if="confirm.show" :show="confirm.show" :title="confirm.title" :message="confirm.message" :button_cancel="confirm.button_cancel" :button_delete="confirm.button_delete" @confirm="onDelete" @cancel="cancelDelete"></akaunting-modal></div>',
 
-                    window.location.href = response.data.redirect;
-                }
-            })
-            .catch(error => {
-                this.success = false;
+                    components: {
+                        AkauntingModal,
+                    },
+
+                    data: function () {
+                        return {
+                            confirm: confirm,
+                        }
+                    },
+
+                    methods: {
+                        // Delete action post
+                       async onDelete() {
+                            let promise = Promise.resolve(axios({
+                                method: 'DELETE',
+                                url: this.confirm.url,
+                            }));
+
+                            promise.then(response => {
+                                if (response.data.redirect) {
+                                    window.location.href = response.data.redirect;
+                                }
+                            })
+                            .catch(error => {
+                                this.success = false;
+                            });
+                        },
+
+                        // Close modal empty default value
+                        cancelDelete() {
+                            this.confirm.show = false;
+                        },
+                    }
+                })
             });
-        },
-
-        // Close modal empty default value
-        cancelDelete() {
-            this.confirm.url = '';
-            this.confirm.title = '';
-            this.confirm.message = '';
-            this.confirm.show = false;
         },
 
         // Change bank account get money and currency rate
