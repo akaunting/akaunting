@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import AkauntingSearch from './../components/AkauntingSearch';
 import AkauntingModal from './../components/AkauntingModal';
+import AkauntingMoney from './../components/AkauntingMoney';
 import AkauntingModalAddNew from './../components/AkauntingModalAddNew';
 import AkauntingRadioGroup from './../components/forms/AkauntingRadioGroup';
 import AkauntingSelect from './../components/AkauntingSelect';
@@ -13,7 +14,6 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import NProgressAxios from './../plugins/nprogress-axios';
 
-import {VMoney} from 'v-money';
 import { Select, Option, Steps, Step, Button } from 'element-ui';
 
 import Form from './../plugins/form';
@@ -24,6 +24,7 @@ export default {
         AkauntingRadioGroup,
         AkauntingSelect,
         AkauntingSelectRemote,
+        AkauntingMoney,
         AkauntingModal,
         AkauntingModalAddNew,
         AkauntingDate,
@@ -37,32 +38,16 @@ export default {
 
     data: function () {
         return {
-            money: {
-                decimal: '.',
-                thousands: ',',
-                prefix: '$ ',
-                suffix: '',
-                precision: 2,
-                masked: false /* doesn't work with directive */
-            },
             component: '',
         }
     },
 
     directives: {
-        money: VMoney
+        //money: VMoney
     },
 
     mounted() {
         this.checkNotify();
-
-        if (aka_currency) {
-            this.money.decimal = aka_currency.decimal_mark;
-            this.money.thousands = aka_currency.thousands_separator;
-            this.money.prefix = (aka_currency.symbol_first) ? aka_currency.symbol : '';
-            this.money.suffix = !(aka_currency.symbol_first) ? aka_currency.symbol : '';
-            this.money.precision = aka_currency.precision;
-        }
     },
 
     methods: {

@@ -40,8 +40,6 @@
             'csrfToken' => csrf_token(),
         ]); ?>;
 
-        var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
-
         var flash_notification = {!! (session()->has('flash_notification')) ? json_encode(session()->get('flash_notification')) : 'false' !!};
     //--></script>
 
