@@ -28,6 +28,12 @@
             @if (!empty($attributes['seconds']))
             enableSeconds: true
             @endif
+            @if (!empty($attributes['min-date']))
+            minDate: {{ $attributes['min-date'] }}
+            @endif
+            @if (!empty($attributes['max-date']))
+            maxDate: {{ $attributes['max-date'] }}
+            @endif
         }"
 
         @if (!empty($attributes['v-model']))
