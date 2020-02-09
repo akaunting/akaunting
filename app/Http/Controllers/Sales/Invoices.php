@@ -13,6 +13,7 @@ use App\Jobs\Sale\DeleteInvoice;
 use App\Jobs\Sale\DuplicateInvoice;
 use App\Jobs\Sale\UpdateInvoice;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
@@ -76,6 +77,19 @@ class Invoices extends Controller
         $signed_url = URL::signedRoute('signed.invoices.show', [$invoice->id, 'company_id' => session('company_id')]);
 
         $date_format = $this->getCompanyDateFormat();
+
+        // Get Invoice Totals
+        foreach ($invoice->totals as $invoice_total) {
+            $invoice->{$invoice_total->code} = $invoice_total->amount;
+        }
+
+        $total = money($invoice->total, $currency->code, true)->format();
+
+        $invoice->grand_total = money($total, $currency->code)->getAmount();
+
+        if (!empty($invoice->paid)) {
+            $invoice->grand_total = round($invoice->total - $invoice->paid, $currency->precision);
+        }
 
         return view('sales.invoices.show', compact('invoice', 'accounts', 'currencies', 'currency', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'signed_url', 'date_format'));
     }

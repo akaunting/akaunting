@@ -13,6 +13,7 @@ use App\Jobs\Purchase\DeleteBill;
 use App\Jobs\Purchase\DuplicateBill;
 use App\Jobs\Purchase\UpdateBill;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Purchase\Bill;
@@ -72,6 +73,19 @@ class Bills extends Controller
         $payment_methods = Modules::getPaymentMethods();
 
         $date_format = $this->getCompanyDateFormat();
+
+        // Get Bill Totals
+        foreach ($bill->totals as $bill_total) {
+            $bill->{$bill_total->code} = $bill_total->amount;
+        }
+
+        $total = money($bill->total, $currency->code, true)->format();
+
+        $bill->grand_total = money($total, $currency->code)->getAmount();
+
+        if (!empty($bill->paid)) {
+            $bill->grand_total = round($bill->total - $bill->paid, $currency->precision) ;
+        }
 
         return view('purchases.bills.show', compact('bill', 'accounts', 'currencies', 'currency', 'account_currency_code', 'vendors', 'categories', 'payment_methods', 'date_format'));
     }
