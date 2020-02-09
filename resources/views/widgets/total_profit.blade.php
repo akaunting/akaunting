@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col">
                     <h5 class="text-uppercase text-white mb-0">{{ $class->model->name }}</h5>
-                    <span class="font-weight-bold text-white mb-0">@money($totals['current'], setting('default.currency'), true)</span>
+                    <span class="font-weight-bold text-white mb-0">{{ $totals['grand'] }}</span>
                 </div>
 
                 <div class="col-auto">

@@ -29,6 +29,8 @@ class TotalExpenses extends Widget
             $overdue += $overdue_tmp;
         });
 
+        $grand = $current + $open + $overdue;
+
         $progress = 100;
 
         if (!empty($open) && !empty($overdue)) {
@@ -36,7 +38,7 @@ class TotalExpenses extends Widget
         }
 
         $totals = [
-            'current'       => $current,
+            'grand'         => money($grand, setting('default.currency'), true),
             'open'          => money($open, setting('default.currency'), true),
             'overdue'       => money($overdue, setting('default.currency'), true),
             'progress'      => $progress,

@@ -48,6 +48,8 @@ class TotalProfit extends Widget
         $open = $open_invoice - $open_bill;
         $overdue = $overdue_invoice - $overdue_bill;
 
+        $grand = $current + $open + $overdue;
+
         $progress = 100;
 
         if (!empty($open) && !empty($overdue)) {
@@ -55,7 +57,7 @@ class TotalProfit extends Widget
         }
 
         $totals = [
-            'current'       => $current,
+            'grand'         => money($grand, setting('default.currency'), true),
             'open'          => money($open, setting('default.currency'), true),
             'overdue'       => money($overdue, setting('default.currency'), true),
             'progress'      => $progress,
