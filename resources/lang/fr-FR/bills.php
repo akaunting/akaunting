@@ -32,7 +32,7 @@ return [
     'download_pdf'      => 'Télécharger en PDF',
     'send_mail'         => 'Envoyer un Email',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'Brouillon',
         'received'      => 'Reçu',
         'partial'       => 'Partiel',

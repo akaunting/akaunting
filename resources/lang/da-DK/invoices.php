@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Betal',
     'accept_payments'       => 'Accepter onlinebetalinger',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Kladde',
         'sent'              => 'Sendt',
         'viewed'            => 'Vist',

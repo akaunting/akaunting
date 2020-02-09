@@ -36,7 +36,7 @@ return [
     'send_invoice'          => 'Siųsti sąskaitą-faktūrą',
     'get_paid'              => 'Gauti apmokėjimą',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Juodraštis',
         'sent'              => 'Išsiųsta',
         'viewed'            => 'Peržiūrėta',

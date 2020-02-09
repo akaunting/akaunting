@@ -33,7 +33,7 @@ return [
     'send_mail'         => 'Pošalji e-mail',
     'all_invoices'      => 'Login to view all invoices',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'Skica',
         'sent'          => 'Poslano',
         'viewed'        => 'Pogledano',

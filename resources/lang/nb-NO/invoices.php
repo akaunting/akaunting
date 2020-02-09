@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'Få betalt',
     'accept_payments'       => 'Aksepter online betalinger',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Utkast',
         'sent'              => 'Sendt',
         'viewed'            => 'Åpnet',

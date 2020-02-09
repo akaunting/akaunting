@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Taka á móti reikningi',
     'make_payment'          => 'Greiða',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Uppkast',
         'received'          => 'Móttekið',
         'partial'           => 'Hluta',

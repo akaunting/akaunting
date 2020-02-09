@@ -35,7 +35,7 @@ return [
     'receive_bill'          => 'Modtag regning',
     'make_payment'          => 'Opret betaling',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Kladde',
         'received'          => 'Modtaget',
         'partial'           => 'Delvis',

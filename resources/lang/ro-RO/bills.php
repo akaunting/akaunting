@@ -36,7 +36,7 @@ Nume articol|Nume articole',
     'receive_bill'          => 'Receive Bill',
     'make_payment'          => 'Plătește',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'Ciornă',
         'received'          => 'Primit
 Primite',

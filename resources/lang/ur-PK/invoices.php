@@ -37,7 +37,7 @@ return [
     'get_paid'              => 'انوائس حاصل کریں',
     'accept_payments'       => 'آن لائن ادائیگی قبول کریں',
 
-    'status' => [
+    'statuses' => [
         'draft'             => 'ڈرافٹ',
         'sent'              => 'بھیجا گیا ہے:',
         'viewed'            => 'دیکھا',

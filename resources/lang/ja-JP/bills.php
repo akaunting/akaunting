@@ -35,7 +35,7 @@ return [
     'receive_bill'          => '請求書を受け取る',
     'make_payment'          => '支払う',
 
-    'status' => [
+    'statuses' => [
         'draft'             => '下書き',
         'received'          => '受け取った',
         'partial'           => '部分的',

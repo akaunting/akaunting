@@ -33,7 +33,7 @@ return [
     'send_mail'         => 'Envoyer un Email',
     'all_invoices'      => 'Connectez-vous pour voir toutes les factures',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'Brouillon',
         'sent'          => 'Envoyé',
         'viewed'        => 'Vu',

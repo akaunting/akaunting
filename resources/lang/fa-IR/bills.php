@@ -32,7 +32,7 @@ return [
     'download_pdf'      => 'دانلود PDF',
     'send_mail'         => 'ارسال ایمیل',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'پیش‌ نویس',
         'received'      => 'دریافت شده',
         'partial'       => 'جزئیات',
