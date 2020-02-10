@@ -140,7 +140,7 @@
                 @if (empty($item) || !isset($item->total))
                     <span id="item-total" v-else>@money(0, $currency->code, true)</span>
                 @else
-                    <span id="item-total" v-else>@money($item->total, $invoice->currency_code, true)</span>
+                    <span id="item-total" v-else>@money($item->total, $bill->currency_code, true)</span>
                 @endif
             @stack('total_input_end')
         </td>
