@@ -69,7 +69,7 @@
                                                     <i class="bg-success"></i>
                                                 </span>
                                             </el-tooltip>
-                                        @elseif ($item->invoice->status == 'partials')
+                                        @elseif ($item->invoice->status == 'partial')
                                             <el-tooltip content="{{ $item->invoice->invoice_number }} / {{ trans('invoices.statuses.partial') }}"
                                             effect="info"
                                             :open-delay="100"
