@@ -9,17 +9,6 @@ use Illuminate\Support\Str;
 
 class Login extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
     /**
@@ -34,10 +23,6 @@ class Login extends Controller
      *
      * @return void
      */
-    /*public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }*/
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'destroy']);
@@ -104,7 +89,7 @@ class Login extends Controller
             return response()->json($response);
         }
 
-        session(['dashboard_id' => $user->dashboards()->pluck('id')->first()]);
+        session(['dashboard_id' => $user->dashboards()->enabled()->pluck('id')->first()]);
 
         $response = [
             'status' => null,

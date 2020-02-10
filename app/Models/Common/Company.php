@@ -268,7 +268,7 @@ class Company extends Eloquent
         $search = $request->get('search');
         $limit = $request->get('limit', setting('default.list_limit', '25'));
 
-        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
+        return user()->companies()->usingSearchString($search)->sortable($sort)->paginate($limit);
     }
 
     /**

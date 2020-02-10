@@ -37,7 +37,7 @@ class FinishUpdate extends Command
      */
     public function handle()
     {
-        set_time_limit(900); // 15 minutes
+        set_time_limit(3600); // 1 hour
 
         $this->info('Finishing update...');
 
@@ -56,7 +56,11 @@ class FinishUpdate extends Command
 
         // Set locale for modules
         if ($alias != 'core') {
-            app()->setLocale(Company::find($company_id)->locale);
+            $company = Company::find($company_id);
+
+            if (!empty($company->locale)) {
+                app()->setLocale($company->locale);
+            }
         }
 
         session(['company_id' => $company_id]);

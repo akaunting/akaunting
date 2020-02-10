@@ -47,7 +47,7 @@ class Update extends Command
      */
     public function handle()
     {
-        set_time_limit(900); // 15 minutes
+        set_time_limit(3600); // 1 hour
 
         $this->alias = $this->argument('alias');
 

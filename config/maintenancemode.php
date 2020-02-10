@@ -7,14 +7,14 @@ return [
      *
      * @var string
      */
-    'view' => 'maintenancemode::app-down',
+    'view' => env('MAINTENANCE_VIEW', 'maintenancemode::app-down'),
 
     /**
      * Include CSS styles with the optional notification view
      *
      * @var boolean
      */
-    'notification-styles' => true,
+    'notification-styles' => env('MAINTENANCE_STYLES', true),
 
     /**
      * Configuration values for injecting variables into the views
@@ -59,7 +59,7 @@ return [
      *
      * @var array
      */
-    'exempt-ips' => [env('MAINTENANCE_EXEMPT_IPS')],
+    'exempt-ips' => explode(',', env('MAINTENANCE_EXEMPT_IPS')),
 
     /**
      * Use proxies to get the user's IP address
@@ -68,7 +68,7 @@ return [
      *
      * @var boolean
      */
-    'exempt-ips-proxy' => false,
+    'exempt-ips-proxy' => env('MAINTENANCE_EXEMPT_IPS_PROXY', false),
 
     /**
      * An array of environments that will never show the maintenance page
@@ -77,7 +77,7 @@ return [
      *
      * @var array
      */
-    'exempt-environments' => [env('MAINTENANCE_EXEMPT_ENVIRONMENTS', 'local')],
+    'exempt-environments' => explode(',', env('MAINTENANCE_EXEMPT_ENVIRONMENTS', 'local')),
 
     /**
      * A list of exemption classes to execute
