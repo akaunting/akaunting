@@ -14,7 +14,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import NProgressAxios from './../plugins/nprogress-axios';
 
-import { Select, Option, Steps, Step, Button } from 'element-ui';
+import { Select, Option, Steps, Step, Button, Link } from 'element-ui';
 
 import Form from './../plugins/form';
 
@@ -34,6 +34,7 @@ export default {
         [Steps.name]: Steps,
         [Step.name]: Step,
         [Button.name]: Button,
+        [Link.name]: Link,
     },
 
     data: function () {

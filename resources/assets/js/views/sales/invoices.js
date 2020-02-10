@@ -16,10 +16,8 @@ import Form from './../../plugins/form';
 import Error from './../../plugins/error';
 import BulkAction from './../../plugins/bulk-action';
 
-import { Link } from 'element-ui';
-
 // plugin setup
-Vue.use(DashboardPlugin, Link);
+Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',
@@ -52,6 +50,7 @@ const app = new Vue({
             items: '',
             discount: false,
             currency: null,
+            taxes: null,
         }
     },
 
@@ -80,6 +79,10 @@ const app = new Vue({
             });
 
             this.form.items = items;
+        }
+
+        if (document.getElementById('taxes').getAttribute('data-value')) {
+            this.taxes = JSON.parse(document.getElementById('taxes').getAttribute('data-value'));
         }
     },
 
@@ -125,49 +128,106 @@ const app = new Vue({
             if (items.length) {
                 let index = 0;
 
+                // get all items.
                 for (index = 0; index < items.length; index++) {
+                    // get row item and set item variable.
                     let item = items[index];
 
+                    // item sub total calcute.
                     let item_sub_total = item.price * item.quantity;
-                    let item_tax_total = 0;
-                    let item_discount_total = (discount) ? item_sub_total - (item_sub_total * (discount / 100)) : 0;
 
+                    // item discount calculate.
+                    let item_discounted_total = item_sub_total;
+
+                    if (discount) {
+                        item_discounted_total = item_sub_total - (item_sub_total * (discount / 100));
+                    }
+
+                    // item tax calculate.
+                    let item_tax_total = 0;
+
+                    if (item.tax_id) {
+                        let inclusives = [];
+                        let compounds = [];
+                        let index_taxes = 0;
+                        let taxes = this.taxes;
+
+                        item.tax_id.forEach(function(item_tax_id) {
+                            for (index_taxes = 0; index_taxes < taxes.length; index_taxes++) {
+                                let tax = taxes[index_taxes];
+
+                                if (item_tax_id != tax.id) {
+                                    continue;
+                                }
+
+                                switch (tax.type) {
+                                    case 'inclusive':
+                                        inclusives.push(tax);
+                                        break;
+                                    case 'compound':
+                                        compounds.push(tax);
+                                        break;
+                                    case 'fixed':
+                                        item_tax_total += tax.rate * item.quantity;
+                                        break;
+                                    default:
+                                        let item_tax_amount = (item_discounted_total / 100) * tax.rate;
+
+                                        item_tax_total += item_tax_amount;
+                                        break;
+                                }
+                            }
+                        });
+
+                        if (inclusives.length) {
+                            let item_sub_and_tax_total = item_discounted_total + item_tax_total;
+
+                            let inclusive_total = 0;
+
+                            inclusives.forEach(function(inclusive) {
+                                inclusive_total += inclusive.rate;
+                            });
+
+                            let item_base_rate = item_sub_and_tax_total / (1 + inclusive_total / 100);
+
+                            item_tax_total = item_sub_and_tax_total - item_base_rate;
+
+                            item_sub_total = item_base_rate + discount;
+                        }
+
+                        if (compounds.length) {
+                            compounds.forEach(function(compound) {
+                                item_tax_total += ((item_discounted_total + item_tax_total) / 100) * compound.rate;
+                            });
+                        }
+                    }
+
+                    // set item total
                     items[index].total = item_sub_total;
 
-                    sub_total += items[index].total;
-                    discount_total += item_discount_total;
+                    // calculate sub, tax, discount all items.
+                    sub_total += item_sub_total;
                     tax_total += item_tax_total;
-                    grand_total += sub_total + tax_total;
                 }
             }
 
+            // set global total variable.
             this.totals.sub = sub_total;
-            this.totals.discount = discount_total;
             this.totals.tax = tax_total;
+
+            // Apply discount to total
+            if (discount) {
+                discount_total = sub_total * (discount / 100);
+
+                this.totals.discount = discount_total;
+
+                sub_total = sub_total - (sub_total * (discount / 100));
+            }
+
+            // set all item grand total.
+            grand_total = sub_total + tax_total;
+
             this.totals.total = grand_total;
-            /*
-            axios.post(url + '/common/items/total', {
-                items: this.form.items,
-                discount: this.form.discount,
-                currency_code: this.form.currency_code
-            })
-            .then(response => {
-                let items = this.form.items;
-
-                response.data.items.forEach(function(value, index) {
-                    items[index].total = value;
-                });
-
-                this.form.items = items;
-
-                this.totals.sub = response.data.sub_total;
-                this.totals.discount = response.data.discount_total;
-                this.totals.tax = response.data.tax_total;
-                this.totals.total = response.data.grand_total;
-                this.totals.discount_text = response.data.discount_text;
-            })
-            .catch(error => {
-            });*/
         },
 
         // add invoice item row
@@ -216,7 +276,7 @@ const app = new Vue({
             this.form.items[index].price = (item.purchase_price).toFixed(2);
             this.form.items[index].quantity = 1;
             this.form.items[index].tax_id = [item.tax_id.toString()];
-            this.form.items[index].total = (item.purchase_price).toFixed(2);
+            this.form.items[index].total = (item.sale_price).toFixed(2);
         },
 
         // remove invocie item row => row_id = index
@@ -226,6 +286,14 @@ const app = new Vue({
 
         onAddDiscount() {
             let discount = document.getElementById('pre-discount').value;
+
+            if (discount < 0) {
+                discount = 0;
+            } else if (discount > 100) {
+                discount = 100;
+            }
+
+            document.getElementById('pre-discount').value = discount;
 
             this.form.discount = discount;
             this.discount = false;

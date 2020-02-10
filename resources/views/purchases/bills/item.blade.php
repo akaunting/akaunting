@@ -90,7 +90,7 @@
                 :title="''"
                 :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
                 :name="'tax_id'"
-                :options="{{ json_encode($taxes) }}"
+                :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
                 :value="row.tax_id"
                 :multiple="true"
                 :add-new="{{ json_encode([
@@ -119,19 +119,28 @@
                 :no-data-text="'{{ trans('general.no_data') }}'"
                 :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
             ></akaunting-select>
+            <input id="taxes" name="taxes" type="hidden" data-value="{{ json_encode($taxes) }}" v-model="taxes">
             @stack('tax_id_input_end')
         </td>
     @stack('taxes_td_end')
 
     @stack('total_td_start')
         <td class="col-md-2 text-right total-column border-bottom-0 long-texts">
-            {{ Form::moneyGroup('total', '', '', ['required' => 'required', 'v-model' => 'row.total', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right input-price d-none') }}
+            <akaunting-money :col="'d-none'"
+                :masked="true"
+                :error="{{ 'form.errors.get("total")' }}"
+                :name="'total'"
+                :currency="{{ json_encode($currency) }}"
+                :dynamic-currency="currency"
+                v-model="row.total"
+                @interface="row.total = $event"
+            ></akaunting-money>
             @stack('total_input_start')
-                <span id="item-total" v-if="row.total" v-html="row.total">0</span>
+                <span id="item-total" v-if="row.total" v-html="row.total"></span>
                 @if (empty($item) || !isset($item->total))
                     <span id="item-total" v-else>@money(0, $currency->code, true)</span>
                 @else
-                    <span id="item-total" v-else>@money($item->total, $bill->currency_code, true)</span>
+                    <span id="item-total" v-else>@money($item->total, $invoice->currency_code, true)</span>
                 @endif
             @stack('total_input_end')
         </td>

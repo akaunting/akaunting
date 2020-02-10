@@ -61,7 +61,7 @@
                                         @stack('total_th_end')
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="bill-item-rows">
                                     @include('purchases.bills.item')
 
                                     @stack('add_item_td_start')
@@ -81,7 +81,8 @@
                                             </td>
                                             <td class="col-md-2 text-right border-bottom-0 long-texts">
                                                 {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
-                                                <span id="sub-total" v-html="totals.sub">0</span>
+                                                <span id="sub-total" v-if="totals.sub" v-html="totals.sub"></span>
+                                                <span v-else>@money(0, $currency->code, true)</span>
                                             </td>
                                         </tr>
                                     @stack('sub_total_td_end')
@@ -94,7 +95,7 @@
                                                     placement="bottom"
                                                     width="300"
                                                     v-model="discount">
-                                                    <div class="card">
+                                                    <div class="card d-none" :class="[{'show' : discount}]">
                                                         <div class="discount card-body">
                                                             <div class="row align-items-center">
                                                                 <div class="col-md-6">
@@ -104,7 +105,7 @@
                                                                                 <i class="fa fa-percent"></i>
                                                                             </span>
                                                                         </div>
-                                                                        {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}
+                                                                        {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control']) !!}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -131,7 +132,9 @@
                                                 </el-popover>
                                             </td>
                                             <td class="col-md-2 text-right border-bottom-0">
-                                                <span id="discount-total" v-html="totals.discount"></span>
+                                                {{ Form::moneyGroup('discount_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.discount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
+                                                <span id="discount-total" v-if="totals.discount" v-html="totals.discount"></span>
+                                                <span v-else>@money(0, $currency->code, true)</span>
                                                 {!! Form::hidden('discount', null, ['id' => 'discount', 'class' => 'form-control text-right', 'v-model' => 'form.discount']) !!}
                                             </td>
                                         </tr>
@@ -144,7 +147,8 @@
                                             </td>
                                             <td class="col-md-2 text-right border-bottom-0 long-texts">
                                                 {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.tax', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
-                                                <span id="tax-total" v-html="totals.tax">0</span>
+                                                <span id="tax-total" v-if="totals.tax" v-html="totals.tax"></span>
+                                                <span v-else>@money(0, $currency->code, true)</span>
                                             </td>
                                         </tr>
                                     @stack('tax_total_td_end')
@@ -156,7 +160,8 @@
                                             </td>
                                             <td class="col-md-2 text-right long-texts">
                                                 {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
-                                                <span id="grand-total" v-html="totals.total">0</span>
+                                                <span id="grand-total" v-if="totals.total" v-html="totals.total"></span>
+                                                <span v-else>@money(0, $currency->code, true)</span>
                                             </td>
                                         </tr>
                                     @stack('grand_total_td_end')

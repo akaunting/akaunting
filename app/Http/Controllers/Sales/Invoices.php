@@ -109,7 +109,7 @@ class Invoices extends Controller
 
         $items = Item::enabled()->orderBy('name')->get();
 
-        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get();
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -205,7 +205,7 @@ class Invoices extends Controller
 
         $items = Item::enabled()->orderBy('name')->get();
 
-        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get();
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
