@@ -6246,6 +6246,17 @@
     border-left-color: #000000
 }
 
+
+.el-tooltip__popper.is-success {
+    background: #6da252;
+    color: #FFF
+}
+
+.el-tooltip__popper.is-info {
+    background: #328aef;
+    color: #FFF
+}
+
 .el-tooltip__popper.is-dark {
     background: #000000;
     color: #FFF
@@ -6254,6 +6265,70 @@
 .el-tooltip__popper.is-light {
     background: #FFF;
     border: 1px solid #FFF
+}
+
+.el-tooltip__popper.is-success[x-placement^=top] .popper__arrow {
+    border-top-color: #6da252
+}
+
+.el-tooltip__popper.is-success[x-placement^=top] .popper__arrow::after {
+    border-top-color: #6da252
+}
+
+.el-tooltip__popper.is-success[x-placement^=bottom] .popper__arrow {
+    border-bottom-color: #6da252
+}
+
+.el-tooltip__popper.is-success[x-placement^=bottom] .popper__arrow::after {
+    border-bottom-color: #6da252
+}
+
+.el-tooltip__popper.is-success[x-placement^=left] .popper__arrow {
+    border-left-color: #6da252
+}
+
+.el-tooltip__popper.is-success[x-placement^=left] .popper__arrow::after {
+    border-left-color: #6da252
+}
+
+.el-tooltip__popper.is-success[x-placement^=right] .popper__arrow {
+    border-right-color: #6da252
+}
+
+.el-tooltip__popper.is-success[x-placement^=right] .popper__arrow::after {
+    border-right-color: #6da252
+}
+
+.el-tooltip__popper.is-info[x-placement^=top] .popper__arrow {
+    border-top-color: #328aef
+}
+
+.el-tooltip__popper.is-info[x-placement^=top] .popper__arrow::after {
+    border-top-color: #328aef
+}
+
+.el-tooltip__popper.is-info[x-placement^=bottom] .popper__arrow {
+    border-bottom-color: #328aef
+}
+
+.el-tooltip__popper.is-info[x-placement^=bottom] .popper__arrow::after {
+    border-bottom-color: #328aef
+}
+
+.el-tooltip__popper.is-info[x-placement^=left] .popper__arrow {
+    border-left-color: #328aef
+}
+
+.el-tooltip__popper.is-info[x-placement^=left] .popper__arrow::after {
+    border-left-color: #328aef
+}
+
+.el-tooltip__popper.is-info[x-placement^=right] .popper__arrow {
+    border-right-color: #328aef
+}
+
+.el-tooltip__popper.is-info[x-placement^=right] .popper__arrow::after {
+    border-right-color: #328aef
 }
 
 .el-tooltip__popper.is-light[x-placement^=top] .popper__arrow {

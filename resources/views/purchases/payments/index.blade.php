@@ -55,7 +55,31 @@
                                     <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1"><a class="col-aka" href="{{ route('payments.edit', $item->id) }}">@date($item->paid_at)</a></td>
                                 @endif
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                <td class="col-md-2 col-lg-2 col-xl-4 d-none d-md-block text-left">{{ $item->contact->name }}</td>
+                                <td class="col-md-2 col-lg-2 col-xl-4 d-none d-md-block text-left">
+                                    {{ $item->contact->name }}
+
+                                    @if($item->bill)
+                                        @if ($item->bill->status == 'paid')
+                                            <el-tooltip content="{{ $item->bill->bill_number }} / {{ trans('bills.statuses.paid') }}"
+                                            effect="success"
+                                            :open-delay="100"
+                                            placement="top">
+                                                <span class="badge badge-dot pl-2">
+                                                    <i class="bg-success"></i>
+                                                </span>
+                                            </el-tooltip>
+                                        @elseif ($item->bill->status == 'partials')
+                                            <el-tooltip content="{{ $item->bill->bill_number }} / {{ trans('bills.statuses.partial') }}"
+                                            effect="info"
+                                            :open-delay="100"
+                                            placement="top">
+                                                <span class="badge badge-dot pl-2">
+                                                    <i class="bg-info"></i>
+                                                </span>
+                                            </el-tooltip>
+                                        @endif
+                                    @endif
+                                </td>
                                 <td class="col-lg-2 col-xl-2 d-none d-lg-block text-left">{{ $item->category->name }}</td>
                                 <td class="col-lg-2 col-xl-1 d-none d-lg-block text-left">{{ $item->account->name }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
