@@ -65,7 +65,7 @@
                                             effect="success"
                                             :open-delay="100"
                                             placement="top">
-                                                <span class="badge badge-dot pl-2">
+                                                <span class="badge badge-dot pl-2 h-0">
                                                     <i class="bg-success"></i>
                                                 </span>
                                             </el-tooltip>
@@ -74,7 +74,7 @@
                                             effect="info"
                                             :open-delay="100"
                                             placement="top">
-                                                <span class="badge badge-dot pl-2">
+                                                <span class="badge badge-dot pl-2 h-0">
                                                     <i class="bg-info"></i>
                                                 </span>
                                             </el-tooltip>

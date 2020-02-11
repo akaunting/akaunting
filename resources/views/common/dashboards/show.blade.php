@@ -80,7 +80,7 @@
         :format="'yyyy-MM-dd'"
         value-format="yyyy-MM-dd"
         @change="onChangeFilterDate"
-        range-separator="{{ trans('general.to')}}"
+        range-separator=">>"
         start-placeholder="{{ trans('general.start_date')}}"
         end-placeholder="{{ trans('general.end_date')}}"
         :picker-options="{
