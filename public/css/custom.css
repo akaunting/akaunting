@@ -96,6 +96,11 @@
 {
     left: 10px;
 }
+
+.custom-toggle-slider:after
+{
+    top: -1px;
+}
 /*--------Custom Toggle Finish--------*/
 
 
