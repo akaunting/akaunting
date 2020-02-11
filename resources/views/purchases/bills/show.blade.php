@@ -101,7 +101,7 @@
                                                 <div class="mt-3">
                                                     @stack('timeline_body_receive_bill_body_button_sent_start')
                                                         @permission('update-purchases-bills')
-                                                            <a href="{{ url('bills.received', $bill->id) }}" class="btn btn-danger btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
+                                                            <a href="{{ route('bills.received', $bill->id) }}" class="btn btn-danger btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
                                                         @endpermission
                                                     @stack('timeline_body_receive_bill_body_button_sent_end')
                                                 </div>
