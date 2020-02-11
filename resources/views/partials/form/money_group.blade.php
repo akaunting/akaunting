@@ -1,8 +1,8 @@
 @stack($name . '_input_start')
 
     <akaunting-money :col="'{{ $col }}'"
-        @if (isset($attributes['readonly']))
-        :required="{{ $attributes['required'] }}"
+        @if (isset($attributes['required']))
+        :required="{{ ($attributes['required']) ? 'true' : 'false' }}"
         @endif
 
         @if (isset($attributes['readonly']))
