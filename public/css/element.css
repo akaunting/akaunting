@@ -2629,6 +2629,10 @@
     overflow: hidden;
 }
 
+.el-select__tags-text {
+    padding-bottom: 2px;
+}
+
 .el-input__inner:focus {
     color: #8696a9;
 }

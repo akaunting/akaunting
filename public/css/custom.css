@@ -7,6 +7,13 @@
     font-style: normal;
 }
 
+/*--Layout Content--*/
+.content-layout
+{
+    max-width: 1300px !important;
+}
+/*--Layout Content Finish--*/
+
 /*--------Cursor Styles--------*/
 /*--Cursor Pointer--*/
 .cursor-pointer
@@ -79,6 +86,18 @@
 }
 /*--------Credit Card Finish--------*/
 
+/*--------Custom Toggle--------*/
+.custom-toggle
+{
+    width: 60px;
+}
+
+.custom-toggle input:checked + .status-green:before
+{
+    left: 10px;
+}
+/*--------Custom Toggle Finish--------*/
+
 
 /*--Button Element Focus--*/
 button:focus
@@ -147,14 +166,6 @@ button:focus
     margin-bottom: 30px;
 }
 /*--------Customer/Vendor Show Finish--------*/
-
-
-/*--------Content Width--------*/
-.content-layout
-{
-    max-width: 1300px !important;
-}
-/*--------Content Width Finish-------*/
 
 
 /*--------Navbar Notification--------*/
