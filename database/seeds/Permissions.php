@@ -64,7 +64,6 @@ class Permissions extends Seeder
                 'reports-income-expense-summary' => 'r',
                 'reports-profit-loss' => 'r',
                 'reports-tax-summary' => 'r',
-                'settings-appearance' => 'r,u',
                 'settings-categories' => 'c,r,u,d',
                 'settings-company' => 'r',
                 'settings-currencies' => 'c,r,u,d',

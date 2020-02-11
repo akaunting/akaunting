@@ -721,7 +721,6 @@ class Version200 extends Listener
                 'modules-api-key' => 'c,u',
                 'offline-payments-settings' => 'r,u,d',
                 'paypal-standard-settings' => 'r,u',
-                'settings-appearance' => 'r,u',
                 'settings-company' => 'r',
                 'settings-defaults' => 'r',
                 'settings-email' => 'r',
