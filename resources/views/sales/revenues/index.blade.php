@@ -4,7 +4,7 @@
 
 @section('new_button')
     @permission('create-sales-revenues')
-        <span><a href="{{ route('revenues.create') }}" class="btn btn-primary btn-sm btn-success header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <span><a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
         <span><a href="{{ route('import.create', ['group' => 'sales', 'type' => 'revenues']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
     @endpermission
     <span><a href="{{ route('revenues.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
@@ -55,7 +55,6 @@
                                     <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1"><a class="col-aka" href="{{ route('revenues.edit', $item->id) }}">@date($item->paid_at)</a></td>
                                 @endif
                                 <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right">@money($item->amount, $item->currency_code, true)</td>
-
                                 <td class="col-md-2 col-lg-2 col-xl-4 d-none d-md-block text-left">
                                     {{ $item->contact->name }}
 
@@ -96,7 +95,6 @@
                                             @permission('create-sales-revenues')
                                                 <a class="dropdown-item" href="{{ route('revenues.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
                                             @endpermission
-
                                             @permission('delete-sales-revenues')
                                                 @if (!$item->reconciled)
                                                     <div class="dropdown-divider"></div>
@@ -121,8 +119,6 @@
     @else
         @include('partials.admin.empty_page', ['page' => 'revenues', 'docs_path' => 'sales/revenues'])
     @endif
-
-
 @endsection
 
 @push('scripts_start')
