@@ -35,7 +35,7 @@
                 <div class="col-md-6">
                     @if ($payment->description)
                         <p class="form-control-label">{{ trans('general.description') }}</p>
-                        <p class="form-control text-muted long-texts">{{ $payment->description }}</p>
+                        <p class="text-muted long-texts">{{ $payment->description }}</p>
                     @endif
                 </div>
 
@@ -49,19 +49,19 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
+                            <table class="table table-flush table-hover">
                                 <thead class="thead-light">
                                     <tr class="row table-head-line">
-                                        <th class="col-xs-4 col-md-4 text-left">{{ trans('general.amount') }}</th>
-                                        <th class="col-xs-4 col-md-4 text-left">{{ trans_choice('general.payment_methods', 1) }}</th>
-                                        <th class="col-xs-4 col-md-4 text-right long-texts">{{ trans('general.description') }}</th>
+                                        <th class="col-xs-4 col-sm-2 text-right">{{ trans('general.amount') }}</th>
+                                        <th class="col-xs-4 col-sm-3 text-left">{{ trans_choice('general.payment_methods', 1) }}</th>
+                                        <th class="col-xs-4 col-sm-7 text-left long-texts">{{ trans('general.description') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="row border-top-1">
-                                        <td class="col-xs-4 col-md-4 text-left">@money($payment->amount, $payment->currency_code, true)</td>
-                                        <td class="col-xs-4 col-md-4 text-left">{{ $payment_methods[$payment->payment_method] }}</td>
-                                        <td class="col-xs-4 col-md-4 text-right long-texts">{{ $payment->description }}</td>
+                                    <tr class="row border-top-1 tr-py">
+                                        <td class="col-xs-4 col-sm-2 text-right">@money($payment->amount, $payment->currency_code, true)</td>
+                                        <td class="col-xs-4 col-sm-3 text-left">{{ $payment_methods[$payment->payment_method] }}</td>
+                                        <td class="col-xs-4 col-sm-7 text-left long-texts">{{ $payment->description }}</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -7,14 +7,69 @@
     font-style: normal;
 }
 
-
-/*--------Selection Reference--------*/
-::selection
+/*--------Cursor Styles--------*/
+/*--Cursor Pointer--*/
+.cursor-pointer
 {
-    background-color: #3c3f72;
-    color: #ffffff;
+    cursor: pointer !important;
 }
-/*--------Selection Reference Finish--------*/
+/*--Cursor Pointer Finish--*/
+
+/*--Cursor Default--*/
+.cursor-default
+{
+    cursor: default !important;
+}
+/*--Cursor Pointer Finish--*/
+/*--------Cursor Styles Finish--------*/
+
+
+/*--------Border Radius Styles--------*/
+/*--Border Radius None--*/
+.border-radius-none
+{
+    border-radius: 0 !important;
+}
+/*--Border Radius None Finish--*/
+
+/*--Border Radius Default--*/
+.border-radius-default
+{
+    border-radius: 0.25rem !important
+}
+/*--Border Radius Default Finish--*/
+/*--------Border Radius Styles Finish--------*/
+
+
+/*--------Overflow Styles--------*/
+/*--Overflow Y Hidden--*/
+.overflow-y-hidden
+{
+    overflow-y: hidden !important;
+}
+/*--Overflow Y Hidden Finish--*/
+
+/*--Overflow Y Scroll--*/
+.overflow-y-scroll
+{
+    overflow-y: scroll !important;
+}
+/*--Overflow Y Scroll Finish--*/
+
+/*--Overflow X Hidden--*/
+.overflow-x-hidden
+{
+    overflow-x: hidden !important;
+}
+/*--Overflow X Hidden Finish--*/
+
+/*--Overflow X Scroll--*/
+.overflow-x-scroll
+{
+    overflow-x: scroll !important;
+}
+/*--Overflow X Scroll Finish--*/
+/*--------Overflow Styles Finish--------*/
 
 
 /*--------Credit Card--------*/
@@ -25,28 +80,20 @@
 /*--------Credit Card Finish--------*/
 
 
-/*--------General Button Focus--------*/
+/*--Button Element Focus--*/
 button:focus
 {
     outline: none !important;
 }
-/*--------General Button Focus Finish--------*/
+/*--Button Element Focus Finisj--*/
 
 
-/*--------General Button Hover--------*/
+/*--Button Hover--*/
 .btn:hover
 {
     Transform: translateY(0px);
 }
-/*--------General Button Hover Finish--------*/
-
-
-/*--------Forgot Text--------*/
-.forgot-text:hover
-{
-    color: #3c3f72;
-}
-/*--------Forgot Text Finish--------*/
+/*--Button Hover Finish--*/
 
 
 /*--------Chart Donut Height--------*/
@@ -58,45 +105,12 @@ button:focus
 /*--------Chart Donut Height Finish--------*/
 
 
-/*--------Cursor Pointer--------*/
-.cursor-pointer
-{
-    cursor: pointer !important;
-}
-/*--------Cursor Pointer Finish--------*/
-
-
-/*--------Cursor Default--------*/
-.cursor-default
-{
-    cursor: default !important;
-}
-/*--------Cursor Default Finish--------*/
-
-
 /*--------Wizard Steps--------*/
 .wizard-header
 {
     border-radius: calc(0.375rem - 1px) calc(0.375rem - 1px) 0 0;
 }
-
 /*--------Wizard Steps Finish--------*/
-
-
-/*--------Border Radius None--------*/
-.border-radius-none
-{
-    border-radius: 0 !important;
-}
-/*--------Border Radius None Finished--------*/
-
-
-/*--------Border Radius Default--------*/
-.border-radius-default
-{
-    border-radius: 0.25rem !important
-}
-/*--------Border Radius Default Finished--------*/
 
 .dropup .dropdown-toggle::after
 {
@@ -110,40 +124,11 @@ button:focus
 }
 
 /*--------Left Menu--------*/
-.overflow-y-hidden
-{
-    overflow-y: hidden !important;
-}
-
-.overflow-x-hidden
-{
-    overflow-x: hidden !important;
-}
-
-.overflow-y-scroll
-{
-    overflow-y: scroll !important;
-}
-
-.overflow-x-scroll
-{
-    overflow-x: scroll !important;
-}
-
-
 .g-sidenav-hidden .navbar-vertical.navbar-expand-xs
 {
     overflow: hidden !important;
 }
 /*--------Left Menu Finish--------*/
-
-
-/*--------Action Column--------*/
-.action-column
-{
-    padding-left: 1.2rem !important;
-}
-/*--------Action Column Finish--------*/
 
 
 /*--------Customer/Vendor Show--------*/
@@ -217,8 +202,6 @@ button:focus
 {
     min-width: 13rem !important;
 }
-
-
 /*--------Left Menu Dropdown Finish--------*/
 
 
@@ -238,14 +221,14 @@ button:focus
 /*--------Form Group Finish--------*/
 
 
-/*--------Long Texts--------*/
+/*--Long Texts--*/
 .long-texts
 {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
-/*--------Long Texts Finish--------*/
+/*--Long Texts Finish--*/
 
 
 /*--------Table Head Row Margin--------*/
@@ -395,7 +378,7 @@ button:focus
 /*--------Table Layout Fixed Finish--------*/
 
 
-/*--------Akaunting Loader--------*/
+/*--Akaunting Button Animation--*/
 .aka-loader-frame
 {
     width: 59.88px;
@@ -472,7 +455,7 @@ button:focus
 {
     width: 86px;
 }
-/*--------Akaunting Loader Finish--------*/
+/*--Akaunting Button Animation Finish--*/
 
 
 /*--------Settings Index Page--------*/
@@ -521,7 +504,8 @@ button:focus
 /*--------Akaunting Style Table Column Finish--------*/
 
 
-/*--------Login Background--------*/
+/*--------Akaunting Backgrounds--------*/
+/*--Login Page Background--*/
 .login-page
 {
     background: url('../img/login.png') no-repeat center center fixed;
@@ -533,10 +517,9 @@ button:focus
     -moz-background-size: cover;
     -o-background-size: cover;
 }
-/*--------Login Background Finish--------*/
+/*--Login Page Background Finish--*/
 
-
-/*--------Wizard Background--------*/
+/*--Wizard Page Background--*/
 .wizard-page
 {
     background: url('../img/login.png') no-repeat center center fixed;
@@ -548,10 +531,9 @@ button:focus
     -moz-background-size: cover;
     -o-background-size: cover;
 }
-/*--------Wizard Background Finish--------*/
+/*--Wizard Page Background Finish--*/
 
-
-/*--------Installation Background--------*/
+/*--Installation Page Background--*/
 .installation-page
 {
     background: url('../img/login.png') no-repeat center center fixed;
@@ -563,17 +545,8 @@ button:focus
     -moz-background-size: cover;
     -o-background-size: cover;
 }
-
-.install-line
-{
-    width: 75%;
-    position: absolute;
-    margin-top: 1.7rem;
-    margin-bottom: 1.7rem;
-    margin-left: 2.5rem;
-    border-top: 5px solid rgba(0, 0, 0, 0.1);
-}
-/*--------Installation Background Finish--------*/
+/*--Installation Page Background Finish--*/
+/*--------Akaunting Backgrounds Finish--------*/
 
 
 /*--------Font Size 1--------*/
@@ -741,6 +714,13 @@ table .align-items-center td span.badge {
 /*--------Table No Records Finish--------*/
 
 
+/*--------From Group Disabled--------*/
+.form-group.disabled .input-group-text, .form-group.readonly .input-group-text {
+    background-color: #e9ecef;
+}
+/*--------From Group Disabled Finish--------*/
+
+
 /*--------Modal Dialog Resizing--------*/
 @media (min-width: 576px)
 {
@@ -752,8 +732,8 @@ table .align-items-center td span.badge {
 /*--------Modal Dialog Resizing Finish--------*/
 
 
-/*----------------RESPONSIVE START LINE----------------*/
-/*--------Xs Breakpoint--------*/
+/*--------Responsive--------*/
+/*--Xs Breakpoint--*/
 @media (max-width: 575.98px)
 {
     .col-xs-1 {width: 8.33%;}
@@ -786,6 +766,11 @@ table .align-items-center td span.badge {
         font-size: .875rem;
         padding: .425rem 1.25rem;
         margin-top: 16px;
+    }
+
+    .header-drop-top
+    {
+        display: block !important;
     }
 
     .header-button-bottom
@@ -827,47 +812,24 @@ table .align-items-center td span.badge {
         margin-left: 1rem !important;
     }
 
-    .nav-header-text
-    {
-      width: 8.5rem;
-    }
-
     .dashboard-action
     {
         float: right;
     }
-
-    .install-line
-    {
-        width: 0;
-        position: absolute;
-        margin-left: 7.75rem;
-        border-left: 5px solid rgba(0, 0, 0, 0.1);
-        height: 200px;
-    }
 }
-/*--------Xs Breakpoint Finish--------*/
+/*--Xs Breakpoint Finish--*/
 
-/*--------S Breakpoint--------*/
+/*--Sm Breakpoint--*/
 @media (min-width: 576px) and (max-width: 767.98px)
 {
     .dashboard-action
     {
         margin-left: 4rem !important;
     }
-
-    .install-line
-    {
-        width: 0;
-        position: absolute;
-        margin-left: 7.75rem;
-        border-left: 5px solid rgba(0, 0, 0, 0.1);
-        height: 200px;
-    }
 }
-/*--------S Breakpoint Finish--------*/
+/*--Sm Breakpoint Finish--*/
 
-/*--------M Breakpoint--------*/
+/*--Md Breakpoint--*/
 @media (min-width: 768px) and (max-width: 991.98px)
 {
     .sidenav .navbar-nav .dropdown-menu
@@ -880,9 +842,9 @@ table .align-items-center td span.badge {
         margin-left: 3rem !important;
     }
 }
-/*--------M Breakpoint Finish--------*/
+/*--Md Breakpoint Finish--*/
 
-/*--------L Breakpoint--------*/
+/*--Lg Breakpoint--*/
 @media (min-width: 992px) and (max-width: 1199.98px)
 {
     .sidenav .navbar-nav .dropdown-menu
@@ -895,11 +857,5 @@ table .align-items-center td span.badge {
         margin-left: 1rem !important;
     }
 }
-/*--------L Breakpoint Finish--------*/
-/*----------------RESPONSIVE END LINE----------------*/
-
-/*--------From Group Disabled--------*/
-.form-group.disabled .input-group-text, .form-group.readonly .input-group-text {
-    background-color: #e9ecef;
-}
-/*--------From Group Disabled Finish--------*/
+/*--Lg Breakpoint Finish--*/
+/*--------Responsive Finish--------*/

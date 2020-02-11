@@ -12,6 +12,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
 }
 /*--Header Set Color Finish--*/
 
+/*--------Selection Reference--------*/
+::selection
+{
+    background-color: #3c3f72;
+    color: #ffffff;
+}
+/*--------Selection Reference Finish--------*/
+
 /*--Anchor Color--*/
 a
 {

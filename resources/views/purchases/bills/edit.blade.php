@@ -37,7 +37,7 @@
                                 <thead class="thead-light">
                                     <tr class="d-flex flex-nowrap">
                                         @stack('actions_th_start')
-                                            <th class="col-md-1 action-column border-right-0 border-bottom-0">{{ trans('general.actions') }}</th>
+                                            <th class="col-md-1 border-right-0 border-bottom-0">{{ trans('general.actions') }}</th>
                                         @stack('actions_th_end')
 
                                         @stack('name_th_start')
@@ -66,7 +66,7 @@
 
                                     @stack('add_item_td_start')
                                         <tr class="row" id="addItem">
-                                            <td class="col-md-1 action-column border-right-0 border-bottom-0">
+                                            <td class="col-md-1 border-right-0 border-bottom-0">
                                                 <button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i>
                                                 </button>
                                             </td>
