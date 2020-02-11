@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
-use Illuminate\Http\Request as CRequest;
+use App\Jobs\Setting\CreateCategory;
+use Illuminate\Http\Request as IRequest;
 
 class Categories extends Controller
 {
@@ -24,7 +25,7 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function create(CRequest $request)
+    public function create(IRequest $request)
     {
         $type = $request->get('type', 'item');
 
@@ -36,5 +37,27 @@ class Categories extends Controller
             'message' => 'null',
             'html' => $html,
         ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     *
+     * @return Response
+     */
+    public function store(IRequest $request)
+    {
+        $request['enabled'] = 1;
+        $request['type'] = $request->get('type', 'income');
+        $request['color'] = $request->get('color', '#' . dechex(rand(0x000000, 0xFFFFFF)));
+
+        $response = $this->ajaxDispatch(new CreateCategory($request));
+
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.categories', 1)]);
+        }
+
+        return response()->json($response);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\Contact as Request;
-use App\Models\Common\Contact;
+use App\Jobs\Common\CreateContact;
 use App\Models\Setting\Currency;
 
 class Customers extends Controller
@@ -59,16 +59,12 @@ class Customers extends Controller
     {
         $request['enabled'] = 1;
 
-        $customer = Contact::create($request->all());
+        $response = $this->ajaxDispatch(new CreateContact($request));
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+        }
 
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'data' => $customer,
-            'message' => $message,
-            'html' => 'null',
-        ]);
+        return response()->json($response);
     }
 }

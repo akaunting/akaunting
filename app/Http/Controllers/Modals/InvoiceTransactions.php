@@ -83,30 +83,16 @@ class InvoiceTransactions extends Controller
      */
     public function store(Invoice $invoice, Request $request)
     {
-        try {
-            event(new PaymentReceived($invoice, $request));
+        $response = $this->ajaxDispatch(new PaymentReceived($invoice, $request));
+
+        if ($response['success']) {
+            $response['redirect'] = route('invoices.show', $invoice->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
             flash($message)->success();
-
-            $response = [
-                'success' => true,
-                'error' => false,
-                'message' => $message,
-                'redirect' => route('invoices.show', $invoice->id),
-            ];
-        } catch(\Exception $e) {
-            $message = $e->getMessage();
-
-            //flash($message)->error();
-
-            $response = [
-                'success' => false,
-                'error' => true,
-                'message' => $message,
-                'redirect' => null,
-            ];
+        } else {
+            $response['redirect'] = null;
         }
 
         return response()->json($response);

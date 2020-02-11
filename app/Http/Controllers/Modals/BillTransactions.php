@@ -82,28 +82,16 @@ class BillTransactions extends Controller
      */
     public function store(Bill $bill, Request $request)
     {
-        try {
-            $transaction = $this->dispatch(new CreateDocumentTransaction($bill, $request));
+        $response = $this->ajaxDispatch(new CreateDocumentTransaction($bill, $request));
+
+        if ($response['success']) {
+            $response['redirect'] = route('bills.show', $bill->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 
             flash($message)->success();
-
-            $response = [
-                'success' => true,
-                'error' => false,
-                'message' => $message,
-                'data' => $transaction,
-                'redirect' => route('bills.show', $bill->id),
-            ];
-        } catch(\Exception $e) {
-            $response = [
-                'success' => false,
-                'error' => true,
-                'message' => $e->getMessage(),
-                'data' => 'null',
-                'redirect' => null,
-            ];
+        } else {
+            $response['redirect'] = null;
         }
 
         return response()->json($response);
