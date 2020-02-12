@@ -7,7 +7,7 @@
         <div class="row align-items-center">
             <div class="col-auto">
                 @if ($file->aggregate_type != 'image')
-                    <i class="fas fa-file-image font-size-50"></i>
+                    <i class="fas fa-file-image display-3"></i>
                 @else
                     <a href="#" class="avatar">
                         <img src="{{ url('uploads/' . $file->id) }}" alt="{{ $file->basename }}">
@@ -33,7 +33,7 @@
                         'class' => 'd-inline'
                     ]) !!}
 
-                        <a href="javascript:void();" id="remove-{{ $column_name }}" type="button" class="btn btn-danger text-white header-button-top">
+                        <a href="javascript:void();" id="remove-{{ $column_name }}" type="button" class="btn btn-sm btn-danger text-white header-button-top">
                             <i class="fas fa-times"></i>
                         </a>
 
@@ -45,7 +45,7 @@
                     {!! Form::close() !!}
                 @endpermission
 
-                <a href="{{ url('uploads/' . $file->id . '/download') }}" type="button" class="btn btn-info text-white header-button-top">
+                <a href="{{ url('uploads/' . $file->id . '/download') }}" type="button" class="btn btn-sm btn-info text-white header-button-top">
                     <i class="fas fa-file-download"></i>
                 </a>
             </div>

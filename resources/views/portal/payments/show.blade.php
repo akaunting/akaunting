@@ -80,18 +80,18 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
-                                            <i class="far fa-file-pdf font-size-50"></i>
+                                            <i class="far fa-file-pdf display-3"></i>
                                         </div>
 
                                         <div class="col-auto">
-                                            <a class="btn btn-icon btn-white" type="button">
+                                            <a class="btn btn-sm btn-icon btn-white" type="button">
                                                 <span class="btn-inner--icon">
                                                     <i class="fas fa-paperclip"></i>
                                                     {{ basename($payment->attachment) }}
                                                 </span>
                                             </a>
 
-                                            <a class="btn btn-icon btn-info text-white float-right" type="button">
+                                            <a class="btn btn-sm btn-icon btn-info text-white float-right" type="button">
                                                 <span class="btn-inner--icon">
                                                     <i class="fas fa-file-download"></i>
                                                     {{ basename($payment->attachment) }}
@@ -109,19 +109,19 @@
                                             @if($payment->attachment)
                                                 <img src="public/img/invoice_templates/classic.png" alt="Attachment">
                                             @else
-                                                <i class="far fa-file-image font-size-50"></i>
+                                                <i class="far fa-file-image display-3"></i>
                                             @endif
                                         </div>
 
                                         <div class="col-auto">
-                                            <a class="btn btn-icon btn-white" type="button">
+                                            <a class="btn btn-sm btn-icon btn-white" type="button">
                                                 <span class="btn-inner--icon">
                                                     <i class="fas fa-camera"></i>
                                                     {{ basename($payment->attachment) }}
                                                 </span>
                                             </a>
 
-                                            <a class="btn btn-icon btn-info text-white float-right" type="button">
+                                            <a class="btn btn-sm btn-icon btn-info text-white float-right" type="button">
                                                 <span class="btn-inner--icon">
                                                     <i class="fas fa-file-download"></i>
                                                     {{ basename($payment->attachment) }}
