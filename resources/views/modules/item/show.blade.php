@@ -225,12 +225,6 @@
                                 <td class="col-7 text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                             </tr>
                         @endif
-                        @if ($module->compatibility)
-                            <tr class="row">
-                                <th class="col-5">{{ trans('modules.compatibility') }}</th>
-                                <td class="col-7 text-right">{{ $module->compatibility }}</td>
-                            </tr>
-                        @endif
                         @if ($module->category)
                             <tr class="row">
                                 <th class="col-5">{{ trans_choice('general.categories', 1) }}</th>
