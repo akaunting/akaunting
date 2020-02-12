@@ -92,7 +92,7 @@ class Forgot extends Controller
     {
         $response = [
             'status' => null,
-            'success' => true,
+            'success' => false,
             'error' => true,
             'message' => trans('passwords.user'),
             'data' => null,
