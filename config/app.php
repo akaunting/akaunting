@@ -174,6 +174,7 @@ return [
         // App\Providers\Broadcast::class,
         App\Providers\Event::class,
         App\Providers\Form::class,
+        App\Providers\Macro::class,
         App\Providers\Observer::class,
         App\Providers\Route::class,
         App\Providers\Validation::class,

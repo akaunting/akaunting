@@ -195,7 +195,7 @@ abstract class Report
 
     public function export()
     {
-        return \Excel::download(new Export($this->views['content'], $this), $this->model->name . '.xlsx');
+        return \Excel::download(new Export($this->views['content'], $this), \Str::filename($this->model->name) . '.xlsx');
     }
 
     public function setYear()

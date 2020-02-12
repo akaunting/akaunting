@@ -84,6 +84,6 @@ class Transactions extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), trans_choice('general.transactions', 2) . '.xlsx');
+        return \Excel::download(new Export(), \Str::filename(trans_choice('general.transactions', 2)) . '.xlsx');
     }
 }

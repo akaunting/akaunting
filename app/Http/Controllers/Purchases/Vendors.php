@@ -277,7 +277,7 @@ class Vendors extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), trans_choice('general.vendors', 2) . '.xlsx');
+        return \Excel::download(new Export(), \Str::filename(trans_choice('general.vendors', 2)) . '.xlsx');
     }
 
     public function currency(Contact $vendor)

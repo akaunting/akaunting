@@ -31,6 +31,6 @@ class Revenues extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        return \Excel::download(new Export($selected), trans_choice('general.revenues', 2) . '.xlsx');
+        return \Excel::download(new Export($selected), \Str::filename(trans_choice('general.revenues', 2)) . '.xlsx');
     }
 }

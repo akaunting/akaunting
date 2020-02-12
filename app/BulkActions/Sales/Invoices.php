@@ -87,6 +87,6 @@ class Invoices extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        return \Excel::download(new Export($selected), trans_choice('general.invoices', 2) . '.xlsx');
+        return \Excel::download(new Export($selected), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
     }
 }

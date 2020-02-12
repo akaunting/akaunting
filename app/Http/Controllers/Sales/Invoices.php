@@ -274,7 +274,7 @@ class Invoices extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), trans_choice('general.invoices', 2) . '.xlsx');
+        return \Excel::download(new Export(), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
     }
 
     /**

@@ -46,6 +46,6 @@ class Vendors extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        return \Excel::download(new Export($selected), trans_choice('general.vendors', 2) . '.xlsx');
+        return \Excel::download(new Export($selected), \Str::filename(trans_choice('general.vendors', 2)) . '.xlsx');
     }
 }

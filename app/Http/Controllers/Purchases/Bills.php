@@ -268,7 +268,7 @@ class Bills extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), trans_choice('general.bills', 2) . '.xlsx');
+        return \Excel::download(new Export(), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
     }
 
     /**
