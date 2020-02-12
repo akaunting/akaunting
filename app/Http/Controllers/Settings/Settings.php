@@ -82,7 +82,7 @@ class Settings extends Controller
 
         $company = Company::find($company_id);
 
-        $companies = Company::all()->count();
+        $total_companies = Company::count();
 
         foreach ($fields as $key => $value) {
             $real_key = $prefix . '.' . $key;
@@ -114,7 +114,7 @@ class Settings extends Controller
             }
 
             // If only 1 company
-            if ($companies == 1) {
+            if ($total_companies == 1) {
                 $this->oneCompany($real_key, $value);
             }
 
