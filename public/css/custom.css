@@ -236,6 +236,10 @@ button:focus
 }
 /*--------Form Group Finish--------*/
 
+.item-action
+{
+    padding-left: 21px !important;
+}
 
 /*--Long Texts--*/
 .long-texts
@@ -825,7 +829,7 @@ table .align-items-center td span.badge {
 
     .left-menu-toggle-position
     {
-        margin-left: 1rem !important;
+        margin-left: 2rem !important;
     }
 
     .dashboard-action
