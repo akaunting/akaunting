@@ -15,17 +15,11 @@ import Global from './../../mixins/global';
 import Form from './../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
 
-import {Tooltip} from 'element-ui';
-
 // plugin setup
-Vue.use(DashboardPlugin, Tooltip);
+Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',
-
-    components: {
-        [Tooltip.name]: Tooltip,
-    },
 
     mixins: [
         Global

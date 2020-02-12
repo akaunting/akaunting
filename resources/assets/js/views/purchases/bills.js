@@ -342,12 +342,6 @@ const app = new Vue({
                 this.transaction_form.currency = response.data.currency_name;
                 this.transaction_form.currency_code = response.data.currency_code;
                 this.transaction_form.currency_rate = response.data.currency_rate;
-
-                this.money.decimal = response.data.decimal_mark;
-                this.money.thousands = response.data.thousands_separator;
-                this.money.prefix = (response.data.symbol_first) ? response.data.symbol : '';
-                this.money.suffix = !(response.data.symbol_first) ? response.data.symbol : '';
-                this.money.precision = response.data.precision;
             })
             .catch(error => {
             });

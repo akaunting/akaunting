@@ -137,8 +137,8 @@ export default {
         input(event) {
             this.model = event;
 
-            this.$emit('change', this.model);
-            this.$emit('interface', this.model);
+            //this.$emit('change', this.model);
+            //this.$emit('interface', this.model);
         }
     },
 
@@ -157,8 +157,8 @@ export default {
             this.model = value;
         },
         model: function (model) {
-            //this.$emit('change', this.model);
-            //this.$emit('interface', this.model);
+            this.$emit('change', this.model);
+            this.$emit('interface', this.model);
         }
     },
 }
