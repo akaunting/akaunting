@@ -29,9 +29,9 @@ trait Users
             return false;
         }
 
-        $companies = $user->companies()->pluck('id')->toArray();
+        $company = $user->companies()->where('id', $id)->first();
 
-        return in_array($id, $companies);
+        return !empty($company);
     }
 
     /**
@@ -49,8 +49,8 @@ trait Users
             return false;
         }
 
-        $dashboards = $user->dashboards()->pluck('id')->toArray();
+        $dashboard = $user->dashboards()->where('id', $id)->first();
 
-        return in_array($id, $dashboards);
+        return !empty($dashboard);
     }
 }
