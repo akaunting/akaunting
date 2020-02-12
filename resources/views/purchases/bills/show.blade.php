@@ -426,13 +426,13 @@
             @stack('box_footer_start')
                 <div class="card-footer">
                     <div class="row align-items-center">
-                        <div class="col-xs-12 col-sm-6">
+                        <div class="col-xs-12 col-sm-4">
                             @if($bill->attachment)
                                 @php $file = $bill->attachment; @endphp
                                 @include('partials.media.file')
                             @endif
                         </div>
-                        <div class="col-xs-12 col-sm-6 text-right">
+                        <div class="col-xs-12 col-sm-8 text-right">
                             @stack('button_edit_start')
                                 @if(!$bill->reconciled)
                                     <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
