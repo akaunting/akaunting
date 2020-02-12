@@ -69,9 +69,16 @@ class Forgot extends Controller
      */
     protected function sendResetLinkResponse($response)
     {
-        flash(trans($response))->success();
+        $response = [
+            'status' => null,
+            'success' => true,
+            'error' => false,
+            'message' => trans('passwords.sent'),
+            'data' => null,
+            'redirect' => null,
+        ];
 
-        return redirect($this->redirectTo);
+        return response()->json($response);
     }
 
     /**
@@ -81,10 +88,17 @@ class Forgot extends Controller
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function sendResetLinkFailedResponse(Request $request, $response)
+    protected function sendResetLinkFailedResponse($response)
     {
-        return redirect($this->redirectTo)->withErrors(
-            ['email' => trans($response)]
-        );
+        $response = [
+            'status' => null,
+            'success' => true,
+            'error' => true,
+            'message' => trans('passwords.user'),
+            'data' => null,
+            'redirect' => null,
+        ];
+
+        return response()->json($response);
     }
 }
