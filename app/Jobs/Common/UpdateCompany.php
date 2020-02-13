@@ -89,6 +89,13 @@ class UpdateCompany extends Job
      */
     public function authorize()
     {
+        // Can't disable active company
+        if (($this->request->get('enabled', 1) == 0) && ($this->company->id == session('company_id'))) {
+            $message = trans('companies.error.disable_active');
+
+            throw new \Exception($message);
+        }
+
         // Check if user can access company
         if (!$this->isUserCompany($this->company->id)) {
             $message = trans('companies.error.not_user_company');
