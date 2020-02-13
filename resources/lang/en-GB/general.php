@@ -128,7 +128,6 @@ return [
     'disable'               => 'Disable',
     'select_all'            => 'Select All',
     'unselect_all'          => 'Unselect All',
-    'go_to'                 => 'Go to :name',
     'created_date'          => 'Created Date',
     'period'                => 'Period',
     'frequency'             => 'Frequency',
@@ -152,6 +151,7 @@ return [
     'no_data'               => 'No data',
     'no_matching_data'      => 'No matching data',
     'clear_cache'           => 'Clear Cache',
+    'go_to_dashboard'       => 'Go to dashboard',
 
     'card' => [
         'name'                  => 'Name on Card',

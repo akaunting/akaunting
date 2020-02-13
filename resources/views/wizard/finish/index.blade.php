@@ -58,7 +58,7 @@
                 <div class="col-sm-6 text-right">
                     <a href="{{ url('/') }}" id="wizard-skip" class="btn btn-icon btn-success header-button-top">
                         <span class="btn-inner--icon"><i class="fa fa-tachometer-alt"></i></span>
-                        <span class="btn-inner--text">{{ trans('general.go_to', ['name' => trans_choice('general.dashboards', 1)]) }}</span>
+                        <span class="btn-inner--text">{{ trans('general.go_to_dashboard') }}</span>
                     </a>
                 </div>
             </div>
