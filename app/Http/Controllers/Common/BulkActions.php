@@ -29,6 +29,18 @@ BulkActions extends Controller
             $bulk_actions = app('App\BulkActions\\' .  ucfirst($group) . '\\' . ucfirst($type));
         }
 
+        if (isset($bulk_actions->actions[$request->get('handle')]['permission']) && !user()->can($bulk_actions->actions[$request->get('handle')]['permission'])) {
+            flash(trans('errors.message.403'))->error();
+
+            return response()->json([
+                'success' => false,
+                'redirect' => true,
+                'error' => true,
+                'data' => [],
+                'message' => trans('errors.message.403')
+            ]);
+        }
+
         $result = $bulk_actions->{$request->get('handle')}($request);
 
         if (!empty($result) && ($result instanceof \Symfony\Component\HttpFoundation\BinaryFileResponse)) {
