@@ -15595,7 +15595,7 @@
 
 .el-range-editor.el-input__inner
 {
-    width: 55% !important;
+    width: 55%;
     align-items: baseline !important;
 }
 

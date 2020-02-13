@@ -833,6 +833,12 @@ table .align-items-center td span.badge {
         padding-right: 0;
         padding-top: 1.5rem;
     }
+
+    .el-range-editor.el-input__inner
+    {
+        width: 100% !important;
+        margin-top: 1rem;
+    }
 }
 /*--Xs Breakpoint Finish--*/
 

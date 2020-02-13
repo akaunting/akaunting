@@ -34,7 +34,7 @@
 
         @permission('update-settings-settings')
             <div class="card-footer">
-                <div class="float-right">
+                <div class="row float-right">
                     {{ Form::saveButtons('settings.index') }}
                 </div>
             </div>
