@@ -663,29 +663,33 @@ button.bg-darker:focus
 /*--Darker Color Finish--*/
 
 /*--Green Color--*/
-.bg-green {
+.bg-green
+{
   background-color: #6da252 !important;
 }
 
 a.bg-green:hover,
 a.bg-green:focus,
 button.bg-green:hover,
-button.bg-green:focus {
+button.bg-green:focus
+{
   background-color: #3d7224 !important;
 }
 /*--Green Color Finish--*/
 
 /*--Yellow Color--*/
-.bg-yellow {
+.bg-yellow
+{
     background-color: #efef32 !important;
-  }
+}
 
-  a.bg-yellow:hover,
-  a.bg-yellow:focus,
-  button.bg-yellow:hover,
-  button.bg-yellow:focus {
-    background-color: #bcbf03 !important;
-  }
+a.bg-yellow:hover,
+a.bg-yellow:focus,
+button.bg-yellow:hover,
+button.bg-yellow:focus
+{
+background-color: #bcbf03 !important;
+}
 /*--Yellow Color Finish--*/
 /*--------Background Colors Finish--------*/
 
@@ -1848,7 +1852,6 @@ button.bg-green:focus {
 }
 /*--Danger Color Finish--*/
 
-
 /*--Warning Color--*/
 .bg-gradient-warning
 {
@@ -1946,10 +1949,11 @@ button.bg-green:focus {
     background: unset;
 }
 
-.avatar-xs {
-    font-size: .875rem;
-    width: 30px;
-    height: 30px;
+.menu-avatar
+{
+    font-size: .875rem !important;
+    width: 30px !important;
+    height: 30px !important;
 }
 /*--Left Menu Icon Finish--*/
 
@@ -2028,7 +2032,7 @@ div.required .form-control-label:not(span):after, td.required:after
     color : #ef3232 !important;
 }
 /*--Error Message Color Finish--*/
-/*--------Form Error Color--------*/
+/*--------Form Error Color Finish--------*/
 
 
 /*--------Navbar Colors--------*/
@@ -2114,14 +2118,6 @@ div.required .form-control-label:not(span):after, td.required:after
     border-color: #55588b !important;
 }
 /*--------Checkbox Color Finish--------*/
-
-
-/*--------Bulk Action Card Header Color--------*/
-.bg-bulkaction
-{
-    background-image: linear-gradient(to right, #ffffff, #e5e5e5);
-}
-/*--------Bulk Action Card Header Color Finish--------*/
 
 
 /*--------Form Input Colors--------*/
@@ -2216,22 +2212,6 @@ div.required .form-control-label:not(span):after, td.required:after
     background-color: unset !important;
 }
 /*--------Item Index Image Color Finish--------*/
-
-
-/*--------Wizard Steps Color--------*/
-.wizard-steps-color
-{
-    color: #adb5bd !important;
-    cursor:default;
-}
-
-.wizard-steps-color-active:hover
-{
-    color: #ffffff !important;
-    background-color: #3c3f72 !important;
-    border-color: #3c3f72 !important;
-}
-/*--------Wizard Steps Color Finish--------*/
 
 
 /*--------Pagination Active Color--------*/
@@ -2371,24 +2351,6 @@ option:focus
     border-color: #3c3f72 !important;
 }
 /*--------List Group Item Active Finish-------*/
-
-
-/*--Create Category Button Color--*/
-.category-add
-{
-    height: 3.3em !important;
-    margin-left: -0.2em;
-    color: #adb5bd !important;
-    border-color: #dee2e6 !important;
-    background-color: #ffffff !important;
-    box-shadow: none;
-}
-
-.category-add:hover
-{
-    box-shadow: none;
-}
-/*--Create Category Button Color Finish--*/
 
 
 /*--Wizard Delete Button Text--*/

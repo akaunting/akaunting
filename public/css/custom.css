@@ -109,7 +109,7 @@ button:focus
 {
     outline: none !important;
 }
-/*--Button Element Focus Finisj--*/
+/*--Button Element Focus Finish--*/
 
 
 /*--Button Hover--*/
@@ -147,12 +147,6 @@ button:focus
     overflow: hidden;
 }
 
-/*--------Left Menu--------*/
-.g-sidenav-hidden .navbar-vertical.navbar-expand-xs
-{
-    overflow: hidden !important;
-}
-/*--------Left Menu Finish--------*/
 
 
 /*--------Customer/Vendor Show--------*/
@@ -207,7 +201,7 @@ button:focus
 /*--------Index Page Tables Finish--------*/
 
 
-/*--------Left Menu Dropdown--------*/
+/*--------Left Menu--------*/
 .menu-dropdown
 {
     position: absolute !important;
@@ -218,7 +212,13 @@ button:focus
 {
     min-width: 13rem !important;
 }
-/*--------Left Menu Dropdown Finish--------*/
+
+
+.g-sidenav-hidden .navbar-vertical.navbar-expand-xs
+{
+    overflow: hidden !important;
+}
+/*--------Left Menu Finish--------*/
 
 
 /*--------Max Width 100 Pixel--------*/
@@ -274,14 +274,6 @@ button:focus
     margin-left: 0;
 }
 /*--------Table Body Row Margin Finish--------*/
-
-
-/*--------Card Footer--------*/
-.card-footer
-{
-    margin: 0;
-}
-/*--------Card Footer Finish--------*/
 
 
 /*--------Item Column Image--------*/
@@ -609,7 +601,6 @@ button:focus
 }
 /*--------Invoice and Bill Total Column Finish--------*/
 
-
 /*--------Custom Table--------*/
 .table thead th
 {
@@ -835,6 +826,12 @@ table .align-items-center td span.badge {
     .dashboard-action
     {
         float: right;
+    }
+
+    .pagination-xs
+    {
+        padding-right: 0;
+        padding-top: 1.5rem;
     }
 }
 /*--Xs Breakpoint Finish--*/
