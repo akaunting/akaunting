@@ -49,7 +49,11 @@
                         @foreach($items as $item)
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">
-                                    {{ Form::bulkActionGroup($item->id, $item->name) }}
+                                    @if (user()->can('update-common-items'))
+                                        {{ Form::bulkActionGroup($item->id, $item->name) }}
+                                    @else
+                                        {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'disabled']) }}
+                                    @endif
                                 </td>
                                 <td class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 py-2">
                                     <img src="{{ $item->picture ? Storage::url($item->picture->id) : asset('public/img/akaunting-logo-green.svg') }}" class="avatar image-style p-1 mr-3 item-img hidden-md col-aka" alt="{{ $item->name }}">
@@ -69,9 +73,9 @@
                                         {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
                                     @else
                                         @if ($item->enabled)
-                                            <badge rounded type="success">{{ trans('general.enabled') }}</badge>
+                                            <badge rounded type="success" class="mw-60">{{ trans('general.yes') }}</badge>
                                         @else
-                                            <badge rounded type="danger">{{ trans('general.disabled') }}</badge>
+                                            <badge rounded type="danger" class="mw-60">{{ trans('general.no') }}</badge>
                                         @endif
                                     @endif
                                 </td>

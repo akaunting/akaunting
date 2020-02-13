@@ -49,7 +49,11 @@
                         @foreach($customers as $item)
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">
-                                    {{ Form::bulkActionGroup($item->id, $item->name) }}
+                                    @if (user()->can('update-sales-customers'))
+                                        {{ Form::bulkActionGroup($item->id, $item->name) }}
+                                    @else
+                                        {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'disabled']) }}
+                                    @endif
                                 </td>
                                 <td class="col-xs-4 col-sm-3 col-md-3 col-lg-3 col-xl-2">
                                     <a class="col-aka" href="{{ route('customers.show', $item->id) }}">{{ $item->name }}</a>
@@ -68,9 +72,9 @@
                                         {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
                                     @else
                                         @if ($item->enabled)
-                                            <badge rounded type="success">{{ trans('general.enabled') }}</badge>
+                                            <badge rounded type="success" class="mw-60">{{ trans('general.yes') }}</badge>
                                         @else
-                                            <badge rounded type="danger">{{ trans('general.disabled') }}</badge>
+                                            <badge rounded type="danger" class="mw-60">{{ trans('general.no') }}</badge>
                                         @endif
                                     @endif
                                 </td>
@@ -81,9 +85,9 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('customers.show', $item->id) }}">{{ trans('general.show') }}</a>
-                                                <a class="dropdown-item" href="{{ route('customers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                            <a class="dropdown-item" href="{{ route('customers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
 
-                                                <div class="dropdown-divider"></div>
+                                            <div class="dropdown-divider"></div>
                                             @permission('create-sales-customers')
                                                 <a class="dropdown-item" href="{{ route('customers.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
 

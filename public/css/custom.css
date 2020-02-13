@@ -882,3 +882,9 @@ table .align-items-center td span.badge {
 }
 /*--Lg Breakpoint Finish--*/
 /*--------Responsive Finish--------*/
+
+/*--------Index Pages Badge Min Width--------*/
+.mw-60 {
+    min-width: 60px;
+}
+/*--------Index Pages Badge Min Finish--------*/
