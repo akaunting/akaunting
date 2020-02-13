@@ -273,7 +273,7 @@ const app = new Vue({
         onSelectItem(item, index) {
             this.form.items[index].item_id = item.id;
             this.form.items[index].name = item.name;
-            this.form.items[index].price = (item.purchase_price).toFixed(2);
+            this.form.items[index].price = (item.sale_price).toFixed(2);
             this.form.items[index].quantity = 1;
             this.form.items[index].tax_id = [item.tax_id.toString()];
             this.form.items[index].total = (item.sale_price).toFixed(2);
