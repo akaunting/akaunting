@@ -16,8 +16,8 @@
 
 <akaunting-recurring
     :form-classes="[{'has-error': form.errors.get('recurring_frequency')}]"
-    :title="'{{ trans('recurring.recurring') }}'"
-    :placeholder="'{{ trans('general.form.select.field', ['field' => trans('recurring.recurring')]) }}'"
+    title="{{ trans('recurring.recurring') }}"
+    placeholder="{{ trans('general.form.select.field', ['field' => trans('recurring.recurring')]) }}"
 
     :frequency-options="{{ json_encode($recurring_frequencies) }}"
     :frequency-value="'{{ $frequency }}'"

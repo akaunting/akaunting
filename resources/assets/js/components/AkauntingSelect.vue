@@ -419,13 +419,17 @@ export default {
             description: "Selectbox attribute name"
         },
         value: {
-            type: String,
+            type: [String, Number],
             default: null,
             description: "Selectbox selected value"
         },
         options: null,
 
-        model: null,
+        model: {
+            type: [String, Number],
+            default: null,
+            description: "Selectbox selected model"
+        },
 
         icon: {
             type: String,
@@ -605,7 +609,10 @@ export default {
             this.selectOptions = options;
         },
         value: function (value) {
-            this.real_model = value;
+            this.real_model = value.toString();
+        },
+        model: function (value) {
+            this.real_model = value.toString();
         }
     },
 }

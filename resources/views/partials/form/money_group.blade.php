@@ -18,10 +18,10 @@
         @endif
 
         :error="{{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.get("' . $name . '")' }}"
-        :name="'{{ $name }}'"
-        :title="'{{ $text }}'"
+        name="{{ $name }}"
+        title="{{ $text }}"
         :group_class="'{{ $group_class }}'"
-        :icon="'{{ $icon }}'"
+        icon="{{ $icon }}"
         :currency="{{ json_encode($attributes['currency']) }}"
         :value="{{ $value }}"
 

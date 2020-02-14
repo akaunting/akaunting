@@ -9,11 +9,19 @@
         :form-classes="[{'has-error': form.errors.get('{{ $name }}') }]"
         @endif
 
-        :icon="'fa fa-{{ $icon }}'"
-        :title="'{{ $text }}'"
-        :placeholder="'{{ trans('general.form.select.field', ['field' => $text]) }}'"
-        :name="'{{ $name }}'"
-        :value="'{{ old($name, $value) }}'"
+        icon="fa fa-{{ $icon }}"
+        title="{{ $text }}"
+        placeholder="{{ trans('general.form.select.field', ['field' => $text]) }}"
+        name="{{ $name }}"
+
+        @if(old($name, $value))
+        value="{{ old($name, $value) }}"
+        @endif
+
+        @if (!empty($attributes['model']))
+        :model="{{ $attributes['model'] }}"
+        @endif
+
         :config="{
             allowInput: true,
             wrap: true,

@@ -3,7 +3,7 @@
     <label class="custom-toggle">
         <input type="checkbox"
             name="status[{{ $id }}]"
-            v-on:input="onStatus({{ $id }}, $event)"
+            @input="onStatus({{ $id }}, $event)"
                 {{ ($value) ? 'checked' :'' }}>
 
         <span class="custom-toggle-slider rounded-circle status-green"

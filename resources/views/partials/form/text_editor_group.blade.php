@@ -8,7 +8,7 @@
         @endif
 
         <html-editor
-            :name="'{{ $name }}'"
+            name="{{ $name }}"
 
             @if (!empty($attributes['v-model']))
             :value="{{ $attributes['v-model'] . ' = ' . $value }}"
