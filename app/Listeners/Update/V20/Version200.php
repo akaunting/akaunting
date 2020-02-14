@@ -862,6 +862,7 @@ class Version200 extends Listener
             'app/Http/Controllers/Modals/InvoicePayments.php',
             'app/Http/Controllers/modules/Token.php',
             'app/Http/Middleware/CustomerMenu.php',
+            'app/Http/Middleware/RedirectIfWizardCompleted.php',
             'app/Http/Middleware/SignedUrlCompany.php',
             'app/Http/Requests/Expense/BillPayment.php',
             'app/Http/Requests/Expense/Payment.php',
