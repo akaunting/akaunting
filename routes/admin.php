@@ -214,6 +214,7 @@ Route::group(['prefix' => 'install'], function () {
 
 Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
     Route::resource('categories', 'Modals\Categories');
+    Route::resource('currencies', 'Modals\Currencies');
     Route::resource('customers', 'Modals\Customers');
     Route::resource('vendors', 'Modals\Vendors');
     Route::resource('items', 'Modals\Items');

@@ -19,7 +19,7 @@
                 <div class="row">
                     {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, config('general.customers'), ['required' => 'required', 'path' => route('modals.customers.create'), 'change' => 'onChangeContact']) }}
 
-                    {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'change' => 'onChangeCurrency']) }}
+                    {{ Form::selectAddNewGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'path' => route('modals.currencies.create'), 'change' => 'onChangeCurrency']) }}
 
                     {{ Form::dateGroup('invoiced_at', trans('invoices.invoice_date'), 'calendar', ['id' => 'invoiced_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], request()->get('invoiced_at', Date::now()->toDateString())) }}
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Modals;
 use App\Abstracts\Http\Controller;
 use App\Jobs\Setting\CreateCategory;
 use Illuminate\Http\Request as IRequest;
+use App\Http\Requests\Setting\Category as Request;
 
 class Categories extends Controller
 {
@@ -46,7 +47,7 @@ class Categories extends Controller
      *
      * @return Response
      */
-    public function store(IRequest $request)
+    public function store(Request $request)
     {
         $request['enabled'] = 1;
         $request['type'] = $request->get('type', 'income');

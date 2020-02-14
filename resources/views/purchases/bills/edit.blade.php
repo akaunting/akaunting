@@ -20,7 +20,7 @@
                 <div class="row">
                     {{ Form::selectAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $bill->contact_id, ['required' => 'required', 'path' => route('modals.vendors.create'), 'change' => 'onChangeContact']) }}
 
-                    {{ Form::selectGroup('currency_code', trans_choice('general.currencies', 1), 'exchange', $currencies, $bill->currency_code, ['required' => 'required', 'change' => 'onChangeCurrency']) }}
+                    {{ Form::selectAddNewGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, $bill->currency_code, ['required' => 'required', 'path' => route('modals.currencies.create'), 'change' => 'onChangeCurrency']) }}
 
                     {{ Form::dateGroup('billed_at', trans('bills.bill_date'), 'calendar', ['id' => 'billed_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::parse($bill->billed_at)->toDateString()) }}
 
