@@ -46,7 +46,20 @@ class Permission extends LaratrustPermission
     }
 
     /**
-     * Remove extras from name.
+     * Scope to only include by action.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $action
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAction($query, $action = 'read')
+    {
+        return $query->where('name', 'like', $action . '-%');
+    }
+
+    /**
+     * Transform display name.
      *
      * @return string
      */

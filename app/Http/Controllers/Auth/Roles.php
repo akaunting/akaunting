@@ -31,21 +31,14 @@ class Roles extends Controller
      */
     public function create()
     {
-        $names = $permissions = [];
-        $all_permissions = Permission::all();
+        $permissions = [];
+        $actions = ['read', 'create', 'update', 'delete'];
 
-        foreach ($all_permissions as $permission) {
-            // permission code explode - and get permission type
-            $n = explode('-', $permission->name);
-
-            if (!in_array($n[0], $names)) {
-                $names[] = $n[0];
-            }
-
-            $permissions[$n[0]][] = $permission;
+        foreach ($actions as $action) {
+            $permissions[$action] = Permission::action($action)->get()->sortBy('title')->all();
         }
 
-        return view('auth.roles.create', compact('names', 'permissions'));
+        return view('auth.roles.create', compact('actions', 'permissions'));
     }
 
     /**
@@ -85,21 +78,14 @@ class Roles extends Controller
      */
     public function edit(Role $role)
     {
-        $names = $permissions = [];
-        $all_permissions = Permission::all();
+        $permissions = [];
+        $actions = ['read', 'create', 'update', 'delete'];
 
-        foreach ($all_permissions as $permission) {
-            // permission code explode - and get permission type
-            $n = explode('-', $permission->name);
-
-            if (!in_array($n[0], $names)) {
-                $names[] = $n[0];
-            }
-
-            $permissions[$n[0]][] = $permission;
+        foreach ($actions as $action) {
+            $permissions[$action] = Permission::action($action)->get()->sortBy('title')->all();
         }
 
-        return view('auth.roles.edit', compact('role', 'names', 'permissions'));
+        return view('auth.roles.edit', compact('role', 'actions', 'permissions'));
     }
 
     /**

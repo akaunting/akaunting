@@ -34,7 +34,7 @@ class Setting extends Eloquent
      * Scope to only include by prefix.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param $company_id
+     * @param string $prefix
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
