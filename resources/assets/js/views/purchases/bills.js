@@ -110,8 +110,8 @@ const app = new Vue({
             })
             .then(response => {
                 this.currency = response.data;
-                this.form.currency_code = response.data.currency_code;
-                this.form.currency_rate = response.data.currency_rate;
+                this.form.currency_code = response.data.code;
+                this.form.currency_rate = response.data.rate;
             })
             .catch(error => {
             });
