@@ -11,11 +11,11 @@
             name="{{ $name }}"
 
             @if (!empty($attributes['v-model']))
-            :value="{{ $attributes['v-model'] . ' = ' . $value }}"
+            :value="{{ $attributes['v-model'] . ' = ' . `$value` }}"
             @elseif (!empty($attributes['data-field']))
-            :value="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = '. $value }}"
+            :value="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = '. `$value` }}"
             @else
-            :value="form.{{ $name }} = '{{ $value }}'"
+            :value="form.{{ $name }} = `{{ $value }}`"
             @endif
 
             @if (!empty($attributes['v-model']))
