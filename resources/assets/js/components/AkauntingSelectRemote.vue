@@ -422,7 +422,7 @@ export default {
             description: "Selectbox attribute name"
         },
         value: {
-            type: String,
+            type: [String, Number, Array],
             default: null,
             description: "Selectbox selected value"
         },
@@ -707,7 +707,18 @@ export default {
             //this.selectOptions = options;
         },
         value: function (value) {
-            this.real_model = value;
+            if (this.multiple) {
+                this.real_model = value;
+            } else {
+                this.real_model = value.toString();
+            }
+        },
+        model: function (value) {
+            if (this.multiple) {
+                this.real_model = value;
+            } else {
+                this.real_model = value.toString();
+            }
         }
     },
 }
