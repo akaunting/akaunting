@@ -90,7 +90,7 @@ class Currency extends Model
             return config('money.' . $this->code . '.precision');
         }
 
-        return $value;
+        return (int) $value;
     }
 
     /**
