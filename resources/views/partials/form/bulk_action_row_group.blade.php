@@ -1,12 +1,23 @@
 @stack('bulk_action_row_input_start')
+
 @php
     if (is_array($path)) {
         $path = route('bulk-actions.action', $path);
     } else {
         $path = url('common/bulk-actions/' . $path);
     }
+
+    $actions_to_show = [];
+    foreach ($actions as $key => $action) {
+        if ((isset($action['permission']) && !user()->can($action['permission']))) {
+            continue;
+        }
+
+        $actions_to_show[$key] = true;
+    }
 @endphp
 
+@if(!empty($actions_to_show))
 <div class="align-items-center d-none"
      v-if="bulk_action.show"
      :class="[{'show': bulk_action.show}]">
@@ -31,7 +42,7 @@
                 @change="onChange">
                 <option value="*">{{ trans_choice('bulk_actions.bulk_actions', 2) }}</option>
                 @foreach($actions as $key => $action)
-                    @if((!isset($action['permission'])) || (isset($action['permission']) && user()->can($action['permission'])))
+                    @if(isset($actions_to_show[$key]))
                     <option
                         value="{{ $key }}"
                         @if(!empty($action['message']))
@@ -86,5 +97,8 @@
         </div>
     </template>
 </akaunting-modal>
+@else
+<div class="text-white" :class="[{'show': bulk_action.show}]">{{ trans('bulk_actions.no_action') }}</div>
+@endif
 
 @stack('bulk_action_row_input_end')

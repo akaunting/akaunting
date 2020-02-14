@@ -49,11 +49,7 @@
                         @foreach($customers as $item)
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">
-                                    @if (user()->can('update-sales-customers'))
-                                        {{ Form::bulkActionGroup($item->id, $item->name) }}
-                                    @else
-                                        {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'disabled']) }}
-                                    @endif
+                                    {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 </td>
                                 <td class="col-xs-4 col-sm-3 col-md-3 col-lg-3 col-xl-2">
                                     <a class="col-aka" href="{{ route('customers.show', $item->id) }}">{{ $item->name }}</a>

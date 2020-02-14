@@ -43,11 +43,7 @@
                     @foreach($dashboards as $item)
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-3 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">
-                                @if (user()->can('update-common-dashboards'))
-                                    {{ Form::bulkActionGroup($item->id, $item->name) }}
-                                @else
-                                    {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'disabled']) }}
-                                @endif
+                                {{ Form::bulkActionGroup($item->id, $item->name) }}
                             </td>
                             <td class="col-xs-4 col-sm-3 col-md-6 col-lg-7 col-xl-7 long-texts"><a href="{{ route('dashboards.edit', $item->id) }}">{{ $item->name }}</a></td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2 col-xl-2">

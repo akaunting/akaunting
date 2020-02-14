@@ -45,7 +45,7 @@
                     @foreach($users as $item)
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">
-                                @if ((user()->id != $item->id) && user()->can('update-auth-users'))
+                                @if (user()->id != $item->id)
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 @else
                                     {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'disabled']) }}

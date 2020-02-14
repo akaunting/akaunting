@@ -45,11 +45,7 @@
                     @foreach($currencies as $item)
                         <tr class="row align-items-center border-top-1">
                             <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">
-                                @if (user()->can('update-settings-currencies'))
-                                    {{ Form::bulkActionGroup($item->id, $item->name) }}
-                                @else
-                                    {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'disabled']) }}
-                                @endif
+                                {{ Form::bulkActionGroup($item->id, $item->name) }}
                             </td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-4"><a class="col-aka" href="{{ route('currencies.edit', $item->id) }}">{{ $item->name }}</a></td>
                             <td class="col-md-2  col-lg-2 d-none d-md-block">{{ $item->code }}</td>
