@@ -27,7 +27,7 @@
 
                     {{ Form::textGroup('symbol', trans('currencies.symbol.symbol'), 'font') }}
 
-                    {{ Form::selectGroup('symbol_first', trans('currencies.symbol.position'), 'text-width', ['1' => trans('currencies.symbol.before'), '0' => trans('currencies.symbol.after')]) }}
+                    {{ Form::selectGroup('symbol_first', trans('currencies.symbol.position'), 'text-width', ["1" => trans('currencies.symbol.before'), "0" => trans('currencies.symbol.after')], null, ['model' => 'form.symbol_first']) }}
 
                     {{ Form::textGroup('decimal_mark', trans('currencies.decimal_mark'), 'sign') }}
 
