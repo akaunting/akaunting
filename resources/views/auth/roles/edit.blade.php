@@ -49,8 +49,8 @@
                         @foreach($permissions as $action => $action_permissions)
                             @php $active_action_tab = ($action == 'read') ? 'active' : ''; @endphp
                             <div class="tab-pane fade show {{ $active_action_tab }}" id="tab-{{ $action }}"  role="tabpanel">
-                                <span class="btn btn-primary btn-sm" @click="select('{{ $action }}')">{{trans('general.select_all')}}</span>
-                                <span class="btn btn-primary btn-sm" @click="unselect('{{ $action }}')">{{trans('general.unselect_all')}}</span>
+                                <span class="btn btn-primary btn-sm" @click="select('{{ $action }}')">{{ trans('general.select_all') }}</span>
+                                <span class="btn btn-primary btn-sm" @click="unselect('{{ $action }}')">{{ trans('general.unselect_all') }}</span>
 
                                 @stack('permissions_input_start')
 

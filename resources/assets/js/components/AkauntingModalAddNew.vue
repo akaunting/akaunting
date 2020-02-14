@@ -193,6 +193,28 @@ export default {
 
                         onChangeColorInput() {
                             this.color = this.form.color;
+                        },
+
+                        onChangeRate() {
+                            this.form.rate = this.form.rate.replace(',', '.');
+                        },
+
+                        onChangeCode(code) {
+                            axios.get(url + '/settings/currencies/config', {
+                                params: {
+                                    code: code
+                                }
+                            })
+                            .then(response => {
+                                this.form.rate = response.data.rate;
+                                this.form.precision = response.data.precision;
+                                this.form.symbol = response.data.symbol;
+                                this.form.symbol_first = response.data.symbol_first;
+                                this.form.decimal_mark = response.data.decimal_mark;
+                                this.form.thousands_separator = response.data.thousands_separator;
+                            })
+                            .catch(error => {
+                            });
                         }
                     }
                 })
