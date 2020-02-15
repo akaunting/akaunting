@@ -3,8 +3,8 @@
     "short_name": "Akaunting",
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#6da252",
-    "background_color": "#6F679B",
+    "theme_color": "#3c3f72",
+    "background_color": "#3c3f72",
     "orientation": "any",
     "splash": {
         "640x1136":  "public/img/icons/splash-640x1136.png",
@@ -30,7 +30,12 @@
             "sizes": "96x96"
         },
         {
-            "src": "public/img/images/icons/akaunting-128x128.png",
+            "src": "public/img/icons/akaunting-120x120.png",
+            "type": "image/png",
+            "sizes": "120x120"
+        },
+        {
+            "src": "public/img/icons/akaunting-128x128.png",
             "type": "image/png",
             "sizes": "128x128"
         },
@@ -43,6 +48,11 @@
             "src": "public/img/icons/akaunting-152x152.png",
             "type": "image/png",
             "sizes": "152x152"
+        },
+        {
+            "src": "public/img/icons/akaunting-180x180.png",
+            "type": "image/png",
+            "sizes": "180x180"
         },
         {
             "src": "public/img/icons/akaunting-192x192.png",
