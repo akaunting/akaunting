@@ -191,7 +191,7 @@
 
             @permission('update-purchases-bills')
                 <div class="card-footer">
-                    <div class="row float-right">
+                    <div class="row save-buttons">
                         {{ Form::saveButtons('bills.index') }}
                     </div>
                 </div>

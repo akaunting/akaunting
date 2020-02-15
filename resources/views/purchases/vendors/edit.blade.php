@@ -42,7 +42,7 @@
 
             @permission('update-purchases-vendors')
                 <div class="card-footer">
-                    <div class="float-right">
+                    <div class="row save-buttons">
                         {{ Form::saveButtons('vendors.index') }}
                     </div>
                 </div>

@@ -73,7 +73,7 @@
 
         @permission('update-sales-customers')
             <div class="card-footer">
-                <div class="float-right">
+                <div class="row save-buttons">
                     {{ Form::saveButtons('customers.index') }}
                 </div>
             </div>

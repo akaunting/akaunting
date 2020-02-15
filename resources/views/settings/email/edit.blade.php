@@ -89,7 +89,7 @@
         <div class="row ml-0 mr-0">
             <div class="card col-md-12">
                 <div class="card-body mr--3">
-                    <div class="row float-right">
+                    <div class="row save-buttons">
                         {{ Form::saveButtons('settings.index') }}
                     </div>
                 </div>
