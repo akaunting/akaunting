@@ -37,7 +37,7 @@
             </div>
 
             <div class="card-footer">
-                <div class="row float-right">
+                <div class="row save-buttons">
                     {{ Form::saveButtons('transfers.index') }}
                 </div>
             </div>

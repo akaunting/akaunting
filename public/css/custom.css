@@ -743,6 +743,14 @@ table .align-items-center td span.badge {
 /*--------Modal Dialog Resizing Finish--------*/
 
 
+/*--Save Buttons Responsive--*/
+.save-buttons
+{
+    float: right !important;
+}
+/*--Save Buttons Responsive Finish--*/
+
+
 /*--------Responsive--------*/
 /*--Xs Breakpoint--*/
 @media (max-width: 575.98px)
@@ -838,6 +846,11 @@ table .align-items-center td span.badge {
     {
         width: 100% !important;
         margin-top: 1rem;
+    }
+
+    .save-buttons
+    {
+        float: none !important;
     }
 }
 /*--Xs Breakpoint Finish--*/

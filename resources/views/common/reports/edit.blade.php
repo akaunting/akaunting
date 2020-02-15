@@ -62,7 +62,7 @@
 
             @permission('update-common-reports')
                 <div class="card-footer">
-                    <div class="row float-right">
+                    <div class="row save-buttons">
                         {{ Form::saveButtons('reports.index') }}
                     </div>
                 </div>

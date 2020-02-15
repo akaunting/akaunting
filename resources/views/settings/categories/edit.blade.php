@@ -48,7 +48,7 @@
 
             @permission('update-settings-categories')
                 <div class="card-footer">
-                    <div class="row float-right">
+                    <div class="row save-buttons">
                         {{ Form::saveButtons('categories.index') }}
                     </div>
                 </div>
