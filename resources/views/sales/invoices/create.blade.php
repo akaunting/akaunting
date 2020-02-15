@@ -169,9 +169,9 @@
                         </div>
                     </div>
 
-                    {{ Form::textareaGroup('notes', trans_choice('general.notes', 2), '', setting('invoice.notes')) }}
+                    {{ Form::textareaGroup('notes', trans_choice('general.notes', 2), '', setting('invoice.notes'), ['rows' => '3'], 'col-md-6') }}
 
-                    {{ Form::textareaGroup('footer', trans('general.footer'), '', setting('invoice.footer')) }}
+                    {{ Form::textareaGroup('footer', trans('general.footer'), '', setting('invoice.footer'), ['rows' => '3'], 'col-md-6') }}
 
                     {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('defaults.category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income']) }}
 
