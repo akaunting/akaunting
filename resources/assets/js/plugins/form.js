@@ -229,7 +229,21 @@ export default class Form {
     submit() {
         this.loading = true;
 
-        axios[this.method](this.action, this.data())
+        let data = this.data();
+        let form_data = new FormData();
+
+        for (let key in data) {
+            form_data.append(key, data[key]);
+        }
+
+        axios({
+            method: this.method,
+            url: this.action,
+            data: form_data,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         .then(this.onSuccess.bind(this))
         .catch(this.onFail.bind(this));
     }
