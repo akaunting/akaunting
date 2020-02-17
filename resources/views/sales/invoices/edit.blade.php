@@ -98,7 +98,7 @@
                                                     <div class="card d-none" :class="[{'show' : discount}]">
                                                         <div class="discount card-body">
                                                             <div class="row align-items-center">
-                                                                <div class="col-md-6">
+                                                                <div class="col-sm-6">
                                                                     <div class="input-group input-group-merge">
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text" id="input-discount">
@@ -108,7 +108,7 @@
                                                                         {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control']) !!}
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-sm-6">
                                                                     <div class="discount-description">
                                                                         <strong>{{ trans('invoices.discount_desc') }}</strong>
                                                                     </div>
@@ -116,13 +116,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="discount card-footer">
-                                                            <div class="row text-center">
-                                                                <div class="col-md-12">
-                                                                    <a href="javascript:void(0)" @click="discount = false" class="btn btn-icon btn-outline-secondary">
-                                                                        <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
-                                                                        <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
+                                                            <div class="row float-right">
+                                                                <div class="col-xs-12 col-sm-12">
+                                                                    <a href="javascript:void(0)" @click="discount = false" class="btn btn-outline-secondary header-button-top" @click="closePayment">
+                                                                        {{ trans('general.cancel') }}
                                                                     </a>
-                                                                    {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'button', 'id' => 'save-discount', '@click' => 'onAddDiscount', 'class' => 'btn btn-success']) !!}
+                                                                    {!! Form::button(trans('general.save'), ['type' => 'button', 'id' => 'save-discount', '@click' => 'onAddDiscount', 'class' => 'btn btn-success header-button-top']) !!}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -193,7 +192,7 @@
 
             @permission('update-sales-invoices')
                 <div class="card-footer">
-                    <div class="row float-right">
+                    <div class="row save-buttons">
                         {{ Form::saveButtons('invoices.index') }}
                     </div>
                 </div>

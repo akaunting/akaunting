@@ -81,7 +81,7 @@
 
                 @permission('update-auth-roles')
                     <div class="card-footer">
-                        <div class="row float-right">
+                        <div class="row save-buttons">
                             {{ Form::saveButtons('roles.index') }}
                         </div>
                     </div>

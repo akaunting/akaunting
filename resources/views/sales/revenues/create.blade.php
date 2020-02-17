@@ -45,7 +45,7 @@
             </div>
 
             <div class="card-footer">
-                <div class="row float-right">
+                <div class="row save-buttons">
                     {{ Form::saveButtons('revenues.index') }}
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
     @include('partials.admin.head')
 
-    <body class="g-sidenav-show g-sidenav-pinned">
+    <body class="g-sidenav-show">
         @stack('body_start')
 
         @include('partials.admin.menu')

@@ -27,7 +27,7 @@
 
                     {{ Form::textGroup('purchase_price', trans('items.purchase_price'), 'money-bill-wave-alt') }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, null, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=item']) }}
+                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, null, ['path' => route('modals.categories.create') . '?type=item']) }}
 
                     {{ Form::fileGroup('picture', trans_choice('general.pictures', 1), 'plus') }}
 
@@ -36,7 +36,7 @@
             </div>
 
             <div class="card-footer">
-                <div class="row float-right">
+                <div class="row save-buttons">
                     {{ Form::saveButtons('items.index') }}
                 </div>
             </div>

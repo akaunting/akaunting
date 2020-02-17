@@ -51,7 +51,7 @@
                         <div class="col-xl-12">
                             <div class="copyright text-center text-white">
                                 <small>
-                                    {{ trans('footer.powered') }}: <a href="{{ trans('footer.link') }}" target="_blank" class="text-white">{{ trans('footer.software') }}</a>
+                                    {{ trans('footer.powered') }}: <a href="{{ trans('footer.link') }}" target="_blank">{{ trans('footer.software') }}</a>
                                 </small>
                             </div>
                         </div>
