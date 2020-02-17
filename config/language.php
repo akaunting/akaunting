@@ -122,7 +122,7 @@ return [
     | This options indicates the allowed languages.
     |
     */
-    'allowed'       => ['ar-SA', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-GB', 'es-ES', 'es-MX', 'fa-IR', 'fr-FR', 'he-IL', 'hi-IN', 'hr-HR', 'id-ID', 'is-IS', 'it-IT', 'ja-JP', 'ka-GE', 'ko-KR', 'lt-LT', 'lv-LV', 'mk-MK', 'nb-NO', 'nl-NL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sr-RS', 'sq-AL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'ur-PK', 'uz-UZ',  'vi-VN', 'zh-CN', 'zh-TW'],
+    'allowed'       => ['ar-SA', 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-GB', 'es-ES', 'es-MX', 'fa-IR', 'fr-FR', 'he-IL', 'hi-IN', 'hr-HR', 'id-ID', 'is-IS', 'it-IT', 'ja-JP', 'ka-GE', 'ko-KR', 'lt-LT', 'lv-LV', 'mk-MK', 'ms-MY', 'nb-NO', 'nl-NL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sr-RS', 'sq-AL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'ur-PK', 'uz-UZ',  'vi-VN', 'zh-CN', 'zh-TW'],
 
     /*
     |--------------------------------------------------------------------------
