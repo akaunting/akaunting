@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.updates', 2))
 
 @section('new_button')
-    <a href="{{ route('updates.check') }}" class="btn btn-warning btn-sm header-button-top"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a>
+    <a href="{{ route('updates.check') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a>
 @endsection
 
 @section('content')
