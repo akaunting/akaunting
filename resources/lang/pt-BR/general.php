@@ -76,6 +76,7 @@ return [
     'edit'                  => 'Editar',
     'delete'                => 'Excluir',
     'send'                  => 'Enviar',
+    'share'                 => 'Compartilhar',
     'download'              => 'Baixar',
     'delete_confirm'        => 'Confirma a exclusão :name :type?',
     'name'                  => 'Nome',
@@ -127,7 +128,6 @@ return [
     'disable'               => 'Desabilitar',
     'select_all'            => 'Marcar todos',
     'unselect_all'          => 'Desmarcar todos',
-    'go_to'                 => 'Ir para :name',
     'created_date'          => 'Data da Criação',
     'period'                => 'Período',
     'frequency'             => 'Frequência',
@@ -151,6 +151,7 @@ return [
     'no_data'               => 'Não existem dados',
     'no_matching_data'      => 'Não há dados correspondentes',
     'clear_cache'           => 'Limpar o Cache',
+    'go_to_dashboard'       => 'Ir para o Painel',
 
     'card' => [
         'name'                  => 'Nome que consta no cartão',
@@ -189,7 +190,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Confira a <a href=":url" target="_blank" class="text-success">documentação</a> para mais detalhes.',
+        'documentation' => 'Confira a <a href=":url" target="_blank">documentação</a> para mais detalhes.',
         'items' => 'Os itens podem ser produtos ou serviços. Você pode usar itens ao criar faturas e faturas para ter o preço, campos de impostos e etc preenchidos.',
         'invoices' => 'Faturas podem ser únicas ou recorrentes. Você pode enviá-las para clientes e começar a aceitar pagamentos on-line.',
         'revenues' => 'Receita é uma transação de renda paga. Ela pode ser um registro independente (ex: depósito) ou anexada a uma fatura.',
@@ -197,6 +198,9 @@ return [
         'bills' => 'Faturas podem ser únicas ou recorrentes. Elas indicam o que você deve aos seus fornecedores pelos produtos ou serviços que você compra.',
         'payments' => 'Pagamento é uma transação de despesa paga. Pode ser um registro independente (ex: receita alimentar) ou ligado a uma fatura.',
         'vendors' => 'Fornecedores são necessários se você quiser criar faturas. Você pode ver o saldo que deve e filtrar relatórios pelo fornecedor.',
+        'transfers' => 'As transferências permitem que você mova dinheiro de uma conta para outra, caso elas usem ou não a mesma moeda.',
+        'taxes' => 'Os impostos são usados para aplicar taxas adicionais às faturas e contas. Suas finanças são afetadas por esses impostos regulatórios.',
+        'reconciliations' => 'A reconciliação bancária é um processo realizado para garantir que os registros bancários da sua empresa também estejam corretos.',
     ],
 
 ];

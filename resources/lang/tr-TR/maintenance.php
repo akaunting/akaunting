@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Bakım Modu',
+    'title' => 'Bakım Yapılıyor',
 
-    'message' => 'Site şu anda bakımda. Lütfen, daha sonra tekrar deneyin!',
+    'message' => 'Üzgünüz, bakım için kapalıyız. Lütfen, daha sonra tekrar deneyin!',
 
-    'last-updated' => 'Bu mesaj :timestamp önce güncellendi',
+    'last-updated' => 'Bu mesaj en son :timestamp güncellendi.',
 
 ];

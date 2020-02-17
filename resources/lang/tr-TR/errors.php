@@ -17,7 +17,7 @@ return [
     'message' => [
         '403' => 'Bu sayfaya erişim yasak.',
         '404' => 'Ulaşmaya çalıştığınız sayfayı bulamadık.',
-        '500' => 'Bu sorun gidermek için hemen işe başlıyoruz.',
+        '500' => 'Bu sorunu gidermek için hemen işe başlıyoruz.',
     ],
 
 ];

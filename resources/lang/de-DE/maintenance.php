@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Wartungsmodus',
+    'title' => 'Wartungsarbeiten',
 
-    'message' => 'Wir arbeiten gerade an der Seite, bitte versuche es später noch einmal!',
+    'message' => 'Entschuldigung, die App ist wegen Wartungsarbeiten nicht verfügbar. Bitte versuchen Sie es später erneut!',
 
-    'last-updated' => 'Diese Nachricht wurde zuletzt aktualisiert :timestamp',
+    'last-updated' => 'Diese Nachricht wurde zuletzt am :timestamp aktualisiert.',
 
 ];

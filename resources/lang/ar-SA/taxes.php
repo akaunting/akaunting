@@ -4,8 +4,8 @@ return [
 
     'rate'                  => 'المعدل',
     'rate_percent'          => 'المعدل (%)',
-    'normal'                => 'Normal',
-    'inclusive'             => 'Inclusive',
-    'compound'              => 'Compound',
-
+    'normal'                => 'عادي',
+    'inclusive'             => 'شامل',
+    'compound'              => 'مُركب',
+    'fixed'                 => 'ثابت',
 ];

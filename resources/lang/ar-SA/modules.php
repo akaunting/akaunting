@@ -2,10 +2,9 @@
 
 return [
 
-    'title'                 => 'رمز API',
-    'api_token'             => 'رمز الوصول',
+    'api_key'               => 'مفتاح API',
     'my_apps'               => 'تطبيقاتي',
-    'pre_sale'              => 'Pre-Sale',
+    'pre_sale'              => 'قبل البيع',
     'top_paid'              => 'أعلى المدفوعات',
     'new'                   => 'جديد',
     'top_free'              => 'المجانيات الأعلى',
@@ -13,20 +12,19 @@ return [
     'search'                => 'بحث',
     'install'               => 'تثبيت',
     'buy_now'               => 'الشراء الآن',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">اضغط هنا</a> للحصول على رمز الوصول الخاص بك API.',
+    'get_api_key'           => '<a href=":url" target="_blank">إضغط هنا</a>للحصول على مفتاح API الخاص بك.',
     'no_apps'               => 'لا توجد تطبيقات فى هذه الفئة حتى الآن.',
-    'developer'             => 'هل أنت مطوّر؟ <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank"> هنا</a> يمكنك أن تتعلم كيفية إنشاء تطبيق وبدء البيع من اليوم!',
-
-    'recommended_apps'      => 'Recommended Apps',
+    'become_developer'      => 'هل أنت مطور؟ <a href=":url" target="_blank"> هنا </a> ، يمكنك تعلم كيفية إنشاء تطبيق وبدء البيع اليوم!',
+    'recommended_apps'      => 'التطبيقات الموصى بها',
 
     'about'                 => 'حول',
 
     'added'                 => 'تمت الإضافة',
     'updated'               => 'تم التحديث',
     'compatibility'         => 'التوافق',
-    'documentation'         => 'Documentation',
-    'view'                  => 'View',
-    'back'                  => 'Back',
+    'documentation'         => 'الوثائق',
+    'view'                  => 'عرض',
+    'back'                  => 'رجوع',
 
     'installed'             => 'تم تثبيت :module',
     'uninstalled'           => 'تم إلغاء تثبيت :module',
@@ -38,31 +36,30 @@ return [
         'installation'      => 'التثبيت',
         'faq'               => 'الأسئلة الشائعة',
         'changelog'         => 'سجل التغييرات',
-        'reviews'            => 'Reviews',
+        'reviews'           => 'مراجعات',
     ],
 
     'installation' => [
         'header'            => 'تثبيت التطبيق',
-        'download'          => 'جاري تحميل ملف :module.',
-        'unzip'             => 'جاري استخراج ملفات :module.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
-        'install'           => 'جاري تثبيت ملفات :module.',
+        'download'          => 'تحميل :module',
+        'unzip'             => 'إستخراج ملفات :module',
+        'file_copy'         => 'نسخ ملفات :module',
+        'finish'            => 'شارف على انتهاء تثبيت :module',
+        'redirect'          => 'تم تثبيت:module، سيتم تحويلك الى صفحة التحديثات',
+        'install'           => 'تثبيت :module',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download'          => 'لم نتمكن من تحميل :module',
+        'zip'               => 'لم نتمكن من انشاء ملف zip :module',
+        'unzip'             => 'لم نتمكن من إستخراج :module',
+        'file_copy'         => 'لم نتمكن من نسخ ملفات :module',
+        'finish'            => 'لم نتمكن من انهاء تثبيت :module',
     ],
 
     'badge' => [
-        'installed' => 'مثبت',
-        'pre_sale' => 'Pre-Sale',
+        'installed'         => 'مثبت',
+        'pre_sale'          => 'قبل البيع',
     ],
 
     'button' => [
@@ -72,14 +69,16 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'التي تم شراؤها',
-        'installed' => 'التي تم تثبيتها',
+        'purchased'         => 'التي تم شراؤها',
+        'installed'         => 'التي تم تثبيتها',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add'           => 'أضف مراجعة'
         ],
-        'na' => 'There are no reviews.'
-    ]
+
+        'na'                => 'لا يوجد مراجعات.'
+    ],
+
 ];

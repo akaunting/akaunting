@@ -2,8 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; 上一页',
-    'next'                  => '下一页 &raquo;',
-    'showing'               => '显示 :first 至 :last 的 :total :type',
+    'previous'              => '上一个',
+    'next'                  => '下一个',
+    'showing'               => ':first:latest of :total records.',
+    'page'                  => '每页',
 
 ];

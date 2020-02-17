@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Modalità di manutenzione',
+    'title' => 'In manutenzione',
 
-    'message' => 'Stiamo lavorando sul sito, riprova più tardi!',
+    'message' => 'Siamo spiacenti, siamo offline per manutenzione. Per favore, riprova più tardi!',
 
-    'last-updated' => 'Questo messaggio è stato aggiornato l\'ultima volta :timestamp',
+    'last-updated' => 'Questo messaggio è stato aggiornato l\'ultima volta :timestamp.',
 
 ];

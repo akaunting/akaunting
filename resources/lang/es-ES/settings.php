@@ -52,6 +52,10 @@ return [
         'subheading'        => 'Subtítulo',
         'due_receipt'       => 'Vence a la recepción',
         'due_days'          => 'Vencimiento dentro de :days días',
+        'choose_template'   => 'Elegir plantilla de factura',
+        'default'           => 'Por defecto',
+        'classic'           => 'Clásica',
+        'modern'            => 'Moderna',
     ],
 
     'default' => [

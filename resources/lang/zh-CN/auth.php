@@ -13,16 +13,18 @@ return [
     'current_email'         => '目前电子邮箱',
     'reset'                 => '重置',
     'never'                 => '永远不要',
-    
+    'landing_page'          => '登陆页面',
+
     'password' => [
         'current'           => '密码',
         'current_confirm'   => '确认密码',
         'new'               => '新的密码',
         'new_confirm'       => '确认新的密码',
     ],
-    
+
     'error' => [
         'self_delete'       => '错误：无法删除自己！',
+        'self_disable'      => '错误：无法禁用自己',
         'no_company'        => '错误: 你账户下没有公司，请联系管理员.',
     ],
 
