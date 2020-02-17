@@ -229,11 +229,27 @@ export default class Form {
     submit() {
         this.loading = true;
 
+        axios({
+            method: this.method,
+            url: this.action,
+            data: this.data()
+        })
+        .then(this.onSuccess.bind(this))
+        .catch(this.onFail.bind(this));
+    }
+
+    submitTest() {
+        this.loading = true;
+
         let data = this.data();
         let form_data = new FormData();
 
         for (let key in data) {
-            form_data.append(key, data[key]);
+            if ((typeof data[key] != 'object') && (typeof data[key] != 'array') ) {
+                form_data.append(key, data[key]);
+            } else {
+                form_data.append(key, JSON.stringify(data[key]));
+            }
         }
 
         axios({

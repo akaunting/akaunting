@@ -298,6 +298,8 @@ const app = new Vue({
 
             this.form.discount = discount;
             this.discount = false;
+
+            this.onCalculateTotal();
         },
 
         onPayment() {

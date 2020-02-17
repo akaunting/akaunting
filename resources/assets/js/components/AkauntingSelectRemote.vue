@@ -710,14 +710,15 @@ export default {
             if (this.multiple) {
                 this.real_model = value;
             } else {
-                this.real_model = value.toString();
+                //this.real_model = value.toString();
+                this.real_model = value;
             }
         },
         model: function (value) {
             if (this.multiple) {
                 this.real_model = value;
             } else {
-                this.real_model = value.toString();
+                this.real_model = value;
             }
         }
     },

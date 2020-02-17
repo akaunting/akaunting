@@ -420,14 +420,14 @@ export default {
         },
         value: {
             type: [String, Number, Array],
-            default: null,
+            default: '',
             description: "Selectbox selected value"
         },
         options: null,
 
         model: {
             type: [String, Number],
-            default: null,
+            default: '',
             description: "Selectbox selected model"
         },
 
