@@ -2,12 +2,33 @@
 
 return [
 
-    'accounts_cash'         => 'نقدي',
-    'categories_deposit'    => 'إيداع',
-    'categories_sales'      => 'المبيعات',
-    'currencies_usd'        => 'دولار أمريكي',
-    'currencies_eur'        => 'يورو',
-    'currencies_gbp'        => 'جنيه استرليني',
-    'currencies_try'        => 'ليرة تركية',
+    'accounts' => [
+        'cash'              => 'المال',
+    ],
+
+    'categories' => [
+        'deposit'           => 'إيداع',
+        'sales'             => 'المبيعات',
+    ],
+
+    'currencies' => [
+        'usd'               => 'دولار أمريكي',
+        'eur'               => 'يورو',
+        'gbp'               => 'جنيه إسترليني',
+        'try'               => 'ليرة تركية',
+    ],
+
+    'offline_payments' => [
+        'cash'              => 'المال',
+        'bank'              => 'تحويل بنكي',
+    ],
+
+    'reports' => [
+        'income'            => 'ملخص الدخل الشهري حسب الفئة.',
+        'expense'           => 'ملخص المصاريف الشهرية حسب الفئة.',
+        'income_expense'    => 'الدخل الشهري مقابل المصاريف حسب الفئة.',
+        'tax'               => 'ملخص الضريبة الفصلية.',
+        'profit_loss'       => 'الربح والخسارة الفصلية حسب الفئة.',
+    ],
 
 ];

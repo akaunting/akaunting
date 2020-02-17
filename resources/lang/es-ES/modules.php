@@ -12,10 +12,9 @@ return [
     'search'                => 'Buscar',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar ahora',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Haz clic aquí</a> para obtener tu clave API.',
+    'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
     'no_apps'               => 'No hay aplicaciones en esta categoría, aún.',
-    'developer'             => '¿Eres un desarrollador? <a href="https://akaunting.com/developers" target="_blank">Aquí</a> puedes aprender cómo crear una aplicación y empezar a vender hoy!',
-
+    'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
     'recommended_apps'      => 'Aplicaciones recomendadas',
 
     'about'                 => 'Acerca de',
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'No hay revisiones.'
-    ]
+    ],
+
 ];

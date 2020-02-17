@@ -2,21 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Acceso prohibido',
-    'error_page'       => 'Página de error',
-    'page_not_found'   => 'Página no encontrada',
-
-    'body'   => [
-        'forbidden_access' => '¡Ups! Acceso prohibido.',
-        'error_page' => '¡Ups! Algo fue mal.',
-        'page_not_found' => '¡Ups! Página no encontrada.',
+    'title' => [
+        '403' => 'Oops! Forbidden Access',
+        '404' => 'Oops! Page not found',
+        '500' => 'Oops! Something went wrong',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'No puedes acceder a esta página. Mientras tanto, puedes volver al <a href=":link">panel de control</a>.',
-        'error_page' => 'Trabajaremos para solucionarlo de inmediato. Mientras tanto, puedes volver al <a href=":link">panel de control</a>.',
-        'page_not_found' => 'No hemos podido encontrar la página que buscaste.
-        Mientras tanto, puedes volver al <a href=":link">panel de control</a>.',
+    'header' => [
+        '403' => '403 Forbidden',
+        '404' => '404 Not Found',
+        '500' => '500 Internal Server Error',
+    ],
+
+    'message' => [
+        '403' => 'You can not access this page.',
+        '404' => 'We could not find the page you were looking for.',
+        '500' => 'We will work on fixing that right away.',
     ],
 
 ];

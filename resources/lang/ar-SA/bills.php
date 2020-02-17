@@ -31,20 +31,22 @@ return [
     'mark_received'         => 'تحديد كمستلم',
     'download_pdf'          => 'تحميل PDF',
     'send_mail'             => 'إرسال بريد إلكتروني',
-    'create_bill'           => 'إنشاء فاتورة',
-    'receive_bill'          => 'إستلام فاتورة',
+    'create_bill'           => 'إنشاء فاتورة شراء',
+    'receive_bill'          => 'إستلام فاتورة شراء',
     'make_payment'          => 'القيام بالدفع',
 
     'statuses' => [
         'draft'             => 'مسودة',
-        'received'          => 'مستلم',
+        'received'          => 'مستلمة',
         'partial'           => 'جزئي',
         'paid'              => 'مدفوع',
+        'overdue'           => 'متأخر',
+        'unpaid'            => 'غير مدفوع',
     ],
 
     'messages' => [
         'received'          => 'تم تحويل فاتورة الشراء إلى فاتورة مستلمة بنجاح!',
-        'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
+        'draft'             => 'هذة فاتورة شراء عبارة عن <b> مسودة </b> و سوف يتم تحويلها الى مخطط بعد ان يتم استحقاقها.',
 
         'status' => [
             'created'       => 'إضافة في: تاريخ',

@@ -40,6 +40,8 @@ return [
         'received'          => 'Recibido',
         'partial'           => 'Parcial',
         'paid'              => 'Pagado',
+        'overdue'           => 'Vencido',
+        'unpaid'            => 'No Pagado',
     ],
 
     'messages' => [

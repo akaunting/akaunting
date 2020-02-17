@@ -76,6 +76,7 @@ return [
     'edit'                  => 'Düzenle',
     'delete'                => 'Sil',
     'send'                  => 'Gönder',
+    'share'                 => 'Paylaş',
     'download'              => 'İndir',
     'delete_confirm'        => ':name :type silinsin mi?',
     'name'                  => 'İsim',
@@ -127,7 +128,6 @@ return [
     'disable'               => 'Devre Dışı Bırak',
     'select_all'            => 'Tümünü seç',
     'unselect_all'          => 'Tüm Seçimi Kaldır',
-    'go_to'                 => 'Git :name',
     'created_date'          => 'Oluşturulma Tarihi',
     'period'                => 'Dönem',
     'frequency'             => 'Sıklık',
@@ -151,6 +151,7 @@ return [
     'no_data'               => 'Veri yok',
     'no_matching_data'      => 'Eşleşen veri yok',
     'clear_cache'           => 'Önbelleği Temizle',
+    'go_to_dashboard'       => 'Kontrol Paneline Git',
 
     'card' => [
         'name'                  => 'Kart Sahibi',
@@ -189,7 +190,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Daha fazla bilgi için <a href=":url" target="_blank" class="text-success">dokümantasyon</a> sayfasını inceleyebilirsiniz.',
+        'documentation' => 'Daha fazla bilgi için <a href=":url" target="_blank">dokümantasyon</a> sayfasını inceleyebilirsiniz.',
         'items' => 'Öğeler ürün veya hizmet olabilir. Öğeleri gelir/gider faturası oluştururken fiyat, vergi gibi alanları otomatik doldurmak için kullanbilirsiniz.',
         'invoices' => 'Faturalar tek seferlik veya tekrarlı olabilir. Faturaları müşterilerinize göndererek online ödeme yapmasını sağlayabilirsiniz.',
         'revenues' => 'Tahsilat, gerçekleşmiş bir gelir işlemidir. Tamamen bağımsız (depozito gibi) veya bir gelir faturasına bağlı olabilir.',
@@ -197,6 +198,9 @@ return [
         'bills' => 'Faturalar tek seferlik veya tekrarlı olabilir. Tedarikçilerinizden satın aldığınız ürün veya hizmetleri kolaylıkla takip edebilirsiniz.',
         'payments' => 'Ödeme, gerçekleşmiş bir gider işlemidir. Tamamen bağımsız (yemek fişi gibi) veya bir gider faturasına bağlı olabilir.',
         'vendors' => 'Gider faturası oluşturmak için tedarikçiler zorunludur. Onlara olan borç bakiyenizi görüntüleyebilir ve filtreleyebilirsiniz.',
+        'transfers' => 'Transferler, hesaplar arası para geçişi için kullanılır. Hesapların para birimleri aynı veya farklı olabilir.',
+        'taxes' => 'Vergiler, gelir veya gider faturalarına ek maliyet eklemek için kullanılır. Mali tablolarınız da bu doğrultuda etkilenir.',
+        'reconciliations' => 'Banka mütabakatı, banka hesapları ile muhasebe kayıtlarının düzgün olup olmadığını kontrol etmek için yapılır.',
     ],
 
 ];

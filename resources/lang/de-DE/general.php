@@ -76,6 +76,7 @@ return [
     'edit'                  => 'Bearbeiten',
     'delete'                => 'Löschen',
     'send'                  => 'Senden',
+    'share'                 => 'Freigeben',
     'download'              => 'Herunterladen',
     'delete_confirm'        => 'Löschen bestätigen :name :type?',
     'name'                  => 'Name',
@@ -127,7 +128,6 @@ return [
     'disable'               => 'Deaktivieren',
     'select_all'            => 'Alle auswählen',
     'unselect_all'          => 'Alle abwählen',
-    'go_to'                 => 'Gehe zu :name',
     'created_date'          => 'Erstellungsdatum',
     'period'                => 'Zeitraum',
     'frequency'             => 'Häufigkeit',
@@ -151,6 +151,7 @@ return [
     'no_data'               => 'Keine Daten',
     'no_matching_data'      => 'Keine passenden Daten',
     'clear_cache'           => 'Zwischenspeicher leeren',
+    'go_to_dashboard'       => 'Zum Dashboard gehen',
 
     'card' => [
         'name'                  => 'Name des Karteninhabers',
@@ -189,7 +190,7 @@ return [
     ],
 
     'empty' => [
-        'documentation' => 'Weitere Details finden Sie in der <a href=":url" target="_blank" class="text-success">Dokumentation</a>.',
+        'documentation' => 'Weitere Details finden Sie in der <a href=":url" target="_blank">Dokumentation</a>.',
         'items' => 'Artikel können Produkte oder Dienstleistungen sein. Sie können Artikel bei der Erstellung von Rechnungen verwenden, um den Preis, die Steuerfelder usw. zu füllen.',
         'invoices' => 'Sie können Rechnungen (Debitoren) für Kunden erstellen, drucken, senden und bei erfolgreichem Zahlungseingang als bezahlt buchen. Rechnungen (Debitoren) können einmalig oder wiederkehrend (Abo) sein. ',
         'revenues' => 'Hier sehen und erstellen Sie alle Einnahmetransaktion. Es können unabhängiger Einnahmen (z.B. Trinkgeld) sein oder an einer Rechnung verknüpft werden.',
@@ -197,6 +198,9 @@ return [
         'bills' => 'Sie können Rechnungen (Kreditoren) von Lieferanten/Händlern erstellen und bei erfolgreichem Zahlungsausgang als bezahlt buchen. Sie geben an, was Sie Ihren Lieferanten/Händlern für die Produkte oder Dienstleistungen schulden, die Sie kauften. Rechnungen (Kreditoren) können einmalig oder wiederkehrend (Abo) sein.',
         'payments' => 'Hier sehen und erstellen Sie alle Ausgabetransaktion. Es können unabhängiger Ausgaben (z.B. Lebensmittelquittierung) sein oder an einer Lieferantenrechnung verknüpft werden.',
         'vendors' => 'Kreditoren sind erforderlich, wenn Sie Rechnungen für Ihre Ausgaben erstellen möchten. Sie können im Kreditor alle offene und bezahlte Posten einsehen und filtern.',
+        'transfers' => 'Mit Überweisungen können Sie Geld von einem Konto auf ein anderes überweisen, unabhängig davon, ob dieselbe Währung verwendet wird oder nicht.',
+        'taxes' => 'Steuern werden verwendet, um zusätzliche Gebühren auf Rechnungen (Debitoren und Kreditoren) anzuwenden. Ihre Finanzen sind von diesen regulatorischen Steuern betroffen.',
+        'reconciliations' => 'Der Bankabgleich wird durchgeführt, um sicherzustellen, dass auch die Bankdaten Ihres Unternehmens korrekt sind.',
     ],
 
 ];

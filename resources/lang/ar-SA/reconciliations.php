@@ -2,15 +2,15 @@
 
 return [
 
-    'reconcile'             => 'Reconcile',
-    'reconciled'            => 'Reconciled',
-    'closing_balance'       => 'Closing Balance',
-    'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
-    'cleared_amount'        => 'Cleared Amount',
-    'deposit'               => 'Deposit',
-    'withdrawal'            => 'Withdrawal',
+    'reconcile'             => 'التسوية',
+    'reconciled'            => 'تمت التسوية',
+    'closing_balance'       => 'الرصيد الختامي',
+    'unreconciled'          => 'لم تتم التسوية',
+    'transactions'          => 'الإجراءات',
+    'start_date'            => 'تاريخ البدء',
+    'end_date'              => 'تاريخ الانتهاء',
+    'cleared_amount'        => 'صافي القيمة',
+    'deposit'               => 'إيداع',
+    'withdrawal'            => 'سحب',
 
 ];

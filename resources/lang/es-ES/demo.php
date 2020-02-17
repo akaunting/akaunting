@@ -2,12 +2,33 @@
 
 return [
 
-    'accounts_cash'         => 'Efectivo',
-    'categories_deposit'    => 'Depósito',
-    'categories_sales'      => 'Ventas',
-    'currencies_usd'        => 'Dólar EEUU',
-    'currencies_eur'        => 'Euro',
-    'currencies_gbp'        => 'Libra esterlina',
-    'currencies_try'        => 'Libra turca',
+    'accounts' => [
+        'cash'              => 'Cash',
+    ],
+
+    'categories' => [
+        'deposit'           => 'Deposit',
+        'sales'             => 'Sales',
+    ],
+
+    'currencies' => [
+        'usd'               => 'US Dollar',
+        'eur'               => 'Euro',
+        'gbp'               => 'British Pound',
+        'try'               => 'Turkish Lira',
+    ],
+
+    'offline_payments' => [
+        'cash'              => 'Cash',
+        'bank'              => 'Bank Transfer',
+    ],
+
+    'reports' => [
+        'income'            => 'Monthly income summary by category.',
+        'expense'           => 'Monthly expense summary by category.',
+        'income_expense'    => 'Monthly income vs expense by category.',
+        'tax'               => 'Quarterly tax summary.',
+        'profit_loss'       => 'Quarterly profit & loss by category.',
+    ],
 
 ];

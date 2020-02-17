@@ -76,6 +76,7 @@ return [
     'edit'                  => 'Modifiko',
     'delete'                => 'Fshij',
     'send'                  => 'Dërgo',
+    'share'                 => 'Ndaj',
     'download'              => 'Shkarko',
     'delete_confirm'        => 'Konfirmo fshirjen :name :type?',
     'name'                  => 'Emri',
@@ -127,7 +128,6 @@ return [
     'disable'               => 'Çaktivizo',
     'select_all'            => 'Zgjidh të gjitha',
     'unselect_all'          => 'Hiqni të gjithë',
-    'go_to'                 => 'Shko te :name',
     'created_date'          => 'Data e Krijuar',
     'period'                => 'Periudhë',
     'frequency'             => 'Frekuenca',
@@ -151,6 +151,7 @@ return [
     'no_data'               => 'Nuk ka të dhëna',
     'no_matching_data'      => 'Nuk ka të dhëna që përputhen',
     'clear_cache'           => 'Pastro Cache',
+    'go_to_dashboard'       => 'Shkoni në Panelin e Kontrollit',
 
     'card' => [
         'name'                  => 'Emri ne Karte',
@@ -197,6 +198,9 @@ return [
         'bills' => 'Faturat mund të jetë një kohë ose të përsëritura. Ata tregojnë se çfarë u detyrohen shitësve tuaj për produktet ose shërbimet që blini.',
         'payments' => 'Pagesa është një transaksion me shpenzime të paguara. Mund të jetë një procesverbal i pavarur (d.m.th. marrja e ushqimit) ose bashkangjitur një faturë.',
         'vendors' => 'Shitësit janë të nevojshme në qoftë se ju doni për të krijuar faturat. Ju mund të shihni ekuilibrin që ju keni borxh dhe të filtroni raportet nga shitësi.',
+        'transfers' => 'Transferet ju lejojnë të transferoni para nga një llogari në tjetrën, pavarësisht nëse përdorni të njëjtën monedhë apo jo.',
+        'taxes' => 'Taksat përdoren për të aplikuar tarifa shtesë për shpenzimet dhe të ardhurat. Financat tuaja preken nga këto taksa rregullatore.',
+        'reconciliations' => 'Barazimi i bankës është një proces i kryer për të siguruar që të dhënat bankare të kompanisë tuaj janë gjithashtu të sakta.',
     ],
 
 ];
