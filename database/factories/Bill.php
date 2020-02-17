@@ -135,7 +135,7 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
             ];
 
             if ($init_status == 'partial') {
-                $payment_request['amount'] = (double) $amount / 3;
+                $payment_request['amount'] = round($amount / 3, $bill->currency->precision);
             }
 
             $transaction = dispatch_now(new CreateDocumentTransaction($updated_bill, $payment_request));
