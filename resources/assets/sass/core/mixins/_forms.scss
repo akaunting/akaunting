@@ -1,4 +1,4 @@
-@mixin form-control-focus() {
+@mixin form-control-focus($ignore-warning: false) {
   &:focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
