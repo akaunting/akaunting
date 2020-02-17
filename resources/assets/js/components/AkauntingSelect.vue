@@ -365,6 +365,8 @@
 </template>
 
 <script>
+import Vue from 'vue';
+
 import { Select, Option, OptionGroup, ColorPicker } from 'element-ui';
 
 import AkauntingModalAddNew from './AkauntingModalAddNew';

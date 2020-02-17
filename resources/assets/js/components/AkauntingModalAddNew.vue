@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import Vue from 'vue';
+
 import { SlideYUpTransition } from "vue2-transitions";
 import AkauntingModal from './AkauntingModal';
 import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
