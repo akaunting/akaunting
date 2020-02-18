@@ -82,6 +82,11 @@ class Vendors extends Controller
 
         $counts['transactions'] = $transactions->count();
 
+        // Prepare data
+        $transactions->each(function ($item) use (&$amounts) {
+            $amounts['paid'] += $item->getAmountConvertedToDefault();
+        });
+
         $limit = request('limit', setting('default.list_limit', '25'));
         $transactions = $this->paginate($transactions->sortByDesc('paid_at'), $limit);
         $bills = $this->paginate($bills->sortByDesc('paid_at'), $limit);
