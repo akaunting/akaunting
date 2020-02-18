@@ -29,6 +29,7 @@ return [
     'add_payment'           => 'Pievienot maksājumu',
     'mark_paid'             => 'Atzīmēt kā samaksāts',
     'mark_sent'             => 'Atzīmēt kā nosūtītu',
+    'mark_viewed'           => 'Mark Viewed',
     'download_pdf'          => 'Lejupielādēt PDF',
     'send_mail'             => 'Sūtīt e-pastu',
     'all_invoices'          => 'Pierakstīties, lai skatītu visus rēķinus',
@@ -38,22 +39,26 @@ return [
     'accept_payments'       => 'Pieņemt tiešsaistes maksājumus',
 
     'statuses' => [
-        'draft'             => 'Sagatave',
-        'sent'              => 'Nosūtīts',
-        'viewed'            => 'Skatīts',
-        'approved'          => 'Apstiprināts',
-        'partial'           => 'Daļēji',
-        'paid'              => 'Samaksāts',
+        'draft'             => 'Draft',
+        'sent'              => 'Sent',
+        'viewed'            => 'Viewed',
+        'approved'          => 'Approved',
+        'partial'           => 'Partial',
+        'paid'              => 'Paid',
+        'overdue'           => 'Overdue',
+        'unpaid'            => 'Unpaid',
     ],
 
     'messages' => [
-        'email_sent'        => 'Rēķins veiksmīgi nosūtīts uz e-pastu!',
-        'marked_sent'       => 'Rēķins atzīmēts kā nosūtīts!',
+        'email_sent'        => 'Invoice email has been sent!',
+        'marked_sent'       => 'Invoice marked as sent!',
+        'marked_paid'       => 'Invoice marked as paid!',
         'email_required'    => 'Pircējam nav norādīta e-pasta adrese!',
-        'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
+        'draft'             => 'Šis ir <b>melnraksts</b> rēķinam un tas atspoguļosies diagrammās, pēc tam, kad tas tiks iespējots / nosūtīts.',
 
         'status' => [
             'created'       => 'Izveidots: datums',
+            'viewed'        => 'Viewed',
             'send' => [
                 'draft'     => 'Nav nosūtīts',
                 'sent'      => 'Nosūtīts: datums',
@@ -62,11 +67,6 @@ return [
                 'await'     => 'Gaidāmie maksājumi',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Jūs saņemāt šo e-pastu, jo jums ir sagatavots rēķins par summu :amount, Rēķins izrakstīts :customer.',
-        'button'            => 'Apmaksāt tagad',
     ],
 
 ];

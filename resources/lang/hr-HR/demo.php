@@ -2,15 +2,33 @@
 
 return [
 
-    'accounts_cash'         => 'Gotovina',
-    'categories_deposit'    => 'Depozit',
-    'categories_sales'      => 'Prodaje',
-    'currencies_usd'        => 'Američki dolar',
-    'currencies_eur'        => 'Euro',
-    'currencies_gbp'        => 'Britanska funta',
-    'currencies_try'        => 'Turska lira',
-    'taxes_exempt'          => 'Izuzeto od poreza',
-    'taxes_normal'          => 'Normalan porez',
-    'taxes_sales'           => 'Porez prodaje',
+    'accounts' => [
+        'cash'              => 'Gotovina',
+    ],
+
+    'categories' => [
+        'deposit'           => 'Depozit',
+        'sales'             => 'Prodaje',
+    ],
+
+    'currencies' => [
+        'usd'               => 'Američki dollar',
+        'eur'               => 'Euro',
+        'gbp'               => 'Britanska funta',
+        'try'               => 'Turska lira',
+    ],
+
+    'offline_payments' => [
+        'cash'              => 'Gotovina',
+        'bank'              => 'Bankovna doznaka',
+    ],
+
+    'reports' => [
+        'income'            => 'Mjesečni sažetak prihoda po kategorijama.',
+        'expense'           => 'Mjesečni sažetak troškova po kategorijama.',
+        'income_expense'    => 'Mjesečni prihod prema izdacima po kategorijama.',
+        'tax'               => 'Tromjesečni porezni rezime.',
+        'profit_loss'       => 'Tromjesečni dobitak i gubitak po kategorijama.',
+    ],
 
 ];

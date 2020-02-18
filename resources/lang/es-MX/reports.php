@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Ganancia Neta',
     'total_expenses'        => 'Total de Gastos',
     'net'                   => 'Neto',
+    'income_expense'        => 'Ingresos y Gastos',
 
     'summary' => [
         'income'            => 'Resumen de Ingresos',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Resumen de impuestos',
     ],
 
-    'quarter' => [
-        '1'                 => 'Ene-Mar',
-        '2'                 => 'Abr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Oct-Dic',
+    'charts' => [
+        'line'              => 'Línea',
+        'bar'               => 'Barra',
+        'pie'               => 'Pastel',
     ],
 
 ];

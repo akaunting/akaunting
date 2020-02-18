@@ -36,10 +36,12 @@ return [
     'make_payment'          => 'Veikt maksājumu',
 
     'statuses' => [
-        'draft'             => 'Melnraksts',
-        'received'          => 'Saņemts',
-        'partial'           => 'Daļējs',
-        'paid'              => 'Samaksāts',
+        'draft'             => 'Draft',
+        'received'          => 'Received',
+        'partial'           => 'Partial',
+        'paid'              => 'Paid',
+        'overdue'           => 'Overdue',
+        'unpaid'            => 'Unpaid',
     ],
 
     'messages' => [
