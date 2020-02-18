@@ -3,32 +3,32 @@
 return [
 
     'accounts' => [
-        'cash'              => 'Cash',
+        'cash'              => 'Efectivo',
     ],
 
     'categories' => [
-        'deposit'           => 'Deposit',
-        'sales'             => 'Sales',
+        'deposit'           => 'Depósito',
+        'sales'             => 'Ventas',
     ],
 
     'currencies' => [
-        'usd'               => 'US Dollar',
+        'usd'               => 'Dólar EEUU',
         'eur'               => 'Euro',
-        'gbp'               => 'British Pound',
-        'try'               => 'Turkish Lira',
+        'gbp'               => 'Libra esterlina',
+        'try'               => 'Libra turca',
     ],
 
     'offline_payments' => [
-        'cash'              => 'Cash',
-        'bank'              => 'Bank Transfer',
+        'cash'              => 'Efectivo',
+        'bank'              => 'Transferencia Bancaria',
     ],
 
     'reports' => [
-        'income'            => 'Monthly income summary by category.',
-        'expense'           => 'Monthly expense summary by category.',
-        'income_expense'    => 'Monthly income vs expense by category.',
-        'tax'               => 'Quarterly tax summary.',
-        'profit_loss'       => 'Quarterly profit & loss by category.',
+        'income'            => 'Resumen mensual de ingresos por categoría.',
+        'expense'           => 'Resumen mensual de gastos por categoría.',
+        'income_expense'    => 'Ingresos mensuales vs gastos por categoría.',
+        'tax'               => 'Resumen trimestral de impuestos.',
+        'profit_loss'       => 'Ganancias y pérdidas trimestrales por categoría.',
     ],
 
 ];

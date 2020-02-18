@@ -4,8 +4,8 @@ return [
 
     'rate'                  => 'Likme',
     'rate_percent'          => 'Likme (%)',
-    'normal'                => 'Normal',
-    'inclusive'             => 'Inclusive',
-    'compound'              => 'Compound',
-
+    'normal'                => 'Ierastas',
+    'inclusive'             => 'Ietverošas',
+    'compound'              => 'Apvienotas',
+    'fixed'                 => 'Fiksētas',
 ];

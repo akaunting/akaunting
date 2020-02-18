@@ -2,8 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Nākamā',
-    'next'                  => 'Iepriešējā &raquo;',
-    'showing'               => 'Rāda :first līdz :last no :total :type',
+    'previous'              => 'Previous',
+    'next'                  => 'Next',
+    'showing'               => ':first-:last of :total records.',
+    'page'                  => 'per page.',
 
 ];
