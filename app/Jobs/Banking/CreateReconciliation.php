@@ -4,6 +4,7 @@ namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
 use App\Models\Banking\Reconciliation;
+use App\Models\Banking\Transaction;
 
 class CreateReconciliation extends Job
 {
@@ -40,10 +41,13 @@ class CreateReconciliation extends Job
 
         if ($transactions) {
             foreach ($transactions as $key => $value) {
-                $t = explode('_', $key);
-                $m = '\\' . $t['1'];
+                if (empty($value)) {
+                    continue;
+                }
 
-                $transaction = $m::find($t[0]);
+                $t = explode('_', $key);
+
+                $transaction = Transaction::find($t[1]);
                 $transaction->reconciled = 1;
                 $transaction->save();
             }
