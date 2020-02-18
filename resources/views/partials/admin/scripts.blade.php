@@ -5,6 +5,8 @@
 
     @stack('scripts_start')
 
+    <script src="{{ asset('public/0.js?v=' . version('short')) }}"></script>
+
     <script src="{{ asset('public/vendor/chart.js/dist/Chart.min.js') }}"></script>
 
     <script src="{{ asset('public/js/common/search.js?v=' . version('short')) }}"></script>

@@ -76,7 +76,7 @@
 
                                 {{ Form::textGroup('smtp_password', trans('settings.email.smtp.password'), 'paper-plane', ['type' => 'password', ':disabled' => 'email.smtpPassword']) }}
 
-                                {{ Form::selectGroup('smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], !empty($setting['smtp_encryption']) ? $setting['smtp_encryption'] : null ,['disabled' => 'email.smtpEncryption']) }}
+                                {{ Form::selectGroup('smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], !empty($setting['smtp_encryption']) ? $setting['smtp_encryption'] : null , ['disabled' => 'email.smtpEncryption']) }}
                              </div>
                         </div>
                     </div>
