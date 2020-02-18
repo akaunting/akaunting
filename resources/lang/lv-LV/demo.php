@@ -2,12 +2,33 @@
 
 return [
 
-    'accounts_cash'         => 'Skaidra nauda',
-    'categories_deposit'    => 'Bezskaidra nauda',
-    'categories_sales'      => 'Pārdošana',
-    'currencies_usd'        => 'ASV dolārs',
-    'currencies_eur'        => 'Euro',
-    'currencies_gbp'        => 'Angļu mārciņa',
-    'currencies_try'        => 'Turku lira',
+    'accounts' => [
+        'cash'              => 'Cash',
+    ],
+
+    'categories' => [
+        'deposit'           => 'Deposit',
+        'sales'             => 'Sales',
+    ],
+
+    'currencies' => [
+        'usd'               => 'US Dollar',
+        'eur'               => 'Euro',
+        'gbp'               => 'British Pound',
+        'try'               => 'Turkish Lira',
+    ],
+
+    'offline_payments' => [
+        'cash'              => 'Cash',
+        'bank'              => 'Bank Transfer',
+    ],
+
+    'reports' => [
+        'income'            => 'Monthly income summary by category.',
+        'expense'           => 'Monthly expense summary by category.',
+        'income_expense'    => 'Monthly income vs expense by category.',
+        'tax'               => 'Quarterly tax summary.',
+        'profit_loss'       => 'Quarterly profit & loss by category.',
+    ],
 
 ];

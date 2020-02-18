@@ -13,16 +13,18 @@ return [
     'current_email'         => 'E-pasta adrese',
     'reset'                 => 'Atiestatīt',
     'never'                 => 'nekad',
-    
+    'landing_page'          => 'Landing Page',
+
     'password' => [
         'current'           => 'Parole',
         'current_confirm'   => 'Paroles apstiprinājums',
         'new'               => 'Jauna parole',
         'new_confirm'       => 'Paroles apstiprinājums',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Kļūda: Nevar izdzēst sevi!',
+        'self_disable'      => 'Error: Can not disable yourself!',
         'no_company'        => 'Kļūda: Jūsu kontam nav piesaistīts neviens uzņēmums. Sazinieties, lūdzu, ar sistēmas administratoru.',
     ],
 

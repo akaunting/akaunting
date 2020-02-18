@@ -3,15 +3,17 @@
 return [
 
     'company' => [
+        'description'       => 'Cambiar el nombre de la empresa, correo electrónico, dirección, RFC, etc',
         'name'              => 'Nombre',
         'email'             => 'Correo Electrónico',
         'phone'             => 'Teléfono',
         'address'           => 'Dirección',
         'logo'              => 'Logotipo',
     ],
+
     'localisation' => [
-        'tab'               => 'Localización',
-        'financial_start'   => 'Financial Year Start',
+        'description'       => 'Establecer año fiscal, zona horaria, formato de fecha y más configuraciones locales',
+        'financial_start'   => 'Inicio del ejercicio financiero',
         'timezone'          => 'Zona Horaria',
         'date' => [
             'format'        => 'Formato de Fecha',
@@ -28,8 +30,9 @@ return [
             'after'         => 'Después del número',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Factura',
+        'description'       => 'Personalizar prefijo de factura, número, términos, pie de página etc',
         'prefix'            => 'Prefijo de Número',
         'digit'             => 'Número de Dígitos',
         'next'              => 'Siguiente Número',
@@ -44,16 +47,25 @@ return [
         'rate'              => 'Tasa',
         'quantity_name'     => 'Nombre de la Cantidad',
         'quantity'          => 'Cantidad',
+        'payment_terms'     => 'Condiciones de pago',
+        'title'             => 'Título',
+        'subheading'        => 'Subtítulo',
+        'due_receipt'       => 'Vence después de la recepción',
+        'due_days'          => 'Vencimiento dentro de :days días',
+        'choose_template'   => 'Elegir plantilla de factura',
+        'default'           => 'Predeterminado',
+        'classic'           => 'Clásica',
+        'modern'            => 'Moderna',
     ],
+
     'default' => [
-        'tab'               => 'Valores Predeterminados',
-        'account'           => 'Cuenta Predeterminada',
-        'currency'          => 'Moneda Predeterminada',
-        'tax'               => 'Tasa de Impuesto Predeterminado',
-        'payment'           => 'Método de Pago Predeterminado',
-        'language'          => 'Idioma Predeterminado',
+        'description'       => 'Cuenta predeterminada, moneda, idioma de su empresa',
+        'list_limit'        => 'Registros Por Página',
+        'use_gravatar'      => 'Usar Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Cambiar el protocolo de envío y plantillas de correo electrónico',
         'protocol'          => 'Protocolo',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -68,36 +80,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Ruta de acceso de Sendmail',
         'log'               => 'Registrar Correos Electrónicos',
+
+        'templates' => [
+            'subject'                   => 'Asunto',
+            'body'                      => 'Contenido',
+            'tags'                      => '<strong>Etiquetas disponibles:</strong> :tag_list',
+            'invoice_new_customer'      => 'Nueva Plantilla de Factura (enviada al cliente)',
+            'invoice_remind_customer'   => 'Plantilla de Recordatorio de Factura (enviada al cliente)',
+            'invoice_remind_admin'      => 'Plantilla de Recordatorio de Factura (enviado al administrador)',
+            'invoice_recur_customer'    => 'Plantilla de Factura Recurrente (enviada al cliente)',
+            'invoice_recur_admin'       => 'Plantilla de Factura Recurrente (enviada al administrador)',
+            'invoice_payment_customer'  => 'Plantilla de Pago Recibido (enviada al cliente)',
+            'invoice_payment_admin'     => 'Plantilla de Pago Recibido (enviada al administrador)',
+            'bill_remind_admin'         => 'Plantilla de Recordatorio de Factura por pagar (enviada a administrador)',
+            'bill_recur_admin'          => 'Plantilla de Factura Recurrente por pagar (enviada al administrador)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Programación',
+        'name'              => 'Programación',
+        'description'       => 'Recordatorios y comandos automáticos para recurrentes',
         'send_invoice'      => 'Enviar Recordatorio de Factura',
         'invoice_days'      => 'Enviar Después del vencimiento',
         'send_bill'         => 'Enviar Recordatorio de Recibo',
         'bill_days'         => 'Enviar Antes del Vencimiento',
         'cron_command'      => 'Comando de Cron',
         'schedule_time'     => 'Hora de Ejecución',
-        'send_item_reminder'=> 'Enviar Recordatorio del Elemento',
-        'item_stocks'       => 'Enviar Cuando Exista Stock del Elemento',
     ],
-    'appearance' => [
-        'tab'               => 'Apariencia',
-        'theme'             => 'Tema',
-        'light'             => 'Claro',
-        'dark'              => 'Oscuro',
-        'list_limit'        => 'Registros por Página',
-        'use_gravatar'      => 'Usar Gravatar',
+
+    'categories' => [
+        'description'       => 'Categorías ilimitadas para ingresos, gastos y artículos',
     ],
-    'system' => [
-        'tab'               => 'Sistema',
-        'session' => [
-            'lifetime'      => 'Duración de la Sesión (Minutos)',
-            'handler'       => 'Gestor de Sesión',
-            'file'          => 'Archivo',
-            'database'      => 'Base de Datos',
-        ],
-        'file_size'         => 'Tamaño Máximo de Archivo (MB)',
-        'file_types'        => 'Tipos de Archivo Permitidos',
+
+    'currencies' => [
+        'description'       => 'Crear, administrar monedas y establecer sus tarifas',
+    ],
+
+    'taxes' => [
+        'description'       => 'Tasas de impuestos fijas, normales, inclusivas y compuestas',
     ],
 
 ];

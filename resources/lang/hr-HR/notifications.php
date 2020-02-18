@@ -4,7 +4,7 @@ return [
 
     'whoops'              => 'Ups!',
     'hello'               => 'Pozdrav!',
-    'salutation'          => 'Regards,<br> :company_name',
-    'subcopy'             => 'If you’re having trouble clicking the ":text" button, copy and paste the URL below into your web browser: [:url](:url)',
+    'salutation'          => 'Pozdrav, <br>: ime tvrtke',
+    'subcopy'             => 'Ako imate problema s klikom na gumb ": tekst", kopirajte i zalijepite URL ispod u svoj web preglednik: [: url] (: url)',
 
 ];

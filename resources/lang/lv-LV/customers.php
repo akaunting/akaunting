@@ -2,15 +2,11 @@
 
 return [
 
-    'allow_login'           => 'Atļaut ielogoties?',
+    'can_login'             => 'Can Login?',
     'user_created'          => 'Lietotājs, kas izveidojis',
 
     'error' => [
-        'email'             => 'Lietotājs ar šādu e-pasta adresi jau eksistē.'
+        'email'             => 'Lietotājs ar šādu e-pasta adresi jau eksistē.',
     ],
 
-    'notification' => [
-        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Show',
-    ],
 ];
