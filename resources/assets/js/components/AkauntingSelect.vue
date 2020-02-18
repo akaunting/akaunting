@@ -610,6 +610,7 @@ export default {
             // update options
             this.selectOptions = options;
         },
+
         value: function (value) {
             if (this.multiple) {
                 this.real_model = value;
@@ -617,6 +618,7 @@ export default {
                 this.real_model = value.toString();
             }
         },
+
         model: function (value) {
             if (this.multiple) {
                 this.real_model = value;
