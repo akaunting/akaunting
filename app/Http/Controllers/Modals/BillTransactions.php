@@ -57,12 +57,10 @@ class BillTransactions extends Controller
         $bill->grand_total = money($total, $currency->code)->getAmount();
 
         if (!empty($paid)) {
-            $bill->grand_total = round($bill->total - $paid, $currency->precision) ;
+            $bill->grand_total = round($bill->total - $paid, $currency->precision);
         }
 
-        $rand = rand();
-
-        $html = view('modals.bills.payment', compact('bill', 'accounts', 'currencies', 'currency', 'payment_methods', 'rand'))->render();
+        $html = view('modals.bills.payment', compact('bill', 'accounts', 'currencies', 'currency', 'payment_methods'))->render();
 
         return response()->json([
             'success' => true,

@@ -53,17 +53,14 @@ class InvoiceTransactions extends Controller
         }
 
         $total = money($invoice->total, $currency->code, true)->format();
-        //$total = money(0, $currency->code, true)->format();
 
         $invoice->grand_total = money($total, $currency->code)->getAmount();
 
         if (!empty($paid)) {
-            $invoice->grand_total = round($invoice->total - $paid, $currency->precision) ;
+            $invoice->grand_total = round($invoice->total - $paid, $currency->precision);
         }
 
-        $rand = rand();
-
-        $html = view('modals.invoices.payment', compact('invoice', 'accounts', 'currencies', 'currency', 'payment_methods', 'rand'))->render();
+        $html = view('modals.invoices.payment', compact('invoice', 'accounts', 'currencies', 'currency', 'payment_methods'))->render();
 
         return response()->json([
             'success' => true,

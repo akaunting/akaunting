@@ -18,9 +18,7 @@
 
             {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'v-model' => 'transaction_form.account_id', 'v-error' => 'payment.errors.get("account_id")', 'v-error-message' => 'payment.errors.get("account_id")', 'change' => 'onChangePaymentAccount']) }}
 
-            @stack('currency_code_input_start')
-                {{ Form::textGroup('currency', trans_choice('general.currencies', 1), 'exchange-alt', ['disabled' => 'disabled', 'v-model' => 'transaction_form.currency', 'v-error' => 'payment.errors.get("currency")', 'v-error-message' => 'payment.errors.get("currency")'], $currencies[$invoice->currency_code]) }}
-            @stack('currency_code_input_end')
+            {{ Form::textGroup('currency', trans_choice('general.currencies', 1), 'exchange-alt', ['disabled' => 'disabled', 'v-model' => 'transaction_form.currency', 'v-error' => 'payment.errors.get("currency")', 'v-error-message' => 'payment.errors.get("currency")'], $currencies[$invoice->currency_code]) }}
 
             {{ Form::textareaGroup('description', trans('general.description'), '', null, ['rows' => '3', 'v-model' => 'transaction_form.description', 'v-error' => 'payment.errors.get("description")', 'v-error-message' => 'payment.errors.get("description")']) }}
 
