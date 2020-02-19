@@ -81,7 +81,7 @@ const app = new Vue({
             this.form.items = items;
         }
 
-        if (document.getElementById('taxes').getAttribute('data-value')) {
+        if ((document.getElementById('taxes') != null) && (document.getElementById('taxes').getAttribute('data-value'))) {
             this.taxes = JSON.parse(document.getElementById('taxes').getAttribute('data-value'));
         }
     },
@@ -348,16 +348,5 @@ const app = new Vue({
             .catch(error => {
             });
         },
-
-        onDeleteTransaction(form_id) {
-            this.transaction = new Form(form_id);
-
-            this.confirm.url = this.transaction.action;
-            this.confirm.title = this.transaction.title;
-            this.confirm.message = this.transaction.message;
-            this.confirm.button_cancel = this.transaction.cancel;
-            this.confirm.button_delete = this.transaction.delete;
-            this.confirm.show = true;
-        }
     }
 });

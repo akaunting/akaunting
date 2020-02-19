@@ -543,10 +543,10 @@
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="accordion">
                         <div class="card">
-                            <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <div class="card-header" id="accordion-histories-header" data-toggle="collapse" data-target="#accordion-histories-body" aria-expanded="false" aria-controls="accordion-histories-body">
                                 <h4 class="mb-0">{{ trans('invoices.histories') }}</h4>
                             </div>
-                            <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne">
+                            <div id="accordion-histories-body" class="collapse hide" aria-labelledby="accordion-histories-header">
                                 <div class="table-responsive">
                                     <table class="table table-flush table-hover">
                                         <thead class="thead-light">
@@ -577,10 +577,10 @@
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="accordion">
                         <div class="card">
-                            <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <div class="card-header" id="accordion-transactions-header" data-toggle="collapse" data-target="#accordion-transactions-body" aria-expanded="false" aria-controls="accordion-transactions-body">
                                 <h4 class="mb-0">{{ trans_choice('general.transactions', 2) }}</h4>
                             </div>
-                            <div id="collapseTwo" class="collapse hide" aria-labelledby="headingTwo">
+                            <div id="accordion-transactions-body" class="collapse hide" aria-labelledby="accordion-transactions-header">
                                 <div class="table-responsive">
                                     <table class="table table-flush table-hover">
                                         <thead class="thead-light">
@@ -604,30 +604,18 @@
                                                                     {{ trans('reconciliations.reconciled') }}
                                                                 </button>
                                                             @else
-                                                                {!! Form::open([
-                                                                    'id' => 'invoice-transaction-' . $transaction->id,
-                                                                    'method' => 'DELETE',
-                                                                    'route' => ['transactions.destroy', $transaction->id],
-                                                                    'class' => 'd-inline'
-                                                                ]) !!}
-                                                                    {{ Form::hidden('form_id', '#invoice-transaction-' . $transaction->id, ['id' => 'form_id-' . $transaction->id]) }}
-                                                                    {{ Form::hidden('title', trans_choice('general.transactions', 2), ['id' => 'title-' . $transaction->id]) }}
-                                                                    @php $message = trans('general.delete_confirm', [
-                                                                        'name' => '<strong>' . Date::parse($transaction->paid_at)->format($date_format) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>',
-                                                                        'type' => strtolower(trans_choice('general.transactions', 1))
-                                                                        ]);
-                                                                    @endphp
-                                                                    {{ Form::hidden('message', $message, ['id' => 'mesage-' . $transaction->id]) }}
-                                                                    {{ Form::hidden('cancel', trans('general.cancel'), ['id' => 'cancel-' . $transaction->id]) }}
-                                                                    {{ Form::hidden('delete', trans('general.delete'), ['id' => 'delete-' . $transaction->id]) }}
+                                                                @php $message = trans('general.delete_confirm', [
+                                                                    'name' => '<strong>' . Date::parse($transaction->paid_at)->format($date_format) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>',
+                                                                    'type' => strtolower(trans_choice('general.transactions', 1))
+                                                                    ]);
+                                                                @endphp
 
-                                                                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
-                                                                        'type'    => 'button',
-                                                                        'class'   => 'btn btn-danger btn-sm',
-                                                                        'title'   => trans('general.delete'),
-                                                                        '@click'  => 'onDeleteTransaction("invoice-transaction-' . $transaction->id . '")'
-                                                                    )) !!}
-                                                                {!! Form::close() !!}
+                                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                                                    'type'    => 'button',
+                                                                    'class'   => 'btn btn-danger btn-sm',
+                                                                    'title'   => trans('general.delete'),
+                                                                    '@click'  => 'confirmDelete("' . route('transactions.destroy', $transaction->id) . '", "' . trans_choice('general.transactions', 2) . '", "' . $message. '",  "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
+                                                                )) !!}
                                                             @endif
                                                         </td>
                                                     </tr>
