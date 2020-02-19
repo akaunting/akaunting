@@ -102,12 +102,10 @@
                     'buttons' => [
                         'cancel' => [
                             'text' => trans('general.cancel'),
-                            'icon' => 'fas fa-times',
                             'class' => 'btn-outline-secondary'
                         ],
                         'confirm' => [
                             'text' => trans('general.save'),
-                            'icon' => 'fas fa-save',
                             'class' => 'btn-success'
                         ]
                     ]

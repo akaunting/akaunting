@@ -78,13 +78,11 @@
                 <div class="col-md-12">
                     <div class="float-right">
                         <button type="button" class="btn btn-icon btn-outline-secondary" @click="onCancel">
-                            <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
                             <span class="btn-inner--text">{{ text.cancel }}</span>
                         </button>
 
                         <button :disabled="form.loading" type="button" class="btn btn-icon btn-success button-submit" @click="onSave">
                             <div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div>
-                            <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>
                             <span v-if="!form.loading" class="btn-inner--text">{{ text.save }}</span>
                         </button>
                     </div>

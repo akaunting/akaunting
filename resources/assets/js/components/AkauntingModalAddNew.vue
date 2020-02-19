@@ -98,12 +98,10 @@ export default {
                 return {
                     cancel: {
                         text: 'Cancel',
-                        icon: 'fas fa-times',
                         class: 'btn-outline-secondary',
                     },
                     confirm: {
                         text: 'Save',
-                        icon: 'fas fa-save',
                         class: 'btn-success',
                     }
                 };
