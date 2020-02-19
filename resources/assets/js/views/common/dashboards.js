@@ -118,6 +118,7 @@ const dashboard = new Vue({
             this.widget.sort = 0;
         },
 
+        // Global filter change date column
         onChangeFilterDate() {
             if (this.filter_date) {
                 window.location.href = url + '?start_date=' + this.filter_date[0] + '&end_date=' + this.filter_date[1];

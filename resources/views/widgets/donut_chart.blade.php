@@ -10,14 +10,6 @@
     </div>
 </div>
 
-@push('charts')
-    <script>
-        var widget_donut_{{ $class->model->id }} = new Vue({
-            el: '#widget-donut-{{ $class->model->id }}',
-        });
-    </script>
-@endpush
-
 @push('body_scripts')
     {!! $chart->script() !!}
 @endpush

@@ -46,13 +46,9 @@ import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
 import AkauntingDate from './AkauntingDate';
 import AkauntingRecurring from './AkauntingRecurring';
-import {VMoney} from 'v-money';
-
 
 export default {
     name: 'akaunting-modal',
-
-    componentName: 'akaunting-modal',
 
     components: {
         SlideYUpTransition,
@@ -60,10 +56,6 @@ export default {
         AkauntingSelect,
         AkauntingDate,
         AkauntingRecurring
-    },
-
-    directives: {
-        money: VMoney
     },
 
     props: {

@@ -14,7 +14,7 @@
         placeholder="{{ trans('general.form.select.field', ['field' => $text]) }}"
         name="{{ $name }}"
 
-        @if(old($name, $value))
+        @if (old($name, $value))
         value="{{ old($name, $value) }}"
         @endif
 
@@ -55,7 +55,7 @@
         :disabled="'{{ $attributes['disabled'] }}'"
         @endif
 
-        @if(isset($attributes['v-error-message']))
+        @if (isset($attributes['v-error-message']))
         :form-error="{{ $attributes['v-error-message'] }}"
         @else
         :form-error="form.errors.get('{{ $name }}')"

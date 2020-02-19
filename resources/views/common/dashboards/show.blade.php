@@ -161,7 +161,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="https://unpkg.com/vue"></script>
-
     <script src="{{ asset('public/js/common/dashboards.js?v=' . version('short')) }}"></script>
 @endpush
