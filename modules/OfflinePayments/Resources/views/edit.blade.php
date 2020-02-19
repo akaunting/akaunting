@@ -11,7 +11,7 @@
                 </div>
 
                 {!! Form::open([
-                    'id' => 'offline-payments',
+                    'id' => 'offline-payment',
                     'route' => 'offline-payments.settings.update',
                     '@submit.prevent' => 'onSubmit',
                     '@keydown' => 'form.errors.clear($event.target.name)',
@@ -106,17 +106,6 @@
             </div>
         </div>
     </div>
-
-    <akaunting-modal
-        :show="confirm.show"
-        :title="confirm.title"
-        :message="confirm.message"
-        :button_cancel="confirm.button_cancel"
-        :button_delete="confirm.button_delete"
-        v-if='confirm.show'
-        @confirm='onDelete'
-        @cancel="cancelDelete">
-    </akaunting-modal>
 @endsection
 
 @push('scripts_start')

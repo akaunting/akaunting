@@ -12,6 +12,11 @@ import Global from './../../../../../resources/assets/js/mixins/global';
 
 import Form from './../../../../../resources/assets/js/plugins/form';
 
+import DashboardPlugin from './../../../../../resources/assets/js/plugins/dashboard-plugin';
+
+// plugin setup
+Vue.use(DashboardPlugin);
+
 const app = new Vue({
     el: '#app',
 
@@ -21,15 +26,7 @@ const app = new Vue({
 
     data() {
         return {
-            form: new Form('offline-payments'),
-            confirm: {
-                code: '',
-                title: '',
-                message: '',
-                button_cancel: '',
-                button_delete: '',
-                show: false
-            },
+            form: new Form('offline-payment'),
         }
     },
 
@@ -58,46 +55,72 @@ const app = new Vue({
 
         // Actions > Delete
         confirmDelete(code, title, message, button_cancel, button_delete) {
-            this.confirm.code = code;
-            this.confirm.title = title;
-            this.confirm.message = message;
-            this.confirm.button_cancel = button_cancel;
-            this.confirm.button_delete = button_delete;
-            this.confirm.show = true;
-        },
+            let confirm = {
+                code: code,
+                url: url,
+                title: title,
+                message: message,
+                button_cancel: button_cancel,
+                button_delete: button_delete,
+                show: true
+            };
 
-        cancelDelete() {
-            this.confirm.code = '';
-            this.confirm.title = '';
-            this.confirm.message = '';
-            this.confirm.show = false;
-        },
+            this.component = Vue.component('add-new-component', (resolve, reject) => {
+                resolve({
+                    template : '<div id="dynamic-component"><akaunting-modal v-if="confirm.show" :show="confirm.show" :title="confirm.title" :message="confirm.message" :button_cancel="confirm.button_cancel" :button_delete="confirm.button_delete" @confirm="onDelete" @cancel="cancelDelete"></akaunting-modal></div>',
 
-        onDelete() {
-            axios({
-                method: 'DELETE',
-                url: 'settings/delete',
-                data: {
-                    code: this.confirm.code
-                }
-            })
-            .then(response => {
-                if (response.data.success) {
-                    if (response.data.redirect) {
-                        window.location.href = response.data.redirect;
+                    mixins: [
+                        Global
+                    ],
+
+                    data: function () {
+                        return {
+                            confirm: confirm,
+                        }
+                    },
+
+                    methods: {
+                        // Delete action post
+                       async onDelete() {
+                            let promise = Promise.resolve(axios({
+                                method: 'DELETE',
+                                url: 'settings/delete',
+                                data: {
+                                    code: this.confirm.code
+                                }
+                            }));
+
+                            promise.then(response => {
+                                var type = (response.data.success) ? 'success' : 'warning';
+
+                                if (response.data.success) {
+                                    if (response.data.redirect) {
+                                        //window.location.href = response.data.redirect;
+                                    }
+                
+                                    document.getElementById('method-' + this.confirm.code).remove();
+
+                                    this.confirm.show = false;
+                                }
+
+                                this.$notify({
+                                    message: response.data.message,
+                                    timeout: 5000,
+                                    icon: 'fas fa-bell',
+                                    type
+                                });
+                            })
+                            .catch(error => {
+                                this.success = false;
+                            });
+                        },
+
+                        // Close modal empty default value
+                        cancelDelete() {
+                            this.confirm.show = false;
+                        },
                     }
-
-                    document.getElementById('method-' + this.confirm.code).remove();
-
-                    this.confirm.code = '';
-                    this.confirm.title = '';
-                    this.confirm.message = '';
-
-                    this.confirm.show = false;
-                }
-            })
-            .catch(error => {
-                this.success = false;
+                })
             });
         }
     }

@@ -11,6 +11,7 @@ use Modules\OfflinePayments\Http\Requests\SettingDelete as DRequest;
 
 class Settings extends Controller
 {
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -34,34 +35,34 @@ class Settings extends Controller
     {
         $methods = json_decode(setting('offline-payments.methods'), true);
 
-        if (isset($request['update_code'])) {
+        if (!empty($request->get('update_code', null))) {
             foreach ($methods as $key => $method) {
-                if ($method['code'] != $request['update_code']) {
+                if ($method['code'] != $request->get('update_code')) {
                     continue;
                 }
 
-                $method = explode('.', $request['update_code']);
+                $method = explode('.', $request->get('update_code'));
 
                 $methods[$key] = [
-                    'code' => 'offline-payments.' . $request['code'] . '.' . $method[2],
-                    'name' => $request['name'],
-                    'customer' => $request['customer'],
-                    'order' => $request['order'],
-                    'description' => $request['description'],
+                    'code' => 'offline-payments.' . $request->get('code') . '.' . $method[2],
+                    'name' => $request->get('name'),
+                    'customer' => $request->get('customer'),
+                    'order' => $request->get('order'),
+                    'description' => $request->get('description'),
                 ];
             }
 
             $message = trans('messages.success.updated', ['type' => $request['name']]);
         } else {
             $methods[] = [
-                'code' => 'offline-payments.' . $request['code'] . '.' . (count($methods) + 1),
-                'name' => $request['name'],
-                'customer' => $request['customer'],
-                'order' => $request['order'],
-                'description' => $request['description'],
+                'code' => 'offline-payments.' . $request->get('code') . '.' . (count($methods) + 1),
+                'name' => $request->get('name'),
+                'customer' => $request->get('customer'),
+                'order' => $request->get('order'),
+                'description' => $request->get('description'),
             ];
 
-            $message = trans('messages.success.added', ['type' => $request['name']]);
+            $message = trans('messages.success.added', ['type' => $request->get('name')]);
         }
 
         setting()->set('offline-payments.methods', json_encode($methods));
@@ -95,7 +96,7 @@ class Settings extends Controller
     {
         $data = [];
 
-        $code = $request['code'];
+        $code = $request->get('code');
 
         $methods = json_decode(setting('offline-payments.methods'), true);
 
@@ -132,7 +133,7 @@ class Settings extends Controller
      */
     public function destroy(DRequest $request)
     {
-        $code = $request['code'];
+        $code = $request->get('code');
 
         $methods = json_decode(setting('offline-payments.methods'), true);
 
@@ -156,7 +157,8 @@ class Settings extends Controller
 
         $message = trans('messages.success.deleted', ['type' => $remove['name']]);
 
-        flash($message)->success();
+        // because it show nofitication.
+        //flash($message)->success();
 
         return response()->json([
             'errors' => false,
