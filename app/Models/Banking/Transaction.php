@@ -75,11 +75,6 @@ class Transaction extends Model
         return $this->morphOne('App\Models\Common\Recurring', 'recurable');
     }
 
-    public function transfers()
-    {
-        return $this->hasMany('App\Models\Banking\Transfer');
-    }
-
     public function user()
     {
         return $this->belongsTo('App\Models\Auth\User', 'contact_id', 'id');
