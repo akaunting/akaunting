@@ -84,7 +84,7 @@ class Update extends Command
         if ($new == 'latest') {
             $modules = ($this->alias == 'core') ? [] : [$this->alias];
 
-            $new = Versions::latest($modules)[$this->alias];
+            $new = Versions::latest($modules)[$this->alias]->data->latest;
         }
 
         return $new;
