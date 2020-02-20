@@ -20,7 +20,7 @@
 
                     {{ Form::dateGroup('ended_at', trans('reconciliations.end_date'), 'calendar', ['id' => 'ended_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], request('ended_at'), 'col-xl-3') }}
 
-                    {{ Form::moneyGroup('closing_balance', trans('reconciliations.closing_balance'), 'balance-scale', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency], request('closing_balance'), 'col-xl-2') }}
+                    {{ Form::moneyGroup('closing_balance', trans('reconciliations.closing_balance'), 'balance-scale', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency], request('closing_balance', 0.00), 'col-xl-2') }}
 
                     {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, request('account_id', setting('default.account')), ['required' => 'required', 'change' => 'onChangeAccount'], 'col-xl-2') }}
 
