@@ -378,7 +378,7 @@
                                             @if ($bill->notes)
                                                 <tr>
                                                     <th>
-                                                        <p class="form-control-label">{{ trans_choice('general.notes', 2) }}:</p>
+                                                        <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
                                                         <p class="text-muted long-texts">{{ $bill->notes }}</p>
                                                     </th>
                                                 </tr>
@@ -403,7 +403,9 @@
                                             @else
                                                 @if ($bill->paid)
                                                     <tr>
-                                                        <th class="text-success">{{ trans('bills.paid') }}:</th>
+                                                        <th class="text-success">
+                                                            {{ trans('bills.paid') }}:
+                                                        </th>
                                                         <td class="text-success text-right">- @money($bill->paid, $bill->currency_code, true)</td>
                                                     </tr>
                                                 @endif
@@ -432,6 +434,7 @@
                                 @include('partials.media.file')
                             @endif
                         </div>
+
                         <div class="col-xs-12 col-sm-8 text-right">
                             @stack('button_edit_start')
                                 @if(!$bill->reconciled)
@@ -494,10 +497,10 @@
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="accordion">
                         <div class="card">
-                            <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <div class="card-header" id="accordion-histories-header" data-toggle="collapse" data-target="#accordion-histories-body" aria-expanded="false" aria-controls="accordion-histories-body">
                                 <h4 class="mb-0">{{ trans('bills.histories') }}</h4>
                             </div>
-                            <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne">
+                            <div id="accordion-histories-body" class="collapse hide" aria-labelledby="accordion-histories-header">
                                 <div class="table-responsive">
                                     <table class="table table-flush table-hover">
                                         <thead class="thead-light">
@@ -528,10 +531,10 @@
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="accordion">
                         <div class="card">
-                            <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <div class="card-header" id="accordion-transactions-header" data-toggle="collapse" data-target="#accordion-transactions-body" aria-expanded="false" aria-controls="accordion-transactions-body">
                                 <h4 class="mb-0">{{ trans_choice('general.transactions', 2) }}</h4>
                             </div>
-                            <div id="collapseTwo" class="collapse hide" aria-labelledby="headingTwo">
+                            <div id="accordion-transactions-body" class="collapse hide" aria-labelledby="accordion-transactions-header">
                                 <div class="table-responsive">
                                     <table class="table table-flush table-hover">
                                         <thead class="thead-light">
@@ -551,23 +554,22 @@
                                                         <td class="col-sm-3 d-none d-sm-block">{{ $transaction->account->name }}</td>
                                                         <td class="col-xs-4 col-sm-3 py-0">
                                                             @if ($transaction->reconciled)
-                                                                <button type="button" class="btn btn-secondary btn-sm">
-                                                                    <i class="fa fa-check"></i> {{ trans('reconciliations.reconciled') }}
+                                                                <button type="button" class="btn btn-default btn-sm">
+                                                                    {{ trans('reconciliations.reconciled') }}
                                                                 </button>
                                                             @else
-                                                                {!! Form::open([
-                                                                    'id' => 'bill-transaction-' . $transaction->id,
-                                                                    'method' => 'DELETE',
-                                                                    'route' => ['transactions.destroy', $transaction->id],
-                                                                    'style' => 'display:inline'
-                                                                ]) !!}
+                                                                @php $message = trans('general.delete_confirm', [
+                                                                    'name' => '<strong>' . Date::parse($transaction->paid_at)->format($date_format) . ' - ' . money($transaction->amount, $transaction->currency_code, true) . ' - ' . $transaction->account->name . '</strong>',
+                                                                    'type' => strtolower(trans_choice('general.transactions', 1))
+                                                                    ]);
+                                                                @endphp
+
                                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
                                                                     'type'    => 'button',
                                                                     'class'   => 'btn btn-danger btn-sm',
                                                                     'title'   => trans('general.delete'),
                                                                     '@click'  => 'confirmDelete("' . route('transactions.destroy', $transaction->id) . '", "' . trans_choice('general.transactions', 2) . '", "' . $message. '",  "' . trans('general.cancel') . '", "' . trans('general.delete') . '")'
                                                                 )) !!}
-                                                                {!! Form::close() !!}
                                                             @endif
                                                         </td>
                                                     </tr>
