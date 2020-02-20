@@ -12,7 +12,7 @@
     RewriteEngine On
 
     # Prevent Direct Access to Protected Files
-    <FilesMatch "(?i)(^artisan$|\.env|\.json|\.log)">
+    <FilesMatch "(?i)(^artisan$|\.env|\.log)">
         Order deny,allow
         Deny from all
     </FilesMatch>
