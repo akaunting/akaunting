@@ -12,7 +12,7 @@ class SampleData extends Command
      *
      * @var string
      */
-    protected $signature = 'sample-data:seed  {--count=100 : total records for each item}';
+    protected $signature = 'sample-data:seed {--count=100 : total records for each item}';
 
     /**
      * The console command description.
@@ -20,16 +20,6 @@ class SampleData extends Command
      * @var string
      */
     protected $description = 'Seed for sample data';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.

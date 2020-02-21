@@ -33,14 +33,6 @@ class Update extends Command
     protected $description = 'Allows to update Akaunting and modules directly through CLI';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -51,7 +43,11 @@ class Update extends Command
 
         $this->alias = $this->argument('alias');
 
-        $this->new = $this->getNewVersion();
+        if (false === $this->new = $this->getNewVersion()) {
+            $this->error('Not able to get the latest version of ' . $this->alias . '!');
+
+            return self::CMD_ERROR;
+        }
 
         $this->old = $this->getOldVersion();
 
@@ -79,15 +75,7 @@ class Update extends Command
 
     public function getNewVersion()
     {
-        $new = $this->argument('new');
-
-        if ($new == 'latest') {
-            $modules = ($this->alias == 'core') ? [] : [$this->alias];
-
-            $new = Versions::latest($modules)[$this->alias]->data->latest;
-        }
-
-        return $new;
+        return ($this->argument('new') == 'latest') ? Versions::latest($this->alias) : $this->argument('new');
     }
 
     public function getOldVersion()

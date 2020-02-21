@@ -39,14 +39,6 @@ class RecurringCheck extends Command
     protected $today;
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -118,7 +110,7 @@ class RecurringCheck extends Command
                 if ($this->today->eq(Date::parse($model->paid_at->format('Y-m-d')))) {
                     break;
                 }
-                
+
                 $model->cloneable_relations = [];
 
                 // Create new record
@@ -162,7 +154,7 @@ class RecurringCheck extends Command
         $clone->$date_field = $this->today->format('Y-m-d');
         $clone->due_at = $this->today->copy()->addDays($diff_days)->format('Y-m-d');
         $clone->save();
-        
+
         return $clone;
     }
 }
