@@ -20,7 +20,13 @@ class InvoiceTransactions extends Export
 
     public function map($model): array
     {
-        $model->invoice_number = $model->invoice->invoice_number;
+        $invoice = $model->invoice;
+
+        if (empty($invoice)) {
+            return [];
+        }
+
+        $model->invoice_number = $invoice->invoice_number;
         $model->account_name = $model->account->name;
         $model->category_name = $model->category->name;
         $model->contact_email = $model->contact->email;
