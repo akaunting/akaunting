@@ -314,8 +314,8 @@ abstract class Report
             if (
                 !isset($this->row_values[$table][$item->$id_field])
                 || !isset($this->row_values[$table][$item->$id_field][$date])
-                || !isset($this->footer_totals[$table][$date]))
-            {
+                || !isset($this->footer_totals[$table][$date])
+            ) {
                 continue;
             }
 

@@ -95,8 +95,8 @@ class TaxSummary extends Report
 
                 if (
                     !isset($this->row_values[$item_total->name][$type][$date])
-                    || !isset($this->footer_totals[$item_total->name][$date]))
-                {
+                    || !isset($this->footer_totals[$item_total->name][$date])
+                ) {
                     continue;
                 }
 
