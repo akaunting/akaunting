@@ -17,17 +17,15 @@
     <div class="card">
         <div class="card-header border-bottom-0">
             {!! Form::open([
+                'method' => 'GET',
                 'route' => 'transactions.index',
                 'role' => 'form',
-                'method' => 'GET',
                 'class' => 'mb-0'
             ]) !!}
-                <div class="row">
-                    <div class="col-12 d-flex align-items-center">
-                        <span class="font-weight-400 d-none d-lg-block mr-2">{{ trans('general.search') }}:</span>
-                        <akaunting-search></akaunting-search>
-                    </div>
-                </div>
+                <akaunting-search
+                    :placeholder="'{{ trans('general.search_placeholder') }}'"
+                    :options="{{ json_encode([]) }}"
+                ></akaunting-search>
             {!! Form::close() !!}
         </div>
 
