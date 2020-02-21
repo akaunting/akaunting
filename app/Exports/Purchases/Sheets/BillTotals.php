@@ -20,7 +20,13 @@ class BillTotals extends Export
 
     public function map($model): array
     {
-        $model->bill_number = $model->bill->bill_number;
+        $bill = $model->bill;
+
+        if (empty($bill)) {
+            return [];
+        }
+
+        $model->bill_number = $bill->bill_number;
 
         return parent::map($model);
     }

@@ -20,7 +20,13 @@ class InvoiceTotals extends Export
 
     public function map($model): array
     {
-        $model->invoice_number = $model->invoice->invoice_number;
+        $invoice = $model->invoice;
+
+        if (empty($invoice)) {
+            return [];
+        }
+
+        $model->invoice_number = $invoice->invoice_number;
 
         return parent::map($model);
     }
