@@ -103,6 +103,7 @@
 @endsection
 
 @push('scripts_start')
+    <script src="{{ asset('public/0.js?v=' . version('short')) }}"></script>
     <script src="{{ asset('public/38.js?v=' . version('short')) }}"></script>
 
     <script src="{{ asset('public/js/settings/settings.js?v=' . version('short')) }}"></script>
