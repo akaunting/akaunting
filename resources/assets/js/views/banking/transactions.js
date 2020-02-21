@@ -21,4 +21,11 @@ const app = new Vue({
     mixins: [
         Global
     ],
+
+    data: function () {
+        return {
+            form: new Form('transaction'),
+        }
+    },
+
 });
