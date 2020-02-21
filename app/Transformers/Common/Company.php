@@ -17,6 +17,7 @@ class Company extends TransformerAbstract
             'id' => $model->id,
             'name' => $model->name,
             'email' => $model->email,
+            'currency' => $model->currency,
             'domain' => $model->domain,
             'address' => $model->address,
             'logo' => $model->logo,
