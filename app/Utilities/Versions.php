@@ -2,9 +2,11 @@
 
 namespace App\Utilities;
 
+use Akaunting\Module\Module;
 use App\Traits\SiteApi;
 use Cache;
 use Date;
+use Illuminate\Support\Arr;
 use Parsedown;
 
 class Versions
@@ -52,7 +54,18 @@ class Versions
         return $output;
     }
 
-    public static function latest($modules = [])
+    public static function latest($alias)
+    {
+        $versions = static::all($alias);
+
+        if (empty($versions[$alias]) || empty($versions[$alias]->data)) {
+            return false;
+        }
+
+        return $versions[$alias]->data->latest;
+    }
+
+    public static function all($modules = null)
     {
         // Get data from cache
         $versions = Cache::get('versions');
@@ -70,8 +83,18 @@ class Versions
 
         $versions['core'] = static::getLatestVersion($url, $info['akaunting']);
 
+        $modules = Arr::wrap($modules);
+
         // Then modules
         foreach ($modules as $module) {
+            if (is_string($module)) {
+                $module = module($module);
+            }
+
+            if (!$module instanceof Module) {
+                continue;
+            }
+
             $alias = $module->get('alias');
             $version = $module->get('version');
 
@@ -85,7 +108,7 @@ class Versions
         return $versions;
     }
 
-    public static function getLatestVersion($url, $latest)
+    protected static function getLatestVersion($url, $latest)
     {
         if (!$data = static::getResponseData('GET', $url, ['timeout' => 10])) {
             return $latest;
