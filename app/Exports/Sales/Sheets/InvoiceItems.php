@@ -20,7 +20,13 @@ class InvoiceItems extends Export
 
     public function map($model): array
     {
-        $model->invoice_number = $model->invoice->invoice_number;
+        $invoice = $model->invoice;
+
+        if (empty($invoice)) {
+            return [];
+        }
+
+        $model->invoice_number = $invoice->invoice_number;
         $model->item_name = $model->item->name;
 
         return parent::map($model);

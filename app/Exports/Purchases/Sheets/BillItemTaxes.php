@@ -20,7 +20,13 @@ class BillItemTaxes extends Export
 
     public function map($model): array
     {
-        $model->bill_number = $model->bill->bill_number;
+        $bill = $model->bill;
+
+        if (empty($bill)) {
+            return [];
+        }
+
+        $model->bill_number = $bill->bill_number;
         $model->item_name = $model->item->name;
         $model->tax_rate = $model->tax->rate;
 
