@@ -76,7 +76,7 @@ class Contact extends Model
             return $query;
         }
 
-        return $query->whereIn('type', (array) $types);
+        return $query->whereIn($this->table . '.type', (array) $types);
     }
 
     public function scopeEmail($query, $email)

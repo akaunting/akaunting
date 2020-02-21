@@ -65,7 +65,7 @@ class Category extends Model
             return $query;
         }
 
-        return $query->whereIn('type', (array) $types);
+        return $query->whereIn($this->table . '.type', (array) $types);
     }
 
     public function scopeName($query, $name)
