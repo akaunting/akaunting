@@ -33,14 +33,6 @@ class Update extends Command
     protected $description = 'Allows to update Akaunting and modules directly through CLI';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed

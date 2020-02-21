@@ -23,14 +23,6 @@ class FinishUpdate extends Command
     protected $description = 'Finish the update process through CLI';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
