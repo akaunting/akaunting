@@ -444,6 +444,10 @@ button:focus
     }
 }
 
+.btn-outline-confirm:disabled span {
+    opacity: 1 !important;
+}
+
 .btn .aka-loader
 {
     display: none !important;

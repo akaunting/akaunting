@@ -20,6 +20,16 @@ BulkActions extends Controller
      */
     public function action($group, $type, Request $request)
     {
+        if ($request->get('handle', '*') == '*') {
+            return response()->json([
+                'success' => false,
+                'redirect' => true,
+                'error' => true,
+                'data' => [],
+                'message' => ''
+            ]);
+        }
+
         // Check is module
         $module = module($group);
 

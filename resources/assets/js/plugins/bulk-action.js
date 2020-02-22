@@ -69,6 +69,10 @@ export default class BulkAction {
 
     // Selected item use action
     action() {
+        if (this.value == '*') {
+            return;
+        }
+
         var path = document.getElementsByName("bulk_action_path")[0].getAttribute('value');
 
         this.loading = true;

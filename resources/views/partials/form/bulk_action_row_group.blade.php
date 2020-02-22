@@ -59,11 +59,13 @@
 
     <div class="mr-4" v-if="bulk_action.count">
         <button type="button" class="btn btn-sm btn-outline-confirm"
+                :disabled="bulk_action.value == '*'"
                 v-if="bulk_action.message.length"
                 @click="bulk_action.modal=true">
             <span>{{ trans('general.confirm') }}</span>
         </button>
         <button type="button" class="btn btn-sm btn-outline-confirm"
+                :disabled="bulk_action.value == '*'"
                 v-if="!bulk_action.message.length"
                 @click="onAction">
             <span>{{ trans('general.confirm') }}</span>
