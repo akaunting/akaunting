@@ -28,7 +28,7 @@ trait Import
             $id = $this->getAccountIdFromCurrency($row);
         }
 
-        return $id;
+        return (int) $id;
     }
 
     public function getCategoryId($row, $type = null)
@@ -41,7 +41,7 @@ trait Import
             $id = $this->getCategoryIdFromName($row, $type);
         }
 
-        return $id;
+        return (int) $id;
     }
 
     public function getContactId($row, $type = null)
@@ -58,7 +58,7 @@ trait Import
             $id = $this->getContactIdFromName($row, $type);
         }
 
-        return $id;
+        return (int) $id;
     }
 
     public function getDocumentId($row)
@@ -81,7 +81,7 @@ trait Import
             }
         }
 
-        return $id;
+        return (int) $id;
     }
 
     public function getItemId($row)
@@ -92,7 +92,7 @@ trait Import
             $id = $this->getItemIdFromName($row);
         }
 
-        return $id;
+        return (int) $id;
     }
 
     public function getTaxId($row)
@@ -107,7 +107,7 @@ trait Import
             $id = $this->getTaxIdFromRate($row);
         }
 
-        return $id;
+        return (int) $id;
     }
 
     public function getAccountIdFromCurrency($row)
