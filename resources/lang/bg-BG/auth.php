@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Текущ имейл адрес',
     'reset'                 => 'Възстановяване',
     'never'                 => 'никога',
+    'landing_page'          => 'Главна страница',
 
     'password' => [
         'current'           => 'Парола',

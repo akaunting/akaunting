@@ -13,6 +13,7 @@ return [
     'current_email'         => '現在の電子メールアドレス',
     'reset'                 => 'リセット',
     'never'                 => '決して',
+    'landing_page'          => 'ランディングページ',
 
     'password' => [
         'current'           => 'パスワード',

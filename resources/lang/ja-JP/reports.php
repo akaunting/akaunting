@@ -12,7 +12,7 @@ return [
     'net_profit'            => '純利益',
     'total_expenses'        => '経費合計',
     'net'                   => 'ネット',
-    'income-expense'        => '収入と費用',
+    'income_expense'        => '収入と費用',
 
     'summary' => [
         'income'            => '収入サマリー',

@@ -52,6 +52,10 @@ return [
         'subheading'        => 'Підзаголовок',
         'due_receipt'       => 'В залежності від отримання',
         'due_days'          => 'Строк за :days днів',
+        'choose_template'   => 'Оберіть шаблон рахунку',
+        'default'           => 'За замовчуванням',
+        'classic'           => 'Класичний',
+        'modern'            => 'Модерн',
     ],
 
     'default' => [

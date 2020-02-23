@@ -2,8 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Предишна',
-    'next'                  => 'Следваща &raquo;',
-    'showing'               => ':first-:last от :total :type.',
+    'previous'              => 'Предишен',
+    'next'                  => 'Следващ',
+    'showing'               => ':first-:last от :total записа.',
     'page'                  => 'на страница.',
+
 ];

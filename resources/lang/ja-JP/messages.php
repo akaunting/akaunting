@@ -8,6 +8,7 @@ return [
         'deleted'           => ':type 削除されました！',
         'duplicated'        => ':type 複製されました！',
         'imported'          => ':type インポートされました!',
+        'exported'          => ':type エクスポートされました！',
         'enabled'           => ':type 有効！',
         'disabled'          => ':type は無効です！',
     ],

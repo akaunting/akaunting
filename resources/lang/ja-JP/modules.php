@@ -12,10 +12,9 @@ return [
     'search'                => '探索',
     'install'               => 'インストール',
     'buy_now'               => '今すぐ購入',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">ここをクリック</a> APIキーを取得するには.',
+    'get_api_key'           => '<a href=":url" target="_blank">ここをクリック</a> APIキーを取得します。',
     'no_apps'               => 'ないアプリこのカテゴリには、まだです。',
-    'developer'             => 'あなたは開発者ですか？ <a href="https://akaunting.com/developers" target="_blank">ここに</a> アプリの作成方法を学び、今日から販売を開始できます！',
-
+    'become_developer'      => 'あなたは開発者ですか？ <a href=":url" target="_blank">ここに</a> アプリを作成して今日から販売を開始する方法を学ぶことができます！',
     'recommended_apps'      => 'おすすめアプリ',
 
     'about'                 => '約',
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'レビューはありません。'
-    ]
+    ],
+
 ];

@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Поточна електронна пошта',
     'reset'                 => 'Скинути',
     'never'                 => 'Ніколи',
+    'landing_page'          => 'Головна сторінка',
 
     'password' => [
         'current'           => 'Пароль',

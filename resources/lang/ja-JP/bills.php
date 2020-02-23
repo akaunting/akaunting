@@ -36,10 +36,12 @@ return [
     'make_payment'          => '支払う',
 
     'statuses' => [
-        'draft'             => '下書き',
+        'draft'             => 'ドラフト',
         'received'          => '受け取った',
         'partial'           => '部分的',
-        'paid'              => '有料',
+        'paid'              => '支払済み',
+        'overdue'           => '遅れた',
+        'unpaid'            => '未払い',
     ],
 
     'messages' => [
