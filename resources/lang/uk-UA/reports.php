@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Новий Прибуток',
     'total_expenses'        => 'Загальні витрати',
     'net'                   => 'NET',
-    'income-expense'        => 'Продажі & Витрати',
+    'income_expense'        => 'Продажі & Витрати',
 
     'summary' => [
         'income'            => 'Загальні Продажі',

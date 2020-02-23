@@ -8,12 +8,12 @@ return [
     'message' => [
         'duplicate'     => '選択したレコードを<b>複製</b>してもよろしいですか?',
         'delete'        => '本当にしたいですか <b>削除する</b>選択したレコード?|本当によろしいですか <b>削除する</b>選択したレコード?',
-        'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
-        'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',
-        'disable'       => 'Are you sure you want to <b>disable</b> selected record?|Are you sure you want to <b>disable</b> selected records?',
-        'paid'          => 'Are you sure you want to mark selected invoice as <b>paid</b>?|Are you sure you want to mark selected invoices as <b>paid</b>?',
-        'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
-        'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
+        'export'        => '本当によろしいですか <b>エクスポート</b>選択したレコード?|本当によろしいですか<b>エクスポート</b> 選択したレコード?',
+        'enable'        => '本当によろしいですか<b>可能にする</b> 選択したレコード?|本当によろしいですか<b>可能にする</b> 選択したレコード?',
+        'disable'       => '本当によろしいですか <b>無効にする</b> 選択したレコード?|本当によろしいですか<b>無効にする</b>選択したレコード?',
+        'paid'          => '選択した請求書にマークを付けてもよろしいですか <b>支払った</b>?|選択した請求書にマークを付けてもよろしいですか<b>支払った</b>?',
+        'sent'          => '選択した請求書にマークを付けてもよろしいですか <b>送った</b>?|選択した請求書にマークを付けてもよろしいですか<b>送った</b>?',
+        'received'      => '選択した請求書にマークを付けてもよろしいですか <b>受け取った</b>?|選択した請求書にマークを付けてもよろしいですか<b>受け取った</b>?',
     ],
 
 ];

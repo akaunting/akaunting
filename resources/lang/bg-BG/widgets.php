@@ -2,7 +2,7 @@
 
 return [
 
-    'total_incomes'             => 'Общо приходи',
+    'total_income'              => 'Общо приходи',
     'receivables'               => 'Вземания',
     'open_invoices'             => 'Отворени фактури',
     'overdue_invoices'          => 'Просрочени фактури',
@@ -11,13 +11,13 @@ return [
     'open_bills'                => 'Отворени задължения',
     'overdue_bills'             => 'Просрочени задължения',
     'total_profit'              => 'Обща печалба',
-    'open_profit'               => 'Отвори печалба',
+    'open_profit'               => 'Печалба',
     'overdue_profit'            => 'Закъсняла печалба',
     'cash_flow'                 => 'Паричен поток',
     'no_profit_loss'            => 'Няма печалба загуба',
-    'incomes_by_category'       => 'Приходи по категория',
+    'income_by_category'        => 'Приходи по категория',
     'expenses_by_category'      => 'Разходи по категория',
     'account_balance'           => 'Салдо',
-    'latest_incomes'            => 'Последни приходи',
+    'latest_income'             => 'Последни приходи',
     'latest_expenses'           => 'Последни разходи',
 ];

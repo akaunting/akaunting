@@ -52,6 +52,10 @@ return [
         'subheading'        => '小見出し',
         'due_receipt'       => '領収書による',
         'due_days'          => '期限内：日日',
+        'choose_template'   => '請求書テンプレートを選択',
+        'default'           => 'デフォルト',
+        'classic'           => 'クラシック',
+        'modern'            => 'モダン',
     ],
 
     'default' => [

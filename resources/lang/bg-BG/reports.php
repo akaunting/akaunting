@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Нетна печалба',
     'total_expenses'        => 'Общо разходи',
     'net'                   => 'НЕТНО',
-    'income-expense'        => 'Приходи & Разходи',
+    'income_expense'        => 'Приходи & Разходи',
 
     'summary' => [
         'income'            => 'Приходи',

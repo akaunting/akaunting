@@ -12,10 +12,9 @@ return [
     'search'                => 'Пошук',
     'install'               => 'Встановити',
     'buy_now'               => 'Купити зараз',
-    'api_key_link'          => '<a href="https://akaunting.com/tokens" target="_blank">Натисніть тут</a> щоб отримати ваш API маркер.',
+    'get_api_key'           => '<a href=":url" target="_blank">Натисніть тут</a> , щоб отримати свій ключ API.',
     'no_apps'               => 'Немає поки що додатків у цій категорії.',
-    'developer'             => 'Ви розробник? <a href="https://akaunting.com/developers" target="_blank">Тут</a> Ви можете дізнатися, як створити додаток і почати продажі сьогодні!',
-
+    'become_developer'      => 'Ви розробник? <a href="https://akaunting.com/developers" target="_blank">Тут</a> Ви можете дізнатися, як створити додаток і почати продажі сьогодні!',
     'recommended_apps'      => 'Рекомендовані додатки',
 
     'about'                 => 'Про',
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'Немає відгуків.'
-    ]
+    ],
+
 ];

@@ -36,10 +36,12 @@ return [
     'make_payment'          => 'Направи плащане',
 
     'statuses' => [
-        'draft'             => 'Неплатен',
-        'received'          => 'Приета',
-        'partial'           => 'Частичен',
-        'paid'              => 'Платен',
+        'draft'             => 'Чернова',
+        'received'          => 'Получено',
+        'partial'           => 'Частично',
+        'paid'              => 'Платено',
+        'overdue'           => 'Просрочен',
+        'unpaid'            => 'Неплатени',
     ],
 
     'messages' => [

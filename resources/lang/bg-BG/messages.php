@@ -8,6 +8,7 @@ return [
         'deleted'           => ':type е изтрит/а!',
         'duplicated'        => ':type дублиран!',
         'imported'          => ':type импортиран!',
+        'exported'          => ':type е експортиран!',
         'enabled'           => ':type включен!',
         'disabled'          => ':type изключен!',
     ],

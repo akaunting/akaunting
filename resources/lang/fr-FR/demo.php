@@ -2,15 +2,33 @@
 
 return [
 
-    'accounts_cash'         => 'Espèce',
-    'categories_deposit'    => 'Déposer',
-    'categories_sales'      => 'Ventes',
-    'currencies_usd'        => 'Dollar US',
-    'currencies_eur'        => 'Euro',
-    'currencies_gbp'        => 'Livre sterling',
-    'currencies_try'        => 'Livre turque',
-    'taxes_exempt'          => 'Exempts de taxe',
-    'taxes_normal'          => 'Taxe normales',
-    'taxes_sales'           => 'Taxe de vente',
+    'accounts' => [
+        'cash'              => 'Espèce',
+    ],
+
+    'categories' => [
+        'deposit'           => 'Déposer',
+        'sales'             => 'Ventes',
+    ],
+
+    'currencies' => [
+        'usd'               => 'Dollar US',
+        'eur'               => 'Euro',
+        'gbp'               => 'Livre sterling',
+        'try'               => 'Livre turque',
+    ],
+
+    'offline_payments' => [
+        'cash'              => 'Cash',
+        'bank'              => 'Bank Transfer',
+    ],
+
+    'reports' => [
+        'income'            => 'Monthly income summary by category.',
+        'expense'           => 'Monthly expense summary by category.',
+        'income_expense'    => 'Monthly income vs expense by category.',
+        'tax'               => 'Quarterly tax summary.',
+        'profit_loss'       => 'Quarterly profit & loss by category.',
+    ],
 
 ];
