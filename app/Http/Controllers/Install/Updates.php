@@ -9,9 +9,8 @@ use Illuminate\Http\Request;
 
 class Updates extends Controller
 {
-
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return Response
      */
@@ -70,13 +69,13 @@ class Updates extends Controller
     }
 
     /**
-     * Update the core or modules.
+     * Run the update.
      *
      * @param  $alias
      * @param  $version
      * @return Response
      */
-    public function update($alias, $version)
+    public function run($alias, $version)
     {
         if ($alias == 'core') {
             $name = 'Akaunting ' . $version;
