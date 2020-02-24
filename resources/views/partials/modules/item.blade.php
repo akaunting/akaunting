@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header py-2">
             <h4 class="ml--3 mb-0 float-left">
-                <a href="{{ route('apps.app.show', [$module->slug]) }}">{{ $module->name }}</a>
+                <a href="{{ route('apps.app.show', $module->slug) }}">{{ $module->name }}</a>
             </h4>
             @if (isset($installed[$module->slug]))
                 @php $color = 'bg-green'; @endphp
@@ -16,7 +16,7 @@
             @endif
         </div>
 
-        <a href="{{ route('apps.app.show', [$module->slug]) }}">
+        <a href="{{ route('apps.app.show', $module->slug) }}">
             @foreach ($module->files as $file)
                 @if (($file->media_type == 'image') && ($file->pivot->zone == 'thumbnail'))
                     <img src="{{ $file->path_string }}" alt="{{ $module->name }}" class="card-img-top border-radius-none">

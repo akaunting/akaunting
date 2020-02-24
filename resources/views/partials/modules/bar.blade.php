@@ -20,7 +20,7 @@
                         <a href="{{ route('apps.free') }}" class="btn btn-sm btn-white header-button-top">{{ trans('modules.top_free') }}</a>
                     </div>
                     <div class="col-xs-12 col-sm-3 text-right">
-                        {!! Form::open(['route' => ['apps.search'], 'role' => 'form', 'method' => 'GET', 'class' => 'm-0']) !!}
+                        {!! Form::open(['route' => 'apps.search', 'role' => 'form', 'method' => 'GET', 'class' => 'm-0']) !!}
                             <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control form-control-sm d-inline-block w-auto" placeholder="Search Apps">
                             <span class="glyphicon glyphicon-search form-control-feedback"></span>
                         {!! Form::close() !!}

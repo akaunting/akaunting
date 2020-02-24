@@ -2,13 +2,13 @@
     <div class="card">
         <div class="card-header py-2">
             <div class="float-left ml--3">
-                <h4 class="mb-0"><a href="{{ route('apps.app.show', [$module->slug]) }}">{{ $module->name }}</a></h4>
+                <h4 class="mb-0"><a href="{{ route('apps.app.show', $module->slug) }}">{{ $module->name }}</a></h4>
             </div>
             <div class="float-right mr--3">
                 <span class="badge badge-pill badge-danger">{{ trans('modules.badge.pre_sale') }}</span>
             </div>
         </div>
-        <a href="{{ route('apps.app.show', [$module->slug]) }}">
+        <a href="{{ route('apps.app.show', [module->slug) }}">
             @foreach ($module->files as $file)
                 @if (($file->media_type == 'image') && ($file->pivot->zone == 'thumbnail'))
                     <img src="{{ $file->path_string }}" alt="{{ $module->name }}"  class="card-img-top card-border">
