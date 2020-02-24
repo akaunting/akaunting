@@ -4,7 +4,7 @@ namespace App\Listeners\Update\V20;
 
 use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
-use Illuminate\Support\Facades\DB;
+use App\Models\Common\Company;
 use App\Utilities\Overrider;
 
 class Version203 extends Listener
@@ -32,13 +32,7 @@ class Version203 extends Listener
     {
         $company_id = session('company_id');
 
-        $companies = DB::table('companies')
-            ->whereNotExists(function ($query) {
-                $query->select('id')
-                    ->from('settings')
-                    ->where('key', 'invoice.payment_terms');
-            })
-            ->cursor();
+        $companies = Company::cursor();
 
         foreach ($companies as $company) {
             session(['company_id' => $company->id]);
