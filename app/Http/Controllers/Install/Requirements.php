@@ -30,7 +30,7 @@ class Requirements extends Controller
                 flash($requirement)->error()->important();
             }
 
-            return view('install.requirements.show');
+            return view('install.requirements.show', compact('requirements'));
         }
     }
 }
