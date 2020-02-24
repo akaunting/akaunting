@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="card">
         <div class="card-header wizard-header p-3">
             <el-steps :active="active" finish-status="success" align-center>
                 <el-step title="Language"></el-step>
@@ -73,13 +73,20 @@
         </div>
 
         <div class="card-footer">
-            <div class="float-right">
-                <button v-on:click="onSubmit" :disabled="form.loading" type="submit" id="next-button" class="btn btn-success" data-loading-text="Loading...">
-                    <div class="aka-loader"></div>
-                    <span>Next &nbsp;
-                        <i  class="fa fa-arrow-right"></i>
-                    </span>
-                </button>
+            <div class="row save-buttons">
+                <div class="col-md-12">
+                    <button type="submit" @click="onSubmit" :disabled="form.loading" id="next-button" class="btn btn-icon btn-success button-submit header-button-top">
+                        <div v-if="form.loading" class="aka-loader-frame">
+                            <div class="aka-loader"></div>
+                        </div>
+                         <span v-if="!form.loading" class="btn-inner--text">
+                            Next &nbsp;
+                        </span>
+                        <span v-if="!form.loading" class="btn-inner--icon">
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
