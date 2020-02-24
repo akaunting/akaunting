@@ -14,7 +14,7 @@
         placeholder="{{ trans('general.form.select.field', ['field' => $text]) }}"
         name="{{ $name }}"
 
-        @if(old($name, $value))
+        @if (isset($value) || old($name))
         value="{{ old($name, $value) }}"
         @endif
 

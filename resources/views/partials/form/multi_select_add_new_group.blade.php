@@ -15,7 +15,7 @@
         name="{{ $name }}"
         :options="{{ json_encode($values) }}"
 
-        @if(old($name, $selected))
+        @if (isset($selected) || old($name))
         value="{{ json_encode(old($name, $selected)) }}"
         @endif
 
@@ -67,7 +67,7 @@
         :disabled="'{{ $attributes['disabled'] }}'"
         @endif
 
-        @if(isset($attributes['v-error-message']))
+        @if (isset($attributes['v-error-message']))
         :form-error="{{ $attributes['v-error-message'] }}"
         @else
         :form-error="form.errors.get('{{ $name }}')"
