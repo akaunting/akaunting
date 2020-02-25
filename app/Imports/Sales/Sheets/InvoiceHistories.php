@@ -11,7 +11,7 @@ class InvoiceHistories extends Import
 {
     public function model(array $row)
     {
-        // @todo remove after 3.2 release
+        // @todo remove after laravel-excel 3.2 release
         if ($row['invoice_number'] == $this->empty_field) {
             return null;
         }
@@ -21,9 +21,13 @@ class InvoiceHistories extends Import
 
     public function map($row): array
     {
+        if ($this->isEmpty($row, 'invoice_number')) {
+            return [];
+        }
+
         $row = parent::map($row);
 
-        $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
+        $row['invoice_id'] = (int) Invoice::number($row['invoice_number'])->pluck('id')->first();
 
         $row['notify'] = (int) $row['notify'];
 

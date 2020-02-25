@@ -13,7 +13,7 @@ class BillItemTaxes extends Import
 {
     public function model(array $row)
     {
-        // @todo remove after 3.2 release
+        // @todo remove after laravel-excel 3.2 release
         if ($row['bill_number'] == $this->empty_field) {
             return null;
         }
@@ -23,9 +23,13 @@ class BillItemTaxes extends Import
 
     public function map($row): array
     {
+        if ($this->isEmpty($row, 'bill_number')) {
+            return [];
+        }
+
         $row = parent::map($row);
 
-        $row['bill_id'] = Bill::number($row['bill_number'])->pluck('id')->first();
+        $row['bill_id'] = (int) Bill::number($row['bill_number'])->pluck('id')->first();
 
         if (empty($row['invoice_item_id']) && !empty($row['item_name'])) {
             $item_id = Item::name($row['item_name'])->pluck('id')->first();

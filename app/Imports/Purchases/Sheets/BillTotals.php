@@ -16,9 +16,13 @@ class BillTotals extends Import
 
     public function map($row): array
     {
+        if ($this->isEmpty($row, 'bill_number')) {
+            return [];
+        }
+
         $row = parent::map($row);
 
-        $row['bill_id'] = Bill::number($row['bill_number'])->pluck('id')->first();
+        $row['bill_id'] = (int) Bill::number($row['bill_number'])->pluck('id')->first();
 
         return $row;
     }

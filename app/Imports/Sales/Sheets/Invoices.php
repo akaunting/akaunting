@@ -15,6 +15,10 @@ class Invoices extends Import
 
     public function map($row): array
     {
+        if ($this->isEmpty($row, 'invoice_number')) {
+            return [];
+        }
+
         $row = parent::map($row);
 
         $row['category_id'] = $this->getCategoryId($row, 'income');
