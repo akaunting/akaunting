@@ -26,12 +26,12 @@ class BillItemTax extends Model
 
     public function item()
     {
-        return $this->belongsToThrough('App\Models\Common\Item', 'App\Models\Purchase\BillItem', 'bill_item_id');
+        return $this->belongsToThrough('App\Models\Common\Item', 'App\Models\Purchase\BillItem', 'bill_item_id')->withDefault(['name' => trans('general.na')]);
     }
 
     public function tax()
     {
-        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na')]);
+        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na'), 'rate' => 0]);
     }
 
     /**
