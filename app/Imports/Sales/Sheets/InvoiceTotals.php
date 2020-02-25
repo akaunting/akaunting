@@ -16,9 +16,13 @@ class InvoiceTotals extends Import
 
     public function map($row): array
     {
+        if ($this->isEmpty($row, 'invoice_number')) {
+            return [];
+        }
+
         $row = parent::map($row);
 
-        $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
+        $row['invoice_id'] = (int) Invoice::number($row['invoice_number'])->pluck('id')->first();
 
         return $row;
     }

@@ -15,6 +15,10 @@ class BillTransactions extends Import
 
     public function map($row): array
     {
+        if ($this->isEmpty($row, 'bill_number')) {
+            return [];
+        }
+
         $row = parent::map($row);
 
         $row['type'] = 'expense';

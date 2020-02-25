@@ -16,9 +16,13 @@ class InvoiceItems extends Import
 
     public function map($row): array
     {
+        if ($this->isEmpty($row, 'invoice_number')) {
+            return [];
+        }
+
         $row = parent::map($row);
 
-        $row['invoice_id'] = Invoice::number($row['invoice_number'])->pluck('id')->first();
+        $row['invoice_id'] = (int) Invoice::number($row['invoice_number'])->pluck('id')->first();
 
         if (empty($row['item_id']) && !empty($row['item_name'])) {
             $row['item_id'] = $this->getItemIdFromName($row);

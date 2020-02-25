@@ -15,6 +15,10 @@ class InvoiceTransactions extends Import
 
     public function map($row): array
     {
+        if ($this->isEmpty($row, 'invoice_number')) {
+            return [];
+        }
+
         $row = parent::map($row);
 
         $row['type'] = 'income';
