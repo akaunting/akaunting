@@ -79,12 +79,58 @@
 /*--------Overflow Styles Finish--------*/
 
 
+/*--------Akaunting Backgrounds--------*/
+/*--Login Page Background--*/
+.login-page
+{
+    background: url('../img/login.png') no-repeat center center fixed;
+    height: 100%;
+    width: 100%;
+    padding: 5% 0;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+/*--Login Page Background Finish--*/
+
+/*--Wizard Page Background--*/
+.wizard-page
+{
+    background: url('../img/login.png') no-repeat center center fixed;
+    height: 100%;
+    width: 100%;
+    padding: 5% 0;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+/*--Wizard Page Background Finish--*/
+
+/*--Installation Page Background--*/
+.installation-page
+{
+    background: url('../img/login.png') no-repeat center center fixed;
+    height: 100%;
+    width: 100%;
+    padding: 5% 0;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+/*--Installation Page Background Finish--*/
+/*--------Akaunting Backgrounds Finish--------*/
+
+
 /*--------Credit Card--------*/
 .card-input__input:hover, .card-input__input:focus
 {
     border-color: #55588b !important;
 }
 /*--------Credit Card Finish--------*/
+
 
 /*--------Custom Toggle--------*/
 .custom-toggle
@@ -147,8 +193,6 @@ button:focus
     overflow: hidden;
 }
 
-
-
 /*--------Customer/Vendor Show--------*/
 .show-transaction-card-header
 {
@@ -206,13 +250,12 @@ button:focus
 {
     position: absolute !important;
     left: 1.2rem;
-
 }
+
 .menu-dropdown-width
 {
     min-width: 13rem !important;
 }
-
 
 .g-sidenav-hidden .navbar-vertical.navbar-expand-xs
 {
@@ -236,6 +279,7 @@ button:focus
 }
 /*--------Form Group Finish--------*/
 
+
 /*--Long Texts--*/
 .long-texts
 {
@@ -244,6 +288,14 @@ button:focus
     white-space: nowrap;
 }
 /*--Long Texts Finish--*/
+
+
+/*--Akaunting Column Style--*/
+.col-aka
+{
+    margin-left: -51px;
+}
+/*--Akaunting Column Styl Finish--*/
 
 
 /*--------Table Head Row Margin--------*/
@@ -280,13 +332,6 @@ button:focus
 /*--------Item Column Image Finish--------*/
 
 
-/*--------Border Top--------*/
-.border-top-1
-{
-    border-top: 1px solid #e9ecef !important;
-}
-/*--------Border Top Finish--------*/
-
 /*--------Border--------*/
 .border-1
 {
@@ -294,6 +339,12 @@ button:focus
 }
 /*--------Border Finish--------*/
 
+/*--------Border Top--------*/
+.border-top-1
+{
+    border-top: 1px solid #e9ecef !important;
+}
+/*--------Border Top Finish--------*/
 
 /*--------Border Bottom--------*/
 .border-bottom-1
@@ -341,12 +392,12 @@ button:focus
 /*--------Table Head Line Finish--------*/
 
 
-/*--------Company Name--------*/
+/*--Display Grid--*/
 .d-grid
 {
     display: grid !important;
 }
-/*--------Company Name Finish--------*/
+/*--Display Grid Finish--*/
 
 
 /*--------Card Header Bulk Action--------*/
@@ -377,12 +428,12 @@ button:focus
 /*--------Card Action Button Finish--------*/
 
 
-/*--------Table Layout Fixed--------*/
+/*--Table Layout Fixed--*/
 .table-layout-fixed
 {
     table-layout: fixed;
 }
-/*--------Table Layout Fixed Finish--------*/
+/*--Table Layout Fixed Finish--*/
 
 
 /*--Akaunting Button Animation--*/
@@ -439,7 +490,8 @@ button:focus
     }
 }
 
-.btn-outline-confirm:disabled span {
+.btn-outline-confirm:disabled span
+{
     opacity: 1 !important;
 }
 
@@ -456,15 +508,6 @@ button:focus
 .btn:disabled .aka-loader
 {
     display: block !important;
-}
-
-.btn-delete{
-    width: 73.10px;
-}
-
-.btn-confirm
-{
-    width: 86px;
 }
 /*--Akaunting Button Animation Finish--*/
 
@@ -483,7 +526,8 @@ button:focus
 /*--------Settings Icons Finish--------*/
 
 /*--------Settings Button Focus--------*/
-.btn-icon-clipboard:focus {
+.btn-icon-clipboard:focus
+{
     outline: none;
 }
 /*--------Settings Button Focus Finish--------*/
@@ -505,59 +549,6 @@ button:focus
     padding-top: 7px;
 }
 /*--------Pagination Alignment Finish--------*/
-
-
-/*--------Akaunting Style Table Column--------*/
-.col-aka
-{
-    margin-left: -51px;
-}
-/*--------Akaunting Style Table Column Finish--------*/
-
-
-/*--------Akaunting Backgrounds--------*/
-/*--Login Page Background--*/
-.login-page
-{
-    background: url('../img/login.png') no-repeat center center fixed;
-    height: 100%;
-    width: 100%;
-    padding: 5% 0;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-}
-/*--Login Page Background Finish--*/
-
-/*--Wizard Page Background--*/
-.wizard-page
-{
-    background: url('../img/login.png') no-repeat center center fixed;
-    height: 100%;
-    width: 100%;
-    padding: 5% 0;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-}
-/*--Wizard Page Background Finish--*/
-
-/*--Installation Page Background--*/
-.installation-page
-{
-    background: url('../img/login.png') no-repeat center center fixed;
-    height: 100%;
-    width: 100%;
-    padding: 5% 0;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-}
-/*--Installation Page Background Finish--*/
-/*--------Akaunting Backgrounds Finish--------*/
 
 
 /*--------Font Size 1--------*/
@@ -606,19 +597,11 @@ button:focus
     border-bottom: 0;
 }
 
-.table-flush tbody tr td {
+.table-flush tbody tr td
+{
     border: 0 !important;
 }
 /*--------Custom Table Finish--------*/
-
-
-/*--------Add Item Show--------*/
-.item-show
-{
-    min-width: 253px;
-    border-radius: 0.4375rem;
-}
-/*--------Add Item Show Finish--------*/
 
 
 /*--------Height 0--------*/
@@ -636,7 +619,8 @@ button:focus
 }
 /*--------Editor text Finish--------*/
 
-table .align-items-center td span.badge {
+table .align-items-center td span.badge
+{
     height: 24px;
     padding-top: 8px;
     font-size: 9px;
@@ -665,13 +649,6 @@ table .align-items-center td span.badge {
 /*--------Print Template Finish--------*/
 
 
-/*--------Font Size 50--------*/
-.font-size-50
-{
-    font-size: 50px !important;
-}
-/*--------Font Size 50 Finish--------*/
-
 /*--------Report Column--------*/
 .report-column
 {
@@ -690,12 +667,13 @@ table .align-items-center td span.badge {
 }
 /*--------App Comment Finish--------*/
 
-/*--------Empty Page Image--------*/
-.empty-image
+
+/*--------Blank Page Image--------*/
+.blank-image
 {
     height: 300px;
 }
-/*--------Empty Page Image Finish--------*/
+/*--------Blank Page Image Finish--------*/
 
 
 /*--------Text Pre Nowrap--------*/
@@ -725,7 +703,8 @@ table .align-items-center td span.badge {
 
 
 /*--------From Group Disabled--------*/
-.form-group.disabled .input-group-text, .form-group.readonly .input-group-text {
+.form-group.disabled .input-group-text, .form-group.readonly .input-group-text
+{
     background-color: #e9ecef;
 }
 /*--------From Group Disabled Finish--------*/
@@ -751,32 +730,46 @@ table .align-items-center td span.badge {
 
 
 /*--Left Menu Stabilize--*/
-.g-sidenav-show .sidenav {
+.g-sidenav-show .sidenav
+{
     max-width: 250px !important;
-  }
+}
 
-  .g-sidenav-show .sidenav .navbar-brand,
-  .g-sidenav-show .sidenav .navbar-heading {
+.g-sidenav-show .sidenav .navbar-brand,
+.g-sidenav-show .sidenav .navbar-heading
+{
     display: block;
-  }
+}
 
-  .g-sidenav-show .sidenav.fixed-left + .main-content {
+.g-sidenav-show .sidenav.fixed-left + .main-content
+{
     margin-left: 250px;
-  }
+}
 
-  .g-sidenav-show .sidenav.fixed-right + .main-content {
+.g-sidenav-show .sidenav.fixed-right + .main-content
+{
     margin-right: 250px;
-  }
+}
 
-  .g-sidenav-show .sidenav {
+.g-sidenav-show .sidenav
+{
     -webkit-transform: translateX(0);
             transform: translateX(0);
-  }
+}
 
-  .sidenav-show .navbar-top .navbar-brand {
+.sidenav-show .navbar-top .navbar-brand
+{
     display: none;
-  }
-  /*--Left Menu Stabilize Finish--*/
+}
+/*--Left Menu Stabilize Finish--*/
+
+
+  /*--Index Pages Badge Min Width--*/
+.mw-60
+{
+    min-width: 60px;
+}
+  /*--Index Pages Badge Min Width Finish--*/
 
 
 /*--------Responsive--------*/
@@ -838,7 +831,7 @@ table .align-items-center td span.badge {
         font-size: 0.75rem !important;
     }
 
-    .empty-image
+    .blank-image
     {
         height: 200px;
     }
@@ -938,9 +931,3 @@ table .align-items-center td span.badge {
 }
 /*--Lg Breakpoint Finish--*/
 /*--------Responsive Finish--------*/
-
-/*--------Index Pages Badge Min Width--------*/
-.mw-60 {
-    min-width: 60px;
-}
-/*--------Index Pages Badge Min Finish--------*/

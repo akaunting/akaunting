@@ -1,235 +1,267 @@
 @charset "UTF-8";
 
-/*!
-
-=========================================================
-* Print Template - Default ------------ Start
-=========================================================
-
-*/
-
-body {
+/*--General Start--*/
+body
+{
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     color: #3c3f72;
 }
 
-table {
+table
+{
     width: 100%;
 }
 
-th, td {
+th, td
+{
     padding: 18px 9px 18px 9px;
 }
 
-.row {
+.row
+{
     font-size: 0;
 }
 
-.mb-1 {
+.mb-1
+{
     margin-bottom: 8px;
 }
 
-.mt-1 {
+.mt-1
+{
     margin-top: 8px;
 }
 
-.ml-1 {
+.ml-1
+{
     margin-left: 8px;
 }
 
-.mt-2 {
+.mt-2
+{
     margin-top: 16px;
 }
 
-.mt-3 {
+.mt-3
+{
     margin-top: 24px;
 }
 
-.mt-4 {
+.mt-4
+{
     margin-top: 32px;
 }
 
-.mt-5 {
+.mt-5
+{
     margin-top: 40px;
 }
 
-.mt-6 {
+.mt-6
+{
     margin-top: 48px;
 }
 
-.mt-7 {
+.mt-7
+{
     margin-top: 56px;
 }
 
-.mt-8 {
+.mt-8
+{
     margin-top: 64px;
 }
 
-.mt-9 {
+.mt-9
+{
     margin-top: 72px;
 }
 
-.pb-0 {
+.pb-0
+{
     padding-bottom: 0;
 }
 
-.pb-1 {
+.pb-1
+{
     padding-bottom: 8px;
 }
 
-.py-1 {
-  padding-bottom: 8px;
-  padding-top: 8px;
+.py-1
+{
+    padding-bottom: 8px;
+    padding-top: 8px;
 }
 
-.py-2 {
+.py-2
+{
     padding-bottom: 16px;
     padding-top: 16px;
-  }
+}
 
-.pr-2 {
+.pr-2
+{
     padding-right: 16px;
 }
 
-.pl-2 {
+.pl-2
+{
     padding-left: 16px;
 }
 
-.col-58 {
-    display: inline-block;
-    width: 58%;
-    vertical-align: top;
-}
-
-.col-42 {
-    display: inline-block;
-    width: 42%;
-    vertical-align: top;
-}
-
-.col-100 {
-    display: inline-block;
-    width: 100%;
-    vertical-align: top;
-}
-
-.border-1 {
+.border-1
+{
     border: 1px solid #e5e5e5;
 }
 
-.border-top-1 {
+.border-top-1
+{
      border-top: 1px solid #e5e5e5;
 }
 
-.border-bottom-1 {
+.border-bottom-1
+{
     border-bottom: 1px solid #e5e5e5;
 }
 
-.border-radius-default {
+.border-radius-default
+{
     border-radius: 0.25rem
 }
 
-.float-left {
+.float-left
+{
     float: left !important;
 }
 
-
-.float-right {
+.float-right
+{
     float: right !important;
 }
 
-.text {
+.text
+{
     color: #3c3f72;
     margin-top:10px;
     font-size: 13px;
 }
 
-.text-nowrap {
+.text-nowrap
+{
     white-space: nowrap;
 }
 
-.text-left {
+.text-left
+{
     text-align: left;
 }
 
-.text-right {
+.text-right
+{
     text-align: right;
 }
 
-.text-center {
+.text-center
+{
     text-align: center;
 }
 
-.text-white {
+.text-white
+{
     color: #ffffff;
 }
 
-.bg-default {
+.bg-default
+{
     background-color: #3c3f72;
 }
 
-.bg-primary {
+.bg-primary
+{
     background-color: #55588b;
 }
+/*--General Finish--*/
 
-.lines {
+/*--Print Template Default Start--*/
+.col-58
+{
+    display: inline-block;
+    width: 58%;
+    vertical-align: top;
+}
+
+.col-42
+{
+    display: inline-block;
+    width: 42%;
+    vertical-align: top;
+}
+
+.col-100
+{
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+
+.lines
+{
     border-collapse: collapse;
     table-layout: fixed;
     border-bottom: 1px solid #e5e5e5;
 }
 
-.lines tbody td {
+.lines tbody td
+{
     border-bottom: 1px solid #e5e5e5;
 }
 
-.lines .item {
+.lines .item
+{
     width: 50%;
 }
 
-.lines .quantity {
+.lines .quantity
+{
     width: 10%;
     text-align: center;
 }
 
-.lines .price {
+.lines .price
+{
     width: 20%;
     text-align: right;
 }
 
-.lines .total {
+.lines .total
+{
     width: 20%;
     text-align: right;
 }
 
-.d-logo {
+.d-logo
+{
     padding-top: 35px;
     padding-bottom:64.5px;
 }
 
-.d-note {
+.d-note
+{
     width: 80%;
     background-color: #e5e5e5;
 }
+/*--Print Template Default Finish--*/
 
-/*!
-
-=========================================================
-* Print Template - Default ------------ Finish
-=========================================================
-
-=========================================================
-* Print Template - Classic ------------ Start
-=========================================================
-
-*/
-
-.c-logo {
+/*--Print Template Classic Start--*/
+.c-logo
+{
     padding-top: 25px;
 }
 
-.c-note {
+.c-note
+{
     width: 80%;
 }
 
@@ -253,122 +285,123 @@ th, td {
     border: 3px solid #3c3f72;
 }
 
-.col-33 {
+.col-33
+{
     display: inline-block;
     width: 33%;
     vertical-align: top;
 }
 
-.c-lines thead th {
+.c-lines thead th
+{
     border-top: 1px dashed #e5e5e5;
 }
 
-.c-lines tbody td {
+.c-lines tbody td
+{
     border-top: 1px dashed #e5e5e5;
 }
 
-.c-lines .item {
+.c-lines .item
+{
     width: 50%;
 }
 
-.c-lines .quantity {
+.c-lines .quantity
+{
     width: 10%;
     text-align: center;
 }
 
-.c-lines .price {
+.c-lines .price
+{
     width: 20%;
     text-align: right;
 }
 
-.c-lines .total {
+.c-lines .total
+{
     width: 20%;
     text-align: right;
 }
 
-.border-top-dashed {
+.border-top-dashed
+{
     border-top: 1px dashed #e5e5e5;
 }
+/*--Print Template Classic Finish--*/
 
-/*!
-
-=========================================================
-* Print Template - Classic ------------ Finish
-=========================================================
-
-=========================================================
-* Print Template - Modern ------------ Start
-=========================================================
-
-*/
-
-.m-first-column {
+/*--Print Template Modern Start--*/
+.m-first-column
+{
     padding-top: 15px;
     padding-bottom:48px;
 }
 
-.m-fc-left {
+.m-fc-left
+{
     padding-right: 30px;
 }
 
-.m-fc-right {
+.m-fc-right
+{
     padding-left: 170px;
      margin-top: -70px;
 }
 
-.m-note {
+.m-note
+{
     width: 80%;
 }
 
-.m-lines {
+.m-lines
+{
     border-collapse: collapse;
     table-layout: fixed;
 }
 
-.m-lines .item {
+.m-lines .item
+{
     width: 50%;
 }
 
-.m-lines .quantity {
+.m-lines .quantity
+{
     width: 10%;
     text-align: center;
 }
 
-.m-lines .price {
+.m-lines .price
+{
     width: 20%;
     text-align: right;
 }
 
-.m-lines .total {
+.m-lines .total
+{
     width: 20%;
     text-align: right;
 }
+/*--Print Template Modern Finish--*/
 
-/*!
-
-=========================================================
-* Print Template - Modern ------------ Finish
-=========================================================
-
-=========================================================
-* Print Reports  ------------ Start
-=========================================================
-
-*/
-
-.rp-border-top-1 {
+/*--Print Reports Start--*/
+.rp-border-top-1
+{
     border-top: 1px solid #e5e5e5;
 }
 
-.rp-border-bottom-1 {
+.rp-border-bottom-1
+{
     border-bottom: 1px solid #e5e5e5;
 }
 
-.rp-border-top-1 {
+.rp-border-top-1
+{
     border-top: 1px solid #e5e5e5;
 }
 
-.rp-border-0 {
+.rp-border-0
+{
     border: 0 !important;
 }
 
@@ -377,18 +410,14 @@ th, td {
     border-collapse: collapse;
 }
 
-.rp-float-left {
+.rp-float-left
+{
     float: left;
 }
 
-.rp-float-right {
+.rp-float-right
+{
     float: right;
 }
+/*--Print Reports Finish--*/
 
-/*!
-
-=========================================================
-* Print Reports ------------ Finish
-=========================================================
-
-*/
