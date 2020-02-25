@@ -29,34 +29,34 @@
 
                     {{ Form::textGroup('order_number', trans('bills.order_number'), 'shopping-cart',[]) }}
 
-                    <div class="col-md-12 mb-4">
+                    <div class="col-sm-12 mb-4">
                         {!! Form::label('items', trans_choice('general.items', 2), ['class' => 'form-control-label']) !!}
                         <div class="table-responsive overflow-x-scroll overflow-y-hidden ">
                             <table class="table table-bordered" id="items">
                                 <thead class="thead-light">
-                                    <tr class="d-flex flex-nowrap">
+                                    <tr class="row">
                                         @stack('actions_th_start')
-                                            <th class="col-md-1 border-right-0 border-bottom-0 item-action">{{ trans('general.actions') }}</th>
+                                            <th class="col-sm-1 text-center border-right-0 border-bottom-0 px-0">{{ trans('general.actions') }}</th>
                                         @stack('actions_th_end')
 
                                         @stack('name_th_start')
-                                            <th class="col-md-3 text-left border-right-0 border-bottom-0">{{ trans('general.name') }}</th>
+                                            <th class="col-sm-3 text-left border-right-0 border-bottom-0">{{ trans('general.name') }}</th>
                                         @stack('name_th_end')
 
                                         @stack('quantity_th_start')
-                                            <th class="col-md-1 text-center border-right-0 border-bottom-0">{{ trans('bills.quantity') }}</th>
+                                            <th class="col-sm-1 text-center border-right-0 border-bottom-0 px-0">{{ trans('bills.quantity') }}</th>
                                         @stack('quantity_th_end')
 
                                         @stack('price_th_start')
-                                            <th class="col-md-2 text-right border-right-0 border-bottom-0">{{ trans('bills.price') }}</th>
+                                            <th class="col-sm-2 text-right border-right-0 border-bottom-0">{{ trans('bills.price') }}</th>
                                         @stack('price_th_end')
 
                                         @stack('taxes_th_start')
-                                            <th class="col-md-3 text-right border-right-0 border-bottom-0">{{ trans_choice('general.taxes', 1) }}</th>
+                                            <th class="col-sm-3 text-right border-right-0 border-bottom-0">{{ trans_choice('general.taxes', 1) }}</th>
                                         @stack('taxes_th_end')
 
                                         @stack('total_th_start')
-                                            <th class="col-md-2 text-right border-bottom-0">{{ trans('bills.total') }}</th>
+                                            <th class="col-sm-2 text-right border-bottom-0">{{ trans('bills.total') }}</th>
                                         @stack('total_th_end')
                                     </tr>
                                 </thead>
@@ -65,20 +65,20 @@
 
                                     @stack('add_item_td_start')
                                         <tr class="row" id="addItem">
-                                            <td class="col-md-1 border-right-0 border-bottom-0 item-action">
+                                            <td class="col-sm-1 text-center border-right-0 border-bottom-0 px-0">
                                                 <button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i>
                                                 </button>
                                             </td>
-                                            <td class="col-md-11 text-right border-bottom-0"></td>
+                                            <td class="col-sm-11 text-right border-bottom-0"></td>
                                         </tr>
                                     @stack('add_item_td_end')
 
                                     @stack('sub_total_td_start')
                                         <tr class="row" id="tr-subtotal">
-                                            <td class="col-md-10 text-right border-right-0 border-bottom-0">
+                                            <td class="col-sm-10 text-right border-right-0 border-bottom-0">
                                                 <strong>{{ trans('bills.sub_total') }}</strong>
                                             </td>
-                                            <td class="col-md-2 text-right border-bottom-0 long-texts">
+                                            <td class="col-sm-2 text-right border-bottom-0 long-texts">
                                                 {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="sub-total" v-if="totals.sub" v-html="totals.sub"></span>
                                                 <span v-else>@money(0, $currency->code, true)</span>
@@ -88,7 +88,7 @@
 
                                     @stack('add_discount_td_start')
                                         <tr class="row" id="tr-discount">
-                                            <td class="col-md-10 text-right border-right-0 border-bottom-0">
+                                            <td class="col-sm-10 text-right border-right-0 border-bottom-0">
                                                 <el-popover
                                                     popper-class="p-0 h-0"
                                                     placement="bottom"
@@ -129,7 +129,7 @@
                                                     <el-link slot="reference" type="primary" v-if="totals.discount_text" v-html="totals.discount_text"></el-link>
                                                 </el-popover>
                                             </td>
-                                            <td class="col-md-2 text-right border-bottom-0">
+                                            <td class="col-sm-2 text-right border-bottom-0">
                                                 {{ Form::moneyGroup('discount_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.discount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="discount-total" v-if="totals.discount" v-html="totals.discount"></span>
                                                 <span v-else>@money(0, $currency->code, true)</span>
@@ -140,10 +140,10 @@
 
                                     @stack('tax_total_td_start')
                                         <tr class="row" id="tr-tax">
-                                            <td class="col-md-10 text-right border-right-0 border-bottom-0">
+                                            <td class="col-sm-10 text-right border-right-0 border-bottom-0">
                                                 <strong>{{ trans_choice('general.taxes', 1) }}</strong>
                                             </td>
-                                            <td class="col-md-2 text-right border-bottom-0 long-texts">
+                                            <td class="col-sm-2 text-right border-bottom-0 long-texts">
                                                 {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.tax', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="tax-total" v-if="totals.tax" v-html="totals.tax"></span>
                                                 <span v-else>@money(0, $currency->code, true)</span>
@@ -153,10 +153,10 @@
 
                                     @stack('grand_total_td_start')
                                         <tr class="row" id="tr-total">
-                                            <td class="col-md-10 text-right border-right-0">
+                                            <td class="col-sm-10 text-right border-right-0">
                                                 <strong>{{ trans('bills.total') }}</strong>
                                             </td>
-                                            <td class="col-md-2 text-right long-texts">
+                                            <td class="col-sm-2 text-right long-texts">
                                                 {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="grand-total" v-if="totals.total" v-html="totals.total"></span>
                                                 <span v-else>@money(0, $currency->code, true)</span>

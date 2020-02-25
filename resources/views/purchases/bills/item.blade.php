@@ -1,7 +1,7 @@
 <tr class="d-flex flex-nowrap" v-for="(row, index) in form.items"
     :index="index">
     @stack('actions_td_start')
-        <td class="col-md-1 border-right-0 border-bottom-0 item-action">
+        <td class="col-sm-1 text-center border-right-0 border-bottom-0 px-0">
             @stack('actions_button_start')
                 <button type="button"
                         @click="onDeleteItem(index)"
@@ -14,7 +14,7 @@
     @stack('actions_td_end')
 
     @stack('name_td_start')
-        <td class="col-md-3 border-right-0 border-bottom-0">
+        <td class="col-sm-3 border-right-0 border-bottom-0">
             @stack('name_input_start')
             <akaunting-select-remote
                 :form-classes="[{'has-error': form.errors.get('name') }]"
@@ -51,7 +51,7 @@
     @stack('name_td_end')
 
     @stack('quantity_td_start')
-        <td class="col-md-1 border-right-0 border-bottom-0">
+        <td class="col-sm-1 border-right-0 border-bottom-0">
             @stack('quantity_input_start')
                 <input class="form-control text-center"
                        autocomplete="off"
@@ -67,7 +67,7 @@
     @stack('quantity_td_end')
 
     @stack('price_td_start')
-        <td class="col-md-2 border-right-0 border-bottom-0">
+        <td class="col-sm-2 border-right-0 border-bottom-0">
             @stack('price_input_start')
                 {{ Form::moneyGroup('name', '', '', ['required' => 'required', 'v-model' => 'row.price', 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; onCalculateTotal'], 0.00, 'text-right input-price') }}
                 <input name="items[][currency]"
@@ -81,7 +81,7 @@
     @stack('price_td_end')
 
     @stack('taxes_td_start')
-        <td class="col-md-3 border-right-0 border-bottom-0">
+        <td class="col-sm-3 border-right-0 border-bottom-0">
             @stack('tax_id_input_start')
             <akaunting-select
                 class="mb-0 select-tax"
@@ -123,7 +123,7 @@
     @stack('taxes_td_end')
 
     @stack('total_td_start')
-        <td class="col-md-2 text-right total-column border-bottom-0 long-texts">
+        <td class="col-sm-2 text-right total-column border-bottom-0 long-texts">
             <akaunting-money :col="'d-none'"
                 :masked="true"
                 :error="{{ 'form.errors.get("total")' }}"
