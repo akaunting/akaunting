@@ -1,7 +1,7 @@
 <div class="card">
     <div class="row align-items-center">
         <div class="col-xs-12 col-sm-6 text-center p-5">
-            <img class="empty-image" src="{{ asset('public/img/empty_pages/' . $page . '.png') }}" alt="@yield('title')"/>
+            <img class="blank-image" src="{{ asset('public/img/empty_pages/' . $page . '.png') }}" alt="@yield('title')"/>
         </div>
 
         <div class="col-xs-12 col-sm-6 text-center p-5">
