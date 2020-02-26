@@ -200,7 +200,7 @@
 
 @push('scripts_start')
     <script type="text/javascript">
-        var invoice_items = {!! json_encode(old('item')) !!};
+        var invoice_items = false;
     </script>
 
     <script src="{{ asset('public/js/sales/invoices.js?v=' . version('short')) }}"></script>
