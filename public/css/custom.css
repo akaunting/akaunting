@@ -589,6 +589,11 @@ button:focus
 {
     padding-top: 1.75rem !important;
 }
+
+.item-total
+{
+    width: 15%;
+}
 /*--------Invoice and Bill Total Column Finish--------*/
 
 /*--------Custom Table--------*/
