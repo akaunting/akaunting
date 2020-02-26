@@ -69,6 +69,7 @@ class RecurringCheck extends Command
 
         // Unset company_id
         session()->forget('company_id');
+        setting()->forgetAll();
     }
 
     protected function recur($recurring, $schedule)

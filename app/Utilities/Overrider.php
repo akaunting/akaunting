@@ -27,6 +27,7 @@ class Overrider
     {
         // Set the active company settings
         setting()->setExtraColumns(['company_id' => static::$company_id]);
+        setting()->forgetAll();
         setting()->load(true);
 
         // Timezone
@@ -77,5 +78,4 @@ class Overrider
         // Set currencies with new settings
         \Akaunting\Money\Currency::setCurrencies(config('money'));
     }
-
 }
