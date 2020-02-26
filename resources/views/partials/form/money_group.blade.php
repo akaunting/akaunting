@@ -10,7 +10,7 @@
         @endif
 
         @if (isset($attributes['disabled']))
-        :disabled="'{{ $attributes['disabled'] }}'"
+        :disabled="{{ $attributes['disabled'] }}"
         @endif
 
         @if (isset($attributes['masked']))
