@@ -57,7 +57,10 @@ abstract class Notification extends BaseNotification
 
     public function replaceTags($content)
     {
-        return preg_replace($this->getTagsPattern(), $this->getTagsReplacement(), $content);
+        $pattern = $this->getTagsPattern();
+        $replacement = $this->applyQuote($this->getTagsReplacement());
+
+        return $this->revertQuote(preg_replace($pattern, $replacement, $content));
     }
 
     public function getTagsPattern()
@@ -69,5 +72,31 @@ abstract class Notification extends BaseNotification
         }
 
         return $pattern;
+    }
+
+    public function getTags()
+    {
+        return [];
+    }
+
+    public function getTagsReplacement()
+    {
+        return [];
+    }
+
+    public function applyQuote($vars)
+    {
+        $new_vars = [];
+
+        foreach ($vars as $var) {
+            $new_vars[] = preg_quote($var);
+        }
+
+        return $new_vars;
+    }
+
+    public function revertQuote($content)
+    {
+        return str_replace('\\', '', $content);
     }
 }
