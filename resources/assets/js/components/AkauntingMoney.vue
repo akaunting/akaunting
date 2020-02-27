@@ -74,7 +74,7 @@ export default {
             description: "Selectbox disabled status"
         },
         disabled: {
-            type: Boolean,
+            type: [Boolean, Number],
             default: false,
             description: "Selectbox disabled status"
         },
