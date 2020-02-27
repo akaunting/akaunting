@@ -44,6 +44,11 @@ class CreateCompany extends Job
 
     protected function callSeeds()
     {
+        // Set custom locale
+        if ($this->request->has('locale')) {
+            app()->setLocale($this->request->get('locale'));
+        }
+
         // Company seeds
         Artisan::call('company:seed', [
             'company' => $this->company->id
