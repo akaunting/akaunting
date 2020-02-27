@@ -103,7 +103,8 @@ class CreateDocumentTransaction extends Job
             $amount = (double) $convert_amount_model->getAmountConvertedFromCustomDefault();
         }
 
-        $total_amount -= $this->getPaidAmount();
+        $total_amount -= $this->model->paid;
+        unset($this->model->reconciled);
 
         // For amount cover integer
         $multiplier = 1;
@@ -144,45 +145,6 @@ class CreateDocumentTransaction extends Job
         }
 
         return true;
-    }
-
-    protected function getPaidAmount()
-    {
-        $paid = 0;
-
-        if (!$this->model->transactions->count()) {
-            return $paid;
-        }
-
-        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
-
-        foreach ($this->model->transactions as $item) {
-            $default_amount = $item->amount;
-
-            if ($this->model->currency_code == $item->currency_code) {
-                $amount = (double) $default_amount;
-            } else {
-                $default_amount_model = new Transaction();
-                $default_amount_model->default_currency_code = $this->model->currency_code;
-                $default_amount_model->amount = $default_amount;
-                $default_amount_model->currency_code = $item->currency_code;
-                $default_amount_model->currency_rate = $currencies[$item->currency_code];
-
-                $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
-
-                $convert_amount_model = new Transaction();
-                $convert_amount_model->default_currency_code = $item->currency_code;
-                $convert_amount_model->amount = $default_amount;
-                $convert_amount_model->currency_code = $this->model->currency_code;
-                $convert_amount_model->currency_rate = $currencies[$this->model->currency_code];
-
-                $amount = (double) $convert_amount_model->getAmountConvertedFromCustomDefault();
-            }
-
-            $paid += $amount;
-        }
-
-        return $paid;
     }
 
     protected function createHistory($transaction)
