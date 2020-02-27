@@ -66,7 +66,7 @@
 
                                     @stack('add_item_td_start')
                                         <tr id="addItem">
-                                            <td class="text-center border-right-0 border-bottom-0" colspan="1">
+                                            <td class="text-center border-right-0 border-bottom-0">
                                                 <button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i>
                                                 </button>
                                             </td>
@@ -79,7 +79,7 @@
                                             <td class="text-right border-right-0 border-bottom-0" colspan="5">
                                                 <strong>{{ trans('bills.sub_total') }}</strong>
                                             </td>
-                                            <td class="text-right border-bottom-0 long-texts" colspan="1">
+                                            <td class="text-right border-bottom-0 long-texts">
                                                 {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="sub-total" v-if="totals.sub" v-html="totals.sub"></span>
                                                 <span v-else>@money(0, $currency->code, true)</span>
@@ -130,7 +130,7 @@
                                                     <el-link slot="reference" type="primary" v-if="totals.discount_text" v-html="totals.discount_text"></el-link>
                                                 </el-popover>
                                             </td>
-                                            <td class="text-right border-bottom-0" colspan="1">
+                                            <td class="text-right border-bottom-0">
                                                 {{ Form::moneyGroup('discount_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.discount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="discount-total" v-if="totals.discount" v-html="totals.discount"></span>
                                                 <span v-else>@money(0, $currency->code, true)</span>
@@ -144,7 +144,7 @@
                                             <td class="text-right border-right-0 border-bottom-0" colspan="5">
                                                 <strong>{{ trans_choice('general.taxes', 1) }}</strong>
                                             </td>
-                                            <td class="text-right border-bottom-0 long-texts" colspan="1">
+                                            <td class="text-right border-bottom-0 long-texts">
                                                 {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.tax', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="tax-total" v-if="totals.tax" v-html="totals.tax"></span>
                                                 <span v-else>@money(0, $currency->code, true)</span>
@@ -157,7 +157,7 @@
                                             <td class="text-right border-right-0" colspan="5">
                                                 <strong>{{ trans('bills.total') }}</strong>
                                             </td>
-                                            <td class="text-right long-texts" colspan="1">
+                                            <td class="text-right long-texts">
                                                 {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'disabled', 'required' => 'required', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'masked' => 'true'], 0.00, 'text-right d-none') }}
                                                 <span id="grand-total" v-if="totals.total" v-html="totals.total"></span>
                                                 <span v-else>@money(0, $currency->code, true)</span>
