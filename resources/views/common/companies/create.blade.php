@@ -23,7 +23,7 @@
 
                     {{ Form::selectGroup('currency', trans_choice('general.currencies', 1), 'exchange-alt', $currencies) }}
 
-                    {{ Form::textGroup('domain', trans('companies.domain'), 'globe', []) }}
+                    {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed(), setting('default.locale', config('app.locale', 'en-GB')), []) }}
 
                     {{ Form::textareaGroup('address', trans('general.address')) }}
 
