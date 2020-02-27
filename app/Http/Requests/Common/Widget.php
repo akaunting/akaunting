@@ -23,6 +23,10 @@ class Widget extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'dashboard_id' => 'required|integer',
+            'name' => 'required|string',
+            'class' => 'required',
+        ];
     }
 }
