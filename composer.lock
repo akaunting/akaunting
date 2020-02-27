@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3cd099f0849563142edd289998d8bd9",
+    "content-hash": "6215fc14abaa7d8b9299f201ffef54aa",
     "packages": [
         {
             "name": "akaunting/firewall",
@@ -8990,7 +8990,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "ext-bcmath": "*"
     },
     "platform-dev": []
 }
