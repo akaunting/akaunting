@@ -52,6 +52,14 @@ class Validation extends Provider
         },
             trans('validation.custom.invalid_amount', ['attribute' => $amount])
         );
+
+        Validator::extend('extension', function ($attribute, $value, $parameters, $validator) {
+            $extension = $value->getClientOriginalExtension();
+
+            return !empty($extension) && in_array($extension, $parameters);
+        },
+            trans('validation.custom.invalid_extension')
+        );
     }
 
     /**
