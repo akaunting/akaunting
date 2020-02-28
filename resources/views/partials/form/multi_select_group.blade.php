@@ -16,7 +16,7 @@
         :options="{{ json_encode($values) }}"
 
         @if (isset($selected) || old($name))
-        value="{{ json_encode(old($name, $selected)) }}"
+        :value="{{ json_encode(old($name, $selected)) }}"
         @endif
 
         @if (!empty($attributes['model']))
