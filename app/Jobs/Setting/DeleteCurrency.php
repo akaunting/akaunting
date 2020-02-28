@@ -56,6 +56,12 @@ class DeleteCurrency extends Job
             'transactions' => 'transactions',
         ];
 
-        return $this->countRelationships($this->currency, $rels);
+        $relationships = $this->countRelationships($this->currency, $rels);
+
+        if ($this->currency->code == setting('default.currency')) {
+            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        }
+
+        return $relationships;
     }
 }
