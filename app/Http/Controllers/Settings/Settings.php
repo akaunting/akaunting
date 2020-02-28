@@ -6,6 +6,7 @@ use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Common\Company;
 use App\Models\Module\Module;
+use App\Models\Setting\Currency;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
 use App\Utilities\Installer;
@@ -111,6 +112,12 @@ class Settings extends Controller
 
             if ($real_key == 'default.locale') {
                 user()->setAttribute('locale', $value)->save();
+            }
+
+            if ($real_key == 'default.currency') {
+                $currency = Currency::code($value)->first();
+                $currency->rate = '1';
+                $currency->save();
             }
 
             // If only 1 company

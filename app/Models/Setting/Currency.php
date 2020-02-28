@@ -148,4 +148,16 @@ class Currency extends Model
 
         return $value;
     }
+
+    /**
+     * Scope currency by code.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $code
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCode($query, $code)
+    {
+        return $query->where($this->table . '.code', $code);
+    }
 }
