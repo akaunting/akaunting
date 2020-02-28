@@ -29,7 +29,7 @@ class Logo
                 return $logo;
             }
         } else {
-            $path = asset('public/img/company.png');
+            $path = base_path('public/img/company.png');
         }
 
         $width = $height = setting('invoice.logo_size', 128);
