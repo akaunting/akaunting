@@ -1,5 +1,4 @@
 import Errors from './error';
-import axios from "axios";
 
 export default class Form {
     constructor(form_id) {
@@ -226,10 +225,10 @@ export default class Form {
         }
     }
 
-    submit() {
+    oldSubmit() {
         this.loading = true;
 
-        axios({
+       window.axios({
             method: this.method,
             url: this.action,
             data: this.data()
@@ -238,25 +237,39 @@ export default class Form {
         .catch(this.onFail.bind(this));
     }
 
-    submitTest() {
+    submit() {
+        FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+            for(var name in data) {
+                if (wrapper) {
+                    if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                        this.appendRecursive(data[name], wrapper + '[' + name + ']');
+                    } else {
+                        this.append(wrapper + '[' + name + ']', data[name]);
+                    }
+                } else {
+                    if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                        this.appendRecursive(data[name], name);
+                    } else {
+                        this.append(name, data[name]);
+                    }
+                }
+            }
+        };
+
         this.loading = true;
 
         let data = this.data();
+
         let form_data = new FormData();
+        form_data.appendRecursive(data);
 
-        for (let key in data) {
-            if ((typeof data[key] != 'object') && (typeof data[key] != 'array') ) {
-                form_data.append(key, data[key]);
-            } else {
-                form_data.append(key, JSON.stringify(data[key]));
-            }
-        }
-
-        axios({
+        window.axios({
             method: this.method,
             url: this.action,
             data: form_data,
             headers: {
+                'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                'X-Requested-With': 'XMLHttpRequest',
                 'Content-Type': 'multipart/form-data'
             }
         })
