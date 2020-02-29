@@ -13,7 +13,6 @@ use App\Jobs\Purchase\DeleteBill;
 use App\Jobs\Purchase\DuplicateBill;
 use App\Jobs\Purchase\UpdateBill;
 use App\Models\Banking\Account;
-use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Purchase\Bill;
@@ -167,11 +166,11 @@ class Bills extends Controller
      */
     public function import(ImportRequest $request)
     {
-        $success = true;
+        try {
+            \Excel::import(new Import(), $request->file('import'));
+        } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
+            flash($e->getMessage())->error()->important();
 
-        \Excel::import(new Import(), $request->file('import'));
-
-        if (!$success) {
             return redirect()->route('import.create', ['purchases', 'bills']);
         }
 

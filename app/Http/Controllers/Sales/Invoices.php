@@ -13,7 +13,6 @@ use App\Jobs\Sale\DeleteInvoice;
 use App\Jobs\Sale\DuplicateInvoice;
 use App\Jobs\Sale\UpdateInvoice;
 use App\Models\Banking\Account;
-use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
@@ -173,11 +172,11 @@ class Invoices extends Controller
      */
     public function import(ImportRequest $request)
     {
-        $success = true;
+        try {
+            \Excel::import(new Import(), $request->file('import'));
+        } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
+            flash($e->getMessage())->error()->important();
 
-        \Excel::import(new Import(), $request->file('import'));
-
-        if (!$success) {
             return redirect()->route('import.create', ['sales', 'invoices']);
         }
 
@@ -185,7 +184,7 @@ class Invoices extends Controller
 
         flash($message)->success();
 
-        return redirect('sales/invoices');
+        return redirect()->route('invoices.index');
     }
 
     /**
