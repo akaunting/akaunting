@@ -49,7 +49,6 @@ const app = new Vue({
             transaction: [],
             items: '',
             discount: false,
-            currency: null,
             taxes: null,
         }
     },
@@ -97,21 +96,6 @@ const app = new Vue({
                 this.form.contact_address = response.data.address;
                 this.form.currency_code = response.data.currency_code;
                 this.form.currency_rate = response.data.currency_rate;
-            })
-            .catch(error => {
-            });
-        },
-
-        onChangeCurrency(currency_code) {
-            axios.get(url + '/settings/currencies/currency', {
-                params: {
-                  code: currency_code
-                }
-            })
-            .then(response => {
-                this.currency = response.data;
-                this.form.currency_code = response.data.code;
-                this.form.currency_rate = response.data.rate;
             })
             .catch(error => {
             });

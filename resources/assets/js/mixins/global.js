@@ -43,6 +43,7 @@ export default {
     data: function () {
         return {
             component: '',
+            currency: null,
         }
     },
 
@@ -183,16 +184,30 @@ export default {
                 this.form.currency_code = response.data.currency_code;
                 this.form.currency_rate = response.data.currency_rate;
 
-                this.money.decimal = response.data.decimal_mark;
-                this.money.thousands = response.data.thousands_separator;
-                this.money.prefix = (response.data.symbol_first) ? response.data.symbol : '';
-                this.money.suffix = !(response.data.symbol_first) ? response.data.symbol : '';
-                this.money.precision = response.data.precision;
+                this.currency = response.data;
             })
             .catch(error => {
             });
         },
 
+        // Change currency get money
+        onChangeCurrency(currency_code) {
+            axios.get(url + '/settings/currencies/currency', {
+                params: {
+                  code: currency_code
+                }
+            })
+            .then(response => {
+                this.currency = response.data;
+
+                this.form.currency_code = response.data.code;
+                this.form.currency_rate = response.data.rate;
+            })
+            .catch(error => {
+            });
+        },
+
+        // Pages limit change
         onChangePaginationLimit(event) {
             let path = '';
 
@@ -232,6 +247,7 @@ export default {
             window.location.href = path;
         },
 
+        // Dynamic component get path view and show it.
         onDynamicComponent(path)
         {
             axios.get(path)

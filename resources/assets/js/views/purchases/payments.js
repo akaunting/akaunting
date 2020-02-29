@@ -29,12 +29,6 @@ const app = new Vue({
         return {
             form: new Form('payment'),
             bulk_action: new BulkAction('payments'),
-            currency: null,
         }
     },
-
-    methods: {
-        onCalcualte() {
-        }
-    }
 });

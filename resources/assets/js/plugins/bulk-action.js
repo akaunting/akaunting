@@ -1,4 +1,3 @@
-import axios from "axios";
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import NProgressAxios from './nprogress-axios';
@@ -78,7 +77,7 @@ export default class BulkAction {
         this.loading = true;
 
         if (this.value != 'export') {
-            axios.post(path, {
+            window.axios.post(path, {
                 'handle': this.value,
                 'selected': this.selected
             })
@@ -97,7 +96,7 @@ export default class BulkAction {
                 //window.location.reload(false);
             });
         } else {
-            axios({
+            window.axios({
                 url: path,
                 method: 'POST',
                 data:{
@@ -154,7 +153,7 @@ export default class BulkAction {
         var item = event.target;
         var status = (event.target.checked) ? 'enable' : 'disable';
 
-        axios.get(this.path + '/' + item_id + '/' + status)
+        window.axios.get(this.path + '/' + item_id + '/' + status)
         .then(response => {
             var type = (response.data.success) ? 'success' : 'warning';
 

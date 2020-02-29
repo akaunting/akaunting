@@ -36,7 +36,6 @@ const app = new Vue({
                 cleared_amount: 0,
                 difference: 0,
             },
-            currency: null,
         }
     },
 
@@ -47,7 +46,7 @@ const app = new Vue({
     methods:{
         onReconcilition() {
             let form = document.getElementById('form-create-reconciliation');
-            
+
             let path = form.action +'?started_at=' + this.form.started_at + '&ended_at=' + this.form.ended_at + '&closing_balance=' + this.form.closing_balance + '&account_id=' + this.form.account_id;
 
             window.location.href = path;
@@ -76,7 +75,7 @@ const app = new Vue({
                     if (type[0] == 'income') {
                         income_total += parseFloat(document.getElementById('transaction-' + type[1] + '-' + type[0]).value);
                     } else {
-                        expense_total += parseFloat(document.getElementById('transaction-' + type[1] + '-' + type[0]).value); 
+                        expense_total += parseFloat(document.getElementById('transaction-' + type[1] + '-' + type[0]).value);
                     }
                 });
 

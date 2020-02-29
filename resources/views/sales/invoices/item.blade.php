@@ -69,7 +69,7 @@
     @stack('price_td_start')
         <td class="border-right-0 border-bottom-0 pb-0">
             @stack('price_input_start')
-                {{ Form::moneyGroup('name', '', '', ['required' => 'required', 'v-model' => 'row.price', 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; onCalculateTotal'], 0.00, 'text-right input-price') }}
+                {{ Form::moneyGroup('name', '', '', ['required' => 'required', 'v-model' => 'row.price', 'data-item' => 'price', 'currency' => $currency, 'change' => 'row.price = $event; onCalculateTotal'], 0.00, 'text-right input-price') }}
                 <input name="items[][currency]"
                        data-item="currency"
                        v-model="row.currency"

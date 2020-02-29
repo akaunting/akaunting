@@ -32,22 +32,4 @@ const app = new Vue({
         }
     },
 
-    methods:{
-        onChangeCurrency(currency_code) {
-            axios.get(url + '/settings/currencies/currency', {
-                params: {
-                  code: currency_code
-                }
-            })
-            .then(response => {
-                this.money.decimal = response.data.decimal_mark;
-                this.money.thousands = response.data.thousands_separator;
-                this.money.prefix = (response.data.symbol_first) ? response.data.symbol : '';
-                this.money.suffix = !(response.data.symbol_first) ? response.data.symbol : '';
-                this.money.precision = response.data.precision;
-            })
-            .catch(error => {
-            });
-        }
-    }
 });
