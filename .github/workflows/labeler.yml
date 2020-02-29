@@ -1,0 +1,17 @@
+name: Labeler
+
+on: [pull_request]
+
+jobs:
+  labeler:
+
+    name: Labeler
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/labeler@v2
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      Language Change:
+        - resources/lang/en-GB/*
