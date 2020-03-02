@@ -15,7 +15,7 @@ class InvoiceTransactions extends Export
             $model->whereIn('document_id', (array) $this->ids);
         }
 
-        return $model->get();
+        return $model->cursor();
     }
 
     public function map($model): array

@@ -15,7 +15,7 @@ class InvoiceItems extends Export
             $model->whereIn('invoice_id', (array) $this->ids);
         }
 
-        return $model->get();
+        return $model->cursor();
     }
 
     public function map($model): array

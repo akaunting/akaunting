@@ -15,7 +15,7 @@ class Vendors extends Export
             $model->whereIn('id', (array) $this->ids);
         }
 
-        return $model->get();
+        return $model->cursor();
     }
 
     public function fields(): array
