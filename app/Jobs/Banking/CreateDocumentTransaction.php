@@ -65,7 +65,7 @@ class CreateDocumentTransaction extends Job
 
         $this->request['type'] = ($this->model instanceof Invoice) ? 'income' : 'expense';
         $this->request['paid_at'] = isset($this->request['paid_at']) ? $this->request['paid_at'] : Date::now()->format('Y-m-d');
-        $this->request['amount'] = isset($this->request['amount']) ? $this->request['amount'] : ($this->model->amount - $this->getPaidAmount());
+        $this->request['amount'] = isset($this->request['amount']) ? $this->request['amount'] : ($this->model->amount - $this->model->paid);
         $this->request['currency_rate'] = $this->currency->rate;
         $this->request['account_id'] = isset($this->request['account_id']) ? $this->request['account_id'] : setting('default.account');
         $this->request['document_id'] = isset($this->request['document_id']) ? $this->request['document_id'] : $this->model->id;
