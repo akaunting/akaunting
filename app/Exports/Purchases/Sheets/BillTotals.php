@@ -15,7 +15,7 @@ class BillTotals extends Export
             $model->whereIn('bill_id', (array) $this->ids);
         }
 
-        return $model->get();
+        return $model->cursor();
     }
 
     public function map($model): array
