@@ -44,7 +44,7 @@
                                         @stack('name_th_end')
 
                                         @stack('quantity_th_start')
-                                            <th class="text-center border-right-0 border-bottom-0">{{ trans($text_override['quantity']) }}</th>
+                                            <th class="text-center border-right-0 border-bottom-0 w-10">{{ trans($text_override['quantity']) }}</th>
                                         @stack('quantity_th_end')
 
                                         @stack('price_th_start')

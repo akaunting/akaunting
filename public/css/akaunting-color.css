@@ -281,7 +281,8 @@ a.text-yellow:focus
 /*--Secondary Color Finish--*/
 
 /*--Info Color--*/
-.alert-info {
+.alert-info
+{
     color: #ffffff;
     border-color: #328aef;
     background-color: #328aef;
@@ -688,7 +689,7 @@ a.bg-yellow:focus,
 button.bg-yellow:hover,
 button.bg-yellow:focus
 {
-background-color: #bcbf03 !important;
+    background-color: #bcbf03 !important;
 }
 /*--Yellow Color Finish--*/
 /*--------Background Colors Finish--------*/

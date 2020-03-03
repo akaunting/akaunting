@@ -58,7 +58,7 @@
     @stack('name_td_end')
 
     @stack('quantity_td_start')
-        <td class="border-right-0 border-bottom-0"
+        <td class="border-right-0 border-bottom-0 w-10"
             :class="[{'has-error': form.errors.has('items.' + index + '.quantity') }]">
             @stack('quantity_input_start')
                 <input type="text"
