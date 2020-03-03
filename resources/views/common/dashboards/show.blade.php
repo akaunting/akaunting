@@ -10,7 +10,7 @@
                     <i class="fa fa-ellipsis-v"></i>
                 </a>
 
-                <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+                <div class="dropdown-menu dropdown-menu-sm-right dropdown-menu-xs-right dropdown-menu-arrow">
                     @permission('create-common-widgets')
                         {!! Form::button(trans('general.title.add', ['type' => trans_choice('general.widgets', 1)]), [
                             'type'    => 'button',

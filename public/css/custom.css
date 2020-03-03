@@ -223,7 +223,6 @@ button:focus
     font-size: 0.5rem;
 }
 
-
 .nav-link .badge-reminder
 {
     position: absolute;
@@ -353,14 +352,12 @@ button:focus
 }
 /*--------Border Bottom Finish--------*/
 
-
 /*--------Border Top Style--------*/
 .border-top-style
 {
     border-top-style: hidden !important;
 }
 /*--------Border Top Style Finish--------*/
-
 
 /*--------Border Bottom Style--------*/
 .border-bottom-style
@@ -426,14 +423,6 @@ button:focus
     z-index: 1;
 }
 /*--------Card Action Button Finish--------*/
-
-
-/*--Table Layout Fixed--*/
-.table-layout-fixed
-{
-    table-layout: fixed;
-}
-/*--Table Layout Fixed Finish--*/
 
 
 /*--Akaunting Button Animation--*/
@@ -513,7 +502,6 @@ button:focus
 
 
 /*--------Settings Index Page--------*/
-
 /*--------Settings Icons--------*/
 .settings-icons
 {
@@ -551,14 +539,6 @@ button:focus
 /*--------Pagination Alignment Finish--------*/
 
 
-/*--------Font Size 1--------*/
-.font-size-1
-{
-    font-size: 1rem !important;
-}
-/*--------Font Size 1 Finish--------*/
-
-
 /*--------Avatar Size--------*/
 .avatar-size
 {
@@ -575,7 +555,6 @@ button:focus
     box-shadow: none !important;
 }
 /*--------Button Disabled Hover Finish--------*/
-
 
 /*--------Recurring Inputs--------*/
 .recurring-single
@@ -615,6 +594,7 @@ button:focus
     height: 0 !important;
 }
 /*--------Height 0 Finish--------*/
+
 
 /*--------Editor Text--------*/
 .ql-editor p
@@ -734,47 +714,20 @@ table .align-items-center td span.badge
 /*--Save Buttons Responsive Finish--*/
 
 
-/*--Left Menu Stabilize--*/
-.g-sidenav-show .sidenav
-{
-    max-width: 250px !important;
-}
-
-.g-sidenav-show .sidenav .navbar-brand,
-.g-sidenav-show .sidenav .navbar-heading
-{
-    display: block;
-}
-
-.g-sidenav-show .sidenav.fixed-left + .main-content
-{
-    margin-left: 250px;
-}
-
-.g-sidenav-show .sidenav.fixed-right + .main-content
-{
-    margin-right: 250px;
-}
-
-.g-sidenav-show .sidenav
-{
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-}
-
-.sidenav-show .navbar-top .navbar-brand
-{
-    display: none;
-}
-/*--Left Menu Stabilize Finish--*/
-
-
-  /*--Index Pages Badge Min Width--*/
+/*--Index Pages Badge Min Width--*/
 .mw-60
 {
     min-width: 60px;
 }
-  /*--Index Pages Badge Min Width Finish--*/
+/*--Index Pages Badge Min Width Finish--*/
+
+
+/*--Quantity Width--*/
+.w-10
+{
+    width: 10%;
+}
+/*--Quantity Width Finish--*/
 
 
 /*--------Responsive--------*/
@@ -862,6 +815,18 @@ table .align-items-center td span.badge
         float: right;
     }
 
+    .dropdown-menu-xs-left
+    {
+        right: auto;
+        left: 0 !important;
+    }
+
+    .dropdown-menu-xs-right
+    {
+        right: 0 !important;
+        left: auto;
+    }
+
     .pagination-xs
     {
         padding-right: 0;
@@ -877,21 +842,6 @@ table .align-items-center td span.badge
     .save-buttons
     {
         float: none !important;
-    }
-
-    .g-sidenav-show .sidenav
-    {
-        display: none !important;
-    }
-
-    .g-sidenav-show.g-sidenav-hidden .sidenav
-    {
-        display: none !important;
-    }
-
-    .g-sidenav-show.g-sidenav-pinned .sidenav
-    {
-        display: block !important;
     }
 }
 /*--Xs Breakpoint Finish--*/
