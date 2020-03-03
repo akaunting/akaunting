@@ -253,6 +253,8 @@ class Version200 extends Listener
 
     public function copyCustomers()
     {
+        $contacts = [];
+
         $customers = DB::table('customers')->cursor();
 
         $has_estimates = Schema::hasTable('estimates');
@@ -268,21 +270,28 @@ class Version200 extends Listener
 
             $contact_id = DB::table('contacts')->insertGetId($data);
 
+            $contacts[$customer->id] = $contact_id;
+        }
+
+        $contacts = array_reverse($contacts, true);
+
+        foreach ($contacts as $customer_id => $contact_id) {
+
             DB::table('invoices')
-                ->where('contact_id', $customer->id)
+                ->where('contact_id', $customer_id)
                 ->update([
                     'contact_id' => $contact_id,
                 ]);
 
             DB::table('revenues')
-                ->where('customer_id', $customer->id)
+                ->where('customer_id', $customer_id)
                 ->update([
                     'customer_id' => $contact_id,
                 ]);
 
             if ($has_estimates) {
                 DB::table('estimates')
-                    ->where('customer_id', $customer->id)
+                    ->where('customer_id', $customer_id)
                     ->update([
                         'customer_id' => $contact_id,
                     ]);
@@ -290,7 +299,7 @@ class Version200 extends Listener
 
             if ($has_crm_companies) {
                 DB::table('crm_companies')
-                    ->where('core_customer_id', $customer->id)
+                    ->where('core_customer_id', $customer_id)
                     ->update([
                         'core_customer_id' => $contact_id,
                     ]);
@@ -298,7 +307,7 @@ class Version200 extends Listener
 
             if ($has_crm_contacts) {
                 DB::table('crm_contacts')
-                    ->where('core_customer_id', $customer->id)
+                    ->where('core_customer_id', $customer_id)
                     ->update([
                         'core_customer_id' => $contact_id,
                     ]);
@@ -306,7 +315,7 @@ class Version200 extends Listener
 
             if ($has_idea_soft_histories) {
                 DB::table('idea_soft_histories')
-                    ->where('model_id', $customer->id)
+                    ->where('model_id', $customer_id)
                     ->where('model_type', 'App\Models\Income\Customer')
                     ->update([
                         'model_id' => $contact_id,
@@ -316,7 +325,7 @@ class Version200 extends Listener
 
             if ($has_custom_fields_field_values) {
                 DB::table('custom_fields_field_values')
-                    ->where('model_id', $customer->id)
+                    ->where('model_id', $customer_id)
                     ->where('model_type', 'App\Models\Income\Customer')
                     ->update([
                         'model_id' => $contact_id,
@@ -330,6 +339,8 @@ class Version200 extends Listener
 
     public function copyVendors()
     {
+        $contacts = [];
+
         $vendors = DB::table('vendors')->cursor();
 
         $has_custom_fields_field_values = Schema::hasTable('custom_fields_field_values');
@@ -341,20 +352,26 @@ class Version200 extends Listener
 
             $contact_id = DB::table('contacts')->insertGetId($data);
 
+            $contacts[$vendor->id] = $contact_id;
+        }
+
+        $contacts = array_reverse($contacts, true);
+
+        foreach ($contacts as $vendor_id => $contact_id) {
             DB::table('bills')
-                ->where('contact_id', $vendor->id)
+                ->where('contact_id', $vendor_id)
                 ->update([
                     'contact_id' => $contact_id,
                 ]);
 
             DB::table('payments')
-                ->where('vendor_id', $vendor->id)
+                ->where('vendor_id', $vendor_id)
                 ->update([
                     'vendor_id' => $contact_id,
                 ]);
 
             DB::table('mediables')
-                ->where('mediable_id', $vendor->id)
+                ->where('mediable_id', $vendor_id)
                 ->where('mediable_type', 'App\Models\Expense\Vendor')
                 ->update([
                     'mediable_id' => $contact_id,
@@ -363,7 +380,7 @@ class Version200 extends Listener
 
             if ($has_custom_fields_field_values) {
                 DB::table('custom_fields_field_values')
-                    ->where('model_id', $vendor->id)
+                    ->where('model_id', $vendor_id)
                     ->where('model_type', 'App\Models\Expense\Vendor')
                     ->update([
                         'model_id' => $contact_id,
