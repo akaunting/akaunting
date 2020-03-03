@@ -13,7 +13,7 @@ class Transfers extends BulkAction
     public $actions = [
         'delete' => [
             'name' => 'general.delete',
-            'message' => 'bulk_action.message.deletes',
+            'message' => 'bulk_actions.message.delete',
             'permission' => 'delete-banking-transfers',
         ],
     ];
