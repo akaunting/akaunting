@@ -12,8 +12,8 @@ class Info
     {
         return array_merge(static::versions(), [
             'api_key' => setting('apps.api_key'),
-            'companies' => Company::all()->count(),
-            'users' => User::all()->count(),
+            'companies' => Company::count(),
+            'users' => User::count(),
         ]);
     }
 
@@ -30,7 +30,7 @@ class Info
     {
         return phpversion();
     }
-  
+
     public static function mysqlVersion()
     {
         if (env('DB_CONNECTION') === 'mysql') {
