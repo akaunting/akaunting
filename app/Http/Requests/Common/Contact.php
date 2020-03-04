@@ -37,7 +37,7 @@ class Contact extends FormRequest
             $id = null;
         }
 
-        if (!empty($this->request->get('create_user')) && empty($this->request->get('user_id'))) {
+        if (($this->request->get('create_user', 'false') === 'true') && empty($this->request->get('user_id'))) {
             $required = 'required|';
         }
 
