@@ -33,7 +33,7 @@ class UpdateContact extends Job
     {
         $this->authorize();
 
-        if (!empty($this->request->input('create_user'))) {
+        if ($this->request->get('create_user', 'false') === 'true') {
             $this->createUser();
         }
 
