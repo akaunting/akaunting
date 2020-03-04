@@ -17,7 +17,7 @@ trait Recurring
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-        $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
+        $interval = (($request['recurring_frequency'] != 'custom') || ($request['recurring_interval'] < 1)) ? 1 : (int) $request['recurring_interval'];
         $started_at = $request->get('paid_at') ?: ($request->get('invoiced_at') ?: $request->get('billed_at'));
 
         $this->recurring()->create([
@@ -39,7 +39,7 @@ trait Recurring
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-        $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
+        $interval = (($request['recurring_frequency'] != 'custom') || ($request['recurring_interval'] < 1)) ? 1 : (int) $request['recurring_interval'];
         $started_at = $request->get('paid_at') ?: ($request->get('invoiced_at') ?: $request->get('billed_at'));
 
         $recurring = $this->recurring();
