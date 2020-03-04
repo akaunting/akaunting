@@ -57,7 +57,12 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file',[]) }}
 
-                    {{ Form::fileGroup('attachment', trans('general.attachment')) }}
+                    <div class="col-md-6">
+                        @if($revenue->attachment)
+                            @php $file = $revenue->attachment; @endphp
+                            @include('partials.media.file')
+                        @endif
+                    </div>
 
                     @if ($revenue->invoice)
                         {{ Form::textGroup('document', trans_choice('general.invoices', 1), 'file-invoice', ['disabled' => 'disabled'], $revenue->invoice->invoice_number) }}
