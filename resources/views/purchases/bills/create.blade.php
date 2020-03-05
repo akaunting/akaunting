@@ -25,7 +25,7 @@
 
                     {{ Form::dateGroup('due_at', trans('bills.due_date'), 'calendar', ['id' => 'due_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], request()->get('due_at', request()->get('billed_at', Date::now()->toDateString()))) }}
 
-                    {{ Form::textGroup('bill_number', trans('bills.bill_number'), 'file') }}
+                    {{ Form::textGroup('bill_number', trans('bills.bill_number'), 'file', ['required' => 'required'], $number) }}
 
                     {{ Form::textGroup('order_number', trans('bills.order_number'), 'shopping-cart',[]) }}
 

@@ -108,7 +108,9 @@ class Bills extends Controller
 
         $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
 
-        return view('purchases.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'categories'));
+        $number = $this->getNextBillNumber();
+
+        return view('purchases.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'categories', 'number'));
     }
 
     /**
