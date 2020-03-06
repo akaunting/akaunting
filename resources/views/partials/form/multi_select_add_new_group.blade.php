@@ -31,6 +31,7 @@
             'path' => isset($attributes['path']) ? $attributes['path']: false,
             'type' => isset($attributes['type']) ? $attributes['type'] : 'modal',
             'field' => isset($attributes['field']) ? $attributes['field'] : 'name',
+            'new_text' => trans('modules.new'),
             'buttons' => [
                 'cancel' => [
                     'text' => trans('general.cancel'),

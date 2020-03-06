@@ -55,6 +55,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -67,6 +69,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -124,6 +128,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -136,6 +142,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -193,6 +201,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -205,6 +215,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -262,6 +274,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -274,6 +288,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -331,6 +347,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -343,6 +361,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -356,7 +376,9 @@
             </el-option>
         </el-select>
 
-        <component v-bind:is="add_new_html" @submit="onSubmit"></component>
+        <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
+
+        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
 
         <select :name="name" v-model="real_model" class="d-none">
             <option v-for="(label, value) in selectOptions" :value="value">{{ label }}</option>
@@ -447,6 +469,7 @@ export default {
                     path: null,
                     type: 'modal', // modal, inline
                     field: 'name',
+                    new_text: 'New',
                     buttons: {}
                 };
             },
@@ -493,13 +516,26 @@ export default {
 
     data() {
         return {
-            add_new: this.addNew,
+            add_new: {
+                text: this.addNew.text,
+                show: false,
+                path: this.addNew.path,
+                type: this.addNew.type, // modal, inline
+                field: this.addNew.name,
+                buttons: this.addNew.buttons
+            },
             add_new_text: this.addNew.text,
+            new_text: this.addNew.new_text,
             selectOptions: this.options,
             real_model: this.model,
             add_new_html: '',
             form: {},
+            new_options: false,
         }
+    },
+
+    created() {
+        this.new_options = {};
     },
 
     mounted() {
@@ -534,14 +570,14 @@ export default {
 
             axios.get(this.add_new.path)
             .then(response => {
-                add_new.status = true;
+                add_new.show = true;
                 add_new.html = response.data.html;
 
                 this.$children[0].$children[0].visible = false;
 
                 this.add_new_html = Vue.component('add-new-component', function (resolve, reject) {
                     resolve({
-                        template: '<div><akaunting-modal-add-new :show="add_new.status" @submit="onSubmit" @cancel="add_new.status = false" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
+                        template: '<div><akaunting-modal-add-new :show="add_new.show" @submit="onSubmit" @cancel="onCancel" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
 
                         components: {
                             AkauntingModalAddNew,
@@ -562,6 +598,10 @@ export default {
                         methods: {
                             onSubmit(event) {
                                 this.$emit('submit', event);
+                            },
+
+                            onCancel(event) {
+                                this.$emit('cancel', event);
                             }
                         }
                     })
@@ -584,11 +624,15 @@ export default {
 
                 if (response.data.success) {
                     this.selectOptions[response.data.data.id] = response.data.data['name'];
+                    this.new_options[response.data.data.id] = response.data.data.id;
                     this.real_model = response.data.data.id.toString();
 
                     this.change();
 
-                    //this.add_new.status = false;
+                    this.add_new.show = false;
+
+                    this.add_new.html = '';
+                    this.add_new_html = null;
                 }
             })
             .catch(error => {
@@ -598,6 +642,12 @@ export default {
 
                 this.method_show_html = error.message;
             });
+        },
+
+        onCancel() {
+            this.add_new.show = false;
+            this.add_new.html = null;
+            this.add_new_html = null;
         },
 
         addModal() {
@@ -666,5 +716,12 @@ export default {
 
     .el-select__footer div span {
         margin-left: 5px;
+    }
+
+    .badge-resize {
+        float: right;
+        margin-top: -32px;
+        margin-right: 35px;
+        position: relative;
     }
 </style>
