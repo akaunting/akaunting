@@ -1,16 +1,24 @@
-<h2>{{ $setting['name'] }}</h2>
+<div>
+    <div class="d-none">
+        @if (!empty($setting['name']))
+            <h2>{{ $setting['name'] }}</h2>
+        @endif
 
-@if ($setting['description'])
-    <div class="well well-sm">
-        {{ $setting['description'] }}
+        @if (!empty($setting['description']))
+            <div class="well well-sm">
+                {{ $setting['description'] }}
+            </div>
+        @endif
     </div>
-@endif
+    <br>
 
-<div class="buttons">
-    <div class="float-right">
-        <input type="button" value="{{ trans('offline-payments::general.confirm') }}" id="button-confirm" class="btn btn-success" data-loading-text="{{ trans('offline-payments::general.loading') }}" />
+    <div class="buttons">
+        <div class="pull-right">
+            <input type="button" value="{{ trans('offline-payments::general.confirm') }}" id="button-confirm" class="btn btn-success" data-loading-text="{{ trans('offline-payments::general.loading') }}" />
+        </div>
     </div>
 </div>
+
 <script type="text/javascript"><!--
     $('#button-confirm').on('click', function() {
         $.ajax({
@@ -37,4 +45,4 @@
             }
         });
     });
-    //--></script>
+//--></script>
