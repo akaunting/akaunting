@@ -2,20 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Ikke tilgang',
-    'error_page'       => 'Feilside',
-    'page_not_found'   => 'Side ikke funnet',
-
-    'body'   => [
-        'forbidden_access' => 'Oops! Ikke tilgang.',
-        'error_page' => 'Oops! Noe gikk galt.',
-        'page_not_found' => 'Oops! Side ikke funnet.',
+    'title' => [
+        '403' => 'Oops! Adgang forbudt',
+        '404' => 'Oops! Side ikke funnet',
+        '500' => 'Oops! Noe gikk galt',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'Du har ikke tilgang til denne siden. I mellomtiden kan du <a href=":link">returnere til kontrollpanelet</a>.',
-        'error_page' => 'Vi vil arbeide med å ordne dette med en gang. I mellomtiden kan du <a href=":link">returnere til kontrollpanelet</a>.',
-        'page_not_found' => 'Vi kunne ikke finne siden du leter etter. I mellomtiden kan du <a href=":link">returnere til kontrollpanelet</a>.',
+    'header' => [
+        '403' => '403 Forbudt',
+        '404' => '404 Ikke funnet',
+        '500' => '500 Intern serverfeil',
+    ],
+
+    'message' => [
+        '403' => 'Du har ikke adgang til denne siden.',
+        '404' => 'Vi fant ikke siden du lette etter.',
+        '500' => 'VI jobber med å ordne dette med en gang.',
     ],
 
 ];

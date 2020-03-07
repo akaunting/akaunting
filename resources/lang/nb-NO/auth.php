@@ -13,16 +13,18 @@ return [
     'current_email'         => 'Gjeldende e-post',
     'reset'                 => 'Tilbakestill',
     'never'                 => 'aldri',
-    
+    'landing_page'          => 'Landingsside',
+
     'password' => [
         'current'           => 'Passord',
         'current_confirm'   => 'Passordbekreftelse',
         'new'               => 'Nytt passord',
         'new_confirm'       => 'Passordbekreftelse',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Feil: Du kan ikke slette deg selv.',
+        'self_disable'      => 'Feil: Du kan ikke deaktivere deg selv!',
         'no_company'        => 'Feil: Ingen foretak knyttet til din konto. Vennligst kontakt systemadministrator.',
     ],
 
