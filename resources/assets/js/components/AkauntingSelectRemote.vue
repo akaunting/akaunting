@@ -681,7 +681,39 @@ export default {
         onSubmit(event) {
             this.form = event;
 
-            axios.post(this.form.action, this.form.data())
+            let data = this.form.data();
+
+            FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+                for(var name in data) {
+                    if (wrapper) {
+                        if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                            this.appendRecursive(data[name], wrapper + '[' + name + ']');
+                        } else {
+                            this.append(wrapper + '[' + name + ']', data[name]);
+                        }
+                    } else {
+                        if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                            this.appendRecursive(data[name], name);
+                        } else {
+                            this.append(name, data[name]);
+                        }
+                    }
+                }
+            };
+
+            let form_data = new FormData();
+            form_data.appendRecursive(data);
+
+            window.axios({
+                method: this.form.method,
+                url: this.form.action,
+                data: form_data,
+                headers: {
+                    'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             .then(response => {
                 this.form.loading = false;
 
