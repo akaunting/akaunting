@@ -19,11 +19,7 @@ const app = new Vue({
         }
     },
 
-    mounted() {
-    },
-
     methods: {
-
         onSubmit() {
             this.form.submit();
         },

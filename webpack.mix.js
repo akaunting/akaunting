@@ -66,7 +66,6 @@ mix
     .js('resources/assets/js/views/settings/settings.js', 'public/js/settings')
     .js('resources/assets/js/views/settings/taxes.js', 'public/js/settings')
 
-
     // Wizard
     .js('resources/assets/js/views/wizard/company.js', 'public/js/wizard')
     .js('resources/assets/js/views/wizard/currencies.js', 'public/js/wizard')
