@@ -5,9 +5,9 @@ return [
     'api_key'               => 'مفتاح API',
     'my_apps'               => 'تطبيقاتي',
     'pre_sale'              => 'قبل البيع',
-    'top_paid'              => 'أعلى المدفوعات',
+    'top_paid'              => 'أعلى مدفوعات',
     'new'                   => 'جديد',
-    'top_free'              => 'المجانيات الأعلى',
+    'top_free'              => 'أعلى مجانيات ',
     'free'                  => 'مجاناً',
     'search'                => 'بحث',
     'install'               => 'تثبيت',
@@ -36,7 +36,7 @@ return [
         'installation'      => 'التثبيت',
         'faq'               => 'الأسئلة الشائعة',
         'changelog'         => 'سجل التغييرات',
-        'reviews'           => 'مراجعات',
+        'reviews'           => 'التقييمات',
     ],
 
     'installation' => [
@@ -52,7 +52,7 @@ return [
     'errors' => [
         'download'          => 'لم نتمكن من تحميل :module',
         'zip'               => 'لم نتمكن من انشاء ملف zip :module',
-        'unzip'             => 'لم نتمكن من إستخراج :module',
+        'unzip'             => 'لم نتمكن من فك ضغط :module',
         'file_copy'         => 'لم نتمكن من نسخ ملفات :module',
         'finish'            => 'لم نتمكن من انهاء تثبيت :module',
     ],
@@ -75,10 +75,10 @@ return [
 
     'reviews' => [
         'button' => [
-            'add'           => 'أضف مراجعة'
+            'add'           => 'أضف تقييمك'
         ],
 
-        'na'                => 'لا يوجد مراجعات.'
+        'na'                => 'لا يوجد تقييمات.'
     ],
 
 ];

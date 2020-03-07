@@ -7,7 +7,7 @@ return [
     'open_invoices'             => 'الفواتير المفتوحة',
     'overdue_invoices'          => 'الفواتير المتأخرة',
     'total_expenses'            => 'إجمالي المصاريف',
-    'payables'                  => 'إمكانية الدفع',
+    'payables'                  => 'المستحقات علينا',
     'open_bills'                => 'فواتير مفتوحة',
     'overdue_bills'             => 'فواتير متأخرة',
     'total_profit'              => 'إجمالي الربح',

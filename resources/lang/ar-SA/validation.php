@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'accepted'             => 'يجب أن يتم القبول على خانة :attribute.',
+    'accepted'             => 'يجب أن يتم قبول خانة :attribute.',
     'active_url'           => 'خانة :attribute تحتوي على رابط غير صحيح.',
     'after'                => 'يجب على خانة :attribute أن تكون تاريخًا لاحقًا للتاريخ :date.',
     'after_or_equal'       => 'يجب على خانة :attribute أن تكون تاريخًا لاحقًا أو مطابقًا للتاريخ :date.',
@@ -76,15 +76,15 @@ return [
     'required_without_all' => 'الخانة :attribute إلزامية إذا لم يتوفّر أياً من :values.',
     'same'                 => 'يجب أن تتطابق خانة :attribute مع :other.',
     'size'                 => [
-        'numeric' => 'يجب أن تكون قيمة خانة :attribute مساوية للعدد :size.',
+        'numeric' => 'يجب أن تكون قيمة خانة :attribute مساوية ل :size.',
         'file'    => 'يجب أن يكون حجم الملف :attribute يساوي :size كيلوبايت.',
         'string'  => 'هذه الخانة :attribute يجب ان تكون <strong>:size حرف</strong>.',
         'array'   => 'يجب أن تحتوي خانة :attribute على :size من العناصر.',
     ],
     'string'               => 'هذه الخانة :attribute يجب ان تكون <strong>نص</strong>.',
     'timezone'             => 'يجب أن تكون خانة :attribute نطاقًا زمنيًا صحيحًا.',
-    'unique'               => 'هذه الخانة :attribute <strong>مأخوذة</strong>.',
-    'uploaded'             => 'هذه الخانة :attribute <strong>فشلت</strong> عند الرفع.',
+    'unique'               => 'هذه الخانة :attribute <strong>مستخدمة بالفعل</strong>.',
+    'uploaded'             => 'هذه الخانة :attribute <strong>فشلت</strong> عند تحميلها على النظام.',
     'url'                  => 'تنسيق هذه الخانة :attribute <strong>غير صالح</strong>.',
 
     /*

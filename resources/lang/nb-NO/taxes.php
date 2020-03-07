@@ -7,5 +7,5 @@ return [
     'normal'                => 'Normal',
     'inclusive'             => 'Inklusiv',
     'compound'              => 'Tillegg',
-
+    'fixed'                 => 'Fastsatt',
 ];
