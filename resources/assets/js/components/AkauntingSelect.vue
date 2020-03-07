@@ -381,7 +381,7 @@
         <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
 
         <select :name="name" v-model="real_model" class="d-none">
-            <option v-for="(label, value) in selectOptions" :value="value">{{ label }}</option>
+            <option v-for="(label, value) in selectOptions" :key="value" :value="value">{{ label }}</option>
         </select>
     </base-input>
 </template>

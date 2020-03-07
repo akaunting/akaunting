@@ -305,8 +305,8 @@
 
         <component v-bind:is="add_new_html" @submit="onSubmit"></component>
 
-        <select :name="name" class="d-none" v-model="real_model">
-            <option v-for="(label, value) in selectOptions" :value="value">{{ label }}</option>
+        <select :name="name" v-model="real_model" class="d-none">
+            <option v-for="(label, value) in selectOptions" :key="value" :value="value">{{ label }}</option>
         </select>
 
         <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
@@ -370,8 +370,8 @@
                :key="option.id"
                :label="option.name"
                :value="option.id">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span
+                <span class="float-left">{{ option.name }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.id]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -669,12 +669,16 @@ export default {
             })
             .then(response => {
                 if (response.data.success) {
+                    this.selectOptions[response.data.data.id] = response.data.data['name'];
+                    this.new_options[response.data.data.id] = response.data.data['name'];
+                    this.real_model = response.data.data.id;
+                    /*
                     this.selectOptions = [];
 
                     this.selectOptions.push(response.data.data);
                     this.new_options[response.data.data.id] = response.data.data.id;
                     this.real_model = response.data.data.id;
-
+                    */
                     this.change();
 
                     if (this.title) {
@@ -788,7 +792,7 @@ export default {
                 if (response.data.success) {
                     this.selectOptions[response.data.data.id] = response.data.data['name'];
                     this.new_options[response.data.data.id] = response.data.data['name'];
-                    this.real_model = response.data.data.id.toString();
+                    this.real_model = response.data.data.id;
 
                     this.change();
 
@@ -821,7 +825,15 @@ export default {
     watch: {
         options: function (options) {
             // update options
-            //this.selectOptions = options;
+            this.selectOptions = options;
+
+            if (Object.keys(this.new_options).length) {
+                for (let [key, value] of Object.entries(this.new_options)) {
+                    if (!this.selectOptions[key]) {
+                        this.selectOptions[key] = value;
+                    }
+                }
+            }
         },
 
         value: function (value) {
