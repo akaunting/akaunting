@@ -10,7 +10,7 @@ return [
     | Auto-save every time the application shuts down
     |
     */
-	'auto_save'			=> false,
+	'auto_save'			=> env('SETTING_AUTO_SAVE', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,10 +22,10 @@ return [
     |
     */
     'cache' => [
-        'enabled'       => true,
-        'key'           => 'setting',
-        'ttl'           => 21600,
-        'auto_clear'    => true,
+        'enabled'       => env('SETTING_CACHE_ENABLED', true),
+        'key'           => env('SETTING_CACHE_KEY', 'setting'),
+        'ttl'           => env('SETTING_CACHE_TTL', 21600),
+        'auto_clear'    => env('SETTING_CACHE_AUTO_CLEAR', true),
     ],
 
 	/*
@@ -38,7 +38,7 @@ return [
     | Supported: "database", "json"
     |
     */
-	'driver'			=> 'database',
+	'driver'			=> env('SETTING_DRIVER', 'database'),
 
 	/*
     |--------------------------------------------------------------------------
@@ -50,10 +50,10 @@ return [
     |
     */
 	'database' => [
-		'connection'    => null,
-		'table'         => 'settings',
-		'key'           => 'key',
-		'value'         => 'value',
+		'connection'    => env('SETTING_DATABASE_CONNECTION', null),
+		'table'         => env('SETTING_DATABASE_TABLE', 'settings'),
+		'key'           => env('SETTING_DATABASE_KEY', 'key'),
+		'value'         => env('SETTING_DATABASE_VALUE', 'value'),
 	],
 
 	/*
@@ -65,7 +65,7 @@ return [
     |
     */
 	'json' => [
-		'path'          => storage_path() . '/settings.json',
+		'path'          => env('SETTING_JSON_PATH', storage_path('settings.json')),
 	],
 
 	/*
