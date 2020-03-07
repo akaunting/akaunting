@@ -14,7 +14,8 @@
 
         {{ Form::textGroup('rate', trans('currencies.rate'), 'sliders-h', ['@input' => 'onChangeRate', 'required' => 'required']) }}
 
-        {!! Form::hidden('enabled', '1', []) !!}
-        {!! Form::hidden('default_currency', 'false', []) !!}
+        {!! Form::hidden('enabled', 1) !!}
+        {!! Form::hidden('symbol_first', 1) !!}
+        {!! Form::hidden('default_currency', 0) !!}
     </div>
 {!! Form::close() !!}
