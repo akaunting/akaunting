@@ -570,7 +570,7 @@ export default {
         onModal(value) {
             let add_new = this.add_new;
 
-            axios.get(this.add_new.path)
+            window.axios.get(this.add_new.path)
             .then(response => {
                 add_new.show = true;
                 add_new.html = response.data.html;
@@ -625,7 +625,7 @@ export default {
 
             let data = this.form.data();
 
-            FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+            FormData.prototype.appendRecursive = function(data, wrapper = null) {
                 for(var name in data) {
                     if (wrapper) {
                         if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
@@ -661,7 +661,7 @@ export default {
 
                 if (response.data.success) {
                     this.selectOptions[response.data.data.id] = response.data.data['name'];
-                    this.new_options[response.data.data.id] = response.data.data.id;
+                    this.new_options[response.data.data.id] = response.data.data['name'];
                     this.real_model = response.data.data.id.toString();
 
                     this.change();
@@ -696,6 +696,14 @@ export default {
         options: function (options) {
             // update options
             this.selectOptions = options;
+
+            if (Object.keys(this.new_options).length) {
+                for (let [key, value] of Object.entries(this.new_options)) {
+                    if (!this.selectOptions[key]) {
+                        this.selectOptions[key] = value;
+                    }
+                }
+            }
         },
 
         value: function (value) {

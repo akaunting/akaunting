@@ -1,5 +1,16 @@
 <template>
-    <base-input v-if="title" :label="title" :name="name" :class="formClasses" :error="formError">
+    <base-input
+        v-if="title"
+        :label="title"
+        :name="name"
+        :readonly="readonly"
+        :disabled="disabled"
+        :class="[
+            {'readonly': readonly},
+            {'disabled': disabled},
+            formClasses
+        ]"
+        :error="formError">
         <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled"
             :placeholder="placeholder">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
@@ -44,6 +55,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -56,6 +69,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -113,6 +128,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -125,6 +142,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -182,6 +201,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -194,6 +215,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -251,6 +274,8 @@
                :key="value"
                :label="label"
                :value="value">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -263,6 +288,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -281,6 +308,8 @@
         <select :name="name" class="d-none" v-model="real_model">
             <option v-for="(label, value) in selectOptions" :value="value">{{ label }}</option>
         </select>
+
+        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
     </base-input>
 
     <el-select v-else
@@ -341,6 +370,8 @@
                :key="option.id"
                :label="option.name"
                :value="option.id">
+                <span class="float-left">{{ label }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span
             </el-option>
 
             <el-option-group
@@ -353,6 +384,8 @@
                     :key="value"
                     :label="label"
                     :value="value">
+                    <span class="float-left">{{ label }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -364,6 +397,8 @@
                     </span>
                 </div>
             </el-option>
+
+        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
     </el-select>
 </template>
 
@@ -374,6 +409,7 @@ import { Select, Option, OptionGroup, ColorPicker } from 'element-ui';
 
 import AkauntingModalAddNew from './AkauntingModalAddNew';
 import AkauntingModal from './AkauntingModal';
+import AkauntingMoney from './AkauntingMoney';
 import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
 import AkauntingDate from './AkauntingDate';
@@ -393,6 +429,7 @@ export default {
         AkauntingRadioGroup,
         AkauntingSelect,
         AkauntingModal,
+        AkauntingMoney,
         AkauntingDate,
         AkauntingRecurring,
     },
@@ -430,7 +467,11 @@ export default {
         },
         options: null,
 
-        model: null,
+        model: {
+            type: [String, Number],
+            default: '',
+            description: "Selectbox selected model"
+        },
 
         icon: {
             type: String,
@@ -446,6 +487,7 @@ export default {
                     path: null,
                     type: 'modal', // modal, inline
                     field: 'name',
+                    new_text: 'New',
                     buttons: {}
                 };
             },
@@ -461,6 +503,11 @@ export default {
             type: Boolean,
             default: false,
             description: "Multible feature status"
+        },
+        readonly: {
+            type: Boolean,
+            default: false,
+            description: "Selectbox disabled status"
         },
         disabled: {
             type: Boolean,
@@ -509,14 +556,27 @@ export default {
     data() {
         return {
             list: [],
-            add_new: this.addNew,
+            add_new: {
+                text: this.addNew.text,
+                show: false,
+                path: this.addNew.path,
+                type: this.addNew.type, // modal, inline
+                field: this.addNew.name,
+                buttons: this.addNew.buttons
+            },
             add_new_text: this.addNew.text,
+            new_text: this.addNew.new_text,
             selectOptions: this.options,
             real_model: this.model,
             add_new_html: '',
             form: {},
             loading: false,
+            new_options: false,
         }
+    },
+
+    created() {
+        this.new_options = {};
     },
 
     mounted() {
@@ -601,7 +661,7 @@ export default {
         },
 
         addInline(value) {
-            axios.post(this.add_new.path, {
+            window.axios.post(this.add_new.path, {
                 '_token': window.Laravel.csrfToken,
                 'type': 'inline',
                 field: this.add_new.field,
@@ -612,6 +672,7 @@ export default {
                     this.selectOptions = [];
 
                     this.selectOptions.push(response.data.data);
+                    this.new_options[response.data.data.id] = response.data.data.id;
                     this.real_model = response.data.data.id;
 
                     this.change();
@@ -631,9 +692,9 @@ export default {
         onModal(value) {
             let add_new = this.add_new;
 
-            axios.get(this.add_new.path)
+            window.axios.get(this.add_new.path)
             .then(response => {
-                add_new.status = true;
+                add_new.show = true;
                 add_new.html = response.data.html;
 
                 if (this.title) {
@@ -644,13 +705,14 @@ export default {
 
                 this.add_new_html = Vue.component('add-new-component', function (resolve, reject) {
                     resolve({
-                        template: '<div><akaunting-modal-add-new :show="add_new.status" @submit="onSubmit" @cancel="add_new.status = false" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
+                        template: '<div><akaunting-modal-add-new :show="add_new.show" @submit="onSubmit" @cancel="onCancel" :buttons="add_new.buttons" :title="add_new.text" :is_component=true :message="add_new.html"></akaunting-modal-add-new></div>',
 
                         components: {
                             AkauntingModalAddNew,
                             AkauntingRadioGroup,
                             AkauntingSelect,
                             AkauntingModal,
+                            AkauntingMoney,
                             AkauntingDate,
                             AkauntingRecurring,
                             [ColorPicker.name]: ColorPicker,
@@ -665,6 +727,10 @@ export default {
                         methods: {
                             onSubmit(event) {
                                 this.$emit('submit', event);
+                            },
+
+                            onCancel(event) {
+                                this.$emit('cancel', event);
                             }
                         }
                     })
@@ -681,9 +747,11 @@ export default {
         onSubmit(event) {
             this.form = event;
 
+            this.loading = true;
+
             let data = this.form.data();
 
-            FormData.prototype.appendRecursive = function(data, wrapper = null) {  
+            FormData.prototype.appendRecursive = function(data, wrapper = null) {
                 for(var name in data) {
                     if (wrapper) {
                         if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
@@ -719,11 +787,15 @@ export default {
 
                 if (response.data.success) {
                     this.selectOptions[response.data.data.id] = response.data.data['name'];
+                    this.new_options[response.data.data.id] = response.data.data['name'];
                     this.real_model = response.data.data.id.toString();
 
                     this.change();
 
-                    //this.add_new.status = false;
+                    //this.add_new.show = false;
+
+                    this.add_new.html = '';
+                    this.add_new_html = null;
                 }
             })
             .catch(error => {
@@ -733,6 +805,16 @@ export default {
 
                 this.method_show_html = error.message;
             });
+        },
+
+        onCancel() {
+            this.add_new.show = false;
+            this.add_new.html = null;
+            this.add_new_html = null;
+        },
+
+        addModal() {
+
         },
     },
 
@@ -802,5 +884,12 @@ export default {
 
     .el-select__footer div span {
         margin-left: 5px;
+    }
+
+    .badge-resize {
+        float: right;
+        margin-top: -32px;
+        margin-right: 35px;
+        position: relative;
     }
 </style>
