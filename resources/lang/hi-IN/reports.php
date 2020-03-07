@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'शुद्ध लाभ',
     'total_expenses'        => 'कुल व्यय',
     'net'                   => 'शुद्ध',
-    'income-expense'        => 'आय & व्यय',
+    'income_expense'        => 'आय & व्यय',
 
     'summary' => [
         'income'            => 'आय का सारांश',

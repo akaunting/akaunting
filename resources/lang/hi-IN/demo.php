@@ -2,12 +2,33 @@
 
 return [
 
-    'accounts_cash'         => 'नकद',
-    'categories_deposit'    => 'जमा',
-    'categories_sales'      => 'बिक्री',
-    'currencies_usd'        => 'अमेरिकी डॉलर',
-    'currencies_eur'        => 'यूरो',
-    'currencies_gbp'        => 'ब्रिटिश पाउंड',
-    'currencies_try'        => 'तुर्की लीरा',
+    'accounts' => [
+        'cash'              => 'नकद',
+    ],
+
+    'categories' => [
+        'deposit'           => 'जमा',
+        'sales'             => 'बिक्री',
+    ],
+
+    'currencies' => [
+        'usd'               => 'अमेरिकी डॉलर',
+        'eur'               => 'यूरो',
+        'gbp'               => 'ब्रिटिश पाउंड',
+        'try'               => 'तुर्की लीरा',
+    ],
+
+    'offline_payments' => [
+        'cash'              => 'नकद',
+        'bank'              => 'बैंक ट्रांसफर',
+    ],
+
+    'reports' => [
+        'income'            => 'श्रेणी के द्वारा मासिक आय सारांश।',
+        'expense'           => 'श्रेणी के अनुसार मासिक व्यय सारांश।',
+        'income_expense'    => 'श्रेणी के हिसाब से मासिक आय vs व्यय।',
+        'tax'               => 'त्रैमासिक कर सारांश।',
+        'profit_loss'       => 'श्रेणी के अनुसार त्रैमासिक लाभ और हानि।',
+    ],
 
 ];

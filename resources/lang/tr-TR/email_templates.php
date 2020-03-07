@@ -39,7 +39,7 @@ return [
 
     'bill_remind_admin' => [
         'subject'       => '{bill_number} gider faturası için ödeme hatırlatması',
-        'body'          => 'Merhaba,<br /><br /><strong>{vendor_name} tedarikçinize {bill_number}</strong> numaralı gider faturası için ödeme hatırlatmasıdır.<br /><br />Faturanın tutarı {bill_total} ve son ödemesi <strong>{bill_due_date}</strong> tarhinde yapılması gerekir.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
+        'body'          => 'Merhaba,<br /><br /><strong>{vendor_name}</strong> tedarikçinize <strong>{bill_number}</strong> numaralı gider faturası için ödeme hatırlatmasıdır.<br /><br />Faturanın tutarı {bill_total} ve son ödemesi <strong>{bill_due_date}</strong> tarhinde yapılması gerekir.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 
     'bill_recur_admin' => [
