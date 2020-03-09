@@ -1,13 +1,13 @@
 <thead class="thead-light">
-    <tr>
+    <tr class="row font-size-unset">
         @if (($table == 'default') && !empty($class->groups))
-            <th>{{ $class->groups[$class->model->settings->group] }}</th>
+            <th class="{{ $class->head_column_width }}">{{ $class->groups[$class->model->settings->group] }}</th>
         @else
-            <th>{{ $table }}</th>
+            <th class="{{ $class->head_column_width }}">{{ $table }}</th>
         @endif
         @foreach($class->dates as $date)
-            <th class="text-right px-0">{{ $date }}</th>
+            <th class="{{ $class->column_width }}">{{ $date }}</th>
         @endforeach
-        <th class="text-right">{{ trans_choice('general.totals', 1) }}</th>
+        <th class="{{ $class->head_column_width }}">{{ trans_choice('general.totals', 1) }}</th>
     </tr>
 </thead>
