@@ -24,7 +24,7 @@
 
                     {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency], 0) }}
 
-                    {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'change' => 'onChangeAccount']) }}
+                    {{ Form::selectAddNewGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
                     {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, setting('default.contact'), ['path' => route('modals.customers.create')]) }}
 

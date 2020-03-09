@@ -19,7 +19,7 @@
                 <div class="row">
                     {{ Form::textGroup('name', trans('general.name'), 'tag') }}
 
-                    {{ Form::selectAddNewGroup('tax_id', trans_choice('general.taxes', 1), 'percentage', $taxes, setting('default.tax'), ['path' => route('modals.taxes.create')]) }}
+                    {{ Form::selectAddNewGroup('tax_id', trans_choice('general.taxes', 1), 'percentage', $taxes, setting('default.tax'), ['path' => route('modals.taxes.create'), 'field' => ['key' => 'id', 'value' => 'title']]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 

@@ -470,7 +470,7 @@ export default {
                     status: false,
                     path: null,
                     type: 'modal', // modal, inline
-                    field: 'name',
+                    field: {},
                     new_text: 'New',
                     buttons: {}
                 };
@@ -523,7 +523,7 @@ export default {
                 show: false,
                 path: this.addNew.path,
                 type: this.addNew.type, // modal, inline
-                field: this.addNew.name,
+                field: this.addNew.field,
                 buttons: this.addNew.buttons
             },
             add_new_text: this.addNew.text,
@@ -660,9 +660,9 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    this.selectOptions[response.data.data.id] = response.data.data['name'];
-                    this.new_options[response.data.data.id] = response.data.data['name'];
-                    this.real_model = response.data.data.id.toString();
+                    this.selectOptions[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
+                    this.new_options[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
+                    this.real_model = response.data.data[this.add_new.field.key].toString();
 
                     this.change();
 
