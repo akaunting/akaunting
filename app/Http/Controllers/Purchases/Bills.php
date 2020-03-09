@@ -371,7 +371,7 @@ class Bills extends Controller
             if ($bill->currency_code != $item->currency_code) {
                 $item->default_currency_code = $bill->currency_code;
 
-                $amount = $item->getAmountConvertedFromCustomDefault();
+                $amount = $item->getAmountConvertedFromDefault();
             }
 
             $paid += $amount;

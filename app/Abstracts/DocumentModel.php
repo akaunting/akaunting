@@ -98,7 +98,7 @@ abstract class DocumentModel extends Model
                     $default_model->currency_code = $item->currency_code;
                     $default_model->currency_rate = $currencies[$item->currency_code];
 
-                    $default_amount = (double) $default_model->getDivideConvertedAmount();
+                    $default_amount = (double) $default_model->getAmountConvertedToDefault();
 
                     $convert_model = new Transaction();
                     $convert_model->default_currency_code = $item->currency_code;
@@ -106,7 +106,7 @@ abstract class DocumentModel extends Model
                     $convert_model->currency_code = $this->currency_code;
                     $convert_model->currency_rate = $currencies[$this->currency_code];
 
-                    $amount = (double) $convert_model->getAmountConvertedFromCustomDefault();
+                    $amount = (double) $convert_model->getAmountConvertedFromDefault();
                 }
 
                 $paid += $amount;
