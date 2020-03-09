@@ -22,15 +22,10 @@ class Money
             $sale_price = $request->get('sale_price');
             $purchase_price = $request->get('purchase_price');
             $opening_balance = $request->get('opening_balance');
-            $currency_code = $request->get('currency_code');
             $items = $request->get('items');
 
-            if (empty($currency_code)) {
-                $currency_code = setting('default.currency');
-            }
-
             if (!empty($amount)) {
-                $amount = money($request->get('amount'), $currency_code)->getAmount();
+                $amount = money($amount)->getAmount();
 
                 $request->request->set('amount', $amount);
             }
@@ -42,11 +37,7 @@ class Money
                             continue;
                         }
 
-                        if (isset($item['currency']) && $item['currency'] != $currency_code) {
-                            $items[$key]['price'] = money($item['price'], $item['currency'])->getAmount();
-                        } else {
-                            $items[$key]['price'] = money($item['price'], $currency_code)->getAmount();
-                        }
+                        $items[$key]['price'] = money($item['price'])->getAmount();
                     }
 
                     $request->request->set('items', $items);
@@ -54,24 +45,10 @@ class Money
             }
 
             if (isset($opening_balance)) {
-                $opening_balance = money($opening_balance, $currency_code)->getAmount();
+                $opening_balance = money($opening_balance)->getAmount();
 
                 $request->request->set('opening_balance', $opening_balance);
             }
-
-            /* check item price use money
-            if (isset($sale_price)) {
-                $sale_price = money($sale_price, $currency_code)->getAmount();
-
-                $request->request->set('sale_price', $sale_price);
-            }
-
-            if (isset($purchase_price)) {
-                $purchase_price = money($purchase_price, $currency_code)->getAmount();
-
-                $request->request->set('purchase_price', $purchase_price);
-            }
-            */
         }
 
         return $next($request);
