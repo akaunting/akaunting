@@ -31,6 +31,35 @@ trait Jobs
         return $result;
     }
 
+    /**
+     * Dispatch a job to its appropriate handler and return a response array for ajax calls.
+     *
+     * @param mixed $job
+     * @return mixed
+     */
+    public function ajaxDispatch($job)
+    {
+        try {
+            $data = $this->dispatch($job);
+
+            $response = [
+                'success' => true,
+                'error' => false,
+                'data' => $data,
+                'message' => '',
+            ];
+        } catch(\Exception $e) {
+            $response = [
+                'success' => false,
+                'error' => true,
+                'data' => null,
+                'message' => $e->getMessage(),
+            ];
+        }
+
+        return $response;
+    }
+
     public function getDispatchFunction()
     {
         $config = config('queue.default');
