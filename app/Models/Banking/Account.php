@@ -39,7 +39,7 @@ class Account extends Model
         return $this->transactions()->where('type', 'expense');
     }
 
-    public function income_transacions()
+    public function income_transactions()
     {
         return $this->transactions()->where('type', 'income');
     }
@@ -81,7 +81,7 @@ class Account extends Model
         $total = $this->opening_balance;
 
         // Sum Incomes
-        $total += $this->income_transacions->sum('amount');
+        $total += $this->income_transactions->sum('amount');
 
         // Subtract Expenses
         $total -= $this->expense_transactions->sum('amount');

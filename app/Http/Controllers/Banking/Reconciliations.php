@@ -198,7 +198,7 @@ class Reconciliations extends Controller
         $total = $account->opening_balance;
 
         // Sum income transactions
-        $transactions = $account->income_transacions()->whereDate('paid_at', '<', $started_at)->get();
+        $transactions = $account->income_transactions()->whereDate('paid_at', '<', $started_at)->get();
         foreach ($transactions as $item) {
             $total += $item->amount;
         }
