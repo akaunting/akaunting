@@ -526,7 +526,6 @@ button:focus
     box-shadow: none !important;
 }
 /*--------Shadow None Focus Finish--------*/
-
 /*--------Settings Index Page Finish--------*/
 
 
@@ -637,8 +636,19 @@ table .align-items-center td span.badge
 /*--------Report Column--------*/
 .report-column
 {
-    max-width: 100px;
-    width: 160px !important;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 6.66%;
+    flex: 0 0 6.66%;
+    max-width: 6.66%;
+}
+
+.head_report_column
+{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 10%;
+    flex: 0 0 10%;
+    width: 10%;
+    max-width: 10%;
 }
 /*--------Report Column Finish--------*/
 

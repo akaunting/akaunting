@@ -2087,6 +2087,11 @@ div.required .form-control-label:not(span):after, td.required:after
     box-shadow: rgba(248, 248, 255) 0 0 0 1px, rgba(248, 248, 255) 0 4px 16px;
 }
 
+.btn-icon-clipboard:focus
+{
+    outline: none;
+}
+
 /*--Settings Board Icon Color--*/
 .btn-icon-clipboard i
 {
@@ -2323,7 +2328,7 @@ option:focus
 /*--------Login Card Background Color Finish--------*/
 
 
-/*--------General Progress Bar Color--------*/
+/*--General Progress Bar Color---*/
 #nprogress .bar
 {
     background: #3f3c72 !important;
@@ -2340,10 +2345,10 @@ option:focus
 {
     box-shadow: 0 0 10px #3f3c72, 0 0 5px #3f3c72 !important;
 }
-/*--------General Progress Bar Color Finish--------*/
+/*--General Progress Bar Color Finish---*/
 
 
-/*--------List Group Item Active-------*/
+/*--List Group Item Active---*/
 .list-group-item.active
 {
     z-index: 2;
@@ -2351,7 +2356,7 @@ option:focus
     background-color: #3c3f72 !important;
     border-color: #3c3f72 !important;
 }
-/*--------List Group Item Active Finish-------*/
+/*--List Group Item Active Finish---*/
 
 
 /*--Wizard Delete Button Text--*/
