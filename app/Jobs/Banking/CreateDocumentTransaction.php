@@ -92,7 +92,7 @@ class CreateDocumentTransaction extends Job
             $default_amount_model->currency_code         = $this->request['currency_code'];
             $default_amount_model->currency_rate         = $currencies[$this->request['currency_code']];
 
-            $default_amount = (double) $default_amount_model->getDivideConvertedAmount();
+            $default_amount = (double) $default_amount_model->getAmountConvertedToDefault();
 
             $convert_amount_model = new Transaction();
             $convert_amount_model->default_currency_code = $this->request['currency_code'];
@@ -100,7 +100,7 @@ class CreateDocumentTransaction extends Job
             $convert_amount_model->currency_code = $this->model->currency_code;
             $convert_amount_model->currency_rate = $currencies[$this->model->currency_code];
 
-            $amount = (double) $convert_amount_model->getAmountConvertedFromCustomDefault();
+            $amount = (double) $convert_amount_model->getAmountConvertedFromDefault();
         }
 
         $total_amount -= $this->model->paid;
@@ -126,7 +126,7 @@ class CreateDocumentTransaction extends Job
                 $error_amount_model->currency_code         = $this->model->currency_code;
                 $error_amount_model->currency_rate         = $currencies[$this->model->currency_code];
 
-                $error_amount = (double) $error_amount_model->getDivideConvertedAmount();
+                $error_amount = (double) $error_amount_model->getAmountConvertedToDefault();
 
                 $convert_amount_model = new Transaction();
                 $convert_amount_model->default_currency_code = $this->model->currency_code;
@@ -134,7 +134,7 @@ class CreateDocumentTransaction extends Job
                 $convert_amount_model->currency_code = $this->request['currency_code'];
                 $convert_amount_model->currency_rate = $currencies[$this->request['currency_code']];
 
-                $error_amount = (double) $convert_amount_model->getAmountConvertedFromCustomDefault();
+                $error_amount = (double) $convert_amount_model->getAmountConvertedFromDefault();
             }
 
             $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $this->request['currency_code'], true)]);
