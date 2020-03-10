@@ -85,10 +85,10 @@ abstract class DocumentModel extends Model
         $paid = 0;
         $reconciled = $reconciled_amount = 0;
 
-        if ($this->transactions->count()) {
+        if ($this->transactions()->get()->count()) {
             $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
-            foreach ($this->transactions as $item) {
+            foreach ($this->transactions()->get() as $item) {
                 if ($this->currency_code == $item->currency_code) {
                     $amount = (double) $item->amount;
                 } else {
