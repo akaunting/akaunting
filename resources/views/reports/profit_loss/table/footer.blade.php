@@ -4,8 +4,8 @@
         @php $grand_total = 0; @endphp
         @foreach($class->footer_totals[$table] as $date => $total)
             @php $grand_total += $total; @endphp
-            <th class="{{ $class->column_width }}">@money($total, setting('default.currency'), true)</th>
+            <th class="{{ $class->column_width }} text-right px-0">@money($total, setting('default.currency'), true)</th>
         @endforeach
-        <th class="{{ $class->head_column_width }}">@money($grand_total, setting('default.currency'), true)</th>
+        <th class="{{ $class->head_column_width }} text-right">@money($grand_total, setting('default.currency'), true)</th>
     </tr>
 </tfoot>
