@@ -634,21 +634,21 @@ table .align-items-center td span.badge
 
 
 /*--------Report Column--------*/
-.report-column
-{
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 6.66%;
-    flex: 0 0 6.66%;
-    max-width: 6.66%;
-}
-
-.head_report_column
+.report-column-name
 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 10%;
     flex: 0 0 10%;
     width: 10%;
     max-width: 10%;
+}
+
+.report-column-value
+{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 6.66%;
+    flex: 0 0 6.66%;
+    max-width: 6.66%;
 }
 /*--------Report Column Finish--------*/
 

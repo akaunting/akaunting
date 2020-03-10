@@ -67,8 +67,8 @@ abstract class Report
         'datasets' => [],
     ];
 
-    public $column_width = 'report-column';
-    public $head_column_width = 'head_report_column';
+    public $column_name_width = 'report-column-name';
+    public $column_value_width = 'report-column-value';
 
     public function __construct(Model $model = null, $load_data = true)
     {
@@ -79,8 +79,6 @@ abstract class Report
         }
 
         $this->model = $model;
-        $this->setHeadColumnWidth();
-        $this->setDataColumnWidth();
 
         if (!$load_data) {
             return;
@@ -100,6 +98,7 @@ abstract class Report
         $this->setFilters();
         $this->setRows();
         $this->setData();
+        $this->setColumnWidth();
 
         $this->loaded = true;
     }
@@ -203,33 +202,13 @@ abstract class Report
         return \Excel::download(new Export($this->views['content'], $this), \Str::filename($this->model->name) . '.xlsx');
     }
 
-    public function setHeadColumnWidth()
+    public function setColumnWidth()
     {
         if (empty($this->model->settings->period)) {
             return;
         }
 
-        $head_width = 'head_report_column';
-
-        switch ($this->model->settings->period) {
-            case 'quarterly':
-                $head_width = 'col-sm-2';
-                break;
-            case 'yearly':
-                $head_width = 'col-sm-4';
-                break;
-        }
-
-        $this->head_column_width = $head_width;
-    }
-
-    public function setDataColumnWidth()
-    {
-        if (empty($this->model->settings->period)) {
-            return;
-        }
-
-        $width = 'report-column';
+        $width = '';
 
         switch ($this->model->settings->period) {
             case 'quarterly':
@@ -240,7 +219,11 @@ abstract class Report
                 break;
         }
 
-        $this->column_width = $width;
+        if (empty($width)) {
+            return;
+        }
+
+        $this->column_name_width = $this->column_value_width = $width;
     }
 
     public function setYear()
