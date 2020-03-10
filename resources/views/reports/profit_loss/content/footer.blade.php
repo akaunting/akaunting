@@ -1,4 +1,4 @@
-<div class="table-responsive overflow-auto my-2">
+<div class="table-responsive my-2">
     <table class="table table-hover align-items-center rp-border-collapse">
         <tfoot class="border-top-style">
             <tr class="row rp-border-top-1 font-size-unset px-3">
