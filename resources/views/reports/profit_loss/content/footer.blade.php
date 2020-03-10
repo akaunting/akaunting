@@ -6,9 +6,7 @@
                 @foreach($class->net_profit as $profit)
                     <th class="{{ $class->column_value_width }} text-right px-0 border-top-0">@money($profit, setting('default.currency'), true)</th>
                 @endforeach
-                <th class="{{ $class->column_name_width }} text-right border-top-0">
-                    @money(array_sum($class->net_profit), setting('default.currency'), true)
-                </th>
+                <th class="{{ $class->column_name_width }} text-right pl-0 pr-4 border-top-0">@money(array_sum($class->net_profit), setting('default.currency'), true)</th>
             </tr>
         </tfoot>
     </table>
