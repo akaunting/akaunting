@@ -198,7 +198,7 @@
 
 @push('scripts_start')
     <script type="text/javascript">
-        var bill_items = false;
+        var bill_items = {!! (old('items')) ? json_encode(old('items')) : 'false' !!};
     </script>
 
     <script src="{{ asset('public/js/purchases/bills.js?v=' . version('short')) }}"></script>

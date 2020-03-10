@@ -203,7 +203,7 @@
 
 @push('scripts_start')
     <script type="text/javascript">
-        var invoice_items = {!! json_encode($invoice->items()->get()) !!};
+        var invoice_items = {!! json_encode(old('items', $invoice->items()->get())) !!};
     </script>
 
     <script src="{{ asset('public/js/sales/invoices.js?v=' . version('short')) }}"></script>

@@ -201,7 +201,7 @@
 
 @push('scripts_start')
     <script type="text/javascript">
-        var bill_items = {!! json_encode($bill->items()->get()) !!};
+        var bill_items = {!! json_encode(old('items', $bill->items()->get())) !!};
     </script>
 
     <script src="{{ asset('public/js/purchases/bills.js?v=' . version('short')) }}"></script>
