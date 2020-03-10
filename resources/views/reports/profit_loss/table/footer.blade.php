@@ -6,6 +6,6 @@
             @php $grand_total += $total; @endphp
             <th class="{{ $class->column_value_width }} text-right px-0">@money($total, setting('default.currency'), true)</th>
         @endforeach
-        <th class="{{ $class->column_name_width }} text-right">@money($grand_total, setting('default.currency'), true)</th>
+        <th class="{{ $class->column_name_width }} text-right pl-0 pr-4">@money($grand_total, setting('default.currency'), true)</th>
     </tr>
 </tfoot>

@@ -6,9 +6,7 @@
                 @foreach($class->dates as $date)
                     <th class="{{ $class->column_value_width }} text-right px-0 border-top-0">{{ $date }}</th>
                 @endforeach
-                <th class="{{ $class->column_name_width }} text-uppercase text-right border-top-0">
-                    {{ trans_choice('general.totals', 1) }}
-                </th>
+                <th class="{{ $class->column_name_width }} text-uppercase text-right pl-0 pr-4 border-top-0">{{ trans_choice('general.totals', 1) }}</th>
             </tr>
         </thead>
     </table>

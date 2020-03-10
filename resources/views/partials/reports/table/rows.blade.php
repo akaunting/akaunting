@@ -5,5 +5,5 @@
         @php $row_total += $row; @endphp
         <td class="{{ $class->column_value_width }} text-right px-0">@money($row, setting('default.currency'), true)</td>
     @endforeach
-    <td class="{{ $class->column_name_width }} text-right">@money($row_total, setting('default.currency'), true)</td>
+    <td class="{{ $class->column_name_width }} text-right pl-0 pr-4">@money($row_total, setting('default.currency'), true)</td>
 </tr>
