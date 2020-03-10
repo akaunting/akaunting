@@ -16,6 +16,7 @@ class Event extends Provider
             'App\Listeners\Update\CreateModuleUpdatedHistory',
             'App\Listeners\Update\V20\Version200',
             'App\Listeners\Update\V20\Version203',
+            'App\Listeners\Update\V20\Version205',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',
