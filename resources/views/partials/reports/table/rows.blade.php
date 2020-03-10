@@ -3,7 +3,7 @@
     <td class="{{ $class->head_column_width }}">{{ $class->row_names[$table][$id] }}</td>
     @foreach($rows as $row)
         @php $row_total += $row; @endphp
-        <td class="{{ $class->column_width }}">@money($row, setting('default.currency'), true)</td>
+        <td class="{{ $class->column_width }} text-right px-0">@money($row, setting('default.currency'), true)</td>
     @endforeach
-    <td class="{{ $class->head_column_width }}">@money($row_total, setting('default.currency'), true)</td>
+    <td class="{{ $class->head_column_width }} text-right">@money($row_total, setting('default.currency'), true)</td>
 </tr>
