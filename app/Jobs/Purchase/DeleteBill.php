@@ -4,6 +4,7 @@ namespace App\Jobs\Purchase;
 
 use App\Abstracts\Job;
 use App\Models\Purchase\Bill;
+use App\Observers\Transaction;
 
 class DeleteBill extends Job
 {
@@ -26,7 +27,7 @@ class DeleteBill extends Job
      */
     public function handle()
     {
-        session(['deleting_bill' => true]);
+        Transaction::mute();
 
         $this->deleteRelationships($this->bill, [
             'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
@@ -34,7 +35,7 @@ class DeleteBill extends Job
 
         $this->bill->delete();
 
-        session()->forget('deleting_bill');
+        Transaction::unmute();
 
         return true;
     }

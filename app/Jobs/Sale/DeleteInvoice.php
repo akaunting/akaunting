@@ -4,6 +4,7 @@ namespace App\Jobs\Sale;
 
 use App\Abstracts\Job;
 use App\Models\Sale\Invoice;
+use App\Observers\Transaction;
 
 class DeleteInvoice extends Job
 {
@@ -26,7 +27,7 @@ class DeleteInvoice extends Job
      */
     public function handle()
     {
-        session(['deleting_invoice' => true]);
+        Transaction::mute();
 
         $this->deleteRelationships($this->invoice, [
             'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
@@ -34,7 +35,7 @@ class DeleteInvoice extends Job
 
         $this->invoice->delete();
 
-        session()->forget('deleting_invoice');
+        Transaction::unmute();
 
         return true;
     }

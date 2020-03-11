@@ -2,12 +2,13 @@
 
 namespace App\Observers;
 
+use App\Abstracts\Observer;
 use App\Jobs\Purchase\CreateBillHistory;
 use App\Jobs\Sale\CreateInvoiceHistory;
 use App\Models\Banking\Transaction as Model;
 use App\Traits\Jobs;
 
-class Transaction
+class Transaction extends Observer
 {
     use Jobs;
 
@@ -30,10 +31,6 @@ class Transaction
 
     protected function updateInvoice($transaction)
     {
-        if (session('deleting_invoice')) {
-            return;
-        }
-
         $invoice = $transaction->invoice;
 
         $invoice->status = ($invoice->transactions->count() > 1) ? 'partial' : 'sent';
@@ -45,10 +42,6 @@ class Transaction
 
     protected function updateBill($transaction)
     {
-        if (session('deleting_bill')) {
-            return;
-        }
-
         $bill = $transaction->bill;
 
         $bill->status = ($bill->transactions->count() > 1) ? 'partial' : 'received';
