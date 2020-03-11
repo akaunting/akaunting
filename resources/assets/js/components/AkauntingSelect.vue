@@ -533,6 +533,7 @@ export default {
             add_new_html: '',
             form: {},
             new_options: false,
+            hide_selected: false,
         }
     },
 
@@ -548,23 +549,41 @@ export default {
 
     methods: {
         change() {
+            if (typeof(this.real_model) === 'object') {
+                return false;
+            }
+
             this.$emit('change', this.real_model);
             this.$emit('interface', this.real_model);
         },
 
-        onAddItem() {
+        async onAddItem() {
+            if (this.multiple) {
+                this.hide_selected = this.real_model;
+            }
+
             // Get Select Input value
-            var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+            if (this.title) {
+                var value = this.$children[0].$children[0].$children[0].$refs.input.value;
+            } else {
+                var value = this.$children[0].$children[0].$refs.input.value;
+            }
 
             if (this.add_new.type == 'inline') {
-                this.addInline(value);
+                if (value === '') {
+                    return false;
+                }
+
+                await this.addInline(value);
             } else {
-                this.onModal(value);
+                await this.onModal(value);
             }
         },
 
         addInline(value) {
-
+            if (this.multiple) {
+                this.hide_selected = false;
+            }
         },
 
         onModal(value) {
@@ -662,7 +681,12 @@ export default {
                 if (response.data.success) {
                     this.selectOptions[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
                     this.new_options[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
-                    this.real_model = response.data.data[this.add_new.field.key].toString();
+
+                    if (this.multiple) {
+                        this.real_model.push(response.data.data[this.add_new.field.key].toString());
+                    } else {
+                        this.real_model = response.data.data[this.add_new.field.key].toString();
+                    }
 
                     this.change();
 
@@ -670,6 +694,10 @@ export default {
 
                     this.add_new.html = '';
                     this.add_new_html = null;
+
+                    if (this.multiple) {
+                        this.hide_selected = false;
+                    }
                 }
             })
             .catch(error => {
@@ -703,6 +731,12 @@ export default {
                         this.selectOptions[key] = value;
                     }
                 }
+            }
+        },
+
+        real_model: function (value) {
+            if (this.multiple && this.hide_selected) {
+                this.real_model = this.hide_selected;
             }
         },
 

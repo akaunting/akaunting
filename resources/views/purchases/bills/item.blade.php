@@ -104,7 +104,7 @@
             @stack('tax_id_input_start')
             <akaunting-select
                 class="mb-0 select-tax"
-                :form-classes="[{'has-error': form.errors.has('tax_id') }]"
+                :form-classes="[{'has-error': form.errors.has('items.' + index + '.tax_id') }]"
                 :icon="''"
                 :title="''"
                 :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
@@ -117,7 +117,11 @@
                     'text' => trans('general.add_new'),
                     'path' => route('modals.taxes.create'),
                     'type' => 'modal',
-                    'field' => 'name',
+                    'field' => [
+                        'key' => 'id',
+                        'value' => 'title'
+                    ],
+                    'new_text' => trans('modules.new'),
                     'buttons' => [
                         'cancel' => [
                             'text' => trans('general.cancel'),
@@ -132,7 +136,7 @@
                 :collapse="false"
                 @interface="row.tax_id = $event"
                 @change="onCalculateTotal($event)"
-                :form-error="form.errors.get('tax_id')"
+                :form-error="form.errors.get('items.' + index + '.tax_id')"
                 :no-data-text="'{{ trans('general.no_data') }}'"
                 :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
             ></akaunting-select>
