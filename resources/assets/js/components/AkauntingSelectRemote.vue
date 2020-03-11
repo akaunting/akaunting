@@ -312,94 +312,96 @@
         <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
     </base-input>
 
-    <el-select v-else
-        :class="'pl-20 mr-40'"
-        v-model="real_model"
-        @input="change"
-        filterable
-        remote
-        reserve-keyword
-        :placeholder="placeholder"
-        :remote-method="remoteMethod"
-        :loading="loading">
-            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty loading">
-                    {{ loadingText }}
-                </p>
-            </div>
-
-            <div v-else-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="option in selectOptions"
-               :key="option.id"
-               :label="option.name"
-               :value="option.id">
-                <span class="float-left">{{ option.name }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.id]">{{ new_text }}</span>
-            </el-option>
-
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
-                    :key="value"
-                    :label="label"
-                    :value="value">
-                    <span class="float-left">{{ label }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
-                </el-option>
-            </el-option-group>
-
-            <el-option v-if="!loading && addNew.status && selectOptions != null && selectOptions.length != 0" class="el-select__footer" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
+    <span v-else>
+        <el-select
+            :class="'pl-20 mr-40'"
+            v-model="real_model"
+            @input="change"
+            filterable
+            remote
+            reserve-keyword
+            :placeholder="placeholder"
+            :remote-method="remoteMethod"
+            :loading="loading">
+                <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty loading">
+                        {{ loadingText }}
+                    </p>
                 </div>
-            </el-option>
 
-        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
-    </el-select>
+                <div v-else-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
+
+                <el-option v-if="!group" v-for="option in selectOptions"
+                :key="option.id"
+                :label="option.name"
+                :value="option.id">
+                    <span class="float-left">{{ option.name }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.id]">{{ new_text }}</span>
+                </el-option>
+
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="!loading && addNew.status && selectOptions != null && selectOptions.length != 0" class="el-select__footer" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+        </el-select>
+
+        <span class="badge badge-success badge-resize float-right mr-2" v-if="new_options[real_model]">{{ new_text }}</span>
+    </span>
 </template>
 
 <script>
@@ -561,7 +563,7 @@ export default {
                 show: false,
                 path: this.addNew.path,
                 type: this.addNew.type, // modal, inline
-                field: this.addNew.name,
+                field: this.addNew.field,
                 buttons: this.addNew.buttons
             },
             add_new_text: this.addNew.text,
@@ -590,36 +592,32 @@ export default {
             if (query !== '') {
                 this.loading = true;
 
-                /*
-                this.list = [];
-                this.selectOptions = this.options;
-
-                Object.keys(this.selectOptions).forEach(key => {
-                    const item = this.selectOptions[key];
-
-                    if (item.toLowerCase().indexOf(query.toLowerCase()) > -1) {
-                        this.list.push(this.selectOptions[key]);
-                    }
-                });
-
-                this.selectOptions = this.list;
-                */
-
                if (!this.remoteAction) {
                    this.remoteAction = url + '/common/items/autocomplete';
                }
 
-                axios.get(this.remoteAction, {
+                window.axios({
+                    method: 'GET',
+                    url: this.remoteAction,
                     params: {
                         type: this.remoteType,
                         query: query,
                         currency_code: this.currencyCode,
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Content-Type': 'multipart/form-data'
                     }
                 })
                 .then(response => {
                     this.loading = false;
 
-                    this.selectOptions = response.data.data;
+                    if (response.data.data) {
+                        this.selectOptions = response.data.data;
+                    } else {
+                        this.selectOptions = [];
+                    }
                 })
                 .catch(e => {
                 })
@@ -632,6 +630,10 @@ export default {
         },
 
         change() {
+            if (typeof(this.real_model) === 'object') {
+                return false;
+            }
+
             this.$emit('change', this.real_model);
             this.$emit('interface', this.real_model);
 
@@ -640,12 +642,20 @@ export default {
                     this.$emit('label', item.name);
                     this.$emit('option', item);
 
-                    return;
+                    return true;
                 }
             });
         },
 
-        onAddItem() {
+        onPressEnter() {
+            alert('Press Enter');
+        },
+
+        OnPressTab() {
+            alert('Press Tab');
+        },
+
+        async onAddItem() {
             // Get Select Input value
             if (this.title) {
                 var value = this.$children[0].$children[0].$children[0].$refs.input.value;
@@ -653,10 +663,14 @@ export default {
                 var value = this.$children[0].$children[0].$refs.input.value;
             }
 
+            if (value === '') {
+                return false;
+            }
+
             if (this.add_new.type == 'inline') {
-                this.addInline(value);
+                await this.addInline(value);
             } else {
-                this.onModal(value);
+                await this.onModal(value);
             }
         },
 
@@ -664,21 +678,15 @@ export default {
             window.axios.post(this.add_new.path, {
                 '_token': window.Laravel.csrfToken,
                 'type': 'inline',
-                field: this.add_new.field,
+                field: this.add_new.field.value,
                 value: value,
             })
             .then(response => {
                 if (response.data.success) {
-                    this.selectOptions[response.data.data.id] = response.data.data['name'];
-                    this.new_options[response.data.data.id] = response.data.data['name'];
-                    this.real_model = response.data.data.id;
-                    /*
-                    this.selectOptions = [];
-
                     this.selectOptions.push(response.data.data);
-                    this.new_options[response.data.data.id] = response.data.data.id;
-                    this.real_model = response.data.data.id;
-                    */
+                    this.new_options[response.data.data[this.add_new.field.key]] = response.data.data;
+                    this.real_model = response.data.data[this.add_new.field.key];
+
                     this.change();
 
                     if (this.title) {
@@ -686,10 +694,10 @@ export default {
                     } else {
                         this.$children[0].visible = false;
                     }
-                    //this.add_new.status = false;
                 }
             })
             .catch(error => {
+                console.log(error);
             });
         },
 
@@ -790,13 +798,15 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    this.selectOptions[response.data.data.id] = response.data.data['name'];
-                    this.new_options[response.data.data.id] = response.data.data['name'];
-                    this.real_model = response.data.data.id;
+                    
+                    this.selectOptions.push(response.data.data);
+                    //this.selectOptions[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
+                    this.new_options[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
+                    this.real_model = response.data.data[this.add_new.field.key];//.toString();
 
                     this.change();
 
-                    //this.add_new.show = false;
+                    this.add_new.show = false;
 
                     this.add_new.html = '';
                     this.add_new_html = null;
@@ -828,11 +838,9 @@ export default {
             this.selectOptions = options;
 
             if (Object.keys(this.new_options).length) {
-                for (let [key, value] of Object.entries(this.new_options)) {
-                    if (!this.selectOptions[key]) {
-                        this.selectOptions[key] = value;
-                    }
-                }
+                Object.values(this.new_options).forEach(item => {
+                    this.selectOptions.push(item);
+                });
             }
         },
 

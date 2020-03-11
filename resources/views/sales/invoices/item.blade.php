@@ -29,7 +29,10 @@
                     'text' => trans('general.add_new'),
                     'path' => route('modals.items.store'),
                     'type' => 'inline',
-                    'field' => 'name',
+                    'field' => [
+                        'key' => 'id',
+                        'value' => 'name'
+                    ],
                     'new_text' => trans('modules.new'),
                 ])}}"
                 @interface="row.item_id = $event"
