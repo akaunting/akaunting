@@ -50,10 +50,12 @@ const app = new Vue({
             items: '',
             discount: false,
             taxes: null,
+            colspan: 5,
         }
     },
 
     mounted() {
+        this.colspan = document.getElementById("items").rows[0].cells.length - 1;
         this.form.items = [];
 
         if (this.form.method) {
