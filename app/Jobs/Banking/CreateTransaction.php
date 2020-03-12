@@ -3,14 +3,14 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
-use App\Models\Banking\Transaction;
 use App\Events\Banking\TransactionCreated;
 use App\Events\Banking\TransactionCreating;
+use App\Models\Banking\Transaction;
 
 class CreateTransaction extends Job
 {
     protected $request;
-    
+
     protected $transaction;
 
     /**
