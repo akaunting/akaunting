@@ -61,7 +61,7 @@ class Version205 extends Listener
 
             DB::table('items')
                 ->where('id', $item_id)
-                ->update(['sales_price' => $invoice_item->price]);
+                ->update(['sale_price' => $invoice_item->price]);
         }
     }
 
