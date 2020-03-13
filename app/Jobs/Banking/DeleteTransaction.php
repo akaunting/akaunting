@@ -41,6 +41,12 @@ class DeleteTransaction extends Job
      */
     public function authorize()
     {
+        if ($this->transaction->reconciled) {
+            $message = trans('messages.warning.reconciled_tran');
+
+            throw new \Exception($message);
+        }
+
         if ($this->transaction->category->id == Category::transfer()) {
             throw new \Exception('Unauthorized');
         }

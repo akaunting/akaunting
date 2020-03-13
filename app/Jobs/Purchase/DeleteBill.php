@@ -27,6 +27,8 @@ class DeleteBill extends Job
      */
     public function handle()
     {
+        $this->authorize();
+
         Transaction::mute();
 
         $this->deleteRelationships($this->bill, [
@@ -38,5 +40,19 @@ class DeleteBill extends Job
         Transaction::unmute();
 
         return true;
+    }
+
+    /**
+     * Determine if this action is applicable.
+     *
+     * @return void
+     */
+    public function authorize()
+    {
+        if ($this->bill->transactions()->isReconciled()->count()) {
+            $message = trans('messages.warning.reconciled_doc', ['type' => trans_choice('general.bills', 1)]);
+
+            throw new \Exception($message);
+        }
     }
 }

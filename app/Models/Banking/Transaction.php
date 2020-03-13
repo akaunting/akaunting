@@ -175,6 +175,28 @@ class Transaction extends Model
     }
 
     /**
+     * Get only reconciled.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsReconciled($query)
+    {
+        return $query->where('reconciled', 1);
+    }
+
+    /**
+     * Get only not reconciled.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsNotReconciled($query)
+    {
+        return $query->where('reconciled', 0);
+    }
+
+    /**
      * Convert amount to double.
      *
      * @param  string  $value

@@ -27,6 +27,8 @@ class DeleteInvoice extends Job
      */
     public function handle()
     {
+        $this->authorize();
+
         Transaction::mute();
 
         $this->deleteRelationships($this->invoice, [
@@ -38,5 +40,19 @@ class DeleteInvoice extends Job
         Transaction::unmute();
 
         return true;
+    }
+
+    /**
+     * Determine if this action is applicable.
+     *
+     * @return void
+     */
+    public function authorize()
+    {
+        if ($this->invoice->transactions()->isReconciled()->count()) {
+            $message = trans('messages.warning.reconciled_doc', ['type' => trans_choice('general.invoices', 1)]);
+
+            throw new \Exception($message);
+        }
     }
 }
