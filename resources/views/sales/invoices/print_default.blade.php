@@ -182,14 +182,14 @@
                         @stack($total->code . '_td_start')
                             <div class="border-top-1 py-2">
                                 <strong class="float-left">{{ trans($total->title) }}:</strong>
-                                <span>@money($total->amount, $invoice->currency_code, true)</span><br><br>
+                                <span>@money($total->amount, $invoice->currency_code, true)</span><br>
                             </div>
                         @stack($total->code . '_td_end')
                     @else
                         @if ($invoice->paid)
                             <div class="border-top-1 py-2">
                                 <strong class="float-left">{{ trans('invoices.paid') }}:</strong>
-                                <span>- @money($invoice->paid, $invoice->currency_code, true)</span><br><br>
+                                <span>- @money($invoice->paid, $invoice->currency_code, true)</span><br>
                             </div>
                         @endif
                         @stack('grand_total_td_start')
