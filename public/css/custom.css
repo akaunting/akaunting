@@ -859,10 +859,7 @@ table .align-items-center td span.badge
 /*--Sm Breakpoint--*/
 @media (min-width: 576px) and (max-width: 767.98px)
 {
-    .dashboard-action
-    {
-        margin-left: 4rem !important;
-    }
+
 }
 /*--Sm Breakpoint Finish--*/
 
@@ -873,11 +870,6 @@ table .align-items-center td span.badge
     {
         left: 1rem !important;
     }
-
-    .dashboard-action
-    {
-        margin-left: 3rem !important;
-    }
 }
 /*--Md Breakpoint Finish--*/
 
@@ -887,11 +879,6 @@ table .align-items-center td span.badge
     .sidenav .navbar-nav .dropdown-menu
     {
         left: 1rem;
-    }
-
-    .dashboard-action
-    {
-        margin-left: 1rem !important;
     }
 }
 /*--Lg Breakpoint Finish--*/
