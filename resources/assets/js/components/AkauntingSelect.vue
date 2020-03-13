@@ -533,7 +533,6 @@ export default {
             add_new_html: '',
             form: {},
             new_options: false,
-            hide_selected: false,
         }
     },
 
@@ -543,6 +542,10 @@ export default {
 
     mounted() {
         this.real_model = this.value;
+
+        if (this.multiple && !this.real_model.length) {
+            this.real_model = [];
+        }
 
         this.$emit('interface', this.real_model);
     },
@@ -558,10 +561,6 @@ export default {
         },
 
         async onAddItem() {
-            if (this.multiple) {
-                this.hide_selected = this.real_model;
-            }
-
             // Get Select Input value
             if (this.title) {
                 var value = this.$children[0].$children[0].$children[0].$refs.input.value;
@@ -581,9 +580,6 @@ export default {
         },
 
         addInline(value) {
-            if (this.multiple) {
-                this.hide_selected = false;
-            }
         },
 
         onModal(value) {
@@ -679,7 +675,7 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    if (!this.selectOptions.length) {
+                    if (!Object.keys(this.options).length) {
                         this.selectOptions =  {};
                     }
 
@@ -696,10 +692,6 @@ export default {
 
                     this.add_new.html = '';
                     this.add_new_html = null;
-
-                    if (this.multiple) {
-                        this.hide_selected = false;
-                    }
 
                     this.$emit('new', response.data.data);
 
@@ -732,7 +724,7 @@ export default {
             this.selectOptions = options;
 
             if (Object.keys(this.new_options).length) {
-                if (!this.selectOptions.length) {
+                if (!Object.keys(this.options).length) {
                     this.selectOptions =  {};
                 }
 
@@ -741,12 +733,6 @@ export default {
                         this.selectOptions[key] = value;
                     }
                 }
-            }
-        },
-
-        real_model: function (value) {
-            if (this.multiple && this.hide_selected) {
-                this.real_model = this.hide_selected;
             }
         },
 

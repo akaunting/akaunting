@@ -584,6 +584,10 @@ export default {
     mounted() {
         this.real_model = this.value;
 
+        if (this.multiple && !this.real_model.length) {
+            this.real_model = [];
+        }
+
         this.$emit('interface', this.real_model);
     },
 
@@ -683,6 +687,10 @@ export default {
             })
             .then(response => {
                 if (response.data.success) {
+                    if (!Object.keys(this.options).length) {
+                        this.selectOptions =  {};
+                    }
+
                     this.selectOptions.push(response.data.data);
                     this.new_options[response.data.data[this.add_new.field.key]] = response.data.data;
                     this.real_model = response.data.data[this.add_new.field.key];
@@ -800,7 +808,10 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    
+                    if (!Object.keys(this.options).length) {
+                        this.selectOptions =  {};
+                    }
+
                     this.selectOptions.push(response.data.data);
                     //this.selectOptions[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
                     this.new_options[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
@@ -842,6 +853,10 @@ export default {
             this.selectOptions = options;
 
             if (Object.keys(this.new_options).length) {
+                if (!Object.keys(this.options).length) {
+                    this.selectOptions =  {};
+                }
+
                 Object.values(this.new_options).forEach(item => {
                     this.selectOptions.push(item);
                 });
