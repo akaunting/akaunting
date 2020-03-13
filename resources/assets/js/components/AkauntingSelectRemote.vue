@@ -74,7 +74,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -147,7 +147,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -220,7 +220,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -293,7 +293,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -390,7 +390,7 @@
                     </el-option>
                 </el-option-group>
 
-                <el-option v-if="!loading && addNew.status && selectOptions != null && selectOptions.length != 0" class="el-select__footer" :value="add_new">
+                <el-option v-if="!loading && addNew.status && selectOptions != null && selectOptions.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                     <div @click="onAddItem">
                         <i class="fas fa-plus"></i>
                         <span>
@@ -634,8 +634,8 @@ export default {
                 return false;
             }
 
-            this.$emit('change', this.real_model);
             this.$emit('interface', this.real_model);
+            this.$emit('change', this.real_model);
 
             this.selectOptions.forEach(item => {
                 if (item.id == this.real_model) {
@@ -687,13 +687,15 @@ export default {
                     this.new_options[response.data.data[this.add_new.field.key]] = response.data.data;
                     this.real_model = response.data.data[this.add_new.field.key];
 
-                    this.change();
-
                     if (this.title) {
                         this.$children[0].$children[0].visible = false;
                     } else {
                         this.$children[0].visible = false;
                     }
+
+                    this.$emit('new', response.data.data);
+
+                    this.change();
                 }
             })
             .catch(error => {
@@ -804,12 +806,14 @@ export default {
                     this.new_options[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
                     this.real_model = response.data.data[this.add_new.field.key];//.toString();
 
-                    this.change();
-
                     this.add_new.show = false;
 
                     this.add_new.html = '';
                     this.add_new_html = null;
+
+                    this.$emit('new', response.data.data);
+
+                    this.change();
                 }
             })
             .catch(error => {

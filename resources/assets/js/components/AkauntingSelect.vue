@@ -74,7 +74,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -147,7 +147,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -220,7 +220,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -293,7 +293,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -366,7 +366,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -549,12 +549,12 @@ export default {
 
     methods: {
         change() {
-            if (typeof(this.real_model) === 'object') {
+            if (typeof(this.real_model) === 'object' && typeof(this.real_model.type) !== 'undefined') {
                 return false;
             }
 
-            this.$emit('change', this.real_model);
             this.$emit('interface', this.real_model);
+            this.$emit('change', this.real_model);
         },
 
         async onAddItem() {
@@ -679,6 +679,10 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
+                    if (!this.selectOptions.length) {
+                        this.selectOptions =  {};
+                    }
+
                     this.selectOptions[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
                     this.new_options[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
 
@@ -688,8 +692,6 @@ export default {
                         this.real_model = response.data.data[this.add_new.field.key].toString();
                     }
 
-                    this.change();
-
                     this.add_new.show = false;
 
                     this.add_new.html = '';
@@ -698,6 +700,10 @@ export default {
                     if (this.multiple) {
                         this.hide_selected = false;
                     }
+
+                    this.$emit('new', response.data.data);
+
+                    this.change();
                 }
             })
             .catch(error => {
@@ -726,6 +732,10 @@ export default {
             this.selectOptions = options;
 
             if (Object.keys(this.new_options).length) {
+                if (!this.selectOptions.length) {
+                    this.selectOptions =  {};
+                }
+
                 for (let [key, value] of Object.entries(this.new_options)) {
                     if (!this.selectOptions[key]) {
                         this.selectOptions[key] = value;

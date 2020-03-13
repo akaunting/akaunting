@@ -133,9 +133,10 @@
                         ]
                     ]
                 ])}}"
-                :collapse="false"
+                :collapse="true"
                 @interface="row.tax_id = $event"
-                @change="onCalculateTotal($event)"
+                @change="onCalculateTotal()"
+                @new="taxes.push($event)"
                 :form-error="form.errors.get('items.' + index + '.tax_id')"
                 :no-data-text="'{{ trans('general.no_data') }}'"
                 :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
