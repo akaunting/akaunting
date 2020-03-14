@@ -1,5 +1,5 @@
 @stack('menu_start')
-    <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-default" id="sidenav-main">
+    <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-sm navbar-light bg-default" id="sidenav-main">
         <div class="scrollbar-inner">
             <div class="sidenav-header d-flex align-items-center ml-4">
                 <ul class="navbar-nav">
