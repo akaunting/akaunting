@@ -688,7 +688,7 @@ export default {
             .then(response => {
                 if (response.data.success) {
                     if (!Object.keys(this.options).length) {
-                        this.selectOptions =  {};
+                        this.selectOptions =  [];
                     }
 
                     this.selectOptions.push(response.data.data);
@@ -809,7 +809,7 @@ export default {
 
                 if (response.data.success) {
                     if (!Object.keys(this.options).length) {
-                        this.selectOptions =  {};
+                        this.selectOptions =  [];
                     }
 
                     this.selectOptions.push(response.data.data);
@@ -854,7 +854,7 @@ export default {
 
             if (Object.keys(this.new_options).length) {
                 if (!Object.keys(this.options).length) {
-                    this.selectOptions =  {};
+                    this.selectOptions =  [];
                 }
 
                 Object.values(this.new_options).forEach(item => {
