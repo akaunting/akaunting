@@ -2,9 +2,7 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
 {
