@@ -13,6 +13,7 @@
     <div class="row">
         <div class="col-md-8">
             <h3>{{ $module->name }}</h3>
+
             <div class="nav-wrapper">
                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                     <li class="nav-item">
@@ -49,6 +50,7 @@
 
         <div class="col-md-4">
             <h3>{{ trans_choice('general.actions', 1) }}</h3>
+
             <div class="card">
                 <div class="card-body">
                     <div id="countdown-pre-sale"></div>
@@ -94,8 +96,8 @@
                 </div>
             </div>
 
-
             <h3>{{ trans('modules.about') }}</h3>
+
             <div class="card">
                 <table class="table">
                     <tbody>

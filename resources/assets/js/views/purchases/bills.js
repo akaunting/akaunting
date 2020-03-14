@@ -50,10 +50,12 @@ const app = new Vue({
             items: '',
             discount: false,
             taxes: null,
+            colspan: 5,
         }
     },
 
     mounted() {
+        this.colspan = document.getElementById("items").rows[0].cells.length - 1;
         this.form.items = [];
 
         if (this.form.method) {
@@ -255,11 +257,13 @@ const app = new Vue({
         },
 
         onSelectItem(item, index) {
+            let tax_id = (item.tax_id) ? [item.tax_id.toString()] : '';
+
             this.form.items[index].item_id = item.id;
             this.form.items[index].name = item.name;
             this.form.items[index].price = (item.purchase_price).toFixed(2);
             this.form.items[index].quantity = 1;
-            this.form.items[index].tax_id = [item.tax_id.toString()];
+            this.form.items[index].tax_id = tax_id;
             this.form.items[index].total = (item.purchase_price).toFixed(2);
         },
 

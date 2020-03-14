@@ -16,11 +16,6 @@
     <!-- Argon -->
 
     <script type="text/javascript">
-
-        if(window.screen.width<576) {
-            resolution = document.getElementById("leftMenu").classList.remove("g-sidenav-pinned");
-        }
-
         'use strict';
 
         var Layout = (function() {

@@ -32,6 +32,9 @@ class InvoiceReminder extends Command
      */
     public function handle()
     {
+        // Disable model cache
+        config(['laravel-model-caching.enabled' => false]);
+
         // Get all companies
         $companies = Company::enabled()->cursor();
 

@@ -22,7 +22,7 @@
 
                     {{ Form::moneyGroup('closing_balance', trans('reconciliations.closing_balance'), 'balance-scale', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency], request('closing_balance', 0.00), 'col-xl-2') }}
 
-                    {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, request('account_id', setting('default.account')), ['required' => 'required', 'change' => 'onChangeAccount'], 'col-xl-2') }}
+                    {{ Form::selectAddNewGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, request('account_id', setting('default.account')), ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount'], 'col-xl-2') }}
 
                     <div class="col-xl-2">
                         {!! Form::button('<span class="fa fa-list"></span> &nbsp;' . trans('reconciliations.transactions'), ['type' => 'button', '@click' => 'onReconcilition', 'class' => 'btn btn-success header-button-top']) !!}

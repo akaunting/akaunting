@@ -14,11 +14,9 @@ import Global from './../../mixins/global';
 
 import Form from './../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
-import HtmlEditor from './../../components/Inputs/HtmlEditor';
-import {ColorPicker} from 'element-ui';
 
 // plugin setup
-Vue.use(DashboardPlugin, ColorPicker);
+Vue.use(DashboardPlugin);
 
 const app = new Vue({
     el: '#app',
@@ -27,13 +25,9 @@ const app = new Vue({
         Global
     ],
 
-    components: {
-        HtmlEditor,
-        [ColorPicker.name]: ColorPicker,
-    },
-
     mounted() {
         this.onChangeProtocol(this.form.protocol);
+
         this.color = this.form.color;
     },
 
@@ -41,7 +35,7 @@ const app = new Vue({
         return {
             form: new Form('setting'),
             bulk_action: new BulkAction('settings'),
-            email:{
+            email: {
                 sendmailPath:true,
                 smtpHost:true,
                 smtpPort:true,
@@ -60,7 +54,7 @@ const app = new Vue({
             },
 
             color: '#55588b',
-            predefineColors:[
+            predefineColors: [
                 '#3c3f72',
                 '#55588b',
                 '#e5e5e5',

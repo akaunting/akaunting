@@ -11,12 +11,13 @@ import AkauntingSelect from './../components/AkauntingSelect';
 import AkauntingSelectRemote from './../components/AkauntingSelectRemote';
 import AkauntingDate from './../components/AkauntingDate';
 import AkauntingRecurring from './../components/AkauntingRecurring';
+import AkauntingHtmlEditor from './../components/AkauntingHtmlEditor';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import NProgressAxios from './../plugins/nprogress-axios';
 
-import { Select, Option, Steps, Step, Button, Link, Tooltip } from 'element-ui';
+import { Select, Option, Steps, Step, Button, Link, Tooltip, ColorPicker } from 'element-ui';
 
 import Form from './../plugins/form';
 
@@ -31,6 +32,7 @@ export default {
         AkauntingModalAddNew,
         AkauntingDate,
         AkauntingRecurring,
+        AkauntingHtmlEditor,
         [Select.name]: Select,
         [Option.name]: Option,
         [Steps.name]: Steps,
@@ -38,6 +40,7 @@ export default {
         [Button.name]: Button,
         [Link.name]: Link,
         [Tooltip.name]: Tooltip,
+        [ColorPicker.name]: ColorPicker,
     },
 
     data: function () {

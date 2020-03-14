@@ -64,7 +64,7 @@ class CreateTransfer extends Job
                 $default_amount_model->currency_code = $expense_currency_code;
                 $default_amount_model->currency_rate = $currencies[$expense_currency_code];
 
-                $default_amount = $default_amount_model->getAmountDivided();
+                $default_amount = $default_amount_model->getAmountConvertedToDefault();
             }
 
             $transfer_amount = new Transfer();
@@ -74,7 +74,7 @@ class CreateTransfer extends Job
             $transfer_amount->currency_code = $income_currency_code;
             $transfer_amount->currency_rate = $currencies[$income_currency_code];
 
-            $amount = $transfer_amount->getAmountConvertedFromCustomDefault();
+            $amount = $transfer_amount->getAmountConvertedFromDefault();
         } else {
             $amount = $this->request->get('amount');
         }

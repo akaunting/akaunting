@@ -526,7 +526,6 @@ button:focus
     box-shadow: none !important;
 }
 /*--------Shadow None Focus Finish--------*/
-
 /*--------Settings Index Page Finish--------*/
 
 
@@ -635,10 +634,21 @@ table .align-items-center td span.badge
 
 
 /*--------Report Column--------*/
-.report-column
+.report-column-name
 {
-    max-width: 100px;
-    width: 160px !important;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 10%;
+    flex: 0 0 10%;
+    width: 10%;
+    max-width: 10%;
+}
+
+.report-column-value
+{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 6.66%;
+    flex: 0 0 6.66%;
+    max-width: 6.66%;
 }
 /*--------Report Column Finish--------*/
 
@@ -849,10 +859,7 @@ table .align-items-center td span.badge
 /*--Sm Breakpoint--*/
 @media (min-width: 576px) and (max-width: 767.98px)
 {
-    .dashboard-action
-    {
-        margin-left: 4rem !important;
-    }
+
 }
 /*--Sm Breakpoint Finish--*/
 
@@ -863,11 +870,6 @@ table .align-items-center td span.badge
     {
         left: 1rem !important;
     }
-
-    .dashboard-action
-    {
-        margin-left: 3rem !important;
-    }
 }
 /*--Md Breakpoint Finish--*/
 
@@ -877,11 +879,6 @@ table .align-items-center td span.badge
     .sidenav .navbar-nav .dropdown-menu
     {
         left: 1rem;
-    }
-
-    .dashboard-action
-    {
-        margin-left: 1rem !important;
     }
 }
 /*--Lg Breakpoint Finish--*/

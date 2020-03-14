@@ -7,7 +7,7 @@
             {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
         @endif
 
-        <html-editor
+        <akaunting-html-editor
             name="{{ $name }}"
 
             @if (!empty($attributes['v-model']))
@@ -29,7 +29,7 @@
             @if (isset($attributes['disabled']))
             :disabled="'{{ $attributes['disabled'] }}'"
             @endif
-        ></html-editor>
+        ></akaunting-html-editor>
 
         <div class="invalid-feedback d-block"
             v-if="{{ isset($attributes['v-error']) ? $attributes['v-error'] : 'form.errors.has("' . $name . '")' }}"

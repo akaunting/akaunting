@@ -6,7 +6,7 @@
         @if (!empty($attributes['v-error']))
         :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
         @else
-        :form-classes="[{'has-error': form.errors.get('{{ $name }}') }]"
+        :form-classes="[{'has-error': form.errors.has('{{ $name }}') }]"
         @endif
 
         icon="{{ $icon }}"
@@ -28,7 +28,7 @@
         @elseif (!empty($attributes['data-field']))
         @interface="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
-        @interface="form.{{ $name }} = $event"
+        @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event;"
         @endif
 
         @if (!empty($attributes['change']))

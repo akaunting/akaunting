@@ -19,7 +19,7 @@
                 <div class="row">
                     {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, config('general.customers'), ['required' => 'required', 'path' => route('modals.customers.create'), 'change' => 'onChangeContact']) }}
 
-                    {{ Form::selectAddNewGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'path' => route('modals.currencies.create'), 'change' => 'onChangeCurrency']) }}
+                    {{ Form::selectAddNewGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'path' => route('modals.currencies.create'), 'field' => ['key' => 'code', 'value' => 'name'], 'change' => 'onChangeCurrency']) }}
 
                     {{ Form::dateGroup('invoiced_at', trans('invoices.invoice_date'), 'calendar', ['id' => 'invoiced_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], request()->get('invoiced_at', Date::now()->toDateString())) }}
 
@@ -69,13 +69,13 @@
                                                 <button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i>
                                                 </button>
                                             </td>
-                                            <td class="text-right border-bottom-0" colspan="5"></td>
+                                            <td class="text-right border-bottom-0" colspan="5" :colspan="colspan"></td>
                                         </tr>
                                     @stack('add_item_td_end')
 
                                     @stack('sub_total_td_start')
                                         <tr id="tr-subtotal">
-                                            <td class="text-right border-right-0 border-bottom-0" colspan="5">
+                                            <td class="text-right border-right-0 border-bottom-0" colspan="5" :colspan="colspan">
                                                 <strong>{{ trans('invoices.sub_total') }}</strong>
                                             </td>
                                             <td class="text-right border-bottom-0 long-texts">
@@ -88,7 +88,7 @@
 
                                     @stack('add_discount_td_start')
                                         <tr id="tr-discount">
-                                            <td class="text-right border-right-0 border-bottom-0" colspan="5">
+                                            <td class="text-right border-right-0 border-bottom-0" colspan="5" :colspan="colspan">
                                                 <el-popover
                                                     popper-class="p-0 h-0"
                                                     placement="bottom"
@@ -140,7 +140,7 @@
 
                                     @stack('tax_total_td_start')
                                         <tr id="tr-tax">
-                                            <td class="text-right border-right-0 border-bottom-0" colspan="5">
+                                            <td class="text-right border-right-0 border-bottom-0" colspan="5" :colspan="colspan">
                                                 <strong>{{ trans_choice('general.taxes', 1) }}</strong>
                                             </td>
                                             <td class="text-right border-bottom-0 long-texts">
@@ -153,7 +153,7 @@
 
                                     @stack('grand_total_td_start')
                                         <tr id="tr-total">
-                                            <td class="text-right border-right-0" colspan="5">
+                                            <td class="text-right border-right-0" colspan="5" :colspan="colspan">
                                                 <strong>{{ trans('invoices.total') }}</strong>
                                             </td>
                                             <td class="text-right long-texts">
@@ -200,7 +200,7 @@
 
 @push('scripts_start')
     <script type="text/javascript">
-        var invoice_items = false;
+        var invoice_items = {!! (old('items')) ? json_encode(old('items')) : 'false' !!};
     </script>
 
     <script src="{{ asset('public/js/sales/invoices.js?v=' . version('short')) }}"></script>

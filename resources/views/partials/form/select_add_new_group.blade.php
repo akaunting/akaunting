@@ -6,7 +6,7 @@
         @if (!empty($attributes['v-error']))
         :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
         @else
-        :form-classes="[{'has-error': form.errors.get('{{ $name }}') }]"
+        :form-classes="[{'has-error': form.errors.has('{{ $name }}') }]"
         @endif
 
         icon="{{ $icon }}"
@@ -28,7 +28,11 @@
             'text' => trans('general.add_new'),
             'path' => isset($attributes['path']) ? $attributes['path']: false,
             'type' => isset($attributes['type']) ? $attributes['type'] : 'modal',
-            'field' => isset($attributes['field']) ? $attributes['field'] : 'name',
+            'field' => [
+                'key' => isset($attributes['field']['key']) ? $attributes['field']['key'] : 'id',
+                'value' => isset($attributes['field']['value']) ? $attributes['field']['value'] : 'name'
+            ],
+            'new_text' => trans('modules.new'),
             'buttons' => [
                 'cancel' => [
                     'text' => trans('general.cancel'),
@@ -46,7 +50,7 @@
         @elseif (!empty($attributes['data-field']))
         @interface="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
-        @interface="form.{{ $name }} = $event"
+        @interface="form.{{ $name }} = $event; form.errors.clear('{{ $name }}');"
         @endif
 
         @if (!empty($attributes['change']))

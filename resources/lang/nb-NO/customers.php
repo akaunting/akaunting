@@ -2,15 +2,11 @@
 
 return [
 
-    'allow_login'           => 'Tillat innlogging?',
+    'can_login'             => 'Kan du ikke logge inn?',
     'user_created'          => 'Bruker ble opprettet',
 
     'error' => [
-        'email'             => 'E-postadressen er allerede i bruk.'
+        'email'             => 'E-postadressen er allerede i bruk.',
     ],
 
-    'notification' => [
-        'message'       => ':customer betalte :amount mot faktura :invoice_number.',
-        'button'        => 'Vis',
-    ],
 ];

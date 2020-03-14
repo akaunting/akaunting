@@ -43,7 +43,7 @@
 
                     {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency], $payment->amount) }}
 
-                    {{ Form::selectGroup('account_id',  trans_choice('general.accounts', 1), 'university', $accounts, $payment->account_id, ['required' => 'required', 'change' => 'onChangeAccount']) }}
+                    {{ Form::selectAddNewGroup('account_id',  trans_choice('general.accounts', 1), 'university', $accounts, $payment->account_id, ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
                     {{ Form::selectAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $payment->contact_id, ['path' => route('modals.vendors.create')]) }}
 
@@ -57,7 +57,14 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file',[]) }}
 
-                    {{ Form::fileGroup('attachment', trans('general.attachment')) }}
+                    @if ($payment->attachment)
+                        <div class="col-md-6">
+                            @php $file = $payment->attachment; @endphp
+                            @include('partials.media.file')
+                        </div>
+                    @else
+                        {{ Form::fileGroup('attachment', trans('general.attachment')) }}
+                    @endif
 
                     @if ($payment->bill)
                         {{ Form::textGroup('document', trans_choice('general.bills', 1), 'file-invoice', ['disabled' => 'disabled'], $payment->bill->bill_number) }}

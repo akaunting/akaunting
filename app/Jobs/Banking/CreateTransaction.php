@@ -3,11 +3,15 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\TransactionCreated;
+use App\Events\Banking\TransactionCreating;
 use App\Models\Banking\Transaction;
 
 class CreateTransaction extends Job
 {
     protected $request;
+
+    protected $transaction;
 
     /**
      * Create a new job instance.
@@ -26,18 +30,22 @@ class CreateTransaction extends Job
      */
     public function handle()
     {
-        $transaction = Transaction::create($this->request->all());
+        event(new TransactionCreating($this->request));
+
+        $this->transaction = Transaction::create($this->request->all());
 
         // Upload attachment
         if ($this->request->file('attachment')) {
             $media = $this->getMedia($this->request->file('attachment'), 'transactions');
 
-            $transaction->attachMedia($media, 'attachment');
+            $this->transaction->attachMedia($media, 'attachment');
         }
 
         // Recurring
-        $transaction->createRecurring();
+        $this->transaction->createRecurring();
 
-        return $transaction;
+        event(new TransactionCreated($this->transaction));
+
+        return $this->transaction;
     }
 }

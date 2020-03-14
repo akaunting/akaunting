@@ -3,7 +3,7 @@
     '@submit.prevent' => 'onSubmit',
     '@keydown' => 'form.errors.clear($event.target.name)',
     'role' => 'form',
-    'class' => 'form-loading-button m--3',
+    'class' => 'form-loading-button',
     'route' => 'taxes.store',
     'novalidate' => true
 ]) !!}
@@ -12,8 +12,7 @@
 
         {{ Form::textGroup('rate', trans('taxes.rate'), 'percent') }}
 
-        {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
-
-        {!! Form::hidden('enabled', '1', []) !!}
+        {!! Form::hidden('type', 'normal') !!}
+        {!! Form::hidden('enabled', '1') !!}
     </div>
 {!! Form::close() !!}

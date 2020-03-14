@@ -1,4 +1,4 @@
-<div class="table-responsive overflow-auto">
+<div class="table-responsive">
     <table class="table table-hover align-items-center rp-border-collapse">
         @include($class->views['table.header'])
         <tbody>

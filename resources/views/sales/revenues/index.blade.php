@@ -50,7 +50,7 @@
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionGroup($item->id, $item->contact->name) }}</td>
                                 @if ($item->reconciled)
-                                    <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1">@date($item->paid_at)</td>
+                                    <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1"><a class="col-aka" href="#">@date($item->paid_at)</a></td>
                                 @else
                                     <td class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-1"><a class="col-aka" href="{{ route('revenues.edit', $item->id) }}">@date($item->paid_at)</a></td>
                                 @endif

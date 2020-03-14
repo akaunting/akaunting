@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Warning: You are not allowed to delete <b>:name</b> because it has :text related.',
         'disabled'          => 'Warning: You are not allowed to disable <b>:name</b> because it has :text related.',
+        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
+        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
         'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
     ],

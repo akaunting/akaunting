@@ -15664,3 +15664,62 @@
     color: #3c3f72 !important;
 }
 /*--------El Select Finish--------*/
+
+@media (max-width: 575.98px)
+{
+   /*--Date Time Picker--*/
+   .el-date-range-picker.has-sidebar
+   {
+       width: 99% !important;
+   }
+
+   .el-picker-panel__shortcut
+   {
+       text-align: center !important;
+   }
+
+   .el-picker-panel__body-wrapper
+   {
+       flex-flow: column !important;
+   }
+
+   .el-picker-panel__sidebar
+   {
+       position:unset !important;
+       width: 100% !important;
+       border-right:none !important;
+   }
+
+   .el-picker-panel__body
+   {
+       position: unset !important;
+       display: flex !important;
+       flex-flow: column !important;
+   }
+
+   .el-picker-panel__sidebar+.el-picker-panel__body
+   {
+       margin-left: 0 !important;
+   }
+
+   .el-date-range-picker .el-picker-panel__body
+   {
+       min-width: 100% !important;
+   }
+
+   .el-date-range-picker .el-picker-panel__content
+   {
+       margin: 0 !important;
+   }
+
+   .el-date-range-picker__content
+   {
+       width: 100% !important;
+   }
+
+   .el-date-range-picker__content.is-left
+   {
+       border-right: none !important;
+   }
+/*--Date Time Picker Finish--*/
+}

@@ -67,6 +67,9 @@ abstract class Report
         'datasets' => [],
     ];
 
+    public $column_name_width = 'report-column-name';
+    public $column_value_width = 'report-column-value';
+
     public function __construct(Model $model = null, $load_data = true)
     {
         $this->setGroups();
@@ -95,6 +98,7 @@ abstract class Report
         $this->setFilters();
         $this->setRows();
         $this->setData();
+        $this->setColumnWidth();
 
         $this->loaded = true;
     }
@@ -196,6 +200,30 @@ abstract class Report
     public function export()
     {
         return \Excel::download(new Export($this->views['content'], $this), \Str::filename($this->model->name) . '.xlsx');
+    }
+
+    public function setColumnWidth()
+    {
+        if (empty($this->model->settings->period)) {
+            return;
+        }
+
+        $width = '';
+
+        switch ($this->model->settings->period) {
+            case 'quarterly':
+                $width = 'col-sm-2';
+                break;
+            case 'yearly':
+                $width = 'col-sm-4';
+                break;
+        }
+
+        if (empty($width)) {
+            return;
+        }
+
+        $this->column_name_width = $this->column_value_width = $width;
     }
 
     public function setYear()

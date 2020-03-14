@@ -11,6 +11,7 @@
     @include('partials.modules.bar')
 
     <h2>{{ trans('modules.my.purchased') }}</h2>
+
     <div class="row">
         @if ($purchased)
             @foreach ($purchased as $module)
@@ -24,6 +25,7 @@
     </div>
 
     <h2>{{ trans('modules.my.installed') }}</h2>
+
     <div class="row">
         @if ($modules)
             @foreach ($modules as $module)

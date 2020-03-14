@@ -26,6 +26,15 @@ class InvoiceItem extends Model
      */
     public $cloneable_relations = ['taxes'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::retrieved(function($model) {
+            $model->setTaxIds();
+        });
+    }
+
     public function invoice()
     {
         return $this->belongsTo('App\Models\Sale\Invoice');
@@ -72,5 +81,21 @@ class InvoiceItem extends Model
     public function setTaxAttribute($value)
     {
         $this->attributes['tax'] = (double) $value;
+    }
+
+    /**
+     * Convert tax to Array.
+     *
+     * @return void
+     */
+    public function setTaxIds()
+    {
+        $tax_ids = [];
+
+        foreach ($this->taxes as $tax) {
+            $tax_ids[] = (string) $tax->tax_id;
+        }
+
+        $this->setAttribute('tax_id', $tax_ids);
     }
 }

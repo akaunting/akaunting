@@ -30,6 +30,8 @@ class UpdateTransaction extends Job
      */
     public function handle()
     {
+        $this->authorize();
+
         $this->transaction->update($this->request->all());
 
         // Upload attachment
@@ -43,5 +45,19 @@ class UpdateTransaction extends Job
         $this->transaction->updateRecurring();
 
         return $this->transaction;
+    }
+
+    /**
+     * Determine if this action is applicable.
+     *
+     * @return void
+     */
+    public function authorize()
+    {
+        if ($this->transaction->reconciled) {
+            $message = trans('messages.warning.reconciled_tran');
+
+            throw new \Exception($message);
+        }
     }
 }
