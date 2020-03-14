@@ -7,6 +7,7 @@
 @section('content')
     <div role="alert" class="alert alert-success d-none" :class="(form.response.success) ? 'show' : ''" v-if="form.response.success" v-html="form.response.message"></div>
     <div role="alert" class="alert alert-danger d-none" :class="(form.response.error) ? 'show' : ''" v-if="form.response.error" v-html="form.response.message"></div>
+
     {!! Form::open([
         'route' => 'forgot',
         'id' => 'forgot',

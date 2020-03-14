@@ -10,57 +10,61 @@
 @section('content')
     @include('partials.modules.bar')
 
-        @if ($pre_sale)
-            <h2>{{ trans('modules.pre_sale') }}</h2>
-            <div class="row">
-                @if ($pre_sale->data)
-                    @foreach ($pre_sale->data as $module)
-                        @include('partials.modules.pre_sale')
-                    @endforeach
-                @else
-                    @include('partials.modules.no_apps')
-                @endif
-            </div>
-        @endif
+    @if ($pre_sale)
+        <h2>{{ trans('modules.pre_sale') }}</h2>
 
-        @if ($paid)
-            <h2>{{ trans('modules.top_paid') }}</h2>
-            <div class="row">
-                @if ($paid->data)
-                    @foreach ($paid->data as $module)
-                        @include('partials.modules.item')
-                    @endforeach
-                @else
-                    @include('partials.modules.no_apps')
-                @endif
-            </div>
-        @endif
+        <div class="row">
+            @if ($pre_sale->data)
+                @foreach ($pre_sale->data as $module)
+                    @include('partials.modules.pre_sale')
+                @endforeach
+            @else
+                @include('partials.modules.no_apps')
+            @endif
+        </div>
+    @endif
 
-        @if ($new)
-            <h2>{{ trans('modules.new') }}</h2>
-            <div class="row">
-                @if ($new->data)
-                    @foreach ($new->data as $module)
-                        @include('partials.modules.item')
-                    @endforeach
-                @else
-                    @include('partials.modules.no_apps')
-                @endif
-            </div>
-        @endif
+    @if ($paid)
+        <h2>{{ trans('modules.top_paid') }}</h2>
 
-        @if ($free)
-            <h2>{{ trans('modules.top_free') }}</h2>
-            <div class="row">
-                @if ($free->data)
-                    @foreach ($free->data as $module)
-                        @include('partials.modules.item')
-                    @endforeach
-                @else
-                    @include('partials.modules.no_apps')
-                @endif
-            </div>
-        @endif
+        <div class="row">
+            @if ($paid->data)
+                @foreach ($paid->data as $module)
+                    @include('partials.modules.item')
+                @endforeach
+            @else
+                @include('partials.modules.no_apps')
+            @endif
+        </div>
+    @endif
+
+    @if ($new)
+        <h2>{{ trans('modules.new') }}</h2>
+
+        <div class="row">
+            @if ($new->data)
+                @foreach ($new->data as $module)
+                    @include('partials.modules.item')
+                @endforeach
+            @else
+                @include('partials.modules.no_apps')
+            @endif
+        </div>
+    @endif
+
+    @if ($free)
+        <h2>{{ trans('modules.top_free') }}</h2>
+
+        <div class="row">
+            @if ($free->data)
+                @foreach ($free->data as $module)
+                    @include('partials.modules.item')
+                @endforeach
+            @else
+                @include('partials.modules.no_apps')
+            @endif
+        </div>
+    @endif
 @endsection
 
 @push('scripts_start')

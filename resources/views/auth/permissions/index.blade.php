@@ -2,7 +2,7 @@
 
 @section('title', trans_choice('general.permissions', 2))
 
-@permission('update-auth-permissions')
+@permission('create-auth-permissions')
     @section('new_button')
         <a href="{{ route('permissions.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endsection
