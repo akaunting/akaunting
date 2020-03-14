@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /**
  * 'install' middleware and prefix applied to all routes
  *

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /**
  * 'guest' middleware applied to all routes
  *

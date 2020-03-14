@@ -22,7 +22,7 @@ class SampleData extends Seeder
     {
         Model::reguard();
 
-        config(['mail.driver' => 'log']);
+        config(['mail.default' => 'log']);
 
         $count = (int) $this->command->option('count');
         $acc_count = ($count <= 10) ? $count : 10;
