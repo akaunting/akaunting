@@ -1981,7 +1981,7 @@ button.bg-yellow:focus
 /*--Selected Submenu Arrow Color Finish--*/
 
 /*--Selected Icon Color--*/
-.navbar-vertical.navbar-expand-xs .navbar-nav > .nav-item > .nav-link.active
+.navbar-vertical.navbar-expand-xs, .navbar-vertical.navbar-expand-sm .navbar-nav > .nav-item > .nav-link.active
 {
     color: #161842 !important;
 }
@@ -1995,14 +1995,14 @@ button.bg-yellow:focus
 /*--Selected Text Color Finish--*/
 
 /*--Selected Submenu Main Arrow Default Color--*/
-.navbar-vertical.navbar-expand-xs .navbar-nav > .nav-item > .nav-link.active.show[aria-expanded='false']:after
+.navbar-vertical.navbar-expand-xs, .navbar-vertical.navbar-expand-sm .navbar-nav > .nav-item > .nav-link.active.show[aria-expanded='false']:after
 {
     color:  #161842 !important;
 }
 /*--Selected Submenu Main Arrow Default Color Finish--*/
 
 /*--Selected Submenu Main Arrow Selected Color--*/
-.navbar-vertical.navbar-expand-xs .navbar-nav > .nav-item > .nav-link.active.show[aria-expanded='true']:after
+.navbar-vertical.navbar-expand-xs, .navbar-vertical.navbar-expand-sm .navbar-nav > .nav-item > .nav-link.active.show[aria-expanded='true']:after
 {
     color:  #161842 !important;
 }
