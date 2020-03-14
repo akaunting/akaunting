@@ -257,7 +257,7 @@
 
     @if ($module->install)
         <akaunting-modal :show="installation.show"
-        :title="'{{ trans('modules.installation.header') }}'"
+        title="{{ trans('modules.installation.header') }}"
         @cancel="installation.show = false">
             <template #modal-body>
                 <div class="modal-body">
