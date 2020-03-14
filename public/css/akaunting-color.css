@@ -1959,7 +1959,7 @@ button.bg-yellow:focus
 /*--Left Menu Icon Finish--*/
 
 /*--Unselected Text Color--*/
-.navbar-vertical.navbar-expand-xs .navbar-nav .nav-link
+.navbar-vertical.navbar-expand-xs, .navbar-vertical.navbar-expand-sm .navbar-nav .nav-link
 {
     color: #ffffff !important;
 }
