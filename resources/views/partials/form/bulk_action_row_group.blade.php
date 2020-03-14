@@ -82,7 +82,7 @@
 
 <akaunting-modal
     :show="bulk_action.modal"
-    :title="'{{ trans_choice('general.items', 2) }}'"
+    :title="'{{ trans_choice($text, 2) }}'"
     :message="bulk_action.message"
     @cancel="onCancel"
     v-if='bulk_action.message && bulk_action.modal'>
