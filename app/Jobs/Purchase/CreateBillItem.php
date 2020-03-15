@@ -66,8 +66,8 @@ class CreateBillItem extends Job
                         $tax_amount = $tax->rate * (double) $this->request['quantity'];
 
                         $item_taxes[] = [
-                            'company_id' => $this->invoice->company_id,
-                            'invoice_id' => $this->invoice->id,
+                            'company_id' => $this->bill->company_id,
+                            'bill_id' => $this->bill->id,
                             'tax_id' => $tax_id,
                             'name' => $tax->name,
                             'amount' => $tax_amount,
