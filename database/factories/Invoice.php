@@ -9,6 +9,7 @@ use App\Models\Auth\User;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
+use App\Models\Setting\Tax;
 use Faker\Generator as Faker;
 use Jenssegers\Date\Date;
 
@@ -29,7 +30,7 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
     if ($contacts->count()) {
         $contact = $contacts->random(1)->first();
     } else {
-        $contact = factory(Contact::class)->states('customer')->create();
+        $contact = factory(Contact::class)->states('enabled', 'customer')->create();
     }
 
     $statuses = ['draft', 'sent', 'viewed', 'partial', 'paid'];
@@ -81,15 +82,32 @@ $factory->state(Invoice::class, 'items', function (Faker $faker) use ($company) 
 
     $amount = $faker->randomFloat(2, 1, 1000);
 
+    $taxes = Tax::enabled()->get();
+
+    if ($taxes->count()) {
+        $tax = $taxes->random(1)->first();
+    } else {
+        $tax = factory(Tax::class)->states('enabled')->create();
+    }
+
     $items = Item::enabled()->get();
 
     if ($items->count()) {
         $item = $items->random(1)->first();
     } else {
-        $item = factory(Item::class)->create();
+        $item = factory(Item::class)->states('enabled')->create();
     }
 
-    $items = [['name' => $item->name, 'item_id' => $item->id, 'quantity' => '1', 'price' => $amount, 'currency' => setting('default.currency')]];
+    $items = [
+        [
+            'name' => $item->name,
+            'item_id' => $item->id,
+            'tax_id' => [$tax->id],
+            'quantity' => '1',
+            'price' => $amount,
+            'currency' => setting('default.currency'),
+        ]
+    ];
 
     return [
         'items' => $items,
@@ -109,15 +127,32 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
 
     $amount = $faker->randomFloat(2, 1, 1000);
 
+    $taxes = Tax::enabled()->get();
+
+    if ($taxes->count()) {
+        $tax = $taxes->random(1)->first();
+    } else {
+        $tax = factory(Tax::class)->states('enabled')->create();
+    }
+
     $items = Item::enabled()->get();
 
     if ($items->count()) {
         $item = $items->random(1)->first();
     } else {
-        $item = factory(Item::class)->create();
+        $item = factory(Item::class)->states('enabled')->create();
     }
 
-    $items = [['name' => $item->name, 'item_id' => $item->id, 'quantity' => '1', 'price' => $amount, 'currency' => $invoice->currency_code]];
+    $items = [
+        [
+            'name' => $item->name,
+            'item_id' => $item->id,
+            'tax_id' => [$tax->id],
+            'quantity' => '1',
+            'price' => $amount,
+            'currency' => $invoice->currency_code,
+        ]
+    ];
 
     $request = [
         'items' => $items,

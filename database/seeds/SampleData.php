@@ -9,6 +9,7 @@ use App\Models\Common\Item;
 use App\Models\Purchase\Bill;
 use App\Models\Sale\Invoice;
 use App\Models\Setting\Category;
+use App\Models\Setting\Tax;
 use Illuminate\Database\Seeder;
 
 class SampleData extends Seeder
@@ -25,11 +26,11 @@ class SampleData extends Seeder
         config(['mail.default' => 'log']);
 
         $count = (int) $this->command->option('count');
-        $acc_count = ($count <= 10) ? $count : 10;
+        $small_count = ($count <= 10) ? $count : 10;
 
         $this->command->info('Creating sample data...');
 
-        $bar = $this->command->getOutput()->createProgressBar(6);
+        $bar = $this->command->getOutput()->createProgressBar(7);
         $bar->setFormat('verbose');
 
         $bar->start();
@@ -40,10 +41,13 @@ class SampleData extends Seeder
         factory(Category::class, $count)->create();
         $bar->advance();
 
+        factory(Tax::class, $small_count)->states('enabled')->create();
+        $bar->advance();
+
         factory(Item::class, $count)->create();
         $bar->advance();
 
-        factory(Account::class, $acc_count)->create();
+        factory(Account::class, $small_count)->create();
         $bar->advance();
 
         factory(Bill::class, $count)->create();
