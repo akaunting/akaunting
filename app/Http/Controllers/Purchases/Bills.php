@@ -8,6 +8,7 @@ use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Purchase\Bill as Request;
 use App\Http\Requests\Purchase\BillAddItem as ItemRequest;
 use App\Imports\Purchases\Bills as Import;
+use App\Jobs\Banking\CreateDocumentTransaction;
 use App\Jobs\Purchase\CreateBill;
 use App\Jobs\Purchase\DeleteBill;
 use App\Jobs\Purchase\DuplicateBill;
@@ -328,6 +329,30 @@ class Bills extends Controller
         $file_name = 'bill_' . time() . '.pdf';
 
         return $pdf->download($file_name);
+    }
+
+    /**
+     * Mark the bill as paid.
+     *
+     * @param  Bill $bill
+     *
+     * @return Response
+     */
+    public function markPaid(Bill $bill)
+    {
+        try {
+            $this->dispatch(new CreateDocumentTransaction($bill, []));
+
+            $message = trans('bills.messages.marked_paid');
+
+            flash($message)->success();
+        } catch(\Exception $e) {
+            $message = $e->getMessage();
+
+            flash($message)->error();
+        }
+
+        return redirect()->back();
     }
 
     public function addItem(ItemRequest $request)

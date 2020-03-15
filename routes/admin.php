@@ -70,7 +70,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'sales'], function () {
     Route::get('invoices/{invoice}/sent', 'Sales\Invoices@markSent')->name('invoices.sent');
     Route::get('invoices/{invoice}/email', 'Sales\Invoices@emailInvoice')->name('invoices.email');
-    Route::get('invoices/{invoice}/pay', 'Sales\Invoices@markPaid')->name('invoices.paid');
+    Route::get('invoices/{invoice}/paid', 'Sales\Invoices@markPaid')->name('invoices.paid');
     Route::get('invoices/{invoice}/print', 'Sales\Invoices@printInvoice')->name('invoices.print');
     Route::get('invoices/{invoice}/pdf', 'Sales\Invoices@pdfInvoice')->name('invoices.pdf');
     Route::get('invoices/{invoice}/duplicate', 'Sales\Invoices@duplicate')->name('invoices.duplicate');
@@ -97,6 +97,7 @@ Route::group(['prefix' => 'sales'], function () {
 
 Route::group(['prefix' => 'purchases'], function () {
     Route::get('bills/{bill}/received', 'Purchases\Bills@markReceived')->name('bills.received');
+    Route::get('bills/{bill}/paid', 'Purchases\Bills@markPaid')->name('bills.paid');
     Route::get('bills/{bill}/print', 'Purchases\Bills@printBill')->name('bills.print');
     Route::get('bills/{bill}/pdf', 'Purchases\Bills@pdfBill')->name('bills.pdf');
     Route::get('bills/{bill}/duplicate', 'Purchases\Bills@duplicate')->name('bills.duplicate');

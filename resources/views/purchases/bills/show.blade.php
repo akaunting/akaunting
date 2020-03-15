@@ -139,6 +139,12 @@
                                             @stack('timeline_body_make_payment_body_message_end')
 
                                             <div class="mt-3">
+                                                @stack('timeline_body_get_paid_body_button_pay_start')
+                                                    @permission('update-purchases-bills')
+                                                        <a href="{{ route('bills.paid', $bill->id) }}" class="btn btn-white btn-sm header-button-top">{{ trans('bills.mark_paid') }}</a>
+                                                    @endpermission
+                                                @stack('timeline_body_get_paid_body_button_pay_end')
+
                                                 @stack('timeline_body_make_payment_body_button_payment_start')
                                                     @if(empty($bill->transactions->count()) || (!empty($bill->transactions->count()) && $bill->paid != $bill->amount))
                                                         <button @click="onPayment" id="button-payment" class="btn btn-success btn-sm header-button-bottom">{{ trans('bills.add_payment') }}</button>
@@ -456,19 +462,26 @@
                                     <div class="dropdown-menu" role="menu">
                                         @stack('button_pay_start')
                                             @if($bill->status != 'paid')
+                                                @permission('update-purchases-bills')
+                                                    <a class="dropdown-item" href="{{ route('bills.paid', $bill->id) }}">{{ trans('bills.mark_paid') }}</a>
+                                                @endpermission
+
                                                 @if(empty($bill->paid) || ($bill->paid != $bill->amount))
                                                     <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
                                                 @endif
-                                                @permission('update-purchases-bills')
-                                                    @if($bill->status == 'draft')
-                                                        <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
-                                                    @else
-                                                        <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
-                                                    @endif
-                                                @endpermission
                                                 <div class="dropdown-divider"></div>
                                             @endif
                                         @stack('button_pay_end')
+
+                                        @stack('button_received_start')
+                                            @permission('update-purchases-bills')
+                                                @if($bill->status == 'draft')
+                                                    <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
+                                                @else
+                                                    <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
+                                                @endif
+                                            @endpermission
+                                        @stack('button_received_end')
 
                                         @stack('button_pdf_start')
                                             <a class="dropdown-item" href="{{ route('bills.pdf', $bill->id) }}">{{ trans('bills.download_pdf') }}</a>

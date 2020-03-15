@@ -28,6 +28,7 @@ return [
     'histories'             => 'Histories',
     'payments'              => 'Payments',
     'add_payment'           => 'Add Payment',
+    'mark_paid'             => 'Mark Paid',
     'mark_received'         => 'Mark Received',
     'download_pdf'          => 'Download PDF',
     'send_mail'             => 'Send Email',
@@ -46,6 +47,7 @@ return [
 
     'messages' => [
         'received'          => 'Bill marked as received successfully!',
+        'marked_paid'       => 'Bill marked as paid!',
         'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
 
         'status' => [
