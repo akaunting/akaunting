@@ -98,4 +98,9 @@ class InvoiceItem extends Model
 
         $this->setAttribute('tax_id', $tax_ids);
     }
+
+    public function onCloning($src, $child = null)
+    {
+        unset($this->tax_id);
+    }
 }
