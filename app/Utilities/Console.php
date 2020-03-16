@@ -8,7 +8,7 @@ class Console
 {
     public static function run($command, $all_output = false, $timeout = 0)
     {
-        $process = new Process($command, base_path());
+        $process = Process::fromShellCommandline($command, base_path());
         $process->setTimeout($timeout);
 
         $process->run();
