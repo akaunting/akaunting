@@ -11,6 +11,7 @@
                         <th class="col-xs-4 col-md-4 text-right">{{ trans('general.amount') }}</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @if ($transactions->count())
                         @foreach($transactions as $item)
