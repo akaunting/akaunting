@@ -55,16 +55,7 @@ trait Modules
     // Get Module
     public function getModule($alias)
     {
-        // Get data from cache
-        $item = Cache::get('apps.' . $alias);
-
-        if (!empty($item)) {
-            return $item;
-        }
-
         $item = static::getResponseData('GET', 'apps/' . $alias);
-
-        Cache::put('apps.' . $alias, $item, Date::now()->addHour());
 
         return $item;
     }
@@ -412,6 +403,8 @@ trait Modules
 
         $company_id = session('company_id');
         $locale = app()->getLocale();
+
+        Cache::forget('installed.' . $company_id . '.module');
 
         Console::run("php artisan module:install {$module->alias} {$company_id} {$locale}");
 
