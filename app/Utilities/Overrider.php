@@ -41,13 +41,13 @@ class Overrider
         config(['mail.from.address' => setting('company.email')]);
 
         if ($email_protocol == 'sendmail') {
-            config(['mail.sendmail.path' => setting('email.sendmail_path')]);
+            config(['mail.mailers.sendmail.path' => setting('email.sendmail_path')]);
         } elseif ($email_protocol == 'smtp') {
-            config(['mail.smtp.host' => setting('email.smtp_host')]);
-            config(['mail.smtp.port' => setting('email.smtp_port')]);
-            config(['mail.smtp.username' => setting('email.smtp_username')]);
-            config(['mail.smtp.password' => setting('email.smtp_password')]);
-            config(['mail.smtp.encryption' => setting('email.smtp_encryption')]);
+            config(['mail.mailers.smtp.host' => setting('email.smtp_host')]);
+            config(['mail.mailers.smtp.port' => setting('email.smtp_port')]);
+            config(['mail.mailers.smtp.username' => setting('email.smtp_username')]);
+            config(['mail.mailers.smtp.password' => setting('email.smtp_password')]);
+            config(['mail.mailers.smtp.encryption' => setting('email.smtp_encryption')]);
         }
 
         // Locale
