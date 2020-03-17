@@ -52,6 +52,10 @@ return [
         'subheading'        => 'Undertitel',
         'due_receipt'       => 'Forfalder ved modtagelse',
         'due_days'          => 'Forfalder om :dage dage',
+        'choose_template'   => 'Vælg faktura skabelon',
+        'default'           => 'Standard',
+        'classic'           => 'Klassisk',
+        'modern'            => 'Moderne',
     ],
 
     'default' => [

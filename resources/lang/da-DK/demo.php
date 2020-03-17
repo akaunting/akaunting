@@ -19,16 +19,16 @@ return [
     ],
 
     'offline_payments' => [
-        'cash'              => 'Cash',
-        'bank'              => 'Bank Transfer',
+        'cash'              => 'Kontant',
+        'bank'              => 'Bankoverførsel',
     ],
 
     'reports' => [
-        'income'            => 'Monthly income summary by category.',
-        'expense'           => 'Monthly expense summary by category.',
-        'income_expense'    => 'Monthly income vs expense by category.',
-        'tax'               => 'Quarterly tax summary.',
-        'profit_loss'       => 'Quarterly profit & loss by category.',
+        'income'            => 'Månedlig indkomst oversigt efter kategori',
+        'expense'           => 'Månedlig udgiftsoversigt efter kategori',
+        'income_expense'    => 'Månedlig Indkomstoversigt efter kategori',
+        'tax'               => 'Kvartalsvis afgifts-oversigt',
+        'profit_loss'       => 'Kvartalsvis indtægt & tab efter kategori ',
     ],
 
 ];

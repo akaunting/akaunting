@@ -29,6 +29,7 @@ return [
     'add_payment'           => 'Tilføj betaling',
     'mark_paid'             => 'Marker som betalt',
     'mark_sent'             => 'Marker som sendt',
+    'mark_viewed'           => 'Marker Set',
     'download_pdf'          => 'Download som PDF',
     'send_mail'             => 'Send E-mail',
     'all_invoices'          => 'Log ind for at se alle fakturaer',
@@ -40,10 +41,12 @@ return [
     'statuses' => [
         'draft'             => 'Kladde',
         'sent'              => 'Sendt',
-        'viewed'            => 'Vist',
+        'viewed'            => 'Set',
         'approved'          => 'Godkendt',
-        'partial'           => 'Delvist',
+        'partial'           => 'Delvis',
         'paid'              => 'Betalt',
+        'overdue'           => 'Overskredet',
+        'unpaid'            => 'Ubetalt',
     ],
 
     'messages' => [

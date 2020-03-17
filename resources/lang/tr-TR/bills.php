@@ -28,6 +28,7 @@ return [
     'histories'             => 'Geçmiş',
     'payments'              => 'Ödemeler',
     'add_payment'           => 'Ödeme Ekle',
+    'mark_paid'             => 'Ödendi İşaretle',
     'mark_received'         => 'Teslim Alındı İşaretle',
     'download_pdf'          => 'PDF İndir',
     'send_mail'             => 'Email Gönder',
@@ -46,6 +47,7 @@ return [
 
     'messages' => [
         'received'          => 'Fatura başarıyla teslim alındı olarak işaretlendi!',
+        'marked_paid'       => 'Fatura ödendi olark işaretlendi!',
         'draft'             => 'Bu bir <b>TASLAK</b> faturadır ve alındıktan sonra grafiklere yansıtılacaktır.',
 
         'status' => [

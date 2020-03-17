@@ -2,23 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Förbjuden åtkomst',
-    'error_page'       => 'Felsida',
-    'page_not_found'   => 'Sidan hittades inte',
-
-    'body'   => [
-        'forbidden_access' => 'Hoppsan! Förbjuden tillgång.',
-        'error_page' => 'Hoppsan! Något gick fel.',
-        'page_not_found' => 'Hoppsan! Sidan kunde inte hittas.',
+    'title' => [
+        '403' => 'Hoppsan! Förbjuden åtkomst',
+        '404' => 'Hoppsan! Sidan kunde inte hittas.',
+        '500' => 'Hoppsan! Något gick fel.',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'Du kan inte komma åt den här sidan.
-        Under tiden kan du <a href=":link">återvända till instrumentpanelen</a>.',
-        'error_page' => 'Vi kommer att arbeta på att fixa det direkt.
-        Under tiden kan du <a href=":link">återvända till instrumentpanelen</a>.',
-        'page_not_found' => 'Vi kunde inte hitta sidan du letade efter.
-        Under tiden kan du <a href=":link">återgå till instrumentpanelen</a>.',
+    'header' => [
+        '403' => '403 Förbjuden',
+        '404' => '404 hittades inte',
+        '500' => '500 Internt serverfel',
+    ],
+
+    'message' => [
+        '403' => 'Du kan inte komma åt den här sidan.',
+        '404' => 'Vi kunde inte hitta sidan du letade efter.',
+        '500' => 'Vi kommer att arbeta med att rätta till detta direkt.',
     ],
 
 ];

@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Nuværende E-mail',
     'reset'                 => 'Nulstil',
     'never'                 => 'Aldrig',
+    'landing_page'          => 'Landingsside',
 
     'password' => [
         'current'           => 'Adgangskode',

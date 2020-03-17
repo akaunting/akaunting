@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Njoftim: <b>:name</b> nuk mund të fshihet sepse ka :text të lidhur.',
         'disabled'          => 'Njoftim: <b>:name</b> nuk mund të disable sepse ka :text të lidhur.',
+        'reconciled_tran'   => 'Njoftim: Nuk ju lejohet të ndryshoni/fshini transaksionin sepse është pajtuar!',
+        'reconciled_doc'    => 'Njoftim: Nuk ju lejohet të ndryshoni/fshini :type sepse ka pajtuar transaksionet!',
         'disable_code'      => 'Njoftim: Nuk ju lejohet të çaktivizoni ose të ndryshoni monedhën e <b>:name</b>, sepse ajo ka :text e lidhur.',
         'payment_cancel'    => 'Paralajmërim: Ju keni anuluar :method pagesën tuaj të fundit!',
     ],

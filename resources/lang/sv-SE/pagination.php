@@ -2,9 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Föregående',
-    'next'                  => 'Nästa &raquo;',
-    'showing'               => ':first-:last of :total records.',
+    'previous'              => 'Föregående',
+    'next'                  => 'Nästa',
+    'showing'               => ':first :last av :total poster.',
     'page'                  => 'per sida.',
 
 ];

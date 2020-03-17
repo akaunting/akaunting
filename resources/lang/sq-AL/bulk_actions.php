@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Veprimi me Shumicë|Veprimet me Shumicë',
-    'selected'         => 'e selektuar',
+    'bulk_actions'      => 'Veprimi me Shumicë|Veprimet me Shumicë',
+    'selected'          => 'e selektuar',
+    'no_action'         => 'Asnjë veprim në dispozicion',
 
     'message' => [
         'duplicate'     => 'Jeni i sigurt që doni të <b>kopjoni</b> rekordin e zgjedhur?',

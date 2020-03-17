@@ -28,6 +28,7 @@ return [
     'histories'             => 'इतिहास',
     'payments'              => 'भुगतान',
     'add_payment'           => 'भुगतान जोड़ें',
+    'mark_paid'             => 'Mark Paid',
     'mark_received'         => 'प्राप्त किए हुए में मार्क करे',
     'download_pdf'          => 'डाउनलोड PDF',
     'send_mail'             => 'ईमेल भेजें',
@@ -46,6 +47,7 @@ return [
 
     'messages' => [
         'received'          => 'बिल को सफलतापूर्वक प्राप्त किया गया!',
+        'marked_paid'       => 'Bill marked as paid!',
         'draft'             => 'यह एक <b>ड्राफ्ट</b> बिल है और इसे प्राप्त होने के बाद चार्ट पर प्रतिबिंबित किया जाएगा।',
 
         'status' => [

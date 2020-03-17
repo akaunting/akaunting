@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Aviso: Você não têm permissão para excluir <b>:name</b>, porque possui o :text relacionado.',
         'disabled'          => 'Aviso: Você não tem permissão para desativar <b>:name</b>, porque tem :text relacionado.',
+        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
+        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => 'Aviso: você não tem permissão para desativar ou alterar a moeda de <b>:name</b> porque possui :text relacionado.',
         'payment_cancel'    => 'Aviso: Você cancelou recentemente o método de pagamento :method!',
     ],

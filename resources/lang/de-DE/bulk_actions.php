@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Sammelaktion|Sammelaktionen',
-    'selected'         => 'ausgewählt',
+    'bulk_actions'      => 'Sammelaktion|Sammelaktionen',
+    'selected'          => 'ausgewählt',
+    'no_action'         => 'Keine Aktionen verfügbar',
 
     'message' => [
         'duplicate'     => 'Sind Sie sicher das Sie die ausgewählten Datensätze <b>duplizieren</b> möchten?',

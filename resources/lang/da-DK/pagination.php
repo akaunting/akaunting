@@ -2,9 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Forrige',
-    'next'                  => 'Næste &raquo;',
-    'showing'               => ':first-:last of :total records.',
+    'previous'              => 'Forrige',
+    'next'                  => 'Næste',
+    'showing'               => ':first-:last af :total poster.',
     'page'                  => 'pr side.',
 
 ];

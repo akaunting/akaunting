@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Ação em massa | Ações em massa',
-    'selected'         => 'selecionado',
+    'bulk_actions'      => 'Ação em massa | Ações em massa',
+    'selected'          => 'selecionado',
+    'no_action'         => 'No action available',
 
     'message' => [
         'duplicate'     => 'Tem certeza de que deseja <b>duplicar</b> o registro selecionado?',

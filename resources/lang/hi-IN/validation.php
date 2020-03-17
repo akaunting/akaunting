@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'अनुकूल-संदेश',
+            'rule-name'             => 'अनुकूल-संदेश',
         ],
-        'invalid_currency' => ':attribute कोड अमान्य है।',
-        'invalid_amount'   => 'राशि :attribute अमान्य है।',
+        'invalid_currency'      => ':attribute कोड अमान्य है।',
+        'invalid_amount'        => 'राशि :attribute अमान्य है।',
+        'invalid_extension'     => 'फ़ाइल एक्सटेंशन अमान्य है।',
     ],
 
     /*

@@ -28,6 +28,7 @@ return [
     'histories'             => 'Historikk',
     'payments'              => 'Utbetalinger',
     'add_payment'           => 'Legg til betaling',
+    'mark_paid'             => 'Merk som betalt',
     'mark_received'         => 'Merk som mottatt',
     'download_pdf'          => 'Last ned PDF',
     'send_mail'             => 'Send e-post',
@@ -46,6 +47,7 @@ return [
 
     'messages' => [
         'received'          => 'Faktura ble merket som mottatt.',
+        'marked_paid'       => 'Faktura merket som betalt!',
         'draft'             => 'Dette er en <b>KLADD</b> for fakturaen som vil bli oppdatert etter at den er mottatt.',
 
         'status' => [

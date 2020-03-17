@@ -28,6 +28,7 @@ return [
     'histories'             => 'Histórico',
     'payments'              => 'Pagamentos',
     'add_payment'           => 'Novo Pagamento',
+    'mark_paid'             => 'Marcar como pago',
     'mark_received'         => 'Marcar como Recebida',
     'download_pdf'          => 'Baixar em PDF',
     'send_mail'             => 'Enviar E-mail',
@@ -46,6 +47,7 @@ return [
 
     'messages' => [
         'received'          => 'Conta marcada como recebida com sucesso!',
+        'marked_paid'       => 'Fatura marcada como paga!',
         'draft'             => 'Este é um <b>RASCUNHO</b> de fatura e será refletida nos gráficos depois que ela for recebida.',
 
         'status' => [

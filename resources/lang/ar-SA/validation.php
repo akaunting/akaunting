@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'رسالة مخصصة',
+            'rule-name'             => 'رسالة مخصصة',
         ],
-        'invalid_currency' => 'رمز خانة :attribute غير صحيحة.',
-        'invalid_amount'   => 'خانة المبلغ :attribute غير صالحة.',
+        'invalid_currency'      => 'رمز خانة :attribute غير صحيحة.',
+        'invalid_amount'        => 'خانة المبلغ :attribute غير صالحة.',
+        'invalid_extension'     => 'The file extension is invalid.',
     ],
 
     /*

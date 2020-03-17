@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Nettoresultat',
     'total_expenses'        => 'Udgifter i alt',
     'net'                   => 'Netto',
-    'income-expense'        => 'Indtægter & Udgifter',
+    'income_expense'        => 'Indtægter og Udgifter',
 
     'summary' => [
         'income'            => 'Indkomst Resumé',

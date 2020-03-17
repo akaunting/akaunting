@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'ziņa pēc pieprasījuma',
+            'rule-name'             => 'ziņa pēc pieprasījuma',
         ],
-        'invalid_currency' => ':attribute kods nav derīgs.',
-        'invalid_amount'   => 'Daudzums :attribute ir nederīgs.',
+        'invalid_currency'      => ':attribute kods nav derīgs.',
+        'invalid_amount'        => 'Daudzums :attribute ir nederīgs.',
+        'invalid_extension'     => 'The file extension is invalid.',
     ],
 
     /*

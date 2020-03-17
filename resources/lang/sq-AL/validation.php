@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'Mesazh Privat',
+            'rule-name'             => 'Mesazh Privat',
         ],
-        'invalid_currency' => 'Kodi :attribute është i pavlefshëm.',
-        'invalid_amount'   => 'Shuma :attribute është e pavlefshme.',
+        'invalid_currency'      => 'Kodi :attribute është i pavlefshëm.',
+        'invalid_amount'        => 'Shuma :attribute është e pavlefshme.',
+        'invalid_extension'     => 'Zgjatja e skedarit është e pavlefshme.',
     ],
 
     /*

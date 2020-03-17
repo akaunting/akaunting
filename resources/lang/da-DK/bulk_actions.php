@@ -2,18 +2,19 @@
 
 return [
 
-    'bulk_actions'     => 'Vælg|Vælg flere',
-    'selected'         => 'valgt',
+    'bulk_actions'      => 'Vælg|Vælg flere',
+    'selected'          => 'valgt',
+    'no_action'         => 'Ingen funktion valgt',
 
     'message' => [
-        'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',
-        'delete'        => 'Are you sure you want to <b>delete</b> selected record?|Are you sure you want to <b>delete</b> selected records?',
-        'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
-        'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',
-        'disable'       => 'Are you sure you want to <b>disable</b> selected record?|Are you sure you want to <b>disable</b> selected records?',
-        'paid'          => 'Are you sure you want to mark selected invoice as <b>paid</b>?|Are you sure you want to mark selected invoices as <b>paid</b>?',
-        'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
-        'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
+        'duplicate'     => 'Er du sikker på du vil <b>kopiere</b> den valgte post?',
+        'delete'        => 'Er du sikker på du vil <b>slette</b> den valgte post?|Er du sikker på du vil <b>slette</b> de valgte poster?',
+        'export'        => 'Er du sikker på vil <b>exportere</b> den valgte post?|Er du sikker på du vil <b>exportere</b> de valgte poster?',
+        'enable'        => 'Er du sikker på du <b>aktivere</b> den valgte post?|Er du sikker på du vil <b>aktivere</b> de valgte poster?',
+        'disable'       => 'Er du sikker på du vil <b>deaktivere</b> den valgte post?|Er du sikker på du vil <b>deaktivere</b> de valgte poster?',
+        'paid'          => 'Er du sikker på vil markere den valgte faktura som <b>betalt</b>?|Er du sikker på vil markere de valgte faktura som <b>betalt</b>?',
+        'sent'          => 'Er du sikker på vil markere den valgte faktura som <b>sendt</b>?|Er du sikker på vil markere de valgte faktura som <b>sendt</b>?',
+        'received'      => 'Er du sikker på vil markere den valgte regning som <b>modtaget</b>?|Er du sikker på vil markere de valgte regninger som <b>modtaget</b>?',
     ],
 
 ];

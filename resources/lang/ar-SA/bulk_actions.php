@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'الإجراء الجماعي - الإجراءات الجماعية',
-    'selected'         => 'مُحدد',
+    'bulk_actions'      => 'الإجراء الجماعي - الإجراءات الجماعية',
+    'selected'          => 'مُحدد',
+    'no_action'         => 'No action available',
 
     'message' => [
         'duplicate'     => 'هل أنت متأكد من</b> مضاعفة <b> السجلات المحددة؟',

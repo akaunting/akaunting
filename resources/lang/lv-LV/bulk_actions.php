@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Bulk Action|Bulk Actions',
-    'selected'         => 'selected',
+    'bulk_actions'      => 'Bulk Action|Bulk Actions',
+    'selected'          => 'selected',
+    'no_action'         => 'No action available',
 
     'message' => [
         'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',

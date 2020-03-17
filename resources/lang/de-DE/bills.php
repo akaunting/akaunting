@@ -28,6 +28,7 @@ return [
     'histories'             => 'Historie',
     'payments'              => 'Zahlungen',
     'add_payment'           => 'Zahlung hinzufügen',
+    'mark_paid'             => 'Als bezahlt markieren',
     'mark_received'         => 'Als erhalten markieren',
     'download_pdf'          => 'Als PDF herunterladen',
     'send_mail'             => 'E-Mail senden',
@@ -46,6 +47,7 @@ return [
 
     'messages' => [
         'received'          => 'Rechnung wurde als erfolgreich erhalten markiert!',
+        'marked_paid'       => 'Rechnung als bezahlt markiert!',
         'draft'             => 'Dies ist eine Rechnungs-<b>Vorschau</b>. Die Rechnung erscheint in den Diagrammen nachdem sie als erhalten markiert wurde.',
 
         'status' => [

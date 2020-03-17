@@ -28,6 +28,7 @@ return [
     'histories'             => 'Storico',
     'payments'              => 'Pagamenti',
     'add_payment'           => 'Aggiungere pagamento',
+    'mark_paid'             => 'Segna come Pagata',
     'mark_received'         => 'Segna come ricevuto',
     'download_pdf'          => 'Scarica PDF',
     'send_mail'             => 'Invia email',
@@ -46,6 +47,7 @@ return [
 
     'messages' => [
         'received'          => 'Fattura segnata con successo come ricevuta!',
+        'marked_paid'       => 'Fattura contrassegnata come pagata!',
         'draft'             => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà ricevuta.',
 
         'status' => [

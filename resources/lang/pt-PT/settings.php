@@ -3,14 +3,16 @@
 return [
 
     'company' => [
+        'description'       => 'Change company name, email, address, tax number etc',
         'name'              => 'Nome',
         'email'             => 'E-mail',
         'phone'             => 'Telefone',
         'address'           => 'Endereço',
-        'logo'              => 'Logotipo',
+        'logo'              => 'Logótipo',
     ],
+
     'localisation' => [
-        'tab'               => 'Localização',
+        'description'       => 'Set fiscal year, time zone, date format and more locals',
         'financial_start'   => 'Início do ano fiscal',
         'timezone'          => 'Fuso Horário',
         'date' => [
@@ -28,8 +30,9 @@ return [
             'after'         => 'Depois do Número',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Faturas',
+        'description'       => 'Customize invoice prefix, number, terms, footer etc',
         'prefix'            => 'Prefixo',
         'digit'             => 'Quantidade de dígitos',
         'next'              => 'Próximo Número',
@@ -44,16 +47,25 @@ return [
         'rate'              => 'Taxa',
         'quantity_name'     => 'Nome de Quantidade',
         'quantity'          => 'Quantidade',
+        'payment_terms'     => 'Termos de Pagamento',
+        'title'             => 'Título',
+        'subheading'        => 'Subtítulo',
+        'due_receipt'       => 'Due upon receipt',
+        'due_days'          => 'Due within :days days',
+        'choose_template'   => 'Choose invoice template',
+        'default'           => 'Padrão',
+        'classic'           => 'Clássico',
+        'modern'            => 'Moderno',
     ],
+
     'default' => [
-        'tab'               => 'Padrões',
-        'account'           => 'Conta Padrão',
-        'currency'          => 'Moeda Padrão',
-        'tax'               => 'Imposto Padrão',
-        'payment'           => 'Método de Pagamento Padrão',
-        'language'          => 'Idioma Padrão',
+        'description'       => 'Default account, currency, language of your company',
+        'list_limit'        => 'Records Per Page',
+        'use_gravatar'      => 'Usar Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Change the sending protocol and email templates',
         'protocol'          => 'Protocolo',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -68,36 +80,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Localização Sendmail',
         'log'               => 'Registo de e-mails',
+
+        'templates' => [
+            'subject'                   => 'Assunto',
+            'body'                      => 'Conteúdo',
+            'tags'                      => '<strong>Available Tags:</strong> :tag_list',
+            'invoice_new_customer'      => 'New Invoice Template (sent to customer)',
+            'invoice_remind_customer'   => 'Invoice Reminder Template (sent to customer)',
+            'invoice_remind_admin'      => 'Invoice Reminder Template (sent to admin)',
+            'invoice_recur_customer'    => 'Invoice Recurring Template (sent to customer)',
+            'invoice_recur_admin'       => 'Invoice Recurring Template (sent to admin)',
+            'invoice_payment_customer'  => 'Payment Received Template (sent to customer)',
+            'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
+            'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
+            'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Agendamento',
+        'name'              => 'Scheduling',
+        'description'       => 'Automatic reminders and command for recurring',
         'send_invoice'      => 'Enviar lembrete de faturas',
         'invoice_days'      => 'Enviar após dias de vencimento',
         'send_bill'         => 'Enviar lembrete de Contas',
         'bill_days'         => 'Enviar antes de vencer',
         'cron_command'      => 'Comando Cron',
         'schedule_time'     => 'Iniciar Cron',
-        'send_item_reminder'=> 'Enviar lembrete de Item',
-        'item_stocks'       => 'Enviar Quando Item Disponível',
     ],
-    'appearance' => [
-        'tab'               => 'Aparência',
-        'theme'             => 'Tema',
-        'light'             => 'Claro',
-        'dark'              => 'Escuro',
-        'list_limit'        => 'Resultados por Página',
-        'use_gravatar'      => 'Usar Gravatar',
+
+    'categories' => [
+        'description'       => 'Unlimited categories for income, expense, and item',
     ],
-    'system' => [
-        'tab'               => 'Sistema',
-        'session' => [
-            'lifetime'      => 'Fechar sessão (Minutos)',
-            'handler'       => 'Gestor de Sessão',
-            'file'          => 'Ficheiro',
-            'database'      => 'Base de Dados',
-        ],
-        'file_size'         => 'Tamanho máximo do ficheiro (MB)',
-        'file_types'        => 'Tipos de ficheiros permitidos',
+
+    'currencies' => [
+        'description'       => 'Create and manage currencies and set their rates',
+    ],
+
+    'taxes' => [
+        'description'       => 'Fixed, normal, inclusive, and compound tax rates',
     ],
 
 ];

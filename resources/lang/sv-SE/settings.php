@@ -52,6 +52,10 @@ return [
         'subheading'        => 'Underrubrik',
         'due_receipt'       => 'Förfaller vid mottagandet',
         'due_days'          => 'Förfaller inom :days dagar',
+        'choose_template'   => 'Välj fakturamall',
+        'default'           => 'Standard',
+        'classic'           => 'Klassisk',
+        'modern'            => 'Modern',
     ],
 
     'default' => [
