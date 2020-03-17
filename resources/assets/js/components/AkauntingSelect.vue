@@ -543,6 +543,10 @@ export default {
     mounted() {
         this.real_model = this.value;
 
+        if (this.model.length) {
+            this.real_model = this.model;
+        }
+
         if (this.multiple && !this.real_model.length) {
             this.real_model = [];
         }
