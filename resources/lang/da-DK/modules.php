@@ -12,10 +12,9 @@ return [
     'search'                => 'Søg',
     'install'               => 'Installer',
     'buy_now'               => 'Køb nu',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Klik her</a> for at få din API nøgle.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klik her</a> for at få din API nøgle.',
     'no_apps'               => 'Der er ingen apps i denne kategori endnu.',
-    'developer'             => 'Er du udvikler? <a href="https://akaunting.com/developers" target="_blank">her</a> kan du lære hvordan du opretter en app og begynde at sælge i dag!',
-
+    'become_developer'      => 'Er du udvikler? <a href=":url" target="_blank">Her</a> kan du lære at udvikle en app og starte med at sælge i dag!',
     'recommended_apps'      => 'Anbefalede programmer',
 
     'about'                 => 'Om',
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'Der er ingen anmeldelser.'
-    ]
+    ],
+
 ];

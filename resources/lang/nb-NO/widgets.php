@@ -2,7 +2,7 @@
 
 return [
 
-    'total_income'              => 'Total inntekt',
+    'total_income'              => 'Totale inntekter',
     'receivables'               => 'Fordringer',
     'open_invoices'             => 'Ubetalte fakturaer',
     'overdue_invoices'          => 'Forfalte fakturaer',
@@ -15,7 +15,7 @@ return [
     'overdue_profit'            => 'Forfalt fortjeneste',
     'cash_flow'                 => 'Kontantstrøm',
     'no_profit_loss'            => 'Ingen fortjenestestap',
-    'income_by_category'        => 'Inntekt etter kategori',
+    'income_by_category'        => 'Inntekter etter kategori',
     'expenses_by_category'      => 'Utgifter etter kategori',
     'account_balance'           => 'Kontobalanse',
     'latest_income'             => 'Siste inntekter',

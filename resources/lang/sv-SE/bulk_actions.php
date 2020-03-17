@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Bulk Action|Bulk åtgärder',
-    'selected'         => 'vald',
+    'bulk_actions'      => 'Bulk Action|Bulk åtgärder',
+    'selected'          => 'vald',
+    'no_action'         => 'Ingen åtgärd tillgänglig',
 
     'message' => [
         'duplicate'     => 'Är du säker på att du vill <b>duplicera</b> vald post?',

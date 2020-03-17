@@ -38,7 +38,8 @@ return [
     'digits_between'       => 'O campo :attribute deverá conter entre :min a :max caracteres.',
     'dimensions'           => 'O campo :attribute deverá conter um tamanho de imagem válida.',
     'distinct'             => 'O campo :attribute contém um valor duplicado.',
-    'email'                => 'O campo :attribute não contém um endereço de e-mail válido.',
+    'email'                => 'O campo :attribute não contém um endereço de correio eletrónico válido.',
+    'ends_with'            => 'O :attribute deve terminar com um dos seguintes: :values',
     'exists'               => 'O valor selecionado para o campo :attribute é inválido.',
     'file'                 => 'O campo :attribute deverá conter um ficheiro.',
     'filled'               => 'É obrigatória a indicação de um valor para o campo :attribute.',
@@ -80,7 +81,7 @@ return [
         'string'  => 'O campo :attribute deverá conter :size caracteres.',
         'array'   => 'O campo :attribute deverá conter :size itens.',
     ],
-    'string'               => 'O campo :attribute deverá conter uma string.',
+    'string'               => 'O campo :attribute deverá conter texto.',
     'timezone'             => 'O campo :attribute deverá ter um fuso horário válido.',
     'unique'               => 'O valor indicado para o campo :attribute já se encontra registado.',
     'uploaded'             => 'O upload do ficheiro :attribute falhou.',
@@ -99,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'mensagem personalizada',
+            'rule-name'             => 'mensagem personalizada',
         ],
-        'invalid_currency' => 'O código do :attribute é inválido.',
-        'invalid_amount'   => 'O montante do campo :attribute não é válido.',
+        'invalid_currency'      => 'O código do :attribute é inválido.',
+        'invalid_amount'        => 'O montante do campo :attribute não é válido.',
+        'invalid_extension'     => 'The file extension is invalid.',
     ],
 
     /*

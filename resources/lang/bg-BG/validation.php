@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name'             => 'custom-message',
         ],
-        'invalid_currency' => ':attribute код е невалиден.',
-        'invalid_amount'   => 'Сумата :attribute е невалидна.',
+        'invalid_currency'      => ':attribute код е невалиден.',
+        'invalid_amount'        => 'Сумата :attribute е невалидна.',
+        'invalid_extension'     => 'Това файлово разширение е невалидно.',
     ],
 
     /*

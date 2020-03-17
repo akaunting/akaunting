@@ -28,6 +28,7 @@ return [
     'histories'             => 'Historik',
     'payments'              => 'Betalinger',
     'add_payment'           => 'Tilføj betaling',
+    'mark_paid'             => 'Marker Betalt',
     'mark_received'         => 'Modtagelse godkendt',
     'download_pdf'          => 'Download PDF',
     'send_mail'             => 'Send E-mail',
@@ -40,10 +41,13 @@ return [
         'received'          => 'Modtaget',
         'partial'           => 'Delvis',
         'paid'              => 'Betalt',
+        'overdue'           => 'Overskredet',
+        'unpaid'            => 'Ubetalt',
     ],
 
     'messages' => [
         'received'          => 'Regning registreret som modtaget!',
+        'marked_paid'       => 'Regning markeret som betalt',
         'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil blive afspejlet i diagrammer, når den bliver modtaget.',
 
         'status' => [

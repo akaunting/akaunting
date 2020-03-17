@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Advarsel: Du har ikke mulighet til å slette <b>:name</b> fordi kontoen har :text relatert.',
         'disabled'          => 'Advarsel: Du kan ikke deaktivere <b>:name</b> fordi kontoen har :text relatert.',
+        'reconciled_tran'   => 'Advarsel: Du har ikke lov til å endre / slette transaksjonen fordi den er avstemt!',
+        'reconciled_doc'    => 'Advarsel: Du har ikke lov til å endre / slette :type fordi den har avstemte transaksjoner!',
         'disable_code'      => 'Advarsel: Du har ikke tillatelse til å deaktivere eller endre valutaen for <b>:name</b> fordi den har relatert :text.',
         'payment_cancel'    => 'Advarsel: Du har avbrutt din siste :method betaling!',
     ],

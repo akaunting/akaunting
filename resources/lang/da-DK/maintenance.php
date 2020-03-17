@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Vedligeholdelsestilstand',
+    'title' => 'Under Vedligeholdelse',
 
-    'message' => 'Vi arbejder på sitet, prøv venligst senere!',
+    'message' => 'Beklager, Vi er nede for vedligeholdelse. Prøv venligst senere!',
 
-    'last-updated' => 'Denne besked var sidst opdateret :timestamp',
+    'last-updated' => 'Denne besked var senest opdateret :timestamp.',
 
 ];

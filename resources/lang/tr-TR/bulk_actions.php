@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Toplu İşlem|Toplu İşlemler',
-    'selected'         => 'seçili',
+    'bulk_actions'      => 'Toplu İşlem|Toplu İşlemler',
+    'selected'          => 'seçili',
+    'no_action'         => 'Kullanılabilir eylem yok',
 
     'message' => [
         'duplicate'     => 'Seçili kaydı <b>kopyalamak</b> istediğinizden emin misiniz?',

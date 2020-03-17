@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Brīdinājums: Jums nav tiesību dzēst <b>:name</b> jo tas ir saistīts ar :text.',
         'disabled'          => 'Brīdinājums: Jums nav tiesību atspējot <b>:name</b> jo tas ir saistīts ar :text.',
+        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
+        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
         'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
     ],

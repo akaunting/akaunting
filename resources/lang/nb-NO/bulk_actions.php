@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Massehandling|Massehandlinger',
-    'selected'         => 'valgt',
+    'bulk_actions'      => 'Massehandling|Massehandlinger',
+    'selected'          => 'valgt',
+    'no_action'         => 'Ingen handling tilgjengelig',
 
     'message' => [
         'duplicate'     => 'Er du sikker på at du vil <b>duplisere</b> de utvalgte oppføring(er)?',

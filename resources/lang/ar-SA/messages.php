@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'تنبيه: لا يمكنك حذف <b>:name</b> لأنه لديه :text مرتبط به.',
         'disabled'          => 'تنبيه: لا يمكنك تعطيل <b>:name</b> لأنه لديه :text مرتبط به.',
+        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
+        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => 'تنبيه: لا يمكنك تعطيل او تغير عملة <b>:name</b> بسبب ارتباطه ب :text.',
         'payment_cancel'    => 'تنبيه: قمت بالغاء اخر طريقة :method دفع!',
     ],

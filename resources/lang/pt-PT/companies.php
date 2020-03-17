@@ -3,11 +3,12 @@
 return [
 
     'domain'                => 'Domínio',
-    'logo'                  => 'Logotipo',
-    'manage'                => 'Gerir empresas',
-    'all'                   => 'Todas as empresas',
+    'logo'                  => 'Logótipo',
+
     'error' => [
-        'delete_active'     => 'Erro: Não é possível excluir a empresa em atividade, por favor altere o registo!',
+        'not_user_company'  => 'Erro: Não tem permissão para alterar esta empresa!',
+        'delete_active'     => 'Error: Can not delete the active company. Please, switch to another first!',
+        'disable_active'    => 'Error: Can not disable the active company. Please, switch to another first!',
     ],
 
 ];

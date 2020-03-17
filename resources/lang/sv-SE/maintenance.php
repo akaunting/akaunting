@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Underhållsläge',
+    'title' => 'Under Underhåll',
 
-    'message' => 'Vi arbetar för närvarande på webbplatsen, vänligen försök igen senare!',
+    'message' => 'Tyvärr, vi är nere för underhåll. Försök igen senare!',
 
-    'last-updated' => 'Detta meddelande uppdaterades senast :timestamp',
+    'last-updated' => 'Detta meddelande uppdaterades senast :timestamp.',
 
 ];

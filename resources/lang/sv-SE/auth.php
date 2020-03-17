@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Aktuella e-post',
     'reset'                 => 'Återställ',
     'never'                 => 'aldrig',
+    'landing_page'          => 'Landningssida',
 
     'password' => [
         'current'           => 'Lösenord',

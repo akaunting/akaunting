@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Nettoförtjänst',
     'total_expenses'        => 'Summa kostnader',
     'net'                   => 'Netto',
-    'income-expense'        => 'Inkomster & Utlägg',
+    'income_expense'        => 'Inkomster & Utlägg',
 
     'summary' => [
         'income'            => 'Inkomstrapport',

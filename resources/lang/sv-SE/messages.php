@@ -8,6 +8,7 @@ return [
         'deleted'           => ':type bortagen!',
         'duplicated'        => ':type dubbelpost!',
         'imported'          => ':type uppdaterad!',
+        'exported'          => ':type exporterad!',
         'enabled'           => ': typ aktiverad!',
         'disabled'          => ':type inaktiverat!',
     ],
@@ -27,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Varning: Du får inte ta bort <b>:name</b> eftersom den har :text relaterade.',
         'disabled'          => 'Varning: Du får inte inaktivera <b>:name</b> eftersom den har :text relaterat.',
+        'reconciled_tran'   => 'Varning: Du har inte tillåtelse att ändra/ta bort transaktionen eftersom den är förenad!',
+        'reconciled_doc'    => 'Varning: Du har inte tillåtelse att ändra/ta bort :type eftersom det har försonat transaktioner!',
         'disable_code'      => 'Varning: Du får inte inaktivera eller ändra valutan i <b>:name</b> eftersom den har :text relaterad.',
         'payment_cancel'    => 'Varning: Du har avbrutit din senaste :method betalning!',
     ],
