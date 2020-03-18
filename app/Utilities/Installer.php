@@ -4,6 +4,7 @@ namespace App\Utilities;
 
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateCompany;
+use App\Utilities\Console;
 use Artisan;
 use Config;
 use DB;
@@ -113,6 +114,10 @@ class Installer
 
         if (!is_writable(base_path('storage/logs'))) {
             $requirements[] = trans('install.requirements.directory', ['directory' => 'storage/logs']);
+        }
+
+        if (Console::run('php artisan help') !== true) {
+            $requirements[] = trans('install.requirements.executable');
         }
 
         return $requirements;
