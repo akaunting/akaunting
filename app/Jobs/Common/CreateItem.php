@@ -4,6 +4,7 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Models\Common\Item;
+use App\Events\Common\ItemCreated;
 
 class CreateItem extends Job
 {
@@ -34,6 +35,8 @@ class CreateItem extends Job
 
             $item->attachMedia($media, 'picture');
         }
+
+        event(new ItemCreated($item));
 
         return $item;
     }

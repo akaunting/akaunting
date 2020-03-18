@@ -4,6 +4,7 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Traits\Contacts;
+use App\Events\Common\ContactDeleted;
 
 class DeleteContact extends Job
 {
@@ -31,6 +32,8 @@ class DeleteContact extends Job
         $this->authorize();
 
         $this->contact->delete();
+
+        event(new ContactDeleted($this->contact->id));
 
         return true;
     }

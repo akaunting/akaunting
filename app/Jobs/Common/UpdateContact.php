@@ -5,6 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Models\Auth\User;
 use App\Models\Common\Contact;
+use App\Events\Common\ContactUpdated;
 
 class UpdateContact extends Job
 {
@@ -38,6 +39,8 @@ class UpdateContact extends Job
         }
 
         $this->contact->update($this->request->all());
+
+        event(new ContactUpdated($this->contact));
 
         return $this->contact;
     }

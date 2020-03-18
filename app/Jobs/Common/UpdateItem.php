@@ -4,6 +4,7 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Models\Common\Item;
+use App\Events\Common\ItemUpdated;
 
 class UpdateItem extends Job
 {
@@ -38,6 +39,8 @@ class UpdateItem extends Job
 
             $this->item->attachMedia($media, 'picture');
         }
+
+        event(new ItemUpdated($this->item));
 
         return $this->item;
     }

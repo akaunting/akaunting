@@ -3,6 +3,7 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\ItemDeleted;
 
 class DeleteItem extends Job
 {
@@ -28,6 +29,8 @@ class DeleteItem extends Job
         $this->authorize();
 
         $this->item->delete();
+
+        event(new ItemDeleted($this->item->id));
 
         return true;
     }

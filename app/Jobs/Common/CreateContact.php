@@ -5,6 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Models\Auth\User;
 use App\Models\Common\Contact;
+use App\Events\Common\ContactCreated;
 
 class CreateContact extends Job
 {
@@ -32,6 +33,8 @@ class CreateContact extends Job
         }
 
         $contact = Contact::create($this->request->all());
+
+        event(new ContactCreated($contact));
 
         return $contact;
     }
