@@ -28,7 +28,7 @@
 
                 <div class="col-sm-6">
                     <label for="cron_command" class="form-control-label">{{ trans('settings.scheduling.cron_command') }}</label>
-                    <input type="text" class="form-control form-control-muted" value="php /path-to-akaunting/artisan schedule:run >> /dev/null 2>&1">
+                    <input type="text" class="form-control form-control-muted" value="php {{ base_path('artisan') }} schedule:run >> /dev/null 2>&1">
                 </div>
 
                 {{ Form::textGroup('time', trans('settings.scheduling.schedule_time'), 'clock', []) }}
