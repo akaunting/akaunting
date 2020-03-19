@@ -445,14 +445,14 @@ export default {
             description: "Selectbox attribute name"
         },
         value: {
-            type: [String, Number, Array],
+            type: [String, Number, Array, Object],
             default: '',
             description: "Selectbox selected value"
         },
         options: null,
 
         model: {
-            type: [String, Number],
+            type: [String, Number, Array, Object],
             default: '',
             description: "Selectbox selected model"
         },
@@ -544,7 +544,11 @@ export default {
         this.real_model = this.value;
 
         if (this.model.length) {
-            this.real_model = this.model;
+            if (eval(this.model) !== undefined) {
+                this.real_model = eval(this.model);
+            } else {
+                this.real_model = this.model;
+            }
         }
 
         if (this.multiple && !this.real_model.length) {
