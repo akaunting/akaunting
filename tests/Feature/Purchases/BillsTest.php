@@ -58,12 +58,12 @@ class BillsTest extends FeatureTestCase
 
         $bill = $this->dispatch(new CreateBill($request));
 
-        $request['contact_name'] = $this->faker->name;
+        $request['contact_email'] = $this->faker->safeEmail;
 
         $this->loginAs()
             ->patch(route('bills.update', $bill->id), $request)
             ->assertStatus(200)
-			->assertSee($request['contact_name']);
+			->assertSee($request['contact_email']);
 
         $this->assertFlashLevel('success');
     }

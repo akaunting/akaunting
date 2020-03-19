@@ -59,12 +59,12 @@ class VendorsTest extends FeatureTestCase
 
         $vendor = $this->dispatch(new CreateContact($request));
 
-        $request['name'] = $this->faker->name;
+        $request['email'] = $this->faker->safeEmail;
 
         $this->loginAs()
             ->patch(route('vendors.update', $vendor->id), $request)
             ->assertStatus(200)
-			->assertSee($request['name']);
+			->assertSee($request['email']);
 
         $this->assertFlashLevel('success');
     }

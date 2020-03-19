@@ -58,12 +58,12 @@ class InvoicesTest extends FeatureTestCase
 
         $invoice = $this->dispatch(new CreateInvoice($request));
 
-        $request['contact_name'] = $this->faker->name;
+        $request['contact_email'] = $this->faker->safeEmail;
 
         $this->loginAs()
             ->patch(route('invoices.update', $invoice->id), $request)
             ->assertStatus(200)
-			->assertSee($request['contact_name']);
+			->assertSee($request['contact_email']);
 
         $this->assertFlashLevel('success');
     }

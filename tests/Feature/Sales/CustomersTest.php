@@ -76,12 +76,12 @@ class CustomersTest extends FeatureTestCase
 
 		$customer = $this->dispatch(new CreateContact($request));
 
-        $request['name'] = $this->faker->name;
+        $request['email'] = $this->faker->safeEmail;
 
 		$this->loginAs()
 			->patch(route('customers.update', $customer->id), $request)
 			->assertStatus(200)
-			->assertSee($request['name']);
+			->assertSee($request['email']);
 
 		$this->assertFlashLevel('success');
 	}
