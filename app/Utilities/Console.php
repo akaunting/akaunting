@@ -20,7 +20,11 @@ class Console
             return true;
         }
 
-        return $all_output ? $process->getOutput() : $process->getErrorOutput();
+        $output = $all_output ? $process->getOutput() : $process->getErrorOutput();
+
+        logger($output);
+
+        return $output;
     }
 
     public static function getPhpBinary()
