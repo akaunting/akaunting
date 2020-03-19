@@ -45,7 +45,7 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ setting('company.address') }}
+                                        {!! nl2br(setting('company.address')) !!}
                                     </th>
                                 </tr>
                                 <tr>
@@ -86,7 +86,7 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ $invoice->contact_address }}
+                                        {!! nl2br($invoice->contact_address) !!}
                                     </th>
                                 </tr>
                                 <tr>
