@@ -21,7 +21,7 @@ return [
         'disabled'          => ':feature needs to be disabled!',
         'extension'         => ':extension extension needs to be installed and loaded!',
         'directory'         => ':directory directory needs to be writable!',
-        'executable'        => 'The PHP executable file is not working! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
+        'executable'        => 'The PHP CLI executable file is not working! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [
