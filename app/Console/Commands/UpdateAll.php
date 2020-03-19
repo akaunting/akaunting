@@ -59,7 +59,7 @@ class UpdateAll extends Command
 
         $company_id = $this->argument('company');
 
-        $command = "php artisan update {$alias} {$company_id}";
+        $command = "update {$alias} {$company_id}";
 
         if (true !== $result = Console::run($command, true)) {
             $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $alias]);

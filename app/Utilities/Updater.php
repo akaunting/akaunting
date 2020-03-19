@@ -135,7 +135,7 @@ class Updater
         }
 
         foreach ($companies as $company) {
-            $command = "php artisan update:finish {$alias} {$company} {$new} {$old}";
+            $command = "update:finish {$alias} {$company} {$new} {$old}";
 
             if (true !== $result = Console::run($command)) {
                 $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $alias]);

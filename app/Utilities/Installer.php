@@ -116,7 +116,7 @@ class Installer
             $requirements[] = trans('install.requirements.directory', ['directory' => 'storage/logs']);
         }
 
-        if (Console::run('php artisan help') !== true) {
+        if (Console::run('help') !== true) {
             $requirements[] = trans('install.requirements.executable');
         }
 

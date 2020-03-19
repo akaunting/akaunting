@@ -406,7 +406,7 @@ trait Modules
 
         Cache::forget('installed.' . $company_id . '.module');
 
-        Console::run("php artisan module:install {$module->alias} {$company_id} {$locale}");
+        Console::run("module:install {$module->alias} {$company_id} {$locale}");
 
         return [
             'success' => true,
