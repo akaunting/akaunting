@@ -55,6 +55,10 @@
         :disabled="{{ $attributes['disabled'] }}"
         @endif
 
+        @if (isset($attributes['show']))
+        v-if="{{ $attributes['show'] }}"
+        @endif
+
         @if (isset($attributes['v-error-message']))
         :form-error="{{ $attributes['v-error-message'] }}"
         @else

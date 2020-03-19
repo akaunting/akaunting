@@ -19,6 +19,10 @@
         :disabled="{{ $attributes['disabled'] }}"
         @endif
 
+        @if (isset($attributes['show']))
+        v-if="{{ $attributes['show'] }}"
+        @endif
+
         @if (isset($attributes['masked']))
         :masked="{{ ($attributes['masked']) ? 'true' : 'false' }}"
         @endif
