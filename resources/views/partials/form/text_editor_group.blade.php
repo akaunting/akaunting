@@ -27,7 +27,7 @@
             @endif
 
             @if (isset($attributes['disabled']))
-            :disabled="'{{ $attributes['disabled'] }}'"
+            :disabled="{{ $attributes['disabled'] }}"
             @endif
         ></akaunting-html-editor>
 

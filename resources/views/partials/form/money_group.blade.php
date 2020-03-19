@@ -12,7 +12,7 @@
         @endif
 
         @if (isset($attributes['readonly']))
-        :readonly="'{{ $attributes['readonly'] }}'"
+        :readonly="{{ $attributes['readonly'] }}"
         @endif
 
         @if (isset($attributes['disabled']))
