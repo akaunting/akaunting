@@ -59,8 +59,14 @@ export default {
         formClasses: null,
         formError: null,
         name: null,
-        value: null,
-        model: null,
+        value: {
+            default: null,
+            description: "Input value defalut"
+        },
+        model: {
+            default: null,
+            description: "Input model defalut"
+        },
         config: null,
         icon: {
             type: String,
