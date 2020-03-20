@@ -31,11 +31,15 @@
 
                     @if (setting('default.use_gravatar', '0') == '1')
                         @stack('picture_input_start')
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 disabled">
                                 {!! Form::label('picture', trans_choice('general.pictures', 1), ['class' => 'control-label']) !!}
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-picture-o"></i></div>
-                                    {!! Form::text('fake_picture', null, ['id' => 'fake_picture', 'class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => trans('settings.appearance.use_gravatar')]) !!}
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-image"></i>
+                                        </span>
+                                    </div>
+                                    {!! Form::text('fake_picture', null, ['id' => 'fake_picture', 'class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => trans('settings.default.use_gravatar')]) !!}
                                 </div>
                             </div>
                         @stack('picture_input_end')

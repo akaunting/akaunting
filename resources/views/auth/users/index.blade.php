@@ -48,7 +48,7 @@
                                 @if (user()->id != $item->id)
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 @else
-                                    {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'disabled']) }}
+                                    {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'true']) }}
                                 @endif
                             </td>
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-3">
