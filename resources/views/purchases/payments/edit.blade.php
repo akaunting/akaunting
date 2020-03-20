@@ -67,7 +67,7 @@
                     @endif
 
                     @if ($payment->bill)
-                        {{ Form::textGroup('document', trans_choice('general.bills', 1), 'file-invoice', ['disabled' => 'disabled'], $payment->bill->bill_number) }}
+                        {{ Form::textGroup('document', trans_choice('general.bills', 1), 'file-invoice', ['disabled' => 'true'], $payment->bill->bill_number) }}
                         {{ Form::hidden('document_id', $payment->bill->id) }}
                     @endif
                 </div>

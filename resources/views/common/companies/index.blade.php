@@ -49,7 +49,7 @@
                                 @if ((session('company_id') != $item->id))
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 @else
-                                    {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'disabled']) }}
+                                    {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'true']) }}
                                 @endif
                             </td>
                             <td class="col-sm-2 col-md-2 col-lg-1 col-xl-1 d-none d-sm-block"><a class="col-aka">{{ $item->id }}</a></td>

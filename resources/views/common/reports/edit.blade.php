@@ -19,7 +19,7 @@
                 <div class="row">
                     {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
-                    {{ Form::textGroup('class_disabled', trans_choice('general.types', 1), 'bars', ['required' => 'required', 'disabled' => 'disabled'], $classes[$report->class]) }}
+                    {{ Form::textGroup('class_disabled', trans_choice('general.types', 1), 'bars', ['required' => 'required', 'disabled' => 'true'], $classes[$report->class]) }}
                     {{ Form::hidden('class', $report->class) }}
 
                     {{ Form::textareaGroup('description', trans('general.description'), null, null, ['rows' => '3', 'required' => 'required']) }}

@@ -21,7 +21,7 @@
                     {{ Form::textGroup('name', trans('general.name'), 'font') }}
 
                     @if ($type_disabled)
-                        {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $category->type, ['required' => 'required', 'disabled' => 'disabled']) }}
+                        {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $category->type, ['required' => 'required', 'disabled' => 'true']) }}
                         <input type="hidden" name="type" value="{{ $category->type }}" />
                     @else
                         {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $category->type) }}

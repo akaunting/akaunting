@@ -42,7 +42,7 @@
                                 {{ Form::checkbox('create_user', '1', 1, [
                                     'id' => 'create_user',
                                     'class' => 'custom-control-input',
-                                    'disabled' => 'disabled'
+                                    'disabled' => 'true'
                                 ]) }}
 
                                 <label class="custom-control-label" for="create_user">
