@@ -745,6 +745,10 @@ export default {
         },
 
         real_model: function (value) {
+            if (this.multiple) {
+                return;
+            }
+
             this.change();
         },
 
