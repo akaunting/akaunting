@@ -59,9 +59,12 @@ return [
     ],
 
     'default' => [
-        'description'       => 'Default account, currency, language of your company',
-        'list_limit'        => 'Records Per Page',
-        'use_gravatar'      => 'Use Gravatar',
+        'description'         => 'Default account, currency, language of your company',
+        'list_limit'          => 'Records Per Page',
+        'use_gravatar'        => 'Use Gravatar',
+        'discount_location'   => 'Discount',
+        'discount_per_item'   => 'Per Item',
+        'discount_in_totals'  => 'In Totals',
     ],
 
     'email' => [

@@ -240,6 +240,11 @@ class CoreV200 extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('landing_page', 70)->nullable()->default('dashboard');
         });
+
+        Schema::table('invoice_items', function (Blueprint $table) {
+            $table->double('discount_rate', 15, 4)->default('0.0000');
+            $table->string('discount_type')->default('normal');
+        });
     }
 
     /**

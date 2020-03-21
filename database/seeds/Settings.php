@@ -63,6 +63,7 @@ class Settings extends Seeder
             'invoice.color'                     => '#55588b',
             'default.payment_method'            => 'offline-payments.cash.1',
             'default.list_limit'                => '25',
+            'default.discount_location'         => 'in_totals',
             'default.use_gravatar'              => '0',
             'email.protocol'                    => 'mail',
             'email.sendmail_path'               => '/usr/sbin/sendmail -bs',

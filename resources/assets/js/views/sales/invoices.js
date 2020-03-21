@@ -75,6 +75,7 @@ const app = new Vue({
                     price: (item.price).toFixed(2),
                     quantity: item.quantity,
                     tax_id: item.tax_id,
+                    discount: item.discount_rate,
                     total: (item.total).toFixed(2)
                 });
             });
@@ -109,7 +110,8 @@ const app = new Vue({
             let tax_total = 0;
             let grand_total = 0;
             let items = this.form.items;
-            let discount = this.form.discount;
+            let discount_in_totals = this.form.discount;
+            let discount = '';
 
             if (items.length) {
                 let index = 0;
@@ -125,8 +127,14 @@ const app = new Vue({
                     // item discount calculate.
                     let item_discounted_total = item_sub_total;
 
-                    if (discount) {
-                        item_discounted_total = item_sub_total - (item_sub_total * (discount / 100));
+                    if (discount_in_totals) {
+                        item_discounted_total = item_sub_total - (item_sub_total * (discount_in_totals / 100));
+                        discount = discount_in_totals;
+                    }
+
+                    if (item.discount) {
+                        item_discounted_total = item_sub_total = item_sub_total - (item_sub_total * (item.discount / 100));
+                        discount = item.discount;
                     }
 
                     // item tax calculate.
@@ -202,12 +210,12 @@ const app = new Vue({
             this.totals.tax = tax_total;
 
             // Apply discount to total
-            if (discount) {
-                discount_total = sub_total * (discount / 100);
+            if (discount_in_totals) {
+                discount_total = sub_total * (discount_in_totals / 100);
 
                 this.totals.discount = discount_total;
 
-                sub_total = sub_total - (sub_total * (discount / 100));
+                sub_total = sub_total - (sub_total * (discount_in_totals / 100));
             }
 
             // set all item grand total.
