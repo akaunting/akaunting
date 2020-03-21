@@ -29,8 +29,8 @@ class Module extends FormRequest
 
         if ($module->get('settings')) {
             foreach ($module->get('settings') as $field) {
-                if (isset($field['attributes']['required'])) {
-                    $rules[$field['name']] = $field['attributes']['required'];
+                if (isset($field['rules'])) {
+                    $rules[$field['name']] = $field['rules'];
                 }
             }
         }
