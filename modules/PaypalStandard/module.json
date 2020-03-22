@@ -20,7 +20,8 @@
             "icon": "fa fa-font",
             "attributes": {
                 "required": "required"
-            }
+            },
+            "rules": "required"
         },
         {
             "type": "textGroup",
@@ -29,7 +30,8 @@
             "icon": "envelope",
             "attributes": {
                 "required": "required"
-            }
+            },
+            "rules": "required"
         },
         {
             "type": "selectGroup",
