@@ -50,7 +50,7 @@ const app = new Vue({
             items: '',
             discount: false,
             taxes: null,
-            colspan: 5,
+            colspan: 6,
         }
     },
 

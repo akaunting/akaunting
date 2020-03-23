@@ -32,8 +32,7 @@ class AddDiscountColumnsInvoiceItemsTable extends Migration
         Schema::table(
             'invoice_items',
             function (Blueprint $table) {
-                $table->dropColumn('discount_rate');
-                $table->dropColumn('discount_type');
+                $table->dropColumn(['discount_rate', 'discount_type']);
             }
         );
     }

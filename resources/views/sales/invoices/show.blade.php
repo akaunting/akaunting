@@ -357,9 +357,7 @@
                                             @stack('price_th_end')
 
                                             @stack('discount_th_start')
-                                                @if($discount_location === 'per_item')
-                                                    <th class="col-sm-1 text-center d-none d-sm-block">{{ trans('invoices.discount') }}</th>
-                                                @endif
+                                                <th class="col-sm-1 text-center d-none d-sm-block">{{ trans('invoices.discount') }}</th>
                                             @stack('discount_th_end')
 
                                             @stack('total_th_start')
@@ -386,9 +384,7 @@
                                                 @stack('price_td_end')
 
                                                 @stack('discount_td_start')
-                                                    @if($discount_location === 'per_item')
-                                                        <td class="col-sm-1 text-center d-none d-sm-block">{{ $invoice_item->discount_rate }}</td>
-                                                    @endif
+                                                    <td class="col-sm-1 text-center d-none d-sm-block">{{ $invoice_item->discount_rate }}</td>
                                                 @stack('discount_td_end')
 
                                                 @stack('total_td_start')

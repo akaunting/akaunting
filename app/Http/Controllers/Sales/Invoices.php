@@ -77,8 +77,6 @@ class Invoices extends Controller
 
         $date_format = $this->getCompanyDateFormat();
 
-        $discount_location = $invoice->totals->contains($invoice->totals->where('code', 'discount')->first()) ? 'in_totals' : 'per_item';
-
         // Get Invoice Totals
         foreach ($invoice->totals as $invoice_total) {
             $invoice->{$invoice_total->code} = $invoice_total->amount;
@@ -92,22 +90,7 @@ class Invoices extends Controller
             $invoice->grand_total = round($invoice->total - $invoice->paid, $currency->precision);
         }
 
-        return view(
-            'sales.invoices.show',
-            compact(
-                'invoice',
-                'accounts',
-                'currencies',
-                'currency',
-                'account_currency_code',
-                'customers',
-                'categories',
-                'payment_methods',
-                'signed_url',
-                'date_format',
-                'discount_location'
-            )
-        );
+        return view('sales.invoices.show', compact('invoice', 'accounts', 'currencies', 'currency', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'signed_url', 'date_format'));
     }
 
     /**
