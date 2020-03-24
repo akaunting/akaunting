@@ -7,6 +7,7 @@
                         <h2 class="d-inline-flex mb-0 long-texts">@yield('title')</h2>
                         @yield('dashboard_action')
                     </div>
+
                     <div class="col-xs-12 col-sm-8 col-md-7">
                         <div class="text-right">
                             @yield('new_button')
@@ -20,6 +21,8 @@
                                     @endforeach
                                 @endif
                             @endpermission
+
+                            @stack('header_button')
                         </div>
                     </div>
                 </div>
