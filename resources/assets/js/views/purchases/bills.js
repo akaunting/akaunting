@@ -32,6 +32,7 @@ const app = new Vue({
             bulk_action: new BulkAction('bills'),
             totals: {
                 sub: 0,
+                item_discount: '',
                 discount: '',
                 discount_text: false,
                 tax: 0,
@@ -107,6 +108,7 @@ const app = new Vue({
         onCalculateTotal() {
             let sub_total = 0;
             let discount_total = 0;
+            let item_discount_total = 0;
             let tax_total = 0;
             let grand_total = 0;
             let items = this.form.items;
@@ -122,18 +124,21 @@ const app = new Vue({
                     let item = items[index];
 
                     // item sub total calcute.
-                    let item_sub_total = item.price * item.quantity;
+                    let item_total = item.price * item.quantity;
 
                     // item discount calculate.
-                    let item_discounted_total = item_sub_total;
+                    let item_discounted_total = item_total;
 
                     if (discount_in_totals) {
-                        item_discounted_total = item_sub_total - (item_sub_total * (discount_in_totals / 100));
+                        item_discounted_total = item_total - (item_total * (discount_in_totals / 100));
                         discount = discount_in_totals;
                     }
 
+                    let discount_amount = 0;
+
                     if (item.discount) {
-                        item_discounted_total = item_sub_total = item_sub_total - (item_sub_total * (item.discount / 100));
+                        discount_amount = item_total * (item.discount / 100);
+                        item_discounted_total = item_total - discount_amount;
                         discount = item.discount;
                     }
 
@@ -186,7 +191,7 @@ const app = new Vue({
 
                             item_tax_total = item_sub_and_tax_total - item_base_rate;
 
-                            item_sub_total = item_base_rate + discount;
+                            item_total = item_base_rate + discount;
                         }
 
                         if (compounds.length) {
@@ -197,10 +202,15 @@ const app = new Vue({
                     }
 
                     // set item total
-                    items[index].total = item_sub_total;
+                    if (item.discount) {
+                        items[index].total = item_discounted_total;
+                    } else {
+                        items[index].total = item_total;
+                    }
 
                     // calculate sub, tax, discount all items.
-                    sub_total += item_sub_total;
+                    item_discount_total += discount_amount;
+                    sub_total += item_total;
                     tax_total += item_tax_total;
                 }
             }
@@ -208,6 +218,9 @@ const app = new Vue({
             // set global total variable.
             this.totals.sub = sub_total;
             this.totals.tax = tax_total;
+            this.totals.item_discount = item_discount_total;
+
+            sub_total -= item_discount_total;
 
             // Apply discount to total
             if (discount_in_totals) {

@@ -27,18 +27,12 @@ class Defaults extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        $discount_locations = [
-            'in_totals' => trans('settings.default.discount_in_totals'),
-            'per_item' => trans('settings.default.discount_per_item'),
-        ];
-
         return view('settings.default.edit', compact(
             'setting',
             'accounts',
             'currencies',
             'taxes',
-            'payment_methods',
-            'discount_locations'
+            'payment_methods'
         ));
     }
 }

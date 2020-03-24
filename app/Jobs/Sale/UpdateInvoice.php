@@ -72,7 +72,7 @@ class UpdateInvoice extends Job
     protected function createItemsAndTotals()
     {
         // Create items
-        list($sub_total, $taxes) = $this->createItems();
+        list($sub_total, $discount_amount_total, $taxes) = $this->createItems();
 
         // Delete current totals
         $this->deleteRelationships($this->invoice, 'totals');
@@ -94,8 +94,23 @@ class UpdateInvoice extends Job
         $sort_order++;
 
         // Add discount
+        if ($discount_amount_total > 0) {
+            InvoiceTotal::create([
+                'company_id' => $this->invoice->company_id,
+                'invoice_id' => $this->invoice->id,
+                'code' => 'item_discount',
+                'name' => 'invoices.item_discount',
+                'amount' => $discount_amount_total,
+                'sort_order' => $sort_order,
+            ]);
+
+            $this->request['amount'] -= $discount_amount_total;
+
+            $sort_order++;
+        }
+
         if (!empty($this->request['discount'])) {
-            $discount_total = $sub_total * ($this->request['discount'] / 100);
+            $discount_total = ($sub_total - $discount_amount_total) * ($this->request['discount'] / 100);
 
             InvoiceTotal::create([
                 'company_id' => $this->invoice->company_id,
@@ -166,7 +181,7 @@ class UpdateInvoice extends Job
 
     protected function createItems()
     {
-        $sub_total = 0;
+        $sub_total = $discount_amount = $discount_amount_total = 0;
 
         $taxes = [];
 
@@ -184,8 +199,14 @@ class UpdateInvoice extends Job
 
             $invoice_item = $this->dispatch(new CreateInvoiceItem($item, $this->invoice));
 
+            $item_amount = (double) $item['price'] * (double) $item['quantity'];
+
+            $discount_amount = ($item_amount * ($item['discount'] / 100));
+
             // Calculate totals
-            $sub_total += $invoice_item->total;
+            $sub_total += $invoice_item->total + $discount_amount;
+
+            $discount_amount_total += $discount_amount;
 
             if (!$invoice_item->item_taxes) {
                 continue;
@@ -204,6 +225,6 @@ class UpdateInvoice extends Job
             }
         }
 
-        return [$sub_total, $taxes];
+        return [$sub_total, $discount_amount_total, $taxes];
     }
 }

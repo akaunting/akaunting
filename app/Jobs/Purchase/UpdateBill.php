@@ -72,7 +72,7 @@ class UpdateBill extends Job
     protected function createItemsAndTotals()
     {
         // Create items
-        list($sub_total, $taxes) = $this->createItems();
+        list($sub_total, $discount_amount_total, $taxes) = $this->createItems();
 
         // Delete current totals
         $this->deleteRelationships($this->bill, 'totals');
@@ -94,8 +94,23 @@ class UpdateBill extends Job
         $sort_order++;
 
         // Add discount
+        if ($discount_amount_total > 0) {
+            BillTotal::create([
+                'company_id' => $this->bill->company_id,
+                'bill_id' => $this->bill->id,
+                'code' => 'item_discount',
+                'name' => 'bills.item_discount',
+                'amount' => $discount_amount_total,
+                'sort_order' => $sort_order,
+            ]);
+
+            $this->request['amount'] -= $discount_amount_total;
+
+            $sort_order++;
+        }
+
         if (!empty($this->request['discount'])) {
-            $discount_total = $sub_total * ($this->request['discount'] / 100);
+            $discount_total = ($sub_total - $discount_amount_total) * ($this->request['discount'] / 100);
 
             BillTotal::create([
                 'company_id' => $this->bill->company_id,
@@ -166,7 +181,7 @@ class UpdateBill extends Job
 
     protected function createItems()
     {
-        $sub_total = 0;
+        $sub_total = $discount_amount = $discount_amount_total = 0;
 
         $taxes = [];
 
@@ -184,8 +199,14 @@ class UpdateBill extends Job
 
             $bill_item = $this->dispatch(new CreateBillItem($item, $this->bill));
 
+            $item_amount = (double) $item['price'] * (double) $item['quantity'];
+
+            $discount_amount = ($item_amount * ($item['discount'] / 100));
+
             // Calculate totals
-            $sub_total += $bill_item->total;
+            $sub_total += $bill_item->total + $discount_amount;
+
+            $discount_amount_total += $discount_amount;
 
             if (!$bill_item->item_taxes) {
                 continue;
@@ -204,6 +225,6 @@ class UpdateBill extends Job
             }
         }
 
-        return [$sub_total, $taxes];
+        return [$sub_total, $discount_amount_total, $taxes];
     }
 }
