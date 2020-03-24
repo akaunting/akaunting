@@ -740,6 +740,14 @@ table .align-items-center td span.badge
 /*--Quantity Width Finish--*/
 
 
+/*--Discount Width--*/
+.w-12
+{
+    width: 12%;
+}
+/*--Discount Width Finish--*/
+
+
 /*--------Responsive--------*/
 /*--Xs Breakpoint--*/
 @media (max-width: 575.98px)

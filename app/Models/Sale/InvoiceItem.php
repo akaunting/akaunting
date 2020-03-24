@@ -17,7 +17,18 @@ class InvoiceItem extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_id', 'item_id', 'name', 'quantity', 'price', 'total', 'tax'];
+    protected $fillable = [
+        'company_id',
+        'invoice_id',
+        'item_id',
+        'name',
+        'quantity',
+        'price',
+        'total',
+        'tax',
+        'discount_rate',
+        'discount_type',
+    ];
 
     /**
      * Clonable relationships.
@@ -81,6 +92,22 @@ class InvoiceItem extends Model
     public function setTaxAttribute($value)
     {
         $this->attributes['tax'] = (double) $value;
+    }
+
+    /**
+     * Get the formatted discount.
+     *
+     * @return string
+     */
+    public function getDiscountRateAttribute($value)
+    {
+        if (setting('localisation.percent_position', 'after') === 'after') {
+            $text = ($this->discount_type === 'normal') ? $value . '%' : $value;
+        } else {
+            $text = ($this->discount_type === 'normal') ? '%' . $value : $value;
+        }
+
+        return $text;
     }
 
     /**

@@ -51,6 +51,10 @@
                                             <th class="text-right border-right-0 border-bottom-0">{{ trans($text_override['price']) }}</th>
                                         @stack('price_th_end')
 
+                                        @stack('discount_th_start')
+                                            <th class="text-right border-right-0 border-bottom-0">{{ trans('invoices.discount') }}</th>
+                                        @stack('discount_th_end')
+
                                         @stack('taxes_th_start')
                                             <th class="text-right border-right-0 border-bottom-0">{{ trans_choice('general.taxes', 1) }}</th>
                                         @stack('taxes_th_end')
@@ -69,13 +73,13 @@
                                                 <button type="button" @click="onAddItem" id="button-add-item" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-icon btn-outline-success btn-lg" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i>
                                                 </button>
                                             </td>
-                                            <td class="text-right border-bottom-0" colspan="5" :colspan="colspan"></td>
+                                            <td class="text-right border-bottom-0" colspan="6" :colspan="colspan"></td>
                                         </tr>
                                     @stack('add_item_td_end')
 
                                     @stack('sub_total_td_start')
                                         <tr id="tr-subtotal">
-                                            <td class="text-right border-right-0 border-bottom-0" colspan="5" :colspan="colspan">
+                                            <td class="text-right border-right-0 border-bottom-0" colspan="6" :colspan="colspan">
                                                 <strong>{{ trans('invoices.sub_total') }}</strong>
                                             </td>
                                             <td class="text-right border-bottom-0 long-texts">
@@ -86,9 +90,22 @@
                                         </tr>
                                     @stack('sub_total_td_end')
 
+                                    @stack('item_discount_td_start')
+                                        <tr id="tr-subtotal">
+                                            <td class="text-right border-right-0 border-bottom-0" colspan="6" :colspan="colspan">
+                                                <strong>{{ trans('invoices.item_discount') }}</strong>
+                                            </td>
+                                            <td class="text-right border-bottom-0 long-texts">
+                                                {{ Form::moneyGroup('item_discount', '', '', ['disabled' => true, 'required' => 'required', 'v-model' => 'totals.item_discount', 'currency' => $currency, 'masked' => 'true'], 0.00, 'text-right d-none') }}
+                                                <span id="item-discount" v-if="totals.item_discount" v-html="totals.item_discount"></span>
+                                                <span v-else>@money(0, $currency->code, true)</span>
+                                            </td>
+                                        </tr>
+                                    @stack('item_discount_td_end')
+
                                     @stack('add_discount_td_start')
                                         <tr id="tr-discount">
-                                            <td class="text-right border-right-0 border-bottom-0" colspan="5" :colspan="colspan">
+                                            <td class="text-right border-right-0 border-bottom-0" colspan="6" :colspan="colspan">
                                                 <el-popover
                                                     popper-class="p-0 h-0"
                                                     placement="bottom"
@@ -140,7 +157,7 @@
 
                                     @stack('tax_total_td_start')
                                         <tr id="tr-tax">
-                                            <td class="text-right border-right-0 border-bottom-0" colspan="5" :colspan="colspan">
+                                            <td class="text-right border-right-0 border-bottom-0" colspan="6" :colspan="colspan">
                                                 <strong>{{ trans_choice('general.taxes', 1) }}</strong>
                                             </td>
                                             <td class="text-right border-bottom-0 long-texts">
@@ -153,7 +170,7 @@
 
                                     @stack('grand_total_td_start')
                                         <tr id="tr-total">
-                                            <td class="text-right border-right-0" colspan="5" :colspan="colspan">
+                                            <td class="text-right border-right-0" colspan="6" :colspan="colspan">
                                                 <strong>{{ trans('invoices.total') }}</strong>
                                             </td>
                                             <td class="text-right long-texts">
