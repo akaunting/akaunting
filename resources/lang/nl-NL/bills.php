@@ -28,6 +28,7 @@ return [
     'histories'             => 'Geschiedenis',
     'payments'              => 'Betalingen',
     'add_payment'           => 'Een betaling toevoegen',
+    'mark_paid'             => 'Als betaald markeren',
     'mark_received'         => 'Markeer als ontvangen',
     'download_pdf'          => 'PDF downloaden',
     'send_mail'             => 'Verstuur e-mail',
@@ -40,10 +41,13 @@ return [
         'received'          => 'Ontvangen',
         'partial'           => 'Gedeeltelijk',
         'paid'              => 'Betaald',
+        'overdue'           => 'Verlopen',
+        'unpaid'            => 'Onbetaald',
     ],
 
     'messages' => [
         'received'          => 'Factuur als \'succesvol ontvangen\' gemarkeerd!',
+        'marked_paid'       => 'Factuur gemarkeerd als betaald!',
         'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',
 
         'status' => [

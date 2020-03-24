@@ -29,6 +29,7 @@ return [
     'add_payment'           => 'Een betaling toevoegen',
     'mark_paid'             => 'Als betaald markeren',
     'mark_sent'             => 'Als verstuurd markeren',
+    'mark_viewed'           => 'Mark Viewed',
     'download_pdf'          => 'PDF downloaden',
     'send_mail'             => 'E-mail versturen',
     'all_invoices'          => 'Log in om alle facturen te bekijken',
@@ -38,22 +39,26 @@ return [
     'accept_payments'       => 'Accept Online Payments',
 
     'statuses' => [
-        'draft'             => 'Concept',
-        'sent'              => 'Verzonden',
-        'viewed'            => 'Bekeken',
-        'approved'          => 'Goedgekeurd',
-        'partial'           => 'Gedeeltelijk',
-        'paid'              => 'Betaald',
+        'draft'             => 'Draft',
+        'sent'              => 'Sent',
+        'viewed'            => 'Viewed',
+        'approved'          => 'Approved',
+        'partial'           => 'Partial',
+        'paid'              => 'Paid',
+        'overdue'           => 'Overdue',
+        'unpaid'            => 'Unpaid',
     ],
 
     'messages' => [
-        'email_sent'        => 'Factuur is succesvol per e-mail verzonden!',
-        'marked_sent'       => 'Factuur is succesvol als verzonden gemarkeerd!',
+        'email_sent'        => 'Invoice email has been sent!',
+        'marked_sent'       => 'Invoice marked as sent!',
+        'marked_paid'       => 'Invoice marked as paid!',
         'email_required'    => 'Er is geen e-mailadres bekend van deze klant!',
         'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',
 
         'status' => [
             'created'       => 'Gemaakt op :date',
+            'viewed'        => 'Viewed',
             'send' => [
                 'draft'     => 'Niet verstuurd',
                 'sent'      => 'Verzonden op :date',
@@ -62,11 +67,6 @@ return [
                 'await'     => 'In afwachting van betaling',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'U ontvangt deze e-mail omdat u :amount aanstaande factuur heeft voor klant :customer.',
-        'button'            => 'Nu betalen',
     ],
 
 ];

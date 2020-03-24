@@ -19,16 +19,16 @@ return [
     ],
 
     'offline_payments' => [
-        'cash'              => 'Cash',
-        'bank'              => 'Bank Transfer',
+        'cash'              => 'Contant geld',
+        'bank'              => 'Bankoverschrijving',
     ],
 
     'reports' => [
-        'income'            => 'Monthly income summary by category.',
-        'expense'           => 'Monthly expense summary by category.',
-        'income_expense'    => 'Monthly income vs expense by category.',
-        'tax'               => 'Quarterly tax summary.',
-        'profit_loss'       => 'Quarterly profit & loss by category.',
+        'income'            => 'Maandelijkse  inkomsten per categorie',
+        'expense'           => 'Maandelijkse  uitgaven per categorie',
+        'income_expense'    => 'Maandelijkse inkomsten/uitgaven per categorie',
+        'tax'               => 'Kwartaal - BTW overzicht',
+        'profit_loss'       => 'Kwartaal - Winst/Verlies per categorie',
     ],
 
 ];

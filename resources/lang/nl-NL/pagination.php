@@ -2,8 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Vorige',
-    'next'                  => 'Volgende &raquo;',
-    'showing'               => 'Weergave: :first naar :last van :total :type',
+    'previous'              => 'Previous',
+    'next'                  => 'Next',
+    'showing'               => ':first-:last of :total records.',
+    'page'                  => 'per page.',
 
 ];
