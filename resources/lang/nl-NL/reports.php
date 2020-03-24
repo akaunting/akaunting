@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Nettowinst',
     'total_expenses'        => 'Totale uitgaven',
     'net'                   => 'NET',
+    'income_expense'        => 'Income & Expense',
 
     'summary' => [
         'income'            => 'Samenvatting inkomsten',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Belasting overzicht',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mrt',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Okt-Dec',
+    'charts' => [
+        'line'              => 'Line',
+        'bar'               => 'Bar',
+        'pie'               => 'Pie',
     ],
 
 ];

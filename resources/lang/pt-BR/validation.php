@@ -104,7 +104,7 @@ return [
         ],
         'invalid_currency'      => 'O código :attribute é inválido.',
         'invalid_amount'        => 'O :attribute é inválido.',
-        'invalid_extension'     => 'The file extension is invalid.',
+        'invalid_extension'     => 'A extensão do arquivo é inválida.',
     ],
 
     /*

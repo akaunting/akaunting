@@ -2,8 +2,7 @@
 
 return [
 
-    'title'                 => 'API-Token',
-    'api_token'             => 'Token',
+    'api_key'               => 'API Key',
     'my_apps'               => 'Mijn Apps',
     'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'Top betaald',
@@ -13,10 +12,9 @@ return [
     'search'                => 'Zoeken',
     'install'               => 'Installeer',
     'buy_now'               => 'Nu kopen',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Klik hier</a> om uw API-token te bemachtigen.',
+    'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
     'no_apps'               => 'Er zijn nog geen Apps in deze categorie beschikbaar.',
-    'developer'             => 'Bent u een ontwikkelaar? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> kunt u lezen hoe u vandaag nog een app kan ontwikkelen en verkopen!',
-
+    'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
     'recommended_apps'      => 'Aanbevolen Apps',
 
     'about'                 => 'Over ons',
@@ -38,31 +36,30 @@ return [
         'installation'      => 'Installatie',
         'faq'               => 'Veelgestelde vragen (FAQ)',
         'changelog'         => 'Wijzigingslogboek',
-        'reviews'            => 'Beoordelingen',
+        'reviews'           => 'Beoordelingen',
     ],
 
     'installation' => [
         'header'            => 'App installatie',
-        'download'          => ':module bestand aan het downloaden.',
-        'unzip'             => 'Bezig met uitpakken van :module bestanden.',
-        'file_copy'         => 'Kopieren :module files.',
-        'migrate'           => 'Toepassen :module update.',
-        'finish'            => 'De update is succesvol geïnstalleerd. U wordt omgeleid naar het Update Centrum.',
-        'install'           => 'Bezit met installatie van :module bestanden.',
+        'download'          => 'Downloading :module',
+        'unzip'             => 'Extracting :module files',
+        'file_copy'         => 'Copying :module files',
+        'finish'            => 'Finalizing :module installation',
+        'redirect'          => ':module installed, redirecting to updates page',
+        'install'           => 'Installing :module',
     ],
 
     'errors' => [
-        'download' => ':module kan niet worden gedownload!',
-        'upload' => 'Gedownloade :module kan niet worden opgeslagen!',
-        'unzip' => ':module kan niet worden uitgepakt!',
-        'file_copy' => ':module bestanden kunnen niet worden gekopieerd!',
-        'migrate' => ':module migratie werkt niet!',
-        'migrate core' => ':module is al de nieuwste versie dus kan niet worden geüpdatet.',
+        'download'          => 'Not able to download :module',
+        'zip'               => 'Not able to create :module zip file',
+        'unzip'             => 'Not able to unzip :module',
+        'file_copy'         => 'Not able to copy :module files',
+        'finish'            => 'Not able to finalize :module installation',
     ],
 
     'badge' => [
-        'installed' => 'Geïnstalleerd',
-        'pre_sale' => 'Pre-Sale',
+        'installed'         => 'Geïnstalleerd',
+        'pre_sale'          => 'Pre-Sale',
     ],
 
     'button' => [
@@ -72,14 +69,16 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Gekocht',
-        'installed' => 'Geïnstalleerd',
+        'purchased'         => 'Gekocht',
+        'installed'         => 'Geïnstalleerd',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Voeg een Recensie toe'
+            'add'           => 'Voeg een Recensie toe'
         ],
-        'na' => 'Er zijn geen reviews.'
-    ]
+
+        'na'                => 'Er zijn geen reviews.'
+    ],
+
 ];

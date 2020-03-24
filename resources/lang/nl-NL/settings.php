@@ -3,14 +3,16 @@
 return [
 
     'company' => [
+        'description'       => 'Change company name, email, address, tax number etc',
         'name'              => 'Naam',
         'email'             => 'E-mail',
         'phone'             => 'Telefoonnummer',
         'address'           => 'Adres',
         'logo'              => 'Logo',
     ],
+
     'localisation' => [
-        'tab'               => 'Lokalisatie',
+        'description'       => 'Set fiscal year, time zone, date format and more locals',
         'financial_start'   => 'Start financieel boekjaar',
         'timezone'          => 'Tijdzone',
         'date' => [
@@ -28,8 +30,9 @@ return [
             'after'         => 'Na aantal',
         ],
     ],
+
     'invoice' => [
-        'tab'               => 'Factuur',
+        'description'       => 'Customize invoice prefix, number, terms, footer etc',
         'prefix'            => 'Nummer voorvoegsel',
         'digit'             => 'Aantal cijfers',
         'next'              => 'Volgende nummer',
@@ -44,16 +47,25 @@ return [
         'rate'              => 'Tarief',
         'quantity_name'     => 'Hoeveelheid label',
         'quantity'          => 'Aantal',
+        'payment_terms'     => 'Payment Terms',
+        'title'             => 'Title',
+        'subheading'        => 'Subheading',
+        'due_receipt'       => 'Due upon receipt',
+        'due_days'          => 'Due within :days days',
+        'choose_template'   => 'Choose invoice template',
+        'default'           => 'Default',
+        'classic'           => 'Classic',
+        'modern'            => 'Modern',
     ],
+
     'default' => [
-        'tab'               => 'Standaardwaarden',
-        'account'           => 'Standaard account',
-        'currency'          => 'Standaard Valuta',
-        'tax'               => 'Standaard BTW-tarief',
-        'payment'           => 'Standaard betalingsmethode',
-        'language'          => 'Standaard Taal',
+        'description'       => 'Default account, currency, language of your company',
+        'list_limit'        => 'Records Per Page',
+        'use_gravatar'      => 'Use Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Change the sending protocol and email templates',
         'protocol'          => 'Protocol',
         'php'               => 'PHP mail',
         'smtp' => [
@@ -68,36 +80,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail pad',
         'log'               => 'E-mail logs',
+
+        'templates' => [
+            'subject'                   => 'Subject',
+            'body'                      => 'Body',
+            'tags'                      => '<strong>Available Tags:</strong> :tag_list',
+            'invoice_new_customer'      => 'New Invoice Template (sent to customer)',
+            'invoice_remind_customer'   => 'Invoice Reminder Template (sent to customer)',
+            'invoice_remind_admin'      => 'Invoice Reminder Template (sent to admin)',
+            'invoice_recur_customer'    => 'Invoice Recurring Template (sent to customer)',
+            'invoice_recur_admin'       => 'Invoice Recurring Template (sent to admin)',
+            'invoice_payment_customer'  => 'Payment Received Template (sent to customer)',
+            'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
+            'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
+            'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Schema',
+        'name'              => 'Scheduling',
+        'description'       => 'Automatic reminders and command for recurring',
         'send_invoice'      => 'Factuur herinnering sturen',
         'invoice_days'      => 'Aantal dagen na vervaldatum sturen',
         'send_bill'         => 'Factuur herinnering sturen',
         'bill_days'         => 'Aantal dagen voor vervaldatum sturen',
         'cron_command'      => 'Cron opdracht',
         'schedule_time'     => 'Uren duurtijd',
-        'send_item_reminder'=> 'Stuur item herinnering',
-        'item_stocks'       => 'Stuur bericht waneer item op voorraad is',
     ],
-    'appearance' => [
-        'tab'               => 'Opmaak',
-        'theme'             => 'Thema',
-        'light'             => 'Licht',
-        'dark'              => 'Donker',
-        'list_limit'        => 'Resultaten per pagina',
-        'use_gravatar'      => 'Gebruik Gravatar',
+
+    'categories' => [
+        'description'       => 'Unlimited categories for income, expense, and item',
     ],
-    'system' => [
-        'tab'               => 'Systeem',
-        'session' => [
-            'lifetime'      => 'Sessie levensduur (minuten)',
-            'handler'       => 'Sessie Beheerder',
-            'file'          => 'Bestand',
-            'database'      => 'Database',
-        ],
-        'file_size'         => 'Maximale bestandsgrootte (MB)',
-        'file_types'        => 'Toegestane bestandstypes',
+
+    'currencies' => [
+        'description'       => 'Create and manage currencies and set their rates',
+    ],
+
+    'taxes' => [
+        'description'       => 'Fixed, normal, inclusive, and compound tax rates',
     ],
 
 ];

@@ -13,16 +13,18 @@ return [
     'current_email'         => 'Huidig E-mailadres',
     'reset'                 => 'Resetten',
     'never'                 => 'nooit',
-    
+    'landing_page'          => 'Landingspagina',
+
     'password' => [
         'current'           => 'Wachtwoord',
         'current_confirm'   => 'Wachtwoordbevestiging',
         'new'               => 'Nieuw Wachtwoord',
         'new_confirm'       => 'Nieuw Wachtwoordbevestiging',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Fout: u kunt uzelf niet verwijderen!',
+        'self_disable'      => 'Fout: u kunt uw eigen account niet blokkeren!',
         'no_company'        => 'Fout: U heeft geen bedrijf gekoppeld aan uw account. Neem alstublieft contact op met de applicatiebeheerder.',
     ],
 
