@@ -27,12 +27,16 @@ class Module extends FormRequest
 
         $module = module($this->request->get('module_alias'));
 
-        if ($module->get('settings')) {
-            foreach ($module->get('settings') as $field) {
-                if (isset($field['attributes']['required'])) {
-                    $rules[$field['name']] = $field['attributes']['required'];
-                }
+        if (!$fields = $module->get('settings')) {
+            return $rules;
+        }
+
+        foreach ($fields as $field) {
+            if (empty($field['rules'])) {
+                continue;
             }
+
+            $rules[$field['name']] = $field['rules'];
         }
 
         return $rules;

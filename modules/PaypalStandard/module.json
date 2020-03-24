@@ -20,7 +20,8 @@
             "icon": "fa fa-font",
             "attributes": {
                 "required": "required"
-            }
+            },
+            "rules": "required|string"
         },
         {
             "type": "textGroup",
@@ -29,7 +30,8 @@
             "icon": "envelope",
             "attributes": {
                 "required": "required"
-            }
+            },
+            "rules": "required|email"
         },
         {
             "type": "selectGroup",
@@ -40,8 +42,11 @@
                 "live": "Live",
                 "sandbox": "Sandbox"
             },
-            "selected": null,
-            "attributes": {}
+            "selected": "live",
+            "attributes": {
+                "required": "required"
+            },
+            "rules": "required|string"
         },
         {
             "type": "selectGroup",
@@ -52,8 +57,11 @@
                 "authorization": "Authorization",
                 "sale": "Sale"
             },
-            "selected": null,
-            "attributes": {}
+            "selected": "sale",
+            "attributes": {
+                "required": "required"
+            },
+            "rules": "required|string"
         },
         {
             "type": "radioGroup",
@@ -61,7 +69,8 @@
             "title": "paypal-standard::general.form.customer",
             "enable": "general.yes",
             "disable": "general.no",
-            "attributes": {}
+            "attributes": {},
+            "rules": "required|integer"
         },
         {
             "type": "radioGroup",
@@ -69,14 +78,16 @@
             "title": "paypal-standard::general.form.debug",
             "enable": "general.yes",
             "disable": "general.no",
-            "attributes": {}
+            "attributes": {},
+            "rules": "required|integer"
         },
         {
             "type": "textGroup",
             "name": "order",
             "title": "paypal-standard::general.form.order",
             "icon": "sort",
-            "attributes": {}
+            "attributes": {},
+            "rules": "nullable|integer"
         }
     ]
 }
