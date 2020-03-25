@@ -8,9 +8,9 @@ use App\Models\Auth\User;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Purchase\Bill;
-use Faker\Generator as Faker;
-use Jenssegers\Date\Date;
 use App\Models\Setting\Tax;
+use App\Utilities\Date;
+use Faker\Generator as Faker;
 
 $user = User::first();
 $company = $user->companies()->first();

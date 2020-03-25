@@ -10,8 +10,8 @@ use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Sale\Invoice;
 use App\Models\Setting\Tax;
+use App\Utilities\Date;
 use Faker\Generator as Faker;
-use Jenssegers\Date\Date;
 
 $user = User::first();
 $company = $user->companies()->first();

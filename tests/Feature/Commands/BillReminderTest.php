@@ -5,8 +5,8 @@ namespace Tests\Feature\Commands;
 use App\Jobs\Purchase\CreateBill;
 use App\Models\Purchase\Bill;
 use App\Notifications\Purchase\Bill as BillNotification;
+use App\Utilities\Date;
 use Illuminate\Support\Facades\Notification as Notification;
-use Jenssegers\Date\Date;
 use Tests\Feature\FeatureTestCase;
 
 class BillReminderTest extends FeatureTestCase

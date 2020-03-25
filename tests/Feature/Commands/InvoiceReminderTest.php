@@ -5,8 +5,8 @@ namespace Tests\Feature\Commands;
 use App\Jobs\Sale\CreateInvoice;
 use App\Models\Sale\Invoice;
 use App\Notifications\Sale\Invoice as InvoiceNotification;
+use App\Utilities\Date;
 use Illuminate\Support\Facades\Notification;
-use Jenssegers\Date\Date;
 use Tests\Feature\FeatureTestCase;
 
 class InvoiceReminderTest extends FeatureTestCase

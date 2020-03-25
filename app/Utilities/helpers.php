@@ -1,8 +1,8 @@
 <?php
 
 use App\Traits\DateTime;
+use App\Utilities\Date;
 use App\Utilities\Widgets;
-use Jenssegers\Date\Date;
 
 if (!function_exists('user')) {
     /**

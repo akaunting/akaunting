@@ -3,7 +3,7 @@
 namespace App\Abstracts;
 
 use App\Traits\Charts;
-use Date;
+use App\Utilities\Date;
 
 abstract class Widget
 {

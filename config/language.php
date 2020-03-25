@@ -51,7 +51,7 @@ return [
     | This option the language of jenssegers/date library.
     |
     */
-    'date'          => true,
+    'date'          => false,
 
     /*
     |--------------------------------------------------------------------------

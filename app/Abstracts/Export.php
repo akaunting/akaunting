@@ -2,8 +2,8 @@
 
 namespace App\Abstracts;
 
+use App\Utilities\Date;
 use Illuminate\Support\Str;
-use Jenssegers\Date\Date;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
