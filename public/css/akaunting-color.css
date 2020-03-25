@@ -2012,7 +2012,7 @@ button.bg-yellow:focus
 
 /*--------Form Error Color--------*/
 /*--Required Sign Color--*/
-div.required .form-control-label:not(span):after, td.required:after
+div.required > .form-control-label:not(span):after, td.required:after
 {
     content: ' *';
     color: #ef3232;
