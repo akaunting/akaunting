@@ -23,7 +23,7 @@
         :model="{{ $attributes['model'] }}"
         @endif
 
-        multiple="true"
+        :multiple="true"
 
         :add-new="{{ json_encode([
             'status' => true,
