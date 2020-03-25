@@ -129,7 +129,7 @@
                                             @else
                                                 @stack('timeline_body_send_invoice_body_message_start')
                                                     <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
-                                                    <small>{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->created_at)->format($date_format)]) }}</small>
+                                                    <small>{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($invoice->sent_at)->format($date_format)]) }}</small>
                                                 @stack('timeline_body_send_invoice_body_message_end')
                                             @endif
                                         @stack('timeline_body_send_invoice_body_end')

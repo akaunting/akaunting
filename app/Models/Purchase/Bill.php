@@ -101,4 +101,11 @@ class Bill extends DocumentModel
         $this->status = 'draft';
         $this->bill_number = $this->getNextBillNumber();
     }
+
+    public function getReceivedAtAttribute($value)
+    {
+        $received = $this->histories()->where('status', 'received')->first();
+
+        return ($received) ? $received->created_at : null;
+    }
 }

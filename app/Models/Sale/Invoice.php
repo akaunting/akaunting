@@ -108,4 +108,11 @@ class Invoice extends DocumentModel
         $this->status = 'draft';
         $this->invoice_number = $this->getNextInvoiceNumber();
     }
+
+    public function getSentAtAttribute($value)
+    {
+        $sent = $this->histories()->where('status', 'sent')->first();
+
+        return ($sent) ? $sent->created_at : null;
+    }
 }

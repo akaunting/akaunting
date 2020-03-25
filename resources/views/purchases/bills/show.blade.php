@@ -99,16 +99,16 @@
                                                 @stack('timeline_body_receive_bill_body_message_end')
 
                                                 <div class="mt-3">
-                                                    @stack('timeline_body_receive_bill_body_button_sent_start')
+                                                    @stack('timeline_body_receive_bill_body_button_received_start')
                                                         @permission('update-purchases-bills')
                                                             <a href="{{ route('bills.received', $bill->id) }}" class="btn btn-danger btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
                                                         @endpermission
-                                                    @stack('timeline_body_receive_bill_body_button_sent_end')
+                                                    @stack('timeline_body_receive_bill_body_button_received_end')
                                                 </div>
                                             @else
                                                 @stack('timeline_body_receive_bill_body_message_start')
                                                     <small>{{ trans_choice('general.statuses', 1) .  ':'  }}</small>
-                                                    <small>{{ trans('bills.messages.status.receive.received', ['date' => Date::parse($bill->created_at)->format($date_format)]) }}</small>
+                                                    <small>{{ trans('bills.messages.status.receive.received', ['date' => Date::parse($bill->received_at)->format($date_format)]) }}</small>
                                                 @stack('timeline_body_receive_bill_body_message_end')
                                             @endif
                                         @stack('timeline_body_receive_bill_body_end')
