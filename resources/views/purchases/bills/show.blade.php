@@ -339,9 +339,11 @@
                                                 <th class="col-sm-3 text-right d-none d-sm-block">{{ trans('bills.price') }}</th>
                                             @stack('price_th_end')
 
-                                            @stack('discount_th_start')
-                                                <th class="col-sm-1 text-center d-none d-sm-block">{{ trans('bills.discount') }}</th>
-                                            @stack('discount_th_end')
+                                            @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+                                                @stack('discount_th_start')
+                                                    <th class="col-sm-1 text-center d-none d-sm-block">{{ trans('bills.discount') }}</th>
+                                                @stack('discount_th_end')
+                                            @endif
 
                                             @stack('total_th_start')
                                                 <th class="col-xs-4 col-sm-3 text-right pr-5">{{ trans('bills.total') }}</th>
@@ -366,9 +368,11 @@
                                                     <td class="col-sm-3 text-right d-none d-sm-block">@money($bill_item->price, $bill->currency_code, true)</td>
                                                 @stack('price_td_end')
 
-                                                @stack('discount_td_start')
-                                                    <td class="col-sm-1 text-center d-none d-sm-block">{{ $bill_item->discount_rate }}</td>
-                                                @stack('discount_td_end')
+                                                @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+                                                    @stack('discount_td_start')
+                                                        <td class="col-sm-1 text-center d-none d-sm-block">{{ $bill_item->discount }}</td>
+                                                    @stack('discount_td_end')
+                                                @endif
 
                                                 @stack('total_td_start')
                                                     <td class="col-xs-4 col-sm-3 text-right pr-5">@money($bill_item->total, $bill->currency_code, true)</td>
