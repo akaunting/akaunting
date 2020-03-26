@@ -98,36 +98,38 @@
         </td>
     @stack('price_td_end')
 
-    @stack('discount_td_start')
-        <td class="border-right-0 border-bottom-0 w-12"
-            :class="[{'has-error': form.errors.has('items.' + index + '.discount') }]">
-            @stack('discount_input_start')
-            <div class="input-group input-group-merge">
-            <div class="input-group-prepend">
-                    <span class="input-group-text" id="input-discount">
-                        <i class="fa fa-percent"></i>
-                    </span>
-                </div>
-                <input type="number"
-                       max="100"
-                       min="0"
-                       class="form-control text-center"
-                       :name="'items.' + index + '.discount'"
-                       autocomplete="off"
-                       required="required"
-                       data-item="quantity"
-                       v-model="row.discount"
-                       @input="onCalculateTotal"
-                       @change="form.errors.clear('items.' + index + '.discount')">
+    @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+        @stack('discount_td_start')
+            <td class="border-right-0 border-bottom-0 w-12"
+                :class="[{'has-error': form.errors.has('items.' + index + '.discount') }]">
+                @stack('discount_input_start')
+                <div class="input-group input-group-merge">
+                <div class="input-group-prepend">
+                        <span class="input-group-text" id="input-discount">
+                            <i class="fa fa-percent"></i>
+                        </span>
+                    </div>
+                    <input type="number"
+                        max="100"
+                        min="0"
+                        class="form-control text-center"
+                        :name="'items.' + index + '.discount'"
+                        autocomplete="off"
+                        required="required"
+                        data-item="quantity"
+                        v-model="row.discount"
+                        @input="onCalculateTotal"
+                        @change="form.errors.clear('items.' + index + '.discount')">
 
-                <div class="invalid-feedback d-block"
-                     v-if="form.errors.has('items.' + index + '.discount')"
-                     v-html="form.errors.get('items.' + index + '.discount')">
+                    <div class="invalid-feedback d-block"
+                        v-if="form.errors.has('items.' + index + '.discount')"
+                        v-html="form.errors.get('items.' + index + '.discount')">
+                    </div>
                 </div>
-            </div>
-            @stack('discount_input_end')
-        </td>
-    @stack('discount_td_end')
+                @stack('discount_input_end')
+            </td>
+        @stack('discount_td_end')
+    @endif
 
     @stack('taxes_td_start')
         <td class="border-right-0 border-bottom-0"

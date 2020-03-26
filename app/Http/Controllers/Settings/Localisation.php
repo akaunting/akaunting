@@ -41,12 +41,20 @@ class Localisation extends Controller
             'after' => trans('settings.localisation.percent.after'),
         ];
 
+        $discount_locations = [
+            'no' => trans('general.disabled'),
+            'item' => trans('settings.localisation.discount_location.item'),
+            'total' => trans('settings.localisation.discount_location.total'),
+            'both' => trans('settings.localisation.discount_location.both'),
+        ];
+
         return view('settings.localisation.edit', compact(
             'setting',
             'timezones',
             'date_formats',
             'date_separators',
-            'percent_positions'
+            'percent_positions',
+            'discount_locations'
         ));
     }
 }

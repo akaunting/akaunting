@@ -13,6 +13,13 @@ class InvoiceItem extends Model
     protected $table = 'invoice_items';
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['discount'];
+
+    /**
      * Attributes that should be mass-assignable.
      *
      * @var array
@@ -99,12 +106,12 @@ class InvoiceItem extends Model
      *
      * @return string
      */
-    public function getDiscountRateAttribute($value)
+    public function getDiscountAttribute()
     {
         if (setting('localisation.percent_position', 'after') === 'after') {
-            $text = ($this->discount_type === 'normal') ? $value . '%' : $value;
+            $text = ($this->discount_type === 'normal') ? $this->discount_rate . '%' : $this->discount_rate;
         } else {
-            $text = ($this->discount_type === 'normal') ? '%' . $value : $value;
+            $text = ($this->discount_type === 'normal') ? '%' . $this->discount_rate : $this->discount_rate;
         }
 
         return $text;

@@ -13,7 +13,7 @@ return [
     'price'                 => 'Price',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Discount',
-    'item_discount'         => 'Item Discount',
+    'item_discount'         => 'Line Discount',
     'tax_total'             => 'Tax Total',
     'total'                 => 'Total',
 
