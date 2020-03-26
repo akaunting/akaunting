@@ -13,21 +13,15 @@ class CoreV208 extends Migration
      */
     public function up()
     {
-        Schema::table(
-            'invoice_items',
-            function (Blueprint $table) {
-                $table->double('discount_rate', 15, 4)->default('0.0000')->after('tax');
-                $table->string('discount_type')->default('normal')->after('discount_rate');
-            }
-        );
+        Schema::table('invoice_items', function (Blueprint $table) {
+            $table->double('discount_rate', 15, 4)->default('0.0000')->after('tax');
+            $table->string('discount_type')->default('normal')->after('discount_rate');
+        });
 
-        Schema::table(
-            'bill_items',
-            function (Blueprint $table) {
-                $table->double('discount_rate', 15, 4)->default('0.0000')->after('tax');
-                $table->string('discount_type')->default('normal')->after('discount_rate');
-            }
-        );
+        Schema::table('bill_items', function (Blueprint $table) {
+            $table->double('discount_rate', 15, 4)->default('0.0000')->after('tax');
+            $table->string('discount_type')->default('normal')->after('discount_rate');
+        });
     }
 
     /**
@@ -37,18 +31,12 @@ class CoreV208 extends Migration
      */
     public function down()
     {
-        Schema::table(
-            'invoice_items',
-            function (Blueprint $table) {
-                $table->dropColumn(['discount_rate', 'discount_type']);
-            }
-        );
+        Schema::table('invoice_items', function (Blueprint $table) {
+            $table->dropColumn(['discount_rate', 'discount_type']);
+        });
 
-        Schema::table(
-            'bill_items',
-            function (Blueprint $table) {
-                $table->dropColumn(['discount_rate', 'discount_type']);
-            }
-        );
+        Schema::table('bill_items', function (Blueprint $table) {
+            $table->dropColumn(['discount_rate', 'discount_type']);
+        });
     }
 }
