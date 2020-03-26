@@ -40,7 +40,7 @@ class UsersTest extends FeatureTestCase
         $this->loginAs()
             ->get(route('users.edit', $user->id))
             ->assertStatus(200)
-            ->assertSee($user->name);
+            ->assertSee($user->email);
     }
 
     public function testItShouldUpdateUser()
@@ -49,12 +49,12 @@ class UsersTest extends FeatureTestCase
 
         $user = $this->dispatch(new CreateUser($request));
 
-        $request['name'] = $this->faker->name;
+        $request['email'] = $this->faker->safeEmail;
 
         $this->loginAs()
             ->patch(route('users.update', $user->id), $request)
             ->assertStatus(200)
-			->assertSee($request['name']);
+			->assertSee($request['email']);
 
         $this->assertFlashLevel('success');
     }
