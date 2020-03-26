@@ -98,7 +98,7 @@ return [
             'command' => ['path' => 'Console', 'generate' => true],
             'migration' => ['path' => 'Database/Migrations', 'generate' => true],
             'seeder' => ['path' => 'Database/Seeds', 'generate' => true],
-            'factory' => ['path' => 'Database/Factories', 'generate' => false],
+            'factory' => ['path' => 'Database/Factories', 'generate' => true],
             'model' => ['path' => 'Models', 'generate' => true],
             'controller' => ['path' => 'Http/Controllers', 'generate' => true],
             'middleware' => ['path' => 'Http/Middleware', 'generate' => false],
