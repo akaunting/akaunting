@@ -7,6 +7,7 @@ use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateCompany;
 use App\Jobs\Common\CreateContact;
 use App\Traits\Jobs;
+use Artisan;
 use Illuminate\Database\Seeder;
 
 class TestCompany extends Seeder
@@ -28,7 +29,9 @@ class TestCompany extends Seeder
 
         $this->createUser();
 
-        $this->createContact();
+        $this->createCustomer();
+
+        $this->installModules();
 
         Model::reguard();
     }
@@ -69,12 +72,12 @@ class TestCompany extends Seeder
         $this->command->info('Test user created.');
     }
 
-    private function createContact()
+    private function createCustomer()
     {
         $this->dispatch(new CreateContact([
             'type' => 'customer',
-            'name' => 'Test Contact',
-            'email' => 'contact@company.com',
+            'name' => 'Test Customer',
+            'email' => 'customer@company.com',
             'currency_code' => setting('default.currency', 'USD'),
             'password' => '123456',
             'password_confirmation' => '123456',
@@ -83,6 +86,29 @@ class TestCompany extends Seeder
             'create_user' => 1,
         ]));
 
-        $this->command->info('Test contact created.');
+        $this->command->info('Test customer created.');
+    }
+
+    private function installModules()
+    {
+        $core_modules = ['offline-payments', 'paypal-standard'];
+
+        $modules = module()->all();
+
+        foreach ($modules as $module) {
+            $alias = $module->getAlias();
+
+            if (in_array($alias, $core_modules)) {
+                continue;
+            }
+
+            Artisan::call('module:install', [
+                'alias'     => $alias,
+                'company'   => session('company_id'),
+                'locale'    => session('locale', app()->getLocale()),
+            ]);
+        }
+
+        $this->command->info('Modules installed.');
     }
 }

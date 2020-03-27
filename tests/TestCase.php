@@ -17,6 +17,5 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         Artisan::call('db:seed', ['--class' => '\Database\Seeds\TestCompany', '--force' => true]);
-        Artisan::call('company:seed', ['company' => 1]);
     }
 }
