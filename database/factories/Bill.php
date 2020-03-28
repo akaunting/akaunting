@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\Purchase\BillCancelled;
 use App\Events\Purchase\BillCreated;
 use App\Events\Purchase\BillReceived;
 use App\Jobs\Banking\CreateDocumentTransaction;
@@ -32,7 +33,7 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
         $contact = factory(Contact::class)->states('enabled', 'vendor')->create();
     }
 
-    $statuses = ['draft', 'received', 'partial', 'paid'];
+    $statuses = ['draft', 'received', 'partial', 'paid', 'cancelled'];
 
     return [
         'company_id' => $company->id,
@@ -61,6 +62,8 @@ $factory->state(Bill::class, 'received', ['status' => 'received']);
 $factory->state(Bill::class, 'partial', ['status' => 'partial']);
 
 $factory->state(Bill::class, 'paid', ['status' => 'paid']);
+
+$factory->state(Bill::class, 'cancelled', ['status' => 'cancelled']);
 
 $factory->state(Bill::class, 'recurring', function (Faker $faker) {
     $frequencies = ['monthly', 'weekly'];
@@ -174,6 +177,10 @@ $factory->afterCreating(Bill::class, function ($bill, $faker) use ($company) {
             }
 
             $transaction = dispatch_now(new CreateDocumentTransaction($updated_bill, $payment_request));
+
+            break;
+        case 'cancelled':
+            event(new BillCancelled($updated_bill));
 
             break;
     }

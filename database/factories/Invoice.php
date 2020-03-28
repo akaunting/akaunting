@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\Sale\InvoiceCancelled;
 use App\Events\Sale\InvoiceCreated;
 use App\Events\Sale\InvoiceSent;
 use App\Events\Sale\InvoiceViewed;
@@ -33,7 +34,7 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
         $contact = factory(Contact::class)->states('enabled', 'customer')->create();
     }
 
-    $statuses = ['draft', 'sent', 'viewed', 'partial', 'paid'];
+    $statuses = ['draft', 'sent', 'viewed', 'partial', 'paid', 'cancelled'];
 
     return [
         'company_id' => $company->id,
@@ -64,6 +65,8 @@ $factory->state(Invoice::class, 'viewed', ['status' => 'viewed']);
 $factory->state(Invoice::class, 'partial', ['status' => 'partial']);
 
 $factory->state(Invoice::class, 'paid', ['status' => 'paid']);
+
+$factory->state(Invoice::class, 'cancelled', ['status' => 'cancelled']);
 
 $factory->state(Invoice::class, 'recurring', function (Faker $faker) {
     $frequencies = ['monthly', 'weekly'];
@@ -183,6 +186,10 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
             }
 
             event(new PaymentReceived($updated_invoice, $payment_request));
+
+            break;
+        case 'cancelled':
+            event(new InvoiceCancelled($updated_invoice));
 
             break;
     }

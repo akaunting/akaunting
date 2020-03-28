@@ -48,7 +48,7 @@
     @stack('status_message_end')
 
     @stack('timeline_start')
-        @if ($bill->status != 'paid')
+        @if (!in_array($bill->status, ['paid', 'cancelled']))
             @stack('timeline_body_start')
                 <div class="card">
                     <div class="card-body">
@@ -472,40 +472,50 @@
                                 <div class="dropup header-drop-top">
                                     <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
                                     <div class="dropdown-menu" role="menu">
-                                        @stack('button_pay_start')
-                                            @if($bill->status != 'paid')
+                                        @if ($bill->status != 'cancelled')
+                                            @stack('button_pay_start')
+                                                @if($bill->status != 'paid')
+                                                    @permission('update-purchases-bills')
+                                                        <a class="dropdown-item" href="{{ route('bills.paid', $bill->id) }}">{{ trans('bills.mark_paid') }}</a>
+                                                    @endpermission
+
+                                                    @if(empty($bill->paid) || ($bill->paid != $bill->amount))
+                                                        <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
+                                                    @endif
+                                                    <div class="dropdown-divider"></div>
+                                                @endif
+                                            @stack('button_pay_end')
+
+                                            @stack('button_received_start')
                                                 @permission('update-purchases-bills')
-                                                    <a class="dropdown-item" href="{{ route('bills.paid', $bill->id) }}">{{ trans('bills.mark_paid') }}</a>
+                                                    @if($bill->status == 'draft')
+                                                        <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
+                                                    @else
+                                                        <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
+                                                    @endif
                                                 @endpermission
-
-                                                @if(empty($bill->paid) || ($bill->paid != $bill->amount))
-                                                    <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
-                                                @endif
-                                                <div class="dropdown-divider"></div>
-                                            @endif
-                                        @stack('button_pay_end')
-
-                                        @stack('button_received_start')
-                                            @permission('update-purchases-bills')
-                                                @if($bill->status == 'draft')
-                                                    <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
-                                                @else
-                                                    <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
-                                                @endif
-                                            @endpermission
-                                        @stack('button_received_end')
+                                            @stack('button_received_end')
+                                        @endif
 
                                         @stack('button_pdf_start')
                                             <a class="dropdown-item" href="{{ route('bills.pdf', $bill->id) }}">{{ trans('bills.download_pdf') }}</a>
                                         @stack('button_pdf_end')
 
-                                        @stack('button_delete_start')
-                                            @permission('delete-purchases-bills')
-                                                @if(!$bill->reconciled)
-                                                    {!! Form::deleteLink($bill, 'purchases/bills') !!}
-                                                @endif
-                                            @endpermission
-                                        @stack('button_delete_end')
+                                        @permission('update-purchases-bills')
+                                            @if ($bill->status != 'cancelled')
+                                                @stack('button_cancelled_start')
+                                                <a class="dropdown-item" href="{{ route('bills.cancelled', $bill->id) }}">{{ trans('general.cancel') }}</a>
+                                                @stack('button_cancelled_end')
+                                            @endif
+                                        @endpermission
+
+                                        @permission('delete-purchases-bills')
+                                            @if (!$bill->reconciled)
+                                                @stack('button_delete_start')
+                                                {!! Form::deleteLink($bill, 'purchases/bills') !!}
+                                                @stack('button_delete_end')
+                                            @endif
+                                        @endpermission
                                     </div>
                                 </div>
                             @stack('button_group_end')

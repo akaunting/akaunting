@@ -33,6 +33,9 @@ class Event extends Provider
         'App\Events\Purchase\BillReceived' => [
             'App\Listeners\Purchase\MarkBillReceived',
         ],
+        'App\Events\Purchase\BillCancelled' => [
+            'App\Listeners\Purchase\MarkBillCancelled',
+        ],
         'App\Events\Purchase\BillRecurring' => [
             'App\Listeners\Purchase\SendBillRecurringNotification',
         ],
@@ -46,6 +49,9 @@ class Event extends Provider
         ],
         'App\Events\Sale\InvoiceSent' => [
             'App\Listeners\Sale\MarkInvoiceSent',
+        ],
+        'App\Events\Sale\InvoiceCancelled' => [
+            'App\Listeners\Sale\MarkInvoiceCancelled',
         ],
         'App\Events\Sale\InvoiceViewed' => [
             'App\Listeners\Sale\MarkInvoiceViewed',

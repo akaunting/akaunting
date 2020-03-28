@@ -3,6 +3,8 @@
 namespace App\BulkActions\Purchases;
 
 use App\Abstracts\BulkAction;
+use App\Events\Purchase\BillCancelled;
+use App\Events\Purchase\BillReceived;
 use App\Exports\Purchases\Bills as Export;
 use App\Jobs\Purchase\CreateBillHistory;
 use App\Jobs\Purchase\DeleteBill;
@@ -16,6 +18,11 @@ class Bills extends BulkAction
         'received' => [
             'name' => 'bills.mark_received',
             'message' => 'bulk_actions.message.received',
+            'permission' => 'update-purchases-bills',
+        ],
+        'cancelled' => [
+            'name' => 'general.cancel',
+            'message' => 'bulk_actions.message.cancelled',
             'permission' => 'update-purchases-bills',
         ],
         'delete' => [
@@ -34,12 +41,16 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            $bill->status = 'received';
-            $bill->save();
+            event(new BillReceived($bill));
+        }
+    }
 
-            $description = trans('bills.mark_recevied');
+    public function cancelled($request)
+    {
+        $bills = $this->getSelectedRecords($request);
 
-            $this->dispatch(new CreateBillHistory($bill, 0, $description));
+        foreach ($bills as $bill) {
+            event(new BillCancelled($bill));
         }
     }
 

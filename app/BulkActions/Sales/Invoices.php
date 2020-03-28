@@ -3,6 +3,7 @@
 namespace App\BulkActions\Sales;
 
 use App\Abstracts\BulkAction;
+use App\Events\Sale\InvoiceCancelled;
 use App\Events\Sale\InvoiceCreated;
 use App\Events\Sale\InvoiceSent;
 use App\Events\Sale\PaymentReceived;
@@ -23,6 +24,11 @@ class Invoices extends BulkAction
         'sent' => [
             'name' => 'invoices.mark_sent',
             'message' => 'bulk_actions.message.sent',
+            'permission' => 'update-sales-invoices',
+        ],
+        'cancelled' => [
+            'name' => 'general.cancel',
+            'message' => 'bulk_actions.message.cancelled',
             'permission' => 'update-sales-invoices',
         ],
         'delete' => [
@@ -51,6 +57,15 @@ class Invoices extends BulkAction
 
         foreach ($invoices as $invoice) {
             event(new InvoiceSent($invoice));
+        }
+    }
+
+    public function cancelled($request)
+    {
+        $invoices = $this->getSelectedRecords($request);
+
+        foreach ($invoices as $invoice) {
+            event(new InvoiceCancelled($invoice));
         }
     }
 

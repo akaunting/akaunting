@@ -71,10 +71,16 @@
                                             @endif
                                             <div class="dropdown-divider"></div>
 
-                                            @permission('create-sales-invoices')
-                                                <a class="dropdown-item" href="{{ route('invoices.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                                <div class="dropdown-divider"></div>
-                                            @endpermission
+                                            @if ($item->status != 'cancelled')
+                                                @permission('create-sales-invoices')
+                                                    <a class="dropdown-item" href="{{ route('invoices.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
+                                                    <div class="dropdown-divider"></div>
+                                                @endpermission
+
+                                                @permission('update-sales-invoices')
+                                                    <a class="dropdown-item" href="{{ route('invoices.cancelled', $item->id) }}">{{ trans('general.cancel') }}</a>
+                                                @endpermission
+                                            @endif
 
                                             @permission('delete-sales-invoices')
                                                 @if (!$item->reconciled)

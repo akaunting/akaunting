@@ -70,9 +70,17 @@
                                                 <a class="dropdown-item" href="{{ route('bills.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                             @endif
                                             <div class="dropdown-divider"></div>
-                                            @permission('create-purchases-bills')
-                                                <a class="dropdown-item" href="{{ route('bills.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                            @endpermission
+
+                                            @if ($item->status != 'cancelled')
+                                                @permission('create-purchases-bills')
+                                                    <a class="dropdown-item" href="{{ route('bills.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
+                                                @endpermission
+
+                                                @permission('update-purchases-bills')
+                                                    <a class="dropdown-item" href="{{ route('bills.cancelled', $item->id) }}">{{ trans('general.cancel') }}</a>
+                                                @endpermission
+                                            @endif
+
                                             @permission('delete-purchases-bills')
                                                 <div class="dropdown-divider"></div>
                                                 @if (!$item->reconciled)

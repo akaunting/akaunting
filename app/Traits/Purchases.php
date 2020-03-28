@@ -45,6 +45,7 @@ trait Purchases
             'paid',
             'overdue',
             'unpaid',
+            'cancelled',
         ];
 
         $statuses = collect($list)->each(function ($code) {

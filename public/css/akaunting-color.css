@@ -480,6 +480,32 @@ a.text-yellow:focus
     background-color: #bf8003;
 }
 /*--Warning Color Finish--*/
+/*--Dark Color--*/
+.badge-dark
+{
+    color: #fff;
+    background-color: #6a7783;
+}
+.badge-dark[href]:hover,
+.badge-dark[href]:focus
+{
+    color: #fff;
+    background-color: #060607;
+}
+/*--Dark Color Finish--*/
+/*--Darker Color--*/
+.badge-darker
+{
+    color: #fff;
+    background-color: #525252;
+}
+.badge-darker[href]:hover,
+.badge-darker[href]:focus
+{
+    color: #fff;
+    background-color: #000;
+}
+/*--Darker Color Finish--*/
 /*--------Badge Colors Finish--------*/
 
 /*--------Background Colors--------*/
@@ -1897,6 +1923,20 @@ button.bg-yellow:focus
     background-image: linear-gradient(to right, #ffffff , #efad32);
 }
 /*--Viewed Color Finish--*/
+
+/*--Dark Color--*/
+.status-dark
+{
+    background-image: linear-gradient(to right, #ffffff , #6a7783);
+}
+/*--Dark Color Finish--*/
+
+/*--Darker Color--*/
+.status-darker
+{
+    background-image: linear-gradient(to right, #ffffff , #525252);
+}
+/*--Darker Color Finish--*/
 /*--------Transaction Status Colors Finish--------*/
 
 
