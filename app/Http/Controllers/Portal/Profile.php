@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Portal;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Portal\Profile as Request;
+use App\Models\Auth\User;
 use App\Traits\Uploads;
 
 class Profile extends Controller
@@ -35,11 +36,12 @@ class Profile extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param  User $user
+     * @param  Request $request
      *
      * @return Response
      */
-    public function update(Request $request)
+    public function update(User $user, Request $request)
     {
         $user = user();
 
@@ -60,7 +62,7 @@ class Profile extends Controller
         }
 
         // Update customer
-        $user->customer->update($request->input());
+        $user->contact->update($request->input());
 
         $message = trans('messages.success.updated', ['type' => trans('auth.profile')]);
 
