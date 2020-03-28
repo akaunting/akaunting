@@ -484,26 +484,26 @@ a.text-yellow:focus
 .badge-dark
 {
     color: #fff;
-    background-color: #6a7783;
+    background-color: #191919;
 }
 .badge-dark[href]:hover,
 .badge-dark[href]:focus
 {
     color: #fff;
-    background-color: #060607;
+    background-color: #191919;
 }
 /*--Dark Color Finish--*/
 /*--Darker Color--*/
 .badge-darker
 {
     color: #fff;
-    background-color: #525252;
+    background-color: #000000;
 }
 .badge-darker[href]:hover,
 .badge-darker[href]:focus
 {
     color: #fff;
-    background-color: #000;
+    background-color: #000000;
 }
 /*--Darker Color Finish--*/
 /*--------Badge Colors Finish--------*/
@@ -1892,49 +1892,49 @@ button.bg-yellow:focus
 /*--Draft Color--*/
 .status-primary
 {
-    background-image: linear-gradient(to right, #ffffff , #55588b);
+    background-image: linear-gradient(to right, #ffffff, #55588b);
 }
 /*--Draft Color Finish--*/
 
 /*--Partial Color--*/
 .status-info
 {
-    background-image: linear-gradient(to right, #ffffff , #328aef);
+    background-image: linear-gradient(to right, #ffffff, #328aef);
 }
 /*--Partial Color Finish--*/
 
 /*--Paid Color--*/
 .status-success
 {
-    background-image: linear-gradient(to right, #ffffff , #6da252);
+    background-image: linear-gradient(to right, #ffffff, #6da252);
 }
 /*--Paid Color Finish--*/
 
 /*--Sent Color--*/
 .status-danger
 {
-    background-image: linear-gradient(to right, #ffffff , #ef3232);
+    background-image: linear-gradient(to right, #ffffff, #ef3232);
 }
 /*--Sent Color Finish--*/
 
 /*--Viewed Color--*/
 .status-warning
 {
-    background-image: linear-gradient(to right, #ffffff , #efad32);
+    background-image: linear-gradient(to right, #ffffff, #efad32);
 }
 /*--Viewed Color Finish--*/
 
 /*--Dark Color--*/
 .status-dark
 {
-    background-image: linear-gradient(to right, #ffffff , #6a7783);
+    background-image: linear-gradient(to right, #ffffff, #191919);
 }
 /*--Dark Color Finish--*/
 
 /*--Darker Color--*/
 .status-darker
 {
-    background-image: linear-gradient(to right, #ffffff , #525252);
+    background-image: linear-gradient(to right, #ffffff, #000000);
 }
 /*--Darker Color Finish--*/
 /*--------Transaction Status Colors Finish--------*/

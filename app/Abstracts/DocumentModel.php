@@ -147,7 +147,7 @@ abstract class DocumentModel extends Model
                 $label = 'warning';
                 break;
             case 'cancelled':
-                $label = 'darker';
+                $label = 'dark';
                 break;
             default:
                 $label = 'primary';
