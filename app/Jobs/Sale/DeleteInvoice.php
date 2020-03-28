@@ -23,7 +23,7 @@ class DeleteInvoice extends Job
     /**
      * Execute the job.
      *
-     * @return Invoice
+     * @return boolean|Exception
      */
     public function handle()
     {

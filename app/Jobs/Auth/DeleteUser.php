@@ -22,7 +22,7 @@ class DeleteUser extends Job
     /**
      * Execute the job.
      *
-     * @return boolean
+     * @return boolean|Exception
      */
     public function handle()
     {

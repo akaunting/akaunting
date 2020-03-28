@@ -21,7 +21,7 @@ class DeleteTransfer extends Job
     /**
      * Execute the job.
      *
-     * @return mixed
+     * @return boolean|Exception
      */
     public function handle()
     {

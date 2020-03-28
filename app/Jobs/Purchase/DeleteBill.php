@@ -23,7 +23,7 @@ class DeleteBill extends Job
     /**
      * Execute the job.
      *
-     * @return Bill
+     * @return boolean|Exception
      */
     public function handle()
     {

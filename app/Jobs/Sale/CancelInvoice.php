@@ -33,6 +33,6 @@ class CancelInvoice extends Job
         $this->invoice->status = 'cancelled';
         $this->invoice->save();
 
-        return true;
+        return $this->invoice;
     }
 }

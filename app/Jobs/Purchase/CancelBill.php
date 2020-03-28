@@ -33,6 +33,6 @@ class CancelBill extends Job
         $this->bill->status = 'cancelled';
         $this->bill->save();
 
-        return true;
+        return $this->bill;
     }
 }

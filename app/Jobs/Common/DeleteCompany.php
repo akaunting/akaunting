@@ -25,7 +25,7 @@ class DeleteCompany extends Job
     /**
      * Execute the job.
      *
-     * @return Company
+     * @return boolean|Exception
      */
     public function handle()
     {
