@@ -24,6 +24,6 @@ class MarkInvoiceSent
             $event->invoice->save();
         }
 
-        $this->dispatch(new CreateInvoiceHistory($event->invoice, 0, trans('invoices.mark_sent')));
+        $this->dispatch(new CreateInvoiceHistory($event->invoice, 0, trans('invoices.messages.marked_sent')));
     }
 }

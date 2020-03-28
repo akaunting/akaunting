@@ -284,7 +284,25 @@ class Bills extends Controller
     {
         event(new \App\Events\Purchase\BillReceived($bill));
 
-        $message = trans('bills.messages.received');
+        $message = trans('bills.messages.marked_received');
+
+        flash($message)->success();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Mark the bill as cancelled.
+     *
+     * @param  Bill $bill
+     *
+     * @return Response
+     */
+    public function markCancelled(Bill $bill)
+    {
+        event(new \App\Events\Purchase\BillCancelled($bill));
+
+        $message = trans('bills.messages.marked_cancelled');
 
         flash($message)->success();
 

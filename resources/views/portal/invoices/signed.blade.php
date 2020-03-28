@@ -219,19 +219,17 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-md-4">
-                    @if($invoice->status != 'paid')
-                        @if ($payment_methods)
-                            {!! Form::open([
-                                'id' => 'invoice-payment',
-                                'role' => 'form',
-                                'autocomplete' => "off",
-                                'novalidate' => 'true',
-                                'class' => 'mb-0',
-                            ]) !!}
-                                {{ Form::selectGroup('payment_method', '', 'fas fa-wallet', $payment_methods, '', ['change' => 'onChangePaymentMethodSigned', 'id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])], 'mb-0') }}
-                                {!! Form::hidden('invoice_id', $invoice->id, ['v-model' => 'form.invoice_id']) !!}
-                            {!! Form::close() !!}
-                        @endif
+                    @if (!empty($payment_methods) && !in_array($invoice->status, ['paid', 'cancelled']))
+                        {!! Form::open([
+                            'id' => 'invoice-payment',
+                            'role' => 'form',
+                            'autocomplete' => "off",
+                            'novalidate' => 'true',
+                            'class' => 'mb-0',
+                        ]) !!}
+                            {{ Form::selectGroup('payment_method', '', 'fas fa-wallet', $payment_methods, '', ['change' => 'onChangePaymentMethodSigned', 'id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])], 'mb-0') }}
+                            {!! Form::hidden('invoice_id', $invoice->id, ['v-model' => 'form.invoice_id']) !!}
+                        {!! Form::close() !!}
                     @endif
                 </div>
 

@@ -295,6 +295,24 @@ class Invoices extends Controller
     }
 
     /**
+     * Mark the invoice as cancelled.
+     *
+     * @param  Invoice $invoice
+     *
+     * @return Response
+     */
+    public function markCancelled(Invoice $invoice)
+    {
+        event(new \App\Events\Sale\InvoiceCancelled($invoice));
+
+        $message = trans('invoices.messages.marked_cancelled');
+
+        flash($message)->success();
+
+        return redirect()->back();
+    }
+
+    /**
      * Download the PDF file of invoice.
      *
      * @param  Invoice $invoice

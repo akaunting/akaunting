@@ -22,7 +22,7 @@ abstract class DocumentModel extends Model
 
     public function scopeAccrued($query)
     {
-        return $query->where('status', '<>', 'draft');
+        return $query->whereNotIn('status', ['draft', 'cancelled']);
     }
 
     public function scopePaid($query)
@@ -145,6 +145,9 @@ abstract class DocumentModel extends Model
                 break;
             case 'viewed':
                 $label = 'warning';
+                break;
+            case 'cancelled':
+                $label = 'darker';
                 break;
             default:
                 $label = 'primary';

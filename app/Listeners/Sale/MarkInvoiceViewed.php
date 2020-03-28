@@ -29,6 +29,6 @@ class MarkInvoiceViewed
         $invoice->status = 'viewed';
         $invoice->save();
 
-        $this->dispatch(new CreateInvoiceHistory($event->invoice, 0, trans('invoices.mark_viewed')));
+        $this->dispatch(new CreateInvoiceHistory($event->invoice, 0, trans('invoices.messages.marked_viewed')));
     }
 }

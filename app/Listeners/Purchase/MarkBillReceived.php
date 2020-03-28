@@ -24,6 +24,6 @@ class MarkBillReceived
             $event->bill->save();
         }
 
-        $this->dispatch(new CreateBillHistory($event->bill, 0, trans('bills.mark_received')));
+        $this->dispatch(new CreateBillHistory($event->bill, 0, trans('bills.messages.marked_received')));
     }
 }

@@ -69,6 +69,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'sales'], function () {
     Route::get('invoices/{invoice}/sent', 'Sales\Invoices@markSent')->name('invoices.sent');
+    Route::get('invoices/{invoice}/cancelled', 'Sales\Invoices@markCancelled')->name('invoices.cancelled');
     Route::get('invoices/{invoice}/email', 'Sales\Invoices@emailInvoice')->name('invoices.email');
     Route::get('invoices/{invoice}/paid', 'Sales\Invoices@markPaid')->name('invoices.paid');
     Route::get('invoices/{invoice}/print', 'Sales\Invoices@printInvoice')->name('invoices.print');
@@ -97,6 +98,7 @@ Route::group(['prefix' => 'sales'], function () {
 
 Route::group(['prefix' => 'purchases'], function () {
     Route::get('bills/{bill}/received', 'Purchases\Bills@markReceived')->name('bills.received');
+    Route::get('bills/{bill}/cancelled', 'Purchases\Bills@markCancelled')->name('bills.cancelled');
     Route::get('bills/{bill}/paid', 'Purchases\Bills@markPaid')->name('bills.paid');
     Route::get('bills/{bill}/print', 'Purchases\Bills@printBill')->name('bills.print');
     Route::get('bills/{bill}/pdf', 'Purchases\Bills@pdfBill')->name('bills.pdf');
