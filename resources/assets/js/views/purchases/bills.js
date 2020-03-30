@@ -52,6 +52,10 @@ const app = new Vue({
             discount: false,
             taxes: null,
             colspan: 6,
+            edit: {
+                status: false,
+                currency: false,
+            },
         }
     },
 
@@ -66,6 +70,7 @@ const app = new Vue({
         if (typeof bill_items !== 'undefined' && bill_items) {
             let items = [];
             let currency_code = this.form.currency_code;
+            this.edit.status = true;
 
             bill_items.forEach(function(item) {
                 items.push({
@@ -89,8 +94,14 @@ const app = new Vue({
         }
     },
 
-    methods:{
+    methods: {
         onChangeContact(contact_id) {
+            if (this.edit.status && !this.edit.currency) {
+                this.edit.currency = true;
+
+                return;
+            }
+
             axios.get(url + '/purchases/vendors/' + contact_id + '/currency')
             .then(response => {
                 this.form.contact_name = response.data.name;
