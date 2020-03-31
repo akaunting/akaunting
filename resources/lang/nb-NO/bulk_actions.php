@@ -15,6 +15,7 @@ return [
         'paid'          => 'Er du sikker på at du vil merke valgte faktura som <b>betalt</b>?|Er du sikker på at du vil merke valgte fakturaer som <b>betalt</b>?',
         'sent'          => 'Er du sikker på at du vil merke valgte faktura som <b>sendt</b>?|Er du sikker på at du vil merke valgte fakturaer som <b>sendt</b>?',
         'received'      => 'Er du sikker på at du vil merke valgte faktura som <b>mottatt</b>?|Er du sikker på at du vil merke valgte fakturaer som <b>mottatt</b>?',
+        'cancelled'     => 'Er du sikker på at du vil <b>kansellere</b> valgt faktura?|Er du sikker på at du vil <b>kansellere</b> valgte fakturaer?',
     ],
 
 ];

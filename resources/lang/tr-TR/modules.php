@@ -12,7 +12,7 @@ return [
     'search'                => 'Arama',
     'install'               => 'Yükle',
     'buy_now'               => 'Şimdi Satın Al',
-    'get_api_key'           => 'API Anahterını almak için <a href=":url" target="_blank">buraya tıklayın</a>.',
+    'get_api_key'           => 'API Anahtarını almak için <a href=":url" target="_blank">buraya tıklayın</a>.',
     'no_apps'               => 'Henüz bu kategoride uygulama bulunmamaktadır.',
     'become_developer'      => 'Geliştirici misiniz? <a href=":url" target="_blank">Buraya</a> tıklayarak Akaunting için uygulama geliştirmeyi öğrenebilir ve hemen para kazanmaya başlayabilirsiniz!',
     'recommended_apps'      => 'Önerilen Uygulamalar',

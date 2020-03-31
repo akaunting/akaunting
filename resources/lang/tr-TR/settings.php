@@ -29,6 +29,12 @@ return [
             'before'        => 'Sayıdan Önce',
             'after'         => 'Sayıdan Sonra',
         ],
+        'discount_location' => [
+            'name'          => 'İndirim Konumu',
+            'item'          => 'Satırda',
+            'total'         => 'Toplamda',
+            'both'          => 'Satırda ve toplamda',
+        ],
     ],
 
     'invoice' => [

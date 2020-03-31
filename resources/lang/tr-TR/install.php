@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature devre dışı bırakılmalıdır!',
         'extension'         => ':extension eklendisi kurulmalı ve yüklenmelidir!',
         'directory'         => ':directory dizini yazılabilir olmalıdır!',
+        'executable'        => 'PHP CLI çalıştırıcısı çalışmıyor. Lütfen, hosting firmanızdan PHP_BINARY veya PHP_PATH ortam değerlerini doğru ayarlamasını isteyin.',
     ],
 
     'database' => [

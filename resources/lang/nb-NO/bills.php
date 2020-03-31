@@ -13,6 +13,7 @@ return [
     'price'                 => 'Pris',
     'sub_total'             => 'Sum',
     'discount'              => 'Rabatt',
+    'item_discount'         => 'Linjerabatt',
     'tax_total'             => 'Mva',
     'total'                 => 'Totalt',
 
@@ -30,6 +31,7 @@ return [
     'add_payment'           => 'Legg til betaling',
     'mark_paid'             => 'Merk som betalt',
     'mark_received'         => 'Merk som mottatt',
+    'mark_cancelled'        => 'Merk kansellert',
     'download_pdf'          => 'Last ned PDF',
     'send_mail'             => 'Send e-post',
     'create_bill'           => 'Opprett faktura',
@@ -43,11 +45,13 @@ return [
         'paid'              => 'Betalt',
         'overdue'           => 'Forfalt',
         'unpaid'            => 'Ubetalt',
+        'cancelled'         => 'Kansellert',
     ],
 
     'messages' => [
-        'received'          => 'Faktura ble merket som mottatt.',
+        'marked_received'   => 'Faktura merket som mottatt!',
         'marked_paid'       => 'Faktura merket som betalt!',
+        'marked_cancelled'  => 'Faktura merket som kansellert!',
         'draft'             => 'Dette er en <b>KLADD</b> for fakturaen som vil bli oppdatert etter at den er mottatt.',
 
         'status' => [

@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name'             => 'custom-message',
         ],
-        'invalid_currency' => 'El código de :attribute es incorrecto.',
-        'invalid_amount'   => 'La cantidad :attribute no es válida.',
+        'invalid_currency'      => 'El código de :attribute es incorrecto.',
+        'invalid_amount'        => 'La cantidad :attribute no es válida.',
+        'invalid_extension'     => 'La extensión del archivo no es válida.',
     ],
 
     /*

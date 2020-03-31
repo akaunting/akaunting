@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature নিষ্ক্রিয় করা আবশ্যক!',
         'extension'         => ':extension  এক্সটেসনটি সংস্থাপন করে লোড করা আবশ্যক!',
         'directory'         => ':directory  ডিরেক্টরিটি লিখনযোগ্য হওয়া আবশ্যক!',
+        'executable'        => 'PHP CLI ফাইলটি চালানো যাচ্ছে না ! দয়া করে আপনার হোস্টিং কোম্পানিকে PHP_BINARY  কিংবা  PHP_PATH environment variable টি সঠিক ভাবে নির্ধারল করে দিতে বলুন।',
     ],
 
     'database' => [

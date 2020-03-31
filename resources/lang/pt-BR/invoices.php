@@ -13,6 +13,7 @@ return [
     'price'                 => 'Preço',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Desconto',
+    'item_discount'         => 'Linha de desconto',
     'tax_total'             => 'Valor da taxa',
     'total'                 => 'Total',
 
@@ -30,6 +31,7 @@ return [
     'mark_paid'             => 'Marcar como pago',
     'mark_sent'             => 'Marcar Como Enviada',
     'mark_viewed'           => 'Marcar como visualizado',
+    'mark_cancelled'        => 'Marcar como cancelado',
     'download_pdf'          => 'Baixar em PDF',
     'send_mail'             => 'Enviar E-mail',
     'all_invoices'          => 'Faça login para ver todas as faturas',
@@ -47,12 +49,15 @@ return [
         'paid'              => 'Pago',
         'overdue'           => 'Vencido',
         'unpaid'            => 'Não Pago',
+        'cancelled'         => 'Cancelado',
     ],
 
     'messages' => [
         'email_sent'        => 'E-mail da fatura foi enviado!',
         'marked_sent'       => 'Fatura marcada como enviada!',
         'marked_paid'       => 'Fatura marcada como paga!',
+        'marked_viewed'     => 'Fatura marcada como visualizada!',
+        'marked_cancelled'  => 'Fatura marcada como cancelada!',
         'email_required'    => 'Nenhum endereço de e-mail para este cliente!',
         'draft'             => 'Isto é um <b>RASCUNHO</b> da fatura e será refletida nos gráficos depois de enviada.',
 

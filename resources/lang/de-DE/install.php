@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature muss deaktiviert sein!',
         'extension'         => ':extension Erweiterung muss installiert und geladen sein!',
         'directory'         => ':directory Verzeichnis muss schreibbar sein!',
+        'executable'        => 'Die PHP-CLI  Datei funktioniert nicht! Bitten Sie Ihre Hosting-Firma, PHP_BINARY oder PHP_PATH Umgebungsvariable korrekt zu setzen.',
     ],
 
     'database' => [

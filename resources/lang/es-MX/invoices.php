@@ -13,6 +13,7 @@ return [
     'price'                 => 'Precio',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Descuento',
+    'item_discount'         => 'Línea de descuento',
     'tax_total'             => 'Total de Impuestos',
     'total'                 => 'Total ',
 
@@ -30,6 +31,7 @@ return [
     'mark_paid'             => 'Marcar Como Pagada',
     'mark_sent'             => 'Marcar Como Enviada',
     'mark_viewed'           => 'Marcar como visto',
+    'mark_cancelled'        => 'Marcar Como Cancelada',
     'download_pdf'          => 'Descargar archivo PDF',
     'send_mail'             => 'Enviar Correo Electrónico',
     'all_invoices'          => 'Inicie sesión para ver todas las facturas',
@@ -47,12 +49,15 @@ return [
         'paid'              => 'Pagada',
         'overdue'           => 'Vencida',
         'unpaid'            => 'No Pagada',
+        'cancelled'         => 'Cancelada',
     ],
 
     'messages' => [
         'email_sent'        => '¡El correo electrónico de la factura ha sido enviado!',
         'marked_sent'       => '¡Factura marcada como enviada!',
         'marked_paid'       => '¡Factura marcada como pagada!',
+        'marked_viewed'     => '¡Factura marcada como vista!',
+        'marked_cancelled'  => '¡Factura marcada como cancelada!',
         'email_required'    => 'No se encontró una dirección de correo para este cliente!',
         'draft'             => 'Esta es una factura <b>BORRADOR</b> y se reflejará en gráficos después de ser enviada.',
 

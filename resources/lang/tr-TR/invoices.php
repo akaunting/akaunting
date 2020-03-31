@@ -13,6 +13,7 @@ return [
     'price'                 => 'Fiyat',
     'sub_total'             => 'Ara Toplam',
     'discount'              => 'İndirim',
+    'item_discount'         => 'Satır İndirimi',
     'tax_total'             => 'Vergi Toplamı',
     'total'                 => 'Toplam',
 
@@ -30,6 +31,7 @@ return [
     'mark_paid'             => 'Ödendi İşaretle',
     'mark_sent'             => 'Gönderildi İşaretle',
     'mark_viewed'           => 'Görüntülendi İşaretle',
+    'mark_cancelled'        => 'İptal Edildi İşaretle',
     'download_pdf'          => 'PDF İndir',
     'send_mail'             => 'Email Gönder',
     'all_invoices'          => 'Tüm faturaları görüntülemek için giriş yapın',
@@ -47,12 +49,15 @@ return [
         'paid'              => 'Ödendi',
         'overdue'           => 'Gecikmiş',
         'unpaid'            => 'Ödenmemiş',
+        'cancelled'         => 'İptal Edildi',
     ],
 
     'messages' => [
         'email_sent'        => 'Fatura e-postası gönderildi!',
         'marked_sent'       => 'Fatura gönderildi olarak işaretlendi!',
         'marked_paid'       => 'Fatura ödendi olark işaretlendi!',
+        'marked_viewed'     => 'Fatura görüntülendi olarak işaretlendi!',
+        'marked_cancelled'  => 'Fatura iptal edildi olarak işaretlendi!',
         'email_required'    => 'Bu müşteri için e-posta adresi yok!',
         'draft'             => 'Bu bir <b>TASLAK</b> faturadır ve gönderildikten sonra grafiklere yansıtılacaktır.',
 
