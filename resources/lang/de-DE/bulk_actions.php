@@ -15,6 +15,7 @@ return [
         'paid'          => 'Sind Sie sicher das Sie die ausgewählte Rechnung als <b>bezahlt</b> markieren möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen als <b>bezahlt</b> markieren möchten?',
         'sent'          => 'Sind Sie sicher das Sie die ausgewählte Rechnung als <b>versendet</b> markieren möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen als <b>versendet</b> markieren möchten?',
         'received'      => 'Sind Sie sicher das Sie die ausgewählte Rechnung als <b>empfangen</b> markieren möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen als <b>empfangen</b> markieren möchten?',
+        'cancelled'     => 'Sind Sie sicher das Sie die ausgewählte Rechnung <b>stornieren</b> möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen <b>stornieren</b> möchten?',
     ],
 
 ];

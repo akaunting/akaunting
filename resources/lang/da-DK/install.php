@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature skal være deaktiveret!',
         'extension'         => ':extension udvidelse skal være indlæst!',
         'directory'         => ':directory folderen skal være skrivbar!',
+        'executable'        => 'PHP CLI eksekverbar file virker ikke! Venligst forespørg anmod din host om at sætte PHP_BINARY eller PHP_PATH miljøvariablen korrekt.',
     ],
 
     'database' => [

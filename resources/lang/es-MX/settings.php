@@ -29,6 +29,12 @@ return [
             'before'        => 'Antes del Número',
             'after'         => 'Después del número',
         ],
+        'discount_location' => [
+            'name'          => 'Ubicación del descuento',
+            'item'          => 'En línea',
+            'total'         => 'En total',
+            'both'          => 'Tanto línea como total',
+        ],
     ],
 
     'invoice' => [

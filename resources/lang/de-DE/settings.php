@@ -29,6 +29,12 @@ return [
             'before'        => 'Vor der Zahl',
             'after'         => 'Nach der Zahl',
         ],
+        'discount_location' => [
+            'name'          => 'Rabatt Position',
+            'item'          => 'pro Artikel / Position',
+            'total'         => 'auf Totalbetrag',
+            'both'          => 'pro Artikel / Position und Totalbetrag',
+        ],
     ],
 
     'invoice' => [

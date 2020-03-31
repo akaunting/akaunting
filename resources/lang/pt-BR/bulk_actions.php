@@ -15,6 +15,7 @@ return [
         'paid'          => 'Tem certeza de que deseja marcar a fatura selecionada como <b>paga</b>?|Tem certeza de que deseja marcar as faturas selecionadas como <b>pagas</b>?',
         'sent'          => 'Tem certeza de que deseja marcar a fatura selecionada como <b>enviada</b>?|Tem certeza de que deseja marcar as faturas selecionadas como <b>enviadas</b>?',
         'received'      => 'Tem certeza de que deseja marcar a fatura selecionada como <b>recebida</b>?|Tem certeza de que deseja marcar as faturas selecionadas como <b>recebidas</b>?',
+        'cancelled'     => 'Tem certeza de que deseja <b>cancelar</b> o fatura selecionada?|Tem certeza de que deseja <b>cancelar</b> as faturas selecionados?',
     ],
 
 ];

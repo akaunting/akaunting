@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature трябва да бъде дезактивирана!',
         'extension'         => ':extension разширението трябва да бъде заредено!',
         'directory'         => ':directory директорията трябва да е с разрешение за промяна!',
+        'executable'        => 'The PHP CLI executable file is not working! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [

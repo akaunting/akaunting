@@ -29,6 +29,12 @@ return [
             'before'        => 'Før nummer',
             'after'         => 'Etter nummer',
         ],
+        'discount_location' => [
+            'name'          => 'Rabatt plassering',
+            'item'          => 'På linje',
+            'total'         => 'På total',
+            'both'          => 'Både linje og total',
+        ],
     ],
 
     'invoice' => [

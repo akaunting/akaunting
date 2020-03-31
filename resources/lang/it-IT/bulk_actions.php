@@ -15,6 +15,7 @@ return [
         'paid'          => 'Sei sicuro di voler contrassegnare la fattura selezionata come <b>pagata</b>? Sei sicuro di voler contrassegnare le fatture selezionate come <b>pagate</b>?',
         'sent'          => 'Sei sicuro di voler contrassegnare la fattura selezionata come <b>inviata</b>? Sei sicuro di voler contrassegnare le fatture selezionate come <b>inviate</b>?',
         'received'      => 'Sei sicuro di voler contrassegnare la fattura selezionata come <b>ricevuta</b>? Sei sicuro di voler contrassegnare le fatture selezionate come <b>ricevute</b>?',
+        'cancelled'     => 'Sei sicuro di voler <b>annullare</b> la fattura/bollette selezionate?<unk> Sei sicuro di voler <b>annullare</b> fatture/bollette selezionate?',
     ],
 
 ];

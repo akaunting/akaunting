@@ -13,6 +13,7 @@ return [
     'price'                 => 'Prezzo',
     'sub_total'             => 'Subtotale',
     'discount'              => 'Sconto',
+    'item_discount'         => 'Linea Sconto',
     'tax_total'             => 'Totale imposta',
     'total'                 => 'Totale',
 
@@ -30,6 +31,7 @@ return [
     'add_payment'           => 'Aggiungere pagamento',
     'mark_paid'             => 'Segna come Pagata',
     'mark_received'         => 'Segna come ricevuto',
+    'mark_cancelled'        => 'Segna come annullata',
     'download_pdf'          => 'Scarica PDF',
     'send_mail'             => 'Invia email',
     'create_bill'           => 'Creare Bolletta',
@@ -43,11 +45,13 @@ return [
         'paid'              => 'Pagato',
         'overdue'           => 'In Ritardo',
         'unpaid'            => 'Non pagato',
+        'cancelled'         => 'Cancellato',
     ],
 
     'messages' => [
-        'received'          => 'Fattura segnata con successo come ricevuta!',
+        'marked_received'   => 'Bolletta contrassegnata come ricevuta!',
         'marked_paid'       => 'Fattura contrassegnata come pagata!',
+        'marked_cancelled'  => 'Bolletta contrassegnato come annullata!',
         'draft'             => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà ricevuta.',
 
         'status' => [
