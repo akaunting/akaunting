@@ -186,7 +186,7 @@ class UpdateInvoice extends Job
         $taxes = [];
 
         if (empty($this->request['items'])) {
-            return [$sub_total, $taxes];
+            return [$sub_total, $discount_amount_total, $taxes];
         }
 
         // Delete current items
