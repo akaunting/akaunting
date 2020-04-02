@@ -175,7 +175,7 @@ class CreateInvoice extends Job
         $taxes = [];
 
         if (empty($this->request['items'])) {
-            return [$sub_total, $taxes];
+            return [$sub_total, $discount_amount_total, $taxes];
         }
 
         foreach ((array) $this->request['items'] as $item) {
