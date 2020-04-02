@@ -126,7 +126,7 @@ class Bills extends Controller
         $response = $this->ajaxDispatch(new CreateBill($request));
 
         if ($response['success']) {
-            $response['redirect'] = route('bills.index');
+            $response['redirect'] = route('bills.show', $response['data']->id);
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.bills', 1)]);
 
@@ -221,7 +221,7 @@ class Bills extends Controller
         $response = $this->ajaxDispatch(new UpdateBill($bill, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('bills.index');
+            $response['redirect'] = route('bills.show', $response['data']->id);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.bills', 1)]);
 

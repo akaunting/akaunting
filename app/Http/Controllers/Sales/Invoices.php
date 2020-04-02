@@ -224,7 +224,7 @@ class Invoices extends Controller
         $response = $this->ajaxDispatch(new UpdateInvoice($invoice, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('invoices.index');
+            $response['redirect'] = route('invoices.show', $response['data']->id);
 
             $message = trans('messages.success.updated', ['type' => trans_choice('general.invoices', 1)]);
 
