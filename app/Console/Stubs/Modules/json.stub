@@ -5,6 +5,7 @@
     "category": "accounting",
     "active": 1,
     "providers": [
+        "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\Event",
         "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\Main"
     ],
     "aliases": {},
