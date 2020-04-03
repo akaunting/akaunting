@@ -9,6 +9,8 @@ class InstallModule
 {
     use Permissions;
 
+    public $alias = 'offline-payments';
+
     /**
      * Handle the event.
      *
@@ -17,7 +19,7 @@ class InstallModule
      */
     public function handle(Event $event)
     {
-        if ($event->alias != 'offline-payments') {
+        if ($event->alias != $this->alias) {
             return;
         }
 
@@ -26,10 +28,9 @@ class InstallModule
 
     protected function updatePermissions()
     {
+        // c=create, r=read, u=update, d=delete
         $this->attachPermissionsToAdminRoles([
-            $this->createModuleSettingPermission('offline-payments', 'read'),
-            $this->createModuleSettingPermission('offline-payments', 'update'),
-            $this->createModuleSettingPermission('offline-payments', 'delete'),
+            $this->alias . '-settings' => 'r,u,d',
         ]);
     }
 }
