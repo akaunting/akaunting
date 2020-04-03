@@ -11,7 +11,6 @@ use Modules\OfflinePayments\Http\Requests\SettingDelete as DRequest;
 
 class Settings extends Controller
 {
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -157,7 +156,7 @@ class Settings extends Controller
 
         $message = trans('messages.success.deleted', ['type' => $remove['name']]);
 
-        // because it show nofitication.
+        // because it show notification.
         //flash($message)->success();
 
         return response()->json([

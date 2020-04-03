@@ -1,0 +1,20 @@
+<?php
+
+namespace $MODULE_NAMESPACE$\$STUDLY_NAME$\Providers;
+
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as Provider;
+use $MODULE_NAMESPACE$\$STUDLY_NAME$\Listeners\InstallModule;
+
+class Event extends Provider
+{
+    /**
+     * The event listener mappings for the module.
+     *
+     * @var array
+     */
+    protected $listen = [
+        \App\Events\Module\Installed::class => [
+            InstallModule::class,
+        ],
+    ];
+}

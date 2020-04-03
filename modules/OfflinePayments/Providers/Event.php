@@ -2,12 +2,12 @@
 
 namespace Modules\OfflinePayments\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as Provider;
 use Modules\OfflinePayments\Listeners\InstallModule;
 use Modules\OfflinePayments\Listeners\ShowPaymentMethod;
 use Modules\OfflinePayments\Listeners\ShowSetting;
 
-class Event extends ServiceProvider
+class Event extends Provider
 {
     /**
      * The event listener mappings for the module.

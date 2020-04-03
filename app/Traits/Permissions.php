@@ -43,15 +43,17 @@ trait Permissions
 
     public function attachPermissionsToAllRoles($permissions, $require = 'read-admin-panel')
     {
-        $roles = Role::all()->filter(function ($r) use ($require) {
-            return $require ? $r->hasPermission($require) : true;
-        });
+        $this->getRoles($require)->each(function ($role) use ($permissions) {
+            foreach ($permissions as $id => $permission) {
+                if ($this->isActionList($permission)) {
+                    $this->attachPermissionsByAction($role, $id, $permission);
 
-        foreach ($roles as $role) {
-            foreach ($permissions as $permission) {
+                    continue;
+                }
+
                 $this->attachPermission($role, $permission);
             }
-        }
+        });
     }
 
     public function detachPermissionsByRoleNames($roles)
@@ -201,12 +203,17 @@ trait Permissions
 
     public function createModuleSettingPermission($module, $action)
     {
+        return $this->createModuleControllerPermission($module, $action, 'settings');
+    }
+
+    public function createModuleControllerPermission($module, $action, $controller)
+    {
         if (is_string($module)) {
             $module = module($module);
         }
 
-        $name = $action . '-' . $module->getAlias() . '-settings';
-        $display_name = Str::title($action) . ' ' . $module->getName() . ' Settings';
+        $name = $action . '-' . $module->getAlias() . '-' . $controller;
+        $display_name = Str::title($action) . ' ' . $module->getName() . ' ' . Str::title($controller);
 
         return $this->createPermission($name, $display_name);
     }
@@ -276,7 +283,8 @@ trait Permissions
             return false;
         }
 
-        return (strlen($permission) == '1') || Str::contains($permission, ',');
+        // c || c,r,u,d
+        return (Str::length($permission) == 1) || Str::contains($permission, ',');
     }
 
     public function attachPermissionsByAction($role, $page, $action_list)
@@ -296,6 +304,23 @@ trait Permissions
 
     public function getPermissionDisplayName($name)
     {
-        return Str::title(str_replace('-', ' ', $name));
+        if (!empty($this->alias)) {
+            $name = str_replace($this->alias, '{Module Placeholder}', $name);
+        }
+
+        $name = Str::title(str_replace('-', ' ', $name));
+
+        if (!empty($this->alias)) {
+            $name = str_replace('{Module Placeholder}', module($this->alias)->getName(), $name);
+        }
+
+        return $name;
+    }
+
+    public function getRoles($require = 'read-admin-panel')
+    {
+        return Role::all()->filter(function ($role) use ($require) {
+            return $require ? $role->hasPermission($require) : true;
+        });
     }
 }

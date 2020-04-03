@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\OfflinePayments\Listeners;
+namespace $MODULE_NAMESPACE$\$STUDLY_NAME$\Listeners;
 
 use App\Events\Module\Installed as Event;
 use App\Traits\Permissions;
@@ -9,7 +9,7 @@ class InstallModule
 {
     use Permissions;
 
-    public $alias = 'offline-payments';
+    public $alias = '$ALIAS$';
 
     /**
      * Handle the event.
@@ -30,7 +30,7 @@ class InstallModule
     {
         // c=create, r=read, u=update, d=delete
         $this->attachPermissionsToAdminRoles([
-            $this->alias . '-settings' => 'r,u,d',
+            $this->alias . '-main' => 'c,r,u,d',
         ]);
     }
 }
