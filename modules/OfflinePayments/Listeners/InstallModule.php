@@ -26,7 +26,7 @@ class InstallModule
 
     protected function updatePermissions()
     {
-        $this->attachPermissionsToAllRoles([
+        $this->attachPermissionsToAdminRoles([
             $this->createModuleSettingPermission('offline-payments', 'read'),
             $this->createModuleSettingPermission('offline-payments', 'update'),
             $this->createModuleSettingPermission('offline-payments', 'delete'),
