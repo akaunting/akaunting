@@ -61,18 +61,19 @@ class Dashboard
 
         $total = count($unpaid) + count($paid) + count($partial_paid) + count($overdue);
 
-        $progress = [
-            'unpaid' => count($unpaid),
-            'paid' => count($paid),
-            'overdue' => count($overdue),
-            'partially_paid' => count($partial_paid),
-            'total' => $total,
-        ];
 
         $unpaid = $this->calculateTotals($unpaid, $start, $end, 'unpaid');
         $paid = $this->calculateTotals($paid, $start, $end, 'paid');
         $partial_paid = $this->calculateTotals($partial_paid, $start, $end, 'partial');
         $overdue = $this->calculateTotals($overdue, $start, $end, 'overdue');
+
+        $progress = [
+            'unpaid' => array_sum($unpaid),
+            'paid' => array_sum($paid),
+            'overdue' => array_sum($overdue),
+            'partially_paid' => array_sum($partial_paid),
+            'total' => $total,
+        ];
 
         $chart = new Chartjs();
         $chart->type('line')
