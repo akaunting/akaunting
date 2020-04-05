@@ -39,40 +39,20 @@ class Dashboard
             $s->addMonth();
         }
 
-        $unpaid = $paid = $overdue = $partial_paid = [];
+        $amounts = $this->calculateAmounts($invoices, $start, $end);
 
-        foreach ($invoices as $invoice) {
-            switch ($invoice->status) {
-                case 'paid':
-                    $paid[] = $invoice;
-                    break;
-                case 'partial':
-                    $partial_paid[] = $invoice;
-                    break;
-                case 'sent':
-                default:
-                    if (Date::today()->format('Y-m-d') > $invoice->due_at->format('Y-m-d')) {
-                        $overdue[] = $invoice;
-                    } else {
-                        $unpaid[] = $invoice;
-                    }
-            }
-        }
+        $grand = array_sum($amounts['unpaid']) + array_sum($amounts['paid']) + array_sum($amounts['overdue']);
 
-        $total = count($unpaid) + count($paid) + count($partial_paid) + count($overdue);
-
-
-        $unpaid = $this->calculateTotals($unpaid, $start, $end, 'unpaid');
-        $paid = $this->calculateTotals($paid, $start, $end, 'paid');
-        $partial_paid = $this->calculateTotals($partial_paid, $start, $end, 'partial');
-        $overdue = $this->calculateTotals($overdue, $start, $end, 'overdue');
+        $totals = [
+            'paid' => money(array_sum($amounts['paid']), setting('default.currency'), true),
+            'unpaid' => money(array_sum($amounts['unpaid']), setting('default.currency'), true),
+            'overdue' => money(array_sum($amounts['overdue']), setting('default.currency'), true),
+        ];
 
         $progress = [
-            'unpaid' => array_sum($unpaid),
-            'paid' => array_sum($paid),
-            'overdue' => array_sum($overdue),
-            'partially_paid' => array_sum($partial_paid),
-            'total' => $total,
+            'paid' => !empty($grand) ? (100 / $grand) * array_sum($amounts['paid']) : '0',
+            'unpaid' => !empty($grand) ? (100 / $grand) * array_sum($amounts['unpaid']) : '0',
+            'overdue' => !empty($grand) ? (100 / $grand) * array_sum($amounts['overdue']) : '0',
         ];
 
         $chart = new Chartjs();
@@ -82,49 +62,39 @@ class Dashboard
             ->options($this->getLineChartOptions())
             ->labels(array_values($labels));
 
-        $chart->dataset(trans('general.unpaid'), 'line', array_values($unpaid))
-        ->backgroundColor('#ef3232')
-        ->color('#ef3232')
-        ->options([
-            'borderWidth' => 4,
-            'pointStyle' => 'line',
-         ])
-        ->fill(false);
+        $chart->dataset(trans('general.paid'), 'line', array_values($amounts['paid']))
+            ->backgroundColor('#6da252')
+            ->color('#6da252')
+            ->options([
+                'borderWidth' => 4,
+                'pointStyle' => 'line',
+            ])
+            ->fill(false);
 
-        $chart->dataset(trans('general.paid'), 'line', array_values($paid))
-        ->backgroundColor('#6da252')
-        ->color('#6da252')
-        ->options([
-            'borderWidth' => 4,
-            'pointStyle' => 'line',
-         ])
-        ->fill(false);
+        $chart->dataset(trans('general.unpaid'), 'line', array_values($amounts['unpaid']))
+            ->backgroundColor('#efad32')
+            ->color('#efad32')
+            ->options([
+                'borderWidth' => 4,
+                'pointStyle' => 'line',
+            ])
+            ->fill(false);
 
-        $chart->dataset(trans('general.overdue'), 'line', array_values($overdue))
-        ->backgroundColor('#efad32')
-        ->color('#efad32')
-        ->options([
-            'borderWidth' => 4,
-            'pointStyle' => 'line',
-         ])
-        ->fill(false);
+        $chart->dataset(trans('general.overdue'), 'line', array_values($amounts['overdue']))
+            ->backgroundColor('#ef3232')
+            ->color('#ef3232')
+            ->options([
+                'borderWidth' => 4,
+                'pointStyle' => 'line',
+            ])
+            ->fill(false);
 
-        $chart->dataset(trans('general.partially_paid'), 'line', array_values($partial_paid))
-        ->backgroundColor('#328aef')
-        ->color('#328aef')
-        ->options([
-            'borderWidth' => 4,
-            'pointStyle' => 'line',
-         ])
-        ->fill(false);
-
-
-        return view('portal.dashboard.index', compact('contact', 'invoices', 'progress', 'chart'));
+        return view('portal.dashboard.index', compact('contact', 'invoices', 'totals', 'progress', 'chart'));
     }
 
-    private function calculateTotals($items, $start, $end, $type)
+    private function calculateAmounts($invoices, $start, $end)
     {
-        $totals = [];
+        $amounts = ['paid', 'unpaid', 'overdue'];
 
         $date_format = 'Y-m';
 
@@ -136,26 +106,50 @@ class Dashboard
         $s = clone $start;
 
         while ($next_date <= $end_date) {
-            $totals[$next_date] = 0;
+            $amounts['paid'][$next_date] = $amounts['unpaid'][$next_date] = $amounts['overdue'][$next_date] = 0;
 
             $next_date = $s->addMonths($n)->format($date_format);
         }
 
-        $this->setTotals($totals, $items, $date_format, $type);
+        $this->setAmounts($amounts, $invoices, $date_format);
 
-        return $totals;
+        return $amounts;
     }
 
-    private function setTotals(&$totals, $items, $date_format, $type)
+    private function setAmounts(&$amounts, $invoices, $date_format)
     {
-        foreach ($items as $item) {
-            if ($type == 'partial') {
-                $item->amount = $item->transactions()->paid();
+        $today = Date::today()->format('Y-m-d');
+
+        foreach ($invoices as $invoice) {
+            $date = Date::parse($invoice->due_at)->format($date_format);
+
+            $amount = $invoice->getAmountConvertedToDefault();
+
+            $is_overdue = $today > $invoice->due_at->format('Y-m-d');
+
+            switch ($invoice->status) {
+                case 'paid':
+                    $amounts['paid'][$date] += $amount;
+                    break;
+                case 'partial':
+                    $paid = $invoice->paid;
+                    $remainder = $amount - $paid;
+
+                    $amounts['paid'][$date] += $paid;
+
+                    if ($is_overdue) {
+                        $amounts['overdue'][$date] += $remainder;
+                    } else {
+                        $amounts['unpaid'][$date] += $remainder;
+                    }
+                    break;
+                default:
+                    if ($is_overdue) {
+                        $amounts['overdue'][$date] += $amount;
+                    } else {
+                        $amounts['unpaid'][$date] += $amount;
+                    }
             }
-
-            $i = Date::parse($item->paid_at)->format($date_format);
-
-            $totals[$i] += $item->getAmountConvertedToDefault();
         }
     }
 }
