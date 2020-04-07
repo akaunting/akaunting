@@ -28,7 +28,7 @@ class Vendors extends Controller
      */
     public function index()
     {
-        $vendors = Contact::type($this->getVendorTypes())->collect();
+        $vendors = Contact::vendor()->collect();
 
         return view('purchases.vendors.index', compact('vendors'));
     }

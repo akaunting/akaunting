@@ -82,17 +82,17 @@ abstract class Report
 
     public function getCustomers()
     {
-        return $this->getContacts($this->getCustomerTypes());
+        return $this->getContacts('customer');
     }
 
     public function getVendors()
     {
-        return $this->getContacts($this->getVendorTypes());
+        return $this->getContacts('vendor');
     }
 
-    public function getContacts($types)
+    public function getContacts($type)
     {
-        return Contact::type($types)->orderBy('name')->pluck('name', 'id')->toArray();
+        return Contact::$type()->orderBy('name')->pluck('name', 'id')->toArray();
     }
 
     public function applyDateFilter($event)

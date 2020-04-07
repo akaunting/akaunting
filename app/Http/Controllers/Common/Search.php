@@ -9,12 +9,9 @@ use App\Models\Common\Contact;
 use App\Models\Purchase\Bill;
 use App\Models\Sale\Invoice;
 use App\Models\Common\Item;
-use App\Traits\Contacts;
 
 class Search extends Controller
 {
-    use Contacts;
-
     /**
      * Display a listing of the resource.
      *
@@ -82,7 +79,7 @@ class Search extends Controller
             }
         }*/
 
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->usingSearchString($keyword)->get();
+        $customers = Contact::customer()->enabled()->usingSearchString($keyword)->get();
 
         if ($customers->count()) {
             foreach ($customers as $customer) {
@@ -124,7 +121,7 @@ class Search extends Controller
             }
         }*/
 
-        $vendors = Contact::type($this->getVendorTypes())->enabled()->usingSearchString($keyword)->get();
+        $vendors = Contact::vendor()->enabled()->usingSearchString($keyword)->get();
 
         if ($vendors->count()) {
             foreach ($vendors as $vendor) {

@@ -20,7 +20,6 @@ use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Notifications\Sale\Invoice as Notification;
-use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Sales;
@@ -30,7 +29,7 @@ use Illuminate\Support\Facades\URL;
 
 class Invoices extends Controller
 {
-    use Contacts, Currencies, DateTime, Sales;
+    use Currencies, DateTime, Sales;
 
     /**
      * Display a listing of the resource.
@@ -41,7 +40,7 @@ class Invoices extends Controller
     {
         $invoices = Invoice::with(['contact', 'items', 'histories', 'transactions'])->collect(['invoice_number'=> 'desc']);
 
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -67,7 +66,7 @@ class Invoices extends Controller
 
         $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
 
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -100,7 +99,7 @@ class Invoices extends Controller
      */
     public function create()
     {
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
@@ -196,7 +195,7 @@ class Invoices extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
