@@ -24,9 +24,7 @@ $factory->define(Invoice::class, function (Faker $faker) use ($company) {
     $invoiced_at = $faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d');
     $due_at = Date::parse($invoiced_at)->addDays(setting('invoice.payment_terms'))->format('Y-m-d');
 
-    $types = (string) setting('contact.type.customer', 'customer');
-
-    $contacts = Contact::type(explode(',', $types))->enabled()->get();
+    $contacts = Contact::customer()->enabled()->get();
 
     if ($contacts->count()) {
         $contact = $contacts->random(1)->first();
