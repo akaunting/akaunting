@@ -15,14 +15,13 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
-use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Utilities\Modules;
 
 class Revenues extends Controller
 {
-    use Contacts, Currencies, DateTime;
+    use Currencies, DateTime;
 
     /**
      * Display a listing of the resource.
@@ -33,7 +32,7 @@ class Revenues extends Controller
     {
         $revenues = Transaction::type('income')->with(['account', 'category', 'contact'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -67,7 +66,7 @@ class Revenues extends Controller
 
         $currency = Currency::where('code', $account_currency_code)->first();
 
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -155,7 +154,7 @@ class Revenues extends Controller
 
         $currency = Currency::where('code', $revenue->currency_code)->first();
 
-        $customers = Contact::type($this->getCustomerTypes())->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
 
