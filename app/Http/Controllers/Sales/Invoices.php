@@ -332,7 +332,7 @@ class Invoices extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-	$safe_invoice_number = preg_replace("/[^A-Za-z0-9-_]/", '', $invoice->invoice_number);
+        $safe_invoice_number = preg_replace("/[^A-Za-z0-9-_]/", '', $invoice->invoice_number);
         $file = storage_path('app/temp/invoice_'.$safe_invoice_number.'_'.time().'.pdf');
 
         $invoice->pdf_path = $file;

@@ -342,7 +342,8 @@ class Bills extends Controller
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
-	$safe_bill_number = preg_replace("/[^A-Za-z0-9_-]/", '', $bill->bill_number);
+
+        $safe_bill_number = preg_replace("/[^A-Za-z0-9_-]/", '', $bill->bill_number);
         $file_name = 'bill_'.$bill->bill_number.'_'.time() . '.pdf';
 
         return $pdf->download($file_name);
