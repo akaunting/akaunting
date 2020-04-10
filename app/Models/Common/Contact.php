@@ -137,7 +137,7 @@ class Contact extends Model
         $this->$collection()->accrued()->notPaid()->each(function ($item) use (&$amount) {
             $unpaid = $item->amount - $item->paid;
 
-            $amount += $this->convertFromDefault($unpaid, $item->currency_code, $item->currency_rate);
+            $amount += $this->convertToDefault($unpaid, $item->currency_code, $item->currency_rate);
         });
 
         return $amount;
