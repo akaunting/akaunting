@@ -132,7 +132,7 @@ class Contact extends Model
     {
         $amount = 0;
 
-        $collection = ($this->type == 'customer') ? 'invoices' : 'bills';
+        $collection = in_array($this->type, $this->getCustomerTypes()) ? 'invoices' : 'bills';
 
         $this->$collection()->accrued()->notPaid()->each(function ($item) use (&$amount) {
             $unpaid = $item->amount - $item->paid;
