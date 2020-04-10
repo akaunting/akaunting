@@ -32,9 +32,9 @@ class Recurring
 
                 $start_date = Date::parse($start->format('Y-m-d'));
 
-                if (($item instanceof Invoice) || ($item instanceof Bill)) {
+                if (($clone instanceof Invoice) || ($clone instanceof Bill)) {
                     // Days between invoiced/billed and due date
-                    $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
+                    $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->$issued_date_field));
 
                     $clone->due_at = $start_date->addDays($diff_days)->format('Y-m-d');
                 }
