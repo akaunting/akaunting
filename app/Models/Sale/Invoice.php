@@ -85,7 +85,7 @@ class Invoice extends DocumentModel
 
     public function totals()
     {
-        return $this->hasMany('App\Models\Sale\InvoiceTotal');
+        return $this->hasMany('App\Models\Sale\InvoiceTotal')->orderBy('sort_order');
     }
 
     public function transactions()
