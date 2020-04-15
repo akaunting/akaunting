@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Common\Company;
 use App\Models\Sale\Invoice;
-use App\Notifications\Sale\Invoice as Notification;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;
@@ -60,7 +59,7 @@ class InvoiceReminder extends Command
             foreach ($days as $day) {
                 $day = (int) trim($day);
 
-                $this->remind($day, $company);
+                $this->remind($day);
             }
         }
 
@@ -69,7 +68,7 @@ class InvoiceReminder extends Command
         setting()->forgetAll();
     }
 
-    protected function remind($day, $company)
+    protected function remind($day)
     {
         // Get due date
         $date = Date::today()->subDays($day)->toDateString();
@@ -78,19 +77,7 @@ class InvoiceReminder extends Command
         $invoices = Invoice::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($invoices as $invoice) {
-            // Notify the customer
-            if ($invoice->contact && !empty($invoice->contact_email)) {
-                $invoice->contact->notify(new Notification($invoice, 'invoice_remind_customer'));
-            }
-
-            // Notify all users assigned to this company
-            foreach ($company->users as $user) {
-                if (!$user->can('read-notifications')) {
-                    continue;
-                }
-
-                $user->notify(new Notification($invoice, 'invoice_remind_admin'));
-            }
+            event(new \App\Events\Sale\InvoiceReminding($invoice));
         }
     }
 }

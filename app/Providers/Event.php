@@ -39,6 +39,9 @@ class Event extends Provider
         'App\Events\Purchase\BillRecurring' => [
             'App\Listeners\Purchase\SendBillRecurringNotification',
         ],
+        'App\Events\Purchase\BillReminding' => [
+            'App\Listeners\Purchase\SendBillRemindingNotification',
+        ],
         'App\Events\Sale\PaymentReceived' => [
             'App\Listeners\Sale\CreateInvoiceTransaction',
             'App\Listeners\Sale\SendInvoicePaymentNotification',
@@ -58,6 +61,9 @@ class Event extends Provider
         ],
         'App\Events\Sale\InvoiceRecurring' => [
             'App\Listeners\Sale\SendInvoiceRecurringNotification',
+        ],
+        'App\Events\Sale\InvoiceReminding' => [
+            'App\Listeners\Sale\SendInvoiceRemindingNotification',
         ],
         'App\Events\Menu\AdminCreated' => [
             'App\Listeners\Menu\AddAdminItems',
