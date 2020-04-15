@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Sale;
 
-use App\Events\Sale\InvoiceReminding as Event;
+use App\Events\Sale\InvoiceReminded as Event;
 use App\Notifications\Sale\Invoice as Notification;
 
 class SendInvoiceReminderNotification
