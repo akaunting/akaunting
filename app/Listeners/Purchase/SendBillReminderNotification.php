@@ -5,7 +5,7 @@ namespace App\Listeners\Purchase;
 use App\Events\Purchase\BillReminding as Event;
 use App\Notifications\Purchase\Bill as Notification;
 
-class SendBillRemindingNotification
+class SendBillReminderNotification
 {
     /**
      * Handle the event.

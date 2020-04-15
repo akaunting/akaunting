@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\Sale\InvoiceReminded;
 use App\Models\Common\Company;
 use App\Models\Sale\Invoice;
 use App\Utilities\Overrider;
@@ -77,7 +78,7 @@ class InvoiceReminder extends Command
         $invoices = Invoice::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($invoices as $invoice) {
-            event(new \App\Events\Sale\InvoiceReminding($invoice));
+            event(new InvoiceReminded($invoice));
         }
     }
 }

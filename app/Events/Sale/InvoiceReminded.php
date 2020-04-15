@@ -4,7 +4,7 @@ namespace App\Events\Sale;
 
 use Illuminate\Queue\SerializesModels;
 
-class InvoiceReminding
+class InvoiceReminded
 {
     use SerializesModels;
 

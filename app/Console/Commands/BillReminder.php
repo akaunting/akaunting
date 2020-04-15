@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\Purchase\BillReminded;
 use App\Models\Common\Company;
 use App\Models\Purchase\Bill;
 use App\Utilities\Overrider;
@@ -77,7 +78,7 @@ class BillReminder extends Command
         $bills = Bill::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($bills as $bill) {
-            event(new \App\Events\Purchase\BillReminding($bill));
+            event(new BillReminded($bill));
             
         }
     }
