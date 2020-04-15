@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Events\Purchase\BillReminded;
 use App\Models\Common\Company;
 use App\Models\Purchase\Bill;
-use App\Notifications\Purchase\Bill as Notification;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;
@@ -60,7 +60,7 @@ class BillReminder extends Command
             foreach ($days as $day) {
                 $day = (int) trim($day);
 
-                $this->remind($day, $company);
+                $this->remind($day);
             }
         }
 
@@ -69,7 +69,7 @@ class BillReminder extends Command
         setting()->forgetAll();
     }
 
-    protected function remind($day, $company)
+    protected function remind($day)
     {
         // Get due date
         $date = Date::today()->addDays($day)->toDateString();
@@ -78,14 +78,8 @@ class BillReminder extends Command
         $bills = Bill::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($bills as $bill) {
-            // Notify all users assigned to this company
-            foreach ($company->users as $user) {
-                if (!$user->can('read-notifications')) {
-                    continue;
-                }
-
-                $user->notify(new Notification($bill, 'bill_remind_admin'));
-            }
+            event(new BillReminded($bill));
+            
         }
     }
 }
