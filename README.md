@@ -35,11 +35,8 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
 ```bash
 php artisan install --db-name="akaunting" --db-username="root" --db-password="pass" --admin-email="admin@company.com" --admin-password="123456"
 ```
-* Create sample data (optional):
 
-```bash
-php artisan sample-data:seed
-```
+* Create sample data (optional): `php artisan sample-data:seed`
 
 ## Contributing
 
