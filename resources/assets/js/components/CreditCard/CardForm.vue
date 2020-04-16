@@ -508,6 +508,8 @@ export default {
         invaildCard() {
             this.loading = true;
 
+            this.unMaskCardNumber();
+
             let number = this.formData.cardNumber;
             let sum = 0;
             let isOdd = true;
