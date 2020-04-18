@@ -28,7 +28,7 @@ class Main extends Provider
     }
 
     /**
-     * Register views.
+     * Load views.
      *
      * @return void
      */
@@ -38,7 +38,7 @@ class Main extends Provider
     }
 
     /**
-     * Register translations.
+     * Load translations.
      *
      * @return void
      */
