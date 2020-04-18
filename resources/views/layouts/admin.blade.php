@@ -2,7 +2,11 @@
 
     @include('partials.admin.head')
 
-    <body id="leftMenu" class="g-sidenav-show g-sidenav-pinned">
+    @mobile
+        <body id="leftMenu" class="g-sidenav-hidden">
+    @elsemobile
+        <body id="leftMenu" class="g-sidenav-show">
+    @endmobile
         @stack('body_start')
 
         @include('partials.admin.menu')

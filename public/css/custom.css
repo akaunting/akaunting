@@ -891,3 +891,77 @@ table .align-items-center td span.badge
 }
 /*--Lg Breakpoint Finish--*/
 /*--------Responsive Finish--------*/
+
+/*--------Menu Fix--------*/
+.navbar-vertical .navbar-nav .nav-link:hover:not(.active) {
+    color: #fff;
+}
+
+.navbar-vertical .navbar-nav .nav-link:hover:not(.active) {
+    color: #fff;
+}
+
+.navbar-vertical .navbar-nav .nav-link.active i {
+    color: #161842 !important;
+}
+@media (min-width: 1200px) {
+    .g-sidenav-show #panel {
+      margin-left: 250px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .g-sidenav-show.g-sidenav-hidden .sidenav {
+      max-width: 62px !important;
+    }
+}
+
+.g-sidenav-show .sidenav {
+    max-width: 250px !important;
+}
+
+.scrollbar-inner {
+    width: 100%;
+}
+
+.scrollbar-inner .sidenav-header {
+    padding: 0 24px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.g-sidenav-pinned #sidenav-collapse-main {
+    display: block;
+}
+
+@media (min-width: 1200px) {
+    .g-sidenav-pinned .navbar-vertical.navbar-expand-xs {
+      max-width: 250px !important;
+    }
+}
+
+@media (min-width: 768px){
+    .navbar-vertical .navbar-collapse:before {
+        content: '';
+        display: block;
+        margin: 0;
+    }
+}
+
+.navbar-vertical.navbar-expand-xs {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    display: block;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 62px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.nav-item .nav-link {
+    color: #fff !important;
+}
+
