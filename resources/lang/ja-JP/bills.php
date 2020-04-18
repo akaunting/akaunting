@@ -13,6 +13,7 @@ return [
     'price'                 => '価格',
     'sub_total'             => '小計',
     'discount'              => '割引',
+    'item_discount'         => 'ライン割引',
     'tax_total'             => '税合計',
     'total'                 => '合計',
 
@@ -28,7 +29,9 @@ return [
     'histories'             => '記録',
     'payments'              => '支払い',
     'add_payment'           => '支払いを追加',
+    'mark_paid'             => '有給マーク',
     'mark_received'         => '受信マーク',
+    'mark_cancelled'        => 'キャンセル済みとマーク',
     'download_pdf'          => 'PDFをダウンロード',
     'send_mail'             => 'メールを送る',
     'create_bill'           => '請求書を作成',
@@ -42,10 +45,14 @@ return [
         'paid'              => '支払済み',
         'overdue'           => '遅れた',
         'unpaid'            => '未払い',
+        'cancelled'         => 'キャンセル',
     ],
 
     'messages' => [
-        'received'          => '請求書は正常に受信されたとマークされました。',
+        'marked_received'   => 'ビルは受領済みとしてマークされました！',
+        'marked_paid'       => '支払い済みとしてマークされたビル！',
+        'marked_cancelled'  => 'ビルはキャンセル済みとマークされました!
+',
         'draft'             => 'これは<b>ドラフト</b>請求書で、受け取り後にチャートに反映されます。',
 
         'status' => [

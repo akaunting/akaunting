@@ -13,6 +13,7 @@ return [
     'price'                 => 'मूल्य',
     'sub_total'             => 'पूर्ण योग',
     'discount'              => 'छूट',
+    'item_discount'         => 'Line Discount',
     'tax_total'             => 'कर राशि',
     'total'                 => 'कुल',
 
@@ -30,6 +31,7 @@ return [
     'add_payment'           => 'भुगतान जोड़ें',
     'mark_paid'             => 'मार्क करे की भुगतान किया हुआ है',
     'mark_received'         => 'प्राप्त किए हुए में मार्क करे',
+    'mark_cancelled'        => 'Mark Cancelled',
     'download_pdf'          => 'डाउनलोड PDF',
     'send_mail'             => 'ईमेल भेजें',
     'create_bill'           => 'बिल बनाएं',
@@ -43,11 +45,13 @@ return [
         'paid'              => 'भुगतान किया',
         'overdue'           => 'समय पर भुगतान नहीं किया',
         'unpaid'            => 'भुगतान नहीं किया है',
+        'cancelled'         => 'Cancelled',
     ],
 
     'messages' => [
-        'received'          => 'बिल को सफलतापूर्वक प्राप्त किया गया!',
+        'marked_received'   => 'Bill marked as received!',
         'marked_paid'       => 'बिल भुगतान के रूप में मार्क किया गया!',
+        'marked_cancelled'  => 'Bill marked as cancelled!',
         'draft'             => 'यह एक <b>ड्राफ्ट</b> बिल है और इसे प्राप्त होने के बाद चार्ट पर प्रतिबिंबित किया जाएगा।',
 
         'status' => [

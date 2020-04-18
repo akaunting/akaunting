@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Skupna akcija | Skupne akcije',
-    'selected'         => 'odabrano',
+    'bulk_actions'      => 'Skupna akcija | Skupne akcije',
+    'selected'          => 'odabrano',
+    'no_action'         => 'No action available',
 
     'message' => [
         'duplicate'     => 'Jeste li sigurni da želite <b> duplicirati </b> odabrani zapis?',
@@ -14,6 +15,7 @@ return [
         'paid'          => 'Jeste li sigurni da odabranu fakturu želite označiti kao <b> plaćenu </b>? | Jeste li sigurni da odabrane račune želite označiti kao <b> plaćene </b>?',
         'sent'          => 'Jeste li sigurni da odabranu fakturu želite označiti kao <b> poslanu </b>? | Jeste li sigurni da odabrane račune želite označiti kao <b> poslane </b>?',
         'received'      => 'Jeste li sigurni da odabrani račun želite označiti kao <b> primljeni </b>? | Jeste li sigurni da odabrane račune želite označiti kao <b> primljene </b>?',
+        'cancelled'     => 'Are you sure you want to <b>cancel</b> selected invoice/bill?|Are you sure you want to <b>cancel</b> selected invoices/bills?',
     ],
 
 ];

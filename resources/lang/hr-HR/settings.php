@@ -29,6 +29,12 @@ return [
             'before'        => 'Ispred broja',
             'after'         => 'Nakon broja',
         ],
+        'discount_location' => [
+            'name'          => 'Discount Location',
+            'item'          => 'At line',
+            'total'         => 'At total',
+            'both'          => 'Both line and total',
+        ],
     ],
 
     'invoice' => [

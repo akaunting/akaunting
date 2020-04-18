@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature mora biti onemogućeno!',
         'extension'         => ':extension proširenje mora biti instalirano i učitano!',
         'directory'         => ':directory direktorij mora biti omogućen za zapisivanje!',
+        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [

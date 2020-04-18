@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Email saat ini',
     'reset'                 => 'Atur Ulang',
     'never'                 => 'jangan pernah',
+    'landing_page'          => 'Halaman Muka',
 
     'password' => [
         'current'           => 'Kata Sandi',

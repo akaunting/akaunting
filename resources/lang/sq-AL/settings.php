@@ -29,6 +29,12 @@ return [
             'before'        => 'Para Numrit',
             'after'         => 'Pas Numrit',
         ],
+        'discount_location' => [
+            'name'          => 'Vendndodhja e Zbritjes',
+            'item'          => 'Në rresht',
+            'total'         => 'Në total',
+            'both'          => 'Në rresht dhe në total',
+        ],
     ],
 
     'invoice' => [

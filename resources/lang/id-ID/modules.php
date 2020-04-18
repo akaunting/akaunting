@@ -2,7 +2,7 @@
 
 return [
 
-    'api_key'               => 'API Key',
+    'api_key'               => 'Kunci API',
     'my_apps'               => 'Aplikasi saya',
     'pre_sale'              => 'Pra Penjualan',
     'top_paid'              => 'Dibayar atas',
@@ -12,10 +12,9 @@ return [
     'search'                => 'Cari',
     'install'               => 'Pasang',
     'buy_now'               => 'Beli Sekarang',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Click here</a> to get your API key.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klik disini</a> untuk mendapatkan Kunci API.',
     'no_apps'               => 'Belum ada aplikasi dalam kategori ini.',
-    'developer'             => 'Are you a developer? <a href="https://akaunting.com/developers" target="_blank">Here</a> you can learn how to create an app and start selling today!',
-
+    'become_developer'      => 'Apakah Anda seorang pengembang? <a href=":url" target="_blank"> Di Sini </a> Anda dapat belajar cara membuat aplikasi dan mulai menjual hari ini!',
     'recommended_apps'      => 'Aplikasi yang direkomendasikan',
 
     'about'                 => 'Tentang',
@@ -42,20 +41,20 @@ return [
 
     'installation' => [
         'header'            => 'Instalasi Aplikasi',
-        'download'          => 'Downloading :module',
-        'unzip'             => 'Extracting :module files',
-        'file_copy'         => 'Copying :module files',
-        'finish'            => 'Finalizing :module installation',
-        'redirect'          => ':module installed, redirecting to updates page',
-        'install'           => 'Installing :module',
+        'download'          => 'Mengunduh :module',
+        'unzip'             => 'Mengekstrak :module file.',
+        'file_copy'         => 'Menyalin file :module.',
+        'finish'            => 'Finalisasi: pemasangan modul',
+        'redirect'          => ': modul terpasang, mengarahkan ke halaman pembaruan',
+        'install'           => 'Memasang: modul',
     ],
 
     'errors' => [
-        'download'          => 'Not able to download :module',
-        'zip'               => 'Not able to create :module zip file',
-        'unzip'             => 'Not able to unzip :module',
-        'file_copy'         => 'Not able to copy :module files',
-        'finish'            => 'Not able to finalize :module installation',
+        'download'          => 'Tidak dapat mengunduh: modul',
+        'zip'               => 'Tidak dapat membuat: file zip modul',
+        'unzip'             => 'Tidak dapat unzip: modul',
+        'file_copy'         => 'Tidak dapat menyalin: file modul',
+        'finish'            => 'Tidak dapat menyelesaikan: pemasangan modul',
     ],
 
     'badge' => [
@@ -80,5 +79,6 @@ return [
         ],
 
         'na'                => 'Tidak ada ulasan.'
-    ]
+    ],
+
 ];

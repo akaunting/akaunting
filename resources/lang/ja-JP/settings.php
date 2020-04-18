@@ -29,6 +29,12 @@ return [
             'before'        => '番号の前に',
             'after'         => '番号の後',
         ],
+        'discount_location' => [
+            'name'          => '割引の場所',
+            'item'          => 'ラインで',
+            'total'         => '合計で',
+            'both'          => 'ラインと合計の両方',
+        ],
     ],
 
     'invoice' => [

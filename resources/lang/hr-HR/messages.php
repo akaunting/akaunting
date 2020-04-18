@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Upozorenje: Nije vam dozvoljeno izbrisati <b>:name</b> jer postoji poveznica s :text.',
         'disabled'          => 'Upozorenje: Nije vam dozvoljeno onemogućiti <b>:name</b> jer postoji poveznica s :text.',
+        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
+        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => 'Upozorenje: Nije vam dopušteno onesposobiti ili promijeniti valutu <b>: ime </b> jer je: tekst povezan.',
         'payment_cancel'    => 'Upozorenje: Otkazali ste nedavni: način plaćanja!',
     ],
