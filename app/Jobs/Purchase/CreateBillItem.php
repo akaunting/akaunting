@@ -138,7 +138,7 @@ class CreateBillItem extends Job
             'quantity' => (double) $this->request['quantity'],
             'price' => (double) $this->request['price'],
             'tax' => $item_tax_total,
-            'discount_rate' => $this->request['discount'],
+            'discount_rate' => !empty($this->request['discount']) ? $this->request['discount'] : 0,
             'total' => $item_amount,
         ]);
 

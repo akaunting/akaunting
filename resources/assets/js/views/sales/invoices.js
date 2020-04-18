@@ -69,7 +69,9 @@ const app = new Vue({
 
         if (typeof invoice_items !== 'undefined' && invoice_items) {
             let items = [];
+            let item_backup = this.form.item_backup[0];
             let currency_code = this.form.currency_code;
+
             this.edit.status = true;
 
             invoice_items.forEach(function(item) {
@@ -81,7 +83,7 @@ const app = new Vue({
                     price: (item.price).toFixed(2),
                     quantity: item.quantity,
                     tax_id: item.tax_id,
-                    discount: item.discount_rate,
+                    discount: (typeof item_backup.discount !== 'undefined') ? item.discount_rate : 0,
                     total: (item.total).toFixed(2)
                 });
             });
