@@ -77,7 +77,7 @@ class Invoices extends Controller
         $date_format = $this->getCompanyDateFormat();
 
         // Get Invoice Totals
-        foreach ($invoice->totals as $invoice_total) {
+        foreach ($invoice->totals_sorted as $invoice_total) {
             $invoice->{$invoice_total->code} = $invoice_total->amount;
         }
 

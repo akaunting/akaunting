@@ -410,7 +410,7 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <tbody>
-                                        @foreach ($bill->totals as $total)
+                                        @foreach ($bill->totals_sorted as $total)
                                             @if ($total->code != 'total')
                                                 @stack($total->code . '_td_start')
                                                     <tr>
