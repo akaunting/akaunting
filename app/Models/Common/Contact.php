@@ -109,6 +109,7 @@ class Contact extends Model
 
     public function onCloning($src, $child = null)
     {
+        $this->email = null;
         $this->user_id = null;
     }
 
