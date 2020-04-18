@@ -343,7 +343,7 @@ class Bills extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file_name = 'bill_' . time() . '.pdf';
+        $file_name = $this->getBillFileName($bill);
 
         return $pdf->download($file_name);
     }
