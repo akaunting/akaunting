@@ -17,6 +17,7 @@ class $NAME$ extends Provider
         $this->loadTranslations();
         $this->loadMigrations();
         $this->loadFactories();
+        //$this->loadConfig();
     }
 
     /**
@@ -71,6 +72,16 @@ class $NAME$ extends Provider
         }
 
         $this->loadFactoriesFrom(__DIR__ . '/../$FACTORIES_PATH$');
+    }
+
+    /**
+     * Load config.
+     *
+     * @return void
+     */
+    public function loadConfig()
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../$PATH_CONFIG$/config.php', '$ALIAS$');
     }
 
     /**
