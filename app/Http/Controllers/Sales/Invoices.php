@@ -77,7 +77,7 @@ class Invoices extends Controller
         $date_format = $this->getCompanyDateFormat();
 
         // Get Invoice Totals
-        foreach ($invoice->totals as $invoice_total) {
+        foreach ($invoice->totals_sorted as $invoice_total) {
             $invoice->{$invoice_total->code} = $invoice_total->amount;
         }
 
@@ -332,7 +332,9 @@ class Invoices extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file = storage_path('app/temp/invoice_'.time().'.pdf');
+        $file_name = $this->getInvoiceFileName($invoice);
+
+        $file = storage_path('app/temp/' . $file_name);
 
         $invoice->pdf_path = $file;
 
@@ -394,7 +396,7 @@ class Invoices extends Controller
 
         //$pdf->setPaper('A4', 'portrait');
 
-        $file_name = 'invoice_'.time().'.pdf';
+        $file_name = $this->getInvoiceFileName($invoice);
 
         return $pdf->download($file_name);
     }

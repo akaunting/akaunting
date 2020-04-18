@@ -74,7 +74,7 @@ class Bills extends Controller
         $date_format = $this->getCompanyDateFormat();
 
         // Get Bill Totals
-        foreach ($bill->totals as $bill_total) {
+        foreach ($bill->totals_sorted as $bill_total) {
             $bill->{$bill_total->code} = $bill_total->amount;
         }
 
@@ -343,7 +343,7 @@ class Bills extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file_name = 'bill_' . time() . '.pdf';
+        $file_name = $this->getBillFileName($bill);
 
         return $pdf->download($file_name);
     }

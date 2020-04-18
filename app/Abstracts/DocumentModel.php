@@ -15,6 +15,11 @@ abstract class DocumentModel extends Model
 {
     use Cloneable, Currencies, DateTime, Media, Recurring;
 
+    public function totals_sorted()
+    {
+        return $this->totals()->orderBy('sort_order');
+    }
+
     public function scopeDue($query, $date)
     {
         return $query->whereDate('due_at', '=', $date);
