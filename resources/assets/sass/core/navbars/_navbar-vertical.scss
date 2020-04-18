@@ -70,6 +70,21 @@
             padding-right: $navbar-padding-x;
             font-size: $navbar-nav-link-font-size;
             font-weight: $navbar-nav-link-font-weight;
+            color: $white;
+
+            &:hover:not(.active) {
+                color: $white;
+            }
+
+            &:focus:not(.active) {
+                color: $white;
+            }
+
+            // @include media-breakpoint-down(md) {
+            //     &:hover {
+            //         color: $white;
+            //     }
+            // }
 
             &.active {
                 position: relative;
@@ -355,7 +370,25 @@
 // Sidenav states
 
 .g-sidenav-show {
+
+    #panel {
+        @include media-breakpoint-up(xl) {
+            margin-left: 250px;
+        }
+    }
+
+    &.g-sidenav-hidden {
+        @include media-breakpoint-down(md) {
+            .sidenav {
+                max-width: $navbar-vertical-width !important;
+            }
+        }
+    }
+
     .sidenav {
+
+        max-width: $navbar-vertical-open-width !important;
+
         .navbar-brand,
         .navbar-heading {
             display: block;
@@ -368,7 +401,23 @@
     }
 }
 
+.scrollbar-inner {
+    width: 100%;
+
+    .sidenav-header {
+        padding: 0 24px;
+        justify-content: space-between;
+    }
+}
+
+
+
+
 .g-sidenav-pinned {
+    #sidenav-collapse-main {
+        display: block;
+    }
+
     .sidenav {
         max-width: $navbar-vertical-open-width !important;
 
@@ -377,6 +426,24 @@
             display: block;
         }
     }
+
+    .navbar-vertical.navbar-expand-xs {
+        @include media-breakpoint-up(xl) {
+            max-width: $navbar-vertical-open-width !important;
+        }
+    }
+}
+
+.navbar-vertical.navbar-expand-xs {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    display: block;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 62px;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .g-sidenav-hidden:not(.g-sidenav-show) {

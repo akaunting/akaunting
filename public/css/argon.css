@@ -20692,6 +20692,15 @@ textarea[resize="horizontal"] {
   padding-right: 1rem;
   font-size: 0.875rem;
   font-weight: 500;
+  color: #fff;
+}
+
+.navbar-vertical .navbar-nav .nav-link:hover:not(.active) {
+  color: #fff;
+}
+
+.navbar-vertical .navbar-nav .nav-link:focus:not(.active) {
+  color: #fff;
 }
 
 .navbar-vertical .navbar-nav .nav-link.active {
@@ -21492,6 +21501,22 @@ textarea[resize="horizontal"] {
   height: 78px;
 }
 
+@media (min-width: 1200px) {
+  .g-sidenav-show #panel {
+    margin-left: 250px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .g-sidenav-show.g-sidenav-hidden .sidenav {
+    max-width: 62px !important;
+  }
+}
+
+.g-sidenav-show .sidenav {
+  max-width: 250px !important;
+}
+
 .g-sidenav-show .sidenav .navbar-brand,
 .g-sidenav-show .sidenav .navbar-heading {
   display: block;
@@ -21510,6 +21535,21 @@ textarea[resize="horizontal"] {
   }
 }
 
+.scrollbar-inner {
+  width: 100%;
+}
+
+.scrollbar-inner .sidenav-header {
+  padding: 0 24px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.g-sidenav-pinned #sidenav-collapse-main {
+  display: block;
+}
+
 .g-sidenav-pinned .sidenav {
   max-width: 250px !important;
 }
@@ -21517,6 +21557,24 @@ textarea[resize="horizontal"] {
 .g-sidenav-pinned .sidenav .navbar-brand,
 .g-sidenav-pinned .sidenav .navbar-heading {
   display: block;
+}
+
+@media (min-width: 1200px) {
+  .g-sidenav-pinned .navbar-vertical.navbar-expand-xs {
+    max-width: 250px !important;
+  }
+}
+
+.navbar-vertical.navbar-expand-xs {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  display: block;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 62px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .g-sidenav-hidden:not(.g-sidenav-show) .sidenav .navbar-nav > .nav-item > .nav-link:after {

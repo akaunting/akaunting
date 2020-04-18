@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9bca450afee6890670d54addfe5a073",
+    "content-hash": "91309f3a56105719c200deb6d0b2079e",
     "packages": [
         {
             "name": "akaunting/firewall",
@@ -5389,6 +5389,64 @@
                 "uuid"
             ],
             "time": "2020-03-29T20:13:32+00:00"
+        },
+        {
+            "name": "riverskies/laravel-mobile-detect",
+            "version": "1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/riverskies/laravel-mobile-detect.git",
+                "reference": "0ddb27d31a4a1148875424426b9feda6598f2f14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/riverskies/laravel-mobile-detect/zipball/0ddb27d31a4a1148875424426b9feda6598f2f14",
+                "reference": "0ddb27d31a4a1148875424426b9feda6598f2f14",
+                "shasum": ""
+            },
+            "require": {
+                "mobiledetect/mobiledetectlib": "^2.8"
+            },
+            "require-dev": {
+                "laravel/laravel": "5.5.*",
+                "philo/laravel-blade": "^3.1",
+                "phpspec/prophecy-phpunit": "^1.1",
+                "phpunit/phpunit": "^6.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Riverskies\\Laravel\\MobileDetect\\MobileDetectServiceProvider"
+                    ],
+                    "aliases": {
+                        "MobileDetect": "Riverskies\\Laravel\\MobileDetect\\Facades\\MobileDetect"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Riverskies\\Laravel\\MobileDetect\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barnabas Kecskes",
+                    "email": "barnabas@riverskies.com"
+                }
+            ],
+            "description": "Instant mobile detection access directly from within Blade templates.",
+            "keywords": [
+                "blade",
+                "detection",
+                "laravel",
+                "mobile"
+            ],
+            "time": "2017-09-02T08:11:53+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
