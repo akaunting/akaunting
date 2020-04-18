@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Str;
+
 trait Sales
 {
     /**
@@ -59,5 +61,15 @@ trait Sales
         });
 
         return $statuses;
+    }
+
+    public function getInvoiceFileName($invoice, $separator = '-', $extension = 'pdf')
+    {
+        return $this->getSafeInvoiceNumber($invoice, $separator) . $separator . time() . '.' . $extension;
+    }
+
+    public function getSafeInvoiceNumber($invoice, $separator = '-')
+    {
+        return Str::slug($invoice->invoice_number, $separator, language()->getShortCode());
     }
 }

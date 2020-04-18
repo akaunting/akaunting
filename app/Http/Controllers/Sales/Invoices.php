@@ -332,7 +332,9 @@ class Invoices extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file = storage_path('app/temp/invoice_'.time().'.pdf');
+        $file_name = $this->getInvoiceFileName($invoice);
+
+        $file = storage_path('app/temp/' . $file_name);
 
         $invoice->pdf_path = $file;
 
@@ -394,7 +396,7 @@ class Invoices extends Controller
 
         //$pdf->setPaper('A4', 'portrait');
 
-        $file_name = 'invoice_'.time().'.pdf';
+        $file_name = $this->getInvoiceFileName($invoice);
 
         return $pdf->download($file_name);
     }

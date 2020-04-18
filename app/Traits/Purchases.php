@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Str;
+
 trait Purchases
 {
     /**
@@ -57,5 +59,15 @@ trait Purchases
         });
 
         return $statuses;
+    }
+
+    public function getBillFileName($bill, $separator = '-', $extension = 'pdf')
+    {
+        return $this->getSafeBillNumber($bill, $separator) . $separator . time() . '.' . $extension;
+    }
+
+    public function getSafeBillNumber($bill, $separator = '-')
+    {
+        return Str::slug($bill->bill_number, $separator, language()->getShortCode());
     }
 }
