@@ -229,7 +229,7 @@ class Currencies extends Controller
 
     public function config()
     {
-       $json = new \stdClass();
+        $json = new \stdClass();
 
         $code = request('code');
 
