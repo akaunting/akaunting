@@ -229,14 +229,16 @@ class Currencies extends Controller
 
     public function config()
     {
-        $json = new \stdClass();
+       $json = new \stdClass();
 
         $code = request('code');
+
+        $currencies = Currency::all()->pluck('rate', 'code');
 
         if ($code) {
             $currency = config('money.' . $code);
 
-            $currency['rate'] = isset($currency['rate']) ? $currency['rate'] : null;
+            $currency['rate'] = isset($currencies[$code]) ? $currencies[$code] : null;
             $currency['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
 
             $json = (object) $currency;

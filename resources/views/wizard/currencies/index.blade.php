@@ -84,7 +84,7 @@
                                 {{ Form::textGroup('name', trans('general.name'), 'font', [], null, '') }}
                             </td>
                             <td class="col-md-3 d-none d-md-block">
-                                {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, null, ['required' => 'required', 'change' => 'onChangeCode'], '') }}
+                                {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, null, ['required' => 'required', 'change' => 'onChangeCode', 'model' => 'form.code'], '') }}
                             </td>
                             <td class="col-md-2 d-none d-md-block">
                                 {{ Form::textGroup('rate', trans('currencies.rate'), 'percentage', ['required' => 'required'], null, '') }}
