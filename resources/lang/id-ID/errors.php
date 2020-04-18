@@ -2,20 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Akses tidak diizinkan',
-    'error_page'       => 'Halaman error.',
-    'page_not_found'   => 'Halaman tidak ditemukan',
-
-    'body'   => [
-        'forbidden_access' => 'Mohon maaf! Akses halaman ditolak.',
-        'error_page' => 'Mohon maaf! Terdapat sesuatu yang salah.',
-        'page_not_found' => 'Mohon maaf! Halaman tidak ditemukan.',
+    'title' => [
+        '403' => 'Mohon maaf! Akses halaman ditolak',
+        '404' => 'Mohon maaf! Halaman tidak ditemukan',
+        '500' => 'Ups. Terjadi kesalahan',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'Anda tidak dapat mengakses halaman ini.        Tetapi, mungkin Anda dapat <a href=":link">kembali ke Beranda.</a>.',
-        'error_page' => 'Kami akan memperbaikinya.        Tetapi, mungkin Anda dapat <a href=":link">kembali ke Beranda</a>.',
-        'page_not_found' => 'Kami tidak dapat menemukan halaman yang Anda maksud.        Tetapi, mungkin Anda dapat <a href=":link">kembali ke Beranda</a>.',
+    'header' => [
+        '403' => '403 Dilarang',
+        '404' => '404 Tidak ditemukan',
+        '500' => 'Kesalahan server internal 500',
+    ],
+
+    'message' => [
+        '403' => 'Anda tidak dapat mengakses halaman ini.',
+        '404' => 'Kami tidak dapat menemukan halaman yang Anda cari.',
+        '500' => 'Kami akan segera memperbaikinya.',
     ],
 
 ];

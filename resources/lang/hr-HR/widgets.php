@@ -4,7 +4,7 @@ return [
 
     'total_income'              => 'Ukupni prihodi',
     'receivables'               => 'Potraživanja',
-    'open_invoices'             => 'Otvorite fakture',
+    'open_invoices'             => 'Otvorene fakture',
     'overdue_invoices'          => 'Dospjele fakture',
     'total_expenses'            => 'Ukupni troškovi',
     'payables'                  => 'Dugovanja',

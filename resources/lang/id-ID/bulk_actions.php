@@ -2,18 +2,20 @@
 
 return [
 
-    'bulk_actions'     => 'Tindakan Penting|Tindakan Penting',
-    'selected'         => 'dipilih',
+    'bulk_actions'      => 'Tindakan Penting|Tindakan Penting',
+    'selected'          => 'dipilih',
+    'no_action'         => 'Tidak ada  yang tersedia',
 
     'message' => [
-        'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',
-        'delete'        => 'Are you sure you want to <b>delete</b> selected record?|Are you sure you want to <b>delete</b> selected records?',
-        'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
-        'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',
-        'disable'       => 'Are you sure you want to <b>disable</b> selected record?|Are you sure you want to <b>disable</b> selected records?',
-        'paid'          => 'Are you sure you want to mark selected invoice as <b>paid</b>?|Are you sure you want to mark selected invoices as <b>paid</b>?',
-        'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
-        'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
+        'duplicate'     => 'Yakin ingin <b> menggandakan </b> catatan yang dipilih?',
+        'delete'        => 'Yakin ingin <b> menghapus </b> data yang dipilih? | Yakin ingin <b> menghapus </b> data yang dipilih?',
+        'export'        => 'Yakin ingin <b> mengekspor </b> catatan yang dipilih? | Yakin ingin <b> mengekspor </b> catatan yang dipilih?',
+        'enable'        => 'Yakin ingin <b> mengaktifkan </b> catatan yang dipilih? | Yakin ingin <b> mengaktifkan </b> catatan yang dipilih?',
+        'disable'       => 'Yakin ingin <b> mengaktifkan </b> catatan yang dipilih? | Yakin ingin <b> mengaktifkan </b> catatan yang dipilih?',
+        'paid'          => 'Yakin ingin menandai faktur yang dipilih sebagai <b> berbayar </b>? Apakah Anda yakin ingin menandai faktur yang dipilih sebagai <b> berbayar </b>?',
+        'sent'          => 'Yakin ingin menandai faktur yang dipilih sebagai <b> berbayar </b>? Apakah Anda yakin ingin menandai faktur yang dipilih sebagai <b> berbayar </b>?',
+        'received'      => 'Yakin ingin menandai tagihan terpilih sebagai <b> diterima </b>? Apakah Anda yakin ingin menandai tagihan terpilih sebagai <b> diterima </b>?',
+        'cancelled'     => 'Yakin ingin <b>membatalkan</b> Faktur/ Tagihan yg dipilih?| Yakin ingin <b>membatalkan</b> Faktur/ Tagihan yg dipilih?',
     ],
 
 ];

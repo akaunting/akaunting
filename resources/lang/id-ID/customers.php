@@ -6,7 +6,7 @@ return [
     'user_created'          => 'Pengguna Dibuat',
 
     'error' => [
-        'email'             => 'Email ini sudah dipakai.'
+        'email'             => 'Email ini sudah dipakai.',
     ],
 
 ];
