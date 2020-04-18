@@ -51,14 +51,15 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+            <el-option v-if="!group" v-for="(option, key) in selectOptions"
+               :key="key"
+               :label="option.value"
+               :value="option.key">
+                <span class="float-left">{{ option.value }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
             </el-option>
 
+            <!-- Todo sortable -->
             <el-option-group
                 v-if="group"
                 v-for="(options, name) in selectOptions"
@@ -124,12 +125,12 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+            <el-option v-if="!group" v-for="(option, key) in selectOptions"
+               :key="key"
+               :label="option.value"
+               :value="option.key">
+                <span class="float-left">{{ option.value }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
             </el-option>
 
             <el-option-group
@@ -197,14 +198,15 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+            <el-option v-if="!group" v-for="(option, key) in selectOptions"
+               :key="key"
+               :label="option.value"
+               :value="option.key">
+                <span class="float-left">{{ option.value }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
             </el-option>
 
+            <!-- Todo sortable -->
             <el-option-group
                 v-if="group"
                 v-for="(options, name) in selectOptions"
@@ -270,14 +272,15 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+            <el-option v-if="!group" v-for="(option, key) in selectOptions"
+               :key="key"
+               :label="option.value"
+               :value="option.key">
+                <span class="float-left">{{ option.value }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
             </el-option>
 
+            <!-- Todo sortable -->
             <el-option-group
                 v-if="group"
                 v-for="(options, name) in selectOptions"
@@ -343,14 +346,15 @@
                 </span>
             </template>
 
-            <el-option v-if="!group" v-for="(label, value) in selectOptions"
-               :key="value"
-               :label="label"
-               :value="value">
-                <span class="float-left">{{ label }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+            <el-option v-if="!group" v-for="(option, key) in selectOptions"
+               :key="key"
+               :label="option.value"
+               :value="option.key">
+                <span class="float-left">{{ option.value }}</span>
+                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
             </el-option>
 
+            <!-- Todo sortable -->
             <el-option-group
                 v-if="group"
                 v-for="(options, name) in selectOptions"
@@ -451,6 +455,12 @@ export default {
         },
         options: null,
 
+        option_sortable: {
+            type: String,
+            default: 'value',
+            description: "Option Sortable type (key|value)"
+        },
+
         model: {
             type: [String, Number, Array, Object],
             default: '',
@@ -478,7 +488,7 @@ export default {
             description: "Selectbox Add New Item Feature"
         },
 
-        group:  {
+        group: {
             type: Boolean,
             default: false,
             description: "Selectbox option group status"
@@ -537,6 +547,37 @@ export default {
     },
 
     created() {
+        if (this.group != true && Object.keys(this.options).length) {
+            let sortable = [];
+            let option_sortable = this.option_sortable;
+
+            for (var option_key in this.options) {
+                sortable.push({
+                    'key' : option_key,
+                    'value': this.options[option_key]
+                });
+            }
+
+            if (option_sortable == 'value') {
+                sortable.sort(function(a, b) {
+                    var sortableA = a[option_sortable].toUpperCase();
+                    var sortableB = b[option_sortable].toUpperCase();
+
+                    let comparison = 0;
+
+                    if (sortableA > sortableB) {
+                        comparison = 1;
+                    } else if (sortableA < sortableB) {
+                        comparison = -1;
+                    }
+
+                    return comparison;
+                });
+            }
+
+            this.options = sortable;
+        }
+
         this.new_options = {};
     },
 
@@ -741,6 +782,39 @@ export default {
                         this.selectOptions[key] = value;
                     }
                 }
+            }
+        },
+
+        selectOptions: function (options) {
+            if (this.group != true && Object.keys(options).length) {
+                let sortable = [];
+                let option_sortable = this.option_sortable;
+
+                for (var option_key in options) {
+                    sortable.push({
+                        'key' : option_key,
+                        'value': options[option_key]
+                    });
+                }
+
+                if  (this.option_sortable == 'value') {
+                    sortable.sort(function(a, b) {
+                        var sortableA = a[option_sortable].toUpperCase();
+                        var sortableB = b[option_sortable].toUpperCase();
+
+                        let comparison = 0;
+
+                        if (sortableA > sortableB) {
+                            comparison = 1;
+                        } else if (sortableA < sortableB) {
+                            comparison = -1;
+                        }
+
+                        return comparison;
+                    });
+                }
+
+                this.selectOptions = sortable;
             }
         },
 
