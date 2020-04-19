@@ -3327,16 +3327,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.3.4",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "dd3261eb9a322e009fa5d96d19b9ae19708ce04b"
+                "reference": "517cbe1c6faf90afeb38a0e917c73acc6d3051ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/dd3261eb9a322e009fa5d96d19b9ae19708ce04b",
-                "reference": "dd3261eb9a322e009fa5d96d19b9ae19708ce04b",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/517cbe1c6faf90afeb38a0e917c73acc6d3051ce",
+                "reference": "517cbe1c6faf90afeb38a0e917c73acc6d3051ce",
                 "shasum": ""
             },
             "require": {
@@ -3354,7 +3354,7 @@
                 "github/gfm": "0.29.0",
                 "michelf/php-markdown": "~1.4",
                 "mikehaertl/php-shellcommand": "^1.4",
-                "phpstan/phpstan-shim": "^0.11.5",
+                "phpstan/phpstan": "^0.12",
                 "phpunit/phpunit": "^7.5",
                 "scrutinizer/ocular": "^1.5",
                 "symfony/finder": "^4.2"
@@ -3397,7 +3397,7 @@
                 "md",
                 "parser"
             ],
-            "time": "2020-04-13T20:52:18+00:00"
+            "time": "2020-04-18T20:46:13+00:00"
         },
         {
             "name": "league/flysystem",
