@@ -10,383 +10,763 @@
             formClasses
         ]"
         :error="formError">
+        <span v-if="Array.isArray(selectOptions)">
+            <el-select v-model="real_model" @input="change" :disabled="disabled" filterable v-if="(disabled) && !multiple && !collapse"
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-        <el-select v-model="real_model" @input="change" :disabled="disabled" filterable v-if="(disabled) && !multiple && !collapse"
-            :placeholder="placeholder">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
 
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
+                <el-option v-if="!group" v-for="(option, key) in selectOptions"
+                :key="key"
+                :label="option.value"
+                :value="option.key">
+                    <span class="float-left">{{ option.value }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
+                </el-option>
 
-            <el-option v-if="!group" v-for="(option, key) in selectOptions"
-               :key="key"
-               :label="option.value"
-               :value="option.key">
-                <span class="float-left">{{ option.value }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
-            </el-option>
+                <!-- Todo sortable -->
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
 
-            <!-- Todo sortable -->
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <el-select v-model="real_model" @input="change" :disabled="disabled" filterable v-if="!disabled && !multiple"
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
+
+                <el-option v-if="!group" v-for="(option, key) in selectOptions"
+                :key="key"
+                :label="option.value"
+                :value="option.key">
+                    <span class="float-left">{{ option.value }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
+                </el-option>
+
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
+
+                <el-option v-if="!group" v-for="(option, key) in selectOptions"
+                :key="key"
+                :label="option.value"
+                :value="option.key">
+                    <span class="float-left">{{ option.value }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
+                </el-option>
+
+                <!-- Todo sortable -->
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <el-select v-model="real_model" @input="change" filterable disabled v-if="disabled && multiple && !collapse" multiple
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
+
+                <el-option v-if="!group" v-for="(option, key) in selectOptions"
+                :key="key"
+                :label="option.value"
+                :value="option.key">
+                    <span class="float-left">{{ option.value }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
+                </el-option>
+
+                <!-- Todo sortable -->
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && collapse" multiple collapse-tags
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
+
+                <el-option v-if="!group" v-for="(option, key) in selectOptions"
+                :key="key"
+                :label="option.value"
+                :value="option.key">
+                    <span class="float-left">{{ option.value }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
+                </el-option>
+
+                <!-- Todo sortable -->
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
+
+            <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
+
+            <select :name="name" v-model="real_model" class="d-none">
+                <option v-for="(label, value) in selectOptions" :key="value" :value="value">{{ label }}</option>
+            </select>
+        </span>
+
+        <span v-else>
+            <el-select v-model="real_model" @input="change" :disabled="disabled" filterable v-if="(disabled) && !multiple && !collapse"
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
+
+                <el-option v-if="!group" v-for="(label, value) in selectOptions"
                     :key="value"
                     :label="label"
                     :value="value">
                     <span class="float-left">{{ label }}</span>
                     <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
-            </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
+                <!-- Todo sortable -->
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <el-select v-model="real_model" @input="change" filterable v-if="!Array.isArray(selectOptions) && !disabled && !multiple"
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </el-option>
-        </el-select>
 
-        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && !multiple"
-            :placeholder="placeholder">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
 
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="(option, key) in selectOptions"
-               :key="key"
-               :label="option.value"
-               :value="option.key">
-                <span class="float-left">{{ option.value }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
-            </el-option>
-
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
+                <el-option v-if="!group" v-for="(label, value) in selectOptions"
                     :key="value"
                     :label="label"
                     :value="value">
                     <span class="float-left">{{ label }}</span>
                     <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
-            </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </el-option>
-        </el-select>
 
-        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
-            :placeholder="placeholder">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
 
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="(option, key) in selectOptions"
-               :key="key"
-               :label="option.value"
-               :value="option.key">
-                <span class="float-left">{{ option.value }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
-            </el-option>
-
-            <!-- Todo sortable -->
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
+                <el-option v-if="!group" v-for="(label, value) in selectOptions"
                     :key="value"
                     :label="label"
                     :value="value">
                     <span class="float-left">{{ label }}</span>
                     <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
-            </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
+                <!-- Todo sortable -->
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <el-select v-model="real_model" @input="change" filterable disabled v-if="disabled && multiple && !collapse" multiple
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </el-option>
-        </el-select>
 
-        <el-select v-model="real_model" @input="change" filterable disabled v-if="disabled && multiple && !collapse" multiple
-            :placeholder="placeholder">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
 
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="(option, key) in selectOptions"
-               :key="key"
-               :label="option.value"
-               :value="option.key">
-                <span class="float-left">{{ option.value }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
-            </el-option>
-
-            <!-- Todo sortable -->
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
+                <el-option v-if="!group" v-for="(label, value) in selectOptions"
                     :key="value"
                     :label="label"
                     :value="value">
                     <span class="float-left">{{ label }}</span>
                     <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
-            </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
+                <!-- Todo sortable -->
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
+
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
+
+            <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && collapse" multiple collapse-tags
+                :placeholder="placeholder">
+                <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noMatchingDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </el-option>
-        </el-select>
 
-        <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && collapse" multiple collapse-tags
-            :placeholder="placeholder">
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noMatchingDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <div v-else-if="addNew.status && options.length == 0" slot="empty">
+                    <p class="el-select-dropdown__empty">
+                        {{ noDataText }}
+                    </p>
+                    <ul class="el-scrollbar__view el-select-dropdown__list">
+                        <li class="el-select-dropdown__item el-select__footer">
+                            <div @click="onAddItem">
+                                <i class="fas fa-plus"></i>
+                                <span>
+                                    {{ add_new_text }}
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
-                <p class="el-select-dropdown__empty">
-                    {{ noDataText }}
-                </p>
-                <ul class="el-scrollbar__view el-select-dropdown__list">
-                    <li class="el-select-dropdown__item el-select__footer">
-                        <div @click="onAddItem">
-                            <i class="fas fa-plus"></i>
-                            <span>
-                                {{ add_new_text }}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <template slot="prefix">
+                    <span class="el-input__suffix-inner el-select-icon">
+                        <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                    </span>
+                </template>
 
-            <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-                </span>
-            </template>
-
-            <el-option v-if="!group" v-for="(option, key) in selectOptions"
-               :key="key"
-               :label="option.value"
-               :value="option.key">
-                <span class="float-left">{{ option.value }}</span>
-                <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ new_text }}</span>
-            </el-option>
-
-            <!-- Todo sortable -->
-            <el-option-group
-                v-if="group"
-                v-for="(options, name) in selectOptions"
-                :key="name"
-                :label="name">
-                <el-option
-                    v-for="(label, value) in options"
+                <el-option v-if="!group" v-for="(label, value) in selectOptions"
                     :key="value"
                     :label="label"
                     :value="value">
                     <span class="float-left">{{ label }}</span>
                     <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
                 </el-option>
-            </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
-                <div @click="onAddItem">
-                    <i class="fas fa-plus"></i>
-                    <span>
-                        {{ add_new_text }}
-                    </span>
-                </div>
-            </el-option>
-        </el-select>
+                <!-- Todo sortable -->
+                <el-option-group
+                    v-if="group"
+                    v-for="(options, name) in selectOptions"
+                    :key="name"
+                    :label="name">
+                    <el-option
+                        v-for="(label, value) in options"
+                        :key="value"
+                        :label="label"
+                        :value="value">
+                        <span class="float-left">{{ label }}</span>
+                        <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ new_text }}</span>
+                    </el-option>
+                </el-option-group>
 
-        <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
+                <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+                    <div @click="onAddItem">
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            {{ add_new_text }}
+                        </span>
+                    </div>
+                </el-option>
+            </el-select>
 
-        <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
+            <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
 
-        <select :name="name" v-model="real_model" class="d-none">
-            <option v-for="(label, value) in selectOptions" :key="value" :value="value">{{ label }}</option>
-        </select>
+            <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
+
+            <select :name="name" v-model="real_model" class="d-none">
+                <option v-for="(label, value) in selectOptions" :key="value" :value="value">{{ label }}</option>
+            </select>
+        </span>
     </base-input>
 </template>
 
@@ -547,6 +927,7 @@ export default {
     },
 
     created() {
+        /*
         if (this.group != true && Object.keys(this.options).length) {
             let sortable = [];
             let option_sortable = this.option_sortable;
@@ -577,6 +958,7 @@ export default {
 
             this.options = sortable;
         }
+        */
 
         this.new_options = {};
     },
@@ -782,39 +1164,6 @@ export default {
                         this.selectOptions[key] = value;
                     }
                 }
-            }
-        },
-
-        selectOptions: function (options) {
-            if (this.group != true && Object.keys(options).length) {
-                let sortable = [];
-                let option_sortable = this.option_sortable;
-
-                for (var option_key in options) {
-                    sortable.push({
-                        'key' : option_key,
-                        'value': options[option_key]
-                    });
-                }
-
-                if  (this.option_sortable == 'value') {
-                    sortable.sort(function(a, b) {
-                        var sortableA = a[option_sortable].toUpperCase();
-                        var sortableB = b[option_sortable].toUpperCase();
-
-                        let comparison = 0;
-
-                        if (sortableA > sortableB) {
-                            comparison = 1;
-                        } else if (sortableA < sortableB) {
-                            comparison = -1;
-                        }
-
-                        return comparison;
-                    });
-                }
-
-                return sortable;
             }
         },
 
