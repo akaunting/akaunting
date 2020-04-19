@@ -814,7 +814,7 @@ export default {
                     });
                 }
 
-                this.selectOptions = sortable;
+                return sortable;
             }
         },
 

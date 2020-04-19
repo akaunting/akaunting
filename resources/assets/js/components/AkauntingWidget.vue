@@ -255,6 +255,10 @@ export default {
         },
 
         onCancel() {
+            let documentClasses = document.body.classList;
+
+            documentClasses.remove("modal-open");
+
             this.display = false;
             this.form.name = '';
             this.form.enabled = 1;

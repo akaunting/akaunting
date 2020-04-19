@@ -28,7 +28,7 @@
 
                     {{ Form::textGroup('invoice_number', trans('invoices.invoice_number'), 'file') }}
 
-                    {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart',[]) }}
+                    {{ Form::textGroup('order_number', trans('invoices.order_number'), 'shopping-cart', []) }}
 
                     <div class="col-sm-12 mb-4">
                         @php $item_colspan = in_array(setting('localisation.discount_location', 'total'), ['item', 'both']) ? '6' : '5' @endphp

@@ -98,6 +98,14 @@ export default {
         };
     },
 
+    created: function () {
+        if (this.show) {
+            let documentClasses = document.body.classList;
+
+            documentClasses.add("modal-open");
+        }
+    },
+
     methods: {
         closeModal() {
             this.$emit("update:show", false);
@@ -111,6 +119,10 @@ export default {
         },
 
         onCancel() {
+            let documentClasses = document.body.classList;
+
+            documentClasses.remove("modal-open");
+
             this.$emit("cancel");
         }
     },
