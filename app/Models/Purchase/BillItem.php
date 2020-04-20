@@ -119,6 +119,31 @@ class BillItem extends Model
     }
 
     /**
+     * Get the formatted discount.
+     *
+     * @return string
+     */
+    public function getDiscountRateAttribute($value = 0)
+    {
+        $discount_rate = 0;
+
+        switch (setting('localisation.discount_location', 'total')) {
+            case 'no':
+            case 'total':
+                $discount_rate = 0;
+                break;
+            case 'item':
+                $discount_rate = $value;
+                break;
+            case 'both':
+                $discount_rate = $value;
+                break;
+        }
+
+        return $discount_rate;
+    }
+
+    /**
      * Convert tax to Array.
      *
      * @return void

@@ -193,6 +193,11 @@ class UpdateBill extends Job
         $this->deleteRelationships($this->bill, ['items', 'item_taxes']);
 
         foreach ((array) $this->request['items'] as $item) {
+            $item['global_discount'] = 0;
+
+            if (!empty($this->request['discount'])) {
+                $item['global_discount'] = $this->request['discount'];
+            }
 
             $bill_item = $this->dispatch(new CreateBillItem($item, $this->bill));
 
