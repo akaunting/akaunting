@@ -36,15 +36,21 @@ class CreateInvoiceItem extends Job
         $item_id = !empty($this->request['item_id']) ? $this->request['item_id'] : 0;
         $item_amount = (double) $this->request['price'] * (double) $this->request['quantity'];
 
+        $discount = 0;
+
         $item_discounted_amount = $item_amount;
 
         // Apply line discount to amount
         if (!empty($this->request['discount'])) {
+            $discount += $this->request['discount'];
+
             $item_discounted_amount = $item_amount -= ($item_amount * ($this->request['discount'] / 100));
         }
 
         // Apply global discount to amount
         if (!empty($this->request['global_discount'])) {
+            $discount += $this->request['global_discount'];
+
             $item_discounted_amount = $item_amount - ($item_amount * ($this->request['global_discount'] / 100));
         }
 
@@ -115,7 +121,7 @@ class CreateInvoiceItem extends Job
                     ];
                 }
 
-                $item_amount = ($item_amount - $item_tax_total) / (1 - $this->request['discount'] / 100);
+                $item_amount = ($item_amount - $item_tax_total) / (1 - $discount / 100);
             }
 
             if ($compounds) {
