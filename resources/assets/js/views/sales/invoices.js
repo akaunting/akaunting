@@ -121,18 +121,18 @@ const app = new Vue({
         onCalculateTotal() {
             let sub_total = 0;
             let discount_total = 0;
-            let item_discount_total = 0;
+            let line_item_discount_total = 0;
             let tax_total = 0;
             let grand_total = 0;
             let items = this.form.items;
             let discount_in_totals = this.form.discount;
-            let discount = '';
 
             if (items.length) {
                 let index = 0;
 
                 // get all items.
                 for (index = 0; index < items.length; index++) {
+                    let discount = 0;
                     // get row item and set item variable.
                     let item = items[index];
 
@@ -140,19 +140,20 @@ const app = new Vue({
                     let item_total = item.price * item.quantity;
 
                     // item discount calculate.
+                    let line_discount_amount = 0;
+
+                    if (item.discount) {
+                        line_discount_amount = item_total * (item.discount / 100);
+
+                        item_discounted_total = item_total -= line_discount_amount;
+                        discount = item.discount;
+                    }
+
                     let item_discounted_total = item_total;
 
                     if (discount_in_totals) {
                         item_discounted_total = item_total - (item_total * (discount_in_totals / 100));
                         discount = discount_in_totals;
-                    }
-
-                    let discount_amount = 0;
-
-                    if (item.discount) {
-                        discount_amount = item_total * (item.discount / 100);
-                        item_discounted_total = item_total - discount_amount;
-                        discount = item.discount;
                     }
 
                     // item tax calculate.
@@ -222,7 +223,7 @@ const app = new Vue({
                     }
 
                     // calculate sub, tax, discount all items.
-                    item_discount_total += discount_amount;
+                    line_item_discount_total += line_discount_amount;
                     sub_total += item_total;
                     tax_total += item_tax_total;
                 }
@@ -231,9 +232,7 @@ const app = new Vue({
             // set global total variable.
             this.totals.sub = sub_total;
             this.totals.tax = tax_total;
-            this.totals.item_discount = item_discount_total;
-
-            sub_total -= item_discount_total;
+            this.totals.item_discount = line_item_discount_total;
 
             // Apply discount to total
             if (discount_in_totals) {
