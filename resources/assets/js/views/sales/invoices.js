@@ -83,7 +83,7 @@ const app = new Vue({
                     price: (item.price).toFixed(2),
                     quantity: item.quantity,
                     tax_id: item.tax_id,
-                    discount: (typeof item_backup.discount !== 'undefined') ? item.discount_rate : 0,
+                    discount: item.discount_rate,
                     total: (item.total).toFixed(2)
                 });
             });

@@ -38,9 +38,14 @@ class CreateInvoiceItem extends Job
 
         $item_discounted_amount = $item_amount;
 
-        // Apply discount to amount
+        // Apply line discount to amount
         if (!empty($this->request['discount'])) {
             $item_discounted_amount = $item_amount -= ($item_amount * ($this->request['discount'] / 100));
+        }
+
+        // Apply global discount to amount
+        if (!empty($this->request['global_discount'])) {
+            $item_discounted_amount = $item_amount - ($item_amount * ($this->request['global_discount'] / 100));
         }
 
         $tax_amount = 0;

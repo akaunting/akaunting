@@ -127,7 +127,7 @@
                                                                                     <i class="fa fa-percent"></i>
                                                                                 </span>
                                                                             </div>
-                                                                            {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control']) !!}
+                                                                            {!! Form::number('pre_discount', null, ['id' => 'pre-discount', 'class' => 'form-control', 'v-model' => 'form.discount']) !!}
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6">

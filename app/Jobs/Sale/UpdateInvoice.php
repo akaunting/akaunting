@@ -193,6 +193,11 @@ class UpdateInvoice extends Job
         $this->deleteRelationships($this->invoice, ['items', 'item_taxes']);
 
         foreach ((array) $this->request['items'] as $item) {
+            $item['global_discount'] = 0;
+
+            if (!empty($this->request['discount'])) {
+                $item['global_discount'] = $this->request['discount'];
+            }
 
             $invoice_item = $this->dispatch(new CreateInvoiceItem($item, $this->invoice));
 

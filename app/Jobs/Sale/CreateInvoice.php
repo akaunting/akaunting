@@ -179,6 +179,11 @@ class CreateInvoice extends Job
         }
 
         foreach ((array) $this->request['items'] as $item) {
+            $item['global_discount'] = 0;
+
+            if (!empty($this->request['discount'])) {
+                $item['global_discount'] = $this->request['discount'];
+            }
 
             $invoice_item = $this->dispatch(new CreateInvoiceItem($item, $this->invoice));
 
