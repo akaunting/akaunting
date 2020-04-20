@@ -72,13 +72,12 @@ class InvoiceTotal extends Model
         }
 
         if (!empty($percent)) {
-
             $title .= ' (';
 
             if (setting('localisation.percent_position', 'after') == 'after') {
-                $title .= ($this->code == 'discount') ? false : (($tax->type == 'fixed') ? $percent : $percent . '%');
+                $title .= ($this->code == 'discount') ? $percent. '%' : (($tax->type == 'fixed') ? $percent : $percent . '%');
             } else {
-                $title .= ($this->code == 'discount') ? false : (($tax->type == 'fixed') ? $percent : '%' . $percent);
+                $title .= ($this->code == 'discount') ? '%' .$percent : (($tax->type == 'fixed') ? $percent : '%' . $percent);
             }
 
             $title .= ')';
