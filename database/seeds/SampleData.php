@@ -23,7 +23,7 @@ class SampleData extends Seeder
     {
         Model::reguard();
 
-        config(['mail.default' => 'log']);
+        config(['mail.default' => 'array']);
 
         $count = (int) $this->command->option('count');
         $small_count = ($count <= 10) ? $count : 10;

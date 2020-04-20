@@ -26,9 +26,11 @@ class CreateInvoiceTransaction
         } catch (\Exception $e) {
             $message = $e->getMessage();
 
-            if (!$user = user()) {
+            $user = user();
+
+            if (empty($user)) {
                 flash($message)->error();
-    
+
                 redirect()->route('signed.invoices.show', $invoice->id)->send();
             }
 

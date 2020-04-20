@@ -180,7 +180,7 @@ $factory->afterCreating(Invoice::class, function ($invoice, $faker) use ($compan
             ];
 
             if ($init_status == 'partial') {
-                $payment_request['amount'] = round($amount / 3, $invoice->currency->precision);
+                $payment_request['amount'] = (int) round($amount / 3, $invoice->currency->precision);
             }
 
             event(new PaymentReceived($updated_invoice, $payment_request));
