@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Neto dobit',
     'total_expenses'        => 'Ukupni troškovi',
     'net'                   => 'Neto',
-    'income_expense'        => 'Prihodi i rashodi',
+    'income_expense'        => 'Prihod i rashod',
 
     'summary' => [
         'income'            => 'Sažetak prihoda',

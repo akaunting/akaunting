@@ -18,5 +18,6 @@ return [
     'sent' => 'Link za resetiranje lozinke je poslan na e-mail!',
     'token' => 'Token za resetiranje lozinke nije važeći.',
     'user' => "Ne možemo pronaći korisnika s tom e-mail adresom.",
+    'throttle' => 'Please wait before retrying.',
 
 ];

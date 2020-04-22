@@ -158,7 +158,7 @@
 
         <div class="col-42 float-right text-right">
             <div class="text company pr-2">
-                @foreach ($invoice->totals as $total)
+                @foreach ($invoice->totals_sorted as $total)
                     @if ($total->code != 'total')
                         @stack($total->code . '_td_start')
                             <strong class="float-left">{{ trans($total->title) }}:</strong>

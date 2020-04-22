@@ -427,7 +427,7 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <tbody>
-                                        @foreach ($invoice->totals as $total)
+                                        @foreach ($invoice->totals_sorted as $total)
                                             @if ($total->code != 'total')
                                                 @stack($total->code . '_td_start')
                                                     <tr>
@@ -495,7 +495,7 @@
 
                             @stack('button_group_start')
                                 <div class="dropup header-drop-top">
-                                    <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false">{{ trans('general.more_actions') }}</button>
+                                    <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
                                     <div class="dropdown-menu" role="menu">
                                         @if ($invoice->status != 'cancelled')
                                             @stack('button_pay_start')

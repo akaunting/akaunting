@@ -508,6 +508,8 @@ export default {
             let sum = 0;
             let isOdd = true;
 
+            this.unMaskCardNumber();
+
             /*for (let i = number.length - 1; i >= 0; i--) {
                 let num = number.charAt(i);
 

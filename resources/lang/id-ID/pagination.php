@@ -2,9 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Sebelumnya',
-    'next'                  => 'Berikutnya &raquo;',
+    'previous'              => 'Sebelumnya',
+    'next'                  => 'Berikutnya',
     'showing'               => ':first-:last of :total records.',
-    'page'                  => 'per page.',
+    'page'                  => 'per halaman.',
 
 ];

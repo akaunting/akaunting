@@ -184,7 +184,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                @foreach($invoice->totals as $total)
+                                @foreach($invoice->totals_sorted as $total)
                                     @if($total->code != 'total')
                                         <tr>
                                             <th>{{ trans($total['name']) }}:</th>
