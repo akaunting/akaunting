@@ -427,7 +427,7 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <tbody>
-                                        @foreach ($invoice->totals_sorted as $total)
+                                        @foreach ($invoice->totals as $total)
                                             @if ($total->code != 'total')
                                                 @stack($total->code . '_td_start')
                                                     <tr>
@@ -474,28 +474,28 @@
                             @stack('button_edit_start')
                                 @if(!$invoice->reconciled)
                                     <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-info header-button-top">
-                                        <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                                        {{ trans('general.edit') }}
                                     </a>
                                 @endif
                             @stack('button_edit_end')
 
                             @stack('button_print_start')
                                 <a href="{{ route('invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                    <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                                    {{ trans('general.print') }}
                                 </a>
                             @stack('button_print_end')
 
                             @if ($invoice->status != 'cancelled')
                                 @stack('button_share_start')
                                     <a href="{{ $signed_url }}" target="_blank" class="btn btn-white header-button-top">
-                                        <i class="fa fa-share"></i>&nbsp; {{ trans('general.share') }}
+                                        {{ trans('general.share') }}
                                     </a>
                                 @stack('button_share_end')
                             @endif
 
                             @stack('button_group_start')
                                 <div class="dropup header-drop-top">
-                                    <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+                                    <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false">{{ trans('general.more_actions') }}</button>
                                     <div class="dropdown-menu" role="menu">
                                         @if ($invoice->status != 'cancelled')
                                             @stack('button_pay_start')
@@ -634,7 +634,7 @@
                                                                     ]);
                                                                 @endphp
 
-                                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                                                {!! Form::button(trans('general.delete'), array(
                                                                     'type'    => 'button',
                                                                     'class'   => 'btn btn-danger btn-sm',
                                                                     'title'   => trans('general.delete'),
@@ -680,16 +680,17 @@
 
         <template #card-footer>
             <div class="float-right">
-                <button type="button" class="btn btn-outline-secondary header-button-top" @click="closePayment">
+                <button type="button" class="btn btn-outline-secondary" @click="closePayment">
                     {{ trans('general.cancel') }}
                 </button>
 
-                <a href="{{ route('apps.categories.show', 'payment-method') }}" class="btn btn-white header-button-top long-texts">
-                    {{ trans('invoices.accept_payments') }}</span>
+                <a href="{{ route('apps.categories.show', 'payment-method') }}" class="btn btn-whitelong-texts">
+                    {{ trans('invoices.accept_payments') }}
                 </a>
 
-                <button :disabled="form.loading" type="button" class="btn btn-success button-submit header-button-top" @click="addPayment">
-                    <div class="aka-loader"></div><span>{{ trans('general.confirm') }}</span>
+                <button :disabled="form.loading" type="button" class="btn btn-success" @click="addPayment">
+                    <span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span>
+                    <span :class="[{'ml-0': form.loading}]" class="btn-inner--text">{{ trans('general.confirm') }}</span>
                 </button>
             </div>
         </template>

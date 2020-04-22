@@ -113,7 +113,6 @@
                 </div>
 
                 <button class="btn btn-icon btn-success" v-on:click="invaildCard">
-                    <span class="btn-inner--icon"><i class="fas fa-check"></i></span>
                     <span class="btn-inner--text">{{ textButton }}</span>
                 </button>
             </div>
@@ -263,9 +262,6 @@
                 <div v-if="loading" class="aka-loader-frame">
                     <div class="aka-loader"></div>
                 </div>
-                <span v-if="!loading" class="btn-inner--icon">
-                    <i class="fas fa-check"></i>
-                </span>
                 <span v-if="!loading" class="btn-inner--text">{{ textButton }}</span>
             </button>
         </div>
@@ -507,8 +503,6 @@ export default {
 
         invaildCard() {
             this.loading = true;
-
-            this.unMaskCardNumber();
 
             let number = this.formData.cardNumber;
             let sum = 0;

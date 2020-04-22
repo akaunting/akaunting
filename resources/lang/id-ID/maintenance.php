@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Dalam perbaikan',
+    'title' => 'Maintenance Mode',
 
-    'message' => 'Maaf, kami sedang dalam perbaikan. Silakan coba lagi nanti!',
+    'message' => 'We\'re currently working on the site, please try again later!',
 
-    'last-updated' => 'Pesan ini telah diperbarui: timestamp.',
+    'last-updated' => 'This message was last updated :timestamp',
 
 ];

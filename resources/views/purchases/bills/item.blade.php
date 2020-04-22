@@ -105,10 +105,11 @@
             @stack('discount_input_start')
             <div class="input-group input-group-merge">
                 <div class="input-group-prepend">
-                        <span class="input-group-text" id="input-discount">
-                            <i class="fa fa-percent"></i>
-                        </span>
+                    <span class="input-group-text" id="input-discount">
+                        <i class="fa fa-percent"></i>
+                    </span>
                 </div>
+
                 <input type="number"
                     max="100"
                     min="0"

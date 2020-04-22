@@ -100,11 +100,10 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name'             => 'prilagođena-poruka',
+            'rule-name' => 'prilagođena-poruka',
         ],
-        'invalid_currency'      => ': Atributni kod nije valjan.',
-        'invalid_amount'        => 'Iznos: atribut nije važeći.',
-        'invalid_extension'     => 'The file extension is invalid.',
+        'invalid_currency' => ': Atributni kod nije valjan.',
+        'invalid_amount'   => 'Iznos: atribut nije važeći.',
     ],
 
     /*

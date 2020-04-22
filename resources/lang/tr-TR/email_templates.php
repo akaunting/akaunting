@@ -3,7 +3,7 @@
 return [
 
     'invoice_new_customer' => [
-        'subject'       => '{invoice_number} fatura oluşturuldu',
+        'subject'       => '{invoice_number} fatura uluşturuldu',
         'body'          => 'Sayın {customer_name},<br /><br /><strong>{invoice_number}</strong> numarası ile faturanızı hazırladık.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarını görüntüleyip ödemesini online olarak kredi/banka kartınızla yapabilirsiniz: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Herhangi bir sorunuz olursa lütfen bize yazın.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 

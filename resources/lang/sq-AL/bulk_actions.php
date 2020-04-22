@@ -15,7 +15,6 @@ return [
         'paid'          => 'Jeni i sigurt që doni të shënoni faturën e zgjedhur si të <b>paguar</b>?|Jeni i sigurt që doni të shënoni faturat e zgjedhura si të <b>paguara</b>?',
         'sent'          => 'Jeni i sigurt që doni të shënoni faturën e zgjedhur si të <b>dërguar</b>?|Jeni i sigurt që doni të shënoni faturat e zgjedhura si të <b>dërguara</b>?',
         'received'      => 'Jeni i sigurt që doni të shënoni faturën e zgjedhur si të <b>pranuar</b>?|Jeni i sigurt që doni të shënoni faturat e zgjedhura si të <b>pranuara</b>?',
-        'cancelled'     => 'Jeni i sigurt që doni të <b>anuloni</b> faturën e zgjedhur?|Jeni i sigurt që doni të <b>anuloni</b> faturat e zgjedhura?',
     ],
 
 ];

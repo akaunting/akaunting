@@ -78,12 +78,12 @@
                 <div class="col-md-12">
                     <div class="float-right">
                         <button type="button" class="btn btn-icon btn-outline-secondary" @click="onCancel">
-                            <span class="btn-inner--text">{{ text.cancel }}</span>
+                            {{ text.cancel }}
                         </button>
 
                         <button :disabled="form.loading" type="button" class="btn btn-icon btn-success button-submit" @click="onSave">
-                            <div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div>
-                            <span v-if="!form.loading" class="btn-inner--text">{{ text.save }}</span>
+                            <span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span>
+                            <span :class="[{'ml-0': form.loading}]" class="btn-inner--text">{{ text.save }}</span>
                         </button>
                     </div>
                 </div>
@@ -255,10 +255,6 @@ export default {
         },
 
         onCancel() {
-            let documentClasses = document.body.classList;
-
-            documentClasses.remove("modal-open");
-
             this.display = false;
             this.form.name = '';
             this.form.enabled = 1;

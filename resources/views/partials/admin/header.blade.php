@@ -15,9 +15,7 @@
                             @permission('read-modules-home')
                                 @if (!empty($suggestion_modules))
                                     @foreach($suggestion_modules as $s_module)
-                                        <span>
-                                            <a href="{{ url($s_module->action_url) . '?' . http_build_query((array) $s_module->action_parameters) }}" class="btn btn-white btn-sm header-button-bottom" target="{{ $s_module->action_target }}"><span class="fa fa-rocket"></span> &nbsp;{{ $s_module->name }}</a>
-                                        </span>
+                                        <a href="{{ url($s_module->action_url) . '?' . http_build_query((array) $s_module->action_parameters) }}" class="btn btn-white btn-sm" target="{{ $s_module->action_target }}">{{ $s_module->name }}</a>
                                     @endforeach
                                 @endif
                             @endpermission

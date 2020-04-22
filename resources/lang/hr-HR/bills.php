@@ -13,7 +13,6 @@ return [
     'price'                 => 'Cijena',
     'sub_total'             => 'Podzbroj',
     'discount'              => 'Popust',
-    'item_discount'         => 'Line Discount',
     'tax_total'             => 'Porez Ukupno',
     'total'                 => 'Ukupno',
 
@@ -29,9 +28,7 @@ return [
     'histories'             => 'Povijesti',
     'payments'              => 'Plaćanja',
     'add_payment'           => 'Dodaj plaćanje',
-    'mark_paid'             => 'Mark Paid',
     'mark_received'         => 'Označi kao primljeno',
-    'mark_cancelled'        => 'Mark Cancelled',
     'download_pdf'          => 'Preuzmite PDF',
     'send_mail'             => 'Pošalji e-mail',
     'create_bill'           => 'Kreiraj fakturu',
@@ -45,13 +42,10 @@ return [
         'paid'              => 'Plaćeno',
         'overdue'           => 'Dospjelo',
         'unpaid'            => 'Neplaćeno',
-        'cancelled'         => 'Cancelled',
     ],
 
     'messages' => [
-        'marked_received'   => 'Bill marked as received!',
-        'marked_paid'       => 'Bill marked as paid!',
-        'marked_cancelled'  => 'Bill marked as cancelled!',
+        'received'          => 'Račun označen kao uspješno primljen!',
         'draft'             => 'Ovo je <b>SKICA</b> računa i odrazit će se na grafikone nakon što se zaprimi.',
 
         'status' => [

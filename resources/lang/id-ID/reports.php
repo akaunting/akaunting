@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Laba Bersih',
     'total_expenses'        => 'Total Pengeluaran',
     'net'                   => 'Laba Bersih',
-    'income_expense'        => 'Pendapatan & Pengeluaran',
+    'income-expense'        => 'Income & Expense',
 
     'summary' => [
         'income'            => 'Ringkasan Pendapatan',
@@ -22,9 +22,9 @@ return [
     ],
 
     'charts' => [
-        'line'              => 'Baris',
-        'bar'               => 'Batang',
-        'pie'               => 'Lingkaran',
+        'line'              => 'Line',
+        'bar'               => 'Bar',
+        'pie'               => 'Pie',
     ],
 
 ];

@@ -21,23 +21,22 @@
         </base-input>
 
         <base-input :label="''"
-            name="recurring_interval"
-            type="number"
-            :value="0"
-            class="recurring-single"
-            :class="invertalClasses"
-            :error="intervalError"
-            v-model="recurring_interval"
-            @input="change"
-        >
+                name="recurring_interval"
+                type="number"
+                :value="0"
+                class="recurring-single"
+                :class="invertalClasses"
+                :error="intervalError"
+                v-model="recurring_interval"
+                >
         </base-input>
 
         <base-input :label="''"
-            name="recurring_custom_frequency"
-            class="recurring-single"
-            :class="customFrequencyClasses"
-            :error="customFrequencyError"
-        >
+                name="recurring_custom_frequency"
+                class="recurring-single"
+                :class="customFrequencyClasses"
+                :error="customFrequencyError"
+                >
             <el-select v-model="recurring_custom_frequency" @input="change" filterable
                 :placeholder="placeholder">
                 <el-option v-for="(label, value) in customFrequencyOptions"
@@ -49,14 +48,14 @@
         </base-input>
 
         <base-input :label="''"
-            name="recurring_count"
-            type="number"
-            class="recurring-single"
-            :class="countClasses"
-            :error="countError"
-            v-model="recurring_count"
-            @input="change"
-        >
+                name="recurring_count"
+                type="number"
+                :value="0"
+                class="recurring-single"
+                :class="countClasses"
+                :error="countError"
+                v-model="recurring_count"
+                >
         </base-input>
     </div>
 </template>
@@ -90,22 +89,14 @@ export default {
         frequencyValue: null,
         frequencyError: null,
 
-        intervalValue: {
-            type: [Number, String],
-            default: 0,
-            description: "Default interval value"
-        },
+        intervalValue: null,
         intervalError: null,
 
         customFrequencyOptions: null,
         customFrequencyValue: null,
         customFrequencyError: null,
 
-        countValue: {
-            type: [Number, String],
-            default: 0,
-            description: "Default count value"
-        },
+        countValue: null,
         countError: null,
 
         icon: {
@@ -116,22 +107,15 @@ export default {
 
     data() {
         return {
-            recurring_frequency: null,
-            recurring_interval: null,
-            recurring_custom_frequency: null,
-            recurring_count: null,
+            recurring_frequency: this.frequencyValue,
+            recurring_interval: this.intervalValue,
+            recurring_custom_frequency: this.customFrequencyValue,
+            recurring_count: this.countValue,
             frequencyClasses: 'col-md-12',
             invertalClasses: 'col-md-2 d-none',
             customFrequencyClasses: 'col-md-4 d-none',
             countClasses: 'col-md-2 d-none'
         }
-    },
-
-    created() {
-        this.recurring_frequency = this.frequencyValue;
-        this.recurring_interval = this.intervalValue;
-        this.recurring_custom_frequency = this.customFrequencyValue;
-        this.recurring_count = this.countValue;
     },
 
     mounted() {

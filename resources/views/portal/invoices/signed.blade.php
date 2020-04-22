@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
 
 @section('new_button')
-    <a href="{{ route('portal.dashboard') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-user"></span> &nbsp;{{ trans('invoices.all_invoices') }}</a>
+    <a href="{{ route('portal.dashboard') }}" class="btn btn-success btn-sm">{{ trans('invoices.all_invoices') }}</a>
 @endsection
 
 @section('content')
@@ -184,7 +184,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                @foreach($invoice->totals_sorted as $total)
+                                @foreach($invoice->totals as $total)
                                     @if($total->code != 'total')
                                         <tr>
                                             <th>{{ trans($total['name']) }}:</th>
@@ -228,11 +228,12 @@
                 </div>
 
                 <div class="col-md-8 text-right">
-                    <a href="{{ $print_action }}" target="_blank" class="btn btn-success header-button-top">
-                        <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                    <a href="{{ $print_action }}" target="_blank" class="btn btn-success">
+                        {{ trans('general.print') }}
                     </a>
-                    <a href="{{ $pdf_action }}" class="btn btn-white header-button-top" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
-                        <i class="fa fa-file-pdf"></i>&nbsp; {{ trans('general.download') }}
+
+                    <a href="{{ $pdf_action }}" class="btn btn-white" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
+                        {{ trans('general.download') }}
                     </a>
                 </div>
 
@@ -246,6 +247,7 @@
 
 @push('footer_start')
     <script src="{{ asset('public/js/portal/invoices.js?v=' . version('short')) }}"></script>
+
     <script type="text/javascript">
         var payment_action_path = {!! json_encode($payment_actions) !!};
     </script>

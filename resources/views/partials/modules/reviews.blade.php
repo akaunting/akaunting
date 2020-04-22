@@ -15,6 +15,7 @@
                                     @for($i = 1; $i <= $review->rating; $i++)
                                         <i class="fa fa-star"></i>
                                     @endfor
+
                                     @for($i = $review->rating; $i < 5; $i++)
                                         <i class="fa fa-star-o"></i>
                                     @endfor

@@ -13,7 +13,6 @@ return [
     'price'                 => 'Harga',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Diskon',
-    'item_discount'         => 'Potongan Harga',
     'tax_total'             => 'Total Pajak',
     'total'                 => 'Total',
 
@@ -30,8 +29,6 @@ return [
     'add_payment'           => 'Tambahkan Pembayaran',
     'mark_paid'             => 'Ditandai Dibayar',
     'mark_sent'             => 'Tandai Dikirim',
-    'mark_viewed'           => 'Tandai Dilihat',
-    'mark_cancelled'        => 'Tandai dibatalkan',
     'download_pdf'          => 'Unduh PDF',
     'send_mail'             => 'Kirim Email',
     'all_invoices'          => 'Masuk untuk melihat seluruh faktur',
@@ -42,28 +39,23 @@ return [
 
     'statuses' => [
         'draft'             => 'Konsep',
-        'sent'              => 'Terkirim',
-        'viewed'            => 'Dilihat',
+        'sent'              => 'Mengirim',
+        'viewed'            => 'Lihat',
         'approved'          => 'Disetujui',
         'partial'           => 'Sebagian',
         'paid'              => 'Dibayar',
-        'overdue'           => 'Jatuh Tempo',
-        'unpaid'            => 'Belum Dibayar',
-        'cancelled'         => 'Dibatalkan',
     ],
 
     'messages' => [
-        'email_sent'        => 'Email faktur telah dikirim!',
-        'marked_sent'       => 'Faktur ditandai sebagai terkirim!',
-        'marked_paid'       => 'Faktur ditandai sebagai berbayar!',
-        'marked_viewed'     => 'Tagihan ditandai sudah dilihat',
-        'marked_cancelled'  => 'Tagihan ditandai sudah dibatalkan',
+        'email_sent'        => 'Invoice email has been sent!',
+        'marked_sent'       => 'Invoice marked as sent!',
+        'marked_paid'       => 'Invoice marked as paid!',
         'email_required'    => 'Tidak ada alamat email untuk pelanggan ini!',
         'draft'             => 'Faktur ini merupakan <b>DRAFT</b> dan akan terlihat pada grafik ketika sudah dibayarkan',
 
         'status' => [
             'created'       => 'Dibuat pada :date',
-            'viewed'        => 'Dilihat',
+            'viewed'        => 'Viewed',
             'send' => [
                 'draft'     => 'Tidak terkirim',
                 'sent'      => 'Terkirim pada :date',

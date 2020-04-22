@@ -8,14 +8,11 @@
     @endphp
 
     <div class="{{ $col }}">
-        <a href="{{ $url }}" class="btn btn-icon btn-outline-secondary header-button-top">
-            <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
-            <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
-        </a>
+        <a href="{{ $url }}" class="btn btn-outline-secondary">{{ trans('general.cancel') }}</a>
 
         {!! Form::button(
-        '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text">' . trans('general.save') . '</span>',
-        [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+        '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'ml-0\': form.loading}]" class="btn-inner--text">' . trans('general.save') . '</span>',
+        [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success']) !!}
     </div>
 
 @stack('save_buttons_end')
