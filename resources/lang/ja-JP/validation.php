@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'カスタム メッセージ',
+            'rule-name'             => 'カスタム メッセージ',
         ],
-        'invalid_currency' => '：属性コードが無効です。',
-        'invalid_amount'   => '総額：属性が無効です。',
+        'invalid_currency'      => '：属性コードが無効です。',
+        'invalid_amount'        => '総額：属性が無効です。',
+        'invalid_extension'     => 'ファイル拡張子が無効です。',
     ],
 
     /*

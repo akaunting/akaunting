@@ -111,7 +111,7 @@
                     <span class="float-right">@date($invoice->due_at)</span><br><br>
                 @stack('due_at_input_end')
 
-                @foreach ($invoice->totals as $total)
+                @foreach ($invoice->totals_sorted as $total)
                     @if ($total->code == 'total')
                         <strong>{{ trans($total->name) }}:</strong>
                         <span class="float-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</span><br><br>
@@ -189,7 +189,7 @@
 
         <div class="col-42 float-right text-right">
             <div class="text company pr-2">
-                @foreach ($invoice->totals as $total)
+                @foreach ($invoice->totals_sorted as $total)
                     @if ($total->code != 'total')
                         @stack($total->code . '_td_start')
                             <div class="border-top-dashed py-2">

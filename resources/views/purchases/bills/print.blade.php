@@ -173,7 +173,7 @@
 
         <div class="col-42">
             <div class="text company pr-2">
-                @foreach ($bill->totals as $total)
+                @foreach ($bill->totals_sorted as $total)
                         @if ($total->code != 'total')
                             @stack($total->code . '_td_start')
                                 <div class="border-top-1 py-2">
