@@ -9,11 +9,9 @@
         <div class="card-body border-bottom-0">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <span>
-                        <button type="button" @click="onAddTax" class="btn btn-success header-button-top btn-sm">
-                            <span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}
-                        </button>
-                    </span>
+                    <button type="button" @click="onAddTax" class="btn btn-success btn-sm">
+                        {{ trans('general.add_new') }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -89,11 +87,10 @@
                             </td>
                             <td class="col-xs-4 col-sm-4 col-md-3 text-center">
                                 {!! Form::button(
-                                    '<span class="btn-inner--icon"><i class="fas fa-save"></i></span>', [
+                                    trans('general.save'), [
                                     ':disabled' => 'form.loading',
                                     'type' => 'submit',
                                     'class' => 'btn btn-success',
-                                    'data-loading-text' => trans('general.loading'),
                                 ]) !!}
                             </td>
                         </tr>
@@ -107,13 +104,12 @@
             <div class="row">
                 <div class="col-sm-6">
                     <a href="{{ url('wizard/currencies') }}" class="btn btn-icon btn-white header-button-top">
-                        <span class="btn-inner--icon"><i class="fas fa-arrow-left"></i></span>
                         <span class="btn-inner--text">{{ trans('modules.back') }}</span>
                     </a>
                 </div>
+
                 <div class="col-sm-6 text-right">
                     <a href="{{ url('wizard/finish') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
-                        <span class="btn-inner--icon"><i class="fas fa-arrow-right"></i></span>
                         <span class="btn-inner--text">{{ trans('general.skip') }}</span>
                     </a>
                 </div>

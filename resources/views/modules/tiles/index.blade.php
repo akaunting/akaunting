@@ -3,8 +3,8 @@
 @section('title', trans_choice('general.modules', 2))
 
 @section('new_button')
-    <span><a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm button-header-top"><span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_key') }}</a></span>
-    <span><a href="{{ route('apps.my.index')  }}" class="btn btn-white btn-sm button-header-top"><span class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}</a></span>
+    <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm">{{ trans('modules.api_key') }}</a>
+    <a href="{{ route('apps.my.index')  }}" class="btn btn-white btn-sm">{{ trans('modules.my_apps') }}</a>
 @endsection
 
 @section('content')
@@ -24,13 +24,13 @@
 
             <div class="col-md-6 text-left">
                 @if ($modules->current_page > 1)
-                    <a href="{{ url(request()->path()) }}?page={{ $modules->current_page - 1 }}" class="btn btn-white btn-sm button-header-top"><span class="fas fa-arrow-left"></span> &nbsp;{!! trans('pagination.previous') !!}</a>
+                    <a href="{{ url(request()->path()) }}?page={{ $modules->current_page - 1 }}" class="btn btn-white btn-sm">{!! trans('pagination.previous') !!}</a>
                 @endif
             </div>
 
             <div class="col-md-6 text-right">
                 @if ($modules->current_page < $modules->last_page)
-                    <a href="{{ url(request()->path()) }}?page={{ $modules->current_page + 1 }}" class="btn btn-white btn-sm button-header-top">{!! trans('pagination.next') !!}&nbsp; <span class="fas fa-arrow-right"></span> </a>
+                    <a href="{{ url(request()->path()) }}?page={{ $modules->current_page + 1 }}" class="btn btn-white btn-sm">{!! trans('pagination.next') !!}</a>
                 @endif
             </div>
         @else

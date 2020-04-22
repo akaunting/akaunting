@@ -4,10 +4,10 @@
 
 @section('new_button')
     @permission('create-sales-invoices')
-        <span><a href="{{ route('invoices.create') }}" class="btn btn-primary btn-sm btn-success header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-        <span><a href="{{ route('import.create', ['group' => 'sales', 'type' => 'invoices']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
+        <a href="{{ route('invoices.create') }}" class="btn btn-primary btn-sm btn-success header-button-top">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('import.create', ['group' => 'sales', 'type' => 'invoices']) }}" class="btn btn-white btn-sm header-button-top">{{ trans('import.import') }}</a>
     @endpermission
-    <span><a href="{{ route('invoices.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    <a href="{{ route('invoices.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')

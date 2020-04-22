@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
+            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block edit-sv"><b>{{ trans('general.edit') }}</b></a>
         </div>
 
         <div class="col-xl-9">
@@ -100,17 +100,17 @@
                     <div class="nav-wrapper">
                         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fas fa-hand-holding-usd mr-2"></i>{{ trans_choice('general.transactions', 2) }}</a>
+                                <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-header-transactions" data-toggle="tab" href="#tabs-content-transactions" role="tab" aria-controls="tabs-content-transactions" aria-selected="true">{{ trans_choice('general.transactions', 2) }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fa fa-shopping-cart mr-2"></i>{{ trans_choice('general.bills', 2) }}</a>
+                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-header-invoices" data-toggle="tab" href="#tabs-content-invoices" role="tab" aria-controls="tabs-content-invoices" aria-selected="false">{{ trans_choice('general.bills', 2) }}</a>
                             </li>
                         </ul>
                     </div>
 
                     <div class="card shadow">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <div class="tab-pane fade show active" id="tabs-content-transactions" role="tabpanel" aria-labelledby="tabs-header-transactions">
                                 <div class="table-responsive">
                                     <table class="table table-flush" id="tbl-transactions">
                                         <thead class="thead-light">
@@ -141,7 +141,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                            <div class="tab-pane fade" id="tabs-content-invoices" role="tabpanel" aria-labelledby="tabs-header-invoices">
                                 <div class="table-responsive">
                                     <table class="table table-flush" id="tbl-bills">
                                         <thead class="thead-light">

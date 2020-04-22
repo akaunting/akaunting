@@ -130,12 +130,6 @@ export default {
         };
     },
 
-    created: function () {
-        let documentClasses = document.body.classList;
-
-        documentClasses.add("modal-open");
-    },
-
     mounted() {
         if (this.is_component) {
             this.component = Vue.component('add-new-component', (resolve, reject) => {
@@ -236,10 +230,6 @@ export default {
         },
 
         onCancel() {
-            let documentClasses = document.body.classList;
-
-            documentClasses.remove("modal-open");
-
             this.$emit("cancel");
         }
     },

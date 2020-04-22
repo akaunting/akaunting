@@ -84,9 +84,6 @@
                          <span v-if="!form.loading" class="btn-inner--text">
                             Next &nbsp;
                         </span>
-                        <span v-if="!form.loading" class="btn-inner--icon">
-                            <i class="fas fa-arrow-right"></i>
-                        </span>
                     </button>
                 </div>
             </div>

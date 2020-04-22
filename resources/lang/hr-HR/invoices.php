@@ -13,7 +13,6 @@ return [
     'price'                 => 'Cijena',
     'sub_total'             => 'Podzbroj',
     'discount'              => 'Popust',
-    'item_discount'         => 'Line Discount',
     'tax_total'             => 'Porez Ukupno',
     'total'                 => 'Ukupno',
 
@@ -31,7 +30,6 @@ return [
     'mark_paid'             => 'Označi kao plaćeno',
     'mark_sent'             => 'Označi kao poslano',
     'mark_viewed'           => 'Označi pogledano',
-    'mark_cancelled'        => 'Mark Cancelled',
     'download_pdf'          => 'Preuzmite PDF',
     'send_mail'             => 'Pošalji e-mail',
     'all_invoices'          => 'Prijavite se za pregled svih faktura',
@@ -49,15 +47,12 @@ return [
         'paid'              => 'Plaćeno',
         'overdue'           => 'Kasne',
         'unpaid'            => 'Neplaćeno',
-        'cancelled'         => 'Cancelled',
     ],
 
     'messages' => [
         'email_sent'        => 'E-adresa s računom je poslana!',
         'marked_sent'       => 'Račun označen kao poslan!',
         'marked_paid'       => 'Račun označen kao plaćen!',
-        'marked_viewed'     => 'Invoice marked as viewed!',
-        'marked_cancelled'  => 'Invoice marked as cancelled!',
         'email_required'    => 'Nema e-mail adrese za ovog kupca!',
         'draft'             => 'This is a <b>SKICA</b> invoice and will be reflected to charts after it gets sent.',
 

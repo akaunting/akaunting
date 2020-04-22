@@ -2,8 +2,8 @@
 
 return [
 
-    'next'                  => 'Berikutnya',
-    'refresh'               => 'Muat Ulang',
+    'next'                  => 'Selanjutnya',
+    'refresh'               => 'Menyegarkan',
 
     'steps' => [
         'requirements'      => 'Silakan meminta penyedia hosting Anda untuk memperbaiki kesalahan!',
@@ -21,14 +21,13 @@ return [
         'disabled'          => ':feature perlu dinonaktifkan!',
         'extension'         => ': ekstensi ekstensi perlu diinstal dan dimuat!',
         'directory'         => ':directory direktori perlu ditulis!',
-        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [
         'hostname'          => 'Nama host',
         'username'          => 'Nama pengguna',
         'password'          => 'Kata Sandi',
-        'name'              => 'Database',
+        'name'              => 'Basis data',
     ],
 
     'settings' => [

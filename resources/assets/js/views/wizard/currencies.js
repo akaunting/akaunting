@@ -106,9 +106,5 @@ const app = new Vue({
             .catch(error => {
             });
         },
-
-        onSubmit() {
-            this.form.oldSubmit();
-        },
     }
 });

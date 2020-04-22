@@ -26,9 +26,6 @@
                         <span class="btn-inner--text">
                             Refresh &nbsp;
                         </span>
-                        <span class="btn-inner--icon">
-                            <i class="fas fa-sync"></i>
-                        </span>
                     </button>
                 </div>
             </div>

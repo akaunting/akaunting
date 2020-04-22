@@ -4,7 +4,7 @@
 
 @section('new_button')
     @permission('create-banking-accounts')
-        <a href="{{ route('accounts.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
+        <a href="{{ route('accounts.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endpermission
 @endsection
 

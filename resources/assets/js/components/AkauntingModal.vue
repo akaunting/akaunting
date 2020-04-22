@@ -23,11 +23,9 @@
                 <div class="card-footer border-top-0 pt-0">
                     <slot name="card-footer">
                         <div class="float-right">
-                            <button type="button" class="btn btn-outline-secondary" @click="onCancel">
-                               {{ button_cancel }}
-                            </button>
+                            <button type="button" class="btn btn-outline-secondary" @click="onCancel">{{ button_cancel }}</button>
 
-                            <button :disabled="form.loading" type="button" class="btn btn-danger button-submit" @click="onConfirm">
+                            <button :disabled="form.loading" type="button" class="btn btn-danger" @click="onConfirm">
                                 <div class="aka-loader"></div><span>{{ button_delete }}</span>
                             </button>
                         </div>
@@ -98,14 +96,6 @@ export default {
         };
     },
 
-    created: function () {
-        if (this.show) {
-            let documentClasses = document.body.classList;
-
-            documentClasses.add("modal-open");
-        }
-    },
-
     methods: {
         closeModal() {
             this.$emit("update:show", false);
@@ -119,10 +109,6 @@ export default {
         },
 
         onCancel() {
-            let documentClasses = document.body.classList;
-
-            documentClasses.remove("modal-open");
-
             this.$emit("cancel");
         }
     },
