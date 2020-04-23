@@ -79,7 +79,7 @@
         unlink-panels
         :format="'yyyy-MM-dd'"
         value-format="yyyy-MM-dd"
-        @change="onChangeFilterDate"
+        @change="onChangeFilterDate({{ $dashboard->id }})"
         range-separator=">>"
         start-placeholder="{{ trans('general.start_date')}}"
         end-placeholder="{{ trans('general.end_date')}}"
