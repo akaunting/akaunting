@@ -35,11 +35,18 @@ abstract class Export implements FromCollection, ShouldAutoSize, WithHeadings, W
 
         $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'created_at'];
 
+        $evil_chars = ['=', '+', '-', '@'];
+
         foreach ($this->fields() as $field) {
             $value = $model->$field;
 
             if (in_array($field, $date_fields)) {
                 $value = Date::parse($value)->format('Y-m-d');
+            }
+
+            // Prevent CSV injection https://security.stackexchange.com/a/190848
+            if (Str::startsWith($value, $evil_chars)) {
+                $value = "'" . $value;
             }
 
             $map[] = $value;
