@@ -27,8 +27,10 @@ class Database extends Controller
      */
     public function store(Request $request)
     {
+        $connection = config('database.default','mysql');
+
         $host     = $request['hostname'];
-        $port     = env('DB_PORT', '3306');
+        $port     = config("database.connections.$connection.port", '3306');
         $database = $request['database'];
         $username = $request['username'];
         $password = $request['password'];

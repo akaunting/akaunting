@@ -33,7 +33,7 @@ class Info
 
     public static function mysqlVersion()
     {
-        if (env('DB_CONNECTION') === 'mysql') {
+        if (config('database.default') === 'mysql') {
             return DB::selectOne('select version() as mversion')->mversion;
         }
 

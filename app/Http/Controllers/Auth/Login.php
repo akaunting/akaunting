@@ -115,7 +115,7 @@ class Login extends Controller
         auth()->logout();
 
         // Session destroy is required if stored in database
-        if (env('SESSION_DRIVER') == 'database') {
+        if (config('session.driver') == 'database') {
             $request = app('Illuminate\Http\Request');
             $request->session()->getHandler()->destroy($request->session()->getId());
         }

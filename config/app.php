@@ -14,6 +14,10 @@ return [
 
     'name' => env('APP_NAME', 'Akaunting'),
 
+    'installed' => env('APP_INSTALLED', false),
+
+    'schedule_time' => env('APP_SCHEDULE_TIME', '9:00'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
