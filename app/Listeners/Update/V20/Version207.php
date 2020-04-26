@@ -26,7 +26,7 @@ class Version207 extends Listener
 
         // Update .env file
         Installer::updateEnv([
-            'MAIL_MAILER'       =>  config('mail.default'),
+            'MAIL_MAILER'       =>  env('MAIL_DRIVER', config('mail.default')),
         ]);
     }
 }
