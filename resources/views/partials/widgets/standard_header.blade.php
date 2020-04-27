@@ -2,11 +2,11 @@
 <div class="card-header{{ !empty($header_class) ? ' ' . $header_class : '' }}">
     <div class="row align-items-center">
 
-        <div class="col-6 text-nowrap">
-            <h4 class="mb-0">{{ $class->model->name }}</h4>
+        <div class="col-10 text-nowrap">
+            <h4 class="mb-0 long-texts">{{ $class->model->name }}</h4>
         </div>
 
-        <div class="col-6 hidden-sm">
+        <div class="col-2 hidden-sm">
             <span class="float-right">
                 <div class="dropdown">
                     <a class="btn btn-sm items-align-center py-2 mr-0 shadow-none--hover" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
