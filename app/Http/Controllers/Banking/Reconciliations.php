@@ -46,7 +46,7 @@ class Reconciliations extends Controller
         $accounts = Account::enabled()->pluck('name', 'id');
 
         $account_id = request('account_id', setting('general.default_account'));
-        $started_at = request('started_at', '0000-00-00');
+        $started_at = request('started_at', '0000-01-01');
         $ended_at = request('ended_at', '0000-00-00');
 
         $account = Account::find($account_id);
