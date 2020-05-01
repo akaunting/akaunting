@@ -54,9 +54,7 @@ class Items extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
-        $currency = Currency::where('code', setting('default.currency', 'USD'))->first();
-
-        return view('common.items.create', compact('categories', 'taxes', 'currency'));
+        return view('common.items.create', compact('categories', 'taxes'));
     }
 
     /**
