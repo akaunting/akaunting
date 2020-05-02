@@ -87,10 +87,12 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('users.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-auth-users')
-                                            <div class="dropdown-divider"></div>
-                                            {!! Form::deleteLink($item, 'users.destroy') !!}
-                                        @endpermission
+                                        @if (user()->id != $item->id)
+                                            @permission('delete-auth-users')
+                                                <div class="dropdown-divider"></div>
+                                                {!! Form::deleteLink($item, 'users.destroy') !!}
+                                            @endpermission
+                                        @endif
                                     </div>
                                 </div>
                             </td>
