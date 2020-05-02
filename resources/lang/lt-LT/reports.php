@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Pelnas prieš mokesčius',
     'total_expenses'        => 'Iš viso išlaidų',
     'net'                   => 'NET',
+    'income_expense'        => 'Pajamos / išlaidos',
 
     'summary' => [
         'income'            => 'Pajamų suvestinė',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Mokesčių suvestinė',
     ],
 
-    'quarter' => [
-        '1'                 => 'Sau-Kov',
-        '2'                 => 'Bal-Bir',
-        '3'                 => 'Lie-Rugs',
-        '4'                 => 'Spa-Gruo',
+    'charts' => [
+        'line'              => 'Eilutė',
+        'bar'               => 'Stulpelis',
+        'pie'               => 'Skritulinė',
     ],
 
 ];

@@ -21,6 +21,7 @@ return [
         'disabled'          => ': feature turi būti išjungta!',
         'extension'         => ':extension turi būti įrašytas ir įjungtas!',
         'directory'         => ':directory direktorijoje turi būti leidžiama įrašyti!',
+        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [

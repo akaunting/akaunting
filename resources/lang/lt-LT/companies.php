@@ -4,10 +4,11 @@ return [
 
     'domain'                => 'Domenas',
     'logo'                  => 'Logotipas',
-    'manage'                => 'Valdyti įmones',
-    'all'                   => 'Visos įmonės',
+
     'error' => [
-        'delete_active'     => 'Klaida: Negalite ištrinti aktyvios įmonės, pirma turite pakeisti ją!',
+        'not_user_company'  => 'Klaida: Jūs neturite teisės valdyti šios kompanijos!',
+        'delete_active'     => 'Klaida: Negalite ištrinti aktyvios įmonės. Pirma turite pasikeisti ją!',
+        'disable_active'    => 'Klaida: Negalite atjungti aktyvios įmonės. Pirma turite pasikeisti ją!',
     ],
 
 ];

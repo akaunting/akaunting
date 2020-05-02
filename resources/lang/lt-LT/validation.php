@@ -16,13 +16,13 @@ return [
     'accepted'             => ':Attribute turi būti pažymėtas.',
     'active_url'           => ':Attribute nėra galiojantis internetinis adresas.',
     'after'                => ':Attribute reikšmė turi būti po :date datos.',
-    'after_or_equal'       => ':Attribute privalo būti data lygi arba vėlesnė už :date.',
+    'after_or_equal'       => 'Lauko :attribute reikšmė privalo būti data lygi arba vėlesnė negu :date.',
     'alpha'                => ':Attribute gali turėti tik raides.',
     'alpha_dash'           => ':Attribute gali turėti tik raides, skaičius ir brūkšnelius.',
     'alpha_num'            => 'Laukas :attribute gali turėti tik raides ir skaičius.',
     'array'                => ':Attribute turi būti masyvas.',
     'before'               => ':Attribute turi būti data prieš :date.',
-    'before_or_equal'      => ':Attribute privalo būti data ankstenė arba lygi :date.',
+    'before_or_equal'      => 'Lauko :attribute reikšmė privalo būti data lygi arba ankstesnė negu :date.',
     'between'              => [
         'numeric' => ':Attribute reikšmė turi būti tarp :min ir :max.',
         'file'    => ':Attribute failo dydis turi būti tarp :min ir :max kilobaitų.',
@@ -39,13 +39,14 @@ return [
     'dimensions'           => 'Lauke :attribute įkeltas paveiksliukas neatitinka išmatavimų reikalavimo.',
     'distinct'             => 'Laukas :attribute pasikartoja.',
     'email'                => 'Lauko :attribute reikšmė turi būti galiojantis el. pašto adresas.',
+    'ends_with'            => 'Laukas :attribute turi baigtis vienu iš: :values',
     'exists'               => 'Pasirinkta negaliojanti :attribute reikšmė.',
-    'file'                 => ':Attribute privalo būti failas.',
+    'file'                 => ':attribute turi būti failas.',
     'filled'               => 'Laukas :attribute turi būti užpildytas.',
     'image'                => 'Lauko :attribute reikšmė turi būti paveikslėlis.',
     'in'                   => 'Pasirinkta negaliojanti :attribute reikšmė.',
     'in_array'             => 'Laukas :attribute neegzistuoja :other lauke.',
-    'integer'              => 'Lauko :attribute reikšmė turi būti veikasis skaičius.',
+    'integer'              => 'Lauko :attribute reikšmė turi būti sveikasis skaičius.',
     'ip'                   => 'Lauko :attribute reikšmė turi būti galiojantis IP adresas.',
     'json'                 => 'Lauko :attribute reikšmė turi būti JSON tekstas.',
     'max'                  => [
@@ -83,7 +84,7 @@ return [
     'string'               => 'Laukas :attribute turi būti tekstinis.',
     'timezone'             => 'Lauko :attribute reikšmė turi būti galiojanti laiko zona.',
     'unique'               => 'Tokia :attribute reikšmė jau pasirinkta.',
-    'uploaded'             => 'Nepavyko įkelti :attribute.',
+    'uploaded'             => 'Nepavyko įkelti :attribute lauko.',
     'url'                  => 'Negaliojantis lauko :attribute formatas.',
 
     /*
@@ -99,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'Pasirinktinis pranešimas',
+            'rule-name'             => 'Pasirinktinis pranešimas',
         ],
-        'invalid_currency' => ':Attribute kodas neteisingas.',
-        'invalid_amount'   => ':Attribute kiekis yra neteisingas.',
+        'invalid_currency'      => ':Attribute kodas neteisingas.',
+        'invalid_amount'        => ':Attribute kiekis yra neteisingas.',
+        'invalid_extension'     => 'Negalimas failo tipas.',
     ],
 
     /*

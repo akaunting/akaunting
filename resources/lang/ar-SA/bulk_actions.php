@@ -4,7 +4,7 @@ return [
 
     'bulk_actions'      => 'الإجراء الجماعي - الإجراءات الجماعية',
     'selected'          => 'مُحدد',
-    'no_action'         => 'No action available',
+    'no_action'         => 'لا يوجد اي اجراء متاح ',
 
     'message' => [
         'duplicate'     => 'هل أنت متأكد من</b> مضاعفة <b> السجلات المحددة؟',
@@ -15,6 +15,7 @@ return [
         'paid'          => 'هل تريد وضع علامة على الفاتورة المحددة على أنها </b>مدفوعة<b> ؟',
         'sent'          => 'هل تريد وضع علامة على الفاتورة المحددة على أنها <b/>تم أرسالها<b>؟',
         'received'      => 'هل تريد وضع علامة على الفاتورة المحددة على أنها <b/>تم استلامها<b>؟',
+        'cancelled'     => 'Are you sure you want to <b>cancel</b> selected invoice/bill?|Are you sure you want to <b>cancel</b> selected invoices/bills?',
     ],
 
 ];

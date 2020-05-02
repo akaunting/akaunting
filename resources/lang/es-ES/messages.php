@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Advertencia: No puede borrar <b>:name</b> porque tiene :text relacionado.',
         'disabled'          => 'Advertencia: No se permite desactivar <b>:name</b> porque tiene :text relacionado.',
+        'reconciled_tran'   => 'Advertencia: No puedes cambiar/eliminar la transacción porque está reconciliada!',
+        'reconciled_doc'    => 'Advertencia: No puedes modificar/eliminar :type porque tiene transacciones reconciliadas!',
         'disable_code'      => 'Advertencia: No puede desactivar o cambiar la moneda <b>:name</b> porque tiene :text relacionado.',
         'payment_cancel'    => 'Advertencia: Ha cancelado su reciente pago de :method!',
     ],
