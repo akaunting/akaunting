@@ -13,6 +13,8 @@ class Permission extends LaratrustPermission
 
     protected $table = 'permissions';
 
+    protected $tenantable = false;
+
     /**
      * The accessors to append to the model's array form.
      *

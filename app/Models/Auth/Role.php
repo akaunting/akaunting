@@ -13,6 +13,8 @@ class Role extends LaratrustRole
 
     protected $table = 'roles';
 
+    protected $tenantable = false;
+
     /**
      * The attributes that are mass assignable.
      *
