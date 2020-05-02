@@ -58,14 +58,4 @@ class Setting extends Eloquent
     {
         return $query->where($this->table . '.company_id', '=', $company_id);
     }
-
-    public function isTenantable()
-    {
-        return (isset($this->tenantable) && ($this->tenantable === true));
-    }
-
-    public function isNotTenantable()
-    {
-        return !$this->isTenantable();
-    }
 }
