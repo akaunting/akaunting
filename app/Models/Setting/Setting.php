@@ -3,10 +3,13 @@
 namespace App\Models\Setting;
 
 use App\Scopes\Company;
+use App\Traits\Tenants;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Setting extends Eloquent
 {
+    use Tenants;
+
     protected $table = 'settings';
 
     public $timestamps = false;
@@ -54,5 +57,15 @@ class Setting extends Eloquent
     public function scopeCompanyId($query, $company_id)
     {
         return $query->where($this->table . '.company_id', '=', $company_id);
+    }
+
+    public function isTenantable()
+    {
+        return (isset($this->tenantable) && ($this->tenantable === true));
+    }
+
+    public function isNotTenantable()
+    {
+        return !$this->isTenantable();
     }
 }

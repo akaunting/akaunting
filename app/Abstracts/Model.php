@@ -3,6 +3,7 @@
 namespace App\Abstracts;
 
 use App\Scopes\Company;
+use App\Traits\Tenants;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,7 +12,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 abstract class Model extends Eloquent
 {
-    use Cachable, SearchString, SoftDeletes, Sortable;
+    use Cachable, SearchString, SoftDeletes, Sortable, Tenants;
 
     protected $dates = ['deleted_at'];
 

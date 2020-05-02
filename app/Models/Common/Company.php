@@ -14,6 +14,8 @@ class Company extends Eloquent
 
     protected $table = 'companies';
 
+    protected $tenantable = false;
+
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['domain', 'enabled'];

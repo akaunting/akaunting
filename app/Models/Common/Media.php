@@ -9,5 +9,7 @@ class Media extends BaseMedia
 {
     use SoftDeletes;
 
+    protected $tenantable = false;
+
     protected $dates = ['deleted_at'];
 }
