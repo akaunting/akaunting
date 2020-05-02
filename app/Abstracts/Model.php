@@ -14,6 +14,8 @@ abstract class Model extends Eloquent
 {
     use Cachable, SearchString, SoftDeletes, Sortable, Tenants;
 
+    protected $tenantable = true;
+
     protected $dates = ['deleted_at'];
 
     /**

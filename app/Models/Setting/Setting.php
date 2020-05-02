@@ -12,6 +12,8 @@ class Setting extends Eloquent
 
     protected $table = 'settings';
 
+    protected $tenantable = true;
+
     public $timestamps = false;
 
     /**
