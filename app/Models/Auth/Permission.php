@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Traits\Tenants;
 use Laratrust\Models\LaratrustPermission;
 use Laratrust\Traits\LaratrustPermissionTrait;
 use Kyslik\ColumnSortable\Sortable;
@@ -9,7 +10,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Permission extends LaratrustPermission
 {
-    use LaratrustPermissionTrait, SearchString, Sortable;
+    use LaratrustPermissionTrait, SearchString, Sortable, Tenants;
 
     protected $table = 'permissions';
 

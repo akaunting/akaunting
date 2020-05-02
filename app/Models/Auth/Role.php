@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Traits\Tenants;
 use Laratrust\Models\LaratrustRole;
 use Laratrust\Traits\LaratrustRoleTrait;
 use Kyslik\ColumnSortable\Sortable;
@@ -9,7 +10,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Role extends LaratrustRole
 {
-    use LaratrustRoleTrait, SearchString, Sortable;
+    use LaratrustRoleTrait, SearchString, Sortable, Tenants;
 
     protected $table = 'roles';
 
