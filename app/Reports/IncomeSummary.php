@@ -30,7 +30,7 @@ class IncomeSummary extends Report
 
     public function setData()
     {
-        $transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at']);
+        $transactions = $this->applyFilters(Transaction::income()->isNotTransfer(), ['date_field' => 'paid_at']);
 
         switch ($this->model->settings->basis) {
             case 'cash':

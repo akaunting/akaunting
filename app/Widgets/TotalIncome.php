@@ -18,7 +18,7 @@ class TotalIncome extends Widget
     {
         $current = $open = $overdue = 0;
 
-        $this->applyFilters(Transaction::type('income')->isNotTransfer())->each(function ($transaction) use (&$current) {
+        $this->applyFilters(Transaction::income()->isNotTransfer())->each(function ($transaction) use (&$current) {
             $current += $transaction->getAmountConvertedToDefault();
         });
 

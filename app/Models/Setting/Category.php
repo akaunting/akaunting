@@ -68,6 +68,50 @@ class Category extends Model
         return $query->whereIn($this->table . '.type', (array) $types);
     }
 
+    /**
+     * Scope to include only income.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIncome($query)
+    {
+        return $query->where($this->table . '.type', '=', 'income');
+    }
+
+    /**
+     * Scope to include only expense.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeExpense($query)
+    {
+        return $query->where($this->table . '.type', '=', 'expense');
+    }
+
+    /**
+     * Scope to include only item.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeItem($query)
+    {
+        return $query->where($this->table . '.type', '=', 'item');
+    }
+
+    /**
+     * Scope to include only other.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOther($query)
+    {
+        return $query->where($this->table . '.type', '=', 'other');
+    }
+
     public function scopeName($query, $name)
     {
         return $query->where('name', '=', $name);
@@ -81,6 +125,6 @@ class Category extends Model
      */
     public function scopeTransfer($query)
     {
-        return $query->where('type', 'other')->pluck('id')->first();
+        return $query->where($this->table . '.type', '=', 'other')->pluck('id')->first();
     }
 }
