@@ -190,7 +190,7 @@
 
                     @if (!empty($module->purchase_desc))
                         <div class="text-center mt-3">
-                            {{ $module->purchase_desc }}
+                            {!! $module->purchase_desc !!}
                         </div>
                     @endif
                 </div>
