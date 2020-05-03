@@ -51,7 +51,7 @@ class Dashboards extends Controller
     {
         $dashboard_id = session('dashboard_id', 0);
 
-        if ($dashboard) {
+        if (!empty($dashboard->id)) {
             $dashboard_id = $dashboard->id;
         }
 

@@ -189,10 +189,10 @@
                         @endpermission
                     @endif
 
-                    @if ($module->purchase_faq)
-                         <div class="text-center mt-3">
-                             <a href="#" @click="onShowFaq" id="button-purchase-faq">{{ trans('modules.tab.faq')}}</a>
-                         </div>
+                    @if (!empty($module->purchase_desc))
+                        <div class="text-center mt-3">
+                            {{ $module->purchase_desc }}
+                        </div>
                     @endif
                 </div>
             </div>

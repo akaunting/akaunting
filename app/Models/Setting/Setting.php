@@ -3,11 +3,16 @@
 namespace App\Models\Setting;
 
 use App\Scopes\Company;
+use App\Traits\Tenants;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Setting extends Eloquent
 {
+    use Tenants;
+
     protected $table = 'settings';
+
+    protected $tenantable = true;
 
     public $timestamps = false;
 
