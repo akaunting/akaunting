@@ -16,7 +16,7 @@ class Payments extends Controller
      */
     public function index()
     {
-        $payments = Transaction::type('income')->where('contact_id', '=', user()->contact->id)->paginate();
+        $payments = Transaction::income()->where('contact_id', '=', user()->contact->id)->paginate();
 
         $payment_methods = Modules::getPaymentMethods('all');
 

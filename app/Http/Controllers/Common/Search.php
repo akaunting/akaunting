@@ -65,7 +65,7 @@ class Search extends Controller
             }
         }/*
 
-        $income_transactions = Transaction::type('income')->usingSearchString($keyword)->get();
+        $income_transactions = Transaction::income()->usingSearchString($keyword)->get();
 
         if ($income_transactions->count()) {
             foreach ($income_transactions as $transaction) {
@@ -107,7 +107,7 @@ class Search extends Controller
             }
         }
 /*
-        $payments = Transaction::type('expense')->usingSearchString($keyword)->get();
+        $payments = Transaction::expense()->usingSearchString($keyword)->get();
 
         if ($revenues->count()) {
             foreach ($revenues as $revenue) {

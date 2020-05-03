@@ -40,8 +40,8 @@ class ProfitLoss extends Report
 
     public function setData()
     {
-        $income_transactions = $this->applyFilters(Transaction::type('income')->isNotTransfer(), ['date_field' => 'paid_at']);
-        $expense_transactions = $this->applyFilters(Transaction::type('expense')->isNotTransfer(), ['date_field' => 'paid_at']);
+        $income_transactions = $this->applyFilters(Transaction::income()->isNotTransfer(), ['date_field' => 'paid_at']);
+        $expense_transactions = $this->applyFilters(Transaction::expense()->isNotTransfer(), ['date_field' => 'paid_at']);
 
         switch ($this->model->settings->basis) {
             case 'cash':

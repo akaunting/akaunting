@@ -41,7 +41,7 @@ class Bills extends Controller
 
         $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $statuses = $this->getBillStatuses();
 
@@ -67,7 +67,7 @@ class Bills extends Controller
 
         $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -106,7 +106,7 @@ class Bills extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $number = $this->getNextBillNumber();
 
@@ -202,7 +202,7 @@ class Bills extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
 
         return view('purchases.bills.edit', compact('bill', 'vendors', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }

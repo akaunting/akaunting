@@ -76,7 +76,7 @@ class Customers extends Controller
         }
 
         // Handle transactions
-        $transactions = Transaction::where('contact_id', $customer->id)->type('income')->get();
+        $transactions = Transaction::where('contact_id', $customer->id)->income()->get();
 
         $counts['transactions'] = $transactions->count();
 

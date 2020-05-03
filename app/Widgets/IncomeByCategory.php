@@ -15,7 +15,7 @@ class IncomeByCategory extends Widget
 
     public function show()
     {
-        Category::with('income_transactions')->type('income')->each(function ($category) {
+        Category::with('income_transactions')->income()->each(function ($category) {
             $amount = 0;
 
             $this->applyFilters($category->income_transactions())->each(function ($transaction) use (&$amount) {

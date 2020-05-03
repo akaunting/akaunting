@@ -97,6 +97,28 @@ class Transaction extends Model
     }
 
     /**
+     * Scope to include only income.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIncome($query)
+    {
+        return $query->where($this->table . '.type', '=', 'income');
+    }
+
+    /**
+     * Scope to include only expense.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeExpense($query)
+    {
+        return $query->where($this->table . '.type', '=', 'expense');
+    }
+
+    /**
      * Get only transfers.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

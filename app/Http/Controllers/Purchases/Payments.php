@@ -30,11 +30,11 @@ class Payments extends Controller
      */
     public function index()
     {
-        $payments = Transaction::type('expense')->with(['account', 'category', 'contact'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
+        $payments = Transaction::expense()->with(['account', 'category', 'contact'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
         $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -68,7 +68,7 @@ class Payments extends Controller
 
         $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -156,7 +156,7 @@ class Payments extends Controller
 
         $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('expense')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
