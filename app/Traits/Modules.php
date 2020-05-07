@@ -293,11 +293,20 @@ trait Modules
 
     public function downloadModule($path)
     {
+        if (empty($path)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.download', ['module' => '']),
+                'data' => null,
+            ];
+        }
+
         if (!$response = static::getResponse('GET', $path)) {
             return [
                 'success' => false,
                 'error' => true,
-                'message' => null,
+                'message' => trans('modules.errors.download', ['module' => '']),
                 'data' => null,
             ];
         }
@@ -321,7 +330,7 @@ trait Modules
             return [
                 'success' => false,
                 'error' => true,
-                'message' => null,
+                'message' => trans('modules.errors.download', ['module' => '']),
                 'data' => null,
             ];
         }
@@ -338,6 +347,15 @@ trait Modules
 
     public function unzipModule($path)
     {
+        if (empty($path)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.unzip', ['module' => '']),
+                'data' => null,
+            ];
+        }
+
         $temp_path = storage_path('app/temp') . '/' . $path;
 
         $file = $temp_path . '/upload.zip';
@@ -349,7 +367,7 @@ trait Modules
             return [
                 'success' => false,
                 'error' => true,
-                'message' => null,
+                'message' => trans('modules.errors.unzip', ['module' => '']),
                 'data' => null,
             ];
         }
@@ -373,9 +391,18 @@ trait Modules
 
     public function installModule($path)
     {
+        if (empty($path)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.finish', ['module' => '']),
+                'data' => null,
+            ];
+        }
+
         $temp_path = storage_path('app/temp') . '/' . $path;
 
-        $modules_path = base_path() . '/modules';
+        $modules_path = config('module.paths.modules');
 
         // Create modules directory
         if (!File::isDirectory($modules_path)) {
@@ -406,11 +433,22 @@ trait Modules
 
         Cache::forget('installed.' . $company_id . '.module');
 
-        Console::run("module:install {$module->alias} {$company_id} {$locale}");
+        $command = "module:install {$module->alias} {$company_id} {$locale}";
+
+        if (true !== $result = Console::run($command)) {
+            $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $module->alias]);
+
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
-            'redirect' => url('apps/' . $module->alias),
+            'redirect' => route('apps.app.show', $module->alias),
             'error' => false,
             'message' => null,
             'data' => $data,
