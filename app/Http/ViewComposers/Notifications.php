@@ -19,7 +19,7 @@ class Notifications
     public function compose(View $view)
     {
         // No need to add suggestions in console
-        if (app()->runningInConsole() || !env('APP_INSTALLED') || !user()) {
+        if (app()->runningInConsole() || !config('app.installed') || !user()) {
             return;
         }
 

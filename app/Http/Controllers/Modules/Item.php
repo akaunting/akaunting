@@ -84,19 +84,19 @@ class Item extends Controller
         // Download
         $steps[] = [
             'text' => trans('modules.installation.download', ['module' => $name]),
-            'url'  => url('apps/download')
+            'url'  => route('apps.download')
         ];
 
         // Unzip
         $steps[] = [
             'text' => trans('modules.installation.unzip', ['module' => $name]),
-            'url'  => url('apps/unzip')
+            'url'  => route('apps.unzip')
         ];
 
         // Download
         $steps[] = [
             'text' => trans('modules.installation.install', ['module' => $name]),
-            'url'  => url('apps/install')
+            'url'  => route('apps.install')
         ];
 
         return response()->json([

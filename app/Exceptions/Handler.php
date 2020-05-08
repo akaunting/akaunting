@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if (env('APP_DEBUG') === false) {
+        if (config('app.debug') === false) {
             return $this->handleExceptions($request, $exception);
         }
 

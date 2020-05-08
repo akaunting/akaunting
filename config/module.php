@@ -22,7 +22,7 @@ return [
     */
     'stubs' => [
         'enabled' => true,
-        'path' => base_path() . '/app/Console/Stubs/Modules',
+        'path' => base_path('app/Console/Stubs/Modules'),
         'files' => [
             'listeners/install' => 'Listeners/InstallModule.php',
             'providers/event' => 'Providers/Event.php',
@@ -67,7 +67,7 @@ return [
         | automatically to list of scanned folders.
         |
         */
-        'modules' => base_path('modules'),
+        'modules' => base_path(env('MODULE_PATHS_MODULES', 'modules')),
 
         /*
         |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
         | Here you may update the modules assets path.
         |
         */
-        'assets' => public_path('modules'),
+        'assets' => public_path(env('MODULE_PATHS_ASSETS', 'modules')),
 
         /*
         |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
         | the migration files?
         |
         */
-        'migration' => base_path('database/migrations'),
+        'migration' => base_path(env('MODULE_PATHS_MIGRATION', 'database/migrations')),
 
         /*
         |--------------------------------------------------------------------------
