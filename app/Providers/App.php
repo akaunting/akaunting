@@ -31,11 +31,11 @@ class App extends Provider
      */
     public function register()
     {
-        if (env('APP_INSTALLED') && env('APP_DEBUG')) {
+        if (config('app.installed') && config('app.debug')) {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
 
-        if (env('APP_ENV') !== 'production') {
+        if (config('app.env') !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
     }

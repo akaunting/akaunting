@@ -20,7 +20,7 @@ class Suggestions
     public function compose(View $view)
     {
         // No need to add suggestions in console
-        if (app()->runningInConsole() || !env('APP_INSTALLED')) {
+        if (app()->runningInConsole() || !config('app.installed')) {
             return;
         }
 
@@ -31,10 +31,10 @@ class Suggestions
 
             if ($path) {
                 $suggestions = $this->getSuggestions($path);
-    
+
                 if ($suggestions) {
                     $suggestion_modules = $suggestions->modules;
-    
+
                     foreach ($suggestion_modules as $key => $module) {
                         $installed = Module::where('company_id', session('company_id'))->where('alias', $module->alias)->first();
 
