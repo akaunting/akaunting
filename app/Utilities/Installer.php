@@ -309,8 +309,6 @@ class Installer
 
         file_put_contents(base_path('.env'), $env);
 
-        Artisan::call('config:cache');
-
         return true;
     }
 }
