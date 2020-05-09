@@ -29,7 +29,9 @@ class Console
 
     public static function getPhpBinary()
     {
-        return (new PhpExecutableFinder)->find(false) ?? 'php';
+        $bin = (new PhpExecutableFinder)->find(false);
+
+        return !empty($bin) ? $bin : 'php';
     }
 
     public static function getArtisanBinary()
