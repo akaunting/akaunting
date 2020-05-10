@@ -146,7 +146,7 @@
                     </thead>
                     <tbody>
                         @foreach($invoice->items as $item)
-                            @include('partials.documents.item.print')
+                            @include('partials.documents.item.print', ['document' => $invoice])
                         @endforeach
                     </tbody>
                 </table>

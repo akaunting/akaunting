@@ -13,7 +13,7 @@
     @stack('quantity_td_end')
 
     @stack('price_td_start')
-        <td class="col-sm-3 text-right d-none d-sm-block">@money($item->price, $invoice->currency_code, true)</td>
+        <td class="col-sm-3 text-right d-none d-sm-block">@money($item->price, $document->currency_code, true)</td>
     @stack('price_td_end')
 
     @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
@@ -23,6 +23,6 @@
     @endif
 
     @stack('total_td_start')
-        <td class="col-xs-4 col-sm-3 text-right pr-5">@money($item->total, $invoice->currency_code, true)</td>
+        <td class="col-xs-4 col-sm-3 text-right pr-5">@money($item->total, $document->currency_code, true)</td>
     @stack('total_td_end')
 </tr>

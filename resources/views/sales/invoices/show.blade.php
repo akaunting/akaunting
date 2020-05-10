@@ -367,7 +367,7 @@
                                             @stack('total_th_end')
                                         </tr>
                                         @foreach($invoice->items as $item)
-                                            @include('partials.documents.item.show')
+                                            @include('partials.documents.item.show', ['document' => $invoice])
                                         @endforeach
                                     </tbody>
                                 </table>

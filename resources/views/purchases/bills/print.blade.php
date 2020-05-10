@@ -129,7 +129,7 @@
 
                     <tbody>
                         @foreach($bill->items as $item)
-                            @include('partials.documents.item.print')
+                            @include('partials.documents.item.print', ['document' => $bill])
                         @endforeach
                     </tbody>
                 </table>
