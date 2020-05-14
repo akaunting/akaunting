@@ -5,7 +5,7 @@ namespace Modules\OfflinePayments\Listeners;
 use App\Events\Module\Installed as Event;
 use App\Traits\Permissions;
 
-class InstallModule
+class FinishInstallation
 {
     use Permissions;
 

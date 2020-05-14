@@ -4,7 +4,7 @@ namespace Modules\PaypalStandard\Listeners;
 
 use App\Events\Module\PaymentMethodShowing as Event;
 
-class ShowPaymentMethod
+class ShowAsPaymentMethod
 {
     /**
      * Handle the event.

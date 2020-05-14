@@ -5,7 +5,7 @@ namespace $MODULE_NAMESPACE$\$STUDLY_NAME$\Listeners;
 use App\Events\Module\Installed as Event;
 use App\Traits\Permissions;
 
-class InstallModule
+class FinishInstallation
 {
     use Permissions;
 
