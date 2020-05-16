@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Models\Module\Module as Model;
 use App\Models\Module\Module;
 use App\Traits\SiteApi;
 use App\Utilities\Console;
@@ -165,32 +164,27 @@ trait Modules
     {
         $company_id = session('company_id');
 
-        $cache = 'installed.' . $company_id . '.module';
+        $key = 'installed.' . $company_id . '.module';
 
-        $installed = Cache::get($cache);
-
-        if ($installed) {
+        if ($installed = Cache::get($key)) {
             return $installed;
         }
 
         $installed = [];
 
-        $modules = Module::all();
-        $installed_modules = Model::where('company_id', '=', session('company_id'))->pluck('enabled', 'alias')->toArray();
-
-        foreach ($modules as $module) {
-            if (!array_key_exists($module->alias, $installed_modules)) {
-                continue;
+        Module::all()->each(function($module) use (&$installed) {
+            if (!$this->moduleExists($module->alias)) {
+                return;
             }
 
-            $result = $this->getModule($module->alias);
-
-            if ($result) {
-                $installed[] = $result;
+            if (!$result = $this->getModule($module->alias)) {
+                return;
             }
-        }
 
-        Cache::put($cache, $installed, Date::now()->addHour(6));
+            $installed[] = $result;
+        });
+
+        Cache::put($key, $installed, Date::now()->addHour(6));
 
         return $installed;
     }
@@ -526,13 +520,24 @@ trait Modules
 
     public function moduleExists($alias)
     {
-        $status = false;
-
-        if (module($alias) instanceof \Akaunting\Module\Module) {
-            $status = true;
+        if (!module($alias) instanceof \Akaunting\Module\Module) {
+            return false;
         }
 
-        return $status;
+        return true;
+    }
+
+    public function moduleEnabled($alias)
+    {
+        if (!$this->moduleExists($alias)) {
+            return false;
+        }
+
+        if (!Module::alias($alias)->enabled()->first()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function loadSuggestions()
