@@ -70,7 +70,7 @@ class TaxSummary extends Report
         }
     }
 
-    public function setTotals($items, $date_field, $check_type = false, $table = 'default')
+    public function setTotals($items, $date_field, $check_type = false, $table = 'default', $with_tax = true)
     {
         foreach ($items as $item) {
             // Make groups extensible
