@@ -47,33 +47,33 @@ class ProfitLoss extends Report
             case 'cash':
                 // Revenues
                 $revenues = $income_transactions->get();
-                $this->setTotals($revenues, 'paid_at', true, $this->tables['income']);
+                $this->setTotals($revenues, 'paid_at', true, $this->tables['income'], false);
 
                 // Payments
                 $payments = $expense_transactions->get();
-                $this->setTotals($payments, 'paid_at', true, $this->tables['expense']);
+                $this->setTotals($payments, 'paid_at', true, $this->tables['expense'], false);
 
                 break;
             default:
                 // Invoices
                 $invoices = $this->applyFilters(Invoice::accrued(), ['date_field' => 'invoiced_at'])->get();
                 Recurring::reflect($invoices, 'invoiced_at');
-                $this->setTotals($invoices, 'invoiced_at', true, $this->tables['income']);
+                $this->setTotals($invoices, 'invoiced_at', true, $this->tables['income'], false);
 
                 // Revenues
                 $revenues = $income_transactions->isNotDocument()->get();
                 Recurring::reflect($revenues, 'paid_at');
-                $this->setTotals($revenues, 'paid_at', true, $this->tables['income']);
+                $this->setTotals($revenues, 'paid_at', true, $this->tables['income'], false);
 
                 // Bills
                 $bills = $this->applyFilters(Bill::accrued(), ['date_field' => 'billed_at'])->get();
                 Recurring::reflect($bills, 'bill', 'billed_at');
-                $this->setTotals($bills, 'billed_at', true, $this->tables['expense']);
+                $this->setTotals($bills, 'billed_at', true, $this->tables['expense'], false);
 
                 // Payments
                 $payments = $expense_transactions->isNotDocument()->get();
                 Recurring::reflect($payments, 'paid_at');
-                $this->setTotals($payments, 'paid_at', true, $this->tables['expense']);
+                $this->setTotals($payments, 'paid_at', true, $this->tables['expense'], false);
 
                 break;
         }
