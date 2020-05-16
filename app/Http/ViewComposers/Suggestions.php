@@ -39,14 +39,10 @@ class Suggestions
                         $installed = Module::where('company_id', session('company_id'))->where('alias', $module->alias)->first();
 
                         if ($installed) {
-                            unset($suggestion_modules[$key]);
+                            continue;
                         }
-                    }
 
-                    if ($suggestion_modules) {
-                        shuffle($suggestion_modules);
-
-                        $modules[] = $suggestion_modules[0];
+                        $modules[] = $module;
                     }
                 }
             }
