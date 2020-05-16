@@ -263,7 +263,7 @@
                 <div class="modal-body">
                     <el-progress :text-inside="true" :stroke-width="24" :percentage="installation.total" :status="installation.status"></el-progress>
 
-                    <div id="progress-text" v-html="installation.html"></div>
+                    <div id="progress-text" class="mt-3" v-html="installation.html"></div>
                 </div>
             </template>
             <template #card-footer>
