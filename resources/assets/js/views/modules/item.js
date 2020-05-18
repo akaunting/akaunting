@@ -65,12 +65,13 @@ const app = new Vue({
             location = path;
         },
 
-        onGetReviews (path, page) {
-            axios.post(url + '/apps/' + app_slug  + '/reviews', {
+        async onGetReviews(path, page) {
+            let reviews_promise = Promise.resolve(axios.post(url + '/apps/' + app_slug  + '/reviews', {
                 patth: path,
                 page: page
-            })
-            .then(response => {
+            }));
+
+            reviews_promise.then(response => {
                 this.reviews = response.data.html;
             })
             .catch(error => {
@@ -81,17 +82,18 @@ const app = new Vue({
             this.faq = true;
         },
 
-        onInstall(path, name, version) {
+        async onInstall(path, name, version) {
             this.installation.show = true;
             this.installation.total = 0;
             this.installation.path = path;
             this.installation.version = version;
 
-            axios.post(url + '/apps/steps', {
+            let steps_promise = Promise.resolve(axios.post(url + '/apps/steps', {
                 name: name,
                 version: version
-            })
-            .then(response => {
+            }));
+
+            steps_promise.then(response => {
                 if (response.data.error) {
                     this.installation.status = 'exception';
                     this.installation.html = '<div class="text-danger">' + response.data.message + '</div>';
@@ -109,19 +111,20 @@ const app = new Vue({
             });
         },
 
-        next() {
+        async next() {
             let data = this.installation.steps.shift();
 
             if (data) {
-                this.installation.total = (100 - ((this.installation.steps.length / this.installation.steps_total) * 100)).toFixed(0);
+                this.installation.total = parseInt((100 - ((this.installation.steps.length / this.installation.steps_total) * 100)).toFixed(0));
 
                 this.installation.html = '<span class="text-default"><i class="fa fa-spinner fa-spin update-spin"></i> ' + data['text'] + '</span> </br>';
 
-                axios.post(data.url, {
+                let step_promise = Promise.resolve(axios.post(data.url, {
                     version: this.installation.version,
                     path: this.installation.path,
-                })
-                .then(response => {
+                }));
+
+                step_promise.then(response => {
                     if (response.data.error) {
                         this.installation.status = 'exception';
                         this.installation.html = '<div class="text-danger"><i class="fa fa-times update-error"></i> ' + response.data.message + '</div>';
@@ -136,11 +139,9 @@ const app = new Vue({
                     }
 
                     if (!response.data.error && !response.data.redirect) {
-                        let self = this;
-
                         setTimeout(function() {
-                            self.next();
-                        }, 800);
+                            this.next();
+                        }.bind(this), 800);
                     }
 
                     if (response.data.redirect) {
