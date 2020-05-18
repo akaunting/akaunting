@@ -1127,6 +1127,10 @@ export default {
                     this.$emit('new', response.data.data);
 
                     this.change();
+
+                    let documentClasses = document.body.classList;
+
+                    documentClasses.remove("modal-open");
                 }
             })
             .catch(error => {
@@ -1142,6 +1146,10 @@ export default {
             this.add_new.show = false;
             this.add_new.html = null;
             this.add_new_html = null;
+
+            let documentClasses = document.body.classList;
+
+            documentClasses.remove("modal-open");
         },
 
         addModal() {
