@@ -19,7 +19,7 @@
                                         <i class="fa fa-star"></i>
                                     @endfor
                                     @if ($review->rating < 5) 
-                                        @for($i = $review->rating; $i > 1; $i--)
+                                        @for($i = 1; $i <= 5 - $review->rating; $i++)
                                             <i class="far fa-star"></i>
                                         @endfor
                                     @endif
