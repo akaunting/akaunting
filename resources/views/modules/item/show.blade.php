@@ -108,17 +108,72 @@
                          @endif
 
                          <div class="tab-pane fade" id="review">
-                            <div id="reviews" class="clearfix" v-html="reviews">
-                                @if(!$module->reviews)
-                                    <div class="text-center">
-                                        <strong>
-                                            {{ trans('modules.reviews.na') }}
-                                        </strong>
-                                    </div>
-                                @endif
+                            @php 
+                                $reviews = $module->app_reviews;
+                            @endphp
+
+                            <div id="reviews" class="clearfix" v-if="reviews.status" v-html="reviews.html"></div>
+
+                            <div id="reviews" class="clearfix" v-else>
+                                @include('partials.modules.reviews')
                             </div>
 
-                            <div class="card-footer mx--4 mt-4 mb--4">
+                            @php
+                                $review_first_item = count($reviews->data) > 0 ? ($reviews->current_page - 1) * $reviews->per_page + 1 : null;
+                                $review_last_item = count($reviews->data) > 0 ? $review_first_item + count($reviews->data) - 1 : null;
+                            @endphp
+
+                            @if (!empty($review_first_item))
+                                @stack('pagination_start')
+
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <span class="table-text d-lg-block">
+                                            {{ trans('pagination.showing', ['first' => $review_first_item, 'last' => $review_last_item, 'total' => $reviews->total, 'type' => strtolower(trans('modules.tab.reviews'))]) }}
+                                        </span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <ul class="pagination float-right">
+                                            {{-- Previous Page Link --}}
+                                            <li class="page-item disabled" v-if="reviews.pagination.current_page == 1">
+                                                <span class="page-link">&laquo;</span>
+                                            </li>
+                                            <li class="page-item" v-else>
+                                                <button type="button" class="page-link" @click="onReviews(reviews.pagination.current_page - 1)" rel="prev">&laquo;</button>
+                                            </li>
+
+                                            {{-- Pagination Elements --}}
+                                            @for ($page = 1; $page <= $reviews->last_page; $page++)
+                                                <li class="page-item" :class="[{'active': reviews.pagination.current_page == {{ $page }}}]" v-if="reviews.pagination.current_page == {{ $page }}">
+                                                    <span class="page-link">{{ $page }}</span>
+                                                </li>
+                                                <li class="page-item" v-else>
+                                                    <button type="button" class="page-link" @click="onReviews({{ $page }})" data-page="{{ $page }}">{{ $page }}</button>
+                                                </li>
+                                            @endfor
+
+                                            {{-- Next Page Link --}}
+                                            <li class="page-item" v-if="reviews.pagination.last_page != reviews.pagination.current_page">
+                                                <button type="button" class="page-link" @click="onReviews(reviews.pagination.current_page + 1)" rel="next">&raquo;</button>
+                                            </li>
+                                            <li class="page-item disabled" v-else>
+                                                <span class="page-link">&raquo;</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                @stack('pagination_end')
+                            @else
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <small>{{ trans('general.no_records') }}</small>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="card-footer mx--4 mb--4">
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         @if (!empty($module->review_action))

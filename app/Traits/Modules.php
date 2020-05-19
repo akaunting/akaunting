@@ -77,8 +77,10 @@ trait Modules
 
     public function getModuleReviews($alias, $data = [])
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $reviews = Cache::get('apps.' . $alias . '.reviews');
+        $reviews = Cache::get('apps.' . $alias . '.reviews'. $page);
 
         if (!empty($reviews)) {
             return $reviews;
@@ -86,7 +88,7 @@ trait Modules
 
         $reviews = static::getResponseData('GET', 'apps/' . $alias . '/reviews', $data);
 
-        Cache::put('apps.' . $alias . '.reviews', $reviews, Date::now()->addHour());
+        Cache::put('apps.' . $alias . '.reviews' . $page, $reviews, Date::now()->addHour());
 
         return $reviews;
     }

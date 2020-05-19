@@ -32,12 +32,19 @@ const app = new Vue({
     },
 
     mounted() {
-        this.onGetReviews('', 1);
+        this.onReviews(1);
     },
 
     data: function () {
         return {
-            reviews: '',
+            reviews: {
+                status: false,
+                html: '',
+                pagination: {
+                    current_page: 1,
+                    last_page: 1
+                }
+            },
             faq: false,
             installation: {
                 show: false,
@@ -65,14 +72,19 @@ const app = new Vue({
             location = path;
         },
 
-        async onGetReviews(path, page) {
-            let reviews_promise = Promise.resolve(axios.post(url + '/apps/' + app_slug  + '/reviews', {
-                patth: path,
+        async onReviews(page) {
+            let reviews_promise = Promise.resolve(window.axios.post(url + '/apps/' + app_slug  + '/reviews', {
                 page: page
             }));
 
             reviews_promise.then(response => {
-                this.reviews = response.data.html;
+                if (response.data.success) {
+                    this.reviews.status= true;
+                    this.reviews.html = response.data.html;
+
+                    this.reviews.pagination.current_page = page;
+                    this.reviews.pagination.last_page = response.data.data.last_page;
+                }
             })
             .catch(error => {
             });
