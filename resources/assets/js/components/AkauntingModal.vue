@@ -1,42 +1,45 @@
 <template>
     <SlideYUpTransition :duration="animationDuration">
-    <div class="modal fade"
-         @click.self="closeModal"
-         :class="[{'show d-block': show}, {'d-none': !show}]"
-         v-show="show"
-         tabindex="-1"
-         role="dialog"
-         :aria-hidden="!show">
-        <div class="modal-dialog">
-            <slot name="modal-content">
-            <div class="modal-content">
-                <div class="card-header pb-2">
-                    <slot name="card-header">
-                        <h4 class="float-left"> {{ title }} </h4>
-                        <button type="button" class="close" @click="onCancel" aria-hidden="true">&times;</button>
-                    </slot>
-                </div>
-                <slot name="modal-body">
-                    <div class="modal-body" v-html="message">
+        <div class="modal fade"
+            @click.self="closeModal"
+            :class="[{'show d-block': show}, {'d-none': !show}]"
+            v-show="show"
+            tabindex="-1"
+            role="dialog"
+            :aria-hidden="!show">
+            <div class="modal-dialog" :class="modalDialogClass">
+                <slot name="modal-content">
+                    <div class="modal-content">
+                        <div class="card-header pb-2">
+                            <slot name="card-header">
+                                <h4 class="float-left"> {{ title }} </h4>
+
+                                <button type="button" class="close" @click="onCancel" aria-hidden="true">&times;</button>
+                            </slot>
+                        </div>
+
+                        <slot name="modal-body">
+                            <div class="modal-body" v-html="message">
+                            </div>
+                        </slot>
+
+                        <div class="card-footer border-top-0 pt-0">
+                            <slot name="card-footer">
+                                <div class="float-right">
+                                    <button type="button" class="btn btn-outline-secondary" @click="onCancel">
+                                    {{ button_cancel }}
+                                    </button>
+
+                                    <button :disabled="form.loading" type="button" class="btn btn-danger button-submit" @click="onConfirm">
+                                        <div class="aka-loader"></div><span>{{ button_delete }}</span>
+                                    </button>
+                                </div>
+                            </slot>
+                        </div>
                     </div>
                 </slot>
-                <div class="card-footer border-top-0 pt-0">
-                    <slot name="card-footer">
-                        <div class="float-right">
-                            <button type="button" class="btn btn-outline-secondary" @click="onCancel">
-                               {{ button_cancel }}
-                            </button>
-
-                            <button :disabled="form.loading" type="button" class="btn btn-danger button-submit" @click="onConfirm">
-                                <div class="aka-loader"></div><span>{{ button_delete }}</span>
-                            </button>
-                        </div>
-                    </slot>
-                </div>
             </div>
-            </slot>
         </div>
-    </div>
     </SlideYUpTransition>
 </template>
 
@@ -60,6 +63,11 @@ export default {
 
     props: {
         show: Boolean,
+        modalDialogClass: {
+            type: String,
+            default: '',
+            description: "Modal Body size Class"
+        },
         title: {
             type: String,
             default: '',
@@ -144,5 +152,9 @@ export default {
 <style>
     .modal.show {
         background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-md {
+        max-width: 650px;
     }
 </style>
