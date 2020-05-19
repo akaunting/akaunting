@@ -37,8 +37,10 @@ trait Modules
     // Get All Modules
     public function getModules()
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $items = Cache::get('apps.items');
+        $items = Cache::get('apps.items.page.' . $page);
 
         if (!empty($items)) {
             return $items;
@@ -46,7 +48,7 @@ trait Modules
 
         $items = static::getResponseData('GET', 'apps/items');
 
-        Cache::put('apps.items', $items, Date::now()->addHour());
+        Cache::put('apps.items.page.' . $page, $items, Date::now()->addHour());
 
         return $items;
     }
@@ -80,7 +82,7 @@ trait Modules
         $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
 
         // Get data from cache
-        $reviews = Cache::get('apps.' . $alias . '.reviews'. $page);
+        $reviews = Cache::get('apps.' . $alias . '.reviews.page.'. $page);
 
         if (!empty($reviews)) {
             return $reviews;
@@ -88,15 +90,17 @@ trait Modules
 
         $reviews = static::getResponseData('GET', 'apps/' . $alias . '/reviews', $data);
 
-        Cache::put('apps.' . $alias . '.reviews' . $page, $reviews, Date::now()->addHour());
+        Cache::put('apps.' . $alias . '.reviews.page.' . $page, $reviews, Date::now()->addHour());
 
         return $reviews;
     }
 
     public function getCategories()
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $categories = Cache::get('apps.categories');
+        $categories = Cache::get('apps.categories.page.' . $page);
 
         if (!empty($categories)) {
             return $categories;
@@ -104,15 +108,17 @@ trait Modules
 
         $categories = static::getResponseData('GET', 'apps/categories');
 
-        Cache::put('apps.categories', $categories, Date::now()->addHour());
+        Cache::put('apps.categories.page.' . $page, $categories, Date::now()->addHour());
 
         return $categories;
     }
 
     public function getModulesByCategory($alias, $data = [])
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $category = Cache::get('apps.categories.' . $alias);
+        $category = Cache::get('apps.categories.' . $alias . '.page.' . $page);
 
         if (!empty($category)) {
             return $category;
@@ -120,15 +126,17 @@ trait Modules
 
         $category = static::getResponseData('GET', 'apps/categories/' . $alias, $data);
 
-        Cache::put('apps.categories.' . $alias, $category, Date::now()->addHour());
+        Cache::put('apps.categories.' . $alias . '.page.' . $page, $category, Date::now()->addHour());
 
         return $category;
     }
 
     public function getVendors()
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $vendors = Cache::get('apps.vendors');
+        $vendors = Cache::get('apps.vendors.page.' . $page);
 
         if (!empty($vendors)) {
             return $vendors;
@@ -136,15 +144,17 @@ trait Modules
 
         $vendors = static::getResponseData('GET', 'apps/vendors');
 
-        Cache::put('apps.vendors', $vendors, Date::now()->addHour());
+        Cache::put('apps.vendors.page.' . $page, $vendors, Date::now()->addHour());
 
         return $vendors;
     }
 
     public function getModulesByVendor($alias, $data = [])
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $vendor = Cache::get('apps.vendors.' . $alias);
+        $vendor = Cache::get('apps.vendors.' . $alias . '.page.' . $page);
 
         if (!empty($vendor)) {
             return $vendor;
@@ -152,7 +162,7 @@ trait Modules
 
         $vendor = static::getResponseData('GET', 'apps/vendors/' . $alias, $data);
 
-        Cache::put('apps.vendors.' . $alias, $vendor, Date::now()->addHour());
+        Cache::put('apps.vendors.' . $alias . '.page.' . $page, $vendor, Date::now()->addHour());
 
         return $vendor;
     }
@@ -193,8 +203,10 @@ trait Modules
 
     public function getPreSaleModules($data = [])
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $pre_sale = Cache::get('apps.pre_sale');
+        $pre_sale = Cache::get('apps.pre_sale.page.' . $page);
 
         if (!empty($pre_sale)) {
             return $pre_sale;
@@ -202,15 +214,17 @@ trait Modules
 
         $pre_sale = static::getResponseData('GET', 'apps/pre_sale', $data);
 
-        Cache::put('apps.pre_sale', $pre_sale, Date::now()->addHour());
+        Cache::put('apps.pre_sale.page.' . $page, $pre_sale, Date::now()->addHour());
 
         return $pre_sale;
     }
 
     public function getPaidModules($data = [])
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $paid = Cache::get('apps.paid');
+        $paid = Cache::get('apps.paid.page.' . $page);
 
         if (!empty($paid)) {
             return $paid;
@@ -218,15 +232,17 @@ trait Modules
 
         $paid = static::getResponseData('GET', 'apps/paid', $data);
 
-        Cache::put('apps.paid', $paid, Date::now()->addHour());
+        Cache::put('apps.paid.page.' . $page, $paid, Date::now()->addHour());
 
         return $paid;
     }
 
     public function getNewModules($data = [])
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $new = Cache::get('apps.new');
+        $new = Cache::get('apps.new.page.' . $page);
 
         if (!empty($new)) {
             return $new;
@@ -234,15 +250,17 @@ trait Modules
 
         $new = static::getResponseData('GET', 'apps/new', $data);
 
-        Cache::put('apps.new', $new, Date::now()->addHour());
+        Cache::put('apps.new.page.' . $page, $new, Date::now()->addHour());
 
         return $new;
     }
 
     public function getFreeModules($data = [])
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $free = Cache::get('apps.free');
+        $free = Cache::get('apps.free.page.' . $page);
 
         if (!empty($free)) {
             return $free;
@@ -250,15 +268,17 @@ trait Modules
 
         $free = static::getResponseData('GET', 'apps/free', $data);
 
-        Cache::put('apps.free', $free, Date::now()->addHour());
+        Cache::put('apps.free.page.' . $page, $free, Date::now()->addHour());
 
         return $free;
     }
 
     public function getFeaturedModules($data = [])
     {
+        $page = isset($data['query']['page']) ? $data['query']['page'] : 1;
+
         // Get data from cache
-        $featured = Cache::get('apps.featured');
+        $featured = Cache::get('apps.featured.page.' . $page);
 
         if (!empty($featured)) {
             return $featured;
@@ -266,7 +286,7 @@ trait Modules
 
         $featured = static::getResponseData('GET', 'apps/featured', $data);
 
-        Cache::put('apps.featured', $featured, Date::now()->addHour());
+        Cache::put('apps.featured.page.' . $page, $featured, Date::now()->addHour());
 
         return $featured;
     }
