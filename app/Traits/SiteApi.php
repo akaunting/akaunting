@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Utilities\Info;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -21,6 +22,7 @@ trait SiteApi
             'Referer'       => app()->runningInConsole() ? config('app.url') : url('/'),
             'Akaunting'     => version('short'),
             'Language'      => language()->getShortCode(),
+            'Information'   => json_encode(Info::all()),
         ];
 
         $data = array_merge([
