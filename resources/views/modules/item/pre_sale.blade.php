@@ -137,7 +137,7 @@
     </div>
 
     @if ($module->purchase_faq)
-        <akaunting-modal :show="faq.show">
+        <akaunting-modal :show="faq" modal-dialog-class="modal-md">
             <template #modal-content>
                 {!! $module->purchase_faq !!}
             </template>
