@@ -176,7 +176,7 @@ trait Modules
     {
         $company_id = session('company_id');
 
-        $key = 'installed.' . $company_id . '.module';
+        $key = 'apps.installed.' . $company_id . '.app';
 
         if ($installed = Cache::get($key)) {
             return $installed;
