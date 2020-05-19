@@ -11,6 +11,8 @@ class Console
     {
         $command = static::formatCommandString($string);
 
+        logger('Console command:: ' . $command);
+
         $process = Process::fromShellCommandline($command, base_path());
         $process->setTimeout($timeout);
 
@@ -22,7 +24,7 @@ class Console
 
         $output = $all_output ? $process->getOutput() : $process->getErrorOutput();
 
-        logger($output);
+        logger('Console output:: ' . $output);
 
         return $output;
     }
