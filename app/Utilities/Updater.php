@@ -8,7 +8,6 @@ use App\Events\Install\UpdateUnzipped;
 use App\Models\Module\Module;
 use App\Utilities\Console;
 use App\Traits\SiteApi;
-use App\Traits\Modules;
 use Cache;
 use Date;
 use File;
@@ -17,13 +16,15 @@ use ZipArchive;
 
 class Updater
 {
-    use Modules, SiteApi;
+    use SiteApi;
 
     public static function clear()
     {
         Cache::forget('updates');
         Cache::forget('versions');
-        $this->clearModulesCache();
+        Cache::forget('apps.notifications');
+        Cache::forget('apps.suggestions');
+        Cache::forget('apps.installed.' . session('company_id'));
 
         return true;
     }
