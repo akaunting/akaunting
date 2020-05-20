@@ -123,8 +123,6 @@ abstract class BulkAction
         foreach ($items as $item) {
             $item->delete();
         }
-
-        Artisan::call('cache:clear');
     }
 
     public function disableContacts($request)

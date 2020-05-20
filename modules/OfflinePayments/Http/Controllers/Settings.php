@@ -3,8 +3,8 @@
 namespace Modules\OfflinePayments\Http\Controllers;
 
 use App\Abstracts\Http\Controller;
-use Artisan;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Modules\OfflinePayments\Http\Requests\Setting as Request;
 use Modules\OfflinePayments\Http\Requests\SettingGet as GRequest;
 use Modules\OfflinePayments\Http\Requests\SettingDelete as DRequest;
@@ -68,7 +68,9 @@ class Settings extends Controller
 
         setting()->save();
 
-        Artisan::call('cache:clear');
+        if (config('setting.cache.enabled')) {
+            Cache::forget(setting()->getCacheKey());
+        }
 
         $response = [
             'status' => null,
@@ -152,7 +154,9 @@ class Settings extends Controller
 
         setting()->save();
 
-        Artisan::call('cache:clear');
+        if (config('setting.cache.enabled')) {
+            Cache::forget(setting()->getCacheKey());
+        }
 
         $message = trans('messages.success.deleted', ['type' => $remove['name']]);
 

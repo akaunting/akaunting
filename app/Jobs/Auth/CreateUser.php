@@ -52,8 +52,6 @@ class CreateUser extends Job
             $user->companies()->attach($this->request->get('companies'));
         }
 
-        Artisan::call('cache:clear');
-
         // Add User Dashboard
         if (!empty($user->companies)) {
             foreach ($user->companies as $company) {
@@ -63,8 +61,6 @@ class CreateUser extends Job
                 ]);
             }
         }
-
-        Artisan::call('cache:clear');
 
         return $user;
     }

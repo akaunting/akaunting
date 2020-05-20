@@ -4,7 +4,6 @@ namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
 use App\Models\Auth\Role;
-use Artisan;
 
 class CreateRole extends Job
 {
@@ -32,8 +31,6 @@ class CreateRole extends Job
         if ($this->request->has('permissions')) {
             $role->permissions()->attach($this->request->get('permissions'));
         }
-
-        Artisan::call('cache:clear');
 
         return $role;
     }

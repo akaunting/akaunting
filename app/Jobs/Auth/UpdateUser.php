@@ -4,7 +4,6 @@ namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
 use App\Models\Auth\User;
-use Artisan;
 
 class UpdateUser extends Job
 {
@@ -57,8 +56,6 @@ class UpdateUser extends Job
         if ($this->request->has('companies')) {
             $this->user->companies()->sync($this->request->get('companies'));
         }
-
-        Artisan::call('cache:clear');
 
         return $this->user;
     }
