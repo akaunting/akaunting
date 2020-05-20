@@ -47,38 +47,33 @@ class Dashboards extends Controller
      *
      * @return Response
      */
-    public function show(Dashboard $dashboard)
+    public function show($dashboard_id = null)
     {
-        $dashboard_id = session('dashboard_id', 0);
+        $dashboard_id = $dashboard_id ?? session('dashboard_id');
 
-        if (!empty($dashboard->id)) {
-            $dashboard_id = $dashboard->id;
+        if (empty($dashboard_id)) {
+            $dashboard_id = user()->dashboards()->enabled()->pluck('id')->first();
         }
 
-        // Change Dashboard
-        if (request()->get('dashboard_id', 0)) {
-            $dashboard_id = request()->get('dashboard_id');
-
-            session(['dashboard_id' => $dashboard_id]);
+        if (!empty($dashboard_id)) {
+            $dashboard = Dashboard::find($dashboard_id);
         }
 
-        $dashboards = user()->dashboards()->enabled()->get();
-
-        if (!$dashboard_id) {
-            $dashboard_id = $dashboards->pluck('id')->first();
+        if (empty($dashboard)) {
+            $dashboard = $this->dispatch(new CreateDashboard([
+                'company_id' => session('company_id'),
+                'name' => trans_choice('general.dashboards', 1),
+                'with_widgets' => true,
+            ]));
         }
 
-        // Dashboard
-        $dashboard = Dashboard::find($dashboard_id);
-
-        // Widgets
         $widgets = Widget::where('dashboard_id', $dashboard->id)->orderBy('sort', 'asc')->get()->filter(function ($widget) {
             return Widgets::canRead($widget->class);
         });
 
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
-        return view('common.dashboards.show', compact('dashboards', 'dashboard', 'widgets', 'financial_start'));
+        return view('common.dashboards.show', compact('dashboard', 'widgets', 'financial_start'));
     }
 
     /**
