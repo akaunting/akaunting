@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'سود خالص',
     'total_expenses'        => 'هزینه های کل',
     'net'                   => 'خالص',
+    'income_expense'        => 'Income & Expense',
 
     'summary' => [
         'income'            => 'خلاصه درآمد',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'خلاصه مالیات',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Oct-Dec',
+    'charts' => [
+        'line'              => 'خطی',
+        'bar'               => 'میله‌ای',
+        'pie'               => 'کیکی',
     ],
 
 ];

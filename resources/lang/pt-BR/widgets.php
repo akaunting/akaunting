@@ -2,11 +2,11 @@
 
 return [
 
-    'total_income'              => 'Rendimentos totais',
+    'total_income'              => 'Receitas totais',
     'receivables'               => 'Recebíveis',
     'open_invoices'             => 'Faturas em aberto',
     'overdue_invoices'          => 'Faturas vencidas',
-    'total_expenses'            => 'Total Despesas',
+    'total_expenses'            => 'Despesas Totais',
     'payables'                  => 'Pagamentos',
     'open_bills'                => 'Contas em Aberto',
     'overdue_bills'             => 'Contas Vencidas',
@@ -18,6 +18,6 @@ return [
     'income_by_category'        => 'Resultados por Categoria',
     'expenses_by_category'      => 'Despesas por Categoria',
     'account_balance'           => 'Saldo da Conta',
-    'latest_income'             => 'Últimos Rendimentos',
+    'latest_income'             => 'Últimas Receitas',
     'latest_expenses'           => 'Últimas Despesas',
 ];

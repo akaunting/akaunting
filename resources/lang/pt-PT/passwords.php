@@ -13,11 +13,11 @@ return [
     |
     */
 
-    'password' => 'A senha deve conter no mínimo 6 caracteres e ser igual à confirmação.',
-    'reset' => 'A senha foi redefinida!',
-    'sent' => 'O link para redefinição de senha foi enviado para o seu e-mail!',
-    'token' => 'Token para recuperação de senha inválido.',
+    'password' => 'A password necessita conter, pelo menos, 6 caracteres e corresponder à sua confirmacao.',
+    'reset' => 'A sua password foi redefinida!',
+    'sent' => 'Enviámos um e-mail com o link para redefinir a sua password!',
+    'token' => 'Token para recuperação da password inválido.',
     'user' => "Não encontramos nenhum utilizador com esse endereço de e-mail.",
-    'throttle' => 'Please wait before retrying.',
+    'throttle' => 'Por favor, aguarde antes de tentar novamente.',
 
 ];

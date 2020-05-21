@@ -9,7 +9,6 @@ return [
     'new'                   => 'Novo',
     'top_free'              => 'Melhores Grátis',
     'free'                  => 'Gratis',
-    'search'                => 'Pesquisa',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar Agora',
     'get_api_key'           => '<a href=":url" target="_blank">Clique aqui</a> para obter sua chave de API.',

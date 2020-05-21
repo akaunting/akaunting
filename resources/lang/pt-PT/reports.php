@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Lucro Líquido',
     'total_expenses'        => 'Despesas Totais',
     'net'                   => 'Líquido',
-    'income_expense'        => 'Income & Expense',
+    'income_expense'        => 'Receita & Despesa',
 
     'summary' => [
         'income'            => 'Resumo das Receitas',
@@ -22,9 +22,9 @@ return [
     ],
 
     'charts' => [
-        'line'              => 'Line',
-        'bar'               => 'Bar',
-        'pie'               => 'Pie',
+        'line'              => 'Linha',
+        'bar'               => 'Barras',
+        'pie'               => 'Circular',
     ],
 
 ];
