@@ -6,7 +6,7 @@ return [
     'reconciled'            => 'Reconciliado',
     'closing_balance'       => 'Balanço Final',
     'unreconciled'          => 'Não Reconciliado',
-    'transactions'          => 'Transactions',
+    'transactions'          => 'Transações',
     'start_date'            => 'Data Inicial',
     'end_date'              => 'Data Final',
     'cleared_amount'        => 'Montante Apurado',

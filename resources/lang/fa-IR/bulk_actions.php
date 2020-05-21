@@ -2,12 +2,12 @@
 
 return [
 
-    'bulk_actions'      => 'Ação em massa|Ações em massa',
-    'selected'          => 'selecionado',
+    'bulk_actions'      => 'Bulk Action|Bulk Actions',
+    'selected'          => 'انتخاب شده',
     'no_action'         => 'No action available',
 
     'message' => [
-        'duplicate'     => 'Tem a certeza de que pretende <b>duplicar</b> o(s) registo(s) selecionado(s)?',
+        'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',
         'delete'        => 'Are you sure you want to <b>delete</b> selected record?|Are you sure you want to <b>delete</b> selected records?',
         'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
         'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',

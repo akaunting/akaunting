@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature precisa estar desativada!',
         'extension'         => ':extensão extensão precisa estar instalada e carregada!',
         'directory'         => 'O diretório :directory precisa de permissão para escrita!',
+        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [

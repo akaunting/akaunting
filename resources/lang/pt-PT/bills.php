@@ -13,6 +13,7 @@ return [
     'price'                 => 'Preço',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Desconto',
+    'item_discount'         => 'Line Discount',
     'tax_total'             => 'Imposto',
     'total'                 => 'Total',
 
@@ -30,6 +31,7 @@ return [
     'add_payment'           => 'Pagar Conta',
     'mark_paid'             => 'Mark Paid',
     'mark_received'         => 'Marcar como Recebida',
+    'mark_cancelled'        => 'Mark Cancelled',
     'download_pdf'          => 'Transferir em PDF',
     'send_mail'             => 'Enviar e-mail',
     'create_bill'           => 'Criar Conta',
@@ -43,11 +45,13 @@ return [
         'paid'              => 'Paga',
         'overdue'           => 'Vencida',
         'unpaid'            => 'Por Pagar',
+        'cancelled'         => 'Cancelled',
     ],
 
     'messages' => [
-        'received'          => 'Conta marcada como recebida com sucesso!',
+        'marked_received'   => 'Bill marked as received!',
         'marked_paid'       => 'Bill marked as paid!',
+        'marked_cancelled'  => 'Bill marked as cancelled!',
         'draft'             => 'Isto é um <b>RASCUNHO</b> da conta e será refletida nos gráficos depois de recebida.',
 
         'status' => [

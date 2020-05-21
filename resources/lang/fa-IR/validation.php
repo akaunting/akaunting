@@ -33,16 +33,17 @@ return [
     'confirmed'            => ':attribute با فیلد تکرار مطابقت ندارد.',
     'date'                 => ':attribute یک تاریخ معتبر نیست.',
     'date_format'          => ':attribute با الگوی :format مطاقبت ندارد.',
-    'different'            => ':attribute و :other باید متفاوت باشند.',
+    'different'            => ':attribute و :other باید از یکدیگر متفاوت باشند.',
     'digits'               => ':attribute باید :digits رقم باشد.',
     'digits_between'       => ':attribute باید بین :min و :max رقم باشد.',
     'dimensions'           => 'ابعاد تصویر :attribute قابل قبول نیست.',
     'distinct'             => 'فیلد :attribute تکراری است.',
-    'email'                => ':attribute باید یک ایمیل معتبر باشد',
+    'email'                => ':attribute باید یک ایمیل معتبر باشد.',
+    'ends_with'            => 'فیلد :attribute باید با یکی از مقادیر زیر خاتمه یابد: :values',
     'exists'               => ':attribute انتخاب شده، معتبر نیست.',
-    'file'                 => ':attribute باید یک فایل باشد',
-    'filled'               => 'فیلد :attribute الزامی است',
-    'image'                => ':attribute باید تصویر باشد.',
+    'file'                 => ':attribute باید یک فایل معتبر باشد.',
+    'filled'               => 'فیلد :attribute باید مقدار داشته باشد.',
+    'image'                => ':attribute باید یک تصویر معتبر باشد.',
     'in'                   => ':attribute انتخاب شده، معتبر نیست.',
     'in_array'             => 'فیلد :attribute در :other وجود ندارد.',
     'integer'              => ':attribute باید عدد صحیح باشد.',
@@ -65,8 +66,8 @@ return [
     'not_in'               => ':attribute انتخاب شده، معتبر نیست.',
     'numeric'              => ':attribute باید عدد باشد.',
     'present'              => 'فیلد :attribute باید در پارامترهای ارسالی وجود داشته باشد.',
-    'regex'                => 'فرمت :attribute معتبر نیست',
-    'required'             => 'فیلد :attribute الزامی است',
+    'regex'                => 'فرمت :attribute معتبر نیست.',
+    'required'             => 'فیلد :attribute الزامی است.',
     'required_if'          => 'هنگامی که :other برابر با :value است، فیلد :attribute الزامی است.',
     'required_unless'      => 'فیلد :attribute ضروری است، مگر آنکه :other در :values موجود باشد.',
     'required_with'        => 'در صورت وجود فیلد :values، فیلد :attribute الزامی است.',
@@ -80,11 +81,11 @@ return [
         'string'  => ':attribute باید برابر با :size کاراکتر باشد.',
         'array'   => ':attribute باسد شامل :size آیتم باشد.',
     ],
-    'string'               => 'فیلد :attribute باید متن باشد.',
+    'string'               => 'فیلد :attribute باید رشته باشد.',
     'timezone'             => 'فیلد :attribute باید یک منطقه زمانی قابل قبول باشد.',
     'unique'               => ':attribute قبلا انتخاب شده است.',
-    'uploaded'             => 'آپلود فایل :attribute موفقیت آمیز نبود.',
-    'url'                  => 'فرمت آدرس :attribute اشتباه است.',
+    'uploaded'             => 'بارگذاری فایل :attribute موفقیت آمیز نبود.',
+    'url'                  => ':attribute معتبر نمی‌باشد.',
 
     /*
     |--------------------------------------------------------------------------
@@ -99,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name'             => 'custom-message',
         ],
-        'invalid_currency' => 'فرمت آدرس :attribute اشتباه است.',
-        'invalid_amount'   => ':attribute وارد شده، معتبر نیست.',
+        'invalid_currency'      => 'فرمت آدرس :attribute اشتباه است.',
+        'invalid_amount'        => ':attribute وارد شده، معتبر نیست.',
+        'invalid_extension'     => 'The file extension is invalid.',
     ],
 
     /*
