@@ -67,10 +67,6 @@ class Modules
     {
         Cache::forget(static::getPaymentMethodsCacheKey('admin'));
         Cache::forget(static::getPaymentMethodsCacheKey('customer'));
-
-        if (config('setting.cache.enabled')) {
-            Cache::forget(setting()->getCacheKey());
-        }
     }
 
     public static function getPaymentMethodsCacheKey($type)
