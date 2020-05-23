@@ -40,6 +40,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "6.1.*",
+        "league/omnipay": "3.0.*",
         "lorisleiva/laravel-search-string": "0.1.*",
         "maatwebsite/excel": "3.1.*",
         "misterphilip/maintenance-mode": "2.0.*",
