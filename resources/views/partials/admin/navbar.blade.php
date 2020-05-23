@@ -2,6 +2,8 @@
 <nav class="navbar navbar-top navbar-expand navbar-dark border-bottom">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            @stack('navbar_search')
+
             @permission('read-common-search')
                 <form class="navbar-search navbar-search-light form-inline mb-0" id="navbar-search-main" autocomplete="off">
                     <div id="global-search" class="form-group mb-0 mr-sm-3">
@@ -37,21 +39,7 @@
             @endpermission
 
             <ul class="navbar-nav align-items-center ml-md-auto">
-                <li class="nav-item d-xl-none">
-                    <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
-                        <div class="sidenav-toggler-inner">
-                            <i class="sidenav-toggler-line"></i>
-                            <i class="sidenav-toggler-line"></i>
-                            <i class="sidenav-toggler-line"></i>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="nav-item d-sm-none">
-                    <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </li>
+                @stack('navbar_create')
 
                 @permission(['create-sales-invoices', 'create-sales-revenues', 'create-sales-invoices', 'create-purchases-bills', 'create-purchases-payments', 'create-purchases-vendors'])
                     <li class="nav-item dropdown">
@@ -60,6 +48,8 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark dropdown-menu-right">
                             <div class="row shortcuts px-4">
+                                @stack('navbar_create_invoice')
+
                                 @permission('create-sales-invoices')
                                     <a href="{{ route('invoices.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
@@ -68,6 +58,8 @@
                                         <small class="text-info">{{ trans_choice('general.invoices', 1) }}</small>
                                     </a>
                                 @endpermission
+
+                                @stack('navbar_create_revenue')
 
                                 @permission('create-sales-revenues')
                                     <a href="{{ route('revenues.create') }}" class="col-4 shortcut-item">
@@ -78,6 +70,8 @@
                                     </a>
                                 @endpermission
 
+                                @stack('navbar_create_customer')
+
                                 @permission('create-sales-customers')
                                     <a href="{{ route('customers.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
@@ -86,6 +80,8 @@
                                         <small class="text-info">{{ trans_choice('general.customers', 1) }}</small>
                                     </a>
                                 @endpermission
+
+                                @stack('navbar_create_bill')
 
                                 @permission('create-purchases-bills')
                                     <a href="{{ route('bills.create') }}" class="col-4 shortcut-item">
@@ -96,6 +92,8 @@
                                     </a>
                                 @endpermission
 
+                                @stack('navbar_create_payment')
+
                                 @permission('create-purchases-payments')
                                     <a href="{{ route('payments.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
@@ -105,6 +103,8 @@
                                     </a>
                                 @endpermission
 
+                                @stack('navbar_create_vendor_start')
+
                                 @permission('create-purchases-vendors')
                                     <a href="{{ route('vendors.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
@@ -113,10 +113,14 @@
                                         <small class="text-danger">{{ trans_choice('general.vendors', 1) }}</small>
                                     </a>
                                 @endpermission
+
+                                @stack('navbar_create_vendor_end')
                             </div>
                         </div>
                     </li>
-                @endif
+                @endpermission
+
+                @stack('navbar_notifications')
 
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -175,6 +179,8 @@
                     </div>
                 </li>
 
+                @stack('navbar_updates')
+
                 @permission('read-install-updates')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('updates.index') }}" title="{{ $updates }} Updates Available" role="button" aria-haspopup="true" aria-expanded="false">
@@ -188,12 +194,18 @@
                     </li>
                 @endpermission
 
+                @stack('navbar_help_start')
+
                 <li class="nav-item d-none d-md-block">
                     <a class="nav-link" href="{{ url(trans('header.support_link')) }}" target="_blank" title="{{ trans('general.help') }}" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-life-ring"></i>
                     </a>
                 </li>
+
+                @stack('navbar_help_end')
             </ul>
+
+            @stack('navbar_profile')
 
             <ul class="navbar-nav align-items-center ml-auto ml-md-0">
                 <li class="nav-item dropdown">
@@ -209,40 +221,66 @@
                             </div>
                         </div>
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-right">
+                        @stack('navbar_profile_welcome')
+
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">{{ trans('general.welcome') }}</h6>
                         </div>
+
+                        @stack('navbar_profile_edit')
+
                         @permission('update-auth-users')
                             <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">
                                 <i class="fas fa-user"></i>
                                 <span>{{ trans('auth.profile') }}</span>
                             </a>
                         @endpermission
-                        @permission('read-auth-users')
+
+                        @permission(['read-auth-users', 'read-auth-roles', 'read-auth-permissions'])
                             <div class="dropdown-divider"></div>
-                            <a href="{{ route('users.index') }}" class="dropdown-item">
-                                <i class="fas fa-users"></i>
-                                <span>{{ trans_choice('general.users', 2) }}</span>
-                            </a>
+
+                            @stack('navbar_profile_users')
+
+                            @permission('read-auth-users')
+                                <a href="{{ route('users.index') }}" class="dropdown-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>{{ trans_choice('general.users', 2) }}</span>
+                                </a>
+                            @endpermission
+
+                            @stack('navbar_profile_roles')
+
+                            @permission('read-auth-roles')
+                                <a href="{{ route('roles.index') }}" class="dropdown-item">
+                                    <i class="fas fa-list"></i>
+                                    <span>{{ trans_choice('general.roles', 2) }}</span>
+                                </a>
+                            @endpermission
+
+                            @stack('navbar_profile_permissions_start')
+
+                            @permission('read-auth-permissions')
+                                <a href="{{ route('permissions.index') }}" class="dropdown-item">
+                                    <i class="fas fa-key"></i>
+                                    <span>{{ trans_choice('general.permissions', 2) }}</span>
+                                </a>
+                            @endpermission
+
+                            @stack('navbar_profile_permissions_end')
                         @endpermission
-                        @permission('read-auth-roles')
-                            <a href="{{ route('roles.index') }}" class="dropdown-item">
-                                <i class="fas fa-list"></i>
-                                <span>{{ trans_choice('general.roles', 2) }}</span>
-                            </a>
-                        @endpermission
-                        @permission('read-auth-permissions')
-                            <a href="{{ route('permissions.index') }}" class="dropdown-item">
-                                <i class="fas fa-key"></i>
-                                <span>{{ trans_choice('general.permissions', 2) }}</span>
-                            </a>
-                        @endpermission
+
                         <div class="dropdown-divider"></div>
+
+                        @stack('navbar_profile_logout_start')
+
                         <a href="{{ route('logout') }}" class="dropdown-item">
                             <i class="fas fa-power-off"></i>
                             <span>{{ trans('auth.logout') }}</span>
                         </a>
+
+                        @stack('navbar_profile_logout_end')
                     </div>
                 </li>
             </ul>
