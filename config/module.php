@@ -24,7 +24,7 @@ return [
         'enabled' => true,
         'path' => base_path('app/Console/Stubs/Modules'),
         'files' => [
-            'listeners/install' => 'Listeners/InstallModule.php',
+            'listeners/install' => 'Listeners/FinishInstallation.php',
             'providers/event' => 'Providers/Event.php',
             'routes/admin' => 'Routes/admin.php',
             'routes/portal' => 'Routes/portal.php',
