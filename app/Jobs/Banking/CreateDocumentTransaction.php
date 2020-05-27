@@ -114,7 +114,7 @@ class CreateDocumentTransaction extends Job
         }
 
         $amount_check = (int) ($amount * $multiplier);
-        $total_amount_check = (int) (round($total_amount, $this->currency->precision) * $multiplier);
+        $total_amount_check = (int) ($total_amount * $multiplier);
 
         if ($amount_check > $total_amount_check) {
             $error_amount = $total_amount;
