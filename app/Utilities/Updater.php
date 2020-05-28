@@ -164,7 +164,17 @@ class Updater
         $versions = Versions::all($modules);
 
         foreach ($versions as $alias => $latest_version) {
-            $installed_version = ($alias == 'core') ? version('short') : module($alias)->get('version');
+            if ($alias == 'core') {
+                $installed_version = version('short');
+            } else {
+                $module = module($alias);
+
+                if (!$module instanceof \Akaunting\Module\Module) {
+                    continue;
+                }
+
+                $installed_version = $module->get('version');
+            }
 
             if (version_compare($installed_version, $latest_version, '>=')) {
                 continue;
