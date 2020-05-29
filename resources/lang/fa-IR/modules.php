@@ -2,20 +2,18 @@
 
 return [
 
-    'title'                 => 'API Token',
-    'api_token'             => 'Token',
+    'api_key'               => 'API Key',
     'my_apps'               => 'برنامه‌های من',
+    'pre_sale'              => 'پیش فروش',
     'top_paid'              => 'بهترین غیر رایگان',
     'new'                   => 'جدید',
     'top_free'              => 'بهترین رایگان',
     'free'                  => 'رایگان',
-    'search'                => 'جستجو',
     'install'               => 'نصب',
     'buy_now'               => 'خرید',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">دریافت Token</a>.',
+    'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
     'no_apps'               => 'در این بخش هیچ نرم افزاری وجود ندارد.',
-    'developer'             => 'آیا شما یک توسعه دهنده هستید؟<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">با مراجعه به سایت فروشگاهی می توانید نرم افزار های خود را بسیازید و بفروشید.</a>',
-
+    'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
     'recommended_apps'      => 'برنامه‌های توصیه شده',
 
     'about'                 => 'درباره ما',
@@ -37,30 +35,30 @@ return [
         'installation'      => 'نصب',
         'faq'               => 'سوالات متداول',
         'changelog'         => 'تغییرات',
-        'reviews'            => 'نظرات',
+        'reviews'           => 'نظرات',
     ],
 
     'installation' => [
         'header'            => 'محل نصب نرم افزار',
-        'download'          => 'دریافت فایل :module',
-        'unzip'             => 'استخراج فایل :module.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
-        'install'           => 'نصب فایل های :module .',
+        'download'          => 'Downloading :module',
+        'unzip'             => 'Extracting :module files',
+        'file_copy'         => 'Copying :module files',
+        'finish'            => 'Finalizing :module installation',
+        'redirect'          => ':module installed, redirecting to updates page',
+        'install'           => 'Installing :module',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download'          => 'Not able to download :module',
+        'zip'               => 'Not able to create :module zip file',
+        'unzip'             => 'Not able to unzip :module',
+        'file_copy'         => 'Not able to copy :module files',
+        'finish'            => 'Not able to finalize :module installation',
     ],
 
     'badge' => [
-        'installed' => 'نصب شده',
+        'installed'         => 'نصب شده',
+        'pre_sale'          => 'پیش فروش',
     ],
 
     'button' => [
@@ -70,14 +68,16 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'خریداری شد',
-        'installed' => 'نصب شده',
+        'purchased'         => 'خریداری شد',
+        'installed'         => 'نصب شده',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'اضافه کردن نظر'
+            'add'           => 'اضافه کردن نظر'
         ],
-        'na' => 'هیچ بررسی وجود دارد.'
-    ]
+
+        'na'                => 'هیچ بررسی وجود دارد.'
+    ],
+
 ];

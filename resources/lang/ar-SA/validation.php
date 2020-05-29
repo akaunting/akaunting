@@ -104,7 +104,7 @@ return [
         ],
         'invalid_currency'      => 'رمز خانة :attribute غير صحيحة.',
         'invalid_amount'        => 'خانة المبلغ :attribute غير صالحة.',
-        'invalid_extension'     => 'The file extension is invalid.',
+        'invalid_extension'     => 'هذا الملف غير صالح.',
     ],
 
     /*

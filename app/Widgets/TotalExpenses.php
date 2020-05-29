@@ -18,7 +18,7 @@ class TotalExpenses extends Widget
     {
         $current = $open = $overdue = 0;
 
-        $this->applyFilters(Transaction::type('expense')->isNotTransfer())->each(function ($transaction) use (&$current) {
+        $this->applyFilters(Transaction::expense()->isNotTransfer())->each(function ($transaction) use (&$current) {
             $current += $transaction->getAmountConvertedToDefault();
         });
 

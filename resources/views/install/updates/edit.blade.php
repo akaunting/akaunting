@@ -16,7 +16,7 @@
             <p>
                 <el-progress :text-inside="true" :stroke-width="24" :percentage="update.total" :status="update.status"></el-progress>
 
-                <div id="progress-text" v-html="update.html"></div>
+                <div id="progress-text" class="mt-3" v-html="update.html"></div>
 
                 {{ Form::hidden('page', 'update', ['id' => 'page']) }}
                 {{ Form::hidden('name', $name, ['id' => 'name']) }}

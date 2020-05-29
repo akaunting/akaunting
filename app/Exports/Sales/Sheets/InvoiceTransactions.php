@@ -9,7 +9,7 @@ class InvoiceTransactions extends Export
 {
     public function collection()
     {
-        $model = Model::with(['account', 'category', 'contact', 'invoice'])->type('income')->isDocument()->usingSearchString(request('search'));
+        $model = Model::with(['account', 'category', 'contact', 'invoice'])->income()->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('document_id', (array) $this->ids);

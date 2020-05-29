@@ -24,11 +24,11 @@ return [
     ],
 
     'reports' => [
-        'income'            => 'Monthly income summary by category.',
-        'expense'           => 'Monthly expense summary by category.',
-        'income_expense'    => 'Monthly income vs expense by category.',
-        'tax'               => 'Quarterly tax summary.',
-        'profit_loss'       => 'Quarterly profit & loss by category.',
+        'income'            => 'Resumo mensal de receitas por categoria',
+        'expense'           => 'Resumo mensal de despesas por categoria.',
+        'income_expense'    => 'Receitas vs despesas mensais por categoria.',
+        'tax'               => 'Resumo trimestral de impostos.',
+        'profit_loss'       => 'Lucro & perda trimestral por categoria.',
     ],
 
 ];

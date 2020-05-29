@@ -6,6 +6,7 @@ use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
 use App\Traits\Permissions;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -60,7 +61,9 @@ class InstallCommand extends Command
             'description' => trans('modules.installed', ['module' => $alias]),
         ]);
 
-        $this->call('cache:clear');
+        if (config('module.cache.enabled')) {
+            Cache::forget(config('module.cache.key'));
+        }
 
         // Disable model cache during installation
         config(['laravel-model-caching.enabled' => false]);

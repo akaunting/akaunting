@@ -79,8 +79,6 @@ class CreateDocumentTransaction extends Job
     {
         $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
 
-        $total_amount = $this->model->amount;
-
         $default_amount = (double) $this->request['amount'];
 
         if ($this->model->currency_code == $this->request['currency_code']) {
@@ -103,7 +101,7 @@ class CreateDocumentTransaction extends Job
             $amount = (double) $convert_amount_model->getAmountConvertedFromDefault();
         }
 
-        $total_amount -= $this->model->paid;
+        $total_amount = $this->model->amount - $this->model->paid;
         unset($this->model->reconciled);
 
         // For amount cover integer
@@ -114,7 +112,7 @@ class CreateDocumentTransaction extends Job
         }
 
         $amount_check = (int) ($amount * $multiplier);
-        $total_amount_check = (int) (round($total_amount, $this->currency->precision) * $multiplier);
+        $total_amount_check = (int) ($total_amount * $multiplier);
 
         if ($amount_check > $total_amount_check) {
             $error_amount = $total_amount;

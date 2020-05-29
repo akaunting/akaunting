@@ -183,8 +183,8 @@ class Installer
             'database'  => $database,
             'username'  => $username,
             'password'  => $password,
-            'driver'    => env('DB_CONNECTION', 'mysql'),
-            'charset'   => env('DB_CHARSET', 'utf8mb4'),
+            'driver'    => $connection = config('database.default', 'mysql'),
+            'charset'   => config("database.connections.$connection.charset", 'utf8mb4'),
         ]);
 
         try {
@@ -213,7 +213,7 @@ class Installer
             'DB_PREFIX'     =>  $prefix,
         ]);
 
-        $con = env('DB_CONNECTION', 'mysql');
+        $con = config('database.default', 'mysql');
 
         // Change current connection
         $db = Config::get('database.connections.' . $con);

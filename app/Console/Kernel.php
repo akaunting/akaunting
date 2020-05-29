@@ -23,11 +23,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Not installed yet
-        if (!env('APP_INSTALLED')) {
+        if (!config('app.installed')) {
             return;
         }
 
-        $schedule_time = env('APP_SCHEDULE_TIME', '09:00');
+        $schedule_time = config('app.schedule_time');
 
         $schedule->command('reminder:invoice')->dailyAt($schedule_time);
         $schedule->command('reminder:bill')->dailyAt($schedule_time);

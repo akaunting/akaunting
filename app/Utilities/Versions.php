@@ -2,7 +2,6 @@
 
 namespace App\Utilities;
 
-use Akaunting\Module\Module;
 use App\Traits\SiteApi;
 use Cache;
 use Date;
@@ -89,7 +88,7 @@ class Versions
                 $module = module($module);
             }
 
-            if (!$module instanceof Module) {
+            if (!$module instanceof \Akaunting\Module\Module) {
                 continue;
             }
 

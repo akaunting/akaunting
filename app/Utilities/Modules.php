@@ -9,10 +9,8 @@ class Modules
 {
     public static function getPaymentMethods($type = null)
     {
-        $company_id = session('company_id');
-
-        $cache_admin = 'payment_methods.' . $company_id . '.admin';
-        $cache_customer = 'payment_methods.' . $company_id . '.customer';
+        $cache_admin = static::getPaymentMethodsCacheKey('admin');
+        $cache_customer = static::getPaymentMethodsCacheKey('customer');
 
         $payment_methods = Cache::get($cache_admin);
 
@@ -63,6 +61,17 @@ class Modules
         }
 
         return ($payment_methods) ? $payment_methods : [];
+    }
+
+    public static function clearPaymentMethodsCache()
+    {
+        Cache::forget(static::getPaymentMethodsCacheKey('admin'));
+        Cache::forget(static::getPaymentMethodsCacheKey('customer'));
+    }
+
+    public static function getPaymentMethodsCacheKey($type)
+    {
+        return 'payment_methods.' . session('company_id') . '.' . $type;
     }
 
     protected static function sortPaymentMethods(&$list)

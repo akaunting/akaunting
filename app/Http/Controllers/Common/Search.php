@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Common;
 
 use App\Abstracts\Http\Controller;
+use App\Events\Common\GlobalSearched;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
@@ -19,53 +20,53 @@ class Search extends Controller
      */
     public function index()
     {
-        $results = array();
+        $search = new \stdClass();
+        $search->results = [];
+        $search->keyword = request('keyword');
 
-        $keyword = request('keyword');
-
-        $accounts = Account::enabled()->usingSearchString($keyword)->get();
+        $accounts = Account::enabled()->usingSearchString($search->keyword)->get();
 
         if ($accounts->count()) {
             foreach ($accounts as $account) {
-                $results[] = (object)[
+                $search->results[] = (object) [
                     'id'    => $account->id,
                     'name'  => $account->name,
                     'type'  => trans_choice('general.accounts', 1),
                     'color' => '#55588b',
-                    'href'  => url('banking/accounts/' . $account->id . '/edit'),
+                    'href'  => route('accounts.edit', $account->id),
                 ];
             }
         }
 
-        $items = Item::enabled()->usingSearchString($keyword)->get();
+        $items = Item::enabled()->usingSearchString($search->keyword)->get();
 
         if ($items->count()) {
             foreach ($items as $item) {
-                $results[] = (object)[
+                $search->results[] = (object) [
                     'id'    => $item->id,
                     'name'  => $item->name,
                     'type'  => trans_choice('general.items', 1),
                     'color' => '#efad32',
-                    'href'  => url('common/items/' . $item->id . '/edit'),
+                    'href'  => route('items.edit', $item->id),
                 ];
             }
         }
 
-        $invoices = Invoice::usingSearchString($keyword)->get();
+        $invoices = Invoice::usingSearchString($search->keyword)->get();
 
         if ($invoices->count()) {
             foreach ($invoices as $invoice) {
-                $results[] = (object)[
+                $search->results[] = (object) [
                     'id'    => $invoice->id,
                     'name'  => $invoice->invoice_number . ' - ' . $invoice->contact_name,
                     'type'  => trans_choice('general.invoices', 1),
                     'color' => '#6da252',
-                    'href'  => url('sales/invoices/' . $invoice->id),
+                    'href'  => route('invoices.show', $invoice->id),
                 ];
             }
         }/*
 
-        $income_transactions = Transaction::type('income')->usingSearchString($keyword)->get();
+        $income_transactions = Transaction::income()->usingSearchString($keyword)->get();
 
         if ($income_transactions->count()) {
             foreach ($income_transactions as $transaction) {
@@ -79,35 +80,35 @@ class Search extends Controller
             }
         }*/
 
-        $customers = Contact::customer()->enabled()->usingSearchString($keyword)->get();
+        $customers = Contact::customer()->enabled()->usingSearchString($search->keyword)->get();
 
         if ($customers->count()) {
             foreach ($customers as $customer) {
-                $results[] = (object)[
+                $search->results[] = (object) [
                     'id'    => $customer->id,
                     'name'  => $customer->name,
                     'type'  => trans_choice('general.customers', 1),
                     'color' => '#328aef',
-                    'href'  => url('sales/customers/' . $customer->id),
+                    'href'  => route('customers.show', $customer->id),
                 ];
             }
         }
 
-        $bills = Bill::usingSearchString($keyword)->get();
+        $bills = Bill::usingSearchString($search->keyword)->get();
 
         if ($bills->count()) {
             foreach ($bills as $bill) {
-                $results[] = (object)[
+                $search->results[] = (object) [
                     'id'    => $bill->id,
                     'name'  => $bill->bill_number . ' - ' . $bill->contact_name,
                     'type'  => trans_choice('general.bills', 1),
                     'color' => '#ef3232',
-                    'href'  => url('purchases/bills/' . $bill->id),
+                    'href'  => route('bills.show', $bill->id),
                 ];
             }
         }
 /*
-        $payments = Transaction::type('expense')->usingSearchString($keyword)->get();
+        $payments = Transaction::expense()->usingSearchString($keyword)->get();
 
         if ($revenues->count()) {
             foreach ($revenues as $revenue) {
@@ -121,20 +122,22 @@ class Search extends Controller
             }
         }*/
 
-        $vendors = Contact::vendor()->enabled()->usingSearchString($keyword)->get();
+        $vendors = Contact::vendor()->enabled()->usingSearchString($search->keyword)->get();
 
         if ($vendors->count()) {
             foreach ($vendors as $vendor) {
-                $results[] = (object)[
+                $search->results[] = (object) [
                     'id'    => $vendor->id,
                     'name'  => $vendor->name,
                     'type'  => trans_choice('general.vendors', 1),
                     'color' => '#efef32',
-                    'href'  => url('purchases/vendors/' . $vendor->id),
+                    'href'  => route('vendors.show', $vendor->id),
                 ];
             }
         }
 
-        return response()->json((object) $results);
+        event(new GlobalSearched($search));
+
+        return response()->json((object) $search->results);
     }
 }

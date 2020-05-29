@@ -44,21 +44,23 @@ class CreateUser extends Job
             $user->permissions()->attach($this->request->get('permissions'));
         }
 
-        $user->roles()->attach($this->request->get('roles'));
-
-        $user->companies()->attach($this->request->get('companies'));
-
-        Artisan::call('cache:clear');
-
-        // Add User Dashboard
-        foreach ($user->companies as $company) {
-            Artisan::call('user:seed', [
-                'user' => $user->id,
-                'company' => $company->id,
-            ]);
+        if ($this->request->has('roles')) {
+            $user->roles()->attach($this->request->get('roles'));
         }
 
-        Artisan::call('cache:clear');
+        if ($this->request->has('companies')) {
+            $user->companies()->attach($this->request->get('companies'));
+        }
+
+        // Add User Dashboard
+        if (!empty($user->companies)) {
+            foreach ($user->companies as $company) {
+                Artisan::call('user:seed', [
+                    'user' => $user->id,
+                    'company' => $company->id,
+                ]);
+            }
+        }
 
         return $user;
     }

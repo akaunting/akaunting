@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-3 text-right">
                         {!! Form::open(['route' => 'apps.search', 'role' => 'form', 'method' => 'GET', 'class' => 'm-0']) !!}
-                            <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control form-control-sm d-inline-block w-auto" placeholder="Search Apps">
+                            <input name="keyword" value="{{ isset($keyword) ? $keyword : '' }}" type="text" class="form-control form-control-sm d-inline-block w-auto" placeholder="{{ trans('general.search_placeholder') }}">
                             <span class="glyphicon glyphicon-search form-control-feedback"></span>
                         {!! Form::close() !!}
                     </div>

@@ -9,7 +9,7 @@ class BillTransactions extends Export
 {
     public function collection()
     {
-        $model = Model::with(['account', 'category', 'contact', 'bill'])->type('expense')->isDocument()->usingSearchString(request('search'));
+        $model = Model::with(['account', 'category', 'contact', 'bill'])->expense()->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('document_id', (array) $this->ids);

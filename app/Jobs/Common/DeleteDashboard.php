@@ -35,8 +35,6 @@ class DeleteDashboard extends Job
 
         $this->dashboard->delete();
 
-        Artisan::call('cache:clear');
-
         return true;
     }
 

@@ -47,11 +47,11 @@ class TaxSummary extends Report
         switch ($this->model->settings->basis) {
             case 'cash':
                 // Invoice Payments
-                $invoices = $this->applyFilters(Transaction::with(['invoice', 'invoice.totals'])->type('income')->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+                $invoices = $this->applyFilters(Transaction::with(['invoice', 'invoice.totals'])->income()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
                 $this->setTotals($invoices, 'paid_at');
 
                 // Bill Payments
-                $bills = $this->applyFilters(Transaction::with(['bill', 'bill.totals'])->type('expense')->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+                $bills = $this->applyFilters(Transaction::with(['bill', 'bill.totals'])->expense()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
                 $this->setTotals($bills, 'paid_at');
 
                 break;
@@ -70,7 +70,7 @@ class TaxSummary extends Report
         }
     }
 
-    public function setTotals($items, $date_field, $check_type = false, $table = 'default')
+    public function setTotals($items, $date_field, $check_type = false, $table = 'default', $with_tax = true)
     {
         foreach ($items as $item) {
             // Make groups extensible

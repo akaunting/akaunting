@@ -4,7 +4,7 @@ namespace Modules\OfflinePayments\Listeners;
 
 use App\Events\Module\SettingShowing as Event;
 
-class ShowSetting
+class ShowInSettingsPage
 {
     /**
      * Handle the event.

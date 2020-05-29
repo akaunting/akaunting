@@ -24,7 +24,7 @@ return [
 
     'error' => [
         'self_delete'       => 'Erro: Não pode se excluir!',
-        'self_disable'      => 'Error: Can not disable yourself!',
+        'self_disable'      => 'Não se pode desativar!',
         'no_company'        => 'Erro: Nenhuma empresa atribuída à sua conta. Por favor, contacte o administrador do sistema.',
     ],
 

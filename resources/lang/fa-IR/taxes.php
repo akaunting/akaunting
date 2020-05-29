@@ -7,5 +7,5 @@ return [
     'normal'                => 'عادی',
     'inclusive'             => 'شامل',
     'compound'              => 'ترکیب',
-
+    'fixed'                 => 'ثابت',
 ];

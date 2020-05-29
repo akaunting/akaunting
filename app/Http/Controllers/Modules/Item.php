@@ -84,19 +84,19 @@ class Item extends Controller
         // Download
         $steps[] = [
             'text' => trans('modules.installation.download', ['module' => $name]),
-            'url'  => url('apps/download')
+            'url'  => route('apps.download')
         ];
 
         // Unzip
         $steps[] = [
             'text' => trans('modules.installation.unzip', ['module' => $name]),
-            'url'  => url('apps/unzip')
+            'url'  => route('apps.unzip')
         ];
 
         // Download
         $steps[] = [
             'text' => trans('modules.installation.install', ['module' => $name]),
-            'url'  => url('apps/install')
+            'url'  => route('apps.install')
         ];
 
         return response()->json([
@@ -269,11 +269,9 @@ class Item extends Controller
 
     public function reviews($alias, Request $request)
     {
-        $page = $request['page'];
-
         $data = [
             'query' => [
-                'page' => ($page) ? $page : 1,
+                'page' => $request->get('page', 1),
             ]
         ];
 
@@ -284,7 +282,7 @@ class Item extends Controller
         return response()->json([
             'success' => true,
             'error' => false,
-            'data' => null,
+            'data' => $reviews,
             'message' => null,
             'html' => $html,
         ]);

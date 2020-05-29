@@ -41,7 +41,7 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
         'currency_code' => setting('default.currency'),
         'currency_rate' => '1',
         'notes' => $faker->text(5),
-        'category_id' => $company->categories()->type('expense')->get()->random(1)->pluck('id')->first(),
+        'category_id' => $company->categories()->expense()->get()->random(1)->pluck('id')->first(),
         'contact_id' => $contact->id,
         'contact_name' => $contact->name,
         'contact_email' => $contact->email,

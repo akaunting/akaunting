@@ -81,7 +81,7 @@ return [
     'delete_confirm'        => 'Confirma a exclusão :name :type?',
     'name'                  => 'Nome',
     'email'                 => 'E-mail',
-    'tax_number'            => 'Número de identificação fisca',
+    'tax_number'            => 'Número de identificação fiscal',
     'phone'                 => 'Telefone',
     'address'               => 'Endereço',
     'website'               => 'Site',

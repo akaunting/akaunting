@@ -438,14 +438,6 @@ tbody .row {
 /*--------Shadow None Focus Finish--------*/
 /*--------Settings Index Page Finish--------*/
 
-/*--------Pagination Alignment--------*/
-.page-item .page-link,
-.page-item span {
-    align-items: unset;
-    padding-top: 7px;
-}
-/*--------Pagination Alignment Finish--------*/
-
 /*--------Avatar Size--------*/
 .avatar-size {
     width: 128px;
@@ -543,7 +535,6 @@ table .align-items-center td span.badge {
 /*--------App Comment--------*/
 .media-comment-text {
     border-top-left-radius: 0.4375rem;
-    background-color: #ebebf0;
     padding: 1rem;
 }
 /*--------App Comment Finish--------*/

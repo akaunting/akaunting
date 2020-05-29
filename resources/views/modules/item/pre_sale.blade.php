@@ -87,10 +87,9 @@
                         @endif
                     @endpermission
 
-                    @if ($module->purchase_faq)
-                        <br>
-                        <div class="text-center">
-                            <a href="#" @click="onShowFaq" id="button-purchase-faq">{{ trans('modules.tab.faq')}}</a>
+                    @if (!empty($module->purchase_desc))
+                        <div class="text-center mt-3">
+                            {!! $module->purchase_desc !!}
                         </div>
                     @endif
                 </div>
@@ -138,7 +137,7 @@
     </div>
 
     @if ($module->purchase_faq)
-        <akaunting-modal :show="faq.show">
+        <akaunting-modal :show="faq" modal-dialog-class="modal-md">
             <template #modal-content>
                 {!! $module->purchase_faq !!}
             </template>

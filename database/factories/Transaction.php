@@ -31,13 +31,13 @@ $factory->define(Transaction::class, function (Faker $faker) use ($company) {
 $factory->state(Transaction::class, 'income', function (Faker $faker) use ($company) {
     return [
 		'type' => 'income',
-		'category_id' => $company->categories()->type('income')->get()->random(1)->pluck('id')->first(),
+		'category_id' => $company->categories()->income()->get()->random(1)->pluck('id')->first(),
     ];
 });
 
 $factory->state(Transaction::class, 'expense', function (Faker $faker) use ($company) {
     return [
 		'type' => 'expense',
-		'category_id' => $company->categories()->type('expense')->get()->random(1)->pluck('id')->first(),
+		'category_id' => $company->categories()->expense()->get()->random(1)->pluck('id')->first(),
     ];
 });

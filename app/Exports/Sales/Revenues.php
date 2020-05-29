@@ -9,7 +9,7 @@ class Revenues extends Export
 {
     public function collection()
     {
-        $model = Model::with(['account', 'category', 'contact', 'invoice'])->type('income')->usingSearchString(request('search'));
+        $model = Model::with(['account', 'category', 'contact', 'invoice'])->income()->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('id', (array) $this->ids);
