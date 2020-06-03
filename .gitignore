@@ -79,6 +79,8 @@ fabric.properties
 /vendor
 /.idea
 /.vscode
+# Visual Studio Code Remote Development (Docker Container)
+/.devcontainer
 /.vagrant
 Homestead.json
 Homestead.yaml
