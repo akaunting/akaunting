@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Hagnaður',
     'total_expenses'        => 'Heildarkostnaður',
     'net'                   => 'NET',
-    'income-expense'        => 'Income & Expense',
+    'income_expense'        => 'Income & Expense',
 
     'summary' => [
         'income'            => 'Samtals tekjur',

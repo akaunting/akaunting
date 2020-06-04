@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Nettowinst',
     'total_expenses'        => 'Totale uitgaven',
     'net'                   => 'NET',
-    'income_expense'        => 'Income & Expense',
+    'income_expense'        => 'Inkomsten & Uitgaven',
 
     'summary' => [
         'income'            => 'Samenvatting inkomsten',
@@ -22,9 +22,9 @@ return [
     ],
 
     'charts' => [
-        'line'              => 'Line',
-        'bar'               => 'Bar',
-        'pie'               => 'Pie',
+        'line'              => 'Lijn',
+        'bar'               => 'Balk',
+        'pie'               => 'Cirkel',
     ],
 
 ];
