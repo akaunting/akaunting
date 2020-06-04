@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'sérsniðin skilaboð',
+            'rule-name'             => 'sérsniðin skilaboð',
         ],
-        'invalid_currency' => 'Reiturinn :attribute er ekki á réttu formi.',
-        'invalid_amount'   => 'Reiturinn :attribute er ógildur.',
+        'invalid_currency'      => 'Reiturinn :attribute er ekki á réttu formi.',
+        'invalid_amount'        => 'Reiturinn :attribute er ógildur.',
+        'invalid_extension'     => 'The file extension is invalid.',
     ],
 
     /*

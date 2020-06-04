@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => '自定信息',
+            'rule-name'             => '自定信息',
         ],
-        'invalid_currency' => ':attribute code 无效.',
-        'invalid_amount'   => '金额 :attribute 无效。',
+        'invalid_currency'      => ':attribute code 无效.',
+        'invalid_amount'        => '金额 :attribute 无效。',
+        'invalid_extension'     => 'The file extension is invalid.',
     ],
 
     /*

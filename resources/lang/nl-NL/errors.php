@@ -3,21 +3,21 @@
 return [
 
     'title' => [
-        '403' => 'Oops! Forbidden Access',
-        '404' => 'Oops! Page not found',
-        '500' => 'Oops! Something went wrong',
+        '403' => 'Oeps! Verboden toegang',
+        '404' => 'Oeps! Pagina niet gevonden!',
+        '500' => 'Oeps! Er is iets misgegaan.',
     ],
 
     'header' => [
-        '403' => '403 Forbidden',
-        '404' => '404 Not Found',
-        '500' => '500 Internal Server Error',
+        '403' => '403 Verboden',
+        '404' => '404 niet gevonden',
+        '500' => '500 Interne serverfout',
     ],
 
     'message' => [
-        '403' => 'You can not access this page.',
-        '404' => 'We could not find the page you were looking for.',
-        '500' => 'We will work on fixing that right away.',
+        '403' => 'U heeft geen toegang tot deze pagina.',
+        '404' => 'We konden de pagina die je zocht niet vinden.',
+        '500' => 'We gaan meteen opzoek naar een oplossing,',
     ],
 
 ];

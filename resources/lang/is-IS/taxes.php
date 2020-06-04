@@ -7,5 +7,5 @@ return [
     'normal'                => 'Venjulegt',
     'inclusive'             => 'Tekið með',
     'compound'              => 'Leggst við',
-    'fixed'                 => 'Fixed',
+    'fixed'                 => 'Fastur',
 ];
