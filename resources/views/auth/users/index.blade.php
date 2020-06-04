@@ -54,11 +54,11 @@
                             <td class="col-xs-4 col-sm-3 col-md-2 col-lg-3">
                                 <a class="col-aka" href="{{ route('users.edit', $item->id) }}">
                                     @if (setting('default.use_gravatar', '0') == '1')
-                                        <img src="{{ $item->picture }}" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                        <img src="{{ $item->picture }}" alt="{{ $item->name }}" class="rounded-circle user-img p-1 mr-3 hidden-md" title="{{ $item->name }}">
+                                    @elseif ($item->picture)
+                                        <img src="{{ Storage::url($item->picture->id) }}" class="rounded-circle user-img p-1 mr-3 hidden-md" alt="{{ $item->name }}" title="{{ $item->name }}">
                                     @else
-                                        @if ($item->picture)
-                                            <img src="{{ Storage::url($item->picture->id) }}" alt="{{ $item->name }}" title="{{ $item->name }}">
-                                        @endif
+                                        <img src="{{ asset('public/img/user.svg') }}" class="user-img p-1 mr-3 hidden-md" alt="{{ $item->name }}"/>
                                     @endif
                                     {{ $item->name }}
                                 </a>

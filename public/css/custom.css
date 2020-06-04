@@ -275,6 +275,13 @@ tbody .row {
 }
 /*--------Item Column Image Finish--------*/
 
+/*--------User Column Image--------*/
+.user-img {
+    width: 36px;
+    height: 36px;
+}
+/*--------User Column Image Finish--------*/
+
 /*--------Border--------*/
 .border-1 {
     border: 1px solid #e5e5e5 !important;

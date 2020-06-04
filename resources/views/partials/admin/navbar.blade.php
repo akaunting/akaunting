@@ -211,7 +211,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <div class="media align-items-center">
-                            <img src="{{ asset('public/img/user.svg') }}" height="36" width="36" alt="User"/>
+                            @if ($user->picture)
+                                <img src="{{ Storage::url($user->picture->id) }}" class="rounded-circle image-style user-img" alt="{{ $user->name }}"/>
+                            @else
+                                <img src="{{ asset('public/img/user.svg') }}" class="user-img" alt="{{ $user->name }}"/>
+                            @endif
                             <div class="media-body ml-2 d-none d-lg-block">
                                 <span class="mb-0 text-sm  font-weight-bold">
                                     @if (!empty($user->name))
