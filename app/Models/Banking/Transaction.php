@@ -218,6 +218,11 @@ class Transaction extends Model
         return $query->where('reconciled', 0);
     }
 
+    public function onCloning($src, $child = null)
+    {
+        $this->document_id = null;
+    }
+
     /**
      * Convert amount to double.
      *
