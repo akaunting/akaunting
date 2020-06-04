@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature 必須關閉！',
         'extension'         => ':extension 必須載入！',
         'directory'         => ':directory 必須可寫入！',
+        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [

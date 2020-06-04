@@ -104,7 +104,7 @@ return [
         ],
         'invalid_currency'      => ':attribute code is ongeldig.',
         'invalid_amount'        => 'De hoeveelheid :attribute is ongeldig.',
-        'invalid_extension'     => 'The file extension is invalid.',
+        'invalid_extension'     => 'De bestandsextensie is ongeldig.',
     ],
 
     /*

@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature moet worden uitgeschakeld!',
         'extension'         => ':extension extentie moet worden geïnstalleerd en geladen!',
         'directory'         => ':directory map moet schrijfbaar zijn!',
+        'executable'        => 'De PHP CLI uitvoerbare bestand is niet gedefinieerd/werkbaar, of de versie is niet :php_version of hoger! Vraag uw hostingbedrijf om PHP_BINARY of PHP_PATH omgeving correct in te stellen.',
     ],
 
     'database' => [

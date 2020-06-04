@@ -29,6 +29,12 @@ return [
             'before'        => '编号之前',
             'after'         => '编号之后',
         ],
+        'discount_location' => [
+            'name'          => 'Discount Location',
+            'item'          => 'At line',
+            'total'         => 'At total',
+            'both'          => 'Both line and total',
+        ],
     ],
 
     'invoice' => [
