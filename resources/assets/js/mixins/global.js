@@ -184,10 +184,10 @@ export default {
                 }
               })
             .then(response => {
+                this.currency = response.data;
+
                 this.form.currency_code = response.data.currency_code;
                 this.form.currency_rate = response.data.currency_rate;
-
-                this.currency = response.data;
             })
             .catch(error => {
             });
