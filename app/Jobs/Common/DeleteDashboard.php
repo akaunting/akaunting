@@ -4,7 +4,6 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Traits\Users;
-use Artisan;
 
 class DeleteDashboard extends Job
 {
