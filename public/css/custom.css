@@ -826,3 +826,7 @@ table .align-items-center td span.badge {
 .navbar-vertical .navbar-nav .nav-link:not(.active) {
     color: #fff !important;
 }
+
+.form-group.has-error .el-input__inner {
+    border-color: #ef3232 !important;
+}
