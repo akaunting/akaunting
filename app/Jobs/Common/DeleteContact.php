@@ -3,6 +3,7 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Jobs\Auth\DeleteUser;
 use App\Traits\Contacts;
 
 class DeleteContact extends Job
@@ -29,6 +30,10 @@ class DeleteContact extends Job
     public function handle()
     {
         $this->authorize();
+
+        if ($user = $this->contact->user) {
+            $this->dispatch(new DeleteUser($user));
+        }
 
         $this->contact->delete();
 
