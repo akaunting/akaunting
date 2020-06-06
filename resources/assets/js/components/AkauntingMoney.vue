@@ -126,7 +126,7 @@ export default {
     },
 
     mounted() {
-        this.model = this.value;
+        //this.model = this.value;
 
         this.$emit('interface', this.model);
     },
