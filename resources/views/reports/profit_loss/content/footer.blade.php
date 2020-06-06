@@ -2,7 +2,7 @@
     <table class="table table-hover align-items-center rp-border-collapse">
         <tfoot class="border-top-style">
             <tr class="row rp-border-top-1 font-size-unset px-3">
-                <th class="{{ $class->column_name_width }} text-uppercase text-nowrap border-top-0">{{ trans('reports.net_profit') }}</th>
+                <th class="{{ $class->column_name_width }} text-uppercase text-left border-top-0">{{ trans('reports.net_profit') }}</th>
                 @foreach($class->net_profit as $profit)
                     <th class="{{ $class->column_value_width }} text-right px-0 border-top-0">@money($profit, setting('default.currency'), true)</th>
                 @endforeach
