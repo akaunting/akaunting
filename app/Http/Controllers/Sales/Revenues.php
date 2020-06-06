@@ -30,7 +30,7 @@ class Revenues extends Controller
      */
     public function index()
     {
-        $revenues = Transaction::income()->with(['account', 'category', 'contact'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
+        $revenues = Transaction::with(['account', 'category', 'contact'])->income()->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
         $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 

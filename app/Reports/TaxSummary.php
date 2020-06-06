@@ -42,22 +42,22 @@ class TaxSummary extends Report
         switch ($this->model->settings->basis) {
             case 'cash':
                 // Invoice Payments
-                $invoices = $this->applyFilters(Transaction::with(['invoice', 'invoice.totals'])->income()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+                $invoices = $this->applyFilters(Transaction::with(['recurring', 'invoice', 'invoice.totals'])->income()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
                 $this->setTotals($invoices, 'paid_at');
 
                 // Bill Payments
-                $bills = $this->applyFilters(Transaction::with(['bill', 'bill.totals'])->expense()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+                $bills = $this->applyFilters(Transaction::with(['recurring', 'bill', 'bill.totals'])->expense()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
                 $this->setTotals($bills, 'paid_at');
 
                 break;
             default:
                 // Invoices
-                $invoices = $this->applyFilters(Invoice::accrued(), ['date_field' => 'invoiced_at'])->get();
+                $invoices = $this->applyFilters(Invoice::with(['recurring', 'transactions', 'totals'])->accrued(), ['date_field' => 'invoiced_at'])->get();
                 Recurring::reflect($invoices, 'invoiced_at');
                 $this->setTotals($invoices, 'invoiced_at');
 
                 // Bills
-                $bills = $this->applyFilters(Bill::accrued(), ['date_field' => 'billed_at'])->get();
+                $bills = $this->applyFilters(Bill::with(['recurring', 'transactions', 'totals'])->accrued(), ['date_field' => 'billed_at'])->get();
                 Recurring::reflect($bills, 'billed_at');
                 $this->setTotals($bills, 'billed_at');
 

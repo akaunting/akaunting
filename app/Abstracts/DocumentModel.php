@@ -171,7 +171,7 @@ abstract class DocumentModel extends Model
     {
         $amount = $this->amount;
 
-        $this->totals()->where('code', 'tax')->each(function ($tax) use(&$amount) {
+        collect($this->totals)->where('code', 'tax')->each(function ($tax) use(&$amount) {
             $amount -= $tax->amount;
         });
 
