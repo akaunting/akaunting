@@ -37,7 +37,7 @@ class Bills extends Controller
      */
     public function index()
     {
-        $bills = Bill::with('contact')->collect(['billed_at'=> 'desc']);
+        $bills = Bill::with(['contact', 'transactions'])->collect(['billed_at'=> 'desc']);
 
         $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
 

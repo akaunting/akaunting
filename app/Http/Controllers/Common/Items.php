@@ -28,7 +28,7 @@ class Items extends Controller
      */
     public function index()
     {
-        $items = Item::with('category')->collect();
+        $items = Item::with(['category', 'media'])->collect();
 
         return view('common.items.index', compact('items'));
     }
