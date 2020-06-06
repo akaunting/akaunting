@@ -14,7 +14,7 @@
 
             {{ Form::dateGroup('paid_at', trans('general.date'), 'calendar', ['id' => 'paid_at', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off', 'v-model' => 'transaction_form.paid_at', 'v-error' => 'payment.errors.get("paid_at")', 'v-error-message' => 'payment.errors.get("paid_at")'], Date::now()->toDateString()) }}
 
-            {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'autofocus' => 'autofocus', 'v-model' => 'transaction_form.amount', 'v-error' => 'payment.errors.get("amount")', 'v-error-message' => 'payment.errors.get("amount")', 'currency' => $currency], $bill->grand_total) }}
+            {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'autofocus' => 'autofocus', 'v-model' => 'transaction_form.amount', 'v-error' => 'payment.errors.get("amount")', 'v-error-message' => 'payment.errors.get("amount")', 'currency' => $currency, 'dynamic-currency' => 'currency'], $bill->grand_total) }}
 
             {{ Form::selectGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'v-model' => 'transaction_form.account_id', 'v-error' => 'payment.errors.get("account_id")', 'v-error-message' => 'payment.errors.get("account_id")', 'change' => 'onChangePaymentAccount']) }}
 

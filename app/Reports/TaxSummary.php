@@ -21,11 +21,6 @@ class TaxSummary extends Report
 
     public $icon = 'fa fa-percent';
 
-    public $indents = [
-        'table_header' => '0px',
-        'table_rows' => '48px',
-    ];
-
     public function setViews()
     {
         parent::setViews();

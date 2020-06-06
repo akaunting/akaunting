@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'description'       => 'Change company name, email, address, tax number etc',
+        'description'       => 'Bedrijfsnaam, e-mail, adres, belastingnummer etc. wijzigen',
         'name'              => 'Naam',
         'email'             => 'E-mail',
         'phone'             => 'Telefoonnummer',
@@ -12,7 +12,7 @@ return [
     ],
 
     'localisation' => [
-        'description'       => 'Set fiscal year, time zone, date format and more locals',
+        'description'       => 'Stel fiscaal jaar, tijdzone, datumnotatie en meer lokale instellingen in.',
         'financial_start'   => 'Start financieel boekjaar',
         'timezone'          => 'Tijdzone',
         'date' => [
@@ -29,10 +29,16 @@ return [
             'before'        => 'Voor aantal',
             'after'         => 'Na aantal',
         ],
+        'discount_location' => [
+            'name'          => 'Korting locatie',
+            'item'          => 'Op regel',
+            'total'         => 'In totaal',
+            'both'          => 'Zowel lijn als totaal',
+        ],
     ],
 
     'invoice' => [
-        'description'       => 'Customize invoice prefix, number, terms, footer etc',
+        'description'       => 'Factuurprefix, nummer, betaaltermijn, voettekst etc. aanpassen',
         'prefix'            => 'Nummer voorvoegsel',
         'digit'             => 'Aantal cijfers',
         'next'              => 'Volgende nummer',
@@ -47,25 +53,25 @@ return [
         'rate'              => 'Tarief',
         'quantity_name'     => 'Hoeveelheid label',
         'quantity'          => 'Aantal',
-        'payment_terms'     => 'Payment Terms',
-        'title'             => 'Title',
-        'subheading'        => 'Subheading',
-        'due_receipt'       => 'Due upon receipt',
-        'due_days'          => 'Due within :days days',
-        'choose_template'   => 'Choose invoice template',
-        'default'           => 'Default',
-        'classic'           => 'Classic',
+        'payment_terms'     => 'Betalingsvoorwaarden',
+        'title'             => 'Titel',
+        'subheading'        => 'Subkop',
+        'due_receipt'       => 'Vervalt bij ontvangst',
+        'due_days'          => 'Vervalt binnen :days',
+        'choose_template'   => 'Factuursjabloon kiezen',
+        'default'           => 'Standaard',
+        'classic'           => 'Klassiek',
         'modern'            => 'Modern',
     ],
 
     'default' => [
-        'description'       => 'Default account, currency, language of your company',
-        'list_limit'        => 'Records Per Page',
-        'use_gravatar'      => 'Use Gravatar',
+        'description'       => 'Standaard rekening, valuta, taal van uw bedrijf',
+        'list_limit'        => 'Resultaten per pagina',
+        'use_gravatar'      => 'Gebruik Gravatar',
     ],
 
     'email' => [
-        'description'       => 'Change the sending protocol and email templates',
+        'description'       => 'Wijzig de verzendprotocol en e-mailsjablonen',
         'protocol'          => 'Protocol',
         'php'               => 'PHP mail',
         'smtp' => [
@@ -82,24 +88,24 @@ return [
         'log'               => 'E-mail logs',
 
         'templates' => [
-            'subject'                   => 'Subject',
-            'body'                      => 'Body',
-            'tags'                      => '<strong>Available Tags:</strong> :tag_list',
-            'invoice_new_customer'      => 'New Invoice Template (sent to customer)',
-            'invoice_remind_customer'   => 'Invoice Reminder Template (sent to customer)',
-            'invoice_remind_admin'      => 'Invoice Reminder Template (sent to admin)',
-            'invoice_recur_customer'    => 'Invoice Recurring Template (sent to customer)',
-            'invoice_recur_admin'       => 'Invoice Recurring Template (sent to admin)',
-            'invoice_payment_customer'  => 'Payment Received Template (sent to customer)',
-            'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
-            'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
-            'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
+            'subject'                   => 'Onderwerp',
+            'body'                      => 'Inhoud',
+            'tags'                      => '<strong>Beschikbare tags:</strong> :tag_list',
+            'invoice_new_customer'      => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_remind_customer'   => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_remind_admin'      => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_recur_customer'    => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_recur_admin'       => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_payment_customer'  => 'Betaling ontvangen sjabloom (verzonden naar de klant)',
+            'invoice_payment_admin'     => 'Betaling ontvangen sjabloon (verzonden naar admin)',
+            'bill_remind_admin'         => 'Betalingsherinnering Template (verzonden naar admin) ',
+            'bill_recur_admin'          => 'Abonnementsfactuur sjabloon (verzonden naar admin)',
         ],
     ],
 
     'scheduling' => [
-        'name'              => 'Scheduling',
-        'description'       => 'Automatic reminders and command for recurring',
+        'name'              => 'Planning',
+        'description'       => 'Automatische herinneringen en abonnementsfacturen',
         'send_invoice'      => 'Factuur herinnering sturen',
         'invoice_days'      => 'Aantal dagen na vervaldatum sturen',
         'send_bill'         => 'Factuur herinnering sturen',
@@ -109,15 +115,15 @@ return [
     ],
 
     'categories' => [
-        'description'       => 'Unlimited categories for income, expense, and item',
+        'description'       => 'Onbeperkt aantal categorieën voor inkomen, uitgaven en producten',
     ],
 
     'currencies' => [
-        'description'       => 'Create and manage currencies and set their rates',
+        'description'       => 'Maak en beheer valuta en stel de koersen in',
     ],
 
     'taxes' => [
-        'description'       => 'Fixed, normal, inclusive, and compound tax rates',
+        'description'       => 'Vaste normaal, inclusief, en samengestelde belastingtarieven',
     ],
 
 ];

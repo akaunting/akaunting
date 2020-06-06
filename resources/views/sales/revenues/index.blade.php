@@ -92,15 +92,17 @@
                                                 <a class="dropdown-item" href="{{ route('revenues.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                                 <div class="dropdown-divider"></div>
                                             @endif
+                                            @if (empty($item->document_id))
                                             @permission('create-sales-revenues')
                                                 <a class="dropdown-item" href="{{ route('revenues.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
+                                                <div class="dropdown-divider"></div>
                                             @endpermission
+                                            @endif
+                                            @if (!$item->reconciled)
                                             @permission('delete-sales-revenues')
-                                                @if (!$item->reconciled)
-                                                    <div class="dropdown-divider"></div>
-                                                    {!! Form::deleteLink($item, 'revenues.destroy') !!}
-                                                @endif
+                                                {!! Form::deleteLink($item, 'revenues.destroy') !!}
                                             @endpermission
+                                            @endif
                                         </div>
                                     </div>
                                 </td>

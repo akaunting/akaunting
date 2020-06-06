@@ -6,7 +6,7 @@ return [
     'reconciled'            => 'Sameinað',
     'closing_balance'       => 'Lokastaða',
     'unreconciled'          => 'Ósameinað',
-    'transactions'          => 'Transactions',
+    'transactions'          => 'Færslur',
     'start_date'            => 'Upphafsdagsetning',
     'end_date'              => 'Lokadagsetning',
     'cleared_amount'        => 'Samþykkt upphæð',

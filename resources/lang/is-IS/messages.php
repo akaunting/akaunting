@@ -8,6 +8,7 @@ return [
         'deleted'           => ':type eytt!',
         'duplicated'        => ':type afritað!',
         'imported'          => ':type innflutt!',
+        'exported'          => ':type exported!',
         'enabled'           => ':type virkjað!',
         'disabled'          => ':type slökkt!',
     ],
@@ -27,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Viðvörun: Þú mátt ekki eyða <b>:name</b> vegna þess að það hefur: textatengsl.',
         'disabled'          => 'Viðvörun: Þú mátt ekki slökkva á <b>:name</b> vegna þess að það hefur: textatengsl.',
+        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
+        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => 'Viðvörun: Ekki er heimilt að gera óvirkt eða breyta gjaldmiðli <b>:name</b> vegna þess að hann hefur: textatengsl.',
         'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
     ],

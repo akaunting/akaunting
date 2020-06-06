@@ -10,7 +10,7 @@
                 </span>
             </div>
 
-            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="value" :disabled="disabled" :masked="masked" class="form-control"></money>
+            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control"></money>
         </div>
 
         <div class="invalid-feedback d-block" v-if="error" v-html="error"></div>
@@ -126,6 +126,8 @@ export default {
     },
 
     mounted() {
+        this.model = this.value;
+
         this.$emit('interface', this.model);
     },
 
@@ -134,6 +136,7 @@ export default {
             //this.$emit('change', this.model);
             //this.$emit('interface', this.model);
         },
+
         input(event) {
             this.model = event;
 
@@ -153,9 +156,11 @@ export default {
                 masked: this.masked
             };
         },
+
         value: function (value) {
             this.model = value;
         },
+
         model: function (model) {
             this.$emit('change', this.model);
             this.$emit('interface', this.model);

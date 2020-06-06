@@ -50,11 +50,11 @@
         @endif
 
         @if (!empty($attributes['v-model']))
-        @interface="{{ $attributes['v-model'] . ' = $event' }}"
+        @interface="form.errors.clear('{{ $attributes['v-model'] }}'); {{ $attributes['v-model'] . ' = $event' }}"
         @elseif (!empty($attributes['data-field']))
-        @interface="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
+        @interface="form.errors.clear("{{ 'form.' . $attributes['data-field'] }}"); {{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
-        @interface="form.{{ $name }} = $event"
+        @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event"
         @endif
 
         @if (isset($attributes['v-error-message']))

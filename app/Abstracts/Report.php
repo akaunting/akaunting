@@ -47,11 +47,6 @@ abstract class Report
 
     public $loaded = false;
 
-    public $indents = [
-        'table_header' => '0px',
-        'table_rows' => '24px',
-    ];
-
     public $chart = [
         'line' => [
             'width' => '0',
