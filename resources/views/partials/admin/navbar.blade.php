@@ -39,7 +39,23 @@
             @endpermission
 
             <ul class="navbar-nav align-items-center ml-md-auto">
+                <li class="nav-item d-xl-none">
+                    <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                        <div class="sidenav-toggler-inner">
+                            <i class="sidenav-toggler-line"></i>
+                            <i class="sidenav-toggler-line"></i>
+                            <i class="sidenav-toggler-line"></i>
+                        </div>
+                    </div>
+                </li>
+
                 @stack('navbar_create')
+
+                <li class="nav-item d-sm-none">
+                    <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </li>
 
                 @permission(['create-sales-invoices', 'create-sales-revenues', 'create-sales-invoices', 'create-purchases-bills', 'create-purchases-payments', 'create-purchases-vendors'])
                     <li class="nav-item dropdown">
