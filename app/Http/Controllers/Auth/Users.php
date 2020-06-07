@@ -23,7 +23,7 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = User::with(['media', 'roles'])->collect();
+        $users = User::with('media', 'roles')->collect();
 
         return view('auth.users.index', compact('users'));
     }
