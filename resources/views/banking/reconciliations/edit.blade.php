@@ -55,7 +55,7 @@
                                 @endif
                                 <td class="col-md-1 text-right d-none d-md-block">
                                     <div class="custom-control custom-checkbox">
-                                        {{ Form::checkbox($item->type . '_' . $item->id, $item->amount, $item->reconciled, [
+                                        {{ Form::checkbox($item->type . '_' . $item->id, $item->price, $item->reconciled, [
                                             'data-field' => 'transactions',
                                             'v-model' => 'form.transactions.' . $item->type . '_' . $item->id,
                                             'id' => 'transaction-' . $item->id . '-'. $item->type,
