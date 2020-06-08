@@ -40,6 +40,8 @@ class Transaction extends Model
      */
     public $cloneable_relations = ['recurring'];
 
+    public static $currencies;
+
     public function account()
     {
         return $this->belongsTo('App\Models\Banking\Account')->withDefault(['name' => trans('general.na')]);
@@ -248,18 +250,44 @@ class Transaction extends Model
     /**
      * Convert amount to double.
      *
-     * @param  string  $value
-     * @return void
+     * @return float
      */
-    public function getPriceAttribute($value)
+    public function getPriceAttribute()
     {
-        if ($this->account->currency_code != $this->currency_code) {
-            $this->default_currency_code = $this->account->currency_code;
-
-            return $this->convertFromDefault($this->amount, $this->currency_code, $this->currency_rate);
+        if (empty($this->currencies)) {
+            $this->currencies = \App\Models\Setting\Currency::enabled()->pluck('rate', 'code')->toArray();
         }
 
-        return $this->amount;
+        $amount = $this->amount;
+
+        // Convert amount if not same currency
+        if ($this->account->currency_code != $this->currency_code) {
+            $default_currency = setting('default.currency', 'USD');
+
+            $default_amount = $this->amount;
+
+            if ($default_currency != $this->currency_code) {
+                $default_amount_model = new Transaction();
+
+                $default_amount_model->default_currency_code = $default_currency;
+                $default_amount_model->amount = $this->amount;
+                $default_amount_model->currency_code = $this->currency_code;
+                $default_amount_model->currency_rate = $this->currency_rate;
+
+                $default_amount = $default_amount_model->getAmountConvertedToDefault();
+            }
+
+            $transfer_amount = new Transaction();
+
+            $transfer_amount->default_currency_code = $this->currency_code;
+            $transfer_amount->amount = $default_amount;
+            $transfer_amount->currency_code = $this->account->currency_code;
+            $transfer_amount->currency_rate = $this->currencies[$this->account->currency_code];
+
+            $amount = $transfer_amount->getAmountConvertedFromDefault();
+        }
+
+        return $amount;
     }
 
     /**
