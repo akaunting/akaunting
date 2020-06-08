@@ -135,10 +135,14 @@ export default {
         change() {
             //this.$emit('change', this.model);
             //this.$emit('interface', this.model);
+
+            this.$emit('input', this.model);
         },
 
         input(event) {
             this.model = event;
+
+            this.$emit('input', event);
 
             //this.$emit('change', this.model);
             //this.$emit('interface', this.model);
@@ -147,6 +151,10 @@ export default {
 
     watch: {
         dynamicCurrency: function (currency) {
+            if (!currency) {
+                return;
+            }
+
             this.money = {
                 decimal: currency.decimal_mark,
                 thousands: currency.thousands_separator,

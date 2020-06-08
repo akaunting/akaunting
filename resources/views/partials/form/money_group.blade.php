@@ -49,6 +49,10 @@
         @change="{{ $attributes['change'] }}($event)"
         @endif
 
+        @if (!empty($attributes['input']))
+        @input="{{ $attributes['input'] }}"
+        @endif
+
         @if (!empty($attributes['v-model']))
         @interface="form.errors.clear('{{ $attributes['v-model'] }}'); {{ $attributes['v-model'] . ' = $event' }}"
         @elseif (!empty($attributes['data-field']))
