@@ -135,7 +135,7 @@ class Contact extends Model
 
         $collection = in_array($this->type, $this->getCustomerTypes()) ? 'invoices' : 'bills';
 
-        $this->$collection()->accrued()->notPaid()->each(function ($item) use (&$amount) {
+        $this->$collection->whereNotIn('status', ['draft', 'cancelled', 'paid'])->each(function ($item) use (&$amount) {
             $unpaid = $item->amount - $item->paid;
 
             $amount += $this->convertToDefault($unpaid, $item->currency_code, $item->currency_rate);
