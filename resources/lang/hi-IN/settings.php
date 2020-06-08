@@ -30,10 +30,10 @@ return [
             'after'         => 'नंबर के बाद',
         ],
         'discount_location' => [
-            'name'          => 'Discount Location',
-            'item'          => 'At line',
-            'total'         => 'At total',
-            'both'          => 'Both line and total',
+            'name'          => 'छूट का स्थान',
+            'item'          => 'रेखा पर',
+            'total'         => 'कुल पर',
+            'both'          => 'लाइन और कुल दोनों पर',
         ],
     ],
 

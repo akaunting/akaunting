@@ -17,13 +17,16 @@ class Company implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
+        if (method_exists($model, 'isNotTenantable') && $model->isNotTenantable()) {
+            return;
+        }
+
         $table = $model->getTable();
 
         // Skip for specific tables
         $skip_tables = [
-            'companies', 'jobs', 'firewall_ips', 'firewall_logs', 'media', 'mediables', 'migrations', 'notifications',
-            'permissions', 'roles', 'role_companies', 'role_permissions', 'sessions', 'users', 'user_companies',
-            'user_dashboards', 'user_permissions', 'user_roles',
+            'jobs', 'firewall_ips', 'firewall_logs', 'media', 'mediables', 'migrations', 'notifications', 'role_companies',
+            'role_permissions', 'sessions', 'user_companies', 'user_dashboards', 'user_permissions', 'user_roles',
         ];
 
         if (in_array($table, $skip_tables)) {

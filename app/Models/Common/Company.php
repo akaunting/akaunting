@@ -3,6 +3,7 @@
 namespace App\Models\Common;
 
 use App\Traits\Media;
+use App\Traits\Tenants;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
@@ -10,9 +11,11 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Company extends Eloquent
 {
-    use Media, SearchString, SoftDeletes, Sortable;
+    use Media, SearchString, SoftDeletes, Sortable, Tenants;
 
     protected $table = 'companies';
+
+    protected $tenantable = false;
 
     protected $dates = ['deleted_at'];
 

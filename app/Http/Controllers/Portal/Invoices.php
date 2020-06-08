@@ -23,11 +23,11 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with(['contact', 'items', 'payments', 'histories'])
+        $invoices = Invoice::with('contact', 'histories', 'items', 'payments')
             ->accrued()->where('contact_id', user()->contact->id)
             ->collect(['invoice_number'=> 'desc']);
 
-        $categories = collect(Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id'));
+        $categories = collect(Category::income()->enabled()->orderBy('name')->pluck('name', 'id'));
 
         $statuses = $this->getInvoiceStatuses();
 

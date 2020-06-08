@@ -3,7 +3,6 @@
 namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
-use Artisan;
 
 class DeletePermission extends Job
 {
@@ -27,8 +26,6 @@ class DeletePermission extends Job
     public function handle()
     {
         $this->permission->delete();
-
-        Artisan::call('cache:clear');
 
         return true;
     }

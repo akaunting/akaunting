@@ -28,7 +28,7 @@ class Items extends Controller
      */
     public function index()
     {
-        $items = Item::with(['category', 'tax'])->collect();
+        $items = Item::with('category', 'media')->collect();
 
         return view('common.items.index', compact('items'));
     }
@@ -50,7 +50,7 @@ class Items extends Controller
      */
     public function create()
     {
-        $categories = Category::type('item')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::item()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
@@ -131,7 +131,7 @@ class Items extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::type('item')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::item()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 

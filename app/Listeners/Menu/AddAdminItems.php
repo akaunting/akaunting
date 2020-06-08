@@ -26,9 +26,11 @@ class AddAdminItems
             if ($dashboards->count() > 1) {
                 $menu->dropdown(trim(trans_choice('general.dashboards', 2)), function ($sub) use ($user, $attr, $dashboards) {
                     foreach ($dashboards as $key => $dashboard) {
-                        $path = (session('dashboard_id') == $dashboard->id) ? '/' : '/?dashboard_id=' . $dashboard->id;
-
-                        $sub->url($path, $dashboard->name, $key, $attr);
+                        if (session('dashboard_id') != $dashboard->id) {
+                            $sub->route('dashboards.switch', $dashboard->name, ['dashboard' => $dashboard->id], $key, $attr);
+                        } else {
+                            $sub->url('/', $dashboard->name, $key, $attr);
+                        }
                     }
                 }, 1, [
                     'url' => '/',

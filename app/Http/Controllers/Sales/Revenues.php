@@ -30,11 +30,11 @@ class Revenues extends Controller
      */
     public function index()
     {
-        $revenues = Transaction::type('income')->with(['account', 'category', 'contact'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
+        $revenues = Transaction::with('account', 'category', 'contact', 'invoice')->income()->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
         $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -68,7 +68,7 @@ class Revenues extends Controller
 
         $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -156,7 +156,7 @@ class Revenues extends Controller
 
         $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 

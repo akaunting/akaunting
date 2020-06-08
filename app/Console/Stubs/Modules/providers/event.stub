@@ -3,7 +3,7 @@
 namespace $MODULE_NAMESPACE$\$STUDLY_NAME$\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as Provider;
-use $MODULE_NAMESPACE$\$STUDLY_NAME$\Listeners\InstallModule;
+use $MODULE_NAMESPACE$\$STUDLY_NAME$\Listeners\FinishInstallation;
 
 class Event extends Provider
 {
@@ -14,7 +14,7 @@ class Event extends Provider
      */
     protected $listen = [
         \App\Events\Module\Installed::class => [
-            InstallModule::class,
+            FinishInstallation::class,
         ],
     ];
 }

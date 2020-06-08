@@ -13,6 +13,7 @@ return [
     'price'                 => 'Kaina',
     'sub_total'             => 'Tarpinė suma',
     'discount'              => 'Nuolaida',
+    'item_discount'         => 'Nuolaida',
     'tax_total'             => 'Mokesčių suma',
     'total'                 => 'Iš viso',
 
@@ -29,12 +30,15 @@ return [
     'add_payment'           => 'Pridėti mokėjimą',
     'mark_paid'             => 'Pažymėti kaip apmokėtą',
     'mark_sent'             => 'Pažymėti kaip išsiųstą',
+    'mark_viewed'           => 'Pažymėti kaip peržiūrėtą',
+    'mark_cancelled'        => 'Pažymėti kaip atšauktą',
     'download_pdf'          => 'Parsisiųsti PDF',
     'send_mail'             => 'Siųsti laišką',
     'all_invoices'          => 'Prisijunkite norėdami peržiūrėti visas sąskaitas faktūras',
     'create_invoice'        => 'Sukurti sąskaitą-faktūrą',
     'send_invoice'          => 'Siųsti sąskaitą-faktūrą',
     'get_paid'              => 'Gauti apmokėjimą',
+    'accept_payments'       => 'Priimti atsiskaitymus internetu',
 
     'statuses' => [
         'draft'             => 'Juodraštis',
@@ -43,16 +47,23 @@ return [
         'approved'          => 'Patvirtinta',
         'partial'           => 'Dalinis',
         'paid'              => 'Apmokėta',
+        'overdue'           => 'Vėluojanti',
+        'unpaid'            => 'Neapmokėta',
+        'cancelled'         => 'Atšaukta',
     ],
 
     'messages' => [
-        'email_sent'        => 'Sąskaitą-faktūrą išsiųsta sėkmingai!',
-        'marked_sent'       => 'SF pažymėta kaip išsiųsta sėkmingai!',
+        'email_sent'        => 'Sąskaita-faktūra išsiųsta el. paštu!',
+        'marked_sent'       => 'Sąskaita-faktūra pažymėta kaip išsiųsta!',
+        'marked_paid'       => 'Sąskaita-faktūra pažymėta kaip apmokėta!',
+        'marked_viewed'     => 'Sąskaita-faktūra pažymėta kaip peržiūrėta!',
+        'marked_cancelled'  => 'Sąskaita-faktūra pažymėta kaip atšaukta!',
         'email_required'    => 'Klientas neturi el. pašto!',
         'draft'             => 'Tai yra <b>JUODRAŠTINĖ</b> sąskaita ir ji bus įtraukta į grafikus po to kai bus išsiųsta.',
 
         'status' => [
             'created'       => 'Sukurta :date',
+            'viewed'        => 'Peržiūrėta',
             'send' => [
                 'draft'     => 'Neišsiųsta',
                 'sent'      => 'Išsiųsta :date',
@@ -61,11 +72,6 @@ return [
                 'await'     => 'Laukiama apmokėjimo',
             ],
         ],
-    ],
-
-    'notification' => [
-        'message'           => 'Jūs gavote šį laišką, nes :customer jums išrašė sąskaitą už :amount.',
-        'button'            => 'Apmokėti dabar',
     ],
 
 ];

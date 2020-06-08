@@ -19,7 +19,7 @@ class Invoices extends ApiController
      */
     public function index()
     {
-        $invoices = Invoice::with(['contact', 'items', 'transactions', 'histories'])->collect(['invoiced_at'=> 'desc']);
+        $invoices = Invoice::with('contact', 'histories', 'items', 'transactions')->collect(['invoiced_at'=> 'desc']);
 
         return $this->response->paginator($invoices, new Transformer());
     }

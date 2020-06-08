@@ -3,14 +3,18 @@
 return [
 
     'company' => [
+        'description'       => 'Change company name, email, address, tax number etc',
         'name'              => 'نام',
         'email'             => 'ایمیل',
         'phone'             => 'تلفن',
         'address'           => 'آدرس',
         'logo'              => 'لوگو',
     ],
+
     'localisation' => [
-        'tab'               => 'موقعیت',
+        'description'       => 'Set fiscal year, time zone, date format and more locals',
+        'financial_start'   => 'شروع سال مالی',
+        'timezone'          => 'منطقه زمانی',
         'date' => [
             'format'        => 'فرمت تاریخ',
             'separator'     => 'جداکننده تاریخ',
@@ -20,15 +24,21 @@ return [
             'slash'         => 'علامت ممیز (/)',
             'space'         => 'فضا ( )',
         ],
-        'timezone'          => 'منطقه زمانی',
         'percent' => [
             'title'         => 'درصد (%) موقعیت',
             'before'        => 'قبل از شماره',
             'after'         => 'پس از شماره',
         ],
+        'discount_location' => [
+            'name'          => 'Discount Location',
+            'item'          => 'At line',
+            'total'         => 'At total',
+            'both'          => 'Both line and total',
+        ],
     ],
+
     'invoice' => [
-        'tab'               => 'فاکتور',
+        'description'       => 'Customize invoice prefix, number, terms, footer etc',
         'prefix'            => 'پیشوند شماره',
         'digit'             => 'تعداد ارقام',
         'next'              => 'شماره بعدی',
@@ -43,16 +53,25 @@ return [
         'rate'              => 'نرخ',
         'quantity_name'     => 'نام مقدار',
         'quantity'          => 'مقدار',
+        'payment_terms'     => 'Payment Terms',
+        'title'             => 'Title',
+        'subheading'        => 'Subheading',
+        'due_receipt'       => 'Due upon receipt',
+        'due_days'          => 'Due within :days days',
+        'choose_template'   => 'Choose invoice template',
+        'default'           => 'Default',
+        'classic'           => 'Classic',
+        'modern'            => 'Modern',
     ],
+
     'default' => [
-        'tab'               => 'پیش‌فرض‌ها',
-        'account'           => 'حساب پیش فرض',
-        'currency'          => 'واحد پول پیش فرض',
-        'tax'               => 'نرخ مالیات پیش فرض',
-        'payment'           => 'پیش فرض روش پرداخت',
-        'language'          => 'زبان پیش فرض',
+        'description'       => 'Default account, currency, language of your company',
+        'list_limit'        => 'Records Per Page',
+        'use_gravatar'      => 'Use Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Change the sending protocol and email templates',
         'protocol'          => 'پروتکل',
         'php'               => 'ایمیل PHP',
         'smtp' => [
@@ -67,36 +86,44 @@ return [
         'sendmail'          => 'Sendmail ',
         'sendmail_path'     => 'مسیر Sendmail',
         'log'               => 'رکورد های ایمیل',
+
+        'templates' => [
+            'subject'                   => 'Subject',
+            'body'                      => 'Body',
+            'tags'                      => '<strong>Available Tags:</strong> :tag_list',
+            'invoice_new_customer'      => 'New Invoice Template (sent to customer)',
+            'invoice_remind_customer'   => 'Invoice Reminder Template (sent to customer)',
+            'invoice_remind_admin'      => 'Invoice Reminder Template (sent to admin)',
+            'invoice_recur_customer'    => 'Invoice Recurring Template (sent to customer)',
+            'invoice_recur_admin'       => 'Invoice Recurring Template (sent to admin)',
+            'invoice_payment_customer'  => 'Payment Received Template (sent to customer)',
+            'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
+            'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
+            'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'برنامه‌ریزی',
+        'name'              => 'برنامه‌ریزی',
+        'description'       => 'Automatic reminders and command for recurring',
         'send_invoice'      => 'ارسال فاکتور یادآور',
         'invoice_days'      => 'ارسال بعد از چند روز',
         'send_bill'         => 'ارسال یاد آور صورتحساب',
         'bill_days'         => 'تعداد روز ارسال قبل از سررسید',
         'cron_command'      => 'فرمان Cron',
         'schedule_time'     => 'ساعت به اجرا',
-        'send_item_reminder'=> 'ارسال به یادآوری',
-        'item_stocks'       => 'ارسال زمانی که موجود باشد',
     ],
-    'appearance' => [
-        'tab'               => 'ظاهر',
-        'theme'             => 'قالب',
-        'light'             => 'روشن',
-        'dark'              => 'تاریک',
-        'list_limit'        => 'نتایج در هر صفحه',
-        'use_gravatar'      => 'استفاده از Gravatar',
+
+    'categories' => [
+        'description'       => 'Unlimited categories for income, expense, and item',
     ],
-    'system' => [
-        'tab'               => 'سیستم',
-        'session' => [
-            'lifetime'      => 'جلسه طول عمر (دقیقه)',
-            'handler'       => 'مکانیزم نشست',
-            'file'          => 'فایل',
-            'database'      => 'پایگاه داده',
-        ],
-        'file_size'         => 'حداکثر اندازه فایل (MB)',
-        'file_types'        => 'نوع فایل مجاز',
+
+    'currencies' => [
+        'description'       => 'Create and manage currencies and set their rates',
+    ],
+
+    'taxes' => [
+        'description'       => 'Fixed, normal, inclusive, and compound tax rates',
     ],
 
 ];

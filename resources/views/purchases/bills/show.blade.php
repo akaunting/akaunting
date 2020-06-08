@@ -349,35 +349,8 @@
                                                 <th class="col-xs-4 col-sm-3 text-right pr-5">{{ trans('bills.total') }}</th>
                                             @stack('total_th_end')
                                         </tr>
-                                        @foreach($bill->items as $bill_item)
-                                            <tr class="d-flex flex-nowrap">
-                                                @stack('name_td_start')
-                                                    <td class="col-xs-4 col-sm-5 pl-5">
-                                                        {{ $bill_item->name }}
-                                                        @if (!empty($bill_item->item->description))
-                                                            <br><small class="text-pre-nowrap">{!! \Illuminate\Support\Str::limit($bill_item->item->description, 500) !!}<small>
-                                                        @endif
-                                                    </td>
-                                                @stack('name_td_end')
-
-                                                @stack('quantity_td_start')
-                                                    <td class="col-xs-4 col-sm-1 text-center">{{ $bill_item->quantity }}</td>
-                                                @stack('quantity_td_end')
-
-                                                @stack('price_td_start')
-                                                    <td class="col-sm-3 text-right d-none d-sm-block">@money($bill_item->price, $bill->currency_code, true)</td>
-                                                @stack('price_td_end')
-
-                                                @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
-                                                    @stack('discount_td_start')
-                                                        <td class="col-sm-1 text-center d-none d-sm-block">{{ $bill_item->discount }}</td>
-                                                    @stack('discount_td_end')
-                                                @endif
-
-                                                @stack('total_td_start')
-                                                    <td class="col-xs-4 col-sm-3 text-right pr-5">@money($bill_item->total, $bill->currency_code, true)</td>
-                                                @stack('total_td_end')
-                                            </tr>
+                                        @foreach($bill->items as $item)
+                                            @include('partials.documents.item.show', ['document' => $bill])
                                         @endforeach
                                     </tbody>
                                 </table>

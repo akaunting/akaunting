@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Traits\Tenants;
 use App\Notifications\Auth\Reset;
 use App\Traits\Media;
 use Date;
@@ -15,9 +16,11 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media;
+    use LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants;
 
     protected $table = 'users';
+
+    protected $tenantable = false;
 
     /**
      * The attributes that are mass assignable.

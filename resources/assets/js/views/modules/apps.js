@@ -34,7 +34,7 @@ const app = new Vue({
         onChangeCategory(category) {
             let path =  document.getElementById('category_page').value;
 
-            if (category) {
+            if (category != '*') {
                 path += '/' + encodeURIComponent(category);
             } else {
                 path = app_home;

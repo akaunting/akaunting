@@ -7,5 +7,5 @@ return [
     'normal'                => 'Normalus',
     'inclusive'             => 'Imtinai',
     'compound'              => 'Sudėtinis',
-
+    'fixed'                 => 'Fiksuota',
 ];

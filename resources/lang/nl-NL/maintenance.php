@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Under Maintenance',
+    'title' => 'In onderhoud',
 
-    'message' => 'Sorry, we\'re down for maintenance. Please, try again later!',
+    'message' => 'Sorry, we zijn offline voor onderhoud. Probeer het later opnieuw!',
 
-    'last-updated' => 'This message was last updated :timestamp.',
+    'last-updated' => 'Dit bericht is voor het laatst bijgewerkt op :timestamp.',
 
 ];

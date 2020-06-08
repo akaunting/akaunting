@@ -9,6 +9,8 @@
         :form-classes="[{'has-error': form.errors.get('{{ $name }}') }]"
         @endif
 
+        :group_class="'{{ $group_class }}'"
+
         icon="fa fa-{{ $icon }}"
         title="{{ $text }}"
         placeholder="{{ trans('general.form.select.field', ['field' => $text]) }}"
@@ -45,6 +47,10 @@
         @interface="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
         @interface="form.{{ $name }} = $event"
+        @endif
+
+        @if (isset($attributes['required']))
+        :required="{{ ($attributes['required']) ? 'true' : 'false' }}"
         @endif
 
         @if (isset($attributes['readonly']))

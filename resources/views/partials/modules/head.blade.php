@@ -30,8 +30,8 @@
 
     <script type="text/javascript"><!--
         var url = '{{ url("/") }}';
-        var app_home = '{{ url("apps/categories") }}';
-        var app_url = '{{ env("APP_URL") }}';
+        var app_home = '{{ route("apps.home.index") }}';
+        var app_url = '{{ config("app.url") }}';
     //--></script>
 
     @stack('js')

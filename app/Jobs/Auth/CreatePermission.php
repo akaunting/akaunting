@@ -4,7 +4,6 @@ namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
 use App\Models\Auth\Permission;
-use Artisan;
 
 class CreatePermission extends Job
 {
@@ -28,8 +27,6 @@ class CreatePermission extends Job
     public function handle()
     {
         $permission = Permission::create($this->request->all());
-
-        Artisan::call('cache:clear');
 
         return $permission;
     }

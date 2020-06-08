@@ -11,7 +11,7 @@ class LatestIncome extends Widget
 
     public function show()
     {
-        $transactions = $this->applyFilters(Transaction::with('category')->type('income')->orderBy('paid_at', 'desc')->isNotTransfer()->take(5))->get();
+        $transactions = $this->applyFilters(Transaction::with('category')->income()->orderBy('paid_at', 'desc')->isNotTransfer()->take(5))->get();
 
         return $this->view('widgets.latest_income', [
             'transactions' => $transactions,

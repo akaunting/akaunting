@@ -21,6 +21,7 @@ return [
         'disabled'          => 'يجب تعطيل :feature!',
         'extension'         => 'يجب تثبيت وتشغيل ملحق :extension!',
         'directory'         => 'يجب منح صلاحية الكتابة على مجلد :directory!',
+        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [

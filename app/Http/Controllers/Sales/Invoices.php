@@ -38,11 +38,11 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with(['contact', 'items', 'histories', 'transactions'])->collect(['invoice_number'=> 'desc']);
+        $invoices = Invoice::with('contact', 'transactions')->collect(['invoice_number'=> 'desc']);
 
         $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $statuses = $this->getInvoiceStatuses();
 
@@ -68,7 +68,7 @@ class Invoices extends Controller
 
         $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
 
-        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -109,7 +109,7 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
 
         $number = $this->getNextInvoiceNumber();
 
@@ -205,7 +205,7 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::type('income')->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
 
         return view('sales.invoices.edit', compact('invoice', 'customers', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }

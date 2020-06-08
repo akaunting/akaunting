@@ -47,11 +47,6 @@ abstract class Report
 
     public $loaded = false;
 
-    public $indents = [
-        'table_header' => '0px',
-        'table_rows' => '24px',
-    ];
-
     public $chart = [
         'line' => [
             'width' => '0',
@@ -329,7 +324,7 @@ abstract class Report
         event(new RowsShowing($this));
     }
 
-    public function setTotals($items, $date_field, $check_type = false, $table = 'default')
+    public function setTotals($items, $date_field, $check_type = false, $table = 'default', $with_tax = true)
     {
         foreach ($items as $item) {
             // Make groups extensible
@@ -347,7 +342,7 @@ abstract class Report
                 continue;
             }
 
-            $amount = $item->getAmountConvertedToDefault();
+            $amount = $item->getAmountConvertedToDefault(false, $with_tax);
 
             $type = (($item instanceof Invoice) || (($item instanceof Transaction) && ($item->type == 'income'))) ? 'income' : 'expense';
 

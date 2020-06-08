@@ -22,7 +22,7 @@ class Items extends ApiController
      */
     public function index()
     {
-        $items = Item::with(['category', 'tax'])->collect();
+        $items = Item::with('category', 'tax')->collect();
 
         return $this->response->paginator($items, new Transformer());
     }
@@ -35,7 +35,7 @@ class Items extends ApiController
      */
     public function show($id)
     {
-        $item = Item::with(['category', 'tax'])->find($id);
+        $item = Item::with('category', 'tax')->find($id);
 
         return $this->response->item($item, new Transformer());
     }

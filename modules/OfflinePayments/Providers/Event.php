@@ -3,9 +3,9 @@
 namespace Modules\OfflinePayments\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as Provider;
-use Modules\OfflinePayments\Listeners\InstallModule;
-use Modules\OfflinePayments\Listeners\ShowPaymentMethod;
-use Modules\OfflinePayments\Listeners\ShowSetting;
+use Modules\OfflinePayments\Listeners\FinishInstallation;
+use Modules\OfflinePayments\Listeners\ShowAsPaymentMethod;
+use Modules\OfflinePayments\Listeners\ShowInSettingsPage;
 
 class Event extends Provider
 {
@@ -16,13 +16,13 @@ class Event extends Provider
      */
     protected $listen = [
         \App\Events\Module\Installed::class => [
-            InstallModule::class,
+            FinishInstallation::class,
         ],
         \App\Events\Module\PaymentMethodShowing::class => [
-            ShowPaymentMethod::class,
+            ShowAsPaymentMethod::class,
         ],
         \App\Events\Module\SettingShowing::class => [
-            ShowSetting::class,
+            ShowInSettingsPage::class,
         ],
     ];
 }

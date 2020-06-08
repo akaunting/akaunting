@@ -8,7 +8,7 @@
                 @php $color = 'bg-green'; @endphp
 
                 @if (!$installed[$module->slug])
-                    @php $color = 'bg-yellow'; @endphp
+                    @php $color = 'bg-warning'; @endphp
                 @endif
                 <span class="mr--3 float-right">
                     <span class="badge {{ $color }} text-white">{{ trans('modules.badge.installed') }}</span>

@@ -2,19 +2,18 @@
 
 return [
 
-    'api_key'               => 'API Key',
+    'api_key'               => 'API sleutel',
     'my_apps'               => 'Mijn Apps',
     'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'Top betaald',
     'new'                   => 'Nieuw',
     'top_free'              => 'Top gratis',
     'free'                  => 'GRATIS',
-    'search'                => 'Zoeken',
     'install'               => 'Installeer',
     'buy_now'               => 'Nu kopen',
-    'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klik hier</a> om je API-sleutel te ontvangen.',
     'no_apps'               => 'Er zijn nog geen Apps in deze categorie beschikbaar.',
-    'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
+    'become_developer'      => 'Bent u een ontwikkelaar? <a href=":url" target="_blank">Hier</a> leert u hoe u vandaag nog een app kunt maken en deze kunt verkopen!',
     'recommended_apps'      => 'Aanbevolen Apps',
 
     'about'                 => 'Over ons',
@@ -41,20 +40,20 @@ return [
 
     'installation' => [
         'header'            => 'App installatie',
-        'download'          => 'Downloading :module',
-        'unzip'             => 'Extracting :module files',
-        'file_copy'         => 'Copying :module files',
-        'finish'            => 'Finalizing :module installation',
-        'redirect'          => ':module installed, redirecting to updates page',
-        'install'           => 'Installing :module',
+        'download'          => ':module aan het downloaden',
+        'unzip'             => 'Bezig met uitpakken van de bestanden van :module.',
+        'file_copy'         => 'Bezig met het kopiëren van de bestanden van :module.',
+        'finish'            => 'Bezig met voltooien van de installatie van :module',
+        'redirect'          => ':module is geïnstalleerd, u wordt doorverwezen naar de updatepagina',
+        'install'           => 'Bezit met installatie van :module',
     ],
 
     'errors' => [
-        'download'          => 'Not able to download :module',
-        'zip'               => 'Not able to create :module zip file',
-        'unzip'             => 'Not able to unzip :module',
-        'file_copy'         => 'Not able to copy :module files',
-        'finish'            => 'Not able to finalize :module installation',
+        'download'          => 'Downloaden van :module mislukt',
+        'zip'               => 'Het creëren van een zip-bestand van :module is mislukt',
+        'unzip'             => 'Uitpakken van het zip-bestand van :module is mislukt',
+        'file_copy'         => 'Kopiëren van bestanden van :module is mislukt',
+        'finish'            => 'Niet in staat om de installatie van :module af te ronden',
     ],
 
     'badge' => [

@@ -4,7 +4,6 @@ namespace App\Jobs\Auth;
 
 use App\Abstracts\Job;
 use App\Models\Auth\Permission;
-use Artisan;
 
 class UpdatePermission extends Job
 {
@@ -32,8 +31,6 @@ class UpdatePermission extends Job
     public function handle()
     {
         $this->permission->update($this->request->all());
-
-        Artisan::call('cache:clear');
 
         return $this->permission;
     }

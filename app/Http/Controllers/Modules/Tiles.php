@@ -146,7 +146,7 @@ class Tiles extends Controller
             ]
         ];
 
-        $title = trans('modules.search');
+        $title = trans('general.search');
         $modules = $this->getSearchModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 

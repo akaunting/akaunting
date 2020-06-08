@@ -126,6 +126,8 @@ export default {
     },
 
     mounted() {
+        //this.model = this.value;
+
         this.$emit('interface', this.model);
     },
 
@@ -136,6 +138,7 @@ export default {
 
             this.$emit('input', this.model);
         },
+
         input(event) {
             this.model = event;
 
@@ -161,9 +164,11 @@ export default {
                 masked: this.masked
             };
         },
+
         value: function (value) {
             this.model = value;
         },
+
         model: function (model) {
             this.$emit('change', this.model);
             this.$emit('interface', this.model);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
 use App\Models\Setting\Setting;
+use App\Utilities\Modules as Utility;
 use App\Http\Requests\Setting\Module as Request;
 
 class Modules extends Controller
@@ -54,8 +55,9 @@ class Modules extends Controller
             setting()->set($alias . '.' . $key, $value);
         }
 
-        // Save all settings
         setting()->save();
+
+        Utility::clearPaymentMethodsCache();
 
         $message = trans('messages.success.updated', ['type' => trans_choice('general.settings', 2)]);
 

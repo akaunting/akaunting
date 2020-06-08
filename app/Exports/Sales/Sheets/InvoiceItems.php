@@ -9,7 +9,7 @@ class InvoiceItems extends Export
 {
     public function collection()
     {
-        $model = Model::with(['invoice', 'item'])->usingSearchString(request('search'));
+        $model = Model::with('invoice', 'item')->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('invoice_id', (array) $this->ids);

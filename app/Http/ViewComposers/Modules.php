@@ -22,11 +22,11 @@ class Modules
         if (setting('apps.api_key')) {
             $categories = Cache::remember('modules.categories.' . language()->getShortCode(), Date::now()->addHour(6), function () {
                 return collect($this->getCategories())->pluck('name', 'slug')
-                    ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '');
+                    ->prepend(trans('general.all_type', ['type' => trans_choice('general.categories', 2)]), '*');
             });
         } else {
             $categories = collect([
-                '' => trans('general.all_type', ['type' => trans_choice('general.categories', 2)]),
+                '*' => trans('general.all_type', ['type' => trans_choice('general.categories', 2)]),
             ]);
         }
 

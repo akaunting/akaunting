@@ -62,7 +62,7 @@ trait Omnipay
     public function purchase($invoice, $request, $extra_options = [])
     {
         $default_options = [
-            'amount' => $invoice->amount,
+            'amount' => $invoice->amount - $invoice->paid,
             'currency' => $invoice->currency_code,
             'transactionId' => $invoice->id,
             'returnUrl' => $this->getReturnUrl($invoice),

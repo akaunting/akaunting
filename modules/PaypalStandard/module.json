@@ -5,6 +5,7 @@
     "category": "payment-method",
     "active": 1,
     "providers": [
+        "Modules\\PaypalStandard\\Providers\\Event",
         "Modules\\PaypalStandard\\Providers\\Main"
     ],
     "aliases": {},

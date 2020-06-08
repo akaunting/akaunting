@@ -11,6 +11,7 @@ use App\Jobs\Banking\UpdateReconciliation;
 use App\Models\Banking\Account;
 use App\Models\Banking\Reconciliation;
 use App\Models\Banking\Transaction;
+use Date;
 
 class Reconciliations extends Controller
 {
@@ -48,8 +49,8 @@ class Reconciliations extends Controller
         $accounts = Account::enabled()->pluck('name', 'id');
 
         $account_id = request('account_id', setting('default.account'));
-        $started_at = request('started_at', '0000-00-00');
-        $ended_at = request('ended_at', '0000-00-00');
+        $started_at = request('started_at', Date::now()->firstOfMonth()->toDateString());
+        $ended_at = request('ended_at', Date::now()->endOfMonth()->toDateString());
 
         $account = Account::find($account_id);
 

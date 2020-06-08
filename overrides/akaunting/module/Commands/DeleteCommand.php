@@ -4,8 +4,8 @@ namespace Akaunting\Module\Commands;
 
 use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
-use Artisan;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -62,7 +62,9 @@ class DeleteCommand extends Command
         // Trigger event
         event(new \App\Events\Module\Deleted($alias, $company_id));
 
-        Artisan::call('cache:clear');
+        if (config('module.cache.enabled')) {
+            Cache::forget(config('module.cache.key'));
+        }
 
         $this->info("Module [{$alias}] deleted.");
     }
