@@ -22,7 +22,7 @@ class RedirectIfWizardNotCompleted
         }
 
         // Check url
-        if (Str::startsWith($request->getPathInfo(), '/wizard')) {
+        if (Str::startsWith($request->getPathInfo(), '/wizard') || Str::startsWith($request->getPathInfo(), '/settings')) {
             return $next($request);
         }
 
