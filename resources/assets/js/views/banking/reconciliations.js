@@ -40,7 +40,9 @@ const app = new Vue({
     },
 
     mounted() {
-        this.totals.closing_balance = parseFloat(document.getElementById('closing_balance').value);
+        if (document.getElementById('closing_balance') != null) {
+            this.totals.closing_balance = parseFloat(document.getElementById('closing_balance').value);
+        }
     },
 
     methods:{
@@ -59,9 +61,12 @@ const app = new Vue({
             let transactions = this.form.transactions;
 
             let cleared_amount = 0;
+            let closing_balance = parseFloat(this.form.closing_balance);
             let difference = 0;
             let income_total = 0;
             let expense_total = 0;
+
+            this.totals.closing_balance = closing_balance;
 
             if (transactions) {
                 // get all transactions.
@@ -79,10 +84,17 @@ const app = new Vue({
                     }
                 });
 
-                cleared_amount = parseFloat(this.form.opening_balance) + parseFloat(income_total - expense_total);
+
+                let transaction_total = income_total - expense_total;
+
+                cleared_amount = parseFloat(this.form.opening_balance) + transaction_total;
             }
 
-            difference = parseFloat(this.form.closing_balance) - cleared_amount;
+            if (cleared_amount > 0) {
+                difference = parseFloat(this.form.closing_balance) - parseFloat(cleared_amount);
+            } else {
+                difference = parseFloat(this.form.closing_balance) + parseFloat(cleared_amount);
+            }
 
             if (difference != 0) {
                 this.difference = 'table-danger';
@@ -92,7 +104,7 @@ const app = new Vue({
                 this.reconcile = false;
             }
 
-            this.totals.cleared_amount = cleared_amount;
+            this.totals.cleared_amount = parseFloat(cleared_amount);
             this.totals.difference = difference;
         },
 

@@ -10,7 +10,7 @@
                 </span>
             </div>
 
-            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="value" :disabled="disabled" :masked="masked" class="form-control"></money>
+            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control"></money>
         </div>
 
         <div class="invalid-feedback d-block" v-if="error" v-html="error"></div>
@@ -133,9 +133,13 @@ export default {
         change() {
             //this.$emit('change', this.model);
             //this.$emit('interface', this.model);
+
+            this.$emit('input', this.model);
         },
         input(event) {
             this.model = event;
+
+            this.$emit('input', event);
 
             //this.$emit('change', this.model);
             //this.$emit('interface', this.model);
@@ -144,6 +148,10 @@ export default {
 
     watch: {
         dynamicCurrency: function (currency) {
+            if (!currency) {
+                return;
+            }
+
             this.money = {
                 decimal: currency.decimal_mark,
                 thousands: currency.thousands_separator,

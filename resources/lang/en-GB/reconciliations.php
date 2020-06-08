@@ -4,6 +4,7 @@ return [
 
     'reconcile'             => 'Reconcile',
     'reconciled'            => 'Reconciled',
+    'opening_balance'       => 'Opening Balance',
     'closing_balance'       => 'Closing Balance',
     'unreconciled'          => 'Unreconciled',
     'transactions'          => 'Transactions',

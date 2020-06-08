@@ -97,6 +97,28 @@ class Transaction extends Model
     }
 
     /**
+     * Scope to include only income.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIncome($query)
+    {
+        return $query->where($this->table . '.type', '=', 'income');
+    }
+
+    /**
+     * Scope to include only expense.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeExpense($query)
+    {
+        return $query->where($this->table . '.type', '=', 'expense');
+    }
+
+    /**
      * Get only transfers.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -196,6 +218,11 @@ class Transaction extends Model
         return $query->where('reconciled', 0);
     }
 
+    public function onCloning($src, $child = null)
+    {
+        $this->document_id = null;
+    }
+
     /**
      * Convert amount to double.
      *
@@ -216,6 +243,23 @@ class Transaction extends Model
     public function setCurrencyRateAttribute($value)
     {
         $this->attributes['currency_rate'] = (double) $value;
+    }
+
+    /**
+     * Convert amount to double.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function getPriceAttribute($value)
+    {
+        if ($this->account->currency_code != $this->currency_code) {
+            $this->default_currency_code = $this->account->currency_code;
+
+            return $this->convertFromDefault($this->amount, $this->currency_code, $this->currency_rate);
+        }
+
+        return $this->amount;
     }
 
     /**
