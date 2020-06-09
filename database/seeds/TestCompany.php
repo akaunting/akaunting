@@ -40,6 +40,7 @@ class TestCompany extends Seeder
     {
         $company = $this->dispatch(new CreateCompany([
             'name' => 'My Company',
+            'email' => 'test@company.com',
             'domain' => 'company.com',
             'address' => 'New Street 1254',
             'currency' => 'USD',
