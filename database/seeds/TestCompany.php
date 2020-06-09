@@ -83,7 +83,7 @@ class TestCompany extends Seeder
             'password_confirmation' => '123456',
             'company_id' => session('company_id'),
             'enabled' => '1',
-            'create_user' => 1,
+            'create_user' => 'true',
         ]));
 
         $this->command->info('Test customer created.');
