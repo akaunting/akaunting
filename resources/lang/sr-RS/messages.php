@@ -26,7 +26,7 @@ return [
     'warning' => [
         'deleted'           => 'Упозорење: Није вам дозвољено да избришете <b>:name</b> јер постоји веза са :text.',
         'disabled'          => 'Упозорење: Није вам дозвољено да онемогућите <b>:name</b> јер постоји веза са :text.',
-        'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
+        'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related data.',
     ],
 
 ];

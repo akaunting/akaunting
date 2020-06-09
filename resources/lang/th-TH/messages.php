@@ -26,7 +26,7 @@ return [
     'warning' => [
         'deleted'           => 'คำเตือน: คุณไม่ได้รับอนุญาตให้ลบ <b>:name</b> เนื่องจากมี :text ที่เกี่ยวข้อง',
         'disabled'          => 'คำเตือน: คุณไม่ได้รับอนุญาตให้ปิดใช้งาน <b>:name</b> เนื่องจากมี :text ที่เกี่ยวข้อง',
-        'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
+        'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related data.',
     ],
 
 ];
