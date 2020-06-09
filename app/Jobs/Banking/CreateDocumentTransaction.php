@@ -104,17 +104,9 @@ class CreateDocumentTransaction extends Job
         $total_amount = $this->model->amount - $this->model->paid;
         unset($this->model->reconciled);
 
-        // For amount cover integer
-        $multiplier = 1;
+        $compare = bccomp($amount, $total_amount, $this->currency->precision);
 
-        for ($i = 0; $i < $this->currency->precision; $i++) {
-            $multiplier *= 10;
-        }
-
-        $amount_check = (int) ($amount * $multiplier);
-        $total_amount_check = (int) ($total_amount * $multiplier);
-
-        if ($amount_check > $total_amount_check) {
+        if ($compare === 1) {
             $error_amount = $total_amount;
 
             if ($this->model->currency_code != $this->request['currency_code']) {
@@ -139,7 +131,7 @@ class CreateDocumentTransaction extends Job
 
             throw new \Exception($message);
         } else {
-            $this->model->status = ($amount_check == $total_amount_check) ? 'paid' : 'partial';
+            $this->model->status = ($compare === 0) ? 'paid' : 'partial';
         }
 
         return true;
