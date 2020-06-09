@@ -29,9 +29,21 @@ class Currencies extends Seeder
         $rows = [
             [
                 'company_id' => $company_id,
+                'name' => trans('demo.currencies.sgd'),
+                'code' => 'SGD',
+                'rate' => '1.00',
+                'enabled' => '1',
+                'precision' => config('money.SGD.precision'),
+                'symbol' => config('money.SGD.symbol'),
+                'symbol_first' => config('money.SGD.symbol_first'),
+                'decimal_mark' => config('money.SGD.decimal_mark'),
+                'thousands_separator' => config('money.SGD.thousands_separator'),
+            ],
+            [
+                'company_id' => $company_id,
                 'name' => trans('demo.currencies.usd'),
                 'code' => 'USD',
-                'rate' => '1.00',
+                'rate' => '1.40',
                 'enabled' => '1',
                 'precision' => config('money.USD.precision'),
                 'symbol' => config('money.USD.symbol'),
@@ -43,7 +55,7 @@ class Currencies extends Seeder
                 'company_id' => $company_id,
                 'name' => trans('demo.currencies.eur'),
                 'code' => 'EUR',
-                'rate' => '1.25',
+                'rate' => '1.58',
                 'precision' => config('money.EUR.precision'),
                 'symbol' => config('money.EUR.symbol'),
                 'symbol_first' => config('money.EUR.symbol_first'),
@@ -54,24 +66,13 @@ class Currencies extends Seeder
                 'company_id' => $company_id,
                 'name' => trans('demo.currencies.gbp'),
                 'code' => 'GBP',
-                'rate' => '1.60',
+                'rate' => '1.77',
                 'precision' => config('money.GBP.precision'),
                 'symbol' => config('money.GBP.symbol'),
                 'symbol_first' => config('money.GBP.symbol_first'),
                 'decimal_mark' => config('money.GBP.decimal_mark'),
                 'thousands_separator' => config('money.GBP.thousands_separator'),
-            ],
-            [
-                'company_id' => $company_id,
-                'name' => trans('demo.currencies.try'),
-                'code' => 'TRY',
-                'rate' => '0.80',
-                'precision' => config('money.TRY.precision'),
-                'symbol' => config('money.TRY.symbol'),
-                'symbol_first' => config('money.TRY.symbol_first'),
-                'decimal_mark' => config('money.TRY.decimal_mark'),
-                'thousands_separator' => config('money.TRY.thousands_separator'),
-            ],
+            ]
         ];
 
         foreach ($rows as $row) {

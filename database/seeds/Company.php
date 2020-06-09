@@ -16,6 +16,7 @@ class Company extends Seeder
         $this->call(Accounts::class);
         $this->call(Categories::class);
         $this->call(Currencies::class);
+        $this->call(Taxes::class);
         $this->call(EmailTemplates::class);
         $this->call(Modules::class);
         $this->call(Reports::class);
