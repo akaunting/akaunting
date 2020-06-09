@@ -16,6 +16,7 @@ return [
         'eur'               => 'Euro',
         'gbp'               => 'British Pound',
         'try'               => 'Turkish Lira',
+        'sgd'               => 'Singapore Dollar'
     ],
 
     'offline_payments' => [

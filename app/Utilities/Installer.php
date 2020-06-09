@@ -236,7 +236,7 @@ class Installer
             'name' => $name,
             'domain' => '',
             'email' => $email,
-            'currency' => 'USD',
+            'currency' => 'SGD',
             'locale' => $locale,
             'enabled' => '1',
         ]));
