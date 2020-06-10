@@ -4,12 +4,12 @@ namespace App\Models\Banking;
 
 use App\Abstracts\Model;
 use App\Models\Setting\Category;
+use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
 use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
-use Date;
 
 class Transaction extends Model
 {
@@ -39,8 +39,6 @@ class Transaction extends Model
      * @var array
      */
     public $cloneable_relations = ['recurring'];
-
-    public static $currencies;
 
     public function account()
     {
@@ -254,14 +252,16 @@ class Transaction extends Model
      */
     public function getPriceAttribute()
     {
-        if (empty($this->currencies)) {
-            $this->currencies = \App\Models\Setting\Currency::enabled()->pluck('rate', 'code')->toArray();
-        }
+        static $currencies;
 
         $amount = $this->amount;
 
         // Convert amount if not same currency
         if ($this->account->currency_code != $this->currency_code) {
+            if (empty($currencies)) {
+                $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+            }
+
             $default_currency = setting('default.currency', 'USD');
 
             $default_amount = $this->amount;
@@ -282,7 +282,7 @@ class Transaction extends Model
             $transfer_amount->default_currency_code = $this->currency_code;
             $transfer_amount->amount = $default_amount;
             $transfer_amount->currency_code = $this->account->currency_code;
-            $transfer_amount->currency_rate = $this->currencies[$this->account->currency_code];
+            $transfer_amount->currency_rate = $currencies[$this->account->currency_code];
 
             $amount = $transfer_amount->getAmountConvertedFromDefault();
         }
