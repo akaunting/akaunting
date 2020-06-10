@@ -336,7 +336,7 @@ const app = new Vue({
 
                 this.component = Vue.component('add-new-component', (resolve, reject) => {
                     resolve({
-                        template: '<div id="dynamic-component"><akaunting-modal-add-new :show="payment.modal" @submit="onSubmit" @cancel="onCancel" :buttons="payment.buttons" :title="payment.title" :is_component=true :message="payment.html"></akaunting-modal-add-new></div>',
+                        template: '<div id="dynamic-component"><akaunting-modal-add-new modal-dialog-class="modal-md" :show="payment.modal" @submit="onSubmit" @cancel="onCancel" :buttons="payment.buttons" :title="payment.title" :is_component=true :message="payment.html"></akaunting-modal-add-new></div>',
 
                         mixins: [
                             Global
@@ -352,6 +352,7 @@ const app = new Vue({
                         methods: {
                             onSubmit(event) {
                                 this.form = event;
+                                this.form.response = {};
 
                                 this.loading = true;
 
@@ -395,6 +396,12 @@ const app = new Vue({
 
                                             window.location.href = response.data.redirect;
                                         }
+                                    }
+
+                                    if (response.data.error) {
+                                        this.form.loading = false;
+
+                                        this.form.response = response.data;
                                     }
                                 })
                                 .catch(error => {
