@@ -73,6 +73,9 @@ class Event extends Provider
         'App\Events\Menu\PortalCreated' => [
             'App\Listeners\Menu\AddPortalItems',
         ],
+        'App\Events\Module\Installed' => [
+            'App\Listeners\Module\FinishInstallation',
+        ],
     ];
 
     /**
@@ -81,6 +84,7 @@ class Event extends Provider
      * @var array
      */
     protected $subscribe = [
+        'App\Listeners\Module\ClearCache',
         'App\Listeners\Report\AddDate',
         'App\Listeners\Report\AddAccounts',
         'App\Listeners\Report\AddCustomers',

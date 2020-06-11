@@ -2,20 +2,16 @@
 
 namespace Akaunting\Module\Commands;
 
-use App\Models\Module\Module;
-use App\Models\Module\ModuleHistory;
-use Illuminate\Console\Command;
-use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
+use App\Abstracts\Commands\Module;
 
-class EnableCommand extends Command
+class EnableCommand extends Module
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'module:enable {alias} {company_id}';
+    protected $signature = 'module:enable {alias} {company} {locale=en-GB}';
 
     /**
      * The console command description.
@@ -31,52 +27,30 @@ class EnableCommand extends Command
      */
     public function handle()
     {
-        $alias = Str::kebab($this->argument('alias'));
-        $company_id = $this->argument('company_id');
+        $this->prepare();
 
-        $model = Module::alias($alias)->companyId($company_id)->first();
-
-        if (!$model) {
-            $this->info("Module [{$alias}] not found.");
+        if (!$this->getModel()) {
+            $this->info("Module [{$this->alias}] not found.");
             return;
         }
 
-        if ($model->enabled == 0) {
-            $model->enabled = 1;
-            $model->save();
-
-            $module = module($alias);
-
-            // Add history
-            $data = [
-                'company_id' => $company_id,
-                'module_id' => $model->id,
-                'category' => $module->get('category', 'payment-method'),
-                'version' => $module->get('version'),
-                'description' => trans('modules.enabled', ['module' => $module->get('alias')]),
-            ];
-
-            ModuleHistory::create($data);
-
-            // Trigger event
-            event(new \App\Events\Module\Enabled($alias, $company_id));
-
-            $this->info("Module [{$alias}] enabled.");
-        } else {
-            $this->comment("Module [{$alias}] is already enabled.");
+        if ($this->model->enabled == 1) {
+            $this->comment("Module [{$this->alias}] is already enabled.");
+            return;
         }
-    }
 
-    /**
-    * Get the console command arguments.
-    *
-    * @return array
-    */
-    protected function getArguments()
-    {
-        return array(
-            array('alias', InputArgument::REQUIRED, 'Module alias.'),
-            array('company_id', InputArgument::REQUIRED, 'Company ID.'),
-        );
+        $this->changeRuntime();
+
+        // Update db
+        $this->model->enabled = 1;
+        $this->model->save();
+
+        $this->createHistory('enabled');
+
+        event(new \App\Events\Module\Enabled($this->alias, $this->company_id));
+
+        $this->revertRuntime();
+
+        $this->info("Module [{$this->alias}] enabled.");
     }
 }

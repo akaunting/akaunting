@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Events\Install\UpdateCacheCleared;
 use App\Events\Install\UpdateCopied;
 use App\Events\Install\UpdateDownloaded;
 use App\Events\Install\UpdateUnzipped;
@@ -22,9 +23,8 @@ class Updater
     {
         Cache::forget('updates');
         Cache::forget('versions');
-        Cache::forget('apps.notifications');
-        Cache::forget('apps.suggestions');
-        Cache::forget('apps.installed.' . session('company_id'));
+
+        event(new UpdateCacheCleared(session('company_id')));
 
         return true;
     }
