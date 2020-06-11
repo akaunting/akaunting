@@ -3,6 +3,7 @@
 namespace Akaunting\Module\Commands;
 
 use App\Abstracts\Commands\Module;
+use App\Events\Module\Disabled;
 
 class DisableCommand extends Module
 {
@@ -47,7 +48,7 @@ class DisableCommand extends Module
 
         $this->createHistory('disabled');
 
-        event(new \App\Events\Module\Disabled($this->alias, $this->company_id));
+        event(new Disabled($this->alias, $this->company_id));
 
         $this->revertRuntime();
 

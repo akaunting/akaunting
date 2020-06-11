@@ -3,6 +3,7 @@
 namespace Akaunting\Module\Commands;
 
 use App\Abstracts\Commands\Module;
+use App\Events\Module\Installed;
 use App\Models\Module\Module as Model;
 
 class InstallCommand extends Module
@@ -41,7 +42,7 @@ class InstallCommand extends Module
 
         $this->createHistory('installed');
 
-        event(new \App\Events\Module\Installed($this->alias, $this->company_id));
+        event(new Installed($this->alias, $this->company_id));
 
         $this->revertRuntime();
 

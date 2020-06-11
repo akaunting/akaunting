@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Abstracts\Commands\Module;
+use App\Events\Module\Uninstalled;
 
 class UninstallModule extends Module
 {
@@ -41,7 +42,7 @@ class UninstallModule extends Module
 
         $this->createHistory('uninstalled');
 
-        event(new \App\Events\Module\Uninstalled($this->alias, $this->company_id));
+        event(new Uninstalled($this->alias, $this->company_id));
 
         // Delete files
         $this->module->delete();
