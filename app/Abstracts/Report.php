@@ -142,17 +142,17 @@ abstract class Report
     {
         $chart = new Chartjs();
 
-        if (empty($this->model->settings->chart)) {
+        if (!$type = $this->getSetting('chart')) {
             return $chart;
         }
 
-        $config = $this->chart[$this->model->settings->chart];
+        $config = $this->chart[$type];
 
         $default_options = $this->getLineChartOptions();
 
         $options = array_merge($default_options, (array) $config['options']);
 
-        $chart->type($this->model->settings->chart)
+        $chart->type($type)
             ->width((int) $config['width'])
             ->height((int) $config['height'])
             ->options($options)
@@ -199,13 +199,13 @@ abstract class Report
 
     public function setColumnWidth()
     {
-        if (empty($this->model->settings->period)) {
+        if (!$period = $this->getSetting('period')) {
             return;
         }
 
         $width = '';
 
-        switch ($this->model->settings->period) {
+        switch ($period) {
             case 'quarterly':
                 $width = 'col-sm-2';
                 break;
@@ -253,16 +253,16 @@ abstract class Report
 
     public function setDates()
     {
-        if (empty($this->model->settings->period)) {
+        if (!$period = $this->getSetting('period')) {
             return;
         }
 
-        $function = 'sub' . ucfirst(str_replace('ly', '', $this->model->settings->period));
+        $function = 'sub' . ucfirst(str_replace('ly', '', $period));
 
         $start = $this->getFinancialStart()->copy()->$function();
 
         for ($j = 1; $j <= 12; $j++) {
-            switch ($this->model->settings->period) {
+            switch ($period) {
                 case 'yearly':
                     $start->addYear();
 
@@ -332,7 +332,7 @@ abstract class Report
 
             $date = $this->getFormattedDate(Date::parse($item->$date_field));
 
-            $id_field = $this->model->settings->group . '_id';
+            $id_field = $this->getSetting('group') . '_id';
 
             if (
                 !isset($this->row_values[$table][$item->$id_field])
@@ -374,7 +374,7 @@ abstract class Report
 
     public function getFormattedDate($date)
     {
-        switch ($this->model->settings->period) {
+        switch ($this->getSetting('period')) {
             case 'yearly':
                 $i = $date->copy()->format($this->getYearlyDateFormat());
                 break;
@@ -409,6 +409,11 @@ abstract class Report
         });
 
         return $print_url;
+    }
+
+    public function getSetting($name, $default = '')
+    {
+        return $this->model->settings->$name ?? $default;
     }
 
     public function getFields()

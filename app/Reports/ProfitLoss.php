@@ -38,7 +38,7 @@ class ProfitLoss extends Report
         $income_transactions = $this->applyFilters(Transaction::with('recurring')->income()->isNotTransfer(), ['date_field' => 'paid_at']);
         $expense_transactions = $this->applyFilters(Transaction::with('recurring')->expense()->isNotTransfer(), ['date_field' => 'paid_at']);
 
-        switch ($this->model->settings->basis) {
+        switch ($this->getSetting('basis')) {
             case 'cash':
                 // Revenues
                 $revenues = $income_transactions->get();
