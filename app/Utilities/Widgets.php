@@ -88,6 +88,11 @@ class Widgets
         return $class->show(...$arguments);
     }
 
+    public static function canShow($class)
+    {
+        return (static::isModuleEnabled($class) && static::canRead($class));
+    }
+
     public static function canRead($class)
     {
         return user()->can(static::getPermission($class));
@@ -100,7 +105,7 @@ class Widgets
         $prefix = 'read-';
 
         // Add module
-        if ($alias = Widgets::getModuleAlias($class)) {
+        if ($alias = static::getModuleAlias($arr)) {
             $prefix .= $alias . '-';
         }
 
@@ -118,9 +123,22 @@ class Widgets
         return (new $class())->getDefaultName();
     }
 
+    public static function isModuleEnabled($class)
+    {
+        if (!$alias = static::getModuleAlias($class)) {
+            return true;
+        }
+
+        if (Module::alias($alias)->enabled()->first()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public static function isModule($class)
     {
-        $arr = explode('\\', $class);
+        $arr = is_array($class) ? $class : explode('\\', $class);
 
         return (strtolower($arr[0]) == 'modules');
     }
@@ -131,7 +149,7 @@ class Widgets
             return false;
         }
 
-        $arr = explode('\\', $class);
+        $arr = is_array($class) ? $class : explode('\\', $class);
 
         return Str::kebab($arr[1]);
     }
