@@ -2,10 +2,10 @@
 
 namespace Akaunting\Module\Commands;
 
-use App\Abstracts\Commands\Module;
+use App\Abstracts\Commands\Module as Command;
 use App\Events\Module\Disabled;
 
-class DisableCommand extends Module
+class DisableCommand extends Command
 {
     /**
      * The name and signature of the console command.

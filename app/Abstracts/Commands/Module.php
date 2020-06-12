@@ -3,7 +3,7 @@
 namespace App\Abstracts\Commands;
 
 use App\Models\Module\Module as Model;
-use App\Models\Module\ModuleHistory;
+use App\Models\Module\ModuleHistory as ModelHistory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
@@ -53,7 +53,7 @@ abstract class Module extends Command
             return;
         }
 
-        ModuleHistory::create([
+        ModelHistory::create([
             'company_id' => $this->company_id,
             'module_id' => $this->model->id,
             'category' => $this->module->get('category'),

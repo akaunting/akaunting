@@ -2,11 +2,11 @@
 
 namespace Akaunting\Module\Commands;
 
-use App\Abstracts\Commands\Module;
+use App\Abstracts\Commands\Module as Command;
 use App\Events\Module\Installed;
 use App\Models\Module\Module as Model;
 
-class InstallCommand extends Module
+class InstallCommand extends Command
 {
     /**
      * The name and signature of the console command.

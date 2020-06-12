@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Abstracts\Commands\Module;
+use App\Abstracts\Commands\Module as Command;
 use App\Events\Module\Uninstalled;
 
-class UninstallModule extends Module
+class UninstallModule extends Command
 {
     /**
      * The name and signature of the console command.
