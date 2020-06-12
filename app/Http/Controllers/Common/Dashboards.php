@@ -10,6 +10,7 @@ use App\Jobs\Common\UpdateDashboard;
 use App\Models\Common\Company;
 use App\Models\Common\Dashboard;
 use App\Models\Common\Widget;
+use App\Models\Module\Module;
 use App\Traits\DateTime;
 use App\Traits\Users;
 use App\Utilities\Widgets;
@@ -68,6 +69,12 @@ class Dashboards extends Controller
         }
 
         $widgets = Widget::where('dashboard_id', $dashboard->id)->orderBy('sort', 'asc')->get()->filter(function ($widget) {
+            if ($alias = Widgets::getModuleAlias($widget->class)) {
+                if (!Module::alias($alias)->enabled()->first()) {
+                    return false;
+                }
+            }
+
             return Widgets::canRead($widget->class);
         });
 

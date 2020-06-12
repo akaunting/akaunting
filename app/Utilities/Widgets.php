@@ -100,8 +100,8 @@ class Widgets
         $prefix = 'read-';
 
         // Add module
-        if (strtolower($arr[0]) == 'modules') {
-            $prefix .= Str::kebab($arr[1]) . '-';
+        if ($alias = Widgets::getModuleAlias($class)) {
+            $prefix .= $alias . '-';
         }
 
         $prefix .= 'widgets-';
@@ -116,5 +116,23 @@ class Widgets
     public static function getDefaultName($class)
     {
         return (new $class())->getDefaultName();
+    }
+
+    public static function isModule($class)
+    {
+        $arr = explode('\\', $class);
+
+        return (strtolower($arr[0]) == 'modules');
+    }
+
+    public static function getModuleAlias($class)
+    {
+        if (!static::isModule($class)) {
+            return false;
+        }
+
+        $arr = explode('\\', $class);
+
+        return Str::kebab($arr[1]);
     }
 }
