@@ -46,6 +46,6 @@ class InstallCommand extends Command
 
         $this->revertRuntime();
 
-        $this->info('Module installed!');
+        $this->info("Module [{$this->alias}] installed!");
     }
 }
