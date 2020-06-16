@@ -26,10 +26,13 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldCreateVendor()
     {
+        $request = $this->getRequest();
         $this->loginAs()
-            ->post(route('vendors.store'), $this->getRequest())
+            ->post(route('vendors.store'), $request)
             ->assertStatus(200);
-
+        
+        $this->assertDatabaseHas('contacts',$request);
+        
         $this->assertFlashLevel('success');
     }
 

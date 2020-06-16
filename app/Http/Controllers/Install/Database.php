@@ -30,7 +30,7 @@ class Database extends Controller
         $connection = config('database.default','mysql');
 
         $host     = $request['hostname'];
-        $port     = config("database.connections.$connection.port", '3306');
+        $port     = config("database.connections.$connection.port", '3307');
         $database = $request['database'];
         $username = $request['username'];
         $password = $request['password'];
