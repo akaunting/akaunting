@@ -201,9 +201,7 @@ class Installer
 
     public static function saveDbVariables($host, $port, $database, $username, $password, $prefix = null)
     {
-        if (is_null($prefix)){
-            $prefix = strtolower(Str::random(3) . '_');
-        }
+        $prefix = !is_null($prefix) ? $prefix : strtolower(Str::random(3) . '_');
 
         // Update .env file
         static::updateEnv([
