@@ -141,14 +141,14 @@ class Installer
         ]);
 	}
 
-    public static function createDbTables($host, $port, $database, $username, $password)
+    public static function createDbTables($host, $port, $database, $username, $password, $prefix = null)
     {
         if (!static::isDbValid($host, $port, $database, $username, $password)) {
             return false;
         }
 
         // Set database details
-        static::saveDbVariables($host, $port, $database, $username, $password);
+        static::saveDbVariables($host, $port, $database, $username, $password, $prefix);
 
         // Try to increase the maximum execution time
         set_time_limit(300); // 5 minutes
@@ -199,9 +199,11 @@ class Installer
         return true;
     }
 
-    public static function saveDbVariables($host, $port, $database, $username, $password)
+    public static function saveDbVariables($host, $port, $database, $username, $password, $prefix = null)
     {
-        $prefix = strtolower(Str::random(3) . '_');
+        if (is_null($prefix)){
+            $prefix = strtolower(Str::random(3) . '_');
+        }
 
         // Update .env file
         static::updateEnv([
