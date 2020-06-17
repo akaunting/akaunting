@@ -102,6 +102,7 @@ class Kernel extends HttpKernel
             'session.errors',
             'csrf',
             'signature',
+            'signed.redirect',
             'company.signed',
             'bindings',
             'header.x',
@@ -139,6 +140,7 @@ class Kernel extends HttpKernel
 
         // Akaunting
         'api.company' => \App\Http\Middleware\ApiCompany::class,
+        'api.key' => \App\Http\Middleware\CanApiKey::class,
         'auth.disabled' => \App\Http\Middleware\LogoutIfUserDisabled::class,
         'auth.redirect' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'company.currencies' => \App\Http\Middleware\LoadCurrencies::class,
@@ -151,8 +153,8 @@ class Kernel extends HttpKernel
         'install.can' => \App\Http\Middleware\CanInstall::class,
         'install.redirect' => \App\Http\Middleware\RedirectIfNotInstalled::class,
         'money' => \App\Http\Middleware\Money::class,
+        'signed.redirect' => \App\Http\Middleware\RedirectSignedIfAuthenticated::class,
         'wizard.redirect' => \App\Http\Middleware\RedirectIfWizardNotCompleted::class,
-        'api.key' => \App\Http\Middleware\CanApiKey::class,
 
         // Vendor
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,

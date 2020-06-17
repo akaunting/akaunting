@@ -20,7 +20,7 @@ return [
 
     'offline_payments' => [
         'cash'              => 'নগদ',
-        'bank'              => 'ব্যাংক হিসাবে স্থানান্তর',
+        'bank'              => 'ব্যাংক ট্রান্সফার',
     ],
 
     'reports' => [

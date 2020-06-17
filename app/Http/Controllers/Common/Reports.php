@@ -25,7 +25,7 @@ class Reports extends Controller
         $reports = Report::orderBy('name')->get();
 
         foreach ($reports as $report) {
-            if (!Utility::canRead($report->class)) {
+            if (!Utility::canShow($report->class)) {
                 continue;
             }
 
@@ -56,7 +56,7 @@ class Reports extends Controller
      */
     public function show(Report $report)
     {
-        if (!Utility::canRead($report->class)) {
+        if (!Utility::canShow($report->class)) {
             abort(403);
         }
 
@@ -203,7 +203,7 @@ class Reports extends Controller
      */
     public function print(Report $report)
     {
-        if (!Utility::canRead($report->class)) {
+        if (!Utility::canShow($report->class)) {
             abort(403);
         }
 
@@ -218,7 +218,7 @@ class Reports extends Controller
      */
     public function export(Report $report)
     {
-        if (!Utility::canRead($report->class)) {
+        if (!Utility::canShow($report->class)) {
             abort(403);
         }
 
@@ -263,7 +263,7 @@ class Reports extends Controller
     public function clear()
     {
         Report::all()->each(function ($report) {
-            if (!Utility::canRead($report->class)) {
+            if (!Utility::canShow($report->class)) {
                 return;
             }
 

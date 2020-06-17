@@ -13,6 +13,7 @@ return [
     'price'                 => '价格',
     'sub_total'             => '小计',
     'discount'              => '折扣',
+    'item_discount'         => 'Line Discount',
     'tax_total'             => '税额',
     'total'                 => '总计',
 
@@ -30,6 +31,7 @@ return [
     'mark_paid'             => '标记为已付款',
     'mark_sent'             => '标记为已发送',
     'mark_viewed'           => '标记已查看',
+    'mark_cancelled'        => 'Mark Cancelled',
     'download_pdf'          => '下载 PDF格式',
     'send_mail'             => '发送邮件',
     'all_invoices'          => '登录以查看所有发票',
@@ -47,12 +49,15 @@ return [
         'paid'              => '已付款',
         'overdue'           => '已逾期',
         'unpaid'            => '未付款',
+        'cancelled'         => 'Cancelled',
     ],
 
     'messages' => [
         'email_sent'        => '发票邮件已发送',
         'marked_sent'       => '发票标记为已发送！',
         'marked_paid'       => '发票标记为已发送！',
+        'marked_viewed'     => 'Invoice marked as viewed!',
+        'marked_cancelled'  => 'Invoice marked as cancelled!',
         'email_required'    => '此客户沒有邮箱！',
         'draft'             => '这是 <b>DRAFT</b> 发票，发送后将会反映在图表中。',
 

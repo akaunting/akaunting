@@ -33,7 +33,11 @@
                                         {{ buttons.cancel.text }}
                                     </button>
 
-                                    <button :disabled="form.loading" type="button" class="btn button-submit" :class="buttons.confirm.class" @click="onSubmit">
+                                    <a v-if="buttons.payment" :href="buttons.payment.url" class="btn btn-white" :class="buttons.payment.class">
+                                        {{ buttons.payment.text }}
+                                    </a>
+
+                                    <button  :disabled="form.loading" type="button" class="btn button-submit" :class="buttons.confirm.class" @click="onSubmit">
                                         <div class="aka-loader"></div><span>{{ buttons.confirm.text }}</span>
                                     </button>
                                 </div>
@@ -217,7 +221,24 @@ export default {
                             })
                             .catch(error => {
                             });
-                        }
+                        },
+
+                        // Change bank account get money and currency rate
+                        async onChangePaymentAccount(account_id) {
+                            let payment_account = Promise.resolve(window.axios.get(url + '/banking/accounts/currency', {
+                                params: {
+                                    account_id: account_id
+                                }
+                            }));
+
+                            payment_account.then(response => {
+                                this.form.currency = response.data.currency_name;
+                                this.form.currency_code = response.data.currency_code;
+                                this.form.currency_rate = response.data.currency_rate;
+                            })
+                            .catch(error => {
+                            });
+                        },
                     }
                 })
             });

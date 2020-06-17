@@ -19,7 +19,7 @@ class Reconciliations extends ApiController
      */
     public function index()
     {
-        $items = Reconciliation::with(['account'])->collect();
+        $items = Reconciliation::with('account')->collect();
 
         return $this->response->paginator($items, new Transformer());
     }

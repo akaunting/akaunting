@@ -65,10 +65,10 @@ abstract class DocumentModel extends Model
     {
         $percent = 0;
 
-        $discount = $this->totals()->where('code', 'discount')->value('amount');
+        $discount = $this->totals->where('code', 'discount')->pluck('amount')->first();
 
         if ($discount) {
-            $sub_total = $this->totals()->where('code', 'sub_total')->value('amount');
+            $sub_total = $this->totals->where('code', 'sub_total')->pluck('amount')->first();
 
             $percent = number_format((($discount * 100) / $sub_total), 0);
         }
@@ -87,11 +87,15 @@ abstract class DocumentModel extends Model
             return false;
         }
 
+        static $currencies;
+
         $paid = 0;
         $reconciled = $reconciled_amount = 0;
 
         if ($this->transactions->count()) {
-            $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+            if (empty($currencies)) {
+                $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+            }
 
             foreach ($this->transactions as $item) {
                 if ($this->currency_code == $item->currency_code) {
@@ -171,7 +175,7 @@ abstract class DocumentModel extends Model
     {
         $amount = $this->amount;
 
-        $this->totals()->where('code', 'tax')->each(function ($tax) use(&$amount) {
+        $this->totals->where('code', 'tax')->each(function ($tax) use(&$amount) {
             $amount -= $tax->amount;
         });
 

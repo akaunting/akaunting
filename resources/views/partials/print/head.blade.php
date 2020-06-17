@@ -20,7 +20,6 @@
         }
     </style>
 
-
     @stack('css')
 
     @stack('stylesheet')

@@ -425,16 +425,10 @@ trait Modules
         File::copyDirectory($temp_path, $module_path);
         File::deleteDirectory($temp_path);
 
-        $data = [
-            'path' => $path,
-            'name' => Str::studly($module->alias),
-            'alias' => $module->alias,
-        ];
+        event(new \App\Events\Module\Copied($module->alias, session('company_id')));
 
         $company_id = session('company_id');
         $locale = app()->getLocale();
-
-        $this->clearModulesCache();
 
         $command = "module:install {$module->alias} {$company_id} {$locale}";
 
@@ -454,29 +448,44 @@ trait Modules
             'redirect' => route('apps.app.show', $module->alias),
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'path' => $path,
+                'name' => module($module->alias)->getName(),
+                'alias' => $module->alias,
+            ],
         ];
     }
 
     public function uninstallModule($alias)
     {
         $module = module($alias);
+        $name = $module->getName();
+        $category = $module->get('category');
+        $version = $module->get('version');
 
-        $data = [
-            'name' => $module->getName(),
-            'category' => $module->get('category'),
-            'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->delete();
+        $command = "module:uninstall {$alias} {$company_id} {$locale}";
 
-        $this->clearModulesCache();
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'name' => $name,
+                'category' => $category,
+                'version' => $version,
+            ],
         ];
     }
 
@@ -484,21 +493,29 @@ trait Modules
     {
         $module = module($alias);
 
-        $data = [
-            'name' => $module->getName(),
-            'category' => $module->get('category'),
-            'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->enable();
+        $command = "module:enable {$alias} {$company_id} {$locale}";
 
-        $this->clearModulesCache();
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'name' => $module->getName(),
+                'category' => $module->get('category'),
+                'version' => $module->get('version'),
+            ],
         ];
     }
 
@@ -506,21 +523,29 @@ trait Modules
     {
         $module = module($alias);
 
-        $data = [
-            'name' => $module->getName(),
-            'category' => $module->get('category'),
-            'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->disable();
+        $command = "module:disable {$alias} {$company_id} {$locale}";
 
-        $this->clearModulesCache($alias);
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'name' => $module->getName(),
+                'category' => $module->get('category'),
+                'version' => $module->get('version'),
+            ],
         ];
     }
 
@@ -637,16 +662,5 @@ trait Modules
         }
 
         return $data['query']['page'];
-    }
-
-    public function clearModulesCache()
-    {
-        if (config('module.cache.enabled')) {
-            Cache::forget(config('module.cache.key'));
-        }
-
-        Cache::forget('apps.notifications');
-        Cache::forget('apps.suggestions');
-        Cache::forget('apps.installed.' . session('company_id'));
     }
 }

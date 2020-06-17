@@ -43,6 +43,8 @@ class FinishUpdate extends Command
         // Check if file mirror was successful
         $version = ($alias == 'core') ? version('short') : module($alias)->get('version');
         if ($version != $new) {
+            logger($alias . ' update failed:: file version > ' . $version . ' -vs- ' . 'request version > ' . $new);
+
             throw new \Exception(trans('modules.errors.finish', ['module' => $alias]));
         }
 

@@ -4,7 +4,7 @@ namespace App\Events\Module;
 
 use Illuminate\Queue\SerializesModels;
 
-class Deleted
+class Copied
 {
     use SerializesModels;
 

@@ -27,7 +27,7 @@ class AccountsTest extends FeatureTestCase
     public function testItShouldCreateAccount()
     {
         $this->loginAs()
-            ->post(route('accounts.index'), $this->getRequest())
+            ->post(route('accounts.store'), $this->getRequest())
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');

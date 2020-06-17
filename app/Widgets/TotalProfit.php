@@ -30,14 +30,14 @@ class TotalProfit extends Widget
             }
         });
 
-        $this->applyFilters(Invoice::accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($invoice) use (&$open_invoice, &$overdue_invoice) {
+        $this->applyFilters(Invoice::with('transactions')->accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($invoice) use (&$open_invoice, &$overdue_invoice) {
             list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($invoice);
 
             $open_invoice += $open_tmp;
             $overdue_invoice += $overdue_tmp;
         });
 
-        $this->applyFilters(Bill::accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($bill) use (&$open_bill, &$overdue_bill) {
+        $this->applyFilters(Bill::with('transactions')->accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($bill) use (&$open_bill, &$overdue_bill) {
             list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($bill);
 
             $open_bill += $open_tmp;

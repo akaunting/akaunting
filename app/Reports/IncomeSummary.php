@@ -30,9 +30,9 @@ class IncomeSummary extends Report
 
     public function setData()
     {
-        $transactions = $this->applyFilters(Transaction::income()->isNotTransfer(), ['date_field' => 'paid_at']);
+        $transactions = $this->applyFilters(Transaction::with('recurring')->income()->isNotTransfer(), ['date_field' => 'paid_at']);
 
-        switch ($this->model->settings->basis) {
+        switch ($this->getSetting('basis')) {
             case 'cash':
                 // Revenues
                 $revenues = $transactions->get();
@@ -41,7 +41,7 @@ class IncomeSummary extends Report
                 break;
             default:
                 // Invoices
-                $invoices = $this->applyFilters(Invoice::accrued(), ['date_field' => 'invoiced_at'])->get();
+                $invoices = $this->applyFilters(Invoice::with('recurring', 'transactions')->accrued(), ['date_field' => 'invoiced_at'])->get();
                 Recurring::reflect($invoices, 'invoiced_at');
                 $this->setTotals($invoices, 'invoiced_at');
 

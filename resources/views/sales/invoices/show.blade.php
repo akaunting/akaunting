@@ -636,38 +636,9 @@
             @stack('row_footer_transaction_end')
         </div>
     @stack('row_footer_end')
+
+    {{ Form::hidden('invoice_id', $invoice->id, ['id' => 'invoice_id']) }}
 @endsection
-
-@push('content_content_end')
-    <akaunting-modal
-        class="modal-payment"
-        :show="payment.modal"
-        @cancel="payment.modal = false"
-        :title="'{{ trans('general.title.new', ['type' => trans_choice('general.payments', 1)]) }}'"
-        :message="payment.html"
-        :button_cancel="'{{ trans('general.button.save') }}'"
-        :button_delete="'{{ trans('general.button.cancel') }}'">
-        <template #modal-body>
-            @include('modals.invoices.payment')
-        </template>
-
-        <template #card-footer>
-            <div class="float-right">
-                <button type="button" class="btn btn-outline-secondary header-button-top" @click="closePayment">
-                    {{ trans('general.cancel') }}
-                </button>
-
-                <a href="{{ route('apps.categories.show', 'payment-method') }}" class="btn btn-white header-button-top long-texts">
-                    {{ trans('invoices.accept_payments') }}</span>
-                </a>
-
-                <button :disabled="form.loading" type="button" class="btn btn-success button-submit header-button-top" @click="addPayment">
-                    <div class="aka-loader"></div><span>{{ trans('general.confirm') }}</span>
-                </button>
-            </div>
-        </template>
-    </akaunting-modal>
-@endpush
 
 @push('scripts_start')
     <script src="{{ asset('public/js/sales/invoices.js?v=' . version('short')) }}"></script>

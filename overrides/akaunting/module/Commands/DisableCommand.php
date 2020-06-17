@@ -2,11 +2,8 @@
 
 namespace Akaunting\Module\Commands;
 
-use App\Models\Module\Module;
-use App\Models\Module\ModuleHistory;
-use Illuminate\Console\Command;
-use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
+use App\Abstracts\Commands\Module as Command;
+use App\Events\Module\Disabled;
 
 class DisableCommand extends Command
 {
@@ -15,7 +12,7 @@ class DisableCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'module:disable {alias} {company_id}';
+    protected $signature = 'module:disable {alias} {company} {locale=en-GB}';
 
     /**
      * The console command description.
@@ -31,52 +28,30 @@ class DisableCommand extends Command
      */
     public function handle()
     {
-        $alias = Str::kebab($this->argument('alias'));
-        $company_id = $this->argument('company_id');
+        $this->prepare();
 
-        $model = Module::alias($alias)->companyId($company_id)->first();
-
-        if (!$model) {
-            $this->info("Module [{$alias}] not found.");
+        if (!$this->getModel()) {
+            $this->info("Module [{$this->alias}] not found.");
             return;
         }
 
-        if ($model->enabled == 1) {
-            $model->enabled = 0;
-            $model->save();
-
-            $module = module($alias);
-
-            // Add history
-            $data = [
-                'company_id' => $company_id,
-                'module_id' => $model->id,
-                'category' => $module->get('category', 'payment-method'),
-                'version' => $module->get('version'),
-                'description' => trans('modules.disabled', ['module' => $module->get('alias')]),
-            ];
-
-            ModuleHistory::create($data);
-
-            // Trigger event
-            event(new \App\Events\Module\Disabled($alias, $company_id));
-
-            $this->info("Module [{$alias}] disabled.");
-        } else {
-            $this->comment("Module [{$alias}] is already disabled.");
+        if ($this->model->enabled == 0) {
+            $this->comment("Module [{$this->alias}] is already disabled.");
+            return;
         }
-    }
 
-    /**
-    * Get the console command arguments.
-    *
-    * @return array
-    */
-    protected function getArguments()
-    {
-        return array(
-            array('alias', InputArgument::REQUIRED, 'Module alias.'),
-            array('company_id', InputArgument::REQUIRED, 'Company ID.'),
-        );
+        $this->changeRuntime();
+
+        // Update db
+        $this->model->enabled = 0;
+        $this->model->save();
+
+        $this->createHistory('disabled');
+
+        event(new Disabled($this->alias, $this->company_id));
+
+        $this->revertRuntime();
+
+        $this->info("Module [{$this->alias}] disabled.");
     }
 }

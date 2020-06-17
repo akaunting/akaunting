@@ -67,6 +67,19 @@ class BillTransactions extends Controller
             'error' => false,
             'message' => 'null',
             'html' => $html,
+            'data' => [
+                'title' => trans('general.title.new', ['type' => trans_choice('general.payments', 1)]),
+                'buttons' => [
+                    'cancel' => [
+                        'text' => trans('general.cancel'),
+                        'class' => 'btn-outline-secondary'
+                    ],
+                    'confirm' => [
+                        'text' => trans('general.save'),
+                        'class' => 'btn-success'
+                    ]
+                ]
+            ]
         ]);
     }
 

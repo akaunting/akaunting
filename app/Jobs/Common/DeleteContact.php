@@ -3,6 +3,7 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Jobs\Auth\DeleteUser;
 use App\Traits\Contacts;
 
 class DeleteContact extends Job
@@ -30,8 +31,9 @@ class DeleteContact extends Job
     {
         $this->authorize();
 
-        if ($this->contact->user){
-            $this->contact->user->delete();
+
+        if ($user = $this->contact->user) {
+            $this->dispatch(new DeleteUser($user));
         }
 
         $this->contact->delete();
@@ -59,7 +61,7 @@ class DeleteContact extends Job
             'transactions' => 'transactions',
         ];
 
-        if (in_array($this->contact->type, $this->getCustomerTypes())) {
+        if ($this->isCustomer()) {
             $rels['invoices'] = 'invoices';
         } else {
             $rels['bills'] = 'bills';

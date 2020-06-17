@@ -2,8 +2,9 @@
 
 return [
 
-    'bulk_actions'     => 'Magn aðgerð|Magn aðgerðir',
-    'selected'         => 'valið',
+    'bulk_actions'      => 'Magn aðgerð|Magn aðgerðir',
+    'selected'          => 'valið',
+    'no_action'         => 'No action available',
 
     'message' => [
         'duplicate'     => 'Ertu viss um að þú viljir <b>afrita</b> valda færslu?',
@@ -14,6 +15,7 @@ return [
         'paid'          => 'Ertu viss um að þú viljir merkja valdann reikning sem <b>greiddur</b>?|Ertu viss um að þú viljir merkja valda reikninga sem <b>greiddir</b>?',
         'sent'          => 'Ertu viss um að þú viljir merkja valdann reikning sem <b>sendan</b>?|Ertu viss um að þú viljir merkja valda reikninga sem <b>sendir</b>?',
         'received'      => 'Ertu viss um að þú viljir merkja valdann reikning sem <b>mótekinn</b>?|Ertu viss um að þú viljir merkja valda reikninga sem <b>mótteknir</b>?',
+        'cancelled'     => 'Are you sure you want to <b>cancel</b> selected invoice/bill?|Are you sure you want to <b>cancel</b> selected invoices/bills?',
     ],
 
 ];

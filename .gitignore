@@ -78,6 +78,7 @@ fabric.properties
 /storage/*.key
 /vendor
 /.idea
+/.history
 /.vscode
 /.vagrant
 Homestead.json

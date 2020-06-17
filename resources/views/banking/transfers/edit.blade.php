@@ -22,7 +22,7 @@
 
                     {{ Form::selectGroup('to_account_id', trans('transfers.to_account'), 'university', $accounts, $transfer->to_account_id) }}
 
-                    {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'currency' => $currency], $transfer->amount) }}
+                    {{ Form::moneyGroup('amount', trans('general.amount'), 'money-bill-alt', ['required' => 'required', 'currency' => $currency, 'dynamic-currency' => 'currency'], $transfer->amount) }}
 
                     {{ Form::dateGroup('transferred_at', trans('general.date'), 'calendar', ['id' => 'transferred_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], Date::parse($transfer->transferred_at)->toDateString()) }}
 

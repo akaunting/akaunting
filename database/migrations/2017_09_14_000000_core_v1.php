@@ -568,8 +568,8 @@ class CoreV1 extends Migration
         Schema::drop('items');
         Schema::drop('jobs');
         Schema::drop('failed_jobs');
-        Schema::drop('media');
         Schema::drop('mediables');
+        Schema::drop('media');
         Schema::drop('modules');
         Schema::drop('module_histories');
         Schema::drop('notifications');
