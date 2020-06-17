@@ -52,7 +52,7 @@
                 <div class="col-sm-6">
                     <a href="{{ url('wizard/taxes') }}" class="btn btn-icon btn-white header-button-top">
                         <span class="btn-inner--icon"><i class="fas fa-arrow-left"></i></span>
-                        <span class="btn-inner--text">{{ trans('modules.back') }}</span>
+                        <span class="btn-inner--text">{{ trans('pagination.previous') }}</span>
                     </a>
                 </div>
                 <div class="col-sm-6 text-right">
