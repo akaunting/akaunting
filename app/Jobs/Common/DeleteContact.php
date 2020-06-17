@@ -30,6 +30,10 @@ class DeleteContact extends Job
     {
         $this->authorize();
 
+        if ($this->contact->user){
+            $this->contact->user->delete();
+        }
+
         $this->contact->delete();
 
         return true;
