@@ -13,8 +13,15 @@
 
     # Prevent Direct Access to Protected Files
     <FilesMatch "(?i)(^artisan$|\.env|\.log)">
-        Order deny,allow
-        Deny from all
+        # Apache 2.2 syntax
+        <IfModule !mod_authz_core.c>
+            Order deny,allow
+            Deny from all
+        </IfModule>
+        # Apache 2.4 syntax
+        <IfModule mod_authz_core.c>
+            Require all denied
+        </IfModule>
     </FilesMatch>
 
     # Prevent Direct Access To Protected Folders
