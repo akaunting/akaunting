@@ -57,7 +57,7 @@ class Install extends Command
     public function handle()
     {
         if (($missing_options = $this->getMissingOptions()) && $this->option(self::OPT_NO_INTERACTION)) {
-            $this->line('❌ Some options are missing and --no-interaction is present. Please run the following command for more informations :');
+            $this->line('❌ Some options are missing and --no-interaction is present. Please run the following command for more information :');
             $this->line('❌ php artisan help install');
             $this->line('❌ Missing options are : ' . implode(', ', $missing_options));
 
@@ -111,6 +111,8 @@ class Install extends Command
             'OPT_ADMIN_PASSWORD'
         ];
 
+        $allowed_empty = ['db_password', 'db_prefix'];
+
         foreach ($contants as $const) {
             $option = constant("self::$const");
 
@@ -118,14 +120,15 @@ class Install extends Command
 
             $this->$property = $this->option($option);
 
-            if (empty($this->$property)) {
-                // Allow empty password
-                if ($property == 'db_password') {
-                    continue;
-                }
-
-                $missing_options[] = $option;
+            if (!empty($this->$property)) {
+                continue;
             }
+
+            if (in_array($property, $allowed_empty)) {
+                continue;
+            }
+
+            $missing_options[] = $option;
         }
 
         return $missing_options;
