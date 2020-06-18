@@ -36,7 +36,7 @@ trait Modules
     // Get All Modules
     public function getModules($data = [])
     {
-        $key = 'apps.items.page.' . $this->getPageNumber($data);
+        $key = 'apps.app.' . $this->getDataKey($data);
 
         $items = Cache::get($key);
 
@@ -61,7 +61,7 @@ trait Modules
 
     public function getDocumentation($alias)
     {
-        $key = 'apps.docs.' . $alias;
+        $key = 'apps.' . $alias . '.docs.' . $this->getDataKey($data);
 
         $documentation = Cache::get($key);
 
@@ -78,7 +78,7 @@ trait Modules
 
     public function getModuleReviews($alias, $data = [])
     {
-        $key = 'apps.' . $alias . '.reviews.page.'. $this->getPageNumber($data);
+        $key = 'apps.' . $alias . '.reviews.' . $this->getDataKey($data);
 
         $reviews = Cache::get($key);
 
@@ -95,7 +95,7 @@ trait Modules
 
     public function getCategories($data = [])
     {
-        $key = 'apps.categories.page.' . $this->getPageNumber($data);
+        $key = 'apps.categories.' . $this->getDataKey($data);
 
         $categories = Cache::get($key);
 
@@ -112,7 +112,7 @@ trait Modules
 
     public function getModulesByCategory($alias, $data = [])
     {
-        $key = 'apps.categories.' . $alias . '.page.' . $this->getPageNumber($data);
+        $key = 'apps.categories.' . $alias . '.' . $this->getDataKey($data);
 
         $category = Cache::get($key);
 
@@ -129,7 +129,7 @@ trait Modules
 
     public function getVendors($data = [])
     {
-        $key = 'apps.vendors.page.' . $this->getPageNumber($data);
+        $key = 'apps.vendors.' . $this->getDataKey($data);
 
         $vendors = Cache::get($key);
 
@@ -146,7 +146,7 @@ trait Modules
 
     public function getModulesByVendor($alias, $data = [])
     {
-        $key = 'apps.vendors.' . $alias . '.page.' . $this->getPageNumber($data);
+        $key = 'apps.vendors.' . $alias . '.' . $this->getDataKey($data);
 
         $vendor = Cache::get($key);
 
@@ -195,7 +195,7 @@ trait Modules
 
     public function getPreSaleModules($data = [])
     {
-        $key = 'apps.pre_sale.page.' . $this->getPageNumber($data);
+        $key = 'apps.pre_sale.' . $this->getDataKey($data);
 
         $pre_sale = Cache::get($key);
 
@@ -212,7 +212,7 @@ trait Modules
 
     public function getPaidModules($data = [])
     {
-        $key = 'apps.paid.page.' . $this->getPageNumber($data);
+        $key = 'apps.paid.' . $this->getDataKey($data);
 
         $paid = Cache::get($key);
 
@@ -229,7 +229,7 @@ trait Modules
 
     public function getNewModules($data = [])
     {
-        $key = 'apps.new.page.' . $this->getPageNumber($data);
+        $key = 'apps.new.' . $this->getDataKey($data);
 
         $new = Cache::get($key);
 
@@ -246,7 +246,7 @@ trait Modules
 
     public function getFreeModules($data = [])
     {
-        $key = 'apps.free.page.' . $this->getPageNumber($data);
+        $key = 'apps.free.' . $this->getDataKey($data);
 
         $free = Cache::get($key);
 
@@ -263,7 +263,7 @@ trait Modules
 
     public function getFeaturedModules($data = [])
     {
-        $key = 'apps.featured.page.' . $this->getPageNumber($data);
+        $key = 'apps.featured.' . $this->getDataKey($data);
 
         $featured = Cache::get($key);
 
@@ -663,4 +663,21 @@ trait Modules
 
         return $data['query']['page'];
     }
+
+    public function getDataKey($data = [])
+    {
+        $result = 'language.' . language()->getShortCode() . '.page.' . $this->getPageNumber($data);
+
+        if (isset($data['query']['page'])) {
+            unset($data['query']['page']);
+        }
+
+        if (isset($data['query'])){
+            foreach($data['query'] as $key => $value) {
+                $result .= '.' . $key . '.' . $value; 
+            }
+        }
+
+        return $result;
+    } 
 }
