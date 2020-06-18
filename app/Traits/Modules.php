@@ -666,7 +666,7 @@ trait Modules
 
     public function getDataKey($data = [])
     {
-        $result = 'language.' . app()->getLocale() . '.page.' . $this->getPageNumber($data);
+        $result = 'language.' . language()->getShortCode() . '.page.' . $this->getPageNumber($data);
 
         if (isset($data['query']['page'])) {
             unset($data['query']['page']);
