@@ -227,7 +227,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <div class="media align-items-center">
-                            @if (!empty($user->picture))
+                            @if (is_object($user->picture))
                                 <img src="{{ Storage::url($user->picture->id) }}" class="rounded-circle image-style user-img" alt="{{ $user->name }}"/>
                             @else
                                 <img src="{{ asset('public/img/user.svg') }}" class="user-img" alt="{{ $user->name }}"/>

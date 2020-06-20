@@ -55,7 +55,7 @@
                                 <a class="col-aka" href="{{ route('users.edit', $item->id) }}">
                                     @if (setting('default.use_gravatar', '0') == '1')
                                         <img src="{{ $item->picture }}" alt="{{ $item->name }}" class="rounded-circle user-img p-1 mr-3 hidden-md" title="{{ $item->name }}">
-                                    @elseif ($item->picture)
+                                    @elseif (is_object($item->picture))
                                         <img src="{{ Storage::url($item->picture->id) }}" class="rounded-circle user-img p-1 mr-3 hidden-md" alt="{{ $item->name }}" title="{{ $item->name }}">
                                     @else
                                         <img src="{{ asset('public/img/user.svg') }}" class="user-img p-1 mr-3 hidden-md" alt="{{ $item->name }}"/>
