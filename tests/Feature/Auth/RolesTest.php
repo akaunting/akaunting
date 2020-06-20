@@ -26,7 +26,7 @@ class RolesTest extends FeatureTestCase
 
     public function testItShouldCreateRole()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $this->loginAs()
             ->post(route('roles.store'), $request)
@@ -34,12 +34,12 @@ class RolesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('roles', $this->getAssertRequest($request));
+        $this->assertDatabaseHas('roles', $this->getAssertRequest($request));
     }
 
     public function testItShouldSeeRoleUpdatePage()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $role = $this->dispatch(new CreateRole($request));
 
@@ -64,12 +64,12 @@ class RolesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('roles', $this->getAssertRequest($request));
+        $this->assertDatabaseHas('roles', $this->getAssertRequest($request));
     }
 
     public function testItShouldDeleteRole()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $role = $this->dispatch(new CreateRole($request));
 
@@ -79,7 +79,7 @@ class RolesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseMissing('roles', $this->getAssertRequest($request));
+        $this->assertDatabaseMissing('roles', $this->getAssertRequest($request));
     }
 
     public function getRequest()

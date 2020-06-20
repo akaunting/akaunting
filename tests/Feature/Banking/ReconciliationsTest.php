@@ -25,7 +25,7 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldCreateReconciliation()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $this->loginAs()
             ->post(route('reconciliations.store'), $request)
@@ -36,7 +36,7 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldSeeReconciliationUpdatePage()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $reconciliation = $this->dispatch(new CreateReconciliation($request));
 
@@ -63,7 +63,7 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldDeleteReconciliation()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $reconciliation = $this->dispatch(new CreateReconciliation($request));
 

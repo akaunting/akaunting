@@ -26,7 +26,7 @@ class PermissionsTest extends FeatureTestCase
 
     public function testItShouldCreatePermission()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $this->loginAs()
             ->post(route('permissions.store'), $request)
@@ -34,12 +34,12 @@ class PermissionsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('permissions', $request);
+        $this->assertDatabaseHas('permissions', $request);
     }
 
     public function testItShouldSeePermissionUpdatePage()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $permission = $this->dispatch(new CreatePermission($request));
 
@@ -64,12 +64,12 @@ class PermissionsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('permissions', $request);
+        $this->assertDatabaseHas('permissions', $request);
     }
 
     public function testItShouldDeletePermission()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $permission = $this->dispatch(new CreatePermission($request));
 
@@ -79,8 +79,7 @@ class PermissionsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseMissing('permissions', $request);
-
+        $this->assertDatabaseMissing('permissions', $request);
     }
 
     public function getRequest()

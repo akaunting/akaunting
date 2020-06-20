@@ -26,7 +26,7 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldCreateAccount()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $this->loginAs()
             ->post(route('accounts.store'), $request)
@@ -34,12 +34,12 @@ class AccountsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('accounts', $request);
+        $this->assertDatabaseHas('accounts', $request);
     }
 
     public function testItShouldSeeAccountUpdatePage()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $account = $this->dispatch(new CreateAccount($request));
 
@@ -64,7 +64,7 @@ class AccountsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('accounts', $request);
+        $this->assertDatabaseHas('accounts', $request);
     }
 
     public function testItShouldDeleteAccount()
@@ -79,7 +79,7 @@ class AccountsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertSoftDeleted('accounts', $request);
+        $this->assertSoftDeleted('accounts', $request);
     }
 
     public function getRequest()

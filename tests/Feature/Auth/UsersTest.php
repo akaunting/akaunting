@@ -26,7 +26,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldCreateUser()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $this->loginAs()
             ->post(route('users.store'), $request)
@@ -34,12 +34,12 @@ class UsersTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('users', $this->getAssertRequest($request));
+        $this->assertDatabaseHas('users', $this->getAssertRequest($request));
     }
 
     public function testItShouldSeeUserUpdatePage()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $user = $this->dispatch(new CreateUser($request));
 
@@ -64,12 +64,12 @@ class UsersTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('users', $this->getAssertRequest($request));
+        $this->assertDatabaseHas('users', $this->getAssertRequest($request));
     }
 
     public function testItShouldDeleteUser()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $user = $this->dispatch(new CreateUser($request));
 
@@ -79,7 +79,7 @@ class UsersTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-		$this->assertSoftDeleted('users', $this->getAssertRequest($request));
+        $this->assertSoftDeleted('users', $this->getAssertRequest($request));
     }
 
     public function testItShouldSeeLoginPage()
@@ -91,7 +91,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldLoginUser()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $user = $this->dispatch(new CreateUser($request));
 
@@ -103,7 +103,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldNotLoginUser()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $user = $this->dispatch(new CreateUser($request));
 
@@ -115,7 +115,7 @@ class UsersTest extends FeatureTestCase
 
     public function testItShouldLogoutUser()
     {
-		$request = $this->getRequest();
+        $request = $this->getRequest();
 
         $user = $this->dispatch(new CreateUser($request));
 
