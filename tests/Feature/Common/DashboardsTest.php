@@ -34,16 +34,22 @@ class DashboardsTest extends FeatureTestCase
 
 	public function testItShouldCreateDashboard()
 	{
+		$request = $this->getRequest();
+
 		$this->loginAs()
-			->post(route('dashboards.store'), $this->getRequest())
+			->post(route('dashboards.store'), $request)
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertDatabaseHas('dashboards', $this->getAssertRequest($request));
 	}
 
 	public function testItShouldSeeDashboardUpdatePage()
 	{
-        $dashboard = $this->dispatch(new CreateDashboard($this->getRequest()));
+		$request = $this->getRequest();
+
+        $dashboard = $this->dispatch(new CreateDashboard($request));
 
 		$this->loginAs()
 			->get(route('dashboards.edit', $dashboard->id))
@@ -65,22 +71,35 @@ class DashboardsTest extends FeatureTestCase
 			->assertSee($request['name']);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertDatabaseHas('dashboards', $this->getAssertRequest($request));
 	}
 
 	public function testItShouldDeleteDashboard()
 	{
-		$dashboard_1 = $this->dispatch(new CreateDashboard($this->getRequest()));
-		$dashboard_2 = $this->dispatch(new CreateDashboard($this->getRequest()));
+		$request = $this->getRequest();
+
+		$tmp = $this->dispatch(new CreateDashboard($this->getRequest()));
+		$dashboard = $this->dispatch(new CreateDashboard($request));
 
 		$this->loginAs()
-			->delete(route('dashboards.destroy', $dashboard_2->id))
+			->delete(route('dashboards.destroy', $dashboard->id))
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertSoftDeleted('dashboards', $this->getAssertRequest($request));
 	}
 
     public function getRequest()
     {
         return factory(Dashboard::class)->states('enabled', 'users')->raw();
+    }
+
+    public function getAssertRequest($request)
+    {
+        unset($request['users']);
+
+        return $request;
     }
 }
