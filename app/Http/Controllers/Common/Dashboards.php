@@ -215,7 +215,7 @@ class Dashboards extends Controller
 
             flash($message)->success();
 
-            session(['dashboard_id' => user()->dashboards()->pluck('id')->first()]);
+            session(['dashboard_id' => user()->dashboards()->enabled()->pluck('id')->first()]);
         } else {
             $message = $response['message'];
 

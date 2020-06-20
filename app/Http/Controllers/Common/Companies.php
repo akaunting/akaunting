@@ -213,7 +213,7 @@ class Companies extends Controller
             $old_company_id = session('company_id');
 
             session(['company_id' => $company->id]);
-            session(['dashboard_id' => $company->dashboards()->pluck('id')->first()]);
+            session(['dashboard_id' => user()->dashboards()->enabled()->pluck('id')->first()]);
 
             Overrider::load('settings');
 
