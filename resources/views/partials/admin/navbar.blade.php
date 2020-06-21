@@ -251,7 +251,7 @@
 
                         @stack('navbar_profile_edit')
 
-                        @permission('update-auth-users')
+                        @permission(['read-auth-users', 'read-auth-profile'])
                             <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">
                                 <i class="fas fa-user"></i>
                                 <span>{{ trans('auth.profile') }}</span>

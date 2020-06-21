@@ -16,6 +16,17 @@ class Users extends Controller
 {
     use Uploads;
 
+    public function __construct()
+    {
+        $this->middleware('permission:create-auth-users')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-auth-users')->only('index', 'show', 'export');
+        $this->middleware('permission:update-auth-users')->only('enable', 'disable');
+        $this->middleware('permission:delete-auth-users')->only('destroy');
+
+        $this->middleware('permission:read-auth-users|read-auth-profile')->only('edit');
+        $this->middleware('permission:update-auth-users|update-auth-profile')->only('update');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -101,6 +112,10 @@ class Users extends Controller
      */
     public function edit(User $user)
     {
+        if (user()->cannot('read-auth-users') && ($user->id != user()->id)) {
+            abort(403);
+        }
+
         $routes = [
             'dashboard' => trans_choice('general.dashboards', 1),
             'items.index' => trans_choice('general.items', 2),
@@ -148,6 +163,10 @@ class Users extends Controller
      */
     public function update(User $user, Request $request)
     {
+        if (user()->cannot('update-auth-users') && ($user->id != user()->id)) {
+            abort(403);
+        }
+
         $response = $this->ajaxDispatch(new UpdateUser($user, $request));
 
         if ($response['success']) {

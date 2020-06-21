@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            @permission('update-auth-users')
+            @permission(['update-auth-users', 'update-auth-profile'])
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('users.index') }}
