@@ -18,9 +18,9 @@ class Item extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-modules-item')->only(['install']);
-        $this->middleware('permission:update-modules-item')->only(['update', 'enable', 'disable']);
-        $this->middleware('permission:delete-modules-item')->only(['uninstall']);
+        $this->middleware('permission:create-modules-item')->only('install');
+        $this->middleware('permission:update-modules-item')->only('update', 'enable', 'disable');
+        $this->middleware('permission:delete-modules-item')->only('uninstall');
     }
 
     /**

@@ -25,9 +25,9 @@ class Email extends Controller
         }
 
         // Add CRUD permission check
-        $this->middleware('permission:create-settings-settings')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-settings-email')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-settings-settings')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-settings-settings')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-settings-email')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-settings-settings')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-settings-settings')->only('destroy');
     }
 

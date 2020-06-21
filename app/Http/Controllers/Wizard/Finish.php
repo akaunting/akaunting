@@ -15,7 +15,7 @@ class Finish extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:read-admin-panel')->only(['index', 'show', 'edit', 'export']);
+        $this->middleware('permission:read-admin-panel')->only('index', 'show', 'edit', 'export');
     }
 
     /**
