@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Common;
 
-use Illuminate\Support\Str;
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\BulkAction as Request;
+use Illuminate\Support\Str;
 
 class
 
