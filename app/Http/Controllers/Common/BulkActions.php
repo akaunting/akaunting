@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Common;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Common\BulkAction as Request;
+use Illuminate\Support\Str;
 
 class
 
@@ -34,7 +35,10 @@ BulkActions extends Controller
         $module = module($group);
 
         if ($module instanceof \Akaunting\Module\Module) {
-            $bulk_actions = app('Modules\\' . $module->getStudlyName() . '\BulkActions\\' . ucfirst($type));
+            $tmp = explode('.', $type);
+            $file_name = !empty($tmp[1]) ? Str::studly($tmp[0]) . '\\' . Str::studly($tmp[1]) : Str::studly($tmp[0]);
+
+            $bulk_actions = app('Modules\\' . $module->getStudlyName() . '\BulkActions\\' . $file_name);
         } else {
             $bulk_actions = app('App\BulkActions\\' .  ucfirst($group) . '\\' . ucfirst($type));
         }
