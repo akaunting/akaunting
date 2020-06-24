@@ -16,10 +16,10 @@ class AddPortalItems
     {
         $menu = $event->menu;
 
-        $menu->route('portal.dashboard', trans_choice('general.dashboards', 1), [], 1, ['icon' => 'fa fa-tachometer-alt']);
+        $menu->route('portal.dashboard', trans_choice('general.dashboards', 1), [], 100, ['icon' => 'fa fa-tachometer-alt']);
 
-        $menu->route('portal.invoices.index', trans_choice('general.invoices', 2), [], 2, ['icon' => 'fa fa-file-signature']);
+        $menu->route('portal.invoices.index', trans_choice('general.invoices', 2), [], 200, ['icon' => 'fa fa-file-signature']);
 
-        $menu->route('portal.payments.index', trans_choice('general.payments', 2), [], 3, ['icon' => 'fa fa-money-bill']);
+        $menu->route('portal.payments.index', trans_choice('general.payments', 2), [], 300, ['icon' => 'fa fa-money-bill']);
     }
 }
