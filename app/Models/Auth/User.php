@@ -57,6 +57,10 @@ class User extends Authenticatable
         static::retrieved(function($model) {
             $model->setCompanyIds();
         });
+
+        static::saving(function($model) {
+            $model->unsetCompanyIds();
+        });
     }
 
     public function companies()
@@ -193,5 +197,10 @@ class User extends Authenticatable
         }
 
         $this->setAttribute('company_ids', $company_ids);
+    }
+
+    public function unsetCompanyIds()
+    {
+        $this->offsetUnset('company_ids');
     }
 }
