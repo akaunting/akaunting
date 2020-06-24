@@ -50,6 +50,15 @@ class User extends Authenticatable
      */
     public $sortable = ['name', 'email', 'enabled'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::retrieved(function($model) {
+            $model->setCompanyIds();
+        });
+    }
+
     public function companies()
     {
         return $this->morphToMany('App\Models\Common\Company', 'user', 'user_companies', 'user_id', 'company_id');
@@ -168,5 +177,21 @@ class User extends Authenticatable
     public function scopeEnabled($query)
     {
         return $query->where('enabled', 1);
+    }
+
+    /**
+     * Convert tax to Array.
+     *
+     * @return void
+     */
+    public function setCompanyIds()
+    {
+        $company_ids = [];
+
+        foreach ($this->companies as $company) {
+            $company_ids[] = (string) $company->id;
+        }
+
+        $this->setAttribute('company_ids', $company_ids);
     }
 }

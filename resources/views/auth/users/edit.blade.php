@@ -49,7 +49,7 @@
                     @endif
 
                     @permission('read-common-companies')
-                        {{ Form::checkboxGroup('companies', trans_choice('general.companies', 2), $companies, 'name') }}
+                    {{ Form::multiSelectGroup('companies', trans_choice('general.companies', 2), 'user', $companies, $user->company_ids, ['required' => 'required'], 'col-md-6') }}
                     @endpermission
 
                     @permission('read-auth-roles')
@@ -70,6 +70,15 @@
         {!! Form::close() !!}
     </div>
 @endsection
+
+@push('stylesheet')
+    <style type="text/css">
+        .el-select .el-select__tags > span {
+            display: flex;
+            margin-bottom: -75px;
+        }
+    </style>
+@endpush
 
 @push('scripts_start')
     <script src="{{ asset('public/js/auth/users.js?v=' . version('short')) }}"></script>
