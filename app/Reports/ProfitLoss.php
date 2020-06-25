@@ -35,10 +35,10 @@ class ProfitLoss extends Report
 
     public function setData()
     {
-        $income_transactions = $this->applyFilters(Transaction::income()->isNotTransfer(), ['date_field' => 'paid_at']);
-        $expense_transactions = $this->applyFilters(Transaction::expense()->isNotTransfer(), ['date_field' => 'paid_at']);
+        $income_transactions = $this->applyFilters(Transaction::with('recurring')->income()->isNotTransfer(), ['date_field' => 'paid_at']);
+        $expense_transactions = $this->applyFilters(Transaction::with('recurring')->expense()->isNotTransfer(), ['date_field' => 'paid_at']);
 
-        switch ($this->model->settings->basis) {
+        switch ($this->getSetting('basis')) {
             case 'cash':
                 // Revenues
                 $revenues = $income_transactions->get();
@@ -51,7 +51,7 @@ class ProfitLoss extends Report
                 break;
             default:
                 // Invoices
-                $invoices = $this->applyFilters(Invoice::accrued(), ['date_field' => 'invoiced_at'])->get();
+                $invoices = $this->applyFilters(Invoice::with('recurring', 'totals', 'transactions')->accrued(), ['date_field' => 'invoiced_at'])->get();
                 Recurring::reflect($invoices, 'invoiced_at');
                 $this->setTotals($invoices, 'invoiced_at', true, $this->tables['income'], false);
 
@@ -61,7 +61,7 @@ class ProfitLoss extends Report
                 $this->setTotals($revenues, 'paid_at', true, $this->tables['income'], false);
 
                 // Bills
-                $bills = $this->applyFilters(Bill::accrued(), ['date_field' => 'billed_at'])->get();
+                $bills = $this->applyFilters(Bill::with('recurring', 'totals', 'transactions')->accrued(), ['date_field' => 'billed_at'])->get();
                 Recurring::reflect($bills, 'bill', 'billed_at');
                 $this->setTotals($bills, 'billed_at', true, $this->tables['expense'], false);
 

@@ -17,9 +17,9 @@ class Items extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-common-items')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-common-items')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-common-items')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-common-items')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-common-items')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-common-items')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-common-items')->only('destroy');
     }
 

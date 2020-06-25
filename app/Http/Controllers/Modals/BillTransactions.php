@@ -22,9 +22,9 @@ class BillTransactions extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-purchases-bills')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-purchases-bills')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-purchases-bills')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-purchases-bills')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-purchases-bills')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-purchases-bills')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-purchases-bills')->only('destroy');
     }
 
@@ -67,6 +67,19 @@ class BillTransactions extends Controller
             'error' => false,
             'message' => 'null',
             'html' => $html,
+            'data' => [
+                'title' => trans('general.title.new', ['type' => trans_choice('general.payments', 1)]),
+                'buttons' => [
+                    'cancel' => [
+                        'text' => trans('general.cancel'),
+                        'class' => 'btn-outline-secondary'
+                    ],
+                    'confirm' => [
+                        'text' => trans('general.save'),
+                        'class' => 'btn-success'
+                    ]
+                ]
+            ]
         ]);
     }
 

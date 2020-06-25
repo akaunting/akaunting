@@ -60,7 +60,7 @@ class DeleteContact extends Job
             'transactions' => 'transactions',
         ];
 
-        if (in_array($this->contact->type, $this->getCustomerTypes())) {
+        if ($this->isCustomer()) {
             $rels['invoices'] = 'invoices';
         } else {
             $rels['bills'] = 'bills';

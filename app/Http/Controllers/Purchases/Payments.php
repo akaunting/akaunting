@@ -30,7 +30,7 @@ class Payments extends Controller
      */
     public function index()
     {
-        $payments = Transaction::expense()->with(['account', 'category', 'contact'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
+        $payments = Transaction::with('account', 'bill', 'category', 'contact')->expense()->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
         $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
 

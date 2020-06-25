@@ -25,8 +25,10 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldCreateReconciliation()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('reconciliations.store'), $this->getReconciliationRequest())
+            ->post(route('reconciliations.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
@@ -34,7 +36,9 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldSeeReconciliationUpdatePage()
     {
-        $reconciliation = $this->dispatch(new CreateReconciliation($this->getReconciliationRequest()));
+        $request = $this->getRequest();
+
+        $reconciliation = $this->dispatch(new CreateReconciliation($request));
 
         $this->loginAs()
             ->get(route('reconciliations.edit', $reconciliation->id))
@@ -44,7 +48,7 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldUpdateReconciliation()
     {
-        $request = $this->getReconciliationRequest();
+        $request = $this->getRequest();
 
         $reconciliation= $this->dispatch(new CreateReconciliation($request));
 
@@ -59,7 +63,9 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldDeleteReconciliation()
     {
-        $reconciliation = $this->dispatch(new CreateReconciliation($this->getReconciliationRequest()));
+        $request = $this->getRequest();
+
+        $reconciliation = $this->dispatch(new CreateReconciliation($request));
 
         $this->loginAs()
             ->delete(route('reconciliations.destroy', $reconciliation->id))
@@ -68,7 +74,7 @@ class ReconciliationsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
-    private function getReconciliationRequest()
+    private function getRequest()
     {
         return [
             'company_id' => $this->company->id,

@@ -22,7 +22,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{  url($back) }}" class="btn btn-white header-button-top"><span class="fas fa-arrow-left"></span> &nbsp;{{ trans('modules.back') }}</a>
+                    <a href="{{ url($back) }}" class="btn btn-white header-button-top"><span class="fas fa-arrow-left"></span> &nbsp;{{ trans('modules.back') }}</a>
                 </div>
             </div>
         </div>

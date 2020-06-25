@@ -15,9 +15,9 @@ class Categories extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-settings-categories')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-settings-categories')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-settings-categories')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-settings-categories')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-settings-categories')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-settings-categories')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-settings-categories')->only('destroy');
     }
 

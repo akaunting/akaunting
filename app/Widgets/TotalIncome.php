@@ -22,7 +22,7 @@ class TotalIncome extends Widget
             $current += $transaction->getAmountConvertedToDefault();
         });
 
-        $this->applyFilters(Invoice::accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($invoice) use (&$open, &$overdue) {
+        $this->applyFilters(Invoice::with('transactions')->accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($invoice) use (&$open, &$overdue) {
             list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($invoice);
 
             $open += $open_tmp;

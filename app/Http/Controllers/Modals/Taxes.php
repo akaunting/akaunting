@@ -14,9 +14,9 @@ class Taxes extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-settings-taxes')->only(['create', 'store']);
-        $this->middleware('permission:read-settings-taxes')->only(['index', 'edit']);
-        $this->middleware('permission:update-settings-taxes')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-settings-taxes')->only('create', 'store');
+        $this->middleware('permission:read-settings-taxes')->only('index', 'edit');
+        $this->middleware('permission:update-settings-taxes')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-settings-taxes')->only('destroy');
     }
 

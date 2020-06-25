@@ -24,9 +24,9 @@ class Dashboards extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-common-dashboards')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-common-dashboards')->only(['show']);
-        $this->middleware('permission:update-common-dashboards')->only(['index', 'edit', 'export', 'update', 'enable', 'disable', 'share']);
+        $this->middleware('permission:create-common-dashboards')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-common-dashboards')->only('show');
+        $this->middleware('permission:update-common-dashboards')->only('index', 'edit', 'export', 'update', 'enable', 'disable', 'share');
         $this->middleware('permission:delete-common-dashboards')->only('destroy');
     }
 
@@ -51,12 +51,10 @@ class Dashboards extends Controller
     {
         $dashboard_id = $dashboard_id ?? session('dashboard_id');
 
-        if (empty($dashboard_id)) {
-            $dashboard_id = user()->dashboards()->enabled()->pluck('id')->first();
-        }
-
         if (!empty($dashboard_id)) {
             $dashboard = Dashboard::find($dashboard_id);
+        } else {
+            $dashboard = user()->dashboards()->enabled()->first();
         }
 
         if (empty($dashboard)) {
@@ -67,8 +65,10 @@ class Dashboards extends Controller
             ]));
         }
 
+        session(['dashboard_id' => $dashboard->id]);
+
         $widgets = Widget::where('dashboard_id', $dashboard->id)->orderBy('sort', 'asc')->get()->filter(function ($widget) {
-            return Widgets::canRead($widget->class);
+            return Widgets::canShow($widget->class);
         });
 
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
@@ -215,7 +215,7 @@ class Dashboards extends Controller
 
             flash($message)->success();
 
-            session(['dashboard_id' => user()->dashboards()->pluck('id')->first()]);
+            session(['dashboard_id' => user()->dashboards()->enabled()->pluck('id')->first()]);
         } else {
             $message = $response['message'];
 

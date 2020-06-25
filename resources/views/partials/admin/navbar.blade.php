@@ -39,7 +39,23 @@
             @endpermission
 
             <ul class="navbar-nav align-items-center ml-md-auto">
+                <li class="nav-item d-xl-none">
+                    <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                        <div class="sidenav-toggler-inner">
+                            <i class="sidenav-toggler-line"></i>
+                            <i class="sidenav-toggler-line"></i>
+                            <i class="sidenav-toggler-line"></i>
+                        </div>
+                    </div>
+                </li>
+
                 @stack('navbar_create')
+
+                <li class="nav-item d-sm-none">
+                    <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </li>
 
                 @permission(['create-sales-invoices', 'create-sales-revenues', 'create-sales-invoices', 'create-purchases-bills', 'create-purchases-payments', 'create-purchases-vendors'])
                     <li class="nav-item dropdown">
@@ -211,7 +227,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <div class="media align-items-center">
-                            @if ($user->picture)
+                            @if (is_object($user->picture))
                                 <img src="{{ Storage::url($user->picture->id) }}" class="rounded-circle image-style user-img" alt="{{ $user->name }}"/>
                             @else
                                 <img src="{{ asset('public/img/user.svg') }}" class="user-img" alt="{{ $user->name }}"/>
@@ -235,7 +251,7 @@
 
                         @stack('navbar_profile_edit')
 
-                        @permission('update-auth-users')
+                        @permission(['read-auth-users', 'read-auth-profile'])
                             <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">
                                 <i class="fas fa-user"></i>
                                 <span>{{ trans('auth.profile') }}</span>

@@ -26,16 +26,22 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldCreateItem()
 	{
+		$request = $this->getRequest();
+
 		$this->loginAs()
-			->post(route('items.store'), $this->getRequest())
+			->post(route('items.store'), $request)
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertDatabaseHas('items', $request);
 	}
 
 	public function testItShouldSeeItemUpdatePage()
 	{
-        $item = $this->dispatch(new CreateItem($this->getRequest()));
+		$request = $this->getRequest();
+
+        $item = $this->dispatch(new CreateItem($request));
 
 		$this->loginAs()
 			->get(route('items.edit', $item->id))
@@ -57,17 +63,23 @@ class ItemsTest extends FeatureTestCase
 			->assertSee($request['name']);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertDatabaseHas('items', $request);
 	}
 
 	public function testItShouldDeleteItem()
 	{
-		$item = $this->dispatch(new CreateItem($this->getRequest()));
+		$request = $this->getRequest();
+
+		$item = $this->dispatch(new CreateItem($request));
 
 		$this->loginAs()
 			->delete(route('items.destroy', $item->id))
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertSoftDeleted('items', $request);
 	}
 
     public function getRequest()
