@@ -88,7 +88,7 @@ class Form extends Provider
         ]);
 
         Facade::component('checkboxGroup', 'partials.form.checkbox_group', [
-            'name', 'text', 'items' => [], 'value' => 'name', 'id' => 'id', 'attributes' => ['required' => 'required'], 'col' => 'col-md-12',
+            'name', 'text', 'items' => [], 'value' => 'name', 'id' => 'id', 'selected'=>[], 'attributes' => ['required' => 'required'], 'col' => 'col-md-12',
         ]);
 
         Facade::component('fileGroup', 'partials.form.file_group', [
