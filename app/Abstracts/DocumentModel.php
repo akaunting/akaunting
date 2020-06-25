@@ -65,10 +65,10 @@ abstract class DocumentModel extends Model
     {
         $percent = 0;
 
-        $discount = $this->totals->where('code', 'discount')->pluck('amount')->first();
+        $discount = $this->totals->where('code', 'discount')->makeHidden('title')->pluck('amount')->first();
 
         if ($discount) {
-            $sub_total = $this->totals->where('code', 'sub_total')->pluck('amount')->first();
+            $sub_total = $this->totals->where('code', 'sub_total')->makeHidden('title')->pluck('amount')->first();
 
             $percent = number_format((($discount * 100) / $sub_total), 0);
         }
