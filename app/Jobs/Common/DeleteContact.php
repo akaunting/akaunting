@@ -31,11 +31,13 @@ class DeleteContact extends Job
     {
         $this->authorize();
 
-        if ($user = $this->contact->user) {
-            $this->dispatch(new DeleteUser($user));
-        }
+        \DB::transaction(function () {
+            if ($user = $this->contact->user) {
+                $this->dispatch(new DeleteUser($user));
+            }
 
-        $this->contact->delete();
+            $this->contact->delete();
+        });
 
         return true;
     }

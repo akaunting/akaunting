@@ -25,9 +25,11 @@ class DeleteRole extends Job
      */
     public function handle()
     {
-        $this->role->delete();
+        \DB::transaction(function () {
+            $this->role->delete();
 
-        $this->role->flushCache();
+            $this->role->flushCache();
+        });
 
         return true;
     }

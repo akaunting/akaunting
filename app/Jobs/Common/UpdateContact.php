@@ -33,11 +33,13 @@ class UpdateContact extends Job
     {
         $this->authorize();
 
-        if ($this->request->get('create_user', 'false') === 'true') {
-            $this->createUser();
-        }
+        \DB::transaction(function () {
+            if ($this->request->get('create_user', 'false') === 'true') {
+                $this->createUser();
+            }
 
-        $this->contact->update($this->request->all());
+            $this->contact->update($this->request->all());
+        });
 
         return $this->contact;
     }

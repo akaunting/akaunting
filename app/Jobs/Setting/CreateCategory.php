@@ -7,6 +7,8 @@ use App\Models\Setting\Category;
 
 class CreateCategory extends Job
 {
+    protected $category;
+
     protected $request;
 
     /**
@@ -26,8 +28,10 @@ class CreateCategory extends Job
      */
     public function handle()
     {
-        $category = Category::create($this->request->all());
+        \DB::transaction(function () {
+            $this->category = Category::create($this->request->all());
+        });
 
-        return $category;
+        return $this->category;
     }
 }

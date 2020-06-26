@@ -10,6 +10,8 @@ class DuplicateInvoice extends Job
 {
     protected $invoice;
 
+    protected $clone;
+
     /**
      * Create a new job instance.
      *
@@ -27,10 +29,12 @@ class DuplicateInvoice extends Job
      */
     public function handle()
     {
-        $clone = $this->invoice->duplicate();
+        \DB::transaction(function () {
+            $this->clone = $this->invoice->duplicate();
+        });
 
-        event(new InvoiceCreated($clone));
+        event(new InvoiceCreated($this->clone));
 
-        return $clone;
+        return $this->clone;
     }
 }

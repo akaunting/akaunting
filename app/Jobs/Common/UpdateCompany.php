@@ -35,45 +35,47 @@ class UpdateCompany extends Job
     {
         $this->authorize();
 
-        $this->company->update($this->request->all());
+        \DB::transaction(function () {
+            $this->company->update($this->request->all());
 
-        // Clear current and load given company settings
-        setting()->setExtraColumns(['company_id' => $this->company->id]);
-        setting()->forgetAll();
-        setting()->load(true);
+            // Clear current and load given company settings
+            setting()->setExtraColumns(['company_id' => $this->company->id]);
+            setting()->forgetAll();
+            setting()->load(true);
 
-        if ($this->request->has('name')) {
-            setting()->set('company.name', $this->request->get('name'));
-        }
-
-        if ($this->request->has('email')) {
-            setting()->set('company.email', $this->request->get('email'));
-        }
-
-        if ($this->request->has('address')) {
-            setting()->set('company.address', $this->request->get('address'));
-        }
-
-        if ($this->request->has('currency')) {
-            setting()->set('default.currency', $this->request->get('currency'));
-        }
-
-        if ($this->request->has('locale')) {
-            setting()->set('default.locale', $this->request->get('locale'));
-        }
-
-        if ($this->request->file('logo')) {
-            $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->company->id);
-
-            if ($company_logo) {
-                $this->company->attachMedia($company_logo, 'company_logo');
-
-                setting()->set('company.logo', $company_logo->id);
+            if ($this->request->has('name')) {
+                setting()->set('company.name', $this->request->get('name'));
             }
-        }
 
-        setting()->save();
-        setting()->forgetAll();
+            if ($this->request->has('email')) {
+                setting()->set('company.email', $this->request->get('email'));
+            }
+
+            if ($this->request->has('address')) {
+                setting()->set('company.address', $this->request->get('address'));
+            }
+
+            if ($this->request->has('currency')) {
+                setting()->set('default.currency', $this->request->get('currency'));
+            }
+
+            if ($this->request->has('locale')) {
+                setting()->set('default.locale', $this->request->get('locale'));
+            }
+
+            if ($this->request->file('logo')) {
+                $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->company->id);
+
+                if ($company_logo) {
+                    $this->company->attachMedia($company_logo, 'company_logo');
+
+                    setting()->set('company.logo', $company_logo->id);
+                }
+            }
+
+            setting()->save();
+            setting()->forgetAll();
+        });
 
         return $this->company;
     }

@@ -3,7 +3,6 @@
 namespace App\Jobs\Sale;
 
 use App\Abstracts\Job;
-use App\Models\Sale\Invoice;
 use App\Observers\Transaction;
 
 class DeleteInvoice extends Job
@@ -29,15 +28,17 @@ class DeleteInvoice extends Job
     {
         $this->authorize();
 
-        Transaction::mute();
+        \DB::transaction(function () {
+            Transaction::mute();
 
-        $this->deleteRelationships($this->invoice, [
-            'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
-        ]);
+            $this->deleteRelationships($this->invoice, [
+                'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
+            ]);
 
-        $this->invoice->delete();
+            $this->invoice->delete();
 
-        Transaction::unmute();
+            Transaction::unmute();
+        });
 
         return true;
     }

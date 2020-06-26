@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+use Exception;
+use Throwable;
+
 trait Jobs
 {
     /**
@@ -48,7 +51,7 @@ trait Jobs
                 'data' => $data,
                 'message' => '',
             ];
-        } catch(\Exception $e) {
+        } catch (Exception | Throwable $e) {
             $response = [
                 'success' => false,
                 'error' => true,

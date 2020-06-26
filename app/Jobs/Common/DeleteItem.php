@@ -27,7 +27,9 @@ class DeleteItem extends Job
     {
         $this->authorize();
 
-        $this->item->delete();
+        \DB::transaction(function () {
+            $this->item->delete();
+        });
 
         return true;
     }

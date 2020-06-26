@@ -25,7 +25,9 @@ class DeleteReport extends Job
      */
     public function handle()
     {
-        $this->report->delete();
+        \DB::transaction(function () {
+            $this->report->delete();
+        });
 
         return true;
     }

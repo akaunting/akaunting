@@ -3,7 +3,6 @@
 namespace App\Jobs\Purchase;
 
 use App\Abstracts\Job;
-use App\Models\Purchase\Bill;
 use App\Observers\Transaction;
 
 class DeleteBill extends Job
@@ -29,15 +28,17 @@ class DeleteBill extends Job
     {
         $this->authorize();
 
-        Transaction::mute();
+        \DB::transaction(function () {
+            Transaction::mute();
 
-        $this->deleteRelationships($this->bill, [
-            'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
-        ]);
+            $this->deleteRelationships($this->bill, [
+                'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
+            ]);
 
-        $this->bill->delete();
+            $this->bill->delete();
 
-        Transaction::unmute();
+            Transaction::unmute();
+        });
 
         return true;
     }

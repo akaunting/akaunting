@@ -8,9 +8,9 @@ use Artisan;
 
 class CreateCompany extends Job
 {
-    protected $request;
-
     protected $company;
+
+    protected $request;
 
     /**
      * Create a new job instance.
@@ -29,15 +29,17 @@ class CreateCompany extends Job
      */
     public function handle()
     {
-        $this->company = Company::create($this->request->all());
+        \DB::transaction(function () {
+            $this->company = Company::create($this->request->all());
 
-        // Clear settings
-        setting()->setExtraColumns(['company_id' => $this->company->id]);
-        setting()->forgetAll();
+            // Clear settings
+            setting()->setExtraColumns(['company_id' => $this->company->id]);
+            setting()->forgetAll();
 
-        $this->callSeeds();
+            $this->callSeeds();
 
-        $this->updateSettings();
+            $this->updateSettings();
+        });
 
         return $this->company;
     }

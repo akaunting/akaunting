@@ -32,7 +32,9 @@ class UpdateTax extends Job
     {
         $this->authorize();
 
-        $this->tax->update($this->request->all());
+        \DB::transaction(function () {
+            $this->tax->update($this->request->all());
+        });
 
         return $this->tax;
     }

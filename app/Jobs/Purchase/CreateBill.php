@@ -14,9 +14,9 @@ class CreateBill extends Job
 {
     use Currencies, DateTime;
 
-    protected $request;
-
     protected $bill;
+
+    protected $request;
 
     /**
      * Create a new job instance.
@@ -41,20 +41,22 @@ class CreateBill extends Job
 
         event(new BillCreating($this->request));
 
-        $this->bill = Bill::create($this->request->all());
+        \DB::transaction(function () {
+            $this->bill = Bill::create($this->request->all());
 
-        // Upload attachment
-        if ($this->request->file('attachment')) {
-            $media = $this->getMedia($this->request->file('attachment'), 'bills');
+            // Upload attachment
+            if ($this->request->file('attachment')) {
+                $media = $this->getMedia($this->request->file('attachment'), 'bills');
 
-            $this->bill->attachMedia($media, 'attachment');
-        }
+                $this->bill->attachMedia($media, 'attachment');
+            }
 
-        $this->createItemsAndTotals();
+            $this->createItemsAndTotals();
 
-        $this->bill->update($this->request->input());
+            $this->bill->update($this->request->input());
 
-        $this->bill->createRecurring();
+            $this->bill->createRecurring();
+        });
 
         event(new BillCreated($this->bill));
 

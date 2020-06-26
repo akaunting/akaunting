@@ -7,6 +7,8 @@ use App\Models\Auth\Role;
 
 class CreateRole extends Job
 {
+    protected $role;
+
     protected $request;
 
     /**
@@ -26,12 +28,14 @@ class CreateRole extends Job
      */
     public function handle()
     {
-        $role = Role::create($this->request->input());
+        \DB::transaction(function () {
+            $this->role = Role::create($this->request->input());
 
-        if ($this->request->has('permissions')) {
-            $role->permissions()->attach($this->request->get('permissions'));
-        }
+            if ($this->request->has('permissions')) {
+                $this->role->permissions()->attach($this->request->get('permissions'));
+            }
+        });
 
-        return $role;
+        return $this->role;
     }
 }
