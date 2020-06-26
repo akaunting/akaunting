@@ -30,14 +30,16 @@ class UpdateItem extends Job
      */
     public function handle()
     {
-        $this->item->update($this->request->all());
+        \DB::transaction(function () {
+            $this->item->update($this->request->all());
 
-        // Upload picture
-        if ($this->request->file('picture')) {
-            $media = $this->getMedia($this->request->file('picture'), 'items');
+            // Upload picture
+            if ($this->request->file('picture')) {
+                $media = $this->getMedia($this->request->file('picture'), 'items');
 
-            $this->item->attachMedia($media, 'picture');
-        }
+                $this->item->attachMedia($media, 'picture');
+            }
+        });
 
         return $this->item;
     }

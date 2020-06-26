@@ -32,7 +32,9 @@ class UpdateCategory extends Job
     {
         $this->authorize();
 
-        $this->category->update($this->request->all());
+        \DB::transaction(function () {
+            $this->category->update($this->request->all());
+        });
 
         return $this->category;
     }

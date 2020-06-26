@@ -28,7 +28,9 @@ class DeleteCategory extends Job
     {
         $this->authorize();
 
-        $this->category->delete();
+        \DB::transaction(function () {
+            $this->category->delete();
+        });
 
         return true;
     }

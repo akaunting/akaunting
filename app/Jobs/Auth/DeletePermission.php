@@ -25,7 +25,9 @@ class DeletePermission extends Job
      */
     public function handle()
     {
-        $this->permission->delete();
+        \DB::transaction(function () {
+            $this->permission->delete();
+        });
 
         return true;
     }

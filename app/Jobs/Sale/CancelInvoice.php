@@ -26,12 +26,14 @@ class CancelInvoice extends Job
      */
     public function handle()
     {
-        $this->deleteRelationships($this->invoice, [
-            'transactions', 'recurring'
-        ]);
+        \DB::transaction(function () {
+            $this->deleteRelationships($this->invoice, [
+                'transactions', 'recurring'
+            ]);
 
-        $this->invoice->status = 'cancelled';
-        $this->invoice->save();
+            $this->invoice->status = 'cancelled';
+            $this->invoice->save();
+        });
 
         return $this->invoice;
     }

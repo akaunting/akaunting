@@ -14,9 +14,9 @@ class CreateInvoice extends Job
 {
     use Currencies, DateTime;
 
-    protected $request;
-
     protected $invoice;
+
+    protected $request;
 
     /**
      * Create a new job instance.
@@ -41,20 +41,22 @@ class CreateInvoice extends Job
 
         event(new InvoiceCreating($this->request));
 
-        $this->invoice = Invoice::create($this->request->all());
+        \DB::transaction(function () {
+            $this->invoice = Invoice::create($this->request->all());
 
-        // Upload attachment
-        if ($this->request->file('attachment')) {
-            $media = $this->getMedia($this->request->file('attachment'), 'invoices');
+            // Upload attachment
+            if ($this->request->file('attachment')) {
+                $media = $this->getMedia($this->request->file('attachment'), 'invoices');
 
-            $this->invoice->attachMedia($media, 'attachment');
-        }
+                $this->invoice->attachMedia($media, 'attachment');
+            }
 
-        $this->createItemsAndTotals();
+            $this->createItemsAndTotals();
 
-        $this->invoice->update($this->request->all());
+            $this->invoice->update($this->request->all());
 
-        $this->invoice->createRecurring();
+            $this->invoice->createRecurring();
+        });
 
         event(new InvoiceCreated($this->invoice));
 

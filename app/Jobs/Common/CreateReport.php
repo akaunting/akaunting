@@ -7,6 +7,8 @@ use App\Models\Common\Report;
 
 class CreateReport extends Job
 {
+    protected $report;
+
     protected $request;
 
     /**
@@ -26,8 +28,10 @@ class CreateReport extends Job
      */
     public function handle()
     {
-        $report = Report::create($this->request->all());
+        \DB::transaction(function () {
+            $this->report = Report::create($this->request->all());
+        });
 
-        return $report;
+        return $this->report;
     }
 }

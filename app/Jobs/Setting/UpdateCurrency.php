@@ -37,13 +37,15 @@ class UpdateCurrency extends Job
             $this->request['rate'] = '1';
         }
 
-        $this->currency->update($this->request->all());
+        \DB::transaction(function () {
+            $this->currency->update($this->request->all());
 
-        // Update default currency setting
-        if ($this->request->get('default_currency')) {
-            setting()->set('default.currency', $this->request->get('code'));
-            setting()->save();
-        }
+            // Update default currency setting
+            if ($this->request->get('default_currency')) {
+                setting()->set('default.currency', $this->request->get('code'));
+                setting()->save();
+            }
+        });
 
         return $this->currency;
     }

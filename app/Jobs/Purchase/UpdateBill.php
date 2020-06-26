@@ -43,26 +43,28 @@ class UpdateBill extends Job
 
         event(new BillUpdating($this->bill, $this->request));
 
-        // Upload attachment
-        if ($this->request->file('attachment')) {
-            $media = $this->getMedia($this->request->file('attachment'), 'bills');
+        \DB::transaction(function () {
+            // Upload attachment
+            if ($this->request->file('attachment')) {
+                $media = $this->getMedia($this->request->file('attachment'), 'bills');
 
-            $this->bill->attachMedia($media, 'attachment');
-        }
+                $this->bill->attachMedia($media, 'attachment');
+            }
 
-        $this->createItemsAndTotals();
+            $this->createItemsAndTotals();
 
-        $bill_paid = $this->bill->paid;
+            $bill_paid = $this->bill->paid;
 
-        unset($this->bill->reconciled);
+            unset($this->bill->reconciled);
 
-        if (($bill_paid) && $this->request['amount'] > $bill_paid) {
-            $this->request['status'] = 'partial';
-        }
+            if (($bill_paid) && $this->request['amount'] > $bill_paid) {
+                $this->request['status'] = 'partial';
+            }
 
-        $this->bill->update($this->request->input());
+            $this->bill->update($this->request->input());
 
-        $this->bill->updateRecurring();
+            $this->bill->updateRecurring();
+        });
 
         event(new BillUpdated($this->bill));
 

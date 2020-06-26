@@ -43,26 +43,28 @@ class UpdateInvoice extends Job
 
         event(new InvoiceUpdating($this->invoice, $this->request));
 
-        // Upload attachment
-        if ($this->request->file('attachment')) {
-            $media = $this->getMedia($this->request->file('attachment'), 'invoices');
+        \DB::transaction(function () {
+            // Upload attachment
+            if ($this->request->file('attachment')) {
+                $media = $this->getMedia($this->request->file('attachment'), 'invoices');
 
-            $this->invoice->attachMedia($media, 'attachment');
-        }
+                $this->invoice->attachMedia($media, 'attachment');
+            }
 
-        $this->createItemsAndTotals();
+            $this->createItemsAndTotals();
 
-        $invoice_paid = $this->invoice->paid;
+            $invoice_paid = $this->invoice->paid;
 
-        unset($this->invoice->reconciled);
+            unset($this->invoice->reconciled);
 
-        if (($invoice_paid) && $this->request['amount'] > $invoice_paid) {
-            $this->request['status'] = 'partial';
-        }
+            if (($invoice_paid) && $this->request['amount'] > $invoice_paid) {
+                $this->request['status'] = 'partial';
+            }
 
-        $this->invoice->update($this->request->all());
+            $this->invoice->update($this->request->all());
 
-        $this->invoice->updateRecurring();
+            $this->invoice->updateRecurring();
+        });
 
         event(new InvoiceUpdated($this->invoice, $this->request));
 

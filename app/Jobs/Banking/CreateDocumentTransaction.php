@@ -17,6 +17,8 @@ class CreateDocumentTransaction extends Job
 
     protected $request;
 
+    protected $transaction;
+
     /**
      * Create a new job instance.
      *
@@ -40,20 +42,22 @@ class CreateDocumentTransaction extends Job
 
         $this->checkAmount();
 
-        $transaction = $this->dispatch(new CreateTransaction($this->request));
+        \DB::transaction(function () {
+            $this->transaction = $this->dispatch(new CreateTransaction($this->request));
 
-        // Upload attachment
-        if ($this->request->file('attachment')) {
-            $media = $this->getMedia($this->request->file('attachment'), 'transactions');
+            // Upload attachment
+            if ($this->request->file('attachment')) {
+                $media = $this->getMedia($this->request->file('attachment'), 'transactions');
 
-            $transaction->attachMedia($media, 'attachment');
-        }
+                $this->transaction->attachMedia($media, 'attachment');
+            }
 
-        $this->model->save();
+            $this->model->save();
 
-        $this->createHistory($transaction);
+            $this->createHistory();
+        });
 
-        return $transaction;
+        return $this->transaction;
     }
 
     protected function prepareRequest()
@@ -137,9 +141,9 @@ class CreateDocumentTransaction extends Job
         return true;
     }
 
-    protected function createHistory($transaction)
+    protected function createHistory()
     {
-        $history_desc = money((double) $transaction->amount, (string) $transaction->currency_code, true)->format() . ' ' . trans_choice('general.payments', 1);
+        $history_desc = money((double) $this->transaction->amount, (string) $this->transaction->currency_code, true)->format() . ' ' . trans_choice('general.payments', 1);
 
         if ($this->model instanceof Invoice) {
             $this->dispatch(new CreateInvoiceHistory($this->model, 0, $history_desc));

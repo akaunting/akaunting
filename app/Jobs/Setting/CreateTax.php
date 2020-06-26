@@ -7,6 +7,8 @@ use App\Models\Setting\Tax;
 
 class CreateTax extends Job
 {
+    protected $tax;
+
     protected $request;
 
     /**
@@ -26,8 +28,10 @@ class CreateTax extends Job
      */
     public function handle()
     {
-        $tax = Tax::create($this->request->all());
+        \DB::transaction(function () {
+            $this->tax = Tax::create($this->request->all());
+        });
 
-        return $tax;
+        return $this->tax;
     }
 }

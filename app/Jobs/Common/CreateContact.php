@@ -9,6 +9,8 @@ use App\Models\Common\Contact;
 
 class CreateContact extends Job
 {
+    protected $contact;
+
     protected $request;
 
     /**
@@ -28,13 +30,15 @@ class CreateContact extends Job
      */
     public function handle()
     {
-        if ($this->request->get('create_user', 'false') === 'true') {
-            $this->createUser();
-        }
+        \DB::transaction(function () {
+            if ($this->request->get('create_user', 'false') === 'true') {
+                $this->createUser();
+            }
 
-        $contact = Contact::create($this->request->all());
+            $this->contact = Contact::create($this->request->all());
+        });
 
-        return $contact;
+        return $this->contact;
     }
 
     public function createUser()

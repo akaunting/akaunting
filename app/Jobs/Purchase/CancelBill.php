@@ -26,12 +26,14 @@ class CancelBill extends Job
      */
     public function handle()
     {
-        $this->deleteRelationships($this->bill, [
-            'transactions', 'recurring'
-        ]);
+        \DB::transaction(function () {
+            $this->deleteRelationships($this->bill, [
+                'transactions', 'recurring'
+            ]);
 
-        $this->bill->status = 'cancelled';
-        $this->bill->save();
+            $this->bill->status = 'cancelled';
+            $this->bill->save();
+        });
 
         return $this->bill;
     }

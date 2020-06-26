@@ -32,13 +32,15 @@ class UpdateAccount extends Job
     {
         $this->authorize();
 
-        $this->account->update($this->request->all());
+        \DB::transaction(function () {
+            $this->account->update($this->request->all());
 
-        // Set default account
-        if ($this->request['default_account']) {
-            setting()->set('default.account', $this->account->id);
-            setting()->save();
-        }
+            // Set default account
+            if ($this->request['default_account']) {
+                setting()->set('default.account', $this->account->id);
+                setting()->save();
+            }
+        });
 
         return $this->account;
     }

@@ -7,6 +7,8 @@ use App\Models\Auth\Permission;
 
 class CreatePermission extends Job
 {
+    protected $permission;
+
     protected $request;
 
     /**
@@ -26,8 +28,10 @@ class CreatePermission extends Job
      */
     public function handle()
     {
-        $permission = Permission::create($this->request->all());
+        \DB::transaction(function () {
+            $this->permission = Permission::create($this->request->all());
+        });
 
-        return $permission;
+        return $this->permission;
     }
 }
