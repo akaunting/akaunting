@@ -65,6 +65,22 @@
             "rules": "required|string"
         },
         {
+            "type": "accountSelectGroup",
+            "name": "account_id",
+            "attributes": {
+                "required": "required"
+            },
+            "rules": "required"
+        },
+        {
+            "type": "textGroup",
+            "name": "order",
+            "title": "paypal-standard::general.form.order",
+            "icon": "sort",
+            "attributes": {},
+            "rules": "nullable|integer"
+        },
+        {
             "type": "radioGroup",
             "name": "customer",
             "title": "paypal-standard::general.form.customer",
@@ -81,14 +97,6 @@
             "disable": "general.no",
             "attributes": {},
             "rules": "required|integer"
-        },
-        {
-            "type": "textGroup",
-            "name": "order",
-            "title": "paypal-standard::general.form.order",
-            "icon": "sort",
-            "attributes": {},
-            "rules": "nullable|integer"
         }
     ]
 }

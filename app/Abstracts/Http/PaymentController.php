@@ -34,7 +34,7 @@ abstract class PaymentController extends BaseController
             $this->logger = $this->getLogger();
 
             $this->user = user();
-    
+
             $this->module = module($this->alias);
 
             return $next($request);
@@ -160,6 +160,7 @@ abstract class PaymentController extends BaseController
     public function dispatchPaidEvent($invoice, $request)
     {
         $request['company_id'] = $invoice->company_id;
+        $request['account_id'] = setting($this->alias . '.account_id', setting('default.account'));
         $request['amount'] = $invoice->amount;
         $request['payment_method'] = $this->alias;
         $request['reference'] = $this->getReference($invoice);
