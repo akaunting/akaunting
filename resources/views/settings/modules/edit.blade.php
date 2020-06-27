@@ -33,6 +33,10 @@
                             {{ Form::$type($field['name'], trans($field['title']), $field['items'], $field['value'], $field['id'], $field['attributes']) }}
                         @elseif ($type == 'fileGroup')
                             {{ Form::$type($field['name'], trans($field['title']), $field['attributes']) }}
+                        @elseif ($type == 'accountSelectGroup')
+                            {{ Form::selectGroup($field['name'], trans_choice('general.accounts', 1), 'university', $accounts, setting($module->getAlias() . '.' . $field['name']), $field['attributes']) }}
+                        @elseif ($type == 'categorySelectGroup')
+                            {{ Form::selectGroup($field['name'], trans_choice('general.categories', 1), 'folder', $categories, setting($module->getAlias() . '.' . $field['name']), $field['attributes']) }}
                         @endif
                     @endforeach
 
