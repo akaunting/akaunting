@@ -117,7 +117,7 @@ class Installer
         }
 
         if (Console::run('help') !== true) {
-            $requirements[] = trans('install.requirements.executable', ['php_version' => AKAUNTING_PHP]);
+            $requirements[] = trans('install.error.php_version', ['php_version' => AKAUNTING_PHP]);
         }
 
         return $requirements;

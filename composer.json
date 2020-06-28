@@ -74,6 +74,7 @@
             "App\\": "app/",
             "Modules\\": "modules/",
             "Akaunting\\Module\\Commands\\": "overrides/akaunting/module/Commands/",
+            "Illuminate\\Console\\": "overrides/Illuminate/Console/",
             "Illuminate\\Translation\\": "overrides/Illuminate/Translation/"
         },
         "exclude-from-classmap": [
@@ -81,6 +82,7 @@
             "vendor/akaunting/module/src/Commands/DisableCommand.php",
             "vendor/akaunting/module/src/Commands/EnableCommand.php",
             "vendor/akaunting/module/src/Commands/InstallCommand.php",
+            "vendor/laravel/framework/src/Illuminate/Console/Application.php",
             "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php"
         ],
         "files": [
