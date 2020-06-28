@@ -5,7 +5,7 @@ define('AKAUNTING_PHP', '7.2.5');
 
 // Check PHP version
 if (version_compare(PHP_VERSION, AKAUNTING_PHP, '<')) {
-    die('ERROR: Your host needs to use PHP ' . AKAUNTING_PHP . ' or higher to run Akaunting');
+    die('Error: Ask your hosting provider to use PHP ' . AKAUNTING_PHP . ' or higher for both HTTP and CLI.');
 }
 
 define('LARAVEL_START', microtime(true));
