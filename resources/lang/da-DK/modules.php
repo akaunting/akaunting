@@ -9,7 +9,6 @@ return [
     'new'                   => 'Ny',
     'top_free'              => 'Top gratis',
     'free'                  => 'GRATIS',
-    'search'                => 'Søg',
     'install'               => 'Installer',
     'buy_now'               => 'Køb nu',
     'get_api_key'           => '<a href=":url" target="_blank">Klik her</a> for at få din API nøgle.',

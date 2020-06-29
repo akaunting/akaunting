@@ -13,16 +13,18 @@ return [
     'current_email'         => 'E-mail actuel',
     'reset'                 => 'Réinitialiser',
     'never'                 => 'jamais',
-    
+    'landing_page'          => 'Page d\'accueil',
+
     'password' => [
         'current'           => 'Mot de passe',
         'current_confirm'   => 'Confirmation de mot de passe',
         'new'               => 'Nouveau mot de passe',
         'new_confirm'       => 'Confirmation du nouveau mot de passe',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Erreur : Vous ne pouvez pas vous supprimer vous-même !',
+        'self_disable'      => 'Erreur : Vous ne pouvez pas vous supprimer vous-même !',
         'no_company'        => 'Erreur : Aucune entreprise associée à votre compte. Veuillez contacter votre administrateur système.',
     ],
 

@@ -9,7 +9,6 @@ return [
     'new'                   => 'Baru',
     'top_free'              => 'Gratis Teratas',
     'free'                  => 'GRATIS',
-    'search'                => 'Cari',
     'install'               => 'Pasang',
     'buy_now'               => 'Beli Sekarang',
     'get_api_key'           => '<a href=":url" target="_blank">Klik disini</a> untuk mendapatkan Kunci API.',

@@ -21,7 +21,7 @@ return [
         'disabled'          => ':feature perlu dinonaktifkan!',
         'extension'         => ': ekstensi ekstensi perlu diinstal dan dimuat!',
         'directory'         => ':directory direktori perlu ditulis!',
-        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
+        'executable'        => 'Berkas PHP CLI belum didefinisikan/bekerja atau bukan versi :php_version ke atas. Mohon tanyakan ke penyedia hosting untuk mengatur variabel PHP_BINARY atau PHP_PATH dengan benar.',
     ],
 
     'database' => [

@@ -7,8 +7,8 @@ return [
     'login'                 => 'Entrar',
     'login_to'              => 'Entre para iniciar sessão',
     'remember_me'           => 'Lembrar-me',
-    'forgot_password'       => 'Esqueci-me da senha',
-    'reset_password'        => 'Redefinir Senha',
+    'forgot_password'       => 'Esqueci-me da palavra-passe',
+    'reset_password'        => 'Redefinir palavra-passe',
     'enter_email'           => 'Insira o seu e-mail',
     'current_email'         => 'E-mail atual',
     'reset'                 => 'Redefinir',
@@ -16,10 +16,10 @@ return [
     'landing_page'          => 'Página de Entrada',
 
     'password' => [
-        'current'           => 'Senha',
-        'current_confirm'   => 'Confirmação da Senha',
-        'new'               => 'Nova senha',
-        'new_confirm'       => 'Confirmação da Nova Senha',
+        'current'           => 'Palavra-passe',
+        'current_confirm'   => 'Confirmação da Palavra-passe',
+        'new'               => 'Nova Palavra-passe',
+        'new_confirm'       => 'Confirmação da Nova Palavra-passe',
     ],
 
     'error' => [
@@ -33,9 +33,9 @@ return [
     'throttle'              => 'O limite de tentativas para entrar na sua conta foi atingido. Por favor tente novamente dentro de :seconds segundos.',
 
     'notification' => [
-        'message_1'     => 'Recebeu este e-mail porque foi-nos feito uma solicitação de redefinição de senha para a sua conta.',
-        'message_2'     => 'Se não solicitou uma redefinição de senha, nenhuma ação adicional é necessária.',
-        'button'        => 'Redefinir Senha',
+        'message_1'     => 'Recebeu este e-mail porque foi-nos feito uma solicitação de redefinição de palavra-passe para a sua conta.',
+        'message_2'     => 'Se não solicitou uma redefinição de palavra-passe, nenhuma ação adicional é necessária.',
+        'button'        => 'Redefinir Palavra-passe',
     ],
 
 ];
