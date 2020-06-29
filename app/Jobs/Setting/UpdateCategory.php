@@ -50,7 +50,7 @@ class UpdateCategory extends Job
             return;
         }
 
-        if ($this->category->type != $this->request->get('type')) {
+        if ($this->request->has('type') && ($this->request->get('type') != $this->category->type)) {
             $message = trans('messages.error.change_type', ['text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
