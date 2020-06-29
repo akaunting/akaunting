@@ -6,12 +6,11 @@ use App\Traits\Tenants;
 use App\Notifications\Auth\Reset;
 use App\Traits\Media;
 use Date;
-use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
 use Kyslik\ColumnSortable\Sortable;
+use Laratrust\Traits\LaratrustUserTrait;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable
@@ -102,7 +101,7 @@ class User extends Authenticatable
                 $client->request('GET', $url)->getBody()->getContents();
 
                 $value = $url;
-            } catch (RequestException $e) {
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
                 // 404 Not Found
             }
         }
@@ -190,13 +189,7 @@ class User extends Authenticatable
      */
     public function setCompanyIds()
     {
-        $company_ids = [];
-
-        foreach ($this->companies as $company) {
-            $company_ids[] = (string) $company->id;
-        }
-
-        $this->setAttribute('company_ids', $company_ids);
+        $this->setAttribute('company_ids', $this->companies->pluck('id')->toArray());
     }
 
     public function unsetCompanyIds()
