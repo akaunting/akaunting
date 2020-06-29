@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature doit être désactivée !',
         'extension'         => 'L\'extension :extension doit être installée et chargée !',
         'directory'         => ':directory doit être accessible en écriture !',
+        'executable'        => 'Le fichier exécutable PHP CLI n\'est pas défini, ou sa version n\'est pas :php_version ou supérieure! Veuillez demander à votre hébergeur de définir correctement la variable d\'environnement PHP_BINARY ou PHP_PATH.',
     ],
 
     'database' => [

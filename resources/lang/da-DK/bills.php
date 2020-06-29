@@ -3,7 +3,7 @@
 return [
 
     'bill_number'           => 'Fakturanummer',
-    'bill_date'             => 'Faktura dato',
+    'bill_date'             => 'Fakturadato',
     'total_price'           => 'Total pris',
     'due_date'              => 'Forfaldsdato',
     'order_number'          => 'Ordrenummer',
@@ -19,9 +19,9 @@ return [
 
     'item_name'             => 'Varenavn|Varenavne',
 
-    'show_discount'         => ':discount% Rabat',
+    'show_discount'         => ':discount% rabat',
     'add_discount'          => 'Tilføj rabat',
-    'discount_desc'         => 'subtotal',
+    'discount_desc'         => 'af subtotal',
 
     'payment_due'           => 'Betalingsfrist',
     'amount_due'            => 'Forfaldent beløb',
@@ -29,13 +29,13 @@ return [
     'histories'             => 'Historik',
     'payments'              => 'Betalinger',
     'add_payment'           => 'Tilføj betaling',
-    'mark_paid'             => 'Marker Betalt',
+    'mark_paid'             => 'Marker som betalt',
     'mark_received'         => 'Modtagelse godkendt',
-    'mark_cancelled'        => 'Marker Annuller',
+    'mark_cancelled'        => 'Marker som annulleret',
     'download_pdf'          => 'Download PDF',
-    'send_mail'             => 'Send E-mail',
-    'create_bill'           => 'Opret regning',
-    'receive_bill'          => 'Modtag regning',
+    'send_mail'             => 'Send e-mail',
+    'create_bill'           => 'Opret faktura',
+    'receive_bill'          => 'Modtag faktura',
     'make_payment'          => 'Opret betaling',
 
     'statuses' => [
@@ -45,7 +45,7 @@ return [
         'paid'              => 'Betalt',
         'overdue'           => 'Overskredet',
         'unpaid'            => 'Ubetalt',
-        'cancelled'         => 'Annuleret',
+        'cancelled'         => 'Annulleret',
     ],
 
     'messages' => [

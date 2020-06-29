@@ -19,16 +19,16 @@ return [
     ],
 
     'offline_payments' => [
-        'cash'              => 'Cash',
-        'bank'              => 'Bank Transfer',
+        'cash'              => 'Espèces',
+        'bank'              => 'Virement bancaire',
     ],
 
     'reports' => [
-        'income'            => 'Monthly income summary by category.',
-        'expense'           => 'Monthly expense summary by category.',
-        'income_expense'    => 'Monthly income vs expense by category.',
-        'tax'               => 'Quarterly tax summary.',
-        'profit_loss'       => 'Quarterly profit & loss by category.',
+        'income'            => 'Résumé mensuel des revenus par catégorie.',
+        'expense'           => 'Résumé des dépenses mensuelles par catégorie.',
+        'income_expense'    => 'Revenus mensuels vs charges par catégorie.',
+        'tax'               => 'Résumé trimestriel des impôts.',
+        'profit_loss'       => 'Gains et pertes trimestriels par catégorie.',
     ],
 
 ];

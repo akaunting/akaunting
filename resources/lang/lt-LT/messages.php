@@ -3,7 +3,7 @@
 return [
 
     'success' => [
-        'added'             => ':type pridėtas!',
+        'added'             => ':type pridėta!',
         'updated'           => ':type atnaujintas!',
         'deleted'           => ':type ištrintas!',
         'duplicated'        => ':type duplikuotas!',
