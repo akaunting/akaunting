@@ -31,6 +31,11 @@ class InstallCommand extends Command
     {
         $this->prepare();
 
+        if ($this->getModel()) {
+            $this->comment("Module [{$this->alias}] is already installed.");
+            return;
+        }
+
         $this->changeRuntime();
 
         // Create db
