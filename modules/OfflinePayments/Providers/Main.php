@@ -44,7 +44,7 @@ class Main extends Provider
      */
     public function loadTranslations()
     {
-        $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'offline-payments');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'offline-payments');
     }
 
     /**

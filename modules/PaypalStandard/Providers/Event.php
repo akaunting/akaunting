@@ -3,18 +3,28 @@
 namespace Modules\PaypalStandard\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as Provider;
-use Modules\PaypalStandard\Listeners\ShowAsPaymentMethod;
 
 class Event extends Provider
 {
     /**
-     * The event listener mappings for the module.
+     * Determine if events and listeners should be automatically discovered.
      *
-     * @var array
+     * @return bool
      */
-    protected $listen = [
-        \App\Events\Module\PaymentMethodShowing::class => [
-            ShowAsPaymentMethod::class,
-        ],
-    ];
+    public function shouldDiscoverEvents()
+    {
+        return true;
+    }
+
+    /**
+     * Get the listener directories that should be used to discover events.
+     *
+     * @return array
+     */
+    protected function discoverEventsWithin()
+    {
+        return [
+            __DIR__ . '/../Listeners',
+        ];
+    }
 }
