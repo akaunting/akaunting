@@ -227,4 +227,23 @@ class Companies extends Controller
 
         return redirect()->route('dashboard');
     }
+
+    public function autocomplete()
+    {
+        $query = request('query');
+
+        $autocomplete = Company::autocomplete([
+            'name' => $query
+        ]);
+
+        $companies = $autocomplete->get()->sortBy('name')->pluck('name', 'id');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Get all companies.',
+            'errors' => [],
+            'count' => $companies->count(),
+            'data' => ($companies->count()) ? $companies : null,
+        ]);
+    }
 }

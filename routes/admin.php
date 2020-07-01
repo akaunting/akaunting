@@ -14,6 +14,7 @@ Route::group(['as' => 'uploads.', 'prefix' => 'uploads'], function () {
 });
 
 Route::group(['prefix' => 'common'], function () {
+    Route::get('companies/autocomplete', 'Common\Companies@autocomplete')->name('companies.autocomplete');
     Route::get('companies/{company}/switch', 'Common\Companies@switch')->name('companies.switch');
     Route::get('companies/{company}/enable', 'Common\Companies@enable')->name('companies.enable');
     Route::get('companies/{company}/disable', 'Common\Companies@disable')->name('companies.disable');

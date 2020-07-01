@@ -319,6 +319,32 @@ class Company extends Eloquent
     }
 
     /**
+     * Scope autocomplete.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param array $filter
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAutocomplete($query, $filter)
+    {
+        return $query->join('settings', 'companies.id', '=', 'settings.company_id')
+            ->where(function ($query) use ($filter) {
+                foreach ($filter as $key => $value) {
+                    $column = $key;
+
+                    if (!in_array($key, $this->fillable)) {
+                        $column = 'company.' . $key;
+                        $query->orWhere('key', $column);
+                        $query->Where('value', 'LIKE', "%" . $value  . "%");
+                    } else {
+                        $query->orWhere($column, 'LIKE', "%" . $value  . "%");
+                    }
+                }
+            })
+            ->select('companies.*');
+    }
+
+    /**
      * Get the current balance.
      *
      * @return string

@@ -12,7 +12,11 @@
         ]"
         :error="formError">
         <el-select v-model="real_model" @input="change" disabled filterable v-if="disabled"
-            :placeholder="placeholder">
+            remote
+            reserve-keyword
+            :placeholder="placeholder"
+            :remote-method="remoteMethod"
+            :loading="loading">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
@@ -85,7 +89,11 @@
         </el-select>
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && !multiple"
-            :placeholder="placeholder">
+            remote
+            reserve-keyword
+            :placeholder="placeholder"
+            :remote-method="remoteMethod"
+            :loading="loading">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
@@ -158,7 +166,11 @@
         </el-select>
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
-            :placeholder="placeholder">
+            remote
+            reserve-keyword
+            :placeholder="placeholder"
+            :remote-method="remoteMethod"
+            :loading="loading">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
@@ -231,7 +243,11 @@
         </el-select>
 
         <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && collapse" multiple collapse-tags
-            :placeholder="placeholder">
+            remote
+            reserve-keyword
+            :placeholder="placeholder"
+            :remote-method="remoteMethod"
+            :loading="loading">
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}

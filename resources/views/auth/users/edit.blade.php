@@ -49,7 +49,7 @@
                     @endif
 
                     @permission('read-common-companies')
-                    {{ Form::multiSelectGroup('companies', trans_choice('general.companies', 2), 'user', $companies, $user->company_ids, ['required' => 'required'], 'col-md-6') }}
+                    {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, $user->company_ids, ['required' => 'required', 'remote_action' => route('companies.autocomplete'), 'remote_type' => 'company']) }}
                     @endpermission
 
                     @permission('read-auth-roles')

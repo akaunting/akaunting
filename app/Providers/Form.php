@@ -55,6 +55,10 @@ class Form extends Provider
             'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6', 'group_class' => null
         ]);
 
+        Facade::component('multiSelectRemoteGroup', 'partials.form.multi_select_remote_group', [
+            'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6', 'group_class' => null
+        ]);
+
         Facade::component('selectGroup', 'partials.form.select_group', [
             'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6', 'group_class' => null
         ]);
