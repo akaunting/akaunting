@@ -558,7 +558,7 @@ trait Modules
         return true;
     }
 
-    public function moduleEnabled($alias)
+    public function moduleIsEnabled($alias)
     {
         if (!$this->moduleExists($alias)) {
             return false;
@@ -674,10 +674,10 @@ trait Modules
 
         if (isset($data['query'])){
             foreach($data['query'] as $key => $value) {
-                $result .= '.' . $key . '.' . $value; 
+                $result .= '.' . $key . '.' . $value;
             }
         }
 
         return $result;
-    } 
+    }
 }
