@@ -480,14 +480,14 @@ export default {
         },
         value: {
             type: [String, Number, Array],
-            default: null,
+            default: '',
             description: "Selectbox selected value"
         },
         options: null,
 
         model: {
             type: [String, Number],
-            default: '',
+            default: null,
             description: "Selectbox selected model"
         },
 
@@ -598,10 +598,22 @@ export default {
     },
 
     mounted() {
-        this.real_model = this.value;
 
-        if (this.multiple && !this.real_model.length) {
-            this.real_model = [];
+        if (this.multiple) {
+            if (!this.value.length) {
+                this.real_model = [];
+            } else {
+                let pre_value = [];
+
+                this.value.forEach(item => {
+                    pre_value.push(item.toString());
+                });
+
+                this.real_model = pre_value;
+            }
+            
+        } else {
+            this.real_model = this.value;
         }
 
         this.$emit('interface', this.real_model);
@@ -650,21 +662,27 @@ export default {
         },
 
         change() {
-            if (typeof(this.real_model) === 'object') {
+            if (typeof(this.real_model) === 'object' && !Array.isArray(this.real_model)) {
+                return false;
+            }
+
+            if (Array.isArray(this.real_model) && !this.real_model.length) {
                 return false;
             }
 
             this.$emit('interface', this.real_model);
             this.$emit('change', this.real_model);
 
-            this.selectOptions.forEach(item => {
-                if (item.id == this.real_model) {
-                    this.$emit('label', item.name);
-                    this.$emit('option', item);
+            if (Array.isArray(this.selectOptions)) {
+                this.selectOptions.forEach(item => {
+                    if (item.id == this.real_model) {
+                        this.$emit('label', item.name);
+                        this.$emit('option', item);
 
-                    return true;
-                }
-            });
+                        return true;
+                    }
+                });
+            }
         },
 
         onPressEnter() {
@@ -887,9 +905,37 @@ export default {
             }
         },
 
+        real_model: function (value) {
+            if (this.multiple) {
+                return;
+            }
+
+            if (this.real_model != value) {
+                this.change();
+            }
+
+            let e = $.Event('keyup');
+            e.keyCode= 9; // tab
+            $('#' + this.name).trigger(e);
+
+            let event = new window.KeyboardEvent('keydown', { keyCode: 9 }); // Tab key
+
+            window.dispatchEvent(event);
+        },
+
         value: function (value) {
             if (this.multiple) {
-                this.real_model = value;
+                if (Array.isArray(this.real_model) && !this.real_model.length) {
+                    this.real_model = value;
+                } else {
+                    let pre_value = [];
+
+                    value.forEach(item => {
+                        pre_value.push(item.toString());
+                    });
+
+                    this.real_model = pre_value;
+                }
             } else {
                 //this.real_model = value.toString();
                 this.real_model = value;

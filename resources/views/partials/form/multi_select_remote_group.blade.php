@@ -17,7 +17,7 @@
         name="{{ $name }}"
         :options="{{ json_encode($values) }}"
 
-        @if (isset($selected) || old($name))
+        @if (!empty($selected) || old($name))
         :value="{{ json_encode(old($name, $selected)) }}"
         @endif
 
@@ -62,7 +62,7 @@
         @endif
 
         remote-action="{{ $attributes['remote_action'] }}"
-        remote-type="'{{ $attributes['remote_type'] }}"
+        remote-type="{{ $attributes['remote_type'] }}"
 
         @if (!empty($attributes['currecny_code'])) 
         currency-code="{{ $attributes['currecny_code'] }}"
