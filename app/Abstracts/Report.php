@@ -2,6 +2,8 @@
 
 namespace App\Abstracts;
 
+use App\Events\Report\DataLoaded;
+use App\Events\Report\DataLoading;
 use App\Events\Report\FilterApplying;
 use App\Events\Report\FilterShowing;
 use App\Events\Report\GroupApplying;
@@ -92,10 +94,19 @@ abstract class Report
         $this->setDates();
         $this->setFilters();
         $this->setRows();
-        $this->setData();
+        $this->loadData();
         $this->setColumnWidth();
 
         $this->loaded = true;
+    }
+
+    public function loadData()
+    {
+        event(new DataLoading($this));
+
+        $this->setData();
+
+        event(new DataLoaded($this));
     }
 
     public function getDefaultName()

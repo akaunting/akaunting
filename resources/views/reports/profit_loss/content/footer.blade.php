@@ -1,3 +1,15 @@
+@php
+foreach ($class->footer_totals as $table => $dates) {
+    foreach ($dates as $date => $total) {
+        if (!isset($class->net_profit[$date])) {
+            $class->net_profit[$date] = 0;
+        }
+
+        $class->net_profit[$date] += $total;
+    }
+}
+@endphp
+
 <div class="table-responsive my-2">
     <table class="table table-hover align-items-center rp-border-collapse">
         <tfoot class="border-top-style">
