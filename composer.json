@@ -41,7 +41,7 @@
         "laravel/ui": "^2.0",
         "laravelcollective/html": "6.1.*",
         "league/omnipay": "3.0.*",
-        "lorisleiva/laravel-search-string": "0.1.*",
+        "lorisleiva/laravel-search-string": "1.0.*",
         "maatwebsite/excel": "3.1.*",
         "misterphilip/maintenance-mode": "2.0.*",
         "monooso/unobserve": "^2.0",
