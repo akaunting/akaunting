@@ -232,13 +232,11 @@
                             @else
                                 <img src="{{ asset('public/img/user.svg') }}" class="user-img" alt="{{ $user->name }}"/>
                             @endif
-                            <div class="media-body ml-2 d-none d-lg-block">
-                                <span class="mb-0 text-sm  font-weight-bold">
-                                    @if (!empty($user->name))
-                                        {{ $user->name }}
-                                    @endif
-                                </span>
-                            </div>
+                            @if (!empty($user->name))
+                                <div class="media-body ml-2 d-none d-lg-block">
+                                    <span class="mb-0 text-sm font-weight-bold">{{ $user->name }}</span>
+                                </div>
+                            @endif
                         </div>
                     </a>
 

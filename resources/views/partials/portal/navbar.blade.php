@@ -91,14 +91,16 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="media align-items-center">
-                            <img src="{{ asset('public/img/user.svg') }}" height="36" width="36" alt="User"/>
-                            <div class="media-body ml-2">
-                                <span class="mb-0 text-sm font-weight-bold">
-                                    @if (!empty($user->name))
-                                        {{ $user->name }}
-                                    @endif
-                                </span>
-                            </div>
+                            @if (is_object($user->picture))
+                                <img src="{{ Storage::url($user->picture->id) }}" class="rounded-circle image-style user-img" alt="{{ $user->name }}"/>
+                            @else
+                                <img src="{{ asset('public/img/user.svg') }}" class="user-img" alt="{{ $user->name }}"/>
+                            @endif
+                            @if (!empty($user->name))
+                                <div class="media-body ml-2">
+                                    <span class="mb-0 text-sm font-weight-bold">{{ $user->name }}</span>
+                                </div>
+                            @endif
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
