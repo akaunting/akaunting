@@ -405,6 +405,15 @@ trait Modules
 
         $temp_path = storage_path('app/temp') . '/' . $path;
 
+        if (!is_file($temp_path . '/module.json')) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.finish', ['module' => '']),
+                'data' => null,
+            ];
+        }
+
         $modules_path = config('module.paths.modules');
 
         // Create modules directory
