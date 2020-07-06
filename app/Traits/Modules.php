@@ -317,7 +317,7 @@ trait Modules
         $file = $response->getBody()->getContents();
 
         $path = 'temp-' . md5(mt_rand());
-        $temp_path = storage_path('app/temp') . '/' . $path;
+        $temp_path = storage_path('app/temp/' . $path);
 
         $file_path = $temp_path . '/upload.zip';
 
@@ -359,7 +359,7 @@ trait Modules
             ];
         }
 
-        $temp_path = storage_path('app/temp') . '/' . $path;
+        $temp_path = storage_path('app/temp/' . $path);
 
         $file = $temp_path . '/upload.zip';
 
@@ -394,7 +394,9 @@ trait Modules
 
     public function installModule($path)
     {
-        if (empty($path)) {
+        $temp_path = storage_path('app/temp/' . $path);
+
+        if (empty($path) || !is_file($temp_path . '/module.json')) {
             return [
                 'success' => false,
                 'error' => true,
@@ -402,8 +404,6 @@ trait Modules
                 'data' => null,
             ];
         }
-
-        $temp_path = storage_path('app/temp') . '/' . $path;
 
         $modules_path = config('module.paths.modules');
 

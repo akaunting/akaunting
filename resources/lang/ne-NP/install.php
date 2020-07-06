@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Error: Ask your hosting provider to use PHP :php_version or higher for both HTTP and CLI.',
         'connection'        => 'त्रुटि: डाटाबेसमा जोड्न सकिएन! कृपया, सम्पूर्ण विवरण ठीक छन् भनि निश्चित गर्नुहोस।',
     ],
 
