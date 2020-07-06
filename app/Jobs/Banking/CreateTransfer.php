@@ -8,9 +8,12 @@ use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
+use App\Traits\Currencies;
 
 class CreateTransfer extends Job
 {
+    use Currencies;
+
     protected $transfer;
 
     protected $request;
@@ -33,10 +36,11 @@ class CreateTransfer extends Job
     public function handle()
     {
         \DB::transaction(function () {
-            $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
-
             $expense_currency_code = Account::where('id', $this->request->get('from_account_id'))->pluck('currency_code')->first();
             $income_currency_code = Account::where('id', $this->request->get('to_account_id'))->pluck('currency_code')->first();
+
+            $expense_currency_rate = config('money.' . $expense_currency_code . '.rate');
+            $income_currency_rate = config('money.' . $income_currency_code . '.rate');
 
             $expense_transaction = Transaction::create([
                 'company_id' => $this->request['company_id'],
@@ -44,7 +48,7 @@ class CreateTransfer extends Job
                 'account_id' => $this->request->get('from_account_id'),
                 'paid_at' => $this->request->get('transferred_at'),
                 'currency_code' => $expense_currency_code,
-                'currency_rate' => $currencies[$expense_currency_code],
+                'currency_rate' => $expense_currency_rate,
                 'amount' => $this->request->get('amount'),
                 'contact_id' => 0,
                 'description' => $this->request->get('description'),
@@ -53,33 +57,11 @@ class CreateTransfer extends Job
                 'reference' => $this->request->get('reference'),
             ]);
 
+            $amount = $this->request->get('amount');
+
             // Convert amount if not same currency
             if ($expense_currency_code != $income_currency_code) {
-                $default_currency = setting('default.currency', 'USD');
-
-                $default_amount = $this->request->get('amount');
-
-                if ($default_currency != $expense_currency_code) {
-                    $default_amount_model = new Transfer();
-
-                    $default_amount_model->default_currency_code = $default_currency;
-                    $default_amount_model->amount = $this->request->get('amount');
-                    $default_amount_model->currency_code = $expense_currency_code;
-                    $default_amount_model->currency_rate = $currencies[$expense_currency_code];
-
-                    $default_amount = $default_amount_model->getAmountConvertedToDefault();
-                }
-
-                $transfer_amount = new Transfer();
-
-                $transfer_amount->default_currency_code = $expense_currency_code;
-                $transfer_amount->amount = $default_amount;
-                $transfer_amount->currency_code = $income_currency_code;
-                $transfer_amount->currency_rate = $currencies[$income_currency_code];
-
-                $amount = $transfer_amount->getAmountConvertedFromDefault();
-            } else {
-                $amount = $this->request->get('amount');
+                $amount = $this->convertBetween($amount, $expense_currency_code, $expense_currency_rate, $income_currency_code, $income_currency_rate);
             }
 
             $income_transaction = Transaction::create([
@@ -88,7 +70,7 @@ class CreateTransfer extends Job
                 'account_id' => $this->request->get('to_account_id'),
                 'paid_at' => $this->request->get('transferred_at'),
                 'currency_code' => $income_currency_code,
-                'currency_rate' => $currencies[$income_currency_code],
+                'currency_rate' => $income_currency_rate,
                 'amount' => $amount,
                 'contact_id' => 0,
                 'description' => $this->request->get('description'),

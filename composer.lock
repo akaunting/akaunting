@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f074eda231edc547ca4e5484b5b5132f",
+    "content-hash": "c44aedb0ed90d8deff47a73d86074257",
     "packages": [
         {
             "name": "akaunting/firewall",
@@ -262,16 +262,16 @@
         },
         {
             "name": "akaunting/money",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akaunting/money.git",
-                "reference": "1bab074aa71ed994eff140b26fb6ce9aecf82430"
+                "reference": "75f6d0d036cd1ca82c2926cfae5a7c2759445cfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akaunting/money/zipball/1bab074aa71ed994eff140b26fb6ce9aecf82430",
-                "reference": "1bab074aa71ed994eff140b26fb6ce9aecf82430",
+                "url": "https://api.github.com/repos/akaunting/money/zipball/75f6d0d036cd1ca82c2926cfae5a7c2759445cfb",
+                "reference": "75f6d0d036cd1ca82c2926cfae5a7c2759445cfb",
                 "shasum": ""
             },
             "require": {
@@ -319,7 +319,7 @@
                 "laravel",
                 "money"
             ],
-            "time": "2020-03-09T15:01:03+00:00"
+            "time": "2020-07-06T06:21:54+00:00"
         },
         {
             "name": "akaunting/setting",
@@ -5390,16 +5390,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.36.0",
+            "version": "2.36.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "d0b65958d9942fd1b501fdb0800c67e8323aa08d"
+                "reference": "ee7378a36cc62952100e718bcc58be4c7210e55f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d0b65958d9942fd1b501fdb0800c67e8323aa08d",
-                "reference": "d0b65958d9942fd1b501fdb0800c67e8323aa08d",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/ee7378a36cc62952100e718bcc58be4c7210e55f",
+                "reference": "ee7378a36cc62952100e718bcc58be4c7210e55f",
                 "shasum": ""
             },
             "require": {
@@ -5475,7 +5475,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-25T20:20:01+00:00"
+            "time": "2020-07-04T12:29:56+00:00"
         },
         {
             "name": "nikic/php-parser",

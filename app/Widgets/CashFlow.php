@@ -160,6 +160,12 @@ class CashFlow extends Widget
 
             $totals[$i] += $item->getAmountConvertedToDefault();
         }
+
+        $precision = config('money.' . setting('default.currency') . '.precision');
+
+        foreach ($totals as $key => $value) {
+            $totals[$key] = round($value, $precision);
+        }
     }
 
     private function calculateProfit($incomes, $expenses)

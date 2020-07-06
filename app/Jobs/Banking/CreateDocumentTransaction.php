@@ -8,11 +8,13 @@ use App\Jobs\Purchase\CreateBillHistory;
 use App\Jobs\Sale\CreateInvoiceHistory;
 use App\Models\Banking\Transaction;
 use App\Models\Sale\Invoice;
-use App\Models\Setting\Currency;
+use App\Traits\Currencies;
 use Date;
 
 class CreateDocumentTransaction extends Job
 {
+    use Currencies;
+
     protected $model;
 
     protected $request;
@@ -64,13 +66,10 @@ class CreateDocumentTransaction extends Job
     {
         $this->request['company_id'] = session('company_id');
         $this->request['currency_code'] = isset($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
-
-        $this->currency = Currency::where('code', $this->request['currency_code'])->first();
-
         $this->request['type'] = ($this->model instanceof Invoice) ? 'income' : 'expense';
         $this->request['paid_at'] = isset($this->request['paid_at']) ? $this->request['paid_at'] : Date::now()->format('Y-m-d');
         $this->request['amount'] = isset($this->request['amount']) ? $this->request['amount'] : ($this->model->amount - $this->model->paid);
-        $this->request['currency_rate'] = $this->currency->rate;
+        $this->request['currency_rate'] = config('money.' . $this->request['currency_code'] . '.rate');
         $this->request['account_id'] = isset($this->request['account_id']) ? $this->request['account_id'] : setting('default.account');
         $this->request['document_id'] = isset($this->request['document_id']) ? $this->request['document_id'] : $this->model->id;
         $this->request['contact_id'] = isset($this->request['contact_id']) ? $this->request['contact_id'] : $this->model->contact_id;
@@ -81,57 +80,33 @@ class CreateDocumentTransaction extends Job
 
     protected function checkAmount()
     {
-        $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
+        $code = $this->request['currency_code'];
+        $rate = $this->request['currency_rate'];
+        $precision = config('money.' . $code . '.precision');
 
-        $default_amount = (double) $this->request['amount'];
+        $amount = $this->request['amount'] = round($this->request['amount'], $precision);
 
-        if ($this->model->currency_code == $this->request['currency_code']) {
-            $amount = $default_amount;
-        } else {
-            $default_amount_model = new Transaction();
-            $default_amount_model->default_currency_code = $this->model->currency_code;
-            $default_amount_model->amount                = $default_amount;
-            $default_amount_model->currency_code         = $this->request['currency_code'];
-            $default_amount_model->currency_rate         = $currencies[$this->request['currency_code']];
+        if ($this->model->currency_code != $code) {
+            $converted_amount = $this->convertBetween($amount, $code, $rate, $this->model->currency_code, $this->model->currency_rate);
 
-            $default_amount = (double) $default_amount_model->getAmountConvertedToDefault();
-
-            $convert_amount_model = new Transaction();
-            $convert_amount_model->default_currency_code = $this->request['currency_code'];
-            $convert_amount_model->amount = $default_amount;
-            $convert_amount_model->currency_code = $this->model->currency_code;
-            $convert_amount_model->currency_rate = $currencies[$this->model->currency_code];
-
-            $amount = (double) $convert_amount_model->getAmountConvertedFromDefault();
+            $amount = round($converted_amount, $precision);
         }
 
-        $total_amount = $this->model->amount - $this->model->paid;
+        $total_amount = round($this->model->amount - $this->model->paid, $precision);
         unset($this->model->reconciled);
 
-        $compare = bccomp($amount, $total_amount, $this->currency->precision);
+        $compare = bccomp($amount, $total_amount, $precision);
 
         if ($compare === 1) {
             $error_amount = $total_amount;
 
-            if ($this->model->currency_code != $this->request['currency_code']) {
-                $error_amount_model = new Transaction();
-                $error_amount_model->default_currency_code = $this->request['currency_code'];
-                $error_amount_model->amount                = $error_amount;
-                $error_amount_model->currency_code         = $this->model->currency_code;
-                $error_amount_model->currency_rate         = $currencies[$this->model->currency_code];
+            if ($this->model->currency_code != $code) {
+                $converted_amount = $this->convertBetween($total_amount, $this->model->currency_code, $this->model->currency_rate, $code, $rate);
 
-                $error_amount = (double) $error_amount_model->getAmountConvertedToDefault();
-
-                $convert_amount_model = new Transaction();
-                $convert_amount_model->default_currency_code = $this->model->currency_code;
-                $convert_amount_model->amount = $error_amount;
-                $convert_amount_model->currency_code = $this->request['currency_code'];
-                $convert_amount_model->currency_rate = $currencies[$this->request['currency_code']];
-
-                $error_amount = (double) $convert_amount_model->getAmountConvertedFromDefault();
+                $error_amount = round($converted_amount, $precision);
             }
 
-            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $this->request['currency_code'], true)]);
+            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $code, true)]);
 
             throw new \Exception($message);
         } else {
