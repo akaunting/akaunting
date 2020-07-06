@@ -13,6 +13,7 @@ return [
     'price'                 => 'Pris',
     'sub_total'             => 'Delsumma',
     'discount'              => 'Rabatt',
+    'item_discount'         => 'Line Discount',
     'tax_total'             => 'Summa Skatt',
     'total'                 => 'Totalt',
 
@@ -30,6 +31,7 @@ return [
     'mark_paid'             => 'Markera som betald',
     'mark_sent'             => 'Markera som skickad',
     'mark_viewed'           => 'Markera som visad',
+    'mark_cancelled'        => 'Mark Cancelled',
     'download_pdf'          => 'Ladda ner PDF',
     'send_mail'             => 'Skicka E-post',
     'all_invoices'          => 'Logga in för att visa alla fakturor',
@@ -47,12 +49,15 @@ return [
         'paid'              => 'Betald',
         'overdue'           => 'Förfallen',
         'unpaid'            => 'Obetald',
+        'cancelled'         => 'Cancelled',
     ],
 
     'messages' => [
         'email_sent'        => 'E-postadress till faktura har skickats!',
         'marked_sent'       => 'Faktura markerad som skickad!',
         'marked_paid'       => 'Faktura markerad som betald!',
+        'marked_viewed'     => 'Invoice marked as viewed!',
+        'marked_cancelled'  => 'Invoice marked as cancelled!',
         'email_required'    => 'Ingen e-postadress för den här kunden!',
         'draft'             => 'Detta är en <b>utkast</b> faktura och kommer att speglas till diagramet efter det skickas.',
 
