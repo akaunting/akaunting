@@ -83,7 +83,7 @@ class Bills extends Controller
         $bill->grand_total = money($total, $currency->code)->getAmount();
 
         if (!empty($bill->paid)) {
-            $bill->grand_total = round($bill->total - $bill->paid, $currency->precision) ;
+            $bill->grand_total = round($bill->total - $bill->paid, $currency->precision);
         }
 
         return view('purchases.bills.show', compact('bill', 'accounts', 'currencies', 'currency', 'account_currency_code', 'vendors', 'categories', 'payment_methods', 'date_format'));

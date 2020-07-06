@@ -87,35 +87,19 @@ abstract class DocumentModel extends Model
             return false;
         }
 
-        static $currencies;
-
         $paid = 0;
         $reconciled = $reconciled_amount = 0;
 
+        $code = $this->currency_code;
+        $rate = config('money.' . $code . '.rate');
+        $precision = config('money.' . $code . '.precision');
+
         if ($this->transactions->count()) {
-            if (empty($currencies)) {
-                $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
-            }
-
             foreach ($this->transactions as $item) {
-                if ($this->currency_code == $item->currency_code) {
-                    $amount = (double) $item->amount;
-                } else {
-                    $default_model = new Transaction();
-                    $default_model->default_currency_code = $this->currency_code;
-                    $default_model->amount = $item->amount;
-                    $default_model->currency_code = $item->currency_code;
-                    $default_model->currency_rate = $currencies[$item->currency_code];
+                $amount = $item->amount;
 
-                    $default_amount = (double) $default_model->getAmountConvertedToDefault();
-
-                    $convert_model = new Transaction();
-                    $convert_model->default_currency_code = $item->currency_code;
-                    $convert_model->amount = $default_amount;
-                    $convert_model->currency_code = $this->currency_code;
-                    $convert_model->currency_rate = $currencies[$this->currency_code];
-
-                    $amount = (double) $convert_model->getAmountConvertedFromDefault();
+                if ($code != $item->currency_code) {
+                    $amount = $this->convertBetween($amount, $item->currency_code, $item->currency_rate, $code, $rate);
                 }
 
                 $paid += $amount;
@@ -126,13 +110,13 @@ abstract class DocumentModel extends Model
             }
         }
 
-        if ($this->amount == $reconciled_amount) {
+        if (bccomp(round($this->amount, $precision), round($reconciled_amount, $precision), $precision) === 0) {
             $reconciled = 1;
         }
 
         $this->setAttribute('reconciled', $reconciled);
 
-        return $paid;
+        return round($paid, $precision);
     }
     /**
      * Get the status label.
