@@ -10,6 +10,21 @@ if (version_compare(PHP_VERSION, AKAUNTING_PHP, '<')) {
 
 define('LARAVEL_START', microtime(true));
 
+// workaround until https://github.com/lorisleiva/laravel-search-string/pull/21
+if (! function_exists('resolve')) {
+    /**
+     * Resolve a service from the container.
+     *
+     * @param  string  $name
+     * @param  array  $parameters
+     * @return mixed
+     */
+    function resolve($name, array $parameters = [])
+    {
+        return app($name, $parameters);
+    }
+}
+
 // Load composer for core
 require __DIR__ . '/../vendor/autoload.php';
 
