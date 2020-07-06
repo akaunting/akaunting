@@ -9,7 +9,6 @@ return [
     'new'                   => 'Yeni',
     'top_free'              => 'Popüler Ücretsiz',
     'free'                  => 'Ücretsiz',
-    'search'                => 'Arama',
     'install'               => 'Yükle',
     'buy_now'               => 'Şimdi Satın Al',
     'get_api_key'           => 'API Anahtarını almak için <a href=":url" target="_blank">buraya tıklayın</a>.',

@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Gabim: Kërkoni nga ofruesi juaj i hosting të përdorë PHP :php_version ose më të lartë si për HTTP dhe CLI.',
         'connection'        => 'Gabim: Nuk mund të lidhej me database! Ju lutemi, sigurohuni që të dhënat janë të sakta.',
     ],
 

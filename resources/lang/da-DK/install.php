@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Fejl: Anmod din host om at bruge PHP :php_version eller højere for både HTTP og CLI',
         'connection'        => 'Error: Kunne ikke forbinde til databasen! Kontroller, at oplysningerne er korrekte.',
     ],
 

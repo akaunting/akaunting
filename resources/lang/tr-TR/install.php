@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Hata: HTTP ve CLI için PHP sürümün :php_version ve üstü olması gerektiğini hosting firmanıza bildirin.',
         'connection'        => 'Hata: Veritabanına bağlanamıyoruz! Lütfen veritabanı bilgilerini kontrol ediniz.',
     ],
 
