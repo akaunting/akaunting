@@ -598,7 +598,6 @@ export default {
     },
 
     mounted() {
-
         if (this.multiple) {
             if (!this.value.length) {
                 this.real_model = [];
@@ -621,6 +620,8 @@ export default {
 
     methods: {
         remoteMethod(query) {
+            document.getElementById('form-select-' + this.name).getElementsByTagName("input")[1].readOnly = false;
+
             if (query !== '') {
                 this.loading = true;
 
