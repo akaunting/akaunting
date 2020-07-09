@@ -9,6 +9,12 @@
         ) }}
     @elseif ($type == 'textareaGroup')
         {{ Form::$type($field['name'], $field['title']) }}
+    @elseif ($type == 'dateGroup')
+        {{ Form::$type($field['name'], $field['title'], $field['icon'], array_merge([
+               'model' => 'form.settings'.'.'.$field['name']
+           ],
+           $field['attributes'])
+       ) }}
     @elseif ($type == 'selectGroup')
         {{ Form::$type($field['name'], $field['title'], $field['icon'], $field['values'], $field['selected'], array_merge([
                 'data-field' => 'settings'
