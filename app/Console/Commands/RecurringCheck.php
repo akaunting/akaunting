@@ -145,8 +145,15 @@ class RecurringCheck extends Command
 
         $model->cloneable_relations = ['items', 'totals'];
 
-        // Create new record
-        $clone = $model->duplicate();
+        try {
+            $clone = $model->duplicate();
+        } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
+            $this->error($e->getMessage());
+
+            logger('Recurring check:: ' . $e->getMessage());
+
+            return false;
+        }
 
         // Set original model id
         $clone->parent_id = $model->id;

@@ -78,8 +78,13 @@ class BillReminder extends Command
         $bills = Bill::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($bills as $bill) {
-            event(new BillReminded($bill));
-            
+            try {
+                event(new BillReminded($bill));
+            } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
+                $this->error($e->getMessage());
+
+                logger('Bill reminder:: ' . $e->getMessage());
+            }
         }
     }
 }
