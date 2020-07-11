@@ -3,7 +3,15 @@
     <div class="row align-items-center">
 
         <div class="col-10 text-nowrap">
-            <h4 class="mb-0 long-texts">{{ $class->model->name }}</h4>
+            <h4 class="mb-0 long-texts">
+                <el-tooltip
+                content="{{ $class->model->name }}"
+                effect="dark"
+                :open-delay="100"
+                placement="top">
+                    <span>{{ $class->model->name }}</span>
+                </el-tooltip>            
+            </h4>
         </div>
 
         <div class="col-2 hidden-sm">

@@ -17,7 +17,15 @@
                         @foreach($transactions as $item)
                             <tr class="row border-top-1 tr-py">
                                 <td class="col-xs-4 col-md-4 text-left">@date($item->paid_at)</td>
-                                <td class="col-xs-4 col-md-4 text-left long-texts">{{ $item->category->name }}</td>
+                                <td class="col-xs-4 col-md-4 text-left long-texts">
+                                    <el-tooltip
+                                    content="{{ $item->category->name }}"
+                                    effect="dark"
+                                    :open-delay="100"
+                                    placement="top">
+                                        <span>{{ $item->category->name }}</span>
+                                    </el-tooltip>
+                                </td>
                                 <td class="col-xs-4 col-md-4 text-right">@money($item->amount, $item->currency_code, true)</td>
                             </tr>
                         @endforeach
