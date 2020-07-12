@@ -3,7 +3,7 @@
     <div class="row align-items-center">
 
         <div class="col-10 text-nowrap">
-            <h4 class="mb-0 long-texts">{{ $class->model->name }}</h4>
+            <h4 class="mb-0 long-texts" title="{{ $class->model->name }}">{{ $class->model->name }}</h4>
         </div>
 
         <div class="col-2 hidden-sm">
