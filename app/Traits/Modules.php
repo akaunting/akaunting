@@ -59,7 +59,7 @@ trait Modules
         return $item;
     }
 
-    public function getDocumentation($alias)
+    public function getDocumentation($alias, $data = [])
     {
         $key = 'apps.' . $alias . '.docs.' . $this->getDataKey($data);
 
