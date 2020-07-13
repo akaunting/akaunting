@@ -2,8 +2,8 @@
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\View\View;
 use App\Traits\Modules;
+use Illuminate\View\View;
 use Route;
 
 class Suggestions

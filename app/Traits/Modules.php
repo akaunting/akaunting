@@ -608,7 +608,7 @@ trait Modules
 
         $data = [];
 
-        if (!$notifications = static::getResponse('GET', 'apps/notifications')) {
+        if (!$notifications = static::getResponseData('GET', 'apps/notifications')) {
             return $data;
         }
 
