@@ -165,20 +165,6 @@ button:focus {
     overflow: hidden;
 }
 
-/*--------Customer/Vendor Show--------*/
-.show-transaction-card-header {
-    padding: 1.14rem;
-}
-
-.show-transaction-card-footer {
-    padding: 1.15rem;
-}
-
-.edit-sv {
-    margin-bottom: 30px;
-}
-/*--------Customer/Vendor Show Finish--------*/
-
 /*--------Navbar Notification--------*/
 .nav-link .badge-update {
     position: absolute;
