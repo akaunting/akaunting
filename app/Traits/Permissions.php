@@ -43,32 +43,49 @@ trait Permissions
 
     public function attachPermissionsToAllRoles($permissions, $require = 'read-admin-panel')
     {
-        $this->getRoles($require)->each(function ($role) use ($permissions) {
-            foreach ($permissions as $id => $permission) {
-                if ($this->isActionList($permission)) {
-                    $this->attachPermissionsByAction($role, $id, $permission);
-
-                    continue;
-                }
-
-                $this->attachPermission($role, $permission);
-            }
-        });
+        $this->applyPermissionsToAllRoles('attach', $permissions, $require);
     }
 
     public function detachPermissionsByRoleNames($roles)
     {
         foreach ($roles as $role_name => $permissions) {
-            $role = Role::where('name', $role_name)->first();
-
-            if (empty($role)) {
-                continue;
-            }
-
             foreach ($permissions as $permission_name) {
-                $this->detachPermission($role, $permission_name);
+                $this->detachPermission($role_name, $permission_name);
             }
         }
+    }
+
+    public function detachPermissionsFromAdminRoles($permissions)
+    {
+        $this->detachPermissionsFromAllRoles($permissions, 'read-admin-panel');
+    }
+
+    public function detachPermissionsFromPortalRoles($permissions)
+    {
+        $this->detachPermissionsFromAllRoles($permissions, 'read-client-portal');
+    }
+
+    public function detachPermissionsFromAllRoles($permissions, $require = 'read-admin-panel')
+    {
+        $this->applyPermissionsToAllRoles('detach', $permissions, $require);
+    }
+
+    public function applyPermissionsToAllRoles($apply, $permissions, $require = 'read-admin-panel')
+    {
+        $this->getRoles($require)->each(function ($role) use ($apply, $permissions) {
+            $f1 = $apply . 'PermissionsByAction';
+            $f2 = $apply . 'Permission';
+
+            foreach ($permissions as $id => $permission) {
+                if ($this->isActionList($permission)) {
+                    $this->$f1($role, $id, $permission);
+
+                    continue;
+                }
+
+                $this->$f2($role, $permission);
+            }
+        });
     }
 
     public function updatePermissionNames($permissions)
@@ -255,7 +272,7 @@ trait Permissions
         $role->attachPermission($permission);
     }
 
-    public function detachPermission($role, $permission)
+    public function detachPermission($role, $permission, $delete = true)
     {
         if (is_string($role)) {
             $role = Role::where('name', $role)->first();
@@ -273,7 +290,14 @@ trait Permissions
             return;
         }
 
-        $role->detachPermission($permission);
+        if ($role->hasPermission($permission->name)) {
+            $role->detachPermission($permission);
+        }
+
+        if ($delete === false) {
+            return;
+        }
+
         $permission->delete();
     }
 
@@ -289,6 +313,18 @@ trait Permissions
 
     public function attachPermissionsByAction($role, $page, $action_list)
     {
+        $this->applyPermissionsByAction('attach', $role, $page, $action_list);
+    }
+
+    public function detachPermissionsByAction($role, $page, $action_list)
+    {
+        $this->applyPermissionsByAction('detach', $role, $page, $action_list);
+    }
+
+    public function applyPermissionsByAction($apply, $role, $page, $action_list)
+    {
+        $function = $apply . 'Permission';
+
         $actions_map = collect($this->getActionsMap());
 
         $actions = explode(',', $action_list);
@@ -298,7 +334,7 @@ trait Permissions
 
             $name = $action . '-' . $page;
 
-            $this->attachPermission($role, $name);
+            $this->$function($role, $name);
         }
     }
 
