@@ -213,7 +213,7 @@ const app = new Vue({
                     if (item.discount) {
                         items[index].total = item_discounted_total;
                     } else {
-                        items[index].total = item_total;
+                        items[index].total = item_total + item_tax_total;
                     }
 
                     // calculate sub, tax, discount all items.
@@ -294,7 +294,7 @@ const app = new Vue({
             this.form.items[index].total = (item.sale_price).toFixed(2);
         },
 
-        // remove invocie item row => row_id = index
+        // remove invoice item row => row_id = index
         onDeleteItem(index) {
             this.form.items.splice(index, 1);
         },
