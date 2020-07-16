@@ -22,7 +22,7 @@
             $field['attributes'])
         ) }}
     @elseif ($type == 'radioGroup')
-        {{ Form::$type($field['name'], $field['title'], 1, $field['enable'], $field['disable'], array_merge([
+        {{ Form::$type($field['name'], $field['title'], $field['selected'] ?? true, $field['enable'], $field['disable'], array_merge([
                 'data-field' => 'settings'
             ],
             $field['attributes'])
