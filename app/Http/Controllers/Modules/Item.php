@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Modules;
 
 use App\Abstracts\Http\Controller;
 use App\Models\Module\Module;
-use App\Models\Module\ModuleHistory;
 use App\Traits\Modules;
 use Illuminate\Http\Request;
 

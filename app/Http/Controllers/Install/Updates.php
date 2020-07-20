@@ -39,7 +39,6 @@ class Updates extends Controller
                 $m = new \stdClass();
                 $m->name = $row->getName();
                 $m->alias = $row->get('alias');
-                $m->category = $row->get('category');
                 $m->installed = $row->get('version');
                 $m->latest = $updates[$alias];
 

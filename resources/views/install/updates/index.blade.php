@@ -46,9 +46,8 @@
                 <thead class="thead-light">
                     <tr class="row table-head-line">
                         <th class="col-xs-4 col-sm-4 col-md-4">{{ trans('general.name') }}</th>
-                        <th class="col-md-2 d-none d-md-block">{{ trans_choice('general.categories', 1) }}</th>
-                        <th class="col-sm-3 col-md-2 d-none d-sm-block">{{ trans('updates.installed_version') }}</th>
-                        <th class="col-xs-4 col-sm-3 col-md-2">{{ trans('updates.latest_version') }}</th>
+                        <th class="col-sm-3 col-md-3 d-none d-sm-block">{{ trans('updates.installed_version') }}</th>
+                        <th class="col-xs-4 col-sm-3 col-md-3">{{ trans('updates.latest_version') }}</th>
                         <th class="col-xs-4 col-sm-2 col-md-2 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
@@ -57,9 +56,8 @@
                         @foreach($modules as $module)
                             <tr class="row align-items-center border-top-1">
                                 <td class="col-xs-4 col-sm-4 col-md-4">{{ $module->name }}</td>
-                                <td class="col-md-2 d-none d-md-block">{{ $module->category }}</td>
-                                <td class="col-sm-3 col-md-2 d-none d-sm-block">{{ $module->installed }}</td>
-                                <td class="col-xs-4 col-md-2 col-sm-3">{{ $module->latest }}</td>
+                                <td class="col-sm-3 col-md-3 d-none d-sm-block">{{ $module->installed }}</td>
+                                <td class="col-xs-4 col-sm-3 col-md-3">{{ $module->latest }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 text-center">
                                     <a href="{{ route('updates.run', ['alias' => $module->alias, 'version' => $module->latest]) }}" class="btn btn-warning btn-sm">
                                         <i class="fa fa-refresh" aria-hidden="true"></i> {{ trans_choice('general.updates', 1) }}

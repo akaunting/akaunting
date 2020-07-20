@@ -6,7 +6,6 @@ use App\Abstracts\Model;
 
 class ModuleHistory extends Model
 {
-
     protected $table = 'module_histories';
 
     /**
@@ -14,5 +13,5 @@ class ModuleHistory extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'module_id', 'category', 'version', 'description'];
+    protected $fillable = ['company_id', 'module_id', 'version', 'description'];
 }

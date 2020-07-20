@@ -56,7 +56,6 @@ abstract class Module extends Command
         ModelHistory::create([
             'company_id' => $this->company_id,
             'module_id' => $this->model->id,
-            'category' => $this->module->get('category'),
             'version' => $this->module->get('version'),
             'description' => trans('modules.' . $action, ['module' => $this->alias]),
         ]);

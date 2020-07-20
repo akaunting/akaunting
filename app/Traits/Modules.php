@@ -460,7 +460,6 @@ trait Modules
     {
         $module = module($alias);
         $name = $module->getName();
-        $category = $module->get('category');
         $version = $module->get('version');
 
         $company_id = session('company_id');
@@ -483,7 +482,6 @@ trait Modules
             'message' => null,
             'data' => [
                 'name' => $name,
-                'category' => $category,
                 'version' => $version,
             ],
         ];
@@ -513,7 +511,6 @@ trait Modules
             'message' => null,
             'data' => [
                 'name' => $module->getName(),
-                'category' => $module->get('category'),
                 'version' => $module->get('version'),
             ],
         ];
@@ -543,7 +540,6 @@ trait Modules
             'message' => null,
             'data' => [
                 'name' => $module->getName(),
-                'category' => $module->get('category'),
                 'version' => $module->get('version'),
             ],
         ];
