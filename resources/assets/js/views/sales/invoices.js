@@ -177,10 +177,11 @@ const app = new Vue({
                                     case 'fixed':
                                         item_tax_total += tax.rate * item.quantity;
                                         break;
+                                    case 'withholding':
+                                        item_tax_total += 0 - item_discounted_total * (tax.rate / 100);
+                                        break;
                                     default:
-                                        let item_tax_amount = (item_discounted_total / 100) * tax.rate;
-
-                                        item_tax_total += item_tax_amount;
+                                        item_tax_total += item_discounted_total * (tax.rate / 100);
                                         break;
                                 }
                             }
@@ -225,7 +226,7 @@ const app = new Vue({
 
             // set global total variable.
             this.totals.sub = sub_total;
-            this.totals.tax = tax_total;
+            this.totals.tax = Math.abs(tax_total);
             this.totals.item_discount = line_item_discount_total;
 
             // Apply discount to total

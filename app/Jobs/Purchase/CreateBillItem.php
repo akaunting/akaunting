@@ -88,8 +88,22 @@ class CreateBillItem extends Job
                         $item_tax_total += $tax_amount;
 
                         break;
+                    case 'withholding':
+                        $tax_amount = 0 - $item_discounted_amount * ($tax->rate / 100);
+
+                        $item_taxes[] = [
+                            'company_id' => $this->bill->company_id,
+                            'bill_id' => $this->bill->id,
+                            'tax_id' => $tax_id,
+                            'name' => $tax->name,
+                            'amount' => $tax_amount,
+                        ];
+
+                        $item_tax_total += $tax_amount;
+
+                        break;
                     default:
-                        $tax_amount = ($item_discounted_amount / 100) * $tax->rate;
+                        $tax_amount = $item_discounted_amount * ($tax->rate / 100);
 
                         $item_taxes[] = [
                             'company_id' => $this->bill->company_id,
@@ -167,7 +181,7 @@ class CreateBillItem extends Job
 
             foreach ($item_taxes as $item_tax) {
                 $item_tax['bill_item_id'] = $bill_item->id;
-                $item_tax['amount'] = round($item_tax['amount'], $precision);
+                $item_tax['amount'] = round(abs($item_tax['amount']), $precision);
 
                 BillItemTax::create($item_tax);
             }

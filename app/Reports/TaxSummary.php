@@ -32,7 +32,7 @@ class TaxSummary extends Report
 
     public function setTables()
     {
-        $taxes = Tax::enabled()->where('rate', '<>', '0')->orderBy('name')->pluck('name')->toArray();
+        $taxes = Tax::enabled()->notWithholding()->notRate(0)->orderBy('name')->pluck('name')->toArray();
 
         $this->tables = array_combine($taxes, $taxes);
     }
