@@ -95,7 +95,7 @@ class CreateBillItemsAndTotals extends Job
                     'bill_id' => $this->bill->id,
                     'code' => 'tax',
                     'name' => $tax['name'],
-                    'amount' => round(abs($total['amount']), $precision),
+                    'amount' => round(abs($tax['amount']), $precision),
                     'sort_order' => $sort_order,
                 ]);
 
