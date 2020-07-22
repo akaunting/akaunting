@@ -3,8 +3,7 @@
 namespace App\Abstracts;
 
 use App\Abstracts\Model;
-use App\Models\Banking\Transaction;
-use App\Models\Setting\Currency;
+use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
@@ -159,8 +158,14 @@ abstract class DocumentModel extends Model
     {
         $amount = $this->amount;
 
-        $this->totals->where('code', 'tax')->each(function ($tax) use(&$amount) {
-            $amount -= $tax->amount;
+        $this->totals->where('code', 'tax')->each(function ($total) use(&$amount) {
+            $tax = Tax::name($total->name)->first();
+
+            if (!empty($tax) && ($tax->type == 'withholding')) {
+                return;
+            }
+
+            $amount -= $total->amount;
         });
 
         return $amount;

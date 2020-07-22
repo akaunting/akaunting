@@ -3,7 +3,6 @@
 namespace App\Jobs\Purchase;
 
 use App\Abstracts\Job;
-use App\Models\Purchase\Bill;
 use App\Models\Purchase\BillTotal;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
@@ -96,7 +95,7 @@ class CreateBillItemsAndTotals extends Job
                     'bill_id' => $this->bill->id,
                     'code' => 'tax',
                     'name' => $tax['name'],
-                    'amount' => round($tax['amount'], $precision),
+                    'amount' => round(abs($total['amount']), $precision),
                     'sort_order' => $sort_order,
                 ]);
 
@@ -117,7 +116,7 @@ class CreateBillItemsAndTotals extends Job
                     $total['code'] = 'extra';
                 }
 
-                $total['amount'] = round($total['amount'], $precision);
+                $total['amount'] = round(abs($total['amount']), $precision);
 
                 BillTotal::create($total);
 

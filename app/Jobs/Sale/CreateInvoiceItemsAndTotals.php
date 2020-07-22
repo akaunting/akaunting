@@ -95,7 +95,7 @@ class CreateInvoiceItemsAndTotals extends Job
                     'invoice_id' => $this->invoice->id,
                     'code' => 'tax',
                     'name' => $tax['name'],
-                    'amount' => round($tax['amount'], $precision),
+                    'amount' => round(abs($tax['amount']), $precision),
                     'sort_order' => $sort_order,
                 ]);
 
@@ -116,7 +116,7 @@ class CreateInvoiceItemsAndTotals extends Job
                     $total['code'] = 'extra';
                 }
 
-                $total['amount'] = round($total['amount'], $precision);
+                $total['amount'] = round(abs($total['amount']), $precision);
 
                 InvoiceTotal::create($total);
 
