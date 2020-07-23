@@ -56,6 +56,10 @@ export default {
 
     mounted() {
         this.checkNotify();
+
+        if (aka_currency) {
+            this.currency = aka_currency;
+        }
     },
 
     methods: {
@@ -308,5 +312,15 @@ export default {
                 // always executed
             });
         },
+
+        clickTab(id) {
+            let event = new document.window.KeyboardEvent('keydown', { keyCode: 9 }); // Tab key
+
+            document.window.dispatchEvent(event);
+
+            let e = $.Event('keyup');
+            e.keyCode= 9; // tab
+            $('#' + id).trigger(e);
+        }
     }
 }
