@@ -57,7 +57,7 @@
                                 $field['attributes'])
                             ) }}
                         @elseif ($type == 'checkboxGroup')
-                            {{ Form::$type($field['name'], $field['title'], $field['items'], $report->settings->{$field['name']}, $field['id'], array_merge([
+                            {{ Form::$type($field['name'], $field['title'], $field['items'], $report->settings->{$field['name']}, $field['id'], $report->settings->{$field['name']}, array_merge([
                                     'data-field' => 'settings'
                                 ],
                                 $field['attributes'])
