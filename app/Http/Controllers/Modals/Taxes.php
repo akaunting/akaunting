@@ -28,8 +28,10 @@ class Taxes extends Controller
     public function create()
     {
         $types = [
+            'fixed' => trans('taxes.fixed'),
             'normal' => trans('taxes.normal'),
             'inclusive' => trans('taxes.inclusive'),
+            'withholding' => trans('taxes.withholding'),
             'compound' => trans('taxes.compound'),
         ];
 
