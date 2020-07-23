@@ -29,6 +29,7 @@
     <script type="text/javascript"><!--
         var url = '{{ url("/") }}';
         var app_url = '{{ config("app.url") }}';
+        var aka_currency = {!! !empty($currency) ? $currency : 'false' !!};
     //--></script>
 
     @stack('js')

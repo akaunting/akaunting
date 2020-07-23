@@ -74,11 +74,11 @@ const app = new Vue({
                     currency: currency_code,
                     item_id: item.item_id,
                     name: item.name,
-                    price: (item.price).toFixed(2),
+                    price: (item.price).toFixed(this.currency.precision),
                     quantity: item.quantity,
                     tax_id: item.tax_id,
                     discount: item.discount_rate,
-                    total: (item.total).toFixed(2)
+                    total: (item.total).toFixed(this.currency.precision)
                 });
             });
 
@@ -289,10 +289,10 @@ const app = new Vue({
 
             this.form.items[index].item_id = item.id;
             this.form.items[index].name = item.name;
-            this.form.items[index].price = (item.sale_price).toFixed(2);
+            this.form.items[index].price = (item.sale_price).toFixed(this.currency.precision);
             this.form.items[index].quantity = 1;
             this.form.items[index].tax_id = tax_id;
-            this.form.items[index].total = (item.sale_price).toFixed(2);
+            this.form.items[index].total = (item.sale_price).toFixed(this.currency.precision);
         },
 
         // remove invocie item row => row_id = index
