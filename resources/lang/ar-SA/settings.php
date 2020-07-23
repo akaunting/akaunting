@@ -30,10 +30,10 @@ return [
             'after'         => 'بعد الرقم',
         ],
         'discount_location' => [
-            'name'          => 'Discount Location',
-            'item'          => 'At line',
-            'total'         => 'At total',
-            'both'          => 'Both line and total',
+            'name'          => 'خصم على الموقع',
+            'item'          => 'فى السطر',
+            'total'         => 'ف الاجمالى',
+            'both'          => 'كلا من الخط و الاجمالى',
         ],
     ],
 

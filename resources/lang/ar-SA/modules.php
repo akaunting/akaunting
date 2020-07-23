@@ -9,7 +9,6 @@ return [
     'new'                   => 'جديد',
     'top_free'              => 'أعلى مجانيات ',
     'free'                  => 'مجاناً',
-    'search'                => 'بحث',
     'install'               => 'تثبيت',
     'buy_now'               => 'الشراء الآن',
     'get_api_key'           => '<a href=":url" target="_blank">إضغط هنا</a>للحصول على مفتاح API الخاص بك.',

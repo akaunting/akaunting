@@ -2,11 +2,11 @@
 
 return [
 
-    'next'                  => 'Berikutnya',
-    'refresh'               => 'Muat Ulang',
+    'next'                  => 'Selanjutnya',
+    'refresh'               => 'Perbarui',
 
     'steps' => [
-        'requirements'      => 'Silakan meminta penyedia hosting Anda untuk memperbaiki kesalahan!',
+        'requirements'      => 'Silakan meminta ke penyedia hosting Anda untuk memperbaiki kesalahan!',
         'language'          => 'Langkah 1/3 : Seleksi Bahasa',
         'database'          => 'Langkah 2/3 : Setup basis data',
         'settings'          => 'Langkah 3/3: Detail Perusahaan dan Admin',
@@ -39,7 +39,8 @@ return [
     ],
 
     'error' => [
-        'connection'        => 'Kesalahan: Tidak dapat terhubung ke database! Tolong, pastikan detilnya benar.',
+        'php_version'       => 'Terjadi Kesalahan: Minta ke penyedia hosting Anda untuk menggunakan PHP: php_version atau lebih tinggi untuk HTTP dan CLI.',
+        'connection'        => 'Terjadi Kesalahan: Tidak dapat terhubung ke database! Tolong, pastikan detilnya benar.',
     ],
 
 ];

@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Fout: Vraag uw hostingprovider om PHP :php_version of hoger te gebruiken voor zowel HTTP als CLI.',
         'connection'        => 'Fout: Kan geen verbinding met de database! Controleer of alle gegevens juist zijn.',
     ],
 
