@@ -65,6 +65,7 @@ const app = new Vue({
             let items = [];
             let item_backup = this.form.item_backup[0];
             let currency_code = this.form.currency_code;
+            let currency = this.currency;
 
             this.edit.status = true;
 
@@ -74,11 +75,11 @@ const app = new Vue({
                     currency: currency_code,
                     item_id: item.item_id,
                     name: item.name,
-                    price: (item.price).toFixed(this.currency.precision),
+                    price: (item.price).toFixed(currency.precision),
                     quantity: item.quantity,
                     tax_id: item.tax_id,
                     discount: item.discount_rate,
-                    total: (item.total).toFixed(this.currency.precision)
+                    total: (item.total).toFixed(currency.precision)
                 });
             });
 
