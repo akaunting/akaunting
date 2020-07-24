@@ -121,10 +121,21 @@ class Uploads extends Controller
      */
     public function destroy($id, Request $request)
     {
+        $return = back();
+
+        if ($request->has('ajax') && $request->get('ajax')) {
+            $return = [
+                'success' => true,
+                'errors' => false,
+                'message' => '',
+                'redirect' => $request->get('redirect')
+            ];
+        }
+
         try {
             $media = Media::find($id);
         } catch (\Exception $e) {
-            return back();
+            return $return;
         }
 
         // Get file path
@@ -133,7 +144,7 @@ class Uploads extends Controller
 
             flash($message)->warning();
 
-            return back();
+            return $return;
         }
 
         $media->delete(); //will not delete files
@@ -150,7 +161,7 @@ class Uploads extends Controller
             }
         }
 
-        return back();
+        return $return;
     }
 
     /**
