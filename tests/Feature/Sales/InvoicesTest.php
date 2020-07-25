@@ -26,25 +26,39 @@ class InvoicesTest extends FeatureTestCase
 
     public function testItShouldCreateInvoice()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('invoices.store'), $this->getRequest())
+            ->post(route('invoices.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('invoices', [
+            'invoice_number' => $request['invoice_number'],
+        ]);
     }
 
     public function testItShouldCreateInvoiceWithRecurring()
     {
+        $request = $this->getRequest(true);
+
         $this->loginAs()
-            ->post(route('invoices.store'), $this->getRequest(true))
+            ->post(route('invoices.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('invoices', [
+            'invoice_number' => $request['invoice_number'],
+        ]);
     }
 
     public function testItShouldSeeInvoiceUpdatePage()
     {
-        $invoice = $this->dispatch(new CreateInvoice($this->getRequest()));
+        $request = $this->getRequest();
+
+        $invoice = $this->dispatch(new CreateInvoice($request));
 
         $this->loginAs()
             ->get(route('invoices.edit', $invoice->id))
@@ -66,17 +80,28 @@ class InvoicesTest extends FeatureTestCase
 			->assertSee($request['contact_email']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('invoices', [
+            'invoice_number' => $request['invoice_number'],
+            'contact_email' => $request['contact_email'],
+        ]);
     }
 
     public function testItShouldDeleteInvoice()
     {
-        $invoice = $this->dispatch(new CreateInvoice($this->getRequest()));
+        $request = $this->getRequest();
+
+        $invoice = $this->dispatch(new CreateInvoice($request));
 
         $this->loginAs()
             ->delete(route('invoices.destroy', $invoice->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('invoices', [
+            'invoice_number' => $request['invoice_number'],
+        ]);
     }
 
     public function getRequest($recurring = false)

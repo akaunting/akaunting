@@ -25,34 +25,40 @@ class CustomersTest extends FeatureTestCase
 			->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.customers', 1)]));
 	}
 
-	public function testItShouldCreateOnlyCustomerWithoutUser()
+	public function testItShouldCreateCustomer()
 	{
+		$request = $this->getRequest();
+
 		$this->loginAs()
-			->post(route('customers.store'), $this->getRequest())
+			->post(route('customers.store'), $request)
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('contacts', $request);
 	}
 
 	public function testItShouldCreateCustomerWithUser()
 	{
-        $customer = $this->getRequestWithUser();
+        $request = $this->getRequestWithUser();
 
 		$this->loginAs()
-			->post(route('customers.store'), $customer)
+			->post(route('customers.store'), $request)
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
 
-		$user = User::where('email', $customer['email'])->first();
+		$user = User::where('email', $request['email'])->first();
 
 		$this->assertNotNull($user);
-		$this->assertEquals($customer['email'], $user->email);
+		$this->assertEquals($request['email'], $user->email);
 	}
 
 	public function testItShouldSeeCustomerDetailPage()
 	{
-		$customer = $this->dispatch(new CreateContact($this->getRequest()));
+		$request = $this->getRequest();
+
+		$customer = $this->dispatch(new CreateContact($request));
 
 		$this->loginAs()
 			->get(route('customers.show', $customer->id))
@@ -62,7 +68,9 @@ class CustomersTest extends FeatureTestCase
 
 	public function testItShouldSeeCustomerUpdatePage()
 	{
-		$customer = $this->dispatch(new CreateContact($this->getRequest()));
+		$request = $this->getRequest();
+
+		$customer = $this->dispatch(new CreateContact($request));
 
 		$this->loginAs()
 			->get(route('customers.edit', $customer->id))
@@ -84,17 +92,23 @@ class CustomersTest extends FeatureTestCase
 			->assertSee($request['email']);
 
 		$this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('contacts', $request);
 	}
 
 	public function testItShouldDeleteCustomer()
 	{
-		$customer = $this->dispatch(new CreateContact($this->getRequest()));
+        $request = $this->getRequest();
+
+		$customer = $this->dispatch(new CreateContact($request));
 
 		$this->loginAs()
 			->delete(route('customers.destroy', $customer->id))
 			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('contacts', $request);
 
 	}
 

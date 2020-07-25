@@ -26,16 +26,22 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldCreateVendor()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('vendors.store'), $this->getRequest())
+            ->post(route('vendors.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('contacts', $request);
     }
 
     public function testItShouldSeeVendorDetailPage()
     {
-        $vendor = $this->dispatch(new CreateContact($this->getRequest()));
+        $request = $this->getRequest();
+
+        $vendor = $this->dispatch(new CreateContact($request));
 
         $this->loginAs()
             ->get(route('vendors.show', $vendor->id))
@@ -45,12 +51,16 @@ class VendorsTest extends FeatureTestCase
 
     public function testItShouldSeeVendorUpdatePage()
     {
-        $vendor = $this->dispatch(new CreateContact($this->getRequest()));
+        $request = $this->getRequest();
+
+        $vendor = $this->dispatch(new CreateContact($request));
 
         $this->loginAs()
             ->get(route('vendors.edit', $vendor->id))
             ->assertStatus(200)
             ->assertSee($vendor->email);
+
+        $this->assertDatabaseHas('contacts', $request);
     }
 
     public function testItShouldUpdateVendor()
@@ -67,17 +77,23 @@ class VendorsTest extends FeatureTestCase
 			->assertSee($request['email']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('contacts', $request);
     }
 
     public function testItShouldDeleteVendor()
     {
-        $vendor = $this->dispatch(new CreateContact($this->getRequest()));
+        $request = $this->getRequest();
+
+        $vendor = $this->dispatch(new CreateContact($request));
 
         $this->loginAs()
             ->delete(route('vendors.destroy', $vendor->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('contacts', $request);
     }
 
     public function getRequest()

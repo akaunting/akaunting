@@ -17,11 +17,15 @@ class CurrenciesTest extends FeatureTestCase
 
     public function testItShouldCreateCurrency()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('wizard.currencies.store'), $this->getRequest())
+            ->post(route('wizard.currencies.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('currencies', $request);
     }
 
     public function testItShouldUpdateCurrency()
@@ -37,17 +41,23 @@ class CurrenciesTest extends FeatureTestCase
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('currencies', $request);
     }
 
     public function testItShouldDeleteCurrency()
     {
-        $currency = $this->dispatch(new CreateCurrency($this->getRequest()));
+        $request = $this->getRequest();
+
+        $currency = $this->dispatch(new CreateCurrency($request));
 
         $this->loginAs()
             ->delete(route('wizard.currencies.destroy', $currency->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('currencies', $request);
     }
 
     public function getRequest()

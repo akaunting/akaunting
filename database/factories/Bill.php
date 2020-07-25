@@ -20,8 +20,8 @@ $factory->define(Bill::class, function (Faker $faker) use ($company) {
     session(['company_id' => $company->id]);
     setting()->setExtraColumns(['company_id' => $company->id]);
 
-    $billed_at = $faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d');
-    $due_at = Date::parse($billed_at)->addDays(10)->format('Y-m-d');
+    $billed_at = $faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d H:i:s');
+    $due_at = Date::parse($billed_at)->addDays(10)->format('Y-m-d H:i:s');
 
     $contacts = Contact::vendor()->enabled()->get();
 
