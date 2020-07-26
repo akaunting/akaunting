@@ -25,7 +25,9 @@ class CurrenciesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('currencies', $request);
+        $this->assertDatabaseHas('currencies', [
+            'code' => $request['code'],
+        ]);
     }
 
     public function testItShouldUpdateCurrency()
@@ -42,7 +44,9 @@ class CurrenciesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('currencies', $request);
+        $this->assertDatabaseHas('currencies', [
+            'code' => $request['code'],
+        ]);
     }
 
     public function testItShouldDeleteCurrency()
@@ -57,7 +61,9 @@ class CurrenciesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertSoftDeleted('currencies', $request);
+        $this->assertSoftDeleted('currencies', [
+            'code' => $request['code'],
+        ]);
     }
 
     public function getRequest()
