@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Abstracts\Http\Controller;
+use App\Events\Auth\LandingPageShowing;
 use App\Http\Requests\Auth\User as Request;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Auth\DeleteUser;
@@ -46,25 +47,12 @@ class Users extends Controller
      */
     public function create()
     {
-        $routes = [
-            'dashboard' => trans_choice('general.dashboards', 1),
-            'items.index' => trans_choice('general.items', 2),
-            'invoices.index' => trans_choice('general.invoices', 2),
-            'revenues.index' => trans_choice('general.revenues', 2),
-            'customers.index' => trans_choice('general.customers', 2),
-            'bills.index' => trans_choice('general.bills', 2),
-            'payments.index' => trans_choice('general.payments', 2),
-            'vendors.index' => trans_choice('general.vendors', 2),
-            'accounts.index' => trans_choice('general.accounts', 2),
-            'transfers.index' => trans_choice('general.transfers', 2),
-            'transactions.index' => trans_choice('general.transactions', 2),
-            'reconciliations.index' => trans_choice('general.reconciliations', 2),
-            'reports.index' => trans_choice('general.reports', 2),
-            'settings.index' => trans_choice('general.settings', 2),
-            'categories.index' => trans_choice('general.categories', 2),
-            'currencies.index' => trans_choice('general.currencies', 2),
-            'taxes.index' => trans_choice('general.taxes', 2),
-        ];
+        $u = new \stdClass();
+        $u->landing_pages = [];
+
+        event(new LandingPageShowing($u));
+
+        $landing_pages = $u->landing_pages;
 
         $roles = Role::all()->reject(function ($r) {
             return $r->hasPermission('read-client-portal');
@@ -72,7 +60,7 @@ class Users extends Controller
 
         $companies = user()->companies()->take(10)->get()->sortBy('name')->pluck('name', 'id');
 
-        return view('auth.users.create', compact('roles', 'companies', 'routes'));
+        return view('auth.users.create', compact('roles', 'companies', 'landing_pages'));
     }
 
     /**
@@ -116,25 +104,12 @@ class Users extends Controller
             abort(403);
         }
 
-        $routes = [
-            'dashboard' => trans_choice('general.dashboards', 1),
-            'items.index' => trans_choice('general.items', 2),
-            'invoices.index' => trans_choice('general.invoices', 2),
-            'revenues.index' => trans_choice('general.revenues', 2),
-            'customers.index' => trans_choice('general.customers', 2),
-            'bills.index' => trans_choice('general.bills', 2),
-            'payments.index' => trans_choice('general.payments', 2),
-            'vendors.index' => trans_choice('general.vendors', 2),
-            'accounts.index' => trans_choice('general.accounts', 2),
-            'transfers.index' => trans_choice('general.transfers', 2),
-            'transactions.index' => trans_choice('general.transactions', 2),
-            'reconciliations.index' => trans_choice('general.reconciliations', 2),
-            'reports.index' => trans_choice('general.reports', 2),
-            'settings.index' => trans_choice('general.settings', 2),
-            'categories.index' => trans_choice('general.categories', 2),
-            'currencies.index' => trans_choice('general.currencies', 2),
-            'taxes.index' => trans_choice('general.taxes', 2),
-        ];
+        $u = new \stdClass();
+        $u->landing_pages = [];
+
+        event(new LandingPageShowing($u));
+
+        $landing_pages = $u->landing_pages;
 
         if ($user->can('read-client-portal')) {
             // Show only roles with customer permission
@@ -150,7 +125,7 @@ class Users extends Controller
 
         $companies = user()->companies()->take(10)->get()->sortBy('name')->pluck('name', 'id');
 
-        return view('auth.users.edit', compact('user', 'companies', 'roles', 'routes'));
+        return view('auth.users.edit', compact('user', 'companies', 'roles', 'landing_pages'));
     }
 
     /**

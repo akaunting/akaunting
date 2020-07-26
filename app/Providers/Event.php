@@ -29,6 +29,9 @@ class Event extends Provider
         'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\Auth\Logout',
         ],
+        'App\Events\Auth\LandingPageShowing' => [
+            'App\Listeners\Auth\AddLandingPages',
+        ],
         'App\Events\Purchase\BillCreated' => [
             'App\Listeners\Purchase\CreateBillCreatedHistory',
             'App\Listeners\Purchase\IncreaseNextBillNumber',
