@@ -129,7 +129,7 @@
                 @stack('notes_input_start')
                     @if ($invoice->notes)
                         <strong>{{ trans_choice('general.notes', 2) }}</strong><br><br>
-                        {{ $invoice->notes }}
+                        {!! nl2br($invoice->notes) !!}
                     @endif
                 @stack('notes_input_end')
             </div>
@@ -162,7 +162,7 @@
         <div class="row mt-7">
             <div class="col-100 py-2" style="background-color:{{ setting('invoice.color') }} !important; -webkit-print-color-adjust: exact;">
                 <div class="text pl-2">
-                    <strong class="text-white">{!! $invoice->footer !!}</strong>
+                    <strong class="text-white">{!! nl2br($invoice->footer) !!}</strong>
                 </div>
             </div>
         </div>

@@ -387,7 +387,7 @@
                                                 <tr>
                                                     <th>
                                                         <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                                        <p class="text-muted long-texts">{{ $invoice->notes }}</p>
+                                                        <p class="text-muted long-texts">{!! nl2br($invoice->notes) !!}</p>
                                                     </th>
                                                 </tr>
                                             @endif
