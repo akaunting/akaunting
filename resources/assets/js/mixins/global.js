@@ -386,15 +386,5 @@ export default {
                 })
             });
         },
-
-        clickTab(id) {
-            let event = new document.window.KeyboardEvent('keydown', { keyCode: 9 }); // Tab key
-
-            document.window.dispatchEvent(event);
-
-            let e = $.Event('keyup');
-            e.keyCode= 9; // tab
-            $('#' + id).trigger(e);
-        }
     }
 }

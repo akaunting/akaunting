@@ -28,7 +28,7 @@
             @elseif (!empty($attributes['data-field']))
             @interface="form.errors.clear('{{ 'form.' . $attributes['data-field'] . '.' . $name }}'); {{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
             @else
-            @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event; clickTab('{{ $name }}');"
+            @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event;"
             @endif
 
             @if (!empty($attributes['change']))
