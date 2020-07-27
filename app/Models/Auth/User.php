@@ -43,6 +43,15 @@ class User extends Authenticatable
     protected $dates = ['last_logged_in_at', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array

@@ -18,6 +18,10 @@ abstract class Model extends Eloquent
 
     protected $dates = ['deleted_at'];
 
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
     /**
      * The "booting" method of the model.
      *

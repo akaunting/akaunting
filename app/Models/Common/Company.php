@@ -21,6 +21,10 @@ class Company extends Eloquent
 
     protected $fillable = ['domain', 'enabled'];
 
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
     /**
      * Sortable columns.
      *
