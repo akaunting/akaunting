@@ -1018,10 +1018,6 @@ export default {
                 var value = this.$children[0].$children[0].$refs.input.value;
             }
 
-            if (value === '') {
-                return false;
-            }
-
             if (this.add_new.type == 'inline') {
                 if (value === '') {
                     return false;
