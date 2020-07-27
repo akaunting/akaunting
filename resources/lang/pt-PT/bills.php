@@ -57,7 +57,7 @@ return [
         'status' => [
             'created'       => 'Criada em :date',
             'receive' => [
-                'draft'     => 'Não enviada',
+                'draft'     => 'Não Recebida',
                 'received'  => 'Recebida em :date',
             ],
             'paid' => [

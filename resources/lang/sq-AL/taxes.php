@@ -8,4 +8,5 @@ return [
     'inclusive'             => 'Gjithëpërfshirës',
     'compound'              => 'Përbërës',
     'fixed'                 => 'Fikse',
+    'withholding'           => 'Në burim',
 ];

@@ -8,5 +8,5 @@ return [
     'inclusive'             => 'شامل',
     'compound'              => 'مُركب',
     'fixed'                 => 'ثابت',
-    'withholding'           => 'Withholding',
+    'withholding'           => 'حجز',
 ];

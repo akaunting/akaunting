@@ -66,7 +66,7 @@ return [
             'viewed'        => 'Visualizada',
             'send' => [
                 'draft'     => 'Não Enviada',
-                'sent'      => 'Enviada em :data',
+                'sent'      => 'Enviada em :date',
             ],
             'paid' => [
                 'await'     => 'Aguarda pagamento',
