@@ -49,45 +49,64 @@
 
         let editorRef = this.$refs.editor;
         let node = editorRef.children[0];
+
         this.editor.on('text-change', () => {
-          let html = node.innerHTML
+          let html = node.innerHTML;
+
           if (html === '<p><br></p>') {
             html = '';
           }
-          this.content = html
+
+          this.content = html;
+
           this.$emit('input', this.content);
         })
       },
+
       pasteHTML () {
         if (!this.editor) {
           return
         }
-        this.editor.pasteHTML(this.value)
+
+        this.editor.pasteHTML(this.value);
       },
+
       randomString() {
         let text = "";
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-        for (let i = 0; i < 5; i++)
+        for (let i = 0; i < 5; i++) {
           text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
 
         return text;
       }
     },
+
     async mounted () {
-      let Quill = await import('quill')
-      Quill = Quill.default || Quill
+      this.content = this.value;
+
+      let Quill = await import('quill');
+
+      Quill = Quill.default || Quill;
+
       this.editorId = this.randomString();
       this.toolbarId = this.randomString();
+
       this.$nextTick(() => {
         this.initialize(Quill)
       });
     },
+
     watch: {
       value (newVal) {
         if (newVal !== this.content) {
           this.pasteHTML(newVal);
         }
+      },
+
+      content (newVal) {
+        this.$emit('input', newVal);
       }
     }
   }
