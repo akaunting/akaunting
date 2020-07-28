@@ -12,6 +12,8 @@
 
             @if (!empty($value))
             :value="{{ `$value` }}"
+            @else
+            :value="''"
             @endif
 
             @if (!empty($attributes['v-model']))
