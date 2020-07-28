@@ -11,7 +11,7 @@
             name="{{ $name }}"
 
             @if (!empty($value))
-            :value="{{ `$value` }}"
+            :value="`{{ $value }}`"
             @else
             :value="''"
             @endif
