@@ -29,6 +29,7 @@ class Item extends TransformerAbstract
             'sale_price' => $model->sale_price,
             'purchase_price' => $model->purchase_price,
             'quantity' => $model->quantity,
+            'unit' => $model->unit,
             'category_id' => $model->category_id,
             'tax_id' => $model->tax_id,
             'picture' => $model->picture,

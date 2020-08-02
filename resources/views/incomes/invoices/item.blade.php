@@ -23,6 +23,14 @@
         @stack('quantity_input_end')
     </td>
     @stack('quantity_td_end')
+    @stack('unit_td_start')
+    <td {{ $errors->has('item.' . $item_row . '.quantity') ? 'class="has-error"' : '' }}>
+        @stack('quantity_input_start')
+        <input value="{{ empty($item) ? '' : $item->unit }}" class="form-control text-center" required="required" name="item[{{ $item_row }}][unit]" type="text" id="item-unit-{{ $item_row }}">
+        {!! $errors->first('item.' . $item_row . '.unit', '<p class="help-block">:message</p>') !!}
+        @stack('unit_input_end')
+    </td>
+    @stack('unit_td_end')
     @stack('price_td_start')
     <td {{ $errors->has('item.' . $item_row . 'price') ? 'class="has-error"' : '' }}>
         @stack('price_input_start')

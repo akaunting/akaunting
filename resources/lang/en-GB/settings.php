@@ -43,6 +43,7 @@ return [
         'rate'              => 'Rate',
         'quantity_name'     => 'Quantity Name',
         'quantity'          => 'Quantity',
+        'unit'              => 'Units',
     ],
     'default' => [
         'tab'               => 'Defaults',

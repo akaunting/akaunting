@@ -26,14 +26,14 @@ class Item extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'sku', 'description', 'sale_price', 'purchase_price', 'quantity', 'category_id', 'tax_id', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'sku', 'description', 'sale_price', 'purchase_price', 'quantity', 'unit','category_id', 'tax_id', 'enabled'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    protected $sortable = ['name', 'category', 'quantity', 'sale_price', 'purchase_price', 'enabled'];
+    protected $sortable = ['name', 'category', 'quantity', 'unit','sale_price', 'purchase_price', 'enabled'];
 
     /**
      * Searchable rules.
@@ -44,6 +44,7 @@ class Item extends Model
         'name'        => 10,
         'sku'         => 5,
         'description' => 2,
+        'unit'        => 3
     ];
 
     public function category()

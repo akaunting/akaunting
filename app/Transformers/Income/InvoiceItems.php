@@ -21,6 +21,7 @@ class InvoiceItems extends TransformerAbstract
             'name' => $model->name,
             'sku' => $model->sku,
             'quantity' => $model->quantity,
+            'unit' => $model->unit,
             'price' => $model->price,
             'total' => $model->total,
             'tax' => $model->tax,

@@ -43,6 +43,7 @@ return [
         'rate'              => 'Sadzba',
         'quantity_name'     => 'Názov množstva',
         'quantity'          => 'Množstvo',
+        'unit'              => 'Jednotka',
     ],
     'default' => [
         'tab'               => 'Predvolené',
