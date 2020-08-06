@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
-use App\Models\Setting\Setting;
 use App\Traits\DateTime;
 
 class Localisation extends Controller
@@ -12,12 +11,6 @@ class Localisation extends Controller
 
     public function edit()
     {
-        $setting = Setting::prefix('localisation')->get()->transform(function ($s) {
-            $s->key = str_replace('localisation.', '', $s->key);
-
-            return $s;
-        })->pluck('value', 'key');
-
         $timezones = $this->getTimezones();
 
         $date_formats = [
@@ -49,7 +42,6 @@ class Localisation extends Controller
         ];
 
         return view('settings.localisation.edit', compact(
-            'setting',
             'timezones',
             'date_formats',
             'date_separators',

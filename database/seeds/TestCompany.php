@@ -79,7 +79,7 @@ class TestCompany extends Seeder
             'type' => 'customer',
             'name' => 'Test Customer',
             'email' => 'customer@company.com',
-            'currency_code' => setting('default.currency', 'USD'),
+            'currency_code' => setting('default.currency'),
             'password' => '123456',
             'password_confirmation' => '123456',
             'company_id' => session('company_id'),

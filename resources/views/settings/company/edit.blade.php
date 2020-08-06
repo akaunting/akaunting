@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.companies', 1))
 
 @section('content')
-    {!! Form::model($setting, [
+    {!! Form::open([
         'id' => 'setting',
         'method' => 'PATCH',
         'route' => 'settings.update',
@@ -18,15 +18,15 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                {{ Form::textGroup('name', trans('settings.company.name'), 'building') }}
+                {{ Form::textGroup('name', trans('settings.company.name'), 'building', ['required' => 'required'], setting('company.name')) }}
 
-                {{ Form::textGroup('email', trans('settings.company.email'), 'envelope') }}
+                {{ Form::textGroup('email', trans('settings.company.email'), 'envelope', ['required' => 'required'], setting('company.email')) }}
 
-                {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
+                {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', [], setting('company.tax_number')) }}
 
-                {{ Form::textGroup('phone', trans('settings.company.phone'), 'phone', []) }}
+                {{ Form::textGroup('phone', trans('settings.company.phone'), 'phone', [], setting('company.phone')) }}
 
-                {{ Form::textareaGroup('address', trans('settings.company.address')) }}
+                {{ Form::textareaGroup('address', trans('settings.company.address'), null, setting('company.address')) }}
 
                 {{ Form::fileGroup('logo', trans('settings.company.logo')) }}
             </div>

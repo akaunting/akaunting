@@ -73,7 +73,7 @@ trait Currencies
 
     public function getDefaultCurrency()
     {
-        return !empty($this->default_currency_code) ? $this->default_currency_code : setting('default.currency', 'USD');
+        return !empty($this->default_currency_code) ? $this->default_currency_code : setting('default.currency');
     }
 
     public function setDefaultCurrency($code)

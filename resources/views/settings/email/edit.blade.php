@@ -3,7 +3,7 @@
 @section('title', trans('general.email'))
 
 @section('content')
-    {!! Form::model($setting, [
+    {!! Form::open([
         'id' => 'setting',
         'method' => 'PATCH',
         'route' => 'settings.email.update',
@@ -64,9 +64,9 @@
                     <div id="collapse{{ $card }}" class="collapse hide" aria-labelledby="heading{{ $card }}" data-parent="#accordion{{ $card }}">
                         <div class="card-body">
                             <div class="row">
-                                {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, !empty($setting['protocol']) ? $setting['protocol'] : null, ['change' => 'onChangeProtocol']) }}
+                                {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, setting('email.protocol'), ['change' => 'onChangeProtocol']) }}
 
-                                {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled'=> 'email.sendmailPath']) }}
+                                {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled'=> 'email.sendmailPath'], setting('email.sendmail_path')) }}
 
                                 {{ Form::textGroup('smtp_host', trans('settings.email.smtp.host'), 'paper-plane', [':disabled' => 'email.smtpHost']) }}
 

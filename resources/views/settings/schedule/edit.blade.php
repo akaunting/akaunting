@@ -3,7 +3,7 @@
 @section('title', trans('settings.scheduling.name'))
 
 @section('content')
-    {!! Form::model($setting, [
+    {!! Form::open([
         'id' => 'setting',
         'method' => 'PATCH',
         'route' => 'settings.update',
@@ -18,13 +18,13 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                {{ Form::radioGroup('send_invoice_reminder', trans('settings.scheduling.send_invoice'), $setting->get('send_invoice_reminder')) }}
+                {{ Form::radioGroup('send_invoice_reminder', trans('settings.scheduling.send_invoice'), setting('schedule.send_invoice_reminder')) }}
 
-                {{ Form::textGroup('invoice_days', trans('settings.scheduling.invoice_days'), 'calendar', []) }}
+                {{ Form::textGroup('invoice_days', trans('settings.scheduling.invoice_days'), 'calendar', [], setting('schedule.invoice_days')) }}
 
-                {{ Form::radioGroup('send_bill_reminder', trans('settings.scheduling.send_bill'), $setting->get('send_bill_reminder')) }}
+                {{ Form::radioGroup('send_bill_reminder', trans('settings.scheduling.send_bill'), setting('schedule.send_bill_reminder')) }}
 
-                {{ Form::textGroup('bill_days', trans('settings.scheduling.bill_days'), 'calendar', []) }}
+                {{ Form::textGroup('bill_days', trans('settings.scheduling.bill_days'), 'calendar', [], setting('schedule.bill_days')) }}
 
                 <div class="col-sm-6">
                     <label for="cron_command" class="form-control-label">{{ trans('settings.scheduling.cron_command') }}</label>

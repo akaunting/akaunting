@@ -435,7 +435,7 @@ class Invoices extends Controller
         $currency = Currency::where('code', $currency_code)->first();
 
         if (empty($currency)) {
-            $currency = Currency::where('code', setting('default.currency', 'USD'))->first();
+            $currency = Currency::where('code', setting('default.currency'))->first();
         }
 
         if ($currency) {

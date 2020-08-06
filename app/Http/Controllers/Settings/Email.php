@@ -6,7 +6,6 @@ use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Common\Company;
 use App\Models\Common\EmailTemplate;
-use App\Models\Setting\Setting;
 use App\Utilities\Installer;
 use Illuminate\Support\Str;
 
@@ -33,12 +32,6 @@ class Email extends Controller
 
     public function edit()
     {
-        $setting = Setting::prefix('email')->get()->transform(function ($s) {
-            $s->key = str_replace('email.', '', $s->key);
-
-            return $s;
-        })->pluck('value', 'key');
-
         $templates = EmailTemplate::all();
 
         $email_protocols = [
@@ -49,7 +42,6 @@ class Email extends Controller
         ];
 
         return view('settings.email.edit', compact(
-            'setting',
             'templates',
             'email_protocols'
         ));
