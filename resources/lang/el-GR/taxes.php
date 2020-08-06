@@ -8,4 +8,5 @@ return [
     'inclusive'             => 'Συμπεριλαμβανόμενος',
     'compound'              => 'Μεικτός',
     'fixed'                 => 'Πάγιο',
+    'withholding'           => 'Κρατήσεις',
 ];

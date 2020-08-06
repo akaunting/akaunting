@@ -39,6 +39,7 @@ return [
     'dimensions'           => ':attribute შეიცავს სურათის არასწორ ზომებს.',
     'distinct'             => ':attribute უნდა იყოს უნიკალური.',
     'email'                => ':attribute უნდა იყოს სწორი ელ.ფოსტა.',
+    'ends_with'            => ': ატრიბუტი უნდა სრულდეოდეს ერთ ერთი შემდეგი მნიშვნელობიდან : ფასეულობები',
     'exists'               => 'ასეთი :attribute არ არსებობს.',
     'file'                 => ':attribute უნდა იყოს ფაილი.',
     'filled'               => ':attribute აუცილებელია.',
@@ -99,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'მორგებული-წერილი',
+            'rule-name'             => 'მორგებული-წერილი',
         ],
-        'invalid_currency' => ':ატრიბუტის კოდი არასწორია.',
-        'invalid_amount'   => 'თანხა: ატრიბუტი არასწორია.',
+        'invalid_currency'      => ':ატრიბუტის კოდი არასწორია.',
+        'invalid_amount'        => 'თანხა: ატრიბუტი არასწორია.',
+        'invalid_extension'     => 'Ფაილის გაფართოება არასწორია. ',
     ],
 
     /*

@@ -2,18 +2,20 @@
 
 return [
 
-    'bulk_actions'     => 'Μαζική Ενέργεια|Μαζικές Ενέργειες',
-    'selected'         => 'επιλεγμένα',
+    'bulk_actions'      => 'Μαζική Ενέργεια|Μαζικές Ενέργειες',
+    'selected'          => 'επιλεγμένα',
+    'no_action'         => 'Καμία διαθέσιμη ενέργεια',
 
     'message' => [
-        'duplicate'     => 'Are you sure you want to <b>duplicate</b> selected record?',
-        'delete'        => 'Are you sure you want to <b>delete</b> selected record?|Are you sure you want to <b>delete</b> selected records?',
-        'export'        => 'Are you sure you want to <b>export</b> selected record?|Are you sure you want to <b>export</b> selected records?',
-        'enable'        => 'Are you sure you want to <b>enable</b> selected record?|Are you sure you want to <b>enable</b> selected records?',
-        'disable'       => 'Are you sure you want to <b>disable</b> selected record?|Are you sure you want to <b>disable</b> selected records?',
-        'paid'          => 'Are you sure you want to mark selected invoice as <b>paid</b>?|Are you sure you want to mark selected invoices as <b>paid</b>?',
-        'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
-        'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
+        'duplicate'     => 'Είστε σίγουροι ότι θέλετε να <b>αντιγράψετε</b> την επιλεγμένη εγγραφή;',
+        'delete'        => 'Είστε σίγουροι ότι θέλετε να <b>διαγράψετε</b> την επιλεγμένη εγγραφή;|Είστε σίγουροι ότι θέλετε να <b>διαγράψετε</b> τις επιλεγμένες εγγραφές;',
+        'export'        => 'Είστε σίγουροι ότι θέλετε να <b>εξάγετε</b> την επιλεγμένη εγγραφή;|Είστε σίγουροι ότι θέλετε να <b>εξάγετε</b> τις επιλεγμένες εγγραφές;',
+        'enable'        => 'Είστε σίγουροι ότι θέλετε να <b>ενεργοποιήσετε</b> την επιλεγμένη εγγραφή;|Είστε σίγουροι ότι θέλετε να <b>ενεργοποιήσετε</b> τις επιλεγμένες εγγραφές;',
+        'disable'       => 'Είστε σίγουροι ότι θέλετε να <b>απενεργοποιήσετε</b> την επιλεγμένη εγγραφή;|Είστε σίγουροι ότι θέλετε να <b>απενεργοποιήσετε</b> τις επιλεγμένες εγγραφές;',
+        'paid'          => 'Είστε σίγουροι ότι θέλετε να σημειώσετε το επιλεγμένο τιμολόγιο ως <b>πληρωμένο</b>;Είστε σίγουροι ότι θέλετε να σημειώσετε τα επιλεγμένα τιμολόγια ως <b>πληρωμένα</b>;',
+        'sent'          => 'Είστε σίγουροι ότι θέλετε να σημειώσετε το επιλεγμένο τιμολόγιο ως <b>απεσταλμένο</b>;Είστε σίγουροι ότι θέλετε να σημειώσετε τα επιλεγμένα τιμολόγια ως <b>απεσταλμένα</b>;',
+        'received'      => 'Είστε σίγουροι ότι θέλετε να σημειώσετε το επιλεγμένο τιμολόγιο ως <b>ελήφθη</b>;Είστε σίγουροι ότι θέλετε να σημειώσετε τα επιλεγμένα τιμολόγια ως <b>ελήφθησαν</b>;',
+        'cancelled'     => 'Είστε σίγουροι ότι θέλετε να <b>ακυρώσετε</b> το επιλεγμένο τιμολόγιο;|Είστε σίγουροι ότι θέλετε να <b>ακυρώσετε</b> τα επιλεγμένα τιμολόγια;',
     ],
 
 ];

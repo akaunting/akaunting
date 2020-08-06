@@ -8,5 +8,5 @@ return [
     'inclusive'             => 'Inklusiv',
     'compound'              => 'Sammensatte',
     'fixed'                 => 'Fast',
-    'withholding'           => 'Withholding',
+    'withholding'           => 'Tilbageholdt',
 ];

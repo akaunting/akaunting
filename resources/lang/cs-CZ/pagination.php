@@ -4,7 +4,7 @@ return [
 
     'previous'              => '&laquo; předchozí',
     'next'                  => 'další &raquo;',
-    'showing'               => ':first-:last of :total records.',
+    'showing'               => ':first-:last z :total záznamů.',
     'page'                  => 'na stránku.',
 
 ];

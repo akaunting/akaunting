@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'description'       => 'Ændre firmanavn, email, adresse, momsnummer etc',
+        'description'       => 'Ændre navn, email, adresse, CVR-nummer mv.',
         'name'              => 'Navn',
         'email'             => 'E-mail',
         'phone'             => 'Telefon',
@@ -65,7 +65,7 @@ return [
     ],
 
     'default' => [
-        'description'       => 'Standard konto, valuta, firmasprog',
+        'description'       => 'Standard konto, valuta og sprog',
         'list_limit'        => 'Poster pr side',
         'use_gravatar'      => 'Brug Gravatar',
     ],
@@ -91,14 +91,14 @@ return [
             'subject'                   => 'Emne',
             'body'                      => 'Indhold',
             'tags'                      => '<strong>Tilgængelige Tags:</strong> :tag_list',
-            'invoice_new_customer'      => 'Ny fakturaskabelon (sendt til kunder)',
-            'invoice_remind_customer'   => 'Faktura påmindelses skabelon (sendt til kunder)',
-            'invoice_remind_admin'      => 'Faktura påmindelsesskabelon (sendt til administrator)',
+            'invoice_new_customer'      => 'Skabelon til ny faktura (sendt til kunder)',
+            'invoice_remind_customer'   => 'Fakturapåmindelses-skabelon (sendt til kunder)',
+            'invoice_remind_admin'      => 'Fakturapåmindelses-skabelon (sendt til administrator)',
             'invoice_recur_customer'    => 'Tilbagevendende skabelon for faktura (sendt til kunde)',
-            'invoice_recur_admin'       => 'Tilbagevendende skabelon for faktura (sendt til administrator)',
-            'invoice_payment_customer'  => 'Modtaget betalingsskabelon (sendt til kunder)',
-            'invoice_payment_admin'     => 'Modtaget betalingsskabelon (sendt til administrator)',
-            'bill_remind_admin'         => 'Regnings påmindelsesskabelon (sendt til administrator)',
+            'invoice_recur_admin'       => 'Skabelon for tilbagevendende faktura (sendt til administrator)',
+            'invoice_payment_customer'  => 'Skabelon for modtaget betaling (sendt til kunder)',
+            'invoice_payment_admin'     => 'Skabelon for modtaget betaling (sendt til administrator)',
+            'bill_remind_admin'         => 'Skabelon for regningspåmindelse (sendt til administrator)',
             'bill_recur_admin'          => 'Tilbagevendende skabelon for regning (sendt til administrator)',
         ],
     ],
@@ -106,12 +106,12 @@ return [
     'scheduling' => [
         'name'              => 'Planlægning',
         'description'       => 'Automatiske påmindelser og gentagelser',
-        'send_invoice'      => 'Send faktura påmindelse',
-        'invoice_days'      => 'Send efter forfalds dato',
-        'send_bill'         => 'Send regningens påmindelse',
-        'bill_days'         => 'Send før forfalds dage',
+        'send_invoice'      => 'Send fakturapåmindelse',
+        'invoice_days'      => 'Send efter forfaldsdato',
+        'send_bill'         => 'Send regningspåmindelse',
+        'bill_days'         => 'Send før forfaldsdato',
         'cron_command'      => 'Cron kommando',
-        'schedule_time'     => 'Timer at køre',
+        'schedule_time'     => 'Afsendingstid',
     ],
 
     'categories' => [

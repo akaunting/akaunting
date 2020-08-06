@@ -9,7 +9,6 @@ return [
     'new'                   => 'Baharu',
     'top_free'              => 'Percuma Tertinggi',
     'free'                  => 'PERCUMA',
-    'search'                => 'Carian',
     'install'               => 'Pasang',
     'buy_now'               => 'Beli Sekarang',
     'get_api_key'           => '<a href=":url" target="_blank">Tekan disini</a> untuk mendapatkan kunci API anda.',

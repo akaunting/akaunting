@@ -9,7 +9,6 @@ return [
     'new'                   => '新しい',
     'top_free'              => '無料トップ',
     'free'                  => '無料',
-    'search'                => '探索',
     'install'               => 'インストール',
     'buy_now'               => '今すぐ購入',
     'get_api_key'           => '<a href=":url" target="_blank">ここをクリック</a> APIキーを取得します。',
