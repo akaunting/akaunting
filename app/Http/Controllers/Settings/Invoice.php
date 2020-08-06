@@ -3,18 +3,11 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
-use App\Models\Setting\Setting;
 
 class Invoice extends Controller
 {
     public function edit()
     {
-        $setting = Setting::prefix('invoice')->get()->transform(function ($s) {
-            $s->key = str_replace('invoice.', '', $s->key);
-
-            return $s;
-        })->pluck('value', 'key');
-
         $item_names = [
             'settings.invoice.item' => trans('settings.invoice.item'),
             'settings.invoice.product' => trans('settings.invoice.product'),
@@ -43,7 +36,6 @@ class Invoice extends Controller
         ];
 
         return view('settings.invoice.edit', compact(
-            'setting',
             'item_names',
             'price_names',
             'quantity_names',

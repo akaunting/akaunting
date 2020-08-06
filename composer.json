@@ -19,7 +19,7 @@
         "akaunting/menu": "1.0.*",
         "akaunting/module": "1.0.*",
         "akaunting/money": "1.2.*",
-        "akaunting/setting": "1.1.*",
+        "akaunting/setting": "1.2.*",
         "akaunting/version": "1.0.*",
         "barryvdh/laravel-debugbar": "3.3.*",
         "barryvdh/laravel-dompdf": "0.*",

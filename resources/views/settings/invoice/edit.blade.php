@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.invoices', 1))
 
 @section('content')
-    {!! Form::model($setting, [
+    {!! Form::open([
         'id' => 'setting',
         'method' => 'PATCH',
         'route' => 'settings.update',
@@ -18,15 +18,15 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                {{ Form::textGroup('number_prefix', trans('settings.invoice.prefix'), 'font', []) }}
+                {{ Form::textGroup('number_prefix', trans('settings.invoice.prefix'), 'font', [], setting('invoice.number_prefix')) }}
 
-                {{ Form::textGroup('number_digit', trans('settings.invoice.digit'), 'text-width', []) }}
+                {{ Form::textGroup('number_digit', trans('settings.invoice.digit'), 'text-width', [], setting('invoice.number_digit')) }}
 
-                {{ Form::textGroup('number_next', trans('settings.invoice.next'), 'chevron-right', []) }}
+                {{ Form::textGroup('number_next', trans('settings.invoice.next'), 'chevron-right', [], setting('invoice.number_next')) }}
 
-                {{ Form::selectGroup('payment_terms', trans('settings.invoice.payment_terms'), 'calendar', $payment_terms, $setting['payment_terms'], []) }}
+                {{ Form::selectGroup('payment_terms', trans('settings.invoice.payment_terms'), 'calendar', $payment_terms, setting('invoice.payment_terms'), []) }}
 
-                {{ Form::textGroup('title', trans('settings.invoice.title'), 'font', []) }}
+                {{ Form::textGroup('title', trans('settings.invoice.title'), 'font', [], setting('invoice.title')) }}
 
                 {{ Form::textGroup('subheading', trans('settings.invoice.subheading'), 'font', []) }}
 
@@ -34,11 +34,11 @@
 
                 {{ Form::textareaGroup('footer', trans('general.footer')) }}
 
-                {{ Form::invoice_text('item_name', trans('settings.invoice.item_name'), 'font', $item_names, null, [], 'item_name_input', null) }}
+                {{ Form::invoice_text('item_name', trans('settings.invoice.item_name'), 'font', $item_names, setting('invoice.item_name'), [], 'item_name_input', null) }}
 
-                {{ Form::invoice_text('price_name', trans('settings.invoice.price_name'), 'font', $price_names, null, [], 'price_name_input', null) }}
+                {{ Form::invoice_text('price_name', trans('settings.invoice.price_name'), 'font', $price_names, setting('invoice.price_name'), [], 'price_name_input', null) }}
 
-                {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, null, [], 'quantity_name_input', null) }}
+                {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, setting('invoice.quantity_name'), [], 'quantity_name_input', null) }}
 
                 <div class="form-group col-md-6">
                     {!! Form::label('invoice_template', trans_choice('general.templates', 1), ['class' => 'form-control-label']) !!}

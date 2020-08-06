@@ -52,14 +52,14 @@
                                 <el-color-picker popper-class="template-color-picker" v-model="invoice_form.color" size="mini" :predefine="predefineColors" @change="onChangeColor"></el-color-picker>
                             </span>
                         </div>
-                        {!! Form::text('color', $setting['color'], ['v-model' => 'invoice_form.color', '@input' => 'onChangeColorInput', 'id' => 'color', 'class' => 'form-control color-hex', 'required' => 'required']) !!}
+                        {!! Form::text('color', setting('invoice.color'), ['v-model' => 'invoice_form.color', '@input' => 'onChangeColorInput', 'id' => 'color', 'class' => 'form-control color-hex', 'required' => 'required']) !!}
                     </div>
                     {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
                 </div>
             @stack('color_input_end')
         </div>
 
-        {!! Form::hidden('_template', $setting['template']) !!}
+        {!! Form::hidden('_template', setting('invoice.template')) !!}
         {!! Form::hidden('_prefix', 'invoice') !!}
     {!! Form::close() !!}
 </div>

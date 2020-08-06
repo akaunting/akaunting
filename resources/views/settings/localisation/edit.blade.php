@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.localisations', 1))
 
 @section('content')
-    {!! Form::model($setting, [
+    {!! Form::open([
         'id' => 'setting',
         'method' => 'PATCH',
         'route' => 'settings.update',
@@ -18,17 +18,17 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                {{ Form::dateGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar', ['id' => 'financial_start', 'class' => 'form-control datepicker', 'show-date-format' => 'j F', 'date-format' => 'd-m', 'autocomplete' => 'off'], $setting['financial_start']) }}
+                {{ Form::dateGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar', ['id' => 'financial_start', 'class' => 'form-control datepicker', 'show-date-format' => 'j F', 'date-format' => 'd-m', 'autocomplete' => 'off'], setting('localisation.financial_start')) }}
 
-                {{ Form::selectGroupGroup('timezone', trans('settings.localisation.timezone'), 'globe', $timezones, $setting['timezone'], []) }}
+                {{ Form::selectGroupGroup('timezone', trans('settings.localisation.timezone'), 'globe', $timezones, setting('localisation.timezone'), []) }}
 
-                {{ Form::selectGroup('date_format', trans('settings.localisation.date.format'), 'calendar', $date_formats, $setting['date_format'], ['autocomplete' => 'off']) }}
+                {{ Form::selectGroup('date_format', trans('settings.localisation.date.format'), 'calendar', $date_formats, setting('localisation.date_format'), ['autocomplete' => 'off']) }}
 
-                {{ Form::selectGroup('date_separator', trans('settings.localisation.date.separator'), 'minus', $date_separators, $setting['date_separator'], []) }}
+                {{ Form::selectGroup('date_separator', trans('settings.localisation.date.separator'), 'minus', $date_separators, setting('localisation.date_separator'), []) }}
 
-                {{ Form::selectGroup('percent_position', trans('settings.localisation.percent.title'), 'percent', $percent_positions, $setting['percent_position'], []) }}
+                {{ Form::selectGroup('percent_position', trans('settings.localisation.percent.title'), 'percent', $percent_positions, setting('localisation.percent_position'), []) }}
 
-                {{ Form::selectGroup('discount_location', trans('settings.localisation.discount_location.name'), 'percent', $discount_locations, !empty($setting['discount_location']) ? $setting['discount_location'] : 'total', []) }}
+                {{ Form::selectGroup('discount_location', trans('settings.localisation.discount_location.name'), 'percent', $discount_locations, setting('localisation.discount_location'), []) }}
             </div>
         </div>
 
