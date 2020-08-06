@@ -6,7 +6,7 @@ return [
     'user_created'          => 'Foydalanuvchi yaratilgan',
 
     'error' => [
-        'email'             => 'Bu elektron pochta band.'
+        'email'             => 'Bu elektron pochta band.',
     ],
 
 ];

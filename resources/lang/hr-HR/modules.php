@@ -9,7 +9,6 @@ return [
     'new'                   => 'Novo',
     'top_free'              => 'Najbolje besplatno',
     'free'                  => 'BESPLATNO',
-    'search'                => 'Pretraživanje',
     'install'               => 'Instaliraj',
     'buy_now'               => 'Kupi odmah',
     'get_api_key'           => '<a href=":url" target="_blank"> Kliknite ovdje </a> da biste dobili svoj API ključ.',

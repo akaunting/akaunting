@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Email adresingiz',
     'reset'                 => 'Yangilash',
     'never'                 => 'hech qachon',
+    'landing_page'          => 'Qo‘shilish sahifasi',
 
     'password' => [
         'current'           => 'Parol',

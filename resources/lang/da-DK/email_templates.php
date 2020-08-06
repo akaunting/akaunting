@@ -9,12 +9,12 @@ return [
     ],
 
     'invoice_remind_customer' => [
-        'subject'       => '{invoice_number} forfalden faktura notifikation',
+        'subject'       => 'Din faktura nr. {invoice_number} er forfalden',
         'body'          => 'Kære {customer_name},<br /><br />Vi gør opmærksom på at fakturaen på {invoice_total} hvor sidste betalingsdag var den <strong>{invoice_due_date}</strong> med faktura nr. <strong>{invoice_number}</strong> ikke er betalt.<br /><br />Du kan se faktura detaljerne og betale på dette link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Med venlig hilsen,<br />{company_name}',
     ],
 
     'invoice_remind_admin' => [
-        'subject'       => '{invoice_number} faktura overskredet notificering',
+        'subject'       => 'Betalingen af faktura nr. {invoice_number} er overskredet',
         'body'          => 'Hej,<br /><br />{customer_name} har modtaget en forfaldsmeddelelse for <strong>{invoice_number}</strong> faktura.<br /><br />Fakturaens samlede beløb er {invoice_total} og skulle betales < strong>{invoice_due_date}</strong>.<br /><br />Du kan se fakturaoplysningerne fra følgende link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br / ><br />Med venlig hilsen<br />{company_name}',
     ],
 
@@ -45,7 +45,7 @@ return [
 
     'bill_recur_admin' => [
         'subject'       => '{bill_number} tilbagevendende regning er oprettet',
-        'body'          => 'Hej,<br /><br /> Baseret på {vendor_name} tilbagevendende betaling, er regnings nummer <strong>{bill_number}</strong> automatisk genereret.<br /><br />Du kan se regningsdetaljerne på dette link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Med venlig,<br />{company_name}',
+        'body'          => 'Hej,<br /><br /> Baseret på {vendor_name}\'s tilbagevendende betaling, er faktura nummer <strong>{bill_number}</strong> automatisk genereret.<br /><br />Du kan se fakturadetaljerne på dette link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Med venlig hilsen,<br />{company_name}',
     ],
 
 ];

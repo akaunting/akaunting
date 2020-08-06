@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Sof foyda',
     'total_expenses'        => 'Umumiy xarajatlar',
     'net'                   => 'NET',
-    'income-expense'        => 'Daromad va xarajatlar',
+    'income_expense'        => 'Daromad va xarajatlar',
 
     'summary' => [
         'income'            => 'Umumiy foyda',

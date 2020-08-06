@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Καθαρό Κέρδος',
     'total_expenses'        => 'Συνολικά Έξοδα',
     'net'                   => 'Καθαρά',
-    'income-expense'        => 'Έσοδα & Έξοδα',
+    'income_expense'        => 'Έσοδα & Έξοδα',
 
     'summary' => [
         'income'            => 'Σύνοψη εσόδων',
