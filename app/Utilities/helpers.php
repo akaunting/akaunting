@@ -54,3 +54,14 @@ if (!function_exists('show_widget')) {
         return Widgets::show($model, ...$arguments);
     }
 }
+
+if (!function_exists('cache_prefix')) {
+    /**
+     * Cache system added company_id prefix.
+     *
+     * @return string
+     */
+    function cache_prefix() {
+        return session('company_id') . '_';
+    }
+}
