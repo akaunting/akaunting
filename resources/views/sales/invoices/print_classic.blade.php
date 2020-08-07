@@ -170,25 +170,27 @@
             <div class="text company pr-2">
                 @foreach ($invoice->totals_sorted as $total)
                     @if ($total->code != 'total')
-                        @stack($total->code . '_td_start')
-                            <div class="border-top-dashed py-2">
-                                <strong class="float-left">{{ trans($total->title) }}:</strong>
-                                <span>@money($total->amount, $invoice->currency_code, true)</span>
-                            </div>
-                        @stack($total->code . '_td_end')
+                        @stack($total->code . '_total_tr_start')
+                        <div class="border-top-dashed py-2">
+                            <strong class="float-left">{{ trans($total->title) }}:</strong>
+                            <span>@money($total->amount, $invoice->currency_code, true)</span>
+                        </div>
+                        @stack($total->code . '_total_tr_end')
                     @else
                         @if ($invoice->paid)
+                            @stack('paid_total_tr_start')
                             <div class="border-top-dashed py-2">
                                 <strong class="float-left">{{ trans('invoices.paid') }}:</strong>
                                 <span>- @money($invoice->paid, $invoice->currency_code, true)</span>
                             </div>
+                            @stack('paid_total_tr_end')
                         @endif
-                        @stack('grand_total_td_start')
-                            <div class="border-top-dashed py-2">
-                                <strong class="float-left">{{ trans($total->name) }}:</strong>
-                                <span>@money($total->amount - $invoice->paid, $invoice->currency_code, true)</span>
-                            </div>
-                        @stack('grand_total_td_end')
+                        @stack('grand_total_tr_start')
+                        <div class="border-top-dashed py-2">
+                            <strong class="float-left">{{ trans($total->name) }}:</strong>
+                            <span>@money($total->amount - $invoice->paid, $invoice->currency_code, true)</span>
+                        </div>
+                        @stack('grand_total_tr_end')
                     @endif
                 @endforeach
             </div>
