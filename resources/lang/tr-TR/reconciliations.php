@@ -4,6 +4,7 @@ return [
 
     'reconcile'             => 'Mutabakat Yap',
     'reconciled'            => 'Mutabakat Yapıldı',
+    'opening_balance'       => 'Açılış Bakiyesi',
     'closing_balance'       => 'Kapanış Bakiyesi',
     'unreconciled'          => 'Mutabakat Sağlanmamış',
     'transactions'          => 'İşlemler',

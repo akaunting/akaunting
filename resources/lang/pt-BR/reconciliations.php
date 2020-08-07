@@ -4,6 +4,7 @@ return [
 
     'reconcile'             => 'Reconciliar',
     'reconciled'            => 'Reconciliado',
+    'opening_balance'       => 'Saldo de abertura',
     'closing_balance'       => 'Fechamento de balanço',
     'unreconciled'          => 'Não reconciliadas',
     'transactions'          => 'Transações',
