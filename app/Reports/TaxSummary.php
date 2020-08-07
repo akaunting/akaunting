@@ -32,7 +32,9 @@ class TaxSummary extends Report
 
     public function setTables()
     {
-        $taxes = Tax::enabled()->notWithholding()->notRate(0)->orderBy('name')->pluck('name')->toArray();
+        $withholding = ($this->getSetting('withholding') == 'yes') ? 'withholding' : 'notWithholding';
+
+        $taxes = Tax::enabled()->$withholding()->notRate(0)->orderBy('name')->pluck('name')->toArray();
 
         $this->tables = array_combine($taxes, $taxes);
     }
@@ -122,6 +124,25 @@ class TaxSummary extends Report
         return [
             $this->getPeriodField(),
             $this->getBasisField(),
+            $this->getWithholdingField(),
+        ];
+    }
+
+    public function getWithholdingField()
+    {
+        return [
+            'type' => 'selectGroup',
+            'name' => 'withholding',
+            'title' => trans('taxes.withholding'),
+            'icon' => 'hand-holding-usd',
+            'values' => [
+                'yes' => trans('general.yes'),
+                'no' => trans('general.no'),
+            ],
+            'selected' => 'no',
+            'attributes' => [
+                'required' => 'required',
+            ],
         ];
     }
 }
