@@ -385,27 +385,29 @@
                                     <tbody>
                                         @foreach ($bill->totals_sorted as $total)
                                             @if ($total->code != 'total')
-                                                @stack($total->code . '_td_start')
-                                                    <tr>
-                                                        <th>{{ trans($total->title) }}:</th>
-                                                        <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
-                                                    </tr>
-                                                @stack($total->code . '_td_end')
+                                                @stack($total->code . '_total_tr_start')
+                                                <tr>
+                                                    <th>{{ trans($total->title) }}:</th>
+                                                    <td class="text-right">@money($total->amount, $bill->currency_code, true)</td>
+                                                </tr>
+                                                @stack($total->code . '_total_tr_end')
                                             @else
                                                 @if ($bill->paid)
+                                                    @stack('paid_total_tr_start')
                                                     <tr>
                                                         <th class="text-success">
                                                             {{ trans('bills.paid') }}:
                                                         </th>
                                                         <td class="text-success text-right">- @money($bill->paid, $bill->currency_code, true)</td>
                                                     </tr>
+                                                    @stack('paid_total_tr_end')
                                                 @endif
-                                                @stack('grand_total_td_start')
-                                                    <tr>
-                                                        <th>{{ trans($total->name) }}:</th>
-                                                        <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
-                                                    </tr>
-                                                @stack('grand_total_td_end')
+                                                @stack('grand_total_tr_start')
+                                                <tr>
+                                                    <th>{{ trans($total->name) }}:</th>
+                                                    <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
+                                                </tr>
+                                                @stack('grand_total_tr_end')
                                             @endif
                                         @endforeach
                                     </tbody>
@@ -428,69 +430,75 @@
 
                         <div class="col-xs-12 col-sm-8 text-right">
                             @stack('button_edit_start')
-                                @if(!$bill->reconciled)
-                                    <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
-                                        <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
-                                    </a>
-                                @endif
+                            @if(!$bill->reconciled)
+                            <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
+                                <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                            </a>
+                            @endif
                             @stack('button_edit_end')
 
                             @stack('button_print_start')
-                                <a href="{{ route('bills.print', $bill->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                    <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
-                                </a>
+                            <a href="{{ route('bills.print', $bill->id) }}" target="_blank" class="btn btn-success header-button-top">
+                                <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                            </a>
                             @stack('button_print_end')
 
                             @stack('button_group_start')
-                                <div class="dropup header-drop-top">
-                                    <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
-                                    <div class="dropdown-menu" role="menu">
-                                        @if ($bill->status != 'cancelled')
-                                            @stack('button_pay_start')
-                                                @if($bill->status != 'paid')
-                                                    @permission('update-purchases-bills')
-                                                        <a class="dropdown-item" href="{{ route('bills.paid', $bill->id) }}">{{ trans('bills.mark_paid') }}</a>
-                                                    @endpermission
+                            <div class="dropup header-drop-top">
+                                <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+                                <div class="dropdown-menu" role="menu">
+                                    @stack('button_dropdown_start')
+                                    @if ($bill->status != 'cancelled')
+                                        @if($bill->status != 'paid')
+                                        @stack('button_pay_start')
+                                            @permission('update-purchases-bills')
+                                                <a class="dropdown-item" href="{{ route('bills.paid', $bill->id) }}">{{ trans('bills.mark_paid') }}</a>
+                                            @endpermission
 
-                                                    @if(empty($bill->paid) || ($bill->paid != $bill->amount))
-                                                        <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
-                                                    @endif
-                                                    <div class="dropdown-divider"></div>
-                                                @endif
+                                            @if(empty($bill->paid) || ($bill->paid != $bill->amount))
+                                                <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
+                                            @endif
                                             @stack('button_pay_end')
-
-                                            @stack('button_received_start')
-                                                @permission('update-purchases-bills')
-                                                    @if($bill->status == 'draft')
-                                                        <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
-                                                    @else
-                                                        <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
-                                                    @endif
-                                                @endpermission
-                                            @stack('button_received_end')
+                                            <div class="dropdown-divider"></div>
                                         @endif
 
-                                        @stack('button_pdf_start')
-                                            <a class="dropdown-item" href="{{ route('bills.pdf', $bill->id) }}">{{ trans('bills.download_pdf') }}</a>
-                                        @stack('button_pdf_end')
+                                        @stack('button_dropdown_divider_1')
 
                                         @permission('update-purchases-bills')
-                                            @if ($bill->status != 'cancelled')
-                                                @stack('button_cancelled_start')
-                                                <a class="dropdown-item" href="{{ route('bills.cancelled', $bill->id) }}">{{ trans('general.cancel') }}</a>
-                                                @stack('button_cancelled_end')
+                                            @stack('button_received_start')
+                                            @if ($bill->status == 'draft')
+                                                <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
+                                            @else
+                                                <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
                                             @endif
+                                            @stack('button_received_end')
                                         @endpermission
+                                    @endif
 
-                                        @permission('delete-purchases-bills')
-                                            @if (!$bill->reconciled)
-                                                @stack('button_delete_start')
-                                                {!! Form::deleteLink($bill, 'purchases/bills') !!}
-                                                @stack('button_delete_end')
-                                            @endif
-                                        @endpermission
-                                    </div>
+                                    @stack('button_pdf_start')
+                                    <a class="dropdown-item" href="{{ route('bills.pdf', $bill->id) }}">{{ trans('bills.download_pdf') }}</a>
+                                    @stack('button_pdf_end')
+
+                                    @permission('update-purchases-bills')
+                                        @if ($bill->status != 'cancelled')
+                                            @stack('button_cancelled_start')
+                                            <a class="dropdown-item" href="{{ route('bills.cancelled', $bill->id) }}">{{ trans('general.cancel') }}</a>
+                                            @stack('button_cancelled_end')
+                                        @endif
+                                    @endpermission
+
+                                    @stack('button_dropdown_divider_2')
+
+                                    @permission('delete-purchases-bills')
+                                        @if (!$bill->reconciled)
+                                            @stack('button_delete_start')
+                                            {!! Form::deleteLink($bill, 'purchases/bills') !!}
+                                            @stack('button_delete_end')
+                                        @endif
+                                    @endpermission
+                                    @stack('button_dropdown_end')
                                 </div>
+                            </div>
                             @stack('button_group_end')
                         </div>
                     </div>

@@ -186,21 +186,27 @@
                             <tbody>
                                 @foreach($invoice->totals_sorted as $total)
                                     @if($total->code != 'total')
+                                        @stack($total->code . '_total_tr_start')
                                         <tr>
                                             <th>{{ trans($total['name']) }}:</th>
                                             <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
                                         </tr>
+                                        @stack($total->code . '_total_tr_end')
                                     @else
                                         @if ($invoice->paid)
+                                            @stack('paid_total_tr_start')
                                             <tr class="text-success">
                                                 <th>{{ trans('invoices.paid') }}:</th>
                                                 <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
                                             </tr>
+                                            @stack('paid_total_tr_end')
                                         @endif
+                                        @stack('grand_total_tr_start')
                                         <tr>
                                             <th>{{ trans($total['name']) }}:</th>
                                             <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
                                         </tr>
+                                        @stack('grand_total_tr_end')
                                     @endif
                                 @endforeach
                             </tbody>
