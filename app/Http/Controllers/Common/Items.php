@@ -15,7 +15,9 @@ use App\Models\Common\Item;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
+use App\Services\Search\Common\ItemCollector;
 use App\Traits\Uploads;
+use Illuminate\Http\JsonResponse;
 
 class Items extends Controller
 {
@@ -402,5 +404,13 @@ class Items extends Controller
         $json->symbol = $currency->symbol;
 
         return response()->json($json);
+    }
+
+    public function search(): JsonResponse
+    {
+        $collector = new ItemCollector();
+        $results = $collector->collectByKeyword(request('keyword', ''));
+
+        return new JsonResponse($results);
     }
 }

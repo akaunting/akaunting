@@ -14,8 +14,10 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Purchase\Bill;
 use App\Models\Setting\Currency;
+use App\Services\Search\Purchases\VendorCollector;
 use App\Traits\Contacts;
 use Date;
+use Illuminate\Http\JsonResponse;
 
 class Vendors extends Controller
 {
@@ -315,5 +317,13 @@ class Vendors extends Controller
         $vendor->symbol = $currency->symbol;
 
         return response()->json($vendor);
+    }
+
+    public function search(): JsonResponse
+    {
+        $collector = new VendorCollector();
+        $results = $collector->collectByKeyword(request('keyword', ''));
+
+        return new JsonResponse($results);
     }
 }

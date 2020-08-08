@@ -20,11 +20,13 @@ use App\Models\Purchase\Bill;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
+use App\Services\Search\Purchases\BillCollector;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Purchases;
 use App\Traits\Uploads;
 use App\Utilities\Modules;
+use Illuminate\Http\JsonResponse;
 
 class Bills extends Controller
 {
@@ -424,5 +426,13 @@ class Bills extends Controller
         $bill->template_path = 'purchases.bills.print';
 
         return $bill;
+    }
+
+    public function search(): JsonResponse
+    {
+        $collector = new BillCollector();
+        $results = $collector->collectByKeyword(request('keyword', ''));
+
+        return new JsonResponse($results);
     }
 }

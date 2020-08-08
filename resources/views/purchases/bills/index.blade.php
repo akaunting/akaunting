@@ -24,6 +24,7 @@
                         <akaunting-search
                             :placeholder="'{{ trans('general.search_placeholder') }}'"
                             :options="{{ json_encode([]) }}"
+                            :route="'{{ route('bills.search') }}'"
                         ></akaunting-search>
                     </div>
 

@@ -15,9 +15,11 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
+use App\Services\Search\Purchases\PaymentCollector;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Utilities\Modules;
+use Illuminate\Http\JsonResponse;
 
 class Payments extends Controller
 {
@@ -228,5 +230,13 @@ class Payments extends Controller
     public function export()
     {
         return \Excel::download(new Export(), \Str::filename(trans_choice('general.payments', 2)) . '.xlsx');
+    }
+
+    public function search(): JsonResponse
+    {
+        $collector = new PaymentCollector();
+        $results = $collector->collectByKeyword(request('keyword', ''));
+
+        return new JsonResponse($results);
     }
 }

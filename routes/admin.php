@@ -34,6 +34,7 @@ Route::group(['prefix' => 'common'], function () {
     Route::post('items/total', 'Common\Items@total')->middleware(['money'])->name('items.total');
     Route::get('items/{item}/duplicate', 'Common\Items@duplicate')->name('items.duplicate');
     Route::post('items/import', 'Common\Items@import')->name('items.import');
+    Route::post('items/search', 'Common\Items@search')->name('items.search');
     Route::get('items/export', 'Common\Items@export')->name('items.export');
     Route::get('items/{item}/enable', 'Common\Items@enable')->name('items.enable');
     Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
@@ -78,11 +79,13 @@ Route::group(['prefix' => 'sales'], function () {
     Route::get('invoices/{invoice}/duplicate', 'Sales\Invoices@duplicate')->name('invoices.duplicate');
     Route::get('invoices/addItem', 'Sales\Invoices@addItem')->middleware(['money'])->name('invoice.add.item');
     Route::post('invoices/import', 'Sales\Invoices@import')->name('invoices.import');
+    Route::post('invoices/search', 'Sales\Invoices@search')->name('invoices.search');
     Route::get('invoices/export', 'Sales\Invoices@export')->name('invoices.export');
     Route::resource('invoices', 'Sales\Invoices', ['middleware' => ['date.format', 'money']]);
 
     Route::get('revenues/{revenue}/duplicate', 'Sales\Revenues@duplicate')->name('revenues.duplicate');
     Route::post('revenues/import', 'Sales\Revenues@import')->name('revenues.import');
+    Route::post('revenues/search', 'Sales\Revenues@search')->name('revenues.search');
     Route::get('revenues/export', 'Sales\Revenues@export')->name('revenues.export');
     Route::resource('revenues', 'Sales\Revenues', ['middleware' => ['date.format', 'money']]);
 
@@ -90,6 +93,7 @@ Route::group(['prefix' => 'sales'], function () {
     Route::get('customers/{customer}/duplicate', 'Sales\Customers@duplicate')->name('customers.duplicate');
     Route::post('customers/field', 'Sales\Customers@field')->name('customers.field');
     Route::post('customers/import', 'Sales\Customers@import')->name('customers.import');
+    Route::post('customers/search', 'Sales\Customers@search')->name('customers.search');
     Route::get('customers/export', 'Sales\Customers@export')->name('customers.export');
     Route::get('customers/{customer}/enable', 'Sales\Customers@enable')->name('customers.enable');
     Route::get('customers/{customer}/disable', 'Sales\Customers@disable')->name('customers.disable');
@@ -106,17 +110,20 @@ Route::group(['prefix' => 'purchases'], function () {
     Route::get('bills/{bill}/duplicate', 'Purchases\Bills@duplicate')->name('bills.duplicate');
     Route::get('bills/addItem', 'Purchases\Bills@addItem')->middleware(['money'])->name('bill.add.item');
     Route::post('bills/import', 'Purchases\Bills@import')->name('bills.import');
+    Route::post('bills/search', 'Purchases\Bills@search')->name('bills.search');
     Route::get('bills/export', 'Purchases\Bills@export')->name('bills.export');
     Route::resource('bills', 'Purchases\Bills', ['middleware' => ['date.format', 'money']]);
 
     Route::get('payments/{payment}/duplicate', 'Purchases\Payments@duplicate')->name('payments.duplicate');
     Route::post('payments/import', 'Purchases\Payments@import')->name('payments.import');
+    Route::post('payments/search', 'Purchases\Payments@search')->name('payments.search');
     Route::get('payments/export', 'Purchases\Payments@export')->name('payments.export');
     Route::resource('payments', 'Purchases\Payments', ['middleware' => ['date.format', 'money']]);
 
     Route::get('vendors/currency', 'Purchases\Vendors@currency');
     Route::get('vendors/{vendor}/duplicate', 'Purchases\Vendors@duplicate')->name('vendors.duplicate');
     Route::post('vendors/import', 'Purchases\Vendors@import')->name('vendors.import');
+    Route::post('vendors/search', 'Purchases\Vendors@search')->name('vendors.search');
     Route::get('vendors/export', 'Purchases\Vendors@export')->name('vendors.export');
     Route::get('vendors/{vendor}/enable', 'Purchases\Vendors@enable')->name('vendors.enable');
     Route::get('vendors/{vendor}/currency', 'Purchases\Vendors@currency')->name('vendors.currency');

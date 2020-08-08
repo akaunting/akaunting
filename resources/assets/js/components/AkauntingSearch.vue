@@ -35,9 +35,9 @@
         </template>
 
         <el-option v-if="!group" v-for="option in selectOptions"
-            :key="option.id"
-            :label="option.name"
-            :value="option.id">
+                   :key="option.id"
+                   :label="option.name"
+                   :value="option.id">
         </el-option>
 
         <el-option-group
@@ -63,7 +63,7 @@
 </style>
 
 <script>
-    import { Select, Option, OptionGroup } from 'element-ui';
+    import {Select, Option, OptionGroup} from 'element-ui';
 
     export default {
         name: 'akaunting-select',
@@ -97,7 +97,7 @@
                 description: "Prepend icon (left)"
             },
 
-            group:  {
+            group: {
                 type: Boolean,
                 default: false,
                 description: "Selectbox option group status"
@@ -129,6 +129,11 @@
                 default: 'invoice',
                 description: "Ger remote item type."
             },
+            route: {
+                type: String,
+                default: '',
+                description: 'Search endpoint'
+            }
         },
 
         data() {
@@ -156,12 +161,31 @@
                         this.$emit('label', item.name);
                         this.$emit('option', item);
 
+                        window.location = item.href;
                         return;
                     }
                 });
             },
-            remoteMethod() {
+            remoteMethod(query) {
+                if (this.route.length < 1) {
+                    return;
+                }
 
+                this.loading = true;
+                axios.post(this.route, {
+                    keyword: query
+                }).then(response => {
+                    this.loading = false;
+                    this.selectOptions = response.data;
+                }).catch(error => {
+                    this.loading = false;
+                    this.$notify({
+                        message: 'We couldn\'t process your request right now. Please try again later.',
+                        timeout: 5000,
+                        icon: 'fas fa-bell',
+                        type: 'warning'
+                    });
+                });
             },
         },
 

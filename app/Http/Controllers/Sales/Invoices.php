@@ -20,11 +20,13 @@ use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Notifications\Sale\Invoice as Notification;
+use App\Services\Search\Sales\InvoiceSearchCollector;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Sales;
 use App\Utilities\Modules;
 use File;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\URL;
 
 class Invoices extends Controller
@@ -479,5 +481,13 @@ class Invoices extends Controller
         event(new \App\Events\Sale\InvoicePrinting($invoice));
 
         return $invoice;
+    }
+
+    public function search(): JsonResponse
+    {
+        $collector = new InvoiceSearchCollector();
+        $results = $collector->collectByKeyword(request('keyword', ''));
+
+        return new JsonResponse($results);
     }
 }
