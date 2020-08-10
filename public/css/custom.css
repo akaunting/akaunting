@@ -254,6 +254,15 @@ tbody .row {
 }
 /*--------Table Body Row Margin Finish--------*/
 
+/*--------Table Cell Text Wrap--------*/
+.el-table td,
+.el-table th,
+.table td,
+.table th {
+    white-space: normal;
+}
+/*--------Table Cell Text Wrap Finish--------*/
+
 /*--------Item Column Image--------*/
 .item-img {
     width: 38px;
