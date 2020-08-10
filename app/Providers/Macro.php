@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\Factory as ViewFactory;
 
 class Macro extends ServiceProvider
 {
@@ -25,6 +26,15 @@ class Macro extends ServiceProvider
             $string = preg_replace('/\s+/', ' ', $string);
 
             return $string;
+        });
+
+        ViewFactory::macro('hasStack', function (...$sections) {
+            foreach ($sections as $section) {
+                if (isset($this->pushes[$section]) || isset($this->prepends[$section])) {
+                    return true;
+                }
+            }
+            return false;
         });
     }
 

@@ -216,25 +216,27 @@
                                                 {{ setting('company.name') }}
                                             </th>
                                         </tr>
-                                        <tr>
-                                            <th>
-                                                {!! nl2br(setting('company.address')) !!}
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @if (setting('company.tax_number'))
+                                        @if (setting('company.address'))
+                                            <tr>
+                                                <th>
+                                                    {!! nl2br(setting('company.address')) !!}
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if (setting('company.tax_number'))
+                                            <tr>
+                                                <th>
                                                     {{ trans('general.tax_number') }}: {{ setting('company.tax_number') }}
-                                                @endif
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @if (setting('company.phone'))
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if (setting('company.phone'))
+                                            <tr>
+                                                <th>
                                                     {{ setting('company.phone') }}
-                                                @endif
-                                            </th>
-                                        </tr>
+                                                </th>
+                                            </tr>
+                                        @endif
                                         <tr>
                                             <th>
                                                 {{ setting('company.email') }}
@@ -261,38 +263,50 @@
                                                 @stack('name_input_end')
                                             </th>
                                         </tr>
-                                        <tr>
-                                            <th>
-                                                @stack('address_input_start')
-                                                    {!! nl2br($invoice->contact_address) !!}
-                                                @stack('address_input_end')
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @stack('tax_number_input_start')
-                                                    @if ($invoice->contact_tax_number)
-                                                        {{ trans('general.tax_number') }}: {{ $invoice->contact_tax_number }}
-                                                    @endif
-                                                @stack('tax_number_input_end')
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @stack('phone_input_start')
-                                                    @if ($invoice->contact_phone)
-                                                        {{ $invoice->contact_phone }}
-                                                    @endif
-                                                @stack('phone_input_end')
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @stack('email_start')
-                                                    {{ $invoice->contact_email }}
-                                                @stack('email_input_end')
-                                            </th>
-                                        </tr>
+                                        @if ($invoice->contact_address || $__env->hasStack('address_input_start', 'address_input_end'))
+                                            <tr>
+                                                <th>
+                                                    @stack('address_input_start')
+                                                        @if ($invoice->contact_address)
+                                                            {!! nl2br($invoice->contact_address) !!}
+                                                        @endif
+                                                    @stack('address_input_end')
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if ($invoice->contact_tax_number || $__env->hasStack('tax_number_input_start', 'tax_number_input_end'))
+                                            <tr>
+                                                <th>
+                                                    @stack('tax_number_input_start')
+                                                        @if ($invoice->contact_tax_number)
+                                                            {{ trans('general.tax_number') }}: {{ $invoice->contact_tax_number }}
+                                                        @endif
+                                                    @stack('tax_number_input_end')
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if ($invoice->contact_phone || $__env->hasStack('phone_input_start', 'phone_input_end'))
+                                            <tr>
+                                                <th>
+                                                    @stack('phone_input_start')
+                                                        @if ($invoice->contact_phone)
+                                                            {{ $invoice->contact_phone }}
+                                                        @endif
+                                                    @stack('phone_input_end')
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if ($invoice->contact_email || $__env->hasStack('email_start', 'email_input_end'))
+                                            <tr>
+                                                <th>
+                                                    @stack('email_start')
+                                                        @if ($invoice->contact_email)
+                                                            {{ $invoice->contact_email }}
+                                                        @endif
+                                                    @stack('email_input_end')
+                                                </th>
+                                            </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
