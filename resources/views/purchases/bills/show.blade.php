@@ -199,25 +199,27 @@
                                                 {{ setting('company.name') }}
                                             </th>
                                         </tr>
-                                        <tr>
-                                            <th>
-                                                {!! nl2br(setting('company.address')) !!}
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @if (setting('company.tax_number'))
+                                        @if (setting('company.address'))
+                                            <tr>
+                                                <th>
+                                                    {!! nl2br(setting('company.address')) !!}
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if (setting('company.tax_number'))
+                                            <tr>
+                                                <th>
                                                     {{ trans('general.tax_number') }}: {{ setting('company.tax_number') }}
-                                                @endif
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @if (setting('company.phone'))
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if (setting('company.phone'))
+                                            <tr>
+                                                <th>
                                                     {{ setting('company.phone') }}
-                                                @endif
-                                            </th>
-                                        </tr>
+                                                </th>
+                                            </tr>
+                                        @endif
                                         <tr>
                                             <th>
                                                 {{ setting('company.email') }}
@@ -244,38 +246,50 @@
                                                 @stack('name_input_end')
                                             </th>
                                         </tr>
-                                        <tr>
-                                            <th>
-                                                @stack('address_input_start')
-                                                    {!! nl2br($bill->contact_address) !!}
-                                                @stack('address_input_end')
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @stack('tax_number_input_start')
-                                                    @if ($bill->contact_tax_number)
-                                                        {{ trans('general.tax_number') }}: {{ $bill->contact_tax_number }}
-                                                    @endif
-                                                @stack('tax_number_input_end')
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @stack('phone_input_start')
-                                                    @if ($bill->contact_phone)
-                                                        {{ $bill->contact_phone }}
-                                                    @endif
-                                                @stack('phone_input_end')
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @stack('email_start')
-                                                    {{ $bill->contact_email }}
-                                                @stack('email_input_end')
-                                            </th>
-                                        </tr>
+                                        @if ($invoice->contact_address || $__env->hasStack('address_input_start', 'address_input_end'))
+                                            <tr>
+                                                <th>
+                                                    @stack('address_input_start')
+                                                        @if ($bill->contact_address)
+                                                            {!! nl2br($bill->contact_address) !!}
+                                                        @endif
+                                                    @stack('address_input_end')
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if ($invoice->contact_tax_number || $__env->hasStack('tax_number_input_start', 'tax_number_input_end'))
+                                            <tr>
+                                                <th>
+                                                    @stack('tax_number_input_start')
+                                                        @if ($bill->contact_tax_number)
+                                                            {{ trans('general.tax_number') }}: {{ $bill->contact_tax_number }}
+                                                        @endif
+                                                    @stack('tax_number_input_end')
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if ($invoice->contact_phone || $__env->hasStack('phone_input_start', 'phone_input_end'))
+                                            <tr>
+                                                <th>
+                                                    @stack('phone_input_start')
+                                                        @if ($bill->contact_phone)
+                                                            {{ $bill->contact_phone }}
+                                                        @endif
+                                                    @stack('phone_input_end')
+                                                </th>
+                                            </tr>
+                                        @endif
+                                        @if ($invoice->contact_email || $__env->hasStack('email_start', 'email_input_end'))
+                                            <tr>
+                                                <th>
+                                                    @stack('email_start')
+                                                        @if ($bill->contact_email)
+                                                            {{ $bill->contact_email }}
+                                                        @endif
+                                                    @stack('email_input_end')
+                                                </th>
+                                            </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -370,7 +384,7 @@
                                                 <tr>
                                                     <th>
                                                         <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                                        <p class="text-muted long-texts">{{ $bill->notes }}</p>
+                                                        <p class="text-muted long-texts">{!! nl2br($bill->notes) !!}</p>
                                                     </th>
                                                 </tr>
                                             @endif
@@ -431,9 +445,9 @@
                         <div class="col-xs-12 col-sm-8 text-right">
                             @stack('button_edit_start')
                             @if(!$bill->reconciled)
-                            <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
-                                <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
-                            </a>
+                                <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
+                                    <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                                </a>
                             @endif
                             @stack('button_edit_end')
 
@@ -449,13 +463,13 @@
                                 <div class="dropdown-menu" role="menu">
                                     @stack('button_dropdown_start')
                                     @if ($bill->status != 'cancelled')
-                                        @if($bill->status != 'paid')
-                                        @stack('button_pay_start')
+                                        @if ($bill->status != 'paid')
+                                            @stack('button_pay_start')
                                             @permission('update-purchases-bills')
                                                 <a class="dropdown-item" href="{{ route('bills.paid', $bill->id) }}">{{ trans('bills.mark_paid') }}</a>
                                             @endpermission
 
-                                            @if(empty($bill->paid) || ($bill->paid != $bill->amount))
+                                            @if (empty($bill->paid) || ($bill->paid != $bill->amount))
                                                 <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
                                             @endif
                                             @stack('button_pay_end')
