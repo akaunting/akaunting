@@ -91,6 +91,10 @@ class PaymentReceived extends Notification
             '{transaction_payment_method}',
             '{customer_name}',
             '{company_name}',
+            '{company_email}',
+            '{company_tax_number}',
+            '{company_phone}',
+            '{company_address}',
         ];
     }
 
@@ -108,7 +112,11 @@ class PaymentReceived extends Notification
             company_date($this->transaction->paid_at),
             $this->transaction->payment_method,
             $this->invoice->contact_name,
-            $this->invoice->company->name
+            $this->invoice->company->name,
+            $this->invoice->company->email,
+            $this->invoice->company->tax_number,
+            $this->invoice->company->phone,
+            nl2br(trim($this->invoice->company->address)),
         ];
     }
 }
