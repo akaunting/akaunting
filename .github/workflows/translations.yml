@@ -1,4 +1,4 @@
-name: Crowdin
+name: Translations
 
 on:
   schedule:
@@ -27,7 +27,7 @@ jobs:
         source: 'resources/lang/en-GB/*.php'
         translation: 'resources/lang/%locale%/%original_file_name%'
 
-        localization_branch_name: 'crowdin'
+        localization_branch_name: 'translations'
         commit_message: 'new crowdin translations'
         pull_request_title: 'New Crowdin translations'
         pull_request_body: 'https://crowdin.com/project/akaunting'
