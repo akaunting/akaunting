@@ -47,7 +47,7 @@ class UpdateReconciliation extends Job
                     $t = explode('_', $key);
 
                     $transaction = Transaction::find($t[1]);
-                    $transaction->reconciled = 1;
+                    $transaction->reconciled = $reconcile ? 1 : 0;
                     $transaction->save();
                 }
             }

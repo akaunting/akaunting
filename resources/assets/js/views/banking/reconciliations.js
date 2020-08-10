@@ -43,6 +43,10 @@ const app = new Vue({
         if (document.getElementById('closing_balance') != null) {
             this.totals.closing_balance = parseFloat(document.getElementById('closing_balance').value);
         }
+
+        if (this.form._method == 'PATCH') {
+            this.onCalculate();
+        }
     },
 
     methods:{

@@ -48,8 +48,34 @@ export default class Form {
                     this[form_element.getAttribute('data-field')] = field;
                 }
 
+                /*
                 if (!this[form_element.getAttribute('data-field')][name]) {
                     this[form_element.getAttribute('data-field')][name] = '';
+                }
+                */
+
+                if (type == 'radio') {
+                    if (!this[form_element.getAttribute('data-field')][name]) {
+                        this[form_element.getAttribute('data-field')][name] = (form_element.getAttribute('value') ? 1 : 0) || 0;
+                    }
+                } else if (type == 'checkbox') {
+                    if (this[form_element.getAttribute('data-field')][name]) {
+                        if (!this[form_element.getAttribute('data-field')][name].push) {
+                            this[form_element.getAttribute('data-field')][name] = [this[form_element.getAttribute('data-field')][name]];
+                        }
+    
+                        if (form_element.checked) {
+                            this[form_element.getAttribute('data-field')][name].push(form_element.value);
+                        }
+                    } else {
+                        if (form_element.checked) {
+                            this[form_element.getAttribute('data-field')][name] = form_element.value;
+                        } else {
+                            this[form_element.getAttribute('data-field')][name] = [];
+                        }
+                    }
+                } else {
+                    this[form_element.getAttribute('data-field')][name] = form_element.getAttribute('value') || '';
                 }
 
                 continue;

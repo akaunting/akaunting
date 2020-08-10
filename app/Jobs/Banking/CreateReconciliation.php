@@ -42,7 +42,7 @@ class CreateReconciliation extends Job
                 'reconciled' => $reconcile ? 1 : 0,
             ]);
 
-            if ($transactions) {
+            if ($reconcile && $transactions) {
                 foreach ($transactions as $key => $value) {
                     if (empty($value)) {
                         continue;
