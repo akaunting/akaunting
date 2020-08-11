@@ -56,7 +56,7 @@ class Overrider
         }
 
         // Set app url dynamically
-        config(['app.url' => url('/')]);
+        config(['app.url' => route('dashboard')]);
     }
 
     protected static function loadCurrencies()

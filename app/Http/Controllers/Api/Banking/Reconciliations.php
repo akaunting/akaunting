@@ -45,7 +45,7 @@ class Reconciliations extends ApiController
     {
         $reconciliation = $this->dispatch(new CreateReconciliation($request));
 
-        return $this->response->created(url('api/reconciliations/' . $reconciliation->id));
+        return $this->response->created(route('api.reconciliations.show', $reconciliation->id));
     }
 
     /**

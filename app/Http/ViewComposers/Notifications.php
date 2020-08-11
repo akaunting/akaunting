@@ -37,7 +37,7 @@ class Notifications
 
             $message = str_replace('#path#', $path, $notification->message);
             $message = str_replace('#token#', csrf_token(), $message);
-            $message = str_replace('#url#', url('/'), $message);
+            $message = str_replace('#url#', route('dashboard'), $message);
 
             if (!setting('notifications.' . $notification->path . '.' . $notification->id . '.status', 1)) {
                 continue;

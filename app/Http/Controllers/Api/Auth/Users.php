@@ -52,7 +52,7 @@ class Users extends ApiController
     {
         $user = $this->dispatch(new CreateUser($request));
 
-        return $this->response->created(url('api/users/' . $user->id));
+        return $this->response->created(route('api.users.show', $user->id));
     }
 
     /**

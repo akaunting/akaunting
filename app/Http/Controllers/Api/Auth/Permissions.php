@@ -45,7 +45,7 @@ class Permissions extends ApiController
     {
         $permission = $this->dispatch(new CreatePermission($request));
 
-        return $this->response->created(url('api/permissions/' . $permission->id));
+        return $this->response->created(route('api.permissions.show', $permission->id));
     }
 
     /**

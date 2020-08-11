@@ -45,7 +45,7 @@ class Bills extends ApiController
     {
         $bill = $this->dispatch(new CreateBill($request));
 
-        return $this->response->created(url('api/bills/' . $bill->id));
+        return $this->response->created(route('api.bills.show', $bill->id));
     }
 
     /**

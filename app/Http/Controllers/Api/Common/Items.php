@@ -50,7 +50,7 @@ class Items extends ApiController
     {
         $item = $this->dispatch(new CreateItem($request));
 
-        return $this->response->created(url('api/items/' . $item->id));
+        return $this->response->created(route('api.items.show', $item->id));
     }
 
     /**

@@ -56,7 +56,7 @@ class Companies extends ApiController
     {
         $company = $this->dispatch(new CreateCompany($request));
 
-        return $this->response->created(url('api/companies/' . $company->id));
+        return $this->response->created(route('api.companies.show', $company->id));
     }
 
     /**

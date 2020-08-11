@@ -52,7 +52,7 @@ class Accounts extends ApiController
     {
         $account = $this->dispatch(new CreateAccount($request));
 
-        return $this->response->created(url('api/accounts/' . $account->id));
+        return $this->response->created(route('api.accounts.show', $account->id));
     }
 
     /**

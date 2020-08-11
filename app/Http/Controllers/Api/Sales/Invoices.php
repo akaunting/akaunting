@@ -52,7 +52,7 @@ class Invoices extends ApiController
     {
         $invoice = $this->dispatch(new CreateInvoice($request));
 
-        return $this->response->created(url('api/invoices/' . $invoice->id));
+        return $this->response->created(route('api.invoices.show', $invoice->id));
     }
 
     /**
