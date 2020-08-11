@@ -64,8 +64,9 @@ class Search extends Controller
                     'href'  => route('invoices.show', $invoice->id),
                 ];
             }
-        }/*
+        }
 
+        /*
         $income_transactions = Transaction::income()->usingSearchString($keyword)->get();
 
         if ($income_transactions->count()) {
@@ -78,7 +79,8 @@ class Search extends Controller
                     'href'  => url('sales/revenues/' . $transaction->id),
                 ];
             }
-        }*/
+        }
+        */
 
         $customers = Contact::customer()->enabled()->usingSearchString($search->keyword)->get();
 
@@ -107,7 +109,8 @@ class Search extends Controller
                 ];
             }
         }
-/*
+
+        /*
         $payments = Transaction::expense()->usingSearchString($keyword)->get();
 
         if ($revenues->count()) {
@@ -120,7 +123,8 @@ class Search extends Controller
                     'href'  => url('sales/revenues/' . $revenue->id),
                 ];
             }
-        }*/
+        }
+        */
 
         $vendors = Contact::vendor()->enabled()->usingSearchString($search->keyword)->get();
 

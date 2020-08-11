@@ -45,7 +45,7 @@ class Reports extends ApiController
     {
         $report = $this->dispatch(new CreateReport($request));
 
-        return $this->response->created(url('api/reports/' . $report->id));
+        return $this->response->created(route('api.reports.show', $report->id));
     }
 
     /**

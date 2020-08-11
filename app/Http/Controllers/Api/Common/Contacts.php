@@ -67,7 +67,7 @@ class Contacts extends ApiController
     {
         $contact = $this->dispatch(new CreateContact($request));
 
-        return $this->response->created(url('api/contacts/' . $contact->id));
+        return $this->response->created(route('api.contacts.show', $contact->id));
     }
 
     /**

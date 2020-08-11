@@ -45,7 +45,7 @@ class Taxes extends ApiController
     {
         $tax = $this->dispatch(new CreateTax($request));
 
-        return $this->response->created(url('api/taxes/' . $tax->id));
+        return $this->response->created(route('api.taxes.show', $tax->id));
     }
 
     /**

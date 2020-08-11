@@ -75,7 +75,7 @@ class Transfers extends ApiController
     {
         $transfer = $this->dispatch(new CreateTransfer($request));
 
-        return $this->response->created(url('api/transfers/' . $transfer->id));
+        return $this->response->created(route('api.transfers.show', $transfer->id));
     }
 
     /**

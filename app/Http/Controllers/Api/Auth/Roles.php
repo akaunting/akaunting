@@ -45,7 +45,7 @@ class Roles extends ApiController
     {
         $role = $this->dispatch(new CreateRole($request));
 
-        return $this->response->created(url('api/roles/' . $role->id));
+        return $this->response->created(route('api.roles.show', $role->id));
     }
 
     /**

@@ -67,7 +67,7 @@
                             '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
                                 [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
 
-                        <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
+                        <a href="{{ route('wizard.currencies.index') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
                             <span class="btn-inner--icon"><i class="fas fa-arrow-right"></i></span>
                             <span class="btn-inner--text">{{ trans('general.skip') }}</span>
                         </a>
