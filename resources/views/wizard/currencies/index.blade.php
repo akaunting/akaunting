@@ -123,7 +123,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="{{ route('wizard.companies.index') }}" class="btn btn-icon btn-white header-button-top">
+                    <a href="{{ route('wizard.companies.edit') }}" class="btn btn-icon btn-white header-button-top">
                         <span class="btn-inner--icon"><i class="fas fa-arrow-left"></i></span>
                         <span class="btn-inner--text">{{ trans('pagination.previous') }}</span>
                     </a>
