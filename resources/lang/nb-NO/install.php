@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Feil: Be din tjenesteleverandør om å bruke PHP :php_version eller høyere for både HTTP og CLI.',
         'connection'        => 'Feil: Kunne ikke koble til databasen. Påse at opplysningene er riktig.',
     ],
 
