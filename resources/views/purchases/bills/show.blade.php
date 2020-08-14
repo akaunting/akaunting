@@ -523,7 +523,7 @@
 
     @stack('row_footer_start')
         <div class="row">
-            @stack('row_footer_history_start')
+            @stack('row_footer_histories_start')
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="accordion">
                         <div class="card">
@@ -534,20 +534,28 @@
                                 <div class="table-responsive">
                                     <table class="table table-flush table-hover">
                                         <thead class="thead-light">
+                                            @stack('row_footer_histories_head_tr_start')
                                             <tr class="row table-head-line">
-                                                <th class="col-xs-4 col-sm-2">{{ trans('general.date') }}</th>
+                                                @stack('row_footer_histories_head_td_start')
+                                                <th class="col-xs-4 col-sm-3">{{ trans('general.date') }}</th>
                                                 <th class="col-xs-4 col-sm-3 text-left">{{ trans_choice('general.statuses', 1) }}</th>
-                                                <th class="col-xs-4 col-sm-7 text-left long-texts">{{ trans('general.description') }}</th>
+                                                <th class="col-xs-4 col-sm-6 text-left long-texts">{{ trans('general.description') }}</th>
+                                                @stack('row_footer_histories_head_td_end')
                                             </tr>
+                                            @stack('row_footer_histories_head_tr_end')
                                         </thead>
                                         <tbody>
+                                            @stack('row_footer_histories_body_tr_start')
                                             @foreach($bill->histories as $history)
                                                 <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-xs-4 col-sm-2">@date($history->created_at)</td>
+                                                    @stack('row_footer_histories_body_td_start')
+                                                    <td class="col-xs-4 col-sm-3">@date($history->created_at)</td>
                                                     <td class="col-xs-4 col-sm-3 text-left">{{ trans('bills.statuses.' . $history->status) }}</td>
-                                                    <td class="col-xs-4 col-sm-7 text-left long-texts">{{ $history->description }}</td>
+                                                    <td class="col-xs-4 col-sm-6 text-left long-texts">{{ $history->description }}</td>
+                                                    @stack('row_footer_histories_body_td_end')
                                                 </tr>
                                             @endforeach
+                                            @stack('row_footer_histories_body_tr_end')
                                         </tbody>
                                     </table>
                                 </div>
@@ -555,9 +563,9 @@
                         </div>
                     </div>
                 </div>
-            @stack('row_footer_history_end')
+            @stack('row_footer_histories_end')
 
-            @stack('row_footer_transaction_start')
+            @stack('row_footer_transactions_start')
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="accordion">
                         <div class="card">
@@ -568,17 +576,23 @@
                                 <div class="table-responsive">
                                     <table class="table table-flush table-hover">
                                         <thead class="thead-light">
+                                            @stack('row_footer_transactions_head_tr_start')
                                             <tr class="row table-head-line">
+                                                @stack('row_footer_transactions_head_td_start')
                                                 <th class="col-xs-4 col-sm-3">{{ trans('general.date') }}</th>
                                                 <th class="col-xs-4 col-sm-3">{{ trans('general.amount') }}</th>
                                                 <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.accounts', 1) }}</th>
                                                 <th class="col-xs-4 col-sm-3">{{ trans('general.actions') }}</th>
+                                                @stack('row_footer_transactions_head_td_end')
                                             </tr>
+                                            @stack('row_footer_transactions_head_tr_end')
                                         </thead>
                                         <tbody>
+                                            @stack('row_footer_transactions_body_tr_start')
                                             @if ($bill->transactions->count())
                                                 @foreach($bill->transactions as $transaction)
                                                     <tr class="row align-items-center border-top-1 tr-py">
+                                                        @stack('row_footer_transactions_body_td_start')
                                                         <td class="col-xs-4 col-sm-3">@date($transaction->paid_at)</td>
                                                         <td class="col-xs-4 col-sm-3">@money($transaction->amount, $transaction->currency_code, true)</td>
                                                         <td class="col-sm-3 d-none d-sm-block">{{ $transaction->account->name }}</td>
@@ -602,6 +616,7 @@
                                                                 )) !!}
                                                             @endif
                                                         </td>
+                                                        @stack('row_footer_transactions_body_td_end')
                                                     </tr>
                                                 @endforeach
                                             @else
@@ -613,6 +628,7 @@
                                                     </td>
                                                 </tr>
                                             @endif
+                                            @stack('row_footer_transactions_body_tr_end')
                                         </tbody>
                                     </table>
                                 </div>
@@ -620,7 +636,7 @@
                         </div>
                     </div>
                 </div>
-            @stack('row_footer_transaction_end')
+            @stack('row_footer_transactions_end')
         </div>
     @stack('row_footer_end')
 
