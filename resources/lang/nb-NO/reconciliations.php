@@ -4,6 +4,7 @@ return [
 
     'reconcile'             => 'Avstem',
     'reconciled'            => 'Avstemt',
+    'opening_balance'       => 'Åpningsbalanse',
     'closing_balance'       => 'Sluttbalanse',
     'unreconciled'          => 'Uavstemt',
     'transactions'          => 'Transaksjoner',
