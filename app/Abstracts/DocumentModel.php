@@ -117,12 +117,12 @@ abstract class DocumentModel extends Model
         $this->setAttribute('reconciled', $reconciled);
 
         // TODO: find a cleaner way compatible with observer pattern
-        $i = new \stdClass();
-        $i->paid = $paid;
+        $invoice = clone $this;
+        $invoice->paid_amount = $paid;
 
-        event(new InvoicePaidCalculated($i));
+        event(new InvoicePaidCalculated($invoice));
 
-        return round($i->paid, $precision);
+        return round($invoice->paid_amount, $precision);
     }
     /**
      * Get the status label.
