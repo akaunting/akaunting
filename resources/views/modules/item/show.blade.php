@@ -108,7 +108,7 @@
                          @endif
 
                          <div class="tab-pane fade" id="review">
-                            @php 
+                            @php
                                 $reviews = $module->app_reviews;
                             @endphp
 
@@ -280,10 +280,14 @@
                                 <td class="col-7 text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                             </tr>
                         @endif
-                        @if ($module->category)
+                        @if ($module->categories)
                             <tr class="row">
-                                <th class="col-5">{{ trans_choice('general.categories', 1) }}</th>
-                                <td class="col-7 text-right"><a href="{{ route('apps.categories.show', $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                                <th class="col-5">{{ trans_choice('general.categories', (count($module->categories) > 1) ? 2 : 1) }}</th>
+                                <td class="col-7 text-right">
+                                    @foreach ($module->categories as $module_category)
+                                        <a href="{{ route('apps.categories.show', $module_category->slug) }}">{{ $module_category->name }}</a> </br>
+                                    @endforeach
+                                </td>
                             </tr>
                         @endif
                         <tr class="row">
