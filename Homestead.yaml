@@ -1,0 +1,16 @@
+ip: 192.168.10.10
+memory: 2048
+cpus: 2
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    - map: ~/PhpstormProjects/akaunting
+      to: /home/vagrant/code
+sites:
+    - map: akaunting.local
+      to: /home/vagrant/code
+      
+databases:
+    - akaunting
