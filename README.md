@@ -38,6 +38,15 @@ php artisan install --db-name="akaunting" --db-username="root" --db-password="pa
 
 * Create sample data (optional): `php artisan sample-data:seed`
 
+
+## Local development
+
+* You can use Vagrant with Homestead for comfortable local development.
+* WARNING! Don't use attached Homestead configuration for PRODUCTION server!
+* For attached configuration MySQL database name will be akaunting.
+
+[Homestead official documention](https://laravel.com/docs/7.x/homestead)
+
 ## Contributing
 
 Please, be very clear on your commit messages and pull requests, empty pull request messages may be rejected without reason.
