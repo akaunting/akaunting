@@ -44,6 +44,7 @@ php artisan install --db-name="akaunting" --db-username="root" --db-password="pa
 * You can use Vagrant with Homestead for comfortable local development.
 * WARNING! Don't use attached Homestead configuration for PRODUCTION server!
 * For attached configuration MySQL database name will be akaunting.
+
 [Homestead official documention](https://laravel.com/docs/7.x/homestead)
 
 ## Contributing
