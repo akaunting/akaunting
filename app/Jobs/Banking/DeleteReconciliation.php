@@ -30,7 +30,7 @@ class DeleteReconciliation extends Job
             $this->reconciliation->delete();
 
             Transaction::where('account_id', $this->reconciliation->account_id)
-                ->reconciled()
+                ->isReconciled()
                 ->whereBetween('paid_at', [$this->reconciliation->started_at, $this->reconciliation->ended_at])->each(function ($transaction) {
                     $transaction->reconciled = 0;
                     $transaction->save();

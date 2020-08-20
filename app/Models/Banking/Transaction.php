@@ -4,7 +4,6 @@ namespace App\Models\Banking;
 
 use App\Abstracts\Model;
 use App\Models\Setting\Category;
-use App\Models\Setting\Currency;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
