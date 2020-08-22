@@ -22,6 +22,7 @@
                             </div>
                             <div class="modal-body pb-0" v-else>
                                 <form id="form-create" method="POST" action="#"/>
+
                                 <component v-bind:is="component"></component>
                             </div>
                         </slot>
@@ -143,10 +144,12 @@ export default {
     },
 
     mounted() {
+        let form_prefix = this._uid;
+
         if (this.is_component) {
             this.component = Vue.component('add-new-component', (resolve, reject) => {
                 resolve({
-                    template : '<div id="modal-add-new-form">' + this.message + '</div>',
+                    template : '<div id="modal-add-new-form-' + form_prefix + '">' + this.message + '</div>',
 
                     components: {
                         AkauntingRadioGroup,
@@ -163,7 +166,7 @@ export default {
                     },
 
                     mounted() {
-                        let form_id = document.getElementById('modal-add-new-form').children[0].id;
+                        let form_id = document.getElementById('modal-add-new-form-' + form_prefix).children[0].id;
 
                         this.form = new Form(form_id);
                     },

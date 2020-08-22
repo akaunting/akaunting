@@ -141,7 +141,7 @@ export default {
 
             this.component = Vue.component('add-new-component', (resolve, reject) => {
                 resolve({
-                    template : '<div id="dynamic-component"><akaunting-modal v-if="confirm.show" :show="confirm.show" :title="confirm.title" :message="confirm.message" :button_cancel="confirm.button_cancel" :button_delete="confirm.button_delete" @confirm="onDelete" @cancel="cancelDelete"></akaunting-modal></div>',
+                    template : '<div id="dynamic-delete-component"><akaunting-modal v-if="confirm.show" :show="confirm.show" :title="confirm.title" :message="confirm.message" :button_cancel="confirm.button_cancel" :button_delete="confirm.button_delete" @confirm="onDelete" @cancel="cancelDelete"></akaunting-modal></div>',
 
                     components: {
                         AkauntingModal,
@@ -347,7 +347,7 @@ export default {
 
             this.component = Vue.component('add-new-component', (resolve, reject) => {
                 resolve({
-                    template : '<div id="dynamic-component"><akaunting-modal v-if="confirm.show" :show="confirm.show" :title="confirm.title" :message="confirm.message" :button_cancel="confirm.button_cancel" :button_delete="confirm.button_delete" @confirm="onDelete" @cancel="cancelDelete"></akaunting-modal></div>',
+                    template : '<div id="dynamic-delete-file-component"><akaunting-modal v-if="confirm.show" :show="confirm.show" :title="confirm.title" :message="confirm.message" :button_cancel="confirm.button_cancel" :button_delete="confirm.button_delete" @confirm="onDelete" @cancel="cancelDelete"></akaunting-modal></div>',
 
                     components: {
                         AkauntingModal,
