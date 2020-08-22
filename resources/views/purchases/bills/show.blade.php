@@ -246,7 +246,7 @@
                                                 @stack('name_input_end')
                                             </th>
                                         </tr>
-                                        @if ($invoice->contact_address || $__env->hasStack('address_input_start', 'address_input_end'))
+                                        @if ($bill->contact_address || $__env->hasStack('address_input_start', 'address_input_end'))
                                             <tr>
                                                 <th>
                                                     @stack('address_input_start')
@@ -257,7 +257,7 @@
                                                 </th>
                                             </tr>
                                         @endif
-                                        @if ($invoice->contact_tax_number || $__env->hasStack('tax_number_input_start', 'tax_number_input_end'))
+                                        @if ($bill->contact_tax_number || $__env->hasStack('tax_number_input_start', 'tax_number_input_end'))
                                             <tr>
                                                 <th>
                                                     @stack('tax_number_input_start')
@@ -268,7 +268,7 @@
                                                 </th>
                                             </tr>
                                         @endif
-                                        @if ($invoice->contact_phone || $__env->hasStack('phone_input_start', 'phone_input_end'))
+                                        @if ($bill->contact_phone || $__env->hasStack('phone_input_start', 'phone_input_end'))
                                             <tr>
                                                 <th>
                                                     @stack('phone_input_start')
@@ -279,7 +279,7 @@
                                                 </th>
                                             </tr>
                                         @endif
-                                        @if ($invoice->contact_email || $__env->hasStack('email_start', 'email_input_end'))
+                                        @if ($bill->contact_email || $__env->hasStack('email_start', 'email_input_end'))
                                             <tr>
                                                 <th>
                                                     @stack('email_start')
