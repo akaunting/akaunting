@@ -108,7 +108,7 @@ class Email extends Controller
 
         $template->update([
             'subject' => $fields[$subject_key],
-            'body' => $fields[$body_key],
+            'body' => $this->sanitizeBody($fields[$body_key]),
         ]);
 
         unset($fields[$subject_key]);
@@ -141,5 +141,14 @@ class Email extends Controller
                 Installer::updateEnv(['MAIL_ENCRYPTION' => '"' . $value . '"']);
                 break;
         }
+    }
+
+    protected function sanitizeBody($body)
+    {
+        return str_replace(
+            ['<p><br></p>', '<p>', '</p>'],
+            ['<br>', '', '<br>'],
+            $body
+        );
     }
 }
