@@ -159,6 +159,8 @@ class Item extends Controller
             $message = trans('modules.installed', ['module' => $json['data']['name']]);
 
             flash($message)->success();
+        } else {
+            flash($json['message'])->error();
         }
 
         return response()->json($json);
@@ -172,6 +174,8 @@ class Item extends Controller
             $message = trans('modules.uninstalled', ['module' => $json['data']['name']]);
 
             flash($message)->success();
+        } else {
+            flash($json['message'])->error();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();
@@ -185,6 +189,8 @@ class Item extends Controller
             $message = trans('modules.enabled', ['module' => $json['data']['name']]);
 
             flash($message)->success();
+        } else {
+            flash($json['message'])->error();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();
@@ -198,6 +204,8 @@ class Item extends Controller
             $message = trans('modules.disabled', ['module' => $json['data']['name']]);
 
             flash($message)->success();
+        } else {
+            flash($json['message'])->error();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();
