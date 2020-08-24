@@ -31,7 +31,7 @@
                     <input type="text" class="form-control form-control-muted" value="php {{ base_path('artisan') }} schedule:run >> /dev/null 2>&1">
                 </div>
 
-                {{ Form::textGroup('time', trans('settings.scheduling.schedule_time'), 'clock', []) }}
+                {{ Form::textGroup('time', trans('settings.scheduling.schedule_time'), 'clock', [], setting('schedule.time')) }}
             </div>
         </div>
 

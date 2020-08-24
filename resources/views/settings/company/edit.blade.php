@@ -28,7 +28,7 @@
 
                 {{ Form::textareaGroup('address', trans('settings.company.address'), null, setting('company.address')) }}
 
-                {{ Form::fileGroup('logo', trans('settings.company.logo')) }}
+                {{ Form::fileGroup('logo', trans('settings.company.logo'), 'file-image-o', [], setting('company.logo')) }}
             </div>
         </div>
 

@@ -28,11 +28,11 @@
 
                 {{ Form::textGroup('title', trans('settings.invoice.title'), 'font', [], setting('invoice.title')) }}
 
-                {{ Form::textGroup('subheading', trans('settings.invoice.subheading'), 'font', []) }}
+                {{ Form::textGroup('subheading', trans('settings.invoice.subheading'), 'font', [], setting('invoice.subheading')) }}
 
-                {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
+                {{ Form::textareaGroup('notes', trans_choice('general.notes', 2), 'sticky-note-o', setting('invoice.notes')) }}
 
-                {{ Form::textareaGroup('footer', trans('general.footer')) }}
+                {{ Form::textareaGroup('footer', trans('general.footer'), 'sticky-note-o', setting('invoice.footer')) }}
 
                 {{ Form::invoice_text('item_name', trans('settings.invoice.item_name'), 'font', $item_names, setting('invoice.item_name'), [], 'item_name_input', null) }}
 
