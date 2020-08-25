@@ -4,7 +4,7 @@
 
 @section('new_button')
     <span><a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_key') }}</a></span>
-    <span><a href="{{ route('apps.my.index')  }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}</a></span>
+    <span><a href="{{ route('apps.my.index') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}</a></span>
 @endsection
 
 @section('content')
@@ -73,9 +73,9 @@
                         <div class="tab-pane fade show active" id="description">
                             {!! $module->description !!}
 
-                            @if($module->screenshots || $module->video)
+                            @if ($module->screenshots || $module->video)
                                <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'" arrow="always"
-                                    @if($module->video)
+                                    @if ($module->video)
                                         @php
                                             if (strpos($module->video->link, '=') !== false) {
                                                 $code = explode('=', $module->video->link);

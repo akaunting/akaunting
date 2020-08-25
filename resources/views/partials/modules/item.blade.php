@@ -38,6 +38,7 @@
                     @endif
                 </small>
             </div>
+
             <div class="float-right mr--3">
                 <small>
                     <strong>
