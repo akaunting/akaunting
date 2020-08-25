@@ -5,7 +5,7 @@ define('AKAUNTING_PHP', '7.2.5');
 
 // Check PHP version
 if (version_compare(PHP_VERSION, AKAUNTING_PHP, '<')) {
-    $message = 'Error: Ask your hosting provider to use PHP ' . AKAUNTING_PHP . ' or higher for both HTTP and CLI.' . PHP_EOL . PHP_EOL . 'Current PHP version: ' . PHP_VERSION . PHP_EOL;
+    $message = 'Error: Ask your hosting provider to use PHP ' . AKAUNTING_PHP . ' or higher for HTTP, CLI, and php command.' . PHP_EOL . PHP_EOL . 'Current PHP version: ' . PHP_VERSION . PHP_EOL;
 
     if (defined('STDOUT')) {
         fwrite(STDOUT, $message);
