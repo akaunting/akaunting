@@ -20,16 +20,6 @@
                 </div>
             </div>
 
-            <div class="nav-wrapper pt-0">
-                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-2 mb-md-0 active" href="#description" data-toggle="tab" aria-selected="false">
-                            {{ trans('general.description') }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
             <div class="card">
                 <div class="card-body">
                     <div class="tab-content">
