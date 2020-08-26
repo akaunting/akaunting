@@ -18,7 +18,7 @@
         <td class="border-right-0 border-bottom-0"
             :class="[{'has-error': form.errors.has('items.' + index + '.name') }]">
             @stack('name_input_start')
-            <akaunting-select-remote id="form-select-item_id"
+            <akaunting-select-remote
                 :form-classes="[{'has-error': form.errors.has('items.' + index + '.name')}]"
                 :placeholder="'{{ trans('general.type_item_name') }}'"
                 :name="'item_id'"
