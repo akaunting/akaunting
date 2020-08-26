@@ -61,8 +61,16 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div id="countdown-pre-sale"></div>
+                    <akaunting-countdown id="countdown-pre-sale"
+                        :year="{{ (int) $module->pre_sale_date->year }}"
+                        :month="{{ (int) $module->pre_sale_date->month - 1 }}"
+                        :date="{{ (int) $module->pre_sale_date->day }}"
+                    ></akaunting-countdown>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-body">
                     <div class="text-center">
                         <strong>
                             <div class="text-xl">

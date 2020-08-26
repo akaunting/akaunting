@@ -12,6 +12,7 @@ import AkauntingSelectRemote from './../components/AkauntingSelectRemote';
 import AkauntingDate from './../components/AkauntingDate';
 import AkauntingRecurring from './../components/AkauntingRecurring';
 import AkauntingHtmlEditor from './../components/AkauntingHtmlEditor';
+import AkauntingCountdown from './../components/AkauntingCountdown';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -33,6 +34,7 @@ export default {
         AkauntingDate,
         AkauntingRecurring,
         AkauntingHtmlEditor,
+        AkauntingCountdown,
         [Select.name]: Select,
         [Option.name]: Option,
         [Steps.name]: Steps,
