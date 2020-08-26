@@ -620,7 +620,7 @@ export default {
 
     methods: {
         remoteMethod(query) {
-            document.getElementById('form-select-' + this.name).getElementsByTagName("input")[1].readOnly = false;
+            document.getElementById('form-select-' + this.name).getElementsByTagName("input")[0].readOnly = false;
 
             if (query !== '') {
                 this.loading = true;
