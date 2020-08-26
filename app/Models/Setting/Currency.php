@@ -3,9 +3,12 @@
 namespace App\Models\Setting;
 
 use App\Abstracts\Model;
+use App\Traits\Contacts;
+use App\Traits\Transactions;
 
 class Currency extends Model
 {
+    use Contacts, Transactions;
 
     protected $table = 'currencies';
 
@@ -40,17 +43,17 @@ class Currency extends Model
 
     public function customers()
     {
-        return $this->contacts()->where('type', 'customer');
+        return $this->contacts()->whereIn('type', (array) $this->getCustomerTypes());
     }
 
     public function expense_transactions()
     {
-        return $this->transactions()->where('type', 'expense');
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
     }
 
     public function income_transactions()
     {
-        return $this->transactions()->where('type', 'income');
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
     public function invoices()
@@ -65,7 +68,7 @@ class Currency extends Model
 
     public function vendors()
     {
-        return $this->contacts()->where('type', 'vendor');
+        return $this->contacts()->whereIn('type', (array) $this->getVendorTypes());
     }
 
     /**

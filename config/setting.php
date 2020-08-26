@@ -138,6 +138,12 @@ return [
                 'vendor'                => env('SETTING_FALLBACK_CONTACT_TYPE_VENDOR', 'vendor'),
             ],
         ],
+        'transaction' => [
+            'type' => [
+                'income'                => env('SETTING_FALLBACK_TRANSACTION_TYPE_INCOME', 'income'),
+                'expense'               => env('SETTING_FALLBACK_TRANSACTION_TYPE_EXPENSE', 'expense'),
+            ],
+        ],
     ],
 
     /*

@@ -7,11 +7,12 @@ use Bkwld\Cloner\Cloneable;
 use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\Media;
+use App\Traits\Transactions;
 use Illuminate\Notifications\Notifiable;
 
 class Contact extends Model
 {
-    use Cloneable, Contacts, Currencies, Media, Notifiable;
+    use Cloneable, Contacts, Currencies, Media, Notifiable, Transactions;
 
     protected $table = 'contacts';
 
@@ -41,12 +42,12 @@ class Contact extends Model
 
     public function expense_transactions()
     {
-        return $this->transactions()->where('type', 'expense');
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
     }
 
     public function income_transactions()
     {
-        return $this->transactions()->where('type', 'income');
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
     public function invoices()

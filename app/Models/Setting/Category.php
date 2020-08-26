@@ -3,9 +3,12 @@
 namespace App\Models\Setting;
 
 use App\Abstracts\Model;
+use App\Traits\Transactions;
 
 class Category extends Model
 {
+    use Transactions;
+
     protected $table = 'categories';
 
     /**
@@ -29,12 +32,12 @@ class Category extends Model
 
     public function expense_transactions()
     {
-        return $this->transactions()->where('type', 'expense');
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
     }
 
     public function income_transactions()
     {
-        return $this->transactions()->where('type', 'income');
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
     public function invoices()

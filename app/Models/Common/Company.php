@@ -2,8 +2,10 @@
 
 namespace App\Models\Common;
 
+use App\Traits\Contacts;
 use App\Traits\Media;
 use App\Traits\Tenants;
+use App\Traits\Transactions;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
@@ -11,7 +13,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Company extends Eloquent
 {
-    use Media, SearchString, SoftDeletes, Sortable, Tenants;
+    use Contacts, Media, SearchString, SoftDeletes, Sortable, Tenants, Transactions;
 
     protected $table = 'companies';
 
@@ -92,7 +94,7 @@ class Company extends Eloquent
 
     public function customers()
     {
-        return $this->contacts()->where('type', 'customer');
+        return $this->contacts()->whereIn('type', (array) $this->getCustomerTypes());
     }
 
     public function dashboards()
@@ -107,12 +109,12 @@ class Company extends Eloquent
 
     public function expense_transactions()
     {
-        return $this->transactions()->where('type', 'expense');
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
     }
 
     public function income_transactions()
     {
-        return $this->transactions()->where('type', 'income');
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
     public function invoices()
@@ -197,7 +199,7 @@ class Company extends Eloquent
 
     public function vendors()
     {
-        return $this->contacts()->where('type', 'vendor');
+        return $this->contacts()->whereIn('type', (array) $this->getVendorTypes());
     }
 
     public function widgets()

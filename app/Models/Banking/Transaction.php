@@ -8,11 +8,13 @@ use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
 use App\Traits\Recurring;
+use App\Traits\Transactions;
 use Bkwld\Cloner\Cloneable;
+use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
-    use Cloneable, Currencies, DateTime, Media, Recurring;
+    use Cloneable, Currencies, DateTime, Media, Recurring, Transactions;
 
     protected $table = 'transactions';
 
@@ -103,7 +105,7 @@ class Transaction extends Model
      */
     public function scopeIncome($query)
     {
-        return $query->where($this->table . '.type', '=', 'income');
+        return $query->whereIn($this->table . '.type', (array) $this->getIncomeTypes());
     }
 
     /**
@@ -114,7 +116,7 @@ class Transaction extends Model
      */
     public function scopeExpense($query)
     {
-        return $query->where($this->table . '.type', '=', 'expense');
+        return $query->whereIn($this->table . '.type', (array) $this->getExpenseTypes());
     }
 
     /**
@@ -278,5 +280,15 @@ class Transaction extends Model
         }
 
         return $this->getMedia('attachment')->last();
+    }
+
+    /**
+     * Get the title of type.
+     *
+     * @return string
+     */
+    public function getTypeTitleAttribute($value)
+    {
+        return $value ?? trans_choice('general.' . Str::plural($this->type), 1);
     }
 }
