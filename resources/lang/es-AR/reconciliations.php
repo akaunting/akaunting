@@ -3,8 +3,10 @@
 return [
 
     'reconcile'             => 'Conciliar',
+    'unreconcile'           => 'Revertir conciliación',
     'reconciled'            => 'Conciliado',
-    'closing_balance'       => 'Balance de cierre',
+    'opening_balance'       => 'Saldo de apertura',
+    'closing_balance'       => 'Saldo de cierre',
     'unreconciled'          => 'Sin conciliar',
     'transactions'          => 'Transacciones',
     'start_date'            => 'Fecha de inicio',

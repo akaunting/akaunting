@@ -16,6 +16,8 @@ return [
         'sent'          => 'Tem certeza de que deseja marcar a fatura selecionada como <b>enviada</b>?|Tem certeza de que deseja marcar as faturas selecionadas como <b>enviadas</b>?',
         'received'      => 'Tem certeza de que deseja marcar a fatura selecionada como <b>recebida</b>?|Tem certeza de que deseja marcar as faturas selecionadas como <b>recebidas</b>?',
         'cancelled'     => 'Tem certeza de que deseja <b>cancelar</b> o fatura selecionada?|Tem certeza de que deseja <b>cancelar</b> as faturas selecionados?',
+        'reconcile'     => 'Tem certeza de que deseja <b> reconciliar </b> o registro selecionado? | Tem certeza de que deseja <b> reconciliar </b> os registros selecionados?',
+        'unreconcile'   => 'Tem certeza de que deseja <b> desreconciliar </b> o registro selecionado? | Tem certeza de que deseja <b> desreconciliar </b> os registros selecionados?',
     ],
 
 ];

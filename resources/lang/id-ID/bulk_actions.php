@@ -16,6 +16,8 @@ return [
         'sent'          => 'Yakin ingin menandai faktur yang dipilih sebagai <b> berbayar </b>? Apakah Anda yakin ingin menandai faktur yang dipilih sebagai <b> berbayar </b>?',
         'received'      => 'Yakin ingin menandai tagihan terpilih sebagai <b> diterima </b>? Apakah Anda yakin ingin menandai tagihan terpilih sebagai <b> diterima </b>?',
         'cancelled'     => 'Yakin ingin <b>membatalkan</b> Faktur/ Tagihan yg dipilih?| Yakin ingin <b>membatalkan</b> Faktur/ Tagihan yg dipilih?',
+        'reconcile'     => 'Anda yakin ingin <b> merekonsiliasi </b> data yang dipilih? | Apakah Anda yakin ingin <b> merekonsiliasi </b> data yang dipilih?',
+        'unreconcile'   => 'Anda yakin ingin <b> membatalkan rekonsiliasi </b> data yang dipilih? | Apakah Anda yakin ingin <b> membatalkan rekonsiliasi </b> data yang dipilih?',
     ],
 
 ];
