@@ -2,8 +2,10 @@
 
 return [
 
-    'reconcile'             => 'Оспори',
+    'reconcile'             => 'Консолидация',
+    'unreconcile'           => 'Деконсолидация',
     'reconciled'            => 'Оспорен',
+    'opening_balance'       => 'Начално салдо',
     'closing_balance'       => 'Краен Баланс',
     'unreconciled'          => 'Не подлежи на оспорване',
     'transactions'          => 'Плащания',

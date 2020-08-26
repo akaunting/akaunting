@@ -3,6 +3,7 @@
 return [
 
     'reconcile'             => 'Pajtim',
+    'unreconcile'           => 'Mospajtim',
     'reconciled'            => 'Pajtuar',
     'opening_balance'       => 'Bilanci i Hapjes',
     'closing_balance'       => 'Bilanci i Mbylljes',

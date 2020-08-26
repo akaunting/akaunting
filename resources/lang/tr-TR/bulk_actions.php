@@ -16,6 +16,8 @@ return [
         'sent'          => 'Seçili faturayı <b>gönderildi</b> olarak işaretlemek istediğinizden emin misiniz?|Seçili faturaları <b>gönderildi</b> olarak işaretlemek istediğinizden emin misiniz?',
         'received'      => 'Seçili faturayı <b>alındı</b> olarak işaretlemek istediğinizden emin misiniz?|Seçili faturaları <b>alındı</b> olarak işaretlemek istediğinizden emin misiniz?',
         'cancelled'     => 'Seçili faturayı <b>iptal etmek</b> istediğinizden emin misiniz?|Seçili faturaları <b>iptal etmek</b> istediğinizden emin misiniz?',
+        'reconcile'     => 'Seçili kayıt için <b>mutabakat yapmak</b> istediğinizden emin misiniz?|Seçili kayıtlar için <b>mutabakat yapmak</b> istediğinizden emin misiniz?',
+        'unreconcile'   => 'Seçili kayıt için <b>mutabakatı kaldırmak</b> istediğinizden emin misiniz?|Seçili kayıtlar için <b>mutabakatı kaldırmak</b> istediğinizden emin misiniz?',
     ],
 
 ];

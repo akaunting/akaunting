@@ -16,6 +16,8 @@ return [
         'sent'          => 'Êtes-vous sûr de vouloir marquer la facture sélectionnée comme <b>envoyée</b>? Êtes-vous sûr de vouloir marquer les factures sélectionnées comme <b>envoyées</b>?',
         'received'      => 'Êtes-vous sûr de vouloir marquer la facture sélectionnée comme <b>reçue</b>? Êtes-vous sûr de vouloir marquer les factures sélectionnées comme <b>reçues</b>?',
         'cancelled'     => 'Êtes-vous sûr de vouloir <b>annuler</b> la facture sélectionnée ? | Êtes-vous sûr de vouloir <b>annuler</b> les factures sélectionnées ?',
+        'reconcile'     => 'Êtes-vous sûr de vouloir <b> réconcilier</b> les enregistrements selectionnés ?|Êtes-vous sûr de vouloir <b> réconcilier</b> les enregistrements selectionnés ?',
+        'unreconcile'   => 'Êtes-vous sûr de vouloir <b> réconcilier</b> les enregistrements selectionnés ?|Êtes-vous sûr de vouloir <b> réconcilier</b> les enregistrements selectionnés ?',
     ],
 
 ];
