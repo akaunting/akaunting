@@ -26,16 +26,22 @@ class TaxesTest extends FeatureTestCase
 
     public function testItShouldCreateTax()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('taxes.store'), $this->getRequest())
+            ->post(route('taxes.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('taxes', $request);
     }
 
     public function testItShouldSeeTaxUpdatePage()
     {
-        $tax = $this->dispatch(new CreateTax($this->getRequest()));
+        $request = $this->getRequest();
+
+        $tax = $this->dispatch(new CreateTax($request));
 
         $this->loginAs()
             ->get(route('taxes.edit', $tax->id))
@@ -57,17 +63,23 @@ class TaxesTest extends FeatureTestCase
 			->assertSee($request['name']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('taxes', $request);
     }
 
     public function testItShouldDeleteTax()
     {
-        $tax = $this->dispatch(new CreateTax($this->getRequest()));
+        $request = $this->getRequest();
+
+        $tax = $this->dispatch(new CreateTax($request));
 
         $this->loginAs()
             ->delete(route('taxes.destroy', $tax->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('taxes', $request);
     }
 
     public function getRequest()

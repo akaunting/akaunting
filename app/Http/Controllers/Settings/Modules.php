@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
+use App\Models\Banking\Account;
+use App\Models\Setting\Category;
 use App\Models\Setting\Setting;
 use App\Utilities\Modules as Utility;
 use App\Http\Requests\Setting\Module as Request;
@@ -17,9 +19,9 @@ class Modules extends Controller
         $alias = request()->segment(1);
 
         // Add CRUD permission check
-        $this->middleware('permission:create-' . $alias . '-settings')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-' . $alias . '-settings')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-' . $alias . '-settings')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-' . $alias . '-settings')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-' . $alias . '-settings')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-' . $alias . '-settings')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-' . $alias . '-settings')->only('destroy');
     }
 
@@ -30,6 +32,9 @@ class Modules extends Controller
      */
     public function edit($alias)
     {
+        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
+
         $setting = Setting::prefix($alias)->get()->transform(function ($s) use ($alias) {
             $s->key = str_replace($alias . '.', '', $s->key);
             return $s;
@@ -37,7 +42,7 @@ class Modules extends Controller
 
         $module = module($alias);
 
-        return view('settings.modules.edit', compact('setting', 'module'));
+        return view('settings.modules.edit', compact('setting', 'module', 'accounts', 'categories'));
     }
 
     /**

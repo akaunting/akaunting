@@ -10,7 +10,7 @@
 
         <div class="col-xs-12 col-sm-7 pagination-xs">
             <nav class="float-right">
-                {!! $items->withPath(request()->url())->appends(request()->except('page'))->links() !!}
+                {!! $items->withPath(request()->url())->withQueryString()->links() !!}
             </nav>
         </div>
     @else

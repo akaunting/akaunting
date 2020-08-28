@@ -28,6 +28,8 @@ return [
     'warning' => [
         'deleted'           => '警告：由于和 :text 相关，你不能刪除<b>:name</b>。',
         'disabled'          => '警告：由于和 :text 相关，你不能停用<b>:name</b>。',
+        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
+        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => '警告：您无权禁用或更改货币 <b>:name</b> ，因为它和 :text有 关联。',
         'payment_cancel'    => '警告: 您已取消了您最近的 :methods 付款 ！',
     ],

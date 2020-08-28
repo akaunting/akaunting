@@ -2,13 +2,13 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Traits\Modules;
 use Route;
 use Illuminate\View\View;
-use App\Traits\Modules as RemoteModules;
 
 class Notifications
 {
-    use RemoteModules;
+    use Modules;
 
     /**
      * Bind data to the view.
@@ -23,30 +23,27 @@ class Notifications
             return;
         }
 
-        $path = Route::current()->uri();
-
-        if (empty($path)) {
+        if (!$path = Route::current()->uri()) {
             return;
         }
 
-        $notifications = $this->getNotifications($path);
-
-        if (empty($notifications)) {
+        if (!$notifications = $this->getNotifications($path)) {
             return;
         }
 
         // Push to a stack
         foreach ($notifications as $notification) {
-            $setting = 'notifications.'. $notification->path . '.' . $notification->id . '.status';
-
             $path = str_replace('/', '#', $notification->path);
 
             $message = str_replace('#path#', $path, $notification->message);
             $message = str_replace('#token#', csrf_token(), $message);
+            $message = str_replace('#url#', route('dashboard'), $message);
 
-            if (setting($setting, 1)) {
-                $view->getFactory()->startPush('content_content_start', $message);
+            if (!setting('notifications.' . $notification->path . '.' . $notification->id . '.status', 1)) {
+                continue;
             }
+
+            $view->getFactory()->startPush('content_content_start', $message);
         }
     }
 }

@@ -27,7 +27,9 @@ class DeleteAccount extends Job
     {
         $this->authorize();
 
-        $this->account->delete();
+        \DB::transaction(function () {
+            $this->account->delete();
+        });
 
         return true;
     }

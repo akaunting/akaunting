@@ -13,6 +13,7 @@ return [
     'price'                 => 'Verð',
     'sub_total'             => 'Samtals',
     'discount'              => 'Afsláttur',
+    'item_discount'         => 'Línuafsláttur',
     'tax_total'             => 'VSK',
     'total'                 => 'Samtals',
 
@@ -28,7 +29,9 @@ return [
     'histories'             => 'Yfirlit',
     'payments'              => 'Greiðslur',
     'add_payment'           => 'Bæta við greiðslu',
+    'mark_paid'             => 'Merkt greitt',
     'mark_received'         => 'Móttekið',
+    'mark_cancelled'        => 'Merkt afturkallað',
     'download_pdf'          => 'Niðurhala PDF',
     'send_mail'             => 'Senda tölvupóst',
     'create_bill'           => 'Skapa reikning',
@@ -38,12 +41,17 @@ return [
     'statuses' => [
         'draft'             => 'Uppkast',
         'received'          => 'Móttekið',
-        'partial'           => 'Hluta',
+        'partial'           => 'Partial',
         'paid'              => 'Greitt',
+        'overdue'           => 'Vanskil',
+        'unpaid'            => 'Ógreitt',
+        'cancelled'         => 'Afturkallað',
     ],
 
     'messages' => [
-        'received'          => 'Reikningur merktur sem móttekinn!',
+        'marked_received'   => 'Reikningur merktur mótekinn',
+        'marked_paid'       => 'Reikningur merktur greiddur',
+        'marked_cancelled'  => 'Reikningur merktur afturkallaður',
         'draft'             => 'Þetta er <b>PRUFU</b> reikningur sem sést á kortum eftir að hann er móttekinn.',
 
         'status' => [

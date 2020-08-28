@@ -9,7 +9,6 @@ return [
     'new'                   => '新增',
     'top_free'              => '最佳免费',
     'free'                  => '免费',
-    'search'                => '搜索',
     'install'               => '安装',
     'buy_now'               => '马上购买',
     'get_api_key'           => '<a href=":url" target="_blank">点击这里</a> 获取您的 API 密钥。',

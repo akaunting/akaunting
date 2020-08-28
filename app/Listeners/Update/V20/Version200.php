@@ -99,9 +99,11 @@ class Version200 extends Listener
         setting()->load(true);
 
         // Override settings
-        config(['app.url' => url('/')]);
+        config(['app.url' => route('dashboard')]);
         config(['app.timezone' => setting('general.timezone', 'UTC')]);
+
         date_default_timezone_set(config('app.timezone'));
+
         app()->setLocale(setting('general.default_locale'));
 
         $updated_settings = [

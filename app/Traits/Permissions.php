@@ -33,42 +33,59 @@ trait Permissions
 
     public function attachPermissionsToAdminRoles($permissions)
     {
-        $this->attachPermissionsToAllRoles($permissions, 'read-admin-panel');
+        $this->applyPermissionsToRoles($this->getDefaultAdminRoles(), 'attach', $permissions);
     }
 
     public function attachPermissionsToPortalRoles($permissions)
     {
-        $this->attachPermissionsToAllRoles($permissions, 'read-client-portal');
+        $this->applyPermissionsToRoles($this->getDefaultPortalRoles(), 'attach', $permissions);
     }
 
     public function attachPermissionsToAllRoles($permissions, $require = 'read-admin-panel')
     {
-        $this->getRoles($require)->each(function ($role) use ($permissions) {
-            foreach ($permissions as $id => $permission) {
-                if ($this->isActionList($permission)) {
-                    $this->attachPermissionsByAction($role, $id, $permission);
-
-                    continue;
-                }
-
-                $this->attachPermission($role, $permission);
-            }
-        });
+        $this->applyPermissionsToRoles($this->getRoles($require), 'attach', $permissions);
     }
 
     public function detachPermissionsByRoleNames($roles)
     {
         foreach ($roles as $role_name => $permissions) {
-            $role = Role::where('name', $role_name)->first();
-
-            if (empty($role)) {
-                continue;
-            }
-
             foreach ($permissions as $permission_name) {
-                $this->detachPermission($role, $permission_name);
+                $this->detachPermission($role_name, $permission_name);
             }
         }
+    }
+
+    public function detachPermissionsFromAdminRoles($permissions)
+    {
+        $this->applyPermissionsToRoles($this->getDefaultAdminRoles(), 'detach', $permissions);
+    }
+
+    public function detachPermissionsFromPortalRoles($permissions)
+    {
+        $this->applyPermissionsToRoles($this->getDefaultPortalRoles(), 'detach', $permissions);
+    }
+
+    public function detachPermissionsFromAllRoles($permissions, $require = 'read-admin-panel')
+    {
+        $this->applyPermissionsToRoles($this->getRoles($require), 'detach', $permissions, $require);
+    }
+
+    public function applyPermissionsToRoles($roles, $apply, $permissions)
+    {
+        $roles->each(function ($role) use ($apply, $permissions) {
+            $f1 = $apply . 'PermissionsByAction';
+            $f2 = $apply . 'Permission';
+
+            foreach ($permissions as $id => $permission) {
+                if ($this->isActionList($permission)) {
+                    $this->$f1($role, $id, $permission);
+
+                    continue;
+                }
+
+                $this->$f2($role, $permission);
+            }
+        });
     }
 
     public function updatePermissionNames($permissions)
@@ -96,7 +113,7 @@ trait Permissions
         }
     }
 
-    public function attachDefaultModulePermissions($module, $require = 'read-admin-panel')
+    public function attachDefaultModulePermissions($module, $require = null)
     {
         $this->attachModuleReportPermissions($module, $require);
 
@@ -105,7 +122,7 @@ trait Permissions
         $this->attachModuleSettingPermissions($module, $require);
     }
 
-    public function attachModuleReportPermissions($module, $require = 'read-admin-panel')
+    public function attachModuleReportPermissions($module, $require = null)
     {
         if (is_string($module)) {
             $module = module($module);
@@ -125,10 +142,12 @@ trait Permissions
             $permissions[] = $this->createModuleReportPermission($module, $class);
         }
 
-        $this->attachPermissionsToAllRoles($permissions, $require);
+        $require
+                ? $this->attachPermissionsToAllRoles($permissions, $require)
+                : $this->attachPermissionsToAdminRoles($permissions);
     }
 
-    public function attachModuleWidgetPermissions($module, $require = 'read-admin-panel')
+    public function attachModuleWidgetPermissions($module, $require = null)
     {
         if (is_string($module)) {
             $module = module($module);
@@ -148,10 +167,12 @@ trait Permissions
             $permissions[] = $this->createModuleWidgetPermission($module, $class);
         }
 
-        $this->attachPermissionsToAllRoles($permissions, $require);
+        $require
+                ? $this->attachPermissionsToAllRoles($permissions, $require)
+                : $this->attachPermissionsToAdminRoles($permissions);
     }
 
-    public function attachModuleSettingPermissions($module, $require = 'read-admin-panel')
+    public function attachModuleSettingPermissions($module, $require = null)
     {
         if (is_string($module)) {
             $module = module($module);
@@ -166,7 +187,9 @@ trait Permissions
         $permissions[] = $this->createModuleSettingPermission($module, 'read');
         $permissions[] = $this->createModuleSettingPermission($module, 'update');
 
-        $this->attachPermissionsToAllRoles($permissions, $require);
+        $require
+                ? $this->attachPermissionsToAllRoles($permissions, $require)
+                : $this->attachPermissionsToAdminRoles($permissions);
     }
 
     public function createModuleReportPermission($module, $class)
@@ -255,7 +278,7 @@ trait Permissions
         $role->attachPermission($permission);
     }
 
-    public function detachPermission($role, $permission)
+    public function detachPermission($role, $permission, $delete = true)
     {
         if (is_string($role)) {
             $role = Role::where('name', $role)->first();
@@ -273,7 +296,14 @@ trait Permissions
             return;
         }
 
-        $role->detachPermission($permission);
+        if ($role->hasPermission($permission->name)) {
+            $role->detachPermission($permission);
+        }
+
+        if ($delete === false) {
+            return;
+        }
+
         $permission->delete();
     }
 
@@ -289,6 +319,18 @@ trait Permissions
 
     public function attachPermissionsByAction($role, $page, $action_list)
     {
+        $this->applyPermissionsByAction('attach', $role, $page, $action_list);
+    }
+
+    public function detachPermissionsByAction($role, $page, $action_list)
+    {
+        $this->applyPermissionsByAction('detach', $role, $page, $action_list);
+    }
+
+    public function applyPermissionsByAction($apply, $role, $page, $action_list)
+    {
+        $function = $apply . 'Permission';
+
         $actions_map = collect($this->getActionsMap());
 
         $actions = explode(',', $action_list);
@@ -298,7 +340,7 @@ trait Permissions
 
             $name = $action . '-' . $page;
 
-            $this->attachPermission($role, $name);
+            $this->$function($role, $name);
         }
     }
 
@@ -322,5 +364,27 @@ trait Permissions
         return Role::all()->filter(function ($role) use ($require) {
             return $require ? $role->hasPermission($require) : true;
         });
+    }
+
+    public function getDefaultAdminRoles($custom = null)
+    {
+        $roles = Role::whereIn('name', $custom ?? ['admin', 'manager'])->get();
+
+        if ($roles->isNotEmpty()) {
+            return $roles;
+        }
+
+        return $this->getRoles('read-admin-panel');
+    }
+
+    public function getDefaultPortalRoles($custom = null)
+    {
+        $roles = Role::whereIn('name', $custom ?? ['customer'])->get();
+
+        if ($roles->isNotEmpty()) {
+            return $roles;
+        }
+
+        return $this->getRoles('read-client-portal');
     }
 }

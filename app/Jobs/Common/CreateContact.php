@@ -4,10 +4,13 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Models\Auth\User;
+use App\Models\Auth\Role;
 use App\Models\Common\Contact;
 
 class CreateContact extends Job
 {
+    protected $contact;
+
     protected $request;
 
     /**
@@ -27,13 +30,15 @@ class CreateContact extends Job
      */
     public function handle()
     {
-        if ($this->request->get('create_user', 'false') === 'true') {
-            $this->createUser();
-        }
+        \DB::transaction(function () {
+            if ($this->request->get('create_user', 'false') === 'true') {
+                $this->createUser();
+            }
 
-        $contact = Contact::create($this->request->all());
+            $this->contact = Contact::create($this->request->all());
+        });
 
-        return $contact;
+        return $this->contact;
     }
 
     public function createUser()
@@ -48,11 +53,14 @@ class CreateContact extends Job
         $data = $this->request->all();
         $data['locale'] = setting('default.locale', 'en-GB');
 
-        $user = User::create($data);
-        $user->roles()->attach(['3']);
-        $user->companies()->attach([session('company_id')]);
+        $customer_role = Role::all()->filter(function ($role) {
+            return $role->hasPermission('read-client-portal');
+        })->first();
 
-        // St user id to request
+        $user = User::create($data);
+        $user->roles()->attach($customer_role);
+        $user->companies()->attach(session('company_id'));
+
         $this->request['user_id'] = $user->id;
     }
 }

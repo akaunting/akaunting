@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'description'       => 'Change company name, email, address, tax number etc',
+        'description'       => 'Alterar nome da empresa, e-mail, endereço, número fiscal etc',
         'name'              => 'Nome',
         'email'             => 'E-mail',
         'phone'             => 'Telefone',
@@ -12,7 +12,7 @@ return [
     ],
 
     'localisation' => [
-        'description'       => 'Set fiscal year, time zone, date format and more locals',
+        'description'       => 'Definir o ano fiscal, fuso horário, formato da data e localizações',
         'financial_start'   => 'Início do ano fiscal',
         'timezone'          => 'Fuso Horário',
         'date' => [
@@ -30,19 +30,19 @@ return [
             'after'         => 'Depois do Número',
         ],
         'discount_location' => [
-            'name'          => 'Discount Location',
-            'item'          => 'At line',
-            'total'         => 'At total',
-            'both'          => 'Both line and total',
+            'name'          => 'Localização do Desconto',
+            'item'          => 'Por linha',
+            'total'         => 'No total',
+            'both'          => 'Em ambos (linha e total)',
         ],
     ],
 
     'invoice' => [
-        'description'       => 'Customize invoice prefix, number, terms, footer etc',
+        'description'       => 'Personalizar prefixo de fatura, número, termos, rodapé etc',
         'prefix'            => 'Prefixo',
         'digit'             => 'Quantidade de dígitos',
         'next'              => 'Próximo Número',
-        'logo'              => 'Logotipo',
+        'logo'              => 'Logótipo',
         'custom'            => 'Personalizado',
         'item_name'         => 'Nome do Item',
         'item'              => 'Itens',
@@ -56,22 +56,22 @@ return [
         'payment_terms'     => 'Termos de Pagamento',
         'title'             => 'Título',
         'subheading'        => 'Subtítulo',
-        'due_receipt'       => 'Due upon receipt',
-        'due_days'          => 'Due within :days days',
-        'choose_template'   => 'Choose invoice template',
+        'due_receipt'       => 'Vencida ao receber',
+        'due_days'          => 'Vencida após :days dias',
+        'choose_template'   => 'Escolher modelo da Fatura',
         'default'           => 'Padrão',
         'classic'           => 'Clássico',
         'modern'            => 'Moderno',
     ],
 
     'default' => [
-        'description'       => 'Default account, currency, language of your company',
-        'list_limit'        => 'Records Per Page',
+        'description'       => 'Conta padrão, moeda, idioma da sua empresa',
+        'list_limit'        => 'Registos por página',
         'use_gravatar'      => 'Usar Gravatar',
     ],
 
     'email' => [
-        'description'       => 'Change the sending protocol and email templates',
+        'description'       => 'Alterar o protocolo de envio e modelos de e-mail',
         'protocol'          => 'Protocolo',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -79,7 +79,7 @@ return [
             'host'          => 'Servidor SMTP',
             'port'          => 'Porta SMTP',
             'username'      => 'Utilizador SMTP',
-            'password'      => 'Senha SMTP',
+            'password'      => 'Palavra-passe SMTP',
             'encryption'    => 'Encriptação SMTP',
             'none'          => 'Nenhum',
         ],
@@ -90,22 +90,22 @@ return [
         'templates' => [
             'subject'                   => 'Assunto',
             'body'                      => 'Conteúdo',
-            'tags'                      => '<strong>Available Tags:</strong> :tag_list',
-            'invoice_new_customer'      => 'New Invoice Template (sent to customer)',
-            'invoice_remind_customer'   => 'Invoice Reminder Template (sent to customer)',
-            'invoice_remind_admin'      => 'Invoice Reminder Template (sent to admin)',
-            'invoice_recur_customer'    => 'Invoice Recurring Template (sent to customer)',
-            'invoice_recur_admin'       => 'Invoice Recurring Template (sent to admin)',
-            'invoice_payment_customer'  => 'Payment Received Template (sent to customer)',
-            'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
-            'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
-            'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
+            'tags'                      => '<strong>Etiquetas Disponíveis:</strong> :tag_list',
+            'invoice_new_customer'      => 'Novo modelo de Fatura (envio ao cliente)',
+            'invoice_remind_customer'   => 'Modelo de lembrete de Fatura (envio ao cliente)',
+            'invoice_remind_admin'      => 'Modelo de lembrete de Fatura (envio ao administrador)',
+            'invoice_recur_customer'    => 'Modelo de Fatura recorrente (envio ao cliente)',
+            'invoice_recur_admin'       => 'Modelo de Fatura recorrente (envio ao administrador)',
+            'invoice_payment_customer'  => 'Modelo de Pagamento recebido (envio ao cliente)',
+            'invoice_payment_admin'     => 'Modelo de Pagamento recebido (envio ao administrador)',
+            'bill_remind_admin'         => 'Modelo de lembrete de Conta (envio ao administrador)',
+            'bill_recur_admin'          => 'Modelo de Conta recorrente (envio ao administrador)',
         ],
     ],
 
     'scheduling' => [
-        'name'              => 'Scheduling',
-        'description'       => 'Automatic reminders and command for recurring',
+        'name'              => 'Agendado',
+        'description'       => 'Lembretes automáticos e comandos para recorrentes agendados',
         'send_invoice'      => 'Enviar lembrete de faturas',
         'invoice_days'      => 'Enviar após dias de vencimento',
         'send_bill'         => 'Enviar lembrete de Contas',
@@ -115,15 +115,15 @@ return [
     ],
 
     'categories' => [
-        'description'       => 'Unlimited categories for income, expense, and item',
+        'description'       => 'Categorias ilimitadas para receita, despesa, e itens',
     ],
 
     'currencies' => [
-        'description'       => 'Create and manage currencies and set their rates',
+        'description'       => 'Criar e gerir moedas e definir as taxas',
     ],
 
     'taxes' => [
-        'description'       => 'Fixed, normal, inclusive, and compound tax rates',
+        'description'       => 'Taxas de imposto fixa, normal, inclusiva e composta',
     ],
 
 ];

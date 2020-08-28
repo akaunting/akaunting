@@ -9,7 +9,6 @@ return [
     'new'                   => 'I ri',
     'top_free'              => 'Më të mirët Falas',
     'free'                  => 'FALAS',
-    'search'                => 'Kërko',
     'install'               => 'Instalo',
     'buy_now'               => 'Bli Tani',
     'get_api_key'           => '<a href=":url" target="_blank">Klikoni këtu</a> për të marrë çelësin tuaj API.',

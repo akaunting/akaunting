@@ -8,4 +8,5 @@ return [
     'inclusive'             => 'Inklusive',
     'compound'              => 'zusammengesetzt',
     'fixed'                 => 'Fest',
+    'withholding'           => 'Auszahlung',
 ];

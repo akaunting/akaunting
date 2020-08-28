@@ -26,16 +26,22 @@ class PaymentsTest extends FeatureTestCase
 
     public function testItShouldCreatePayment()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('payments.store'), $this->getRequest())
+            ->post(route('payments.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('transactions', $request);
     }
 
 	public function testItShouldSeePaymentUpdatePage()
 	{
-        $payment = $this->dispatch(new CreateTransaction($this->getRequest()));
+        $request = $this->getRequest();
+
+        $payment = $this->dispatch(new CreateTransaction($request));
 
 		$this->loginAs()
 			->get(route('payments.edit', $payment->id))
@@ -57,17 +63,23 @@ class PaymentsTest extends FeatureTestCase
 			->assertSee($request['amount']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('transactions', $request);
     }
 
     public function testItShouldDeletePayment()
     {
-        $payment = $this->dispatch(new CreateTransaction($this->getRequest()));
+        $request = $this->getRequest();
+
+        $payment = $this->dispatch(new CreateTransaction($request));
 
         $this->loginAs()
             ->delete(route('payments.destroy', $payment->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('transactions', $request);
     }
 
     public function getRequest()

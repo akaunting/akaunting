@@ -19,7 +19,7 @@ class Invoices extends ApiController
      */
     public function index()
     {
-        $invoices = Invoice::with(['contact', 'items', 'transactions', 'histories'])->collect(['invoiced_at'=> 'desc']);
+        $invoices = Invoice::with('contact', 'histories', 'items', 'transactions')->collect(['invoiced_at'=> 'desc']);
 
         return $this->response->paginator($invoices, new Transformer());
     }
@@ -52,7 +52,7 @@ class Invoices extends ApiController
     {
         $invoice = $this->dispatch(new CreateInvoice($request));
 
-        return $this->response->created(url('api/invoices/' . $invoice->id));
+        return $this->response->created(route('api.invoices.show', $invoice->id));
     }
 
     /**

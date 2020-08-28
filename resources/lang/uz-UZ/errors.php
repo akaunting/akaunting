@@ -2,23 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Taqiqlangan kirish',
-    'error_page'       => 'Xato sahifasi',
-    'page_not_found'   => 'Sahifa topilmadi',
-
-    'body'   => [
-        'forbidden_access' => 'Afsuski! Taqiqlangan kirish.',
-        'error_page' => 'Afsuski! Nimadir noto\'g\'ri bajarildi.',
-        'page_not_found' => 'Afsuski! Sahifa topilmadi.',
+    'title' => [
+        '403' => 'Voy! Taqiqlangan kirish',
+        '404' => 'Voy! Sahifa topilmadi',
+        '500' => 'Voy! Nimadir noto\'g\'ri bajarildi',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'Siz ushbu sahifaga kira olmaysiz.
-        Shu bilan birga, siz <a href=":link">boshqaruv paneliga qaytishingiz mumkin</a>.',
-        'error_page' => 'Biz buni darhol tuzatish ustida ishlaymiz.
-         Shu bilan birga, siz <a href=":link">boshqaruv paneliga qaytishingiz mumkin</a>.',
-        'page_not_found' => 'Siz qidirayotgan sahifani topa olmadik.
-         Shu bilan birga, siz <a href=":link">boshqaruv paneliga qaytishingiz mumkin</a>.',
+    'header' => [
+        '403' => '403 man etilgan',
+        '404' => '404 topilmadi',
+        '500' => '500 ichki server xatosi',
+    ],
+
+    'message' => [
+        '403' => 'Siz ushbu sahifaga kira olmaysiz.',
+        '404' => 'Siz qidirayotgan sahifani topa olmadik.',
+        '500' => 'Biz buni darhol tuzatish ustida ishlaymiz.',
     ],
 
 ];

@@ -30,7 +30,9 @@ class UpdateReport extends Job
      */
     public function handle()
     {
-        $this->report->update($this->request->all());
+        \DB::transaction(function () {
+            $this->report->update($this->request->all());
+        });
 
         return $this->report;
     }

@@ -138,7 +138,7 @@ class CashFlow extends Widget
             }
         }
 
-        $items = $this->applyFilters(Transaction::type($type)->whereBetween('paid_at', [$start, $end])->isNotTransfer())->get();
+        $items = $this->applyFilters(Transaction::$type()->whereBetween('paid_at', [$start, $end])->isNotTransfer())->get();
 
         $this->setTotals($totals, $items, $date_format, $period);
 
@@ -159,6 +159,12 @@ class CashFlow extends Widget
             }
 
             $totals[$i] += $item->getAmountConvertedToDefault();
+        }
+
+        $precision = config('money.' . setting('default.currency') . '.precision');
+
+        foreach ($totals as $key => $value) {
+            $totals[$key] = round($value, $precision);
         }
     }
 

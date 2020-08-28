@@ -27,9 +27,11 @@ class DeleteUser extends Job
     {
         $this->authorize();
 
-        $this->user->delete();
+        \DB::transaction(function () {
+            $this->user->delete();
 
-        $this->user->flushCache();
+            $this->user->flushCache();
+        });
 
         return true;
     }

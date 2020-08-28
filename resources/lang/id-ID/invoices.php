@@ -25,7 +25,7 @@ return [
 
     'payment_due'           => 'Tanggal Pembayaran',
     'paid'                  => 'Dibayar',
-    'histories'             => 'Sejarah',
+    'histories'             => 'Riwayat',
     'payments'              => 'Pembayaran',
     'add_payment'           => 'Tambahkan Pembayaran',
     'mark_paid'             => 'Ditandai Dibayar',

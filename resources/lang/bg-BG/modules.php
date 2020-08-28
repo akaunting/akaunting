@@ -9,7 +9,6 @@ return [
     'new'                   => 'Нов',
     'top_free'              => 'Топ безплатни',
     'free'                  => 'БЕЗПЛАТНО',
-    'search'                => 'Търси',
     'install'               => 'Инсталирай',
     'buy_now'               => 'Купете сега',
     'get_api_key'           => '<a href=":url" target="_blank">Натиснете тук</a> за да получите вашия API ключ.',

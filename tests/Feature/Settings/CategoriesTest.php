@@ -26,16 +26,22 @@ class CategoriesTest extends FeatureTestCase
 
     public function testItShouldCreateCategory()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('categories.store'), $this->getRequest())
+            ->post(route('categories.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('categories', $request);
     }
 
     public function testItShouldSeeCategoryUpdatePage()
     {
-        $category = $this->dispatch(new CreateCategory($this->getRequest()));
+        $request = $this->getRequest();
+
+        $category = $this->dispatch(new CreateCategory($request));
 
         $this->loginAs()
             ->get(route('categories.edit', $category->id))
@@ -57,17 +63,23 @@ class CategoriesTest extends FeatureTestCase
 			->assertSee($request['name']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('categories', $request);
     }
 
     public function testItShouldDeleteCategory()
     {
-        $category = $this->dispatch(new CreateCategory($this->getRequest()));
+        $request = $this->getRequest();
+
+        $category = $this->dispatch(new CreateCategory($request));
 
         $this->loginAs()
             ->delete(route('categories.destroy', $category->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('categories', $request);
     }
 
     public function getRequest()

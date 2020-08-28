@@ -7,6 +7,8 @@ use App\Models\Banking\Account;
 
 class CreateAccount extends Job
 {
+    protected $account;
+
     protected $request;
 
     /**
@@ -26,14 +28,16 @@ class CreateAccount extends Job
      */
     public function handle()
     {
-        $account = Account::create($this->request->all());
+        \DB::transaction(function () {
+            $this->account = Account::create($this->request->all());
 
-        // Set default account
-        if ($this->request['default_account']) {
-            setting()->set('default.account', $account->id);
-            setting()->save();
-        }
+            // Set default account
+            if ($this->request['default_account']) {
+                setting()->set('default.account', $this->account->id);
+                setting()->save();
+            }
+        });
 
-        return $account;
+        return $this->account;
     }
 }

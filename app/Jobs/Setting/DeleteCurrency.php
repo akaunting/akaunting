@@ -27,7 +27,9 @@ class DeleteCurrency extends Job
     {
         $this->authorize();
 
-        $this->currency->delete();
+        \DB::transaction(function () {
+            $this->currency->delete();
+        });
 
         return true;
     }

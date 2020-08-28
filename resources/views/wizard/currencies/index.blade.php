@@ -83,7 +83,7 @@
                                 {{ Form::textGroup('name', trans('general.name'), 'font', [], null, '') }}
                             </td>
                             <td class="col-md-3 d-none d-md-block">
-                                {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, null, ['required' => 'required', 'change' => 'onChangeCode'], '') }}
+                                {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes, null, ['required' => 'required', 'change' => 'onChangeCode', 'model' => 'form.code'], '') }}
                             </td>
                             <td class="col-md-2 d-none d-md-block">
                                 {{ Form::textGroup('rate', trans('currencies.rate'), 'percentage', ['required' => 'required'], null, '') }}
@@ -121,14 +121,14 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="{{ url('wizard/companies') }}" class="btn btn-icon btn-white header-button-top">
-                        <span class="btn-inner--text">{{ trans('modules.back') }}</span>
+                    <a href="{{ route('wizard.companies.edit') }}" class="btn btn-icon btn-white header-button-top">
+                        <span class="btn-inner--text">{{ trans('pagination.previous') }}</span>
                     </a>
                 </div>
 
                 <div class="col-sm-6 text-right">
-                    <a href="{{ url('wizard/taxes') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
-                        <span class="btn-inner--text">{{ trans('general.skip') }}</span>
+                    <a href="{{ route('wizard.taxes.index') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
+                        <span class="btn-inner--text">{{ trans('pagination.next') }}</span>
                     </a>
                 </div>
             </div>

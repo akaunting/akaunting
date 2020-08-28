@@ -36,7 +36,7 @@ trait Modules
     // Get All Modules
     public function getModules($data = [])
     {
-        $key = 'apps.items.page.' . $this->getPageNumber($data);
+        $key = 'apps.app.' . $this->getDataKey($data);
 
         $items = Cache::get($key);
 
@@ -59,9 +59,9 @@ trait Modules
         return $item;
     }
 
-    public function getDocumentation($alias)
+    public function getDocumentation($alias, $data = [])
     {
-        $key = 'apps.docs.' . $alias;
+        $key = 'apps.' . $alias . '.docs.' . $this->getDataKey($data);
 
         $documentation = Cache::get($key);
 
@@ -78,7 +78,7 @@ trait Modules
 
     public function getModuleReviews($alias, $data = [])
     {
-        $key = 'apps.' . $alias . '.reviews.page.'. $this->getPageNumber($data);
+        $key = 'apps.' . $alias . '.reviews.' . $this->getDataKey($data);
 
         $reviews = Cache::get($key);
 
@@ -95,7 +95,7 @@ trait Modules
 
     public function getCategories($data = [])
     {
-        $key = 'apps.categories.page.' . $this->getPageNumber($data);
+        $key = 'apps.categories.' . $this->getDataKey($data);
 
         $categories = Cache::get($key);
 
@@ -112,7 +112,7 @@ trait Modules
 
     public function getModulesByCategory($alias, $data = [])
     {
-        $key = 'apps.categories.' . $alias . '.page.' . $this->getPageNumber($data);
+        $key = 'apps.categories.' . $alias . '.' . $this->getDataKey($data);
 
         $category = Cache::get($key);
 
@@ -129,7 +129,7 @@ trait Modules
 
     public function getVendors($data = [])
     {
-        $key = 'apps.vendors.page.' . $this->getPageNumber($data);
+        $key = 'apps.vendors.' . $this->getDataKey($data);
 
         $vendors = Cache::get($key);
 
@@ -146,7 +146,7 @@ trait Modules
 
     public function getModulesByVendor($alias, $data = [])
     {
-        $key = 'apps.vendors.' . $alias . '.page.' . $this->getPageNumber($data);
+        $key = 'apps.vendors.' . $alias . '.' . $this->getDataKey($data);
 
         $vendor = Cache::get($key);
 
@@ -195,7 +195,7 @@ trait Modules
 
     public function getPreSaleModules($data = [])
     {
-        $key = 'apps.pre_sale.page.' . $this->getPageNumber($data);
+        $key = 'apps.pre_sale.' . $this->getDataKey($data);
 
         $pre_sale = Cache::get($key);
 
@@ -212,7 +212,7 @@ trait Modules
 
     public function getPaidModules($data = [])
     {
-        $key = 'apps.paid.page.' . $this->getPageNumber($data);
+        $key = 'apps.paid.' . $this->getDataKey($data);
 
         $paid = Cache::get($key);
 
@@ -229,7 +229,7 @@ trait Modules
 
     public function getNewModules($data = [])
     {
-        $key = 'apps.new.page.' . $this->getPageNumber($data);
+        $key = 'apps.new.' . $this->getDataKey($data);
 
         $new = Cache::get($key);
 
@@ -246,7 +246,7 @@ trait Modules
 
     public function getFreeModules($data = [])
     {
-        $key = 'apps.free.page.' . $this->getPageNumber($data);
+        $key = 'apps.free.' . $this->getDataKey($data);
 
         $free = Cache::get($key);
 
@@ -263,7 +263,7 @@ trait Modules
 
     public function getFeaturedModules($data = [])
     {
-        $key = 'apps.featured.page.' . $this->getPageNumber($data);
+        $key = 'apps.featured.' . $this->getDataKey($data);
 
         $featured = Cache::get($key);
 
@@ -317,7 +317,7 @@ trait Modules
         $file = $response->getBody()->getContents();
 
         $path = 'temp-' . md5(mt_rand());
-        $temp_path = storage_path('app/temp') . '/' . $path;
+        $temp_path = storage_path('app/temp/' . $path);
 
         $file_path = $temp_path . '/upload.zip';
 
@@ -359,7 +359,7 @@ trait Modules
             ];
         }
 
-        $temp_path = storage_path('app/temp') . '/' . $path;
+        $temp_path = storage_path('app/temp/' . $path);
 
         $file = $temp_path . '/upload.zip';
 
@@ -394,7 +394,9 @@ trait Modules
 
     public function installModule($path)
     {
-        if (empty($path)) {
+        $temp_path = storage_path('app/temp/' . $path);
+
+        if (empty($path) || !is_file($temp_path . '/module.json')) {
             return [
                 'success' => false,
                 'error' => true,
@@ -402,8 +404,6 @@ trait Modules
                 'data' => null,
             ];
         }
-
-        $temp_path = storage_path('app/temp') . '/' . $path;
 
         $modules_path = config('module.paths.modules');
 
@@ -425,16 +425,10 @@ trait Modules
         File::copyDirectory($temp_path, $module_path);
         File::deleteDirectory($temp_path);
 
-        $data = [
-            'path' => $path,
-            'name' => Str::studly($module->alias),
-            'alias' => $module->alias,
-        ];
+        event(new \App\Events\Module\Copied($module->alias, session('company_id')));
 
         $company_id = session('company_id');
         $locale = app()->getLocale();
-
-        $this->clearModulesCache();
 
         $command = "module:install {$module->alias} {$company_id} {$locale}";
 
@@ -454,29 +448,42 @@ trait Modules
             'redirect' => route('apps.app.show', $module->alias),
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'path' => $path,
+                'name' => module($module->alias)->getName(),
+                'alias' => $module->alias,
+            ],
         ];
     }
 
     public function uninstallModule($alias)
     {
         $module = module($alias);
+        $name = $module->getName();
+        $version = $module->get('version');
 
-        $data = [
-            'name' => $module->getName(),
-            'category' => $module->get('category'),
-            'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->delete();
+        $command = "module:uninstall {$alias} {$company_id} {$locale}";
 
-        $this->clearModulesCache();
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'name' => $name,
+                'version' => $version,
+            ],
         ];
     }
 
@@ -484,21 +491,28 @@ trait Modules
     {
         $module = module($alias);
 
-        $data = [
-            'name' => $module->getName(),
-            'category' => $module->get('category'),
-            'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->enable();
+        $command = "module:enable {$alias} {$company_id} {$locale}";
 
-        $this->clearModulesCache();
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'name' => $module->getName(),
+                'version' => $module->get('version'),
+            ],
         ];
     }
 
@@ -506,21 +520,28 @@ trait Modules
     {
         $module = module($alias);
 
-        $data = [
-            'name' => $module->getName(),
-            'category' => $module->get('category'),
-            'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->disable();
+        $command = "module:disable {$alias} {$company_id} {$locale}";
 
-        $this->clearModulesCache($alias);
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'name' => $module->getName(),
+                'version' => $module->get('version'),
+            ],
         ];
     }
 
@@ -533,7 +554,7 @@ trait Modules
         return true;
     }
 
-    public function moduleEnabled($alias)
+    public function moduleIsEnabled($alias)
     {
         if (!$this->moduleExists($alias)) {
             return false;
@@ -583,7 +604,7 @@ trait Modules
 
         $data = [];
 
-        if (!$notifications = static::getResponse('GET', 'apps/notifications')) {
+        if (!$notifications = static::getResponseData('GET', 'apps/notifications')) {
             return $data;
         }
 
@@ -639,14 +660,20 @@ trait Modules
         return $data['query']['page'];
     }
 
-    public function clearModulesCache()
+    public function getDataKey($data = [])
     {
-        if (config('module.cache.enabled')) {
-            Cache::forget(config('module.cache.key'));
+        $result = 'language.' . language()->getShortCode() . '.page.' . $this->getPageNumber($data);
+
+        if (isset($data['query']['page'])) {
+            unset($data['query']['page']);
         }
 
-        Cache::forget('apps.notifications');
-        Cache::forget('apps.suggestions');
-        Cache::forget('apps.installed.' . session('company_id'));
+        if (isset($data['query'])){
+            foreach($data['query'] as $key => $value) {
+                $result .= '.' . $key . '.' . $value;
+            }
+        }
+
+        return $result;
     }
 }

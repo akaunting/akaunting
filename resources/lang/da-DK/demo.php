@@ -28,7 +28,7 @@ return [
         'expense'           => 'Månedlig udgiftsoversigt efter kategori',
         'income_expense'    => 'Månedlig Indkomstoversigt efter kategori',
         'tax'               => 'Kvartalsvis afgifts-oversigt',
-        'profit_loss'       => 'Kvartalsvis indtægt & tab efter kategori ',
+        'profit_loss'       => 'Kvartalsvise indtægter & udgifter efter kategori',
     ],
 
 ];

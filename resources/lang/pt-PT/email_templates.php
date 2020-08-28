@@ -4,47 +4,47 @@ return [
 
     'invoice_new_customer' => [
         'subject'       => '{invoice_number} fatura criada',
-        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Exmo(a) Sr(a) {customer_name},<br /><br />Preparamos a seguinte Fatura para si: <strong>{invoice_number}</strong>.<br /><br />Pode ver os detalhes da Fatura e prosseguir com o pagamento a partir do seguinte link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Sinta-se à vontade para entrar em contacto connosco para qualquer duvida.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
-        'subject'       => '{invoice_number} invoice overdue notice',
-        'body'          => 'Dear {customer_name},<br /><br />This is an overdue notice for <strong>{invoice_number}</strong> invoice.<br /><br />The invoice total is {invoice_total} and was due <strong>{invoice_due_date}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => '{invoice_number} aviso de fatura vencida',
+        'body'          => 'Exmo(a) Sr(a) {customer_name},<br /><br />Este é um aviso de Fatura em atraso referente ao documento <strong>{invoice_number}</strong>.<br /><br />O total da Fatura é {invoice_total} e venceu em <strong>{invoice_due_date}</strong>.<br /><br />Pode ver os detalhes da Fatura e prosseguir com o pagamento a partir do seguinte link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'invoice_remind_admin' => [
-        'subject'       => '{invoice_number} invoice overdue notice',
-        'body'          => 'Hello,<br /><br />{customer_name} has received an overdue notice for <strong>{invoice_number}</strong> invoice.<br /><br />The invoice total is {invoice_total} and was due <strong>{invoice_due_date}</strong>.<br /><br />You can see the invoice details from the following link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => '{invoice_number} aviso de fatura vencida',
+        'body'          => 'Olá,<br /><br />{customer_name} recebeu um aviso de Fatura em atraso <strong>{invoice_number}</strong>.<br /><br />O total da Fatura é {invoice_total} e venceu em <strong>{invoice_due_date}</strong>.<br /><br />Pode ver os detalhes da Fatura a partir do seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'invoice_recur_customer' => [
-        'subject'       => '{invoice_number} recurring invoice created',
-        'body'          => 'Dear {customer_name},<br /><br />Based on your recurring circle, we have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'Fatura recorrente {invoice_number} criada',
+        'body'          => 'Exmo(a) Sr(a) {customer_name},<br /><br />Baseado no seu ciclo recorrente, preparamos a seguinte Fatura para si: <strong>{invoice_number}</strong>.<br /><br />Pode ver os detalhes da Fatura e prosseguir com o pagamento a partir do seguinte link:  <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Sinta-se à vontade para entrar em contacto connosco para qualquer duvida.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'invoice_recur_admin' => [
-        'subject'       => '{invoice_number} recurring invoice created',
-        'body'          => 'Hello,<br /><br />Based on {customer_name} recurring circle, <strong>{invoice_number}</strong> invoice has been automatically created.<br /><br />You can see the invoice details from the following link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'Fatura recorrente {invoice_number} criada',
+        'body'          => 'Olá,<br /><br />Baseado no ciclo recorrente de {customer_name}, a Fatura <strong>{invoice_number}</strong> foi criada automaticamente.<br /><br />Pode ver os detalhes da Fatura a partir do seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'invoice_payment_customer' => [
-        'subject'       => 'Payment received for {invoice_number} invoice',
-        'body'          => 'Dear {customer_name},<br /><br />Thank you for the payment. Find the payment details below:<br /><br />-------------------------------------------------<br />Amount: <strong>{transaction_total}</strong><br />Date: <strong>{transaction_paid_date}</strong><br />Invoice Number: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />You can always see the invoice details from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'Pagamento recebido da fatura {invoice_number}',
+        'body'          => 'Exmo(a) Sr(a) {customer_name},<br /><br />Obrigado pelo pagamento. Encontra os detalhes do pagamento abaixo:<br /><br />-------------------------------------------------<br />Valor: <strong>{transaction_total}</strong><br />Data: <strong>{transaction_paid_date}</strong><br />Fatura nº: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />Pode sempre ver os detalhes da Fatura no seguinte link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Sinta-se à vontade para entrar em contacto connosco para qualquer duvida.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
-        'subject'       => 'Payment received for {invoice_number} invoice',
-        'body'          => 'Hello,<br /><br />{customer_name} recorded a payment for <strong>{invoice_number}</strong> invoice.<br /><br />You can see the invoice details from the following link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'Pagamento recebido da fatura {invoice_number}',
+        'body'          => 'Olá,<br /><br />{customer_name} registou um pagamento para a Fatura <strong>{invoice_number}</strong>.<br /><br />Pode ver os detalhes da Fatura a partir do seguinte link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'bill_remind_admin' => [
-        'subject'       => '{bill_number} bill reminding notice',
-        'body'          => 'Hello,<br /><br />This is a reminding notice for <strong>{bill_number}</strong> bill to {vendor_name}.<br /><br />The bill total is {bill_total} and is due <strong>{bill_due_date}</strong>.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'Aviso de lembrete de conta {bill_number}',
+        'body'          => 'Olá,<br /><br />Este é um lembrete de vencimento da Conta <strong>{bill_number}</strong> do Fornecedor {vendor_name}.<br /><br />O total da Conta é {bill_total} e vence em <strong>{bill_due_date}</strong>.<br /><br />Pode ver os detalhes da Conta a partir do seguinte link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
     'bill_recur_admin' => [
-        'subject'       => '{bill_number} recurring bill created',
-        'body'          => 'Hello,<br /><br />Based on {vendor_name} recurring circle, <strong>{bill_number}</strong> invoice has been automatically created.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'Conta recorrente {bill_number} criada',
+        'body'          => 'Olá,<br /><br />Baseado no ciclo recorrente do Fornecedor {vendor_name}, a Conta <strong>{bill_number}</strong> foi criada automaticamente.<br /><br />Pode ver os detalhes da Conta a partir do seguinte link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Atenciosamente,<br />{company_name}',
     ],
 
 ];

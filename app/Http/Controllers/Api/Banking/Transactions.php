@@ -19,7 +19,7 @@ class Transactions extends ApiController
      */
     public function index()
     {
-        $transactions = Transaction::with(['account', 'category', 'contact'])->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with('account', 'category', 'contact')->collect(['paid_at'=> 'desc']);
 
         return $this->response->paginator($transactions, new Transformer());
     }
@@ -45,7 +45,7 @@ class Transactions extends ApiController
     {
         $transaction = $this->dispatch(new CreateTransaction($request));
 
-        return $this->response->created(url('api/transactions/' . $transaction->id));
+        return $this->response->created(route('api.transactions.show', $transaction->id));
     }
 
     /**

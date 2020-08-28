@@ -28,7 +28,6 @@ class BillItem extends FormRequest
             'name' => 'required|string',
             'quantity' => 'required|integer',
             'price' => 'required',
-            'price' => 'required',
             'total' => 'required',
             'tax' => 'required',
             'tax_id' => 'required',

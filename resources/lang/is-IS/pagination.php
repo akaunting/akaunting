@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; Fyrri',
-    'next'                  => 'Næsta &raquo;',
+    'previous'              => 'Previous',
+    'next'                  => 'Next',
     'showing'               => ':first-:last of :total records.',
     'page'                  => 'per page.',
 

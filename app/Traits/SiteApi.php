@@ -19,7 +19,7 @@ trait SiteApi
         $headers['headers'] = [
             'Authorization' => 'Bearer ' . setting('apps.api_key'),
             'Accept'        => 'application/json',
-            'Referer'       => app()->runningInConsole() ? config('app.url') : url('/'),
+            'Referer'       => app()->runningInConsole() ? config('app.url') : route('dashboard'),
             'Akaunting'     => version('short'),
             'Language'      => language()->getShortCode(),
             'Information'   => json_encode(Info::all()),

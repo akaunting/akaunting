@@ -69,14 +69,14 @@ return [
             'number' => ['searchable' => true],
             'bank_name' => ['searchable' => true],
             'bank_address' => ['searchable' => true],
-            'currency_code',
+            'currency' => ['relationship' => true],
             'enabled' => ['boolean' => true],
         ],
     ],
 
     App\Models\Banking\Reconciliation::class => [
         'columns' => [
-            'account_id',
+            'account' => ['relationship' => true],
             'closing_balance',
             'reconciled' => ['boolean' => true],
             'started_at' => ['date' => true],

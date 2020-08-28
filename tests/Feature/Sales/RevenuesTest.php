@@ -26,16 +26,22 @@ class RevenuesTest extends FeatureTestCase
 
    public function testItShouldCreateRevenue()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('revenues.store'), $this->getRequest())
+            ->post(route('revenues.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('transactions', $request);
     }
 
 	public function testItShouldSeeRevenueUpdatePage()
 	{
-        $revenue = $this->dispatch(new CreateTransaction($this->getRequest()));
+        $request = $this->getRequest();
+
+        $revenue = $this->dispatch(new CreateTransaction($request));
 
 		$this->loginAs()
 			->get(route('revenues.edit', $revenue->id))
@@ -57,17 +63,23 @@ class RevenuesTest extends FeatureTestCase
 			->assertSee($request['amount']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('transactions', $request);
     }
 
     public function testItShouldDeleteRevenue()
     {
-        $revenue = $this->dispatch(new CreateTransaction($this->getRequest()));
+        $request = $this->getRequest();
+
+        $revenue = $this->dispatch(new CreateTransaction($request));
 
         $this->loginAs()
             ->delete(route('revenues.destroy', $revenue->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('transactions', $request);
     }
 
     public function getRequest()

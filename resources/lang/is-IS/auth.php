@@ -13,6 +13,7 @@ return [
     'current_email'         => 'Núverandi netfang',
     'reset'                 => 'Endursetja',
     'never'                 => 'aldrei',
+    'landing_page'          => 'Upphafssíða',
 
     'password' => [
         'current'           => 'Lykilorð',

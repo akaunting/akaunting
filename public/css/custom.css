@@ -165,20 +165,6 @@ button:focus {
     overflow: hidden;
 }
 
-/*--------Customer/Vendor Show--------*/
-.show-transaction-card-header {
-    padding: 1.14rem;
-}
-
-.show-transaction-card-footer {
-    padding: 1.15rem;
-}
-
-.edit-sv {
-    margin-bottom: 30px;
-}
-/*--------Customer/Vendor Show Finish--------*/
-
 /*--------Navbar Notification--------*/
 .nav-link .badge-update {
     position: absolute;
@@ -268,12 +254,28 @@ tbody .row {
 }
 /*--------Table Body Row Margin Finish--------*/
 
+/*--------Table Cell Text Wrap--------*/
+.el-table td,
+.el-table th,
+.table td,
+.table th {
+    white-space: normal;
+}
+/*--------Table Cell Text Wrap Finish--------*/
+
 /*--------Item Column Image--------*/
 .item-img {
     width: 38px;
     height: 38px;
 }
 /*--------Item Column Image Finish--------*/
+
+/*--------User Column Image--------*/
+.user-img {
+    width: 36px;
+    height: 36px;
+}
+/*--------User Column Image Finish--------*/
 
 /*--------Border--------*/
 .border-1 {
@@ -818,4 +820,8 @@ table .align-items-center td span.badge {
 
 .navbar-vertical .navbar-nav .nav-link:not(.active) {
     color: #fff !important;
+}
+
+.form-group.has-error .el-input__inner {
+    border-color: #ef3232 !important;
 }

@@ -8,4 +8,5 @@ return [
     'inclusive'             => 'Dahil',
     'compound'              => 'Bileşik',
     'fixed'                 => 'Sabit',
+    'withholding'           => 'Stopaj',
 ];

@@ -22,9 +22,9 @@ class InvoiceTransactions extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-sales-invoices')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-sales-invoices')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-sales-invoices')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-sales-invoices')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-sales-invoices')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-sales-invoices')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-sales-invoices')->only('destroy');
     }
 
@@ -67,6 +67,24 @@ class InvoiceTransactions extends Controller
             'error' => false,
             'message' => 'null',
             'html' => $html,
+            'data' => [
+                'title' => trans('general.title.new', ['type' => trans_choice('general.payments', 1)]),
+                'buttons' => [
+                    'cancel' => [
+                        'text' => trans('general.cancel'),
+                        'class' => 'btn-outline-secondary'
+                    ],
+                    'payment' => [
+                        'text' => trans('invoices.accept_payments'),
+                        'class' => 'long-texts',
+                        'url' => route('apps.categories.show', 'payment-method')
+                    ],
+                    'confirm' => [
+                        'text' => trans('general.save'),
+                        'class' => 'btn-success'
+                    ]
+                ]
+            ]
         ]);
     }
 

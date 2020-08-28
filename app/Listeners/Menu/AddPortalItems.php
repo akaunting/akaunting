@@ -14,12 +14,17 @@ class AddPortalItems
      */
     public function handle(Event $event)
     {
+        $user = user();
         $menu = $event->menu;
 
-        $menu->route('portal.dashboard', trans_choice('general.dashboards', 1), [], 1, ['icon' => 'fa fa-tachometer-alt']);
+        $menu->route('portal.dashboard', trans_choice('general.dashboards', 1), [], 10, ['icon' => 'fa fa-tachometer-alt']);
 
-        $menu->route('portal.invoices.index', trans_choice('general.invoices', 2), [], 2, ['icon' => 'fa fa-file-signature']);
+        if ($user->can('read-portal-invoices')) {
+            $menu->route('portal.invoices.index', trans_choice('general.invoices', 2), [], 20, ['icon' => 'fa fa-file-signature']);
+        }
 
-        $menu->route('portal.payments.index', trans_choice('general.payments', 2), [], 3, ['icon' => 'fa fa-money-bill']);
+        if ($user->can('read-portal-payments')) {
+            $menu->route('portal.payments.index', trans_choice('general.payments', 2), [], 30, ['icon' => 'fa fa-money-bill']);
+        }
     }
 }

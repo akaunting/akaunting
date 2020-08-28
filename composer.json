@@ -18,12 +18,12 @@
         "akaunting/language": "1.0.*",
         "akaunting/menu": "1.0.*",
         "akaunting/module": "1.0.*",
-        "akaunting/money": "1.1.*",
-        "akaunting/setting": "1.1.*",
+        "akaunting/money": "1.2.*",
+        "akaunting/setting": "1.2.*",
         "akaunting/version": "1.0.*",
-        "barryvdh/laravel-debugbar": "3.2.*",
+        "barryvdh/laravel-debugbar": "3.3.*",
         "barryvdh/laravel-dompdf": "0.*",
-        "barryvdh/laravel-ide-helper": "2.6.*",
+        "barryvdh/laravel-ide-helper": "2.8.*",
         "bkwld/cloner": "3.7.*",
         "consoletvs/charts": "6.5.*",
         "dingo/api": "3.0.*",
@@ -34,6 +34,7 @@
         "graham-campbell/markdown": "12.0.*",
         "guzzlehttp/guzzle": "^6.5",
         "intervention/image": "2.5.*",
+        "intervention/imagecache": "^2.4",
         "kyslik/column-sortable": "^6.0",
         "laracasts/flash": "3.1.*",
         "laravel/framework": "^7.0",
@@ -74,14 +75,16 @@
             "App\\": "app/",
             "Modules\\": "modules/",
             "Akaunting\\Module\\Commands\\": "overrides/akaunting/module/Commands/",
-            "Illuminate\\Translation\\": "overrides/Illuminate/Translation/"
+            "Illuminate\\Translation\\": "overrides/Illuminate/Translation/",
+            "Symfony\\Component\\Process\\": "overrides/symfony/process/"
         },
         "exclude-from-classmap": [
             "vendor/akaunting/module/src/Commands/DeleteCommand.php",
             "vendor/akaunting/module/src/Commands/DisableCommand.php",
             "vendor/akaunting/module/src/Commands/EnableCommand.php",
             "vendor/akaunting/module/src/Commands/InstallCommand.php",
-            "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php"
+            "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php",
+            "vendor/symfony/process/PhpExecutableFinder.php"
         ],
         "files": [
             "app/Utilities/helpers.php"
@@ -101,6 +104,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
+            "php artisan ide-helper:models --nowrite",
             "php artisan clear-compiled",
             "composer dump-autoload"
         ],
@@ -108,6 +112,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
+            "php artisan ide-helper:models --nowrite",
             "php artisan clear-compiled",
             "composer dump-autoload"
         ],

@@ -89,8 +89,6 @@ class Login extends Controller
             return response()->json($response);
         }
 
-        session(['dashboard_id' => $user->dashboards()->enabled()->pluck('id')->first()]);
-
         $response = [
             'status' => null,
             'success' => true,

@@ -2,15 +2,33 @@
 
 return [
 
-    'accounts_cash'         => '現金',
-    'categories_deposit'    => '存款',
-    'categories_sales'      => '業務人員',
-    'currencies_usd'        => '美金',
-    'currencies_eur'        => '歐元',
-    'currencies_gbp'        => '英鎊',
-    'currencies_try'        => '土耳其里拉',
-    'taxes_exempt'          => '免稅',
-    'taxes_normal'          => '一般稅率',
-    'taxes_sales'           => '銷售稅',
+    'accounts' => [
+        'cash'              => '現金',
+    ],
+
+    'categories' => [
+        'deposit'           => '存款',
+        'sales'             => '銷售額',
+    ],
+
+    'currencies' => [
+        'usd'               => '美金',
+        'eur'               => '歐元',
+        'gbp'               => '英鎊',
+        'try'               => '土耳其里拉',
+    ],
+
+    'offline_payments' => [
+        'cash'              => '現金',
+        'bank'              => '銀行轉帳',
+    ],
+
+    'reports' => [
+        'income'            => '按類別分列的月收入總表。',
+        'expense'           => '按類別分列的月支出總表。',
+        'income_expense'    => '按類別分列的月收入/支出對比。',
+        'tax'               => '季度稅表。',
+        'profit_loss'       => '按類別分列的季度利潤和虧損統計表。',
+    ],
 
 ];

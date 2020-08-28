@@ -16,6 +16,8 @@ return [
         'sent'          => 'Jeni i sigurt që doni të shënoni faturën e zgjedhur si të <b>dërguar</b>?|Jeni i sigurt që doni të shënoni faturat e zgjedhura si të <b>dërguara</b>?',
         'received'      => 'Jeni i sigurt që doni të shënoni faturën e zgjedhur si të <b>pranuar</b>?|Jeni i sigurt që doni të shënoni faturat e zgjedhura si të <b>pranuara</b>?',
         'cancelled'     => 'Jeni i sigurt që doni të <b>anuloni</b> faturën e zgjedhur?|Jeni i sigurt që doni të <b>anuloni</b> faturat e zgjedhura?',
+        'reconcile'     => 'Jeni i sigurt që doni të <b>pajtoni</b> rekordin e zgjedhur?|Jeni i sigurt që doni të <b>pajtoni</b> rekordet e zgjedhura?',
+        'unreconcile'   => 'Jeni i sigurt që doni të <b>mos pajtoni</b> rekordin e zgjedhur?|Jeni i sigurt që doni të <b>mos pajtoni</b> rekordet e zgjedhura?',
     ],
 
 ];

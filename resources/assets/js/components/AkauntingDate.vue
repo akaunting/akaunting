@@ -6,7 +6,7 @@
             {'disabled': disabled},
             formClasses
         ]"
-        :error="formError"
+        :footer-error="formError"
         :prependIcon="icon"
         :readonly="readonly"
         :disabled="disabled"

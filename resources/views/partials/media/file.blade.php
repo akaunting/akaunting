@@ -10,7 +10,7 @@
                     <i class="fas fa-file-image display-3"></i>
                 @else
                     <a href="#" class="avatar">
-                        <img src="{{ url('uploads/' . $file->id) }}" alt="{{ $file->basename }}">
+                        <img src="{{ route('uploads.get', $file->id) }}" alt="{{ $file->basename }}">
                     </a>
                 @endif
             </div>
@@ -26,26 +26,18 @@
 
             <div class="col-auto">
                 @permission('delete-common-uploads')
-                    {!! Form::open([
-                        'id' => $column_name. '-' . $file->id,
-                        'method' => 'DELETE',
-                        'url' => [url('uploads/' . $file->id)],
-                        'class' => 'd-inline'
-                    ]) !!}
+                    <a href="javascript:void();" id="remove-{{ $column_name }}" @click="onDeleteFile('{{ $file->id }}', '{{ route('uploads.destroy', $file->id) }}', '{{ trans('general.title.delete', ['type' => $column_name]) }}', '{{ trans('general.delete_confirm', ['name' => $file->basename, 'type' => $column_name]) }} ', '{{ trans('general.cancel') }}', '{{ trans('general.delete') }}')" type="button" class="btn btn-sm btn-danger text-white header-button-top">
+                        <i class="fas fa-times"></i>
+                    </a>
 
-                        <a href="javascript:void();" id="remove-{{ $column_name }}" type="button" class="btn btn-sm btn-danger text-white header-button-top">
-                            <i class="fas fa-times"></i>
-                        </a>
-
-                        @if ($options)
-                            <input type="hidden" name="page" value="{{ $options['page'] }}" />
-                            <input type="hidden" name="key" value="{{ $options['key'] }}" />
-                            <input type="hidden" name="value" value="{{ $file->id }}" />
-                        @endif
-                    {!! Form::close() !!}
+                    @if ($options)
+                        <input type="hidden" name="page_{{ $file->id}}" id="file-page-{{ $file->id}}" value="{{ $options['page'] }}" />
+                        <input type="hidden" name="key_{{ $file->id}}" id="file-key-{{ $file->id}}" value="{{ $options['key'] }}" />
+                        <input type="hidden" name="value_{{ $file->id}}" id="file-value-{{ $file->id}}" value="{{ $file->id }}" />
+                    @endif
                 @endpermission
 
-                <a href="{{ url('uploads/' . $file->id . '/download') }}" type="button" class="btn btn-sm btn-info text-white header-button-top">
+                <a href="{{ rotue('uploads.download', $file->id) }}" type="button" class="btn btn-sm btn-info text-white header-button-top">
                     <i class="fas fa-file-download"></i>
                 </a>
             </div>

@@ -16,6 +16,8 @@ return [
         'sent'          => 'Are you sure you want to mark selected invoice as <b>sent</b>?|Are you sure you want to mark selected invoices as <b>sent</b>?',
         'received'      => 'Are you sure you want to mark selected bill as <b>received</b>?|Are you sure you want to mark selected bills as <b>received</b>?',
         'cancelled'     => 'Are you sure you want to <b>cancel</b> selected invoice/bill?|Are you sure you want to <b>cancel</b> selected invoices/bills?',
+        'reconcile'     => 'Are you sure you want to <b>reconcile</b> selected record?|Are you sure you want to <b>reconcile</b> selected records?',
+        'unreconcile'   => 'Are you sure you want to <b>unreconcile</b> selected record?|Are you sure you want to <b>unreconcile</b> selected records?',
     ],
 
 ];

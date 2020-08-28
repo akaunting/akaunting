@@ -55,6 +55,10 @@ class Form extends Provider
             'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6', 'group_class' => null
         ]);
 
+        Facade::component('multiSelectRemoteGroup', 'partials.form.multi_select_remote_group', [
+            'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6', 'group_class' => null
+        ]);
+
         Facade::component('selectGroup', 'partials.form.select_group', [
             'name', 'text', 'icon', 'values', 'selected' => null, 'attributes' => ['required' => 'required'], 'col' => 'col-md-6', 'group_class' => null
         ]);
@@ -88,7 +92,7 @@ class Form extends Provider
         ]);
 
         Facade::component('checkboxGroup', 'partials.form.checkbox_group', [
-            'name', 'text', 'items' => [], 'value' => 'name', 'id' => 'id', 'attributes' => ['required' => 'required'], 'col' => 'col-md-12',
+            'name', 'text', 'items' => [], 'value' => 'name', 'id' => 'id', 'selected'=>[], 'attributes' => ['required' => 'required'], 'col' => 'col-md-12',
         ]);
 
         Facade::component('fileGroup', 'partials.form.file_group', [

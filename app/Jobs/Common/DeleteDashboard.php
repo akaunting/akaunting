@@ -4,7 +4,6 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Traits\Users;
-use Artisan;
 
 class DeleteDashboard extends Job
 {
@@ -31,9 +30,11 @@ class DeleteDashboard extends Job
     {
         $this->authorize();
 
-        $this->deleteRelationships($this->dashboard, ['widgets']);
+        \DB::transaction(function () {
+            $this->deleteRelationships($this->dashboard, ['widgets']);
 
-        $this->dashboard->delete();
+            $this->dashboard->delete();
+        });
 
         return true;
     }

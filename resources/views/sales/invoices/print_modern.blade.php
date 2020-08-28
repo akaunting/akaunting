@@ -129,7 +129,7 @@
                 @stack('notes_input_start')
                     @if ($invoice->notes)
                         <strong>{{ trans_choice('general.notes', 2) }}</strong><br><br>
-                        {{ $invoice->notes }}
+                        {!! nl2br($invoice->notes) !!}
                     @endif
                 @stack('notes_input_end')
             </div>
@@ -139,19 +139,21 @@
             <div class="text company pr-2">
                 @foreach ($invoice->totals_sorted as $total)
                     @if ($total->code != 'total')
-                        @stack($total->code . '_td_start')
-                            <strong class="float-left">{{ trans($total->title) }}:</strong>
-                            <span>@money($total->amount, $invoice->currency_code, true)</span><br><br>
-                        @stack($total->code . '_td_end')
+                        @stack($total->code . '_total_tr_start')
+                        <strong class="float-left">{{ trans($total->title) }}:</strong>
+                        <span>@money($total->amount, $invoice->currency_code, true)</span><br><br>
+                        @stack($total->code . '_total_tr_end')
                     @else
                         @if ($invoice->paid)
+                            @stack('paid_total_tr_start')
                             <strong class="float-left">{{ trans('invoices.paid') }}:</strong>
                             <span>- @money($invoice->paid, $invoice->currency_code, true)</span><br><br>
+                            @stack('paid_total_tr_end')
                         @endif
-                        @stack('grand_total_td_start')
+                        @stack('grand_total_tr_start')
                             <strong class="float-left">{{ trans($total->name) }}:</strong>
                             <span>@money($total->amount - $invoice->paid, $invoice->currency_code, true)</span>
-                        @stack('grand_total_td_end')
+                        @stack('grandtotal_tr_end')
                     @endif
                 @endforeach
             </div>
@@ -162,7 +164,7 @@
         <div class="row mt-7">
             <div class="col-100 py-2" style="background-color:{{ setting('invoice.color') }} !important; -webkit-print-color-adjust: exact;">
                 <div class="text pl-2">
-                    <strong class="text-white">{!! $invoice->footer !!}</strong>
+                    <strong class="text-white">{!! nl2br($invoice->footer) !!}</strong>
                 </div>
             </div>
         </div>

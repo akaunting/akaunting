@@ -12,24 +12,22 @@
 
     <div class="row">
         <div class="col-md-8">
-            <h3>{{ $module->name }}</h3>
-
-            <div class="nav-wrapper">
-                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-2 mb-md-0 active" href="#description" data-toggle="tab" aria-selected="false">{{ trans('general.description') }}</a>
-                    </li>
-                </ul>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="float-left">
+                        <h3>{{ $module->name }}</h3>
+                    </div>
+                </div>
             </div>
 
-            <div class="card shadow">
+            <div class="card">
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="description">
                             {!! $module->description !!}
 
                             @if ($module->screenshots || $module->video)
-                               <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'"
+                               <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'" arrow="always"
                                     @if ($module->video)
                                         @php
                                             if (strpos($module->video->link, '=') !== false) {
@@ -53,7 +51,16 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div id="countdown-pre-sale"></div>
+                    <akaunting-countdown id="countdown-pre-sale"
+                        :year="{{ (int) $module->pre_sale_date->year }}"
+                        :month="{{ (int) $module->pre_sale_date->month - 1 }}"
+                        :date="{{ (int) $module->pre_sale_date->day }}"
+                    ></akaunting-countdown>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
                     <div class="text-center">
                         <strong>
                             <div class="text-xl">
@@ -61,6 +68,7 @@
                                     {{ trans('modules.free') }}
                                 @else
                                     {!! $module->price_prefix !!}
+
                                     @if (isset($module->special_price))
                                         <del class="text-danger">{{ $module->price }}</del>
                                         {{ $module->special_price }}
@@ -101,33 +109,37 @@
                 <table class="table">
                     <tbody>
                         @if ($module->vendor_name)
-                            <tr>
-                                <th>{{ trans_choice('general.developers', 1) }}</th>
-                                <td class="text-right"><a href="{{ route('apps.vendors.show', $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans_choice('general.developers', 1) }}</th>
+                                <td class="col-7 text-right"><a href="{{ route('apps.vendors.show', $module->vendor->slug) }}">{{ $module->vendor_name }}</a></td>
                             </tr>
                         @endif
                         @if ($module->version)
-                            <tr>
-                                <th>{{ trans('footer.version') }}</th>
-                                <td class="text-right">{{ $module->version }}</td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans('footer.version') }}</th>
+                                <td class="col-7 text-right">{{ $module->version }}</td>
                             </tr>
                         @endif
                         @if ($module->created_at)
-                            <tr>
-                                <th>{{ trans('modules.added') }}</th>
-                                <td class="text-right">@date($module->created_at)</td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans('modules.added') }}</th>
+                                <td class="col-7 text-right long-texts">@date($module->created_at)</td>
                             </tr>
                         @endif
                         @if ($module->updated_at)
-                            <tr>
-                                <th>{{ trans('modules.updated') }}</th>
-                                <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
+                            <tr class="row">
+                                <th class="col-5">{{ trans('modules.updated') }}</th>
+                                <td class="col-7 text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                             </tr>
                         @endif
-                        @if ($module->category)
-                            <tr>
-                                <th>{{ trans_choice('general.categories', 1) }}</th>
-                                <td class="text-right"><a href="{{ route('apps.categories.show', $module->category->slug) }}">{{ $module->category->name }}</a></td>
+                        @if ($module->categories)
+                            <tr class="row">
+                                <th class="col-5">{{ trans_choice('general.categories', (count($module->categories) > 1) ? 2 : 1) }}</th>
+                                <td class="col-7 text-right">
+                                    @foreach ($module->categories as $module_category)
+                                        <a href="{{ route('apps.categories.show', $module_category->slug) }}">{{ $module_category->name }}</a> </br>
+                                    @endforeach
+                                </td>
                             </tr>
                         @endif
                     </tbody>

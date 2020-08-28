@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Erro: Peça ao seu provedor de hospedagem para usar PHP :php_version ou superior para HTTP e CLI.',
         'connection'        => 'Erro: Não foi possível conectar ao banco de dados! Certifique-se de que os detalhes estão corretos.',
     ],
 

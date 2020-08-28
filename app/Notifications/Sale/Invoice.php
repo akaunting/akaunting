@@ -80,6 +80,10 @@ class Invoice extends Notification
             '{invoice_portal_link}',
             '{customer_name}',
             '{company_name}',
+            '{company_email}',
+            '{company_tax_number}',
+            '{company_phone}',
+            '{company_address}',
         ];
     }
 
@@ -93,7 +97,11 @@ class Invoice extends Notification
             route('invoices.show', $this->invoice->id),
             route('portal.invoices.show', $this->invoice->id),
             $this->invoice->contact_name,
-            $this->invoice->company->name
+            $this->invoice->company->name,
+            $this->invoice->company->email,
+            $this->invoice->company->tax_number,
+            $this->invoice->company->phone,
+            nl2br(trim($this->invoice->company->address)),
         ];
     }
 }

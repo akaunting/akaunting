@@ -3,8 +3,8 @@
 namespace App\Abstracts;
 
 use App\Abstracts\Model;
-use App\Models\Banking\Transaction;
-use App\Models\Setting\Currency;
+use App\Events\Sale\InvoicePaidCalculated;
+use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
@@ -65,10 +65,10 @@ abstract class DocumentModel extends Model
     {
         $percent = 0;
 
-        $discount = $this->totals()->where('code', 'discount')->value('amount');
+        $discount = $this->totals->where('code', 'discount')->makeHidden('title')->pluck('amount')->first();
 
         if ($discount) {
-            $sub_total = $this->totals()->where('code', 'sub_total')->value('amount');
+            $sub_total = $this->totals->where('code', 'sub_total')->makeHidden('title')->pluck('amount')->first();
 
             $percent = number_format((($discount * 100) / $sub_total), 0);
         }
@@ -90,28 +90,16 @@ abstract class DocumentModel extends Model
         $paid = 0;
         $reconciled = $reconciled_amount = 0;
 
+        $code = $this->currency_code;
+        $rate = config('money.' . $code . '.rate');
+        $precision = config('money.' . $code . '.precision');
+
         if ($this->transactions->count()) {
-            $currencies = Currency::enabled()->pluck('rate', 'code')->toArray();
-
             foreach ($this->transactions as $item) {
-                if ($this->currency_code == $item->currency_code) {
-                    $amount = (double) $item->amount;
-                } else {
-                    $default_model = new Transaction();
-                    $default_model->default_currency_code = $this->currency_code;
-                    $default_model->amount = $item->amount;
-                    $default_model->currency_code = $item->currency_code;
-                    $default_model->currency_rate = $currencies[$item->currency_code];
+                $amount = $item->amount;
 
-                    $default_amount = (double) $default_model->getAmountConvertedToDefault();
-
-                    $convert_model = new Transaction();
-                    $convert_model->default_currency_code = $item->currency_code;
-                    $convert_model->amount = $default_amount;
-                    $convert_model->currency_code = $this->currency_code;
-                    $convert_model->currency_rate = $currencies[$this->currency_code];
-
-                    $amount = (double) $convert_model->getAmountConvertedFromDefault();
+                if ($code != $item->currency_code) {
+                    $amount = $this->convertBetween($amount, $item->currency_code, $item->currency_rate, $code, $rate);
                 }
 
                 $paid += $amount;
@@ -122,13 +110,19 @@ abstract class DocumentModel extends Model
             }
         }
 
-        if ($this->amount == $reconciled_amount) {
+        if (bccomp(round($this->amount, $precision), round($reconciled_amount, $precision), $precision) === 0) {
             $reconciled = 1;
         }
 
         $this->setAttribute('reconciled', $reconciled);
 
-        return $paid;
+        // TODO: find a cleaner way compatible with observer pattern
+        $invoice = clone $this;
+        $invoice->paid_amount = $paid;
+
+        event(new InvoicePaidCalculated($invoice));
+
+        return round($invoice->paid_amount, $precision);
     }
     /**
      * Get the status label.
@@ -171,8 +165,14 @@ abstract class DocumentModel extends Model
     {
         $amount = $this->amount;
 
-        $this->totals()->where('code', 'tax')->each(function ($tax) use(&$amount) {
-            $amount -= $tax->amount;
+        $this->totals->where('code', 'tax')->each(function ($total) use(&$amount) {
+            $tax = Tax::name($total->name)->first();
+
+            if (!empty($tax) && ($tax->type == 'withholding')) {
+                return;
+            }
+
+            $amount -= $total->amount;
         });
 
         return $amount;

@@ -55,7 +55,7 @@
                                 @endif
                                 <td class="col-md-1 text-right d-none d-md-block">
                                     <div class="custom-control custom-checkbox">
-                                        {{ Form::checkbox($item->type . '_' . $item->id, $item->amount, $item->reconciled, [
+                                        {{ Form::checkbox($item->type . '_' . $item->id, $item->amount_for_account, $item->reconciled, [
                                             'data-field' => 'transactions',
                                             'v-model' => 'form.transactions.' . $item->type . '_' . $item->id,
                                             'id' => 'transaction-' . $item->id . '-'. $item->type,
@@ -70,34 +70,40 @@
                     </tbody>
                 </table>
                 @if ($transactions->count())
-                <table class="table">
-                    <tbody>
-                        <tr class="row">
-                            <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.closing_balance') }}:</th>
-                            <td id="closing-balance" class="col-md-3 col-lg-1 text-right d-none d-md-block">
-                                {{ Form::moneyGroup('closing_balance_total', '', '', ['disabled' => true, 'required' => 'required', 'v-model' => 'totals.closing_balance', 'currency' => $currency, 'masked' => 'true'], $reconciliation->closing_balance, 'text-right d-none') }}
-                                <span id="closing-balance-total" v-if="totals.closing_balance" v-html="totals.closing_balance"></span>
-                                <span v-else>@money($reconciliation->closing_balance, $account->currency_code, true)</span>
-                            </td>
-                        </tr>
-                        <tr class="row">
-                            <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.cleared_amount') }}:</th>
-                            <td id="cleared-amount" class="col-md-3 col-lg-1 text-right d-none d-md-block">
-                                {{ Form::moneyGroup('cleared_amount_total', '', '', ['disabled' => true, 'required' => 'required', 'v-model' => 'totals.cleared_amount', 'currency' => $currency, 'masked' => 'true'], 0.00, 'text-right d-none') }}
-                                <span id="cleared-amount-total" v-if="totals.cleared_amount" v-html="totals.cleared_amount"></span>
-                                <span v-else>@money(0, $account->currency_code, true)</span>
-                            </td>
-                        </tr>
-                        <tr :class="difference" class="row">
-                            <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('general.difference') }}:</th>
-                            <td id="difference" class="col-md-3 col-lg-1 text-right d-none d-md-block">
-                                {{ Form::moneyGroup('difference_total', '', '', ['disabled' => true, 'required' => 'required', 'v-model' => 'totals.difference', 'currency' => $currency, 'masked' => 'true'], 0.00, 'text-right d-none') }}
-                                <span id="difference-total" v-if="totals.difference" v-html="totals.difference"></span>
-                                <span v-else>@money(0, $account->currency_code, true)</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table class="table">
+                        <tbody>
+                            <tr class="row">
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.opening_balance') }}:</th>
+                                <td id="closing-balance" class="col-md-3 col-lg-1 text-right d-none d-md-block">
+                                    <span>@money($opening_balance, $account->currency_code, true)</span>
+                                </td>
+                            </tr>
+                            <tr class="row">
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.closing_balance') }}:</th>
+                                <td id="closing-balance" class="col-md-3 col-lg-1 text-right d-none d-md-block">
+                                    {{ Form::moneyGroup('closing_balance_total', '', '', ['disabled' => true, 'required' => 'required', 'v-model' => 'totals.closing_balance', 'currency' => $currency, 'masked' => 'true'], $reconciliation->closing_balance, 'text-right d-none') }}
+                                    <span id="closing-balance-total" v-if="totals.closing_balance" v-html="totals.closing_balance"></span>
+                                    <span v-else>@money($reconciliation->closing_balance, $account->currency_code, true)</span>
+                                </td>
+                            </tr>
+                            <tr class="row">
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.cleared_amount') }}:</th>
+                                <td id="cleared-amount" class="col-md-3 col-lg-1 text-right d-none d-md-block">
+                                    {{ Form::moneyGroup('cleared_amount_total', '', '', ['disabled' => true, 'required' => 'required', 'v-model' => 'totals.cleared_amount', 'currency' => $currency, 'masked' => 'true'], 0.00, 'text-right d-none') }}
+                                    <span id="cleared-amount-total" v-if="totals.cleared_amount" v-html="totals.cleared_amount"></span>
+                                    <span v-else>@money(0, $account->currency_code, true)</span>
+                                </td>
+                            </tr>
+                            <tr :class="difference" class="row">
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('general.difference') }}:</th>
+                                <td id="difference" class="col-md-3 col-lg-1 text-right d-none d-md-block">
+                                    {{ Form::moneyGroup('difference_total', '', '', ['disabled' => true, 'required' => 'required', 'v-model' => 'totals.difference', 'currency' => $currency, 'masked' => 'true'], 0.00, 'text-right d-none') }}
+                                    <span id="difference-total" v-if="totals.difference" v-html="totals.difference"></span>
+                                    <span v-else>@money(0, $account->currency_code, true)</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 @endif
             </div>
 

@@ -20,12 +20,18 @@ class Event extends Provider
             'App\Listeners\Update\V20\Version207',
             'App\Listeners\Update\V20\Version208',
             'App\Listeners\Update\V20\Version209',
+            'App\Listeners\Update\V20\Version2014',
+            'App\Listeners\Update\V20\Version2017',
+            'App\Listeners\Update\V20\Version2020',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\Auth\Login',
         ],
         'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\Auth\Logout',
+        ],
+        'App\Events\Auth\LandingPageShowing' => [
+            'App\Listeners\Auth\AddLandingPages',
         ],
         'App\Events\Purchase\BillCreated' => [
             'App\Listeners\Purchase\CreateBillCreatedHistory',
@@ -72,6 +78,9 @@ class Event extends Provider
         'App\Events\Menu\PortalCreated' => [
             'App\Listeners\Menu\AddPortalItems',
         ],
+        'App\Events\Module\Installed' => [
+            'App\Listeners\Module\FinishInstallation',
+        ],
     ];
 
     /**
@@ -80,6 +89,7 @@ class Event extends Provider
      * @var array
      */
     protected $subscribe = [
+        'App\Listeners\Module\ClearCache',
         'App\Listeners\Report\AddDate',
         'App\Listeners\Report\AddAccounts',
         'App\Listeners\Report\AddCustomers',

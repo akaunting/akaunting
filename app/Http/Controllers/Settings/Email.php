@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Setting as Request;
+use App\Models\Common\Company;
 use App\Models\Common\EmailTemplate;
-use App\Models\Setting\Setting;
+use App\Utilities\Installer;
 use Illuminate\Support\Str;
 
 class Email extends Controller
@@ -23,20 +24,14 @@ class Email extends Controller
         }
 
         // Add CRUD permission check
-        $this->middleware('permission:create-settings-settings')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-settings-email')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-settings-settings')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-settings-settings')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-settings-email')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-settings-settings')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-settings-settings')->only('destroy');
     }
 
     public function edit()
     {
-        $setting = Setting::prefix('email')->get()->transform(function ($s) {
-            $s->key = str_replace('email.', '', $s->key);
-
-            return $s;
-        })->pluck('value', 'key');
-
         $templates = EmailTemplate::all();
 
         $email_protocols = [
@@ -47,7 +42,6 @@ class Email extends Controller
         ];
 
         return view('settings.email.edit', compact(
-            'setting',
             'templates',
             'email_protocols'
         ));
@@ -57,6 +51,8 @@ class Email extends Controller
     {
         $fields = $request->all();
         $prefix = $request->get('_prefix', 'email');
+
+        $total_companies = Company::count();
 
         foreach ($fields as $key => $value) {
             $real_key = $prefix . '.' . $key;
@@ -70,6 +66,10 @@ class Email extends Controller
                 $this->updateEmailTemplate($key, $fields);
 
                 continue;
+            }
+
+            if ($total_companies == 1) {
+                $this->oneCompany($real_key, $value);
             }
 
             setting()->set($real_key, $value);
@@ -113,5 +113,33 @@ class Email extends Controller
 
         unset($fields[$subject_key]);
         unset($fields[$body_key]);
+    }
+
+    protected function oneCompany($real_key, $value)
+    {
+        if (empty($value)) {
+            return;
+        }
+
+        switch ($real_key) {
+            case 'email.protocol':
+                Installer::updateEnv(['MAIL_MAILER' => '"' . $value . '"']);
+                break;
+            case 'email.smtp_host':
+                Installer::updateEnv(['MAIL_HOST' => '"' . $value . '"']);
+                break;
+            case 'email.smtp_port':
+                Installer::updateEnv(['MAIL_PORT' => '"' . $value . '"']);
+                break;
+            case 'email.smtp_username':
+                Installer::updateEnv(['MAIL_USERNAME' => '"' . $value . '"']);
+                break;
+            case 'email.smtp_password':
+                Installer::updateEnv(['MAIL_PASSWORD' => '"' . $value . '"']);
+                break;
+            case 'email.smtp_encryption':
+                Installer::updateEnv(['MAIL_ENCRYPTION' => '"' . $value . '"']);
+                break;
+        }
     }
 }

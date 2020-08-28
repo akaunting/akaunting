@@ -52,6 +52,11 @@
         </div>
       </slot>
     </div>
+    <slot name="error">
+      <div v-if="footerError" class="invalid-feedback d-block"
+          v-html="footerError">
+      </div>
+    </slot>
   </div>
 </template>
 <script>
@@ -81,6 +86,10 @@
         description: "Input label (text before input)"
       },
       error: {
+        type: String,
+        description: "Input error (below input)"
+      },
+      footerError: {
         type: String,
         description: "Input error (below input)"
       },

@@ -30,7 +30,9 @@ class UpdatePermission extends Job
      */
     public function handle()
     {
-        $this->permission->update($this->request->all());
+        \DB::transaction(function () {
+            $this->permission->update($this->request->all());
+        });
 
         return $this->permission;
     }

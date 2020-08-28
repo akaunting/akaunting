@@ -22,6 +22,7 @@
                             </div>
                             <div class="modal-body pb-0" v-else>
                                 <form id="form-create" method="POST" action="#"/>
+
                                 <component v-bind:is="component"></component>
                             </div>
                         </slot>
@@ -33,7 +34,11 @@
                                         {{ buttons.cancel.text }}
                                     </button>
 
-                                    <button :disabled="form.loading" type="button" class="btn button-submit" :class="buttons.confirm.class" @click="onSubmit">
+                                    <a v-if="buttons.payment" :href="buttons.payment.url" class="btn btn-white" :class="buttons.payment.class">
+                                        {{ buttons.payment.text }}
+                                    </a>
+
+                                    <button  :disabled="form.loading" type="button" class="btn button-submit" :class="buttons.confirm.class" @click="onSubmit">
                                         <div class="aka-loader"></div><span>{{ buttons.confirm.text }}</span>
                                     </button>
                                 </div>
@@ -139,10 +144,12 @@ export default {
     },
 
     mounted() {
+        let form_prefix = this._uid;
+
         if (this.is_component) {
             this.component = Vue.component('add-new-component', (resolve, reject) => {
                 resolve({
-                    template : '<div id="modal-add-new-form">' + this.message + '</div>',
+                    template : '<div id="modal-add-new-form-' + form_prefix + '">' + this.message + '</div>',
 
                     components: {
                         AkauntingRadioGroup,
@@ -159,7 +166,7 @@ export default {
                     },
 
                     mounted() {
-                        let form_id = document.getElementById('modal-add-new-form').children[0].id;
+                        let form_id = document.getElementById('modal-add-new-form-' + form_prefix).children[0].id;
 
                         this.form = new Form(form_id);
                     },
@@ -217,7 +224,24 @@ export default {
                             })
                             .catch(error => {
                             });
-                        }
+                        },
+
+                        // Change bank account get money and currency rate
+                        async onChangePaymentAccount(account_id) {
+                            let payment_account = Promise.resolve(window.axios.get(url + '/banking/accounts/currency', {
+                                params: {
+                                    account_id: account_id
+                                }
+                            }));
+
+                            payment_account.then(response => {
+                                this.form.currency = response.data.currency_name;
+                                this.form.currency_code = response.data.currency_code;
+                                this.form.currency_rate = response.data.currency_rate;
+                            })
+                            .catch(error => {
+                            });
+                        },
                     }
                 })
             });

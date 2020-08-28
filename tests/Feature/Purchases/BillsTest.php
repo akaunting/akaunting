@@ -26,25 +26,39 @@ class BillsTest extends FeatureTestCase
 
     public function testItShouldCreateBill()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('bills.store'), $this->getRequest())
+            ->post(route('bills.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('bills', [
+            'bill_number' => $request['bill_number'],
+        ]);
     }
 
     public function testItShouldCreateBillWithRecurring()
     {
+        $request = $this->getRequest(true);
+
         $this->loginAs()
-            ->post(route('bills.store'), $this->getRequest(true))
+            ->post(route('bills.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('bills', [
+            'bill_number' => $request['bill_number'],
+        ]);
     }
 
     public function testItShouldSeeBillUpdatePage()
     {
-        $bill = $this->dispatch(new CreateBill($this->getRequest()));
+        $request = $this->getRequest();
+
+        $bill = $this->dispatch(new CreateBill($request));
 
         $this->loginAs()
             ->get(route('bills.edit', $bill->id))
@@ -66,17 +80,28 @@ class BillsTest extends FeatureTestCase
 			->assertSee($request['contact_email']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('bills', [
+            'bill_number' => $request['bill_number'],
+            'contact_email' => $request['contact_email'],
+        ]);
     }
 
     public function testItShouldDeleteBill()
     {
-        $bill = $this->dispatch(new CreateBill($this->getRequest()));
+        $request = $this->getRequest();
+
+        $bill = $this->dispatch(new CreateBill($request));
 
         $this->loginAs()
             ->delete(route('bills.destroy', $bill->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('bills', [
+            'bill_number' => $request['bill_number'],
+        ]);
     }
 
     public function getRequest($recurring = false)

@@ -19,7 +19,7 @@ class Reconciliations extends ApiController
      */
     public function index()
     {
-        $items = Reconciliation::with(['account'])->collect();
+        $items = Reconciliation::with('account')->collect();
 
         return $this->response->paginator($items, new Transformer());
     }
@@ -45,7 +45,7 @@ class Reconciliations extends ApiController
     {
         $reconciliation = $this->dispatch(new CreateReconciliation($request));
 
-        return $this->response->created(url('api/reconciliations/' . $reconciliation->id));
+        return $this->response->created(route('api.reconciliations.show', $reconciliation->id));
     }
 
     /**

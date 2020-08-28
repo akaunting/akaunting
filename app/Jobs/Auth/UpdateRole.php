@@ -30,11 +30,13 @@ class UpdateRole extends Job
      */
     public function handle()
     {
-        $this->role->update($this->request->all());
+        \DB::transaction(function () {
+            $this->role->update($this->request->all());
 
-        if ($this->request->has('permissions')) {
-            $this->role->permissions()->sync($this->request->get('permissions'));
-        }
+            if ($this->request->has('permissions')) {
+                $this->role->permissions()->sync($this->request->get('permissions'));
+            }
+        });
 
         return $this->role;
     }

@@ -24,9 +24,9 @@ class Transfers extends Controller
     {
         $data = [];
 
-        $items = Transfer::with([
+        $items = Transfer::with(
             'expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account'
-        ])->collect(['expense_transaction.paid_at' => 'desc']);
+        )->collect(['expense_transaction.paid_at' => 'desc']);
 
         foreach ($items as $item) {
             $income_transaction = $item->income_transaction;

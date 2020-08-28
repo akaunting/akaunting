@@ -45,7 +45,7 @@ class Categories extends ApiController
     {
         $category = $this->dispatch(new CreateCategory($request));
 
-        return $this->response->created(url('api/categories/' . $category->id));
+        return $this->response->created(route('api.categories.show', $category->id));
     }
 
     /**

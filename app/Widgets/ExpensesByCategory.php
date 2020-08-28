@@ -18,7 +18,7 @@ class ExpensesByCategory extends Widget
         Category::with('expense_transactions')->expense()->each(function ($category) {
             $amount = 0;
 
-            $this->applyFilters($category->expense_transactions())->each(function ($transaction) use (&$amount) {
+            $this->applyFilters($category->expense_transactions)->each(function ($transaction) use (&$amount) {
                 $amount += $transaction->getAmountConvertedToDefault();
             });
 

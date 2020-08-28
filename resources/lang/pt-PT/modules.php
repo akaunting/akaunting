@@ -3,7 +3,7 @@
 return [
 
     'api_key'               => 'Chave da API',
-    'my_apps'               => 'Minhas Aplicações',
+    'my_apps'               => 'As Minhas Aplicações',
     'pre_sale'              => 'Pré-Venda',
     'top_paid'              => 'Melhores Pagos',
     'new'                   => 'Recentes',
@@ -11,15 +11,15 @@ return [
     'free'                  => 'GRÁTIS',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar Agora',
-    'get_api_key'           => '<a href=":url" target="_blank">Click here</a> to get your API key.',
+    'get_api_key'           => '<a href=":url" target="_blank">Clique aqui</a> para obter a sua chave da API.',
     'no_apps'               => 'Ainda não existem aplicações nesta categoria.',
-    'become_developer'      => 'Are you a developer? <a href=":url" target="_blank">Here</a> you can learn how to create an app and start selling today!',
+    'become_developer'      => 'É um programador? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Aqui</a> poderá aprender como criar uma aplicação e começar a vende-la hoje mesmo!',
     'recommended_apps'      => 'Aplicações Recomendadas',
 
     'about'                 => 'Sobre',
 
-    'added'                 => 'Adicionado',
-    'updated'               => 'Atualizado',
+    'added'                 => 'Adicionada',
+    'updated'               => 'Atualizada',
     'compatibility'         => 'Compatibilidade',
     'documentation'         => 'Documentação',
     'view'                  => 'Ver',
@@ -41,19 +41,19 @@ return [
     'installation' => [
         'header'            => 'Instalação de aplicação',
         'download'          => 'A transferir :module',
-        'unzip'             => 'A extrair ficheiros :module',
-        'file_copy'         => 'Copying :module files',
-        'finish'            => 'Finalizing :module installation',
-        'redirect'          => ':module installed, redirecting to updates page',
-        'install'           => 'Installing :module',
+        'unzip'             => 'A extrair ficheiros de :module',
+        'file_copy'         => 'A copiar ficheiros de :module',
+        'finish'            => 'A finalizar a instalação de :module',
+        'redirect'          => ':module instalado, a redirecionar para a página de atualizações',
+        'install'           => 'A instalar :module',
     ],
 
     'errors' => [
-        'download'          => 'Not able to download :module',
-        'zip'               => 'Not able to create :module zip file',
-        'unzip'             => 'Not able to unzip :module',
-        'file_copy'         => 'Not able to copy :module files',
-        'finish'            => 'Not able to finalize :module installation',
+        'download'          => 'Não foi possível transferir :module',
+        'zip'               => 'Não foi possível criar o ficheiro zip de :module',
+        'unzip'             => 'Não foi possível descompactar :module',
+        'file_copy'         => 'Não foi possível copiar os ficheiros de :module',
+        'finish'            => 'Não foi possível finalizar a instalação de :module',
     ],
 
     'badge' => [
@@ -63,8 +63,8 @@ return [
 
     'button' => [
         'uninstall'         => 'Desinstalar',
-        'disable'           => 'Desactivar',
-        'enable'            => 'Activar',
+        'disable'           => 'Desativar',
+        'enable'            => 'Ativar',
     ],
 
     'my' => [

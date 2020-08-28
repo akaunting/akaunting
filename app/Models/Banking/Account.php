@@ -3,9 +3,12 @@
 namespace App\Models\Banking;
 
 use App\Abstracts\Model;
+use App\Traits\Transactions;
 
 class Account extends Model
 {
+    use Transactions;
+
     protected $table = 'accounts';
 
     /**
@@ -36,12 +39,12 @@ class Account extends Model
 
     public function expense_transactions()
     {
-        return $this->transactions()->where('type', 'expense');
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
     }
 
     public function income_transactions()
     {
-        return $this->transactions()->where('type', 'income');
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
     public function transactions()

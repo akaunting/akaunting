@@ -19,9 +19,9 @@ class Transfers extends ApiController
      */
     public function index()
     {
-        $transfers = Transfer::with([
+        $transfers = Transfer::with(
             'expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account'
-        ])->collect('expense_transaction.paid_at');
+        )->collect('expense_transaction.paid_at');
 
         $special_key = [
             'expense_transaction.name' => 'from_account',
@@ -75,7 +75,7 @@ class Transfers extends ApiController
     {
         $transfer = $this->dispatch(new CreateTransfer($request));
 
-        return $this->response->created(url('api/transfers/' . $transfer->id));
+        return $this->response->created(route('api.transfers.show', $transfer->id));
     }
 
     /**

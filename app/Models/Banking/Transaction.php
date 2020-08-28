@@ -8,12 +8,13 @@ use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
 use App\Traits\Recurring;
+use App\Traits\Transactions;
 use Bkwld\Cloner\Cloneable;
-use Date;
+use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
-    use Cloneable, Currencies, DateTime, Media, Recurring;
+    use Cloneable, Currencies, DateTime, Media, Recurring, Transactions;
 
     protected $table = 'transactions';
 
@@ -104,7 +105,7 @@ class Transaction extends Model
      */
     public function scopeIncome($query)
     {
-        return $query->where($this->table . '.type', '=', 'income');
+        return $query->whereIn($this->table . '.type', (array) $this->getIncomeTypes());
     }
 
     /**
@@ -115,7 +116,7 @@ class Transaction extends Model
      */
     public function scopeExpense($query)
     {
-        return $query->where($this->table . '.type', '=', 'expense');
+        return $query->whereIn($this->table . '.type', (array) $this->getExpenseTypes());
     }
 
     /**
@@ -218,6 +219,11 @@ class Transaction extends Model
         return $query->where('reconciled', 0);
     }
 
+    public function onCloning($src, $child = null)
+    {
+        $this->document_id = null;
+    }
+
     /**
      * Convert amount to double.
      *
@@ -241,6 +247,26 @@ class Transaction extends Model
     }
 
     /**
+     * Convert amount to double.
+     *
+     * @return float
+     */
+    public function getAmountForAccountAttribute()
+    {
+        $amount = $this->amount;
+
+        // Convert amount if not same currency
+        if ($this->account->currency_code != $this->currency_code) {
+            $to_code = $this->account->currency_code;
+            $to_rate = config('money.' . $this->account->currency_code . '.rate');
+
+            $amount = $this->convertBetween($amount, $this->currency_code, $this->currency_rate, $to_code, $to_rate);
+        }
+
+        return $amount;
+    }
+
+    /**
      * Get the current balance.
      *
      * @return string
@@ -254,5 +280,15 @@ class Transaction extends Model
         }
 
         return $this->getMedia('attachment')->last();
+    }
+
+    /**
+     * Get the title of type.
+     *
+     * @return string
+     */
+    public function getTypeTitleAttribute($value)
+    {
+        return $value ?? trans_choice('general.' . Str::plural($this->type), 1);
     }
 }

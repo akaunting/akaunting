@@ -13,7 +13,7 @@
 
         <div class="col-6">
             <nav class="float-right">
-                {!! $items->withPath(request()->url())->appends(request()->except('page'))->links() !!}
+                {!! $items->withPath(request()->url())->withQueryString()->links() !!}
             </nav>
         </div>
     @else

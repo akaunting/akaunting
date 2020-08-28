@@ -92,15 +92,17 @@
                                                 <a class="dropdown-item" href="{{ route('payments.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                                 <div class="dropdown-divider"></div>
                                             @endif
+                                            @if (empty($item->document_id))
                                             @permission('create-purchases-payments')
                                                 <a class="dropdown-item" href="{{ route('payments.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
+                                                <div class="dropdown-divider"></div>
                                             @endpermission
+                                            @endif
+                                            @if (!$item->reconciled)
                                             @permission('delete-purchases-payments')
-                                                @if (!$item->reconciled)
-                                                    <div class="dropdown-divider"></div>
-                                                    {!! Form::deleteLink($item, 'payments.destroy') !!}
-                                                @endif
+                                                {!! Form::deleteLink($item, 'payments.destroy') !!}
                                             @endpermission
+                                            @endif
                                         </div>
                                     </div>
                                 </td>

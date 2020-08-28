@@ -61,7 +61,7 @@ class UpdateAll extends Command
 
         $command = "update {$alias} {$company_id}";
 
-        if (true !== $result = Console::run($command, true)) {
+        if (true !== $result = Console::run($command)) {
             $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $alias]);
 
             $this->error($message);

@@ -32,7 +32,9 @@ class UpdateTax extends Job
     {
         $this->authorize();
 
-        $this->tax->update($this->request->all());
+        \DB::transaction(function () {
+            $this->tax->update($this->request->all());
+        });
 
         return $this->tax;
     }
@@ -48,7 +50,7 @@ class UpdateTax extends Job
             return;
         }
 
-        if ($this->tax->type != $this->request->get('type')) {
+        if ($this->request->has('type') && ($this->request->get('type') != $this->tax->type)) {
             $message = trans('messages.error.type', ['text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);

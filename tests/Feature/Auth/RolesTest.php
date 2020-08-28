@@ -26,16 +26,22 @@ class RolesTest extends FeatureTestCase
 
     public function testItShouldCreateRole()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('roles.store'), $this->getRequest())
+            ->post(route('roles.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('roles', $this->getAssertRequest($request));
     }
 
     public function testItShouldSeeRoleUpdatePage()
     {
-        $role = $this->dispatch(new CreateRole($this->getRequest()));
+        $request = $this->getRequest();
+
+        $role = $this->dispatch(new CreateRole($request));
 
         $this->loginAs()
             ->get(route('roles.edit', $role->id))
@@ -57,21 +63,34 @@ class RolesTest extends FeatureTestCase
             ->assertSee($request['display_name']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('roles', $this->getAssertRequest($request));
     }
 
     public function testItShouldDeleteRole()
     {
-        $role = $this->dispatch(new CreateRole($this->getRequest()));
+        $request = $this->getRequest();
+
+        $role = $this->dispatch(new CreateRole($request));
 
         $this->loginAs()
             ->delete(route('roles.destroy', $role->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseMissing('roles', $this->getAssertRequest($request));
     }
 
     public function getRequest()
     {
         return factory(Role::class)->states('permissions')->raw();
+    }
+
+    public function getAssertRequest($request)
+    {
+        unset($request['permissions']);
+
+        return $request;
     }
 }

@@ -19,7 +19,7 @@ class Bills extends ApiController
      */
     public function index()
     {
-        $bills = Bill::with(['contact', 'items', 'transactions', 'histories'])->collect(['billed_at'=> 'desc']);
+        $bills = Bill::with('contact', 'histories', 'items', 'transactions')->collect(['billed_at'=> 'desc']);
 
         return $this->response->paginator($bills, new Transformer());
     }
@@ -45,7 +45,7 @@ class Bills extends ApiController
     {
         $bill = $this->dispatch(new CreateBill($request));
 
-        return $this->response->created(url('api/bills/' . $bill->id));
+        return $this->response->created(route('api.bills.show', $bill->id));
     }
 
     /**

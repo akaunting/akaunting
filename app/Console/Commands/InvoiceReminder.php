@@ -78,7 +78,13 @@ class InvoiceReminder extends Command
         $invoices = Invoice::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($invoices as $invoice) {
-            event(new InvoiceReminded($invoice));
+            try {
+                event(new InvoiceReminded($invoice));
+            } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
+                $this->error($e->getMessage());
+
+                logger('Invoice reminder:: ' . $e->getMessage());
+            }
         }
     }
 }

@@ -78,6 +78,7 @@ fabric.properties
 /storage/*.key
 /vendor
 /.idea
+/.history
 /.vscode
 /.vagrant
 Homestead.json
@@ -87,6 +88,7 @@ npm-debug.log
 .env.example
 robots.txt
 _ide_helper.php
+_ide_helper_models.php
 .phpstorm.meta.php
 /storage/debugbar/*
 .phpunit.result.cache

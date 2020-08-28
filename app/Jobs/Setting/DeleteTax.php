@@ -27,7 +27,9 @@ class DeleteTax extends Job
     {
         $this->authorize();
 
-        $this->tax->delete();
+        \DB::transaction(function () {
+            $this->tax->delete();
+        });
 
         return true;
     }

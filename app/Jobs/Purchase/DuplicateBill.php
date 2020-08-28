@@ -3,12 +3,14 @@
 namespace App\Jobs\Purchase;
 
 use App\Abstracts\Job;
+use App\Events\Purchase\BillCreated;
 use App\Models\Purchase\Bill;
-use App\Models\Purchase\BillHistory;
 
 class DuplicateBill extends Job
 {
     protected $bill;
+
+    protected $clone;
 
     /**
      * Create a new job instance.
@@ -27,17 +29,12 @@ class DuplicateBill extends Job
      */
     public function handle()
     {
-        $clone = $this->bill->duplicate();
+        \DB::transaction(function () {
+            $this->clone = $this->bill->duplicate();
+        });
 
-        // Add bill history
-        BillHistory::create([
-            'company_id' => session('company_id'),
-            'bill_id' => $clone->id,
-            'status' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $clone->bill_number]),
-        ]);
+        event(new BillCreated($this->clone));
 
-        return $clone;
+        return $this->clone;
     }
 }

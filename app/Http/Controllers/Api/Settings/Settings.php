@@ -52,7 +52,7 @@ class Settings extends ApiController
     {
         $setting = Setting::create($request->all());
 
-        return $this->response->created(url('api/settings/'.$setting->id));
+        return $this->response->created(route('api.settings.show', $setting->id));
     }
 
     /**

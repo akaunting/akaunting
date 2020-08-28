@@ -56,7 +56,7 @@ class Overrider
         }
 
         // Set app url dynamically
-        config(['app.url' => url('/')]);
+        config(['app.url' => route('dashboard')]);
     }
 
     protected static function loadCurrencies()
@@ -64,10 +64,8 @@ class Overrider
         $currencies = Currency::all();
 
         foreach ($currencies as $currency) {
-            if (!isset($currency->precision)) {
-                continue;
-            }
-
+            config(['money.' . $currency->code . '.name' => $currency->name]);
+            config(['money.' . $currency->code . '.rate' => $currency->rate]);
             config(['money.' . $currency->code . '.precision' => $currency->precision]);
             config(['money.' . $currency->code . '.symbol' => $currency->symbol]);
             config(['money.' . $currency->code . '.symbol_first' => $currency->symbol_first]);

@@ -6,12 +6,11 @@ use App\Traits\Tenants;
 use App\Notifications\Auth\Reset;
 use App\Traits\Media;
 use Date;
-use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
 use Kyslik\ColumnSortable\Sortable;
+use Laratrust\Traits\LaratrustUserTrait;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable
@@ -44,11 +43,33 @@ class User extends Authenticatable
     protected $dates = ['last_logged_in_at', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['name', 'email', 'enabled'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::retrieved(function($model) {
+            $model->setCompanyIds();
+        });
+
+        static::saving(function($model) {
+            $model->unsetCompanyIds();
+        });
+    }
 
     public function companies()
     {
@@ -89,7 +110,7 @@ class User extends Authenticatable
                 $client->request('GET', $url)->getBody()->getContents();
 
                 $value = $url;
-            } catch (RequestException $e) {
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
                 // 404 Not Found
             }
         }
@@ -168,5 +189,20 @@ class User extends Authenticatable
     public function scopeEnabled($query)
     {
         return $query->where('enabled', 1);
+    }
+
+    /**
+     * Convert tax to Array.
+     *
+     * @return void
+     */
+    public function setCompanyIds()
+    {
+        $this->setAttribute('company_ids', $this->companies->pluck('id')->toArray());
+    }
+
+    public function unsetCompanyIds()
+    {
+        $this->offsetUnset('company_ids');
     }
 }

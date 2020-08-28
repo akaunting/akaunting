@@ -9,7 +9,7 @@ class BillItemTaxes extends Export
 {
     public function collection()
     {
-        $model = Model::with(['bill', 'item', 'tax'])->usingSearchString(request('search'));
+        $model = Model::with('bill', 'item', 'tax')->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('bill_id', (array) $this->ids);

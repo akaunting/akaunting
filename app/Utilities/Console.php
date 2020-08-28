@@ -2,48 +2,60 @@
 
 namespace App\Utilities;
 
-use Illuminate\Support\ProcessUtils;
-use Symfony\Component\Process\PhpExecutableFinder;
+use Exception;
+use Illuminate\Console\Application;
+use Illuminate\Support\Str;
+use Symfony\Component\Process\Exception\InvalidArgumentException;
+use Symfony\Component\Process\Exception\LogicException;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
+use Throwable;
 
 class Console
 {
-    public static function run($string, $all_output = false, $timeout = 0)
+    public static function run($string, $timeout = 0)
     {
-        $command = static::formatCommandString($string);
+        $command = Application::formatCommandString($string);
 
         logger('Console command:: ' . $command);
 
-        $process = Process::fromShellCommandline($command, base_path());
-        $process->setTimeout($timeout);
+        try {
+            $process = Process::fromShellCommandline($command, base_path());
+            $process->setTimeout($timeout);
 
-        $process->run();
+            $process->mustRun();
 
-        if ($process->isSuccessful()) {
-            return true;
+            $output = $process->getOutput();
+
+            if (static::isValidOutput($output)) {
+                return true;
+            }
+        } catch (Exception | InvalidArgumentException | LogicException | ProcessFailedException | RuntimeException | Throwable $e) {
+            $output = $e->getMessage();
         }
 
-        $output = $all_output ? $process->getOutput() : $process->getErrorOutput();
-
         logger('Console output:: ' . $output);
+
+        return static::formatOutput($output);
+    }
+
+    public static function formatOutput($output)
+    {
+        $output = nl2br($output);
+        $output = str_replace(['"', "'"], '', $output);
+        $output = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $output);
 
         return $output;
     }
 
-    public static function getPhpBinary()
+    public static function isValidOutput($output)
     {
-        $bin = ProcessUtils::escapeArgument((new PhpExecutableFinder)->find(false));
+        $errors = [
+            'Content-Type: application/json',
+            'CSRF token mismatch',
+        ];
 
-        return !empty($bin) ? $bin : 'php';
-    }
-
-    public static function getArtisanBinary()
-    {
-        return defined('ARTISAN_BINARY') ? ProcessUtils::escapeArgument(ARTISAN_BINARY) : 'artisan';
-    }
-
-    public static function formatCommandString($string)
-    {
-        return sprintf('%s %s %s', static::getPhpBinary(), static::getArtisanBinary(), $string);
+        return !Str::contains($output, $errors);
     }
 }

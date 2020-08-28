@@ -213,7 +213,7 @@ class Companies extends Controller
             $old_company_id = session('company_id');
 
             session(['company_id' => $company->id]);
-            session(['dashboard_id' => $company->dashboards()->pluck('id')->first()]);
+            session(['dashboard_id' => user()->dashboards()->enabled()->pluck('id')->first()]);
 
             Overrider::load('settings');
 
@@ -226,5 +226,24 @@ class Companies extends Controller
         }
 
         return redirect()->route('dashboard');
+    }
+
+    public function autocomplete()
+    {
+        $query = request('query');
+
+        $autocomplete = Company::autocomplete([
+            'name' => $query
+        ]);
+
+        $companies = $autocomplete->get()->sortBy('name')->pluck('name', 'id');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Get all companies.',
+            'errors' => [],
+            'count' => $companies->count(),
+            'data' => ($companies->count()) ? $companies : null,
+        ]);
     }
 }

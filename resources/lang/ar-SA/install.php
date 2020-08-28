@@ -21,7 +21,8 @@ return [
         'disabled'          => 'يجب تعطيل :feature!',
         'extension'         => 'يجب تثبيت وتشغيل ملحق :extension!',
         'directory'         => 'يجب منح صلاحية الكتابة على مجلد :directory!',
-        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
+        'executable'        => 'ان الملف التنفيذى ل PHP CLI غير معرف او لا يعمل او ان اصداره ليس :php_version او اعلى منه, من فضلك اطلب من شركه الاستضافه تعيين متغير بيئة PHP_BINARY أو PHP_PATH بشكل صحيح.
+',
     ],
 
     'database' => [
@@ -39,6 +40,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'حدث خطأ: اطلب من المتعهد مزود الخدمه ان يستخدم PHP :php_version او اعلى منه لكلا من HTTP و CLI',
         'connection'        => 'خطأ: لا يمكن الاتصال بقاعدة البيانات! من فضلك، تأكد من صحة المعلومات.',
     ],
 

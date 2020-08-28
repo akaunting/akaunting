@@ -3,7 +3,9 @@
 return [
 
     'reconcile'             => 'Riconcilia',
+    'unreconcile'           => 'Inconciliabile',
     'reconciled'            => 'Riconciliato',
+    'opening_balance'       => 'Saldo residuo',
     'closing_balance'       => 'Chiusura Bilancio',
     'unreconciled'          => 'Non riconciliato',
     'transactions'          => 'Transazioni',

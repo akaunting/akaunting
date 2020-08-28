@@ -16,9 +16,9 @@ class Accounts extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-banking-accounts')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-banking-accounts')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-banking-accounts')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-banking-accounts')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-banking-accounts')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-banking-accounts')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-banking-accounts')->only('destroy');
     }
 

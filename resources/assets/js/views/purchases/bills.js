@@ -38,15 +38,6 @@ const app = new Vue({
                 tax: 0,
                 total: 0
             },
-            transaction_form: new Form('transaction'),
-            payment: {
-                modal: false,
-                amount: 0,
-                title: '',
-                message: '',
-                html: '',
-                errors: new Error()
-            },
             transaction: [],
             items: '',
             discount: false,
@@ -60,7 +51,9 @@ const app = new Vue({
     },
 
     mounted() {
-        this.colspan = document.getElementById("items").rows[0].cells.length - 1;
+        if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
+            this.colspan = document.getElementById("items").rows[0].cells.length - 1;
+        }
         this.form.items = [];
 
         if (this.form.method) {
@@ -71,6 +64,7 @@ const app = new Vue({
             let items = [];
             let item_backup = this.form.item_backup[0];
             let currency_code = this.form.currency_code;
+            let currency = this.currency;
 
             this.edit.status = true;
 
@@ -80,11 +74,11 @@ const app = new Vue({
                     currency: currency_code,
                     item_id: item.item_id,
                     name: item.name,
-                    price: (item.price).toFixed(2),
+                    price: (item.price).toFixed(currency.precision),
                     quantity: item.quantity,
                     tax_id: item.tax_id,
                     discount: item.discount_rate,
-                    total: (item.total).toFixed(2)
+                    total: (item.total).toFixed(currency.precision)
                 });
             });
 
@@ -183,10 +177,11 @@ const app = new Vue({
                                     case 'fixed':
                                         item_tax_total += tax.rate * item.quantity;
                                         break;
+                                    case 'withholding':
+                                        item_tax_total += 0 - item_discounted_total * (tax.rate / 100);
+                                        break;
                                     default:
-                                        let item_tax_amount = (item_discounted_total / 100) * tax.rate;
-
-                                        item_tax_total += item_tax_amount;
+                                        item_tax_total += item_discounted_total * (tax.rate / 100);
                                         break;
                                 }
                             }
@@ -294,10 +289,10 @@ const app = new Vue({
 
             this.form.items[index].item_id = item.id;
             this.form.items[index].name = item.name;
-            this.form.items[index].price = (item.purchase_price).toFixed(2);
+            this.form.items[index].price = (item.purchase_price).toFixed(this.currency.precision);
             this.form.items[index].quantity = 1;
             this.form.items[index].tax_id = tax_id;
-            this.form.items[index].total = (item.purchase_price).toFixed(2);
+            this.form.items[index].total = (item.purchase_price).toFixed(this.currency.precision);
         },
 
         // remove bill item row => row_id = index
@@ -322,51 +317,120 @@ const app = new Vue({
             this.onCalculateTotal();
         },
 
-        onPayment() {
-            this.payment.modal = true;
+        async onPayment() {
+            let bill_id = document.getElementById('bill_id').value;
 
-            let form = this.transaction_form;
-
-            this.transaction_form = new Form('transaction');
-
-            this.transaction_form.paid_at = form.paid_at;
-            this.transaction_form.account_id = form.account_id;
-            this.transaction_form.payment_method = form.payment_method;
-        },
-
-        addPayment() {
-            this.transaction_form.submit();
-
-            this.payment.errors = this.transaction_form.errors;
-
-            this.form.loading = true;
-
-            this.$emit("confirm");
-        },
-
-        closePayment() {
-            this.payment = {
+            let payment = {
                 modal: false,
-                amount: 0,
+                url: url + '/modals/bills/' + bill_id + '/transactions/create',
                 title: '',
-                message: '',
-                errors: this.transaction_form.errors
+                html: '',
+                buttons:{}
             };
-        },
 
-        // Change bank account get money and currency rate
-        onChangePaymentAccount(account_id) {
-            axios.get(url + '/banking/accounts/currency', {
-                params: {
-                    account_id: account_id
-                }
-            })
-            .then(response => {
-                this.transaction_form.currency = response.data.currency_name;
-                this.transaction_form.currency_code = response.data.currency_code;
-                this.transaction_form.currency_rate = response.data.currency_rate;
+            let payment_promise = Promise.resolve(window.axios.get(payment.url));
+
+            payment_promise.then(response => {
+                payment.modal = true;
+                payment.title = response.data.data.title;
+                payment.html = response.data.html;
+                payment.buttons = response.data.data.buttons;
+
+                this.component = Vue.component('add-new-component', (resolve, reject) => {
+                    resolve({
+                        template: '<div id="dynamic-payment-component"><akaunting-modal-add-new modal-dialog-class="modal-md" :show="payment.modal" @submit="onSubmit" @cancel="onCancel" :buttons="payment.buttons" :title="payment.title" :is_component=true :message="payment.html"></akaunting-modal-add-new></div>',
+
+                        mixins: [
+                            Global
+                        ],
+
+                        data: function () {
+                            return {
+                                form:{},
+                                payment: payment,
+                            }
+                        },
+
+                        methods: {
+                            onSubmit(event) {
+                                this.form = event;
+                                this.form.response = {};
+
+                                this.loading = true;
+
+                                let data = this.form.data();
+
+                                FormData.prototype.appendRecursive = function(data, wrapper = null) {
+                                    for(var name in data) {
+                                        if (wrapper) {
+                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                                this.appendRecursive(data[name], wrapper + '[' + name + ']');
+                                            } else {
+                                                this.append(wrapper + '[' + name + ']', data[name]);
+                                            }
+                                        } else {
+                                            if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                                                this.appendRecursive(data[name], name);
+                                            } else {
+                                                this.append(name, data[name]);
+                                            }
+                                        }
+                                    }
+                                };
+
+                                let form_data = new FormData();
+                                form_data.appendRecursive(data);
+
+                                window.axios({
+                                    method: this.form.method,
+                                    url: this.form.action,
+                                    data: form_data,
+                                    headers: {
+                                        'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                                        'X-Requested-With': 'XMLHttpRequest',
+                                        'Content-Type': 'multipart/form-data'
+                                    }
+                                })
+                                .then(response => {
+                                    if (response.data.success) {
+                                        if (response.data.redirect) {
+                                            this.form.loading = true;
+
+                                            window.location.href = response.data.redirect;
+                                        }
+                                    }
+
+                                    if (response.data.error) {
+                                        this.form.loading = false;
+
+                                        this.form.response = response.data;
+                                    }
+                                })
+                                .catch(error => {
+                                    this.form.loading = false;
+
+                                    this.form.onFail(error);
+
+                                    this.method_show_html = error.message;
+                                });
+                            },
+
+                            onCancel() {
+                                this.payment.modal = false;
+                                this.payment.html = null;
+
+                                let documentClasses = document.body.classList;
+
+                                documentClasses.remove("modal-open");
+                            },
+                        }
+                    })
+                });
             })
             .catch(error => {
+            })
+            .finally(function () {
+                // always executed
             });
         },
     }

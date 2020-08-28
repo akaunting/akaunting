@@ -47,7 +47,7 @@
                         <tr class="row align-items-center border-top-1 tr-py">
                             <td class="col-sm-2 col-md-2 d-none d-sm-block">@date($item->paid_at)</td>
                             <td class="col-xs-4 col-sm-3 col-md-2">{{ $item->account->name }}</td>
-                            <td class="col-xs-4 col-sm-3 col-md-2">{{ trans_choice('general.' . Str::plural($item->type), 1) }}</td>
+                            <td class="col-xs-4 col-sm-3 col-md-2">{{ $item->type_title }}</td>
                             <td class="col-sm-2 col-md-2 d-none d-sm-block">{{ $item->category->name }}</td>
                             <td class="col-md-2 d-none d-md-block long-texts">{{ $item->description }}</td>
                             <td class="col-xs-4 col-sm-2 col-md-2 text-right">

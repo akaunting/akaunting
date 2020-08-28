@@ -29,14 +29,31 @@ trait Currencies
         return $format ? $money->format() : $money->getAmount();
     }
 
-    public function convertToDefault($amount, $from, $rate, $format = false)
+    public function convertToDefault($amount, $from, $rate, $format = false, $default = null)
     {
-        return $this->convert('divide', $amount, $from, $this->getDefaultCurrency(), $rate, $format);
+        $default_currency = $default ?? $this->getDefaultCurrency();
+
+        return $this->convert('divide', $amount, $from, $default_currency, $rate, $format);
     }
 
-    public function convertFromDefault($amount, $to, $rate, $format = false)
+    public function convertFromDefault($amount, $to, $rate, $format = false, $default = null)
     {
-        return $this->convert('multiply', $amount, $this->getDefaultCurrency(), $to, $rate, $format);
+        $default_currency = $default ?? $this->getDefaultCurrency();
+
+        return $this->convert('multiply', $amount, $default_currency, $to, $rate, $format);
+    }
+
+    public function convertBetween($amount, $from_code, $from_rate, $to_code, $to_rate)
+    {
+        $default_amount = $amount;
+
+        if ($from_code != setting('default.currency')) {
+            $default_amount = $this->convertToDefault($amount, $from_code, $from_rate);
+        }
+
+        $converted_amount = $this->convertFromDefault($default_amount, $to_code, $to_rate, false, $from_code);
+
+        return $converted_amount;
     }
 
     public function getAmountConvertedToDefault($format = false, $with_tax = true)
@@ -56,6 +73,16 @@ trait Currencies
 
     public function getDefaultCurrency()
     {
-        return !empty($this->default_currency_code) ? $this->default_currency_code : setting('default.currency', 'USD');
+        return !empty($this->default_currency_code) ? $this->default_currency_code : setting('default.currency');
+    }
+
+    public function setDefaultCurrency($code)
+    {
+        $this->default_currency_code = $code;
+    }
+
+    public function unsetDefaultCurrency()
+    {
+        unset($this->default_currency_code);
     }
 }

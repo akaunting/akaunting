@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature måste inaktiveras!',
         'extension'         => ':extension tillägget måste vara installerad och laddad!',
         'directory'         => ':directory katalogen måste vara skrivbar!',
+        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [
@@ -38,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Fel: Be ditt webbhotell leverantör att använda PHP :php_version eller högre för både HTTP och CLI.',
         'connection'        => 'Fel: Kunde inte ansluta till databasen! Snälla, se till att uppgifterna stämmer.',
     ],
 

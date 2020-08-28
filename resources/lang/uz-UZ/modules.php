@@ -9,13 +9,11 @@ return [
     'new'                   => 'Yangi',
     'top_free'              => 'Eng yaxshi bepul',
     'free'                  => 'OZOD',
-    'search'                => 'Qidiruv',
     'install'               => 'O\'rnatish',
     'buy_now'               => 'Hozir xarid qilish',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">bu yerni bosing</a> bu sizning API kalitingizni olish.',
+    'get_api_key'           => 'API kalitingizni olish uchun <a href=":url" target="_blank"> shu yerni bosing </a>.',
     'no_apps'               => 'Ushbu toifadagi dasturlar hali mavjud emas.',
-    'developer'             => 'Siz dasturchisiz? <a href="https://akaunting.com/developers" target="_blank">Here</a> Bu erdasiz qanday qilib dastur yaratishni va bugungi kunda sotishni boshlashni o\'rganishingiz mumkin!',
-
+    'become_developer'      => 'Siz dasturchisiz? <a href=":url" target="_blank"> Bu erda </a> siz qanday qilib dastur yaratishni va bugungi kunda sotishni boshlashni o\'rganishingiz mumkin!',
     'recommended_apps'      => 'Tavsiya etilgan ilovalar',
 
     'about'                 => 'Haqida',
@@ -80,5 +78,6 @@ return [
         ],
 
         'na'                => 'U erda sharhlar yo\'q.'
-    ]
+    ],
+
 ];

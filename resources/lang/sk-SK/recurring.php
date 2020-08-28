@@ -15,6 +15,6 @@ return [
     'weeks'                 => 'Týždeň(ov)',
     'months'                => 'Mesiac(e)',
     'years'                 => 'Rok(y)',
-    'message'               => 'Toto je opakujúci sa :type a ďalši :type bude automaticky vygenerovaný v :date',
+    'message'               => 'Toto je opakujúca sa :type a ďalšia :type bude automaticky vygenerovaná :date',
 
 ];

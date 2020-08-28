@@ -763,7 +763,7 @@
 
             <span slot="infoBlock" class="badge badge-success badge-resize float-right" v-if="new_options[real_model]">{{ new_text }}</span>
 
-            <select :name="name" v-model="real_model" class="d-none">
+            <select :name="name"  :id="name" v-model="real_model" class="d-none">
                 <option v-for="(label, value) in selectOptions" :key="value" :value="value">{{ label }}</option>
             </select>
         </span>
@@ -923,6 +923,7 @@ export default {
             add_new_html: '',
             form: {},
             new_options: false,
+            couunt: 1,
         }
     },
 
@@ -989,6 +990,24 @@ export default {
 
             this.$emit('interface', this.real_model);
             this.$emit('change', this.real_model);
+
+            //this.$children[0].$children[0].$emit('keydown.native.tab');
+            //this.$children[0].$children[0].handleMenuEnter();
+
+            this.$children[0].$children[0].visible = false;
+
+            /*
+            this.$children[0].$children[0].setSoftFocus();
+            if (this.$children[0].$children[0].visible) return;
+
+            let option = {};
+
+            option.value = this.real_model;
+
+            this.$children[0].$children[0].$nextTick(() => {
+                this.$children[0].$children[0].scrollToOption(option);
+            });
+            */
         },
 
         async onAddItem() {
@@ -1180,7 +1199,17 @@ export default {
                 return;
             }
 
-            this.change();
+            if (this.real_model != value) {
+                this.change();
+            }
+
+            let e = $.Event('keyup');
+            e.keyCode= 9; // tab
+            $('#' + this.name).trigger(e);
+
+            let event = new window.KeyboardEvent('keydown', { keyCode: 9 }); // Tab key
+
+            window.dispatchEvent(event);
         },
 
         value: function (value) {

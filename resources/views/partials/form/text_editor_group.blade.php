@@ -10,12 +10,10 @@
         <akaunting-html-editor
             name="{{ $name }}"
 
-            @if (!empty($attributes['v-model']))
-            :value="{{ $attributes['v-model'] . ' = ' . `$value` }}"
-            @elseif (!empty($attributes['data-field']))
-            :value="{{ 'form.' . $attributes['data-field'] . '.' . $name . ' = '. `$value` }}"
+            @if (!empty($value))
+            :value="`{{ $value }}`"
             @else
-            :value="form.{{ $name }} = `{{ $value }}`"
+            :value="''"
             @endif
 
             @if (!empty($attributes['v-model']))

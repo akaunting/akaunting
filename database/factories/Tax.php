@@ -10,7 +10,7 @@ $company = $user->companies()->first();
 $factory->define(Tax::class, function (Faker $faker) use ($company) {
     setting()->setExtraColumns(['company_id' => $company->id]);
 
-    $types = ['normal', 'inclusive', 'compound', 'fixed'];
+    $types = ['normal', 'inclusive', 'compound', 'fixed', 'withholding'];
 
     return [
         'company_id' => $company->id,
@@ -32,3 +32,5 @@ $factory->state(Tax::class, 'inclusive', ['type' => 'inclusive']);
 $factory->state(Tax::class, 'compound', ['type' => 'compound']);
 
 $factory->state(Tax::class, 'fixed', ['type' => 'fixed']);
+
+$factory->state(Tax::class, 'withholding', ['type' => 'withholding']);

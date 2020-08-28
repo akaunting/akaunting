@@ -7,6 +7,8 @@ use App\Models\Common\Item;
 
 class CreateItem extends Job
 {
+    protected $item;
+
     protected $request;
 
     /**
@@ -26,15 +28,17 @@ class CreateItem extends Job
      */
     public function handle()
     {
-        $item = Item::create($this->request->all());
+        \DB::transaction(function () {
+            $this->item = Item::create($this->request->all());
 
-        // Upload picture
-        if ($this->request->file('picture')) {
-            $media = $this->getMedia($this->request->file('picture'), 'items');
+            // Upload picture
+            if ($this->request->file('picture')) {
+                $media = $this->getMedia($this->request->file('picture'), 'items');
 
-            $item->attachMedia($media, 'picture');
-        }
+                $this->item->attachMedia($media, 'picture');
+            }
+        });
 
-        return $item;
+        return $this->item;
     }
 }

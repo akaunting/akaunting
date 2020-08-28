@@ -12,9 +12,9 @@ class InvoiceTemplates extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-settings-settings')->only(['create', 'store']);
-        $this->middleware('permission:read-settings-settings')->only(['index', 'edit']);
-        $this->middleware('permission:update-settings-settings')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-settings-settings')->only('create', 'store');
+        $this->middleware('permission:read-settings-settings')->only('index', 'edit');
+        $this->middleware('permission:update-settings-settings')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-settings-settings')->only('destroy');
     }
 

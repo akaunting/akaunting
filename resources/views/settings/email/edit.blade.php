@@ -3,7 +3,7 @@
 @section('title', trans('general.email'))
 
 @section('content')
-    {!! Form::model($setting, [
+    {!! Form::open([
         'id' => 'setting',
         'method' => 'PATCH',
         'route' => 'settings.email.update',
@@ -24,14 +24,15 @@
         @php $collapse_status = in_array($card, [1, 2]) ? 'show' : ''; @endphp
 
         <div class="col-md-6">
-            <div class="accordion" id="accordion{{ $card }}">
+            <div class="accordion" id="accordion-{{ $card }}">
                 <div class="card">
-                    <div class="card-header" id="heading{{ $card }}" data-toggle="collapse" data-target="#collapse{{ $card }}" aria-expanded="{{ $aria_expanded_status }}" aria-controls="collapse{{ $card }}">
+                    <div class="card-header" id="heading-{{ $card }}" data-toggle="collapse" data-target="#collapse-{{ $card }}" aria-expanded="{{ $aria_expanded_status }}" aria-controls="collapse-{{ $card }}">
                         <div class="align-items-center">
                             <h4 class="mb-0">{{ trans($template->name) }}</h4>
                         </div>
                     </div>
-                    <div id="collapse{{ $card }}" class="collapse {{ $collapse_status }}" aria-labelledby="heading{{ $card }}" data-parent="#accordion{{ $card }}">
+
+                    <div id="collapse-{{ $card }}" class="collapse {{ $collapse_status }}" aria-labelledby="heading-{{ $card }}" data-parent="#accordion-{{ $card }}">
                         <div class="card-body">
                             <div class="row">
                                 {{ Form::textGroup('template_' . $template->alias . '_subject', trans('settings.email.templates.subject'), 'font', ['required' => 'required'], $template->subject, 'col-md-12') }}
@@ -54,29 +55,30 @@
     @endforeach
 
         <div class="col-md-12">
-            <div class="accordion" id="accordion{{ $card }}">
+            <div class="accordion" id="accordion-{{ $card }}">
                 <div class="card">
-                    <div class="card-header" id="heading{{ $card }}" data-toggle="collapse" data-target="#collapse{{ $card }}" aria-expanded="false" aria-controls="collapse{{ $card }}">
+                    <div class="card-header" id="heading-{{ $card }}" data-toggle="collapse" data-target="#collapse-{{ $card }}" aria-expanded="false" aria-controls="collapse-{{ $card }}">
                         <div class="align-items-center">
                             <h4 class="mb-0">{{ trans('settings.email.protocol') }}</h4>
                         </div>
                     </div>
-                    <div id="collapse{{ $card }}" class="collapse hide" aria-labelledby="heading{{ $card }}" data-parent="#accordion{{ $card }}">
+
+                    <div id="collapse-{{ $card }}" class="collapse hide" aria-labelledby="heading-{{ $card }}" data-parent="#accordion-{{ $card }}">
                         <div class="card-body">
                             <div class="row">
-                                {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, !empty($setting['protocol']) ? $setting['protocol'] : null, ['change' => 'onChangeProtocol']) }}
+                                {{ Form::selectGroup('protocol', trans('settings.email.protocol'), 'share', $email_protocols, setting('email.protocol'), ['change' => 'onChangeProtocol']) }}
 
-                                {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled'=> 'email.sendmailPath']) }}
+                                {{ Form::textGroup('sendmail_path', trans('settings.email.sendmail_path'), 'road', [':disabled'=> 'email.sendmailPath'], setting('email.sendmail_path')) }}
 
-                                {{ Form::textGroup('smtp_host', trans('settings.email.smtp.host'), 'paper-plane', [':disabled' => 'email.smtpHost']) }}
+                                {{ Form::textGroup('smtp_host', trans('settings.email.smtp.host'), 'paper-plane', [':disabled' => 'email.smtpHost'], setting('email.smtp_host')) }}
 
-                                {{ Form::textGroup('smtp_port', trans('settings.email.smtp.port'), 'paper-plane', [':disabled' => 'email.smtpPort']) }}
+                                {{ Form::textGroup('smtp_port', trans('settings.email.smtp.port'), 'paper-plane', [':disabled' => 'email.smtpPort'], setting('email.smtp_port')) }}
 
-                                {{ Form::textGroup('smtp_username', trans('settings.email.smtp.username'), 'paper-plane', [':disabled' => 'email.smtpUsername']) }}
+                                {{ Form::textGroup('smtp_username', trans('settings.email.smtp.username'), 'paper-plane', [':disabled' => 'email.smtpUsername'], setting('email.smtp_username')) }}
 
-                                {{ Form::textGroup('smtp_password', trans('settings.email.smtp.password'), 'paper-plane', ['type' => 'password', ':disabled' => 'email.smtpPassword']) }}
+                                {{ Form::textGroup('smtp_password', trans('settings.email.smtp.password'), 'paper-plane', ['type' => 'password', ':disabled' => 'email.smtpPassword'], setting('email.smtp_password')) }}
 
-                                {{ Form::selectGroup('smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], !empty($setting['smtp_encryption']) ? $setting['smtp_encryption'] : null , ['disabled' => 'email.smtpEncryption']) }}
+                                {{ Form::selectGroup('smtp_encryption', trans('settings.email.smtp.encryption'), 'paper-plane', ['' => trans('settings.email.smtp.none'), 'ssl' => 'SSL', 'tls' => 'TLS'], setting('email.smtp_encryption', null), ['disabled' => 'email.smtpEncryption']) }}
                              </div>
                         </div>
                     </div>

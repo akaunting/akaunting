@@ -26,14 +26,16 @@ class DeleteReconciliation extends Job
      */
     public function handle()
     {
-        $this->reconciliation->delete();
+        \DB::transaction(function () {
+            $this->reconciliation->delete();
 
-        Transaction::where('account_id', $this->reconciliation->account_id)
-            ->reconciled()
-            ->whereBetween('paid_at', [$this->reconciliation->started_at, $this->reconciliation->ended_at])->each(function ($transaction) {
-                $transaction->reconciled = 0;
-                $transaction->save();
-            });
+            Transaction::where('account_id', $this->reconciliation->account_id)
+                ->isReconciled()
+                ->whereBetween('paid_at', [$this->reconciliation->started_at, $this->reconciliation->ended_at])->each(function ($transaction) {
+                    $transaction->reconciled = 0;
+                    $transaction->save();
+                });
+        });
 
         return true;
     }

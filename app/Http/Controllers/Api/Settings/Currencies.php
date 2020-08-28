@@ -52,7 +52,7 @@ class Currencies extends ApiController
     {
         $currency = $this->dispatch(new CreateCurrency($request));
 
-        return $this->response->created(url('api/currencies/' . $currency->id));
+        return $this->response->created(route('api.currencies.show', $currency->id));
     }
 
     /**

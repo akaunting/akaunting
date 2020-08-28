@@ -20,7 +20,7 @@
 
                     {{ Form::dateGroup('ended_at', trans('reconciliations.end_date'), 'calendar', ['id' => 'ended_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], request('ended_at', Date::now()->endOfMonth()->toDateString()), 'col-xl-3') }}
 
-                    {{ Form::moneyGroup('closing_balance', trans('reconciliations.closing_balance'), 'balance-scale', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency], request('closing_balance', 0.00), 'col-xl-2') }}
+                    {{ Form::moneyGroup('closing_balance', trans('reconciliations.closing_balance'), 'balance-scale', ['required' => 'required', 'autofocus' => 'autofocus', 'currency' => $currency, 'dynamic-currency' => 'currency', 'input' => 'onCalculate'], request('closing_balance', 0.00), 'col-xl-2') }}
 
                     {{ Form::selectAddNewGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, request('account_id', setting('default.account')), ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount'], 'col-xl-2') }}
 
@@ -83,7 +83,7 @@
                                 @endif
                                 <td class="col-md-1 text-right d-none d-md-block">
                                     <div class="custom-control custom-checkbox">
-                                        {{ Form::checkbox($item->type . '_' . $item->id, $item->amount, $item->reconciled, [
+                                        {{ Form::checkbox($item->type . '_' . $item->id, $item->amount_for_account, $item->reconciled, [
                                             'data-field' => 'transactions',
                                             'v-model' => 'form.transactions.' . $item->type . '_' . $item->id,
                                             'id' => 'transaction-' . $item->id . '-'. $item->type,
@@ -100,6 +100,12 @@
                 @if ($transactions->count())
                     <table class="table">
                         <tbody>
+                            <tr class="row">
+                                <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.opening_balance') }}:</th>
+                                <td id="closing-balance" class="col-md-3 col-lg-1 text-right d-none d-md-block">
+                                    <span>@money($opening_balance, $account->currency_code, true)</span>
+                                </td>
+                            </tr>
                             <tr class="row">
                                 <th class="col-md-9 col-lg-11 text-right d-none d-md-block">{{ trans('reconciliations.closing_balance') }}:</th>
                                 <td id="closing-balance" class="col-md-3 col-lg-1 text-right d-none d-md-block">

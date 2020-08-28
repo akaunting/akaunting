@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature doit être désactivée !',
         'extension'         => 'L\'extension :extension doit être installée et chargée !',
         'directory'         => ':directory doit être accessible en écriture !',
+        'executable'        => 'Le fichier exécutable PHP CLI n\'est pas défini, ou sa version n\'est pas :php_version ou supérieure! Veuillez demander à votre hébergeur de définir correctement la variable d\'environnement PHP_BINARY ou PHP_PATH.',
     ],
 
     'database' => [
@@ -38,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Erreur: Demandez à votre hébergeur d\'utiliser PHP :php_version ou supérieure pour HTTP et CLI.',
         'connection'        => 'Erreur : Impossible de se connecter à la base de données ! S’il vous plaît, assurez-vous que les informations sont correctes.',
     ],
 

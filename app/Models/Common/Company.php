@@ -2,8 +2,10 @@
 
 namespace App\Models\Common;
 
+use App\Traits\Contacts;
 use App\Traits\Media;
 use App\Traits\Tenants;
+use App\Traits\Transactions;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
@@ -11,7 +13,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class Company extends Eloquent
 {
-    use Media, SearchString, SoftDeletes, Sortable, Tenants;
+    use Contacts, Media, SearchString, SoftDeletes, Sortable, Tenants, Transactions;
 
     protected $table = 'companies';
 
@@ -20,6 +22,10 @@ class Company extends Eloquent
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['domain', 'enabled'];
+
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
 
     /**
      * Sortable columns.
@@ -88,7 +94,7 @@ class Company extends Eloquent
 
     public function customers()
     {
-        return $this->contacts()->where('type', 'customer');
+        return $this->contacts()->whereIn('type', (array) $this->getCustomerTypes());
     }
 
     public function dashboards()
@@ -103,12 +109,12 @@ class Company extends Eloquent
 
     public function expense_transactions()
     {
-        return $this->transactions()->where('type', 'expense');
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
     }
 
     public function income_transactions()
     {
-        return $this->transactions()->where('type', 'income');
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
     public function invoices()
@@ -193,7 +199,7 @@ class Company extends Eloquent
 
     public function vendors()
     {
-        return $this->contacts()->where('type', 'vendor');
+        return $this->contacts()->whereIn('type', (array) $this->getVendorTypes());
     }
 
     public function widgets()
@@ -315,6 +321,32 @@ class Company extends Eloquent
         return $query->join('settings', 'companies.id', '=', 'settings.company_id')
             ->where('key', 'company.email')
             ->orderBy('value', $direction)
+            ->select('companies.*');
+    }
+
+    /**
+     * Scope autocomplete.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param array $filter
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAutocomplete($query, $filter)
+    {
+        return $query->join('settings', 'companies.id', '=', 'settings.company_id')
+            ->where(function ($query) use ($filter) {
+                foreach ($filter as $key => $value) {
+                    $column = $key;
+
+                    if (!in_array($key, $this->fillable)) {
+                        $column = 'company.' . $key;
+                        $query->orWhere('key', $column);
+                        $query->Where('value', 'LIKE', "%" . $value  . "%");
+                    } else {
+                        $query->orWhere($column, 'LIKE', "%" . $value  . "%");
+                    }
+                }
+            })
             ->select('companies.*');
     }
 

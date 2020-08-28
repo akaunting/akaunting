@@ -8,4 +8,5 @@ return [
     'inclusive'             => 'सम्मिलित',
     'compound'              => 'यौगिक',
     'fixed'                 => 'निश्चित',
+    'withholding'           => 'रोक',
 ];

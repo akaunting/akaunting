@@ -28,8 +28,8 @@ return [
     'warning' => [
         'deleted'           => 'Advarsel: Du har ikke tilladelse tiil at slette <b>:name</b> fordi den er :text relateret.',
         'disabled'          => 'Advarsel: Du har ikke tilladelse tiil at deaktivere <b>:name</b> fordi den er :text relateret.',
-        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
-        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
+        'reconciled_tran'   => 'Advarsel: Du kan ikke ændre eller slette denne transaktion, da den er afstemt.',
+        'reconciled_doc'    => 'Advarsel: Du kan ikke ændre eller slette :type, da den er afstemt.',
         'disable_code'      => 'Advarsel: Du må ikke deaktivere eller ændre valutaen i <b>:name</b> , fordi den er :text relateret.',
         'payment_cancel'    => 'Advarsel: Du har annulleret den seneste :method betaling!',
     ],

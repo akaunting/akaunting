@@ -65,7 +65,7 @@ return [
     ],
 
     'default' => [
-        'description'       => 'Numatytoji sąskaita, valuta, kalba',
+        'description'       => 'Numatytoji įmonės sąskaita, valiuta, kalba',
         'list_limit'        => 'Įrašų puslapyje',
         'use_gravatar'      => 'Naudoti Gravatar',
     ],

@@ -32,9 +32,11 @@ class Logo
             $path = base_path('public/img/company.png');
         }
 
-        $width = $height = setting('invoice.logo_size', 128);
+        $image = Image::cache(function($image) use ($path) {
+            $width = $height = setting('invoice.logo_size', 128);
 
-        $image = Image::make($path)->resize($width, $height)->encode()->getEncoded();
+            $image->make($path)->resize($width, $height)->encode();
+        });
 
         if (empty($image)) {
             return $logo;

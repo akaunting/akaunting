@@ -26,16 +26,24 @@ class CurrenciesTest extends FeatureTestCase
 
     public function testItShouldCreateCurrency()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('currencies.store'), $this->getRequest())
+            ->post(route('currencies.store'), $request)
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('currencies', [
+            'code' => $request['code'],
+        ]);
     }
 
     public function testItShouldSeeCurrencyUpdatePage()
     {
-        $currency = $this->dispatch(new CreateCurrency($this->getRequest()));
+        $request = $this->getRequest();
+
+        $currency = $this->dispatch(new CreateCurrency($request));
 
         $this->loginAs()
             ->get(route('currencies.edit', $currency->id))
@@ -57,17 +65,27 @@ class CurrenciesTest extends FeatureTestCase
 			->assertSee($request['name']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('currencies', [
+            'code' => $request['code'],
+        ]);
     }
 
     public function testItShouldDeleteCurrency()
     {
-        $currency = $this->dispatch(new CreateCurrency($this->getRequest()));
+        $request = $this->getRequest();
+
+        $currency = $this->dispatch(new CreateCurrency($request));
 
         $this->loginAs()
             ->delete(route('currencies.destroy', $currency->id))
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('currencies', [
+            'code' => $request['code'],
+        ]);
     }
 
     public function getRequest()

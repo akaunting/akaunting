@@ -19,8 +19,11 @@
 
             <el-carousel-item v-for="(screenshot, index) in screenshots" :key="index">
                 <img class="d-block w-100 carousel-frame" height="365px" :src="screenshot.path_string" :alt="screenshot.alt_attribute">
-                <div class="carousel-description py-2">
+                <div class="carousel-description py-2" v-if="screenshot.description">
                     {{ screenshot.description }}
+                </div>
+                <div class="carousel-description py-2" v-else>
+                    {{ name }}
                 </div>
             </el-carousel-item>
         </el-carousel>

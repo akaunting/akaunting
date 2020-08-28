@@ -163,8 +163,8 @@ return [
     'title' => [
         'new'               => 'Ny :type',
         'edit'              => 'Rediger :type',
-        'delete'            => 'Slet !type',
-        'create'            => 'Opret !type',
+        'delete'            => 'Slet :type',
+        'create'            => 'Opret :type',
         'send'              => 'Send :type',
         'get'               => 'Hent :type',
         'add'               => 'Tilføj :type',

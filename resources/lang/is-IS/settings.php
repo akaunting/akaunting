@@ -29,6 +29,12 @@ return [
             'before'        => 'Á undan númeri',
             'after'         => 'Á eftir númeri',
         ],
+        'discount_location' => [
+            'name'          => 'Discount Location',
+            'item'          => 'At line',
+            'total'         => 'At total',
+            'both'          => 'Both line and total',
+        ],
     ],
 
     'invoice' => [
@@ -52,6 +58,10 @@ return [
         'subheading'        => 'Subheading',
         'due_receipt'       => 'Due upon receipt',
         'due_days'          => 'Due within :days days',
+        'choose_template'   => 'Choose invoice template',
+        'default'           => 'Default',
+        'classic'           => 'Classic',
+        'modern'            => 'Modern',
     ],
 
     'default' => [

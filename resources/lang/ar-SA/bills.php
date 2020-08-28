@@ -45,13 +45,13 @@ return [
         'paid'              => 'مدفوع',
         'overdue'           => 'متأخر',
         'unpaid'            => 'غير مدفوع',
-        'cancelled'         => 'Cancelled',
+        'cancelled'         => 'ملغى',
     ],
 
     'messages' => [
-        'marked_received'   => 'Bill marked as received!',
+        'marked_received'   => 'تم وضع علامة الاستلام على الفاتورة!',
         'marked_paid'       => 'الفاتورة عُلّمت كمدفوعة!',
-        'marked_cancelled'  => 'Bill marked as cancelled!',
+        'marked_cancelled'  => 'تم وضع علامة الإلغاء على الفاتورة!',
         'draft'             => 'هذة فاتورة شراء عبارة عن <b> مسودة </b> و سوف يتم اظهارها بالنظام بعد ان يتم استحقاقها.',
 
         'status' => [

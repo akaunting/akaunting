@@ -32,6 +32,10 @@ abstract class FeatureTestCase extends TestCase
         setting()->forgetAll();
         setting()->load(true);
 
+        setting()->set(['email.protocol' => 'array']);
+        setting()->save();
+
+
         // Disable debugbar
         config(['debugbar.enabled', false]);
     }

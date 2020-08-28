@@ -5,50 +5,76 @@
 @section('content')
     <div class="row">
         <div class="col-xl-3">
-            <div class="card">
-                <div class="card-header border-bottom-0 show-transaction-card-header">
-                    <a class="text-sm font-weight-600">{{ trans_choice('general.invoices', 2) }}</a> <a class="float-right text-xs">{{ $counts['invoices'] }}</a>
-                </div>
-                <div class="card-footer show-transaction-card-footer">
-                    <a class="text-sm font-weight-600">{{ trans_choice('general.transactions', 2) }}</a> <a class="float-right text-xs">{{ $counts['transactions'] }}</a>
-                </div>
-            </div>
+            <ul class="list-group mb-4">
+                @stack('customer_invoices_count_start')
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                    {{ trans_choice('general.invoices', 2) }}
+                    <span class="badge badge-primary badge-pill">{{ $counts['invoices'] }}</span>
+                </li>
+                @stack('customer_invoices_count_end')
 
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="mb-0">{{ trans('auth.profile') }}</h4>
-                </div>
-                <div class="card-body d-grid">
-                    <a class="text-sm font-weight-600">{{ trans('general.email') }}</a> <a class="text-xs long-texts">{{ $customer->email }}</a>
-                        <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.phone') }}</a> <a class="text-xs long-texts">{{ $customer->phone }}</a>
-                          <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.website') }}</a> <a class="text-xs long-texts">{{ $customer->website }}</a>
-                        <div class="dropdown-divider"></div>
-                    <a class="text-sm font-weight-600">{{ trans('general.tax_number') }}</a> <a class="text-xs long-texts">{{ $customer->tax_number }}</a>
-                    @if ($customer->reference)
-                        <div class="dropdown-divider"></div>
-                        <a class="text-sm font-weight-600">{{ trans('general.reference') }}</a> <a class="text-xs long-texts">{{ $customer->reference }}</a>
-                    @endif
-                </div>
-            </div>
+                @stack('customer_transactions_count_start')
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-top-1">
+                    {{ trans_choice('general.transactions', 2) }}
+                    <span class="badge badge-primary badge-pill">{{ $counts['transactions'] }}</span>
+                </li>
+                @stack('customer_transactions_count_end')
+            </ul>
 
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="mb-0">{{ trans('general.address') }}</h4>
-                </div>
-                <div class="card-body">
-                    <a class="text-xs m-0">
-                        {{ $customer->address }}
-                    </a>
-                </div>
-            </div>
+            <ul class="list-group mb-4">
+                @stack('customer_email_start')
+                <li class="list-group-item border-0">
+                    <div class="font-weight-600">{{ trans('general.email') }}</div>
+                    <div><small class="long-texts" title="{{ $customer->email }}">{{ $customer->email }}</small></div>
+                </li>
+                @stack('customer_email_end')
 
+                @stack('customer_phone_start')
+                <li class="list-group-item border-0 border-top-1">
+                    <div class="font-weight-600">{{ trans('general.phone') }}</div>
+                    <div><small class="long-texts" title="{{ $customer->phone }}">{{ $customer->phone }}</small></div>
+                </li>
+                @stack('customer_phone_end')
+
+                @stack('customer_website_start')
+                <li class="list-group-item border-0 border-top-1">
+                    <div class="font-weight-600">{{ trans('general.website') }}</div>
+                    <div><small class="long-texts" title="{{ $customer->website }}">{{ $customer->website }}</small></div>
+                </li>
+                @stack('customer_website_end')
+
+                @stack('customer_tax_number_start')
+                <li class="list-group-item border-0 border-top-1">
+                    <div class="font-weight-600">{{ trans('general.tax_number') }}</div>
+                    <div><small class="long-texts" title="{{ $customer->tax_number }}">{{ $customer->tax_number }}</small></div>
+                </li>
+                @stack('customer_tax_number_end')
+
+                @stack('customer_address_start')
+                <li class="list-group-item border-0 border-top-1">
+                    <div class="font-weight-600">{{ trans('general.address') }}</div>
+                    <div><small>{{ $customer->address }}</small></div>
+                </li>
+                @stack('customer_address_end')
+
+                @if ($customer->reference)
+                    @stack('customer_reference_start')
+                    <li class="list-group-item border-0 border-top-1">
+                        <div class="font-weight-600">{{ trans('general.reference') }}</div>
+                        <div><small class="long-texts" title="{{ $customer->reference }}">{{ $customer->reference }}</small></div>
+                    </li>
+                    @stack('customer_reference_end')
+                @endif
+            </ul>
+
+            @stack('customer_edit_button_start')
             <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-info btn-block edit-sv"><b>{{ trans('general.edit') }}</b></a>
+            @stack('customer_edit_button_end')
         </div>
 
         <div class="col-xl-9">
             <div class="row mb--3">
+                @stack('customer_paid_card_start')
                 <div class="col-md-4">
                     <div class="card bg-gradient-success border-0">
                         <div class="card-body">
@@ -62,7 +88,9 @@
                         </div>
                     </div>
                 </div>
+                @stack('customer_paid_card_end')
 
+                @stack('customer_open_card_start')
                 <div class="col-md-4">
                     <div class="card bg-gradient-warning border-0">
                         <div class="card-body">
@@ -76,7 +104,9 @@
                         </div>
                     </div>
                 </div>
+                @stack('customer_open_card_end')
 
+                @stack('customer_overdue_card_start')
                 <div class="col-md-4">
                     <div class="card bg-gradient-danger border-0">
                         <div class="card-body">
@@ -90,40 +120,47 @@
                         </div>
                     </div>
                 </div>
+                @stack('customer_overdue_card_end')
             </div>
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="nav-wrapper">
                         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                            @stack('customer_transactions_tab_start')
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-header-transactions" data-toggle="tab" href="#tabs-content-transactions" role="tab" aria-controls="tabs-content-transactions" aria-selected="true">{{ trans_choice('general.transactions', 2) }}</a>
+                                <a class="nav-link mb-sm-3 mb-md-0 active" id="transactions-tab" data-toggle="tab" href="#transactions-content" role="tab" aria-controls="transactions-content" aria-selected="true">{{ trans_choice('general.transactions', 2) }}</a>
                             </li>
+                            @stack('customer_transactions_tab_end')
+
+                            @stack('customer_invoices_tab_start')
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-invoices" data-toggle="tab" href="#tabs-content-invoices" role="tab" aria-controls="tabs-content-invoices" aria-selected="false">{{ trans_choice('general.invoices', 2) }}</a>
+                                <a class="nav-link mb-sm-3 mb-md-0" id="invoices-tab" data-toggle="tab" href="#invoices-content" role="tab" aria-controls="invoices-content" aria-selected="false">{{ trans_choice('general.invoices', 2) }}</a>
                             </li>
+                            @stack('customer_invoices_tab_end')
                         </ul>
                     </div>
                     <div class="card">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="tabs-content-transactions" role="tabpanel" aria-labelledby="tabs-header-transactions">
+                            @stack('customer_transactions_content_start')
+                            <div class="tab-pane fade show active" id="transactions-content" role="tabpanel" aria-labelledby="transactions-tab">
                                 <div class="table-responsive">
                                     <table class="table table-flush table-hover" id="tbl-transactions">
                                         <thead class="thead-light">
                                             <tr class="row table-head-line">
-                                                <th class="col-xs-6 col-sm-3">{{ trans('general.date') }}</th>
-                                                <th class="col-xs-6 col-sm-3 text-right">{{ trans('general.amount') }}</th>
-                                                <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.categories', 1) }}</th>
-                                                <th class="col-sm-3 d-none d-sm-block">{{ trans_choice('general.accounts', 1) }}</th>
+                                                <th class="col-xs-6 col-sm-2">{{ trans('general.date') }}</th>
+                                                <th class="col-xs-6 col-sm-2 text-right">{{ trans('general.amount') }}</th>
+                                                <th class="col-sm-4 d-none d-sm-block">{{ trans_choice('general.categories', 1) }}</th>
+                                                <th class="col-sm-4 d-none d-sm-block">{{ trans_choice('general.accounts', 1) }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($transactions as $item)
                                                 <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-xs-6 col-sm-3">@date($item->paid_at)</td>
-                                                    <td class="col-xs-6 col-sm-3 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-3 d-none d-sm-block">{{ $item->category ? $item->category->name : trans('general.na') }}</td>
-                                                    <td class="col-sm-3 d-none d-sm-block">{{ $item->account->name }}</td>
+                                                    <td class="col-xs-6 col-sm-2">@date($item->paid_at)</td>
+                                                    <td class="col-xs-6 col-sm-2 text-right">@money($item->amount, $item->currency_code, true)</td>
+                                                    <td class="col-sm-4 d-none d-sm-block">{{ $item->category->name }}</td>
+                                                    <td class="col-sm-4 d-none d-sm-block">{{ $item->account->name }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -135,8 +172,10 @@
                                     </div>
                                 </div>
                             </div>
+                            @stack('customer_transactions_content_end')
 
-                            <div class="tab-pane fade" id="tabs-content-invoices" role="tabpanel" aria-labelledby="tabs-header-invoices">
+                            @stack('customer_invoices_content_start')
+                            <div class="tab-pane fade" id="invoices-content" role="tabpanel" aria-labelledby="invoices-tab">
                                 <div class="table-responsive">
                                     <table class="table table-flush table-hover" id="tbl-invoices">
                                         <thead class="thead-light">
@@ -167,6 +206,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @stack('customer_invoices_content_end')
                         </div>
                     </div>
                 </div>

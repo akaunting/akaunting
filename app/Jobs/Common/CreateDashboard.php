@@ -9,6 +9,8 @@ use App\Utilities\Widgets;
 
 class CreateDashboard extends Job
 {
+    protected $dashboard;
+
     protected $request;
 
     /**
@@ -30,13 +32,15 @@ class CreateDashboard extends Job
     {
         $this->request['enabled'] = $this->request['enabled'] ?? 1;
 
-        $this->dashboard = Dashboard::create($this->request->only(['company_id', 'name', 'enabled']));
+        \DB::transaction(function () {
+            $this->dashboard = Dashboard::create($this->request->only(['company_id', 'name', 'enabled']));
 
-        $this->attachToUser();
+            $this->attachToUser();
 
-        if ($this->request->has('with_widgets')) {
-            $this->createWidgets();
-        }
+            if ($this->request->has('with_widgets')) {
+                $this->createWidgets();
+            }
+        });
 
         return $this->dashboard;
     }

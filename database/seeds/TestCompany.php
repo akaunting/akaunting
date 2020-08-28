@@ -40,6 +40,7 @@ class TestCompany extends Seeder
     {
         $company = $this->dispatch(new CreateCompany([
             'name' => 'My Company',
+            'email' => 'test@company.com',
             'domain' => 'company.com',
             'address' => 'New Street 1254',
             'currency' => 'USD',
@@ -78,12 +79,12 @@ class TestCompany extends Seeder
             'type' => 'customer',
             'name' => 'Test Customer',
             'email' => 'customer@company.com',
-            'currency_code' => setting('default.currency', 'USD'),
+            'currency_code' => setting('default.currency'),
             'password' => '123456',
             'password_confirmation' => '123456',
             'company_id' => session('company_id'),
             'enabled' => '1',
-            'create_user' => 1,
+            'create_user' => 'true',
         ]));
 
         $this->command->info('Test customer created.');

@@ -32,7 +32,9 @@ class UpdateCategory extends Job
     {
         $this->authorize();
 
-        $this->category->update($this->request->all());
+        \DB::transaction(function () {
+            $this->category->update($this->request->all());
+        });
 
         return $this->category;
     }
@@ -48,7 +50,7 @@ class UpdateCategory extends Job
             return;
         }
 
-        if ($this->category->type != $this->request->get('type')) {
+        if ($this->request->has('type') && ($this->request->get('type') != $this->category->type)) {
             $message = trans('messages.error.change_type', ['text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);

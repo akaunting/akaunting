@@ -31,25 +31,27 @@ class UpdateReconciliation extends Job
      */
     public function handle()
     {
-        $reconcile = $this->request->get('reconcile');
-        $transactions = $this->request->get('transactions');
+        \DB::transaction(function () {
+            $reconcile = $this->request->get('reconcile');
+            $transactions = $this->request->get('transactions');
 
-        $this->reconciliation->reconciled = $reconcile ? 1 : 0;
-        $this->reconciliation->save();
+            $this->reconciliation->reconciled = $reconcile ? 1 : 0;
+            $this->reconciliation->save();
 
-        if ($transactions) {
-            foreach ($transactions as $key => $value) {
-                if (empty($value)) {
-                    continue;
+            if ($transactions) {
+                foreach ($transactions as $key => $value) {
+                    if (empty($value)) {
+                        continue;
+                    }
+
+                    $t = explode('_', $key);
+
+                    $transaction = Transaction::find($t[1]);
+                    $transaction->reconciled = $reconcile ? 1 : 0;
+                    $transaction->save();
                 }
- 
-                $t = explode('_', $key);
-
-                $transaction = Transaction::find($t[1]);
-                $transaction->reconciled = 1;
-                $transaction->save();
             }
-        }
+        });
 
         return $this->reconciliation;
     }

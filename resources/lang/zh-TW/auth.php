@@ -13,16 +13,18 @@ return [
     'current_email'         => '目前的電子郵件',
     'reset'                 => '重設',
     'never'                 => '永遠不要',
-    
+    'landing_page'          => '登陸頁面',
+
     'password' => [
         'current'           => '密碼',
         'current_confirm'   => '確認密碼',
         'new'               => '新的密碼',
         'new_confirm'       => '確認新的密碼',
     ],
-    
+
     'error' => [
         'self_delete'       => '錯誤：無法刪除自己！',
+        'self_disable'      => '錯誤：無法停用自己！',
         'no_company'        => '錯誤：您的帳戶沒有分配公司，請聯繫系統管理員。',
     ],
 

@@ -9,7 +9,6 @@ return [
     'new'                   => 'Nauji',
     'top_free'              => 'Geriausios nemokamos',
     'free'                  => 'NEMOKAMOS',
-    'search'                => 'Paieška',
     'install'               => 'Įrašyti',
     'buy_now'               => 'Pirkti dabar',
     'get_api_key'           => 'Norėdami gauti API Raktą <a href=":url" target="_blank">spauskite čia</a>.',

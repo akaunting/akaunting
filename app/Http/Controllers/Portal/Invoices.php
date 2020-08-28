@@ -23,7 +23,7 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with(['contact', 'items', 'payments', 'histories'])
+        $invoices = Invoice::with('contact', 'histories', 'items', 'payments')
             ->accrued()->where('contact_id', user()->contact->id)
             ->collect(['invoice_number'=> 'desc']);
 

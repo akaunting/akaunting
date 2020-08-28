@@ -28,8 +28,10 @@ class DeleteTransaction extends Job
     {
         $this->authorize();
 
-        $this->transaction->recurring()->delete();
-        $this->transaction->delete();
+        \DB::transaction(function () {
+            $this->transaction->recurring()->delete();
+            $this->transaction->delete();
+        });
 
         return true;
     }

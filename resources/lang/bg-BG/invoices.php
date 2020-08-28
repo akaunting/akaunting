@@ -56,8 +56,8 @@ return [
         'email_sent'        => 'Фактурата беше изпратена!',
         'marked_sent'       => 'Фактурата е маркирана като изпратена!',
         'marked_paid'       => 'Фактурата е маркирана като платена!',
-        'marked_viewed'     => 'Invoice marked as viewed!',
-        'marked_cancelled'  => 'Invoice marked as cancelled!',
+        'marked_viewed'     => 'Фактурата е маркирана като видяна!',
+        'marked_cancelled'  => 'Сметката е маркирана като отказана!',
         'email_required'    => 'Няма имейл адрес за този клиент!',
         'draft'             => 'Това е <b>ЧЕРНОВА</b> фактура и няма да бъде отразена в графиките след като бъде изпратена.',
 

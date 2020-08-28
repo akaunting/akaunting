@@ -7,8 +7,8 @@ return [
 
     'error' => [
         'not_user_company'  => 'Erro: Não tem permissão para alterar esta empresa!',
-        'delete_active'     => 'Error: Can not delete the active company. Please, switch to another first!',
-        'disable_active'    => 'Error: Can not disable the active company. Please, switch to another first!',
+        'delete_active'     => 'Erro: Não é possível eliminar a empresa ativa. Por favor, altere para outra primeiro!',
+        'disable_active'    => 'Erro: Não é possível desativar a empresa ativa. Por favor, altere para outra primeiro!',
     ],
 
 ];
