@@ -37,7 +37,7 @@
                     @endif
                 @endpermission
 
-                <a href="{{ rotue('uploads.download', $file->id) }}" type="button" class="btn btn-sm btn-info text-white header-button-top">
+                <a href="{{ route('uploads.download', $file->id) }}" type="button" class="btn btn-sm btn-info text-white header-button-top">
                     <i class="fas fa-file-download"></i>
                 </a>
             </div>
