@@ -209,7 +209,7 @@ class Installer
             'DB_PORT'       =>  $port,
             'DB_DATABASE'   =>  $database,
             'DB_USERNAME'   =>  $username,
-            'DB_PASSWORD'   =>  $password,
+            'DB_PASSWORD'   =>  '"' . $password . '"',
             'DB_PREFIX'     =>  $prefix,
         ]);
 
