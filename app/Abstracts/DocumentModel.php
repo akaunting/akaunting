@@ -3,7 +3,7 @@
 namespace App\Abstracts;
 
 use App\Abstracts\Model;
-use App\Events\Sale\InvoicePaidCalculated;
+use App\Events\Document\PaidAmountCalculated;
 use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
@@ -117,12 +117,11 @@ abstract class DocumentModel extends Model
         $this->setAttribute('reconciled', $reconciled);
 
         // TODO: find a cleaner way compatible with observer pattern
-        $invoice = clone $this;
-        $invoice->paid_amount = $paid;
+        $model = clone $this;
+        $model->paid_amount = $paid;
+        event(new PaidAmountCalculated($model));
 
-        event(new InvoicePaidCalculated($invoice));
-
-        return round($invoice->paid_amount, $precision);
+        return round($model->paid_amount, $precision);
     }
     /**
      * Get the status label.

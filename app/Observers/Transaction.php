@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Abstracts\Observer;
+use App\Events\Document\TransactionsCounted;
 use App\Jobs\Purchase\CreateBillHistory;
 use App\Jobs\Sale\CreateInvoiceHistory;
 use App\Models\Banking\Transaction as Model;
@@ -33,7 +34,12 @@ class Transaction extends Observer
     {
         $invoice = $transaction->invoice;
 
-        $invoice->status = ($invoice->transactions->count() > 1) ? 'partial' : 'sent';
+        // TODO: find a cleaner way compatible with observer pattern
+        $model = clone $invoice;
+        $model->transactions_count = $invoice->transactions->count();
+        event(new TransactionsCounted($model));
+
+        $invoice->status = ($model->transactions_count > 1) ? 'partial' : 'sent';
 
         $invoice->save();
 
@@ -44,7 +50,12 @@ class Transaction extends Observer
     {
         $bill = $transaction->bill;
 
-        $bill->status = ($bill->transactions->count() > 1) ? 'partial' : 'received';
+        // TODO: find a cleaner way compatible with observer pattern
+        $model = clone $bill;
+        $model->transactions_count = $bill->transactions->count();
+        event(new TransactionsCounted($model));
+
+        $bill->status = ($model->transactions_count > 1) ? 'partial' : 'received';
 
         $bill->save();
 
