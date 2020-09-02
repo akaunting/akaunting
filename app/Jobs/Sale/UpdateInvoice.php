@@ -3,6 +3,7 @@
 namespace App\Jobs\Sale;
 
 use App\Abstracts\Job;
+use App\Events\Document\PaidAmountCalculated;
 use App\Events\Sale\InvoiceUpdated;
 use App\Events\Sale\InvoiceUpdating;
 use App\Jobs\Sale\CreateInvoiceItemsAndTotals;
@@ -53,13 +54,15 @@ class UpdateInvoice extends Job
 
             $this->dispatch(new CreateInvoiceItemsAndTotals($this->invoice, $this->request));
 
-            $invoice_paid = $this->invoice->paid;
+            $this->invoice->paid_amount = $this->invoice->paid;
+            event(new PaidAmountCalculated($this->invoice));
 
-            unset($this->invoice->reconciled);
-
-            if (($invoice_paid) && $this->request['amount'] > $invoice_paid) {
+            if ($this->request['amount'] > $this->invoice->paid_amount) {
                 $this->request['status'] = 'partial';
             }
+
+            unset($this->invoice->reconciled);
+            unset($this->invoice->paid_amount);
 
             $this->invoice->update($this->request->all());
 

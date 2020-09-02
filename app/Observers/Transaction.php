@@ -34,12 +34,12 @@ class Transaction extends Observer
     {
         $invoice = $transaction->invoice;
 
-        // TODO: find a cleaner way compatible with observer pattern
-        $model = clone $invoice;
-        $model->transactions_count = $invoice->transactions->count();
-        event(new TransactionsCounted($model));
+        $invoice->transactions_count = $invoice->transactions->count();
+        event(new TransactionsCounted($invoice));
 
-        $invoice->status = ($model->transactions_count > 1) ? 'partial' : 'sent';
+        $invoice->status = ($invoice->transactions_count > 0) ? 'partial' : 'sent';
+
+        unset($invoice->transactions_count);
 
         $invoice->save();
 
@@ -50,12 +50,12 @@ class Transaction extends Observer
     {
         $bill = $transaction->bill;
 
-        // TODO: find a cleaner way compatible with observer pattern
-        $model = clone $bill;
-        $model->transactions_count = $bill->transactions->count();
-        event(new TransactionsCounted($model));
+        $bill->transactions_count = $bill->transactions->count();
+        event(new TransactionsCounted($bill));
 
-        $bill->status = ($model->transactions_count > 1) ? 'partial' : 'received';
+        $bill->status = ($bill->transactions_count > 0) ? 'partial' : 'received';
+
+        unset($bill->transactions_count);
 
         $bill->save();
 

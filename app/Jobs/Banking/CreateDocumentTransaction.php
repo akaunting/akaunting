@@ -6,6 +6,7 @@ use App\Abstracts\Job;
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Purchase\CreateBillHistory;
 use App\Jobs\Sale\CreateInvoiceHistory;
+use App\Events\Document\PaidAmountCalculated;
 use App\Models\Banking\Transaction;
 use App\Models\Sale\Invoice;
 use App\Traits\Currencies;
@@ -64,11 +65,17 @@ class CreateDocumentTransaction extends Job
 
     protected function prepareRequest()
     {
+        if (!isset($this->request['amount'])) {
+            $this->model->paid_amount = $this->model->paid;
+            event(new PaidAmountCalculated($this->model));
+
+            $this->request['amount'] = $this->model->amount - $this->model->paid_amount;
+        }
+
         $this->request['company_id'] = session('company_id');
         $this->request['currency_code'] = isset($this->request['currency_code']) ? $this->request['currency_code'] : $this->model->currency_code;
         $this->request['type'] = ($this->model instanceof Invoice) ? 'income' : 'expense';
         $this->request['paid_at'] = isset($this->request['paid_at']) ? $this->request['paid_at'] : Date::now()->format('Y-m-d');
-        $this->request['amount'] = isset($this->request['amount']) ? $this->request['amount'] : ($this->model->amount - $this->model->paid);
         $this->request['currency_rate'] = config('money.' . $this->request['currency_code'] . '.rate');
         $this->request['account_id'] = isset($this->request['account_id']) ? $this->request['account_id'] : setting('default.account');
         $this->request['document_id'] = isset($this->request['document_id']) ? $this->request['document_id'] : $this->model->id;
@@ -92,8 +99,13 @@ class CreateDocumentTransaction extends Job
             $amount = round($converted_amount, $precision);
         }
 
-        $total_amount = round($this->model->amount - $this->model->paid, $precision);
+        $this->model->paid_amount = $this->model->paid;
+        event(new PaidAmountCalculated($this->model));
+
+        $total_amount = round($this->model->amount - $this->model->paid_amount, $precision);
+
         unset($this->model->reconciled);
+        unset($this->model->paid_amount);
 
         $compare = bccomp($amount, $total_amount, $precision);
 
