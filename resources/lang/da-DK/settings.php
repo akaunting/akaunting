@@ -67,7 +67,7 @@ return [
     'default' => [
         'description'       => 'Standard konto, valuta og sprog',
         'list_limit'        => 'Poster pr side',
-        'use_gravatar'      => 'Brug Gravatar',
+        'use_gravatar'      => 'Brug standard-ikoner (Gravatar)',
     ],
 
     'email' => [

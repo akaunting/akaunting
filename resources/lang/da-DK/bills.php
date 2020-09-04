@@ -52,7 +52,7 @@ return [
         'marked_received'   => 'Regning markeret som modtaget',
         'marked_paid'       => 'Regning markeret som betalt',
         'marked_cancelled'  => 'Regning markeret som annulleret',
-        'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil blive afspejlet i diagrammer, når den bliver modtaget.',
+        'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil først blive vist i oversigten, når den er afsendt.',
 
         'status' => [
             'created'       => 'Oprettet den :date',
