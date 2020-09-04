@@ -3,6 +3,7 @@
 return [
 
     'reconcile'             => 'Afstemme',
+    'unreconcile'           => 'Uafsem',
     'reconciled'            => 'Afstemt',
     'opening_balance'       => 'Åbningsbalance',
     'closing_balance'       => 'Primo saldo',

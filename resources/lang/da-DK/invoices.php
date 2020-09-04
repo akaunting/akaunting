@@ -59,7 +59,7 @@ return [
         'marked_viewed'     => 'Faktura markeret som set!',
         'marked_cancelled'  => 'Faktura markeret som annulleret!',
         'email_required'    => 'Ingen E-mail-adresse for kunden!',
-        'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil blive vist som diagrammer, når det bliver sendt.',
+        'draft'             => 'Dette er et <b>UDKAST</b> til faktura og vil først blive vist i oversigten, når den er sendt.',
 
         'status' => [
             'created'       => 'Oprettet den :date',

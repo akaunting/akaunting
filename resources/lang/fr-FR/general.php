@@ -3,7 +3,7 @@
 return [
 
     'dashboards'            => 'Tableau de bord|Tableaux de bord',
-    'items'                 => 'Marchandise|Marchandises',
+    'items'                 => 'Article|Articles',
     'incomes'               => 'Revenu|Revenus',
     'invoices'              => 'Facture|Factures',
     'revenues'              => 'Recettes|Chiffre d’affaires',
@@ -40,7 +40,7 @@ return [
     'statuses'              => 'Statut | Statuts',
     'others'                => 'Autre|Autres',
     'contacts'              => 'Contact|Contacts',
-    'reconciliations'       => 'Conciliation|Conciliations',
+    'reconciliations'       => 'Réconciliation|Réconciliations',
     'developers'            => 'Développeur|Développeurs',
     'schedules'             => 'Planification|Planifications',
     'groups'                => 'Groupe|Groupes',
