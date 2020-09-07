@@ -255,10 +255,10 @@ tbody .row {
 /*--------Table Body Row Margin Finish--------*/
 
 /*--------Table Cell Text Wrap--------*/
-.el-table td,
-.el-table th,
-.table td,
-.table th {
+#reconciliations-table .el-table td,
+#reconciliations-table .el-table th,
+#reconciliations-table .table td,
+#reconciliations-table .table th {
     white-space: normal;
 }
 /*--------Table Cell Text Wrap Finish--------*/
