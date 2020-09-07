@@ -36,11 +36,10 @@
                     <thead class="thead-light">
                         <tr class="row table-head-line">
                             <th class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
-                            <th class="col-xs-4 col-sm-3 col-md-3 col-lg-3 col-xl-2">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                            <th class="col-md-2 col-lg-2 col-xl-3 d-none d-md-block text-left">@sortablelink('email', trans('general.email'))</th>
-                            <th class="col-sm-3 col-md-2 col-lg-2 col-xl-2 d-none d-sm-block text-left">@sortablelink('phone', trans('general.phone'))</th>
+                            <th class="col-xs-4 col-sm-3 col-md-4 col-lg-3 col-xl-3">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
+                            <th class="col-md-3 col-lg-3 col-xl-3 d-none d-md-block">@sortablelink('email', trans('general.email'))</th>
                             <th class="col-lg-2 col-xl-2 d-none d-lg-block text-right">@sortablelink('unpaid', trans('general.unpaid'))</th>
-                            <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">@sortablelink('enabled', trans('general.enabled'))</th>
+                            <th class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">@sortablelink('enabled', trans('general.enabled'))</th>
                             <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">{{ trans('general.actions') }}</th>
                         </tr>
                     </thead>
@@ -51,26 +50,27 @@
                                 <td class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 </td>
-                                <td class="col-xs-4 col-sm-3 col-md-3 col-lg-3 col-xl-2">
+                                <td class="col-xs-4 col-sm-3 col-md-4 col-lg-3 col-xl-3">
                                     <a class="col-aka" href="{{ route('customers.show', $item->id) }}">{{ $item->name }}</a>
                                 </td>
-                                <td class="col-md-2 col-lg-2 col-xl-3 d-none d-md-block long-texts text-left">
-                                    {{ !empty($item->email) ? $item->email : trans('general.na') }}
+                                <td class="col-md-3 col-lg-3 col-xl-3 d-none d-md-block long-texts">
+                                    <el-tooltip content="{{ !empty($item->phone) ? $item->phone : trans('general.na') }}"
+                                        effect="dark"
+                                        placement="top">
+                                        <span>{{ !empty($item->email) ? $item->email : trans('general.na') }}</span>
+                                    </el-tooltip>
                                 </td>
-                                <td class="col-sm-3 col-md-2 col-lg-2 col-xl-2 d-none d-sm-block long-texts text-left">
-                                    {{ $item->phone }}
-                                </td>
-                                <td class="col-lg-2 col-xl-2 d-none d-lg-block long-texts text-right">
+                                <td class="col-lg-2 col-xl-2 d-none d-lg-block text-right long-texts">
                                     @money($item->unpaid, setting('default.currency'), true)
                                 </td>
-                                <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center">
+                                <td class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">
                                     @if (user()->can('update-sales-customers'))
                                         {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
                                     @else
                                         @if ($item->enabled)
-                                            <badge rounded type="success" class="mw-60">{{ trans('general.yes') }}</badge>
+                                            <badge rounded type="success" class="mw-60 d-inline-block">{{ trans('general.yes') }}</badge>
                                         @else
-                                            <badge rounded type="danger" class="mw-60">{{ trans('general.no') }}</badge>
+                                            <badge rounded type="danger" class="mw-60 d-inline-block">{{ trans('general.no') }}</badge>
                                         @endif
                                     @endif
                                 </td>
