@@ -13,6 +13,10 @@ class InvoiceShow extends FormRequest
      */
     public function authorize()
     {
+        if (auth()->guest()) {
+            return true;
+        }
+
         return $this->invoice->contact_id == user()->contact->id;
     }
 
