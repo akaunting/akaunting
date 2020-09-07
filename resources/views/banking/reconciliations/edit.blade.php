@@ -3,7 +3,7 @@
 @section('title', trans('general.title.edit', ['type' => trans_choice('general.reconciliations', 1)]))
 
 @section('content')
-    <div class="card">
+    <div id="reconciliations-table" class="card">
         {!! Form::model($reconciliation, [
             'id' => 'reconciliation',
             'method' => 'PATCH',
