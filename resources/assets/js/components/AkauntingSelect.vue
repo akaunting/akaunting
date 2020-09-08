@@ -1222,6 +1222,8 @@ export default {
             } else {
                 this.real_model = value.toString();
             }
+
+            this.change();
         },
 
         model: function (value) {
@@ -1230,6 +1232,8 @@ export default {
             } else {
                 this.real_model = value.toString();
             }
+
+            this.change();
         }
     },
 }
