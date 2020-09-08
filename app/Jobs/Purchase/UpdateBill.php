@@ -3,6 +3,7 @@
 namespace App\Jobs\Purchase;
 
 use App\Abstracts\Job;
+use App\Events\Document\PaidAmountCalculated;
 use App\Events\Purchase\BillUpdated;
 use App\Events\Purchase\BillUpdating;
 use App\Jobs\Purchase\CreateBillItemsAndTotals;
@@ -53,13 +54,15 @@ class UpdateBill extends Job
 
             $this->dispatch(new CreateBillItemsAndTotals($this->bill, $this->request));
 
-            $bill_paid = $this->bill->paid;
+            $this->bill->paid_amount = $this->bill->paid;
+            event(new PaidAmountCalculated($this->bill));
 
-            unset($this->bill->reconciled);
-
-            if (($bill_paid) && $this->request['amount'] > $bill_paid) {
+            if ($this->request['amount'] > $this->bill->paid_amount) {
                 $this->request['status'] = 'partial';
             }
+
+            unset($this->bill->reconciled);
+            unset($this->bill->paid_amount);
 
             $this->bill->update($this->request->input());
 

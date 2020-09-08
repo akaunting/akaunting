@@ -33,7 +33,7 @@
         {!! Form::close() !!}
     </div>
 
-    <div class="card">
+    <div id="reconciliations-table" class="card">
         <div class="card-header border-0">
             <h3 class="mb-0">{{ trans_choice('general.transactions', 2) }}</h3>
         </div>

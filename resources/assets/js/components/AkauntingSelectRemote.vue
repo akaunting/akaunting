@@ -616,6 +616,10 @@ export default {
         }
 
         this.$emit('interface', this.real_model);
+
+        setTimeout(function() {
+            this.change();
+        }.bind(this), 800);
     },
 
     methods: {

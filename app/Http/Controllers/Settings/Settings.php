@@ -54,7 +54,9 @@ class Settings extends Controller
         $settings = [];
 
         foreach ($modules->settings as $alias => $setting) {
-            if (!user()->can('read-' . $alias . '-settings')) {
+            $permission = !empty($setting['permission']) ? $setting['permission'] : 'read-' . $alias . '-settings';
+
+            if (!user()->can($permission)) {
                 continue;
             }
 

@@ -46,6 +46,7 @@ const app = new Vue({
             edit: {
                 status: false,
                 currency: false,
+                items: false,
             },
         }
     },
@@ -54,6 +55,7 @@ const app = new Vue({
         if ((document.getElementById('items') != null) && (document.getElementById('items').rows)) {
             this.colspan = document.getElementById("items").rows[0].cells.length - 1;
         }
+
         this.form.items = [];
 
         if (this.form.method) {
@@ -92,6 +94,10 @@ const app = new Vue({
 
     methods: {
         onChangeContact(contact_id) {
+            if (!contact_id) {
+                return;
+            }
+
             if (this.edit.status && !this.edit.currency) {
                 this.edit.currency = true;
 
@@ -226,7 +232,7 @@ const app = new Vue({
 
             // set global total variable.
             this.totals.sub = sub_total;
-            this.totals.tax = tax_total;
+            this.totals.tax = Math.abs(tax_total);
             this.totals.item_discount = line_item_discount_total;
 
             // Apply discount to total
@@ -285,6 +291,12 @@ const app = new Vue({
         },
 
         onSelectItem(item, index) {
+            if (this.edit.status && !this.edit.items) {
+                this.edit.items = true;
+
+                return;
+            }
+
             let tax_id = (item.tax_id) ? [item.tax_id.toString()] : '';
 
             this.form.items[index].item_id = item.id;

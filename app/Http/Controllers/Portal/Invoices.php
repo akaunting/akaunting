@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Abstracts\Http\Controller;
+use App\Http\Requests\Portal\InvoiceShow as Request;
 use App\Models\Sale\Invoice;
 use App\Models\Setting\Category;
 use App\Traits\Currencies;
@@ -41,7 +42,7 @@ class Invoices extends Controller
      *
      * @return Response
      */
-    public function show(Invoice $invoice)
+    public function show(Invoice $invoice, Request $request)
     {
         $payment_methods = Modules::getPaymentMethods();
 
@@ -57,7 +58,7 @@ class Invoices extends Controller
      *
      * @return Response
      */
-    public function printInvoice(Invoice $invoice)
+    public function printInvoice(Invoice $invoice, Request $request)
     {
         $invoice = $this->prepareInvoice($invoice);
 
@@ -71,7 +72,7 @@ class Invoices extends Controller
      *
      * @return Response
      */
-    public function pdfInvoice(Invoice $invoice)
+    public function pdfInvoice(Invoice $invoice, Request $request)
     {
         $invoice = $this->prepareInvoice($invoice);
 
@@ -92,22 +93,6 @@ class Invoices extends Controller
 
     protected function prepareInvoice(Invoice $invoice)
     {
-        $paid = 0;
-
-        foreach ($invoice->transactions as $item) {
-            $amount = $item->amount;
-
-            if ($invoice->currency_code != $item->currency_code) {
-                $item->default_currency_code = $invoice->currency_code;
-
-                $amount = $item->getAmountConvertedFromDefault();
-            }
-
-            $paid += $amount;
-        }
-
-        $invoice->paid = $paid;
-
         $invoice->template_path = 'sales.invoices.print_' . setting('invoice.template' ,'default');
 
         event(new \App\Events\Sale\InvoicePrinting($invoice));
@@ -120,22 +105,6 @@ class Invoices extends Controller
         if (empty($invoice)) {
             redirect()->route('login');
         }
-
-        $paid = 0;
-
-        foreach ($invoice->transactions as $item) {
-            $amount = $item->amount;
-
-            if ($invoice->currency_code != $item->currency_code) {
-                $item->default_currency_code = $invoice->currency_code;
-
-                $amount = $item->getAmountConvertedFromDefault();
-            }
-
-            $paid += $amount;
-        }
-
-        $invoice->paid = $paid;
 
         $payment_methods = Modules::getPaymentMethods();
 

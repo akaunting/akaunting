@@ -16,6 +16,8 @@ return [
         'sent'          => 'Sind Sie sicher das Sie die ausgewählte Rechnung als <b>versendet</b> markieren möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen als <b>versendet</b> markieren möchten?',
         'received'      => 'Sind Sie sicher das Sie die ausgewählte Rechnung als <b>empfangen</b> markieren möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen als <b>empfangen</b> markieren möchten?',
         'cancelled'     => 'Sind Sie sicher das Sie die ausgewählte Rechnung <b>stornieren</b> möchten?|Sind Sie sicher das Sie die ausgewählten Rechnungen <b>stornieren</b> möchten?',
+        'reconcile'     => 'Sind Sie sicher das Sie den ausgewählten Datensatz <b>abgleichen</b> möchten?|Sind Sie sicher das Sie die ausgewählten Datensätze <b>abgleichen</b> möchten?',
+        'unreconcile'   => 'Sind Sie sicher das Sie den ausgewählten Datensatz <b>nicht abgleichen</b> möchten?|Sind Sie sicher das Sie die ausgewählten Datensätze <b>nicht abgleichen</b> möchten?',
     ],
 
 ];

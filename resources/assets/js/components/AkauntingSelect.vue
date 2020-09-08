@@ -980,6 +980,10 @@ export default {
         }
 
         this.$emit('interface', this.real_model);
+
+        setTimeout(function() {
+            this.change();
+        }.bind(this), 800);
     },
 
     methods: {
@@ -1218,6 +1222,8 @@ export default {
             } else {
                 this.real_model = value.toString();
             }
+
+            this.change();
         },
 
         model: function (value) {
@@ -1226,6 +1232,8 @@ export default {
             } else {
                 this.real_model = value.toString();
             }
+
+            this.change();
         }
     },
 }

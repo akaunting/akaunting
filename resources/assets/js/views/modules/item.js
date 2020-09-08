@@ -61,6 +61,10 @@ const app = new Vue({
 
     methods: {
         onChangeCategory(category) {
+            if (!category.length) {
+                return;
+            }
+
             let path =  document.getElementById('category_page').value;
 
             if (category != '*') {

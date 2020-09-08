@@ -291,4 +291,36 @@ class Transaction extends Model
     {
         return $value ?? trans_choice('general.' . Str::plural($this->type), 1);
     }
+
+    /**
+     * Get the route name.
+     *
+     * @return string
+     */
+    public function getRouteNameAttribute($value)
+    {
+        if ($value) {
+            return $value;
+        }
+
+        if ($this->isIncome()) {
+            return !empty($this->document_id) ? 'invoices.show' : 'revenues.edit';
+        }
+
+        if ($this->isExpense()) {
+            return !empty($this->document_id) ? 'bills.show' : 'payments.edit';
+        }
+
+        return 'transactions.index';
+    }
+
+    /**
+     * Get the route id.
+     *
+     * @return string
+     */
+    public function getRouteIdAttribute($value)
+    {
+        return $value ?? $this->document_id ?? $this->id;
+    }
 }

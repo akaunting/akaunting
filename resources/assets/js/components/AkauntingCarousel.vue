@@ -65,7 +65,7 @@ export default {
         },
         initial_index: {
             type: Number,
-            default: 1,
+            default: 0,
             description: "index of the initially active slide (starting from 0)"
         },
         trigger: {

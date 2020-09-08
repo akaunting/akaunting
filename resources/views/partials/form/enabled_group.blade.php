@@ -1,6 +1,6 @@
 @stack($name . '_input_start')
 
-    <label class="custom-toggle">
+    <label class="custom-toggle d-inline-block">
         <input type="checkbox"
             name="status[{{ $id }}]"
             @input="onStatus({{ $id }}, $event)"
