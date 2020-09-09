@@ -833,7 +833,14 @@ table .align-items-center td span.badge {
 /*--lightbox Start--*/
 .vue-lb-info {
     position: initial !important;
-    background-color: rgb(60 63 114) !important;
     padding-top: 8px !important;
+    background-color: #3c3f72 !important;
+    color: #ffffff;
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}
+
+.vue-lb-modal-image {
+    border: 1px solid #3c3f72;
 }
 /*--lightbox Finish--*/
