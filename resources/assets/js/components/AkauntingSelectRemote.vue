@@ -618,7 +618,7 @@ export default {
         this.$emit('interface', this.real_model);
 
         setTimeout(function() {
-            this.change();
+            //this.change(); for invoice item
         }.bind(this), 800);
     },
 
