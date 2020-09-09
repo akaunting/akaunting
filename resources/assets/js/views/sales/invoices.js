@@ -46,7 +46,7 @@ const app = new Vue({
             edit: {
                 status: false,
                 currency: false,
-                items: false,
+                items: 0,
             },
         }
     },
@@ -291,8 +291,8 @@ const app = new Vue({
         },
 
         onSelectItem(item, index) {
-            if (this.edit.status && !this.edit.items) {
-                this.edit.items = true;
+            if (this.edit.status && this.edit.items < this.form.items.length) {
+                this.edit.items += 1;
 
                 return;
             }
