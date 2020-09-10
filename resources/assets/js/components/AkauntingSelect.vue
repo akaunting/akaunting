@@ -7,6 +7,7 @@
         :class="[
             {'readonly': readonly},
             {'disabled': disabled},
+            {'multiple': multiple},
             formClasses
         ]"
         :error="formError">
@@ -538,7 +539,7 @@
             </el-select>
 
             <el-select v-model="real_model" @input="change" filterable v-if="!disabled && multiple && !collapse" multiple
-                :placeholder="placeholder">
+                       :placeholder="placeholder" class="multiple">
                 <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                     <p class="el-select-dropdown__empty">
                         {{ noMatchingDataText }}
@@ -1282,5 +1283,14 @@ export default {
         margin-top: -32px;
         margin-right: 35px;
         position: relative;
+    }
+
+    .multiple .el-select__tags {
+        height: 100%;
+        margin-top: 10px;
+    }
+
+    .multiple .el-select__tags > span {
+        display: flex;
     }
 </style>

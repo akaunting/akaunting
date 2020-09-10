@@ -42,6 +42,9 @@
         @if (isset($attributes['disabled']))
         :disabled="{{ $attributes['disabled'] }}"
         @endif
+        @if (isset($attributes['multiple']))
+        :multiple="{{ $attributes['multiple'] }}"
+        @endif
 
         @if (isset($attributes['show']))
         v-if="{{ $attributes['show'] }}"
