@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\CompanyCreated;
+use App\Events\Common\CompanyCreating;
 use App\Models\Common\Company;
 use Artisan;
 
@@ -29,6 +31,8 @@ class CreateCompany extends Job
      */
     public function handle()
     {
+        event(new CompanyCreating($this->request));
+
         \DB::transaction(function () {
             $this->company = Company::create($this->request->all());
 
@@ -40,6 +44,8 @@ class CreateCompany extends Job
 
             $this->updateSettings();
         });
+
+        event(new CompanyCreated($this->company));
 
         return $this->company;
     }
