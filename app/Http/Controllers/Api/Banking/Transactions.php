@@ -45,7 +45,7 @@ class Transactions extends ApiController
     {
         $transaction = $this->dispatch(new CreateTransaction($request));
 
-        return $this->response->created(route('api.transactions.show', $transaction->id));
+        return $this->response->created(route('transactions.show', $transaction->id));
     }
 
     /**
