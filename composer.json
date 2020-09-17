@@ -76,6 +76,7 @@
             "Modules\\": "modules/",
             "Akaunting\\Module\\Commands\\": "overrides/akaunting/module/Commands/",
             "Illuminate\\Translation\\": "overrides/Illuminate/Translation/",
+            "Illuminate\\View\\": "overrides/Illuminate/View/",
             "Symfony\\Component\\Process\\": "overrides/symfony/process/"
         },
         "exclude-from-classmap": [
