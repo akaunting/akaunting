@@ -177,18 +177,25 @@ trait ManagesStacks
         $this->pushStack = [];
     }
 
+    /**
+     * Flush stack by key.
+     *
+     * @return void
+     */
     public function flushStack($key = null)
-    {
-        if (array_key_exists($key, $this->pushes)) {
-            unset($this->pushes[$key]);
-        }
+    {   
+        $properties = [
+            'pushes',
+            'prepends',
+            'pushStack',
+        ];
 
-        if (array_key_exists($key, $this->prepends)) {
-            unset($this->prepends[$key]);
-        }
+        foreach ($properties as $property) {
+            if (!array_key_exists($key, $this->$property)) {
+                continue;
+            }
 
-        if (array_key_exists($key, $this->pushStack)) {
-            unset($this->pushStack[$key]);
+            unset($this->$property[$key]);
         }
     }
 }
