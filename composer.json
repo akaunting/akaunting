@@ -85,6 +85,7 @@
             "vendor/akaunting/module/src/Commands/EnableCommand.php",
             "vendor/akaunting/module/src/Commands/InstallCommand.php",
             "vendor/laravel/framework/src/Illuminate/Translation/MessageSelector.php",
+            "vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesStacks.php",
             "vendor/symfony/process/PhpExecutableFinder.php"
         ],
         "files": [
