@@ -4,6 +4,7 @@ namespace Modules\OfflinePayments\Jobs;
 
 use App\Abstracts\Job;
 use App\Utilities\Modules;
+use App\Models\Banking\Transaction;
 
 class DeletePaymentMethod extends Job
 {
@@ -26,6 +27,8 @@ class DeletePaymentMethod extends Job
      */
     public function handle()
     {
+        $this->authorize();
+
         $methods = json_decode(setting('offline-payments.methods'), true);
 
         $payment_method = [];
@@ -49,5 +52,32 @@ class DeletePaymentMethod extends Job
         Modules::clearPaymentMethodsCache();
 
         return $payment_method;
+    }
+
+    /**
+     * Determine if this action is applicable.
+     *
+     * @return void
+     */
+    public function authorize()
+    {
+        if ($relationships = $this->getRelationships()) {
+            $message = trans('messages.warning.deleted', ['name' => $this->request->get('code'), 'text' => implode(', ', $relationships)]);
+
+            throw new \Exception($message);
+        }
+    }
+
+    public function getRelationships()
+    {
+        $counter = [];
+
+        if (!$c = Transaction::where('payment_method', $this->request->get('code'))->get()->count()) {
+            return [];
+        }
+
+        $counter[] = $c . ' ' . strtolower(trans_choice('general.transactions', ($c > 1) ? 2 : 1));
+
+        return $counter;
     }
 }

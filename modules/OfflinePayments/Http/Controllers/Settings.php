@@ -102,17 +102,22 @@ class Settings extends Controller
      */
     public function destroy(DRequest $request)
     {
-        $payment_method = $this->dispatch(new DeletePaymentMethod($request));
+        $response = $this->ajaxDispatch(new DeletePaymentMethod($request));
 
-        $message = trans('messages.success.deleted', ['type' => $payment_method['name']]);
+        if ($response['success']) {
+            //$response['redirect'] = route('offline-payments.settings.edit');
 
-        //flash($message)->success();
+            $response['message'] = trans('messages.success.deleted', ['type' => $response['data']['name']]);
 
-        return response()->json([
-            'errors' => false,
-            'success' => true,
-            'message' => $message,
-            'redirect' => route('offline-payments.settings.edit'),
-        ]);
+            //flash($message)->success();
+        } else {
+            //$response['redirect'] = route('offline-payments.settings.edit');
+
+            $message = $response['message'];
+
+            //flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 }
