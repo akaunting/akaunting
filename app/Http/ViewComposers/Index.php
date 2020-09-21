@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use Akaunting\Module\Module;
+use App\Events\Common\BulkActionsAdding;
 use Date;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -67,10 +68,19 @@ class Index
             $class_name = 'App\BulkActions\\' .  $file_name;
         }
 
-        if (!class_exists($class_name)) {
-            return;
+        if (class_exists($class_name)) {
+            event(new BulkActionsAdding(app($class_name)));
+
+            $bulk_actions = app($class_name)->actions;
+        } else {
+            $b = new \stdClass();
+            $b->actions = [];
+
+            event(new BulkActionsAdding($b));
+
+            $bulk_actions = $b->actions;
         }
 
-        $view->with(['bulk_actions' => app($class_name)->actions]);
+        $view->with(['bulk_actions' => $bulk_actions]);
     }
 }
