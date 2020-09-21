@@ -57,7 +57,7 @@ class UpdateInvoice extends Job
             $this->invoice->paid_amount = $this->invoice->paid;
             event(new PaidAmountCalculated($this->invoice));
 
-            if ($this->request['amount'] > $this->invoice->paid_amount) {
+            if ($this->request['amount'] > $this->invoice->paid_amount && $this->invoice->paid_amount > 0) {
                 $this->request['status'] = 'partial';
             }
 
