@@ -15,11 +15,15 @@ class Items extends BulkAction
         'enable' => [
             'name' => 'general.enable',
             'message' => 'bulk_actions.message.enable',
+            'path' =>  ['group' => 'common', 'type' => 'items'],
+            'type' => '*',
             'permission' => 'update-common-items',
         ],
         'disable' => [
             'name' => 'general.disable',
             'message' => 'bulk_actions.message.disable',
+            'path' =>  ['group' => 'common', 'type' => 'items'],
+            'type' => '*',
             'permission' => 'update-common-items',
         ],
         'delete' => [
@@ -30,6 +34,7 @@ class Items extends BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
+            'type' => 'download',
         ],
     ];
 

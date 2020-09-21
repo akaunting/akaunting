@@ -34,6 +34,7 @@ abstract class BulkAction
         'export' => [
             'name' => 'general.export',
             'message' => 'bulk_actions.message.export',
+            'type' => 'download'
         ],
     ];
 

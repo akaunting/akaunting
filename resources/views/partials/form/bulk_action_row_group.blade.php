@@ -48,6 +48,16 @@
                                 @if(!empty($action['message']))
                                 data-message="{{ trans_choice($action['message'], 2, ['type' => $text]) }}"
                                 @endif
+                                @if(isset($action['path']) && !empty($action['path']))
+                                    data-path="{{ route('bulk-actions.action', $action['path']) }}"
+                                @else
+                                    data-path=""
+                                @endif
+                                @if(isset($action['type']) && !empty($action['type']))
+                                    data-type="{{ $action['type'] }}"
+                                @else
+                                    data-type=""
+                                @endif
                             >{{ trans($action['name']) }}</option>
                             @endif
                         @endforeach
