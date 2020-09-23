@@ -55,7 +55,10 @@
 
         remote-action="{{ $attributes['remote_action'] }}"
         remote-type="'{{ $attributes['remote_type'] }}"
+
+        @if (!empty($attributes['currecny_code'])) 
         currency-code="{{ $attributes['currecny_code'] }}"
+        @endif
 
         loading-text="{{ trans('general.loading') }}"
         no-data-text="{{ trans('general.no_data') }}"

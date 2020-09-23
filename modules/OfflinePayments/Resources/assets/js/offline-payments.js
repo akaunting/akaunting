@@ -100,8 +100,9 @@ const app = new Vue({
                 
                                     document.getElementById('method-' + this.confirm.code).remove();
 
-                                    this.confirm.show = false;
                                 }
+
+                                this.confirm.show = false;
 
                                 this.$notify({
                                     message: response.data.message,

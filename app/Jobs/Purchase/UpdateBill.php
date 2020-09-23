@@ -57,7 +57,7 @@ class UpdateBill extends Job
             $this->bill->paid_amount = $this->bill->paid;
             event(new PaidAmountCalculated($this->bill));
 
-            if ($this->request['amount'] > $this->bill->paid_amount) {
+            if ($this->request['amount'] > $this->bill->paid_amount && $this->bill->paid_amount > 0) {
                 $this->request['status'] = 'partial';
             }
 

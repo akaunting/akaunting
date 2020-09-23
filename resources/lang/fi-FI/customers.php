@@ -2,11 +2,11 @@
 
 return [
 
-    'can_login'             => 'Voi Kirjautua?',
+    'can_login'             => 'Voiko kirjautua?',
     'user_created'          => 'Käyttäjä luotu',
 
     'error' => [
-        'email'             => 'Sähköposti on jo varattu.',
+        'email'             => 'Sähköpostiosoite on jo käytössä.',
     ],
 
 ];

@@ -3,6 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Events\Common\CompanyUpdated;
+use App\Events\Common\CompanyUpdating;
 use App\Models\Common\Company;
 use App\Traits\Users;
 
@@ -34,6 +36,8 @@ class UpdateCompany extends Job
     public function handle()
     {
         $this->authorize();
+
+        event(new CompanyUpdating($this->company, $this->request));
 
         \DB::transaction(function () {
             $this->company->update($this->request->all());
@@ -76,6 +80,8 @@ class UpdateCompany extends Job
             setting()->save();
             setting()->forgetAll();
         });
+
+        event(new CompanyUpdated($this->company, $this->request));
 
         return $this->company;
     }
