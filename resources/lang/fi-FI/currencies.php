@@ -3,16 +3,16 @@
 return [
 
     'code'                  => 'Koodi',
-    'rate'                  => 'Arvioi',
+    'rate'                  => 'Kurssi',
     'default'               => 'Oletusvaluutta',
     'decimal_mark'          => 'Desimaali Merkki',
     'thousands_separator'   => 'Tuhaterotin',
     'precision'             => 'Tarkkuus',
     'symbol' => [
         'symbol'            => 'Symboli',
-        'position'          => 'Valuuttasymbolin paikka',
-        'before'            => 'Määrä Ennen',
-        'after'             => 'Määrä Jälkeen',
+        'position'          => 'Valuuttasymbolin sijainti',
+        'before'            => 'Ennen summaa',
+        'after'             => 'Summan jälkeen',
     ]
 
 ];
