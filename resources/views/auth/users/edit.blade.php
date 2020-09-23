@@ -49,7 +49,7 @@
                     @endif
 
                     @permission('read-common-companies')
-                    {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, $user->company_ids, ['required' => 'required', 'remote_action' => route('companies.autocomplete'), 'remote_type' => 'company']) }}
+                        {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, $user->company_ids, ['required' => 'required', 'disabled' => (in_array('customer', $user->roles()->pluck('name')->toArray())) ? 'true' : 'false', 'remote_action' => route('companies.autocomplete'), 'remote_type' => 'company']) }}
                     @endpermission
 
                     @permission('read-auth-roles')
