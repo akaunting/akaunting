@@ -284,7 +284,7 @@ export default {
                         },
 
                         created: function() {
-                            this.form = new Form('form-create');
+                            this.form = new Form('form-dynamic-component');
                         },
 
                         mounted() {
