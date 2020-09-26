@@ -2,21 +2,21 @@
 
 namespace App\Console\Commands;
 
+use App\Events\Banking\TransactionCreated;
+use App\Events\Banking\TransactionRecurring;
 use App\Events\Purchase\BillCreated;
 use App\Events\Purchase\BillRecurring;
 use App\Events\Sale\InvoiceCreated;
 use App\Events\Sale\InvoiceRecurring;
+use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
-use App\Traits\Sales;
+use App\Models\Sale\Invoice;
 use App\Utilities\Overrider;
-use Carbon\Carbon;
 use Date;
 use Illuminate\Console\Command;
 
 class RecurringCheck extends Command
 {
-    use Sales;
-
     /**
      * The name and signature of the console command.
      *
@@ -34,7 +34,7 @@ class RecurringCheck extends Command
     /**
      * The current day.
      *
-     * @var Carbon
+     * @var \Carbon\Carbon
      */
     protected $today;
 
@@ -64,8 +64,16 @@ class RecurringCheck extends Command
             $this->today = Date::today();
 
             foreach ($company->recurring as $recurring) {
-                foreach ($recurring->schedule() as $schedule) {
-                    $this->recur($recurring, $schedule);
+                if (!$model = $recurring->recurable) {
+                    continue;
+                }
+
+                foreach ($recurring->getRecurringSchedule() as $schedule) {
+                    $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
+
+                    \DB::transaction(function () use ($model, $recurring, $schedule_date) {
+                        $this->recur($model, $recurring->recurable_type, $schedule_date);
+                    });
                 }
             }
         }
@@ -75,56 +83,63 @@ class RecurringCheck extends Command
         setting()->forgetAll();
     }
 
-    protected function recur($recurring, $schedule)
+    protected function recur($model, $type, $schedule_date)
     {
-        $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
-
-        // Check if should recur today
-        if ($this->today->ne($schedule_date)) {
+        // Don't recur the future
+        if ($schedule_date->greaterThan($this->today)) {
             return;
         }
 
-        if (!$model = $recurring->recurable) {
+        if (!$clone = $this->getClone($model, $schedule_date)) {
             return;
         }
 
-        switch ($recurring->recurable_type) {
+        switch ($type) {
             case 'App\Models\Purchase\Bill':
-                if (!$clone = $this->getDocumentClone($model, 'billed_at')) {
-                    break;
-                }
-
                 event(new BillCreated($clone));
 
                 event(new BillRecurring($clone));
 
                 break;
             case 'App\Models\Sale\Invoice':
-                if (!$clone = $this->getDocumentClone($model, 'invoiced_at')) {
-                    break;
-                }
-
                 event(new InvoiceCreated($clone));
 
                 event(new InvoiceRecurring($clone));
 
                 break;
             case 'App\Models\Banking\Transaction':
-                // Skip model created on the same day, but scheduler hasn't run yet
-                if ($this->today->eq(Date::parse($model->paid_at->format('Y-m-d')))) {
-                    break;
-                }
+                event(new TransactionCreated($clone));
 
-                $model->cloneable_relations = [];
-
-                // Create new record
-                $clone = $model->duplicate();
-
-                $clone->parent_id = $model->id;
-                $clone->paid_at = $this->today->format('Y-m-d');
-                $clone->save();
+                event(new TransactionRecurring($clone));
 
                 break;
+        }
+    }
+
+    /**
+     * Clone the model and return it.
+     *
+     * @param  $model
+     * @param  $schedule_date
+     *
+     * @return boolean|object
+     */
+    protected function getClone($model, $schedule_date)
+    {
+        if ($this->skipThisClone($model, $schedule_date)) {
+            return false;
+        }
+
+        $function = ($model instanceof Transaction) ? 'getTransactionClone' : 'getDocumentClone';
+
+        try {
+            return $this->$function($model, $schedule_date);
+        } catch (\Exception | \Throwable | \Swift_RfcComplianceException| \Swift_TransportException | \Illuminate\Database\QueryException $e) {
+            $this->error($e->getMessage());
+
+            logger('Recurring check:: ' . $e->getMessage());
+
+            return false;
         }
     }
 
@@ -132,40 +147,97 @@ class RecurringCheck extends Command
      * Clone the document and return it.
      *
      * @param  $model
-     * @param  $date_field
+     * @param  $schedule_date
      *
      * @return boolean|object
      */
-    protected function getDocumentClone($model, $date_field)
+    protected function getDocumentClone($model, $schedule_date)
     {
-        // Skip model created on the same day, but scheduler hasn't run yet
-        if ($this->today->eq(Date::parse($model->$date_field->format('Y-m-d')))) {
-            return false;
-        }
-
         $model->cloneable_relations = ['items', 'totals'];
 
-        try {
-            $clone = $model->duplicate();
-        } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
-            $this->error($e->getMessage());
+        $clone = $model->duplicate();
 
-            logger('Recurring check:: ' . $e->getMessage());
-
-            return false;
-        }
-
-        // Set original model id
-        $clone->parent_id = $model->id;
+        $date_field = $this->getDateField($model);
 
         // Days between issued and due date
         $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->$date_field));
 
-        // Update dates
-        $clone->$date_field = $this->today->format('Y-m-d');
-        $clone->due_at = $this->today->copy()->addDays($diff_days)->format('Y-m-d');
+        $clone->parent_id = $model->id;
+        $clone->$date_field = $schedule_date->format('Y-m-d');
+        $clone->due_at = $schedule_date->copy()->addDays($diff_days)->format('Y-m-d');
         $clone->save();
 
         return $clone;
+    }
+
+    /**
+     * Clone the transaction and return it.
+     *
+     * @param  $model
+     * @param  $schedule_date
+     *
+     * @return boolean|object
+     */
+    protected function getTransactionClone($model, $schedule_date)
+    {
+        $model->cloneable_relations = [];
+
+        $clone = $model->duplicate();
+
+        $clone->parent_id = $model->id;
+        $clone->paid_at = $schedule_date->format('Y-m-d');
+        $clone->save();
+
+        return $clone;
+    }
+
+    protected function skipThisClone($model, $schedule_date)
+    {
+        $date_field = $this->getDateField($model);
+
+        // Skip model created on the same day, but scheduler hasn't run yet
+        if ($schedule_date->equalTo(Date::parse($model->$date_field->format('Y-m-d')))) {
+            return true;
+        }
+
+        $table = $this->getTable($model);
+
+        $already_cloned = \DB::table($table)
+                                ->where('parent_id', $model->id)
+                                ->whereDate($date_field, $schedule_date)
+                                ->value('id');
+
+        // Skip if already cloned
+        if ($already_cloned) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function getDateField($model)
+    {
+        if ($model instanceof Transaction) {
+            return 'paid_at';
+        }
+
+        if ($model instanceof Invoice) {
+            return 'invoiced_at';
+        }
+
+        return 'billed_at';
+    }
+
+    protected function getTable($model)
+    {
+        if ($model instanceof Transaction) {
+            return 'transactions';
+        }
+
+        if ($model instanceof Invoice) {
+            return 'invoices';
+        }
+
+        return 'bills';
     }
 }

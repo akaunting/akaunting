@@ -4,7 +4,7 @@
 
 @section('content')
     @stack('recurring_message_start')
-        @if (($recurring = $invoice->recurring) && ($next = $recurring->next()))
+        @if (($recurring = $invoice->recurring) && ($next = $recurring->getNextRecurring()))
             <div class="row mb-3">
                 <div class="col-sm-12">
                     <div class="media">

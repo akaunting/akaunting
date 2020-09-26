@@ -3,7 +3,7 @@
 @section('title', trans('general.title.edit', ['type' => trans_choice('general.payments', 1)]))
 
 @section('content')
-    @if (($recurring = $payment->recurring) && ($next = $recurring->next()))
+    @if (($recurring = $payment->recurring) && ($next = $recurring->getNextRecurring()))
         <div class="media mb-3">
             <div class="media-body">
                 <div class="media-comment-text">

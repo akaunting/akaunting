@@ -59,18 +59,71 @@ trait Recurring
         ]);
     }
 
-    public function current()
+    public function getRecurringSchedule()
     {
-        if (!$schedule = $this->schedule()) {
+        $config = new ArrayTransformerConfig();
+        $config->enableLastDayOfMonthFix();
+
+        $transformer = new ArrayTransformer();
+        $transformer->setConfig($config);
+
+        return $transformer->transform($this->getRecurringRule());
+    }
+
+    public function getRecurringRule()
+    {
+        $rule = (new Rule())
+            ->setStartDate($this->getRecurringRuleStartDate())
+            ->setTimezone($this->getRecurringRuleTimeZone())
+            ->setFreq($this->getRecurringRuleFrequency())
+            ->setInterval($this->getRecurringRuleInterval());
+
+        // 0 means infinite
+        if ($this->count != 0) {
+            $rule->setCount($this->getRecurringRuleCount());
+        }
+
+        return $rule;
+    }
+
+    public function getRecurringRuleStartDate()
+    {
+        return new \DateTime($this->started_at, new \DateTimeZone($this->getRecurringRuleTimeZone()));
+    }
+
+    public function getRecurringRuleTimeZone()
+    {
+        return setting('localisation.timezone');
+    }
+
+    public function getRecurringRuleCount()
+    {
+        // Fix for humans
+        return $this->count + 1;
+    }
+
+    public function getRecurringRuleFrequency()
+    {
+        return strtoupper($this->frequency);
+    }
+
+    public function getRecurringRuleInterval()
+    {
+        return $this->interval;
+    }
+
+    public function getCurrentRecurring()
+    {
+        if (!$schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
         return $schedule->current()->getStart();
     }
 
-    public function next()
+    public function getNextRecurring()
     {
-        if (!$schedule = $this->schedule()) {
+        if (!$schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
@@ -81,69 +134,21 @@ trait Recurring
         return $next->getStart();
     }
 
-    public function first()
+    public function getFirstRecurring()
     {
-        if (!$schedule = $this->schedule()) {
+        if (!$schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
         return $schedule->first()->getStart();
     }
 
-    public function last()
+    public function getLastRecurring()
     {
-        if (!$schedule = $this->schedule()) {
+        if (!$schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
         return $schedule->last()->getStart();
-    }
-
-    public function schedule()
-    {
-        $config = new ArrayTransformerConfig();
-        $config->enableLastDayOfMonthFix();
-
-        $transformer = new ArrayTransformer();
-        $transformer->setConfig($config);
-
-        return $transformer->transform($this->getRule());
-    }
-
-    public function getRule()
-    {
-        $rule = (new Rule())
-            ->setStartDate($this->getRuleStartDate())
-            ->setTimezone($this->getRuleTimeZone())
-            ->setFreq($this->getRuleFrequency())
-            ->setInterval($this->interval);
-
-        // 0 means infinite
-        if ($this->count != 0) {
-            $rule->setCount($this->getRuleCount());
-        }
-
-        return $rule;
-    }
-
-    public function getRuleStartDate()
-    {
-        return new \DateTime($this->started_at, new \DateTimeZone($this->getRuleTimeZone()));
-    }
-
-    public function getRuleTimeZone()
-    {
-        return setting('localisation.timezone');
-    }
-
-    public function getRuleCount()
-    {
-        // Fix for humans
-        return $this->count + 1;
-    }
-
-    public function getRuleFrequency()
-    {
-        return strtoupper($this->frequency);
     }
 }
