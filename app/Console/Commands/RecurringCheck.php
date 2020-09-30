@@ -11,8 +11,8 @@ use App\Events\Sale\InvoiceRecurring;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
 use App\Models\Sale\Invoice;
+use App\Utilities\Date;
 use App\Utilities\Overrider;
-use Date;
 use Illuminate\Console\Command;
 
 class RecurringCheck extends Command
@@ -30,13 +30,6 @@ class RecurringCheck extends Command
      * @var string
      */
     protected $description = 'Check for recurring';
-
-    /**
-     * The current day.
-     *
-     * @var \Carbon\Carbon
-     */
-    protected $today;
 
     /**
      * Execute the console command.
@@ -61,19 +54,35 @@ class RecurringCheck extends Command
             Overrider::load('settings');
             Overrider::load('currencies');
 
-            $this->today = Date::today();
+            $today = Date::today();
 
             foreach ($company->recurring as $recurring) {
                 if (!$model = $recurring->recurable) {
                     continue;
                 }
 
-                foreach ($recurring->getRecurringSchedule() as $schedule) {
+                $schedules = $recurring->getRecurringSchedule();
+
+                $children_count = $this->getChildrenCount($model);
+                $schedule_count = $schedules->count();
+
+                // All recurring created, including today
+                if ($children_count > ($schedule_count - 1)) {
+                    continue;
+                }
+
+                // Recur only today
+                if ($children_count == ($schedule_count - 1)) {
+                    $this->recur($model, $recurring->recurable_type, $today);
+
+                    continue;
+                }
+
+                // Recur all schedules, previously failed
+                foreach ($schedules as $schedule) {
                     $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
 
-                    \DB::transaction(function () use ($model, $recurring, $schedule_date) {
-                        $this->recur($model, $recurring->recurable_type, $schedule_date);
-                    });
+                    $this->recur($model, $recurring->recurable_type, $schedule_date);
                 }
             }
         }
@@ -85,35 +94,32 @@ class RecurringCheck extends Command
 
     protected function recur($model, $type, $schedule_date)
     {
-        // Don't recur the future
-        if ($schedule_date->greaterThan($this->today)) {
-            return;
-        }
+        \DB::transaction(function () use ($model, $type, $schedule_date) {
+            if (!$clone = $this->getClone($model, $schedule_date)) {
+                return;
+            }
 
-        if (!$clone = $this->getClone($model, $schedule_date)) {
-            return;
-        }
+            switch ($type) {
+                case 'App\Models\Purchase\Bill':
+                    event(new BillCreated($clone));
 
-        switch ($type) {
-            case 'App\Models\Purchase\Bill':
-                event(new BillCreated($clone));
+                    event(new BillRecurring($clone));
 
-                event(new BillRecurring($clone));
+                    break;
+                case 'App\Models\Sale\Invoice':
+                    event(new InvoiceCreated($clone));
 
-                break;
-            case 'App\Models\Sale\Invoice':
-                event(new InvoiceCreated($clone));
+                    event(new InvoiceRecurring($clone));
 
-                event(new InvoiceRecurring($clone));
+                    break;
+                case 'App\Models\Banking\Transaction':
+                    event(new TransactionCreated($clone));
 
-                break;
-            case 'App\Models\Banking\Transaction':
-                event(new TransactionCreated($clone));
+                    event(new TransactionRecurring($clone));
 
-                event(new TransactionRecurring($clone));
-
-                break;
-        }
+                    break;
+            }
+        });
     }
 
     /**
@@ -213,6 +219,15 @@ class RecurringCheck extends Command
         }
 
         return false;
+    }
+
+    protected function getChildrenCount($model)
+    {
+        $table = $this->getTable($model);
+
+        return \DB::table($table)
+            ->where('parent_id', $model->id)
+            ->count();
     }
 
     protected function getDateField($model)

@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Utilities\Date;
 use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
 use Recurr\Transformer\ArrayTransformerConfig;
@@ -59,24 +60,29 @@ trait Recurring
         ]);
     }
 
-    public function getRecurringSchedule()
+    public function getRecurringSchedule($set_until_date = true)
     {
         $config = new ArrayTransformerConfig();
         $config->enableLastDayOfMonthFix();
+        $config->setVirtualLimit($this->getRecurringVirtualLimit());
 
         $transformer = new ArrayTransformer();
         $transformer->setConfig($config);
 
-        return $transformer->transform($this->getRecurringRule());
+        return $transformer->transform($this->getRecurringRule($set_until_date));
     }
 
-    public function getRecurringRule()
+    public function getRecurringRule($set_until_date = true)
     {
         $rule = (new Rule())
             ->setStartDate($this->getRecurringRuleStartDate())
             ->setTimezone($this->getRecurringRuleTimeZone())
             ->setFreq($this->getRecurringRuleFrequency())
             ->setInterval($this->getRecurringRuleInterval());
+
+        if ($set_until_date) {
+            $rule->setUntil($this->getRecurringRuleUntilDate());
+        }
 
         // 0 means infinite
         if ($this->count != 0) {
@@ -89,6 +95,11 @@ trait Recurring
     public function getRecurringRuleStartDate()
     {
         return new \DateTime($this->started_at, new \DateTimeZone($this->getRecurringRuleTimeZone()));
+    }
+
+    public function getRecurringRuleUntilDate()
+    {
+        return new \DateTime(Date::today()->toDateTimeString(), new \DateTimeZone($this->getRecurringRuleTimeZone()));
     }
 
     public function getRecurringRuleTimeZone()
@@ -110,6 +121,27 @@ trait Recurring
     public function getRecurringRuleInterval()
     {
         return $this->interval;
+    }
+
+    public function getRecurringVirtualLimit()
+    {
+        switch ($this->frequency) {
+            case 'yearly':
+                $limit = '2';
+                break;
+            case 'monthly':
+                $limit = '24';
+                break;
+            case 'weekly':
+                $limit = '104';
+                break;
+            case 'daily':
+            default;
+                $limit = '732';
+                break;
+        }
+
+        return $limit;
     }
 
     public function getCurrentRecurring()
