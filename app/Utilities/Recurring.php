@@ -16,9 +16,9 @@ class Recurring
                 continue;
             }
 
-            foreach ($item->recurring->schedule() as $recurr) {
+            foreach ($item->recurring->getRecurringSchedule() as $schedule) {
                 $issued = Date::parse($item->$issued_date_field);
-                $start = $recurr->getStart();
+                $start = $schedule->getStart();
 
                 if ($issued->format('Y') != $start->format('Y')) {
                     continue;
