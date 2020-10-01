@@ -144,7 +144,8 @@
                             </button>
                         </a>
                     </div>
-                    @endpermission
+                @endpermission
+
 
                 @permission('read-settings-currencies')
                     <div class="col-md-4">

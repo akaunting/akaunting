@@ -3,8 +3,8 @@
 @section('title', trans_choice('general.modules', 2))
 
 @section('new_button')
-    <span><a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_key') }}</a></span>
-    <span><a href="{{ route('apps.my.index') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}</a></span>
+    <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm">{{ trans('modules.api_key') }}</a>
+    <a href="{{ route('apps.my.index') }}" class="btn btn-white btn-sm">{{ trans('modules.my_apps') }}</a>
 @endsection
 
 @section('content')
@@ -24,6 +24,7 @@
                         @for($i = 1; $i <= $module->vote; $i++)
                             <i class="fa fa-star fa-sm text-yellow"></i>
                         @endfor
+
                         @for($i = $module->vote; $i < 5; $i++)
                             <i class="fa fa-star-o fa-sm"></i>
                         @endfor
@@ -73,9 +74,9 @@
                         <div class="tab-pane fade show active" id="description">
                             {!! $module->description !!}
 
-                            @if ($module->screenshots || $module->video)
+                            @if($module->screenshots || $module->video)
                                <akaunting-carousel :name="'{{ $module->name }}'" :height="'430px'" arrow="always"
-                                    @if ($module->video)
+                                    @if($module->video)
                                         @php
                                             if (strpos($module->video->link, '=') !== false) {
                                                 $code = explode('=', $module->video->link);
@@ -108,7 +109,7 @@
                          @endif
 
                          <div class="tab-pane fade" id="review">
-                            @php
+                            @php 
                                 $reviews = $module->app_reviews;
                             @endphp
 
@@ -280,14 +281,10 @@
                                 <td class="col-7 text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
                             </tr>
                         @endif
-                        @if ($module->categories)
+                        @if ($module->category)
                             <tr class="row">
-                                <th class="col-5">{{ trans_choice('general.categories', (count($module->categories) > 1) ? 2 : 1) }}</th>
-                                <td class="col-7 text-right">
-                                    @foreach ($module->categories as $module_category)
-                                        <a href="{{ route('apps.categories.show', $module_category->slug) }}">{{ $module_category->name }}</a> </br>
-                                    @endforeach
-                                </td>
+                                <th class="col-5">{{ trans_choice('general.categories', 1) }}</th>
+                                <td class="col-7 text-right"><a href="{{ route('apps.categories.show', $module->category->slug) }}">{{ $module->category->name }}</a></td>
                             </tr>
                         @endif
                         <tr class="row">

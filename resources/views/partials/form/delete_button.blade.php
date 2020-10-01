@@ -23,7 +23,7 @@
     $message = trans('general.delete_confirm', ['name' => '<strong>' . $name . '</strong>', 'type' => $type]);
 @endphp
 
-{!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+{!! Form::button(trans('general.delete'), array(
     'type'    => 'button',
     'class'   => 'btn btn-danger btn-xs',
     'title'   => trans('general.delete'),

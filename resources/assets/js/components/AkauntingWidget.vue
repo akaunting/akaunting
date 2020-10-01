@@ -1,39 +1,39 @@
 <template>
     <akaunting-modal
-            :title="title"
-            :show="display"
-            @cancel="onCancel"
-            v-if="display">
+        :title="title"
+        :show="display"
+        @cancel="onCancel"
+        v-if="display">
         <template #modal-body>
             <div class="modal-body text-left">
                 <div class="row">
                     <div class="col-md-12">
                         <base-input
-                                v-model="form.name"
-                                :label="text.name"
-                                prepend-icon="fas fa-font"
-                                :placeholder="placeholder.name"
-                                inputGroupClasses="input-group-merge">
+                            v-model="form.name"
+                            :label="text.name"
+                            prepend-icon="fas fa-font"
+                            :placeholder="placeholder.name"
+                            inputGroupClasses="input-group-merge">
                         </base-input>
                     </div>
 
                     <div class="col-md-12">
                         <base-input
-                                :label="text.type">
+                            :label="text.type">
                             <span class="el-input__prefix">
                                 <span class="el-input__suffix-inner el-select-icon">
                                     <i class="select-icon-position el-input__icon fa fa-bars"></i>
                                 </span>
                             </span>
                             <el-select
-                                    class="select-primary"
-                                    v-model="form.class" filterable
-                                    :placeholder="placeholder.type">
+                                class="select-primary"
+                                v-model="form.class" filterable
+                                :placeholder="placeholder.type">
                                 <el-option v-for="(name, value) in types"
-                                           class="select-primary"
-                                           :key="name"
-                                           :label="name"
-                                           :value="value">
+                                   class="select-primary"
+                                   :key="name"
+                                   :label="name"
+                                   :value="value">
                                 </el-option>
                             </el-select>
                         </base-input>
@@ -41,21 +41,21 @@
 
                     <div class="col-md-6">
                         <base-input
-                                :label="text.width">
+                            :label="text.width">
                             <span class="el-input__prefix">
                                 <span class="el-input__suffix-inner el-select-icon">
                                     <i class="select-icon-position el-input__icon fas fa-ruler-horizontal"></i>
                                 </span>
                             </span>
                             <el-select
-                                    class="select-primary"
-                                    v-model="form.width" filterable
-                                    :placeholder="placeholder.width">
+                                class="select-primary"
+                                v-model="form.width" filterable
+                                :placeholder="placeholder.width">
                                 <el-option v-for="option in widthOptions"
-                                           class="select-primary"
-                                           :key="option.label"
-                                           :label="option.label"
-                                           :value="option.value">
+                                   class="select-primary"
+                                   :key="option.label"
+                                   :label="option.label"
+                                   :value="option.value">
                                 </el-option>
                             </el-select>
                         </base-input>
@@ -63,11 +63,11 @@
 
                     <div class="col-md-6">
                         <base-input
-                                v-model="form.sort"
-                                :label="text.sort"
-                                prepend-icon="fas fa-sort"
-                                :placeholder="placeholder.sort"
-                                inputGroupClasses="input-group-merge"></base-input>
+                            v-model="form.sort"
+                            :label="text.sort"
+                            prepend-icon="fas fa-sort"
+                            :placeholder="placeholder.sort"
+                            inputGroupClasses="input-group-merge"></base-input>
                     </div>
                 </div>
             </div>
@@ -78,12 +78,12 @@
                 <div class="col-md-12">
                     <div class="float-right">
                         <button type="button" class="btn btn-icon btn-outline-secondary" @click="onCancel">
-                            <span class="btn-inner--text">{{ text.cancel }}</span>
+                            {{ text.cancel }}
                         </button>
 
                         <button :disabled="form.loading" type="button" class="btn btn-icon btn-success button-submit" @click="onSave">
-                            <div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div>
-                            <span v-if="!form.loading" class="btn-inner--text">{{ text.save }}</span>
+                            <span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span>
+                            <span :class="[{'ml-0': form.loading}]" class="btn-inner--text">{{ text.save }}</span>
                         </button>
                     </div>
                 </div>
@@ -255,7 +255,7 @@ export default {
         },
 
         onCancel() {
-            let documentClasses = document.body.classList;
+            let documentClasses = document.body.classList;	
 
             documentClasses.remove("modal-open");
 

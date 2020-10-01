@@ -4,10 +4,10 @@
 
 @section('new_button')
     @permission('create-purchases-bills')
-        <span><a href="{{ route('bills.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-        <span><a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'bills']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
+        <a href="{{ route('bills.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'bills']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
     @endpermission
-    <span><a href="{{ route('bills.export', request()->input()) }}" class="btn btn-white btn-sm header-button-bottom"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    <a href="{{ route('bills.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')
@@ -64,6 +64,7 @@
                                         <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-ellipsis-h text-muted"></i>
                                         </a>
+
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('bills.show', $item->id) }}">{{ trans('general.show') }}</a>
                                             @if (!$item->reconciled)

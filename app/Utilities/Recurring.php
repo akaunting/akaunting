@@ -16,7 +16,7 @@ class Recurring
                 continue;
             }
 
-            foreach ($item->recurring->getRecurringSchedule() as $schedule) {
+            foreach ($item->recurring->getRecurringSchedule(false) as $schedule) {
                 $issued = Date::parse($item->$issued_date_field);
                 $start = $schedule->getStart();
 

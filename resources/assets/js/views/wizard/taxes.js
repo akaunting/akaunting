@@ -79,8 +79,8 @@ const app = new Vue({
             this.show = true;
         },
 
-        onSubmit() {
-            this.form.oldSubmit();
+        onSubmit() {	
+            this.form.oldSubmit();	
         },
     }
 });

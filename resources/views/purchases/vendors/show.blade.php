@@ -68,7 +68,7 @@
             </ul>
 
             @stack('vendor_edit_button_start')
-            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
+            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block"><b>{{ trans('general.edit') }}</b></a>
             @stack('vendor_edit_button_end')
         </div>
 
@@ -129,13 +129,13 @@
                         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                             @stack('vendor_transactions_tab_start')
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0 active" id="transactions-tab" data-toggle="tab" href="#transactions-content" role="tab" aria-controls="transactions-content" aria-selected="true"><i class="fas fa-hand-holding-usd mr-2"></i>{{ trans_choice('general.transactions', 2) }}</a>
+                                <a class="nav-link mb-sm-3 mb-md-0 active" id="transactions-tab" data-toggle="tab" href="#transactions-content" role="tab" aria-controls="transactions-content" aria-selected="true">{{ trans_choice('general.transactions', 2) }}</a>
                             </li>
                             @stack('vendor_transactions_tab_end')
 
                             @stack('vendor_bills_tab_start')
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0" id="bills-tab" data-toggle="tab" href="#bills-content" role="tab" aria-controls="bills-content" aria-selected="false"><i class="fa fa-money-bill mr-2"></i>{{ trans_choice('general.bills', 2) }}</a>
+                                <a class="nav-link mb-sm-3 mb-md-0" id="bills-tab" data-toggle="tab" href="#bills-content" role="tab" aria-controls="bills-content" aria-selected="false">{{ trans_choice('general.bills', 2) }}</a>
                             </li>
                             @stack('vendor_bills_tab_end')
                         </ul>

@@ -291,16 +291,17 @@
                         <div class="col-xs-12 col-sm-6 text-right">
                             @stack('button_print_start')
                                 <a href="{{ route('portal.invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                    <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                                    {{ trans('general.print') }}
                                 </a>
                             @stack('button_print_end')
 
                             @stack('button_pdf_start')
                                 <a href="{{ route('portal.invoices.pdf', $invoice->id) }}" class="btn btn-white header-button-top">
-                                    <i class="fa fa-file-pdf"></i>&nbsp; {{ trans('general.download') }}
+                                    {{ trans('general.download') }}
                                 </a>
                             @stack('button_pdf_end')
                         </div>
+
                         <div id="confirm" class="col-sm-12">
                             <component v-bind:is="method_show_html" @interface="onRedirectConfirm"></component>
                         </div>

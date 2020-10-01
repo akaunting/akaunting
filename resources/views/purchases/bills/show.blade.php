@@ -58,6 +58,7 @@
                                     <span class="timeline-step badge-primary">
                                         <i class="fas fa-plus"></i>
                                     </span>
+
                                     <div class="timeline-content">
                                         @stack('timeline_body_create_bill_head_start')
                                             <h2 class="font-weight-500">{{ trans('bills.create_bill') }}</h2>
@@ -86,6 +87,7 @@
                                     <span class="timeline-step badge-danger">
                                         <i class="far fa-envelope"></i>
                                     </span>
+
                                     <div class="timeline-content">
                                         @stack('timeline_body_receive_bill_head_start')
                                             <h2 class="font-weight-500">{{ trans('bills.receive_bill') }}</h2>
@@ -446,20 +448,21 @@
                             @stack('button_edit_start')
                             @if(!$bill->reconciled)
                                 <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
-                                    <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                                    {{ trans('general.edit') }}
                                 </a>
                             @endif
                             @stack('button_edit_end')
 
                             @stack('button_print_start')
                             <a href="{{ route('bills.print', $bill->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                                {{ trans('general.print') }}
                             </a>
                             @stack('button_print_end')
 
                             @stack('button_group_start')
                             <div class="dropup header-drop-top">
                                 <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+
                                 <div class="dropdown-menu" role="menu">
                                     @stack('button_dropdown_start')
                                     @if ($bill->status != 'cancelled')
@@ -608,7 +611,7 @@
                                                                     ]);
                                                                 @endphp
 
-                                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                                                {!! Form::button(trans('general.delete'), array(
                                                                     'type'    => 'button',
                                                                     'class'   => 'btn btn-danger btn-sm',
                                                                     'title'   => trans('general.delete'),

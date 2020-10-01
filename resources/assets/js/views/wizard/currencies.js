@@ -107,8 +107,8 @@ const app = new Vue({
             });
         },
 
-        onSubmit() {
-            this.form.oldSubmit();
+        onSubmit() {	
+            this.form.oldSubmit();	
         },
     }
 });

@@ -137,10 +137,10 @@ export default {
         };
     },
 
-    created: function () {
-        let documentClasses = document.body.classList;
+    created: function () {	
+        let documentClasses = document.body.classList;	
 
-        documentClasses.add("modal-open");
+        documentClasses.add("modal-open");	
     },
 
     mounted() {

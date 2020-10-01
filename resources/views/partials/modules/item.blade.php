@@ -4,12 +4,14 @@
             <h4 class="ml--3 mb-0 float-left">
                 <a href="{{ route('apps.app.show', $module->slug) }}">{{ $module->name }}</a>
             </h4>
+
             @if (isset($installed[$module->slug]))
                 @php $color = 'bg-green'; @endphp
 
                 @if (!$installed[$module->slug])
                     @php $color = 'bg-warning'; @endphp
                 @endif
+
                 <span class="mr--3 float-right">
                     <span class="badge {{ $color }} text-white">{{ trans('modules.badge.installed') }}</span>
                 </span>
@@ -29,9 +31,11 @@
                 @for($i = 1; $i <= $module->vote; $i++)
                     <i class="fa fa-star text-xs text-yellow"></i>
                 @endfor
+
                 @for($i = $module->vote; $i < 5; $i++)
                     <i class="far fa-star text-xs"></i>
                 @endfor
+
                 <small class="text-xs">
                     @if ($module->total_review)
                       ({{ $module->total_review }})

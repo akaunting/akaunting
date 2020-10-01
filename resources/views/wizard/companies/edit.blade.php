@@ -33,6 +33,7 @@
                                         <i class="fa fa-key"></i>
                                     </span>
                                 </div>
+
                                 {!! Form::text('api_key', setting('apps.api_key', null), array_merge([
                                     'class' => 'form-control',
                                     'data-name' => 'api_key',
@@ -44,9 +45,11 @@
 
                             <div class="invalid-feedback d-block" v-if="form.errors.has('api_key')" v-html="form.errors.get('api_key')"></div>
                         </div>
+
                         <p class="mb-0 mt--3">
                             <small>{!! trans('modules.get_api_key', ['url' => 'https://akaunting.com/dashboard']) !!}</small>
                         </p>
+
                         <br>
                     </div>
 
@@ -64,12 +67,11 @@
                 <div class="row">
                     <div class="col-md-12 text-right">
                         {!! Form::button(
-                            '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
-                                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+                            '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'ml-0\': form.loading}]" class="btn-inner--text">' . trans('general.save') . '</span>',
+                            [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success']) !!}
 
-                        <a href="{{ route('wizard.currencies.index') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
-                            <span class="btn-inner--icon"><i class="fas fa-arrow-right"></i></span>
-                            <span class="btn-inner--text">{{ trans('general.skip') }}</span>
+                        <a href="{{ route('wizard.currencies.index') }}" id="wizard-skip" class="btn btn-white">
+                            {{ trans('general.skip') }}
                         </a>
                     </div>
                 </div>

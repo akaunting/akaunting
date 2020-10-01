@@ -463,21 +463,21 @@
                             @stack('button_edit_start')
                             @if(!$invoice->reconciled)
                                 <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-info header-button-top">
-                                    <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                                    {{ trans('general.edit') }}
                                 </a>
                             @endif
                             @stack('button_edit_end')
 
                             @stack('button_print_start')
                             <a href="{{ route('invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                                {{ trans('general.print') }}
                             </a>
                             @stack('button_print_end')
 
                             @if ($invoice->status != 'cancelled')
                             @stack('button_share_start')
                                 <a href="{{ $signed_url }}" target="_blank" class="btn btn-white header-button-top">
-                                    <i class="fa fa-share"></i>&nbsp; {{ trans('general.share') }}
+                                    {{ trans('general.share') }}
                                 </a>
                             @stack('button_share_end')
                             @endif
@@ -643,7 +643,7 @@
                                                                     ]);
                                                                 @endphp
 
-                                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                                                {!! Form::button(trans('general.delete'), array(
                                                                     'type'    => 'button',
                                                                     'class'   => 'btn btn-danger btn-sm',
                                                                     'title'   => trans('general.delete'),
