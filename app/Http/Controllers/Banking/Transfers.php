@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Banking;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Banking\Transfer as Request;
+use App\Exports\Banking\Transfers as Export;
+use App\Http\Requests\Common\Import as ImportRequest;
+use App\Imports\Banking\Transfers as Import;
 use App\Jobs\Banking\CreateTransfer;
 use App\Jobs\Banking\UpdateTransfer;
 use App\Jobs\Banking\DeleteTransfer;
@@ -217,5 +220,33 @@ class Transfers extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Import the specified resource.
+     *
+     * @param  ImportRequest  $request
+     *
+     * @return Response
+     */
+    public function import(ImportRequest $request)
+    {
+        \Excel::import(new Import(), $request->file('import'));
+
+        $message = trans('messages.success.imported', ['type' => trans_choice('general.transfers', 2)]);
+
+        flash($message)->success();
+
+        return redirect()->route('transfers.index');
+    }
+
+    /**
+     * Export the specified resource.
+     *
+     * @return Response
+     */
+    public function export()
+    {
+        return \Excel::download(new Export(), \Str::filename(trans_choice('general.transfers', 2)) . '.xlsx');
     }
 }
