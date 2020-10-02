@@ -42,9 +42,14 @@ class RecurringCheck extends Command
         config(['laravel-model-caching.enabled' => false]);
 
         // Get all companies
-        $companies = Company::enabled()->cursor();
+        $companies = Company::enabled()->withCount('recurring')->cursor();
 
         foreach ($companies as $company) {
+            // Check company recurring
+            if (!$company->recurring_count) {
+                continue;
+            }
+
             $this->info('Creating recurring records for ' . $company->name . ' company.');
 
             // Set company id
