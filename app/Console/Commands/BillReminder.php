@@ -36,9 +36,14 @@ class BillReminder extends Command
         config(['laravel-model-caching.enabled' => false]);
 
         // Get all companies
-        $companies = Company::enabled()->cursor();
+        $companies = Company::enabled()->withCount('bills')->cursor();
 
         foreach ($companies as $company) {
+            // Has company bills
+            if (!$company->bills_count) {
+                continue;
+            }
+
             $this->info('Sending bill reminders for ' . $company->name . ' company.');
 
             // Set company id

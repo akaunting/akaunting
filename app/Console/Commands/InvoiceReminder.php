@@ -36,9 +36,14 @@ class InvoiceReminder extends Command
         config(['laravel-model-caching.enabled' => false]);
 
         // Get all companies
-        $companies = Company::enabled()->cursor();
+        $companies = Company::enabled()->withCount('invoices')->cursor();
 
         foreach ($companies as $company) {
+            // Has company invoices
+            if (!$company->invoices_count) {
+                continue;
+            }
+
             $this->info('Sending invoice reminders for ' . $company->name . ' company.');
 
             // Set company id
