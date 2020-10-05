@@ -145,7 +145,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new UpdateUser($user, $request));
 
         if ($response['success']) {
-            $response['redirect'] = route('users.index');
+            $response['redirect'] = $user->can('read-auth-users') ? route('users.index') : route('users.edit', $user->id);
 
             $message = trans('messages.success.updated', ['type' => $user->name]);
 

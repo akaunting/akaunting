@@ -29,21 +29,26 @@ class User extends FormRequest
             $picture = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
         }
 
-        // Check if store or update
         if ($this->getMethod() == 'PATCH') {
+            // Updating user
             $id = is_numeric($this->user) ? $this->user : $this->user->getAttribute('id');
-            $required = '';
+            $password = '';
+            $companies = $this->user->can('read-common-companies') ? 'required' : '';
+            $roles = $this->user->can('read-auth-roles') ? 'required' : '';
         } else {
+            // Creating user
             $id = null;
-            $required = 'required|';
+            $password = 'required|';
+            $companies = 'required';
+            $roles = 'required';
         }
 
         return [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,' . $id . ',id,deleted_at,NULL',
-            'password' => $required . 'confirmed',
-            'companies' => 'required',
-            'roles' => 'required',
+            'password' => $password . 'confirmed',
+            'companies' => $companies,
+            'roles' => $roles,
             'picture' => $picture,
         ];
     }
