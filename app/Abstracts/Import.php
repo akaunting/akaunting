@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
 abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatchInserts, WithChunkReading, WithHeadingRow, WithMapping, WithValidation
 {
@@ -44,7 +45,7 @@ abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatc
                 continue;
             }
 
-            $row[$date_field] = Date::parse($row[$date_field])->format('Y-m-d H:i:s');
+            $row[$date_field] = Date::parse(ExcelDate::excelToDateTimeObject($row[$date_field]))->format('Y-m-d H:i:s');
         }
 
         return $row;

@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
 abstract class Export implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping, WithTitle
 {
@@ -41,7 +42,7 @@ abstract class Export implements FromCollection, ShouldAutoSize, WithHeadings, W
             $value = $model->$field;
 
             if (in_array($field, $date_fields)) {
-                $value = Date::parse($value)->format('Y-m-d');
+                $value = ExcelDate::PHPToExcel(Date::parse($value)->format('Y-m-d'));
             }
 
             // Prevent CSV injection https://security.stackexchange.com/a/190848
