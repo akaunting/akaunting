@@ -773,8 +773,10 @@ table .align-items-center td span.badge {
     }
 }
 
-.g-sidenav-show .sidenav {
-    max-width: 250px !important;
+@media (min-width: 1200px) {
+    .g-sidenav-show .sidenav:hover {
+        max-width: 250px;
+    }
 }
 
 .scrollbar-inner {
