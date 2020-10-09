@@ -44,10 +44,12 @@ class Version2024 extends Listener
                 'banking-transactions' => 'c,r,u,d',
                 'common-notifications' => 'c,r,u,d',
                 'common-uploads' => 'r,d',
+                'settings-bill' => 'r',
             ],
             'manager' => [
                 'banking-transactions' => 'c,r,u,d',
                 'common-notifications' => 'c,r,u,d',
+                'settings-bill' => 'r',
             ],
         ]);
     }

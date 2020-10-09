@@ -66,6 +66,32 @@
                     </div>
                 @endpermission
 
+                @permission('read-settings-bill')
+                <div class="col-md-4">
+                    <a href="{{ route('settings.bill.edit') }}">
+                        <button type="button" class="btn-icon-clipboard p-2">
+                            <div class="row mx-0">
+                                <div class="col-auto">
+                                    <div class="badge badge-secondary settings-icons">
+                                        <i class="fas fa-file-invoice"></i>
+                                    </div>
+                                </div>
+                                <div class="col ml--2">
+                                    <h4 class="mb-0">
+                                        {{ trans_choice('general.bills', 1) }}
+                                        {{-- In some languages bill and invoice have the same translation --}}
+                                        @if (trans_choice('general.bills', 1) == trans_choice('general.invoices', 1))
+                                            ({{ trans_choice('general.purchases', 1) }})
+                                        @endif
+                                    </h4>
+                                    <p class="text-sm text-muted mb-0">{{ trans('settings.invoice.description') }}</p>
+                                </div>
+                            </div>
+                        </button>
+                    </a>
+                </div>
+                @endpermission
+
                 @permission('read-settings-defaults')
                     <div class="col-md-4">
                         <a href="{{ route('settings.default.edit') }}">

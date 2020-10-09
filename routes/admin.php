@@ -169,6 +169,7 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('email', 'Settings\Email@edit')->name('email.edit');
         Route::patch('email', 'Settings\Email@update')->name('email.update');
         Route::get('schedule', 'Settings\Schedule@edit')->name('schedule.edit');
+        Route::get('bill', 'Settings\Bill@edit')->name('bill.edit');
     });
 });
 
