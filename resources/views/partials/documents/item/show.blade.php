@@ -2,8 +2,8 @@
     @stack('name_td_start')
         <td class="col-xs-4 col-sm-5 pl-5">
             {{ $item->name }}
-            @if (!empty($item->item->description))
-                <br><small class="text-pre-nowrap">{!! \Illuminate\Support\Str::limit($item->item->description, 500) !!}<small>
+            @if (!empty($item->description))
+                <br><small class="text-pre-nowrap">{!! \Illuminate\Support\Str::limit($item->description, 500) !!}<small>
             @endif
         </td>
     @stack('name_td_end')

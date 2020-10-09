@@ -58,6 +58,23 @@
                 v-html="form.errors.get('items.' + index + '.name')">
             </div>
             @stack('name_input_end')
+
+            @stack('description_input_start')
+            <textarea class="form-control mt-1"
+                      :name="'items.' + index + '.description'"
+                      autocomplete="off"
+                      required="required"
+                      data-item="description"
+                      v-model="row.description"
+                      placeholder="{{ trans('general.description') }}"
+                      resize="none"
+                      rows="1"></textarea>
+
+            <div class="invalid-feedback d-block"
+                 v-if="form.errors.has('items.' + index + '.description')"
+                 v-html="form.errors.get('items.' + index + '.description')">
+            </div>
+            @stack('description_input_end')
         </td>
     @stack('name_td_end')
 

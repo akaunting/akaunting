@@ -2,8 +2,8 @@
     @stack('name_td_start')
         <td class="item">
             {{ $item->name }}
-            @if (!empty($item->item->description))
-                <br><small>{!! \Illuminate\Support\Str::limit($item->item->description, 500) !!}</small>
+            @if (!empty($item->description))
+                <br><small>{!! \Illuminate\Support\Str::limit($item->description, 500) !!}</small>
             @endif
         </td>
     @stack('name_td_end')

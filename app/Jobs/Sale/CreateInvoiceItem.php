@@ -163,6 +163,7 @@ class CreateInvoiceItem extends Job
             'invoice_id' => $this->invoice->id,
             'item_id' => $item_id,
             'name' => Str::limit($this->request['name'], 180, ''),
+            'description' => $this->request['description'] ?? '',
             'quantity' => (double) $this->request['quantity'],
             'price' => round($this->request['price'], $precision),
             'tax' => round($item_tax_total, $precision),

@@ -26,6 +26,7 @@ class InvoiceItem extends FormRequest
         return [
             'invoice_id' => 'required|integer',
             'name' => 'required|string',
+            'description' => 'string',
             'quantity' => 'required|integer',
             'price' => 'required',
             'total' => 'required',

@@ -30,6 +30,7 @@ class BillItem extends Model
         'bill_id',
         'item_id',
         'name',
+        'description',
         'quantity',
         'price',
         'total',
@@ -162,5 +163,17 @@ class BillItem extends Model
     public function onCloning($src, $child = null)
     {
         unset($this->tax_id);
+    }
+
+    /**
+     * Get the description.
+     *
+     * @param string|null $description
+     * @return string|null
+     */
+    protected function getDescriptionAttribute($description)
+    {
+        // For old bills (before V2.0.24) the description is null
+        return $description ?? $this->item->description;
     }
 }

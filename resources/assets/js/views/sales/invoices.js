@@ -76,6 +76,9 @@ const app = new Vue({
                     currency: currency_code,
                     item_id: item.item_id,
                     name: item.name,
+                    description: item.description === null
+                        ? item.item.description
+                        : item.description,
                     price: (item.price).toFixed(currency.precision),
                     quantity: item.quantity,
                     tax_id: item.tax_id,
@@ -301,6 +304,7 @@ const app = new Vue({
 
             this.form.items[index].item_id = item.id;
             this.form.items[index].name = item.name;
+            this.form.items[index].description = item.description;
             this.form.items[index].price = (item.sale_price).toFixed(this.currency.precision);
             this.form.items[index].quantity = 1;
             this.form.items[index].tax_id = tax_id;

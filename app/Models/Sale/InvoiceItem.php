@@ -29,6 +29,7 @@ class InvoiceItem extends Model
         'invoice_id',
         'item_id',
         'name',
+        'description',
         'quantity',
         'price',
         'total',
@@ -161,5 +162,17 @@ class InvoiceItem extends Model
     public function onCloning($src, $child = null)
     {
         unset($this->tax_id);
+    }
+
+    /**
+     * Get the description.
+     *
+     * @param string|null $description
+     * @return string|null
+     */
+    protected function getDescriptionAttribute($description)
+    {
+        // For old invoices (before V2.0.24) the description is null
+        return $description ?? $this->item->description;
     }
 }

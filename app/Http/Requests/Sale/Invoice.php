@@ -47,6 +47,7 @@ class Invoice extends FormRequest
             'due_at' => 'required|date_format:Y-m-d H:i:s',
             'amount' => 'required',
             'items.*.name' => 'required|string',
+            'items.*.description' => 'nullable|string',
             'items.*.quantity' => 'required',
             'items.*.price' => 'required|amount',
             'items.*.currency' => 'required|string|currency',
@@ -75,6 +76,7 @@ class Invoice extends FormRequest
     {
         return [
             'items.*.name.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('general.name'))]),
+            'items.*.description.string' => trans('validation.string', ['attribute' => mb_strtolower(trans('general.description'))]),
             'items.*.quantity.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('invoices.quantity'))]),
             'items.*.price.required' => trans('validation.required', ['attribute' => mb_strtolower(trans('invoices.price'))]),
             'items.*.currency.required' => trans('validation.custom.invalid_currency'),
