@@ -115,7 +115,7 @@ class User extends Authenticatable
             }
         }
 
-        if (!empty($value) && !$this->hasMedia('picture')) {
+        if (!empty($value)) {
             return $value;
         } elseif (!$this->hasMedia('picture')) {
             return false;
