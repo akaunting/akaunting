@@ -380,15 +380,13 @@ trait Modules
         // Remove Zip
         File::delete($file);
 
-        $data = [
-            'path' => $path
-        ];
-
         return [
             'success' => true,
             'error' => false,
             'message' => null,
-            'data' => $data,
+            'data' => [
+                'path' => $path,
+            ],
         ];
     }
 
