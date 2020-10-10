@@ -27,6 +27,21 @@ class PhpExecutableFinder
         //$this->executableFinder = new ExecutableFinder();
     }
 
+    public function isCpanel()
+    {
+        return is_dir('/usr/local/cpanel');
+    }
+
+    public function isPlesk()
+    {
+        return is_dir('/usr/local/psa');
+    }
+
+    public function isVirtualmin()
+    {
+        return is_dir('/usr/share/webmin');
+    }
+
     /**
      * Finds The PHP executable.
      *
@@ -36,7 +51,11 @@ class PhpExecutableFinder
     {
         # @override
         // Not working on shared hosting due to "open_basedir" restriction applied by cPanel/Plesk
-        return 'php';
+        if ($this->isCpanel()) {
+            return '/usr/local/bin/php';
+        } else {
+            return 'php';
+        }
 
         if ($php = getenv('PHP_BINARY')) {
             if (!is_executable($php)) {
