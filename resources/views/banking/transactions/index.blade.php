@@ -3,12 +3,12 @@
 @section('title', trans_choice('general.transactions', 2))
 
 @section('new_button')
-    @permission('create-sales-revenues')
+    @can('create-sales-revenues')
         <a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_income') }}</a>
-    @endpermission
-    @permission('create-purchases-payments')
+    @endcan
+    @can('create-purchases-payments')
         <a href="{{ route('payments.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_expense') }}</a>
-    @endpermission
+    @endcan
     <a href="{{ route('import.create', ['banking', 'transactions']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
     <a href="{{ route('transactions.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection

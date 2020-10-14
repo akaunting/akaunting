@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.roles', 2))
 
-@permission('create-auth-roles')
+@can('create-auth-roles')
     @section('new_button')
         <a href="{{ route('roles.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -54,10 +54,10 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('roles.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-auth-roles')
+                                        @can('delete-auth-roles')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'roles.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

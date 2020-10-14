@@ -3,9 +3,9 @@
 @section('title', trans_choice('general.reconciliations', 2))
 
 @section('new_button')
-    @permission('create-banking-reconciliations')
+    @can('create-banking-reconciliations')
         <a href="{{ route('reconciliations.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endpermission
+    @endcan
 @endsection
 
 @section('content')
@@ -65,10 +65,10 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('reconciliations.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @permission('delete-banking-reconciliations')
+                                            @can('delete-banking-reconciliations')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'reconciliations.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

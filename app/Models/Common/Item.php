@@ -6,10 +6,11 @@ use App\Abstracts\Model;
 use App\Traits\Currencies;
 use App\Traits\Media;
 use Bkwld\Cloner\Cloneable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
-    use Cloneable, Currencies, Media;
+    use Cloneable, Currencies, HasFactory, Media;
 
     protected $table = 'items';
 
@@ -136,5 +137,15 @@ class Item extends Model
         }
 
         return $this->getMedia('picture')->last();
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Item::new();
     }
 }

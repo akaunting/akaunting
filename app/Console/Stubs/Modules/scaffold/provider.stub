@@ -16,7 +16,6 @@ class $NAME$ extends Provider
         $this->loadViews();
         $this->loadTranslations();
         $this->loadMigrations();
-        $this->loadFactories();
         //$this->loadConfig();
     }
 
@@ -58,20 +57,6 @@ class $NAME$ extends Provider
     public function loadMigrations()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../$MIGRATIONS_PATH$');
-    }
-
-    /**
-     * Load factories.
-     *
-     * @return void
-     */
-    public function loadFactories()
-    {
-        if (app()->environment('production') || !app()->runningInConsole()) {
-            return;
-        }
-
-        $this->loadFactoriesFrom(__DIR__ . '/../$FACTORIES_PATH$');
     }
 
     /**

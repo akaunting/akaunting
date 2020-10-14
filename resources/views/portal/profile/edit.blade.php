@@ -38,13 +38,13 @@
             </div>
         </div>
 
-        @permission(['update-portal-profile'])
+        @canany(['update-portal-profile'])
             <div class="card-footer">
                 <div class="row save-buttons">
                     {{ Form::saveButtons('portal.dashboard') }}
                 </div>
             </div>
-        @endpermission
+        @endcanany
 
         {!! Form::close() !!}
     </div>

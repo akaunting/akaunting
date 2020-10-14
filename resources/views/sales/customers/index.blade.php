@@ -3,10 +3,10 @@
 @section('title', trans_choice('general.customers', 2))
 
 @section('new_button')
-    @permission('create-sales-customers')
+    @can('create-sales-customers')
         <a href="{{ route('customers.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
         <a href="{{ route('import.create', ['group' => 'sales', 'type' => 'customers']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    @endpermission
+    @endcan
     <a href="{{ route('customers.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top">{{ trans('general.export') }}</a>
 @endsection
 
@@ -84,14 +84,14 @@
                                             <a class="dropdown-item" href="{{ route('customers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
 
                                             <div class="dropdown-divider"></div>
-                                            @permission('create-sales-customers')
+                                            @can('create-sales-customers')
                                                 <a class="dropdown-item" href="{{ route('customers.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
 
                                                 <div class="dropdown-divider"></div>
-                                            @endpermission
-                                            @permission('delete-sales-customers')
+                                            @endcan
+                                            @can('delete-sales-customers')
                                                 {!! Form::deleteLink($item, 'customers.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

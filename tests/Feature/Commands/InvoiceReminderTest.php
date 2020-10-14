@@ -41,7 +41,7 @@ class InvoiceReminderTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Invoice::class)->states('items', 'sent')->raw([
+        return Invoice::factory()->items()->sent()->raw([
             'due_at' => Date::now()->subDays($this->add_days - 1),
         ]);
     }

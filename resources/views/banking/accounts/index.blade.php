@@ -3,9 +3,9 @@
 @section('title', trans_choice('general.accounts', 2))
 
 @section('new_button')
-    @permission('create-banking-accounts')
+    @can('create-banking-accounts')
         <a href="{{ route('accounts.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-    @endpermission
+    @endcan
 @endsection
 
 @section('content')
@@ -68,10 +68,10 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('accounts.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-banking-accounts')
+                                        @can('delete-banking-accounts')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'accounts.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

@@ -4,10 +4,11 @@ namespace App\Models\Sale;
 
 use App\Abstracts\DocumentModel;
 use App\Traits\Sales;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Invoice extends DocumentModel
 {
-    use Sales;
+    use HasFactory, Sales;
 
     protected $table = 'invoices';
 
@@ -114,5 +115,15 @@ class Invoice extends DocumentModel
         $sent = $this->histories()->where('status', 'sent')->first();
 
         return ($sent) ? $sent->created_at : null;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Invoice::new();
     }
 }

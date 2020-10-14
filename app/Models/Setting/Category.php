@@ -4,10 +4,11 @@ namespace App\Models\Setting;
 
 use App\Abstracts\Model;
 use App\Traits\Transactions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    use Transactions;
+    use HasFactory, Transactions;
 
     protected $table = 'categories';
 
@@ -129,5 +130,15 @@ class Category extends Model
     public function scopeTransfer($query)
     {
         return (int) $query->other()->pluck('id')->first();
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Category::new();
     }
 }

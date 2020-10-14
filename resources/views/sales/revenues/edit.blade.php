@@ -73,13 +73,13 @@
                 </div>
             </div>
 
-            @permission('update-sales-revenues')
+            @can('update-sales-revenues')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('revenues.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
             {{ Form::hidden('type', 'income') }}
         {!! Form::close() !!}

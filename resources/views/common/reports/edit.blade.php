@@ -67,13 +67,13 @@
                 </div>
             </div>
 
-            @permission('update-common-reports')
+            @can('update-common-reports')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('reports.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
         {!! Form::close() !!}
     </div>

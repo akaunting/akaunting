@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.tax_rates', 2))
 
-@permission('create-settings-taxes')
+@can('create-settings-taxes')
     @section('new_button')
         <a href="{{ route('taxes.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     @if ($taxes->count())
@@ -69,10 +69,10 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('taxes.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @permission('delete-settings-taxes')
+                                            @can('delete-settings-taxes')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'taxes.destroy', 'tax_rates') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

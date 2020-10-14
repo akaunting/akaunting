@@ -65,10 +65,10 @@
                                             <button type="button" class="dropdown-item" @click="onEditTax('{{ $item->id }}')">
                                                 {{ trans('general.edit') }}
                                             </button>
-                                            @permission('delete-settings-taxes')
+                                            @can('delete-settings-taxes')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'wizard/taxes') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

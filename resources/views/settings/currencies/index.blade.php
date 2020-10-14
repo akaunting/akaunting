@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.currencies', 2))
 
-@permission('create-settings-currencies')
+@can('create-settings-currencies')
     @section('new_button')
         <a href="{{ route('currencies.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -68,10 +68,10 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('currencies.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-settings-currencies')
+                                        @can('delete-settings-currencies')
                                         <div class="dropdown-divider"></div>
                                         {!! Form::deleteLink($item, 'currencies.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

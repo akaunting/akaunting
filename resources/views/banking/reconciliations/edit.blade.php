@@ -107,7 +107,7 @@
                 @endif
             </div>
 
-            @permission('update-banking-reconciliations')
+            @can('update-banking-reconciliations')
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-12">
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
         {!! Form::close() !!}
     </div>

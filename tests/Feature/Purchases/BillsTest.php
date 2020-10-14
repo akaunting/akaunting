@@ -106,9 +106,9 @@ class BillsTest extends FeatureTestCase
 
     public function getRequest($recurring = false)
     {
-        $factory = factory(Bill::class);
+        $factory = Bill::factory();
 
-        $recurring ? $factory->states('items', 'recurring') : $factory->states('items');
+        $recurring ? $factory->items()->recurring() : $factory->items();
 
         return $factory->raw();
     }

@@ -100,7 +100,7 @@
 
                                                 <div class="mt-3">
                                                     @stack('timeline_body_send_invoice_body_button_sent_start')
-                                                        @permission('update-sales-invoices')
+                                                        @can('update-sales-invoices')
                                                             @if($invoice->status == 'draft')
                                                                 <a href="{{ route('invoices.sent', $invoice->id) }}" class="btn btn-white btn-sm header-button-top">{{ trans('invoices.mark_sent') }}</a>
                                                             @else
@@ -108,7 +108,7 @@
                                                                     <span class="text-disabled">{{ trans('invoices.mark_sent') }}</span>
                                                                 </button>
                                                             @endif
-                                                        @endpermission
+                                                        @endcan
                                                     @stack('timeline_body_send_invoice_body_button_sent_end')
 
                                                     @stack('timeline_body_send_invoice_body_button_email_start')
@@ -161,9 +161,9 @@
 
                                             <div class="mt-3">
                                                 @stack('timeline_body_get_paid_body_button_pay_start')
-                                                    @permission('update-sales-invoices')
+                                                    @can('update-sales-invoices')
                                                         <a href="{{ route('invoices.paid', $invoice->id) }}" class="btn btn-white btn-sm header-button-top">{{ trans('invoices.mark_paid') }}</a>
-                                                    @endpermission
+                                                    @endcan
                                                 @stack('timeline_body_get_paid_body_button_pay_end')
 
                                                 @stack('timeline_body_get_paid_body_button_payment_start')
@@ -490,9 +490,9 @@
                                     @if ($invoice->status != 'cancelled')
                                         @if ($invoice->status != 'paid')
                                             @stack('button_pay_start')
-                                            @permission('update-sales-invoices')
+                                            @can('update-sales-invoices')
                                                 <a class="dropdown-item" href="{{ route('invoices.paid', $invoice->id) }}">{{ trans('invoices.mark_paid') }}</a>
-                                            @endpermission
+                                            @endcan
 
                                             @if (empty($invoice->paid) || ($invoice->paid != $invoice->amount))
                                                 <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('invoices.add_payment') }}</button>
@@ -503,7 +503,7 @@
 
                                         @stack('button_dropdown_divider_1')
 
-                                        @permission('update-sales-invoices')
+                                        @can('update-sales-invoices')
                                             @stack('button_sent_start')
                                             @if ($invoice->status == 'draft')
                                                 <a class="dropdown-item" href="{{ route('invoices.sent', $invoice->id) }}">{{ trans('invoices.mark_sent') }}</a>
@@ -511,7 +511,7 @@
                                                 <button type="button" class="dropdown-item" disabled="disabled"><span class="text-disabled">{{ trans('invoices.mark_sent') }}</span></button>
                                             @endif
                                             @stack('button_sent_end')
-                                        @endpermission
+                                        @endcan
 
                                         @stack('button_email_start')
                                         @if ($invoice->contact_email)
@@ -528,23 +528,23 @@
                                     <a class="dropdown-item" href="{{ route('invoices.pdf', $invoice->id) }}">{{ trans('invoices.download_pdf') }}</a>
                                     @stack('button_pdf_end')
 
-                                    @permission('update-sales-invoices')
+                                    @can('update-sales-invoices')
                                         @if ($invoice->status != 'cancelled')
                                             @stack('button_cancelled_start')
                                             <a class="dropdown-item" href="{{ route('invoices.cancelled', $invoice->id) }}">{{ trans('general.cancel') }}</a>
                                             @stack('button_cancelled_end')
                                         @endif
-                                    @endpermission
+                                    @endcan
 
                                     @stack('button_dropdown_divider_2')
 
-                                    @permission('delete-sales-invoices')
+                                    @can('delete-sales-invoices')
                                         @if (!$invoice->reconciled)
                                             @stack('button_delete_start')
                                             {!! Form::deleteLink($invoice, 'sales/invoices') !!}
                                             @stack('button_delete_end')
                                         @endif
-                                    @endpermission
+                                    @endcan
                                     @stack('button_dropdown_end')
                                 </div>
                             </div>

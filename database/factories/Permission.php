@@ -1,18 +1,36 @@
 <?php
 
-use App\Models\Auth\Permission;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(Permission::class, function (Faker $faker) {
-    $map = ['Create', 'Read', 'Update', 'Delete'];
+use App\Abstracts\Factory;
+use App\Models\Auth\Permission as Model;
 
-    $prefix = $faker->randomElement($map);
-    $word_1 = $faker->word;
-    $word_2 = $faker->word;
+class Permission extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Model::class;
 
-    return [
-        'name' => strtolower($prefix) . '-' . strtolower($word_1) . '-' . strtolower($word_2),
-        'display_name' => $prefix . ' ' . $word_1 . ' ' . $word_2,
-        'description' => $prefix . ' ' . $word_1 . ' ' . $word_2,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $map = ['Create', 'Read', 'Update', 'Delete'];
+
+        $prefix = $this->faker->randomElement($map);
+        $word_1 = $this->faker->word;
+        $word_2 = $this->faker->word;
+
+        return [
+            'name' => strtolower($prefix) . '-' . strtolower($word_1) . '-' . strtolower($word_2),
+            'display_name' => $prefix . ' ' . $word_1 . ' ' . $word_2,
+            'description' => $prefix . ' ' . $word_1 . ' ' . $word_2,
+        ];
+    }
+}

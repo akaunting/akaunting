@@ -5,10 +5,11 @@ namespace App\Models\Setting;
 use App\Abstracts\Model;
 use App\Traits\Contacts;
 use App\Traits\Transactions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Currency extends Model
 {
-    use Contacts, Transactions;
+    use Contacts, HasFactory, Transactions;
 
     protected $table = 'currencies';
 
@@ -162,5 +163,15 @@ class Currency extends Model
     public function scopeCode($query, $code)
     {
         return $query->where($this->table . '.code', $code);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Currency::new();
     }
 }

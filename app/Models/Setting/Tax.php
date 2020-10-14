@@ -3,9 +3,12 @@
 namespace App\Models\Setting;
 
 use App\Abstracts\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tax extends Model
 {
+    use HasFactory;
+
     protected $table = 'taxes';
 
     /**
@@ -126,5 +129,15 @@ class Tax extends Model
         $title .= ')';
 
         return $title;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Tax::new();
     }
 }

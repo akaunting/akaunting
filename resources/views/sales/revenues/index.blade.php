@@ -3,10 +3,10 @@
 @section('title', trans_choice('general.revenues', 2))
 
 @section('new_button')
-    @permission('create-sales-revenues')
+    @can('create-sales-revenues')
         <a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
         <a href="{{ route('import.create', ['group' => 'sales', 'type' => 'revenues']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    @endpermission
+    @endcan
     <a href="{{ route('revenues.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
@@ -93,15 +93,15 @@
                                                 <div class="dropdown-divider"></div>
                                             @endif
                                             @if (empty($item->document_id))
-                                            @permission('create-sales-revenues')
+                                            @can('create-sales-revenues')
                                                 <a class="dropdown-item" href="{{ route('revenues.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
                                                 <div class="dropdown-divider"></div>
-                                            @endpermission
+                                            @endcan
                                             @endif
                                             @if (!$item->reconciled)
-                                            @permission('delete-sales-revenues')
+                                            @can('delete-sales-revenues')
                                                 {!! Form::deleteLink($item, 'revenues.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                             @endif
                                         </div>
                                     </div>

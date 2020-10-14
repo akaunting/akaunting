@@ -35,25 +35,25 @@ class SampleData extends Seeder
 
         $bar->start();
 
-        factory(Contact::class, $count)->create();
+        Contact::factory()->count($count)->create();
         $bar->advance();
 
-        factory(Category::class, $count)->create();
+        Category::factory()->count($count)->create();
         $bar->advance();
 
-        factory(Tax::class, $small_count)->states('enabled')->create();
+        Tax::factory()->count($small_count)->enabled()->create();
         $bar->advance();
 
-        factory(Item::class, $count)->create();
+        Item::factory()->count($count)->create();
         $bar->advance();
 
-        factory(Account::class, $small_count)->create();
+        Account::factory()->count($small_count)->create();
         $bar->advance();
 
-        factory(Bill::class, $count)->create();
+        Bill::factory()->count($count)->create();
         $bar->advance();
 
-        factory(Invoice::class, $count)->create();
+        Invoice::factory()->count($count)->create();
         $bar->advance();
 
         $bar->finish();

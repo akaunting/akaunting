@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.dashboards', 2))
 
-@permission('create-common-dashboards')
+@can('create-common-dashboards')
     @section('new_button')
         <a href="{{ route('dashboards.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -68,10 +68,10 @@
                                             <div class="dropdown-divider"></div>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('dashboards.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-common-dashboards')
+                                        @can('delete-common-dashboards')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'dashboards.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

@@ -214,13 +214,13 @@
                 </div>
             </div>
 
-            @permission('update-sales-invoices')
+            @can('update-sales-invoices')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('invoices.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
         {!! Form::close() !!}
     </div>
 @endsection

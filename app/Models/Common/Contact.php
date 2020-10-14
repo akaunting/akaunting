@@ -8,11 +8,12 @@ use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\Media;
 use App\Traits\Transactions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 
 class Contact extends Model
 {
-    use Cloneable, Contacts, Currencies, Media, Notifiable, Transactions;
+    use Cloneable, Contacts, Currencies, HasFactory, Media, Notifiable, Transactions;
 
     protected $table = 'contacts';
 
@@ -143,5 +144,15 @@ class Contact extends Model
         });
 
         return $amount;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Contact::new();
     }
 }

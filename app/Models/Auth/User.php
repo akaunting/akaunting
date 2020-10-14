@@ -6,6 +6,7 @@ use App\Traits\Tenants;
 use App\Notifications\Auth\Reset;
 use App\Traits\Media;
 use Date;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,7 +16,7 @@ use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants;
+    use HasFactory, LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants;
 
     protected $table = 'users';
 
@@ -204,5 +205,15 @@ class User extends Authenticatable
     public function unsetCompanyIds()
     {
         $this->offsetUnset('company_ids');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\User::new();
     }
 }

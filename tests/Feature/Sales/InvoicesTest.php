@@ -106,9 +106,9 @@ class InvoicesTest extends FeatureTestCase
 
     public function getRequest($recurring = false)
     {
-        $factory = factory(Invoice::class);
+        $factory = Invoice::factory();
 
-        $recurring ? $factory->states('items', 'recurring') : $factory->states('items');
+        $recurring ? $factory->items()->recurring() : $factory->items();
 
         return $factory->raw();
     }

@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.categories', 2))
 
-@permission('create-settings-categories')
+@can('create-settings-categories')
     @section('new_button')
         <a href="{{ route('categories.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -69,10 +69,10 @@
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('categories.edit',  $item->id) }}">{{ trans('general.edit') }}</a>
                                         @if ($item->id != $transfer_id)
-                                            @permission('delete-settings-categories')
+                                            @can('delete-settings-categories')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'categories.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         @endif
                                     </div>
                                 </div>

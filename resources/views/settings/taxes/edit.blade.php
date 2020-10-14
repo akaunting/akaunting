@@ -28,13 +28,13 @@
                 </div>
             </div>
 
-            @permission('update-settings-taxes')
+            @can('update-settings-taxes')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('taxes.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
         {!! Form::close() !!}
     </div>
 @endsection

@@ -68,10 +68,10 @@
                                             <button type="button" class="dropdown-item" @click="onEditCurrency('{{ $item->id }}')">
                                                 {{ trans('general.edit') }}
                                             </button>
-                                            @permission('delete-settings-currencies')
+                                            @can('delete-settings-currencies')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'wizard/currencies') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

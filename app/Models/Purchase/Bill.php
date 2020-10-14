@@ -4,10 +4,11 @@ namespace App\Models\Purchase;
 
 use App\Abstracts\DocumentModel;
 use App\Traits\Purchases;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Bill extends DocumentModel
 {
-    use Purchases;
+    use HasFactory, Purchases;
 
     protected $table = 'bills';
 
@@ -107,5 +108,15 @@ class Bill extends DocumentModel
         $received = $this->histories()->where('status', 'received')->first();
 
         return ($received) ? $received->created_at : null;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Bill::new();
     }
 }

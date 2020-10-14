@@ -10,11 +10,12 @@ use App\Traits\Media;
 use App\Traits\Recurring;
 use App\Traits\Transactions;
 use Bkwld\Cloner\Cloneable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
-    use Cloneable, Currencies, DateTime, Media, Recurring, Transactions;
+    use Cloneable, Currencies, DateTime, HasFactory, Media, Recurring, Transactions;
 
     protected $table = 'transactions';
 
@@ -322,5 +323,15 @@ class Transaction extends Model
     public function getRouteIdAttribute($value)
     {
         return $value ?? $this->document_id ?? $this->id;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Transaction::new();
     }
 }

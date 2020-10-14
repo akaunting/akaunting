@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="card-footer">
-                    @permission('create-modules-item')
+                    @can('create-modules-item')
                         @if ($module->install)
                             <a href="#" class="btn btn-warning btn-block" disabled="disabled">
                                 {{ trans('modules.pre_sale') }}
@@ -93,7 +93,7 @@
                                 {{ trans('modules.pre_sale') }}
                             </a>
                         @endif
-                    @endpermission
+                    @endcan
 
                     @if (!empty($module->purchase_desc))
                         <div class="text-center mt-3">

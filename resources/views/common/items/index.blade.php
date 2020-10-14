@@ -3,10 +3,10 @@
 @section('title', trans_choice('general.items', 2))
 
 @section('new_button')
-    @permission('create-common-items')
+    @can('create-common-items')
         <a href="{{ route('items.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
         <a href="{{ route('import.create', ['common', 'items']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    @endpermission
+    @endcan
     <a href="{{ route('items.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
@@ -82,14 +82,14 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('items.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @permission('create-common-items')
+                                            @can('create-common-items')
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route('items.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                            @endpermission
-                                            @permission('delete-common-items')
+                                            @endcan
+                                            @can('delete-common-items')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'items.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

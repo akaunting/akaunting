@@ -47,13 +47,13 @@
                         {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1)) }}
                     @endif
 
-                    @permission('read-common-companies')
+                    @can('read-common-companies')
                     {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, [], ['required' => 'required', 'remote_action' => route('companies.autocomplete'), 'remote_type' => 'company']) }}
-                    @endpermission
+                    @endcan
 
-                    @permission('read-auth-roles')
+                    @can('read-auth-roles')
                         {{ Form::checkboxGroup('roles', trans_choice('general.roles', 2), $roles, 'display_name') }}
-                    @endpermission
+                    @endcan
 
                     {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
                 </div>

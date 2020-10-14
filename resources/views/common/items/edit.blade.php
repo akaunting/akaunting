@@ -36,13 +36,13 @@
                 </div>
             </div>
 
-            @permission('update-common-items')
+            @can('update-common-items')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('items.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
         {!! Form::close() !!}
     </div>

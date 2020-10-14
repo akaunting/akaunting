@@ -109,7 +109,7 @@
                          @endif
 
                          <div class="tab-pane fade" id="review">
-                            @php 
+                            @php
                                 $reviews = $module->app_reviews;
                             @endphp
 
@@ -219,19 +219,19 @@
 
                 <div class="card-footer">
                     @if ($installed)
-                        @permission('delete-modules-item')
+                        @can('delete-modules-item')
                             <a href="{{ route('apps.app.uninstall', $module->slug) }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
-                        @endpermission
+                        @endcan
 
-                        @permission('update-modules-item')
+                        @can('update-modules-item')
                             @if ($enable)
                                 <a href="{{ route('apps.app.disable', $module->slug) }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
                             @else
                                 <a href="{{ route('apps.app.enable', $module->slug) }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
                             @endif
-                        @endpermission
+                        @endcan
                     @else
-                        @permission('create-modules-item')
+                        @can('create-modules-item')
                             @if ($module->install)
                                 <button type="button" @click="onInstall('{{ $module->action_url }}', '{{ $module->name }}', '{{ $module->version }}')" class="btn btn-success btn-block" id="install-module">
                                     {{ trans('modules.install') }}
@@ -241,7 +241,7 @@
                                     {{ trans('modules.buy_now') }}
                                 </a>
                             @endif
-                        @endpermission
+                        @endcan
                     @endif
 
                     @if (!empty($module->purchase_desc))

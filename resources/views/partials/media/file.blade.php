@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-auto">
-                @permission('delete-common-uploads')
+                @can('delete-common-uploads')
                     <a href="javascript:void();" id="remove-{{ $column_name }}" @click="onDeleteFile('{{ $file->id }}', '{{ route('uploads.destroy', $file->id) }}', '{{ trans('general.title.delete', ['type' => $column_name]) }}', '{{ trans('general.delete_confirm', ['name' => $file->basename, 'type' => $column_name]) }} ', '{{ trans('general.cancel') }}', '{{ trans('general.delete') }}')" type="button" class="btn btn-sm btn-danger text-white header-button-top">
                         <i class="fas fa-times"></i>
                     </a>
@@ -35,7 +35,7 @@
                         <input type="hidden" name="key_{{ $file->id}}" id="file-key-{{ $file->id}}" value="{{ $options['key'] }}" />
                         <input type="hidden" name="value_{{ $file->id}}" id="file-value-{{ $file->id}}" value="{{ $file->id }}" />
                     @endif
-                @endpermission
+                @endcan
 
                 <a href="{{ route('uploads.download', $file->id) }}" type="button" class="btn btn-sm btn-info text-white header-button-top">
                     <i class="fas fa-file-download"></i>

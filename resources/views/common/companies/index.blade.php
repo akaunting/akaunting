@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.companies', 2))
 
-@permission('create-common-companies')
+@can('create-common-companies')
     @section('new_button')
         <a href="{{ route('companies.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -78,10 +78,10 @@
                                             <div class="dropdown-divider"></div>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('companies.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-common-companies')
+                                        @can('delete-common-companies')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'companies.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

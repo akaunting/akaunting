@@ -4,10 +4,11 @@ namespace App\Models\Banking;
 
 use App\Abstracts\Model;
 use App\Traits\Transactions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Account extends Model
 {
-    use Transactions;
+    use HasFactory, Transactions;
 
     protected $table = 'accounts';
 
@@ -90,5 +91,15 @@ class Account extends Model
         $total -= $this->expense_transactions->sum('amount');
 
         return $total;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Account::new();
     }
 }

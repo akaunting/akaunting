@@ -102,9 +102,9 @@
 
                                                 <div class="mt-3">
                                                     @stack('timeline_body_receive_bill_body_button_received_start')
-                                                        @permission('update-purchases-bills')
+                                                        @can('update-purchases-bills')
                                                             <a href="{{ route('bills.received', $bill->id) }}" class="btn btn-danger btn-sm btn-alone">{{ trans('bills.mark_received') }}</a>
-                                                        @endpermission
+                                                        @endcan
                                                     @stack('timeline_body_receive_bill_body_button_received_end')
                                                 </div>
                                             @else
@@ -142,9 +142,9 @@
 
                                             <div class="mt-3">
                                                 @stack('timeline_body_get_paid_body_button_pay_start')
-                                                    @permission('update-purchases-bills')
+                                                    @can('update-purchases-bills')
                                                         <a href="{{ route('bills.paid', $bill->id) }}" class="btn btn-white btn-sm header-button-top">{{ trans('bills.mark_paid') }}</a>
-                                                    @endpermission
+                                                    @endcan
                                                 @stack('timeline_body_get_paid_body_button_pay_end')
 
                                                 @stack('timeline_body_make_payment_body_button_payment_start')
@@ -468,9 +468,9 @@
                                     @if ($bill->status != 'cancelled')
                                         @if ($bill->status != 'paid')
                                             @stack('button_pay_start')
-                                            @permission('update-purchases-bills')
+                                            @can('update-purchases-bills')
                                                 <a class="dropdown-item" href="{{ route('bills.paid', $bill->id) }}">{{ trans('bills.mark_paid') }}</a>
-                                            @endpermission
+                                            @endcan
 
                                             @if (empty($bill->paid) || ($bill->paid != $bill->amount))
                                                 <button class="dropdown-item" id="button-payment" @click="onPayment">{{ trans('bills.add_payment') }}</button>
@@ -481,7 +481,7 @@
 
                                         @stack('button_dropdown_divider_1')
 
-                                        @permission('update-purchases-bills')
+                                        @can('update-purchases-bills')
                                             @stack('button_received_start')
                                             @if ($bill->status == 'draft')
                                                 <a class="dropdown-item" href="{{ route('bills.received', $bill->id) }}">{{ trans('bills.mark_received') }}</a></a>
@@ -489,30 +489,30 @@
                                                 <button type="button" class="dropdown-item" disabled="disabled">{{ trans('bills.mark_received') }}</button>
                                             @endif
                                             @stack('button_received_end')
-                                        @endpermission
+                                        @endcan
                                     @endif
 
                                     @stack('button_pdf_start')
                                     <a class="dropdown-item" href="{{ route('bills.pdf', $bill->id) }}">{{ trans('bills.download_pdf') }}</a>
                                     @stack('button_pdf_end')
 
-                                    @permission('update-purchases-bills')
+                                    @can('update-purchases-bills')
                                         @if ($bill->status != 'cancelled')
                                             @stack('button_cancelled_start')
                                             <a class="dropdown-item" href="{{ route('bills.cancelled', $bill->id) }}">{{ trans('general.cancel') }}</a>
                                             @stack('button_cancelled_end')
                                         @endif
-                                    @endpermission
+                                    @endcan
 
                                     @stack('button_dropdown_divider_2')
 
-                                    @permission('delete-purchases-bills')
+                                    @can('delete-purchases-bills')
                                         @if (!$bill->reconciled)
                                             @stack('button_delete_start')
                                             {!! Form::deleteLink($bill, 'purchases/bills') !!}
                                             @stack('button_delete_end')
                                         @endif
-                                    @endpermission
+                                    @endcan
                                     @stack('button_dropdown_end')
                                 </div>
                             </div>
