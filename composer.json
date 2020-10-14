@@ -69,12 +69,12 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Modules\\": "modules/",
+            "Akaunting\\Module\\Commands\\": "overrides/akaunting/module/Commands/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeds\\": "database/seeds/",
-            "Akaunting\\Module\\Commands\\": "overrides/akaunting/module/Commands/",
             "Illuminate\\Translation\\": "overrides/Illuminate/Translation/",
             "Illuminate\\View\\Concerns\\": "overrides/Illuminate/View/Concerns/",
+            "Modules\\": "modules/",
             "Symfony\\Component\\Process\\": "overrides/symfony/process/"
         },
         "exclude-from-classmap": [
