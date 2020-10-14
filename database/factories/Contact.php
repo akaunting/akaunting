@@ -49,11 +49,9 @@ class Contact extends Factory
      */
     public function enabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 1,
-            ];
-        });
+        return $this->state([
+            'enabled' => 1,
+        ]);
     }
 
     /**
@@ -63,11 +61,9 @@ class Contact extends Factory
      */
     public function disabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 0,
-            ];
-        });
+        return $this->state([
+            'enabled' => 0,
+        ]);
     }
 
     /**
@@ -77,11 +73,9 @@ class Contact extends Factory
      */
     public function customer()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'customer',
-            ];
-        });
+        return $this->state([
+            'type' => 'customer',
+        ]);
     }
 
     /**
@@ -91,10 +85,8 @@ class Contact extends Factory
      */
     public function vendor()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'vendor',
-            ];
-        });
+        return $this->state([
+            'type' => 'vendor',
+        ]);
     }
 }

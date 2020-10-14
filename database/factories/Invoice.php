@@ -71,11 +71,9 @@ class Invoice extends Factory
      */
     public function draft()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'status' => 'draft',
-            ];
-        });
+        return $this->state([
+            'status' => 'draft',
+        ]);
     }
 
     /**
@@ -85,11 +83,9 @@ class Invoice extends Factory
      */
     public function sent()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'status' => 'sent',
-            ];
-        });
+        return $this->state([
+            'status' => 'sent',
+        ]);
     }
 
     /**
@@ -99,11 +95,9 @@ class Invoice extends Factory
      */
     public function viewed()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'status' => 'viewed',
-            ];
-        });
+        return $this->state([
+            'status' => 'viewed',
+        ]);
     }
 
     /**
@@ -113,11 +107,9 @@ class Invoice extends Factory
      */
     public function partial()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'status' => 'partial',
-            ];
-        });
+        return $this->state([
+            'status' => 'partial',
+        ]);
     }
 
     /**
@@ -127,11 +119,9 @@ class Invoice extends Factory
      */
     public function paid()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'status' => 'paid',
-            ];
-        });
+        return $this->state([
+            'status' => 'paid',
+        ]);
     }
 
     /**
@@ -141,11 +131,9 @@ class Invoice extends Factory
      */
     public function cancelled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'status' => 'cancelled',
-            ];
-        });
+        return $this->state([
+            'status' => 'cancelled',
+        ]);
     }
 
     /**
@@ -155,16 +143,12 @@ class Invoice extends Factory
      */
     public function recurring()
     {
-        return $this->state(function (array $attributes) {
-            $frequencies = ['monthly', 'weekly'];
-
-            return [
-                'recurring_frequency' => 'yes',
-                'recurring_interval' => '1',
-                'recurring_custom_frequency' => $this->faker->randomElement($frequencies),
-                'recurring_count' => '1',
-            ];
-        });
+        return $this->state([
+            'recurring_frequency' => 'yes',
+            'recurring_interval' => '1',
+            'recurring_custom_frequency' => $this->faker->randomElement(['monthly', 'weekly']),
+            'recurring_count' => '1',
+        ]);
     }
 
     /**

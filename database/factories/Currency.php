@@ -57,11 +57,9 @@ class Currency extends Factory
      */
     public function enabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 1,
-            ];
-        });
+        return $this->state([
+            'enabled' => 1,
+        ]);
     }
 
     /**
@@ -71,10 +69,8 @@ class Currency extends Factory
      */
     public function disabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 0,
-            ];
-        });
+        return $this->state([
+            'enabled' => 0,
+        ]);
     }
 }

@@ -35,11 +35,9 @@ class Dashboard extends Factory
      */
     public function enabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 1,
-            ];
-        });
+        return $this->state([
+            'enabled' => 1,
+        ]);
     }
 
     /**
@@ -49,11 +47,9 @@ class Dashboard extends Factory
      */
     public function disabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 0,
-            ];
-        });
+        return $this->state([
+            'enabled' => 0,
+        ]);
     }
 
     /**
@@ -63,11 +59,9 @@ class Dashboard extends Factory
      */
     public function users()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'users' => $this->getCompanyUsers(),
-            ];
-        });
+        return $this->state([
+            'users' => $this->getCompanyUsers(),
+        ]);
     }
 
     /**

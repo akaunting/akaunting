@@ -38,16 +38,9 @@ class Role extends Factory
      */
     public function permissions()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'permissions' => $this->getPermissions(),
-            ];
-        });
-    }
-
-    protected function getPermissions()
-    {
-        return Permission::take(50)->pluck('id')->toArray();
+        return $this->state([
+            'permissions' => $this->getPermissions(),
+        ]);
     }
 
     /**
@@ -60,5 +53,10 @@ class Role extends Factory
         return $this->afterCreating(function (Model $role) {
             $role->permissions()->attach($this->getPermissions());
         });
+    }
+
+    protected function getPermissions()
+    {
+        return Permission::take(50)->pluck('id')->toArray();
     }
 }

@@ -39,11 +39,9 @@ class Category extends Factory
      */
     public function enabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 1,
-            ];
-        });
+        return $this->state([
+            'enabled' => 1,
+        ]);
     }
 
     /**
@@ -53,11 +51,9 @@ class Category extends Factory
      */
     public function disabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 0,
-            ];
-        });
+        return $this->state([
+            'enabled' => 0,
+        ]);
     }
 
     /**
@@ -67,11 +63,9 @@ class Category extends Factory
      */
     public function income()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'income',
-            ];
-        });
+        return $this->state([
+            'type' => 'income',
+        ]);
     }
 
     /**
@@ -81,11 +75,9 @@ class Category extends Factory
      */
     public function expense()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'expense',
-            ];
-        });
+        return $this->state([
+            'type' => 'expense',
+        ]);
     }
 
     /**
@@ -95,11 +87,9 @@ class Category extends Factory
      */
     public function item()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'item',
-            ];
-        });
+        return $this->state([
+            'type' => 'item',
+        ]);
     }
 
     /**
@@ -109,10 +99,8 @@ class Category extends Factory
      */
     public function other()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'other',
-            ];
-        });
+        return $this->state([
+            'type' => 'other',
+        ]);
     }
 }

@@ -39,11 +39,9 @@ class Tax extends Factory
      */
     public function enabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 1,
-            ];
-        });
+        return $this->state([
+            'enabled' => 1,
+        ]);
     }
 
     /**
@@ -53,11 +51,9 @@ class Tax extends Factory
      */
     public function disabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 0,
-            ];
-        });
+        return $this->state([
+            'enabled' => 0,
+        ]);
     }
 
     /**
@@ -67,11 +63,9 @@ class Tax extends Factory
      */
     public function normal()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'normal',
-            ];
-        });
+        return $this->state([
+            'type' => 'normal',
+        ]);
     }
 
     /**
@@ -81,11 +75,9 @@ class Tax extends Factory
      */
     public function inclusive()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'inclusive',
-            ];
-        });
+        return $this->state([
+            'type' => 'inclusive',
+        ]);
     }
 
     /**
@@ -95,11 +87,9 @@ class Tax extends Factory
      */
     public function compound()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'compound',
-            ];
-        });
+        return $this->state([
+            'type' => 'compound',
+        ]);
     }
 
     /**
@@ -109,11 +99,9 @@ class Tax extends Factory
      */
     public function fixed()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'fixed',
-            ];
-        });
+        return $this->state([
+            'type' => 'fixed',
+        ]);
     }
 
     /**
@@ -123,10 +111,8 @@ class Tax extends Factory
      */
     public function withholding()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'withholding',
-            ];
-        });
+        return $this->state([
+            'type' => 'withholding',
+        ]);
     }
 }

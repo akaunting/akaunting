@@ -41,11 +41,9 @@ class Account extends Factory
      */
     public function enabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 1,
-            ];
-        });
+        return $this->state([
+            'enabled' => 1,
+        ]);
     }
 
     /**
@@ -55,11 +53,9 @@ class Account extends Factory
      */
     public function disabled()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'enabled' => 0,
-            ];
-        });
+        return $this->state([
+            'enabled' => 0,
+        ]);
     }
 
     /**
@@ -69,10 +65,8 @@ class Account extends Factory
      */
     public function default_currency()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'currency_code' => setting('default.currency'),
-            ];
-        });
+        return $this->state([
+            'currency_code' => setting('default.currency'),
+        ]);
     }
 }

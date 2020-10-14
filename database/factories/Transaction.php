@@ -49,12 +49,10 @@ class Transaction extends Factory
      */
     public function income()
     {
-        return $this->state(function (array $attributes) {
-            return [
-                'type' => 'income',
-				'category_id' => $this->company->categories()->income()->get()->random(1)->pluck('id')->first(),
-            ];
-        });
+        return $this->state([
+            'type' => 'income',
+            'category_id' => $this->company->categories()->income()->get()->random(1)->pluck('id')->first(),
+        ]);
     }
 
     /**
@@ -64,11 +62,9 @@ class Transaction extends Factory
      */
     public function expense()
     {
-        return $this->state(function (array $attributes) {
-            return [
-				'type' => 'expense',
-				'category_id' => $this->company->categories()->expense()->get()->random(1)->pluck('id')->first(),
-            ];
-        });
+        return $this->state([
+            'type' => 'expense',
+            'category_id' => $this->company->categories()->expense()->get()->random(1)->pluck('id')->first(),
+        ]);
     }
 }
