@@ -12,6 +12,8 @@ abstract class Factory extends BaseFactory
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->user = User::first();
         $this->company = $this->user->companies()->first();
 
