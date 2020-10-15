@@ -774,8 +774,8 @@ table .align-items-center td span.badge {
 }
 
 @media (min-width: 1200px) {
-    .g-sidenav-show .sidenav:hover {
-        max-width: 250px;
+    .g-sidenav-show .sidenav {
+        max-width: 250px !important;
     }
 }
 
