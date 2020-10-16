@@ -4,10 +4,11 @@ namespace App\Models\Common;
 
 use App\Abstracts\Model;
 use Bkwld\Cloner\Cloneable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Dashboard extends Model
 {
-    use Cloneable;
+    use Cloneable, HasFactory;
 
     protected $table = 'dashboards';
 
@@ -33,5 +34,15 @@ class Dashboard extends Model
     public function widgets()
     {
         return $this->hasMany('App\Models\Common\Widget')->orderBy('sort', 'asc');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Dashboard::new();
     }
 }
