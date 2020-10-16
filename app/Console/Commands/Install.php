@@ -155,7 +155,7 @@ class Install extends Command
             $this->db_username = $this->ask('What is the database username?', 'root');
         }
 
-        if (empty($this->db_password)) {
+        if (!isset($this->db_password)) {
             $this->db_password = $this->secret('What is the database password?', '');
         }
 
