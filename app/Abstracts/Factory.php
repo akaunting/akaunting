@@ -10,9 +10,9 @@ abstract class Factory extends BaseFactory
 {
     use Jobs;
 
-    public function __construct()
+    public function __construct(...$arguments)
     {
-        parent::__construct();
+        parent::__construct(...$arguments);
 
         $this->user = User::first();
         $this->company = $this->user->companies()->first();
