@@ -6,6 +6,7 @@ use App\Abstracts\BulkAction;
 use App\Events\Purchase\BillCancelled;
 use App\Events\Purchase\BillReceived;
 use App\Exports\Purchases\Bills as Export;
+use App\Jobs\Banking\CreateDocumentTransaction;
 use App\Jobs\Purchase\CreateBillHistory;
 use App\Jobs\Purchase\DeleteBill;
 use App\Models\Purchase\Bill;
@@ -15,6 +16,11 @@ class Bills extends BulkAction
     public $model = Bill::class;
 
     public $actions = [
+        'paid' => [
+            'name' => 'bills.mark_paid',
+            'message' => 'bulk_actions.message.paid',
+            'permission' => 'update-purchases-bills',
+        ],
         'received' => [
             'name' => 'bills.mark_received',
             'message' => 'bulk_actions.message.received',
@@ -36,6 +42,15 @@ class Bills extends BulkAction
             'type' => 'download',
         ],
     ];
+
+    public function paid($request)
+    {
+        $bills = $this->getSelectedRecords($request);
+
+        foreach ($bills as $bill) {
+            $this->dispatch(new CreateDocumentTransaction($bill, []));
+        }
+    }
 
     public function received($request)
     {
