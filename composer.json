@@ -17,7 +17,7 @@
         "akaunting/firewall": "1.2.*",
         "akaunting/language": "1.0.*",
         "akaunting/menu": "1.0.*",
-        "akaunting/module": "1.0.*",
+        "akaunting/module": "2.0.*",
         "akaunting/money": "1.2.*",
         "akaunting/setting": "1.2.*",
         "akaunting/version": "1.0.*",
