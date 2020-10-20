@@ -9,7 +9,7 @@ use App\Events\Purchase\BillRecurring;
 use App\Events\Sale\InvoiceCreated;
 use App\Events\Sale\InvoiceRecurring;
 use App\Models\Banking\Transaction;
-use App\Models\Common\Company;
+use App\Models\Common\Recurring;
 use App\Models\Sale\Invoice;
 use App\Utilities\Date;
 use App\Utilities\Overrider;
@@ -41,19 +41,52 @@ class RecurringCheck extends Command
         // Disable model cache
         config(['laravel-model-caching.enabled' => false]);
 
-        // Get all companies
-        $companies = Company::enabled()->withCount('recurring')->cursor();
+        // Get all recurring
+        $recurring = Recurring::allCompanies()->with('company')->cursor();
 
-        foreach ($companies as $company) {
-            // Check company recurring
-            if (!$company->recurring_count) {
+        $this->info('Creating recurring records ' . $recurring->count());
+
+        foreach ($recurring as $recur) {
+            if (empty($recur->company)) {
                 continue;
             }
 
-            $this->info('Creating recurring records for ' . $company->name . ' company.');
+            $company_name = !empty($recur->company->name) ? $recur->company->name : 'Missing Company Name : ' . $recur->company->id;
+
+            $this->info('Creating recurring records for ' . $company_name . ' company...');
+
+            // Check if company is disabled
+            if (!$recur->company->enabled) {
+                $this->info($company_name . ' company is disabled. Skipping...');
+
+                if (Date::parse($recur->company->updated_at)->format('Y-m-d') > Date::now()->subMonth(3)->format('Y-m-d')) {
+                    $recur->delete();
+                }
+
+                continue;
+            }
+
+            // Check if company has any active user
+            $has_active_users = false;
+
+            foreach ($recur->company->users as $company_user) {
+                if (Date::parse($company_user->last_logged_in_at)->format('Y-m-d') > Date::now()->subMonth(3)->format('Y-m-d')) {
+                    $has_active_users = true;
+
+                    break;
+                }
+            }
+
+            if (!$has_active_users) {
+                $this->info('No active users for ' . $company_name . ' company. Skipping...');
+
+                $recur->delete();
+
+                continue;
+            }
 
             // Set company id
-            session(['company_id' => $company->id]);
+            session(['company_id' => $recur->company_id]);
 
             // Override settings and currencies
             Overrider::load('settings');
@@ -61,34 +94,32 @@ class RecurringCheck extends Command
 
             $today = Date::today();
 
-            foreach ($company->recurring as $recurring) {
-                if (!$model = $recurring->recurable) {
-                    continue;
-                }
+            if (!$model = $recur->recurable) {
+                continue;
+            }
 
-                $schedules = $recurring->getRecurringSchedule();
+            $schedules = $recur->getRecurringSchedule();
 
-                $children_count = $this->getChildrenCount($model);
-                $schedule_count = $schedules->count();
+            $children_count = $this->getChildrenCount($model);
+            $schedule_count = $schedules->count();
 
-                // All recurring created, including today
-                if ($children_count > ($schedule_count - 1)) {
-                    continue;
-                }
+            // All recurring created, including today
+            if ($children_count > ($schedule_count - 1)) {
+                continue;
+            }
 
-                // Recur only today
-                if ($children_count == ($schedule_count - 1)) {
-                    $this->recur($model, $recurring->recurable_type, $today);
+            // Recur only today
+            if ($children_count == ($schedule_count - 1)) {
+                $this->recur($model, $recur->recurable_type, $today);
 
-                    continue;
-                }
+                continue;
+            }
 
-                // Recur all schedules, previously failed
-                foreach ($schedules as $schedule) {
-                    $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
+            // Recur all schedules, previously failed
+            foreach ($schedules as $schedule) {
+                $schedule_date = Date::parse($schedule->getStart()->format('Y-m-d'));
 
-                    $this->recur($model, $recurring->recurable_type, $schedule_date);
-                }
+                $this->recur($model, $recur->recurable_type, $schedule_date);
             }
         }
 

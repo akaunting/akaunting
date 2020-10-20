@@ -26,4 +26,16 @@ class Recurring extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * Scope to get all rows filtered, sorted and paginated.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllCompanies($query)
+    {
+        return $query->where('company_id', '<>', '0');
+    }
 }
