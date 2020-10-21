@@ -8,4 +8,5 @@ return [
     'inclusive'             => 'شامل',
     'compound'              => 'ترکیب',
     'fixed'                 => 'ثابت',
+    'withholding'           => 'دریغ کردن',
 ];

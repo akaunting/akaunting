@@ -19,9 +19,9 @@ return [
     'requirements' => [
         'enabled'           => ':feature باید فعال باشد!',
         'disabled'          => ':feature باید غیر فعال باشد!',
-        'extension'         => ':افزونه نیاز است افزونه نصب و بارگذاری شود!',
+        'extension'         => ':extension نیاز است افزونه نصب و بارگذاری شود!',
         'directory'         => ':directory باید فابل نوشتن باشد!',
-        'executable'        => 'The PHP CLI executable file is not defined/working or its version is not :php_version or higher! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
+        'executable'        => 'فایل اجرایی PHP CLI تعریف نشده یا کار نمی کند یا نسخه آن :php_version یا بالاتر نیست! لطفاً از هاست خود بخواهید متغیر محیطی PHP_BINARY یا PHP_PATH را به درستی تنظیم کند.',
     ],
 
     'database' => [
@@ -39,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'خطا: از هاست خود بخواهید که از PHP ورژن :php_version یا بالاتر برای HTTP و CLI استفاده کند.',
         'connection'        => 'خطا: نمی تواند به پایگاه داده وصل شد! لطفا اطلاعات صحیح را وارد کنید.',
     ],
 

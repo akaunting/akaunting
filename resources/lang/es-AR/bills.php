@@ -52,7 +52,7 @@ return [
         'marked_received'   => '¡Factura marcada como recibida!',
         'marked_paid'       => '¡Factura marcada como pagada!',
         'marked_cancelled'  => '¡Factura marcada como cancelada!',
-        'draft'             => 'Este es un<b>BORRADOR</b> de factura y se reflejará en los gráficos luego de que sea enviada.',
+        'draft'             => 'Este es un <b>BORRADOR</b> de factura y se reflejará en los gráficos luego de que sea enviada.',
 
         'status' => [
             'created'       => 'Creada el :date',

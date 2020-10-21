@@ -3,7 +3,7 @@
 return [
 
     'dashboards'            => 'Tablero|Tableros',
-    'items'                 => 'Producto/Servicio|Productos/Servicios',
+    'items'                 => 'Ítem|Ítems',
     'incomes'               => 'Ingresos|Ingresos',
     'invoices'              => 'Factura|Facturas',
     'revenues'              => 'Ingresos|Ingresos',
