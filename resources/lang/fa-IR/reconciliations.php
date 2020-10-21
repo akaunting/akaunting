@@ -3,7 +3,9 @@
 return [
 
     'reconcile'             => 'مغایرت گیری',
+    'unreconcile'           => 'مغایرت گیری نشده',
     'reconciled'            => 'مغایرت گیری شده',
+    'opening_balance'       => 'تراز شروع دوره',
     'closing_balance'       => 'تراز پایان دوره',
     'unreconciled'          => 'مغایرت گیری نشده',
     'transactions'          => 'تراکنش‌ها',

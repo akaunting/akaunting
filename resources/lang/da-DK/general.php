@@ -85,7 +85,7 @@ return [
     'phone'                 => 'Telefon',
     'address'               => 'Adresse',
     'website'               => 'Webside',
-    'actions'               => 'Handlinger:',
+    'actions'               => '-',
     'description'           => 'Beskrivelse',
     'manage'                => 'Administrér',
     'code'                  => 'Kode',

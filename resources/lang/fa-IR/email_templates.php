@@ -3,48 +3,50 @@
 return [
 
     'invoice_new_customer' => [
-        'subject'       => '{invoice_number} invoice created',
-        'body'          => 'Dear {customer_name},<br /><br />We have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'فاکتور شماره {invoice_number} ساخته شد',
+        'body'          => '{customer_name} عزیز،<br /><br />ما فاکتور زیر را برای شما آماده کرده‌ایم:
+<strong>{invoice_number}</strong>.<br /><br />شما از طریق لینک زیر می‌توانید جزییات فاکتور را مشاهده و مبلغ را پرداخت کنید: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />در صورتی که سوالی داشتید با ما در ارتباط باشید.<br /><br />با احترام،<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
-        'subject'       => '{invoice_number} invoice overdue notice',
-        'body'          => 'Dear {customer_name},<br /><br />This is an overdue notice for <strong>{invoice_number}</strong> invoice.<br /><br />The invoice total is {invoice_total} and was due <strong>{invoice_due_date}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'هشدار عبور از تاریخ سررسید فاکتور شماره {invoice_number}',
+        'body'          => '{customer_name} عزیز،<br /><br />این یک هشدار برای رد شدن از تاریخ سررسید فاکتور <strong>{invoice_number}</strong> است.<br /><br />مبلغ کل فاکتور {invoice_total} و تاریخ سررسید <strong>{invoice_due_date}</strong> می باشد.<br /><br />شما از طریق لینک زیر می‌توانید جزییات فاکتور را مشاهده و مبلغ را پرداخت کنید: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />با احترام،<br />{company_name}',
     ],
 
     'invoice_remind_admin' => [
-        'subject'       => '{invoice_number} invoice overdue notice',
-        'body'          => 'Hello,<br /><br />{customer_name} has received an overdue notice for <strong>{invoice_number}</strong> invoice.<br /><br />The invoice total is {invoice_total} and was due <strong>{invoice_due_date}</strong>.<br /><br />You can see the invoice details from the following link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'هشدار عبور از تاریخ سررسید فاکتور شماره {invoice_number}',
+        'body'          => 'سلام،<br /><br />{customer_name} یک هشدار برای رد شدن از تاریخ سررسید فاکتور <strong>{invoice_number}</strong> دریافت کرده است.<br /><br />مبلغ کل فاکتور {invoice_total} و تاریخ سررسید <strong>{invoice_due_date}</strong> می باشد.<br /><br />شما از طریق لینک زیر می‌توانید جزییات فاکتور را مشاهده و مبلغ را پرداخت کنید: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />با احترام،<br />{company_name}',
     ],
 
     'invoice_recur_customer' => [
-        'subject'       => '{invoice_number} recurring invoice created',
-        'body'          => 'Dear {customer_name},<br /><br />Based on your recurring circle, we have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'فاکتور دوره‌ای شماره {invoice_number} ساخته شد',
+        'body'          => '{customer_name} عزیز،<br /><br />بر اساس دوره زمانی شما، ما فاکتور زیر را برای شما آماده کرده‌ایم:
+<strong>{invoice_number}</strong>.<br /><br />شما از طریق لینک زیر می‌توانید جزییات فاکتور را مشاهده و مبلغ را پرداخت کنید: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />در صورتی که سوالی داشتید با ما در ارتباط باشید.<br /><br />با احترام،<br />{company_name}',
     ],
 
     'invoice_recur_admin' => [
-        'subject'       => '{invoice_number} recurring invoice created',
-        'body'          => 'Hello,<br /><br />Based on {customer_name} recurring circle, <strong>{invoice_number}</strong> invoice has been automatically created.<br /><br />You can see the invoice details from the following link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'فاکتور دوره‌ای شماره {invoice_number} ساخته شد',
+        'body'          => 'سلام،<br /><br />بر اساس دوره زمانی {customer_name}، فاکتور شماره <strong>{invoice_number}</strong> به صورت خودکار ساخته شده است.<br /><br />شما از طریق لینک زیر می‌توانید جزییات فاکتور را مشاهده و مبلغ را پرداخت کنید: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />با احترام،<br />{company_name}',
     ],
 
     'invoice_payment_customer' => [
-        'subject'       => 'Payment received for {invoice_number} invoice',
-        'body'          => 'Dear {customer_name},<br /><br />Thank you for the payment. Find the payment details below:<br /><br />-------------------------------------------------<br />Amount: <strong>{transaction_total}</strong><br />Date: <strong>{transaction_paid_date}</strong><br />Invoice Number: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />You can always see the invoice details from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'پرداخت شما برای فاکتور {invoice_number} دریافت شد',
+        'body'          => '{customer_name} عزیز،<br /><br />با تشکر از پرداخت شما. شما می‌توانید جزییات پرداخت را در زیر مشاهده کنید:<br /><br />-------------------------------------------------<br />مبلغ: <strong>{transaction_total}</strong><br />تاریخ: <strong>{transaction_paid_date}</strong><br />فاکتور شماره‌ی: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />شما در هر موقع می‌توانید جزییات فاکتور را از طریق لینک زیر مشاهده کنید: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />در صورتی که سوالی داشتید با ما در ارتباط باشید.<br /><br />با احترام،<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
-        'subject'       => 'Payment received for {invoice_number} invoice',
-        'body'          => 'Hello,<br /><br />{customer_name} recorded a payment for <strong>{invoice_number}</strong> invoice.<br /><br />You can see the invoice details from the following link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'فاکتور {invoice_number} پرداخت شد',
+        'body'          => 'سلام،<br /><br />{customer_name} پرداختی برای فاکتور شماره <strong>{invoice_number}</strong> داشته است.<br /><br />شما از طریق لینک زیر می‌توانید جزییات فاکتور را مشاهده و مبلغ را پرداخت کنید: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />با احترام،<br />{company_name}',
     ],
 
     'bill_remind_admin' => [
-        'subject'       => '{bill_number} bill reminding notice',
-        'body'          => 'Hello,<br /><br />This is a reminding notice for <strong>{bill_number}</strong> bill to {vendor_name}.<br /><br />The bill total is {bill_total} and is due <strong>{bill_due_date}</strong>.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'هشدار باقیمانده صورتحساب شماره‌ {bill_number}',
+        'body'          => 'سلام،<br /><br />این یک یادآوری برای صورتحساب شماره‌ی <strong>{bill_number}</strong> از سرویس دهنده {vendor_name} است.<br /><br />مبلغ صورتحساب {bill_total} و سررسید آن <strong>{bill_due_date}</strong> است.<br /><br />شما می‌توانید جزییات صورتحساب را در لینک زیر مشاهده کنید: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />با احترام،<br />{company_name}',
     ],
 
     'bill_recur_admin' => [
-        'subject'       => '{bill_number} recurring bill created',
-        'body'          => 'Hello,<br /><br />Based on {vendor_name} recurring circle, <strong>{bill_number}</strong> invoice has been automatically created.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => 'صورتحساب دوره‌ای شماره {bill_number} ساخته شد',
+        'body'          => 'سلام،<br /><br />بر اساس دوره زمانی {vendor_name}، صورتحساب شماره <strong>{bill_number}</strong> به صورت خودکار ساخته شده است.<br /><br />شما از طریق لینک زیر می‌توانید جزییات صورتحساب را مشاهده کنید: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />با احترام،<br />{company_name}',
     ],
 
 ];

@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'سود خالص',
     'total_expenses'        => 'هزینه های کل',
     'net'                   => 'خالص',
-    'income_expense'        => 'Income & Expense',
+    'income_expense'        => 'دخل و خرج',
 
     'summary' => [
         'income'            => 'خلاصه درآمد',

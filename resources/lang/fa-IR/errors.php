@@ -3,21 +3,21 @@
 return [
 
     'title' => [
-        '403' => 'Oops! Forbidden Access',
-        '404' => 'Oops! Page not found',
-        '500' => 'Oops! Something went wrong',
+        '403' => 'دسترسی غیر مجاز!',
+        '404' => 'صفحه مورد نظر یافت نشد!',
+        '500' => 'مشکلی رخ داده است!',
     ],
 
     'header' => [
-        '403' => '403 Forbidden',
-        '404' => '404 Not Found',
-        '500' => '500 Internal Server Error',
+        '403' => 'خطای ۴۰۳، غیرمجاز',
+        '404' => 'خطای ۴۰۴، صفحه مورد نظر یافت نشد',
+        '500' => 'خطای ۵۰۰، خطا در سرور داخلی',
     ],
 
     'message' => [
-        '403' => 'You can not access this page.',
-        '404' => 'We could not find the page you were looking for.',
-        '500' => 'We will work on fixing that right away.',
+        '403' => 'شما اجازه دسترسی به این صفحه را ندارید.',
+        '404' => 'ما امکان یافتن صفحه‌ی مورد نظر شما را نداریم.',
+        '500' => 'در حال رفع این مشکل هستیم.',
     ],
 
 ];
