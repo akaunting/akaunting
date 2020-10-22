@@ -8,7 +8,7 @@ return [
         'deleted'           => ':type حذف شد!',
         'duplicated'        => ':type دو عدد موجود است!',
         'imported'          => ':type درون ریزی شد!',
-        'exported'          => ':type exported!',
+        'exported'          => 'خروجی :type ایجاد شد!',
         'enabled'           => ':نوع فعال است!',
         'disabled'          => ':نوع غیر فعال است!',
     ],
@@ -19,8 +19,8 @@ return [
         'customer'          => 'خطا: کاربر ایجاد نشد :name از ایمیل وارد شده استفاده می کند.',
         'no_file'           => 'خطا: فایلی انتخاب نشده است!',
         'last_category'     => 'خطا: نمیتوان :نوع دسته بندی قبل را پاک کرد!',
-        'change_type'       => 'Error: Can not change the type because it has :text related!',
-        'invalid_apikey'    => 'Error: The API Key entered is invalid!',
+        'change_type'       => 'خطا: امکان تغییر نوع وجود ندارد، چرا که به :text مرتبط است.',
+        'invalid_apikey'    => 'خطا: توکن API وارد شده نامعتبر است!',
         'import_column'     => 'خطا: :پیام :نام ورق :ورق. شماره خط :خط.',
         'import_sheet'      => 'خطا: نام ورق معتبر نیست. لطفاً، فایل نمونه را بررسی کنید.',
     ],
@@ -28,10 +28,10 @@ return [
     'warning' => [
         'deleted'           => 'هشدار: شما نمی توانید <b>:name</b> را به دلیل :text حذف کنید.',
         'disabled'          => 'هشدار: شما نمی توانید <b>:name</b> را به دلیل :text غیر فعال کنید.',
-        'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
-        'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
+        'reconciled_tran'   => 'هشدار: شما اجازه ندارید که تراکنش را ویرایش یا حذف کنید چرا که این تراکنش مغایرت گیری شده است!',
+        'reconciled_doc'    => 'هشدار: شما اجازه ندارید که :type را ویرایش یا حذف کنید چرا که این :type مغایرت گیری شده است!',
         'disable_code'      => 'هشدار: شما مجاز نیستید که واحد پولی <b>:name</b> را تغییر دهید یا غیر فعال کنید زیرا آن با :متن در ارتباط است.',
-        'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
+        'payment_cancel'    => 'هشدار: شما پرداخت :method اخیرتان را لغو کردید!',
     ],
 
 ];

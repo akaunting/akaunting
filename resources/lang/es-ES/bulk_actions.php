@@ -16,6 +16,8 @@ return [
         'sent'          => '¿Está seguro que desea marcar la factura seleccionada como <b>enviada</b>? ¿Está seguro que desea marcar las facturas seleccionadas como <b>enviadas</b>?',
         'received'      => '¿Está seguro de que desea marcar el recibo seleccionado como <b>recibido</b>? ¿Está seguro que desea marcar los recibos seleccionados como <b>recibidos</b>?',
         'cancelled'     => '¿Está seguro que desea <b>cancelar</b> la factura/recibo seleccionado?|¿Está seguro que desea <b>cancelar</b> las facturas/recibos seleccionados?',
+        'reconcile'     => '¿Está seguro que desea <b>conciliar</b> el registro seleccionado?|¿Está seguro que desea <b>conciliar</b> los registros seleccionados?',
+        'unreconcile'   => '¿Está seguro que desea <b>desconciliar</b> el registro seleccionado?|¿Está seguro que desea <b>desconciliar</b> los registros seleccionados?',
     ],
 
 ];

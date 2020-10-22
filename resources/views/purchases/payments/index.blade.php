@@ -3,11 +3,11 @@
 @section('title', trans_choice('general.payments', 2))
 
 @section('new_button')
-    @can('create-purchases-payments')
-        <a href="{{ route('payments.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-        <a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'payments']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    @endcan
-    <a href="{{ route('payments.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
+    @permission('create-purchases-payments')
+        <span><a href="{{ route('payments.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <span><a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'payments']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
+    @endpermission
+    <span><a href="{{ route('payments.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
 @endsection
 
 @section('content')
@@ -93,15 +93,15 @@
                                                 <div class="dropdown-divider"></div>
                                             @endif
                                             @if (empty($item->document_id))
-                                            @can('create-purchases-payments')
+                                            @permission('create-purchases-payments')
                                                 <a class="dropdown-item" href="{{ route('payments.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
                                                 <div class="dropdown-divider"></div>
-                                            @endcan
+                                            @endpermission
                                             @endif
                                             @if (!$item->reconciled)
-                                            @can('delete-purchases-payments')
+                                            @permission('delete-purchases-payments')
                                                 {!! Form::deleteLink($item, 'payments.destroy') !!}
-                                            @endcan
+                                            @endpermission
                                             @endif
                                         </div>
                                     </div>

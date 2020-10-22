@@ -4,7 +4,7 @@
 
 @can('create-settings-taxes')
     @section('new_button')
-        <a href="{{ route('taxes.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <span><a href="{{ route('taxes.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
     @endsection
 @endcan
 

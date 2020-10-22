@@ -3,7 +3,7 @@
 return [
 
     'company' => [
-        'description'       => 'Change company name, email, address, tax number etc',
+        'description'       => 'تغییر اسم شرکت، ایمیل، آدرس، کد اقتصادی و ...',
         'name'              => 'نام',
         'email'             => 'ایمیل',
         'phone'             => 'تلفن',
@@ -12,7 +12,7 @@ return [
     ],
 
     'localisation' => [
-        'description'       => 'Set fiscal year, time zone, date format and more locals',
+        'description'       => 'تنظیم سال مالی، منطقه زمانی، فرمت تاریخ و سایر بومی سازی ها',
         'financial_start'   => 'شروع سال مالی',
         'timezone'          => 'منطقه زمانی',
         'date' => [
@@ -30,15 +30,15 @@ return [
             'after'         => 'پس از شماره',
         ],
         'discount_location' => [
-            'name'          => 'Discount Location',
-            'item'          => 'At line',
-            'total'         => 'At total',
-            'both'          => 'Both line and total',
+            'name'          => 'نوع تخفیف',
+            'item'          => 'جزئی',
+            'total'         => 'کلی',
+            'both'          => 'جزئی و کلی',
         ],
     ],
 
     'invoice' => [
-        'description'       => 'Customize invoice prefix, number, terms, footer etc',
+        'description'       => 'شخصی سازی پیشوند فاکتور، شماره، شرایط، پانویس و ...',
         'prefix'            => 'پیشوند شماره',
         'digit'             => 'تعداد ارقام',
         'next'              => 'شماره بعدی',
@@ -53,25 +53,25 @@ return [
         'rate'              => 'نرخ',
         'quantity_name'     => 'نام مقدار',
         'quantity'          => 'مقدار',
-        'payment_terms'     => 'Payment Terms',
-        'title'             => 'Title',
-        'subheading'        => 'Subheading',
-        'due_receipt'       => 'Due upon receipt',
-        'due_days'          => 'Due within :days days',
-        'choose_template'   => 'Choose invoice template',
-        'default'           => 'Default',
-        'classic'           => 'Classic',
-        'modern'            => 'Modern',
+        'payment_terms'     => 'شرایط پرداخت',
+        'title'             => 'عنوان',
+        'subheading'        => 'زیر عنوان',
+        'due_receipt'       => 'به محض دریافت',
+        'due_days'          => 'طی :days روز',
+        'choose_template'   => 'قالب فاکتور را انتخاب کنید',
+        'default'           => 'پیشفرض',
+        'classic'           => 'کلاسیک',
+        'modern'            => 'مدرن',
     ],
 
     'default' => [
-        'description'       => 'Default account, currency, language of your company',
-        'list_limit'        => 'Records Per Page',
-        'use_gravatar'      => 'Use Gravatar',
+        'description'       => 'حساب پیش فرض، واحد پول و زبان شرکت شما',
+        'list_limit'        => 'تعداد رکورد ها در هر صفحه',
+        'use_gravatar'      => 'استفاده از آواتار شناخته شده جهانی',
     ],
 
     'email' => [
-        'description'       => 'Change the sending protocol and email templates',
+        'description'       => 'تغییر پروتکل ارسال و قالب های ایمیل',
         'protocol'          => 'پروتکل',
         'php'               => 'ایمیل PHP',
         'smtp' => [
@@ -88,24 +88,24 @@ return [
         'log'               => 'رکورد های ایمیل',
 
         'templates' => [
-            'subject'                   => 'Subject',
-            'body'                      => 'Body',
-            'tags'                      => '<strong>Available Tags:</strong> :tag_list',
-            'invoice_new_customer'      => 'New Invoice Template (sent to customer)',
-            'invoice_remind_customer'   => 'Invoice Reminder Template (sent to customer)',
-            'invoice_remind_admin'      => 'Invoice Reminder Template (sent to admin)',
-            'invoice_recur_customer'    => 'Invoice Recurring Template (sent to customer)',
-            'invoice_recur_admin'       => 'Invoice Recurring Template (sent to admin)',
-            'invoice_payment_customer'  => 'Payment Received Template (sent to customer)',
-            'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
-            'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
-            'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
+            'subject'                   => 'موضوع',
+            'body'                      => 'بدنه',
+            'tags'                      => '<strong>تگ های در دسترس:</strong> :tag_list',
+            'invoice_new_customer'      => 'قالب فاکتور جدید (برای ارسال به مشتری)',
+            'invoice_remind_customer'   => 'قالب یادآوری فاکتور (برای ارسال به مشتری)',
+            'invoice_remind_admin'      => 'قالب یادآوری فاکتور (برای ارسال به مدیر)',
+            'invoice_recur_customer'    => 'قالب تکرار فاکتور (برای ارسال به مشتری)',
+            'invoice_recur_admin'       => 'قالب تکرار فاکتور (برای ارسال به مدیر)',
+            'invoice_payment_customer'  => 'قالب پرداخت فاکتور (برای ارسال به مشتری)',
+            'invoice_payment_admin'     => 'قالب پرداخت فاکتور (برای ارسال به مدیر)',
+            'bill_remind_admin'         => 'قالب یادآوری صورتحساب (برای ارسال به مدیر)',
+            'bill_recur_admin'          => 'قالب تکرار صورتحساب (برای ارسال به مدیر)',
         ],
     ],
 
     'scheduling' => [
         'name'              => 'برنامه‌ریزی',
-        'description'       => 'Automatic reminders and command for recurring',
+        'description'       => 'یادآوری ها و دستورالعمل های خودکار برای تکرار فاکتور',
         'send_invoice'      => 'ارسال فاکتور یادآور',
         'invoice_days'      => 'ارسال بعد از چند روز',
         'send_bill'         => 'ارسال یاد آور صورتحساب',
@@ -115,15 +115,15 @@ return [
     ],
 
     'categories' => [
-        'description'       => 'Unlimited categories for income, expense, and item',
+        'description'       => 'دسته بندی های نامحدود برای درآمد ، هزینه و اقلام',
     ],
 
     'currencies' => [
-        'description'       => 'Create and manage currencies and set their rates',
+        'description'       => 'ساخت و مدیریت واحد های پولی و تنظیم نسبت آن ها با یکدیگر',
     ],
 
     'taxes' => [
-        'description'       => 'Fixed, normal, inclusive, and compound tax rates',
+        'description'       => 'نرخ مالیات ثابت، عادی، شامل و ترکیبی',
     ],
 
 ];

@@ -104,7 +104,7 @@ return [
         ],
         'invalid_currency'      => 'فرمت آدرس :attribute اشتباه است.',
         'invalid_amount'        => ':attribute وارد شده، معتبر نیست.',
-        'invalid_extension'     => 'The file extension is invalid.',
+        'invalid_extension'     => 'فرمت فایل نامعتبر است.',
     ],
 
     /*

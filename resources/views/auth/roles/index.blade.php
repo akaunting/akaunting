@@ -4,7 +4,7 @@
 
 @can('create-auth-roles')
     @section('new_button')
-        <a href="{{ route('roles.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('roles.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endsection
 @endcan
 

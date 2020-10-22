@@ -3,10 +3,10 @@
 @section('title', trans_choice('general.transfers', 2))
 
 @section('new_button')
-    @can('create-banking-transfers')
-            <a href="{{ route('transfers.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
-    @endcan
-    <span><a href="{{ route('import.create', ['banking', 'transfers']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload "></span> &nbsp;{{ trans('import.import') }}</a></span>
+    @permission('create-banking-transfers')
+        <a href="{{ route('transfers.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
+    @endpermission
+    <span><a href="{{ route('import.create', ['banking', 'transfers']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
     <span><a href="{{ route('transfers.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
 @endsection
 
@@ -59,10 +59,10 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('transfers.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @can('delete-banking-transfers')
+                                            @permission('delete-banking-transfers')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'transfers.destroy') !!}
-                                            @endcan
+                                            @endpermission
                                         </div>
                                     </div>
                                 </td>

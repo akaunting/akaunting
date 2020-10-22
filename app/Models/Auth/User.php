@@ -128,7 +128,7 @@ class User extends Authenticatable
     /**
      * Always return a valid picture when we retrieve it
      */
-    public function getLastLoggedInAtAttribute($value)
+    public function getLastLoggedAttribute($value)
     {
         // Date::setLocale('tr');
 

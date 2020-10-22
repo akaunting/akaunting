@@ -7,7 +7,7 @@ return [
     'open_invoices'             => 'Åbne fakturaer',
     'overdue_invoices'          => 'Forfaldne fakturaer',
     'total_expenses'            => 'Samlede udgifter',
-    'payables'                  => 'Udeståender til betaling',
+    'payables'                  => 'Udeståender',
     'open_bills'                => 'Åbne regninger',
     'overdue_bills'             => 'Forfaldne regninger',
     'total_profit'              => 'Samlet resultat',

@@ -40,16 +40,18 @@
                             <div class="card-footer">
                                 <div class="float-right">
                                     @if (Request::is('install/requirements'))
-                                        <a href="{{ route('install.requirements') }}" class="btn btn-success"> {{ trans('install.refresh') }}</a>
+                                        <a href="{{ route('install.requirements') }}" class="btn btn-success"> {{ trans('install.refresh') }} &nbsp;<i class="fa fa-refresh"></i></a>
                                     @else
                                         {!! Form::button(
                                             '<i v-if="loading" :class="(loading) ? \'show \' : \'\'" class="fas fa-spinner fa-spin d-none"></i> ' .
-                                            trans('install.next'),
+                                            trans('install.next') .
+                                            ' &nbsp;<i class="fa fa-arrow-right"></i>',
                                             [
                                                 ':disabled' => 'loading',
                                                 'type' => 'submit',
                                                 'id' => 'next-button',
-                                                'class' => 'btn btn-success'
+                                                'class' => 'btn btn-success',
+                                                'data-loading-text' => trans('general.loading')
                                             ]
                                         ) !!}
                                     @endif

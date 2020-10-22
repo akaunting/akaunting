@@ -4,7 +4,7 @@
 
 @section('new_button')
     @can('create-banking-reconciliations')
-        <a href="{{ route('reconciliations.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('reconciliations.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endcan
 @endsection
 

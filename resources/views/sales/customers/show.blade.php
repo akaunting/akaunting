@@ -68,7 +68,7 @@
             </ul>
 
             @stack('customer_edit_button_start')
-            <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-info btn-block edit-sv"><b>{{ trans('general.edit') }}</b></a>
+            <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-info btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
             @stack('customer_edit_button_end')
         </div>
 

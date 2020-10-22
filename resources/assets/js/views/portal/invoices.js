@@ -47,8 +47,12 @@ const app = new Vue({
     },
 
     methods:{
-        onChangePaymentMethod(event) {
-            let method = event.split('.');
+        onChangePaymentMethod(payment_method) {
+            if (!payment_method) {
+                return;
+            }
+
+            let method = payment_method.split('.');
 
             let path = url + '/portal/invoices/' + this.form.invoice_id + '/' + method[0];
 
@@ -117,10 +121,14 @@ const app = new Vue({
             });
         },
 
-        onChangePaymentMethodSigned(event) {
-            this.form.payment_action = event;
+        onChangePaymentMethodSigned(payment_method) {
+            if (!payment_method) {
+                return;
+            }
 
-            let payment_action = payment_action_path[event];
+            this.form.payment_action = payment_method;
+
+            let payment_action = payment_action_path[payment_method];
 
             axios.get(payment_action)
             .then(response => {

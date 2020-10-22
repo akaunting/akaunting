@@ -3,11 +3,11 @@
 @section('title', trans_choice('general.vendors', 2))
 
 @section('new_button')
-    @can('create-purchases-vendors')
-        <a href="{{ route('vendors.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-        <a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'vendors']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    @endcan
-    <a href="{{ route('vendors.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
+    @permission('create-purchases-vendors')
+        <span><a href="{{ route('vendors.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <span><a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'vendors']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
+    @endpermission
+    <span><a href="{{ route('vendors.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
 @endsection
 
 @section('content')
@@ -82,14 +82,14 @@
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('vendors.show', $item->id) }}">{{ trans('general.show') }}</a>
                                             <a class="dropdown-item" href="{{ route('vendors.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @can('create-purchases-vendors')
+                                            @permission('create-purchases-vendors')
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route('vendors.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                            @endcan
-                                            @can('delete-purchases-vendors')
+                                            @endpermission
+                                            @permission('delete-purchases-vendors')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'vendors.destroy') !!}
-                                            @endcan
+                                            @endpermission
                                         </div>
                                     </div>
                                 </td>
