@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Update\V20;
+namespace App\Listeners\Update\V21;
 
 use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
