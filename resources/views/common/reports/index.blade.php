@@ -4,9 +4,9 @@
 
 @section('new_button')
     @permission('create-common-reports')
-        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
     @endpermission
-    <a href="{{ route('reports.clear') }}" class="btn btn-warning btn-sm">{{ trans('general.clear_cache') }}</a>
+    <a href="{{ route('reports.clear') }}" class="btn btn-warning btn-sm header-button-top"><span class="fa fa-history"></span> &nbsp;{{ trans('general.clear_cache') }}</a>
 @endsection
 
 @section('content')

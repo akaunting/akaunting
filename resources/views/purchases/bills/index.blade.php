@@ -4,10 +4,10 @@
 
 @section('new_button')
     @permission('create-purchases-bills')
-        <a href="{{ route('bills.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
-        <a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'bills']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+        <span><a href="{{ route('bills.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <span><a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'bills']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
     @endpermission
-    <a href="{{ route('bills.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
+    <span><a href="{{ route('bills.export', request()->input()) }}" class="btn btn-white btn-sm header-button-bottom"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
 @endsection
 
 @section('content')

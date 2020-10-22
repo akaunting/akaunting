@@ -291,13 +291,13 @@
                         <div class="col-xs-12 col-sm-6 text-right">
                             @stack('button_print_start')
                                 <a href="{{ route('portal.invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                    {{ trans('general.print') }}
+                                    <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                                 </a>
                             @stack('button_print_end')
 
                             @stack('button_pdf_start')
                                 <a href="{{ route('portal.invoices.pdf', $invoice->id) }}" class="btn btn-white header-button-top">
-                                    {{ trans('general.download') }}
+                                    <i class="fa fa-file-pdf"></i>&nbsp; {{ trans('general.download') }}
                                 </a>
                             @stack('button_pdf_end')
                         </div>

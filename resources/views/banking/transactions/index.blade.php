@@ -4,13 +4,13 @@
 
 @section('new_button')
     @permission('create-sales-revenues')
-        <a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_income') }}</a>
+        <span><a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_income') }}</a></span>
     @endpermission
     @permission('create-purchases-payments')
-        <a href="{{ route('payments.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_expense') }}</a>
+        <span><a href="{{ route('payments.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_expense') }}</a></span>
     @endpermission
-    <a href="{{ route('import.create', ['banking', 'transactions']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    <a href="{{ route('transactions.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
+    <span><a href="{{ route('import.create', ['banking', 'transactions']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload "></span> &nbsp;{{ trans('import.import') }}</a></span>
+    <span><a href="{{ route('transactions.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
 @endsection
 
 @section('content')

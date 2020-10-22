@@ -45,7 +45,7 @@
 
                     <div class="input-group">
                         <a href="#" class="btn btn-block btn-outline-primary" @click="onTemplate">
-                            {{ trans('settings.invoice.choose_template') }}
+                            <i class="fas fa-palette"></i>&nbsp; {{ trans('settings.invoice.choose_template') }}
                         </a>
                     </div>
                 </div>
