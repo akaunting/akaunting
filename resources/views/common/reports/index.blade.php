@@ -3,10 +3,10 @@
 @section('title', trans_choice('general.reports', 2))
 
 @section('new_button')
-    @permission('create-common-reports')
-        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
-    @endpermission
-    <a href="{{ route('reports.clear') }}" class="btn btn-warning btn-sm header-button-top"><span class="fa fa-history"></span> &nbsp;{{ trans('general.clear_cache') }}</a>
+    @can('create-common-reports')
+        <a href="{{ route('reports.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+    @endcan
+    <a href="{{ route('reports.clear') }}" class="btn btn-warning btn-sm">{{ trans('general.clear_cache') }}</a>
 @endsection
 
 @section('content')
@@ -26,14 +26,14 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     <a class="dropdown-item" href="{{ route('reports.edit', $report->id) }}">{{ trans('general.edit') }}</a>
-                                    @permission('create-common-reports')
+                                    @can('create-common-reports')
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('reports.duplicate', $report->id) }}">{{ trans('general.duplicate') }}</a>
-                                    @endpermission
-                                    @permission('delete-common-reports')
+                                    @endcan
+                                    @can('delete-common-reports')
                                         <div class="dropdown-divider"></div>
                                         {!! Form::deleteLink($report, 'common/reports') !!}
-                                    @endpermission
+                                    @endcan
                                 </div>
                             </div>
                         </span>

@@ -3,11 +3,11 @@
 @section('title', trans_choice('general.items', 2))
 
 @section('new_button')
-    @permission('create-common-items')
-        <span><a href="{{ route('items.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-        <span><a href="{{ route('import.create', ['common', 'items']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload "></span> &nbsp;{{ trans('import.import') }}</a></span>
-    @endpermission
-    <span><a href="{{ route('items.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    @can('create-common-items')
+        <a href="{{ route('items.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('import.create', ['common', 'items']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+    @endcan
+    <a href="{{ route('items.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')
@@ -82,14 +82,14 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('items.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @permission('create-common-items')
+                                            @can('create-common-items')
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route('items.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                            @endpermission
-                                            @permission('delete-common-items')
+                                            @endcan
+                                            @can('delete-common-items')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'items.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

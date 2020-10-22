@@ -102,9 +102,9 @@
                                                     @stack('timeline_body_send_invoice_body_button_sent_start')
                                                         @can('update-sales-invoices')
                                                             @if($invoice->status == 'draft')
-                                                                <a href="{{ route('invoices.sent', $invoice->id) }}" class="btn btn-white btn-sm header-button-top">{{ trans('invoices.mark_sent') }}</a>
+                                                                <a href="{{ route('invoices.sent', $invoice->id) }}" class="btn btn-white btn-sm">{{ trans('invoices.mark_sent') }}</a>
                                                             @else
-                                                                <button type="button" class="btn btn-secondary btn-sm header-button-top" disabled="disabled">
+                                                                <button type="button" class="btn btn-secondary btn-sm" disabled="disabled">
                                                                     <span class="text-disabled">{{ trans('invoices.mark_sent') }}</span>
                                                                 </button>
                                                             @endif
@@ -113,9 +113,9 @@
 
                                                     @stack('timeline_body_send_invoice_body_button_email_start')
                                                         @if($invoice->contact_email)
-                                                            <a href="{{ route('invoices.email', $invoice->id) }}" class="btn btn-danger btn-sm header-button-bottom">{{ trans('invoices.send_mail') }}</a>
+                                                            <a href="{{ route('invoices.email', $invoice->id) }}" class="btn btn-danger btn-sm">{{ trans('invoices.send_mail') }}</a>
                                                         @else
-                                                            <button type="button" class="btn btn-white btn-sm header-button-bottom green-tooltip" disabled="disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
+                                                            <button type="button" class="btn btn-white btn-sm green-tooltip" disabled="disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}">
                                                                 <span class="text-disabled">{{ trans('invoices.send_mail') }}</span>
                                                             </button>
                                                         @endif
@@ -462,29 +462,29 @@
                         <div class="col-xs-12 col-sm-8 text-right">
                             @stack('button_edit_start')
                             @if(!$invoice->reconciled)
-                                <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-info header-button-top">
-                                    <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                                <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-info">
+                                    {{ trans('general.edit') }}
                                 </a>
                             @endif
                             @stack('button_edit_end')
 
                             @stack('button_print_start')
-                            <a href="{{ route('invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                            <a href="{{ route('invoices.print', $invoice->id) }}" target="_blank" class="btn btn-success">
+                                {{ trans('general.print') }}
                             </a>
                             @stack('button_print_end')
 
                             @if ($invoice->status != 'cancelled')
                             @stack('button_share_start')
-                                <a href="{{ $signed_url }}" target="_blank" class="btn btn-white header-button-top">
-                                    <i class="fa fa-share"></i>&nbsp; {{ trans('general.share') }}
+                                <a href="{{ $signed_url }}" target="_blank" class="btn btn-white">
+                                    {{ trans('general.share') }}
                                 </a>
                             @stack('button_share_end')
                             @endif
 
                             @stack('button_group_start')
                             <div class="dropup header-drop-top">
-                                <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+                                <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
                                 <div class="dropdown-menu" role="menu">
                                     @stack('button_dropdown_start')
                                     @if ($invoice->status != 'cancelled')
@@ -643,7 +643,7 @@
                                                                     ]);
                                                                 @endphp
 
-                                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                                                {!! Form::button(trans('general.delete'), array(
                                                                     'type'    => 'button',
                                                                     'class'   => 'btn btn-danger btn-sm',
                                                                     'title'   => trans('general.delete'),

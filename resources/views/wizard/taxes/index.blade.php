@@ -103,13 +103,13 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="{{ route('wizard.currencies.index') }}" class="btn btn-icon btn-white header-button-top">
+                    <a href="{{ route('wizard.currencies.index') }}" class="btn btn-icon btn-white">
                         <span class="btn-inner--text">{{ trans('pagination.previous') }}</span>
                     </a>
                 </div>
 
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('wizard.finish.index') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
+                    <a href="{{ route('wizard.finish.index') }}" id="wizard-skip" class="btn btn-icon btn-white">
                         <span class="btn-inner--text">{{ trans('pagination.next') }}</span>
                     </a>
                 </div>

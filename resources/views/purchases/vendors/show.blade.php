@@ -68,7 +68,7 @@
             </ul>
 
             @stack('vendor_edit_button_start')
-            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
+            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block"><b>{{ trans('general.edit') }}</b></a>
             @stack('vendor_edit_button_end')
         </div>
 

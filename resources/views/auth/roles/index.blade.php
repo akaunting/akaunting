@@ -4,7 +4,7 @@
 
 @can('create-auth-roles')
     @section('new_button')
-        <a href="{{ route('roles.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
+        <a href="{{ route('roles.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
 @endcan
 
@@ -69,7 +69,7 @@
 
         <div class="card-footer table-action">
             <div class="row">
-                 @include('partials.admin.pagination', ['items' => $roles])
+                @include('partials.admin.pagination', ['items' => $roles])
             </div>
         </div>
     </div>

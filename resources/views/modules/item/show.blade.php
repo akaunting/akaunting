@@ -3,8 +3,8 @@
 @section('title', trans_choice('general.modules', 2))
 
 @section('new_button')
-    <span><a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_key') }}</a></span>
-    <span><a href="{{ route('apps.my.index')  }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}</a></span>
+    <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm">{{ trans('modules.api_key') }}</a>
+    <a href="{{ route('apps.my.index') }}" class="btn btn-white btn-sm">{{ trans('modules.my_apps') }}</a>
 @endsection
 
 @section('content')
@@ -178,7 +178,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         @if (!empty($module->review_action))
-                                            <a href="{{ $module->review_action }}" class="btn btn-success header-button-top" target="_blank">
+                                            <a href="{{ $module->review_action }}" class="btn btn-success" target="_blank">
                                                 {{ trans('modules.reviews.button.add') }}
                                             </a>
                                         @endif

@@ -3,11 +3,11 @@
 @section('title', trans_choice('general.invoices', 2))
 
 @section('new_button')
-    @permission('create-sales-invoices')
-        <span><a href="{{ route('invoices.create') }}" class="btn btn-primary btn-sm btn-success header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-        <span><a href="{{ route('import.create', ['group' => 'sales', 'type' => 'invoices']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
-    @endpermission
-    <span><a href="{{ route('invoices.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    @can('create-sales-invoices')
+        <a href="{{ route('invoices.create') }}" class="btn btn-primary btn-sm btn-success">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('import.create', ['group' => 'sales', 'type' => 'invoices']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+    @endcan
+    <a href="{{ route('invoices.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')
@@ -72,21 +72,21 @@
                                             <div class="dropdown-divider"></div>
 
                                             @if ($item->status != 'cancelled')
-                                                @permission('create-sales-invoices')
+                                                @can('create-sales-invoices')
                                                     <a class="dropdown-item" href="{{ route('invoices.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
                                                     <div class="dropdown-divider"></div>
-                                                @endpermission
+                                                @endcan
 
-                                                @permission('update-sales-invoices')
+                                                @can('update-sales-invoices')
                                                     <a class="dropdown-item" href="{{ route('invoices.cancelled', $item->id) }}">{{ trans('general.cancel') }}</a>
-                                                @endpermission
+                                                @endcan
                                             @endif
 
-                                            @permission('delete-sales-invoices')
+                                            @can('delete-sales-invoices')
                                                 @if (!$item->reconciled)
                                                     {!! Form::deleteLink($item, 'invoices.destroy') !!}
                                                 @endif
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

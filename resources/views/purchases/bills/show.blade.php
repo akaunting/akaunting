@@ -143,7 +143,7 @@
                                             <div class="mt-3">
                                                 @stack('timeline_body_get_paid_body_button_pay_start')
                                                     @can('update-purchases-bills')
-                                                        <a href="{{ route('bills.paid', $bill->id) }}" class="btn btn-white btn-sm header-button-top">{{ trans('bills.mark_paid') }}</a>
+                                                        <a href="{{ route('bills.paid', $bill->id) }}" class="btn btn-white btn-sm">{{ trans('bills.mark_paid') }}</a>
                                                     @endcan
                                                 @stack('timeline_body_get_paid_body_button_pay_end')
 
@@ -447,21 +447,21 @@
                         <div class="col-xs-12 col-sm-8 text-right">
                             @stack('button_edit_start')
                             @if(!$bill->reconciled)
-                                <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info header-button-top">
-                                    <i class="fas fa-edit"></i>&nbsp; {{ trans('general.edit') }}
+                                <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-info">
+                                    {{ trans('general.edit') }}
                                 </a>
                             @endif
                             @stack('button_edit_end')
 
                             @stack('button_print_start')
-                            <a href="{{ route('bills.print', $bill->id) }}" target="_blank" class="btn btn-success header-button-top">
-                                <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
+                            <a href="{{ route('bills.print', $bill->id) }}" target="_blank" class="btn btn-success">
+                                {{ trans('general.print') }}
                             </a>
                             @stack('button_print_end')
 
                             @stack('button_group_start')
                             <div class="dropup header-drop-top">
-                                <button type="button" class="btn btn-primary header-button-top" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+                                <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
 
                                 <div class="dropdown-menu" role="menu">
                                     @stack('button_dropdown_start')
@@ -611,7 +611,7 @@
                                                                     ]);
                                                                 @endphp
 
-                                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('general.delete'), array(
+                                                                {!! Form::button(trans('general.delete'), array(
                                                                     'type'    => 'button',
                                                                     'class'   => 'btn btn-danger btn-sm',
                                                                     'title'   => trans('general.delete'),

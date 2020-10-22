@@ -41,8 +41,8 @@
             <div class="card-footer">
                 <div class="row save-buttons">
                     <div class="col-xs-12 col-sm-12">
-                        <a href="{{ url($path) }}" class="btn btn-outline-secondary header-button-top"><span class="fa fa-times"></span> &nbsp;{{ trans('general.cancel') }}</a>
-                        {!! Form::button('<span class="fa fa-download"></span> &nbsp;' . trans('import.import'), ['type' => 'submit', 'class' => 'btn btn-success header-button-top']) !!}
+                        <a href="{{ url($path) }}" class="btn btn-outline-secondary">{{ trans('general.cancel') }}</a>
+                        {!! Form::button(trans('import.import'), ['type' => 'submit', 'class' => 'btn btn-success']) !!}
                     </div>
                 </div>
             </div>

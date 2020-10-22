@@ -3,11 +3,11 @@
 @section('title', trans_choice('general.bills', 2))
 
 @section('new_button')
-    @permission('create-purchases-bills')
-        <span><a href="{{ route('bills.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-        <span><a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'bills']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
-    @endpermission
-    <span><a href="{{ route('bills.export', request()->input()) }}" class="btn btn-white btn-sm header-button-bottom"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    @can('create-purchases-bills')
+        <a href="{{ route('bills.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'bills']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+    @endcan
+    <a href="{{ route('bills.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')
@@ -73,21 +73,21 @@
                                             <div class="dropdown-divider"></div>
 
                                             @if ($item->status != 'cancelled')
-                                                @permission('create-purchases-bills')
+                                                @can('create-purchases-bills')
                                                     <a class="dropdown-item" href="{{ route('bills.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                                @endpermission
+                                                @endcan
 
-                                                @permission('update-purchases-bills')
+                                                @can('update-purchases-bills')
                                                     <a class="dropdown-item" href="{{ route('bills.cancelled', $item->id) }}">{{ trans('general.cancel') }}</a>
-                                                @endpermission
+                                                @endcan
                                             @endif
 
-                                            @permission('delete-purchases-bills')
+                                            @can('delete-purchases-bills')
                                                 <div class="dropdown-divider"></div>
                                                 @if (!$item->reconciled)
                                                     {!! Form::deleteLink($item, 'bills.destroy') !!}
                                                 @endif
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>
