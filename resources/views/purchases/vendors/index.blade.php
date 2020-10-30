@@ -6,7 +6,7 @@
     @can('create-purchases-vendors')
         <a href="{{ route('vendors.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
         <a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'vendors']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
-    @endpcan
+    @endcan
     <a href="{{ route('vendors.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
