@@ -18,10 +18,7 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Common\Dashboard" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.dashboards', $bulk_actions, ['group' => 'common', 'type' => 'dashboards']) }}

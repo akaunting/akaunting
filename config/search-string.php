@@ -120,9 +120,9 @@ return [
             'name' => ['searchable' => true],
             'description' => ['searchable' => true],
             'enabled' => ['boolean' => true],
-            'category_id' => ['key' => 'category_id'],
-            'sale_price',
-            'purchase_price',
+            'category_id' => [
+                'route' => ['categories.index', 'search=type:item']
+            ],
         ],
     ],
 

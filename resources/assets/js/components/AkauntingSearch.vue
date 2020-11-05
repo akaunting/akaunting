@@ -1,175 +1,466 @@
 <template>
+  <div :id="'search-field-' + _uid" class="searh-field tags-input__wrapper">
+    <div class="tags-group" v-for="(filter, index) in filtered" :index="index">
+      <span v-if="filter.option" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-option">
+        {{ filter.option }}
+      </span>
 
-    <el-select
-        :class="'pl-20 mr-40'"
-        v-model="real_model"
-        @input="change"
-        filterable
-        remote
-        reserve-keyword
+      <span v-if="filter.operator" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-operator">
+        {{ filter.operator }}
+      </span>
+
+      <span v-if="filter.value" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-value">
+        {{ filter.value }}
+        <i class="el-tag__close el-icon-close" @click="onFilterDelete(index)"></i>
+      </span>
+    </div>
+
+    <div class="dropdown input-full">
+      <input
+        type="text"
+        class="form-control"
         :placeholder="placeholder"
-        :remote-method="remoteMethod"
-        :loading="loading">
-        <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
-            <p class="el-select-dropdown__empty loading">
-                {{ loadingText }}
-            </p>
-        </div>
+        :ref="'input-search-field-' + _uid"
+        v-model="search"
+        @focus="onInputFocus"
+        @input="onInput"
+        @keyup.enter="onInputConfirm"
+      />
 
-        <div v-else-if="options.length != 0" class="el-select-dropdown__wrap" slot="empty">
-            <p class="el-select-dropdown__empty">
-                {{ noMatchingDataText }}
-            </p>
-        </div>
+      <button type="button" class="btn btn-link clear" @click="onSearchAndFilterClear">
+        <i class="el-tag__close el-icon-close"></i>
+      </button>
 
-        <div v-else-if="options.length == 0" slot="empty">
-            <p class="el-select-dropdown__empty">
-                {{ noDataText }}
-            </p>
-        </div>
+      <div class="dropdown-menu" :class="[{'show': visible.options}]">
+        <li ref="" class="dropdown-item" v-for="option in filteredOptions" :data-value="option.key">
+          <button type="button" class="btn btn-link" @click="onOptionSelected(option.key)">{{ option.value }}</button>
+        </li>
+        <li ref="" v-if="search" class="dropdown-item">
+          <button type="button" class="btn btn-link" @click="onInputConfirm">{{ textSearch }}</button>
+        </li>
+      </div>
 
-        <template v-if="icon" slot="prefix">
-            <span class="el-input__suffix-inner el-select-icon">
-                <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
-            </span>
-        </template>
+      <div class="dropdown-menu" :class="[{'show': visible.operator}]">
+        <li ref="" class="dropdown-item">
+          <button type="button" class="btn btn-link" @click="onOperatorSelected('=')">=<span class="btn-helptext">is</span></button>
+        </li>
+        <li ref="" class="dropdown-item">
+          <button type="button" class="btn btn-link" @click="onOperatorSelected('!=')">!=<span class="btn-helptext">is not</span></button>
+        </li>
+      </div>
 
-        <el-option v-if="!group" v-for="option in selectOptions"
-            :key="option.id"
-            :label="option.name"
-            :value="option.id">
-        </el-option>
-
-        <el-option-group
-            v-if="group"
-            v-for="(options, name) in selectOptions"
-            :key="name"
-            :label="name">
-            <el-option
-                v-for="(label, value) in options"
-                :key="value"
-                :label="label"
-                :value="value">
-            </el-option>
-        </el-option-group>
-    </el-select>
-
+      <div class="dropdown-menu" :class="[{'show': visible.values}]">
+        <li ref="" class="dropdown-item" v-for="(value) in filteredValues" :data-value="value.key">
+          <button type="button" class="btn btn-link" @click="onValueSelected(value.key)">{{ value.value }}</button>
+        </li>
+      </div>
+    </div>
+  </div>
 </template>
 
-<style>
-    .el-select {
-        display: inline;
-    }
-</style>
-
 <script>
-    import { Select, Option, OptionGroup } from 'element-ui';
+export default {
+  name: 'akaunting-search',
 
-    export default {
-        name: 'akaunting-select',
+  props: {
+    placeholder: {
+      type: String,
+      default: 'Search or filter results...',
+      description: 'Input placeholder'
+    },
+    textSearch: {
+      type: String,
+      default: 'Search for this text',
+      description: 'Input placeholder'
+    },
+    value: {
+      type: String,
+      default: null,
+      description: 'Search attribute value'
+    },
+    filters: {
+      type: Array,
+      default: () => [],
+      description: 'List of filters'
+    },
+  },
 
-        components: {
-            [Select.name]: Select,
-            [Option.name]: Option,
-            [OptionGroup.name]: OptionGroup,
-        },
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
 
-        props: {
-            name: {
-                type: String,
-                default: null,
-                description: "Selectbox attribute name"
-            },
-            placeholder: {
-                type: String,
-                default: '',
-                description: "Selectbox input placeholder text"
-            },
-            options: null,
-            value: {
-                type: String,
-                default: null,
-                description: "Selectbox selected value"
-            },
+  data() {
+    return {
+      filter_list: this.filters, // set filters prop assing it.
+      search: '', // search cloumn model
+      filtered:[], // Show selected filters
+      filter_index: 0, // added filter count
+      filter_last_step: 'options', // last fitler step
+      visible: { // Which visible dropdown
+        options: false,
+        operator: false,
+        values: false,
+      },
 
-            icon: {
-                type: String,
-                description: "Prepend icon (left)"
-            },
+      option_values: [],
+      selected_options: [],
+      selected_values: [],
+      values: [],
+      current_value: null,
+    };
+  },
 
-            group:  {
-                type: Boolean,
-                default: false,
-                description: "Selectbox option group status"
-            },
+  methods: {
+    onInputFocus() {
+      this.visible[this.filter_last_step] = true;
 
-            loadingText: {
-                type: String,
-                default: 'Loading...',
-                description: "Selectbox loading message"
-            },
-            noDataText: {
-                type: String,
-                default: 'No Data',
-                description: "Selectbox empty options message"
-            },
-            noMatchingDataText: {
-                type: String,
-                default: 'No Matchign Data',
-                description: "Selectbox search option not found item message"
-            },
+      this.$nextTick(() => {
+        this.$refs['input-search-field-' + this._uid].focus();
+      });
+    },
 
-            remoteAction: {
-                type: String,
-                default: null,
-                description: "Selectbox remote action path"
-            },
-            remoteType: {
-                type: String,
-                default: 'invoice',
-                description: "Ger remote item type."
-            },
-        },
+    onInput(evt) {
+      this.search = evt.target.value;
 
-        data() {
-            return {
-                list: [],
-                selectOptions: this.options,
-                real_model: this.model,
-                loading: false,
-            }
-        },
+      this.$emit('input', evt.target.value);
+    },
 
-        mounted() {
-            this.real_model = this.value;
+    onInputConfirm() {
+      let args = '';
 
-            this.$emit('interface', this.real_model);
-        },
+      if (this.search) {
+        args += '?search=' + this.search;
+      }
 
-        methods: {
-            change() {
-                this.$emit('change', this.real_model);
-                this.$emit('interface', this.real_model);
+      this.filtered.forEach(function (filter, index) {
+        if (!args) {
+          args += '?search=';
+        }
 
-                this.selectOptions.forEach(item => {
-                    if (item.id == this.real_model) {
-                        this.$emit('label', item.name);
-                        this.$emit('option', item);
+        args += this.selected_options[index].key + ':' + this.selected_values[index].key;
+      }, this);
 
-                        return;
-                    }
-                });
-            },
-            remoteMethod() {
+      window.location = url + '/common/items' + args;
+    },
 
-            },
-        },
+    onOptionSelected(value) {
+      this.current_value = value;
 
-        watch: {
-            options: function (options) {
-                // update options
-                //this.selectOptions = options;
-            }
-        },
+      let option = false;
+      let option_url = url + '';
+
+      for (let i = 0; i < this.filter_list.length; i++) {
+        if (this.filter_list[i].key == value) {
+          option = this.filter_list[i].value;
+
+          if (typeof this.filter_list[i].url !== 'undefined' && this.filter_list[i].url) {
+            option_url = this.filter_list[i].url;
+          }
+
+          this.selected_options.push(this.filter_list[i]);
+          this.filter_list.splice(i, 1);
+          break;
+        }
+      }
+
+      // Set filtered select option
+      this.filtered.push({
+        option: option,
+        operator: false,
+        value: false
+      });
+
+      this.$emit('change', this.filtered);
+
+      this.search = '';
+
+      if (!this.option_values[value]) {
+        window.axios.get(option_url)
+        .then(response => {
+            let data = response.data.data;
+
+            data.forEach(function (item) {
+              this.values.push({
+                key: item.id,
+                value: item.name
+              });
+            }, this);
+
+            this.option_values[value] = this.values;
+        })
+        .catch(error => {
+            this.form.loading = false;
+
+            this.form.onFail(error);
+
+            this.method_show_html = error.message;
+        });
+      } else {
+        this.values = this.option_values[value];
+      }
+
+      this.visible = {
+        options: false,
+        operator: true,
+        values: false,
+      };
+
+      this.filter_last_step = 'operator';
+
+      this.$nextTick(() => {
+        this.$refs['input-search-field-' + this._uid].focus();
+      });
+    },
+
+    onOperatorSelected(value) {
+      this.filtered[this.filter_index].operator = value;
+
+      this.$emit('change', this.filtered);
+
+      this.operatorValue = '';
+
+      this.$nextTick(() => {
+        this.$refs['input-search-field-' + this._uid].focus();
+      });
+
+      this.visible = {
+        options: false,
+        operator: false,
+        values: true,
+      };
+
+      this.filter_last_step = 'values';
+    },
+ 
+    onValueSelected(value) {
+      let select_value = false;
+
+      for (let i = 0; i < this.values.length; i++) {
+        if (this.values[i].key == value) {
+          select_value = this.values[i].value;
+
+          this.selected_values.push(this.values[i]);
+          this.option_values[this.current_value].splice(i, 1);
+          break;
+        }
+      }
+
+      this.filtered[this.filter_index].value = select_value;
+
+      this.$emit('change', this.filtered);
+
+      this.$nextTick(() => {
+        this.$refs['input-search-field-' + this._uid].focus();
+      });
+
+      this.filter_index++;
+
+      this.visible = {
+        options: true,
+        operator: false,
+        values: false,
+      };
+
+      this.filter_last_step = 'options';
+    },
+
+    onFilterDelete(index) {
+      this.filter_list.push(this.selected_options[index]);
+
+      this.filter_index--;
+
+      this.filtered.splice(index, 1);
+      this.selected_options.splice(index, 1);
+    },
+
+    onSearchAndFilterClear() {
+      this.filtered = [];
+      this.search = '';
+    },
+
+    closeIfClickedOutside(event) {
+      if (!document.getElementById('search-field-' + this._uid).contains(event.target)) {
+          this.visible.options = false;
+          this.visible.operator = false;
+          this.visible.values = false;
+
+          document.removeEventListener('click', this.closeIfClickedOutside);
+      }
+    },
+  },
+
+  created() {
+    if (this.value) {
+      let serach_string = this.value.split(' ');
+
+      serach_string.forEach(function (string) {
+        if (string.search(':') === -1) {
+          this.search = string;
+        } else {
+          let filter = string.split(':');
+
+          this.filtered.push({
+            option: filter[0],
+            operator: '=',
+            value: filter[1]
+          })
+        }
+      }, this);
     }
+  },
+
+  computed: {
+    filteredOptions() {
+      this.filter_list.sort(function (a, b) {
+          var nameA = a.value.toUpperCase(); // ignore upper and lowercase
+          var nameB = b.value.toUpperCase(); // ignore upper and lowercase
+
+          if (nameA < nameB) {
+            return -1;
+          }
+
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          // names must be equal
+          return 0;
+      });
+
+      return this.filter_list.filter(option => {
+        return option.value.toLowerCase().includes(this.search.toLowerCase())
+      }); 
+    },
+
+    filteredValues() {
+      this.values.sort(function (a, b) {
+          var nameA = a.value.toUpperCase(); // ignore upper and lowercase
+          var nameB = b.value.toUpperCase(); // ignore upper and lowercase
+
+          if (nameA < nameB) {
+            return -1;
+          }
+
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          // names must be equal
+          return 0;
+      });
+
+      return this.values.filter(value => {
+        return value.value.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+  },
+
+   watch: {
+      visible: {
+        handler: function(newValue) {
+            if (newValue) {
+                document.addEventListener('click', this.closeIfClickedOutside);
+            }
+        },
+        deep: true
+      }
+    },
+};
 </script>
+
+<style>
+.searh-field {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+.searh-field .tags-group {
+  display: contents;
+}
+
+.searh-field .el-tag.el-tag--primary {
+  background: #f6f9fc;
+  background-color: #f6f9fc;
+  border-color: #f6f9fc;
+  color: #8898aa;
+  margin-top: 7px;
+}
+
+.searh-field .tags-group:hover > span {
+  background:#cbd4de;
+  background-color: #cbd4de;
+  border-color: #cbd4de;
+}
+
+.searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close {
+  color: #8898aa;
+}
+
+.searh-field .el-tag-option {
+  border-radius: 0.25rem 0 0 0.25rem;
+  margin-left: 10px;
+}
+
+.searh-field .el-tag-operator {
+  border-radius: 0;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+.searh-field .el-tag-value {
+  border-radius: 0 0.25rem 0.25rem 0;
+  margin-right: 10px;
+}
+
+.searh-field .el-select.input-new-tag {
+    width: 100%;
+}
+
+.searh-field .input-full {
+  width: 100%;
+}
+
+.searh-field .btn.btn-link {
+  width: inherit;
+  text-align: left;
+  display: flex;
+  margin: 0;
+  text-overflow: inherit;
+  text-align: left;
+  text-overflow: ellipsis;
+  padding: unset;
+  color: #212529;
+}
+
+.searh-field .btn.btn-link.clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 45px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #adb5bd;
+  opacity: 1;
+}
+
+.searh-field .btn.btn-link.clear:hover {
+  color: #8898aa;
+}
+
+.searh-field .btn-helptext {
+  margin-left: auto;
+  color: var(--gray);
+}
+
+.searh-field .btn:not(:disabled):not(.disabled):active:focus,
+.searh-field .btn:not(:disabled):not(.disabled).active:focus {
+  -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+</style>

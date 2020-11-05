@@ -105,7 +105,7 @@ return [
     'to'                    => 'To',
     'print'                 => 'Print',
     'search'                => 'Search',
-    'search_placeholder'    => 'Type to search..',
+    'search_placeholder'    => 'Search or filter results..',
     'filter'                => 'Filter',
     'help'                  => 'Help',
     'all'                   => 'All',
