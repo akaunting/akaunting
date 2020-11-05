@@ -26,7 +26,7 @@ class Companies extends Controller
     {
         $companies = Company::collect();
 
-        return view('common.companies.index', compact('companies'));
+        return $this->response('common.companies.index', compact('companies'));
     }
 
     /**

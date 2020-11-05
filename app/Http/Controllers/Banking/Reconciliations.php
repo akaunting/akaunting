@@ -26,7 +26,7 @@ class Reconciliations extends Controller
 
         $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'));
 
-        return view('banking.reconciliations.index', compact('reconciliations', 'accounts'));
+        return $this->response('banking.reconciliations.index', compact('reconciliations', 'accounts'));
     }
 
     /**

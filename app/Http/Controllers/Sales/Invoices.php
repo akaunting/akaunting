@@ -46,7 +46,7 @@ class Invoices extends Controller
 
         $statuses = $this->getInvoiceStatuses();
 
-        return view('sales.invoices.index', compact('invoices', 'customers', 'categories', 'statuses'));
+        return $this->response('sales.invoices.index', compact('invoices', 'customers', 'categories', 'statuses'));
     }
 
     /**

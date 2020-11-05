@@ -37,7 +37,7 @@ class Users extends Controller
     {
         $users = User::with('media', 'roles')->collect();
 
-        return view('auth.users.index', compact('users'));
+        return $this->response('auth.users.index', compact('users'));
     }
 
     /**

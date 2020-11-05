@@ -2,6 +2,7 @@
 
 namespace App\Abstracts\Http;
 
+use App\Abstracts\Http\Response;
 use App\Traits\Jobs;
 use App\Traits\Relationships;
 use Illuminate\Database\Eloquent\Collection;
@@ -98,5 +99,26 @@ abstract class Controller extends BaseController
         $items = $items instanceof Collection ? $items : Collection::make($items);
 
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
+    /**
+     * Generate a response based on request type like HTML, JSON, or anything else.
+     *
+     * @param string $view
+     * @param array $data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function response($view, $data = [])
+    {
+        $class_name = str_replace('Controllers', 'Responses', (new \ReflectionClass($this))->getName());
+
+        if (class_exists($class_name)) {
+            $response = new $class_name($view, $data);
+        } else {
+            $response = new class($view, $data) extends Response {};
+        }
+
+        return $response;
     }
 }

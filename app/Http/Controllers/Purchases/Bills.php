@@ -45,7 +45,7 @@ class Bills extends Controller
 
         $statuses = $this->getBillStatuses();
 
-        return view('purchases.bills.index', compact('bills', 'vendors', 'categories', 'statuses'));
+        return $this->response('purchases.bills.index', compact('bills', 'vendors', 'categories', 'statuses'));
     }
 
     /**

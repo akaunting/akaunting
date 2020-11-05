@@ -21,7 +21,7 @@ class Accounts extends Controller
     {
         $accounts = Account::collect();
 
-        return view('banking.accounts.index', compact('accounts'));
+        return $this->response('banking.accounts.index', compact('accounts'));
     }
 
     /**

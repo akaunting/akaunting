@@ -28,7 +28,7 @@ class Customers extends Controller
     {
         $customers = Contact::with('invoices.transactions')->customer()->collect();
 
-        return view('sales.customers.index', compact('customers'));
+        return $this->response('sales.customers.index', compact('customers'));
     }
 
     /**

@@ -38,7 +38,7 @@ class Payments extends Controller
 
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        return view('purchases.payments.index', compact('payments', 'vendors', 'categories', 'accounts'));
+        return $this->response('purchases.payments.index', compact('payments', 'vendors', 'categories', 'accounts'));
     }
 
     /**

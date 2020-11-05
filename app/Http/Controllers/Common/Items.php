@@ -30,7 +30,7 @@ class Items extends Controller
     {
         $items = Item::with('category', 'media')->collect();
 
-        return view('common.items.index', compact('items'));
+        return $this->response('common.items.index', compact('items'));
     }
 
     /**

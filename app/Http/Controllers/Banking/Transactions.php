@@ -30,7 +30,7 @@ class Transactions extends Controller
 
         $transactions = Transaction::with('account', 'category', 'contact')->collect(['paid_at'=> 'desc']);
 
-        return view('banking.transactions.index', compact('transactions', 'accounts', 'types', 'categories'));
+        return $this->response('banking.transactions.index', compact('transactions', 'accounts', 'types', 'categories'));
     }
 
     /**

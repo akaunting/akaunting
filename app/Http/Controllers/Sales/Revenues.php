@@ -38,7 +38,7 @@ class Revenues extends Controller
 
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        return view('sales.revenues.index', compact('revenues', 'customers', 'categories', 'accounts'));
+        return $this->response('sales.revenues.index', compact('revenues', 'customers', 'categories', 'accounts'));
     }
 
     /**
