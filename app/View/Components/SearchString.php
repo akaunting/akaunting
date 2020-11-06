@@ -30,12 +30,13 @@ class SearchString extends Component
     {
         $searc_string = config('search-string');
 
-        $this->filters = false;
+        $this->filters = [];
 
         if (!empty($searc_string[$this->model])) {
             $columns = $searc_string[$this->model]['columns'];
 
             foreach ($columns as $column => $options) {
+                // This column skip for filter
                 if (!empty($options['searchable'])) {
                     continue;
                 }
@@ -43,18 +44,27 @@ class SearchString extends Component
                 if (!is_array($options)) {
                     $column = $options;
                 }
-
-                $name = $this->getFilterName($column);
     
                 $this->filters[] = [
-                    'key' => $column,
-                    'value' => $name,
-                    'url' => !empty($options['route']) ? route($options['route'][0], $options['route'][1]) : ''
+                    'key' => $this->getFilterKey($column, $options),
+                    'value' => $this->getFilterName($column),
+                    'type' => $this->getFilterType($options),
+                    'url' => $this->getFilterUrl($column, $options),
+                    'values' => $this->getFilterValues($options),
                 ];
             }
         }
 
         return view('components.search-string');
+    }
+
+    protected function getFilterKey($column, $options)
+    {
+        if (isset($options['relationship'])) {
+            $column .= '.id';
+        }
+
+        return $column;
     }
 
     protected function getFilterName($column)
@@ -78,5 +88,69 @@ class SearchString extends Component
         }
 
         return $name;
+    }
+
+    protected function getFilterType($options) 
+    {
+        $type = 'select';
+
+        if (isset($options['boolean'])) {
+            $type = 'boolean';
+        }
+
+        return $type;
+    }
+
+    protected function getFilterUrl($column, $options) 
+    {
+        $url = '';
+
+        if (isset($options['boolean'])) {
+            return $url;
+        }
+
+        if (!empty($options['route'])) {
+            if (is_array($options['route'])) {
+                $url = route($options['route'][0], $options['route'][1]);
+            } else {
+                $url = route($options['route']);
+            }
+        } else {
+            if (strpos($this->model, 'Modules') !== false) {
+                $module_class = explode('\\', $this->model);
+
+                $url .= Str::slug($module_class[1], '-') . '::';
+            }
+            
+            if (strpos($column, '_id') !== false) {
+                $column = str_replace('_id', '', $column);
+            }
+    
+            $plural = Str::plural($column, 2);
+
+            $url = route($url . $plural . '.index');
+        }
+
+        return $url;
+    }
+
+    protected function getFilterValues($options) 
+    {
+        $values = [];
+
+        if (isset($options['boolean'])) {
+            $values = [
+                [
+                    'key' => 0,
+                    'value' => trans('general.no'),
+                ],
+                [
+                    'key' => 1,
+                    'value' => trans('general.yes'),
+                ],
+            ];
+        }
+
+        return $values;
     }
 }

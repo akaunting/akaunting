@@ -1,7 +1,10 @@
-
 <akaunting-search
-    placeholder="{{ trans('general.search_placeholder') }}"
-    text-search="{{ trans('Search for this text') }}"
+    placeholder="{{ (!empty($filters)) ? trans('general.placeholder.search_and_filter') : trans('general.search_placeholder')}}"
+    search-text="{{ trans('general.search_text') }}"
+    operator-is-text="{{ trans('general.is') }}"
+    operator-is-not-text="{{ trans('general.isnot') }}" 
+    no-data-text="{{ trans('general.no_data') }}"
+    no-matching-data-text="{{ trans('general.no_matching_data') }}"
     value="{{ request()->get('search', null) }}"
     :filters="{{ json_encode($filters) }}"
 ></akaunting-search>

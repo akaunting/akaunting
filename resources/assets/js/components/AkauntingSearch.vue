@@ -36,22 +36,25 @@
           <button type="button" class="btn btn-link" @click="onOptionSelected(option.key)">{{ option.value }}</button>
         </li>
         <li ref="" v-if="search" class="dropdown-item">
-          <button type="button" class="btn btn-link" @click="onInputConfirm">{{ textSearch }}</button>
+          <button type="button" class="btn btn-link" @click="onInputConfirm">{{ searchText }}</button>
         </li>
       </div>
 
       <div class="dropdown-menu" :class="[{'show': visible.operator}]">
         <li ref="" class="dropdown-item">
-          <button type="button" class="btn btn-link" @click="onOperatorSelected('=')">=<span class="btn-helptext">is</span></button>
+          <button type="button" class="btn btn-link" @click="onOperatorSelected('=')">{{ operatorIsText }}<span class="btn-helptext d-none">is</span></button>
         </li>
         <li ref="" class="dropdown-item">
-          <button type="button" class="btn btn-link" @click="onOperatorSelected('!=')">!=<span class="btn-helptext">is not</span></button>
+          <button type="button" class="btn btn-link" @click="onOperatorSelected('!=')">{{ operatorIsNotText }}<span class="btn-helptext d-none">is not</span></button>
         </li>
       </div>
 
       <div class="dropdown-menu" :class="[{'show': visible.values}]">
         <li ref="" class="dropdown-item" v-for="(value) in filteredValues" :data-value="value.key">
           <button type="button" class="btn btn-link" @click="onValueSelected(value.key)">{{ value.value }}</button>
+        </li>
+        <li ref="" class="dropdown-item" v-if="!filteredValues.length">
+          <button type="button" class="btn btn-link">{{ noMatchingDataText }}</button>
         </li>
       </div>
     </div>
@@ -68,10 +71,30 @@ export default {
       default: 'Search or filter results...',
       description: 'Input placeholder'
     },
-    textSearch: {
+    searchText: {
       type: String,
       default: 'Search for this text',
       description: 'Input placeholder'
+    },
+    operatorIsText: {
+      type: String,
+      default: 'is',
+      description: 'Operator is "="'
+    },
+    operatorIsNotText: {
+      type: String,
+      default: 'is not',
+      description: 'Operator is not "!="'
+    },
+    noDataText: {
+        type: String,
+        default: 'No Data',
+        description: "Selectbox empty options message"
+    },
+    noMatchingDataText: {
+        type: String,
+        default: 'No Matchign Data',
+        description: "Selectbox search option not found item message"
     },
     value: {
       type: String,
@@ -113,6 +136,10 @@ export default {
 
   methods: {
     onInputFocus() {
+      if (!this.filters.length) {
+        return;
+      }
+
       this.visible[this.filter_last_step] = true;
 
       this.$nextTick(() => {
@@ -122,6 +149,31 @@ export default {
 
     onInput(evt) {
       this.search = evt.target.value;
+  
+      let option_url = this.selected_options[this.filter_index].url;
+
+      if (this.search) {
+        option_url += '?search=' + this.search;
+      }
+
+      window.axios.get(option_url)
+      .then(response => {
+          this.values = [];
+
+          let data = response.data.data;
+
+          data.forEach(function (item) {
+            this.values.push({
+              key: item.id,
+              value: item.name
+            });
+          }, this);
+
+          this.option_values[value] = this.values;
+      })
+      .catch(error => {
+
+      });
 
       this.$emit('input', evt.target.value);
     },
@@ -138,17 +190,17 @@ export default {
           args += '?search=';
         }
 
-        args += this.selected_options[index].key + ':' + this.selected_values[index].key;
+        args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
       }, this);
 
-      window.location = url + '/common/items' + args;
+      window.location = window.location.href.replace(window.location.search, '') + args;
     },
 
     onOptionSelected(value) {
       this.current_value = value;
 
       let option = false;
-      let option_url = url + '';
+      let option_url = url;
 
       for (let i = 0; i < this.filter_list.length; i++) {
         if (this.filter_list[i].key == value) {
@@ -156,6 +208,10 @@ export default {
 
           if (typeof this.filter_list[i].url !== 'undefined' && this.filter_list[i].url) {
             option_url = this.filter_list[i].url;
+          }
+
+          if (typeof this.filter_list[i].type !== 'undefined' && this.filter_list[i].type == 'boolean') {
+            this.option_values[value] = this.filter_list[i].values;
           }
 
           this.selected_options.push(this.filter_list[i]);
@@ -190,11 +246,7 @@ export default {
             this.option_values[value] = this.values;
         })
         .catch(error => {
-            this.form.loading = false;
 
-            this.form.onFail(error);
-
-            this.method_show_html = error.message;
         });
       } else {
         this.values = this.option_values[value];
@@ -277,13 +329,15 @@ export default {
     onSearchAndFilterClear() {
       this.filtered = [];
       this.search = '';
+
+      this.onInputConfirm();
     },
 
     closeIfClickedOutside(event) {
       if (!document.getElementById('search-field-' + this._uid).contains(event.target)) {
-          this.visible.options = false;
-          this.visible.operator = false;
-          this.visible.values = false;
+          //this.visible.options = false;
+          //this.visible.operator = false;
+          //this.visible.values = false;
 
           document.removeEventListener('click', this.closeIfClickedOutside);
       }
@@ -299,12 +353,41 @@ export default {
           this.search = string;
         } else {
           let filter = string.split(':');
+          let option = '';
+          let value = '';
+
+          this.filter_list.forEach(function (_filter, i) {
+            if (_filter.key == filter[0]) {
+              option = _filter.value;
+
+              _filter.values.forEach(function (_value) {
+                if (_value.key == filter[1]) {
+                  value = _value.value;
+                }
+              }, this);
+
+              this.selected_options.push(this.filter_list[i]);
+              this.filter_list.splice(i, 1);
+
+              this.option_values[_filter.key] = _filter.values;
+
+              _filter.values.forEach(function (value, j) {
+                if (value.key == filter[1]) {
+                  this.selected_values.push(value);
+
+                  this.option_values[_filter.key].splice(j, 1);
+                }
+              }, this);
+            }
+          }, this);
 
           this.filtered.push({
-            option: filter[0],
+            option: option,
             operator: '=',
-            value: filter[1]
-          })
+            value: value
+          });
+
+          this.filter_index++;
         }
       }, this);
     }

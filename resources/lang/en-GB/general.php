@@ -105,7 +105,8 @@ return [
     'to'                    => 'To',
     'print'                 => 'Print',
     'search'                => 'Search',
-    'search_placeholder'    => 'Search or filter results..',
+    'search_text'           => 'Search for this text',
+    'search_placeholder'    => 'Type to search..',
     'filter'                => 'Filter',
     'help'                  => 'Help',
     'all'                   => 'All',
@@ -152,6 +153,8 @@ return [
     'no_matching_data'      => 'No matching data',
     'clear_cache'           => 'Clear Cache',
     'go_to_dashboard'       => 'Go to dashboard',
+    'is'                    => 'is',
+    'isnot'                 => 'is not', 
 
     'card' => [
         'name'                  => 'Name on Card',
@@ -179,6 +182,11 @@ return [
         ],
         'add_new'           => 'Add New :field',
         'no_file_selected'  => 'No file selected...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Type to search..',
+        'search_and_filter' => 'Search or filter results..',
     ],
 
     'date_range' => [
