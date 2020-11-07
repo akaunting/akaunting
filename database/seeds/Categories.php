@@ -64,8 +64,26 @@ class Categories extends Seeder
             ],
         ];
 
+        $sales_category = $purchases_category = false;
+
         foreach ($rows as $row) {
-            Category::create($row);
+            $category = Category::create($row);
+
+            switch ($category->type) {
+                case 'income':
+                    if (empty($sales_category)) {
+                        $sales_category = $category;
+                    }
+                    break;
+                case 'expense':
+                    if (empty($purchases_category)) {
+                        $purchases_category = $category;
+                    }
+                    break;
+            }
         }
+
+        setting()->set('default.sales_category', $sales_category->id);
+        setting()->set('default.purchases_category', $purchases_category->id);
     }
 }
