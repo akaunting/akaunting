@@ -52,16 +52,16 @@ class Version210 extends Listener
 
     public function updateSettings($company)
     {
-        $sales_category = Category::income()->enabled()->first();
-        $purchases_category = Category::expense()->enabled()->first();
+        $income_category = Category::income()->enabled()->first();
+        $expense_category = Category::expense()->enabled()->first();
 
         // Set the active company settings
         setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->forgetAll();
         setting()->load(true);
 
-        setting()->set(['default.sales_category' => setting('default.sales_category', $sales_category->id)]);
-        setting()->set(['default.purchases_category' => setting('default.purchases_category', $purchases_category->id)]);
+        setting()->set(['default.income_category' => setting('default.income_category', $income_category->id)]);
+        setting()->set(['default.expense_category' => setting('default.expense_category', $expense_category->id)]);
 
         setting()->save();
     }
