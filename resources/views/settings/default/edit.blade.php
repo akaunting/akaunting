@@ -22,9 +22,9 @@
 
                 {{ Form::selectGroup('currency', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), []) }}
 
-                {{ Form::selectGroup('sales_category', trans('settings.default.sales_category'), 'folder', $sales_categories, setting('default.sales_category'), []) }}
+                {{ Form::selectGroup('income_category', trans('settings.default.income_category'), 'folder', $sales_categories, setting('default.income_category'), []) }}
 
-                {{ Form::selectGroup('purchases_category', trans('settings.default.purchases_category'), 'folder', $purchases_categories, setting('default.purchases_category'), []) }}
+                {{ Form::selectGroup('expense_category', trans('settings.default.expense_category'), 'folder', $purchases_categories, setting('default.expense_category'), []) }}
 
                 {{ Form::selectGroup('tax', trans_choice('general.taxes', 1), 'percent', $taxes, setting('default.tax'), []) }}
 
