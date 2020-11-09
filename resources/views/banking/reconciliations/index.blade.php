@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    @if ($reconciliations->count())
+    @if ($reconciliations->count() || request()->get('search', false))
         <div class="card">
             <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([

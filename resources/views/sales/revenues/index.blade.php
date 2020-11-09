@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    @if ($revenues->count())
+    @if ($revenues->count() || request()->get('search', false))
         <div class="card">
             <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([

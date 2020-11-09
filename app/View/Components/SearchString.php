@@ -50,7 +50,7 @@ class SearchString extends Component
                     'value' => $this->getFilterName($column),
                     'type' => $this->getFilterType($options),
                     'url' => $this->getFilterUrl($column, $options),
-                    'values' => $this->getFilterValues($options),
+                    'values' => $this->getFilterValues($column, $options),
                 ];
             }
         }
@@ -134,7 +134,7 @@ class SearchString extends Component
         return $url;
     }
 
-    protected function getFilterValues($options) 
+    protected function getFilterValues($column, $options) 
     {
         $values = [];
 
@@ -149,6 +149,20 @@ class SearchString extends Component
                     'value' => trans('general.yes'),
                 ],
             ];
+        } else if ($search = request()->get('search', false)) {
+            $fields = explode(' ', $search);
+
+            foreach ($fields as $field) {
+                if (strpos($field, ':') === false) {
+                    continue;
+                }
+
+                $filters = explode(':', $field);
+
+                if ($filters[0] != $column) {
+                    continue;
+                }
+            }
         }
 
         return $values;

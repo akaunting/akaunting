@@ -6,7 +6,7 @@
       </span>
 
       <span v-if="filter.operator" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-operator">
-        {{ filter.operator }}
+        {{ (filter.operator == '=') ? operatorIsText : operatorIsNotText }}
       </span>
 
       <span v-if="filter.value" class="el-tag el-tag--primary el-tag--small el-tag--light el-tag-value">
@@ -31,7 +31,7 @@
         <i class="el-tag__close el-icon-close"></i>
       </button>
 
-      <div class="dropdown-menu" :class="[{'show': visible.options}]">
+      <div :id="'search-field-option-' + _uid" class="dropdown-menu" :class="[{'show': visible.options}]">
         <li ref="" class="dropdown-item" v-for="option in filteredOptions" :data-value="option.key">
           <button type="button" class="btn btn-link" @click="onOptionSelected(option.key)">{{ option.value }}</button>
         </li>
@@ -40,7 +40,7 @@
         </li>
       </div>
 
-      <div class="dropdown-menu" :class="[{'show': visible.operator}]">
+      <div :id="'search-field-operator-' + _uid" class="dropdown-menu" :class="[{'show': visible.operator}]">
         <li ref="" class="dropdown-item">
           <button type="button" class="btn btn-link" @click="onOperatorSelected('=')">{{ operatorIsText }}<span class="btn-helptext d-none">is</span></button>
         </li>
@@ -49,7 +49,7 @@
         </li>
       </div>
 
-      <div class="dropdown-menu" :class="[{'show': visible.values}]">
+      <div :id="'search-field-value-' + _uid" class="dropdown-menu" :class="[{'show': visible.values}]">
         <li ref="" class="dropdown-item" v-for="(value) in filteredValues" :data-value="value.key">
           <button type="button" class="btn btn-link" @click="onValueSelected(value.key)">{{ value.value }}</button>
         </li>
@@ -136,7 +136,7 @@ export default {
 
   methods: {
     onInputFocus() {
-      if (!this.filters.length) {
+      if (!this.filter_list.length) {
         return;
       }
 
@@ -145,6 +145,8 @@ export default {
       this.$nextTick(() => {
         this.$refs['input-search-field-' + this._uid].focus();
       });
+
+      console.log('Focus :' + this.filter_last_step);
     },
 
     onInput(evt) {
@@ -179,11 +181,19 @@ export default {
     },
 
     onInputConfirm() {
+      let path = window.location.href.replace(window.location.search, '');
       let args = '';
 
       if (this.search) {
-        args += '?search=' + this.search;
+        args += '?search=' + this.search + ' ';
       }
+
+      let now = new Date();
+      now.setTime(now.getTime() + 1 * 3600 * 1000);
+      let expires = now.toUTCString();
+
+      let serach_string = {};
+      serach_string[path] = {};
 
       this.filtered.forEach(function (filter, index) {
         if (!args) {
@@ -191,9 +201,17 @@ export default {
         }
 
         args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
+
+        
+        serach_string[path][this.selected_options[index].key] = {
+          'key': this.selected_values[index].key,
+          'value': this.selected_values[index].value
+        };
       }, this);
 
-      window.location = window.location.href.replace(window.location.search, '') + args;
+      Cookies.set('search-string', serach_string, expires);
+
+      window.location = path + args;
     },
 
     onOptionSelected(value) {
@@ -252,6 +270,10 @@ export default {
         this.values = this.option_values[value];
       }
 
+      this.$nextTick(() => {
+        this.$refs['input-search-field-' + this._uid].focus();
+      });
+
       this.visible = {
         options: false,
         operator: true,
@@ -259,18 +281,12 @@ export default {
       };
 
       this.filter_last_step = 'operator';
-
-      this.$nextTick(() => {
-        this.$refs['input-search-field-' + this._uid].focus();
-      });
     },
 
     onOperatorSelected(value) {
       this.filtered[this.filter_index].operator = value;
 
       this.$emit('change', this.filtered);
-
-      this.operatorValue = '';
 
       this.$nextTick(() => {
         this.$refs['input-search-field-' + this._uid].focus();
@@ -308,11 +324,19 @@ export default {
 
       this.filter_index++;
 
-      this.visible = {
-        options: true,
-        operator: false,
-        values: false,
-      };
+      if (this.filter_list.length) {
+        this.visible = {
+          options: true,
+          operator: false,
+          values: false,
+        };
+      } else {
+        this.visible = {
+          options: false,
+          operator: false,
+          values: false,
+        };
+      }
 
       this.filter_last_step = 'options';
     },
@@ -330,14 +354,16 @@ export default {
       this.filtered = [];
       this.search = '';
 
+      Cookies.remove('search-string');
+
       this.onInputConfirm();
     },
 
     closeIfClickedOutside(event) {
-      if (!document.getElementById('search-field-' + this._uid).contains(event.target)) {
-          //this.visible.options = false;
-          //this.visible.operator = false;
-          //this.visible.values = false;
+      if (!document.getElementById('search-field-' + this._uid).contains(event.target) && event.target.className != 'btn btn-link') {
+          this.visible.options = false;
+          this.visible.operator = false;
+          this.visible.values = false;
 
           document.removeEventListener('click', this.closeIfClickedOutside);
       }
@@ -345,6 +371,12 @@ export default {
   },
 
   created() {
+    let path = window.location.href.replace(window.location.search, '');
+
+    let cookie = Cookies.get('search-string');
+
+    cookie = JSON.parse(cookie)[path];
+
     if (this.value) {
       let serach_string = this.value.split(' ');
 
@@ -366,6 +398,10 @@ export default {
                 }
               }, this);
 
+              if (!value && cookie[_filter.key]) {
+                value = cookie[_filter.key].value;
+              }
+
               this.selected_options.push(this.filter_list[i]);
               this.filter_list.splice(i, 1);
 
@@ -378,6 +414,10 @@ export default {
                   this.option_values[_filter.key].splice(j, 1);
                 }
               }, this);
+
+              if (cookie[_filter.key]) {
+                  this.selected_values.push(cookie[_filter.key]);
+              }
             }
           }, this);
 
