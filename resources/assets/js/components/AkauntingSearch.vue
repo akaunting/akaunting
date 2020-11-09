@@ -257,7 +257,7 @@ export default {
             data.forEach(function (item) {
               this.values.push({
                 key: item.id,
-                value: item.name
+                value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name
               });
             }, this);
 
