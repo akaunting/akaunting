@@ -280,7 +280,7 @@ export default {
 
         model: {
             type: [String, Number, Array, Object],
-            default: null,
+            default: '',
             description: "Selectbox selected model"
         },
 
@@ -386,23 +386,7 @@ export default {
     },
 
     created() {
-        // Option set sort_option data
-        if (!Array.isArray(this.options)) {
-            for (const [key, value] of Object.entries(this.options)) {
-                this.sort_options.push({
-                    key: key,
-                    value: value
-                });
-            }
-        } else {
-            this.options.forEach(function (option, index) {
-                this.sort_options.push({
-                    index: index,
-                    key: option.id,
-                    value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name  
-                });
-            }, this);
-        }
+        this.setSortOptions();
     },
 
     computed: {
@@ -451,6 +435,26 @@ export default {
     },
 
     methods: {
+        setSortOptions() {
+            // Option set sort_option data
+            if (!Array.isArray(this.options)) {
+                for (const [key, value] of Object.entries(this.options)) {
+                    this.sort_options.push({
+                        key: key,
+                        value: value
+                    });
+                }
+            } else {
+                this.options.forEach(function (option, index) {
+                    this.sort_options.push({
+                        index: index,
+                        key: option.id,
+                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name  
+                    });
+                }, this);
+            }
+        },
+
         change() {
             this.$emit('interface', this.selected);
 
@@ -485,18 +489,23 @@ export default {
             if (query !== '') {
                 this.loading = true;
 
-               if (!this.remoteAction) {
-                   this.remoteAction = url + '/common/items/autocomplete';
+                let path = this.remoteAction;
+
+               if (!path) {
+                   path = url + '/common/items/autocomplete';
                }
+
+               if (path.search('/?') !== -1) {
+                    path += '?search=' + query;
+               } else {
+                    path += '&search=' + query;
+               }
+
+               path += '&currency_code=' + this.currencyCode;
 
                 window.axios({
                     method: 'GET',
-                    url: this.remoteAction,
-                    params: {
-                        type: this.remoteType,
-                        query: query,
-                        currency_code: this.currencyCode,
-                    },
+                    url: path,
                     headers: {
                         'X-CSRF-TOKEN': window.Laravel.csrfToken,
                         'X-Requested-With': 'XMLHttpRequest',
@@ -507,9 +516,18 @@ export default {
                     this.loading = false;
 
                     if (response.data.data) {
-                        this.selectOptions = response.data.data;
+                        let data = response.data.data;
+
+                        this.sort_options = [];
+
+                        data.forEach(function (option) {
+                            this.sort_options.push({
+                                key: option.id.toString(),
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name  
+                            });
+                        }, this);
                     } else {
-                        this.selectOptions = [];
+                        this.sortOptions = [];
                     }
                 })
                 .catch(e => {
@@ -518,7 +536,7 @@ export default {
                     // always executed
                 });
             } else {
-                this.selectOptions = this.options;
+                this.setSortOptions();
             }
         },
 
