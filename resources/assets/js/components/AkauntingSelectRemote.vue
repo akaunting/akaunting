@@ -353,11 +353,6 @@ export default {
             default: null,
             description: "Selectbox remote action path"
         },
-        remoteType: {
-            type: String,
-            default: 'invoice',
-            description: "Ger remote item type."
-        },
         currencyCode: {
             type: String,
             default: 'USD',
@@ -449,7 +444,7 @@ export default {
                     this.sort_options.push({
                         index: index,
                         key: option.id,
-                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name  
+                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
                     });
                 }, this);
             }
@@ -523,7 +518,7 @@ export default {
                         data.forEach(function (option) {
                             this.sort_options.push({
                                 key: option.id.toString(),
-                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name  
+                                value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
                             });
                         }, this);
                     } else {

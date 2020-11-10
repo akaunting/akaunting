@@ -26,11 +26,11 @@
 
                     {{ Form::selectAddNewGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
-                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, setting('default.vendor'), ['path' => route('modals.vendors.create'), 'remote_action' => route('vendors.index'), 'remote_type' => 'vendor']) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, setting('default.vendor'), ['path' => route('modals.vendors.create'), 'remote_action' => route('vendors.index')]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
-                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('default.expense_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense', 'remote_action' => route('categories.index'). '?type=expense', 'remote_type' => 'category']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, setting('default.expense_category'), ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense', 'remote_action' => route('categories.index'). '?type=expense']) }}
 
                     {{ Form::recurring('create') }}
 

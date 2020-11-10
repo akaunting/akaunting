@@ -18,7 +18,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $bill->contact_id, ['required' => 'required', 'change' => 'onChangeContact', 'path' => route('modals.vendors.create'), 'remote_action' => route('vendors.index'), 'remote_type' => 'vendor']) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $bill->contact_id, ['required' => 'required', 'change' => 'onChangeContact', 'path' => route('modals.vendors.create'), 'remote_action' => route('vendors.index')]) }}
 
                     {{ Form::selectAddNewGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, $bill->currency_code, ['required' => 'required', 'model' => 'form.currency_code', 'path' => route('modals.currencies.create'), 'field' => ['key' => 'code', 'value' => 'name'], 'change' => 'onChangeCurrency']) }}
 
@@ -195,7 +195,7 @@
 
                     {{ Form::textareaGroup('notes', trans_choice('general.notes', 2)) }}
 
-                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $bill->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense', 'remote_action' => route('categories.index'). '?type=expense', 'remote_type' => 'category']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $bill->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense', 'remote_action' => route('categories.index'). '?type=expense']) }}
 
                     {{ Form::recurring('edit', $bill) }}
 
