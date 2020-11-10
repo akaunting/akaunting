@@ -124,11 +124,6 @@
                 default: null,
                 description: "Selectbox remote action path"
             },
-            remoteType: {
-                type: String,
-                default: 'invoice',
-                description: "Ger remote item type."
-            },
         },
 
         data() {

@@ -58,7 +58,7 @@ class Users extends Controller
             return $r->hasPermission('read-client-portal');
         });
 
-        $companies = user()->companies()->take(10)->get()->sortBy('name')->pluck('name', 'id');
+        $companies = user()->companies()->take(setting('default.select_limit'))->get()->sortBy('name')->pluck('name', 'id');
 
         return view('auth.users.create', compact('roles', 'companies', 'landing_pages'));
     }
@@ -123,7 +123,7 @@ class Users extends Controller
             });
         }
 
-        $companies = user()->companies()->take(10)->get()->sortBy('name')->pluck('name', 'id');
+        $companies = user()->companies()->take(setting('default.select_limit'))->get()->sortBy('name')->pluck('name', 'id');
 
         return view('auth.users.edit', compact('user', 'companies', 'roles', 'landing_pages'));
     }

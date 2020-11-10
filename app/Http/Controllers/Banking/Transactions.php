@@ -22,7 +22,7 @@ class Transactions extends Controller
     {
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
-        $types = collect(['expense' => 'Expense', 'income' => 'Income'])
+        $types = collect(['expense' => trans_choice('general.expenses', 1), 'income' => trans_choice('general.incomes', 1)])
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.types', 2)]), '');
 
         $request_type = !request()->has('type') ? ['income', 'expense'] : request('type');

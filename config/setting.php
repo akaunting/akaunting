@@ -120,6 +120,7 @@ return [
             'locale'                    => env('SETTING_FALLBACK_DEFAULT_LOCALE', 'en-GB'),
             'list_limit'                => env('SETTING_FALLBACK_DEFAULT_LIST_LIMIT', '25'),
             'payment_method'            => env('SETTING_FALLBACK_DEFAULT_PAYMENT_METHOD', 'offline-payments.cash.1'),
+            'select_limit'              => env('SETTING_FALLBACK_DEFAULT_SELECT_LIMIT', '10'),
         ],
         'email' => [
             'protocol'                  => env('SETTING_FALLBACK_EMAIL_PROTOCOL', 'mail'),

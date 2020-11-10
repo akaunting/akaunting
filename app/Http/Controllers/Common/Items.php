@@ -50,9 +50,9 @@ class Items extends Controller
      */
     public function create()
     {
-        $categories = Category::item()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
+        $taxes = Tax::enabled()->orderBy('name')->get()->take(setting('default.select_limit'))->pluck('title', 'id');
 
         return view('common.items.create', compact('categories', 'taxes'));
     }
