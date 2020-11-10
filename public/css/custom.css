@@ -848,7 +848,7 @@ table .align-items-center td span.badge {
 /*--lightbox Finish--*/
 
 /*-- Search string & BulkAction Start --*/
-#app .card .card-header {
+#app > .card > .card-header {
     min-height: 88px;
 }
 /*-- Search string & BulkAction Finish --*/
