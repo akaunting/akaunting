@@ -39,13 +39,7 @@ class Bills extends Controller
     {
         $bills = Bill::with('contact', 'transactions')->collect(['billed_at'=> 'desc']);
 
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $statuses = $this->getBillStatuses();
-
-        return $this->response('purchases.bills.index', compact('bills', 'vendors', 'categories', 'statuses'));
+        return $this->response('purchases.bills.index', compact('bills'));
     }
 
     /**
@@ -96,7 +90,7 @@ class Bills extends Controller
      */
     public function create()
     {
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
+        $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
@@ -106,7 +100,7 @@ class Bills extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $number = $this->getNextBillNumber();
 
@@ -192,7 +186,7 @@ class Bills extends Controller
      */
     public function edit(Bill $bill)
     {
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
+        $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
@@ -202,7 +196,7 @@ class Bills extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         return view('purchases.bills.edit', compact('bill', 'vendors', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }

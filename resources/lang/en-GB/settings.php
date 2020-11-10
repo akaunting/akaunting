@@ -68,6 +68,8 @@ return [
         'description'       => 'Default account, currency, language of your company',
         'list_limit'        => 'Records Per Page',
         'use_gravatar'      => 'Use Gravatar',
+        'income_category'   => 'Income Category',
+        'expense_category'  => 'Expense Category',
     ],
 
     'email' => [

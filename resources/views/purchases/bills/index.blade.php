@@ -64,7 +64,7 @@
 
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('bills.show', $item->id) }}">{{ trans('general.show') }}</a>
-                                            @if (!$item->reconciled)
+                                            @if (!$item->reconciled)""
                                                 <a class="dropdown-item" href="{{ route('bills.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                             @endif
                                             <div class="dropdown-divider"></div>

@@ -40,13 +40,7 @@ class Invoices extends Controller
     {
         $invoices = Invoice::with('contact', 'transactions')->collect(['invoice_number'=> 'desc']);
 
-        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $statuses = $this->getInvoiceStatuses();
-
-        return $this->response('sales.invoices.index', compact('invoices', 'customers', 'categories', 'statuses'));
+        return $this->response('sales.invoices.index', compact('invoices'));
     }
 
     /**
@@ -99,7 +93,7 @@ class Invoices extends Controller
      */
     public function create()
     {
-        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
@@ -109,7 +103,7 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $number = $this->getNextInvoiceNumber();
 
@@ -195,7 +189,7 @@ class Invoices extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
+        $customers = Contact::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
@@ -205,7 +199,7 @@ class Invoices extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::income()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         return view('sales.invoices.edit', compact('invoice', 'customers', 'currencies', 'currency', 'items', 'taxes', 'categories'));
     }

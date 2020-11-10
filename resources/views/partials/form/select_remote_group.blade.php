@@ -3,6 +3,8 @@
     <akaunting-select-remote
         class="{{ $col }}{{ isset($attributes['required']) ? ' required' : '' }}{{ isset($attributes['disabled']) ? ' disabled' : '' }}"
 
+        id="form-select-{{ $name }}"
+
         @if (!empty($attributes['v-error']))
         :form-classes="[{'has-error': {{ $attributes['v-error'] }} }]"
         @else
@@ -54,9 +56,8 @@
         @endif
 
         remote-action="{{ $attributes['remote_action'] }}"
-        remote-type="'{{ $attributes['remote_type'] }}"
 
-        @if (!empty($attributes['currecny_code'])) 
+        @if (!empty($attributes['currecny_code']))
         currency-code="{{ $attributes['currecny_code'] }}"
         @endif
 

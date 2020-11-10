@@ -151,7 +151,7 @@ export default {
 
     onInput(evt) {
       this.search = evt.target.value;
-  
+
       let option_url = this.selected_options[this.filter_index].url;
 
       if (this.search) {
@@ -202,7 +202,7 @@ export default {
 
         args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
 
-        
+
         serach_string[path][this.selected_options[index].key] = {
           'key': this.selected_values[index].key,
           'value': this.selected_values[index].value
@@ -300,7 +300,7 @@ export default {
 
       this.filter_last_step = 'values';
     },
- 
+
     onValueSelected(value) {
       let select_value = false;
 
@@ -453,7 +453,7 @@ export default {
 
       return this.filter_list.filter(option => {
         return option.value.toLowerCase().includes(this.search.toLowerCase())
-      }); 
+      });
     },
 
     filteredValues() {

@@ -18,7 +18,7 @@
 
         {{ Form::textGroup('purchase_price', trans('items.purchase_price'), 'money-bill-wave-alt') }}
 
-        {{ Form::selectGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, null) }}
+        {{ Form::selectRemoteGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, null, ['remote_action' => route('categories.index'). '?type=item']) }}
 
         {!! Form::hidden('enabled', '1', []) !!}
     </div>
