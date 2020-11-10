@@ -18,7 +18,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, $invoice->contact_id, ['required' => 'required', 'path' => route('modals.customers.create'), 'change' => 'onChangeContact']) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, $invoice->contact_id, ['required' => 'required', 'change' => 'onChangeContact', 'path' => route('modals.customers.create'), 'remote_action' => route('customers.index'), 'remote_type' => 'customer']) }}
 
                     {{ Form::selectAddNewGroup('currency_code', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, $invoice->currency_code, ['required' => 'required', 'model' => 'form.currency_code', 'path' => route('modals.currencies.create'), 'field' => ['key' => 'code', 'value' => 'name'], 'change' => 'onChangeCurrency']) }}
 
@@ -197,7 +197,7 @@
 
                     {{ Form::textareaGroup('footer', trans('general.footer'), '', null, ['rows' => '3'], 'col-md-6') }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $invoice->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $invoice->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income', 'remote_action' => route('categories.index'). '?type=income', 'remote_type' => 'category']) }}
 
                     {{ Form::recurring('edit', $invoice) }}
 

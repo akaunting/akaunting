@@ -22,9 +22,9 @@
 
                 {{ Form::selectGroup('currency', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), []) }}
 
-                {{ Form::selectGroup('income_category', trans('settings.default.income_category'), 'folder', $sales_categories, setting('default.income_category'), []) }}
+                {{ Form::selectRemoteGroup('income_category', trans('settings.default.income_category'), 'folder', $sales_categories, setting('default.income_category'), ['remote_action' => route('categories.index'). '?type=income', 'remote_type' => 'category']) }}
 
-                {{ Form::selectGroup('expense_category', trans('settings.default.expense_category'), 'folder', $purchases_categories, setting('default.expense_category'), []) }}
+                {{ Form::selectRemoteGroup('expense_category', trans('settings.default.expense_category'), 'folder', $purchases_categories, setting('default.expense_category'), ['remote_action' => route('categories.index'). '?type=expense', 'remote_type' => 'category']) }}
 
                 {{ Form::selectGroup('tax', trans_choice('general.taxes', 1), 'percent', $taxes, setting('default.tax'), []) }}
 

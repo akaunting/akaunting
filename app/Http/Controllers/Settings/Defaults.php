@@ -17,8 +17,8 @@ class Defaults extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code');
 
-        $sales_categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
-        $purchases_categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
+        $sales_categories = Category::income()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+        $purchases_categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
