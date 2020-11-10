@@ -269,7 +269,7 @@ export default {
 
     created() {
         // Option set sort_option data
-        if (Object.keys(this.options).length) {
+        if (!Array.isArray(this.options)) {
             for (const [key, value] of Object.entries(this.options)) {
                 this.sort_options.push({
                     key: key,
@@ -279,8 +279,9 @@ export default {
         } else {
             this.options.forEach(function (option, index) {
                 this.sort_options.push({
-                    key: option,
-                    value: index
+                    index: index,
+                    key: option.id,
+                    value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
                 });
             }, this);
         }
@@ -366,11 +367,11 @@ export default {
                 var value = this.$children[0].$children[0].$refs.input.value;
             }
 
-            if (this.add_new.type == 'inline') {
-                if (value === '') {
-                    return false;
-                }
+            if (value === '') {
+                return false;
+            }
 
+            if (this.add_new.type == 'inline') {
                 await this.addInline(value);
             } else {
                 await this.onModal(value);
@@ -533,6 +534,10 @@ export default {
 
     .el-select-dropdown__empty {
         padding: 10px 0 0 !important;
+    }
+
+    .el-select-dropdown__empty.loading {
+        padding: 10px 0 !important;
     }
 
     .el-select__footer {
