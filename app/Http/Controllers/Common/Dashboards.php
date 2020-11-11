@@ -13,6 +13,7 @@ use App\Models\Common\Widget;
 use App\Traits\DateTime;
 use App\Traits\Users;
 use App\Utilities\Widgets;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Dashboards extends Controller
 {
@@ -51,9 +52,9 @@ class Dashboards extends Controller
     {
         $dashboard_id = $dashboard_id ?? session('dashboard_id');
 
-        if (!empty($dashboard_id)) {
-            $dashboard = Dashboard::find($dashboard_id);
-        } else {
+        try {
+            $dashboard = Dashboard::findOrFail($dashboard_id);
+        } catch (ModelNotFoundException $e) {
             $dashboard = user()->dashboards()->enabled()->first();
         }
 

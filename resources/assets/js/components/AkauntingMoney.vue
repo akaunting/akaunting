@@ -6,7 +6,7 @@
         <div class="input-group input-group-merge" :class="group_class">
             <div v-if="icon" class="input-group-prepend">
                 <span class="input-group-text">
-                    <i class="fa fa-" :class="icon"></i>
+                    <i :class="'fa fa-' + icon"></i>
                 </span>
             </div>
 
