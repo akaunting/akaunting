@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\Support\Str;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class SearchString extends Component
 {
@@ -44,7 +45,11 @@ class SearchString extends Component
                 if (!is_array($options)) {
                     $column = $options;
                 }
-    
+                
+                if (!$this->isFilter($column, $options)) {
+                    continue;
+                }
+
                 $this->filters[] = [
                     'key' => $this->getFilterKey($column, $options),
                     'value' => $this->getFilterName($column),
@@ -56,6 +61,17 @@ class SearchString extends Component
         }
 
         return view('components.search-string');
+    }
+
+    protected function isFilter($column, $options)
+    {
+        $filter = true;
+    
+        if (empty($this->getFilterUrl($column, $options)) && (!isset($options['date']) && !isset($options['boolean']))) {
+            $filter = false;
+        }
+
+        return $filter;
     }
 
     protected function getFilterKey($column, $options)
@@ -71,20 +87,22 @@ class SearchString extends Component
     {
         if (strpos($column, '_id') !== false) {
             $column = str_replace('_id', '', $column);
+        } else if (strpos($column, '_code') !== false) {
+            $column = str_replace('_code', '', $column);
         }
 
         $plural = Str::plural($column, 2);
 
         if (trans_choice('general.' . $plural, 1) !== 'general.' . $plural) {
             return trans_choice('general.' . $plural, 1);
-        } elseif (trans_choice('search_string.colmuns.' . $plural, 1) !== 'search_string.colmuns.' . $plural) {
-            return trans_choice('search_string.colmuns.' . $plural, 1);
+        } elseif (trans_choice('search_string.columns.' . $plural, 1) !== 'search_string.columns.' . $plural) {
+            return trans_choice('search_string.columns.' . $plural, 1);
         }
 
         $name = trans('general.' . $column);
     
         if ($name == 'general.' . $column) {
-            $name = trans('search_string.colmuns.' . $column);
+            $name = trans('search_string.columns.' . $column);
         }
 
         return $name;
@@ -98,6 +116,10 @@ class SearchString extends Component
             $type = 'boolean';
         }
 
+        if (isset($options['date'])) {
+            $type = 'date';
+        }
+
         return $type;
     }
 
@@ -105,7 +127,7 @@ class SearchString extends Component
     {
         $url = '';
 
-        if (isset($options['boolean'])) {
+        if (isset($options['boolean']) || isset($options['date'])) {
             return $url;
         }
 
@@ -128,7 +150,11 @@ class SearchString extends Component
     
             $plural = Str::plural($column, 2);
 
-            $url = route($url . $plural . '.index');
+            try {
+                $url = route($url . $plural . '.index');
+            } catch (\Exception $e) {
+                $url = '';
+            }
         }
 
         return $url;

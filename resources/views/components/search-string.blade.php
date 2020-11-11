@@ -7,4 +7,16 @@
     no-matching-data-text="{{ trans('general.no_matching_data') }}"
     value="{{ request()->get('search', null) }}"
     :filters="{{ json_encode($filters) }}"
+    :date-config="{
+        allowInput: true,
+        altInput: true,
+        altFormat: 'Y-m-d',
+        dateFormat: 'Y-m-d',
+        @if (!empty($attributes['min-date']))
+        minDate: {{ $attributes['min-date'] }}
+        @endif
+        @if (!empty($attributes['max-date']))
+        maxDate: {{ $attributes['max-date'] }}
+        @endif
+    }"
 ></akaunting-search>

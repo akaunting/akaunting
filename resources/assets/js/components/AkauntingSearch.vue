@@ -17,6 +17,7 @@
 
     <div class="dropdown input-full">
       <input
+        v-if="!show_date"
         type="text"
         class="form-control"
         :placeholder="placeholder"
@@ -26,6 +27,20 @@
         @input="onInput"
         @keyup.enter="onInputConfirm"
       />
+
+      <flat-picker
+        v-else
+        @on-open="onInputFocus"
+        :config="dateConfig"
+        class="form-control datepicker"
+        :placeholder="placeholder"
+        :ref="'input-search-date-field-' + _uid"
+        v-model="search"
+        @focus="onInputFocus"
+        @input="onInputDateSelected"
+        @keyup.enter="onInputConfirm"
+      >
+      </flat-picker>
 
       <button type="button" class="btn btn-link clear" @click="onSearchAndFilterClear">
         <i class="el-tag__close el-icon-close"></i>
@@ -62,8 +77,15 @@
 </template>
 
 <script>
+import flatPicker from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
+
 export default {
   name: 'akaunting-search',
+
+  components: {
+    flatPicker
+  },
 
   props: {
     placeholder: {
@@ -106,6 +128,8 @@ export default {
       default: () => [],
       description: 'List of filters'
     },
+
+    dateConfig: null,
   },
 
   model: {
@@ -131,6 +155,7 @@ export default {
       selected_values: [],
       values: [],
       current_value: null,
+      show_date: false,
     };
   },
 
@@ -140,13 +165,59 @@ export default {
         return;
       }
 
-      this.visible[this.filter_last_step] = true;
+      if (this.filter_last_step != 'values' || (this.filter_last_step == 'values' && this.selected_options[this.filter_index].type != 'date')) {
+        this.visible[this.filter_last_step] = true;
+
+        this.$nextTick(() => {
+          this.$refs['input-search-field-' + this._uid].focus();
+        });
+      } else {
+        this.show_date = true;
+
+        this.$nextTick(() => {
+          this.$refs['input-search-date-field-' + this._uid].focus();
+        });
+      }
+
+      console.log('Focus :' + this.filter_last_step);
+    },
+
+    onInputDateSelected(event) {
+      this.filtered[this.filter_index].value = event;
+
+      this.selected_values.push({
+        key: event,
+        value: event,
+      });
+
+      this.$emit('change', this.filtered);
+
+      this.show_date = false;
+      this.search = '';
 
       this.$nextTick(() => {
         this.$refs['input-search-field-' + this._uid].focus();
       });
 
-      console.log('Focus :' + this.filter_last_step);
+      this.filter_index++;
+
+      if (this.filter_list.length) {
+        this.visible = {
+          options: true,
+          operator: false,
+          values: false,
+        };
+      } else {
+        this.visible = {
+          options: false,
+          operator: false,
+          values: false,
+        };
+      }
+
+      this.show_date = false;
+
+      this.filter_last_step = 'options';
     },
 
     onInput(evt) {
@@ -158,24 +229,26 @@ export default {
         option_url += '?search=' + this.search;
       }
 
-      window.axios.get(option_url)
-      .then(response => {
-          this.values = [];
+      if (option_url) {
+        window.axios.get(option_url)
+        .then(response => {
+            this.values = [];
 
-          let data = response.data.data;
+            let data = response.data.data;
 
-          data.forEach(function (item) {
-            this.values.push({
-              key: item.id,
-              value: item.name
-            });
-          }, this);
+            data.forEach(function (item) {
+              this.values.push({
+                key: item.id,
+                value: item.name
+              });
+            }, this);
 
-          this.option_values[value] = this.values;
-      })
-      .catch(error => {
+            this.option_values[value] = this.values;
+        })
+        .catch(error => {
 
-      });
+        });
+      }
 
       this.$emit('input', evt.target.value);
     },
@@ -202,7 +275,6 @@ export default {
 
         args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
 
-
         serach_string[path][this.selected_options[index].key] = {
           'key': this.selected_values[index].key,
           'value': this.selected_values[index].value
@@ -218,7 +290,7 @@ export default {
       this.current_value = value;
 
       let option = false;
-      let option_url = url;
+      let option_url = false;
 
       for (let i = 0; i < this.filter_list.length; i++) {
         if (this.filter_list[i].key == value) {
@@ -249,14 +321,14 @@ export default {
 
       this.search = '';
 
-      if (!this.option_values[value]) {
+      if (!this.option_values[value] && option_url) {
         window.axios.get(option_url)
         .then(response => {
             let data = response.data.data;
 
             data.forEach(function (item) {
               this.values.push({
-                key: item.id,
+                key: (item.code) ? item.code : item.id,
                 value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name
               });
             }, this);
@@ -267,7 +339,7 @@ export default {
 
         });
       } else {
-        this.values = this.option_values[value];
+        this.values = (this.option_values[value]) ? this.option_values[value] : [];
       }
 
       this.$nextTick(() => {
@@ -288,15 +360,29 @@ export default {
 
       this.$emit('change', this.filtered);
 
-      this.$nextTick(() => {
-        this.$refs['input-search-field-' + this._uid].focus();
-      });
+      if (this.selected_options[this.filter_index].type != 'date') {
+        this.$nextTick(() => {
+          this.$refs['input-search-field-' + this._uid].focus();
+        });
 
-      this.visible = {
-        options: false,
-        operator: false,
-        values: true,
-      };
+        this.visible = {
+          options: false,
+          operator: false,
+          values: true,
+        };
+      } else {
+        this.show_date = true;
+
+        this.$nextTick(() => {
+          this.$refs['input-search-date-field-' + this._uid].focus();
+        });
+
+        this.visible = {
+          options: false,
+          operator: false,
+          values: false,
+        };
+      }
 
       this.filter_last_step = 'values';
     },
@@ -337,6 +423,8 @@ export default {
           values: false,
         };
       }
+
+      this.show_date = false;
 
       this.filter_last_step = 'options';
     },
@@ -585,5 +673,9 @@ export default {
 .searh-field .btn:not(:disabled):not(.disabled).active:focus {
   -webkit-box-shadow: none !important;
     box-shadow: none !important;
+}
+
+.searh-field .form-control.datepicker.flatpickr-input {
+  padding: inherit !important;
 }
 </style>
