@@ -31,6 +31,11 @@ class BillTotal extends Model
         return $this->belongsTo('App\Models\Purchase\Bill');
     }
 
+    public function scopeCode($query, $code)
+    {
+        return $query->where('code', '=', $code);
+    }
+
     /**
      * Convert amount to double.
      *
