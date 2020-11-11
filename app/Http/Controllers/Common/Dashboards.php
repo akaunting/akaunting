@@ -40,7 +40,7 @@ class Dashboards extends Controller
     {
         $dashboards = user()->dashboards()->collect();
 
-        return view('common.dashboards.index', compact('dashboards'));
+        return $this->response('common.dashboards.index', compact('dashboards'));
     }
 
     /**

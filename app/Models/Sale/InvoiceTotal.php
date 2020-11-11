@@ -31,6 +31,11 @@ class InvoiceTotal extends Model
         return $this->belongsTo('App\Models\Sale\Invoice');
     }
 
+    public function scopeCode($query, $code)
+    {
+        return $query->where('code', '=', $code);
+    }
+
     /**
      * Convert amount to double.
      *

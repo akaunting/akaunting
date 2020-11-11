@@ -32,7 +32,7 @@ class Invoices extends Controller
 
         $statuses = $this->getInvoiceStatuses();
 
-        return view('portal.invoices.index', compact('invoices', 'categories', 'statuses'));
+        return $this->response('portal.invoices.index', compact('invoices', 'categories', 'statuses'));
     }
 
     /**

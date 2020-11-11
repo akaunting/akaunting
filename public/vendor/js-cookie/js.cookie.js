@@ -7,19 +7,26 @@
  */
 ;(function (factory) {
 	var registeredInModuleLoader = false;
+
 	if (typeof define === 'function' && define.amd) {
 		define(factory);
+
 		registeredInModuleLoader = true;
 	}
+
 	if (typeof exports === 'object') {
 		module.exports = factory();
+
 		registeredInModuleLoader = true;
 	}
+
 	if (!registeredInModuleLoader) {
 		var OldCookies = window.Cookies;
 		var api = window.Cookies = factory();
+
 		api.noConflict = function () {
 			window.Cookies = OldCookies;
+
 			return api;
 		};
 	}
@@ -27,24 +34,27 @@
 	function extend () {
 		var i = 0;
 		var result = {};
+
 		for (; i < arguments.length; i++) {
 			var attributes = arguments[ i ];
+
 			for (var key in attributes) {
 				result[key] = attributes[key];
 			}
 		}
+
 		return result;
 	}
 
 	function init (converter) {
 		function api (key, value, attributes) {
 			var result;
+
 			if (typeof document === 'undefined') {
 				return;
 			}
 
 			// Write
-
 			if (arguments.length > 1) {
 				attributes = extend({
 					path: '/'
@@ -52,7 +62,9 @@
 
 				if (typeof attributes.expires === 'number') {
 					var expires = new Date();
+
 					expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
+
 					attributes.expires = expires;
 				}
 
@@ -61,6 +73,7 @@
 
 				try {
 					result = JSON.stringify(value);
+
 					if (/^[\{\[]/.test(result)) {
 						value = result;
 					}
@@ -83,17 +96,20 @@
 					if (!attributes[attributeName]) {
 						continue;
 					}
+
 					stringifiedAttributes += '; ' + attributeName;
+
 					if (attributes[attributeName] === true) {
 						continue;
 					}
+
 					stringifiedAttributes += '=' + attributes[attributeName];
 				}
+
 				return (document.cookie = key + '=' + value + stringifiedAttributes);
 			}
 
 			// Read
-
 			if (!key) {
 				result = {};
 			}
@@ -115,6 +131,7 @@
 
 				try {
 					var name = parts[0].replace(rdecode, decodeURIComponent);
+
 					cookie = converter.read ?
 						converter.read(cookie, name) : converter(cookie, name) ||
 						cookie.replace(rdecode, decodeURIComponent);
@@ -140,14 +157,17 @@
 		}
 
 		api.set = api;
+
 		api.get = function (key) {
 			return api.call(api, key);
 		};
+
 		api.getJSON = function () {
 			return api.apply({
 				json: true
 			}, [].slice.call(arguments));
 		};
+
 		api.defaults = {};
 
 		api.remove = function (key, attributes) {

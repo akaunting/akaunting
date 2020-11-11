@@ -29,7 +29,7 @@ class Taxes extends Controller
             'compound' => trans('taxes.compound'),
         ];
 
-        return view('settings.taxes.index', compact('taxes', 'types'));
+        return $this->response('settings.taxes.index', compact('taxes', 'types'));
     }
 
     /**

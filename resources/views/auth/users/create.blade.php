@@ -48,7 +48,7 @@
                     @endif
 
                     @can('read-common-companies')
-                    {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, [], ['required' => 'required', 'remote_action' => route('companies.autocomplete'), 'remote_type' => 'company']) }}
+                    {{ Form::multiSelectRemoteGroup('companies', trans_choice('general.companies', 2), 'user', $companies, [], ['required' => 'required', 'remote_action' => route('companies.index')]) }}
                     @endcan
 
                     @can('read-auth-roles')

@@ -29,6 +29,6 @@ class Home extends Controller
         $free = $this->getFreeModules($data);
         $installed = Module::all()->pluck('enabled', 'alias')->toArray();
 
-        return view('modules.home.index', compact('pre_sale', 'paid', 'new', 'free', 'installed'));
+        return $this->response('modules.home.index', compact('pre_sale', 'paid', 'new', 'free', 'installed'));
     }
 }

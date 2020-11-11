@@ -20,7 +20,7 @@ class Payments extends Controller
 
         $payment_methods = Modules::getPaymentMethods('all');
 
-        return view('portal.payments.index', compact('payments', 'payment_methods'));
+        return $this->response('portal.payments.index', compact('payments', 'payment_methods'));
     }
 
     /**

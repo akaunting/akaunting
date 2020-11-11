@@ -30,7 +30,7 @@ class Categories extends Controller
             'other' => trans_choice('general.others', 1),
         ]);
 
-        return view('settings.categories.index', compact('categories', 'types', 'transfer_id'));
+        return $this->response('settings.categories.index', compact('categories', 'types', 'transfer_id'));
     }
 
     /**

@@ -22,10 +22,7 @@
                 'role' => 'form',
                 'class' => 'mb-0'
             ]) !!}
-                <akaunting-search
-                    :placeholder="'{{ trans('general.search_placeholder') }}'"
-                    :options="{{ json_encode([]) }}"
-                ></akaunting-search>
+                <x-search-string model="App\Models\Banking\Transaction" />
             {!! Form::close() !!}
         </div>
 

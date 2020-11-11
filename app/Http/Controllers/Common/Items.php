@@ -30,7 +30,7 @@ class Items extends Controller
     {
         $items = Item::with('category', 'media')->collect();
 
-        return view('common.items.index', compact('items'));
+        return $this->response('common.items.index', compact('items'));
     }
 
     /**
@@ -50,7 +50,7 @@ class Items extends Controller
      */
     public function create()
     {
-        $categories = Category::item()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 
@@ -129,7 +129,7 @@ class Items extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::item()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
 

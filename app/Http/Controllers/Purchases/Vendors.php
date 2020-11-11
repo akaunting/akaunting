@@ -30,7 +30,7 @@ class Vendors extends Controller
     {
         $vendors = Contact::with('bills.transactions')->vendor()->collect();
 
-        return view('purchases.vendors.index', compact('vendors'));
+        return $this->response('purchases.vendors.index', compact('vendors'));
     }
 
     /**

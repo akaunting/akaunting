@@ -4,6 +4,9 @@ namespace App\Listeners\Update\V21;
 
 use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
+use App\Models\Setting\Category;
+use App\Models\Common\Company;
+use App\Utilities\Overrider;
 use Illuminate\Support\Facades\Artisan;
 
 class Version210 extends Listener
@@ -24,6 +27,42 @@ class Version210 extends Listener
             return;
         }
 
+        $this->updateCompanies();
+
         Artisan::call('migrate', ['--force' => true]);
+    }
+    protected function updateCompanies()
+    {
+        $company_id = session('company_id');
+
+        $companies = Company::cursor();
+
+        foreach ($companies as $company) {
+            session(['company_id' => $company->id]);
+
+            $this->updateSettings($company);
+        }
+
+        setting()->forgetAll();
+
+        session(['company_id' => $company_id]);
+
+        Overrider::load('settings');
+    }
+
+    public function updateSettings($company)
+    {
+        $income_category = Category::income()->enabled()->first();
+        $expense_category = Category::expense()->enabled()->first();
+
+        // Set the active company settings
+        setting()->setExtraColumns(['company_id' => $company->id]);
+        setting()->forgetAll();
+        setting()->load(true);
+
+        setting()->set(['default.income_category' => setting('default.income_category', $income_category->id)]);
+        setting()->set(['default.expense_category' => setting('default.expense_category', $expense_category->id)]);
+
+        setting()->save();
     }
 }

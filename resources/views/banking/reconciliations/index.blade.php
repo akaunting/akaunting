@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    @if ($reconciliations->count())
+    @if ($reconciliations->count() || request()->get('search', false))
         <div class="card">
             <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
@@ -19,10 +19,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <akaunting-search
-                            :placeholder="'{{ trans('general.search_placeholder') }}'"
-                            :options="{{ json_encode([]) }}"
-                        ></akaunting-search>
+                        <x-search-string model="App\Models\Banking\Reconciliation" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.reconciliations', $bulk_actions, ['group' => 'banking', 'type' => 'reconciliations']) }}

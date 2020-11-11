@@ -70,9 +70,16 @@ abstract class Model extends Eloquent
         $request = request();
 
         $search = $request->get('search');
+
+        $query->usingSearchString($search)->sortable($sort);
+
+        if ($request->expectsJson()) {
+            return $query->get();
+        }
+
         $limit = $request->get('limit', setting('default.list_limit', '25'));
 
-        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
+        return $query->paginate($limit);
     }
 
     /**
