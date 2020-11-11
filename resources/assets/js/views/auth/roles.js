@@ -26,7 +26,7 @@ const app = new Vue({
     ],
 
     mounted() {
-        if (!this.form.permissions.length) {
+        if (typeof this.form.permissions !== 'undefined' && !this.form.permissions.length) {
             this.form.permissions = [];
         }
     },
