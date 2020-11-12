@@ -365,7 +365,7 @@ tbody .row {
     position: relative;
     animation: aka-loader 0.7s ease alternate infinite;
     animation-delay: 0.28s;
-    top: -13px;
+    top: -13px !important;
     margin: -10px auto 0;
 }
 
