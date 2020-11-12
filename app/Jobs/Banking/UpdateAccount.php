@@ -62,7 +62,7 @@ class UpdateAccount extends Job
             throw new \Exception($message);
         }
 
-        if (!$this->request->get('enabled') && ($this->account->id == setting('default.account'))) {
+        if (!$this->request->get('enabled')) {
             $relationships[] = strtolower(trans_choice('general.companies', 1));
 
             $message = trans('messages.warning.disabled', ['name' => $this->account->name, 'text' => implode(', ', $relationships)]);
@@ -77,6 +77,12 @@ class UpdateAccount extends Job
             'transactions' => 'transactions',
         ];
 
-        return $this->countRelationships($this->account, $rels);
+        $relationships = $this->countRelationships($this->account, $rels);
+
+        if ($this->account->id == setting('default.account')) {
+            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        }
+
+        return $relationships;
     }
 }
