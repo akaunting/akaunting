@@ -52,20 +52,22 @@ class UpdateAccount extends Job
      */
     public function authorize()
     {
-        if (!$relationships = $this->getRelationships()) {
+        $relationships = $this->getRelationships();
+
+        if (!$this->request->get('enabled') && ($this->account->id == setting('default.account'))) {
+            $relationships[] = strtolower(trans_choice('general.companies', 1));
+
+            $message = trans('messages.warning.disabled', ['name' => $this->account->name, 'text' => implode(', ', $relationships)]);
+
+            throw new \Exception($message);
+        }
+
+        if (!$relationships) {
             return;
         }
 
         if ($this->account->currency_code != $this->request->get('currency_code')) {
             $message = trans('messages.warning.disable_code', ['name' => $this->account->name, 'text' => implode(', ', $relationships)]);
-
-            throw new \Exception($message);
-        }
-
-        if (!$this->request->get('enabled')) {
-            $relationships[] = strtolower(trans_choice('general.companies', 1));
-
-            $message = trans('messages.warning.disabled', ['name' => $this->account->name, 'text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
         }
@@ -77,12 +79,6 @@ class UpdateAccount extends Job
             'transactions' => 'transactions',
         ];
 
-        $relationships = $this->countRelationships($this->account, $rels);
-
-        if ($this->account->id == setting('default.account')) {
-            $relationships[] = strtolower(trans_choice('general.companies', 1));
-        }
-
-        return $relationships;
+        return $this->countRelationships($this->account, $rels);
     }
 }
