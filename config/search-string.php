@@ -194,7 +194,7 @@ return [
                 'route' => 'currencies.index'
             ],
             'contact_id' => [
-                'route' => 'customer.index'
+                'route' => 'customers.index'
             ],
             'contact_name' => ['searchable' => true],
             'contact_email' => ['searchable' => true],
