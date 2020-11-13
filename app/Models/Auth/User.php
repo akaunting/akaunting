@@ -30,6 +30,15 @@ class User extends Authenticatable
     protected $fillable = ['name', 'email', 'password', 'locale', 'enabled', 'landing_page'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -42,15 +51,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['last_logged_in_at', 'created_at', 'updated_at', 'deleted_at'];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'enabled' => 'boolean',
-    ];
 
     /**
      * Sortable columns.

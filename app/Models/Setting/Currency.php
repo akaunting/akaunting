@@ -21,6 +21,16 @@ class Currency extends Model
     protected $fillable = ['company_id', 'name', 'code', 'rate', 'enabled', 'precision', 'symbol', 'symbol_first', 'decimal_mark', 'thousands_separator'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'rate' => 'double',
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array
@@ -70,17 +80,6 @@ class Currency extends Model
     public function vendors()
     {
         return $this->contacts()->whereIn('type', (array) $this->getVendorTypes());
-    }
-
-    /**
-     * Convert rate to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setRateAttribute($value)
-    {
-        $this->attributes['rate'] = (double) $value;
     }
 
     /**

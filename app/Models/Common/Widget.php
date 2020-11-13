@@ -19,7 +19,7 @@ class Widget extends Model
     protected $fillable = ['company_id', 'dashboard_id', 'class', 'name', 'sort', 'settings'];
 
     /**
-     * The attributes that should be casted to native types.
+     * The attributes that should be cast.
      *
      * @var array
      */

@@ -27,6 +27,16 @@ class Account extends Model
     protected $fillable = ['company_id', 'name', 'number', 'currency_code', 'opening_balance', 'bank_name', 'bank_phone', 'bank_address', 'enabled'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'opening_balance' => 'double',
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array
@@ -61,17 +71,6 @@ class Account extends Model
     public function scopeNumber($query, $number)
     {
         return $query->where('number', '=', $number);
-    }
-
-    /**
-     * Convert opening balance to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setOpeningBalanceAttribute($value)
-    {
-        $this->attributes['opening_balance'] = (double) $value;
     }
 
     /**

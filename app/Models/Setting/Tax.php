@@ -26,6 +26,16 @@ class Tax extends Model
     protected $fillable = ['company_id', 'name', 'rate', 'type', 'enabled'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'rate' => 'double',
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array
@@ -99,17 +109,6 @@ class Tax extends Model
     public function scopeNotWithholding($query)
     {
         return $query->where($this->table . '.type', '<>', 'withholding');
-    }
-
-    /**
-     * Convert rate to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setRateAttribute($value)
-    {
-        $this->attributes['rate'] = (double) $value;
     }
 
     /**

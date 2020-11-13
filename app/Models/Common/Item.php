@@ -29,6 +29,17 @@ class Item extends Model
     protected $fillable = ['company_id', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'tax_id', 'enabled'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'sale_price' => 'double',
+        'purchase_price' => 'double',
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array
@@ -58,28 +69,6 @@ class Item extends Model
     public function scopeName($query, $name)
     {
         return $query->where('name', '=', $name);
-    }
-
-    /**
-     * Convert sale price to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setSalePriceAttribute($value)
-    {
-        $this->attributes['sale_price'] = (double) $value;
-    }
-
-    /**
-     * Convert purchase price to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setPurchasePriceAttribute($value)
-    {
-        $this->attributes['purchase_price'] = (double) $value;
     }
 
     /**

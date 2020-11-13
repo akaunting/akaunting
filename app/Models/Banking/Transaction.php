@@ -29,6 +29,16 @@ class Transaction extends Model
     protected $fillable = ['company_id', 'type', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'document_id', 'contact_id', 'description', 'category_id', 'payment_method', 'reference', 'parent_id'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'amount' => 'double',
+        'currency_rate' => 'double',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array
@@ -223,28 +233,6 @@ class Transaction extends Model
     public function onCloning($src, $child = null)
     {
         $this->document_id = null;
-    }
-
-    /**
-     * Convert amount to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setAmountAttribute($value)
-    {
-        $this->attributes['amount'] = (double) $value;
-    }
-
-    /**
-     * Convert currency rate to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setCurrencyRateAttribute($value)
-    {
-        $this->attributes['currency_rate'] = (double) $value;
     }
 
     /**
