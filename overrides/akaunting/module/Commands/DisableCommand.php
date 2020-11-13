@@ -35,7 +35,7 @@ class DisableCommand extends Command
             return;
         }
 
-        if ($this->model->enabled == 0) {
+        if (!$this->model->enabled) {
             $this->comment("Module [{$this->alias}] is already disabled.");
             return;
         }
@@ -43,7 +43,7 @@ class DisableCommand extends Command
         $this->changeRuntime();
 
         // Update db
-        $this->model->enabled = 0;
+        $this->model->enabled = false;
         $this->model->save();
 
         $this->createHistory('disabled');
