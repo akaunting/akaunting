@@ -4,8 +4,10 @@ namespace App\Exports\Sales\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Sale\Invoice as Model;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class Invoices extends Export
+class Invoices extends Export implements WithColumnFormatting
 {
     public function collection()
     {
@@ -44,6 +46,14 @@ class Invoices extends Export
             'contact_address',
             'notes',
             'footer',
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'D' => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'E' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }
