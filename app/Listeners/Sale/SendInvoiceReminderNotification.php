@@ -16,9 +16,10 @@ class SendInvoiceReminderNotification
     public function handle(Event $event)
     {
         $invoice = $event->invoice;
+        $customer = $invoice->contact()->first();
 
         // Notify the customer
-        if ($invoice->contact && !empty($invoice->contact_email)) {
+        if ($invoice->contact && !empty($invoice->contact_email) && ($customer->send_remind_invoice == 1)) {
             $invoice->contact->notify(new Notification($invoice, 'invoice_remind_customer'));
         }
 
