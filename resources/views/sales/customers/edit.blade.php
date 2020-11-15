@@ -32,7 +32,17 @@
                 {{ Form::textareaGroup('address', trans('general.address')) }}
 
                 {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
-
+            </div>
+            <div class="row">
+                {!! Form::label('notifications', trans('customers.notifications.label'), ['class' => 'form-control-label col-12']) !!}
+                
+                {{ Form::radioGroupInline('send_new_invoice', trans('customers.notifications.send_new_invoice'), $customer->send_new_invoice) }}
+                
+                {{ Form::radioGroupInline('send_remind_invoice', trans('customers.notifications.send_remind_invoice'), $customer->send_remind_invoice) }}
+                
+                {{ Form::radioGroupInline('send_payment_received', trans('customers.notifications.send_payment_received'), $customer->send_payment_received) }}                
+            </div>
+            <div class="row">                
                 {{ Form::radioGroup('enabled', trans('general.enabled'), $customer->enabled) }}
 
                 @stack('create_user_input_start')
