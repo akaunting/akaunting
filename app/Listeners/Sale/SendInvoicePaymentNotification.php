@@ -16,10 +16,11 @@ class SendInvoicePaymentNotification
     public function handle(Event $event)
     {
         $invoice = $event->invoice;
+        $customer = $invoice->contact()->first();
         $transaction = $invoice->transactions()->latest()->first();
-
+                
         // Notify the customer
-        if ($invoice->contact && !empty($invoice->contact_email)) {
+        if ($invoice->contact && !empty($invoice->contact_email) && ($customer->send_payment_received == 1)) {
             $invoice->contact->notify(new Notification($invoice, $transaction, 'invoice_payment_customer'));
         }
 
