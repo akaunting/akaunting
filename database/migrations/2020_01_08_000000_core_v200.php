@@ -31,6 +31,9 @@ class CoreV200 extends Migration
             $table->text('address')->nullable();
             $table->string('website')->nullable();
             $table->string('currency_code', 3);
+            $table->boolean('send_new_invoice');
+            $table->boolean('send_remind_invoice');
+            $table->boolean('send_payment_received');
             $table->boolean('enabled');
             $table->string('reference')->nullable();
             $table->timestamps();
