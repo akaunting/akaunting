@@ -86,6 +86,10 @@ class Form extends Provider
         Facade::component('textEditorGroup', 'partials.form.text_editor_group', [
             'name', 'text', 'icon', 'value' => null, 'attributes' => ['rows' => '3'], 'col' => 'col-md-12', 'group_class' => null
         ]);
+    
+        Facade::component('radioGroupInline', 'partials.form.radio_group_inline', [
+            'name', 'text', 'value' => null, 'enable' => trans('general.yes'), 'disable' => trans('general.no'), 'attributes' => [], 'col' => 'col-md-12',
+        ]);
 
         Facade::component('radioGroup', 'partials.form.radio_group', [
             'name', 'text', 'value' => null, 'enable' => trans('general.yes'), 'disable' => trans('general.no'), 'attributes' => [], 'col' => 'col-md-6',
