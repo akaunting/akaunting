@@ -52,6 +52,9 @@ class Contact extends FormRequest
             'user_id' => 'integer|nullable',
             'currency_code' => 'required|string|currency',
             'password' => $required . 'confirmed',
+            'send_new_invoice' => 'integer|boolean',
+            'send_remind_invoice' => 'integer|boolean',
+            'send_payment_received' => 'integer|boolean',
             'enabled' => 'integer|boolean',
         ];
     }
