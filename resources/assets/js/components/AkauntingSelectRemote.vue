@@ -374,6 +374,7 @@ export default {
 
             selected: this.model,
 
+            form: {},
             sort_options: [],
             new_options: {},
             loading: false,

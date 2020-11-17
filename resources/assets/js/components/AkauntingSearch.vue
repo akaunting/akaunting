@@ -226,7 +226,7 @@ export default {
       let option_url = this.selected_options[this.filter_index].url;
 
       if (this.search) {
-        option_url += '?search=' + this.search;
+        option_url += '?search="' + this.search + '"';
       }
 
       if (option_url) {
@@ -258,7 +258,7 @@ export default {
       let args = '';
 
       if (this.search) {
-        args += '?search=' + this.search + ' ';
+        args += '?search="' + this.search + '" ';
       }
 
       let now = new Date();
