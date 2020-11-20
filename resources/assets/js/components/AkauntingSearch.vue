@@ -226,7 +226,7 @@ export default {
       let option_url = this.selected_options[this.filter_index].url;
 
       if (this.search) {
-        option_url += '?search="' + this.search + '"';
+        option_url += '?search="' + this.search + '" limit:10';
       }
 
       if (option_url) {
@@ -283,7 +283,7 @@ export default {
 
       Cookies.set('search-string', serach_string, expires);
 
-      window.location = path + args + ' limit:10';
+      window.location = path + args;
     },
 
     onOptionSelected(value) {
