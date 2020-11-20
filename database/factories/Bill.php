@@ -13,6 +13,7 @@ use App\Models\Common\Item;
 use App\Models\Purchase\Bill as Model;
 use App\Models\Setting\Tax;
 use App\Utilities\Date;
+use App\Utilities\Overrider;
 
 class Bill extends Factory
 {
@@ -190,6 +191,8 @@ class Bill extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Model $bill) {
+            Overrider::load('currencies');
+
             $init_status = $bill->status;
 
             $bill->status = 'draft';

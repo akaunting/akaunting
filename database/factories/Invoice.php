@@ -14,6 +14,7 @@ use App\Models\Common\Item;
 use App\Models\Sale\Invoice as Model;
 use App\Models\Setting\Tax;
 use App\Utilities\Date;
+use App\Utilities\Overrider;
 
 class Invoice extends Factory
 {
@@ -203,6 +204,8 @@ class Invoice extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Model $invoice) {
+            Overrider::load('currencies');
+
             $init_status = $invoice->status;
 
             $invoice->status = 'draft';
