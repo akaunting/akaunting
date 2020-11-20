@@ -283,7 +283,7 @@ export default {
 
       Cookies.set('search-string', serach_string, expires);
 
-      window.location = path + args;
+      window.location = path + args + ' limit:10';
     },
 
     onOptionSelected(value) {
