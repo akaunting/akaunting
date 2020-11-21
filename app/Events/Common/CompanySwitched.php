@@ -2,12 +2,10 @@
 
 namespace App\Events\Common;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class CompanySwitched
+class CompanySwitched extends Event
 {
-    use SerializesModels;
-
     public $company;
 
     public $old_company_id;

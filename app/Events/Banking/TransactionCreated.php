@@ -2,12 +2,10 @@
 
 namespace App\Events\Banking;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class TransactionCreated
+class TransactionCreated extends Event
 {
-    use SerializesModels;
-
     public $transaction;
 
     /**

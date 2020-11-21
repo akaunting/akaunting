@@ -2,12 +2,10 @@
 
 namespace App\Events\Document;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class TransactionsCounted
+class TransactionsCounted extends Event
 {
-    use SerializesModels;
-
     public $model;
 
     /**

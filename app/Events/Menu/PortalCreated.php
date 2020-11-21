@@ -2,12 +2,10 @@
 
 namespace App\Events\Menu;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class PortalCreated
+class PortalCreated extends Event
 {
-    use SerializesModels;
-
     public $menu;
 
     /**
