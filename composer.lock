@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa78a7bebcf71ddd5e1d34c47ca11735",
+    "content-hash": "b9470a40700d335a124d21e67ffce71a",
     "packages": [
         {
             "name": "akaunting/firewall",
@@ -2633,16 +2633,16 @@
         },
         {
             "name": "genealabs/laravel-model-caching",
-            "version": "0.11.0",
+            "version": "0.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GeneaLabs/laravel-model-caching.git",
-                "reference": "f790e9c8ef7097b39bcf893c1e7335763cb812f3"
+                "reference": "464a115348c8f44ce13c77d68b38b875e8202157"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GeneaLabs/laravel-model-caching/zipball/f790e9c8ef7097b39bcf893c1e7335763cb812f3",
-                "reference": "f790e9c8ef7097b39bcf893c1e7335763cb812f3",
+                "url": "https://api.github.com/repos/GeneaLabs/laravel-model-caching/zipball/464a115348c8f44ce13c77d68b38b875e8202157",
+                "reference": "464a115348c8f44ce13c77d68b38b875e8202157",
                 "shasum": ""
             },
             "require": {
@@ -2696,9 +2696,9 @@
             "description": "Automatic caching for Eloquent models.",
             "support": {
                 "issues": "https://github.com/GeneaLabs/laravel-model-caching/issues",
-                "source": "https://github.com/GeneaLabs/laravel-model-caching/tree/0.11.0"
+                "source": "https://github.com/GeneaLabs/laravel-model-caching/tree/0.11.1"
             },
-            "time": "2020-09-08T15:51:40+00:00"
+            "time": "2020-11-21T15:34:18+00:00"
         },
         {
             "name": "genealabs/laravel-pivot-events",
@@ -13346,6 +13346,67 @@
             "time": "2020-09-28T06:39:44+00:00"
         },
         {
+            "name": "stefanzweifel/laravel-stats-phploc",
+            "version": "7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stefanzweifel/phploc.git",
+                "reference": "9c96c5528c294c4ac7620b6ec9d6cee6de1477b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stefanzweifel/phploc/zipball/9c96c5528c294c4ac7620b6ec9d6cee6de1477b1",
+                "reference": "9c96c5528c294c4ac7620b6ec9d6cee6de1477b1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "php": ">=7.3",
+                "phpunit/php-file-iterator": "^3.0",
+                "sebastian/cli-parser": "^1.0",
+                "sebastian/version": "^2.0 || ^3.0"
+            },
+            "bin": [
+                "phploc"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "A tool for quickly measuring the size of a PHP project. (Don't use this fork in your production apps)",
+            "homepage": "https://github.com/stefanzweifel/phploc",
+            "support": {
+                "issues": "https://github.com/stefanzweifel/phploc/issues",
+                "source": "https://github.com/stefanzweifel/phploc/tree/7.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-09-28T17:57:06+00:00"
+        },
+        {
             "name": "theseer/tokenizer",
             "version": "1.2.0",
             "source": {
@@ -13394,6 +13455,87 @@
                 }
             ],
             "time": "2020-07-12T23:59:07+00:00"
+        },
+        {
+            "name": "wnx/laravel-stats",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stefanzweifel/laravel-stats.git",
+                "reference": "d6237ba1e44def2abd89a1a96faa10f15e47358a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stefanzweifel/laravel-stats/zipball/d6237ba1e44def2abd89a1a96faa10f15e47358a",
+                "reference": "d6237ba1e44def2abd89a1a96faa10f15e47358a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^6.0 || ^7.0 || ^8.0",
+                "illuminate/support": "^6.0 || ^7.0 || ^8.0",
+                "php": "^7.3 || ^8.0",
+                "stefanzweifel/laravel-stats-phploc": "^6.1 || ^7.1",
+                "symfony/finder": "^4.3 || ^5.0",
+                "symfony/process": "^4.3 || ^5.0"
+            },
+            "require-dev": {
+                "laravel/browser-kit-testing": "~5.0 || ~6.0 || ~7.0",
+                "laravel/dusk": "~5.0 || ~6.0",
+                "mockery/mockery": "^1.1",
+                "orchestra/testbench": "^4.0 || ^5.0 || ^6.0",
+                "phpunit/phpunit": "8.* || 9.*",
+                "psalm/plugin-laravel": "^1.4",
+                "vimeo/psalm": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Wnx\\LaravelStats\\StatsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Wnx\\LaravelStats\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stefan Zweifel",
+                    "email": "hello@stefanzweifel.io",
+                    "homepage": "https://stefanzweifel.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Get insights about your Laravel Project",
+            "homepage": "https://github.com/stefanzweifel/laravel-stats",
+            "keywords": [
+                "laravel",
+                "statistics",
+                "stats",
+                "wnx"
+            ],
+            "support": {
+                "issues": "https://github.com/stefanzweifel/laravel-stats/issues",
+                "source": "https://github.com/stefanzweifel/laravel-stats/tree/v2.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://buymeacoff.ee/3oQ64YW",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/stefanzweifel",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-11-20T19:49:06+00:00"
         }
     ],
     "aliases": [],

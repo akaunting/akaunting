@@ -95,3 +95,4 @@ _ide_helper_models.php
 modules/*
 !modules/OfflinePayments
 !modules/PaypalStandard
+.laravelstatsrc
