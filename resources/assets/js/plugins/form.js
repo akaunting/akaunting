@@ -56,7 +56,7 @@ export default class Form {
 
                 if (type == 'radio') {
                     if (!this[form_element.getAttribute('data-field')][name]) {
-                        this[form_element.getAttribute('data-field')][name] = (form_element.getAttribute('value') ? 1 : 0) || 0;
+                        this[form_element.getAttribute('data-field')][name] = (form_element.getAttribute('value') ? form_element.getAttribute('value') : 0) || 0;
                     }
                 } else if (type == 'checkbox') {
                     if (this[form_element.getAttribute('data-field')][name]) {
@@ -83,7 +83,7 @@ export default class Form {
 
             if (type == 'radio') {
                 if (!this[name]) {
-                    this[name] = (form_element.getAttribute('value') ? 1 : 0) || 0;
+                    this[name] = (form_element.getAttribute('value') ? form_element.getAttribute('value') : 0) || 0;
                 }
             } else if (type == 'checkbox') {
                 if (this[name]) {
