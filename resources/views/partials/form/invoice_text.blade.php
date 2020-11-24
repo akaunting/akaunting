@@ -6,24 +6,23 @@
     @if (!empty($text))
         {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
     @endif
-
     <div class="input-group-invoice-text">
-        @foreach ($values as $input_key => $input_value)
+        @foreach ($values as $radio_key => $radio_value)
             <div class="custom-control custom-radio mb-2">
                 <input 
                     type="radio"
-                    id="{{ $name }}-{{ $input_key }}"
                     name="{{ $name }}"
+                    id="{{ $name }}-{{ $radio_key }}"
                     v-model="form.{{ $name }}"
                     @change="form.errors.clear('{{ $name }}');"
                     class="custom-control-input"
-                    @if($selected == $input_value)
-                    checked
+                    @if($selected == $radio_key)
+                    checked="checked"
                     @endif
-                    value="{{ $input_key }}">
-                <label for="{{ $name }}-{{ $input_key }}" class="custom-control-label"> {{ $input_value }} </label>
+                    value="{{ $radio_key }}">
+                <label for="{{ $name }}-{{ $radio_key }}" class="custom-control-label"> {{ $radio_value }} </label>
 
-                @if ($input_key == 'custom')
+                @if ($radio_key == 'custom')
                 <div :class="[{'has-error': form.errors.get('{{ $input_name }}')}, form.{{ $name }} == 'custom' ? 'col-md-12' : 'd-none']"
                     style="margin-top: -25px; padding-left: 5.5rem;"
                 >
