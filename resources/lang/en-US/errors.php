@@ -17,7 +17,7 @@ return [
     'message' => [
         '403' => 'You can not access this page.',
         '404' => 'We could not find the page you were looking for.',
-        '500' => 'We will work on fixing that right away.',
+        '500' => 'We\'ll work on fixing this right away.',
     ],
 
 ];
