@@ -847,8 +847,90 @@ table .align-items-center td span.badge {
 }
 /*--lightbox Finish--*/
 
-/*-- Search string & BulkAction Start --*/
+/*-- Search string & BulkAction Start --
 #app > .card > .card-header {
     min-height: 88px;
 }
 /*-- Search string & BulkAction Finish --*/
+
+/*-- Embed accordion textarea Start--*/
+.embed-card-body-footer {
+    margin-bottom: -1.5rem;
+}
+
+.embed-acoordion-textarea {
+    margin-bottom: 0;
+}
+
+.embed-acoordion-textarea .embed-card-body-footer-textarea {
+    margin-left: -12px;
+}
+
+.embed-acoordion-textarea textarea {
+    border: none;
+    margin-top: 5px;
+    resize: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-clip: unset;
+    margin-left: 15px;
+}
+
+.embed-acoordion-textarea textarea:focus {
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-clip: unset;
+}
+/*-- Embed accordion textarea Start Finish--*/
+
+.document-item-body {
+    margin-left: -25px;
+    margin-right: -25px;
+}
+
+.item-columns-edit {
+    display: inline-block;
+    margin-left: 50px;
+    background: #f6f9fc;
+    color: #8898aa;
+    padding: 6px 12px;
+    border-radius: 6px 6px 0 0;
+}
+
+.document-total-currency {
+    float: right;
+    margin-bottom: 0;
+    max-width: 150px;
+}
+
+.document-total-span {
+    vertical-align: middle;
+    line-height: 44px;
+    margin-right: 15px;
+}
+
+#invoice-item-rows td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.disabled-money,
+.disabled-money input {
+    border:none !important;
+    background-color: #ffffff !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+
+.form-group .custom-file {
+    height: calc(1.5em + 1.25rem + 130px) !important;
+}
+
+.dz-message .dz-button {
+    background: hsla(0,0%,100%,0);
+    border: none;
+    color: #8898aa;
+}

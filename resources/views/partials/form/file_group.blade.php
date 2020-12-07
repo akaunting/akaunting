@@ -8,11 +8,15 @@
         @endif
 
         <div class="custom-file">
-            {!! Form::file($name, array_merge([
-                'class' => 'custom-file-input cursor-pointer',
-                '@input' => 'onHandleFileUpload("' . $name .'", $event)'
-            ], $attributes)) !!}
-            {!! Form::label($name, $text, ['class' => 'custom-file-label']) !!}
+            <dropzone-file-upload 
+                @if (!empty($attributes['options']))
+                options={{ json_encode($attributes['options']) }}
+                @endif
+                @if (!empty($attributes['multiple']))
+                multiple
+                @endif
+                v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}"
+            ></dropzone-file-upload>
         </div>
 
         <div class="invalid-feedback d-block"
