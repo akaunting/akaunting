@@ -62,6 +62,13 @@ return [
         'default'           => 'Default',
         'classic'           => 'Classic',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Hide Item Name',
+            'item_description'  => 'Hide Item Description',
+            'quantity'          => 'Hide Quantity',
+            'price'             => 'Hide Price',
+            'amount'            => 'Hide Amount',
+        ],
     ],
 
     'default' => [
