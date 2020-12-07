@@ -8,11 +8,7 @@
         @endif
 
         <div class="custom-file">
-            {!! Form::file($name, array_merge([
-                'class' => 'custom-file-input cursor-pointer',
-                '@input' => 'onHandleFileUpload("' . $name .'", $event)'
-            ], $attributes)) !!}
-            {!! Form::label($name, $text, ['class' => 'custom-file-label']) !!}
+            <dropzone-file-upload v-model="fileSingle"></dropzone-file-upload>
         </div>
 
         <div class="invalid-feedback d-block"
