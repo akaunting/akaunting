@@ -8,7 +8,15 @@
         @endif
 
         <div class="custom-file">
-            <dropzone-file-upload v-model="fileSingle"></dropzone-file-upload>
+            <dropzone-file-upload 
+                @if (!empty($attributes['options']))
+                options={{ json_encode($attributes['options']) }}
+                @endif
+                @if (!empty($attributes['multiple']))
+                multiple
+                @endif
+                v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name) }}"
+            ></dropzone-file-upload>
         </div>
 
         <div class="invalid-feedback d-block"
