@@ -60,7 +60,6 @@ export default {
         return {
             component: '',
             currency: null,
-            fileSingle: []
         }
     },
 
