@@ -3,8 +3,8 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
-use App\Models\Common\Item;
 use App\Jobs\Common\CreateItemTaxes;
+use App\Models\Common\Item;
 
 class UpdateItem extends Job
 {
