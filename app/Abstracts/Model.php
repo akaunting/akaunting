@@ -48,6 +48,18 @@ abstract class Model extends Eloquent
      * Scope to only include company data.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllCompanies($query)
+    {
+        return $query->withoutGlobalScope(Company::class);
+    }
+
+    /**
+     * Scope to only include company data.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $company_id
      *
      * @return \Illuminate\Database\Eloquent\Builder
