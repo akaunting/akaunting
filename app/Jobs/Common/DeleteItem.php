@@ -28,6 +28,10 @@ class DeleteItem extends Job
         $this->authorize();
 
         \DB::transaction(function () {
+            $this->deleteRelationships($this->item, [
+                'taxes'
+            ]);
+
             $this->item->delete();
         });
 

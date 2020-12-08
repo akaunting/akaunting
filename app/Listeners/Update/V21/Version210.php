@@ -30,6 +30,9 @@ class Version210 extends Listener
         $this->updateCompanies();
 
         Artisan::call('migrate', ['--force' => true]);
+
+        #todo remove tax_id column
+        $this->copyItemTax();
     }
     protected function updateCompanies()
     {
@@ -64,5 +67,21 @@ class Version210 extends Listener
         setting()->set(['default.expense_category' => setting('default.expense_category', $expense_category->id)]);
 
         setting()->save();
+    }
+
+    public function copyItemTax()
+    {
+        $items = DB::table('items')->cursor();
+
+        foreach ($items as $item) {
+            DB::table('item_taxes')->insert([
+                'company_id' => $item->company_id,
+                'item_id'    => $item->id,
+                'tax_id'     => $item->tax_id,
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+                'deleted_at' => $item->deleted_at,
+            ]);
+        }
     }
 }
