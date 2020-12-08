@@ -26,7 +26,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'tax_id', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'enabled'];
 
     /**
      * The attributes that should be cast.
@@ -46,14 +46,19 @@ class Item extends Model
      */
     protected $sortable = ['name', 'category', 'sale_price', 'purchase_price', 'enabled'];
 
+    /**
+     * @var array
+     */
+    public $cloneable_relations = ['taxes'];
+
     public function category()
     {
         return $this->belongsTo('App\Models\Setting\Category')->withDefault(['name' => trans('general.na')]);
     }
 
-    public function tax()
+    public function taxes()
     {
-        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na'), 'rate' => 0]);
+        return $this->hasMany('App\Models\Common\ItemTax');
     }
 
     public function bill_items()
@@ -79,6 +84,16 @@ class Item extends Model
     public function getItemIdAttribute()
     {
         return $this->id;
+    }
+
+    /**
+     * Get the item id.
+     *
+     * @return string
+     */
+    public function getTaxIdsAttribute()
+    {
+        return $this->taxes()->pluck('tax_id');
     }
 
     /**
