@@ -4,6 +4,7 @@ namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
 use App\Models\Common\Item;
+use App\Jobs\Common\CreateItemTaxes;
 
 class UpdateItem extends Job
 {
@@ -39,6 +40,10 @@ class UpdateItem extends Job
 
                 $this->item->attachMedia($media, 'picture');
             }
+
+            $this->deleteRelationships($this->item, ['taxes']);
+
+            $this->dispatch(new CreateItemTaxes($this->item, $this->request));
         });
 
         return $this->item;
