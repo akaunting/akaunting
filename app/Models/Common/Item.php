@@ -19,7 +19,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $appends = ['item_id'];
+    protected $appends = ['item_id', 'tax_ids'];
 
     /**
      * Attributes that should be mass-assignable.
