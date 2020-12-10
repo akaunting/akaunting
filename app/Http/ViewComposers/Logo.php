@@ -33,7 +33,8 @@ class Logo
         }
 
         $image = Image::cache(function($image) use ($path) {
-            $width = $height = setting('invoice.logo_size', 128);
+            $width = setting('invoice.logo_size_width');
+            $height = setting('invoice.logo_size_height');
 
             $image->make($path)->resize($width, $height)->encode();
         });
