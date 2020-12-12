@@ -233,7 +233,7 @@
                     @else
                         @can('create-modules-item')
                             @if ($module->install)
-                                <button type="button" @click="onInstall('{{ $module->action_url }}', '{{ $module->name }}', '{{ $module->version }}')" class="btn btn-success btn-block" id="install-module">
+                                <button type="button" @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{{ $module->name }}', '{{ $module->version }}')" class="btn btn-success btn-block" id="install-module">
                                     {{ trans('modules.install') }}
                                 </button>
                             @else

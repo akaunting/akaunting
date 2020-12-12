@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Modules;
 use App\Abstracts\Http\Controller;
 use App\Models\Module\Module;
 use App\Traits\Modules;
+use File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class Item extends Controller
 {
@@ -79,24 +81,41 @@ class Item extends Controller
         $steps = [];
 
         $name = $request['name'];
+        $alias = $request['alias'];
 
-        // Download
-        $steps[] = [
-            'text' => trans('modules.installation.download', ['module' => $name]),
-            'url'  => route('apps.download')
-        ];
+        $module_path = config('module.paths.modules') . '/' . Str::studly($alias);
 
-        // Unzip
-        $steps[] = [
-            'text' => trans('modules.installation.unzip', ['module' => $name]),
-            'url'  => route('apps.unzip')
-        ];
+        if (!File::isDirectory($module_path)) {
+            // Download
+            $steps[] = [
+                'text' => trans('modules.installation.download', ['module' => $name]),
+                'url'  => route('apps.download')
+            ];
 
-        // Download
-        $steps[] = [
-            'text' => trans('modules.installation.install', ['module' => $name]),
-            'url'  => route('apps.install')
-        ];
+            // Unzip
+            $steps[] = [
+                'text' => trans('modules.installation.unzip', ['module' => $name]),
+                'url'  => route('apps.unzip')
+            ];
+
+            // Copy
+            $steps[] = [
+                'text' => trans('modules.installation.file_copy', ['module' => $name]),
+                'url'  => route('apps.copy')
+            ];
+
+            // Install
+            $steps[] = [
+                'text' => trans('modules.installation.install', ['module' => $name]),
+                'url'  => route('apps.install')
+            ];
+        } else {
+            // Install
+            $steps[] = [
+                'text' => trans('modules.installation.install', ['module' => $name]),
+                'url'  => route('apps.install')
+            ];
+        }
 
         return response()->json([
             'success' => true,
@@ -149,11 +168,27 @@ class Item extends Controller
      *
      * @return Response
      */
-    public function install(Request $request)
+    public function copy(Request $request)
     {
         $path = $request['path'];
 
-        $json = $this->installModule($path);
+        $json = $this->copyModule($path);
+
+        return response()->json($json);
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  $request
+     *
+     * @return Response
+     */
+    public function install(Request $request)
+    {
+        $alias = $request['alias'];
+
+        $json = $this->installModule($alias);
 
         if ($json['success']) {
             $message = trans('modules.installed', ['module' => $json['data']['name']]);
