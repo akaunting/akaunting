@@ -196,6 +196,7 @@ Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
         Route::post('steps', 'Modules\Item@steps')->name('steps');
         Route::post('download', 'Modules\Item@download')->name('download');
         Route::post('unzip', 'Modules\Item@unzip')->name('unzip');
+        Route::post('copy', 'Modules\Item@copy')->name('copy');
         Route::post('install', 'Modules\Item@install')->name('install');
 
         Route::post('{alias}/reviews', 'Modules\Item@reviews')->name('app.reviews');

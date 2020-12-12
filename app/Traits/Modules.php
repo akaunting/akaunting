@@ -390,7 +390,7 @@ trait Modules
         ];
     }
 
-    public function installModule($path)
+    public function copyModule($path)
     {
         $temp_path = storage_path('app/temp/' . $path);
 
@@ -425,13 +425,26 @@ trait Modules
 
         event(new \App\Events\Module\Copied($module->alias, session('company_id')));
 
+        return [
+            'success' => true,
+            'error' => false,
+            'message' => null,
+            'data' => [
+                'path' => $path,
+                'alias' => $module->alias,
+            ],
+        ];
+    }
+
+    public function installModule($alias)
+    {
         $company_id = session('company_id');
         $locale = app()->getLocale();
 
-        $command = "module:install {$module->alias} {$company_id} {$locale}";
+        $command = "module:install {$alias} {$company_id} {$locale}";
 
         if (true !== $result = Console::run($command)) {
-            $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $module->alias]);
+            $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $alias]);
 
             return [
                 'success' => false,
@@ -443,13 +456,13 @@ trait Modules
 
         return [
             'success' => true,
-            'redirect' => route('apps.app.show', $module->alias),
+            'redirect' => route('apps.app.show', $alias),
             'error' => false,
             'message' => null,
             'data' => [
-                'path' => $path,
-                'name' => module($module->alias)->getName(),
-                'alias' => $module->alias,
+                'path' => '',
+                'name' => module($alias)->getName(),
+                'alias' => $alias,
             ],
         ];
     }
