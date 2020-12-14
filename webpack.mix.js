@@ -72,6 +72,4 @@ mix
     .js('resources/assets/js/views/wizard/taxes.js', 'public/js/wizard')
     .js('resources/assets/js/views/wizard/finish.js', 'public/js/wizard')
 
-    .sass('resources/assets/sass/argon.scss', 'public/css')
-
-    .sourceMaps(false, 'inline-source-map');
+    .sass('resources/assets/sass/argon.scss', 'public/css');
