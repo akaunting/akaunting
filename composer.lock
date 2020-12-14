@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51666397fc0545e8e14af377d5486a5f",
+    "content-hash": "4ace9899196a414a1d402f38b3687252",
     "packages": [
         {
             "name": "akaunting/firewall",
@@ -8229,25 +8229,25 @@
         },
         {
             "name": "santigarcor/laratrust",
-            "version": "6.2.2",
+            "version": "6.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "dfc2f0880c827bd20607fd4bfbe8ac471de29800"
+                "reference": "dcb43416ecfeacb67e056423780e288c325e9c82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/dfc2f0880c827bd20607fd4bfbe8ac471de29800",
-                "reference": "dfc2f0880c827bd20607fd4bfbe8ac471de29800",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/dcb43416ecfeacb67e056423780e288c325e9c82",
+                "reference": "dcb43416ecfeacb67e056423780e288c325e9c82",
                 "shasum": ""
             },
             "require": {
                 "kkszymanowski/traitor": "^0.2.0",
                 "laravel/framework": "~6.0|~7.0|~8.0",
-                "php": "^7.2"
+                "php": ">=7.2"
             },
             "require-dev": {
-                "mockery/mockery": "^1.3.1",
+                "mockery/mockery": "^1.3.2",
                 "orchestra/testbench": "4.*|5.*|6.*",
                 "phpunit/phpunit": "^7.5.15|^8.4|^9.0"
             },
@@ -8292,7 +8292,7 @@
             ],
             "support": {
                 "issues": "https://github.com/santigarcor/laratrust/issues",
-                "source": "https://github.com/santigarcor/laratrust/tree/6.2.2"
+                "source": "https://github.com/santigarcor/laratrust/tree/6.3.1"
             },
             "funding": [
                 {
@@ -8300,7 +8300,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-09-15T13:30:03+00:00"
+            "time": "2020-12-09T14:25:23+00:00"
         },
         {
             "name": "seld/jsonlint",

@@ -49,7 +49,7 @@
         "monooso/unobserve": "^3.0",
         "plank/laravel-mediable": "4.4.*",
         "riverskies/laravel-mobile-detect": "^1.3",
-        "santigarcor/laratrust": "6.2.*",
+        "santigarcor/laratrust": "6.3.*",
         "simshaun/recurr": "4.0.*",
         "staudenmeir/belongs-to-through": "^2.11",
         "staudenmeir/eloquent-has-many-deep": "^1.13"
