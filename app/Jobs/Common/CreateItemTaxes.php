@@ -26,26 +26,26 @@ class CreateItemTaxes extends Job
     /**
      * Execute the job.
      *
-     * @return Item
+     * @return mixed
      */
     public function handle()
     {
+        // BC for 2.0 version
+        if (!empty($this->request['tax_id'])) {
+            $this->request['tax_ids'][] = $this->request['tax_id'];
+        }
+
+        if (empty($this->request['tax_ids'])) {
+            return false;
+        }
+
         \DB::transaction(function () {
-            // This controller for BC < 2.1
-            if (!empty($this->request['tax_id'])) {
+            foreach ($this->request['tax_ids'] as $tax_id) {
                 ItemTax::create([
                     'company_id' => $this->item->company_id,
                     'item_id' => $this->item->id,
-                    'tax_id' => $this->request['tax_id']
+                    'tax_id' => $tax_id,
                 ]);
-            } else {
-                foreach ($this->request['tax_ids'] as $tax_id) {
-                    ItemTax::create([
-                        'company_id' => $this->item->company_id,
-                        'item_id' => $this->item->id,
-                        'tax_id' => $tax_id
-                    ]);
-                }
             }
         });
 

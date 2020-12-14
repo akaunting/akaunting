@@ -34,7 +34,7 @@ class ItemsTest extends FeatureTestCase
 
 		$this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('items', $this->getAssertRequest($request));
+		$this->assertDatabaseHas('items', $request);
 	}
 
 	public function testItShouldSeeItemUpdatePage()
@@ -64,7 +64,7 @@ class ItemsTest extends FeatureTestCase
 
 		$this->assertFlashLevel('success');
 
-		$this->assertDatabaseHas('items', $this->getAssertRequest($request));
+		$this->assertDatabaseHas('items', $request);
 	}
 
 	public function testItShouldDeleteItem()
@@ -79,18 +79,11 @@ class ItemsTest extends FeatureTestCase
 
 		$this->assertFlashLevel('success');
 
-		$this->assertSoftDeleted('items', $this->getAssertRequest($request));
+		$this->assertSoftDeleted('items', $request);
 	}
 
     public function getRequest()
     {
         return Item::factory()->enabled()->raw();
-    }
-
-    public function getAssertRequest($request)
-    {
-        unset($request['tax_ids']);
-
-        return $request;
     }
 }

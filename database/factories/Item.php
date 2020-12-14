@@ -28,7 +28,6 @@ class Item extends Factory
             'purchase_price' => $this->faker->randomFloat(2, 10, 20),
             'sale_price' => $this->faker->randomFloat(2, 10, 20),
             'category_id' => $this->company->categories()->item()->get()->random(1)->pluck('id')->first(),
-            'tax_ids' => [],
             'enabled' => $this->faker->boolean ? 1 : 0,
         ];
     }
