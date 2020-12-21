@@ -4,9 +4,8 @@ namespace App\Exports\Common\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Common\Item as Model;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
-class Items extends Export implements WithColumnFormatting
+class Items extends Export
 {
     public function collection()
     {
