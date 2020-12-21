@@ -10,7 +10,7 @@
     <div class="row">
         {{ Form::textGroup('name', trans('general.name'), 'tag') }}
 
-        {{ Form::selectGroup('tax_id', trans_choice('general.taxes', 1), 'percentage', $taxes, setting('default.tax'), []) }}
+        {{ Form::multiSelectGroup('tax_ids', trans_choice('general.taxes', 1), 'percentage', $taxes, [setting('default.tax')]) }}
 
         {{ Form::textareaGroup('description', trans('general.description')) }}
 
