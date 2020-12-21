@@ -254,11 +254,42 @@ class Items extends Controller
 
         if ($items) {
             foreach ($items as $item) {
+                $item_price = ($type == 'bill') ? $item->purchase_price : $item->sale_price;
                 $item_tax_price = 0;
 
                 if ($item->taxes->count()) {
+                    $inclusives = $compounds = [];
+
                     foreach($item->taxes as $item_tax) {
-                        $item_tax_price += ($item->sale_price / 100) * $item_tax->tax->rate;
+                        $tax = $item_tax->tax;
+
+                        switch ($tax->type) {
+                            case 'inclusive':
+                                $inclusives[] = $tax;
+                                break;
+                            case 'compound':
+                                $compounds[] = $tax;
+                                break;
+                            case 'fixed':
+                                $item_tax_price += $tax->rate;
+                                break;
+                            default:
+                                $item_tax_amount = ($item_price / 100) * $tax->rate;
+
+                                $item_tax_price += $item_tax_amount;
+                                break;
+                        }
+                    }
+
+                    if ($inclusives) {
+                        $item_base_rate = $item_price / (1 + collect($inclusives)->sum('rate') / 100);
+                        $item_tax_price = $item_price - $item_base_rate;
+                    }
+
+                    if ($compounds) {
+                        foreach ($compounds as $compound) {
+                            $item_tax_price += ($item_tax_price / 100) * $compound->rate;
+                        }
                     }
                 }
 
