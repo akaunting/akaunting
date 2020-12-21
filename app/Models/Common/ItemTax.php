@@ -18,6 +18,11 @@ class ItemTax extends Model
      */
     protected $fillable = ['company_id', 'item_id', 'tax_id'];
 
+    public function item()
+    {
+        return $this->belongsTo('App\Models\Common\Item')->withDefault(['name' => trans('general.na')]);
+    }
+
     public function tax()
     {
         return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na'), 'rate' => 0]);
