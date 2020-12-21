@@ -1,5 +1,5 @@
 <div>
-    <div class="d-none">
+    <div>
         @if (!empty($setting['name']))
             <h2>{{ $setting['name'] }}</h2>
         @endif
