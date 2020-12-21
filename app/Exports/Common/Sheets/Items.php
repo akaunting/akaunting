@@ -6,7 +6,7 @@ use App\Abstracts\Export;
 use App\Models\Common\Item as Model;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
-class Invoices extends Export implements WithColumnFormatting
+class Items extends Export implements WithColumnFormatting
 {
     public function collection()
     {
