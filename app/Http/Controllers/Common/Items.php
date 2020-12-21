@@ -254,12 +254,12 @@ class Items extends Controller
 
         if ($items) {
             foreach ($items as $item) {
-                $tax = Tax::find($item->tax_id);
-
                 $item_tax_price = 0;
 
-                if (!empty($tax)) {
-                    $item_tax_price = ($item->sale_price / 100) * $tax->rate;
+                if ($item->taxes->count()) {
+                    foreach($item->taxes as $item_tax) {
+                        $item_tax_price += ($item->sale_price / 100) * $item_tax->tax->rate;
+                    }
                 }
 
                 switch ($type) {
