@@ -2,27 +2,28 @@
 
 return [
 
-    'title'                 => 'Token de API',
-    'api_token'             => 'Token',
+    'api_key'               => 'Token de API',
     'my_apps'               => 'Meus Apps',
+    'pre_sale'              => 'Pré-Venda',
     'top_paid'              => 'Pago a maior',
     'new'                   => 'Novo',
     'top_free'              => 'Melhores Grátis',
     'free'                  => 'Gratis',
-    'search'                => 'Pesquisa',
     'install'               => 'Instalar',
     'buy_now'               => 'Comprar Agora',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank"> Clique aqui</a> para obter o token de sua API.',
+    'get_api_key'           => '<a href=":url" target="_blank">Clique aqui</a> para obter sua chave de API.',
     'no_apps'               => 'Não há nenhum apps nesta categoria, ainda.',
-    'developer'             => 'Você é um desenvolvedor? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Clique aqui</a> que você pode aprender como criar um app e começar a vender hoje!',
-
-    'recommended_apps'      => 'Recommended Apps',
+    'become_developer'      => 'Você é um desenvolvedor? <a href=":url" target="_blank">Aqui</a> você pode aprender como criar um app e começar a vender hoje!',
+    'recommended_apps'      => 'Apps Recomendados',
 
     'about'                 => 'Sobre',
 
     'added'                 => 'Adicionado',
     'updated'               => 'Atualizado',
     'compatibility'         => 'Compatibilidade',
+    'documentation'         => 'Documentação',
+    'view'                  => 'Ver',
+    'back'                  => 'Voltar',
 
     'installed'             => ':module instalado',
     'uninstalled'           => ':module removido',
@@ -34,30 +35,30 @@ return [
         'installation'      => 'Instalação',
         'faq'               => 'Perguntas frequentes',
         'changelog'         => 'Log de alterações',
-        'reviews'            => 'Reviews',
+        'reviews'           => 'Avaliações',
     ],
 
     'installation' => [
         'header'            => 'Instalação do aplicativo',
-        'download'          => 'Baixando arquivos do módulo :module.',
-        'unzip'             => 'Extraindo arquivos do módulo :module.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
-        'install'           => 'Instalando :module.',
+        'download'          => 'Baixando :module',
+        'unzip'             => 'Extraindo arquivos :module ',
+        'file_copy'         => 'Copiando :module files',
+        'finish'            => 'Finalizando a instalação de :module',
+        'redirect'          => ':module instalado, redirecionando para a página de atualizações',
+        'install'           => 'Instalando :module',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download'          => 'Não é possível baixar :module',
+        'zip'               => 'Não é possível criar o arquivo zip :module',
+        'unzip'             => 'Não é possível descompactar :module',
+        'file_copy'         => 'Não é possível copiar os arquivos :module',
+        'finish'            => 'Não é possível finalizar a instalação de :module',
     ],
 
     'badge' => [
-        'installed' => 'Instalado',
+        'installed'         => 'Instalado',
+        'pre_sale'          => 'Pré-Venda',
     ],
 
     'button' => [
@@ -67,14 +68,16 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Comprado',
-        'installed' => 'Instalado',
+        'purchased'         => 'Comprado',
+        'installed'         => 'Instalado',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add'           => 'Adicionar avaliação'
         ],
-        'na' => 'There are no reviews.'
-    ]
+
+        'na'                => 'Não existem avaliações.'
+    ],
+
 ];

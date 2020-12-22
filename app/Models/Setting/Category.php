@@ -2,10 +2,13 @@
 
 namespace App\Models\Setting;
 
-use App\Models\Model;
+use App\Abstracts\Model;
+use App\Traits\Transactions;
 
 class Category extends Model
 {
+    use Transactions;
+
     protected $table = 'categories';
 
     /**
@@ -24,12 +27,22 @@ class Category extends Model
 
     public function bills()
     {
-        return $this->hasMany('App\Models\Expense\Bill');
+        return $this->hasMany('App\Models\Purchase\Bill');
+    }
+
+    public function expense_transactions()
+    {
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
+    }
+
+    public function income_transactions()
+    {
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Income\Invoice');
+        return $this->hasMany('App\Models\Sale\Invoice');
     }
 
     public function items()
@@ -37,26 +50,74 @@ class Category extends Model
         return $this->hasMany('App\Models\Common\Item');
     }
 
-    public function payments()
+    public function transactions()
     {
-        return $this->hasMany('App\Models\Expense\Payment');
-    }
-
-    public function revenues()
-    {
-        return $this->hasMany('App\Models\Income\Revenue');
+        return $this->hasMany('App\Models\Banking\Transaction');
     }
 
     /**
      * Scope to only include categories of a given type.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param mixed $type
+     * @param mixed $types
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeType($query, $type)
+    public function scopeType($query, $types)
     {
-        return $query->whereIn('type', (array) $type);
+        if (empty($types)) {
+            return $query;
+        }
+
+        return $query->whereIn($this->table . '.type', (array) $types);
+    }
+
+    /**
+     * Scope to include only income.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIncome($query)
+    {
+        return $query->where($this->table . '.type', '=', 'income');
+    }
+
+    /**
+     * Scope to include only expense.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeExpense($query)
+    {
+        return $query->where($this->table . '.type', '=', 'expense');
+    }
+
+    /**
+     * Scope to include only item.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeItem($query)
+    {
+        return $query->where($this->table . '.type', '=', 'item');
+    }
+
+    /**
+     * Scope to include only other.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOther($query)
+    {
+        return $query->where($this->table . '.type', '=', 'other');
+    }
+
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', '=', $name);
     }
 
     /**
@@ -67,6 +128,6 @@ class Category extends Model
      */
     public function scopeTransfer($query)
     {
-        return $query->where('type', 'other')->pluck('id')->first();
+        return (int) $query->other()->pluck('id')->first();
     }
 }

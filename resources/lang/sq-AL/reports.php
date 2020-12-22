@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Fitimi Neto',
     'total_expenses'        => 'Shpenzimet Totale',
     'net'                   => 'NETO',
+    'income_expense'        => 'Të Ardhurat & Shpenzimet',
 
     'summary' => [
         'income'            => 'Përmbledhje e të Ardhurave',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Përmbledhje e Taksave',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Prill-Qer',
-        '3'                 => 'Korr-Shta',
-        '4'                 => 'Tet-Dhje',
+    'charts' => [
+        'line'              => 'Vijë',
+        'bar'               => 'Shirit',
+        'pie'               => 'Tortë',
     ],
 
 ];

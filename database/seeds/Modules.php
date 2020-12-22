@@ -2,7 +2,7 @@
 
 namespace Database\Seeds;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use Artisan;
 use Illuminate\Database\Seeder;
 
@@ -26,7 +26,16 @@ class Modules extends Seeder
     {
         $company_id = $this->command->argument('company');
 
-        Artisan::call('module:install', ['alias' => 'offlinepayment', 'company_id' => $company_id]);
-        Artisan::call('module:install', ['alias' => 'paypalstandard', 'company_id' => $company_id]);
+        Artisan::call('module:install', [
+            'alias'     => 'offline-payments',
+            'company'   => $company_id,
+            'locale'    => session('locale', app()->getLocale()),
+        ]);
+
+        Artisan::call('module:install', [
+            'alias'     => 'paypal-standard',
+            'company'   => $company_id,
+            'locale'    => session('locale', app()->getLocale()),
+        ]);
     }
 }

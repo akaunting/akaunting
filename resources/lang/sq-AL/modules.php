@@ -2,27 +2,28 @@
 
 return [
 
-    'title'                 => 'Shenjë API',
-    'api_token'             => 'Shenjë',
+    'api_key'               => 'Çelësi API',
     'my_apps'               => 'Aplikacionet e Mia',
+    'pre_sale'              => 'Para Shitjet',
     'top_paid'              => 'Më të paguarat',
     'new'                   => 'I ri',
     'top_free'              => 'Më të mirët Falas',
     'free'                  => 'FALAS',
-    'search'                => 'Kërko',
     'install'               => 'Instalo',
     'buy_now'               => 'Bli Tani',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Kliko këtu</a>për të marrë shenjën tuaj API.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klikoni këtu</a> për të marrë çelësin tuaj API.',
     'no_apps'               => 'Në këtë kategori akoma nuk ka aplikacione.',
-    'developer'             => 'A jeni një zhvillues?<a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Këtu</a> mund të mësoni si të krijoni një aplikacion dhe të filloni shitjen sot!',
-
-    'recommended_apps'      => 'Recommended Apps',
+    'become_developer'      => 'A jeni një zhvillues? <a href=":url" target="_blank">Këtu</a> mund të mësoni se si të krijoni një aplikacion dhe të filloni shitjen sot!',
+    'recommended_apps'      => 'Aplikacionet e Rekomanduara',
 
     'about'                 => 'Rreth nesh',
 
     'added'                 => 'Shtuar',
     'updated'               => 'Përditësuar',
     'compatibility'         => 'Pajtueshmëri',
+    'documentation'         => 'Dokumentacioni',
+    'view'                  => 'Pamje',
+    'back'                  => 'Mbrapa',
 
     'installed'             => ':module instaluar',
     'uninstalled'           => ':module çinstaluar',
@@ -34,30 +35,30 @@ return [
         'installation'      => 'Instalim',
         'faq'               => 'Pyetësori',
         'changelog'         => 'Ndryshimet',
-        'reviews'            => 'Reviews',
+        'reviews'           => 'Shqyrtimet',
     ],
 
     'installation' => [
         'header'            => 'Instalim Aplikacioni',
-        'download'          => 'Shkarkimi i :module skedarit.',
-        'unzip'             => 'Ekstraktimi i :module skedarit.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
-        'install'           => 'Instalim i :module skedareve.',
+        'download'          => 'Duke shkarkuar :module',
+        'unzip'             => 'Duke ekstraktuar :module skedaret',
+        'file_copy'         => 'Duke kopjuar :module skedaret',
+        'finish'            => 'Finalizimi :module instalimit',
+        'redirect'          => ':module e instaluar, ridrejtimi tek faqja e azhurnimeve',
+        'install'           => 'Duke instaluar :module',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download'          => 'Nuk mund të shkarkohet :module',
+        'zip'               => 'Nuk mund të krijojë :module skedar zip',
+        'unzip'             => 'Nuk mund të hiqet nga zipi :module',
+        'file_copy'         => 'Nuk mund të kopjohen :module skedaret',
+        'finish'            => 'Nuk mund të finalizohet :module instalimi',
     ],
 
     'badge' => [
-        'installed' => 'Instaluar',
+        'installed'         => 'Instaluar',
+        'pre_sale'          => 'Para Shitjet',
     ],
 
     'button' => [
@@ -67,14 +68,16 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Blerë',
-        'installed' => 'Instaluar',
+        'purchased'         => 'Blerë',
+        'installed'         => 'Instaluar',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add'           => 'Shto një Shqyrtim'
         ],
-        'na' => 'There are no reviews.'
-    ]
+
+        'na'                => 'Nuk ka shqyrtime.'
+    ],
+
 ];

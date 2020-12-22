@@ -10,7 +10,6 @@ use Storage;
 
 class Logo
 {
-
     /**
      * Bind data to the view.
      *
@@ -21,13 +20,7 @@ class Logo
     {
         $logo = '';
 
-        $media_id = setting('general.company_logo');
-
-        if (setting('general.invoice_logo')) {
-            $media_id = setting('general.invoice_logo');
-        }
-
-        $media = Media::find($media_id);
+        $media = Media::find(setting('company.logo'));
 
         if (!empty($media)) {
             $path = Storage::path($media->getDiskPath());
@@ -36,10 +29,14 @@ class Logo
                 return $logo;
             }
         } else {
-            $path = asset('public/img/company.png');
+            $path = base_path('public/img/company.png');
         }
 
-        $image = Image::make($path)->encode()->getEncoded();
+        $image = Image::cache(function($image) use ($path) {
+            $width = $height = setting('invoice.logo_size', 128);
+
+            $image->make($path)->resize($width, $height)->encode();
+        });
 
         if (empty($image)) {
             return $logo;

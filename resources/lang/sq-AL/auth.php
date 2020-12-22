@@ -13,16 +13,18 @@ return [
     'current_email'         => 'Emaili Aktual',
     'reset'                 => 'Rivendos',
     'never'                 => 'asnjëherë',
-    
+    'landing_page'          => 'Faqja e Hyrjes',
+
     'password' => [
         'current'           => 'Fjalëkalimi',
         'current_confirm'   => 'Konfirmimi i Fjalëkalimit',
         'new'               => 'Fjalëkalimi i Ri',
         'new_confirm'       => 'Konfirmimi i Fjalëkalimit të Ri',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Gabim: Nuk mund të fshini veten!',
+        'self_disable'      => 'Gabim: Nuk mund të çaktivizoni veten!',
         'no_company'        => 'Gabim: Asnjë kompani nuk është caktuar në llogarinë tuaj. Ju lutemi, kontaktoni administratorin e sistemit.',
     ],
 

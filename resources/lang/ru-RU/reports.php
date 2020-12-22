@@ -7,24 +7,24 @@ return [
     'this_quarter'          => 'Этот квартал',
     'previous_quarter'      => 'Предыдущий квартал',
     'last_12_months'        => 'Последние 12 месяцев',
-    'profit_loss'           => 'Profit & Loss',
-    'gross_profit'          => 'Gross Profit',
-    'net_profit'            => 'Net Profit',
-    'total_expenses'        => 'Total Expenses',
-    'net'                   => 'NET',
+    'profit_loss'           => 'Прибыли убытки',
+    'gross_profit'          => 'Валовая прибыль',
+    'net_profit'            => 'Чистая прибыль',
+    'total_expenses'        => 'Всего расходов',
+    'net'                   => 'Чистая потребность',
+    'income-expense'        => 'Доходы и расходы',
 
     'summary' => [
         'income'            => 'Сводка поступлений',
         'expense'           => 'Сводка расходов',
         'income_expense'    => 'Поступления vs Расходы',
-        'tax'               => 'Tax Summary',
+        'tax'               => 'Информация по налогу',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Oct-Dec',
+    'charts' => [
+        'line'              => 'Линия',
+        'bar'               => 'Столбец',
+        'pie'               => 'Сектор',
     ],
 
 ];

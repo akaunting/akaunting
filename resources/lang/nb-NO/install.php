@@ -6,7 +6,7 @@ return [
     'refresh'               => 'Oppfrisk',
 
     'steps' => [
-        'requirements'      => 'Please, ask your hosting provider to fix the errors!',
+        'requirements'      => 'Vennligst anmod din tjenestetilbyder om å rette opp problemene!',
         'language'          => 'Steg 1/3: Språkvalg',
         'database'          => 'Steg 2/3: Databaseoppsett',
         'settings'          => 'Steg 3/3: Foretak- og administratordetaljer',
@@ -19,8 +19,9 @@ return [
     'requirements' => [
         'enabled'           => ':feature må være aktivert.',
         'disabled'          => ':feature må være deaktivert.',
-        'extension'         => ':extension extension needs to be installed and loaded!',
+        'extension'         => 'Utvidelsen :extension må installeres og aktiveres!',
         'directory'         => 'Mappen :directory må være skrivbar.',
+        'executable'        => 'Den kjørbare PHP CLI-filen virker ikke! Vennligst be din tjenesteleverandør om å sette riktig PHP_BINARY eller PHP_PATH miljøvariabel.',
     ],
 
     'database' => [
@@ -38,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Feil: Be din tjenesteleverandør om å bruke PHP :php_version eller høyere for både HTTP og CLI.',
         'connection'        => 'Feil: Kunne ikke koble til databasen. Påse at opplysningene er riktig.',
     ],
 

@@ -2,11 +2,10 @@
 
 namespace App\Models\Setting;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 
 class Tax extends Model
 {
-
     protected $table = 'taxes';
 
     /**
@@ -37,12 +36,66 @@ class Tax extends Model
 
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Expense\BillItem');
+        return $this->hasMany('App\Models\Purchase\BillItemTax');
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Income\InvoiceItem');
+        return $this->hasMany('App\Models\Sale\InvoiceItemTax');
+    }
+
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', '=', $name);
+    }
+
+    public function scopeRate($query, $rate)
+    {
+        return $query->where('rate', '=', $rate);
+    }
+
+    public function scopeNotRate($query, $rate)
+    {
+        return $query->where('rate', '<>', $rate);
+    }
+
+    public function scopeType($query, $types)
+    {
+        if (empty($types)) {
+            return $query;
+        }
+
+        return $query->whereIn($this->table . '.type', (array) $types);
+    }
+
+    public function scopeFixed($query)
+    {
+        return $query->where($this->table . '.type', '=', 'fixed');
+    }
+
+    public function scopeNormal($query)
+    {
+        return $query->where($this->table . '.type', '=', 'normal');
+    }
+
+    public function scopeInclusive($query)
+    {
+        return $query->where($this->table . '.type', '=', 'inclusive');
+    }
+
+    public function scopeCompound($query)
+    {
+        return $query->where($this->table . '.type', '=', 'compound');
+    }
+
+    public function scopeWithholding($query)
+    {
+        return $query->where($this->table . '.type', '=', 'withholding');
+    }
+
+    public function scopeNotWithholding($query)
+    {
+        return $query->where($this->table . '.type', '<>', 'withholding');
     }
 
     /**
@@ -65,12 +118,11 @@ class Tax extends Model
     {
         $title = $this->name . ' (';
 
-        if (setting('general.percent_position', 'after') == 'after') {
-            $title .= $this->rate . '%';
+        if (setting('localisation.percent_position', 'after') == 'after') {
+            $title .= $this->getAttribute('type') == 'fixed' ?  $this->rate : $this->rate . '%';
         } else {
-            $title .= '%' . $this->rate;
+            $title .= $this->getAttribute('type') == 'fixed' ?  $this->rate : '%' . $this->rate;
         }
-
         $title .= ')';
 
         return $title;

@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Bénéfices net',
     'total_expenses'        => 'Total des dépenses',
     'net'                   => 'NET',
+    'income_expense'        => 'Recettes & Dépenses',
 
     'summary' => [
         'income'            => 'Sommaire des revenus',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Résumé des taxes',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Avr-Jui',
-        '3'                 => 'Jui-Sep',
-        '4'                 => 'Oct-Déc',
+    'charts' => [
+        'line'              => 'Ligne',
+        'bar'               => 'Pile',
+        'pie'               => 'Camembert',
     ],
 
 ];

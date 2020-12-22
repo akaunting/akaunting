@@ -12,19 +12,19 @@ return [
     'net_profit'            => 'Nettoresultat',
     'total_expenses'        => 'Totale utgifter',
     'net'                   => 'NET',
+    'income_expense'        => 'Inntekter og utgifter',
 
     'summary' => [
         'income'            => 'Inntektsammendrag',
         'expense'           => 'Utgiftsammendrag',
-        'income_expense'    => 'Inntekter mot utgifter',
+        'income_expense'    => 'Inntekt mot utgift',
         'tax'               => 'Avgiftsammendrag',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan.-Mars',
-        '2'                 => 'April-Juni',
-        '3'                 => 'Juli-Sep.',
-        '4'                 => 'Okt.-Des.',
+    'charts' => [
+        'line'              => 'Linje',
+        'bar'               => 'Kolonne',
+        'pie'               => 'Pai',
     ],
 
 ];

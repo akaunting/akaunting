@@ -4,10 +4,11 @@ return [
 
     'domain'                => 'Dominio',
     'logo'                  => 'Logo',
-    'manage'                => 'Gestisci aziende',
-    'all'                   => 'Tutte le aziende',
+
     'error' => [
-        'delete_active'     => 'Errore: Non puoi eliminare un\'azienda attiva, per favore, cambiala prima!',
+        'not_user_company'  => 'Errore: Non hai i permessi per cambiare questa azienda!',
+        'delete_active'     => 'Errore: Non è possibile eliminare l\'azienda attiva. Per favore, prima passa a un altro!',
+        'disable_active'    => 'Errore: Non è possibile disabilitare l\'azienda attiva. Per favore, prima passa a un altro!',
     ],
 
 ];

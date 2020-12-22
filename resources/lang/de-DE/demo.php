@@ -2,15 +2,33 @@
 
 return [
 
-    'accounts_cash'         => 'Bar',
-    'categories_deposit'    => 'Einzahlung',
-    'categories_sales'      => 'Verkäufe',
-    'currencies_usd'        => 'US-Dollar',
-    'currencies_eur'        => 'Euro',
-    'currencies_gbp'        => 'Britisches Pfund',
-    'currencies_try'        => 'Türkische Lira',
-    'taxes_exempt'          => 'Steuerbefreit',
-    'taxes_normal'          => 'Normale Steuer',
-    'taxes_sales'           => 'Umsatzsteuer',
+    'accounts' => [
+        'cash'              => 'Bar',
+    ],
+
+    'categories' => [
+        'deposit'           => 'Einzahlung',
+        'sales'             => 'Vertrieb',
+    ],
+
+    'currencies' => [
+        'usd'               => 'US-Dollar',
+        'eur'               => 'Euro',
+        'gbp'               => 'Britisches Pfund',
+        'try'               => 'Türkische Lira',
+    ],
+
+    'offline_payments' => [
+        'cash'              => 'Bar',
+        'bank'              => 'Banküberweisung',
+    ],
+
+    'reports' => [
+        'income'            => 'Monatliche Zusammenfassung der Einnahmen nach Kategorie.',
+        'expense'           => 'Monatliche Zusammenfassung der Ausgaben nach Kategorie.',
+        'income_expense'    => 'Monatlicher Vergleich Einkommen vs Ausgaben nach Kategorie.',
+        'tax'               => 'Vierteljährliche Steuerzusammenfassung.',
+        'profit_loss'       => 'Quartalsweise Gewinn & Verlust nach Kategorie.',
+    ],
 
 ];

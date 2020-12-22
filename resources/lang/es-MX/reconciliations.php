@@ -2,13 +2,15 @@
 
 return [
 
-    'reconcile'             => 'Reconcile',
-    'reconciled'            => 'Reconciled',
-    'closing_balance'       => 'Closing Balance',
-    'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
-    'cleared_amount'        => 'Cleared Amount',
+    'reconcile'             => 'Conciliar',
+    'reconciled'            => 'Concialiado',
+    'closing_balance'       => 'Balance de Cierre',
+    'unreconciled'          => 'Sin conciliar',
+    'transactions'          => 'Transacciones',
+    'start_date'            => 'Fecha Inicial',
+    'end_date'              => 'Fecha Final',
+    'cleared_amount'        => 'Monto Liquidado',
+    'deposit'               => 'Depósito',
+    'withdrawal'            => 'Retiro',
 
 ];

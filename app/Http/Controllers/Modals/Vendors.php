@@ -2,34 +2,23 @@
 
 namespace App\Http\Controllers\Modals;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Expense\Vendor as Request;
-use App\Models\Expense\Bill;
-use App\Models\Expense\Payment;
-use App\Models\Expense\Vendor;
+use App\Abstracts\Http\Controller;
+use App\Http\Requests\Common\Contact as Request;
+use App\Jobs\Common\CreateContact;
 use App\Models\Setting\Currency;
-use App\Traits\Uploads;
-use App\Utilities\Import;
-use App\Utilities\ImportFile;
-use Date;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class Vendors extends Controller
 {
-    use Uploads;
-
     /**
      * Instantiate a new controller instance.
      */
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-expenses-vendors')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-expenses-vendors')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-expenses-vendors')->only(['update', 'enable', 'disable']);
-        $this->middleware('permission:delete-expenses-vendors')->only('destroy');
+        $this->middleware('permission:create-purchases-vendors')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-purchases-vendors')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-purchases-vendors')->only('update', 'enable', 'disable');
+        $this->middleware('permission:delete-purchases-vendors')->only('destroy');
     }
 
     /**
@@ -39,9 +28,17 @@ class Vendors extends Controller
      */
     public function create()
     {
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $html = view('modals.vendors.create', compact('currencies'))->render();
+        $contact_selector = false;
+
+        if (request()->has('contact_selector')) {
+            $contact_selector = request()->get('contact_selector');
+        }
+
+        $rand = rand();
+
+        $html = view('modals.vendors.create', compact('currencies', 'contact_selector', 'rand'))->render();
 
         return response()->json([
             'success' => true,
@@ -60,23 +57,14 @@ class Vendors extends Controller
      */
     public function store(Request $request)
     {
-        $vendor = Vendor::create($request->all());
+        $request['enabled'] = 1;
 
-        // Upload logo
-        if ($request->file('logo')) {
-            $media = $this->getMedia($request->file('logo'), 'vendors');
+        $response = $this->ajaxDispatch(new CreateContact($request));
 
-            $vendor->attachMedia($media, 'logo');
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
         }
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.vendors', 1)]);
-
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'data' => $vendor,
-            'message' => $message,
-            'html' => 'null',
-        ]);
+        return response()->json($response);
     }
 }

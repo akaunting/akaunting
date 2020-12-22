@@ -3,14 +3,18 @@
 return [
 
     'company' => [
+        'description'       => 'Cambiar el nombre de la empresa, correo electrónico, dirección, número de impuestos, etc',
         'name'              => 'Nombre',
         'email'             => 'Correo electrónico',
         'phone'             => 'Teléfono',
         'address'           => 'Dirección',
         'logo'              => 'Logo',
     ],
+
     'localisation' => [
-        'tab'               => 'Localización',
+        'description'       => 'Establecer año fiscal, zona horaria, formato de fecha y más locales',
+        'financial_start'   => 'Comienzo año Fiscal',
+        'timezone'          => 'Zona horaria',
         'date' => [
             'format'        => 'Formato de Fecha',
             'separator'     => 'Separador de fecha',
@@ -20,15 +24,21 @@ return [
             'slash'         => 'Barra (/)',
             'space'         => 'Espacio ( )',
         ],
-        'timezone'          => 'Zona horaria',
         'percent' => [
             'title'         => 'Posición Porcentaje (%)',
             'before'        => 'Antes del Número',
             'after'         => 'Después del número',
         ],
+        'discount_location' => [
+            'name'          => 'Ubicación de descuento',
+            'item'          => 'En línea',
+            'total'         => 'En total',
+            'both'          => 'Línea y total',
+        ],
     ],
+
     'invoice' => [
-        'tab'               => 'Factura',
+        'description'       => 'Personalizar prefijo de factura, número, términos, pie de página etc',
         'prefix'            => 'Prefijo de número',
         'digit'             => 'Número de dígitos',
         'next'              => 'Siguiente número',
@@ -43,16 +53,25 @@ return [
         'rate'              => 'Tasa',
         'quantity_name'     => 'Cantidad nombre',
         'quantity'          => 'Cantidad',
+        'payment_terms'     => 'Condiciones de pago',
+        'title'             => 'Título',
+        'subheading'        => 'Subtítulo',
+        'due_receipt'       => 'Vence a la recepción',
+        'due_days'          => 'Vencimiento dentro de :days días',
+        'choose_template'   => 'Elegir plantilla de factura',
+        'default'           => 'Por defecto',
+        'classic'           => 'Clásica',
+        'modern'            => 'Moderna',
     ],
+
     'default' => [
-        'tab'               => 'Por defecto',
-        'account'           => 'Cuenta Predeterminada',
-        'currency'          => 'Moneda Predeterminada',
-        'tax'               => 'Impuesto Predeterminado',
-        'payment'           => 'Método de pago Predeterminado',
-        'language'          => 'Idioma Predeterminado',
+        'description'       => 'Cuenta, moneda, idioma por defecto de su empresa',
+        'list_limit'        => 'Registros Por Página',
+        'use_gravatar'      => 'Usar Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Cambiar las plantillas de protocolo de envío y correo electrónico',
         'protocol'          => 'Protocolo',
         'php'               => 'PHP Mail',
         'smtp' => [
@@ -67,36 +86,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Ruta de acceso de sendmail',
         'log'               => 'Registrar Correos',
+
+        'templates' => [
+            'subject'                   => 'Asunto',
+            'body'                      => 'Cuerpo',
+            'tags'                      => '<strong>Etiquetas disponibles:</strong> :tag_list',
+            'invoice_new_customer'      => 'Nueva Plantilla de Factura (enviada al cliente)',
+            'invoice_remind_customer'   => 'Plantilla de Recordatorio de Factura (enviada al cliente)',
+            'invoice_remind_admin'      => 'Plantilla de Recordatorio de Factura (enviado al administrador)',
+            'invoice_recur_customer'    => 'Plantilla de Factura Recurrente (enviada al cliente)',
+            'invoice_recur_admin'       => 'Plantilla de Factura Recurrente (enviada al administrador)',
+            'invoice_payment_customer'  => 'Plantilla de Pago Recibido (enviada al cliente)',
+            'invoice_payment_admin'     => 'Plantilla de Pago Recibido (enviada al administrador)',
+            'bill_remind_admin'         => 'Plantilla de Recordatorio de Factura (enviada a administrador)',
+            'bill_recur_admin'          => 'Plantilla de Factura Recurrente (enviada al administrador)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Programación',
+        'name'              => 'Programación',
+        'description'       => 'Recordatorios y comandos automáticos para repetir',
         'send_invoice'      => 'Enviar Recordatorio de Factura',
         'invoice_days'      => 'Enviar después del vencimiento',
         'send_bill'         => 'Enviar Recordatorio de Recibo',
         'bill_days'         => 'Enviar Antes del Vencimiento',
         'cron_command'      => 'Comando Cron',
         'schedule_time'     => 'Hora de ejecución',
-        'send_item_reminder'=> 'Enviar Recordatorio de Item',
-        'item_stocks'       => 'Enviar cuando Item tenga Stock',
     ],
-    'appearance' => [
-        'tab'               => 'Apariencia',
-        'theme'             => 'Tema',
-        'light'             => 'Claro',
-        'dark'              => 'Oscuro',
-        'list_limit'        => 'Registros por página',
-        'use_gravatar'      => 'Usar Gravatar',
+
+    'categories' => [
+        'description'       => 'Categorías ilimitadas para ingresos, gastos e items',
     ],
-    'system' => [
-        'tab'               => 'Sistema',
-        'session' => [
-            'lifetime'      => 'Duración de la sesión (minutos)',
-            'handler'       => 'Gestor de sesiones',
-            'file'          => 'Archivo',
-            'database'      => 'Base de datos',
-        ],
-        'file_size'         => 'Tamaño Máximo (MB)',
-        'file_types'        => 'Tipos de Archivo Permitidos',
+
+    'currencies' => [
+        'description'       => 'Crear y administrar monedas y establecer sus tasas',
+    ],
+
+    'taxes' => [
+        'description'       => 'Tasas de impuestos fijas, normales, inclusivas y compuestas',
     ],
 
 ];

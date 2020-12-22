@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature 必須關閉！',
         'extension'         => '必須安裝並載入 :extension ！',
         'directory'         => ':directory 必須可寫入！',
+        'executable'        => 'PHP CLI 可執行文件未定義/無法運行，或者其版本不是或高於：php_version！ 請向您的託管公司要求正確設置 PHP_BINARY 或 PHP_PATH 的環境參數。',
     ],
 
     'database' => [

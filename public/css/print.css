@@ -1,0 +1,466 @@
+@charset "UTF-8";
+
+/*--General Start--*/
+body
+{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #3c3f72;
+}
+
+table
+{
+    width: 100%;
+}
+
+th, td
+{
+    padding: 18px 9px 18px 9px;
+}
+
+.row
+{
+    font-size: 0;
+}
+
+.mb-1
+{
+    margin-bottom: 8px;
+}
+
+.mt-1
+{
+    margin-top: 8px;
+}
+
+.ml-1
+{
+    margin-left: 8px;
+}
+
+.mt-0
+{
+    margin-top: 0 !important;
+}
+
+.mt-1
+{
+    margin-top: 8px;
+}
+
+.mt-2
+{
+    margin-top: 16px;
+}
+
+.mt-3
+{
+    margin-top: 24px;
+}
+
+.mt-4
+{
+    margin-top: 32px;
+}
+
+.mt-5
+{
+    margin-top: 40px;
+}
+
+.mt-6
+{
+    margin-top: 48px;
+}
+
+.mt-7
+{
+    margin-top: 56px;
+}
+
+.mt-8
+{
+    margin-top: 64px;
+}
+
+.mt-9
+{
+    margin-top: 72px;
+}
+
+.pb-0
+{
+    padding-bottom: 0;
+}
+
+.pb-1
+{
+    padding-bottom: 8px;
+}
+
+.py-1
+{
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+.py-2
+{
+    padding-bottom: 16px;
+    padding-top: 16px;
+}
+
+.pr-2
+{
+    padding-right: 16px;
+}
+
+.pl-2
+{
+    padding-left: 16px;
+}
+
+.pl-3
+{
+    padding-left: 24px;
+}
+
+.pl-4
+{
+    padding-left: 32px;
+}
+
+.pl-5
+{
+    padding-left: 40px;
+}
+
+.pl-6
+{
+    padding-left: 48px;
+}
+
+.pl-7
+{
+    padding-left: 56px;
+}
+
+.pl-8
+{
+    padding-left: 64px;
+}
+
+.pl-9
+{
+    padding-left: 72px;
+}
+
+.border-1
+{
+    border: 1px solid #e5e5e5;
+}
+
+.border-top-1
+{
+     border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom-1
+{
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.border-radius-default
+{
+    border-radius: 0.25rem
+}
+
+.float-left
+{
+    float: left !important;
+}
+
+.float-right
+{
+    float: right !important;
+}
+
+.font-size-unset
+{
+    font-size: unset;
+}
+
+.text
+{
+    color: #3c3f72;
+    margin-top:8px;
+    font-size: 13px;
+}
+
+.text-nowrap
+{
+    white-space: nowrap;
+}
+
+.text-left
+{
+    text-align: left;
+}
+
+.text-right
+{
+    text-align: right;
+}
+
+.text-center
+{
+    text-align: center;
+}
+
+.text-white
+{
+    color: #ffffff;
+}
+
+.bg-default
+{
+    background-color: #3c3f72;
+}
+
+.bg-primary
+{
+    background-color: #55588b;
+}
+/*--General Finish--*/
+
+/*--Print Template Default Start--*/
+.col-58
+{
+    display: inline-block;
+    width: 58%;
+    vertical-align: top;
+}
+
+.col-42
+{
+    display: inline-block;
+    width: 42%;
+    vertical-align: top;
+}
+
+.col-100
+{
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+
+.lines
+{
+    border-collapse: collapse;
+    table-layout: fixed;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.lines tbody td
+{
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.lines .item
+{
+    width: 50%;
+}
+
+.lines .quantity
+{
+    width: 10%;
+    text-align: center;
+}
+
+.lines .price
+{
+    width: 20%;
+    text-align: right;
+}
+
+.lines .total
+{
+    width: 20%;
+    text-align: right;
+}
+
+.d-logo
+{
+    padding-top: 35px;
+    padding-bottom:64.5px;
+}
+
+.d-note
+{
+    width: 80%;
+    background-color: #e5e5e5;
+}
+/*--Print Template Default Finish--*/
+
+/*--Print Template Classic Start--*/
+.c-logo
+{
+    padding-top: 25px;
+}
+
+.c-note
+{
+    width: 80%;
+}
+
+.invoice-classic-line
+{
+    border: 2px solid #3c3f72;
+}
+
+.invoice-classic-frame
+{
+    width: 90%;
+    height:70px;
+    border: 3px solid #3c3f72;
+}
+
+.invoice-classic-inline-frame
+{
+    margin: 0.3% 1% 0.3% 1%;
+    width: 95% !important;
+    height: 59px;
+    border: 3px solid #3c3f72;
+}
+
+.col-33
+{
+    display: inline-block;
+    width: 33%;
+    vertical-align: top;
+}
+
+.c-lines thead th
+{
+    border-top: 1px dashed #e5e5e5;
+}
+
+.c-lines tbody td
+{
+    border-top: 1px dashed #e5e5e5;
+}
+
+.c-lines .item
+{
+    width: 50%;
+}
+
+.c-lines .quantity
+{
+    width: 10%;
+    text-align: center;
+}
+
+.c-lines .price
+{
+    width: 20%;
+    text-align: right;
+}
+
+.c-lines .total
+{
+    width: 20%;
+    text-align: right;
+}
+
+.border-top-dashed
+{
+    border-top: 1px dashed #e5e5e5;
+}
+/*--Print Template Classic Finish--*/
+
+/*--Print Template Modern Start--*/
+.align-items-center
+{
+    align-items: center !important;
+}
+
+.d-flex
+{
+    display: flex !important;
+}
+
+.m-note
+{
+    width: 80%;
+}
+
+.m-lines
+{
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.m-lines .item
+{
+    width: 50%;
+}
+
+.m-lines .quantity
+{
+    width: 10%;
+    text-align: center;
+}
+
+.m-lines .price
+{
+    width: 20%;
+    text-align: right;
+}
+
+.m-lines .total
+{
+    width: 20%;
+    text-align: right;
+}
+/*--Print Template Modern Finish--*/
+
+/*--Print Reports Start--*/
+.rp-border-top-1
+{
+    border-top: 1px solid #e5e5e5;
+}
+
+.rp-border-bottom-1
+{
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.rp-border-top-1
+{
+    border-top: 1px solid #e5e5e5;
+}
+
+.rp-border-0
+{
+    border: 0 !important;
+}
+
+.rp-border-collapse
+{
+    border-collapse: collapse;
+}
+
+.rp-float-left
+{
+    float: left;
+}
+
+.rp-float-right
+{
+    float: right;
+}
+/*--Print Reports Finish--*/
+

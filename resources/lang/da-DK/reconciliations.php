@@ -3,12 +3,16 @@
 return [
 
     'reconcile'             => 'Afstemme',
+    'unreconcile'           => 'Uafsem',
     'reconciled'            => 'Afstemt',
+    'opening_balance'       => 'Åbningsbalance',
     'closing_balance'       => 'Primo saldo',
     'unreconciled'          => 'Uafstemt',
-    'list_transactions'     => 'Vis transaktioner',
+    'transactions'          => 'Transaktioner',
     'start_date'            => 'Start dato',
     'end_date'              => 'Slut dato',
     'cleared_amount'        => 'Afstemt beløb',
+    'deposit'               => 'Indbetal',
+    'withdrawal'            => 'Udbetaling',
 
 ];

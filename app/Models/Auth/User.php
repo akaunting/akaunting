@@ -2,31 +2,31 @@
 
 namespace App\Models\Auth;
 
+use App\Traits\Tenants;
 use App\Notifications\Auth\Reset;
+use App\Traits\Media;
 use Date;
-use EloquentFilter\Filterable;
-use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
 use Kyslik\ColumnSortable\Sortable;
-use App\Traits\Media;
-use Request;
-use Route;
+use Laratrust\Traits\LaratrustUserTrait;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable
 {
-    use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable, Media;
+    use LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants;
 
     protected $table = 'users';
+
+    protected $tenantable = false;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'locale', 'enabled'];
+    protected $fillable = ['name', 'email', 'password', 'locale', 'enabled', 'landing_page'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -43,20 +43,47 @@ class User extends Authenticatable
     protected $dates = ['last_logged_in_at', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['name', 'email', 'enabled'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::retrieved(function($model) {
+            $model->setCompanyIds();
+        });
+
+        static::saving(function($model) {
+            $model->unsetCompanyIds();
+        });
+    }
+
     public function companies()
     {
         return $this->morphToMany('App\Models\Common\Company', 'user', 'user_companies', 'user_id', 'company_id');
     }
 
-    public function customer()
+    public function contact()
     {
-        return $this->hasOne('App\Models\Income\Customer', 'user_id', 'id');
+        return $this->hasOne('App\Models\Common\Contact', 'user_id', 'id');
+    }
+
+    public function dashboards()
+    {
+        return $this->morphToMany('App\Models\Common\Dashboard', 'user', 'user_dashboards', 'user_id', 'dashboard_id');
     }
 
     /**
@@ -73,7 +100,7 @@ class User extends Authenticatable
     public function getPictureAttribute($value)
     {
         // Check if we should use gravatar
-        if (setting('general.use_gravatar', '0') == '1') {
+        if (setting('default.use_gravatar', '0') == '1') {
             try {
                 // Check for gravatar
                 $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))).'?size=90&d=404';
@@ -83,12 +110,12 @@ class User extends Authenticatable
                 $client->request('GET', $url)->getBody()->getContents();
 
                 $value = $url;
-            } catch (RequestException $e) {
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
                 // 404 Not Found
             }
         }
 
-        if (!empty($value) && !$this->hasMedia('picture')) {
+        if (!empty($value)) {
             return $value;
         } elseif (!$this->hasMedia('picture')) {
             return false;
@@ -100,7 +127,7 @@ class User extends Authenticatable
     /**
      * Always return a valid picture when we retrieve it
      */
-    public function getLastLoggedInAtAttribute($value)
+    public function getLastLoggedAttribute($value)
     {
         // Date::setLocale('tr');
 
@@ -136,33 +163,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Define the filter provider globally.
-     *
-     * @return ModelFilter
-     */
-    public function modelFilter()
-    {
-        // Check if is api or web
-        if (Request::is('api/*')) {
-            $arr = array_reverse(explode('\\', explode('@', app()['api.router']->currentRouteAction())[0]));
-            $folder = $arr[1];
-            $file = $arr[0];
-        } else {
-            list($folder, $file) = explode('/', Route::current()->uri());
-        }
-
-        if (empty($folder) || empty($file)) {
-            return $this->provideFilter();
-        }
-
-        //$class = '\App\Filters\Auth\Users';
-
-        $class = '\App\Filters\\' . ucfirst($folder) . '\\' . ucfirst($file);
-
-        return $this->provideFilter($class);
-    }
-
-    /**
      * Scope to get all rows filtered, sorted and paginated.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -174,10 +174,10 @@ class User extends Authenticatable
     {
         $request = request();
 
-        $input = $request->input();
-        $limit = $request->get('limit', setting('general.list_limit', '25'));
+        $search = $request->get('search');
+        $limit = $request->get('limit', setting('default.list_limit', '25'));
 
-        return $query->filter($input)->sortable($sort)->paginate($limit);
+        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
     }
 
     /**
@@ -189,5 +189,20 @@ class User extends Authenticatable
     public function scopeEnabled($query)
     {
         return $query->where('enabled', 1);
+    }
+
+    /**
+     * Convert tax to Array.
+     *
+     * @return void
+     */
+    public function setCompanyIds()
+    {
+        $this->setAttribute('company_ids', $this->companies->pluck('id')->toArray());
+    }
+
+    public function unsetCompanyIds()
+    {
+        $this->offsetUnset('company_ids');
     }
 }

@@ -2,8 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Anterior',
-    'next'                  => 'Próxima &raquo;',
-    'showing'               => 'A mostrar :first de :last de :total :type',
+    'previous'              => 'Anterior',
+    'next'                  => 'Seguinte',
+    'showing'               => ':first-:last de :total registos.',
+    'page'                  => 'por página.',
 
 ];

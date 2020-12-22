@@ -23,22 +23,33 @@ class User extends FormRequest
      */
     public function rules()
     {
-        // Check if store or update
+        $picture = 'nullable';
+
+        if ($this->request->get('picture', null)) {
+            $picture = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
+        }
+
         if ($this->getMethod() == 'PATCH') {
-            $id = $this->user->getAttribute('id');
-            $required = '';
+            // Updating user
+            $id = is_numeric($this->user) ? $this->user : $this->user->getAttribute('id');
+            $password = '';
+            $companies = $this->user->can('read-common-companies') ? 'required' : '';
+            $roles = $this->user->can('read-auth-roles') ? 'required' : '';
         } else {
+            // Creating user
             $id = null;
-            $required = 'required|';
+            $password = 'required|';
+            $companies = 'required';
+            $roles = 'required';
         }
 
         return [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,' . $id . ',id,deleted_at,NULL',
-            'password' => $required . 'confirmed',
-            'companies' => 'required',
-            'roles' => 'required',
-            'picture' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
+            'password' => $password . 'confirmed',
+            'companies' => $companies,
+            'roles' => $roles,
+            'picture' => $picture,
         ];
     }
 }

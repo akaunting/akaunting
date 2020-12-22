@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Banking;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Transfer extends Request
+class Transfer extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

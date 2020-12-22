@@ -1,7 +1,8 @@
 <?php
 
 namespace Tests\Feature\Banking;
-use App\Models\Banking\Reconciliation;
+
+use App\Jobs\Banking\CreateReconciliation;
 use Tests\Feature\FeatureTestCase;
 
 class ReconciliationsTest extends FeatureTestCase
@@ -24,59 +25,61 @@ class ReconciliationsTest extends FeatureTestCase
 
     public function testItShouldCreateReconciliation()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(url('banking/reconciliations'), $this->getReconciliationRequest())
-            ->assertStatus(302)
-            ->assertRedirect(url('banking/reconciliations'));
+            ->post(route('reconciliations.store'), $request)
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldSeeReconciliationUpdatePage()
     {
-        $reconciliation = Reconciliation::create($this->getReconciliationRequest());
+        $request = $this->getRequest();
+
+        $reconciliation = $this->dispatch(new CreateReconciliation($request));
 
         $this->loginAs()
-            ->get(route('reconciliations.edit', ['reconciliation' => $reconciliation->id]))
+            ->get(route('reconciliations.edit', $reconciliation->id))
             ->assertStatus(200)
             ->assertSeeText(trans_choice('general.reconciliations', 2));
     }
 
     public function testItShouldUpdateReconciliation()
     {
-        $request = $this->getReconciliationRequest();
+        $request = $this->getRequest();
 
-        $reconciliation= Reconciliation::create($request);
+        $reconciliation= $this->dispatch(new CreateReconciliation($request));
 
         $request['description'] = $this->faker->text(10);
 
         $this->loginAs()
-            ->patch(url('banking/reconciliations', $reconciliation->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(url('banking/reconciliations'));
+            ->patch(route('reconciliations.update', $reconciliation->id), $request)
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
     public function testItShouldDeleteReconciliation()
     {
-        $reconciliation = Reconciliation::create($this->getReconciliationRequest());
+        $request = $this->getRequest();
+
+        $reconciliation = $this->dispatch(new CreateReconciliation($request));
 
         $this->loginAs()
-            ->delete(route('reconciliations.destroy', ['reconciliation' => $reconciliation]))
-            ->assertStatus(302)
-            ->assertRedirect(route('reconciliations.index'));
+            ->delete(route('reconciliations.destroy', $reconciliation->id))
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
     }
 
-
-    private function getReconciliationRequest()
+    private function getRequest()
     {
         return [
             'company_id' => $this->company->id,
             'account_id' => '1',
-            'currency_code' => setting('general.default_currency'),
+            'currency_code' => setting('default.currency'),
             'opening_balance' => '0',
             'closing_balance' => '10',
             'started_at' => $this->faker->date(),

@@ -27,36 +27,36 @@ class Overrider
     {
         // Set the active company settings
         setting()->setExtraColumns(['company_id' => static::$company_id]);
+        setting()->forgetAll();
         setting()->load(true);
 
         // Timezone
-        config(['app.timezone' => setting('general.timezone', 'UTC')]);
+        config(['app.timezone' => setting('localisation.timezone', 'UTC')]);
+        date_default_timezone_set(config('app.timezone'));
 
         // Email
-        $email_protocol = setting('general.email_protocol', 'mail');
-        config(['mail.driver' => $email_protocol]);
-        config(['mail.from.name' => setting('general.company_name')]);
-        config(['mail.from.address' => setting('general.company_email')]);
+        $email_protocol = setting('email.protocol', 'mail');
+        config(['mail.default' => $email_protocol]);
+        config(['mail.from.name' => setting('company.name')]);
+        config(['mail.from.address' => setting('company.email')]);
 
         if ($email_protocol == 'sendmail') {
-            config(['mail.sendmail' => setting('general.email_sendmail_path')]);
+            config(['mail.mailers.sendmail.path' => setting('email.sendmail_path')]);
         } elseif ($email_protocol == 'smtp') {
-            config(['mail.host' => setting('general.email_smtp_host')]);
-            config(['mail.port' => setting('general.email_smtp_port')]);
-            config(['mail.username' => setting('general.email_smtp_username')]);
-            config(['mail.password' => setting('general.email_smtp_password')]);
-            config(['mail.encryption' => setting('general.email_smtp_encryption')]);
+            config(['mail.mailers.smtp.host' => setting('email.smtp_host')]);
+            config(['mail.mailers.smtp.port' => setting('email.smtp_port')]);
+            config(['mail.mailers.smtp.username' => setting('email.smtp_username')]);
+            config(['mail.mailers.smtp.password' => setting('email.smtp_password')]);
+            config(['mail.mailers.smtp.encryption' => setting('email.smtp_encryption')]);
         }
-
-        // Session
-        config(['session.lifetime' => setting('general.session_lifetime', '30')]);
 
         // Locale
         if (session('locale') == '') {
-            //App::setLocale(setting('general.default_language'));
-            //Session::put('locale', setting('general.default_language'));
-            config(['app.locale' => setting('general.default_locale')]);
+            app()->setLocale(setting('default.locale'));
         }
+
+        // Set app url dynamically
+        config(['app.url' => route('dashboard')]);
     }
 
     protected static function loadCurrencies()
@@ -64,10 +64,8 @@ class Overrider
         $currencies = Currency::all();
 
         foreach ($currencies as $currency) {
-            if (!isset($currency->precision)) {
-                continue;
-            }
-
+            config(['money.' . $currency->code . '.name' => $currency->name]);
+            config(['money.' . $currency->code . '.rate' => $currency->rate]);
             config(['money.' . $currency->code . '.precision' => $currency->precision]);
             config(['money.' . $currency->code . '.symbol' => $currency->symbol]);
             config(['money.' . $currency->code . '.symbol_first' => $currency->symbol_first]);
@@ -78,5 +76,4 @@ class Overrider
         // Set currencies with new settings
         \Akaunting\Money\Currency::setCurrencies(config('money'));
     }
-
 }

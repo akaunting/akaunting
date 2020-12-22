@@ -1,76 +1,58 @@
 @extends('layouts.auth')
 
 @section('title', trans('auth.login'))
+
 @section('message', trans('auth.login_to'))
 
 @section('content')
-<form role="form" method="POST" action="{{ url('auth/login') }}">
-    {{ csrf_field() }}
+    <div role="alert" class="alert alert-danger d-none" :class="(form.response.error) ? 'show' : ''" v-if="form.response.error" v-html="form.response.message"></div>
 
-    @stack('email_input_start')
-    <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-        <input name="email" type="email" class="form-control" placeholder="{{ trans('general.email') }}" required autofocus>
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        @if ($errors->has('email'))
-            <span class="help-block">
-                <strong>{{ $errors->first('email') }}</strong>
-            </span>
-        @endif
-    </div>
-    @stack('email_input_end')
+    {!! Form::open([
+        'route' => 'login',
+        'id' => 'login',
+        '@submit.prevent' => 'onSubmit',
+        '@keydown' => 'form.errors.clear($event.target.name)',
+        'files' => true,
+        'role' => 'form',
+        'class' => 'form-loading-button',
+        'novalidate' => true
+    ]) !!}
 
-    @stack('password_input_start')
-    <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-        <input name="password" type="password" class="form-control" placeholder="{{ trans('auth.password.current') }}" required>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        @if ($errors->has('password'))
-            <span class="help-block">
-                <strong>{{ $errors->first('password') }}</strong>
-            </span>
-        @endif
-    </div>
-    @stack('password_input_end')
+        {{ Form::emailGroup('email', false, 'envelope', ['placeholder' => trans('general.email')], null, 'has-feedback', 'input-group-alternative') }}
 
-    <div class="row">
-        @stack('remember_input_start')
-        <div class="col-sm-8">
-            <div class="checkbox icheck">
-                <label>
-                    <input name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }}> &nbsp;{{ trans('auth.remember_me') }}
-                </label>
+        {{ Form::passwordGroup('password', false, 'unlock-alt', ['placeholder' => trans('auth.password.current')], 'has-feedback', 'input-group-alternative') }}
+
+        <div class="row align-items-center">
+            @stack('remember_input_start')
+                <div class="col-xs-12 col-sm-8">
+                    <div class="custom-control custom-control-alternative custom-checkbox">
+                        {{ Form::checkbox('remember', 1, null, [
+                            'id' => 'checkbox-remember',
+                            'class' => 'custom-control-input',
+                            'v-model' => 'form.remember'
+                        ]) }}
+                        <label class="custom-control-label" for="checkbox-remember">
+                            <span class="text-white">{{ trans('auth.remember_me') }}</span>
+                        </label>
+                    </div>
+                </div>
+            @stack('remember_input_end')
+
+            <div class="col-xs-12 col-sm-4">
+                {!! Form::button(
+                '<div class="aka-loader"></div> <span>' . trans('auth.login') . '</span>',
+                [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-success float-right header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
             </div>
         </div>
-        @stack('remember_input_end')
-        <!-- /.col -->
 
-        <div class="col-sm-4">
-            <button type="submit" class="btn btn-success btn-block btn-flat">{{ trans('auth.login') }}</button>
-        </div>
-        <!-- /.col -->
-    </div>
-</form>
-
-<a href="{{ url('auth/forgot') }}">{{ trans('auth.forgot_password') }}</a><br>
+        @stack('forgotten-password-start')
+            <div class="mt-5 mb--4">
+                <a href="{{ route('forgot') }}" class="text-white"><small>{{ trans('auth.forgot_password') }}</small></a>
+            </div>
+        @stack('forgotten-password-end')
+    {!! Form::close() !!}
 @endsection
 
-@push('js')
-<!-- iCheck -->
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
-@endpush
-
-@push('css')
-<!-- iCheck -->
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
-@endpush
-
-@push('scripts')
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-            increaseArea: '20%' // optional
-        });
-    });
-</script>
+@push('scripts_start')
+    <script src="{{ asset('public/js/auth/login.js?v=' . version('short')) }}"></script>
 @endpush

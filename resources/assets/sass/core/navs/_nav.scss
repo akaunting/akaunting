@@ -1,0 +1,33 @@
+//
+// Nav
+//
+
+
+// Nav wrapper (container)
+
+// Nav wrapper
+.nav-wrapper {
+    padding: 1rem 0;
+    @include border-top-radius($card-border-radius);
+
+    + .card {
+        @include border-top-radius(0);
+        @include border-bottom-radius($card-border-radius);
+    }
+}
+
+
+// Nav links
+
+.nav-link {
+    color: $nav-link-color;
+
+    &:hover {
+        color: $nav-link-hover-color;
+    }
+
+    i.ni {
+        position: relative;
+        top: 2px;
+    }
+}

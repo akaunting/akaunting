@@ -2,273 +2,364 @@
 
 namespace App\Traits;
 
+use App\Models\Module\Module;
+use App\Traits\SiteApi;
+use App\Utilities\Console;
 use App\Utilities\Info;
-use Artisan;
-use File;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use Module;
-use App\Models\Module\Module as MModule;
-use ZipArchive;
 use Cache;
 use Date;
+use File;
+use Illuminate\Support\Str;
+use ZipArchive;
 
 trait Modules
 {
+    use SiteApi;
 
-    public function checkToken($token)
+    public function checkToken($apiKey)
     {
         $data = [
             'form_params' => [
-                'token' => $token,
+                'token' => $apiKey,
             ]
         ];
 
-        $response = $this->getRemote('token/check', 'POST', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            $result = json_decode($response->getBody());
-
-            return ($result->success) ? true : false;
+        if (!$response = static::getResponse('POST', 'token/check', $data)) {
+            return false;
         }
 
-        return false;
+        $result = json_decode($response->getBody());
+
+        return $result->success ? true : false;
     }
 
-    public function getModules()
+    // Get All Modules
+    public function getModules($data = [])
     {
-        $response = $this->getRemote('apps/items');
+        $key = 'apps.app.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $items = Cache::get($key);
+
+        if (!empty($items)) {
+            return $items;
         }
 
-        return [];
+        $items = static::getResponseData('GET', 'apps/items');
+
+        Cache::put($key, $items, Date::now()->addHour());
+
+        return $items;
     }
 
+    // Get Module
     public function getModule($alias)
     {
-        $response = $this->getRemote('apps/' . $alias);
+        $item = static::getResponseData('GET', 'apps/' . $alias);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        return $item;
+    }
+
+    public function getDocumentation($alias, $data = [])
+    {
+        $key = 'apps.' . $alias . '.docs.' . $this->getDataKey($data);
+
+        $documentation = Cache::get($key);
+
+        if (!empty($documentation)) {
+            return $documentation;
         }
 
-        return [];
+        $documentation = static::getResponseData('GET', 'apps/docs/' . $alias);
+
+        Cache::put($key, $documentation, Date::now()->addHour());
+
+        return $documentation;
     }
 
     public function getModuleReviews($alias, $data = [])
     {
-        $response = $this->getRemote('apps/' . $alias . '/reviews', 'GET', $data);
+        $key = 'apps.' . $alias . '.reviews.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $reviews = Cache::get($key);
+
+        if (!empty($reviews)) {
+            return $reviews;
         }
 
-        return [];
+        $reviews = static::getResponseData('GET', 'apps/' . $alias . '/reviews', $data);
+
+        Cache::put($key, $reviews, Date::now()->addHour());
+
+        return $reviews;
     }
 
-    public function getCategories()
+    public function getCategories($data = [])
     {
-        $response = $this->getRemote('apps/categories');
+        $key = 'apps.categories.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $categories = Cache::get($key);
+
+        if (!empty($categories)) {
+            return $categories;
         }
 
-        return [];
+        $categories = static::getResponseData('GET', 'apps/categories');
+
+        Cache::put($key, $categories, Date::now()->addHour());
+
+        return $categories;
     }
 
     public function getModulesByCategory($alias, $data = [])
     {
-        $response = $this->getRemote('apps/categories/' . $alias, 'GET', $data);
+        $key = 'apps.categories.' . $alias . '.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $category = Cache::get($key);
+
+        if (!empty($category)) {
+            return $category;
         }
 
-        return [];
+        $category = static::getResponseData('GET', 'apps/categories/' . $alias, $data);
+
+        Cache::put($key, $category, Date::now()->addHour());
+
+        return $category;
     }
 
-    public function getVendors()
+    public function getVendors($data = [])
     {
-        $response = $this->getRemote('apps/vendors');
+        $key = 'apps.vendors.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $vendors = Cache::get($key);
+
+        if (!empty($vendors)) {
+            return $vendors;
         }
 
-        return [];
+        $vendors = static::getResponseData('GET', 'apps/vendors');
+
+        Cache::put($key, $vendors, Date::now()->addHour());
+
+        return $vendors;
     }
 
     public function getModulesByVendor($alias, $data = [])
     {
-        $response = $this->getRemote('apps/vendors/' . $alias, 'GET', $data);
+        $key = 'apps.vendors.' . $alias . '.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $vendor = Cache::get($key);
+
+        if (!empty($vendor)) {
+            return $vendor;
         }
 
-        return [];
+        $vendor = static::getResponseData('GET', 'apps/vendors/' . $alias, $data);
+
+        Cache::put($key, $vendor, Date::now()->addHour());
+
+        return $vendor;
     }
 
     public function getMyModules($data = [])
     {
-        $response = $this->getRemote('apps/my', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return static::getResponseData('GET', 'apps/my', $data);
     }
 
-    public function getInstalledModules($data = [])
+    public function getInstalledModules()
     {
-        $company_id = session('company_id');
+        $key = 'apps.installed.' . session('company_id');
 
-        $cache = 'installed.' . $company_id . '.module';
-
-        $installed = Cache::get($cache);
-
-        if ($installed) {
+        if ($installed = Cache::get($key)) {
             return $installed;
         }
 
         $installed = [];
-        $modules = Module::all();
-        $installed_modules = MModule::where('company_id', '=', session('company_id'))->pluck('status', 'alias')->toArray();
 
-        foreach ($modules as $module) {
-            if (!array_key_exists($module->alias, $installed_modules)) {
-                continue;
+        Module::all()->each(function($module) use (&$installed) {
+            if (!$this->moduleExists($module->alias)) {
+                return;
             }
 
-            $result = $this->getModule($module->alias);
-
-            if ($result) {
-                $installed[] = $result;
+            if (!$result = $this->getModule($module->alias)) {
+                return;
             }
-        }
 
-        Cache::put($cache, $installed, Date::now()->addHour(6));
+            $installed[] = $result;
+        });
+
+        Cache::put($key, $installed, Date::now()->addHour(6));
 
         return $installed;
     }
 
-    public function getPaidModules($data = [])
+    public function getPreSaleModules($data = [])
     {
-        $response = $this->getRemote('apps/paid', 'GET', $data);
+        $key = 'apps.pre_sale.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $pre_sale = Cache::get($key);
+
+        if (!empty($pre_sale)) {
+            return $pre_sale;
         }
 
-        return [];
+        $pre_sale = static::getResponseData('GET', 'apps/pre_sale', $data);
+
+        Cache::put($key, $pre_sale, Date::now()->addHour());
+
+        return $pre_sale;
+    }
+
+    public function getPaidModules($data = [])
+    {
+        $key = 'apps.paid.' . $this->getDataKey($data);
+
+        $paid = Cache::get($key);
+
+        if (!empty($paid)) {
+            return $paid;
+        }
+
+        $paid = static::getResponseData('GET', 'apps/paid', $data);
+
+        Cache::put($key, $paid, Date::now()->addHour());
+
+        return $paid;
     }
 
     public function getNewModules($data = [])
     {
-        $response = $this->getRemote('apps/new', 'GET', $data);
+        $key = 'apps.new.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $new = Cache::get($key);
+
+        if (!empty($new)) {
+            return $new;
         }
 
-        return [];
+        $new = static::getResponseData('GET', 'apps/new', $data);
+
+        Cache::put($key, $new, Date::now()->addHour());
+
+        return $new;
     }
 
     public function getFreeModules($data = [])
     {
-        $response = $this->getRemote('apps/free', 'GET', $data);
+        $key = 'apps.free.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $free = Cache::get($key);
+
+        if (!empty($free)) {
+            return $free;
         }
 
-        return [];
-    }
+        $free = static::getResponseData('GET', 'apps/free', $data);
 
-    public function getSearchModules($data = [])
-    {
-        $response = $this->getRemote('apps/search', 'GET', $data);
+        Cache::put($key, $free, Date::now()->addHour());
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
+        return $free;
     }
 
     public function getFeaturedModules($data = [])
     {
-        $response = $this->getRemote('apps/featured', 'GET', $data);
+        $key = 'apps.featured.' . $this->getDataKey($data);
 
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
+        $featured = Cache::get($key);
+
+        if (!empty($featured)) {
+            return $featured;
         }
 
-        return [];
+        $featured = static::getResponseData('GET', 'apps/featured', $data);
+
+        Cache::put($key, $featured, Date::now()->addHour());
+
+        return $featured;
+    }
+
+    public function getSearchModules($data = [])
+    {
+        return static::getResponseData('GET', 'apps/search', $data);
     }
 
     public function getCoreVersion()
     {
         $data['query'] = Info::all();
 
-        $response = $this->getRemote('core/version', 'GET', $data);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return $response->json();
+        if (!$response = static::getResponse('GET', 'core/version', $data)) {
+            return [];
         }
 
-        return [];
+        return $response->json();
     }
 
     public function downloadModule($path)
     {
-        $response = $this->getRemote($path);
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            $file = $response->getBody()->getContents();
-
-            $path = 'temp-' . md5(mt_rand());
-            $temp_path = storage_path('app/temp') . '/' . $path;
-
-            $file_path = $temp_path . '/upload.zip';
-
-            // Create tmp directory
-            if (!File::isDirectory($temp_path)) {
-                File::makeDirectory($temp_path);
-            }
-
-            // Add content to the Zip file
-            $uploaded = is_int(file_put_contents($file_path, $file)) ? true : false;
-
-            if (!$uploaded) {
-                return false;
-            }
-
-            $data = [
-                'path' => $path
-            ];
-
+        if (empty($path)) {
             return [
-                'success' => true,
-                'errors' => false,
-                'data' => $data,
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.download', ['module' => '']),
+                'data' => null,
+            ];
+        }
+
+        if (!$response = static::getResponse('GET', $path)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.download', ['module' => '']),
+                'data' => null,
+            ];
+        }
+
+        $file = $response->getBody()->getContents();
+
+        $path = 'temp-' . md5(mt_rand());
+        $temp_path = storage_path('app/temp/' . $path);
+
+        $file_path = $temp_path . '/upload.zip';
+
+        // Create tmp directory
+        if (!File::isDirectory($temp_path)) {
+            File::makeDirectory($temp_path);
+        }
+
+        // Add content to the Zip file
+        $uploaded = is_int(file_put_contents($file_path, $file)) ? true : false;
+
+        if (!$uploaded) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.download', ['module' => '']),
+                'data' => null,
             ];
         }
 
         return [
-            'success' => false,
-            'errors' => true,
-            'data' => null,
+            'success' => true,
+            'error' => false,
+            'message' => null,
+            'data' => [
+                'path' => $path,
+            ],
         ];
     }
 
     public function unzipModule($path)
     {
-        $temp_path = storage_path('app/temp') . '/' . $path;
+        if (empty($path)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.unzip', ['module' => '']),
+                'data' => null,
+            ];
+        }
+
+        $temp_path = storage_path('app/temp/' . $path);
 
         $file = $temp_path . '/upload.zip';
 
@@ -278,7 +369,8 @@ trait Modules
         if (!$zip->open($file) || !$zip->extractTo($temp_path)) {
             return [
                 'success' => false,
-                'errors' => true,
+                'error' => true,
+                'message' => trans('modules.errors.unzip', ['module' => '']),
                 'data' => null,
             ];
         }
@@ -288,22 +380,30 @@ trait Modules
         // Remove Zip
         File::delete($file);
 
-        $data = [
-            'path' => $path
-        ];
-
         return [
             'success' => true,
-            'errors' => false,
-            'data' => $data,
+            'error' => false,
+            'message' => null,
+            'data' => [
+                'path' => $path,
+            ],
         ];
     }
 
     public function installModule($path)
     {
-        $temp_path = storage_path('app/temp') . '/' . $path;
+        $temp_path = storage_path('app/temp/' . $path);
 
-        $modules_path = base_path() . '/modules';
+        if (empty($path) || !is_file($temp_path . '/module.json')) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => trans('modules.errors.finish', ['module' => '']),
+                'data' => null,
+            ];
+        }
+
+        $modules_path = config('module.paths.modules');
 
         // Create modules directory
         if (!File::isDirectory($modules_path)) {
@@ -312,7 +412,7 @@ trait Modules
 
         $module = json_decode(file_get_contents($temp_path . '/module.json'));
 
-        $module_path = $modules_path . '/' . $module->name;
+        $module_path = $modules_path . '/' . Str::studly($module->alias);
 
         // Create module directory
         if (!File::isDirectory($module_path)) {
@@ -323,89 +423,153 @@ trait Modules
         File::copyDirectory($temp_path, $module_path);
         File::deleteDirectory($temp_path);
 
-        Artisan::call('cache:clear');
+        event(new \App\Events\Module\Copied($module->alias, session('company_id')));
 
-        $data = [
-            'path'  => $path,
-            'name' => $module->name,
-            'alias' => $module->alias
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
+
+        $command = "module:install {$module->alias} {$company_id} {$locale}";
+
+        if (true !== $result = Console::run($command)) {
+            $message = !empty($result) ? $result : trans('modules.errors.finish', ['module' => $module->alias]);
+
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
-            'installed' => url("apps/post/" . $module->alias),
-            'errors' => false,
-            'data' => $data,
+            'redirect' => route('apps.app.show', $module->alias),
+            'error' => false,
+            'message' => null,
+            'data' => [
+                'path' => $path,
+                'name' => module($module->alias)->getName(),
+                'alias' => $module->alias,
+            ],
         ];
     }
 
     public function uninstallModule($alias)
     {
-        $module = Module::findByAlias($alias);
+        $module = module($alias);
+        $name = $module->getName();
+        $version = $module->get('version');
 
-        $data = [
-            'name' => $module->get('name'),
-            'category' => $module->get('category'),
-            'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->delete();
+        $command = "module:uninstall {$alias} {$company_id} {$locale}";
 
-        Artisan::call('cache:clear');
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
-            'errors' => false,
-            'data'   => $data
+            'error' => false,
+            'message' => null,
+            'data' => [
+                'name' => $name,
+                'version' => $version,
+            ],
         ];
     }
 
     public function enableModule($alias)
     {
-        $module = Module::findByAlias($alias);
+        $module = module($alias);
 
-        $data = [
-            'name' => $module->get('name'),
-            'category' => $module->get('category'),
-            'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->enable();
+        $command = "module:enable {$alias} {$company_id} {$locale}";
 
-        Artisan::call('cache:clear');
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
-            'errors' => false,
-            'data'   => $data
+            'error' => false,
+            'message' => null,
+            'data' => [
+                'name' => $module->getName(),
+                'version' => $module->get('version'),
+            ],
         ];
     }
 
     public function disableModule($alias)
     {
-        $module = Module::findByAlias($alias);
+        $module = module($alias);
 
-        $data = [
-          'name' => $module->get('name'),
-          'category' => $module->get('category'),
-          'version' => $module->get('version'),
-        ];
+        $company_id = session('company_id');
+        $locale = app()->getLocale();
 
-        $module->disable();
+        $command = "module:disable {$alias} {$company_id} {$locale}";
 
-        Artisan::call('cache:clear');
+        if (true !== $result = Console::run($command)) {
+            return [
+                'success' => false,
+                'error' => true,
+                'message' => $result,
+                'data' => null,
+            ];
+        }
 
         return [
             'success' => true,
-            'errors' => false,
-            'data'   => $data
+            'error' => false,
+            'message' => null,
+            'data' => [
+                'name' => $module->getName(),
+                'version' => $module->get('version'),
+            ],
         ];
+    }
+
+    public function moduleExists($alias)
+    {
+        if (!module($alias) instanceof \Akaunting\Module\Module) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function moduleIsEnabled($alias)
+    {
+        if (!$this->moduleExists($alias)) {
+            return false;
+        }
+
+        if (!Module::alias($alias)->enabled()->first()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function loadSuggestions()
     {
-        // Get data from cache
-        $data = Cache::get('suggestions');
+        $key = 'apps.suggestions';
+
+        $data = Cache::get($key);
 
         if (!empty($data)) {
             return $data;
@@ -413,35 +577,49 @@ trait Modules
 
         $data = [];
 
-        $url = 'apps/suggestions';
-
-        $response = $this->getRemote($url, 'GET', ['timeout' => 30, 'referer' => true]);
-
-        // Exception
-        if ($response instanceof RequestException) {
-            return false;
+        if (!$suggestions = static::getResponseData('GET', 'apps/suggestions')) {
+            return $data;
         }
-
-        // Bad response
-        if (!$response || ($response->getStatusCode() != 200)) {
-            return false;
-        }
-
-        $suggestions = json_decode($response->getBody())->data;
 
         foreach ($suggestions as $suggestion) {
             $data[$suggestion->path] = $suggestion;
         }
 
-        Cache::put('suggestions', $data, Date::now()->addHour(6));
+        Cache::put($key, $data, Date::now()->addHour(6));
+
+        return $data;
+    }
+
+    public function loadNotifications()
+    {
+        $key = 'apps.notifications';
+
+        $data = Cache::get($key);
+
+        if (!empty($data)) {
+            return $data;
+        }
+
+        $data = [];
+
+        if (!$notifications = static::getResponseData('GET', 'apps/notifications')) {
+            return $data;
+        }
+
+        foreach ($notifications as $notification) {
+            $data[$notification->path][] = $notification;
+        }
+
+        Cache::put($key, $data, Date::now()->addHour(6));
 
         return $data;
     }
 
     public function getSuggestions($path)
     {
-        // Get data from cache
-        $data = Cache::get('suggestions');
+        $key = 'apps.suggestions';
+
+        $data = Cache::get($key);
 
         if (empty($data)) {
             $data = $this->loadSuggestions();
@@ -454,27 +632,44 @@ trait Modules
         return false;
     }
 
-    protected function getRemote($path, $method = 'GET', $data = array())
+    public function getNotifications($path)
     {
-        $base = 'https://akaunting.com/api/';
+        $key = 'apps.notifications';
 
-        $client = new Client(['verify' => false, 'base_uri' => $base]);
+        $data = Cache::get($key);
 
-        $headers['headers'] = [
-            'Authorization' => 'Bearer ' . setting('general.api_token'),
-            'Accept'        => 'application/json',
-            'Referer'       => env('APP_URL'),
-            'Akaunting'     => version('short'),
-        ];
+        if (empty($data)) {
+            $data = $this->loadNotifications();
+        }
 
-        $data['http_errors'] = false;
+        if (!empty($data) && array_key_exists($path, $data)) {
+            return $data[$path];
+        }
 
-        $data = array_merge($data, $headers);
+        return false;
+    }
 
-        try {
-            $result = $client->request($method, $path, $data);
-        } catch (RequestException $e) {
-            $result = false;
+    public function getPageNumber($data = [])
+    {
+        if (empty($data['query']) || empty($data['query']['page'])) {
+            return 1;
+        }
+
+        return $data['query']['page'];
+    }
+
+    public function getDataKey($data = [])
+    {
+        $result = 'language.' . language()->getShortCode() . '.page.' . $this->getPageNumber($data);
+
+        if (isset($data['query']['page'])) {
+            unset($data['query']['page']);
+        }
+
+        if (isset($data['query'])){
+            foreach($data['query'] as $key => $value) {
+                $result .= '.' . $key . '.' . $value;
+            }
         }
 
         return $result;

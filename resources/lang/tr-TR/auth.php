@@ -13,16 +13,18 @@ return [
     'current_email'         => 'Geçerli Email',
     'reset'                 => 'Sıfırla',
     'never'                 => 'hiçbir zaman',
-    
+    'landing_page'          => 'Açılış Sayfası',
+
     'password' => [
         'current'           => 'Şifre',
         'current_confirm'   => 'Şifre Onayı',
         'new'               => 'Yeni Şifre',
         'new_confirm'       => 'Yeni Şifre Onayı',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Hata: Kendinizi silemezsiniz!',
+        'self_disable'      => 'Hata: Kendinizi devre dışı bırakamazsınız!',
         'no_company'        => 'Hata: Hesabınıza atanmış herhangi bir şirket yok. Lütfen, sistem yöneticisi ile iletişime geçin.',
     ],
 

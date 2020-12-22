@@ -2,8 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Prapa',
-    'next'                  => 'Para &raquo;',
-    'showing'               => 'Shfaq :first për të :last i :total :type',
+    'previous'              => 'Paraardhëse',
+    'next'                  => 'Vijues',
+    'showing'               => ':first-:last nga :total rekordet.',
+    'page'                  => 'per faqe.',
 
 ];

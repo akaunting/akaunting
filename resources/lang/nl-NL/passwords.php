@@ -18,5 +18,6 @@ return [
     'sent' => 'Wij hebben uw wachtwoord reset link per e-mail naar u verstuurd!',
     'token' => 'Dit wachtwoord reset-token is ongeldig.',
     'user' => "Wij kunnen geen gebruiker met dat e-mail adres vinden.",
+    'throttle' => 'Wacht alsjeblieft even voor je het opnieuw probeert.',
 
 ];

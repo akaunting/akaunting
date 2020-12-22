@@ -13,12 +13,19 @@
 
     # Prevent Direct Access to Protected Files
     <FilesMatch "(?i)(^artisan$|\.env|\.log)">
-        Order deny,allow
-        Deny from all
+        # Apache 2.2 syntax
+        <IfModule !mod_authz_core.c>
+            Order deny,allow
+            Deny from all
+        </IfModule>
+        # Apache 2.4 syntax
+        <IfModule mod_authz_core.c>
+            Require all denied
+        </IfModule>
     </FilesMatch>
 
     # Prevent Direct Access To Protected Folders
-    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests)/(.*) / [L,R=301]
+    RewriteRule ^(app|bootstrap|config|database|overrides|resources|routes|storage|tests)/(.*) / [L,R=301]
 
     # Prevent Direct Access To modules/vendor Folders Except Assets
     RewriteRule ^(modules|vendor)/(.*)\.((?!ico|gif|jpg|jpeg|png|js|css|less|sass|font|woff|woff2|eot|ttf|svg).)*$ / [L,R=301]
@@ -27,7 +34,7 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-    # Handle Front Controller...
+    # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]

@@ -1,0 +1,104 @@
+//
+// Navbar dropdown
+//
+
+
+.navbar {
+    .dropdown-menu {
+        opacity: 0;
+        pointer-events: none;
+        margin: 0;
+    }
+
+    .dropdown-menu-arrow {
+        &:before {
+            background: $dropdown-bg;
+            box-shadow: none;
+            content: '';
+            display: block;
+            height: 12px;
+            width: 12px;
+            left: 20px;
+            position: absolute;
+            bottom: 100%;
+            transform: rotate(-45deg) translateY(12px);
+            z-index: -5;
+            border-radius: 2px;
+        }
+    }
+
+    .dropdown-menu-right {
+        &:before {
+            right: 20px;
+            left: auto;
+        }
+    }
+
+    &:not(.navbar-nav-hover) {
+        .dropdown-menu {
+            &.show {
+                opacity: 1;
+                pointer-events: auto;
+                animation: show-navbar-dropdown .25s ease forwards;
+            }
+
+            &.close {
+                display: block;
+                animation: hide-navbar-dropdown .15s ease backwards;
+            }
+        }
+    }
+
+    &.navbar-nav-hover {
+        .dropdown-menu {
+            opacity: 0;
+            display: block;
+            pointer-events: none;
+            transform: translate(0, 10px) perspective(200px) rotateX(-2deg);
+            transition: visibility 0.25s, opacity 0.25s, transform 0.25s;
+        }
+
+        .nav-item.dropdown:hover > .dropdown-menu {
+            display: block;
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+            transform: translate(0, 0);
+            animation: none;
+        }
+    }
+
+    .dropdown-menu-inner {
+        position: relative;
+        padding: 1rem;
+    }
+
+
+    // Keyframes
+
+    @keyframes show-navbar-dropdown {
+        0% {
+            opacity: 0;
+            // transform: translate(0, 10px) perspective(200px) rotateX(-2deg);
+            transform: translate(0, 10px) perspective(200px);
+            transition: visibility 0.25s, opacity 0.25s, transform 0.25s;
+        }
+
+        100% {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes hide-navbar-dropdown {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+            transform: translate(0, 10px)
+            // transform: translate(0, 10px) perspective(0) rotateX(0);
+        }
+    }
+}

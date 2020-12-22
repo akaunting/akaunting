@@ -21,10 +21,10 @@ class $CLASS$
     /**
      * Handle the event.
      *
-     * @param \$EVENTNAME$ $event
+     * @param $SHORTEVENTNAME$ $event
      * @return void
      */
-    public function handle(\$EVENTNAME$ $event)
+    public function handle($SHORTEVENTNAME$ $event)
     {
         //
     }

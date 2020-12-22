@@ -1,19 +1,16 @@
 {
-    "name": "$STUDLY_NAME$",
-    "alias": "$LOWER_NAME$",
-    "description": "",
+    "alias": "$ALIAS$",
+    "icon": "fa fa-cog",
     "version": "1.0.0",
-    "category": "payment-gateway",
-    "keywords": [],
     "active": 1,
-    "order": 0,
     "providers": [
-        "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\$STUDLY_NAME$ServiceProvider"
+        "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\Event",
+        "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\Main"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": [],
+    "reports": [],
+    "widgets": [],
     "settings": []
 }

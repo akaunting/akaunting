@@ -2,10 +2,13 @@
 
 namespace App\Models\Setting;
 
-use App\Models\Model;
+use App\Abstracts\Model;
+use App\Traits\Contacts;
+use App\Traits\Transactions;
 
 class Currency extends Model
 {
+    use Contacts, Transactions;
 
     protected $table = 'currencies';
 
@@ -28,39 +31,44 @@ class Currency extends Model
         return $this->hasMany('App\Models\Banking\Account', 'currency_code', 'code');
     }
 
+    public function bills()
+    {
+        return $this->hasMany('App\Models\Purchase\Bill', 'currency_code', 'code');
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany('App\Models\Common\Contact', 'currency_code', 'code');
+    }
+
     public function customers()
     {
-        return $this->hasMany('App\Models\Income\Customer', 'currency_code', 'code');
+        return $this->contacts()->whereIn('type', (array) $this->getCustomerTypes());
+    }
+
+    public function expense_transactions()
+    {
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
+    }
+
+    public function income_transactions()
+    {
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Income\Invoice', 'currency_code', 'code');
+        return $this->hasMany('App\Models\Sale\Invoice', 'currency_code', 'code');
     }
 
-    public function invoice_payments()
+    public function transactions()
     {
-        return $this->hasMany('App\Models\Income\InvoicePayment', 'currency_code', 'code');
+        return $this->hasMany('App\Models\Banking\Transaction', 'currency_code', 'code');
     }
 
-    public function revenues()
+    public function vendors()
     {
-        return $this->hasMany('App\Models\Income\Revenue', 'currency_code', 'code');
-    }
-
-    public function bills()
-    {
-        return $this->hasMany('App\Models\Expense\Bill', 'currency_code', 'code');
-    }
-
-    public function bill_payments()
-    {
-        return $this->hasMany('App\Models\Expense\BillPayment', 'currency_code', 'code');
-    }
-
-    public function payments()
-    {
-        return $this->hasMany('App\Models\Expense\Payment', 'currency_code', 'code');
+        return $this->contacts()->whereIn('type', (array) $this->getVendorTypes());
     }
 
     /**
@@ -85,7 +93,7 @@ class Currency extends Model
             return config('money.' . $this->code . '.precision');
         }
 
-        return $value;
+        return (int) $value;
     }
 
     /**
@@ -142,5 +150,17 @@ class Currency extends Model
         }
 
         return $value;
+    }
+
+    /**
+     * Scope currency by code.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $code
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCode($query, $code)
+    {
+        return $query->where($this->table . '.code', $code);
     }
 }

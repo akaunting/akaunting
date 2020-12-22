@@ -3,12 +3,16 @@
 return [
 
     'reconcile'             => 'Reconcile',
+    'unreconcile'           => 'Unreconcile',
     'reconciled'            => 'Reconciled',
+    'opening_balance'       => 'Opening Balance',
     'closing_balance'       => 'Closing Balance',
     'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
+    'transactions'          => 'Transactions',
     'start_date'            => 'Start Date',
     'end_date'              => 'End Date',
     'cleared_amount'        => 'Cleared Amount',
+    'deposit'               => 'Deposit',
+    'withdrawal'            => 'Withdrawal',
 
 ];

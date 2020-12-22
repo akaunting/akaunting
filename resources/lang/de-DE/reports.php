@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Reingewinn',
     'total_expenses'        => 'Gesamtausgaben',
     'net'                   => 'Netto',
+    'income_expense'        => 'Einkommen vs Ausgaben',
 
     'summary' => [
         'income'            => 'Einkommensübersicht',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Steuerzusammenfassung',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mär',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Okt-Dez',
+    'charts' => [
+        'line'              => 'Linien',
+        'bar'               => 'Balken',
+        'pie'               => 'Kuchen',
     ],
 
 ];

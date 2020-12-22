@@ -1,0 +1,15 @@
+<card-form
+    :card="false"
+    :path="'{{ $confirm_url }}'"
+    :text-card-number="'{{ trans('general.card.number') }}'"
+    :placeholder-card-number="'{{ trans('general.form.enter', ['field' => trans('general.card.number')]) }}'"
+    :text-card-name="'{{ trans('general.card.name') }}'"
+    :placeholder-card-name="'{{ trans('general.form.enter', ['field' => trans('general.card.name')]) }}'"
+    :text-expiration-date="'{{ trans('general.card.expiration_date') }}'"
+    :text-month="'{{ trans('general.month') }}'"
+    :text-year="'{{ trans('general.year') }}'"
+    :text-cvv="'{{ trans('general.card.cvv') }}'"
+    :placeholder-card-cvv="'{{ trans('general.form.enter', ['field' => trans('general.card.cvv')]) }}'"
+    :textButton="'{{ trans('general.confirm') }}'"
+    :form-data="formData"
+/>

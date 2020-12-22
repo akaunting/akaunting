@@ -2,14 +2,13 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Traits\Modules;
 use Illuminate\View\View;
-use App\Traits\Modules as RemoteModules;
 use Route;
-use App\Models\Module\Module;
 
 class Suggestions
 {
-    use RemoteModules;
+    use Modules;
 
     /**
      * Bind data to the view.
@@ -20,36 +19,36 @@ class Suggestions
     public function compose(View $view)
     {
         // No need to add suggestions in console
-        if (app()->runningInConsole() || !env('APP_INSTALLED')) {
+        if (app()->runningInConsole() || !config('app.installed')) {
             return;
         }
 
-        $modules = false;
-
-        $path = Route::current()->uri();
-
-        if ($path) {
-            $suggestions = $this->getSuggestions($path);
-
-            if ($suggestions) {
-                $suggestion_modules = $suggestions->modules;
-
-                foreach ($suggestion_modules as $key => $module) {
-                    $installed = Module::where('company_id', '=', session('company_id'))->where('alias', '=', $module->alias)->first();
-
-                    if ($installed) {
-                        unset($suggestion_modules[$key]);
-                    }
-                }
-
-                if ($suggestion_modules) {
-                    shuffle($suggestion_modules);
-
-                    $modules[] = $suggestion_modules[0];
-                }
-            }
+        if ((!$user = user()) || $user->cannot('read-modules-home')) {
+            return;
         }
 
-        $view->with(['suggestion_modules' => $modules]);
+        if (!$path = Route::current()->uri()) {
+            return;
+        }
+
+        if (!$suggestions = $this->getSuggestions($path)) {
+            return;
+        }
+
+        $modules = [];
+
+        foreach ($suggestions->modules as $s_module) {
+            if ($this->moduleIsEnabled($s_module->alias)) {
+                continue;
+            }
+
+            $modules[] = $s_module;
+        }
+
+        if (empty($modules)) {
+            return;
+        }
+
+        $view->getFactory()->startPush('header_button_end', view('partials.admin.suggestions', compact('modules')));
     }
 }

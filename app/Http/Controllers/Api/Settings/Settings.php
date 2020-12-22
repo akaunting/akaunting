@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Settings;
 
-use App\Http\Controllers\ApiController;
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Setting\Setting;
 use App\Transformers\Setting\Setting as Transformer;
@@ -52,7 +52,7 @@ class Settings extends ApiController
     {
         $setting = Setting::create($request->all());
 
-        return $this->response->created(url('api/settings/'.$setting->id));
+        return $this->response->created(route('api.settings.show', $setting->id));
     }
 
     /**

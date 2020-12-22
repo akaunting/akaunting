@@ -1,0 +1,16 @@
+{
+    "alias": "offline-payments",
+    "icon": "fas fa-credit-card",
+    "version": "2.0.0",
+    "active": 1,
+    "providers": [
+        "Modules\\OfflinePayments\\Providers\\Event",
+        "Modules\\OfflinePayments\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "reports": [],
+    "widgets": [],
+    "settings": []
+}

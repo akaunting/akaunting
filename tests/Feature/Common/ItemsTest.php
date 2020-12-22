@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Common;
 
+use App\Jobs\Common\CreateItem;
 use App\Models\Common\Item;
-use Illuminate\Http\UploadedFile;
 use Tests\Feature\FeatureTestCase;
 
 class ItemsTest extends FeatureTestCase
@@ -26,68 +26,64 @@ class ItemsTest extends FeatureTestCase
 
 	public function testItShouldCreateItem()
 	{
+		$request = $this->getRequest();
+
 		$this->loginAs()
-			->post(route('items.store'), $this->getItemRequest())
-			->assertStatus(302)
-			->assertRedirect(route('items.index'));
+			->post(route('items.store'), $request)
+			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertDatabaseHas('items', $request);
 	}
 
 	public function testItShouldSeeItemUpdatePage()
 	{
-        $item = Item::create($this->getItemRequest());
+		$request = $this->getRequest();
+
+        $item = $this->dispatch(new CreateItem($request));
 
 		$this->loginAs()
-			->get(route('items.edit', ['item' => $item->id]))
+			->get(route('items.edit', $item->id))
 			->assertStatus(200)
 			->assertSee($item->name);
 	}
 
 	public function testItShouldUpdateItem()
 	{
-		$request = $this->getItemRequest();
+		$request = $this->getRequest();
 
-		$item = Item::create($request);
+		$item = $this->dispatch(new CreateItem($request));
 
-        $request['name'] = $this->faker->text(15);
+		$request['name'] = $this->faker->text(15);
 
 		$this->loginAs()
 			->patch(route('items.update', $item->id), $request)
-			->assertStatus(302)
-			->assertRedirect(route('items.index'));
+			->assertStatus(200)
+			->assertSee($request['name']);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertDatabaseHas('items', $request);
 	}
 
 	public function testItShouldDeleteItem()
 	{
-		$item = Item::create($this->getItemRequest());
+		$request = $this->getRequest();
+
+		$item = $this->dispatch(new CreateItem($request));
 
 		$this->loginAs()
-			->delete(route('items.destroy', ['item' => $item]))
-			->assertStatus(302)
-			->assertRedirect(route('items.index'));
+			->delete(route('items.destroy', $item->id))
+			->assertStatus(200);
 
 		$this->assertFlashLevel('success');
+
+		$this->assertSoftDeleted('items', $request);
 	}
 
-    private function getItemRequest()
+    public function getRequest()
     {
-        $picture = UploadedFile::fake()->create('image.jpg');
-
-        return [
-            'company_id' => $this->company->id,
-            'name' => $this->faker->text(15),
-            'sku' => $this->faker->unique()->ean8,
-            'picture' => $picture,
-            'description' => $this->faker->text(100),
-            'purchase_price' => $this->faker->randomFloat(2, 10, 20),
-            'sale_price' => $this->faker->randomFloat(2, 10, 20),
-            'quantity' => $this->faker->randomNumber(2),
-            'category_id' => $this->company->categories()->type('item')->first()->id,
-            'tax_id' => $this->company->taxes()->enabled()->first()->id,
-            'enabled' => $this->faker->boolean ? 1 : 0
-        ];
+        return factory(Item::class)->states('enabled')->raw();
     }
 }

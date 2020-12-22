@@ -2,27 +2,28 @@
 
 return [
 
-    'title'                 => 'API-Token',
-    'api_token'             => 'Token',
+    'api_key'               => 'API sleutel',
     'my_apps'               => 'Mijn Apps',
+    'pre_sale'              => 'Pre-Sale',
     'top_paid'              => 'Top betaald',
     'new'                   => 'Nieuw',
     'top_free'              => 'Top gratis',
     'free'                  => 'GRATIS',
-    'search'                => 'Zoeken',
     'install'               => 'Installeer',
     'buy_now'               => 'Nu kopen',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Klik hier</a> om uw API-token te bemachtigen.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klik hier</a> om je API-sleutel te ontvangen.',
     'no_apps'               => 'Er zijn nog geen Apps in deze categorie beschikbaar.',
-    'developer'             => 'Bent u een ontwikkelaar? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Hier</a> kunt u lezen hoe u vandaag nog een app kan ontwikkelen en verkopen!',
-
-    'recommended_apps'      => 'Recommended Apps',
+    'become_developer'      => 'Bent u een ontwikkelaar? <a href=":url" target="_blank">Hier</a> leert u hoe u vandaag nog een app kunt maken en deze kunt verkopen!',
+    'recommended_apps'      => 'Aanbevolen Apps',
 
     'about'                 => 'Over ons',
 
     'added'                 => 'Toegevoegd',
     'updated'               => 'Bijgewerkt',
     'compatibility'         => 'Compatibiliteit',
+    'documentation'         => 'Documentatie',
+    'view'                  => 'Weergave',
+    'back'                  => 'Terug',
 
     'installed'             => ':module geïnstalleerd',
     'uninstalled'           => ':module verwijderd',
@@ -34,30 +35,30 @@ return [
         'installation'      => 'Installatie',
         'faq'               => 'Veelgestelde vragen (FAQ)',
         'changelog'         => 'Wijzigingslogboek',
-        'reviews'            => 'Reviews',
+        'reviews'           => 'Beoordelingen',
     ],
 
     'installation' => [
         'header'            => 'App installatie',
-        'download'          => ':module bestand aan het downloaden.',
-        'unzip'             => 'Bezig met uitpakken van :module bestanden.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
-        'install'           => 'Bezit met installatie van :module bestanden.',
+        'download'          => ':module aan het downloaden',
+        'unzip'             => 'Bezig met uitpakken van de bestanden van :module.',
+        'file_copy'         => 'Bezig met het kopiëren van de bestanden van :module.',
+        'finish'            => 'Bezig met voltooien van de installatie van :module',
+        'redirect'          => ':module is geïnstalleerd, u wordt doorverwezen naar de updatepagina',
+        'install'           => 'Bezit met installatie van :module',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download'          => 'Downloaden van :module mislukt',
+        'zip'               => 'Het creëren van een zip-bestand van :module is mislukt',
+        'unzip'             => 'Uitpakken van het zip-bestand van :module is mislukt',
+        'file_copy'         => 'Kopiëren van bestanden van :module is mislukt',
+        'finish'            => 'Niet in staat om de installatie van :module af te ronden',
     ],
 
     'badge' => [
-        'installed' => 'Geïnstalleerd',
+        'installed'         => 'Geïnstalleerd',
+        'pre_sale'          => 'Pre-Sale',
     ],
 
     'button' => [
@@ -67,14 +68,16 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Gekocht',
-        'installed' => 'Geïnstalleerd',
+        'purchased'         => 'Gekocht',
+        'installed'         => 'Geïnstalleerd',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add'           => 'Voeg een Recensie toe'
         ],
-        'na' => 'There are no reviews.'
-    ]
+
+        'na'                => 'Er zijn geen reviews.'
+    ],
+
 ];

@@ -2,13 +2,13 @@
 
 namespace App\Traits;
 
+use App\Utilities\Date;
 use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
 use Recurr\Transformer\ArrayTransformerConfig;
 
 trait Recurring
 {
-
     public function createRecurring()
     {
         $request = request();
@@ -18,7 +18,7 @@ trait Recurring
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-        $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
+        $interval = (($request['recurring_frequency'] != 'custom') || ($request['recurring_interval'] < 1)) ? 1 : (int) $request['recurring_interval'];
         $started_at = $request->get('paid_at') ?: ($request->get('invoiced_at') ?: $request->get('billed_at'));
 
         $this->recurring()->create([
@@ -40,7 +40,7 @@ trait Recurring
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-        $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
+        $interval = (($request['recurring_frequency'] != 'custom') || ($request['recurring_interval'] < 1)) ? 1 : (int) $request['recurring_interval'];
         $started_at = $request->get('paid_at') ?: ($request->get('invoiced_at') ?: $request->get('billed_at'));
 
         $recurring = $this->recurring();
@@ -60,18 +60,102 @@ trait Recurring
         ]);
     }
 
-    public function current()
+    public function getRecurringSchedule($set_until_date = true)
     {
-        if (!$schedule = $this->schedule()) {
+        $config = new ArrayTransformerConfig();
+        $config->enableLastDayOfMonthFix();
+        $config->setVirtualLimit($this->getRecurringVirtualLimit());
+
+        $transformer = new ArrayTransformer();
+        $transformer->setConfig($config);
+
+        return $transformer->transform($this->getRecurringRule($set_until_date));
+    }
+
+    public function getRecurringRule($set_until_date = true)
+    {
+        $rule = (new Rule())
+            ->setStartDate($this->getRecurringRuleStartDate())
+            ->setTimezone($this->getRecurringRuleTimeZone())
+            ->setFreq($this->getRecurringRuleFrequency())
+            ->setInterval($this->getRecurringRuleInterval());
+
+        if ($set_until_date) {
+            $rule->setUntil($this->getRecurringRuleUntilDate());
+        }
+
+        // 0 means infinite
+        if ($this->count != 0) {
+            $rule->setCount($this->getRecurringRuleCount());
+        }
+
+        return $rule;
+    }
+
+    public function getRecurringRuleStartDate()
+    {
+        return new \DateTime($this->started_at, new \DateTimeZone($this->getRecurringRuleTimeZone()));
+    }
+
+    public function getRecurringRuleUntilDate()
+    {
+        return new \DateTime(Date::today()->toDateTimeString(), new \DateTimeZone($this->getRecurringRuleTimeZone()));
+    }
+
+    public function getRecurringRuleTimeZone()
+    {
+        return setting('localisation.timezone');
+    }
+
+    public function getRecurringRuleCount()
+    {
+        // Fix for humans
+        return $this->count + 1;
+    }
+
+    public function getRecurringRuleFrequency()
+    {
+        return strtoupper($this->frequency);
+    }
+
+    public function getRecurringRuleInterval()
+    {
+        return $this->interval;
+    }
+
+    public function getRecurringVirtualLimit()
+    {
+        switch ($this->frequency) {
+            case 'yearly':
+                $limit = '2';
+                break;
+            case 'monthly':
+                $limit = '24';
+                break;
+            case 'weekly':
+                $limit = '104';
+                break;
+            case 'daily':
+            default;
+                $limit = '732';
+                break;
+        }
+
+        return $limit;
+    }
+
+    public function getCurrentRecurring()
+    {
+        if (!$schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
         return $schedule->current()->getStart();
     }
 
-    public function next()
+    public function getNextRecurring()
     {
-        if (!$schedule = $this->schedule()) {
+        if (!$schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
@@ -82,69 +166,21 @@ trait Recurring
         return $next->getStart();
     }
 
-    public function first()
+    public function getFirstRecurring()
     {
-        if (!$schedule = $this->schedule()) {
+        if (!$schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
         return $schedule->first()->getStart();
     }
 
-    public function last()
+    public function getLastRecurring()
     {
-        if (!$schedule = $this->schedule()) {
+        if (!$schedule = $this->getRecurringSchedule()) {
             return false;
         }
 
         return $schedule->last()->getStart();
-    }
-
-    public function schedule()
-    {
-        $config = new ArrayTransformerConfig();
-        $config->enableLastDayOfMonthFix();
-
-        $transformer = new ArrayTransformer();
-        $transformer->setConfig($config);
-
-        return $transformer->transform($this->getRule());
-    }
-
-    public function getRule()
-    {
-        $rule = (new Rule())
-            ->setStartDate($this->getRuleStartDate())
-            ->setTimezone($this->getRuleTimeZone())
-            ->setFreq($this->getRuleFrequency())
-            ->setInterval($this->interval);
-
-        // 0 means infinite
-        if ($this->count != 0) {
-            $rule->setCount($this->getRuleCount());
-        }
-
-        return $rule;
-    }
-
-    public function getRuleStartDate()
-    {
-        return new \DateTime($this->started_at, new \DateTimeZone($this->getRuleTimeZone()));
-    }
-
-    public function getRuleTimeZone()
-    {
-        return setting('general.timezone');
-    }
-
-    public function getRuleCount()
-    {
-        // Fix for humans
-        return $this->count + 1;
-    }
-
-    public function getRuleFrequency()
-    {
-        return strtoupper($this->frequency);
     }
 }

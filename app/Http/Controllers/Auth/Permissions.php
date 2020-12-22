@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Auth\Permission as Request;
+use App\Jobs\Auth\CreatePermission;
+use App\Jobs\Auth\DeletePermission;
+use App\Jobs\Auth\UpdatePermission;
 use App\Models\Auth\Permission;
 
 class Permissions extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -40,14 +42,23 @@ class Permissions extends Controller
      */
     public function store(Request $request)
     {
-        // Create permission
-        $permission = Permission::create($request->all());
+        $response = $this->ajaxDispatch(new CreatePermission($request));
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.permissions', 1)]);
+        if ($response['success']) {
+            $response['redirect'] = route('permissions.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.added', ['type' => trans_choice('general.permissions', 1)]);
 
-        return redirect('auth/permissions');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('permissions.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -65,38 +76,55 @@ class Permissions extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Permission  $permission
-     * @param  Request  $request
+     * @param  Permission $permission
+     * @param  Request $request
      *
      * @return Response
      */
     public function update(Permission $permission, Request $request)
     {
-        // Update permission
-        $permission->update($request->all());
+        $response = $this->ajaxDispatch(new UpdatePermission($permission, $request));
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.permissions', 1)]);
+        if ($response['success']) {
+            $response['redirect'] = route('permissions.index');
 
-        flash($message)->success();
+            $message = trans('messages.success.updated', ['type' => $permission->display_name]);
 
-        return redirect('auth/permissions');
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('permissions.edit', $permission->id);
+
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Permission  $permission
+     * @param  Permission $permission
      *
      * @return Response
      */
     public function destroy(Permission $permission)
     {
-        $permission->delete();
+        $response = $this->ajaxDispatch(new DeletePermission($permission));
 
-        $message = trans('messages.success.deleted', ['type' => trans_choice('general.permissions', 1)]);
+        $response['redirect'] = route('permissions.index');
 
-        flash($message)->success();
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $permission->display_name]);
 
-        return redirect('auth/permissions');
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 }

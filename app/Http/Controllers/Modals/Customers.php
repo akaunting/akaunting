@@ -2,20 +2,10 @@
 
 namespace App\Http\Controllers\Modals;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Income\Customer as Request;
-use App\Models\Auth\User;
-use App\Models\Income\Customer;
-use App\Models\Income\Invoice;
-use App\Models\Income\Revenue;
+use App\Abstracts\Http\Controller;
+use App\Http\Requests\Common\Contact as Request;
+use App\Jobs\Common\CreateContact;
 use App\Models\Setting\Currency;
-use App\Utilities\Import;
-use App\Utilities\ImportFile;
-use Date;
-use Illuminate\Http\Request as FRequest;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class Customers extends Controller
 {
@@ -25,10 +15,10 @@ class Customers extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-incomes-customers')->only(['create', 'store', 'duplicate', 'import']);
-        $this->middleware('permission:read-incomes-customers')->only(['index', 'show', 'edit', 'export']);
-        $this->middleware('permission:update-incomes-customers')->only(['update', 'enable', 'disable']);
-        $this->middleware('permission:delete-incomes-customers')->only('destroy');
+        $this->middleware('permission:create-sales-customers')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-sales-customers')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-sales-customers')->only('update', 'enable', 'disable');
+        $this->middleware('permission:delete-sales-customers')->only('destroy');
     }
 
     /**
@@ -38,9 +28,17 @@ class Customers extends Controller
      */
     public function create()
     {
-        $currencies = Currency::enabled()->pluck('name', 'code');
+        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $html = view('modals.customers.create', compact('currencies'))->render();
+        $contact_selector = false;
+
+        if (request()->has('contact_selector')) {
+            $contact_selector = request()->get('contact_selector');
+        }
+
+        $rand = rand();
+
+        $html = view('modals.customers.create', compact('currencies', 'contact_selector', 'rand'))->render();
 
         return response()->json([
             'success' => true,
@@ -59,16 +57,14 @@ class Customers extends Controller
      */
     public function store(Request $request)
     {
-        $customer = Customer::create($request->all());
+        $request['enabled'] = 1;
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+        $response = $this->ajaxDispatch(new CreateContact($request));
 
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'data' => $customer,
-            'message' => $message,
-            'html' => 'null',
-        ]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.customers', 1)]);
+        }
+
+        return response()->json($response);
     }
 }

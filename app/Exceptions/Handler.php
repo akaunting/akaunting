@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -14,23 +17,28 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
-        \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
+        //
+    ];
+
+    /**
+     * A list of the inputs that are never flashed for validation exceptions.
+     *
+     * @var array
+     */
+    protected $dontFlash = [
+        'password',
+        'password_confirmation',
     ];
 
     /**
      * Report or log an exception.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return void
+     *
+     * @throws \Exception
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         parent::report($exception);
     }
@@ -39,27 +47,73 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
+        if (config('app.debug') === false) {
+            return $this->handleExceptions($request, $exception);
+        }
+
         return parent::render($request, $exception);
     }
 
     /**
-     * Convert an authentication exception into an unauthenticated response.
+     * Convert an authentication exception into a response.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Auth\AuthenticationException  $exception
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+        // Store the current url in the session
+        session(['url.intended' => $request->url()]);
+
+        return $request->expectsJson()
+                    ? response()->json(['message' => $exception->getMessage()], 401)
+                    : redirect()->guest($exception->redirectTo() ?? route('login'));
+    }
+
+    private function handleExceptions($request, $exception)
+    {
+        if ($exception instanceof NotFoundHttpException) {
+            // ajax 404 json feedback
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+
+            flash(trans('errors.body.page_not_found'))->error();
+
+            // normal 404 view page feedback
+            return redirect()
+                ->back()
+                ->withErrors(['msg', trans('errors.body.page_not_found')]);
         }
 
-        return redirect()->guest(route('login'));
+        if ($exception instanceof ModelNotFoundException) {
+            // ajax 404 json feedback
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+
+            // normal 404 view page feedback
+            return response()->view('errors.404', [], 404);
+        }
+
+        if ($exception instanceof FatalThrowableError) {
+            // ajax 500 json feedback
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Error Page'], 500);
+            }
+
+            // normal 500 view page feedback
+            return response()->view('errors.500', [], 500);
+        }
+
+        return parent::render($request, $exception);
     }
 }

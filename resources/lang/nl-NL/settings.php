@@ -3,14 +3,18 @@
 return [
 
     'company' => [
+        'description'       => 'Bedrijfsnaam, e-mail, adres, belastingnummer etc. wijzigen',
         'name'              => 'Naam',
         'email'             => 'E-mail',
         'phone'             => 'Telefoonnummer',
         'address'           => 'Adres',
         'logo'              => 'Logo',
     ],
+
     'localisation' => [
-        'tab'               => 'Lokalisatie',
+        'description'       => 'Stel fiscaal jaar, tijdzone, datumnotatie en meer lokale instellingen in.',
+        'financial_start'   => 'Start financieel boekjaar',
+        'timezone'          => 'Tijdzone',
         'date' => [
             'format'        => 'Datum formaat',
             'separator'     => 'Datumscheidingsteken',
@@ -20,39 +24,54 @@ return [
             'slash'         => 'Slash (/)',
             'space'         => 'Spatie ( ) ',
         ],
-        'timezone'          => 'Tijdzone',
         'percent' => [
             'title'         => 'Procent (%) Positie',
             'before'        => 'Voor aantal',
             'after'         => 'Na aantal',
         ],
+        'discount_location' => [
+            'name'          => 'Korting locatie',
+            'item'          => 'Op regel',
+            'total'         => 'In totaal',
+            'both'          => 'Zowel lijn als totaal',
+        ],
     ],
+
     'invoice' => [
-        'tab'               => 'Factuur',
+        'description'       => 'Factuurprefix, nummer, betaaltermijn, voettekst etc. aanpassen',
         'prefix'            => 'Nummer voorvoegsel',
         'digit'             => 'Aantal cijfers',
         'next'              => 'Volgende nummer',
         'logo'              => 'Logo',
-        'custom'            => 'Custom',
-        'item_name'         => 'Item Name',
-        'item'              => 'Items',
-        'product'           => 'Products',
-        'service'           => 'Services',
-        'price_name'        => 'Price Name',
-        'price'             => 'Price',
-        'rate'              => 'Rate',
-        'quantity_name'     => 'Quantity Name',
-        'quantity'          => 'Quantity',
+        'custom'            => 'Aangepast',
+        'item_name'         => 'Item Naam',
+        'item'              => 'Artikel|Artikelen',
+        'product'           => 'Producten',
+        'service'           => 'Diensten',
+        'price_name'        => 'Prijs label',
+        'price'             => 'Prijs',
+        'rate'              => 'Tarief',
+        'quantity_name'     => 'Hoeveelheid label',
+        'quantity'          => 'Aantal',
+        'payment_terms'     => 'Betalingsvoorwaarden',
+        'title'             => 'Titel',
+        'subheading'        => 'Subkop',
+        'due_receipt'       => 'Vervalt bij ontvangst',
+        'due_days'          => 'Vervalt binnen :days',
+        'choose_template'   => 'Factuursjabloon kiezen',
+        'default'           => 'Standaard',
+        'classic'           => 'Klassiek',
+        'modern'            => 'Modern',
     ],
+
     'default' => [
-        'tab'               => 'Standaardwaarden',
-        'account'           => 'Standaard account',
-        'currency'          => 'Standaard Valuta',
-        'tax'               => 'Standaard BTW-tarief',
-        'payment'           => 'Standaard betalingsmethode',
-        'language'          => 'Standaard Taal',
+        'description'       => 'Standaard rekening, valuta, taal van uw bedrijf',
+        'list_limit'        => 'Resultaten per pagina',
+        'use_gravatar'      => 'Gebruik Gravatar',
     ],
+
     'email' => [
+        'description'       => 'Wijzig de verzendprotocol en e-mailsjablonen',
         'protocol'          => 'Protocol',
         'php'               => 'PHP mail',
         'smtp' => [
@@ -67,36 +86,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail pad',
         'log'               => 'E-mail logs',
+
+        'templates' => [
+            'subject'                   => 'Onderwerp',
+            'body'                      => 'Inhoud',
+            'tags'                      => '<strong>Beschikbare tags:</strong> :tag_list',
+            'invoice_new_customer'      => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_remind_customer'   => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_remind_admin'      => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_recur_customer'    => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_recur_admin'       => 'Nieuw factuursjabloon (verzonden naar de klant)',
+            'invoice_payment_customer'  => 'Betaling ontvangen sjabloom (verzonden naar de klant)',
+            'invoice_payment_admin'     => 'Betaling ontvangen sjabloon (verzonden naar admin)',
+            'bill_remind_admin'         => 'Betalingsherinnering Template (verzonden naar admin) ',
+            'bill_recur_admin'          => 'Abonnementsfactuur sjabloon (verzonden naar admin)',
+        ],
     ],
+
     'scheduling' => [
-        'tab'               => 'Schema',
+        'name'              => 'Planning',
+        'description'       => 'Automatische herinneringen en abonnementsfacturen',
         'send_invoice'      => 'Factuur herinnering sturen',
         'invoice_days'      => 'Aantal dagen na vervaldatum sturen',
         'send_bill'         => 'Factuur herinnering sturen',
         'bill_days'         => 'Aantal dagen voor vervaldatum sturen',
         'cron_command'      => 'Cron opdracht',
         'schedule_time'     => 'Uren duurtijd',
-        'send_item_reminder'=> 'Send Item Reminder',
-        'item_stocks'       => 'Send When Item Stock',
     ],
-    'appearance' => [
-        'tab'               => 'Opmaak',
-        'theme'             => 'Thema',
-        'light'             => 'Licht',
-        'dark'              => 'Donker',
-        'list_limit'        => 'Resultaten per pagina',
-        'use_gravatar'      => 'Gebruik Gravatar',
+
+    'categories' => [
+        'description'       => 'Onbeperkt aantal categorieën voor inkomen, uitgaven en producten',
     ],
-    'system' => [
-        'tab'               => 'Systeem',
-        'session' => [
-            'lifetime'      => 'Sessie levensduur (minuten)',
-            'handler'       => 'Sessie Beheerder',
-            'file'          => 'Bestand',
-            'database'      => 'Database',
-        ],
-        'file_size'         => 'Maximale bestandsgrootte (MB)',
-        'file_types'        => 'Toegestane bestandstypes',
+
+    'currencies' => [
+        'description'       => 'Maak en beheer valuta en stel de koersen in',
+    ],
+
+    'taxes' => [
+        'description'       => 'Vaste normaal, inclusief, en samengestelde belastingtarieven',
     ],
 
 ];

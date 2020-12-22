@@ -33,19 +33,20 @@ return [
     'confirmed'            => 'La confirmation du ":attribute" ne concordent pas.',
     'date'                 => ':attribute n\'est pas une date valide.',
     'date_format'          => ':attribute ne respecte pas le format :format.',
-    'different'            => ':attribute et :other doivent être différents.',
+    'different'            => 'Les champs :attribute et :other doivent être différents.',
     'digits'               => ':attribute doit contenir :digits chiffres.',
     'digits_between'       => ':attribute doit contenir entre :min et :max chiffres.',
     'dimensions'           => ':attribut possède des dimensions d\'image non valide.',
     'distinct'             => ':champ a une valeur dupliquée.',
-    'email'                => ':attribute doit être une adresse email valide.',
+    'email'                => 'Le champ :attribute doit être une adresse email valide.',
+    'ends_with'            => 'Le champ :attribute doit se terminer par une des valeurs suivantes : :values',
     'exists'               => ':attribute selectionné est invalide.',
-    'file'                 => ':attribut doit être un fichier.',
-    'filled'               => ':champ d’attribut doit avoir une valeur.',
-    'image'                => ':attribute doit être une image.',
+    'file'                 => 'Le champ :attribute doit être un fichier.',
+    'filled'               => 'Le champ :attribute doit avoir une valeur.',
+    'image'                => 'Le champ :attribute doit être une image.',
     'in'                   => ':attribute est invalide.',
     'in_array'             => 'Le champ :attribute n’existe pas dans :other.',
-    'integer'              => ':attribute doit être un nombre entier.',
+    'integer'              => 'Le champ :attribute doit être un entier.',
     'ip'                   => ':attribute doit être une adresse IP valide.',
     'json'                 => ':attribute doit respecté le format JSON.',
     'max'                  => [
@@ -65,8 +66,8 @@ return [
     'not_in'               => ':attribute est invalide.',
     'numeric'              => ':attribute doit être un nombre.',
     'present'              => 'Le champ :attribute doit être présent.',
-    'regex'                => 'Le format de :attribute est invalide.',
-    'required'             => 'Le champ :attribute est nécessaire.',
+    'regex'                => 'Le format du champ :attribute est invalide.',
+    'required'             => 'Le champ :attribute est obligatoire.',
     'required_if'          => 'Le champ :attribute est nécessaire quand :other vaut :value.',
     'required_unless'      => 'Le champ :attribute est nécessaire sauf si :other se trouve dans :values.',
     'required_with'        => 'Le champ :attribute est nécessaire quand :values est présent.',
@@ -77,14 +78,14 @@ return [
     'size'                 => [
         'numeric' => ':attribute doit faire :size.',
         'file'    => ':attribute doit faire :size kilo-octets.',
-        'string'  => ':attribute doit faire :size caractères.',
+        'string'  => 'Le texte de :attribute doit contenir :size caractères.',
         'array'   => ':attribut doit contenir :size marchandises.',
     ],
-    'string'               => ':attribute doit être une chaîne de caractères.',
+    'string'               => 'Le champ :attribute doit être une chaîne de caractères.',
     'timezone'             => ':attribute doit être une zone valide.',
-    'unique'               => ':attribute est déjà pris.',
-    'uploaded'             => ':attribut n’a pas pu être envoyer.',
-    'url'                  => 'Le format de :attribute est invalide.',
+    'unique'               => 'La valeur du champ :attribute est déjà utilisée.',
+    'uploaded'             => 'Le fichier du champ :attribute n\'a pu être téléversé.',
+    'url'                  => 'Le format de l\'URL de :attribute n\'est pas valide.',
 
     /*
     |--------------------------------------------------------------------------
@@ -99,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'Un message spécifique sera affiché si le paramètre \'Utiliser message spécifique\' est implémenté pour le champ \'Message hors-ligne\'',
+            'rule-name'             => 'Un message spécifique sera affiché si le paramètre \'Utiliser message spécifique\' est implémenté pour le champ \'Message hors-ligne\'',
         ],
-        'invalid_currency' => 'Le code de :attribute est invalide.',
-        'invalid_amount'   => 'Le montant :amount n\'est pas valide.',
+        'invalid_currency'      => 'Le code de :attribute est invalide.',
+        'invalid_amount'        => 'Le montant :amount n\'est pas valide.',
+        'invalid_extension'     => 'L\'extension de fichier n\'est pas valide.',
     ],
 
     /*

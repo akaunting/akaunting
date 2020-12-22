@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers\Install;
 
-use App\Http\Controllers\Controller;
-use App\Events\UpdateFinished;
+use App\Abstracts\Http\Controller;
 use App\Utilities\Updater;
 use App\Utilities\Versions;
 use Illuminate\Http\Request;
-use Artisan;
-use Module;
-use File;
 
 class Updates extends Controller
 {
-
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return Response
      */
@@ -31,7 +26,7 @@ class Updates extends Controller
             $core = $updates['core'];
         }
 
-        $rows = Module::all();
+        $rows = module()->all();
 
         if ($rows) {
             foreach ($rows as $row) {
@@ -42,9 +37,8 @@ class Updates extends Controller
                 }
 
                 $m = new \stdClass();
-                $m->name = $row->get('name');
+                $m->name = $row->getName();
                 $m->alias = $row->get('alias');
-                $m->category = $row->get('category');
                 $m->installed = $row->get('version');
                 $m->latest = $updates[$alias];
 
@@ -74,55 +68,28 @@ class Updates extends Controller
     }
 
     /**
-     * Update the core or modules.
+     * Run the update.
      *
      * @param  $alias
      * @param  $version
      * @return Response
      */
-    public function update($alias, $version)
+    public function run($alias, $version)
     {
         if ($alias == 'core') {
-            $name = 'Akaunting v' . $version;
+            $name = 'Akaunting ' . $version;
 
             $installed = version('short');
         } else {
             // Get module instance
-            $module = Module::findByAlias($alias);
+            $module = module($alias);
 
-            $name = $module->get('name');
+            $name = $module->getName();
 
             $installed = $module->get('version');
         }
 
         return view('install.updates.edit', compact('alias', 'name', 'installed', 'version'));
-    }
-
-    /**
-     * Final actions post update.
-     *
-     * @param  $alias
-     * @param  $old
-     * @param  $new
-     * @return Response
-     */
-    public function post($alias, $old, $new)
-    {
-        // Check if the file mirror was successful
-        if (($alias == 'core') && (version('short') != $new)) {
-            flash(trans('updates.error'))->error()->important();
-
-            return redirect('install/updates');
-        }
-
-        // Clear cache after update
-        Artisan::call('cache:clear');
-
-        event(new UpdateFinished($alias, $old, $new));
-
-        flash(trans('updates.success'))->success();
-
-        return redirect('install/updates');
     }
 
     /**
@@ -134,47 +101,50 @@ class Updates extends Controller
      */
     public function steps(Request $request)
     {
-        $json = [];
-        $json['step'] = [];
+        $steps = [];
 
         $name = $request['name'];
-        $version = $request['version'];
 
         // Download
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.download', ['module' => $name]),
-            'url'  => url('install/updates/download')
+            'url'  => route('updates.download'),
         ];
 
         // Unzip
-        $json['step'][] = [
+        $steps[] = [
             'text' => trans('modules.installation.unzip', ['module' => $name]),
-            'url'  => url('install/updates/unzip')
+            'url'  => route('updates.unzip'),
         ];
 
-        // File Copy
-        $json['step'][] = [
+        // Copy files
+        $steps[] = [
             'text' => trans('modules.installation.file_copy', ['module' => $name]),
-            'url'  => url('install/updates/file-copy')
+            'url'  => route('updates.copy'),
         ];
 
-        // Migrate DB and trigger event UpdateFinish event
-        $json['step'][] = [
-            'text' => trans('modules.installation.migrate', ['module' => $name]),
-            'url'  => url('install/updates/migrate')
+        // Finish/Apply
+        $steps[] = [
+            'text' => trans('modules.installation.finish', ['module' => $name]),
+            'url'  => route('updates.finish'),
         ];
 
-        // redirect update page
-        $json['step'][] = [
-            'text' => trans('modules.installation.finish'),
-            'url'  => url('install/updates/finish')
+        // Redirect
+        $steps[] = [
+            'text' => trans('modules.installation.redirect', ['module' => $name]),
+            'url'  => route('updates.redirect'),
         ];
 
-        return response()->json($json);
+        return response()->json([
+            'success' => true,
+            'error' => false,
+            'data' => $steps,
+            'message' => null
+        ]);
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Download the file
      *
      * @param  $request
      *
@@ -182,53 +152,33 @@ class Updates extends Controller
      */
     public function download(Request $request)
     {
-        set_time_limit(600); // 10 minutes
+        set_time_limit(900); // 15 minutes
 
-        $status = true;
+        try {
+            $path = Updater::download($request['alias'], $request['version'], $request['installed']);
 
-        if ($request['alias'] != 'core') {
-            $this->checkApiToken();
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
         }
-
-        // Download file
-        if (!$data = Updater::download($request['alias'], $request['version'])) {
-            $status = false;
-
-            $message = trans('modules.errors.download', ['module' => $request['name']]);
-        }
-
-        // Create temp directory
-        $path = 'temp-' . md5(mt_rand());
-        $temp_path = storage_path('app/temp') . '/' . $path;
-
-        if (!File::isDirectory($temp_path)) {
-            File::makeDirectory($temp_path);
-        }
-
-        $file = $temp_path . '/upload.zip';
-
-        // Add content to the Zip file
-        $uploaded = is_int(file_put_contents($file, $data)) ? true : false;
-
-        if (!$uploaded) {
-            $status = false;
-
-            $message = trans('modules.errors.upload', ['module' => $request['name']]);
-        }
-
-        $json = [
-            'success' => ($status) ? true : false,
-            'errors' => (!$status) ? $message : false,
-            'data' => [
-                'path' => $path
-            ]
-        ];
 
         return response()->json($json);
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Unzip the downloaded file
      *
      * @param  $request
      *
@@ -236,95 +186,25 @@ class Updates extends Controller
      */
     public function unzip(Request $request)
     {
-        set_time_limit(600); // 10 minutes
-
-        if ($request['alias'] != 'core') {
-            $this->checkApiToken();
-        }
-
-        $path = storage_path('app/temp') . '/' . $request['path'];
-
-        $file =  $path . '/upload.zip';
-
-        $result = Updater::unzip($file, $path);
-
-        $json = [
-            'success' => ($result) ? true : false,
-            'errors' => (!$result) ? trans('modules.errors.unzip', ['module' => $request['name']]) : false,
-            'data' => [
-                'path' => $request['path']
-            ]
-        ];
-
-        return response()->json($json);
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  $request
-     *
-     * @return Response
-     */
-    public function fileCopy(Request $request)
-    {
-        set_time_limit(600); // 10 minutes
-
-        if ($request['alias'] != 'core') {
-            $this->checkApiToken();
-        }
-
-        $path = storage_path('app/temp') . '/' . $request['path'];
-
-        $result = Updater::fileCopy($request['alias'], $path, $request['version']);
-
-        $json = [
-            'success' => ($result) ? true : false,
-            'errors' => (!$result) ? trans('modules.errors.file_copy', ['module' => $request['name']]) : false,
-            'data' => [
-                'path' => $request['path']
-            ]
-        ];
-
-        return response()->json($json);
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  $request
-     *
-     * @return Response
-     */
-    public function migrate(Request $request)
-    {
-        // Check if the file mirror was successful
-        if (($request['alias'] == 'core') && (version('short') != $request['version'])) {
-            $json = [
-                'success' => false,
-                'errors' => trans('modules.errors.migrate core', ['module' => $request['name']]),
-                'data' => []
-            ];
-
-            return response()->json($json);
-        }
-
-        // Clear cache after update
-        Artisan::call('cache:clear');
+        set_time_limit(900); // 15 minutes
 
         try {
-            event(new UpdateFinished($request['alias'], $request['installed'], $request['version']));
+            $path = Updater::unzip($request['path'], $request['alias'], $request['version'], $request['installed']);
 
             $json = [
                 'success' => true,
-                'errors' => false,
-                'data' => []
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
             ];
         } catch (\Exception $e) {
             $json = [
                 'success' => false,
-                'errors' => trans('modules.errors.migrate', ['module' => $request['name']]),
-                'data' => []
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
             ];
         }
 
@@ -332,7 +212,41 @@ class Updates extends Controller
     }
 
     /**
-     * Show the form for viewing the specified resource.
+     * Copy files
+     *
+     * @param  $request
+     *
+     * @return Response
+     */
+    public function copyFiles(Request $request)
+    {
+        set_time_limit(900); // 15 minutes
+
+        try {
+            $path = Updater::copyFiles($request['path'], $request['alias'], $request['version'], $request['installed']);
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
+
+        return response()->json($json);
+    }
+
+    /**
+     * Finish the update
      *
      * @param  $request
      *
@@ -340,10 +254,42 @@ class Updates extends Controller
      */
     public function finish(Request $request)
     {
-        $json =  [
+        set_time_limit(900); // 15 minutes
+
+        try {
+            Updater::finish($request['alias'], $request['version'], $request['installed']);
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
+
+        return response()->json($json);
+    }
+
+    /**
+     * Redirect back
+     *
+     * @param  $request
+     *
+     * @return Response
+     */
+    public function redirect()
+    {
+        $json = [
             'success' => true,
             'errors' => false,
-            'redirect' => url("install/updates"),
+            'redirect' => route('updates.index'),
             'data' => [],
         ];
 

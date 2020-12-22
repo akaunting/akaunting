@@ -2,15 +2,11 @@
 
 return [
 
-    'allow_login'           => '¿Permitir Inicio de Sesión?',
+    'can_login'             => '¿Puede iniciar sesión?',
     'user_created'          => 'Usuario Creado',
 
     'error' => [
-        'email'             => 'La dirección de correo electrónico ya está en uso.'
+        'email'             => 'La dirección de correo electrónico ya está en uso.',
     ],
 
-    'notification' => [
-        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Show',
-    ],
 ];

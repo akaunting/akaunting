@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Neto dobit',
     'total_expenses'        => 'Ukupni troškovi',
     'net'                   => 'Neto',
+    'income_expense'        => 'Prihod i rashod',
 
     'summary' => [
         'income'            => 'Sažetak prihoda',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Sažetak poreza',
     ],
 
-    'quarter' => [
-        '1'                 => 'Sij-Ožu',
-        '2'                 => 'Tra-Lip',
-        '3'                 => 'Srp-Ruj',
-        '4'                 => 'Lis-Pro',
+    'charts' => [
+        'line'              => 'Crta',
+        'bar'               => 'Bar',
+        'pie'               => 'Pita',
     ],
 
 ];

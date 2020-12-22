@@ -3,14 +3,18 @@
 return [
 
     'company' => [
+        'description'       => 'Ændre navn, email, adresse, CVR-nummer mv.',
         'name'              => 'Navn',
         'email'             => 'E-mail',
         'phone'             => 'Telefon',
         'address'           => 'Adresse',
         'logo'              => 'Logo',
     ],
+
     'localisation' => [
-        'tab'               => 'Lokalisering',
+        'description'       => 'Indstil regnskabsår, tidszone, datoformat og lokalindstillinger',
+        'financial_start'   => 'Regnskabsårets Start',
+        'timezone'          => 'Tidszone',
         'date' => [
             'format'        => 'Datoformat',
             'separator'     => 'Datoseparator',
@@ -20,15 +24,21 @@ return [
             'slash'         => 'Skråstreg (/)',
             'space'         => 'Mellemrum ( )',
         ],
-        'timezone'          => 'Tidszone',
         'percent' => [
             'title'         => 'Procent (%) Position',
             'before'        => 'Før nummer',
             'after'         => 'Efter nummer',
         ],
+        'discount_location' => [
+            'name'          => 'Rabat lokation',
+            'item'          => 'På linie',
+            'total'         => 'Ved total',
+            'both'          => 'Både linje og total',
+        ],
     ],
+
     'invoice' => [
-        'tab'               => 'Faktura',
+        'description'       => 'Tilpas fakturapræfiks, nummer, vilkår, sidefod etc',
         'prefix'            => 'Nummerpræfiks',
         'digit'             => 'Antal cifre',
         'next'              => 'Næste nummer',
@@ -43,16 +53,25 @@ return [
         'rate'              => 'Sats',
         'quantity_name'     => 'Mængde navn',
         'quantity'          => 'Antal',
+        'payment_terms'     => 'Betalingsbetingelser',
+        'title'             => 'Titel',
+        'subheading'        => 'Undertitel',
+        'due_receipt'       => 'Forfalder ved modtagelse',
+        'due_days'          => 'Forfalder om :dage dage',
+        'choose_template'   => 'Vælg faktura skabelon',
+        'default'           => 'Standard',
+        'classic'           => 'Klassisk',
+        'modern'            => 'Moderne',
     ],
+
     'default' => [
-        'tab'               => 'Standarder',
-        'account'           => 'Standard konto',
-        'currency'          => 'Standardvaluta',
-        'tax'               => 'Standard moms procent',
-        'payment'           => 'Standardbetalingsmetode',
-        'language'          => 'Standardsprog',
+        'description'       => 'Standard konto, valuta og sprog',
+        'list_limit'        => 'Poster pr side',
+        'use_gravatar'      => 'Brug standard-ikoner (Gravatar)',
     ],
+
     'email' => [
+        'description'       => 'Ændre sende protokol og e-mail skabeloner',
         'protocol'          => 'Protokol',
         'php'               => 'PHP mail',
         'smtp' => [
@@ -67,36 +86,44 @@ return [
         'sendmail'          => 'Sendmail',
         'sendmail_path'     => 'Sendmail sti',
         'log'               => 'Log E-mails',
-    ],
-    'scheduling' => [
-        'tab'               => 'Planlægger',
-        'send_invoice'      => 'Send faktura påmindelse',
-        'invoice_days'      => 'Send efter forfalds dato',
-        'send_bill'         => 'Send regningens påmindelse',
-        'bill_days'         => 'Send før forfalds dage',
-        'cron_command'      => 'Cron kommando',
-        'schedule_time'     => 'Timer at køre',
-        'send_item_reminder'=> 'Send vare påmindelse',
-        'item_stocks'       => 'Send når varen er på lager',
-    ],
-    'appearance' => [
-        'tab'               => 'Udseende',
-        'theme'             => 'Tema',
-        'light'             => 'Lys',
-        'dark'              => 'Mørk',
-        'list_limit'        => 'Poster pr. side',
-        'use_gravatar'      => 'Brug Gravatar',
-    ],
-    'system' => [
-        'tab'               => 'System',
-        'session' => [
-            'lifetime'      => 'Session levetid (minutter)',
-            'handler'       => 'Sessionsbehandler',
-            'file'          => 'Fil',
-            'database'      => 'Database',
+
+        'templates' => [
+            'subject'                   => 'Emne',
+            'body'                      => 'Indhold',
+            'tags'                      => '<strong>Tilgængelige Tags:</strong> :tag_list',
+            'invoice_new_customer'      => 'Skabelon til ny faktura (sendt til kunder)',
+            'invoice_remind_customer'   => 'Fakturapåmindelses-skabelon (sendt til kunder)',
+            'invoice_remind_admin'      => 'Fakturapåmindelses-skabelon (sendt til administrator)',
+            'invoice_recur_customer'    => 'Tilbagevendende skabelon for faktura (sendt til kunde)',
+            'invoice_recur_admin'       => 'Skabelon for tilbagevendende faktura (sendt til administrator)',
+            'invoice_payment_customer'  => 'Skabelon for modtaget betaling (sendt til kunder)',
+            'invoice_payment_admin'     => 'Skabelon for modtaget betaling (sendt til administrator)',
+            'bill_remind_admin'         => 'Skabelon for regningspåmindelse (sendt til administrator)',
+            'bill_recur_admin'          => 'Tilbagevendende skabelon for regning (sendt til administrator)',
         ],
-        'file_size'         => 'Maximum filstørrelse (MB)',
-        'file_types'        => 'Tilladte filtyper',
+    ],
+
+    'scheduling' => [
+        'name'              => 'Planlægning',
+        'description'       => 'Automatiske påmindelser og gentagelser',
+        'send_invoice'      => 'Send fakturapåmindelse',
+        'invoice_days'      => 'Send efter forfaldsdato',
+        'send_bill'         => 'Send regningspåmindelse',
+        'bill_days'         => 'Send før forfaldsdato',
+        'cron_command'      => 'Cron kommando',
+        'schedule_time'     => 'Afsendingstid',
+    ],
+
+    'categories' => [
+        'description'       => 'Ubegrænsede kategorier for indtægt, udgift og varer',
+    ],
+
+    'currencies' => [
+        'description'       => 'Opret og administrer valutaer, og indstil renter',
+    ],
+
+    'taxes' => [
+        'description'       => 'Faste, normale, inklusive og sammensatte skattesatser',
     ],
 
 ];

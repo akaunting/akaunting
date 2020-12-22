@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Modals;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Setting\Tax as Request;
-use App\Models\Setting\Tax;
+use App\Jobs\Setting\CreateTax;
 
 class Taxes extends Controller
 {
@@ -14,9 +14,9 @@ class Taxes extends Controller
     public function __construct()
     {
         // Add CRUD permission check
-        $this->middleware('permission:create-settings-taxes')->only(['create', 'store']);
-        $this->middleware('permission:read-settings-taxes')->only(['index', 'edit']);
-        $this->middleware('permission:update-settings-taxes')->only(['update', 'enable', 'disable']);
+        $this->middleware('permission:create-settings-taxes')->only('create', 'store');
+        $this->middleware('permission:read-settings-taxes')->only('index', 'edit');
+        $this->middleware('permission:update-settings-taxes')->only('update', 'enable', 'disable');
         $this->middleware('permission:delete-settings-taxes')->only('destroy');
     }
 
@@ -27,7 +27,23 @@ class Taxes extends Controller
      */
     public function create()
     {
-        $html = view('modals.taxes.create')->render();
+        $types = [
+            'fixed' => trans('taxes.fixed'),
+            'normal' => trans('taxes.normal'),
+            'inclusive' => trans('taxes.inclusive'),
+            'withholding' => trans('taxes.withholding'),
+            'compound' => trans('taxes.compound'),
+        ];
+
+        $tax_selector = false;
+
+        if (request()->has('tax_selector')) {
+            $tax_selector = request()->get('tax_selector');
+        }
+
+        $rand = rand();
+
+        $html = view('modals.taxes.create', compact('types', 'tax_selector', 'rand'))->render();
 
         return response()->json([
             'success' => true,
@@ -48,16 +64,12 @@ class Taxes extends Controller
     {
         $request['enabled'] = 1;
 
-        $tax = Tax::create($request->all());
+        $response = $this->ajaxDispatch(new CreateTax($request));
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.taxes', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.added', ['type' => trans_choice('general.taxes', 1)]);
+        }
 
-        return response()->json([
-            'success' => true,
-            'error' => false,
-            'data' => $tax,
-            'message' => $message,
-            'html' => 'null',
-        ]);
+        return response()->json($response);
     }
 }

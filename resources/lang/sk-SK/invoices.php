@@ -33,7 +33,7 @@ return [
     'send_mail'         => 'Odoslať e-mail',
     'all_invoices'      => 'Prihláste sa pre zobrazenie všetkých faktúr',
 
-    'status' => [
+    'statuses' => [
         'draft'         => 'Koncept',
         'sent'          => 'Odoslané',
         'viewed'        => 'Zobrazené',

@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Jobs\Auth\CreatePermission;
 use App\Models\Auth\Permission;
 use Tests\Feature\FeatureTestCase;
 
 class PermissionsTest extends FeatureTestCase
 {
-
     public function testItShouldSeePermissionListPage()
     {
         $this->loginAs()
@@ -26,59 +26,64 @@ class PermissionsTest extends FeatureTestCase
 
     public function testItShouldCreatePermission()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(route('permissions.store'), $this->getPermissionRequest())
-            ->assertStatus(302)
-            ->assertRedirect(route('permissions.index'));
+            ->post(route('permissions.store'), $request)
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('permissions', $request);
     }
 
     public function testItShouldSeePermissionUpdatePage()
     {
-        $permission = Permission::create($this->getPermissionRequest());
+        $request = $this->getRequest();
+
+        $permission = $this->dispatch(new CreatePermission($request));
 
         $this->loginAs()
-            ->get(route('permissions.edit', ['permission' => $permission->id]))
+            ->get(route('permissions.edit', $permission->id))
             ->assertStatus(200)
             ->assertSee($permission->name);
     }
 
     public function testItShouldUpdatePermission()
     {
-        $request = $this->getPermissionRequest();
+        $request = $this->getRequest();
 
-        $permission = Permission::create($request);
+        $permission = $this->dispatch(new CreatePermission($request));
 
-        $request['name'] = $this->faker->name;
+        $request['display_name'] = $this->faker->word;
 
         $this->loginAs()
             ->patch(route('permissions.update', $permission->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(route('permissions.index'));
+            ->assertStatus(200)
+			->assertSee($request['display_name']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('permissions', $request);
     }
 
     public function testItShouldDeletePermission()
     {
-        $permission = Permission::create($this->getPermissionRequest());
+        $request = $this->getRequest();
+
+        $permission = $this->dispatch(new CreatePermission($request));
 
         $this->loginAs()
             ->delete(route('permissions.destroy', $permission->id))
-            ->assertStatus(302)
-            ->assertRedirect(route('permissions.index'));
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
 
+        $this->assertDatabaseMissing('permissions', $request);
     }
 
-    private function getPermissionRequest()
+    public function getRequest()
     {
-        return [
-            'name' => $this->faker->text(5),
-            'display_name' => $this->faker->text(5),
-            'description' => $this->faker->text(5),
-        ];
+        return factory(Permission::class)->raw();
     }
 }

@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature трябва да бъде дезактивирана!',
         'extension'         => ':extension разширението трябва да бъде заредено!',
         'directory'         => ':directory директорията трябва да е с разрешение за промяна!',
+        'executable'        => 'The PHP CLI executable file is not working! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
     ],
 
     'database' => [
@@ -38,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Грешка: Поискайте от своя хостинг доставчик да инсталира PHP :php_version или по-висока за HTTP and CLI едновременно.',
         'connection'        => 'Грешка: Не можа да се свърже с базата данни! Моля, уверете се, че данните са правилни.',
     ],
 

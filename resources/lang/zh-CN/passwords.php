@@ -18,5 +18,6 @@ return [
     'sent' => '密码重置邮件已发送！',
     'token' => '密码重置令牌无效。',
     'user' => "找不到该邮箱对应的用户。",
+    'throttle' => 'Please wait before retrying.',
 
 ];

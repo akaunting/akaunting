@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Net Kar',
     'total_expenses'        => 'Toplam Gider',
     'net'                   => 'NET',
+    'income_expense'        => 'Gelir - Gider',
 
     'summary' => [
         'income'            => 'Gelir Özeti',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Vergi Özeti',
     ],
 
-    'quarter' => [
-        '1'                 => 'Oca-Mar',
-        '2'                 => 'Nis-Haz',
-        '3'                 => 'Tem-Eyl',
-        '4'                 => 'Eki-Ara',
+    'charts' => [
+        'line'              => 'Çizgi',
+        'bar'               => 'Çubuk',
+        'pie'               => 'Pasta',
     ],
 
 ];

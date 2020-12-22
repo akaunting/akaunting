@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature devre dışı bırakılmalıdır!',
         'extension'         => ':extension eklendisi kurulmalı ve yüklenmelidir!',
         'directory'         => ':directory dizini yazılabilir olmalıdır!',
+        'executable'        => 'PHP CLI çalıştırıcısı bulunamadı veya çalışmıyor veya sürümü :php_version ve üstü değil. Lütfen, hosting firmanızdan PHP_BINARY veya PHP_PATH ortam değerlerini doğru ayarlamasını isteyin.',
     ],
 
     'database' => [
@@ -38,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Hata: HTTP ve CLI için PHP sürümün :php_version ve üstü olması gerektiğini hosting firmanıza bildirin.',
         'connection'        => 'Hata: Veritabanına bağlanamıyoruz! Lütfen veritabanı bilgilerini kontrol ediniz.',
     ],
 

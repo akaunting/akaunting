@@ -2,15 +2,33 @@
 
 return [
 
-    'accounts_cash'         => 'Efectivo',
-    'categories_deposit'    => 'Depósito',
-    'categories_sales'      => 'Ventas',
-    'currencies_usd'        => 'Dólar EEUU',
-    'currencies_eur'        => 'Euro',
-    'currencies_gbp'        => 'Libra esterlina',
-    'currencies_try'        => 'Libra turca',
-    'taxes_exempt'          => 'Exentos de impuestos',
-    'taxes_normal'          => 'Impuesto Normal',
-    'taxes_sales'           => 'Impuesto sobre Ventas',
+    'accounts' => [
+        'cash'              => 'Efectivo',
+    ],
+
+    'categories' => [
+        'deposit'           => 'Depósito',
+        'sales'             => 'Ventas',
+    ],
+
+    'currencies' => [
+        'usd'               => 'Dólar EEUU',
+        'eur'               => 'Euro',
+        'gbp'               => 'Libra esterlina',
+        'try'               => 'Libra turca',
+    ],
+
+    'offline_payments' => [
+        'cash'              => 'Efectivo',
+        'bank'              => 'Transferencia Bancaria',
+    ],
+
+    'reports' => [
+        'income'            => 'Resumen mensual de ingresos por categoría.',
+        'expense'           => 'Resumen mensual de gastos por categoría.',
+        'income_expense'    => 'Ingresos mensuales vs gastos por categoría.',
+        'tax'               => 'Resumen trimestral de impuestos.',
+        'profit_loss'       => 'Ganancias y pérdidas trimestrales por categoría.',
+    ],
 
 ];

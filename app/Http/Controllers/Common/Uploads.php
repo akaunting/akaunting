@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Common;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use Illuminate\Http\Request;
 use App\Models\Common\Media;
 use File;
@@ -18,14 +18,77 @@ class Uploads extends Controller
      */
     public function get($id)
     {
-        $media = Media::find($id);
+        try {
+            $media = Media::find($id);
+        } catch (\Exception $e) {
+            return response(null, 204);
+        }
 
         // Get file path
         if (!$path = $this->getPath($media)) {
-            return false;
+            return response(null, 204);
         }
 
         return response()->file($path);
+    }
+
+    /**
+     * Get the specified resource.
+     *
+     * @param  $id
+     * @return mixed
+     */
+    public function show($id, Request $request)
+    {
+        $file = false;
+        $options = false;
+        $column_name = 'attachment';
+
+        if ($request->has('column_name')) {
+            $column_name = $request->get('column_name');
+        }
+
+        if ($request->has('page')) {
+            $options = [
+                'page' => $request->get('page'),
+                'key' => $request->get('key'),
+            ];
+        }
+
+        try {
+            $media = Media::find($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error'   => true,
+                'data'    => [],
+                'message' => 'null',
+                'html'    => '',
+            ]);
+        }
+
+        // Get file path
+        if (!$path = $this->getPath($media)) {
+            return response()->json([
+                'success' => false,
+                'error'   => true,
+                'data'    => [],
+                'message' => 'null',
+                'html'    => '',
+            ]);
+        }
+
+        $file = $media;
+
+        $html = view('partials.media.file', compact('file', 'column_name', 'options'))->render();
+
+        return response()->json([
+            'success' => true,
+            'error'   => false,
+            'data'    => [],
+            'message' => 'null',
+            'html'    => $html,
+        ]);
     }
 
     /**
@@ -36,7 +99,11 @@ class Uploads extends Controller
      */
     public function download($id)
     {
-        $media = Media::find($id);
+        try {
+            $media = Media::find($id);
+        } catch (\Exception $e) {
+            return false;
+        }
 
         // Get file path
         if (!$path = $this->getPath($media)) {
@@ -54,7 +121,22 @@ class Uploads extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $media = Media::find($id);
+        $return = back();
+
+        if ($request->has('ajax') && $request->get('ajax')) {
+            $return = [
+                'success' => true,
+                'errors' => false,
+                'message' => '',
+                'redirect' => $request->get('redirect')
+            ];
+        }
+
+        try {
+            $media = Media::find($id);
+        } catch (\Exception $e) {
+            return $return;
+        }
 
         // Get file path
         if (!$path = $this->getPath($media)) {
@@ -62,7 +144,7 @@ class Uploads extends Controller
 
             flash($message)->warning();
 
-            return back();
+            return $return;
         }
 
         $media->delete(); //will not delete files
@@ -76,11 +158,10 @@ class Uploads extends Controller
 
                     setting()->save();
                     break;
-                default;
             }
         }
 
-        return back();
+        return $return;
     }
 
     /**
@@ -91,6 +172,10 @@ class Uploads extends Controller
      */
     protected function getPath($media)
     {
+        if (!is_object($media)) {
+            return false;
+        }
+
         $path = $media->basename;
 
         if (!empty($media->directory)) {

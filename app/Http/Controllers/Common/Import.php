@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Common;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 
 class Import extends Controller
 {
@@ -17,6 +17,12 @@ class Import extends Controller
     {
         $path = $group . '/' . $type;
 
-        return view('common.import.create', compact('group', 'type', 'path'));
+        if (module($group) instanceof \Akaunting\Module\Module) {
+            $namespace = $group . '::';
+        } else {
+            $namespace = '';
+        }
+
+        return view('common.import.create', compact('group', 'type', 'path', 'namespace'));
     }
 }

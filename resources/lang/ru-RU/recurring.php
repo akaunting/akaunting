@@ -2,10 +2,10 @@
 
 return [
 
-    'recurring'             => 'Recurring',
+    'recurring'             => 'Повторяющийся',
     'every'                 => 'Каждый',
     'period'                => 'Период',
-    'times'                 => 'Times',
+    'times'                 => 'Количество раз',
     'daily'                 => 'Ежедневно',
     'weekly'                => 'Еженедельно',
     'monthly'               => 'Ежемесячно',
@@ -13,8 +13,8 @@ return [
     'custom'                => 'Задать свое',
     'days'                  => 'день(дней)',
     'weeks'                 => 'Неделя(недель)',
-    'months'                => 'Month(s)',
-    'years'                 => 'Year(s)',
-    'message'               => 'This is a recurring :type and the next :type will be automatically generated on :date',
+    'months'                => 'Месяц(Месяцев)',
+    'years'                 => 'Год(лет)',
+    'message'               => 'Это повторяющийся :type и следующий :type будет сгенерирован автоматически :date',
 
 ];

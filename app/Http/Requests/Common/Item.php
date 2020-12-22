@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Common;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Item extends Request
+class Item extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,26 +23,20 @@ class Item extends Request
      */
     public function rules()
     {
-        // Check if store or update
-        if ($this->getMethod() == 'PATCH') {
-            $id = $this->item->getAttribute('id');
-        } else {
-            $id = null;
-        }
+        $picture = 'nullable';
 
-        // Get company id
-        $company_id = $this->request->get('company_id');
+        if ($this->request->get('picture', null)) {
+            $picture = 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024;
+        }
 
         return [
             'name' => 'required|string',
-            'sku' => 'required|string|unique:items,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
             'sale_price' => 'required',
             'purchase_price' => 'required',
-            'quantity' => 'required|integer',
             'tax_id' => 'nullable|integer',
             'category_id' => 'nullable|integer',
             'enabled' => 'integer|boolean',
-            'picture' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
+            'picture' => $picture,
         ];
     }
 }

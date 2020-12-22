@@ -2,7 +2,7 @@
 
 return [
 
-    'recurring'             => 'Tilbagevendende',
+    'recurring'             => 'Gentagende',
     'every'                 => 'Hver',
     'period'                => 'Periode',
     'times'                 => 'Gange',

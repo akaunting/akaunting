@@ -2,13 +2,17 @@
 
 return [
 
-    'reconcile'             => 'Arasında mutabakat',
-    'reconciled'            => 'Mutabakat',
+    'reconcile'             => 'Mutabakat Yap',
+    'unreconcile'           => 'Mutabakatı Kaldır',
+    'reconciled'            => 'Mutabakat Yapıldı',
+    'opening_balance'       => 'Açılış Bakiyesi',
     'closing_balance'       => 'Kapanış Bakiyesi',
     'unreconciled'          => 'Mutabakat Sağlanmamış',
-    'list_transactions'     => 'İşlemleri Listele',
+    'transactions'          => 'İşlemler',
     'start_date'            => 'Başlangıç Tarihi',
     'end_date'              => 'Bitiş Tarihi',
-    'cleared_amount'        => 'MiktarıTemizle',
+    'cleared_amount'        => 'Temizlenen Tutar',
+    'deposit'               => 'Yatırılan',
+    'withdrawal'            => 'Çekilen',
 
 ];

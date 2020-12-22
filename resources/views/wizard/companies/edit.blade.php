@@ -3,129 +3,84 @@
 @section('title', trans('general.wizard'))
 
 @section('content')
-<!-- Default box -->
-<div class="box box-solid">
-    <div class="box-body">
-        <div class="stepwizard">
-            <div class="stepwizard-row setup-panel">
-                <div class="stepwizard-step col-xs-3">
-                    <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
-                    <p><small>{{ trans_choice('general.companies', 1) }}</small></p>
-                </div>
-                <div class="stepwizard-step col-xs-3">
-                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">2</button>
-                    <p><small>{{ trans_choice('general.currencies', 2) }}</small></p>
-                </div>
-                <div class="stepwizard-step col-xs-3">
-                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
-                    <p><small>{{ trans_choice('general.taxes', 2) }}</small></p>
-                </div>
-                <div class="stepwizard-step col-xs-3">
-                    <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
-                    <p><small>{{ trans_choice('general.finish', 1) }}</small></p>
+    <div class="card">
+        {!! Form::model($company, [
+            'method' => 'PATCH',
+            'route' => ['wizard.companies.update'],
+            'id' => 'company',
+            '@submit.prevent' => 'onSubmit',
+            '@keydown' => 'form.errors.clear($event.target.name)',
+            'files' => true,
+            'role' => 'form',
+            'class' => 'form-loading-button mb-0',
+            'novalidate' => true
+        ]) !!}
+
+            <div id="wizard-loading"></div>
+            @include('partials.wizard.steps')
+
+            <div class="card-body">
+                <div id="wizard-loading"></div>
+                <div class="row mb--4">
+                    <div class="col-md-12 {!! (!setting('apps.api_key', null)) ?: 'hidden' !!}">
+                        <div class="form-group {{ $errors->has('api_key') ? 'has-error' : ''}}"
+                            :class="[{'has-error': form.errors.get('api_key') }]">
+                            {!! Form::label('api-key', trans('modules.api_key'), ['class' => 'form-control-label']) !!}
+
+                            <div class="input-group input-group-merge">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-key"></i>
+                                    </span>
+                                </div>
+
+                                {!! Form::text('api_key', setting('apps.api_key', null), array_merge([
+                                    'class' => 'form-control',
+                                    'data-name' => 'api_key',
+                                    'data-value' => setting('apps.api_key', null),
+                                    'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_key')]),
+                                    'v-model' => 'form.api_key'
+                                ], [])) !!}
+                            </div>
+
+                            <div class="invalid-feedback d-block" v-if="form.errors.has('api_key')" v-html="form.errors.get('api_key')"></div>
+                        </div>
+
+                        <p class="mb-0 mt--3">
+                            <small>{!! trans('modules.get_api_key', ['url' => 'https://akaunting.com/dashboard']) !!}</small>
+                        </p>
+
+                        <br>
+                    </div>
+
+                    {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', []) }}
+
+                    {{ Form::dateGroup('financial_start', trans('settings.localisation.financial_start'), 'calendar', ['id' => 'financial_start', 'class' => 'form-control datepicker', 'show-date-format' => 'j F', 'date-format' => 'd-m', 'autocomplete' => 'off'], Date::now()->startOfYear()->format('d-m')) }}
+
+                    {{ Form::textareaGroup('address', trans('settings.company.address')) }}
+
+                    {{ Form::fileGroup('logo', trans('settings.company.logo')) }}
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="box box-success">
-    <div id="wizard-loading"></div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        {!! Form::button(
+                            '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'ml-0\': form.loading}]" class="btn-inner--text">' . trans('general.save') . '</span>',
+                            [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success']) !!}
 
-    {!! Form::model($company, ['method' => 'PATCH', 'files' => true, 'url' => ['wizard/companies'], 'role' => 'form', 'class' => 'form-loading-button']) !!}
-
-    <div class="box-header with-border">
-        <h3 class="box-title">{{ trans_choice('general.companies', 1) }}</h3>
-    </div>
-    <!-- /.box-header -->
-
-    <div class="box-body">
-        <div class="col-md-12 {!! (!setting('general.api_token', null)) ?: 'hidden' !!}">
-            <div class="form-group required {{ $errors->has('api_token') ? 'has-error' : ''}}">
-                {!! Form::label('sale_price', trans('modules.api_token'), ['class' => 'control-label']) !!}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                    {!! Form::text('api_token', setting('general.api_token', null), ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('general.form.enter', ['field' => trans('modules.api_token')])]) !!}
+                        <a href="{{ route('wizard.currencies.index') }}" id="wizard-skip" class="btn btn-white">
+                            {{ trans('general.skip') }}
+                        </a>
+                    </div>
                 </div>
-                {!! $errors->first('api_token', '<p class="help-block">:message</p>') !!}
             </div>
-            <p>
-                {!! trans('modules.token_link') !!}
-            </p>
-            </br>
-        </div>
 
-        {{ Form::textGroup('company_tax_number', trans('general.tax_number'), 'percent', []) }}
-
-        {{ Form::textGroup('company_phone', trans('settings.company.phone'), 'phone', []) }}
-
-        {{ Form::textareaGroup('company_address', trans('settings.company.address')) }}
-
-        {{ Form::fileGroup('company_logo', trans('settings.company.logo')) }}
+        {!! Form::close() !!}
     </div>
-    <!-- /.box-body -->
-
-    <div class="box-footer">
-        <div class="col-md-12">
-            <div class="form-group no-margin">
-                {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success  button-submit', 'data-loading-text' => trans('general.loading')]) !!}
-                <a href="{{ url('wizard/currencies') }}" id="wizard-skip" class="btn btn-default"><span class="fa fa-share"></span> &nbsp;{{ trans('general.skip') }}</a>
-            </div>
-        </div>
-    </div>
-    <!-- /.box-footer -->
-
-    {!! Form::close() !!}
-</div>
 @endsection
 
-@push('js')
-<script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
-@endpush
-
-@push('css')
-<link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
-@endpush
-
-@push('scripts')
-<script type="text/javascript">
-    var text_yes = '{{ trans('general.yes') }}';
-    var text_no = '{{ trans('general.no') }}';
-
-    $(document).ready(function() {
-        $('#company_logo').fancyfile({
-            text  : '{{ trans('general.form.select.file') }}',
-            style : 'btn-default',
-            @if($company->company_logo)
-            placeholder : '{{ $company->company_logo->basename }}',
-            @else
-            placeholder : '{{ trans('general.form.no_file_selected') }}',
-            @endif
-        });
-
-        @if($company->company_logo)
-        company_logo_html  = '<span class="company_logo">';
-        company_logo_html += '    <a href="{{ url('uploads/' . $company->company_logo->id . '/download') }}">';
-        company_logo_html += '        <span id="download-company_logo" class="text-primary">';
-        company_logo_html += '            <i class="fa fa-file-{{ $company->company_logo->aggregate_type }}-o"></i> {{ $company->company_logo->basename }}';
-        company_logo_html += '        </span>';
-        company_logo_html += '    </a>';
-        company_logo_html += '    {!! Form::open(['id' => 'company_logo-' . $company->company_logo->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $company->company_logo->id)], 'style' => 'display:inline']) !!}';
-        company_logo_html += '    <a id="remove-company_logo" href="javascript:void();">';
-        company_logo_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-        company_logo_html += '    </a>';
-        company_logo_html += '    <input type="hidden" name="page" value="setting" />';
-        company_logo_html += '    <input type="hidden" name="key" value="general.company_logo" />';
-        company_logo_html += '    <input type="hidden" name="value" value="{{ $company->company_logo->id }}" />';
-        company_logo_html += '    {!! Form::close() !!}';
-        company_logo_html += '</span>';
-
-        $('.form-group.col-md-6 .fancy-file .fake-file').append(company_logo_html);
-
-        $(document).on('click', '#remove-company_logo', function (e) {
-            confirmDelete("#company_logo-{!! $company->company_logo->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $company->company_logo->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-        });
-        @endif
-    });
-</script>
+@push('scripts_start')
+    <script src="{{ asset('public/js/wizard/company.js?v=' . version('short')) }}"></script>
 @endpush

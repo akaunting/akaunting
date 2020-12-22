@@ -13,17 +13,19 @@ return [
     'current_email'         => 'Текущий E-mail',
     'reset'                 => 'Сбросить',
     'never'                 => 'никогда',
-    
+    'landing_page'          => 'Стартовая страница',
+
     'password' => [
         'current'           => 'Пароль',
         'current_confirm'   => 'Подтверждение пароля',
         'new'               => 'Новый пароль',
         'new_confirm'       => 'Подтверждение нового пароля',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Ошибка: нельзя удалить самого себя!',
-        'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
+        'self_disable'      => 'Ошибка: Вы не можете отключить себя!',
+        'no_company'        => 'Ошибка: Компания не присоединена к вашему аккаунту. Пожалуйста обратитесь к системному администратору.',
     ],
 
     'failed'                => 'Имя пользователя и пароль не совпадают.',
@@ -31,9 +33,9 @@ return [
     'throttle'              => 'Слишком много попыток входа. Пожалуйста, попробуйте еще раз через :seconds секунд.',
 
     'notification' => [
-        'message_1'     => 'You are receiving this email because we received a password reset request for your account.',
-        'message_2'     => 'If you did not request a password reset, no further action is required.',
-        'button'        => 'Reset Password',
+        'message_1'     => 'Вы получили это письмо потому, что мы получили запрос сброса пароля для вашей учетной записи.',
+        'message_2'     => 'Если вы не запрашивали сброса пароля, дальнейших действий не требуется.',
+        'button'        => 'Сбросить пароль',
     ],
 
 ];

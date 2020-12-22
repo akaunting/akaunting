@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Install;
 
-use App\Http\Requests\Request;
+use App\Abstracts\Http\FormRequest;
 
-class Database extends Request
+class Database extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

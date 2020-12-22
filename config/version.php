@@ -4,21 +4,21 @@ return [
 
     'name'      =>  'Akaunting',
 
-    'code'      =>  'Reconciliation',
+    'code'      =>  'Argon',
 
-    'major'     =>  '1',
+    'major'     =>  '2',
 
-    'minor'     =>  '3',
+    'minor'     =>  '0',
 
-    'patch'     =>  '1',
+    'patch'     =>  '26',
 
     'build'     =>  '',
 
     'status'    =>  'Stable',
 
-    'date'      =>  '10-November-2018',
+    'date'      =>  '11-November-2020',
 
-    'time'      =>  '16:30',
+    'time'      =>  '18:00',
 
     'zone'      =>  'GMT +3',
 

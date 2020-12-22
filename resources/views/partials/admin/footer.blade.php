@@ -1,10 +1,16 @@
 @stack('footer_start')
-
-<footer class="main-footer">
-    <div class="pull-right hidden-xs">
-        <b>{{ trans('footer.version') }}</b> {{ version('short') }}
-    </div>
-    <strong>{{ trans('footer.powered') }}</strong>: <a href="{{ trans('footer.link') }}" target="_blank">{{ trans('footer.software') }}</a>
-</footer>
-
+    <footer class="footer">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="text-sm float-left text-muted footer-texts">
+                    {{ trans('footer.powered') }}: <a href="{{ trans('footer.link') }}" target="_blank" class="text-muted">{{ trans('footer.software') }}</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="text-sm float-right text-muted footer-texts">
+                    {{ trans('footer.version') }} {{ version('short') }}
+                </div>
+            </div>
+        </div>
+    </footer>
 @stack('footer_end')

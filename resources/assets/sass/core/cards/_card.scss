@@ -1,0 +1,69 @@
+//
+// Card
+//
+
+.card {
+    margin-bottom: $grid-gutter-width;
+
+    @if $enable-shadows {
+        box-shadow: $card-box-shadow;
+        border: 0;
+    }
+}
+
+.card-translucent {
+    background-color: rgba(18, 91, 152, 0.08);
+}
+
+.card-img-top {
+    @if ($enable-shadows == false) {
+        width: calc(100% + 2px);
+        margin-left: -1px;
+        margin-top: -1px;
+    }
+}
+
+.card-img-bottom {
+    @if ($enable-shadows == false) {
+        width: calc(100% + 2px);
+        margin-left: -1px;
+        margin-bottom: -1px;
+    }
+}
+
+// Card decks
+
+.card-deck  {
+    .card {
+        margin-bottom: $grid-gutter-width;
+    }
+}
+
+
+// Card with shdadow
+
+.card {
+    &.shadow {
+        border: 0 !important;
+    }
+}
+
+
+//
+// Columns
+//
+
+.card-columns {
+    @include media-breakpoint-up(sm) {
+        column-count: 1;
+    }
+
+    @include media-breakpoint-up(md) {
+        column-count: 2;
+    }
+
+    @include media-breakpoint-up(xl) {
+        column-count: $card-columns-count;
+        column-gap: $card-columns-gap;
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Banking;
 
+use App\Jobs\Banking\CreateAccount;
 use App\Models\Banking\Account;
 use Tests\Feature\FeatureTestCase;
 
@@ -25,66 +26,64 @@ class AccountsTest extends FeatureTestCase
 
     public function testItShouldCreateAccount()
     {
+        $request = $this->getRequest();
+
         $this->loginAs()
-            ->post(url('banking/accounts'), $this->getAccountRequest())
-            ->assertStatus(302)
-            ->assertRedirect(url('banking/accounts'));
+            ->post(route('accounts.store'), $request)
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('accounts', $request);
     }
 
     public function testItShouldSeeAccountUpdatePage()
     {
-        $account = Account::create($this->getAccountRequest());
+        $request = $this->getRequest();
+
+        $account = $this->dispatch(new CreateAccount($request));
 
         $this->loginAs()
-            ->get(route('accounts.edit', ['account' => $account->id]))
+            ->get(route('accounts.edit', $account->id))
             ->assertStatus(200)
             ->assertSee($account->name);
     }
 
     public function testItShouldUpdateAccount()
     {
-        $request = $this->getAccountRequest();
+        $request = $this->getRequest();
 
-        $account= Account::create($request);
+        $account = $this->dispatch(new CreateAccount($request));
 
-        $request['name'] = $this->faker->text(5);
+        $request['name'] = $this->faker->text(10);
 
         $this->loginAs()
-            ->patch(url('banking/accounts', $account->id), $request)
-            ->assertStatus(302)
-            ->assertRedirect(url('banking/accounts'));
+            ->patch(route('accounts.update', $account->id), $request)
+            ->assertStatus(200)
+			->assertSee($request['name']);
 
         $this->assertFlashLevel('success');
+
+        $this->assertDatabaseHas('accounts', $request);
     }
 
     public function testItShouldDeleteAccount()
     {
-        $account = Account::create($this->getAccountRequest());
+        $request = $this->getRequest();
+
+        $account = $this->dispatch(new CreateAccount($request));
 
         $this->loginAs()
-            ->delete(route('accounts.destroy', ['account' => $account]))
-            ->assertStatus(302)
-            ->assertRedirect(route('accounts.index'));
+            ->delete(route('accounts.destroy', $account->id))
+            ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted('accounts', $request);
     }
 
-    private function getAccountRequest()
+    public function getRequest()
     {
-        return[
-        'company_id' => $this->company->id,
-        'name' => $this->faker->text(5),
-        'number' => '1',
-        'currency_code' => setting('general.default_currency'),
-        'opening_balance' => 0,
-        'bank_name' => $this->faker->text(5),
-        'bank_phone' => null,
-        'bank_address' => null,
-        'default_account' => $this->faker->randomElement(['yes', 'no']),
-        'enabled' => $this->faker->boolean ? 1 : 0,
-        ];
+        return factory(Account::class)->states('enabled')->raw();
     }
 }
-

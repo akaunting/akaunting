@@ -1,10 +1,21 @@
 @stack('save_buttons_start')
+    @php
+        if (\Str::contains($cancel, ['.'])) {
+            $url = route($cancel);
+        } else {
+            $url = url($cancel);
+        }
+    @endphp
 
-<div class="{{ $col }}">
-    <div class="form-group no-margin">
-        {!! Form::button('<span class="fa fa-save"></span> &nbsp;' . trans('general.save'), ['type' => 'submit', 'class' => 'btn btn-success  button-submit', 'data-loading-text' => trans('general.loading')]) !!}
-        <a href="{{ url($cancel) }}" class="btn btn-default"><span class="fa fa-times-circle"></span> &nbsp;{{ trans('general.cancel') }}</a>
+    <div class="{{ $col }}">
+        <a href="{{ $url }}" class="btn btn-icon btn-outline-secondary header-button-top">
+            <span class="btn-inner--icon"><i class="fas fa-times"></i></span>
+            <span class="btn-inner--text">{{ trans('general.cancel') }}</span>
+        </a>
+
+        {!! Form::button(
+        '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text">' . trans('general.save') . '</span>',
+        [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success button-submit header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
     </div>
-</div>
 
 @stack('save_buttons_end')

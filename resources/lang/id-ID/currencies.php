@@ -5,14 +5,14 @@ return [
     'code'                  => 'Kode',
     'rate'                  => 'Kurs',
     'default'               => 'Mata Uang Utama',
-    'decimal_mark'          => 'Pemisah desimal',
-    'thousands_separator'   => 'Pemisah ribuan',
+    'decimal_mark'          => 'Pemisah Desimal',
+    'thousands_separator'   => 'Pemisah Ribuan',
     'precision'             => 'Presisi',
     'symbol' => [
         'symbol'            => 'Simbol',
-        'position'          => 'Posisi simbol',
+        'position'          => 'Posisi Simbol',
         'before'            => 'Sebelum Jumlah',
-        'after'             => 'Sesudah Jumlah',
+        'after'             => 'Setelah Jumlah',
     ]
 
 ];

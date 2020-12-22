@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Banking;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Banking\Account as Request;
+use App\Jobs\Banking\CreateAccount;
+use App\Jobs\Banking\DeleteAccount;
+use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
 use App\Models\Setting\Currency;
 
 class Accounts extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +31,7 @@ class Accounts extends Controller
      */
     public function show()
     {
-        return redirect('banking/accounts');
+        return redirect()->route('accounts.index');
     }
 
     /**
@@ -41,7 +43,7 @@ class Accounts extends Controller
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
 
-        $currency = Currency::where('code', '=', setting('general.default_currency', 'USD'))->first();
+        $currency = Currency::where('code', '=', setting('default.currency'))->first();
 
         return view('banking.accounts.create', compact('currencies', 'currency'));
     }
@@ -55,19 +57,23 @@ class Accounts extends Controller
      */
     public function store(Request $request)
     {
-        $account = Account::create($request->all());
+        $response = $this->ajaxDispatch(new CreateAccount($request));
 
-        // Set default account
-        if ($request['default_account']) {
-            setting()->set('general.default_account', $account->id);
-            setting()->save();
+        if ($response['success']) {
+            $response['redirect'] = route('accounts.index');
+
+            $message = trans('messages.success.added', ['type' => trans_choice('general.accounts', 1)]);
+
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('accounts.create');
+
+            $message = $response['message'];
+
+            flash($message)->error();
         }
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.accounts', 1)]);
-
-        flash($message)->success();
-
-        return redirect('banking/accounts');
+        return response()->json($response);
     }
 
     /**
@@ -81,7 +87,7 @@ class Accounts extends Controller
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
 
-        $account->default_account = ($account->id == setting('general.default_account')) ? 1 : 0;
+        $account->default_account = ($account->id == setting('default.account')) ? 1 : 0;
 
         $currency = Currency::where('code', '=', $account->currency_code)->first();
 
@@ -91,126 +97,92 @@ class Accounts extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Account  $account
-     * @param  Request  $request
+     * @param  Account $account
+     * @param  Request $request
      *
      * @return Response
      */
     public function update(Account $account, Request $request)
     {
-        // Check if we can disable it
-        if (!$request['enabled']) {
-            if ($account->id == setting('general.default_account')) {
-                $relationships[] = strtolower(trans_choice('general.companies', 1));
-            }
-        }
+        $response = $this->ajaxDispatch(new UpdateAccount($account, $request));
 
-        if (empty($relationships)) {
-            $account->update($request->all());
+        if ($response['success']) {
+            $response['redirect'] = route('accounts.index');
 
-            // Set default account
-            if ($request['default_account']) {
-                setting()->set('general.default_account', $account->id);
-                setting()->save();
-            }
-
-            $message = trans('messages.success.updated', ['type' => trans_choice('general.accounts', 1)]);
+            $message = trans('messages.success.updated', ['type' => $account->name]);
 
             flash($message)->success();
-
-            return redirect('banking/accounts');
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
+            $response['redirect'] = route('accounts.edit', $account->id);
 
-            flash($message)->warning();
+            $message = $response['message'];
 
-            return redirect('banking/accounts/' . $account->id . '/edit');
+            flash($message)->error();
         }
+
+        return response()->json($response);
     }
 
     /**
      * Enable the specified resource.
      *
-     * @param  Account  $account
+     * @param  Account $account
      *
      * @return Response
      */
     public function enable(Account $account)
     {
-        $account->enabled = 1;
-        $account->save();
+        $response = $this->ajaxDispatch(new UpdateAccount($account, request()->merge(['enabled' => 1])));
 
-        $message = trans('messages.success.enabled', ['type' => trans_choice('general.accounts', 1)]);
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.enabled', ['type' => $account->name]);
+        }
 
-        flash($message)->success();
-
-        return redirect()->route('accounts.index');
+        return response()->json($response);
     }
 
     /**
      * Disable the specified resource.
      *
-     * @param  Account  $account
+     * @param  Account $account
      *
      * @return Response
      */
     public function disable(Account $account)
     {
-        if ($account->id == setting('general.default_account')) {
-            $relationships[] = strtolower(trans_choice('general.companies', 1));
+        $response = $this->ajaxDispatch(new UpdateAccount($account, request()->merge(['enabled' => 0])));
+
+        if ($response['success']) {
+            $response['message'] = trans('messages.success.disabled', ['type' => $account->name]);
         }
 
-        if (empty($relationships)) {
-            $account->enabled = 0;
-            $account->save();
-
-            $message = trans('messages.success.disabled', ['type' => trans_choice('general.accounts', 1)]);
-
-            flash($message)->success();
-        } else {
-            $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
-
-            flash($message)->warning();
-
-            return redirect()->route('accounts.index');
-        }
-
-        return redirect()->route('accounts.index');
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Account  $account
+     * @param  Account $account
      *
      * @return Response
      */
     public function destroy(Account $account)
     {
-        $relationships = $this->countRelationships($account, [
-            'bill_payments' => 'bills',
-            'payments' => 'payments',
-            'invoice_payments' => 'invoices',
-            'revenues' => 'revenues',
-        ]);
+        $response = $this->ajaxDispatch(new DeleteAccount($account));
 
-        if ($account->id == setting('general.default_account')) {
-            $relationships[] = strtolower(trans_choice('general.companies', 1));
-        }
+        $response['redirect'] = route('accounts.index');
 
-        if (empty($relationships)) {
-            $account->delete();
-
-            $message = trans('messages.success.deleted', ['type' => trans_choice('general.accounts', 1)]);
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $account->name]);
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
+            $message = $response['message'];
 
-            flash($message)->warning();
+            flash($message)->error();
         }
 
-        return redirect('banking/accounts');
+        return response()->json($response);
     }
 
     public function currency()
@@ -227,7 +199,7 @@ class Accounts extends Controller
             return response()->json([]);
         }
 
-        $currency_code = setting('general.default_currency');
+        $currency_code = setting('default.currency');
 
         if (isset($account->currency_code)) {
             $currencies = Currency::enabled()->pluck('name', 'code')->toArray();

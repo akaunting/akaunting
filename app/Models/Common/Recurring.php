@@ -2,7 +2,7 @@
 
 namespace App\Models\Common;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Traits\Recurring as RecurringTrait;
 
 class Recurring extends Model
@@ -25,5 +25,17 @@ class Recurring extends Model
     public function recurable()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * Scope to get all rows filtered, sorted and paginated.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllCompanies($query)
+    {
+        return $query->where('company_id', '<>', '0');
     }
 }

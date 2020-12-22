@@ -2,7 +2,10 @@
 
 return [
 
-    'rate'                  => 'Оцінка',
-    'rate_percent'          => 'Оцінка (%)',
-
+    'rate'                  => 'Ставка',
+    'rate_percent'          => 'Ставка (%)',
+    'normal'                => 'Нормально',
+    'inclusive'             => 'Включно',
+    'compound'              => 'Складний',
+    'fixed'                 => 'Фіксований',
 ];

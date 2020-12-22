@@ -2,12 +2,12 @@
 
 namespace App\Models\Banking;
 
-use App\Models\Model;
-use Sofa\Eloquence\Eloquence;
+use App\Abstracts\Model;
+use App\Traits\Transactions;
 
 class Account extends Model
 {
-    use Eloquence;
+    use Transactions;
 
     protected $table = 'accounts';
 
@@ -32,42 +32,34 @@ class Account extends Model
      */
     public $sortable = ['name', 'number', 'opening_balance', 'enabled'];
 
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
-    protected $searchableColumns = [
-        'name'         => 10,
-        'number'       => 10,
-        'bank_name'    => 10,
-        'bank_phone'   => 5,
-        'bank_address' => 2,
-    ];
-
     public function currency()
     {
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
     }
 
-    public function invoice_payments()
+    public function expense_transactions()
     {
-        return $this->hasMany('App\Models\Income\InvoicePayment');
+        return $this->transactions()->whereIn('type', (array) $this->getExpenseTypes());
     }
 
-    public function revenues()
+    public function income_transactions()
     {
-        return $this->hasMany('App\Models\Income\Revenue');
+        return $this->transactions()->whereIn('type', (array) $this->getIncomeTypes());
     }
 
-    public function bill_payments()
+    public function transactions()
     {
-        return $this->hasMany('App\Models\Expense\BillPayment');
+        return $this->hasMany('App\Models\Banking\Transaction');
     }
 
-    public function payments()
+    public function scopeName($query, $name)
     {
-        return $this->hasMany('App\Models\Expense\Payment');
+        return $query->where('name', '=', $name);
+    }
+
+    public function scopeNumber($query, $number)
+    {
+        return $query->where('number', '=', $number);
     }
 
     /**
@@ -91,25 +83,11 @@ class Account extends Model
         // Opening Balance
         $total = $this->opening_balance;
 
-        // Sum invoices
-        foreach ($this->invoice_payments as $item) {
-            $total += $item->amount;
-        }
+        // Sum Incomes
+        $total += $this->income_transactions->sum('amount');
 
-        // Sum revenues
-        foreach ($this->revenues as $item) {
-            $total += $item->amount;
-        }
-
-        // Subtract bills
-        foreach ($this->bill_payments as $item) {
-            $total -= $item->amount;
-        }
-
-        // Subtract payments
-        foreach ($this->payments as $item) {
-            $total -= $item->amount;
-        }
+        // Subtract Expenses
+        $total -= $this->expense_transactions->sum('amount');
 
         return $total;
     }

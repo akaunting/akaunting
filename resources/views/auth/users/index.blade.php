@@ -3,99 +3,113 @@
 @section('title', trans_choice('general.users', 2))
 
 @permission('create-auth-users')
-@section('new_button')
-<span class="new-button"><a href="{{ url('auth/users/create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-@endsection
+    @section('new_button')
+        <a href="{{ route('users.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
+    @endsection
 @endpermission
 
 @section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        {!! Form::open(['url' => 'auth/users', 'role' => 'form', 'method' => 'GET']) !!}
-        <div class="pull-left">
-            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
-            {!! Form::text('search', request('search'), ['class' => 'form-control input-filter input-sm', 'placeholder' => trans('general.search_placeholder')]) !!}
-            {!! Form::select('role', $roles, request('role'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
+    <div class="card">
+        <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
+            {!! Form::open([
+                'method' => 'GET',
+                'route' => 'users.index',
+                'role' => 'form',
+                'class' => 'mb-0'
+            ]) !!}
+                <div class="align-items-center" v-if="!bulk_action.show">
+                    <akaunting-search
+                        :placeholder="'{{ trans('general.search_placeholder') }}'"
+                        :options="{{ json_encode([]) }}"
+                    ></akaunting-search>
+                </div>
+
+                {{ Form::bulkActionRowGroup('general.users', $bulk_actions, ['group' => 'auth', 'type' => 'users']) }}
+            {!! Form::close() !!}
         </div>
-        <div class="pull-right">
-            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
-            {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-users">
-                <thead>
-                    <tr>
-                        <th class="col-md-3">@sortablelink('name', trans('general.name'))</th>
-                        <th class="col-md-3">@sortablelink('email', trans('general.email'))</th>
-                        <th class="col-md-3 hidden-xs">{{ trans_choice('general.roles', 2) }}</th>
-                        <th class="col-md-1 hidden-xs">@sortablelink('enabled', trans_choice('general.statuses', 1))</th>
-                        <th class="col-md-1 text-center">{{ trans('general.actions') }}</th>
+
+        <div class="table-responsive">
+            <table class="table table-flush table-hover">
+                <thead class="thead-light">
+                    <tr class="row table-head-line">
+                        <th class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
+                        <th class="col-xs-4 col-sm-3 col-md-2 col-lg-3">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
+                        <th class="col-sm-2 col-md-2 col-lg-3 d-none d-sm-block long-texts">@sortablelink('email', trans('general.email'))</th>
+                        <th class="col-md-2 col-lg-2 d-none d-md-block">{{ trans_choice('general.roles', 2) }}</th>
+                        <th class="col-xs-4 col-sm-3 col-md-2 col-lg-2">@sortablelink('enabled', trans('general.enabled'))</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">{{ trans('general.actions') }}</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                @foreach($users as $item)
-                    <tr>
-                        <td>
-                            <a href="{{ url('auth/users/' . $item->id . '/edit') }}">
-                                @if (setting('general.use_gravatar', '0') == '1')
-                                    <img src="{{ $item->picture }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}">
+                    @foreach($users as $item)
+                        <tr class="row align-items-center border-top-1">
+                            <td class="col-sm-2 col-md-2 col-lg-1 d-none d-sm-block">
+                                @if (user()->id != $item->id)
+                                    {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 @else
-                                @if ($item->picture)
-                                    <img src="{{ Storage::url($item->picture->id) }}" class="users-image" alt="{{ $item->name }}" title="{{ $item->name }}">
+                                    {{ Form::bulkActionGroup($item->id, $item->name, ['disabled' => 'true']) }}
                                 @endif
-                                @endif
-                                {{ $item->name }}
-                            </a>
-                        </td>
-                        <td>{{ $item->email }}</td>
-                        <td class="hidden-xs" style="vertical-align: middle;">
-                            @foreach($item->roles as $role)
-                                <label class="label label-default">{{ $role->display_name }}</label>
-                            @endforeach
-                        </td>
-                        <td class="hidden-xs">
-                            @if ($item->enabled)
-                                <span class="label label-success">{{ trans('general.enabled') }}</span>
-                            @else
-                                <span class="label label-danger">{{ trans('general.disabled') }}</span>
-                            @endif
-                        </td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-toggle-position="left" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ url('auth/users/' . $item->id . '/edit') }}">{{ trans('general.edit') }}</a></li>@if ($item->enabled)
-                                    <li><a href="{{ route('users.disable', $item->id) }}">{{ trans('general.disable') }}</a></li>
+                            </td>
+                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-3">
+                                <a class="col-aka" href="{{ route('users.edit', $item->id) }}">
+                                    @if (setting('default.use_gravatar', '0') == '1')
+                                        <img src="{{ $item->picture }}" alt="{{ $item->name }}" class="rounded-circle user-img p-1 mr-3 hidden-md" title="{{ $item->name }}">
+                                    @elseif (is_object($item->picture))
+                                        <img src="{{ Storage::url($item->picture->id) }}" class="rounded-circle user-img p-1 mr-3 hidden-md" alt="{{ $item->name }}" title="{{ $item->name }}">
                                     @else
-                                    <li><a href="{{ route('users.enable', $item->id) }}">{{ trans('general.enable') }}</a></li>
+                                        <img src="{{ asset('public/img/user.svg') }}" class="user-img p-1 mr-3 hidden-md" alt="{{ $item->name }}"/>
                                     @endif
-                                    @permission('delete-auth-users')
-                                    <li class="divider"></li>
-                                    <li>{!! Form::deleteLink($item, 'auth/users') !!}</li>
-                                    @endpermission
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
+                                    {{ $item->name }}
+                                </a>
+                            </td>
+                            <td class="col-sm-2 col-md-2 col-lg-3 d-none d-sm-block long-texts">{{ $item->email }}</td>
+                            <td class="col-md-2 col-lg-2 d-none d-md-block">
+                                @foreach($item->roles as $role)
+                                    <label class="label label-default">{{ $role->display_name }}</label>
+                                @endforeach
+                            </td>
+                            <td class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+                                @if ((user()->id != $item->id) && user()->can('update-auth-users'))
+                                    {{ Form::enabledGroup($item->id, $item->name, $item->enabled) }}
+                                @else
+                                    @if ($item->enabled)
+                                        <badge rounded type="success" class="mw-60">{{ trans('general.yes') }}</badge>
+                                    @else
+                                        <badge rounded type="danger" class="mw-60">{{ trans('general.no') }}</badge>
+                                    @endif
+                                @endif
+                            </td>
+                            <td class="col-xs-4 col-sm-2 col-md-2 col-lg-1 text-center">
+                                <div class="dropdown">
+                                    <a class="btn btn-neutral btn-sm text-light items-align-center py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h text-muted"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="{{ route('users.edit', $item->id) }}">{{ trans('general.edit') }}</a>
+                                        @if (user()->id != $item->id)
+                                            @permission('delete-auth-users')
+                                                <div class="dropdown-divider"></div>
+                                                {!! Form::deleteLink($item, 'users.destroy') !!}
+                                            @endpermission
+                                        @endif
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
+
+        <div class="card-footer table-action">
+            <div class="row">
+                @include('partials.admin.pagination', ['items' => $users])
+            </div>
+        </div>
     </div>
-    <!-- /.box-body -->
-    <div class="box-footer">
-        @include('partials.admin.pagination', ['items' => $users, 'type' => 'users'])
-    </div>
-    <!-- /.box-footer -->
-</div>
-<!-- /.box -->
 @endsection
 
+@push('scripts_start')
+    <script src="{{ asset('public/js/auth/users.js?v=' . version('short')) }}"></script>
+@endpush

@@ -2,15 +2,14 @@
 
 namespace App\Models\Common;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Traits\Currencies;
-use Bkwld\Cloner\Cloneable;
-use Sofa\Eloquence\Eloquence;
 use App\Traits\Media;
+use Bkwld\Cloner\Cloneable;
 
 class Item extends Model
 {
-    use Cloneable, Currencies, Eloquence, Media;
+    use Cloneable, Currencies, Media;
 
     protected $table = 'items';
 
@@ -26,44 +25,38 @@ class Item extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'sku', 'description', 'sale_price', 'purchase_price', 'quantity', 'category_id', 'tax_id', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'tax_id', 'enabled'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    protected $sortable = ['name', 'category', 'quantity', 'sale_price', 'purchase_price', 'enabled'];
-
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
-    protected $searchableColumns = [
-        'name'        => 10,
-        'sku'         => 5,
-        'description' => 2,
-    ];
+    protected $sortable = ['name', 'category', 'sale_price', 'purchase_price', 'enabled'];
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Setting\Category');
+        return $this->belongsTo('App\Models\Setting\Category')->withDefault(['name' => trans('general.na')]);
     }
 
     public function tax()
     {
-        return $this->belongsTo('App\Models\Setting\Tax');
+        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na'), 'rate' => 0]);
     }
 
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Expense\BillItem');
+        return $this->hasMany('App\Models\Purchase\BillItem');
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Income\InvoiceItem');
+        return $this->hasMany('App\Models\Sale\InvoiceItem');
+    }
+
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', '=', $name);
     }
 
     /**
@@ -112,17 +105,6 @@ class Item extends Model
                 $query->orWhere($key, 'LIKE', "%" . $value  . "%");
             }
         });
-    }
-
-    /**
-     * Scope quantity.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeQuantity($query)
-    {
-        return $query->where('quantity', '>', '0');
     }
 
     /**

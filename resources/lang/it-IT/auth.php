@@ -13,16 +13,18 @@ return [
     'current_email'         => 'Email attuale',
     'reset'                 => 'Reimposta',
     'never'                 => 'mai',
-    
+    'landing_page'          => 'Pagina di destinazione',
+
     'password' => [
         'current'           => 'Password',
         'current_confirm'   => 'Conferma Password',
         'new'               => 'Nuova Password',
         'new_confirm'       => 'Conferma Nuova Password',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Errore: Non puoi eliminarlo!',
+        'self_disable'      => 'Errore: Non puoi disabilitarlo!',
         'no_company'        => 'Errore: Nessuna società assegnata al tuo account. Per favore, contatta l\'amministratore di sistema.',
     ],
 

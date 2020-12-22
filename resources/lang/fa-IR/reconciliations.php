@@ -2,13 +2,17 @@
 
 return [
 
-    'reconcile'             => 'Reconcile',
-    'reconciled'            => 'Reconciled',
-    'closing_balance'       => 'Closing Balance',
-    'unreconciled'          => 'Unreconciled',
-    'list_transactions'     => 'List Transactions',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
-    'cleared_amount'        => 'Cleared Amount',
+    'reconcile'             => 'مغایرت گیری',
+    'unreconcile'           => 'مغایرت گیری نشده',
+    'reconciled'            => 'مغایرت گیری شده',
+    'opening_balance'       => 'تراز شروع دوره',
+    'closing_balance'       => 'تراز پایان دوره',
+    'unreconciled'          => 'مغایرت گیری نشده',
+    'transactions'          => 'تراکنش‌ها',
+    'start_date'            => 'تاریخ شروع',
+    'end_date'              => 'تاریخ پایان',
+    'cleared_amount'        => 'مبلغ تصفیه شده',
+    'deposit'               => 'سپرده',
+    'withdrawal'            => 'برداشت',
 
 ];

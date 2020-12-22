@@ -18,5 +18,6 @@ return [
     'sent' => 'Şifre sıfırlama bağlantınızı size e-posta ile gönderdik!',
     'token' => 'Şifre sıfırlama adresi/kodu geçersiz.',
     'user' => "Bu e-posta adresi ile kayıtlı bir üye bulunmuyor.",
+    'throttle' => 'Lütfen tekrar denemeden önce bekleyin.',
 
 ];

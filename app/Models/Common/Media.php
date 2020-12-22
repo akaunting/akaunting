@@ -3,12 +3,13 @@
 namespace App\Models\Common;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Plank\Mediable\Media as PMedia;
+use Plank\Mediable\Media as BaseMedia;
 
-class Media extends PMedia
+class Media extends BaseMedia
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $tenantable = false;
 
+    protected $dates = ['deleted_at'];
 }

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Abstracts\Http\Controller;
 use App\Http\Requests\Auth\Role as Request;
+use App\Jobs\Auth\CreateRole;
+use App\Jobs\Auth\DeleteRole;
+use App\Jobs\Auth\UpdateRole;
 use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 
 class Roles extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -29,21 +31,14 @@ class Roles extends Controller
      */
     public function create()
     {
-        $names = $permissions = [];
-        $allPermissions = Permission::all();
+        $permissions = [];
+        $actions = ['read', 'create', 'update', 'delete'];
 
-        foreach ($allPermissions as $permission) {
-            // permission code explode - and get permission type
-            $n = explode('-', $permission->name);
-
-            if (!in_array($n[0], $names)) {
-                $names[] = $n[0];
-            }
-
-            $permissions[$n[0]][] = $permission;
+        foreach ($actions as $action) {
+            $permissions[$action] = Permission::action($action)->get()->sortBy('title')->all();
         }
 
-        return view('auth.roles.create', compact('names', 'permissions'));
+        return view('auth.roles.create', compact('actions', 'permissions'));
     }
 
     /**
@@ -55,17 +50,23 @@ class Roles extends Controller
      */
     public function store(Request $request)
     {
-        // Create role
-        $role = Role::create($request->all());
+        $response = $this->ajaxDispatch(new CreateRole($request));
 
-        // Attach permissions
-        $role->permissions()->attach($request['permissions']);
+        if ($response['success']) {
+            $response['redirect'] = route('roles.index');
 
-        $message = trans('messages.success.added', ['type' => trans_choice('general.roles', 1)]);
+            $message = trans('messages.success.added', ['type' => trans_choice('general.roles', 1)]);
 
-        flash($message)->success();
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('roles.create');
 
-        return redirect('auth/roles');
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -77,64 +78,68 @@ class Roles extends Controller
      */
     public function edit(Role $role)
     {
-        //$permissions = Permission::all()->sortBy('display_name');
-        $names = $permissions = [];
-        $allPermissions = Permission::all();
+        $permissions = [];
+        $actions = ['read', 'create', 'update', 'delete'];
 
-        $rolePermissions = $role->permissions->pluck('id', 'id')->toArray();
-
-        foreach ($allPermissions as $permission) {
-            // permission code explode - and get permission type
-            $n = explode('-', $permission->name);
-
-            if (!in_array($n[0], $names)) {
-                $names[] = $n[0];
-            }
-
-            $permissions[$n[0]][] = $permission;
+        foreach ($actions as $action) {
+            $permissions[$action] = Permission::action($action)->get()->sortBy('title')->all();
         }
 
-        return view('auth.roles.edit', compact('role', 'names', 'permissions', 'rolePermissions'));
+        return view('auth.roles.edit', compact('role', 'actions', 'permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Role  $role
+     * @param  Role $role
      * @param  Request  $request
      *
      * @return Response
      */
     public function update(Role $role, Request $request)
     {
-        // Update role
-        $role->update($request->all());
+        $response = $this->ajaxDispatch(new UpdateRole($role, $request));
 
-        // Sync permissions
-        $role->permissions()->sync($request['permissions']);
+        if ($response['success']) {
+            $response['redirect'] = route('roles.index');
 
-        $message = trans('messages.success.updated', ['type' => trans_choice('general.roles', 1)]);
+            $message = trans('messages.success.updated', ['type' => $role->display_name]);
 
-        flash($message)->success();
+            flash($message)->success();
+        } else {
+            $response['redirect'] = route('roles.edit', $role->id);
 
-        return redirect('auth/roles');
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Role  $role
+     * @param  Role $role
      *
      * @return Response
      */
     public function destroy(Role $role)
     {
-        $role->delete();
+        $response = $this->ajaxDispatch(new DeleteRole($role));
 
-        $message = trans('messages.success.deleted', ['type' => trans_choice('general.roles', 1)]);
+        $response['redirect'] = route('roles.index');
 
-        flash($message)->success();
+        if ($response['success']) {
+            $message = trans('messages.success.deleted', ['type' => $role->display_name]);
 
-        return redirect('auth/roles');
+            flash($message)->success();
+        } else {
+            $message = $response['message'];
+
+            flash($message)->error();
+        }
+
+        return response()->json($response);
     }
 }

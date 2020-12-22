@@ -15,6 +15,7 @@ class Install extends Command
     const OPT_DB_NAME = 'db-name';
     const OPT_DB_USERNAME = 'db-username';
     const OPT_DB_PASSWORD = 'db-password';
+    const OPT_DB_PREFIX = 'db-prefix';
     const OPT_COMPANY_NAME = 'company-name';
     const OPT_COMPANY_EMAIL = 'company-email';
     const OPT_ADMIN_EMAIL = 'admin-email';
@@ -22,33 +23,20 @@ class Install extends Command
     const OPT_LOCALE = 'locale';
     const OPT_NO_INTERACTION = 'no-interaction';
 
-    public $dbHost;
-    public $dbPort;
-    public $dbName;
-    public $dbUsername;
-    public $dbPassword;
-
-    public $companyName;
-    public $companyEmail;
-
-    public $adminEmail;
-    public $adminPassword;
-
-    public $locale;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'install 
-                            {--db-host= : Database host}
+    protected $signature = 'install
+                            {--db-host=localhost : Database host}
                             {--db-port=3306 : Port of the database host}
                             {--db-name= : Name of the database}
-                            {--db-username= : Username to use to access the database}
+                            {--db-username=root : Username to use to access the database}
                             {--db-password= : Password to use to access the database}
-                            {--company-name= : Name of the company managed buy the app}
-                            {--company-email= : email used to contact the company}
+                            {--db-prefix= : Table name prefix}
+                            {--company-name=My Company : Name of the company}
+                            {--company-email=my@company.com : Email of the company}
                             {--admin-email= : Admin user email}
                             {--admin-password= : Admin user password}
                             {--locale=en-GB : Language used in the app}
@@ -62,31 +50,23 @@ class Install extends Command
     protected $description = 'Allows to install Akaunting directly through CLI';
 
     /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        $missingOptions = $this->checkOptions();
-        if (!empty($missingOptions) && $this->option(self::OPT_NO_INTERACTION)) {
-            $this->line('❌ Some options are missing and --no-interaction is present. Please run the following command for more informations :');
-            $this->line('❌   php artisan help install');
-            $this->line('❌ Missing options are : ' . join(', ', $missingOptions));
+        if (($missing_options = $this->getMissingOptions()) && $this->option(self::OPT_NO_INTERACTION)) {
+            $this->line('❌ Some options are missing and --no-interaction is present. Please run the following command for more information :');
+            $this->line('❌ php artisan help install');
+            $this->line('❌ Missing options are : ' . implode(', ', $missing_options));
 
             return self::CMD_ERROR;
         }
 
         $this->line('Setting locale ' . $this->locale);
         Session::put(self::OPT_LOCALE, $this->locale);
+        app()->setLocale($this->locale);
 
         $this->prompt();
 
@@ -99,10 +79,10 @@ class Install extends Command
         }
 
         $this->line('Creating company');
-        Installer::createCompany($this->companyName, $this->companyEmail, $this->locale);
+        Installer::createCompany($this->company_name, $this->company_email, $this->locale);
 
         $this->line('Creating admin');
-        Installer::createUser($this->adminEmail, $this->adminPassword, $this->locale);
+        Installer::createUser($this->admin_email, $this->admin_password, $this->locale);
 
         $this->line('Applying the final touches');
         Installer::finalTouches();
@@ -113,61 +93,45 @@ class Install extends Command
     /**
      * Check that all options are presents. otherwise returns an array of the missing options
      */
-    private function checkOptions()
+    private function getMissingOptions()
     {
-        $missingOptions = array();
+        $missing_options = [];
 
-        $this->locale = $this->option(self::OPT_LOCALE);
-        if (empty($this->locale)) {
-            $missingOptions[] = self::OPT_LOCALE;
+        $constants = [
+            'OPT_LOCALE',
+            'OPT_DB_PORT',
+            'OPT_DB_HOST',
+            'OPT_DB_NAME',
+            'OPT_DB_USERNAME',
+            'OPT_DB_PASSWORD',
+            'OPT_DB_PREFIX',
+            'OPT_COMPANY_NAME',
+            'OPT_COMPANY_EMAIL',
+            'OPT_ADMIN_EMAIL',
+            'OPT_ADMIN_PASSWORD'
+        ];
+
+        $allowed_empty = ['db_password', 'db_prefix'];
+
+        foreach ($constants as $const) {
+            $option = constant("self::$const");
+
+            $property = str_replace('-', '_', $option);
+
+            $this->$property = $this->option($option);
+
+            if (!empty($this->$property)) {
+                continue;
+            }
+
+            if (in_array($property, $allowed_empty)) {
+                continue;
+            }
+
+            $missing_options[] = $option;
         }
 
-        $this->dbHost = $this->option(self::OPT_DB_HOST);
-        if (empty($this->dbHost)) {
-            $missingOptions[] = self::OPT_DB_HOST;
-        }
-
-        $this->dbPort = $this->option(self::OPT_DB_PORT);
-        if (empty($this->dbPort)) {
-            $missingOptions[] = self::OPT_DB_PORT;
-        }
-
-        $this->dbName = $this->option(self::OPT_DB_NAME);
-        if (empty($this->dbPort)) {
-            $missingOptions[] = self::OPT_DB_NAME;
-        }
-
-        $this->dbUsername = $this->option(self::OPT_DB_USERNAME);
-        if (empty($this->dbPort)) {
-            $missingOptions[] = self::OPT_DB_USERNAME;
-        }
-
-        $this->dbPassword = $this->option(self::OPT_DB_PASSWORD);
-        if (empty($this->dbPort)) {
-            $missingOptions[] = self::OPT_DB_PASSWORD;
-        }
-
-        $this->companyName = $this->option(self::OPT_COMPANY_NAME);
-        if (empty($this->dbPort)) {
-            $missingOptions[] = self::OPT_COMPANY_NAME;
-        }
-
-        $this->companyEmail = $this->option(self::OPT_COMPANY_EMAIL);
-        if (empty($this->dbPort)) {
-            $missingOptions[] = self::OPT_COMPANY_EMAIL;
-        }
-
-        $this->adminEmail = $this->option(self::OPT_ADMIN_EMAIL);
-        if (empty($this->dbPort)) {
-            $missingOptions[] = self::OPT_ADMIN_EMAIL;
-        }
-
-        $this->adminPassword = $this->option(self::OPT_ADMIN_PASSWORD);
-        if (empty($this->dbPort)) {
-            $missingOptions[] = self::OPT_ADMIN_PASSWORD;
-        }
-
-        return $missingOptions;
+        return $missing_options;
     }
 
     /**
@@ -175,53 +139,55 @@ class Install extends Command
      */
     private function prompt()
     {
-        if (empty($this->dbHost)) {
-            $this->dbHost = $this->ask('What is the database host?', 'localhost');
+        if (empty($this->db_host)) {
+            $this->db_host = $this->ask('What is the database host?', 'localhost');
         }
 
-        if (empty($this->dbPort)) {
-            $this->dbPort = $this->ask('What is the database port?', '3606');
+        if (empty($this->db_port)) {
+            $this->db_port = $this->ask('What is the database port?', '3306');
         }
 
-        if (empty($this->dbName)) {
-            $this->dbName = $this->ask('What is the database name?');
+        if (empty($this->db_name)) {
+            $this->db_name = $this->ask('What is the database name?');
         }
 
-        if (empty($this->dbUsername)) {
-            $this->dbUsername = $this->ask('What is the database username?');
+        if (empty($this->db_username)) {
+            $this->db_username = $this->ask('What is the database username?', 'root');
         }
 
-        if (empty($this->dbPassword)) {
-            $this->dbPassword = $this->secret('What is the database password?');
+        if (!isset($this->db_password)) {
+            $this->db_password = $this->secret('What is the database password?', '');
         }
 
-        if (empty($this->companyName)) {
-            $this->companyName = $this->ask('What is the company name?');
+        if (empty($this->company_name)) {
+            $this->company_name = $this->ask('What is the company name?', 'My Company');
         }
 
-        if (empty($this->companyEmail)) {
-            $this->companyEmail = $this->ask('What is the company contact email?');
+        if (empty($this->company_email)) {
+            $this->company_email = $this->ask('What is the company contact email?', 'my@company.com');
         }
 
-        if (empty($this->adminEmail)) {
-            $this->adminEmail = $this->ask('What is the admin email?', $this->companyEmail);
+        if (empty($this->admin_email)) {
+            $this->admin_email = $this->ask('What is the admin email?', $this->company_email);
         }
 
-        if (empty($this->adminPassword)) {
-            $this->adminPassword = $this->secret('What is the admin password?');
+        if (empty($this->admin_password)) {
+            $this->admin_password = $this->secret('What is the admin password?');
         }
     }
 
-    private function createDatabaseTables() {
-        $this->dbHost     = $this->option(self::OPT_DB_HOST);
-        $this->dbPort     = $this->option(self::OPT_DB_PORT);
-        $this->dbName     = $this->option(self::OPT_DB_NAME);
-        $this->dbUsername = $this->option(self::OPT_DB_USERNAME);
-        $this->dbPassword = $this->option(self::OPT_DB_PASSWORD);
+    private function createDatabaseTables()
+    {
+        $this->db_host     = $this->option(self::OPT_DB_HOST);
+        $this->db_port     = $this->option(self::OPT_DB_PORT);
+        $this->db_name     = $this->option(self::OPT_DB_NAME);
+        $this->db_username = $this->option(self::OPT_DB_USERNAME);
+        $this->db_password = $this->option(self::OPT_DB_PASSWORD);
+        $this->db_prefix   = $this->option(self::OPT_DB_PREFIX);
 
-        $this->line('Connecting to database ' . $this->dbName . '@' . $this->dbHost . ':' . $this->dbPort);
+        $this->line('Connecting to database ' . $this->db_name . '@' . $this->db_host . ':' . $this->db_port);
 
-        if (!Installer::createDbTables($this->dbHost, $this->dbPort, $this->dbName, $this->dbUsername, $this->dbPassword)) {
+        if (!Installer::createDbTables($this->db_host, $this->db_port, $this->db_name, $this->db_username, $this->db_password, $this->db_prefix)) {
             $this->error('Error: Could not connect to the database! Please, make sure the details are correct.');
 
             return false;

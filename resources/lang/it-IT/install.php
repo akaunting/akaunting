@@ -21,6 +21,7 @@ return [
         'disabled'          => ':feature deve essere disabilitata!',
         'extension'         => ':extension estensione deve essere installata e caricata!',
         'directory'         => 'la cartella :directory deve essere scrivibile!',
+        'executable'        => 'Il file eseguibile PHP CLI non è definito/non funziona o la versione non è :php_version o superiore! Si prega di chiedere alla società di hosting di impostare correttamente la variabile d\'ambiente PHP_BINARY o PHP_PATH.',
     ],
 
     'database' => [
@@ -38,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Errore: chiedi al tuo provider di usare PHP :php_version o superiore sia per HTTP che per CLI.',
         'connection'        => 'Errore: Impossibile connettersi al database! Per favore, assicurati che i dettagli siano corretti.',
     ],
 

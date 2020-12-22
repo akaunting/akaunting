@@ -2,8 +2,9 @@
 
 return [
 
-    'previous'              => '&laquo; Forrige',
-    'next'                  => 'Næste &raquo;',
-    'showing'               => 'Viser :first til :last af :total :type',
+    'previous'              => 'Forrige',
+    'next'                  => 'Næste',
+    'showing'               => ':first-:last af :total poster.',
+    'page'                  => 'pr side.',
 
 ];

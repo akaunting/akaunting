@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Events\Purchase\BillReminded;
 use App\Models\Common\Company;
-use App\Models\Expense\Bill;
-use App\Notifications\Expense\Bill as Notification;
+use App\Models\Purchase\Bill;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;
@@ -24,14 +24,6 @@ class BillReminder extends Command
      * @var string
      */
     protected $description = 'Send reminders for bills';
-    
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
@@ -40,10 +32,20 @@ class BillReminder extends Command
      */
     public function handle()
     {
+        // Disable model cache
+        config(['laravel-model-caching.enabled' => false]);
+
         // Get all companies
-        $companies = Company::all();
+        $companies = Company::enabled()->withCount('bills')->cursor();
 
         foreach ($companies as $company) {
+            // Has company bills
+            if (!$company->bills_count) {
+                continue;
+            }
+
+            $this->info('Sending bill reminders for ' . $company->name . ' company.');
+
             // Set company id
             session(['company_id' => $company->id]);
 
@@ -51,42 +53,42 @@ class BillReminder extends Command
             Overrider::load('settings');
             Overrider::load('currencies');
 
-            $company->setSettings();
-
             // Don't send reminders if disabled
-            if (!$company->send_bill_reminder) {
+            if (!setting('schedule.send_bill_reminder')) {
+                $this->info('Bill reminders disabled by ' . $company->name . '.');
+
                 continue;
             }
 
-            $days = explode(',', $company->schedule_bill_days);
+            $days = explode(',', setting('schedule.bill_days'));
 
             foreach ($days as $day) {
                 $day = (int) trim($day);
 
-                $this->remind($day, $company);
+                $this->remind($day);
             }
         }
 
         // Unset company_id
         session()->forget('company_id');
+        setting()->forgetAll();
     }
 
-    protected function remind($day, $company)
+    protected function remind($day)
     {
         // Get due date
         $date = Date::today()->addDays($day)->toDateString();
 
         // Get upcoming bills
-        $bills = Bill::with('vendor')->accrued()->notPaid()->due($date)->get();
+        $bills = Bill::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($bills as $bill) {
-            // Notify all users assigned to this company
-            foreach ($company->users as $user) {
-                if (!$user->can('read-notifications')) {
-                    continue;
-                }
+            try {
+                event(new BillReminded($bill));
+            } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
+                $this->error($e->getMessage());
 
-                $user->notify(new Notification($bill));
+                logger('Bill reminder:: ' . $e->getMessage());
             }
         }
     }

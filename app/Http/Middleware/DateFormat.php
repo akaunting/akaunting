@@ -26,7 +26,11 @@ class DateFormat
                     continue;
                 }
 
-                $new_date = Date::parse($date)->format('Y-m-d')  . ' ' . Date::now()->format('H:i:s');
+                if (Date::parse($date)->format('H:i:s') == '00:00:00') {
+                    $new_date = Date::parse($date)->format('Y-m-d')  . ' ' . Date::now()->format('H:i:s');
+                } else {
+                    $new_date = Date::parse($date)->toDateTimeString();
+                }
 
                 $request->request->set($field, $new_date);
             }

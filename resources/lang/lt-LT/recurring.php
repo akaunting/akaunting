@@ -15,6 +15,6 @@ return [
     'weeks'                 => 'Savaite(ės)',
     'months'                => 'Mėnuo(iai)',
     'years'                 => 'Metai(s)',
-    'message'               => 'Tai pasikartojanti :type ir kita :type bus automatiškai sugeneruota :data',
+    'message'               => 'Tai pasikartojanti :type ir kita :type bus automatiškai sugeneruota :date',
 
 ];

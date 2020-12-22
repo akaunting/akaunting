@@ -2,15 +2,11 @@
 
 return [
 
-    'allow_login'           => 'Lejo Identifikimin?',
+    'can_login'             => 'Mund të Hyni?',
     'user_created'          => 'Përdoruesi u Krijua',
 
     'error' => [
-        'email'             => 'Emaili tashmë është marrë.'
+        'email'             => 'Emaili tashmë është marrë.',
     ],
 
-    'notification' => [
-        'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Show',
-    ],
 ];

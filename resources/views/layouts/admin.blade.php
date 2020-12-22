@@ -1,20 +1,40 @@
-<html lang="{{ setting('general.default_locale') }}">
+<html lang="{{ app()->getLocale() }}">
+
     @include('partials.admin.head')
 
-    <body class="hold-transition {{ setting('general.admin_theme', 'skin-green-light') }} sidebar-mini fixed">
+    @mobile
+        <body id="leftMenu" class="g-sidenav-hidden">	
+    @elsemobile	
+        <body id="leftMenu" class="g-sidenav-show">	
+    @endmobile
+
         @stack('body_start')
 
-        <!-- Site wrapper -->
-        <div class="wrapper">
-            @include('partials.admin.header')
+        @include('partials.admin.menu')
 
-            @include('partials.admin.menu')
+        <div class="main-content" id="panel">
 
-            @include('partials.admin.content')
+            @include('partials.admin.navbar')
 
-            @include('partials.admin.footer')
+            <div id="main-body">
+
+                @include('partials.admin.header')
+
+                <div class="container-fluid content-layout mt--6">
+
+                    @include('partials.admin.content')
+
+                    @include('partials.admin.footer')
+
+                </div>
+
+            </div>
+
         </div>
 
         @stack('body_end')
+
+        @include('partials.admin.scripts')
     </body>
+
 </html>

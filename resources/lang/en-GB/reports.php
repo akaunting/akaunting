@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Net Profit',
     'total_expenses'        => 'Total Expenses',
     'net'                   => 'NET',
+    'income_expense'        => 'Income & Expense',
 
     'summary' => [
         'income'            => 'Income Summary',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Tax Summary',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Oct-Dec',
+    'charts' => [
+        'line'              => 'Line',
+        'bar'               => 'Bar',
+        'pie'               => 'Pie',
     ],
 
 ];

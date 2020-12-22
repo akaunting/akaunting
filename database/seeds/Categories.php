@@ -2,7 +2,7 @@
 
 namespace Database\Seeds;
 
-use App\Models\Model;
+use App\Abstracts\Model;
 use App\Models\Setting\Category;
 use Illuminate\Database\Seeder;
 
@@ -31,36 +31,36 @@ class Categories extends Seeder
                 'company_id' => $company_id,
                 'name' => trans_choice('general.transfers', 1),
                 'type' => 'other',
-                'color' => '#605ca8',
-                'enabled' => '1'
+                'color' => '#3c3f72',
+                'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.categories_deposit'),
+                'name' => trans('demo.categories.deposit'),
                 'type' => 'income',
-                'color' => '#f39c12',
-                'enabled' => '1'
+                'color' => '#efad32',
+                'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
-                'name' => trans('demo.categories_sales'),
+                'name' => trans('demo.categories.sales'),
                 'type' => 'income',
                 'color' => '#6da252',
-                'enabled' => '1'
+                'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans_choice('general.others', 1),
                 'type' => 'expense',
-                'color' => '#d2d6de',
-                'enabled' => '1'
+                'color' => '#e5e5e5',
+                'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans('general.general'),
                 'type' => 'item',
-                'color' => '#00c0ef',
-                'enabled' => '1'
+                'color' => '#328aef',
+                'enabled' => '1',
             ],
         ];
 

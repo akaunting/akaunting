@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Laba Bersih',
     'total_expenses'        => 'Total Pengeluaran',
     'net'                   => 'Laba Bersih',
+    'income_expense'        => 'Pendapatan & Pengeluaran',
 
     'summary' => [
         'income'            => 'Ringkasan Pendapatan',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Ringkasan Pajak',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Okt-Des',
+    'charts' => [
+        'line'              => 'Baris',
+        'bar'               => 'Batang',
+        'pie'               => 'Lingkaran',
     ],
 
 ];

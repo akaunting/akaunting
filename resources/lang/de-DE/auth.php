@@ -13,16 +13,18 @@ return [
     'current_email'         => 'Aktuelle E-Mail',
     'reset'                 => 'Zurücksetzen',
     'never'                 => 'niemals',
-    
+    'landing_page'          => 'Startseite',
+
     'password' => [
         'current'           => 'Passwort',
         'current_confirm'   => 'Passwortbestätigung',
         'new'               => 'Neues Passwort',
         'new_confirm'       => 'Passwortbestätigung',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Fehler: Sie können sich nicht selbst löschen!',
+        'self_disable'      => 'Fehler: Sie können Ihr Profil nicht selbst löschen!',
         'no_company'        => 'Fehler: Ihrem Konto wurde kein Unternehmen zugewiesen. Bitte kontaktieren Sie den Systemadministrator.',
     ],
 

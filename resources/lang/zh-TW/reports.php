@@ -12,6 +12,7 @@ return [
     'net_profit'            => '初始利潤',
     'total_expenses'        => '總費用',
     'net'                   => '初始',
+    'income_expense'        => '收入 及 支出',
 
     'summary' => [
         'income'            => '收入概要',
@@ -20,11 +21,10 @@ return [
         'tax'               => '稅務概要',
     ],
 
-    'quarter' => [
-        '1'                 => '一至三月',
-        '2'                 => '四至六月',
-        '3'                 => '七至九月',
-        '4'                 => '十至十二月',
+    'charts' => [
+        'line'              => '綠狀',
+        'bar'               => '條狀',
+        'pie'               => '餅狀',
     ],
 
 ];

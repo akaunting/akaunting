@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Events\Sale\InvoiceReminded;
 use App\Models\Common\Company;
-use App\Models\Income\Invoice;
-use App\Notifications\Income\Invoice as Notification;
+use App\Models\Sale\Invoice;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;
@@ -24,14 +24,6 @@ class InvoiceReminder extends Command
      * @var string
      */
     protected $description = 'Send reminders for invoices';
-    
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
@@ -40,10 +32,20 @@ class InvoiceReminder extends Command
      */
     public function handle()
     {
+        // Disable model cache
+        config(['laravel-model-caching.enabled' => false]);
+
         // Get all companies
-        $companies = Company::all();
+        $companies = Company::enabled()->withCount('invoices')->cursor();
 
         foreach ($companies as $company) {
+            // Has company invoices
+            if (!$company->invoices_count) {
+                continue;
+            }
+
+            $this->info('Sending invoice reminders for ' . $company->name . ' company.');
+
             // Set company id
             session(['company_id' => $company->id]);
 
@@ -51,47 +53,42 @@ class InvoiceReminder extends Command
             Overrider::load('settings');
             Overrider::load('currencies');
 
-            $company->setSettings();
-
             // Don't send reminders if disabled
-            if (!$company->send_invoice_reminder) {
+            if (!setting('schedule.send_invoice_reminder')) {
+                $this->info('Invoice reminders disabled by ' . $company->name . '.');
+
                 continue;
             }
 
-            $days = explode(',', $company->schedule_invoice_days);
+            $days = explode(',', setting('schedule.invoice_days'));
 
             foreach ($days as $day) {
                 $day = (int) trim($day);
 
-                $this->remind($day, $company);
+                $this->remind($day);
             }
         }
 
         // Unset company_id
         session()->forget('company_id');
+        setting()->forgetAll();
     }
 
-    protected function remind($day, $company)
+    protected function remind($day)
     {
         // Get due date
         $date = Date::today()->subDays($day)->toDateString();
 
-        // Get upcoming bills
-        $invoices = Invoice::with('customer')->accrued()->notPaid()->due($date)->get();
+        // Get upcoming invoices
+        $invoices = Invoice::with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($invoices as $invoice) {
-            // Notify the customer
-            if ($invoice->customer && !empty($invoice->customer_email)) {
-                $invoice->customer->notify(new Notification($invoice));
-            }
+            try {
+                event(new InvoiceReminded($invoice));
+            } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
+                $this->error($e->getMessage());
 
-            // Notify all users assigned to this company
-            foreach ($company->users as $user) {
-                if (!$user->can('read-notifications')) {
-                    continue;
-                }
-
-                $user->notify(new Notification($invoice));
+                logger('Invoice reminder:: ' . $e->getMessage());
             }
         }
     }

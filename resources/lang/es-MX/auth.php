@@ -13,16 +13,18 @@ return [
     'current_email'         => 'Dirección de Correo electrónico Actual',
     'reset'                 => 'Restablecer',
     'never'                 => 'nunca',
-    
+    'landing_page'          => 'Página de destino',
+
     'password' => [
         'current'           => 'Contraseña',
         'current_confirm'   => 'Confirmar Contraseña',
         'new'               => 'Nueva Contraseña',
         'new_confirm'       => 'Confirmar Nueva Contraseña',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Error: ¡No puede eliminarse usted mismo!',
+        'self_disable'      => 'Error: ¡No puedes desactivarte a ti mismo!',
         'no_company'        => 'Error: No se asigno una compañía para tu cuenta. Por favor, contacte al administrador del sistema.',
     ],
 

@@ -2,10 +2,25 @@
 
 namespace App\Http\Requests\Wizard;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Abstracts\Http\FormRequest;
+use App\Traits\Modules as RemoteModules;
+use Illuminate\Validation\Factory as ValidationFactory;
 
 class Company extends FormRequest
 {
+    use RemoteModules;
+
+    public function __construct(ValidationFactory $validation)
+    {
+        $validation->extend(
+            'check',
+            function ($attribute, $value, $parameters) {
+                return $this->checkToken($value);
+            },
+            trans('messages.error.invalid_apikey')
+        );
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,8 +38,14 @@ class Company extends FormRequest
      */
     public function rules()
     {
-        return [
-            'company_logo' => 'mimes:' . setting('general.file_types') . '|between:0,' . setting('general.file_size') * 1024,
+        $rules = [
+            'company_logo' => 'mimes:' . config('filesystems.mimes') . '|between:0,' . config('filesystems.max_size') * 1024,
         ];
+
+        if (!setting('apps.api_key', false) && !empty($this->request->get('api_key'))) {
+            $rules['api_key'] = 'string|check';
+        }
+
+        return $rules;
     }
 }

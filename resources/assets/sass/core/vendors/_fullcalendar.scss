@@ -1,0 +1,256 @@
+//
+// Full Calendar
+//
+
+@import "../../custom/mixins";
+@import "../../custom/variables";
+
+.fc-header-toolbar {
+    display: none;
+}
+
+.fc-scroller {
+    height: auto !important;
+}
+
+.fc {
+    th {
+        padding: $table-head-spacer-y $table-head-spacer-x;
+        font-size: $font-size-xs;
+        font-weight: $table-head-font-weight;
+        color: $table-head-color;
+        text-transform: uppercase;
+    }
+
+
+
+    div.fc-row {
+        margin-right: 0;
+        border: 0;
+    }
+
+    button {
+        .fc-icon {
+            top: -5px;
+        }
+    }
+}
+
+.fc-unthemed {
+    td.fc-today {
+        background-color: transparent;
+
+        span {
+            color: $orange;
+        }
+    }
+}
+
+.fc-event {
+    padding: 0;
+    font-size: $font-size-xs;
+    border-radius: $border-radius-sm;
+    border: 0;
+
+    .fc-title {
+        padding: .4rem .5rem;
+        display: block;
+        color: $white;
+        @include text-truncate();
+        font-weight: $font-weight-bold;
+    }
+
+    .fc-time {
+        float: left;
+        background: rgba($black,0.2);
+        padding: 2px 6px;
+        margin: 0 0 0 -1px;
+    }
+}
+
+.fc-view {
+    &, & > table {
+        border: 0;
+        overflow: hidden;
+    }
+    & > table {
+        & > tbody {
+            & > tr {
+                .ui-widget-content {
+                    border-top: 0;
+                }
+            }
+        }
+    }
+}
+
+.fc-body {
+    border: 0;
+}
+
+.fc-icon {
+    font-family: $icon-font-family;
+    font-size: $font-size-base;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    line-height: 35px;
+
+    &:hover {
+        color: theme-color("primary");
+    }
+}
+
+.fc-button {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+
+    &:focus,
+    &:active {
+        outline: 0;
+    }
+}
+
+
+// Main Calendar
+
+.calendar {
+    z-index: 0;
+    td, th {
+        border-color: lighten($table-border-color,2%);
+    }
+
+    .fc-toolbar {
+        height: 250px;
+        background-color: $white;
+        border-radius: $border-radius $border-radius 0 0;
+        position: relative;
+        margin-bottom: -2px;
+        z-index: 2;
+        @include media-breakpoint-down(xs) {
+            height: 135px;
+        }
+    }
+
+    .fc-day-number {
+        padding: .5rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        @include media-breakpoint-up(sm) {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-bold;
+            color: lighten($body-color,10%);
+        }
+    }
+    .fc-day-header {
+        text-align: left;
+    }
+    .fc-day-grid-event {
+        margin: 1px 9px;
+    }
+}
+
+
+// Main Calendar Seasonal headers
+
+[data-calendar-month] {
+    background-size: contain;
+    @include transition(background-image 300ms);
+}
+
+[data-calendar-month="0"] {
+    background-image: url('/img/calendar/january.jpg');
+}
+[data-calendar-month="1"] {
+    background-image: url('/img/calendar/february.jpg');
+}
+[data-calendar-month="2"] {
+    background-image: url('/img/calendar/march.jpg');
+}
+[data-calendar-month="3"] {
+    background-image: url('/img/calendar/april.jpg');
+}
+[data-calendar-month="4"] {
+    background-image: url('/img/calendar/may.jpg');
+}
+[data-calendar-month="5"] {
+    background-image: url('/img/calendar/june.jpg');
+}
+[data-calendar-month="6"] {
+    background-image: url('/img/calendar/july.jpg');
+}
+[data-calendar-month="7"] {
+    background-image: url('/img/calendar/august.jpg');
+}
+[data-calendar-month="8"] {
+    background-image: url('/img/calendar/september.jpg');
+}
+[data-calendar-month="9"] {
+    background-image: url('/img/calendar/october.jpg');
+}
+[data-calendar-month="10"] {
+    background-image: url('/img/calendar/november.jpg');
+}
+[data-calendar-month="11"] {
+    background-image: url('/img/calendar/december.jpg');
+}
+
+
+// Calendar used inside a card
+
+.card-calendar {
+    .card-header {
+        border-bottom: 0;
+    }
+
+    table {
+        background: transparent;
+        tr {
+            & > td {
+                &:first-child {
+                    border-left-width: 0;
+                }
+                &:last-child {
+                    border-right-width: 0;
+                }
+            }
+        }
+    }
+}
+
+// Widget
+
+.widget-calendar {
+    position: relative;
+    z-index: 0;
+
+    td, th {
+        border-color: transparent;
+        text-align: center;
+    }
+
+    .fc-toolbar {
+        margin-top: 1.25rem;
+
+        h2 {
+            font-size: $font-size-base;
+        }
+    }
+
+    .fc-day-number {
+        text-align: center;
+        width: 100%;
+        padding: 0;
+    }
+
+    .fc {
+        table {
+            font-size: $font-size-sm;
+        }
+        th {
+            padding: .75rem .5rem;
+            font-size: $font-size-xs;
+        }
+    }
+}

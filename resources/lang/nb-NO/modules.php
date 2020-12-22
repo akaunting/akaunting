@@ -2,27 +2,28 @@
 
 return [
 
-    'title'                 => 'API-token',
-    'api_token'             => 'Token',
-    'my_apps'               => 'My Apps',
+    'api_key'               => 'API nøkkel',
+    'my_apps'               => 'Mine applikasjoner',
+    'pre_sale'              => 'Forhåndssalg',
     'top_paid'              => 'Topp betalte',
     'new'                   => 'Ny',
     'top_free'              => 'Topp gratis',
     'free'                  => 'GRATIS',
-    'search'                => 'Søk',
     'install'               => 'Installer',
     'buy_now'               => 'Kjøp nå',
-    'token_link'            => '<a href="https://akaunting.com/tokens" target="_blank">Klikk her</a> for å få din API-token.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klikk her</a> for å motta din API nøkkel.',
     'no_apps'               => 'Det er ingen applikasjoner i denne kategorien ennå.',
-    'developer'             => 'Er du en utvikler? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank">Her</a> kan du lære hvordan du lager en applikasjon for salg.',
-
-    'recommended_apps'      => 'Recommended Apps',
+    'become_developer'      => 'Er du en utvikler? <a href=":url" target="_blank">Her</a> kan du lære hvordan du kan opprette en applikasjon og starte salg i dag!',
+    'recommended_apps'      => 'Anbefalte applikasjoner',
 
     'about'                 => 'Om',
 
     'added'                 => 'Lagt til',
     'updated'               => 'Oppdatert',
     'compatibility'         => 'Kompatibilitet',
+    'documentation'         => 'Dokumentasjon',
+    'view'                  => 'Se',
+    'back'                  => 'Tilbake',
 
     'installed'             => ':module installert',
     'uninstalled'           => ':module avinstallert',
@@ -34,30 +35,30 @@ return [
         'installation'      => 'Installering',
         'faq'               => 'FAQ',
         'changelog'         => 'Endringslogg',
-        'reviews'            => 'Reviews',
+        'reviews'           => 'Anmeldelser',
     ],
 
     'installation' => [
         'header'            => 'Applikasjonsinstallering',
-        'download'          => 'Laster ned :module.',
-        'unzip'             => 'Pakker ut :module.',
-        'file_copy'         => 'Copying :module files.',
-        'migrate'           => 'Applying :module updates.',
-        'finish'            => 'The update was successfully installed. You will be redirect Update Center.',
-        'install'           => 'Installerer :module.',
+        'download'          => 'Laster ned :module',
+        'unzip'             => 'Pakker ut filer til :module',
+        'file_copy'         => 'Kopierer filer til :module',
+        'finish'            => 'Ferdigstiller installasjon av :module',
+        'redirect'          => ':module installert. Du sendes videre til oppdateringsside',
+        'install'           => 'Installerer :module',
     ],
 
     'errors' => [
-        'download' => ':module can not download!',
-        'upload' => 'Downloaded :module can not saved!',
-        'unzip' => ':module can not unzip!',
-        'file_copy' => ':module files can not copy!',
-        'migrate' => ':module migrate broken!',
-        'migrate core' => ':module already latest version so then yon can not update.',
+        'download'          => 'Ikke mulig å laste ned :module',
+        'zip'               => 'Ikke mulig å opprette zip-fil til :module',
+        'unzip'             => 'Ikke mulig å pakke ut :module',
+        'file_copy'         => 'Ikke mulig å kopiere filer til :module',
+        'finish'            => 'Ikke mulig å ferdigstille installasjon av :module',
     ],
 
     'badge' => [
-        'installed' => 'Installed',
+        'installed'         => 'Innstallert',
+        'pre_sale'          => 'Forhåndssalg',
     ],
 
     'button' => [
@@ -67,14 +68,16 @@ return [
     ],
 
     'my' => [
-        'purchased' => 'Purchased',
-        'installed' => 'Installed',
+        'purchased'         => 'Kjøpt',
+        'installed'         => 'Installert',
     ],
 
     'reviews' => [
         'button' => [
-            'add' => 'Add a Review'
+            'add'           => 'Legg til anmeldelse'
         ],
-        'na' => 'There are no reviews.'
-    ]
+
+        'na'                => 'Det er ingen anmeldelser.'
+    ],
+
 ];

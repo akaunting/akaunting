@@ -12,6 +12,7 @@ return [
     'net_profit'            => 'Neto peļņa',
     'total_expenses'        => 'Kopējie izdevumi',
     'net'                   => 'NET',
+    'income_expense'        => 'Income & Expense',
 
     'summary' => [
         'income'            => 'Ieņēmumu kopsavilkums',
@@ -20,11 +21,10 @@ return [
         'tax'               => 'Nodokļu kopsavilkums',
     ],
 
-    'quarter' => [
-        '1'                 => 'Jan-Mar',
-        '2'                 => 'Apr-Jun',
-        '3'                 => 'Jul-Sep',
-        '4'                 => 'Okt-Dec',
+    'charts' => [
+        'line'              => 'Line',
+        'bar'               => 'Bar',
+        'pie'               => 'Pie',
     ],
 
 ];

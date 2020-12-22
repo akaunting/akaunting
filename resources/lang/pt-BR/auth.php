@@ -13,16 +13,18 @@ return [
     'current_email'         => 'E-mail atual',
     'reset'                 => 'Resetar',
     'never'                 => 'Nunca',
-    
+    'landing_page'          => 'Página inicial',
+
     'password' => [
         'current'           => 'Senha',
         'current_confirm'   => 'Confirmação da Senha',
         'new'               => 'Nova Senha',
         'new_confirm'       => 'Confirmação da Nova Senha',
     ],
-    
+
     'error' => [
         'self_delete'       => 'Erro: não pode se excluir!',
+        'self_disable'      => 'Erro: Você não pode desativar você mesmo!',
         'no_company'        => 'Erro: Nenhuma empresa atribuída à sua conta. Por favor, entre em contato com o administrador do sistema.',
     ],
 

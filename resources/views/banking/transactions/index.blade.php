@@ -2,88 +2,73 @@
 
 @section('title', trans_choice('general.transactions', 2))
 
-@section('content')
-<!-- Default box -->
-<div class="box box-success">
-    <div class="box-header with-border">
-        {!! Form::open(['url' => 'banking/transactions', 'role' => 'form', 'method' => 'GET']) !!}
-        <div id="items" class="pull-left box-filter">
-            <span class="title-filter hidden-xs">{{ trans('general.search') }}:</span>
-            {!! Form::dateRange('date', trans('general.date'), 'calendar', []) !!}
-            {!! Form::select('accounts[]', $accounts, request('accounts'), ['id' => 'filter-accounts', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
-            {!! Form::select('type', $types, request('type'), ['class' => 'form-control input-filter input-sm']) !!}
-            {!! Form::select('categories[]', $categories, request('categories'), ['id' => 'filter-categories', 'class' => 'form-control input-filter input-lg', 'multiple' => 'multiple']) !!}
-            {!! Form::button('<span class="fa fa-filter"></span> &nbsp;' . trans('general.filter'), ['type' => 'submit', 'class' => 'btn btn-sm btn-default btn-filter']) !!}
-        </div>
-        <div class="pull-right">
-            <span class="title-filter hidden-xs">{{ trans('general.show') }}:</span>
-            {!! Form::select('limit', $limits, request('limit', setting('general.list_limit', '25')), ['class' => 'form-control input-filter input-sm', 'onchange' => 'this.form.submit()']) !!}
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <!-- /.box-header -->
+@section('new_button')
+    @permission('create-sales-revenues')
+        <span><a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_income') }}</a></span>
+    @endpermission
+    @permission('create-purchases-payments')
+        <span><a href="{{ route('payments.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_expense') }}</a></span>
+    @endpermission
+    <span><a href="{{ route('import.create', ['banking', 'transactions']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload "></span> &nbsp;{{ trans('import.import') }}</a></span>
+    <span><a href="{{ route('transactions.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+@endsection
 
-    <div class="box-body">
-        <div class="table table-responsive">
-            <table class="table table-striped table-hover" id="tbl-transactions">
-                <thead>
-                    <tr>
-                        <th class="col-md-2">@sortablelink('paid_at', trans('general.date'))</th>
-                        <th class="col-md-2">@sortablelink('account_name', trans('accounts.account_name'))</th>
-                        <th class="col-md-2">@sortablelink('type', trans_choice('general.types', 1))</th>
-                        <th class="col-md-2">@sortablelink('category_name', trans_choice('general.categories', 1))</th>
-                        <th class="col-md-2">@sortablelink('description', trans('general.description'))</th>
-                        <th class="col-md-2 text-right amount-space">@sortablelink('amount', trans('general.amount'))</th>
+@section('content')
+    <div class="card">
+        <div class="card-header border-bottom-0">
+            {!! Form::open([
+                'method' => 'GET',
+                'route' => 'transactions.index',
+                'role' => 'form',
+                'class' => 'mb-0'
+            ]) !!}
+                <akaunting-search
+                    :placeholder="'{{ trans('general.search_placeholder') }}'"
+                    :options="{{ json_encode([]) }}"
+                ></akaunting-search>
+            {!! Form::close() !!}
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-flush table-hover">
+                <thead class="thead-light">
+                    <tr class="row table-head-line">
+                        <th class="col-sm-2 col-md-2 d-none d-sm-block">@sortablelink('paid_at', trans('general.date'))</th>
+                        <th class="col-xs-4 col-sm-2 col-md-2 text-right">@sortablelink('amount', trans('general.amount'))</th>
+                        <th class="col-xs-4 col-sm-3 col-md-2">@sortablelink('type', trans_choice('general.types', 1))</th>
+                        <th class="col-sm-2 col-md-2 d-none d-sm-block">@sortablelink('category.name', trans_choice('general.categories', 1))</th>
+                        <th class="col-xs-4 col-sm-3 col-md-2">@sortablelink('account.name', trans_choice('general.accounts', 1))</th>
+                        <th class="col-md-2 d-none d-md-block">@sortablelink('description', trans('general.description'))</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                @foreach($transactions as $item)
-                    <tr>
-                        <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                        <td>{{ $item->account_name }}</td>
-                        <td>{{ $item->type }}</td>
-                        <td>{{ $item->category_name }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
-                    </tr>
-                @endforeach
+                    @foreach($transactions as $item)
+                        <tr class="row align-items-center border-top-1 tr-py">
+                            <td class="col-sm-2 col-md-2 d-none d-sm-block">
+                                <a href="{{ route($item->route_name, $item->route_id) }}">
+                                    @date($item->paid_at)
+                                </a>
+                            </td>
+                            <td class="col-xs-4 col-sm-2 col-md-2 text-right">@money($item->amount, $item->currency_code, true)</td>
+                            <td class="col-xs-4 col-sm-3 col-md-2">{{ $item->type_title }}</td>
+                            <td class="col-sm-2 col-md-2 d-none d-sm-block">{{ $item->category->name }}</td>
+                            <td class="col-xs-4 col-sm-3 col-md-2">{{ $item->account->name }}</td>
+                            <td class="col-md-2 d-none d-md-block long-texts">{{ $item->description }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
-    <!-- /.box-body -->
 
-    <div class="box-footer">
+        <div class="card-footer table-action">
+            <div class="row">
+                @include('partials.admin.pagination', ['items' => $transactions])
+            </div>
+        </div>
     </div>
-    <!-- /.box-footer -->
-</div>
-<!-- /.box -->
 @endsection
 
-@push('js')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/moment.js') }}"></script>
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-@if (language()->getShortCode() != 'en')
-<script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
-@endif
-@endpush
-
-@push('css')
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-@endpush
-
-@push('scripts')
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#filter-accounts").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.accounts', 1)]) }}"
-        });
-
-        $("#filter-categories").select2({
-            placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)]) }}"
-        });
-    });
-</script>
+@push('scripts_start')
+    <script src="{{ asset('public/js/banking/transactions.js?v=' . version('short')) }}"></script>
 @endpush

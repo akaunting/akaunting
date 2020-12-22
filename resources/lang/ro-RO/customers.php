@@ -2,7 +2,7 @@
 
 return [
 
-    'allow_login'           => 'Permiti conectarea?',
+    'allow_login'           => 'Permiți conectarea?',
     'user_created'          => 'Utilizator creat',
 
     'error' => [
@@ -11,6 +11,6 @@ return [
 
     'notification' => [
         'message'       => ':customer made :amount payment to invoice number :invoice_number.',
-        'button'        => 'Show',
+        'button'        => 'Afişare',
     ],
 ];
