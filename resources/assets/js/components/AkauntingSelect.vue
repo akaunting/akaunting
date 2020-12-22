@@ -535,6 +535,26 @@ export default {
 
         },
     },
+
+    watch: {
+        selected: function (selected) {
+            if (!this.multiple) {
+                this.selected = selected.toString();
+            }
+        },
+
+        value: function (selected) {
+            this.selected = selected;
+
+            this.change();
+        },
+
+        model: function (selected) {
+            this.selected = selected;
+
+            this.change();
+        },
+    },
 }
 </script>
 
