@@ -57,7 +57,13 @@ class Taxes extends Controller
             'compound' => trans('taxes.compound'),
         ];
 
-        return view('settings.taxes.create', compact('types'));
+        $disable_options = [];
+
+        if ($compound = Tax::compound()->first()) {
+            $disable_options = ['compound'];
+        }
+
+        return view('settings.taxes.create', compact('types', 'disable_options'));
     }
 
     /**
@@ -105,7 +111,13 @@ class Taxes extends Controller
             'compound' => trans('taxes.compound'),
         ];
 
-        return view('settings.taxes.edit', compact('tax', 'types'));
+        $disable_options = [];
+
+        if ($tax->type != 'compound' && $compound = Tax::compound()->first()) {
+            $disable_options = ['compound'];
+        }
+
+        return view('settings.taxes.edit', compact('tax', 'types', 'disable_options'));
     }
 
     /**
