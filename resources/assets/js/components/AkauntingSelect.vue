@@ -69,11 +69,11 @@
                 v-if="group"
                 v-for="(group_options, name) in sortOptions"
                 :key="name"
-                :disabled="disabledOptions.includes(value)"
                 :label="name">
                 <el-option
                     v-for="(label, value) in group_options"
                     :key="value"
+                    :disabled="disabledOptions.includes(value)"
                     :label="label"
                     :value="value">
                     <span class="float-left">{{ label }}</span>
