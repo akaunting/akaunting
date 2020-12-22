@@ -58,6 +58,7 @@
 
             <el-option v-if="!group" v-for="(option, index) in sortOptions"
                 :key="index"
+                :disabled="disabledOptions.includes(option.key)"
                 :label="option.value"
                 :value="option.key">
                 <span class="float-left">{{ option.value }}</span>
@@ -68,6 +69,7 @@
                 v-if="group"
                 v-for="(group_options, name) in sortOptions"
                 :key="name"
+                :disabled="disabledOptions.includes(value)"
                 :label="name">
                 <el-option
                     v-for="(label, value) in group_options"
@@ -176,6 +178,14 @@ export default {
         },
 
         options: null,
+
+        disabledOptions: {
+            type: Array,
+            default: function () {
+                return [];
+            },
+            description: "Selectbox Add New Item Feature"
+        },
 
         option_sortable: {
             type: String,

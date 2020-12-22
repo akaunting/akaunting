@@ -17,6 +17,10 @@
         name="{{ $name }}"
         :options="{{ json_encode($values) }}"
 
+        @if (isset($attributes['disabledOptions']))
+        :disabled-options="{{ json_encode($attributes['disabledOptions']) }}"
+        @endif
+
         @if (!empty($selected) || old($name))
         :value="{{ json_encode(old($name, $selected)) }}"
         @endif
