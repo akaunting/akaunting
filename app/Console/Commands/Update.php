@@ -2,12 +2,21 @@
 
 namespace App\Console\Commands;
 
-use App\Utilities\Updater;
+use App\Events\Install\UpdateCopied;
+use App\Events\Install\UpdateDownloaded;
+use App\Events\Install\UpdateUnzipped;
+use App\Jobs\Install\CopyFiles;
+use App\Jobs\Install\DownloadFile;
+use App\Jobs\Install\FinishUpdate;
+use App\Jobs\Install\UnzipFile;
+use App\Traits\Jobs;
 use App\Utilities\Versions;
 use Illuminate\Console\Command;
 
 class Update extends Command
 {
+    use Jobs;
+
     const CMD_SUCCESS = 0;
 
     const CMD_ERROR = 1;
@@ -96,7 +105,9 @@ class Update extends Command
         $this->info('Downloading update...');
 
         try {
-            $path = Updater::download($this->alias, $this->new, $this->old);
+            $path = $this->dispatch(new DownloadFile($this->alias, $this->new));
+
+            event(new UpdateDownloaded($this->alias, $this->new, $this->old));
         } catch (\Exception $e) {
             $this->error($e->getMessage());
 
@@ -111,7 +122,9 @@ class Update extends Command
         $this->info('Unzipping update...');
 
         try {
-            Updater::unzip($path, $this->alias, $this->new, $this->old);
+            $this->dispatch(new UnzipFile($this->alias, $path));
+
+            event(new UpdateUnzipped($this->alias, $this->new, $this->old));
         } catch (\Exception $e) {
             $this->error($e->getMessage());
 
@@ -126,7 +139,9 @@ class Update extends Command
         $this->info('Copying update files...');
 
         try {
-            Updater::copyFiles($path, $this->alias, $this->new, $this->old);
+            $this->dispatch(new CopyFiles($this->alias, $path));
+
+            event(new UpdateCopied($this->alias, $this->new, $this->old));
         } catch (\Exception $e) {
             $this->error($e->getMessage());
 
@@ -141,7 +156,7 @@ class Update extends Command
         $this->info('Finishing update...');
 
         try {
-            Updater::finish($this->alias, $this->new, $this->old);
+            $this->dispatch(new FinishUpdate($this->alias, $this->new, $this->old));
         } catch (\Exception $e) {
             $this->error($e->getMessage());
 
