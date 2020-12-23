@@ -22,6 +22,11 @@ abstract class Model extends Eloquent
         'enabled' => 'boolean',
     ];
 
+    public static function observe($classes)
+    {
+        parent::observe($classes);
+    }
+
     /**
      * The "booting" method of the model.
      *

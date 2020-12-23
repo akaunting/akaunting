@@ -4,7 +4,7 @@ namespace App\Reports;
 
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Utilities\Recurring;
 
 class IncomeSummary extends Report
@@ -41,9 +41,9 @@ class IncomeSummary extends Report
                 break;
             default:
                 // Invoices
-                $invoices = $this->applyFilters(Invoice::with('recurring', 'transactions')->accrued(), ['date_field' => 'invoiced_at'])->get();
-                Recurring::reflect($invoices, 'invoiced_at');
-                $this->setTotals($invoices, 'invoiced_at');
+                $invoices = $this->applyFilters(Document::invoice()->with('recurring', 'transactions')->accrued(), ['date_field' => 'issued_at'])->get();
+                Recurring::reflect($invoices, 'issued_at');
+                $this->setTotals($invoices, 'issued_at');
 
                 // Revenues
                 $revenues = $transactions->isNotDocument()->get();

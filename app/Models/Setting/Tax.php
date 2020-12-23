@@ -3,6 +3,7 @@
 namespace App\Models\Setting;
 
 use App\Abstracts\Model;
+use App\Models\Document\Document;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tax extends Model
@@ -47,14 +48,19 @@ class Tax extends Model
         return $this->hasMany('App\Models\Common\Item');
     }
 
+    public function document_items()
+    {
+        return $this->hasMany('App\Models\Document\DocumentItemTax');
+    }
+
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Purchase\BillItemTax');
+        return $this->document_items()->where('type', Document::BILL_TYPE);
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Sale\InvoiceItemTax');
+        return $this->document_items()->where('type', Document::INVOICE_TYPE);
     }
 
     public function scopeName($query, $name)

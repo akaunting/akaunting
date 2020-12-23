@@ -2,6 +2,7 @@
 
 namespace App\Models\Common;
 
+use App\Models\Document\Document;
 use App\Traits\Contacts;
 use App\Traits\Media;
 use App\Traits\Tenants;
@@ -47,6 +48,31 @@ class Company extends Eloquent
         });
     }
 
+    public function documents()
+    {
+        return $this->hasMany('App\Models\Document\Document');
+    }
+
+    public function document_histories()
+    {
+        return $this->hasMany('App\Models\Document\DocumentHistory');
+    }
+
+    public function document_items()
+    {
+        return $this->hasMany('App\Models\Document\DocumentItem');
+    }
+
+    public function document_item_taxes()
+    {
+        return $this->hasMany('App\Models\Document\DocumentItemTax');
+    }
+
+    public function document_totals()
+    {
+        return $this->hasMany('App\Models\Document\DocumentTotal');
+    }
+
     public function accounts()
     {
         return $this->hasMany('App\Models\Banking\Account');
@@ -54,27 +80,27 @@ class Company extends Eloquent
 
     public function bills()
     {
-        return $this->hasMany('App\Models\Purchase\Bill');
+        return $this->documents()->where('type', Document::BILL_TYPE);
     }
 
     public function bill_histories()
     {
-        return $this->hasMany('App\Models\Purchase\BillHistory');
+        return $this->document_histories()->where('type', Document::BILL_TYPE);
     }
 
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Purchase\BillItem');
+        return $this->document_items()->where('type', Document::BILL_TYPE);
     }
 
     public function bill_item_taxes()
     {
-        return $this->hasMany('App\Models\Purchase\BillItemTax');
+        return $this->document_item_taxes()->where('type', Document::BILL_TYPE);
     }
 
     public function bill_totals()
     {
-        return $this->hasMany('App\Models\Purchase\BillTotal');
+        return $this->document_totals()->where('type', Document::BILL_TYPE);
     }
 
     public function categories()
@@ -119,27 +145,27 @@ class Company extends Eloquent
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Sale\Invoice');
+        return $this->documents()->where('type', Document::INVOICE_TYPE);
     }
 
     public function invoice_histories()
     {
-        return $this->hasMany('App\Models\Sale\InvoiceHistory');
+        return $this->document_histories()->where('type', Document::INVOICE_TYPE);
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Sale\InvoiceItem');
+        return $this->document_items()->where('type', Document::INVOICE_TYPE);
     }
 
     public function invoice_item_taxes()
     {
-        return $this->hasMany('App\Models\Sale\InvoiceItemTax');
+        return $this->document_item_taxes()->where('type', Document::INVOICE_TYPE);
     }
 
     public function invoice_totals()
     {
-        return $this->hasMany('App\Models\Sale\InvoiceTotal');
+        return $this->document_totals()->where('type', Document::INVOICE_TYPE);
     }
 
     public function items()

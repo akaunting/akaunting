@@ -15,9 +15,15 @@ abstract class Export implements FromCollection, ShouldAutoSize, WithHeadings, W
 {
     public $ids;
 
-    public function __construct($ids = null)
+    /**
+     * @var string
+     */
+    protected $type;
+
+    public function __construct($ids = null, string $type = '')
     {
         $this->ids = $ids;
+        $this->type = $type;
     }
 
     public function title(): string

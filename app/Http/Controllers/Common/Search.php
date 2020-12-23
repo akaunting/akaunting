@@ -7,8 +7,7 @@ use App\Events\Common\GlobalSearched;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
-use App\Models\Purchase\Bill;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Models\Common\Item;
 
 class Search extends Controller
@@ -52,13 +51,13 @@ class Search extends Controller
             }
         }
 
-        $invoices = Invoice::usingSearchString($search->keyword)->get();
+        $invoices = Document::invoice()->usingSearchString($search->keyword)->get();
 
         if ($invoices->count()) {
             foreach ($invoices as $invoice) {
                 $search->results[] = (object) [
                     'id'    => $invoice->id,
-                    'name'  => $invoice->invoice_number . ' - ' . $invoice->contact_name,
+                    'name'  => $invoice->document_number . ' - ' . $invoice->contact_name,
                     'type'  => trans_choice('general.invoices', 1),
                     'color' => '#6da252',
                     'href'  => route('invoices.show', $invoice->id),
@@ -96,13 +95,13 @@ class Search extends Controller
             }
         }
 
-        $bills = Bill::usingSearchString($search->keyword)->get();
+        $bills = Document::bill()->usingSearchString($search->keyword)->get();
 
         if ($bills->count()) {
             foreach ($bills as $bill) {
                 $search->results[] = (object) [
                     'id'    => $bill->id,
-                    'name'  => $bill->bill_number . ' - ' . $bill->contact_name,
+                    'name'  => $bill->document_number . ' - ' . $bill->contact_name,
                     'type'  => trans_choice('general.bills', 1),
                     'color' => '#ef3232',
                     'href'  => route('bills.show', $bill->id),

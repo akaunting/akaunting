@@ -110,7 +110,7 @@
             </template>
         </akaunting-modal>
     @else
-        <div class="text-white" :class="[{'show': bulk_action.show}]">{{ trans('bulk_actions.no_action') }}</div>
+        <div class="text-white d-none" :class="[{'show': bulk_action.show}]">{{ trans('bulk_actions.no_action') }}</div>
     @endif
 
 @stack('bulk_action_row_input_end')

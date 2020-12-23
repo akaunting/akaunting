@@ -3,12 +3,24 @@
 namespace App\Abstracts;
 
 use App\Models\Auth\User;
+use App\Models\Common\Company;
 use App\Traits\Jobs;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 abstract class Factory extends BaseFactory
 {
     use Jobs;
+
+    /**
+     * @var Company
+     */
+    protected $company;
+
+    /**
+     * @var User|EloquentModel|object|null
+     */
+    protected $user;
 
     public function __construct(...$arguments)
     {

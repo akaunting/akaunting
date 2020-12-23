@@ -70,7 +70,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
+            "App\\": ["app/", "modules/BC21"],
             "Akaunting\\Module\\Commands\\": "overrides/akaunting/module/Commands/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeds\\": "database/seeds/",

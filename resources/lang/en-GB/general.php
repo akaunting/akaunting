@@ -104,6 +104,8 @@ return [
     'from'                  => 'From',
     'to'                    => 'To',
     'print'                 => 'Print',
+    'download_pdf'          => 'Download PDF',
+    'customize'             => 'Customize',
     'search'                => 'Search',
     'search_text'           => 'Search for this text',
     'search_placeholder'    => 'Type to search..',
@@ -155,6 +157,9 @@ return [
     'go_to_dashboard'       => 'Go to dashboard',
     'is'                    => 'is',
     'isnot'                 => 'is not', 
+    'recurring_and_more'    => 'Recurring and more..',
+    'due_on'                => 'Due on',
+    'amount_due'            => 'Amount due',
 
     'card' => [
         'name'                  => 'Name on Card',
@@ -187,6 +192,8 @@ return [
     'placeholder' => [
         'search'            => 'Type to search..',
         'search_and_filter' => 'Search or filter results..',
+        'contact_search'    => 'Type a :type name',
+        'item_search'       => 'Type an item name',
     ],
 
     'date_range' => [

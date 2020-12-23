@@ -12,7 +12,7 @@ use App\Jobs\Common\DeleteContact;
 use App\Jobs\Common\UpdateContact;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
-use App\Models\Purchase\Bill;
+use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use App\Traits\Contacts;
 use Date;
@@ -51,7 +51,7 @@ class Vendors extends Controller
         $counts = [];
 
         // Handle bills
-        $bills = Bill::with('transactions')->where('contact_id', $vendor->id)->get();
+        $bills = Document::bill()->with('transactions')->where('contact_id', $vendor->id)->get();
 
         $counts['bills'] = $bills->count();
 

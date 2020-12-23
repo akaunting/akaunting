@@ -3,33 +3,28 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Abstracts\Http\Controller;
-use App\Exports\Sales\Invoices as Export;
+use App\Exports\Document\Documents as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
-use App\Http\Requests\Sale\Invoice as Request;
-use App\Http\Requests\Sale\InvoiceAddItem as ItemRequest;
-use App\Imports\Sales\Invoices as Import;
-use App\Jobs\Sale\CreateInvoice;
-use App\Jobs\Sale\DeleteInvoice;
-use App\Jobs\Sale\DuplicateInvoice;
-use App\Jobs\Sale\UpdateInvoice;
-use App\Models\Banking\Account;
-use App\Models\Common\Contact;
-use App\Models\Common\Item;
-use App\Models\Sale\Invoice;
-use App\Models\Setting\Category;
-use App\Models\Setting\Currency;
-use App\Models\Setting\Tax;
+use App\Http\Requests\Document\Document as Request;
+use App\Imports\Document\Documents as Import;
+use App\Jobs\Document\CreateDocument;
+use App\Jobs\Document\DeleteDocument;
+use App\Jobs\Document\DuplicateDocument;
+use App\Jobs\Document\UpdateDocument;
+use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as Notification;
-use App\Traits\Currencies;
-use App\Traits\DateTime;
-use App\Traits\Sales;
+use App\Models\Setting\Currency;
+use App\Traits\Documents;
 use App\Utilities\Modules;
 use File;
-use Illuminate\Support\Facades\URL;
-
 class Invoices extends Controller
 {
-    use Currencies, DateTime, Sales;
+    use Documents;
+
+    /**
+     * @var string
+     */
+    public $type = Document::INVOICE_TYPE;
 
     /**
      * Display a listing of the resource.
@@ -38,7 +33,7 @@ class Invoices extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with('contact', 'transactions')->collect(['invoice_number'=> 'desc']);
+        $invoices = Document::invoice()->with('contact', 'transactions')->collect(['document_number'=> 'desc']);
 
         return $this->response('sales.invoices.index', compact('invoices'));
     }
@@ -46,29 +41,13 @@ class Invoices extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Invoice  $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function show(Invoice $invoice)
+    public function show(Document $invoice)
     {
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
         $currency = Currency::where('code', $invoice->currency_code)->first();
-
-        $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
-
-        $customers = Contact::customer()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::income()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $payment_methods = Modules::getPaymentMethods();
-
-        $signed_url = URL::signedRoute('signed.invoices.show', [$invoice->id, 'company_id' => session('company_id')]);
-
-        $date_format = $this->getCompanyDateFormat();
 
         // Get Invoice Totals
         foreach ($invoice->totals_sorted as $invoice_total) {
@@ -83,7 +62,7 @@ class Invoices extends Controller
             $invoice->grand_total = round($invoice->total - $invoice->paid, $currency->precision);
         }
 
-        return view('sales.invoices.show', compact('invoice', 'accounts', 'currencies', 'currency', 'account_currency_code', 'customers', 'categories', 'payment_methods', 'signed_url', 'date_format'));
+        return view('sales.invoices.show', compact('invoice'));
     }
 
     /**
@@ -93,21 +72,7 @@ class Invoices extends Controller
      */
     public function create()
     {
-        $customers = Contact::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
-        $currency = Currency::where('code', setting('default.currency'))->first();
-
-        $items = Item::enabled()->orderBy('name')->get();
-
-        $taxes = Tax::enabled()->orderBy('name')->get();
-
-        $categories = Category::income()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
-        $number = $this->getNextInvoiceNumber();
-
-        return view('sales.invoices.create', compact('customers', 'currencies', 'currency', 'items', 'taxes', 'categories', 'number'));
+        return view('sales.invoices.create');
     }
 
     /**
@@ -119,7 +84,7 @@ class Invoices extends Controller
      */
     public function store(Request $request)
     {
-        $response = $this->ajaxDispatch(new CreateInvoice($request));
+        $response = $this->ajaxDispatch(new CreateDocument($request));
 
         if ($response['success']) {
             $response['redirect'] = route('invoices.show', $response['data']->id);
@@ -141,13 +106,13 @@ class Invoices extends Controller
     /**
      * Duplicate the specified resource.
      *
-     * @param  Invoice  $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function duplicate(Invoice $invoice)
+    public function duplicate(Document $invoice)
     {
-        $clone = $this->dispatch(new DuplicateInvoice($invoice));
+        $clone = $this->dispatch(new DuplicateDocument($invoice));
 
         $message = trans('messages.success.duplicated', ['type' => trans_choice('general.invoices', 1)]);
 
@@ -166,7 +131,7 @@ class Invoices extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            \Excel::import(new Import(), $request->file('import'));
+            \Excel::import(new Import(Document::INVOICE_TYPE), $request->file('import'));
         } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
             flash($e->getMessage())->error()->important();
 
@@ -183,38 +148,26 @@ class Invoices extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Invoice $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function edit(Invoice $invoice)
+    public function edit(Document $invoice)
     {
-        $customers = Contact::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
-        $currency = Currency::where('code', $invoice->currency_code)->first();
-
-        $items = Item::enabled()->orderBy('name')->get();
-
-        $taxes = Tax::enabled()->orderBy('name')->get();
-
-        $categories = Category::income()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
-        return view('sales.invoices.edit', compact('invoice', 'customers', 'currencies', 'currency', 'items', 'taxes', 'categories'));
+        return view('sales.invoices.edit', compact('invoice'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Invoice $invoice
-     * @param  Request $request
+     * @param  Document $invoice
+     * @param  Request  $request
      *
      * @return Response
      */
-    public function update(Invoice $invoice, Request $request)
+    public function update(Document $invoice, Request $request)
     {
-        $response = $this->ajaxDispatch(new UpdateInvoice($invoice, $request));
+        $response = $this->ajaxDispatch(new UpdateDocument($invoice, $request));
 
         if ($response['success']) {
             $response['redirect'] = route('invoices.show', $response['data']->id);
@@ -236,13 +189,13 @@ class Invoices extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Invoice $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Document $invoice)
     {
-        $response = $this->ajaxDispatch(new DeleteInvoice($invoice));
+        $response = $this->ajaxDispatch(new DeleteDocument($invoice));
 
         $response['redirect'] = route('invoices.index');
 
@@ -266,19 +219,19 @@ class Invoices extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
+        return \Excel::download(new Export(null, Document::INVOICE_TYPE), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
     }
 
     /**
      * Mark the invoice as sent.
      *
-     * @param  Invoice $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function markSent(Invoice $invoice)
+    public function markSent(Document $invoice)
     {
-        event(new \App\Events\Sale\InvoiceSent($invoice));
+        event(new \App\Events\Document\DocumentSent($invoice));
 
         $message = trans('invoices.messages.marked_sent');
 
@@ -290,13 +243,13 @@ class Invoices extends Controller
     /**
      * Mark the invoice as cancelled.
      *
-     * @param  Invoice $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function markCancelled(Invoice $invoice)
+    public function markCancelled(Document $invoice)
     {
-        event(new \App\Events\Sale\InvoiceCancelled($invoice));
+        event(new \App\Events\Document\DocumentCancelled($invoice));
 
         $message = trans('invoices.messages.marked_cancelled');
 
@@ -308,11 +261,11 @@ class Invoices extends Controller
     /**
      * Download the PDF file of invoice.
      *
-     * @param  Invoice $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function emailInvoice(Invoice $invoice)
+    public function emailInvoice(Document $invoice)
     {
         if (empty($invoice->contact_email)) {
             return redirect()->back();
@@ -326,7 +279,7 @@ class Invoices extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadHTML($html);
 
-        $file_name = $this->getInvoiceFileName($invoice);
+        $file_name = $this->getDocumentFileName($invoice);
 
         $file = storage_path('app/temp/' . $file_name);
 
@@ -346,7 +299,7 @@ class Invoices extends Controller
         unset($invoice->pdf_path);
         unset($invoice->reconciled);
 
-        event(new \App\Events\Sale\InvoiceSent($invoice));
+        event(new \App\Events\Document\DocumentSent($invoice));
 
         flash(trans('invoices.messages.email_sent'))->success();
 
@@ -356,11 +309,11 @@ class Invoices extends Controller
     /**
      * Print the invoice.
      *
-     * @param  Invoice $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function printInvoice(Invoice $invoice)
+    public function printInvoice(Document $invoice)
     {
         $invoice = $this->prepareInvoice($invoice);
 
@@ -372,11 +325,11 @@ class Invoices extends Controller
     /**
      * Download the PDF file of invoice.
      *
-     * @param  Invoice $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function pdfInvoice(Invoice $invoice)
+    public function pdfInvoice(Document $invoice)
     {
         $invoice = $this->prepareInvoice($invoice);
 
@@ -390,7 +343,7 @@ class Invoices extends Controller
 
         //$pdf->setPaper('A4', 'portrait');
 
-        $file_name = $this->getInvoiceFileName($invoice);
+        $file_name = $this->getDocumentFileName($invoice);
 
         return $pdf->download($file_name);
     }
@@ -398,14 +351,14 @@ class Invoices extends Controller
     /**
      * Mark the invoice as paid.
      *
-     * @param  Invoice $invoice
+     * @param  Document $invoice
      *
      * @return Response
      */
-    public function markPaid(Invoice $invoice)
+    public function markPaid(Document $invoice)
     {
         try {
-            event(new \App\Events\Sale\PaymentReceived($invoice));
+            event(new \App\Events\Document\PaymentReceived($invoice));
 
             $message = trans('invoices.messages.marked_paid');
 
@@ -419,38 +372,7 @@ class Invoices extends Controller
         return redirect()->back();
     }
 
-    public function addItem(ItemRequest $request)
-    {
-        $item_row = $request['item_row'];
-        $currency_code = $request['currency_code'];
-
-        $taxes = Tax::enabled()->orderBy('name')->get()->pluck('title', 'id');
-
-        $currency = Currency::where('code', $currency_code)->first();
-
-        if (empty($currency)) {
-            $currency = Currency::where('code', setting('default.currency'))->first();
-        }
-
-        if ($currency) {
-            // it should be integer for amount mask
-            $currency->precision = (int) $currency->precision;
-        }
-
-        $html = view('sales.invoices.item', compact('item_row', 'taxes', 'currency'))->render();
-
-        return response()->json([
-            'success' => true,
-            'error'   => false,
-            'data'    => [
-                'currency' => $currency
-            ],
-            'message' => 'null',
-            'html'    => $html,
-        ]);
-    }
-
-    protected function prepareInvoice(Invoice $invoice)
+    protected function prepareInvoice(Document $invoice)
     {
         $paid = 0;
 
@@ -468,9 +390,9 @@ class Invoices extends Controller
 
         $invoice->paid = $paid;
 
-        $invoice->template_path = 'sales.invoices.print_' . setting('invoice.template' ,'default');
+        $invoice->template_path = 'sales.invoices.print_' . setting('invoice.template');
 
-        event(new \App\Events\Sale\InvoicePrinting($invoice));
+        event(new \App\Events\Document\DocumentPrinting($invoice));
 
         return $invoice;
     }

@@ -1,0 +1,67 @@
+@if ($hideEmptyPage || ($documents->count() || request()->get('search', false)))
+    <div class="card">
+        <x-documents.index.card-header
+            type="{{ $type }}"
+            hide-bulk-action="{{ $hideBulkAction }}"
+            :form-card-header-route="$formCardHeaderRoute"
+            hide-search-string="{{ $hideSearchString }}"
+            search-string-model="{{ $searchStringModel }}"
+            text-bulk-action="{{ $textBulkAction }}"
+            bulk-action-class="{{ $bulkActionClass }}"
+            :bulk-actions="$bulkActions"
+            :bulk-action-route-parameters="$bulkActionRouteParameters"
+        />
+
+        <x-documents.index.card-body
+            type="{{ $type }}"
+            :documents="$documents"
+            hide-bulk-action="{{ $hideBulkAction }}"
+            class-bulk-action="{{ $classBulkAction }}"
+            hide-document-number="{{ $hideDocumentNumber }}"
+            text-document-number="{{ $textDocumentNumber }}"
+            class-document-number="{{ $classDocumentNumber }}"
+            hide-contact-name="{{ $hideContactName }}"
+            text-contact-name="{{ $textContactName }}"
+            class-contact-name="{{ $classContactName }}"
+            hide-amount="{{ $hideAmount }}"
+            class-amount="{{ $classAmount }}"
+            hide-issued-at="{{ $hideIssuedAt }}"
+            text-issued-at="{{ $textIssueAt }}"
+            class-issued-at="{{ $classIssuedAt }}"
+            hide-due-at="{{ $hideDueAt }}"
+            class-due-at="{{ $classDueAt }}"
+            text-due-at="{{ $textDueAt }}"
+            hide-status="{{ $hideStatus }}"
+            class-status="{{ $classStatus }}"
+            hide-actions="{{ $hideActions }}"
+            class-actions="{{ $classActions }}"
+            text-document-status="{{ $textDocumentStatus }}"
+            hide-button-show="{{ $hideButtonShow }}"
+            route-button-show="{{ $routeButtonShow }}"
+            hide-button-edit="{{ $hideButtonEdit }}"
+            check-button-reconciled="{{ $checkButtonReconciled }}"
+            route-button-edit="{{ $routeButtonEdit }}"
+            check-button-cancelled="{{ $checkButtonCancelled }}"
+            hide-button-duplicate="{{ $hideButtonDuplicate }}"
+            permission-document-create="{{ $permissionDocumentCreate }}"
+            route-button-duplicate="{{ $routeButtonDuplicate }}"
+            hide-button-cancel="{{ $hideButtonCancel }}"
+            permission-document-update="{{ $permissionDocumentUpdate }}"
+            route-button-called="{{ $routeButtonCancelled }}"
+            hide-button-delete="{{ $hideButtonDelete }}"
+            permission-document-delete="{{ $permissionDocumentDelete }}"
+            route-button-delete="{{ $routeButtonDelete }}"
+        />
+
+        <x-documents.index.card-footer
+            type="{{ $type }}"
+            :documents="$documents"
+        />
+    </div>
+@else
+    <x-documents.index.empty-page
+        type="{{ $type }}"
+        page="{{ $page }}"
+        docs-path="{{ $docsPath }}"
+    />
+@endif

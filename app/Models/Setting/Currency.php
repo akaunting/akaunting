@@ -3,6 +3,7 @@
 namespace App\Models\Setting;
 
 use App\Abstracts\Model;
+use App\Models\Document\Document;
 use App\Traits\Contacts;
 use App\Traits\Transactions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,9 +43,14 @@ class Currency extends Model
         return $this->hasMany('App\Models\Banking\Account', 'currency_code', 'code');
     }
 
+    public function documents()
+    {
+        return $this->hasMany('App\Models\Document\Document', 'currency_code', 'code');
+    }
+
     public function bills()
     {
-        return $this->hasMany('App\Models\Purchase\Bill', 'currency_code', 'code');
+        return $this->documents()->where('type', Document::BILL_TYPE);
     }
 
     public function contacts()
@@ -69,7 +75,7 @@ class Currency extends Model
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Sale\Invoice', 'currency_code', 'code');
+        return $this->documents()->where('type', Document::INVOICE_TYPE);
     }
 
     public function transactions()

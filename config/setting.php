@@ -120,6 +120,17 @@ return [
             'template'                  => env('SETTING_FALLBACK_INVOICE_TEMPLATE', 'default'),
             'color'                     => env('SETTING_FALLBACK_INVOICE_COLOR', '#55588b'),
         ],
+        'bill' => [
+            'number_prefix'             => env('SETTING_FALLBACK_BILL_NUMBER_PREFIX', 'BILL-'),
+            'number_digit'              => env('SETTING_FALLBACK_BILL_NUMBER_DIGIT', '5'),
+            'number_next'               => env('SETTING_FALLBACK_BILL_NUMBER_NEXT', '1'),
+            'item_name'                 => env('SETTING_FALLBACK_BILL_ITEM_NAME', 'settings.bill.item'),
+            'price_name'                => env('SETTING_FALLBACK_BILL_PRICE_NAME', 'settings.bill.price'),
+            'quantity_name'             => env('SETTING_FALLBACK_BILL_QUANTITY_NAME', 'settings.bill.quantity'),
+            'payment_terms'             => env('SETTING_FALLBACK_BILL_PAYMENT_TERMS', '0'),
+            'template'                  => env('SETTING_FALLBACK_BILL_TEMPLATE', 'default'),
+            'color'                     => env('SETTING_FALLBACK_BILL_COLOR', '#55588b'),
+        ],
         'default' => [
             'currency'                  => env('SETTING_FALLBACK_DEFAULT_CURRENCY', 'USD'),
             'locale'                    => env('SETTING_FALLBACK_DEFAULT_LOCALE', 'en-GB'),

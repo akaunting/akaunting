@@ -3,6 +3,7 @@
 namespace App\Models\Setting;
 
 use App\Abstracts\Model;
+use App\Models\Document\Document;
 use App\Traits\Transactions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -35,9 +36,14 @@ class Category extends Model
      */
     public $sortable = ['name', 'type', 'enabled'];
 
+    public function documents()
+    {
+        return $this->hasMany('App\Models\Document\Document');
+    }
+
     public function bills()
     {
-        return $this->hasMany('App\Models\Purchase\Bill');
+        return $this->documents()->where('type', Document::BILL_TYPE);
     }
 
     public function expense_transactions()
@@ -52,7 +58,7 @@ class Category extends Model
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Sale\Invoice');
+        return $this->documents()->where('type', Document::INVOICE_TYPE);
     }
 
     public function items()

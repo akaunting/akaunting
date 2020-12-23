@@ -3,32 +3,37 @@
 namespace App\Http\Controllers\Purchases;
 
 use App\Abstracts\Http\Controller;
-use App\Exports\Purchases\Bills as Export;
+use App\Exports\Document\Documents as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
-use App\Http\Requests\Purchase\Bill as Request;
-use App\Http\Requests\Purchase\BillAddItem as ItemRequest;
-use App\Imports\Purchases\Bills as Import;
-use App\Jobs\Banking\CreateDocumentTransaction;
-use App\Jobs\Purchase\CreateBill;
-use App\Jobs\Purchase\DeleteBill;
-use App\Jobs\Purchase\DuplicateBill;
-use App\Jobs\Purchase\UpdateBill;
+use App\Http\Requests\Document\Document as Request;
+use App\Http\Requests\Document\DocumentAddItem as ItemRequest;
+use App\Imports\Document\Documents as Import;
+use App\Jobs\Banking\CreateBankingDocumentTransaction;
+use App\Jobs\Document\CreateDocument;
+use App\Jobs\Document\DeleteDocument;
+use App\Jobs\Document\DuplicateDocument;
+use App\Jobs\Document\UpdateDocument;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
-use App\Models\Purchase\Bill;
+use App\Models\Document\Document;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
-use App\Traits\Purchases;
+use App\Traits\Documents;
 use App\Traits\Uploads;
 use App\Utilities\Modules;
 
 class Bills extends Controller
 {
-    use Currencies, DateTime, Purchases, Uploads;
+    use Currencies, DateTime, Documents, Uploads;
+
+    /**
+     * @var string
+     */
+    public $type = Document::BILL_TYPE;
 
     /**
      * Display a listing of the resource.
@@ -37,7 +42,7 @@ class Bills extends Controller
      */
     public function index()
     {
-        $bills = Bill::with('contact', 'transactions')->collect(['billed_at'=> 'desc']);
+        $bills = Document::bill()->with('contact', 'transactions')->collect(['issued_at' => 'desc']);
 
         return $this->response('purchases.bills.index', compact('bills'));
     }
@@ -45,11 +50,11 @@ class Bills extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Bill  $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function show(Bill $bill)
+    public function show(Document $bill)
     {
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -100,11 +105,9 @@ class Bills extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+        $number = $this->getNextDocumentNumber(Document::BILL_TYPE);
 
-        $number = $this->getNextBillNumber();
-
-        return view('purchases.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'categories', 'number'));
+        return view('purchases.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'number'));
     }
 
     /**
@@ -116,7 +119,7 @@ class Bills extends Controller
      */
     public function store(Request $request)
     {
-        $response = $this->ajaxDispatch(new CreateBill($request));
+        $response = $this->ajaxDispatch(new CreateDocument($request));
 
         if ($response['success']) {
             $response['redirect'] = route('bills.show', $response['data']->id);
@@ -138,13 +141,13 @@ class Bills extends Controller
     /**
      * Duplicate the specified resource.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function duplicate(Bill $bill)
+    public function duplicate(Document $bill)
     {
-        $clone = $this->dispatch(new DuplicateBill($bill));
+        $clone = $this->dispatch(new DuplicateDocument($bill));
 
         $message = trans('messages.success.duplicated', ['type' => trans_choice('general.bills', 1)]);
 
@@ -163,7 +166,7 @@ class Bills extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            \Excel::import(new Import(), $request->file('import'));
+            \Excel::import(new Import(Document::BILL_TYPE), $request->file('import'));
         } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
             flash($e->getMessage())->error()->important();
 
@@ -180,11 +183,11 @@ class Bills extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Bill  $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function edit(Bill $bill)
+    public function edit(Document $bill)
     {
         $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
@@ -196,22 +199,20 @@ class Bills extends Controller
 
         $taxes = Tax::enabled()->orderBy('name')->get();
 
-        $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
-        return view('purchases.bills.edit', compact('bill', 'vendors', 'currencies', 'currency', 'items', 'taxes', 'categories'));
+        return view('purchases.bills.edit', compact('bill', 'vendors', 'currencies', 'currency', 'items', 'taxes'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Bill $bill
-     * @param  Request $request
+     * @param  Document $bill
+     * @param  Request  $request
      *
      * @return Response
      */
-    public function update(Bill $bill, Request $request)
+    public function update(Document $bill, Request $request)
     {
-        $response = $this->ajaxDispatch(new UpdateBill($bill, $request));
+        $response = $this->ajaxDispatch(new UpdateDocument($bill, $request));
 
         if ($response['success']) {
             $response['redirect'] = route('bills.show', $response['data']->id);
@@ -237,9 +238,9 @@ class Bills extends Controller
      *
      * @return Response
      */
-    public function destroy(Bill $bill)
+    public function destroy(Document $bill)
     {
-        $response = $this->ajaxDispatch(new DeleteBill($bill));
+        $response = $this->ajaxDispatch(new DeleteDocument($bill));
 
         $response['redirect'] = route('bills.index');
 
@@ -263,19 +264,19 @@ class Bills extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
+        return \Excel::download(new Export(null, Document::BILL_TYPE), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
     }
 
     /**
      * Mark the bill as received.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function markReceived(Bill $bill)
+    public function markReceived(Document $bill)
     {
-        event(new \App\Events\Purchase\BillReceived($bill));
+        event(new \App\Events\Document\DocumentReceived($bill));
 
         $message = trans('bills.messages.marked_received');
 
@@ -287,13 +288,13 @@ class Bills extends Controller
     /**
      * Mark the bill as cancelled.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function markCancelled(Bill $bill)
+    public function markCancelled(Document $bill)
     {
-        event(new \App\Events\Purchase\BillCancelled($bill));
+        event(new \App\Events\Document\DocumentCancelled($bill));
 
         $message = trans('bills.messages.marked_cancelled');
 
@@ -305,11 +306,11 @@ class Bills extends Controller
     /**
      * Print the bill.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function printBill(Bill $bill)
+    public function printBill(Document $bill)
     {
         $bill = $this->prepareBill($bill);
 
@@ -321,11 +322,11 @@ class Bills extends Controller
     /**
      * Download the PDF file of bill.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function pdfBill(Bill $bill)
+    public function pdfBill(Document $bill)
     {
         $bill = $this->prepareBill($bill);
 
@@ -345,14 +346,14 @@ class Bills extends Controller
     /**
      * Mark the bill as paid.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function markPaid(Bill $bill)
+    public function markPaid(Document $bill)
     {
         try {
-            $this->dispatch(new CreateDocumentTransaction($bill, []));
+            $this->dispatch(new CreateBankingDocumentTransaction($bill, []));
 
             $message = trans('bills.messages.marked_paid');
 
@@ -397,7 +398,7 @@ class Bills extends Controller
         ]);
     }
 
-    protected function prepareBill(Bill $bill)
+    protected function prepareBill(Document $bill)
     {
         $paid = 0;
 

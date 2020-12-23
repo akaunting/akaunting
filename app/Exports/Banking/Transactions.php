@@ -25,9 +25,9 @@ class Transactions extends Export
         $model->category_name = $model->category->name;
 
         if ($model->type == 'income') {
-            $model->invoice_bill_number = $model->invoice ? $model->invoice->invoice_number : 0;
+            $model->invoice_bill_number = $model->invoice->document_number ?? 0;
         } else {
-            $model->invoice_bill_number = $model->bill ? $model->bill->bill_number : 0;
+            $model->invoice_bill_number = $model->bill->document_number ?? 0;
         }
 
         return parent::map($model);

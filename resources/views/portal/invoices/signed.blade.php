@@ -1,257 +1,96 @@
 @extends('layouts.signed')
 
-@section('title', trans_choice('general.invoices', 1) . ': ' . $invoice->invoice_number)
+@section('title', setting('invoice.title', trans_choice('general.invoices', 1)) . ': ' . $invoice->document_number)
 
 @section('new_button')
-    <a href="{{ route('portal.dashboard') }}" class="btn btn-success btn-sm">{{ trans('invoices.all_invoices') }}</a>
+    @stack('button_print_start')
+    <a href="{{ $print_action }}" target="_blank" class="btn btn-white btn-sm">
+        {{ trans('general.print') }}
+    </a>
+    @stack('button_print_end')
+
+    @stack('button_pdf_start')
+    <a href="{{ $pdf_action }}" class="btn btn-white btn-sm">
+        {{ trans('general.download') }}
+    </a>
+    @stack('button_pdf_end')
+
+    @stack('button_dashboard_start')
+        <a href="{{ route('portal.dashboard') }}" class="btn btn-white btn-sm">
+            {{ trans('invoices.all_invoices') }}
+        </a>
+    @stack('button_dashboard_end')
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-header status-{{ $invoice->status_label }}">
-            <h3 class="text-white mb-0 float-right pr-4">{{ trans('invoices.statuses.' . $invoice->status) }}</h3>
-        </div>
+    <x-documents.show.header
+        type="invoice"
+        :document="$invoice"
+        hide-header-contact
+        class-header-status="col-md-8"
+    />
 
-        <div class="card-body">
-            <div class="row mx--4">
-                <div class="col-md-7 border-bottom-1">
-                    <div class="table-responsive mt-2">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        <img src="{{ $logo }}" alt="{{ setting('company.name') }}"/>
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    @if (!empty($payment_methods) && !in_array($invoice->status, ['paid', 'cancelled']))
+    <div class="row">
+        <div class="col-md-12">
+            {!! Form::open([
+                'id' => 'invoice-payment',
+                'role' => 'form',
+                'autocomplete' => "off",
+                'novalidate' => 'true',
+                'class' => 'mb-0'
+            ]) !!}
+                {{ Form::selectGroup('payment_method', '', 'money el-icon-money', $payment_methods, array_key_first($payment_methods)   , ['change' => 'onChangePaymentMethodSigned', 'id' => 'payment-method', 'class' => 'form-control d-none', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])], 'col-sm-12 d-none') }}
+                {!! Form::hidden('document_id', $invoice->id, ['v-model' => 'form.document_id']) !!}
+            {!! Form::close() !!}
 
-                <div class="col-md-5 border-bottom-1">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        {{ setting('company.name') }}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {!! nl2br(setting('company.address')) !!}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        @if (setting('company.tax_number'))
-                                            {{ trans('general.tax_number') }}: {{ setting('company.tax_number') }}<br>
-                                        @endif
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        @if (setting('company.phone'))
-                                            {{ setting('company.phone') }}<br>
-                                        @endif
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ setting('company.email') }}
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-payment-method" role="tablist">
+                    @php $is_active = true; @endphp
+
+                    @foreach ($payment_methods as $key => $name)
+                        @stack('invoice_{{ $key }}_tab_start')
+                        <li class="nav-item">
+                            <a @click="onChangePaymentMethodSigned('{{ $key }}')" class="nav-link mb-sm-3 mb-md-0{{ ($is_active) ? ' active': '' }}" id="tabs-payment-method-{{ $key }}-tab" data-toggle="tab" href="#tabs-payment-method-{{ $key }}" role="tab" aria-controls="tabs-payment-method-{{ $key }}" aria-selected="true">
+                                {{ $name }}
+                            </a>
+                        </li>
+                        @stack('invoice_{{ $key }}_tab_end')
+
+                        @php $is_active = false; @endphp
+                    @endforeach
+                </ul>
             </div>
 
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        {{ trans('invoices.bill_to') }}
-                                        <strong class="d-block">{{ $invoice->contact_name }}</strong>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {!! nl2br($invoice->contact_address) !!}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        @if ($invoice->contact_tax_number)
-                                            {{ trans('general.tax_number') }}: {{ $invoice->contact_tax_number }}
-                                        @endif
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        @if ($invoice->contact_phone)
-                                            {{ $invoice->contact_phone }}<br>
-                                        @endif
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ $invoice->contact_email }}
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
+                        @php $is_active = true; @endphp
+
+                        @foreach ($payment_methods as $key => $name)
+                            @stack('invoice_{{ $key }}_content_start')
+                            <div class="tab-pane fade{{ ($is_active) ? ' show active': '' }}" id="tabs-payment-method-{{ $key }}" role="tabpanel" aria-labelledby="tabs-payment-method-{{ $key }}-tab">
+                                <component v-bind:is="method_show_html" @interface="onRedirectConfirm"></component>
+                            </div>
+                            @stack('invoice_{{ $key }}_content_end')
+
+                            @php $is_active = false; @endphp
+                        @endforeach
                     </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>{{ trans('invoices.invoice_number') }}:</th>
-                                    <td class="text-right">{{ $invoice->invoice_number }}</td>
-                                </tr>
-                                @if ($invoice->order_number)
-                                    <tr>
-                                        <th>{{ trans('invoices.order_number') }}:</th>
-                                        <td class="text-right">{{ $invoice->order_number }}</td>
-                                    </tr>
-                                @endif
-                                <tr>
-                                    <th>{{ trans('invoices.invoice_date') }}:</th>
-                                    <td class="text-right">@date($invoice->invoiced_at)</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ trans('invoices.payment_due') }}:</th>
-                                    <td class="text-right">@date($invoice->due_at)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row show-table">
-                <div class="col-md-12 table-responsive">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr class="row">
-                                <th class="col-xs-4 col-sm-5 pl-5">{{ trans_choice('general.items', 1) }}</th>
-                                <th class="col-xs-4 col-sm-1 text-center">{{ trans('invoices.quantity') }}</th>
-                                <th class="col-sm-3 text-right d-none d-sm-block">{{ trans('invoices.price') }}</th>
-                                <th class="col-xs-4 col-sm-3 text-right pr-5">{{ trans('invoices.total') }}</th>
-                            </tr>
-                            @foreach($invoice->items as $invoice_item)
-                                <tr class="row">
-                                    <td class="col-xs-4 col-sm-5 pl-5">
-                                        {{ $invoice_item->name }}
-                                        @if (!empty($invoice_item->item->description))
-                                            <br><small class="text-pre-nowrap">{!! \Illuminate\Support\Str::limit($invoice_item->item->description, 500) !!}<small>
-                                        @endif
-                                    </td>
-                                    <td class="col-xs-4 col-sm-1 text-center">{{ $invoice_item->quantity }}</td>
-                                    <td class="col-sm-3 text-right d-none d-sm-block">@money($invoice_item->price, $invoice->currency_code, true)</td>
-                                    <td class="col-xs-4 col-sm-3 text-right pr-5">@money($invoice_item->total, $invoice->currency_code, true)</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row mt-5">
-                <div class="col-md-7">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        @if ($invoice->notes)
-                                            <p class="form-control-label">{{ trans_choice('general.notes', 2) }}</p>
-                                            <p class="text-muted long-texts">{!! nl2br($invoice->notes) !!}</p>
-                                        @endif
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="col-md-5">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                                @foreach($invoice->totals_sorted as $total)
-                                    @if($total->code != 'total')
-                                        @stack($total->code . '_total_tr_start')
-                                        <tr>
-                                            <th>{{ trans($total['name']) }}:</th>
-                                            <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
-                                        </tr>
-                                        @stack($total->code . '_total_tr_end')
-                                    @else
-                                        @if ($invoice->paid)
-                                            @stack('paid_total_tr_start')
-                                            <tr class="text-success">
-                                                <th>{{ trans('invoices.paid') }}:</th>
-                                                <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
-                                            </tr>
-                                            @stack('paid_total_tr_end')
-                                        @endif
-                                        @stack('grand_total_tr_start')
-                                        <tr>
-                                            <th>{{ trans($total['name']) }}:</th>
-                                            <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
-                                        </tr>
-                                        @stack('grand_total_tr_end')
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-md-4">
-                    @if (!empty($payment_methods) && !in_array($invoice->status, ['paid', 'cancelled']))
-                        {!! Form::open([
-                            'id' => 'invoice-payment',
-                            'role' => 'form',
-                            'autocomplete' => "off",
-                            'novalidate' => 'true',
-                            'class' => 'mb-0',
-                        ]) !!}
-                            {{ Form::selectGroup('payment_method', '', 'fas fa-wallet', $payment_methods, '', ['change' => 'onChangePaymentMethodSigned', 'id' => 'payment-method', 'class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.payment_methods', 1)])], 'mb-0') }}
-                            {!! Form::hidden('invoice_id', $invoice->id, ['v-model' => 'form.invoice_id']) !!}
-                        {!! Form::close() !!}
-                    @endif
-                </div>
-
-                <div class="col-md-8 text-right">
-                    <a href="{{ $print_action }}" target="_blank" class="btn btn-success">
-                        {{ trans('general.print') }}
-                    </a>
-
-                    <a href="{{ $pdf_action }}" class="btn btn-white" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
-                        {{ trans('general.download') }}
-                    </a>
-                </div>
-
-                <div class="col-md-12" id="confirm">
-                    <component v-bind:is="method_show_html" @interface="onRedirectConfirm"></component>
                 </div>
             </div>
         </div>
     </div>
+    @endif
+
+    <x-documents.show.document
+        type="invoice"
+        :document="$invoice"
+    />
 @endsection
 
 @push('footer_start')
+    <link rel="stylesheet" href="{{ asset('public/css/print.css?v=' . version('short')) }}" type="text/css">
     <script src="{{ asset('public/js/portal/invoices.js?v=' . version('short')) }}"></script>
 
     <script type="text/javascript">
