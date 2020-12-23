@@ -6,8 +6,7 @@ use App\Abstracts\Model;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
-use App\Models\Purchase\Bill;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Models\Setting\Category;
 use App\Models\Setting\Tax;
 use Illuminate\Database\Seeder;
@@ -50,10 +49,10 @@ class SampleData extends Seeder
         Account::factory()->count($small_count)->create();
         $bar->advance();
 
-        Bill::factory()->count($count)->create();
+        Document::factory()->bill()->count($count)->create();
         $bar->advance();
 
-        Invoice::factory()->count($count)->create();
+        Document::factory()->invoice()->count($count)->create();
         $bar->advance();
 
         $bar->finish();

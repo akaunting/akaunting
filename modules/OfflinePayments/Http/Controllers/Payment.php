@@ -3,9 +3,9 @@
 namespace Modules\OfflinePayments\Http\Controllers;
 
 use App\Abstracts\Http\PaymentController;
-use \App\Events\Sale\PaymentReceived;
+use \App\Events\Document\PaymentReceived;
 use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -15,7 +15,7 @@ class Payment extends PaymentController
 
     public $type = 'redirect';
 
-    public function show(Invoice $invoice, PaymentRequest $request)
+    public function show(Document $document, PaymentRequest $request)
     {
         $setting = [];
 
@@ -29,7 +29,7 @@ class Payment extends PaymentController
             }
         }
 
-        $html = view('offline-payments::show', compact('setting', 'invoice'))->render();
+        $html = view('offline-payments::show', compact('setting', 'document'))->render();
 
         return response()->json([
             'code' => $setting['code'],
@@ -40,7 +40,7 @@ class Payment extends PaymentController
         ]);
     }
 
-    public function signed(Invoice $invoice, PaymentRequest $request)
+    public function signed(Document $document, PaymentRequest $request)
     {
         $setting = [];
 
@@ -54,9 +54,9 @@ class Payment extends PaymentController
             }
         }
 
-        $confirm_url = URL::signedRoute('signed.invoices.offline-payments.confirm', [$invoice->id, 'company_id' => session('company_id')]);
+        $confirm_url = URL::signedRoute('signed.invoices.offline-payments.confirm', [$document->id, 'company_id' => session('company_id')]);
 
-        $html = view('offline-payments::signed', compact('setting', 'invoice', 'confirm_url'))->render();
+        $html = view('offline-payments::signed', compact('setting', 'document', 'confirm_url'))->render();
 
         return response()->json([
             'code' => $setting['code'],
@@ -67,10 +67,10 @@ class Payment extends PaymentController
         ]);
     }
 
-    public function confirm(Invoice $invoice, Request $request)
+    public function confirm(Document $document, Request $request)
     {
         try {
-            event(new PaymentReceived($invoice, $request));
+            event(new PaymentReceived($document, $request));
 
             $message = trans('messages.success.added', ['type' => trans_choice('general.payments', 1)]);
 

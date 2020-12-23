@@ -303,7 +303,7 @@ class Items extends Controller
                         break;
                 }
 
-                $item->total = money($total, $currency_code, true)->format();
+                $item->total = $total;
             }
         }
 

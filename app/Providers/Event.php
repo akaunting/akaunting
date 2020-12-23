@@ -36,44 +36,31 @@ class Event extends Provider
         'App\Events\Auth\LandingPageShowing' => [
             'App\Listeners\Auth\AddLandingPages',
         ],
-        'App\Events\Purchase\BillCreated' => [
-            'App\Listeners\Purchase\CreateBillCreatedHistory',
-            'App\Listeners\Purchase\IncreaseNextBillNumber',
+        'App\Events\Document\DocumentCreated' => [
+            'App\Listeners\Document\CreateDocumentCreatedHistory',
+            'App\Listeners\Document\IncreaseNextDocumentNumber',
         ],
-        'App\Events\Purchase\BillReceived' => [
-            'App\Listeners\Purchase\MarkBillReceived',
+        'App\Events\Document\DocumentReceived' => [
+            'App\Listeners\Document\MarkDocumentReceived',
         ],
-        'App\Events\Purchase\BillCancelled' => [
-            'App\Listeners\Purchase\MarkBillCancelled',
+        'App\Events\Document\DocumentCancelled' => [
+            'App\Listeners\Document\MarkDocumentCancelled',
         ],
-        'App\Events\Purchase\BillRecurring' => [
-            'App\Listeners\Purchase\SendBillRecurringNotification',
+        'App\Events\Document\DocumentRecurring' => [
+            'App\Listeners\Document\SendDocumentRecurringNotification',
         ],
-        'App\Events\Purchase\BillReminded' => [
-            'App\Listeners\Purchase\SendBillReminderNotification',
+        'App\Events\Document\DocumentReminded' => [
+            'App\Listeners\Document\SendDocumentReminderNotification',
         ],
-        'App\Events\Sale\PaymentReceived' => [
-            'App\Listeners\Sale\CreateInvoiceTransaction',
-            'App\Listeners\Sale\SendInvoicePaymentNotification',
+        'App\Events\Document\PaymentReceived' => [
+            'App\Listeners\Document\CreateDocumentTransaction',
+            'App\Listeners\Document\SendDocumentPaymentNotification',
         ],
-        'App\Events\Sale\InvoiceCreated' => [
-            'App\Listeners\Sale\CreateInvoiceCreatedHistory',
-            'App\Listeners\Sale\IncreaseNextInvoiceNumber',
+        'App\Events\Document\DocumentSent' => [
+            'App\Listeners\Document\MarkDocumentSent',
         ],
-        'App\Events\Sale\InvoiceSent' => [
-            'App\Listeners\Sale\MarkInvoiceSent',
-        ],
-        'App\Events\Sale\InvoiceCancelled' => [
-            'App\Listeners\Sale\MarkInvoiceCancelled',
-        ],
-        'App\Events\Sale\InvoiceViewed' => [
-            'App\Listeners\Sale\MarkInvoiceViewed',
-        ],
-        'App\Events\Sale\InvoiceRecurring' => [
-            'App\Listeners\Sale\SendInvoiceRecurringNotification',
-        ],
-        'App\Events\Sale\InvoiceReminded' => [
-            'App\Listeners\Sale\SendInvoiceReminderNotification',
+        'App\Events\Document\DocumentViewed' => [
+            'App\Listeners\Document\MarkDocumentViewed',
         ],
         'App\Events\Menu\AdminCreated' => [
             'App\Listeners\Menu\AddAdminItems',

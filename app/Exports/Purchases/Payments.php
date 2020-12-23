@@ -21,7 +21,7 @@ class Payments extends Export
     public function map($model): array
     {
         $model->account_name = $model->account->name;
-        $model->bill_number = $model->bill ? $model->bill->bill_number : 0;
+        $model->bill_number = $model->bill->document_number ?? 0;
         $model->contact_email = $model->contact->email;
         $model->category_name = $model->category->name;
 

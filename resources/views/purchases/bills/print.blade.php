@@ -1,6 +1,6 @@
 @extends('layouts.print')
 
-@section('title', trans_choice('general.bills', 1) . ': ' . $bill->bill_number)
+@section('title', trans_choice('general.bills', 1) . ': ' . $bill->document_number)
 
 @section('content')
     <div class="row border-bottom-1">
@@ -78,7 +78,7 @@
                 <br>
                 @stack('bill_number_input_start')
                     <strong>{{ trans('bills.bill_number') }}:</strong>
-                    <span class="float-right">{{ $bill->bill_number }}</span><br><br>
+                    <span class="float-right">{{ $bill->document_number }}</span><br><br>
                 @stack('bill_number_input_end')
 
                 @stack('order_number_input_start')
@@ -90,7 +90,7 @@
 
                 @stack('billed_at_input_start')
                     <strong>{{ trans('bills.bill_date') }}:</strong>
-                    <span class="float-right">@date($bill->billed_at)</span><br><br>
+                    <span class="float-right">@date($bill->issued_at)</span><br><br>
                 @stack('billed_at_input_end')
 
                 @stack('due_at_input_start')

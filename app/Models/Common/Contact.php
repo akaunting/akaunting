@@ -3,6 +3,7 @@
 namespace App\Models\Common;
 
 use App\Abstracts\Model;
+use App\Models\Document\Document;
 use Bkwld\Cloner\Cloneable;
 use App\Traits\Contacts;
 use App\Traits\Currencies;
@@ -40,9 +41,14 @@ class Contact extends Model
      */
     public $sortable = ['name', 'email', 'phone', 'enabled'];
 
+    public function documents()
+    {
+        return $this->hasMany('App\Models\Document\Document');
+    }
+
     public function bills()
     {
-        return $this->hasMany('App\Models\Purchase\Bill');
+        return $this->documents()->where('type', Document::BILL_TYPE);
     }
 
     public function currency()
@@ -62,7 +68,7 @@ class Contact extends Model
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Sale\Invoice');
+        return $this->documents()->where('type', Document::INVOICE_TYPE);
     }
 
     public function transactions()

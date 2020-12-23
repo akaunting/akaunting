@@ -3,17 +3,17 @@
 namespace App\BulkActions\Purchases;
 
 use App\Abstracts\BulkAction;
-use App\Events\Purchase\BillCancelled;
-use App\Events\Purchase\BillReceived;
-use App\Exports\Purchases\Bills as Export;
-use App\Jobs\Banking\CreateDocumentTransaction;
-use App\Jobs\Purchase\CreateBillHistory;
-use App\Jobs\Purchase\DeleteBill;
-use App\Models\Purchase\Bill;
+use App\Events\Document\DocumentCancelled;
+use App\Events\Document\DocumentReceived;
+use App\Exports\Document\Documents as Export;
+use App\Jobs\Banking\CreateBankingDocumentTransaction;
+use App\Jobs\Document\CreateDocumentHistory;
+use App\Jobs\Document\DeleteDocument;
+use App\Models\Document\Document;
 
 class Bills extends BulkAction
 {
-    public $model = Bill::class;
+    public $model = Document::class;
 
     public $actions = [
         'paid' => [
@@ -48,7 +48,7 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            $this->dispatch(new CreateDocumentTransaction($bill, []));
+            $this->dispatch(new CreateBankingDocumentTransaction($bill, []));
         }
     }
 
@@ -57,7 +57,7 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            event(new BillReceived($bill));
+            event(new DocumentReceived($bill));
         }
     }
 
@@ -66,7 +66,7 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            event(new BillCancelled($bill));
+            event(new DocumentCancelled($bill));
         }
     }
 
@@ -77,9 +77,9 @@ class Bills extends BulkAction
         foreach ($bills as $bill) {
             $clone = $bill->duplicate();
 
-            $description = trans('messages.success.added', ['type' => $clone->bill_number]);
+            $description = trans('messages.success.added', ['type' => $clone->document_number]);
 
-            $this->dispatch(new CreateBillHistory($clone, 0, $description));
+            $this->dispatch(new CreateDocumentHistory($clone, 0, $description));
         }
     }
 
@@ -89,7 +89,7 @@ class Bills extends BulkAction
 
         foreach ($bills as $bill) {
             try {
-                $this->dispatch(new DeleteBill($bill));
+                $this->dispatch(new DeleteDocument($bill));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error();
             }
@@ -100,6 +100,6 @@ class Bills extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        return \Excel::download(new Export($selected), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
+        return \Excel::download(new Export($selected, Document::BILL_TYPE), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
     }
 }

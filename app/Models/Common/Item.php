@@ -3,6 +3,7 @@
 namespace App\Models\Common;
 
 use App\Abstracts\Model;
+use App\Models\Document\Document;
 use App\Traits\Currencies;
 use App\Traits\Media;
 use Bkwld\Cloner\Cloneable;
@@ -61,14 +62,19 @@ class Item extends Model
         return $this->hasMany('App\Models\Common\ItemTax');
     }
 
+    public function document_items()
+    {
+        return $this->hasMany('App\Models\Document\DocumentItem');
+    }
+
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Purchase\BillItem');
+        return $this->document_items()->where('type', Document::BILL_TYPE);
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Sale\InvoiceItem');
+        return $this->document_items()->where('type', Document::INVOICE_TYPE);
     }
 
     public function scopeName($query, $name)

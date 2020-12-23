@@ -23,6 +23,43 @@ export default class Form {
                 continue;
             }
 
+            /*
+            if (name != null && name.indexOf('.') != '-1') {
+                let partial_name = name.split('.');
+
+                switch(partial_name.length) {
+                    case 2:
+                        this[partial_name[0]] = [];
+                        this[partial_name[0]][partial_name[1]] = '';
+
+                        break;
+                    case 3:
+                        this[partial_name[0]] = [];
+                        this[partial_name[0]][partial_name[1]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]] = '';
+
+                        break;
+                    case 4:
+                        this[partial_name[0]] = [];
+                        this[partial_name[0]][partial_name[1]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]][partial_name[3]] = '';
+
+                        break;
+                    case 5:
+                        this[partial_name[0]] = [];
+                        this[partial_name[0]][partial_name[1]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]][partial_name[3]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]][partial_name[3]][partial_name[4]] = '';
+
+                        break;
+                }
+
+                continue;
+            }
+            */
+
             if (form_element.getAttribute('data-item')) {
                 if (!this['items']) {
                     var item = {};
@@ -120,6 +157,43 @@ export default class Form {
             if (name == 'method') {
                 continue;
             }
+
+            /*
+            if (name != null && name.indexOf('.') != '-1') {
+                let partial_name = name.split('.');
+
+                switch(partial_name.length) {
+                    case 2:
+                        this[partial_name[0]] = [];
+                        this[partial_name[0]][partial_name[1]] = '';
+
+                        break;
+                    case 3:
+                        this[partial_name[0]] = [];
+                        this[partial_name[0]][partial_name[1]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]] = '';
+
+                        break;
+                    case 4:
+                        this[partial_name[0]] = [];
+                        this[partial_name[0]][partial_name[1]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]][partial_name[3]] = '';
+
+                        break;
+                    case 5:
+                        this[partial_name[0]] = [];
+                        this[partial_name[0]][partial_name[1]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]][partial_name[3]] = [];
+                        this[partial_name[0]][partial_name[1]][partial_name[2]][partial_name[3]][partial_name[4]] = '';
+
+                        break;
+                }
+
+                continue;
+            }
+            */
 
             if (form_element.getAttribute('data-item')) {
                 if (!this['items']) {
@@ -275,13 +349,13 @@ export default class Form {
         FormData.prototype.appendRecursive = function(data, wrapper = null) {  
             for(var name in data) {
                 if (wrapper) {
-                    if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                    if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
                         this.appendRecursive(data[name], wrapper + '[' + name + ']');
                     } else {
                         this.append(wrapper + '[' + name + ']', data[name]);
                     }
                 } else {
-                    if ((typeof data[name] == 'object' || data[name].constructor === Array) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
+                    if ((typeof data[name] == 'object' || Array.isArray(data[name])) && ((data[name] instanceof File != true ) && (data[name] instanceof Blob != true))) {
                         this.appendRecursive(data[name], name);
                     } else {
                         this.append(name, data[name]);

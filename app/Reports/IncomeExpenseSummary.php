@@ -4,8 +4,7 @@ namespace App\Reports;
 
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
-use App\Models\Purchase\Bill;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Utilities\Recurring;
 
 class IncomeExpenseSummary extends Report
@@ -32,9 +31,9 @@ class IncomeExpenseSummary extends Report
                 break;
             default:
                 // Invoices
-                $invoices = $this->applyFilters(Invoice::with('recurring', 'transactions')->accrued(), ['date_field' => 'invoiced_at'])->get();
-                Recurring::reflect($invoices, 'invoiced_at');
-                $this->setTotals($invoices, 'invoiced_at', true);
+                $invoices = $this->applyFilters(Document::invoice()->with('recurring', 'transactions')->accrued(), ['date_field' => 'issued_at'])->get();
+                Recurring::reflect($invoices, 'issued_at');
+                $this->setTotals($invoices, 'issued_at', true);
 
                 // Revenues
                 $revenues = $income_transactions->isNotDocument()->get();
@@ -42,9 +41,9 @@ class IncomeExpenseSummary extends Report
                 $this->setTotals($revenues, 'paid_at', true);
 
                 // Bills
-                $bills = $this->applyFilters(Bill::with('recurring', 'transactions')->accrued(), ['date_field' => 'billed_at'])->get();
-                Recurring::reflect($bills, 'bill', 'billed_at');
-                $this->setTotals($bills, 'billed_at', true);
+                $bills = $this->applyFilters(Document::bill()->with('recurring', 'transactions')->accrued(), ['date_field' => 'issued_at'])->get();
+                Recurring::reflect($bills, 'issued_at');
+                $this->setTotals($bills, 'issued_at', true);
 
                 // Payments
                 $payments = $expense_transactions->isNotDocument()->get();

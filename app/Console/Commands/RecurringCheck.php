@@ -4,13 +4,11 @@ namespace App\Console\Commands;
 
 use App\Events\Banking\TransactionCreated;
 use App\Events\Banking\TransactionRecurring;
-use App\Events\Purchase\BillCreated;
-use App\Events\Purchase\BillRecurring;
-use App\Events\Sale\InvoiceCreated;
-use App\Events\Sale\InvoiceRecurring;
+use App\Events\Document\DocumentCreated;
+use App\Events\Document\DocumentRecurring;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Recurring;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Utilities\Date;
 use App\Utilities\Overrider;
 use Illuminate\Console\Command;
@@ -136,16 +134,10 @@ class RecurringCheck extends Command
             }
 
             switch ($type) {
-                case 'App\Models\Purchase\Bill':
-                    event(new BillCreated($clone));
+                case 'App\Models\Document\Document':
+                    event(new DocumentCreated($clone));
 
-                    event(new BillRecurring($clone));
-
-                    break;
-                case 'App\Models\Sale\Invoice':
-                    event(new InvoiceCreated($clone));
-
-                    event(new InvoiceRecurring($clone));
+                    event(new DocumentRecurring($clone));
 
                     break;
                 case 'App\Models\Banking\Transaction':
@@ -272,11 +264,9 @@ class RecurringCheck extends Command
             return 'paid_at';
         }
 
-        if ($model instanceof Invoice) {
-            return 'invoiced_at';
+        if ($model instanceof Document) {
+            return 'issued_at';
         }
-
-        return 'billed_at';
     }
 
     protected function getTable($model)
@@ -285,10 +275,8 @@ class RecurringCheck extends Command
             return 'transactions';
         }
 
-        if ($model instanceof Invoice) {
-            return 'invoices';
+        if ($model instanceof Document) {
+            return 'documents';
         }
-
-        return 'bills';
     }
 }

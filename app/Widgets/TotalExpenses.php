@@ -4,7 +4,7 @@ namespace App\Widgets;
 
 use App\Abstracts\Widget;
 use App\Models\Banking\Transaction;
-use App\Models\Purchase\Bill;
+use App\Models\Document\Document;
 
 class TotalExpenses extends Widget
 {
@@ -22,12 +22,17 @@ class TotalExpenses extends Widget
             $current += $transaction->getAmountConvertedToDefault();
         });
 
-        $this->applyFilters(Bill::with('transactions')->accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($bill) use (&$open, &$overdue) {
-            list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($bill);
+        $this->applyFilters(
+            Document::bill()->with('transactions')->accrued()->notPaid(),
+            ['date_field' => 'created_at']
+        )->each(
+            function ($bill) use (&$open, &$overdue) {
+                list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($bill);
 
-            $open += $open_tmp;
-            $overdue += $overdue_tmp;
-        });
+                $open += $open_tmp;
+                $overdue += $overdue_tmp;
+            }
+        );
 
         $grand = $current + $open + $overdue;
 

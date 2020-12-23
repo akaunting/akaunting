@@ -3,9 +3,9 @@
 namespace Modules\PaypalStandard\Http\Controllers;
 
 use App\Abstracts\Http\PaymentController;
-use App\Events\Sale\PaymentReceived;
+use App\Events\Document\PaymentReceived;
 use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Monolog\Handler\StreamHandler;
@@ -17,17 +17,17 @@ class Payment extends PaymentController
 
     public $type = 'redirect';
 
-    public function show(Invoice $invoice, PaymentRequest $request)
+    public function show(Document $document, PaymentRequest $request)
     {
         $setting = $this->setting;
 
-        $this->setContactFirstLastName($invoice);
+        $this->setContactFirstLastName($document);
 
         $setting['action'] = ($setting['mode'] == 'live') ? 'https://www.paypal.com/cgi-bin/webscr' : 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 
-        $invoice_url = $this->getInvoiceUrl($invoice);
+        $document_url = $this->getInvoiceUrl($document);
 
-        $html = view('paypal-standard::show', compact('setting', 'invoice', 'invoice_url'))->render();
+        $html = view('paypal-standard::show', compact('setting', 'document', 'document_url'))->render();
 
         return response()->json([
             'code' => $setting['code'],
@@ -38,7 +38,7 @@ class Payment extends PaymentController
         ]);
     }
 
-    public function return(Invoice $invoice, Request $request)
+    public function return(Document $document, Request $request)
     {
         $success = true;
 
@@ -66,12 +66,12 @@ class Payment extends PaymentController
             flash($message)->warning();
         }
 
-        $invoice_url = $this->getInvoiceUrl($invoice);
+        $document_url = $this->getInvoiceUrl($document);
 
-        return redirect($invoice_url);
+        return redirect($document_url);
     }
 
-    public function complete(Invoice $invoice, Request $request)
+    public function complete(Document $document, Request $request)
     {
         $setting = $this->setting;
 
@@ -79,7 +79,7 @@ class Payment extends PaymentController
 
         $paypal_log->pushHandler(new StreamHandler(storage_path('logs/paypal.log')), Logger::INFO);
 
-        if (!$invoice) {
+        if (!$document) {
             return;
         }
 
@@ -115,10 +115,10 @@ class Payment extends PaymentController
             case 'Completed':
                 $receiver_match = (strtolower($request['receiver_email']) == strtolower($setting['email']));
 
-                $total_paid_match = ((double) $request['mc_gross'] == $invoice->amount);
+                $total_paid_match = ((double) $request['mc_gross'] == $document->amount);
 
                 if ($receiver_match && $total_paid_match) {
-                    event(new PaymentReceived($invoice, $request));
+                    event(new PaymentReceived($document, $request));
                 }
 
                 if (!$receiver_match) {
