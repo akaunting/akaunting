@@ -32,6 +32,26 @@ class DocumentTotal extends Model
         return $this->belongsTo('App\Models\Document\Document');
     }
 
+    public function scopeType(Builder $query, string $type)
+    {
+        return $query->where($this->table . '.type', '=', $type);
+    }
+
+    public function scopeInvoice(Builder $query)
+    {
+        return $query->where($this->table . '.type', '=', Document::INVOICE_TYPE);
+    }
+
+    public function scopeBill(Builder $query)
+    {
+        return $query->where($this->table . '.type', '=', Document::BILL_TYPE);
+    }
+
+    public function scopeCode($query, $code)
+    {
+        return $query->where('code', '=', $code);
+    }
+
     public function getTitleAttribute()
     {
         $title = $this->name;
@@ -69,25 +89,5 @@ class DocumentTotal extends Model
         }
 
         return $title;
-    }
-
-    public function scopeType(Builder $query, string $type)
-    {
-        return $query->where($this->table . '.type', '=', $type);
-    }
-
-    public function scopeInvoice(Builder $query)
-    {
-        return $query->where($this->table . '.type', '=', Document::INVOICE_TYPE);
-    }
-
-    public function scopeBill(Builder $query)
-    {
-        return $query->where($this->table . '.type', '=', Document::BILL_TYPE);
-    }
-
-    public function scopeCode($query, $code)
-    {
-        return $query->where('code', '=', $code);
     }
 }
