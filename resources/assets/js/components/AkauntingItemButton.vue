@@ -197,6 +197,7 @@ export default {
                         type: this.type,
                         id: item.id,
                         name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                        description: (item.description) ? item.description : '',
                         price: (item.price) ? item.price : (this.type == 'sale') ? item.sale_price : item.purchase_price,
                         tax_ids: (item.tax_ids) ? item.tax_ids : [],
                     });
@@ -318,15 +319,18 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    let contact = response.data.data;
+                    let item = response.data.data;
 
-                    this.contact_list.push({
-                        key: contact.id,
-                        value: (contact.title) ? contact.title : (contact.display_name) ? contact.display_name : contact.name,
-                        type: (contact.type) ? contact.type : 'customer',
-                        id: contact.id,
-                        name: (contact.title) ? contact.title : (contact.display_name) ? contact.display_name : contact.name,
-                        address: (contact.address) ? contact.address : '' 
+                    this.item_list.push({
+                        index: index,
+                        key: item.id,
+                        value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                        type: this.type,
+                        id: item.id,
+                        name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                        description: (item.description) ? item.description : '',
+                        price: (item.price) ? item.price : (this.type == 'sale') ? item.sale_price : item.purchase_price,
+                        tax_ids: (item.tax_ids) ? item.tax_ids : [],
                     });
 
                     this.add_new.show = false;
@@ -384,6 +388,7 @@ export default {
                     type: 'item',
                     id: key,
                     name: value,
+                    description: '',
                     price: 0,
                     tax_ids: [], 
                 });
@@ -399,6 +404,7 @@ export default {
                     type: this.type,
                     id: item.id,
                     name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                    description: (item.description) ? item.description : '',
                     price: (item.price) ? item.price : (this.type == 'sale') ? item.sale_price : item.purchase_price,
                     tax_ids: (item.tax_ids) ? item.tax_ids : [],
                 });
