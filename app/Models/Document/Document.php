@@ -28,7 +28,7 @@ class Document extends Model
 
     protected $table = 'documents';
 
-    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'status_label'];
+    protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'received_at', 'status_label', 'sent_at'];
 
     protected $dates = ['deleted_at', 'issued_at', 'due_at'];
 
