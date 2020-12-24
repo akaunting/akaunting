@@ -41,13 +41,13 @@ class CreateDocumentItemsAndTotals extends Job
 
         // Add sub total
         DocumentTotal::create([
-          'company_id' => $this->document->company_id,
-          'type' => $this->document->type,
-          'document_id' => $this->document->id,
-          'code' => 'sub_total',
-          'name' => 'invoices.sub_total',
-          'amount' => round($sub_total, $precision),
-          'sort_order' => $sort_order,
+            'company_id' => $this->document->company_id,
+            'type' => $this->document->type,
+            'document_id' => $this->document->id,
+            'code' => 'sub_total',
+            'name' => 'invoices.sub_total',
+            'amount' => round($sub_total, $precision),
+            'sort_order' => $sort_order,
         ]);
 
         $this->request['amount'] += $sub_total;
@@ -57,13 +57,13 @@ class CreateDocumentItemsAndTotals extends Job
         // Add discount
         if ($discount_amount_total > 0) {
             DocumentTotal::create([
-              'company_id' => $this->document->company_id,
-              'type' => $this->document->type,
-              'document_id' => $this->document->id,
-              'code' => 'item_discount',
-              'name' => 'invoices.item_discount',
-              'amount' => round($discount_amount_total, $precision),
-              'sort_order' => $sort_order,
+                'company_id' => $this->document->company_id,
+                'type' => $this->document->type,
+                'document_id' => $this->document->id,
+                'code' => 'item_discount',
+                'name' => 'invoices.item_discount',
+                'amount' => round($discount_amount_total, $precision),
+                'sort_order' => $sort_order,
             ]);
 
             $this->request['amount'] -= $discount_amount_total;
@@ -75,13 +75,13 @@ class CreateDocumentItemsAndTotals extends Job
             $discount_total = ($sub_total - $discount_amount_total) * ($this->request['discount'] / 100);
 
             DocumentTotal::create([
-              'company_id' => $this->document->company_id,
-              'type' => $this->document->type,
-              'document_id' => $this->document->id,
-              'code' => 'discount',
-              'name' => 'invoices.discount',
-              'amount' => round($discount_total, $precision),
-              'sort_order' => $sort_order,
+                'company_id' => $this->document->company_id,
+                'type' => $this->document->type,
+                'document_id' => $this->document->id,
+                'code' => 'discount',
+                'name' => 'invoices.discount',
+                'amount' => round($discount_total, $precision),
+                'sort_order' => $sort_order,
             ]);
 
             $this->request['amount'] -= $discount_total;
@@ -93,13 +93,13 @@ class CreateDocumentItemsAndTotals extends Job
         if (!empty($taxes)) {
             foreach ($taxes as $tax) {
                 DocumentTotal::create([
-                                          'company_id' => $this->document->company_id,
-                                          'type' => $this->document->type,
-                                          'document_id' => $this->document->id,
-                                          'code' => 'tax',
-                                          'name' => $tax['name'],
-                                          'amount' => round(abs($tax['amount']), $precision),
-                                          'sort_order' => $sort_order,
+                    'company_id' => $this->document->company_id,
+                    'type' => $this->document->type,
+                    'document_id' => $this->document->id,
+                    'code' => 'tax',
+                    'name' => $tax['name'],
+                    'amount' => round(abs($tax['amount']), $precision),
+                    'sort_order' => $sort_order,
                 ]);
 
                 $this->request['amount'] += $tax['amount'];
@@ -139,13 +139,13 @@ class CreateDocumentItemsAndTotals extends Job
 
         // Add total
         DocumentTotal::create([
-                                  'company_id' => $this->document->company_id,
-                                  'type' => $this->document->type,
-                                  'document_id' => $this->document->id,
-                                  'code' => 'total',
-                                  'name' => 'invoices.total',
-                                  'amount' =>  $this->request['amount'],
-                                  'sort_order' => $sort_order,
+            'company_id' => $this->document->company_id,
+            'type' => $this->document->type,
+            'document_id' => $this->document->id,
+            'code' => 'total',
+            'name' => 'invoices.total',
+            'amount' =>  $this->request['amount'],
+            'sort_order' => $sort_order,
         ]);
     }
 
