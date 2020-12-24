@@ -69,6 +69,7 @@ class Event extends Provider
             'App\Listeners\Menu\AddPortalItems',
         ],
         'App\Events\Module\Installed' => [
+            'App\Listeners\Module\InstallExtraModules',
             'App\Listeners\Module\FinishInstallation',
         ],
     ];

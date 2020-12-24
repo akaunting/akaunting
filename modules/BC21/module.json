@@ -11,5 +11,6 @@
     "requires": [],
     "reports": [],
     "widgets": [],
-    "settings": []
+    "settings": [],
+    "extra-modules": {}
 }

@@ -47,7 +47,7 @@ class InstallCommand extends Command
 
         $this->createHistory('installed');
 
-        event(new Installed($this->alias, $this->company_id));
+        event(new Installed($this->alias, $this->company_id, $this->locale));
 
         $this->revertRuntime();
 
