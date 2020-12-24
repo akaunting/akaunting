@@ -15,7 +15,7 @@ class DocumentItem extends Model
 
     protected $table = 'document_items';
 
-    protected $appends = ['discount'];
+    protected $appends = ['discount', 'discount_rate'];
 
     protected $fillable = [
         'company_id',
@@ -77,7 +77,6 @@ class DocumentItem extends Model
     public function scopeType(Builder $query, string $type)
     {
         return $query->where($this->table . '.type', '=', $type);
-
     }
 
     public function scopeInvoice(Builder $query)
