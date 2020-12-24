@@ -1237,4 +1237,14 @@ table .align-items-center td span.badge {
 .aka-text, .aka-text--body {
     margin: 16px 0;
 }
+
+.box-shadow-none {
+    text-decoration: none;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+.card-header.collapsed.background-none {
+    background-color: #f8f9fe;
+}
 /* Document Finish */

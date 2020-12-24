@@ -1,7 +1,7 @@
 
     <div class="accordion">
-        <div class="card">
-            <div class="card-header" id="accordion-footer-header" data-toggle="collapse" data-target="#accordion-footer-body" aria-expanded="false" aria-controls="accordion-footer-body">
+        <div class="card border-1 box-shadow-none">
+            <div class="card-header background-none collapsed" id="accordion-footer-header" data-toggle="collapse" data-target="#accordion-footer-body" aria-expanded="false" aria-controls="accordion-footer-body">
                 <h4 class="mb-0">{{ trans('general.footer') }}</h4>
             </div>
 

@@ -1,6 +1,6 @@
 <div class="accordion">
-    <div class="card">
-        <div class="card-header" id="accordion-recurring-and-more-header" data-toggle="collapse" data-target="#accordion-recurring-and-more-body" aria-expanded="false" aria-controls="accordion-recurring-and-more-body">
+    <div class="card border-1 box-shadow-none">
+        <div class="card-header background-none collapsed" id="accordion-recurring-and-more-header" data-toggle="collapse" data-target="#accordion-recurring-and-more-body" aria-expanded="false" aria-controls="accordion-recurring-and-more-body">
             <h4 class="mb-0">{{ trans('general.recurring_and_more') }}</h4>
         </div>
 
