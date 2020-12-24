@@ -15,7 +15,7 @@ class DocumentItem extends Model
 
     protected $table = 'document_items';
 
-    protected $appends = ['discount', 'discount_rate'];
+    protected $appends = ['discount'];
 
     protected $fillable = [
         'company_id',
