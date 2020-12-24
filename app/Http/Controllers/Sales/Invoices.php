@@ -15,8 +15,8 @@ use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as Notification;
 use App\Models\Setting\Currency;
 use App\Traits\Documents;
-use App\Utilities\Modules;
 use File;
+
 class Invoices extends Controller
 {
     use Documents;

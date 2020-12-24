@@ -6,29 +6,20 @@ use App\Abstracts\Http\Controller;
 use App\Exports\Document\Documents as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
-use App\Http\Requests\Document\DocumentAddItem as ItemRequest;
 use App\Imports\Document\Documents as Import;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
 use App\Jobs\Document\UpdateDocument;
-use App\Models\Banking\Account;
-use App\Models\Common\Contact;
-use App\Models\Common\Item;
 use App\Models\Document\Document;
-use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
-use App\Models\Setting\Tax;
-use App\Traits\Currencies;
-use App\Traits\DateTime;
 use App\Traits\Documents;
-use App\Traits\Uploads;
-use App\Utilities\Modules;
+use File;
 
 class Bills extends Controller
 {
-    use Currencies, DateTime, Documents, Uploads;
+    use Documents;
 
     /**
      * @var string
@@ -56,21 +47,7 @@ class Bills extends Controller
      */
     public function show(Document $bill)
     {
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
         $currency = Currency::where('code', $bill->currency_code)->first();
-
-        $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
-
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $payment_methods = Modules::getPaymentMethods();
-
-        $date_format = $this->getCompanyDateFormat();
 
         // Get Bill Totals
         foreach ($bill->totals_sorted as $bill_total) {
@@ -85,7 +62,7 @@ class Bills extends Controller
             $bill->grand_total = round($bill->total - $bill->paid, $currency->precision);
         }
 
-        return view('purchases.bills.show', compact('bill', 'accounts', 'currencies', 'currency', 'account_currency_code', 'vendors', 'categories', 'payment_methods', 'date_format'));
+        return view('purchases.bills.show', compact('bill'));
     }
 
     /**
@@ -95,19 +72,7 @@ class Bills extends Controller
      */
     public function create()
     {
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
-        $currency = Currency::where('code', setting('default.currency'))->first();
-
-        $items = Item::enabled()->orderBy('name')->get();
-
-        $taxes = Tax::enabled()->orderBy('name')->get();
-
-        $number = $this->getNextDocumentNumber(Document::BILL_TYPE);
-
-        return view('purchases.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'number'));
+        return view('purchases.bills.create');
     }
 
     /**
@@ -189,17 +154,7 @@ class Bills extends Controller
      */
     public function edit(Document $bill)
     {
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
-        $currency = Currency::where('code', $bill->currency_code)->first();
-
-        $items = Item::enabled()->orderBy('name')->get();
-
-        $taxes = Tax::enabled()->orderBy('name')->get();
-
-        return view('purchases.bills.edit', compact('bill', 'vendors', 'currencies', 'currency', 'items', 'taxes'));
+        return view('purchases.bills.edit', compact('bill'));
     }
 
     /**
@@ -365,37 +320,6 @@ class Bills extends Controller
         }
 
         return redirect()->back();
-    }
-
-    public function addItem(ItemRequest $request)
-    {
-        $item_row = $request['item_row'];
-        $currency_code = $request['currency_code'];
-
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
-
-        $currency = Currency::where('code', '=', $currency_code)->first();
-
-        if (empty($currency)) {
-            $currency = Currency::where('code', '=', setting('default.currency'))->first();
-        }
-
-        if ($currency) {
-            // it should be integer for amount mask
-            $currency->precision = (int) $currency->precision;
-        }
-
-        $html = view('purchases.bills.item', compact('item_row', 'taxes', 'currency'))->render();
-
-        return response()->json([
-            'success' => true,
-            'error'   => false,
-            'data'    => [
-                'currency' => $currency
-            ],
-            'message' => 'null',
-            'html'    => $html,
-        ]);
     }
 
     protected function prepareBill(Document $bill)
