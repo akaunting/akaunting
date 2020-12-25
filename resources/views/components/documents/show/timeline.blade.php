@@ -95,7 +95,6 @@
                                                     @endcan
                                                 @endif
                                             @stack('timeline_receive_body_button_received_end')
-                                        </div>
                                     @elseif($document->status == 'viewed')
                                         @stack('timeline_viewed_invoice_body_message_start')
                                             <small>{{ trans_choice('general.statuses', 1) . ':' }}</small>
@@ -107,10 +106,11 @@
                                             <small>{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($document->sent_at)->format($date_format)]) }}</small>
                                         @stack('timeline_sent_body_message_end')
                                     @endif
-                                    
-
-
+ 
+                                    @if (!($document->status != 'sent' && $document->status != 'partial' && $document->status != 'viewed'))
                                     <div class="mt-3">
+                                    @endif
+ 
                                     @stack('timeline_sent_body_button_email_start')
                                         @if (!$hideButtonEmail)
                                             @if($document->contact_email)
@@ -134,6 +134,7 @@
                                             @endif
                                         @endif
                                     @stack('timeline_sent_body_button_share_end')
+ 
                                     </div>
 
                                 @stack('timeline_sent_body_end')
