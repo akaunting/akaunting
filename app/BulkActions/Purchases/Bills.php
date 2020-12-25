@@ -48,7 +48,7 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            $this->dispatch(new CreateBankingDocumentTransaction($bill, []));
+            $this->dispatch(new CreateBankingDocumentTransaction($bill, ['type' => 'expense']));
         }
     }
 

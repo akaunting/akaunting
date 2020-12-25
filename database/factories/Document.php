@@ -327,6 +327,7 @@ class Document extends AbstractFactory
                 case 'paid':
                     $payment_request = [
                         'paid_at' => $updated_document->due_at,
+                        'type' => 'income',
                     ];
 
                     if ($init_status === 'partial') {
