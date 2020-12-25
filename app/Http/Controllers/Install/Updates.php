@@ -274,7 +274,7 @@ class Updates extends Controller
         set_time_limit(900); // 15 minutes
 
         try {
-            $this->dispatch(new FinishUpdate($request['alias'], $request['version'], $request['installed']));
+            $this->dispatch(new FinishUpdate($request['alias'], $request['version'], $request['installed'], session('company_id')));
 
             $json = [
                 'success' => true,

@@ -20,10 +20,10 @@ class EnableModule extends Job
      * @param  $company_id
      * @param  $locale
      */
-    public function __construct($alias, $company_id = null, $locale = null)
+    public function __construct($alias, $company_id, $locale = null)
     {
         $this->alias = $alias;
-        $this->company_id = $company_id ?: session('company_id');
+        $this->company_id = $company_id;
         $this->locale = $locale ?: app()->getLocale();
     }
 

@@ -23,6 +23,8 @@ class Update extends Command
 
     public $alias;
 
+    public $company;
+
     public $new;
 
     public $old;
@@ -51,6 +53,7 @@ class Update extends Command
         set_time_limit(3600); // 1 hour
 
         $this->alias = $this->argument('alias');
+        $this->company = $this->argument('company');
 
         if (false === $this->new = $this->getNewVersion()) {
             $this->error('Not able to get the latest version of ' . $this->alias . '!');
@@ -60,8 +63,8 @@ class Update extends Command
 
         $this->old = $this->getOldVersion();
 
-        session(['company_id' => $this->argument('company')]);
-        setting()->setExtraColumns(['company_id' => $this->argument('company')]);
+        session(['company_id' => $this->company]);
+        setting()->setExtraColumns(['company_id' => $this->company]);
 
         if (!$path = $this->download()) {
             return self::CMD_ERROR;
@@ -156,7 +159,7 @@ class Update extends Command
         $this->info('Finishing update...');
 
         try {
-            $this->dispatch(new FinishUpdate($this->alias, $this->new, $this->old));
+            $this->dispatch(new FinishUpdate($this->alias, $this->new, $this->old, $this->company));
         } catch (\Exception $e) {
             $this->error($e->getMessage());
 

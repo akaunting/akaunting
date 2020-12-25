@@ -236,7 +236,7 @@ class Item extends Controller
     public function install(Request $request)
     {
         try {
-            $this->dispatch(new InstallModule($request['alias']));
+            $this->dispatch(new InstallModule($request['alias'], session('company_id')));
 
             $name = module($request['alias'])->getName();
 
@@ -275,7 +275,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new UninstallModule($alias));
+            $this->dispatch(new UninstallModule($alias, session('company_id')));
 
             $message = trans('modules.uninstalled', ['module' => $name]);
 
@@ -294,7 +294,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new EnableModule($alias));
+            $this->dispatch(new EnableModule($alias, session('company_id')));
 
             $message = trans('modules.enabled', ['module' => $name]);
 
@@ -313,7 +313,7 @@ class Item extends Controller
         try {
             $name = module($alias)->getName();
 
-            $this->dispatch(new DisableModule($alias));
+            $this->dispatch(new DisableModule($alias, session('company_id')));
 
             $message = trans('modules.disabled', ['module' => $name]);
 

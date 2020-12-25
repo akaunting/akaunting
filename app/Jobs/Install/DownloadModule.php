@@ -17,10 +17,10 @@ class DownloadModule extends Job
      * @param  $alias
      * @param  $company_id
      */
-    public function __construct($alias, $company_id = null)
+    public function __construct($alias, $company_id)
     {
         $this->alias = $alias;
-        $this->company_id = $company_id ?: session('company_id');
+        $this->company_id = $company_id;
     }
 
     /**

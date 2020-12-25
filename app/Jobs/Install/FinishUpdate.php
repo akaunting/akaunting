@@ -14,18 +14,22 @@ class FinishUpdate extends Job
 
     protected $old;
 
+    protected $company_id;
+
     /**
      * Create a new job instance.
      *
      * @param  $alias
      * @param  $new
      * @param  $old
+     * @param  $company_id
      */
-    public function __construct($alias, $new, $old)
+    public function __construct($alias, $new, $old, $company_id)
     {
         $this->alias = $alias;
         $this->new = $new;
         $this->old = $old;
+        $this->company_id = $company_id;
     }
 
     /**
@@ -36,7 +40,7 @@ class FinishUpdate extends Job
     public function handle()
     {
         if ($this->alias == 'core') {
-            $companies = [session('company_id')];
+            $companies = [$this->company_id];
         } else {
             $companies = Module::alias($this->alias)->allCompanies()->cursor();
         }

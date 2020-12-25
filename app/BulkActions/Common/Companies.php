@@ -35,7 +35,7 @@ class Companies extends BulkAction
 
         foreach ($companies as $company) {
             try {
-                $this->dispatch(new UpdateCompany($company, $request->merge(['enabled' => 1])));
+                $this->dispatch(new UpdateCompany($company, $request->merge(['enabled' => 1]), session('company_id')));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error();
             }
@@ -48,7 +48,7 @@ class Companies extends BulkAction
 
         foreach ($companies as $company) {
             try {
-                $this->dispatch(new UpdateCompany($company, $request->merge(['enabled' => 0])));
+                $this->dispatch(new UpdateCompany($company, $request->merge(['enabled' => 0]), session('company_id')));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error();
             }
@@ -61,7 +61,7 @@ class Companies extends BulkAction
 
         foreach ($companies as $company) {
             try {
-                $this->dispatch(new DeleteCompany($company));
+                $this->dispatch(new DeleteCompany($company, session('company_id')));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error();
             }
