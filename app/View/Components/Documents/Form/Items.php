@@ -105,7 +105,7 @@ class Items extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $text_items = trans_choice(setting('invoice.item_name', 'general.items'), 2);
+                $text_items = setting('invoice.item_name', 'general.items');
 
                 if ($text_items == 'custom') {
                     $text_items = setting('invoice.item_name_input');
@@ -114,7 +114,7 @@ class Items extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $text_items = trans_choice('general.items', 2);
+                $text_items = 'general.items';
                 break;
         }
 
@@ -131,7 +131,7 @@ class Items extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $text_quantity = trans(setting('invoice.quantity_name', 'invoices.quantity'));
+                $text_quantity = setting('invoice.quantity_name', 'invoices.quantity');
 
                 if ($text_quantity == 'custom') {
                     $text_quantity = setting('invoice.quantity_name_input');
@@ -140,7 +140,7 @@ class Items extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $text_quantity = trans('bills.quantity');
+                $text_quantity = 'bills.quantity';
                 break;
         }
 
@@ -157,7 +157,7 @@ class Items extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $text_price = trans(setting('invoice.price_name', 'invoices.price'));
+                $text_price = setting('invoice.price_name', 'invoices.price');
 
                 if ($text_price == 'custom') {
                     $text_price = setting('invoice.price_name_input');
@@ -166,7 +166,7 @@ class Items extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $text_price = trans('bills.price');
+                $text_price = 'bills.price';
                 break;
         }
 
@@ -186,7 +186,7 @@ class Items extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $text_amount = trans('general.amount');
+                $text_amount = 'general.amount';
                 break;
         }
 
