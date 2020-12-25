@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Imports\Document\Sheets;
+namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
 use App\Http\Requests\Document\DocumentItem as Request;
 use App\Models\Document\Document;
 use App\Models\Document\DocumentItem as Model;
 
-class DocumentItems extends Import
+class InvoiceItems extends Import
 {
     public function model(array $row)
     {
@@ -16,13 +16,13 @@ class DocumentItems extends Import
 
     public function map($row): array
     {
-        if ($this->isEmpty($row, $this->type . '_number')) {
+        if ($this->isEmpty($row, 'invoice_number')) {
             return [];
         }
 
         $row = parent::map($row);
 
-        $row['document_id'] = (int) Document::{$this->type}()->number($row[$this->type . '_number'])->pluck('id')->first();
+        $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
 
         if (empty($row['item_id']) && !empty($row['item_name'])) {
             $row['item_id'] = $this->getItemIdFromName($row);
@@ -32,7 +32,7 @@ class DocumentItems extends Import
 
         $row['tax'] = (double) $row['tax'];
         $row['tax_id'] = 0;
-        $row['type'] = $this->type;
+        $row['type'] = Document::INVOICE_TYPE;
 
         return $row;
     }
@@ -41,13 +41,9 @@ class DocumentItems extends Import
     {
         $rules = (new Request())->rules();
 
-        if ($this->type === Document::INVOICE_TYPE) {
-            $rules['invoice_number'] = 'required|string';
-        } else {
-            $rules['bill_number'] = 'required|string';
-        }
+        $rules['invoice_number'] = 'required|string';
 
-        unset($rules['invoice_id'], $rules['bill_id']);
+        unset($rules['invoice_id']);
 
         return $rules;
     }

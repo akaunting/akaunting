@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports\Document\Sheets;
+namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
 use App\Http\Requests\Document\DocumentItemTax as Request;
@@ -9,12 +9,12 @@ use App\Models\Document\Document;
 use App\Models\Document\DocumentItem;
 use App\Models\Document\DocumentItemTax as Model;
 
-class DocumentItemTaxes extends Import
+class InvoiceItemTaxes extends Import
 {
     public function model(array $row)
     {
         // @todo remove after laravel-excel 3.2 release
-        if ($row[$this->type . '_number'] == $this->empty_field) {
+        if ($row['invoice_number'] === $this->empty_field) {
             return null;
         }
 
@@ -23,17 +23,17 @@ class DocumentItemTaxes extends Import
 
     public function map($row): array
     {
-        if ($this->isEmpty($row, $this->type . '_number')) {
+        if ($this->isEmpty($row, 'invoice_number')) {
             return [];
         }
 
         $row = parent::map($row);
 
-        $row['document_id'] = (int) Document::{$this->type}()->number($row[$this->type . '_number'])->pluck('id')->first();
+        $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
 
-        if (empty($row[$this->type . '_item_id']) && !empty($row['item_name'])) {
+        if (empty($row['invoice_item_id']) && !empty($row['item_name'])) {
             $item_id = Item::name($row['item_name'])->pluck('id')->first();
-            $row[$this->type . '_item_id'] = DocumentItem::{$this->type}()->where('item_id', $item_id)->pluck('id')->first();
+            $row['invoice_item_id'] = DocumentItem::invoice()->where('item_id', $item_id)->pluck('id')->first();
         }
 
         $row['tax_id'] = $this->getTaxId($row);
@@ -44,7 +44,7 @@ class DocumentItemTaxes extends Import
 
         $row['amount'] = (double) $row['amount'];
 
-        $row['type'] = $this->type;
+        $row['type'] = Document::INVOICE_TYPE;
 
         return $row;
     }
@@ -53,13 +53,9 @@ class DocumentItemTaxes extends Import
     {
         $rules = (new Request())->rules();
 
-        if ($this->type === Document::INVOICE_TYPE) {
-            $rules['invoice_number'] = 'required|string';
-        } else {
-            $rules['bill_number'] = 'required|string';
-        }
+        $rules['invoice_number'] = 'required|string';
 
-        unset($rules['invoice_id'], $rules['bill_id']);
+        unset($rules['invoice_id']);
 
         return $rules;
     }
