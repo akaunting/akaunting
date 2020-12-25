@@ -10,19 +10,19 @@
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
         <div class="row">
             @if (!$hideIssuedAt)
-            {{ Form::dateGroup('issued_at', $textIssuedAt, 'calendar', ['id' => 'issued_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], $issuedAt) }}
+            {{ Form::dateGroup('issued_at', trans($textIssuedAt), 'calendar', ['id' => 'issued_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], $issuedAt) }}
             @endif
 
             @if (!$hideDocumentNumber)
-            {{ Form::textGroup('document_number', $textDocumentNumber, 'file', ['required' => 'required'], $documentNumber) }}
+            {{ Form::textGroup('document_number', trans($textDocumentNumber), 'file', ['required' => 'required'], $documentNumber) }}
             @endif
 
             @if (!$hideDueAt)
-            {{ Form::dateGroup('due_at', $textDueAt, 'calendar', ['id' => 'due_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], $dueAt) }}
+            {{ Form::dateGroup('due_at', trans($textDueAt), 'calendar', ['id' => 'due_at', 'class' => 'form-control datepicker', 'required' => 'required', 'date-format' => 'Y-m-d', 'autocomplete' => 'off'], $dueAt) }}
             @endif
 
             @if (!$hideOrderNumber)
-            {{ Form::textGroup('order_number', $textOrderNumber, 'shopping-cart', [], $orderNumber) }}
+            {{ Form::textGroup('order_number', trans($textOrderNumber), 'shopping-cart', [], $orderNumber) }}
             @endif
         </div>
     </div>

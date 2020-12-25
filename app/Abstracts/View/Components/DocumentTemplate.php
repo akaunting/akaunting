@@ -88,7 +88,7 @@ abstract class DocumentTemplate extends Component
     public $hidePrice;
 
     public $hideDiscount;
-    
+
     public $hideAmount;
 
     /** @var string */
@@ -254,12 +254,12 @@ abstract class DocumentTemplate extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textDocumentNumber = trans('invoices.invoice_number');
+                $textDocumentNumber = 'invoices.invoice_number';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textDocumentNumber = trans('bills.bill_number');
+                $textDocumentNumber = 'bills.bill_number';
                 break;
         }
 
@@ -276,12 +276,12 @@ abstract class DocumentTemplate extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textOrderNumber = trans('invoices.order_number');
+                $textOrderNumber = 'invoices.order_number';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textOrderNumber = trans('bills.order_number');
+                $textOrderNumber = 'bills.order_number';
                 break;
         }
 
@@ -298,12 +298,12 @@ abstract class DocumentTemplate extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textContactInfo = trans('invoices.bill_to');
+                $textContactInfo = 'invoices.bill_to';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textContactInfo = trans('bills.bill_from');
+                $textContactInfo = 'bills.bill_from';
                 break;
         }
 
@@ -320,12 +320,12 @@ abstract class DocumentTemplate extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textIssuedAt = trans('invoices.invoice_date');
+                $textIssuedAt = 'invoices.invoice_date';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textIssuedAt = trans('bills.bill_date');
+                $textIssuedAt = 'bills.bill_date';
                 break;
         }
 
@@ -342,68 +342,68 @@ abstract class DocumentTemplate extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textDueAt = trans('invoices.due_date');
+                $textDueAt = 'invoices.due_date';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textDueAt = trans('bills.due_date');
+                $textDueAt = 'bills.due_date';
                 break;
         }
 
         return $textDueAt;
     }
 
-    protected function getTextItems($type, $text_items)
+    protected function getTextItems($type, $textItems)
     {
-        if (!empty($text_items)) {
-            return $text_items;
+        if (!empty($textItems)) {
+            return $textItems;
         }
 
         switch ($type) {
             case 'sale':
             case 'income':
             case 'invoice':
-                $text_items = trans_choice(setting('invoice.item_name', 'general.items'), 2);
+                $textItems = setting('invoice.item_name', 'general.items');
 
-                if ($text_items == 'custom') {
-                    $text_items = setting('invoice.item_name_input');
+                if ($textItems == 'custom') {
+                    $textItems = setting('invoice.item_name_input');
                 }
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $text_items = trans_choice('general.items', 2);
+                $textItems = 'general.items';
                 break;
         }
 
-        return $text_items;
+        return $textItems;
     }
 
-    protected function getTextQuantity($type, $text_quantity)
+    protected function getTextQuantity($type, $textQuantity)
     {
-        if (!empty($text_quantity)) {
-            return $text_quantity;
+        if (!empty($textQuantity)) {
+            return $textQuantity;
         }
 
         switch ($type) {
             case 'sale':
             case 'income':
             case 'invoice':
-                $text_quantity = trans(setting('invoice.quantity_name', 'invoices.quantity'));
+                $textQuantity = setting('invoice.quantity_name', 'invoices.quantity');
 
-                if ($text_quantity == 'custom') {
-                    $text_quantity = setting('invoice.quantity_name_input');
+                if ($textQuantity == 'custom') {
+                    $textQuantity = setting('invoice.quantity_name_input');
                 }
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $text_quantity = trans('bills.quantity');
+                $textQuantity = 'bills.quantity';
                 break;
         }
 
-        return $text_quantity;
+        return $textQuantity;
     }
 
     protected function getTextPrice($type, $text_price)
@@ -416,7 +416,7 @@ abstract class DocumentTemplate extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $text_price = trans(setting('invoice.price_name', 'invoices.price'));
+                $text_price = setting('invoice.price_name', 'invoices.price');
 
                 if ($text_price == 'custom') {
                     $text_price = setting('invoice.price_name_input');
@@ -425,17 +425,17 @@ abstract class DocumentTemplate extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $text_price = trans('bills.price');
+                $text_price = 'bills.price';
                 break;
         }
 
         return $text_price;
     }
 
-    protected function getTextAmount($type, $text_amount)
+    protected function getTextAmount($type, $textAmount)
     {
-        if (!empty($text_amount)) {
-            return $text_amount;
+        if (!empty($textAmount)) {
+            return $textAmount;
         }
 
         switch ($type) {
@@ -445,11 +445,11 @@ abstract class DocumentTemplate extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $text_amount = trans('general.amount');
+                $textAmount = 'general.amount';
                 break;
         }
 
-        return $text_amount;
+        return $textAmount;
     }
 
     protected function getHideItems($type, $hideItems, $hideName, $hideDescription)
@@ -457,9 +457,9 @@ abstract class DocumentTemplate extends Component
         if (!empty($hideItems)) {
             return $hideItems;
         }
- 
+
         $hideItems = ($this->getHideName($type, $hideName) & $this->getHideDescription($type, $hideDescription)) ? true  : false;
- 
+
         return $hideItems;
     }
 
@@ -468,7 +468,7 @@ abstract class DocumentTemplate extends Component
         if (!empty($hideName)) {
             return $hideName;
         }
- 
+
         switch ($type) {
             case 'sale':
             case 'income':
@@ -481,7 +481,7 @@ abstract class DocumentTemplate extends Component
                 $hideName = setting('bill.hide_item_name', $hideName);
                 break;
         }
- 
+
         return $hideName;
     }
 
@@ -490,7 +490,7 @@ abstract class DocumentTemplate extends Component
         if (!empty($hideDescription)) {
             return $hideDescription;
         }
- 
+
         switch ($type) {
             case 'sale':
             case 'income':
@@ -503,7 +503,7 @@ abstract class DocumentTemplate extends Component
                 $hideDescription = setting('bill.hide_item_description', $hideDescription);
                 break;
         }
- 
+
         return $hideDescription;
     }
 
@@ -512,7 +512,7 @@ abstract class DocumentTemplate extends Component
         if (!empty($hideQuantity)) {
             return $hideQuantity;
         }
- 
+
         switch ($type) {
             case 'sale':
             case 'income':
@@ -525,7 +525,7 @@ abstract class DocumentTemplate extends Component
                 $hideQuantity = setting('bill.hide_quantity', $hideQuantity);
                 break;
         }
- 
+
         return $hideQuantity;
     }
 
@@ -534,7 +534,7 @@ abstract class DocumentTemplate extends Component
         if (!empty($hidePrice)) {
             return $hidePrice;
         }
- 
+
         switch ($type) {
             case 'sale':
             case 'income':
@@ -547,7 +547,7 @@ abstract class DocumentTemplate extends Component
                 $hidePrice = setting('bill.hide_price', $hidePrice);
                 break;
         }
- 
+
         return $hidePrice;
     }
 
@@ -572,13 +572,13 @@ abstract class DocumentTemplate extends Component
 
         return $hideDiscount;
     }
- 
+
     protected function getHideAmount($type, $hideAmount)
     {
         if (!empty($hideAmount)) {
             return $hideAmount;
         }
- 
+
         switch ($type) {
             case 'sale':
             case 'income':
@@ -591,7 +591,7 @@ abstract class DocumentTemplate extends Component
                 $hideAmount = setting('bill.hide_amount', $hideAmount);
                 break;
         }
- 
+
         return $hideAmount;
     }
 }

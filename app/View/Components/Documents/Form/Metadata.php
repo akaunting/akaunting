@@ -244,12 +244,12 @@ class Metadata extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textDocumentNumber = trans('invoices.invoice_number');
+                $textDocumentNumber = 'invoices.invoice_number';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textDocumentNumber = trans('bills.bill_number');
+                $textDocumentNumber = 'bills.bill_number';
                 break;
         }
 
@@ -266,12 +266,12 @@ class Metadata extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textOrderNumber = trans('invoices.order_number');
+                $textOrderNumber = 'invoices.order_number';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textOrderNumber = trans('bills.order_number');
+                $textOrderNumber = 'bills.order_number';
                 break;
         }
 
@@ -288,12 +288,12 @@ class Metadata extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textIssuedAt = trans('invoices.invoice_date');
+                $textIssuedAt = 'invoices.invoice_date';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textIssuedAt = trans('bills.bill_date');
+                $textIssuedAt = 'bills.bill_date';
                 break;
         }
 
@@ -310,12 +310,12 @@ class Metadata extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textDueAt = trans('invoices.due_date');
+                $textDueAt = 'invoices.due_date';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textDueAt = trans('bills.due_date');
+                $textDueAt = 'bills.due_date';
                 break;
         }
 

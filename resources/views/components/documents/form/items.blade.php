@@ -24,7 +24,7 @@
 
                         @if (!$hideItems)
                         @stack('name_th_start')
-                            <th class="text-left border-top-0 border-right-0 border-bottom-0">{{ $textItems }}</th>
+                            <th class="text-left border-top-0 border-right-0 border-bottom-0">{{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}</th>
                         @stack('name_th_end')
 
                         @stack('move_th_start')
@@ -34,13 +34,13 @@
 
                         @stack('quantity_th_start')
                             @if (!$hideQuantity)
-                                <th class="text-center border-top-0 border-right-0 border-bottom-0" style="padding-right: 5px;">{{ $textQuantity }}</th>
+                                <th class="text-center border-top-0 border-right-0 border-bottom-0" style="padding-right: 5px;">{{ trans($textQuantity) }}</th>
                             @endif
                         @stack('quantity_th_end')
 
                         @stack('price_th_start')
                             @if (!$hidePrice)
-                                <th class="text-right border-top-0 border-right-0 border-bottom-0" style="padding-left: 5px;">{{ $textPrice }}</th>
+                                <th class="text-right border-top-0 border-right-0 border-bottom-0" style="padding-left: 5px;">{{ trans($textPrice) }}</th>
                             @endif
                         @stack('price_th_end')
 
@@ -54,7 +54,7 @@
 
                         @stack('total_th_start')
                             @if (!$hideAmount)
-                                <th class="text-right border-top-0 border-bottom-0 item-total">{{ $textAmount }}</th>
+                                <th class="text-right border-top-0 border-bottom-0 item-total">{{ trans($textAmount) }}</th>
                             @endif
                         @stack('total_th_end')
 

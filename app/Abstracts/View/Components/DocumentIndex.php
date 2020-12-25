@@ -522,7 +522,7 @@ abstract class DocumentIndex extends Component
             return $textDocumentNumber;
         }
 
-        return trans_choice('general.numbers', 1);
+        return 'general.numbers';
     }
 
     protected function getClassDocumentNumber($type, $classDocumentNumber)
@@ -548,12 +548,12 @@ abstract class DocumentIndex extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textContactName = trans_choice('general.customers', 1);
+                $textContactName = 'general.customers';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textContactName = trans_choice('general.vendors', 1);
+                $textContactName = 'general.vendors';
                 break;
         }
 
@@ -596,12 +596,12 @@ abstract class DocumentIndex extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textIssueAt = trans('invoices.invoice_date');
+                $textIssueAt = 'invoices.invoice_date';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textIssueAt = trans('bills.bill_date');
+                $textIssueAt = 'bills.bill_date';
                 break;
         }
 
@@ -631,12 +631,12 @@ abstract class DocumentIndex extends Component
             case 'sale':
             case 'income':
             case 'invoice':
-                $textDueAt = trans('invoices.due_date');
+                $textDueAt = 'invoices.due_date';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textDueAt = trans('bills.due_date');
+                $textDueAt = 'bills.due_date';
                 break;
         }
 
@@ -674,7 +674,7 @@ abstract class DocumentIndex extends Component
                 $textDocumentStatus = 'bills.statuses.';
                 break;
         }
-        
+
         return $textDocumentStatus;
     }
 

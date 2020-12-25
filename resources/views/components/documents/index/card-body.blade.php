@@ -13,7 +13,7 @@
                     <th class="{{ $classDocumentNumber }}">
                         @stack('document_number_th_inside_start')
 
-                        @sortablelink('document_number', $textDocumentNumber, ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])
+                        @sortablelink('document_number', trans_choice($textDocumentNumber, 1), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])
 
                         @stack('document_number_th_inside_end')
                     </th>
@@ -25,7 +25,7 @@
                     <th class="{{ $classContactName }}">
                         @stack('contact_name_th_inside_start')
 
-                        @sortablelink('contact_name', $textContactName)
+                        @sortablelink('contact_name', trans_choice($textContactName, 1))
 
                         @stack('contact_name_th_inside_end')
                     </th>
@@ -49,7 +49,7 @@
                     <th class="{{ $classIssuedAt }}">
                         @stack('issued_at_th_inside_start')
 
-                        @sortablelink('issued_at', $textIssueAt)
+                        @sortablelink('issued_at', trans($textIssueAt))
 
                         @stack('issued_at_th_inside_end')
                     </th>
@@ -61,7 +61,7 @@
                     <th class="{{ $classDueAt }}">
                         @stack('due_at_th_inside_start')
 
-                        @sortablelink('due_at', $textDueAt)
+                        @sortablelink('due_at', trans($textDueAt))
 
                         @stack('due_at_th_inside_end')
                     </th>

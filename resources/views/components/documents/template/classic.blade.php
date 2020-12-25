@@ -62,7 +62,7 @@
                 @stack('invoice_number_input_start')
                 @if (!$hideDocumentNumber)
                     <div class="text company">
-                        <strong>{{ $textDocumentNumber }}:</strong><br>
+                        <strong>{{ trans($textDocumentNumber) }}:</strong><br>
                         {{ $document->document_number }}
                     </div>
                 @endif
@@ -81,7 +81,7 @@
     <div class="col-58">
         <div class="text company">
             @if (!$hideContactInfo)
-                <strong>{{ $textContactInfo }}</strong><br>
+                <strong>{{ trans($textContactInfo) }}</strong><br>
             @endif
 
             @stack('name_input_start')
@@ -129,7 +129,7 @@
             @stack('order_number_input_start')
                 @if (!$hideOrderNumber)
                     @if ($document->order_number)
-                        <strong>{{ $textOrderNumber }}:</strong>
+                        <strong>{{ trans($textOrderNumber) }}:</strong>
                         <span class="float-right">{{ $document->order_number }}</span><br><br>
                     @endif
                 @endif
@@ -137,14 +137,14 @@
 
             @stack('invoiced_at_input_start')
                 @if (!$hideIssuedAt)
-                    <strong>{{ $textIssuedAt }}:</strong>
+                    <strong>{{ trans($textIssuedAt) }}:</strong>
                     <span class="float-right">@date($document->issued_at)</span><br><br>
                 @endif
             @stack('invoiced_at_input_end')
 
             @stack('due_at_input_start')
                 @if (!$hideDueAt)
-                    <strong>{{ $textDueAt }}:</strong>
+                    <strong>{{ trans($textDueAt) }}:</strong>
                     <span class="float-right">@date($document->due_at)</span><br><br>
                 @endif
             @stack('due_at_input_end')
@@ -167,7 +167,7 @@
                     <tr>
                         @stack('name_th_start')
                             @if (!$hideItems || (!$hideName && !$hideDescription))
-                                <th class="text-left item">{{ $textItems }}</th>
+                                <th class="text-left item">{{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}</th>
                             @endif
                         @stack('name_th_end')
 
@@ -193,7 +193,7 @@
 
                         @stack('total_th_start')
                             @if (!$hideAmount)
-                                <th class="total">{{ $textAmount }}</th>
+                                <th class="total">{{ trans($textAmount) }}</th>
                             @endif
                         @stack('total_th_end')
                     </tr>
