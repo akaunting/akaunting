@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Events\Document\DocumentReminded;
 use App\Models\Common\Company;
 use App\Models\Document\Document;
+use App\Notifications\Sale\Invoice as Notification;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;
@@ -84,7 +85,7 @@ class InvoiceReminder extends Command
 
         foreach ($invoices as $invoice) {
             try {
-                event(new DocumentReminded($invoice));
+                event(new DocumentReminded($invoice, Notification::class));
             } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
                 $this->error($e->getMessage());
 
