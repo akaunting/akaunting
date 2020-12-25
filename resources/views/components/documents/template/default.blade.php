@@ -60,7 +60,7 @@
 
             @stack('name_input_start')
                 @if (!$hideContactName)
-                    <strong>{{ $document->contact_name }}</strong><br>,
+                    <strong>{{ $document->contact_name }}</strong><br>
                 @endif
             @stack('name_input_end')
 
