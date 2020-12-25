@@ -65,13 +65,13 @@ class CreateDashboard extends Job
                     continue;
                 }
 
-                $list[] = $user;
+                $list[] = $user->id;
             }
         } else {
             $user = user();
 
             if ($this->shouldCreateDashboardFor($user)) {
-                $list[] = $user;
+                $list[] = $user->id;
             }
         }
 
