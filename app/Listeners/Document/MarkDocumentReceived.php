@@ -5,7 +5,6 @@ namespace App\Listeners\Document;
 use App\Events\Document\DocumentReceived as Event;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Traits\Jobs;
-use Illuminate\Support\Str;
 
 class MarkDocumentReceived
 {
@@ -25,7 +24,6 @@ class MarkDocumentReceived
             $event->document->save();
         }
 
-        $type = Str::plural($event->document->type);
-        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans("$type.messages.marked_received")));
+        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('general.messages.marked_received', ['type' => ''])));
     }
 }

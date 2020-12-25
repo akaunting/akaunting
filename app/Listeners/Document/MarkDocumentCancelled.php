@@ -6,7 +6,6 @@ use App\Events\Document\DocumentCancelled as Event;
 use App\Jobs\Document\CancelDocument;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Traits\Jobs;
-use Illuminate\Support\Str;
 
 class MarkDocumentCancelled
 {
@@ -22,7 +21,6 @@ class MarkDocumentCancelled
     {
         $this->dispatch(new CancelDocument($event->document));
 
-        $type = Str::plural($event->document->type);
-        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans("$type.messages.marked_cancelled")));
+        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('general.messages.marked_cancelled', ['type' => ''])));
     }
 }

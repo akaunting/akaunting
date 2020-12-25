@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Invoice email has been sent!',
-        'marked_sent'       => 'Invoice marked as sent!',
-        'marked_paid'       => 'Invoice marked as paid!',
-        'marked_viewed'     => 'Invoice marked as viewed!',
-        'marked_cancelled'  => 'Invoice marked as cancelled!',
         'email_required'    => 'No email address for this customer!',
         'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
 
