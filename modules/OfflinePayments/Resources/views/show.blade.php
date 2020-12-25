@@ -23,6 +23,7 @@
                     {{ trans('general.confirm') }}
                 </button>
                 {!! Form::hidden('payment_method', $setting['code'], ['v-model' => 'form.payment_method']) !!}
+                {!! Form::hidden('type', 'income', ['v-model' => 'form.type']) !!}
             {!! Form::close() !!}
         </div>
     </div>

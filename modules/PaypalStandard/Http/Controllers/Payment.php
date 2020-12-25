@@ -118,7 +118,7 @@ class Payment extends PaymentController
                 $total_paid_match = ((double) $request['mc_gross'] == $document->amount);
 
                 if ($receiver_match && $total_paid_match) {
-                    event(new PaymentReceived($document, $request));
+                    event(new PaymentReceived($document, $request->merge(['type' => 'income'])));
                 }
 
                 if (!$receiver_match) {

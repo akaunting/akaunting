@@ -308,7 +308,7 @@ class Bills extends Controller
     public function markPaid(Document $bill)
     {
         try {
-            $this->dispatch(new CreateBankingDocumentTransaction($bill, []));
+            $this->dispatch(new CreateBankingDocumentTransaction($bill, ['type' => 'expense']));
 
             $message = trans('bills.messages.marked_paid');
 
