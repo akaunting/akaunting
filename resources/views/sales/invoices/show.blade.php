@@ -13,5 +13,5 @@
 @push('scripts_start')
     <link rel="stylesheet" href="{{ asset('public/css/print.css?v=' . version('short')) }}" type="text/css">
 
-    <x-documents.script />
+    <x-documents.script type="invoice" />
 @endpush

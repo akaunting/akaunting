@@ -7,5 +7,5 @@
 @endsection
 
 @push('scripts_start')
-    <x-documents.script />
+    <x-documents.script type="invoice" />
 @endpush
