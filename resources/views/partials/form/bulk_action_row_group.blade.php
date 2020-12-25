@@ -18,7 +18,7 @@
     @endphp
 
     @if(!empty($actions_to_show))
-        <div class="align-items-center d-none"
+        <div class="align-items-center d-none mt-2"
              v-if="bulk_action.show"
              :class="[{'show': bulk_action.show}]">
             <div class="mr-6">

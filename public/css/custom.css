@@ -847,8 +847,8 @@ table .align-items-center td span.badge {
 }
 /*--lightbox Finish--*/
 
-/*-- Search string & BulkAction Start --
-#app > .card > .card-header {
+/*-- Search string & BulkAction Start -- */
+#app > .card > .card-header.bg-gradient-primary {
     min-height: 88px;
 }
 /*-- Search string & BulkAction Finish --*/
