@@ -404,7 +404,7 @@ trait Permissions
         $route = app(Route::class);
 
         // Get the controller array
-        $arr = array_reverse(explode('\\', explode('@', $route->getActionName())[0]));
+        $arr = array_reverse(explode('\\', explode('@', $route->getAction()['uses'])[0]));
 
         $controller = '';
 
