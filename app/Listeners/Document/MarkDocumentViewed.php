@@ -5,7 +5,6 @@ namespace App\Listeners\Document;
 use App\Events\Document\DocumentViewed as Event;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Traits\Jobs;
-use Illuminate\Support\Str;
 
 class MarkDocumentViewed
 {
@@ -30,8 +29,6 @@ class MarkDocumentViewed
         $document->status = 'viewed';
         $document->save();
 
-        $type = Str::plural($document->type);
-
-        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans("$type.messages.marked_viewed")));
+        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('general.messages.marked_viewed', ['type' => ''])));
     }
 }
