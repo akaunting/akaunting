@@ -25,16 +25,6 @@ abstract class Import implements ToModel, SkipsOnError, SkipsOnFailure, WithBatc
 
     public $empty_field = 'empty---';
 
-    /**
-     * @var string
-     */
-    protected $type;
-
-    public function __construct(string $type = '')
-    {
-        $this->type = $type;
-    }
-
     public function map($row): array
     {
         $row['company_id'] = session('company_id');

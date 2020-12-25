@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Purchases;
 
 use App\Abstracts\Http\Controller;
-use App\Exports\Document\Documents as Export;
+use App\Exports\Purchases\Bills as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
-use App\Imports\Document\Documents as Import;
+use App\Imports\Purchases\Bills as Import;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
@@ -131,7 +131,7 @@ class Bills extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            \Excel::import(new Import(Document::BILL_TYPE), $request->file('import'));
+            \Excel::import(new Import(), $request->file('import'));
         } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
             flash($e->getMessage())->error()->important();
 
@@ -219,7 +219,7 @@ class Bills extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(null, Document::BILL_TYPE), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
+        return \Excel::download(new Export(), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
     }
 
     /**

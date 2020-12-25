@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Abstracts\Http\Controller;
-use App\Exports\Document\Documents as Export;
+use App\Exports\Sales\Invoices as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
 use App\Http\Requests\Document\Document as Request;
-use App\Imports\Document\Documents as Import;
+use App\Imports\Sales\Invoices as Import;
 use App\Jobs\Document\CreateDocument;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Document\DuplicateDocument;
@@ -131,7 +131,7 @@ class Invoices extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            \Excel::import(new Import(Document::INVOICE_TYPE), $request->file('import'));
+            \Excel::import(new Import(), $request->file('import'));
         } catch (\Maatwebsite\Excel\Exceptions\SheetNotFoundException $e) {
             flash($e->getMessage())->error()->important();
 
@@ -219,7 +219,7 @@ class Invoices extends Controller
      */
     public function export()
     {
-        return \Excel::download(new Export(null, Document::INVOICE_TYPE), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
+        return \Excel::download(new Export(), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
     }
 
     /**

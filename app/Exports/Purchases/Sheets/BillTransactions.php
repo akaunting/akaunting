@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Exports\Document\Sheets;
+namespace App\Exports\Purchases\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Banking\Transaction as Model;
-use App\Models\Document\Document;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class DocumentTransactions extends Export implements WithColumnFormatting
+class BillTransactions extends Export implements WithColumnFormatting
 {
     public function collection()
     {
-        $model = Model::with('account', 'category', 'contact', 'document')->{$this->type}()->isDocument()->usingSearchString(request('search'));
+        $model = Model::with('account', 'category', 'contact', 'document')->bill()->isDocument()->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('document_id', (array) $this->ids);
@@ -30,12 +28,7 @@ class DocumentTransactions extends Export implements WithColumnFormatting
             return [];
         }
 
-        if ($this->type === Document::INVOICE_TYPE) {
-            $model->invoice_number = $document->document_number;
-        } else {
-            $model->bill_number = $document->document_number;
-        }
-
+        $model->bill_number = $document->document_number;
         $model->account_name = $model->account->name;
         $model->category_name = $model->category->name;
         $model->contact_email = $model->contact->email;
@@ -46,7 +39,7 @@ class DocumentTransactions extends Export implements WithColumnFormatting
     public function fields(): array
     {
         return [
-            $this->type === Document::INVOICE_TYPE ? 'invoice_number' : 'bill_number',
+            'bill_number',
             'paid_at',
             'amount',
             'currency_code',
@@ -66,10 +59,5 @@ class DocumentTransactions extends Export implements WithColumnFormatting
         return [
             'B' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
-    }
-
-    public function title(): string
-    {
-        return Str::replaceFirst('document', $this->type, parent::title());
     }
 }
