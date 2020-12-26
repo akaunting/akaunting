@@ -83,7 +83,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option class="el-select__footer" :disabled="true"  :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -179,7 +179,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option class="el-select__footer" :disabled="true"  :value="add_new">
+            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
