@@ -22,7 +22,7 @@ trait Scopes
             return;
         }
 
-        $type = request()->get('type') ?: Str::singular(request()->segment(2, ''));
+        $type = request()->get('type') ?: $this->getTypeFromUrl();
 
         // Apply type scope
         $builder->where($model->getTable() . '.type', '=', $type);
@@ -58,5 +58,20 @@ trait Scopes
         }
 
         return false;
+    }
+
+    public function getTypeFromUrl()
+    {
+        $type = Str::singular(request()->segment(2, ''));
+
+        if ($type == 'revenue') {
+            $type = 'income';
+        }
+
+        if ($type == 'payment') {
+            $type = 'expense';
+        }
+
+        return $type;
     }
 }
