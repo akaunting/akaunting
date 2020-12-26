@@ -4,7 +4,7 @@ namespace App\Listeners\Auth;
 
 use App\Events\Auth\ApiPermissionsAssigning as Event;
 
-class SetPermissionControllerForCommonApiEndpoints
+class SetPermissionControllerForApi
 {
     /**
      * Handle the event.
@@ -14,6 +14,7 @@ class SetPermissionControllerForCommonApiEndpoints
      */
     public function handle(Event $event)
     {
+        // Not a common API endpoint
         if (!in_array($event->table, ['contacts', 'documents', 'transactions'])) {
             return;
         }
