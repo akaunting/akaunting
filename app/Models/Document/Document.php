@@ -3,8 +3,8 @@
 namespace App\Models\Document;
 
 use App\Abstracts\Model;
-use App\Scopes\Document as Scope;
 use App\Models\Setting\Tax;
+use App\Scopes\Document as Scope;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Documents;
@@ -15,9 +15,6 @@ use Database\Factories\Document as DocumentFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Document extends Model
 {

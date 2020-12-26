@@ -36,6 +36,9 @@ class Event extends Provider
         'App\Events\Auth\LandingPageShowing' => [
             'App\Listeners\Auth\AddLandingPages',
         ],
+        'App\Events\Auth\ApiPermissionsAssigning' => [
+            'App\Listeners\Auth\SetPermissionControllerForCommonApiEndpoints',
+        ],
         'App\Events\Document\DocumentCreated' => [
             'App\Listeners\Document\CreateDocumentCreatedHistory',
             'App\Listeners\Document\IncreaseNextDocumentNumber',

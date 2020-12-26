@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Events\Auth\ApiPermissionsAssigning;
 use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 use App\Utilities\Reports;
@@ -401,34 +402,46 @@ trait Permissions
             return;
         }
 
-        $route = app(Route::class);
+        $table = request()->is('api/*') ? request()->segment(2) : '';
 
-        // Get the controller array
-        $arr = array_reverse(explode('\\', explode('@', $route->getAction()['uses'])[0]));
+        // Fire event to find the proper controller for common API endpoints
+        if (in_array($table, ['contacts', 'documents', 'transactions'])) {
+            $p = new \stdClass();
+            $p->controller = '';
 
-        $controller = '';
+            event(new ApiPermissionsAssigning($p, $table, request()->get('type')));
 
-        // Add module
-        if (isset($arr[3]) && isset($arr[4])) {
-            if (strtolower($arr[4]) == 'modules') {
-                $controller .= Str::kebab($arr[3]) . '-';
-            } elseif (isset($arr[5]) && (strtolower($arr[5]) == 'modules')) {
-                $controller .= Str::kebab($arr[4]) . '-';
+            $controller = $p->controller;
+        } else {
+            $route = app(Route::class);
+
+            // Get the controller array
+            $arr = array_reverse(explode('\\', explode('@', $route->getAction()['uses'])[0]));
+
+            $controller = '';
+
+            // Add module
+            if (isset($arr[3]) && isset($arr[4])) {
+                if (strtolower($arr[4]) == 'modules') {
+                    $controller .= Str::kebab($arr[3]) . '-';
+                } elseif (isset($arr[5]) && (strtolower($arr[5]) == 'modules')) {
+                    $controller .= Str::kebab($arr[4]) . '-';
+                }
             }
-        }
 
-        // Add folder
-        if (strtolower($arr[1]) != 'controllers') {
-            $controller .= Str::kebab($arr[1]) . '-';
-        }
+            // Add folder
+            if (strtolower($arr[1]) != 'controllers') {
+                $controller .= Str::kebab($arr[1]) . '-';
+            }
 
-        // Add file
-        $controller .= Str::kebab($arr[0]);
+            // Add file
+            $controller .= Str::kebab($arr[0]);
 
-        // Skip ACL
-        $skip = ['portal-dashboard'];
-        if (in_array($controller, $skip)) {
-            return;
+            // Skip ACL
+            $skip = ['portal-dashboard'];
+            if (in_array($controller, $skip)) {
+                return;
+            }
         }
 
         // App\Http\Controllers\FooBar                  -->> foo-bar

@@ -4,11 +4,12 @@ namespace App\Models\Common;
 
 use App\Abstracts\Model;
 use App\Models\Document\Document;
-use Bkwld\Cloner\Cloneable;
+use App\Scopes\Contact as Scope;
 use App\Traits\Contacts;
 use App\Traits\Currencies;
 use App\Traits\Media;
 use App\Traits\Transactions;
+use Bkwld\Cloner\Cloneable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 
@@ -40,6 +41,18 @@ class Contact extends Model
      * @var array
      */
     public $sortable = ['name', 'email', 'phone', 'enabled'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new Scope);
+    }
 
     public function documents()
     {

@@ -4,6 +4,7 @@ namespace App\Models\Banking;
 
 use App\Abstracts\Model;
 use App\Models\Setting\Category;
+use App\Scopes\Transaction as Scope;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
@@ -51,6 +52,18 @@ class Transaction extends Model
      * @var array
      */
     public $cloneable_relations = ['recurring'];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new Scope);
+    }
 
     public function account()
     {

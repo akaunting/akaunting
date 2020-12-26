@@ -16,18 +16,6 @@ class Contacts extends ApiController
     use Uploads;
 
     /**
-     * Instantiate a new controller instance.
-     */
-    public function __construct()
-    {
-        // Add CRUD permission check
-        $this->middleware('permission:create-sales-customers')->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-sales-customers')->only('index', 'show', 'edit', 'export');
-        $this->middleware('permission:update-sales-customers')->only('update', 'enable', 'disable');
-        $this->middleware('permission:delete-sales-customers')->only('destroy');
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Dingo\Api\Http\Response
