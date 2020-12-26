@@ -3,9 +3,10 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
-use App\Models\Document\DocumentTotal;
-use App\Traits\Currencies;
 use App\Traits\DateTime;
+use App\Traits\Currencies;
+use App\Jobs\Common\CreateItem;
+use App\Models\Document\DocumentTotal;
 
 class CreateDocumentItemsAndTotals extends Job
 {
@@ -164,6 +165,20 @@ class CreateDocumentItemsAndTotals extends Job
 
             if (!empty($this->request['discount'])) {
                 $item['global_discount'] = $this->request['discount'];
+            }
+
+            if (empty($item['item_id'])) {
+                $new_item = $this->dispatch(new CreateItem([
+                    'company_id' => $this->request['company_id'],
+                    'name' => $item['name'],
+                    'description' => $item['description'],
+                    'sale_price' => $item['price'],
+                    'purchase_price' => $item['price'],
+                    'tax_ids' => $item['tax_ids'],
+                    'enabled' => '1'
+                ]));
+
+                $item['item_id'] = $new_item->id;
             }
 
             $document_item = $this->dispatch(new CreateDocumentItem($this->document, $item));

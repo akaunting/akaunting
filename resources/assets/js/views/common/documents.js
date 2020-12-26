@@ -718,6 +718,7 @@ const app = new Vue({
 
         if (typeof document_items !== 'undefined' && document_items) {
             this.edit.status = true;
+
             document_items.forEach(function(item) {
                 // form set item
                 this.form.items.push({
@@ -761,7 +762,7 @@ const app = new Vue({
                     description: item.description,
                     quantity: item.quantity,
                     price: (item.price).toFixed(2),
-                    add_tax: (item_taxes.length) ? true : false,
+                    add_tax: true,
                     tax_ids: item_taxes,
                     add_discount: (item_taxes.length) ? true : false,
                     discount: item.discount_rate,

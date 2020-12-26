@@ -178,11 +178,52 @@ export default {
     },
 
     methods: {
+        setItemList(items) {
+            // Option set sort_option data
+            if (!Array.isArray(items)) {
+                let index = 0;
+
+                for (const [key, value] of Object.entries(items)) {
+                    this.item_list.push({
+                        index: index,
+                        key: key,
+                        value: value,
+                        type: 'item',
+                        id: key,
+                        name: value,
+                        description: '',
+                        price: 0,
+                        tax_ids: [], 
+                    });
+
+                    index++;
+                }
+            } else {
+                items.forEach(function (item, index) {
+                    this.item_list.push({
+                        index: index,
+                        key: item.id,
+                        value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                        type: this.type,
+                        id: item.id,
+                        name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
+                        description: (item.description) ? item.description : '',
+                        price: (item.price) ? item.price : (this.type == 'sale') ? item.sale_price : item.purchase_price,
+                        tax_ids: (item.tax_ids) ? item.tax_ids : [],
+                    });
+                }, this);
+            }
+        },
+
         onItemList() {
             this.show.item_list = true;
         },
 
         onInput() {
+            if (!this.search) {
+                return;
+            }
+
             window.axios.get(url + '/common/items?search="' + this.search + '" limit:10')
             .then(response => {
                 this.item_list = [];
@@ -224,9 +265,33 @@ export default {
         },
 
         onItemCreate() {
+            let index = Object.keys(this.item_list).length;
+            index++;
+
+            let item = {
+                index: index,
+                key: 0,
+                value: this.search,
+                type: this.type,
+                id: 0,
+                name: this.search,
+                description: '',
+                price: 0,
+                tax_ids: [],
+            };
+
+            this.selected_items.push(item);
+
+            this.$emit('item', item);
+            this.$emit('items', this.selected_items);
+
+            this.setItemList(this.items);
+
             this.show.item_selected = false;
             this.show.item_list = false;
-            
+            this.search = '';
+
+            /*
             let add_new = this.add_new;
 
             window.axios.get(this.createRoute)
@@ -275,6 +340,7 @@ export default {
             .finally(function () {
                 // always executed
             });
+            */
         },
 
         onSubmit(event) {
@@ -338,7 +404,7 @@ export default {
                     this.add_new.html = '';
                     this.add_new_html = null;
 
-                    this.$emit('new', contact);
+                    this.$emit('new', item);
 
                     let documentClasses = document.body.classList;
 
@@ -376,40 +442,7 @@ export default {
     },
 
     created() {
-        // Option set sort_option data
-        if (!Array.isArray(this.items)) {
-            let index = 0;
-
-            for (const [key, value] of Object.entries(this.items)) {
-                this.item_list.push({
-                    index: index,
-                    key: key,
-                    value: value,
-                    type: 'item',
-                    id: key,
-                    name: value,
-                    description: '',
-                    price: 0,
-                    tax_ids: [], 
-                });
-
-                index++;
-            }
-        } else {
-            this.items.forEach(function (item, index) {
-                this.item_list.push({
-                    index: index,
-                    key: item.id,
-                    value: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                    type: this.type,
-                    id: item.id,
-                    name: (item.title) ? item.title : (item.display_name) ? item.display_name : item.name,
-                    description: (item.description) ? item.description : '',
-                    price: (item.price) ? item.price : (this.type == 'sale') ? item.sale_price : item.purchase_price,
-                    tax_ids: (item.tax_ids) ? item.tax_ids : [],
-                });
-            }, this);
-        }
+        this.setItemList(this.items);
     },
 
     computed: {
