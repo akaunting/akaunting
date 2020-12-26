@@ -3,9 +3,6 @@
 namespace App\Listeners\Document;
 
 use App\Events\Document\DocumentReminded as Event;
-use App\Models\Document\Document;
-use App\Notifications\Sale\Invoice as InvoiceNotification;
-use App\Notifications\Purchase\Bill as BillNotification;
 
 class SendDocumentReminderNotification
 {
@@ -18,11 +15,7 @@ class SendDocumentReminderNotification
     public function handle(Event $event)
     {
         $document = $event->document;
-
-        $notification = InvoiceNotification::class;
-        if ($document->type === Document::BILL_TYPE) {
-            $notification = BillNotification::class;
-        }
+        $notification = $event->notification;
 
         // Notify the customer
         if ($document->contact && !empty($document->contact_email)) {

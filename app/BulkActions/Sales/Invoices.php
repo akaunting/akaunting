@@ -7,7 +7,7 @@ use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentCreated;
 use App\Events\Document\DocumentSent;
 use App\Events\Document\PaymentReceived;
-use App\Exports\Document\Documents as Export;
+use App\Exports\Sales\Invoices as Export;
 use App\Jobs\Document\DeleteDocument;
 use App\Models\Document\Document;
 
@@ -48,7 +48,7 @@ class Invoices extends BulkAction
         $invoices = $this->getSelectedRecords($request);
 
         foreach ($invoices as $invoice) {
-            event(new PaymentReceived($invoice));
+            event(new PaymentReceived($invoice, ['type' => 'income']));
         }
     }
 
@@ -103,6 +103,6 @@ class Invoices extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        return \Excel::download(new Export($selected, Document::INVOICE_TYPE), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
+        return \Excel::download(new Export($selected), \Str::filename(trans_choice('general.invoices', 2)) . '.xlsx');
     }
 }

@@ -5,7 +5,7 @@ namespace App\BulkActions\Purchases;
 use App\Abstracts\BulkAction;
 use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentReceived;
-use App\Exports\Document\Documents as Export;
+use App\Exports\Purchases\Bills as Export;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Document\CreateDocumentHistory;
 use App\Jobs\Document\DeleteDocument;
@@ -48,7 +48,7 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            $this->dispatch(new CreateBankingDocumentTransaction($bill, []));
+            $this->dispatch(new CreateBankingDocumentTransaction($bill, ['type' => 'expense']));
         }
     }
 
@@ -100,6 +100,6 @@ class Bills extends BulkAction
     {
         $selected = $this->getSelectedInput($request);
 
-        return \Excel::download(new Export($selected, Document::BILL_TYPE), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
+        return \Excel::download(new Export($selected), \Str::filename(trans_choice('general.bills', 2)) . '.xlsx');
     }
 }

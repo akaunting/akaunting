@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Exports\Document\Sheets;
+namespace App\Exports\Purchases\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Document\Document as Model;
-use Illuminate\Support\Str;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class Documents extends Export
+class Bills extends Export
 {
     public function collection()
     {
-        $model = Model::{$this->type}()->with('category')->usingSearchString(request('search'));
+        $model = Model::bill()->with('category')->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
             $model->whereIn('id', (array) $this->ids);
@@ -23,14 +22,8 @@ class Documents extends Export
     public function map($model): array
     {
         $model->category_name = $model->category->name;
-
-        if ($this->type === Model::INVOICE_TYPE) {
-            $model->invoice_number = $model->document_number;
-            $model->invoiced_at = $model->issued_at;
-        } else {
-            $model->bill_number = $model->document_number;
-            $model->billed_at = $model->issued_at;
-        }
+        $model->bill_number = $model->document_number;
+        $model->billed_at = $model->issued_at;
 
         return parent::map($model);
     }
@@ -38,10 +31,10 @@ class Documents extends Export
     public function fields(): array
     {
         return [
-            $this->type === Model::INVOICE_TYPE ? 'invoice_number' : 'bill_number',
+            'bill_number',
             'order_number',
             'status',
-            $this->type === Model::INVOICE_TYPE ? 'invoiced_at' : 'billed_at',
+            'billed_at',
             'due_at',
             'amount',
             'currency_code',
@@ -53,13 +46,7 @@ class Documents extends Export
             'contact_phone',
             'contact_address',
             'notes',
-            'footer',
         ];
-    }
-
-    public function title(): string
-    {
-        return Str::replaceFirst('document', $this->type, parent::title());
     }
 
     public function columnFormats(): array

@@ -164,6 +164,7 @@ abstract class PaymentController extends BaseController
         $request['amount'] = $invoice->amount;
         $request['payment_method'] = $this->alias;
         $request['reference'] = $this->getReference($invoice);
+        $request['type'] = 'income';
 
         event(new PaymentReceived($invoice, $request));
     }

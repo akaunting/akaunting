@@ -23,7 +23,7 @@ class Document implements Scope
             return;
         }
 
-        $type = request()->get('type') ?: Str::singular(request()->segment(2, ''));
+        $type = Str::singular(request()->segment(2, ''));
 
         // Apply document scope
         $builder->where($model->getTable() . '.type', '=', $type);
