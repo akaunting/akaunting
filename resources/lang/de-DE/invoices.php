@@ -31,7 +31,7 @@ return [
     'mark_paid'             => 'Als bezahlt markieren',
     'mark_sent'             => 'Als gesendet markieren',
     'mark_viewed'           => 'Als gelesen markieren',
-    'mark_cancelled'        => 'Stornieren',
+    'mark_cancelled'        => 'Als storniert markieren',
     'download_pdf'          => 'PDF herunterladen',
     'send_mail'             => 'E-Mail senden',
     'all_invoices'          => 'Melden Sie sich an, um alle Rechnungen anzuzeigen',
@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Rechnung wurde per E-Mail versendet!',
-        'marked_sent'       => 'Rechnung als gesendet markiert!',
-        'marked_paid'       => 'Rechnung als bezahlt markiert!',
-        'marked_viewed'     => 'Rechnung als angesehen markiert!',
-        'marked_cancelled'  => 'Rechnung als storniert markiert!',
         'email_required'    => 'Es existiert keine E-Mailadresse zu diesem Kunden!',
         'draft'             => 'Dies ist eine <b>Vorschau</b>-Rechnung und wird nach dem Versand in den Charts ersichtlich.',
 

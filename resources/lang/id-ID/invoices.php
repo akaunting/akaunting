@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Email faktur telah dikirim!',
-        'marked_sent'       => 'Faktur ditandai sebagai terkirim!',
-        'marked_paid'       => 'Faktur ditandai sebagai berbayar!',
-        'marked_viewed'     => 'Tagihan ditandai sudah dilihat',
-        'marked_cancelled'  => 'Tagihan ditandai sudah dibatalkan',
         'email_required'    => 'Tidak ada alamat email untuk pelanggan ini!',
         'draft'             => 'Faktur ini merupakan <b>DRAFT</b> dan akan terlihat pada grafik ketika sudah dibayarkan',
 

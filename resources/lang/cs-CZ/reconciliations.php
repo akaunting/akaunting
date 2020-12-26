@@ -3,7 +3,9 @@
 return [
 
     'reconcile'             => 'Vyrovnat',
+    'unreconcile'           => 'Nevyrovnáno',
     'reconciled'            => 'Vyrovnáno',
+    'opening_balance'       => 'Počáteční zůstatek',
     'closing_balance'       => 'Konečný zůstatek',
     'unreconciled'          => 'Nevyrovnáno',
     'transactions'          => 'Platby',

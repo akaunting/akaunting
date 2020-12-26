@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => 'Factuur gemarkeerd als ontvangen!',
-        'marked_paid'       => 'Factuur gemarkeerd als betaald!',
-        'marked_cancelled'  => 'Factuur gemarkeerd als geannuleerd!',
         'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',
 
         'status' => [

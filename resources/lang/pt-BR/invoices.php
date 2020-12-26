@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'E-mail da fatura foi enviado!',
-        'marked_sent'       => 'Fatura marcada como enviada!',
-        'marked_paid'       => 'Fatura marcada como paga!',
-        'marked_viewed'     => 'Fatura marcada como visualizada!',
-        'marked_cancelled'  => 'Fatura marcada como cancelada!',
         'email_required'    => 'Nenhum endereço de e-mail para este cliente!',
         'draft'             => 'Isto é um <b>RASCUNHO</b> da fatura e será refletida nos gráficos depois de enviada.',
 

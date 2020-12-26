@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => 'Fatura e shënuar si e marrë!',
-        'marked_paid'       => 'Fatura e shënuar si e paguar!',
-        'marked_cancelled'  => 'Fatura e shënuar si e anuluar!',
         'draft'             => 'Ky është një faturë <b>DRAFT</b> dhe do të pasqyrohet në skema pas marrjes së tij.',
 
         'status' => [

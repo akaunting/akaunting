@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => '¡Recibo marcado como recibido!',
-        'marked_paid'       => '¡Recibo marcado como pagado!',
-        'marked_cancelled'  => '¡Recibo marcado como cancelado!',
         'draft'             => 'Este es un<b>BORRADOR</b> de factura y se reflejará en los gráficos luego de que sea enviada.',
 
         'status' => [

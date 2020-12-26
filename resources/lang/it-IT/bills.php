@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => 'Bolletta contrassegnata come ricevuta!',
-        'marked_paid'       => 'Fattura contrassegnata come pagata!',
-        'marked_cancelled'  => 'Bolletta contrassegnato come annullata!',
         'draft'             => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà ricevuta.',
 
         'status' => [
