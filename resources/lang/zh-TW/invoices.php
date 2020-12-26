@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => '發票已發送',
-        'marked_sent'       => '發票標示為已發送',
-        'marked_paid'       => '帳單標記為已付款',
-        'marked_viewed'     => '發票標示為已閲',
-        'marked_cancelled'  => '發票標記為已撤銷',
         'email_required'    => '此客戶沒有電子郵件地址！',
         'draft'             => '這是 <b>草稿</b> 發票, 在簽收後將反映在圖表上。',
 

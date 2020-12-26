@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Faktura e-post er blitt sendt!',
-        'marked_sent'       => 'Faktura merket som sendt!',
-        'marked_paid'       => 'Faktura merket som betalt!',
-        'marked_viewed'     => 'Faktura merket som sett!',
-        'marked_cancelled'  => 'Faktura merket som kansellert!',
         'email_required'    => 'E-postadresse må fylles inn.',
         'draft'             => 'Dette er en <b>KLADD</b> for fakturaen som vil bli oppdatert etter at den er sendt.',
 

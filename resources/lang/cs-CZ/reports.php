@@ -12,7 +12,7 @@ return [
     'net_profit'            => 'Čistý zisk',
     'total_expenses'        => 'Celkové výdaje',
     'net'                   => 'NETTO',
-    'income-expense'        => 'Příjmy a výdaje',
+    'income_expense'        => 'Příjmy a výdaje',
 
     'summary' => [
         'income'            => 'Přehled příjmů',

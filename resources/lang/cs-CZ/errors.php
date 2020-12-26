@@ -2,23 +2,22 @@
 
 return [
 
-    'forbidden_access' => 'Zakázaný přístup',
-    'error_page'       => 'Chybová stránka',
-    'page_not_found'   => 'Stránka nebyla nalezena',
-
-    'body'   => [
-        'forbidden_access' => 'Oops! Zakázaný přístup.',
-        'error_page' => 'Jejda. Něco se nepovedlo.',
-        'page_not_found' => 'Jejda! Stránka nebyla nalezena.',
+    'title' => [
+        '403' => 'Oops! Zakázaný přístup.',
+        '404' => 'Jejda! Stránka nebyla nalezena.',
+        '500' => 'Jejda. Něco se nepovedlo.',
     ],
 
-    'messages'   => [
-        'forbidden_access' => 'Nemůžete získat přístup k této stránce.
-        Zatím se můžete <a href=":link">vrátit na dashboard</a>.',
-        'error_page' => 'Budeme pracovat na opravě tohoto problému.
-        Mezitím se můžete <a href=":link">vrátit do řídicího panelu</a>.',
-        'page_not_found' => 'Nemohli jsme najít stránku, kterou jste hledali.
-        Zatím se můžete <a href=":link">vrátit do řídicího panelu</a>.',
+    'header' => [
+        '403' => '403 Zakázáno',
+        '404' => '404 Stránka nebyla nalezena',
+        '500' => '500 Interní chyba serveru',
+    ],
+
+    'message' => [
+        '403' => 'K této stránce nemáte přístup.',
+        '404' => 'Nemohli jsme najít stránku, kterou hledáte.',
+        '500' => 'Budeme neprodleně pracovat na nápravě.',
     ],
 
 ];

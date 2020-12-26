@@ -9,13 +9,11 @@ return [
     'new'                   => 'Nové',
     'top_free'              => 'Nejlepší bezplatné',
     'free'                  => 'ZDARMA',
-    'search'                => 'Hledat',
     'install'               => 'Instalovat',
     'buy_now'               => 'Koupit',
-    'api_key_link'          => '<a class="text-red" href="https://akaunting.com/profile" target="_blank">Klikněte zde</a> pro získání API klíče.',
+    'get_api_key'           => '<a href=":url" target="_blank">Klikněte zde</a> pro získání API klíče.',
     'no_apps'               => 'V této kategorii zatím nejsou žádné aplikace.',
-    'developer'             => 'Jste vývojář? <a href="https://akaunting.com/blog/akaunting-app-store" target="_blank"> Zde</a> se můžete naučit, jak vytvořit aplikaci a začít hned prodávat!',
-
+    'become_developer'      => 'Jste vývojář/ka? <a href=":url" target="_blank">Zde</a> se dozvíte, jak vytvořit a hned začít prodávat vaší aplikaci!',
     'recommended_apps'      => 'Doporučené aplikace',
 
     'about'                 => 'O aplikaci',
@@ -80,5 +78,6 @@ return [
         ],
 
         'na'                => 'Žádné recenze.'
-    ]
+    ],
+
 ];

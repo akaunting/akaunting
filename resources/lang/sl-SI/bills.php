@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => 'Računi označeni kot prejeti!',
-        'marked_paid'       => 'Računi označeni kot plačani!',
-        'marked_cancelled'  => 'Računi označeni kot preklicani!',
         'draft'             => 'To je <b>OSNUTEK</b> računa, ki bo v grafikonih viden šele po prejemu.',
 
         'status' => [

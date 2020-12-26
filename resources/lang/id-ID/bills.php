@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => 'Tagihan sudah diterima',
-        'marked_paid'       => 'Tagihan sudah dibayar',
-        'marked_cancelled'  => 'Tagihan dibatalkan',
         'draft'             => 'Ini adalah <b>DRAFT</b> tagihan dan akan terlihat di grafik setelah dibayarkan.',
 
         'status' => [

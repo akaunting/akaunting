@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Factuur is via email verzonden!',
-        'marked_sent'       => 'Factuur gemarkeerd als verzonden!',
-        'marked_paid'       => 'Factuur gemarkeerd als betaald!',
-        'marked_viewed'     => 'Factuur gemarkeerd als gelezen!',
-        'marked_cancelled'  => 'Factuur gemarkeerd als geannuleerd!',
         'email_required'    => 'Er is geen e-mailadres bekend van deze klant!',
         'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',
 

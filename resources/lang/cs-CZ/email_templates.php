@@ -19,7 +19,7 @@ return [
 
     'invoice_recur_customer' => [
         'subject'       => '{invoice_number} opakující se faktura byla vytvořena',
-        'body'          => 'Dear {customer_name},<br /><br />Based on your recurring circle, we have prepared the following invoice for you: <strong>{invoice_number}</strong>.<br /><br />You can see the invoice details and proceed with the payment from the following link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Feel free to contact us for any question.<br /><br />Best Regards,<br />{company_name}',
+        'body'          => 'Vážený(á) {customer_name},<br /><br /> na základě Vašeho opakujícího se cyklu jsme Vám připravili následující fakturu: <strong>{invoice_number}</strong>.<br /><br />Detaily faktury a zaplacení faktury najdete na: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />V případě dotazů nás neváhejte kontaktovat..<br /><br />S pozdravem,<br />{company_name}',
     ],
 
     'invoice_recur_admin' => [

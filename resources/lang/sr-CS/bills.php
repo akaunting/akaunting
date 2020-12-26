@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => 'Račun označen kao primljen!',
-        'marked_paid'       => 'Račun označen kao plaćen!',
-        'marked_cancelled'  => 'Račun označen kao otkazan!',
         'draft'             => 'Ovo je <b>SKICA</b> računa koji će se odraziti na grafikone nakon prijema.',
 
         'status' => [

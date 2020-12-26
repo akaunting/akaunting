@@ -19,16 +19,16 @@ return [
     ],
 
     'offline_payments' => [
-        'cash'              => 'Cash',
-        'bank'              => 'Bank Transfer',
+        'cash'              => 'Hotovost',
+        'bank'              => 'Bankovní převod',
     ],
 
     'reports' => [
-        'income'            => 'Monthly income summary by category.',
-        'expense'           => 'Monthly expense summary by category.',
-        'income_expense'    => 'Monthly income vs expense by category.',
-        'tax'               => 'Quarterly tax summary.',
-        'profit_loss'       => 'Quarterly profit & loss by category.',
+        'income'            => 'Měsíční přehled příjmů podle kategorií.',
+        'expense'           => 'Měsíční přehled výdajů podle kategorií.',
+        'income_expense'    => 'Měsíční příjmy a výdaje podle kategorií.',
+        'tax'               => 'Čtvrtletní daňový přehled.',
+        'profit_loss'       => 'Čtvrtletní zisk a ztráty podle kategorií.',
     ],
 
 ];

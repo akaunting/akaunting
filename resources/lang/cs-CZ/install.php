@@ -21,6 +21,7 @@ return [
         'disabled'          => 'Musíte zakázat :feature!',
         'extension'         => 'Rozšíření :extension musí být nainstalováno a načteno!',
         'directory'         => 'Složka :directory musí být zapisovatelná!',
+        'executable'        => 'Spustitelný soubor PHP CLI není definovaný/funkční nebo jeho verze není :php_version nebo vyšší! Požádejte, prosím, poskytovatele hostingu, aby správně nastavila proměnnou PHP_BINARY nebo PHP_PATH.',
     ],
 
     'database' => [
@@ -38,6 +39,7 @@ return [
     ],
 
     'error' => [
+        'php_version'       => 'Chyba: Požádejte svého poskytovatele hostingu o aktualizaci na PHP :php_version nebo vyšší jak pro HTTP, tak i pro CLI.',
         'connection'        => 'Chyba: Nelze se připojit k databázi! Prosím, ujistěte se, že údaje jsou správné.',
     ],
 

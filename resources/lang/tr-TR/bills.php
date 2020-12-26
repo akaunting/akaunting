@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => 'Fatura alındı olarak işaretlendi!',
-        'marked_paid'       => 'Fatura ödendi olark işaretlendi!',
-        'marked_cancelled'  => 'Fatura iptal edildi olarak işaretlendi!',
         'draft'             => 'Bu bir <b>TASLAK</b> faturadır ve alındıktan sonra grafiklere yansıtılacaktır.',
 
         'status' => [
