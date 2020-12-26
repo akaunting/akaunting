@@ -165,6 +165,7 @@
                         <td colspan="1" style="border: 0;"  class="w-1">
                         </td>
                     </tr>
+
                     <tr v-if="row.add_discount">
                         <td colspan="3" style="border: 0;"></td>
                         <td colspan="2" style="border: 0;">
@@ -207,6 +208,7 @@
                             </button>
                         </td>
                     </tr>
+
                     <tr v-if="row.add_tax" v-for="(row_tax, row_tax_index) in row.tax_ids"
                     :index="row_tax_index">
                     @else
@@ -252,6 +254,7 @@
                             </button>
                         </td>
                     </tr>
+
                     <tr v-if="row.add_tax">
                         <td class="pb-0" colspan="2" style="border: 0;">
                         </td>

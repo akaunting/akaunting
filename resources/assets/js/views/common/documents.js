@@ -493,9 +493,7 @@ const app = new Vue({
                         this.taxes[tax_id].push(item.id);
                     } else {
                         this.taxes.push(tax_id);
-
                         this.taxes[tax_id] = [];
-
                         this.taxes[tax_id].push(item.id);
                     }
 
@@ -523,7 +521,7 @@ const app = new Vue({
                 description: item.description,
                 quantity: 1,
                 price: item.price,
-                add_tax: (item_taxes.length) ? true : false,
+                add_tax: true,
                 tax_ids: item_taxes,
                 add_discount: false,
                 discount: 0,
@@ -558,7 +556,6 @@ const app = new Vue({
                 this.taxes[this.tax_id].push(this.items[item_index].item_id);
             } else {
                 this.taxes[this.tax_id] = [];
-
                 this.taxes[this.tax_id].push(this.items[item_index].item_id);
             }
 
