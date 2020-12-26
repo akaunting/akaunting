@@ -109,5 +109,5 @@
 @endsection
 
 @push('scripts_start')
-    <script src="{{ asset('modules/OfflinePayments/Resources/assets/js/offline-payments.min.js?v=' . version('short')) }}"></script>
+    <script src="{{ asset('modules/OfflinePayments/Resources/assets/js/offline-payments.min.js?v=' . module_version('offline-payments')) }}"></script>
 @endpush
