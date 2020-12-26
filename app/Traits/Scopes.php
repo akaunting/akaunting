@@ -22,10 +22,8 @@ trait Scopes
             return;
         }
 
-        $type = request()->get('type') ?: $this->getTypeFromUrl();
-
         // Apply type scope
-        $builder->where($model->getTable() . '.type', '=', $type);
+        $builder->where($model->getTable() . '.type', '=', $this->getTypeFromRequest());
     }
 
     /**
@@ -60,9 +58,9 @@ trait Scopes
         return false;
     }
 
-    public function getTypeFromUrl()
+    public function getTypeFromRequest()
     {
-        $type = Str::singular(request()->segment(2, ''));
+        $type = request()->get('type') ?: Str::singular(request()->segment(2, ''));
 
         if ($type == 'revenue') {
             $type = 'income';
