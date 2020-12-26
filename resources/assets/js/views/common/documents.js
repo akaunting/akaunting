@@ -73,7 +73,7 @@ const app = new Vue({
             let grand_total = 0;
  
             // items calculate
-            this.items.forEach(function(item) {
+            this.items.forEach(function(item, index) {
                 let discount = 0;
 
                 item.total = item.price * item.quantity;
@@ -188,6 +188,12 @@ const app = new Vue({
 
                 sub_total += item.total;
                 grand_total += item.grand_total;
+
+                this.form.items[index].description = item.description;
+                this.form.items[index].quantity = item.quantity;
+                this.form.items[index].price = item.price;
+                this.form.items[index].discount = item.discount;
+                this.form.items[index].total = item.total;
             }, this);
 
             this.totals.sub = sub_total;

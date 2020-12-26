@@ -168,15 +168,20 @@ class CreateDocumentItemsAndTotals extends Job
             }
 
             if (empty($item['item_id'])) {
-                $new_item = $this->dispatch(new CreateItem([
+                $new_item_request = [
                     'company_id' => $this->request['company_id'],
                     'name' => $item['name'],
                     'description' => $item['description'],
                     'sale_price' => $item['price'],
                     'purchase_price' => $item['price'],
-                    'tax_ids' => $item['tax_ids'],
                     'enabled' => '1'
-                ]));
+                ];
+
+                if (!empty($item['tax_ids'])) {
+                    $new_item_request['tax_ids'] = $item['tax_ids'];
+                }
+
+                $new_item = $this->dispatch(new CreateItem($new_item_request));
 
                 $item['item_id'] = $new_item->id;
             }

@@ -605,17 +605,71 @@ export default {
         selected: function (selected) {
             if (!this.multiple) {
                 this.selected = selected.toString();
+            } else {
+                if (Array.isArray(this.selected) && !this.selected.length) {
+                    this.selected = selected;
+                } else {
+                    let is_string = false;
+                    let pre_value = [];
+
+                    selected.forEach(item => {
+                        if (typeof item != 'string') {
+                            is_string = true;
+                            pre_value.push(item.toString());
+                        }
+                    });
+
+                    if (is_string) {
+                        this.selected = pre_value;
+                    }
+                }
             }
         },
 
         value: function (selected) {
-            this.selected = selected;
+            if (!this.multiple) {
+                this.selected = selected.toString();
+            } else {
+                if (Array.isArray(this.selected) && !this.selected.length) {
+                    this.selected = selected;
+                } else {
+                    let is_string = false;
+                    let pre_value = [];
+
+                    selected.forEach(item => {
+                        if (typeof item != 'string') {
+                            is_string = true;
+                            pre_value.push(item.toString());
+                        }
+                    });
+
+                    if (is_string) {
+                        this.selected = pre_value;
+                    }
+                }
+            }
 
             this.change();
         },
 
         model: function (selected) {
-            this.selected = selected;
+            if (!this.multiple) {
+                this.selected = selected.toString();
+            } else {
+                let is_string = false;
+                let pre_value = [];
+
+                selected.forEach(item => {
+                    if (typeof item != 'string') {
+                        is_string = true;
+                        pre_value.push(item.toString());
+                    }
+                });
+
+                if (is_string) {
+                    this.selected = pre_value;
+                }
+            }
 
             this.change();
         },
