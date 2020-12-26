@@ -98,6 +98,6 @@ class VendorsTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Contact::class)->states('vendor', 'enabled')->raw();
+        return Contact::factory()->vendor()->enabled()->raw();
     }
 }

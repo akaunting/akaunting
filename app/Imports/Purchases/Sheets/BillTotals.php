@@ -3,9 +3,9 @@
 namespace App\Imports\Purchases\Sheets;
 
 use App\Abstracts\Import;
-use App\Http\Requests\Purchase\BillTotal as Request;
-use App\Models\Purchase\Bill;
-use App\Models\Purchase\BillTotal as Model;
+use App\Http\Requests\Document\DocumentTotal as Request;
+use App\Models\Document\Document;
+use App\Models\Document\DocumentTotal as Model;
 
 class BillTotals extends Import
 {
@@ -22,7 +22,8 @@ class BillTotals extends Import
 
         $row = parent::map($row);
 
-        $row['bill_id'] = (int) Bill::number($row['bill_number'])->pluck('id')->first();
+        $row['document_id'] = (int) Document::bill()->number($row['bill_number'])->pluck('id')->first();
+        $row['type'] = Document::BILL_TYPE;
 
         return $row;
     }
@@ -32,6 +33,7 @@ class BillTotals extends Import
         $rules = (new Request())->rules();
 
         $rules['bill_number'] = 'required|string';
+
         unset($rules['bill_id']);
 
         return $rules;

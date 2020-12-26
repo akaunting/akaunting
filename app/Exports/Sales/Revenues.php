@@ -21,7 +21,7 @@ class Revenues extends Export
     public function map($model): array
     {
         $model->account_name = $model->account->name;
-        $model->invoice_number = $model->invoice ? $model->invoice->invoice_number : 0;
+        $model->invoice_number = $model->invoice->document_number ?? 0;
         $model->contact_email = $model->contact->email;
         $model->category_name = $model->category->name;
 

@@ -12,7 +12,7 @@ class Item extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['tax', 'category'];
+    protected $defaultIncludes = ['taxes', 'category'];
 
     /**
      * @param  Model $model
@@ -28,7 +28,7 @@ class Item extends TransformerAbstract
             'sale_price' => $model->sale_price,
             'purchase_price' => $model->purchase_price,
             'category_id' => $model->category_id,
-            'tax_id' => $model->tax_id,
+            'tax_ids' => $model->tax_ids,
             'picture' => $model->picture,
             'enabled' => $model->enabled,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
@@ -40,13 +40,13 @@ class Item extends TransformerAbstract
      * @param  Model $model
      * @return mixed
      */
-    public function includeTax(Model $model)
+    public function includeTaxes(Model $model)
     {
-        if (!$model->tax) {
+        if (!$model->taxes) {
             return $this->null();
         }
 
-        return $this->item($model->tax, new Tax());
+        return $this->item($model->taxes, new Tax());
     }
 
     /**

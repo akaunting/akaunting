@@ -84,6 +84,6 @@ class TaxesTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Tax::class)->states('enabled')->raw();
+        return Tax::factory()->enabled()->raw();
     }
 }

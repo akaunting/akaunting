@@ -3,7 +3,7 @@
 @section('title', trans_choice('general.updates', 2))
 
 @section('new_button')
-    <a href="{{ route('updates.check') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-history"></span> &nbsp;{{ trans('updates.check') }}</a>
+    <a href="{{ route('updates.check') }}" class="btn btn-white btn-sm">{{ trans('updates.check') }}</a>
 @endsection
 
 @section('content')
@@ -24,12 +24,12 @@
                     </div>
 
                     <div class="col-sm-10 col-md-6 text-right">
-                        <a href="{{ route('updates.run', ['alias' => 'core', 'version' => $core]) }}" class="btn btn-info btn-sm header-button-top long-texts">
-                            <i class="fa fa-refresh"></i> &nbsp;{{ trans('updates.update', ['version' => $core]) }}
+                        <a href="{{ route('updates.run', ['alias' => 'core', 'version' => $core]) }}" class="btn btn-info btn-sm long-texts">
+                            {{ trans('updates.update', ['version' => $core]) }}
                         </a>
 
                         <button type="button" @click="onChangelog" class="btn btn-white btn-sm header-button-bottom">
-                            <i class="fa fa-exchange-alt"></i> &nbsp;{{ trans('updates.changelog') }}
+                            {{ trans('updates.changelog') }}
                         </button>
                     </div>
                 @endif
@@ -62,7 +62,7 @@
                                 <td class="col-xs-4 col-sm-3 col-md-3">{{ $module->latest }}</td>
                                 <td class="col-xs-4 col-sm-2 col-md-2 text-center">
                                     <a href="{{ route('updates.run', ['alias' => $module->alias, 'version' => $module->latest]) }}" class="btn btn-warning btn-sm">
-                                        <i class="fa fa-refresh" aria-hidden="true"></i> {{ trans_choice('general.updates', 1) }}
+                                       {{ trans_choice('general.updates', 1) }}
                                     </a>
                                 </td>
                             </tr>

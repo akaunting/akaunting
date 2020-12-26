@@ -43,7 +43,13 @@ class Taxes extends Controller
 
         $rand = rand();
 
-        $html = view('modals.taxes.create', compact('types', 'tax_selector', 'rand'))->render();
+        $disable_options = [];
+
+        if ($compound = Tax::compound()->first()) {
+            $disable_options = ['compound'];
+        }
+
+        $html = view('modals.taxes.create', compact('types', 'tax_selector', 'disable_options', 'rand'))->render();
 
         return response()->json([
             'success' => true,

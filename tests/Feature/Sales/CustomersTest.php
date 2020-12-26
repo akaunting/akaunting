@@ -120,7 +120,7 @@ class CustomersTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Contact::class)->states('customer', 'enabled')->raw();
+        return Contact::factory()->customer()->enabled()->raw();
     }
 
 	public function getRequestWithUser()

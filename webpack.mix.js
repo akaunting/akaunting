@@ -32,6 +32,7 @@ mix
     .js('resources/assets/js/views/common/items.js', 'public/js/common')
     .js('resources/assets/js/views/common/companies.js', 'public/js/common')
     .js('resources/assets/js/views/common/dashboards.js', 'public/js/common')
+    .js('resources/assets/js/views/common/documents.js', 'public/js/common')
     .js('resources/assets/js/views/common/reports.js', 'public/js/common')
     .js('resources/assets/js/views/common/search.js', 'public/js/common')
 
@@ -72,6 +73,4 @@ mix
     .js('resources/assets/js/views/wizard/taxes.js', 'public/js/wizard')
     .js('resources/assets/js/views/wizard/finish.js', 'public/js/wizard')
 
-    .sass('resources/assets/sass/argon.scss', 'public/css')
-
-    .sourceMaps(false, 'inline-source-map');
+    .sass('resources/assets/sass/argon.scss', 'public/css');

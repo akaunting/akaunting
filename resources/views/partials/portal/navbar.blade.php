@@ -67,7 +67,7 @@
                     </div>
                 </li>
 
-                @permission('read-install-updates')
+                @can('read-install-updates')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('updates.index') }}" title="{{ $updates }} Updates Available" role="button" aria-haspopup="true" aria-expanded="false">
                             <span>
@@ -78,7 +78,7 @@
                             @endif
                         </a>
                     </li>
-                @endpermission
+                @endcan
 
                 <li class="nav-item d-none d-md-block">
                     <a class="nav-link" href="{{ url(trans('header.support_link')) }}" target="_blank" title="{{ trans('general.help') }}" role="button" aria-haspopup="true" aria-expanded="false">

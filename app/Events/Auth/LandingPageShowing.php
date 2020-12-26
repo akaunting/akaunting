@@ -2,12 +2,10 @@
 
 namespace App\Events\Auth;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class LandingPageShowing
+class LandingPageShowing extends Event
 {
-    use SerializesModels;
-
     public $user;
 
     /**

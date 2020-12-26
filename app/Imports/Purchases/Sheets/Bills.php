@@ -3,8 +3,9 @@
 namespace App\Imports\Purchases\Sheets;
 
 use App\Abstracts\Import;
-use App\Models\Purchase\Bill as Model;
-use App\Http\Requests\Purchase\Bill as Request;
+use App\Http\Requests\Document\Document as Request;
+use App\Models\Document\Document as Model;
+use Illuminate\Support\Str;
 
 class Bills extends Import
 {
@@ -21,14 +22,24 @@ class Bills extends Import
 
         $row = parent::map($row);
 
+        $row['document_number'] = $row['bill_number'];
+        $row['issued_at'] = $row['billed_at'];
         $row['category_id'] = $this->getCategoryId($row, 'expense');
         $row['contact_id'] = $this->getContactId($row, 'vendor');
+        $row['type'] = Model::BILL_TYPE;
 
         return $row;
     }
 
     public function rules(): array
     {
-        return (new Request())->rules();
+        $rules = (new Request())->rules();
+
+        $rules['bill_number'] = Str::replaceFirst('unique:documents,NULL', 'unique:documents,document_number', $rules['document_number']);
+        $rules['billed_at'] = $rules['issued_at'];
+
+        unset($rules['document_number'], $rules['issued_at'], $rules['type']);
+
+        return $rules;
     }
 }

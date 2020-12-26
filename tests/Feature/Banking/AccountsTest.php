@@ -84,6 +84,6 @@ class AccountsTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Account::class)->states('enabled')->raw();
+        return Account::factory()->enabled()->raw();
     }
 }

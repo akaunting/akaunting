@@ -45,11 +45,11 @@
 
                     {{ Form::selectAddNewGroup('account_id',  trans_choice('general.accounts', 1), 'university', $accounts, $revenue->account_id, ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
-                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, $revenue->contact_id, ['path' => route('modals.customers.create')]) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, $revenue->contact_id, ['path' => route('modals.customers.create'), 'remote_action' => route('customers.index')]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $revenue->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $revenue->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=income', 'remote_action' => route('categories.index'). '?type=income']) }}
 
                     {{ Form::recurring('edit', $revenue) }}
 
@@ -67,19 +67,19 @@
                     @endif
 
                     @if ($revenue->invoice)
-                        {{ Form::textGroup('document', trans_choice('general.invoices', 1), 'file-invoice', ['disabled' => 'true'], $revenue->invoice->invoice_number) }}
+                        {{ Form::textGroup('document', trans_choice('general.invoices', 1), 'file-invoice', ['disabled' => 'true'], $revenue->invoice->document_number) }}
                         {{ Form::hidden('document_id', $revenue->invoice->id) }}
                     @endif
                 </div>
             </div>
 
-            @permission('update-sales-revenues')
+            @can('update-sales-revenues')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('revenues.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
             {{ Form::hidden('type', 'income') }}
         {!! Form::close() !!}

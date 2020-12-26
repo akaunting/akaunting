@@ -2,14 +2,14 @@
 
 @section('title', trans_choice('general.tax_rates', 2))
 
-@permission('create-settings-taxes')
+@can('create-settings-taxes')
     @section('new_button')
-        <span><a href="{{ route('taxes.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <a href="{{ route('taxes.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
-    @if ($taxes->count())
+    @if ($taxes->count() || request()->get('search', false))
         <div class="card">
             <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
@@ -19,10 +19,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <akaunting-search
-                            :placeholder="'{{ trans('general.search_placeholder') }}'"
-                            :options="{{ json_encode([]) }}"
-                        ></akaunting-search>
+                        <x-search-string model="App\Models\Setting\Tax" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.taxes', $bulk_actions, ['group' => 'settings', 'type' => 'taxes']) }}
@@ -69,10 +66,10 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('taxes.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @permission('delete-settings-taxes')
+                                            @can('delete-settings-taxes')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'taxes.destroy', 'tax_rates') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

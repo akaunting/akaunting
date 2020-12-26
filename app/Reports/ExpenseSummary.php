@@ -4,7 +4,7 @@ namespace App\Reports;
 
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
-use App\Models\Purchase\Bill;
+use App\Models\Document\Document;
 use App\Utilities\Recurring;
 
 class ExpenseSummary extends Report
@@ -41,9 +41,9 @@ class ExpenseSummary extends Report
                 break;
             default:
                 // Bills
-                $bills = $this->applyFilters(Bill::with('recurring', 'transactions')->accrued(), ['date_field' => 'billed_at'])->get();
-                Recurring::reflect($bills, 'billed_at');
-                $this->setTotals($bills, 'billed_at');
+                $bills = $this->applyFilters(Document::bill()->with('recurring', 'transactions')->accrued(), ['date_field' => 'issued_at'])->get();
+                Recurring::reflect($bills, 'issued_at');
+                $this->setTotals($bills, 'issued_at');
 
                 // Payments
                 $payments = $transactions->isNotDocument()->get();

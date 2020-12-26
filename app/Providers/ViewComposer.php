@@ -67,6 +67,12 @@ class ViewComposer extends Provider
             ['sales.invoices.*', 'portal.invoices.*'],
             'App\Http\ViewComposers\InvoiceText'
         );
+
+        // Add Document Type
+        View::composer(
+            ['documents.*', 'portal.documents.*'],
+            'App\Http\ViewComposers\DocumentType'
+        );
     }
 
     /**

@@ -4,10 +4,11 @@ namespace App\Models\Banking;
 
 use App\Abstracts\Model;
 use App\Traits\Currencies;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transfer extends Model
 {
-    use Currencies;
+    use HasFactory, Currencies;
 
     protected $table = 'transfers';
 
@@ -43,5 +44,15 @@ class Transfer extends Model
     public function income_account()
     {
         return $this->belongsTo('App\Models\Banking\Account', 'income_transaction.account_id', 'id')->withDefault(['name' => trans('general.na')]);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Transfer::new();
     }
 }

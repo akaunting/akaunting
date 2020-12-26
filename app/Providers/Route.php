@@ -2,11 +2,23 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route as Facade;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as Provider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route as Facade;
 
 class Route extends Provider
 {
+    /**
+     * The path to the "home" route for your application.
+     *
+     * This is used by Laravel authentication to redirect users after login.
+     *
+     * @var string
+     */
+    public const HOME = '/';
+
     /**
      * This namespace is applied to your controller routes.
      *
@@ -64,6 +76,8 @@ class Route extends Provider
      */
     protected function mapApiRoutes()
     {
+        $this->configureRateLimiting();
+
         Facade::prefix('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
@@ -154,5 +168,17 @@ class Route extends Provider
             ->middleware('signed')
             ->namespace($this->namespace)
             ->group(base_path('routes/signed.php'));
+    }
+
+    /**
+     * Configure the rate limiters for the application.
+     *
+     * @return void
+     */
+    protected function configureRateLimiting()
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60);
+        });
     }
 }

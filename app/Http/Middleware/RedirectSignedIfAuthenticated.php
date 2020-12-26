@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use Closure;
 
 class RedirectSignedIfAuthenticated
@@ -27,7 +27,7 @@ class RedirectSignedIfAuthenticated
         if ($request->segment(2) == 'invoices') {
             $page = 'invoices.show';
 
-            $invoice = Invoice::find($request->segment(3));
+            $invoice = Document::find($request->segment(3));
 
             $params = [$invoice->id];
         }

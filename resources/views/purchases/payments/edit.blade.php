@@ -45,11 +45,11 @@
 
                     {{ Form::selectAddNewGroup('account_id',  trans_choice('general.accounts', 1), 'university', $accounts, $payment->account_id, ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
-                    {{ Form::selectAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $payment->contact_id, ['path' => route('modals.vendors.create')]) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, $payment->contact_id, ['path' => route('modals.vendors.create'), 'remote_action' => route('vendors.index')]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $payment->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $payment->category_id, ['required' => 'required', 'path' => route('modals.categories.create') . '?type=expense', 'remote_action' => route('categories.index'). '?type=expense']) }}
 
                     {{ Form::recurring('edit', $payment) }}
 
@@ -67,19 +67,19 @@
                     @endif
 
                     @if ($payment->bill)
-                        {{ Form::textGroup('document', trans_choice('general.bills', 1), 'file-invoice', ['disabled' => 'true'], $payment->bill->bill_number) }}
+                        {{ Form::textGroup('document', trans_choice('general.bills', 1), 'file-invoice', ['disabled' => 'true'], $payment->bill->document_number) }}
                         {{ Form::hidden('document_id', $payment->bill->id) }}
                     @endif
                 </div>
             </div>
 
-            @permission('update-purchases-payments')
+            @can('update-purchases-payments')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('payments.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
             {{ Form::hidden('type', 'expense') }}
         {!! Form::close() !!}

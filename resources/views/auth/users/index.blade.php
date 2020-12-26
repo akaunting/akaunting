@@ -2,30 +2,21 @@
 
 @section('title', trans_choice('general.users', 2))
 
-@permission('create-auth-users')
+@can('create-auth-users')
     @section('new_button')
-        <a href="{{ route('users.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
+        <a href="{{ route('users.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
         <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
-            {!! Form::open([
-                'method' => 'GET',
-                'route' => 'users.index',
-                'role' => 'form',
-                'class' => 'mb-0'
-            ]) !!}
+
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Auth\User" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.users', $bulk_actions, ['group' => 'auth', 'type' => 'users']) }}
-            {!! Form::close() !!}
         </div>
 
         <div class="table-responsive">
@@ -88,10 +79,10 @@
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('users.edit', $item->id) }}">{{ trans('general.edit') }}</a>
                                         @if (user()->id != $item->id)
-                                            @permission('delete-auth-users')
+                                            @can('delete-auth-users')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'users.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         @endif
                                     </div>
                                 </div>

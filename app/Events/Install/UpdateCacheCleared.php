@@ -2,12 +2,10 @@
 
 namespace App\Events\Install;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class UpdateCacheCleared
+class UpdateCacheCleared extends Event
 {
-    use SerializesModels;
-
     public $company_id;
 
     /**

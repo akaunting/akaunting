@@ -26,7 +26,7 @@ class Companies extends Controller
     {
         $companies = Company::collect();
 
-        return view('common.companies.index', compact('companies'));
+        return $this->response('common.companies.index', compact('companies'));
     }
 
     /**
@@ -115,7 +115,7 @@ class Companies extends Controller
     {
         $company_id = session('company_id');
 
-        $response = $this->ajaxDispatch(new UpdateCompany($company, $request));
+        $response = $this->ajaxDispatch(new UpdateCompany($company, $request, session('company_id')));
 
         if ($response['success']) {
             $response['redirect'] = route('companies.index');
@@ -147,7 +147,7 @@ class Companies extends Controller
      */
     public function enable(Company $company)
     {
-        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 1])));
+        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 1]), session('company_id')));
 
         if ($response['success']) {
             $response['message'] = trans('messages.success.enabled', ['type' => trans_choice('general.companies', 1)]);
@@ -165,7 +165,7 @@ class Companies extends Controller
      */
     public function disable(Company $company)
     {
-        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 0])));
+        $response = $this->ajaxDispatch(new UpdateCompany($company, request()->merge(['enabled' => 0]), session('company_id')));
 
         if ($response['success']) {
             $response['message'] = trans('messages.success.disabled', ['type' => trans_choice('general.companies', 1)]);
@@ -183,7 +183,7 @@ class Companies extends Controller
      */
     public function destroy(Company $company)
     {
-        $response = $this->ajaxDispatch(new DeleteCompany($company));
+        $response = $this->ajaxDispatch(new DeleteCompany($company, session('company_id')));
 
         $response['redirect'] = route('companies.index');
 

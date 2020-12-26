@@ -3,6 +3,7 @@
 namespace App\Jobs\Common;
 
 use App\Abstracts\Job;
+use App\Jobs\Common\CreateItemTaxes;
 use App\Models\Common\Item;
 
 class CreateItem extends Job
@@ -37,6 +38,8 @@ class CreateItem extends Job
 
                 $this->item->attachMedia($media, 'picture');
             }
+
+            $this->dispatch(new CreateItemTaxes($this->item, $this->request));
         });
 
         return $this->item;

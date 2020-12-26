@@ -79,13 +79,13 @@
                     </div>
                 </div>
 
-                @permission('update-auth-roles')
+                @can('update-auth-roles')
                     <div class="card-footer">
                         <div class="row save-buttons">
                             {{ Form::saveButtons('roles.index') }}
                         </div>
                     </div>
-                @endpermission
+                @endcan
             </div>
         </div>
     {!! Form::close() !!}

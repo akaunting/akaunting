@@ -15,53 +15,63 @@
         'novalidate' => true,
     ]) !!}
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                {{ Form::textGroup('number_prefix', trans('settings.invoice.prefix'), 'font', [], setting('invoice.number_prefix')) }}
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    {{ Form::textGroup('number_prefix', trans('settings.invoice.prefix'), 'font', [], setting('invoice.number_prefix')) }}
 
-                {{ Form::textGroup('number_digit', trans('settings.invoice.digit'), 'text-width', [], setting('invoice.number_digit')) }}
+                    {{ Form::textGroup('number_digit', trans('settings.invoice.digit'), 'text-width', [], setting('invoice.number_digit')) }}
 
-                {{ Form::textGroup('number_next', trans('settings.invoice.next'), 'chevron-right', [], setting('invoice.number_next')) }}
+                    {{ Form::textGroup('number_next', trans('settings.invoice.next'), 'chevron-right', [], setting('invoice.number_next')) }}
 
-                {{ Form::selectGroup('payment_terms', trans('settings.invoice.payment_terms'), 'calendar', $payment_terms, setting('invoice.payment_terms'), []) }}
+                    {{ Form::selectGroup('payment_terms', trans('settings.invoice.payment_terms'), 'calendar', $payment_terms, setting('invoice.payment_terms'), []) }}
 
-                {{ Form::textGroup('title', trans('settings.invoice.title'), 'font', [], setting('invoice.title')) }}
+                    {{ Form::textGroup('title', trans('settings.invoice.title'), 'font', [], setting('invoice.title')) }}
 
-                {{ Form::textGroup('subheading', trans('settings.invoice.subheading'), 'font', [], setting('invoice.subheading')) }}
+                    {{ Form::textGroup('subheading', trans('settings.invoice.subheading'), 'font', [], setting('invoice.subheading')) }}
 
-                {{ Form::textareaGroup('notes', trans_choice('general.notes', 2), 'sticky-note-o', setting('invoice.notes')) }}
+                    {{ Form::textareaGroup('notes', trans_choice('general.notes', 2), 'sticky-note-o', setting('invoice.notes'), ['rows' => 3], 'col-md-6') }}
 
-                {{ Form::textareaGroup('footer', trans('general.footer'), 'sticky-note-o', setting('invoice.footer')) }}
+                    {{ Form::textareaGroup('footer', trans('general.footer'), 'sticky-note-o', setting('invoice.footer'), ['rows' => 3], 'col-md-6') }}
 
-                {{ Form::invoice_text('item_name', trans('settings.invoice.item_name'), 'font', $item_names, setting('invoice.item_name'), [], 'item_name_input', null) }}
+                    {{ Form::invoice_text('item_name', trans('settings.invoice.item_name'), 'font', $item_names, setting('invoice.item_name'), [], 'item_name_input', setting('invoice.item_name_input')) }}
 
-                {{ Form::invoice_text('price_name', trans('settings.invoice.price_name'), 'font', $price_names, setting('invoice.price_name'), [], 'price_name_input', null) }}
+                    {{ Form::invoice_text('price_name', trans('settings.invoice.price_name'), 'font', $price_names, setting('invoice.price_name'), [], 'price_name_input', setting('invoice.price_name_input')) }}
 
-                {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, setting('invoice.quantity_name'), [], 'quantity_name_input', null) }}
+                    {{ Form::invoice_text('quantity_name', trans('settings.invoice.quantity_name'), 'font', $quantity_names, setting('invoice.quantity_name'), [], 'quantity_name_input', setting('invoice.quantity_name_input')) }}
 
-                <div class="form-group col-md-6">
-                    {!! Form::label('invoice_template', trans_choice('general.templates', 1), ['class' => 'form-control-label']) !!}
+                    {{ Form::radioGroup('hide_item_name', trans('settings.invoice.hide.item_name'), setting('invoice.hide_item_name')) }}
 
-                    <div class="input-group">
-                        <a href="#" class="btn btn-block btn-outline-primary" @click="onTemplate">
-                            <i class="fas fa-palette"></i>&nbsp; {{ trans('settings.invoice.choose_template') }}
-                        </a>
+                    {{ Form::radioGroup('hide_item_description', trans('settings.invoice.hide.item_description'), setting('invoice.hide_item_description')) }}
+
+                    {{ Form::radioGroup('hide_quantity', trans('settings.invoice.hide.quantity'), setting('invoice.hide_quantity')) }}
+
+                    {{ Form::radioGroup('hide_price', trans('settings.invoice.hide.price'), setting('invoice.hide_price')) }}
+
+                    {{ Form::radioGroup('hide_amount', trans('settings.invoice.hide.amount'), setting('invoice.hide_amount')) }}
+
+                    <div class="form-group col-md-6">
+                        {!! Form::label('invoice_template', trans_choice('general.templates', 1), ['class' => 'form-control-label']) !!}
+
+                        <div class="input-group">
+                            <a href="#" class="btn btn-block btn-outline-primary" @click="onTemplate">
+                                {{ trans('settings.invoice.choose_template') }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            @can('update-settings-settings')
+                <div class="card-footer">
+                    <div class="row save-buttons">
+                        {{ Form::saveButtons('settings.index') }}
+                    </div>
+                </div>
+            @endcan
         </div>
 
-        @permission('update-settings-settings')
-            <div class="card-footer">
-                <div class="row save-buttons">
-                    {{ Form::saveButtons('settings.index') }}
-                </div>
-            </div>
-        @endpermission
-    </div>
-
-    {!! Form::hidden('_prefix', 'invoice') !!}
+        {!! Form::hidden('_prefix', 'invoice') !!}
 
     {!! Form::close() !!}
 @endsection

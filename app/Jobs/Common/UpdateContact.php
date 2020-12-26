@@ -77,7 +77,7 @@ class UpdateContact extends Job
 
         $user = User::create($data);
         $user->roles()->attach($customer_role);
-        $user->companies()->attach(session('company_id'));
+        $user->companies()->attach($data['company_id']);
 
         $this->request['user_id'] = $user->id;
     }

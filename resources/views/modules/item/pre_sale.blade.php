@@ -3,8 +3,8 @@
 @section('title', trans_choice('general.modules', 2))
 
 @section('new_button')
-    <span><a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_key') }}</a></span>
-    <span><a href="{{ route('apps.my.index') }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}</a></span>
+    <a href="{{ route('apps.api-key.create') }}" class="btn btn-white btn-sm">{{ trans('modules.api_key') }}</a>
+    <a href="{{ route('apps.my.index') }}" class="btn btn-white btn-sm">{{ trans('modules.my_apps') }}</a>
 @endsection
 
 @section('content')
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="card-footer">
-                    @permission('create-modules-item')
+                    @can('create-modules-item')
                         @if ($module->install)
                             <a href="#" class="btn btn-warning btn-block" disabled="disabled">
                                 {{ trans('modules.pre_sale') }}
@@ -93,7 +93,7 @@
                                 {{ trans('modules.pre_sale') }}
                             </a>
                         @endif
-                    @endpermission
+                    @endcan
 
                     @if (!empty($module->purchase_desc))
                         <div class="text-center mt-3">

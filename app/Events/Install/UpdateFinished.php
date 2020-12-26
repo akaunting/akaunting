@@ -2,12 +2,10 @@
 
 namespace App\Events\Install;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class UpdateFinished
+class UpdateFinished extends Event
 {
-    use SerializesModels;
-
     public $alias;
 
     public $new;

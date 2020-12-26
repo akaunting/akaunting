@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Sales;
 
-use App\Jobs\Sale\CreateInvoice;
-use App\Models\Sale\Invoice;
+use App\Jobs\Document\CreateDocument;
+use App\Models\Document\Document;
 use Tests\Feature\FeatureTestCase;
 
 class InvoicesTest extends FeatureTestCase
@@ -34,8 +34,8 @@ class InvoicesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('invoices', [
-            'invoice_number' => $request['invoice_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
         ]);
     }
 
@@ -49,8 +49,8 @@ class InvoicesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('invoices', [
-            'invoice_number' => $request['invoice_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
         ]);
     }
 
@@ -58,7 +58,7 @@ class InvoicesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $invoice = $this->dispatch(new CreateInvoice($request));
+        $invoice = $this->dispatch(new CreateDocument($request));
 
         $this->loginAs()
             ->get(route('invoices.edit', $invoice->id))
@@ -70,7 +70,7 @@ class InvoicesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $invoice = $this->dispatch(new CreateInvoice($request));
+        $invoice = $this->dispatch(new CreateDocument($request));
 
         $request['contact_email'] = $this->faker->safeEmail;
 
@@ -81,8 +81,8 @@ class InvoicesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('invoices', [
-            'invoice_number' => $request['invoice_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
             'contact_email' => $request['contact_email'],
         ]);
     }
@@ -91,7 +91,7 @@ class InvoicesTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $invoice = $this->dispatch(new CreateInvoice($request));
+        $invoice = $this->dispatch(new CreateDocument($request));
 
         $this->loginAs()
             ->delete(route('invoices.destroy', $invoice->id))
@@ -99,16 +99,16 @@ class InvoicesTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertSoftDeleted('invoices', [
-            'invoice_number' => $request['invoice_number'],
+        $this->assertSoftDeleted('documents', [
+            'document_number' => $request['document_number'],
         ]);
     }
 
     public function getRequest($recurring = false)
     {
-        $factory = factory(Invoice::class);
+        $factory = Document::factory();
 
-        $recurring ? $factory->states('items', 'recurring') : $factory->states('items');
+        $factory = $recurring ? $factory->invoice()->items()->recurring() : $factory->invoice()->items();
 
         return $factory->raw();
     }

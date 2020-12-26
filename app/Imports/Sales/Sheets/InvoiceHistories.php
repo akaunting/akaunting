@@ -3,16 +3,16 @@
 namespace App\Imports\Sales\Sheets;
 
 use App\Abstracts\Import;
-use App\Http\Requests\Sale\InvoiceHistory as Request;
-use App\Models\Sale\Invoice;
-use App\Models\Sale\InvoiceHistory as Model;
+use App\Http\Requests\Document\DocumentHistory as Request;
+use App\Models\Document\Document;
+use App\Models\Document\DocumentHistory as Model;
 
 class InvoiceHistories extends Import
 {
     public function model(array $row)
     {
         // @todo remove after laravel-excel 3.2 release
-        if ($row['invoice_number'] == $this->empty_field) {
+        if ($row['invoice_number'] === $this->empty_field) {
             return null;
         }
 
@@ -27,9 +27,11 @@ class InvoiceHistories extends Import
 
         $row = parent::map($row);
 
-        $row['invoice_id'] = (int) Invoice::number($row['invoice_number'])->pluck('id')->first();
+        $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
 
         $row['notify'] = (int) $row['notify'];
+
+        $row['type'] = Document::INVOICE_TYPE;
 
         return $row;
     }
@@ -39,6 +41,7 @@ class InvoiceHistories extends Import
         $rules = (new Request())->rules();
 
         $rules['invoice_number'] = 'required|string';
+
         unset($rules['invoice_id']);
 
         return $rules;

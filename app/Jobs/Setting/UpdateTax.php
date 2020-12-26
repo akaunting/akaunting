@@ -51,7 +51,7 @@ class UpdateTax extends Job
         }
 
         if ($this->request->has('type') && ($this->request->get('type') != $this->tax->type)) {
-            $message = trans('messages.error.type', ['text' => implode(', ', $relationships)]);
+            $message = trans('messages.error.change_type', ['text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
         }

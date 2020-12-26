@@ -62,12 +62,21 @@ return [
         'default'           => 'Default',
         'classic'           => 'Classic',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Hide Item Name',
+            'item_description'  => 'Hide Item Description',
+            'quantity'          => 'Hide Quantity',
+            'price'             => 'Hide Price',
+            'amount'            => 'Hide Amount',
+        ],
     ],
 
     'default' => [
         'description'       => 'Default account, currency, language of your company',
         'list_limit'        => 'Records Per Page',
         'use_gravatar'      => 'Use Gravatar',
+        'income_category'   => 'Income Category',
+        'expense_category'  => 'Expense Category',
     ],
 
     'email' => [

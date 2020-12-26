@@ -46,13 +46,13 @@
                 </div>
             </div>
 
-            @permission('update-settings-categories')
+            @can('update-settings-categories')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('categories.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
         {!! Form::close() !!}
     </div>
 @endsection

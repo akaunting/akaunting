@@ -4,14 +4,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @stack('navbar_search')
 
-            @permission('read-common-search')
+            @can('read-common-search')
                 <form class="navbar-search navbar-search-light form-inline mb-0" id="navbar-search-main" autocomplete="off">
                     <div id="global-search" class="form-group mb-0 mr-sm-3">
                         <div class="input-group input-group-alternative input-group-merge">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                             </div>
+
                             <input type="text" name="search" v-model="keyword" @input="onChange" v-click-outside="closeResult" class="form-control" autocomplete="off" placeholder="{{ trans('general.search') }}">
+
                             <div class="dropdown-menu dropdown-menu-xl dropdown-menu-center" ref="menu" :class="[{show: show}]">
                                 <div class="list-group list-group-flush">
                                     <a class="list-group-item list-group-item-action" :href="item.href" v-for="(item, index) in items">
@@ -32,11 +34,12 @@
                             </div>
                         </div>
                     </div>
+
                     <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </form>
-            @endpermission
+            @endcan
 
             <ul class="navbar-nav align-items-center ml-md-auto">
                 <li class="nav-item d-xl-none">
@@ -57,7 +60,7 @@
                     </a>
                 </li>
 
-                @permission(['create-sales-invoices', 'create-sales-revenues', 'create-sales-invoices', 'create-purchases-bills', 'create-purchases-payments', 'create-purchases-vendors'])
+                @canany(['create-sales-invoices', 'create-sales-revenues', 'create-sales-invoices', 'create-purchases-bills', 'create-purchases-payments', 'create-purchases-vendors'])
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-plus"></i>
@@ -66,75 +69,75 @@
                             <div class="row shortcuts px-4">
                                 @stack('navbar_create_invoice')
 
-                                @permission('create-sales-invoices')
+                                @can('create-sales-invoices')
                                     <a href="{{ route('invoices.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                         <i class="fa fa-money-bill"></i>
                                         </span>
                                         <small class="text-info">{{ trans_choice('general.invoices', 1) }}</small>
                                     </a>
-                                @endpermission
+                                @endcan
 
                                 @stack('navbar_create_revenue')
 
-                                @permission('create-sales-revenues')
+                                @can('create-sales-revenues')
                                     <a href="{{ route('revenues.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                             <i class="fas fa-hand-holding-usd"></i>
                                         </span>
                                         <small class="text-info">{{ trans_choice('general.revenues', 1) }}</small>
                                     </a>
-                                @endpermission
+                                @endcan
 
                                 @stack('navbar_create_customer')
 
-                                @permission('create-sales-customers')
+                                @can('create-sales-customers')
                                     <a href="{{ route('customers.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-info">
                                         <i class="fas fa-user"></i>
                                         </span>
                                         <small class="text-info">{{ trans_choice('general.customers', 1) }}</small>
                                     </a>
-                                @endpermission
+                                @endcan
 
                                 @stack('navbar_create_bill')
 
-                                @permission('create-purchases-bills')
+                                @can('create-purchases-bills')
                                     <a href="{{ route('bills.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                         <i class="fa fa-shopping-cart"></i>
                                         </span>
                                         <small class="text-danger">{{ trans_choice('general.bills', 1) }}</small>
                                     </a>
-                                @endpermission
+                                @endcan
 
                                 @stack('navbar_create_payment')
 
-                                @permission('create-purchases-payments')
+                                @can('create-purchases-payments')
                                     <a href="{{ route('payments.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                             <i class="fas fa-hand-holding-usd"></i>
                                         </span>
                                         <small class="text-danger">{{ trans_choice('general.payments', 1) }}</small>
                                     </a>
-                                @endpermission
+                                @endcan
 
                                 @stack('navbar_create_vendor_start')
 
-                                @permission('create-purchases-vendors')
+                                @can('create-purchases-vendors')
                                     <a href="{{ route('vendors.create') }}" class="col-4 shortcut-item">
                                         <span class="shortcut-media avatar rounded-circle bg-gradient-danger">
                                         <i class="fas fa-user"></i>
                                         </span>
                                         <small class="text-danger">{{ trans_choice('general.vendors', 1) }}</small>
                                     </a>
-                                @endpermission
+                                @endcan
 
                                 @stack('navbar_create_vendor_end')
                             </div>
                         </div>
                     </li>
-                @endpermission
+                @endcanany
 
                 @stack('navbar_notifications')
 
@@ -197,7 +200,7 @@
 
                 @stack('navbar_updates')
 
-                @permission('read-install-updates')
+                @can('read-install-updates')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('updates.index') }}" title="{{ $updates }} Updates Available" role="button" aria-haspopup="true" aria-expanded="false">
                             <span>
@@ -208,7 +211,7 @@
                             @endif
                         </a>
                     </li>
-                @endpermission
+                @endcan
 
                 @stack('navbar_help_start')
 
@@ -251,45 +254,45 @@
 
                         @stack('navbar_profile_edit')
 
-                        @permission(['read-auth-users', 'read-auth-profile'])
+                        @can(['read-auth-users', 'read-auth-profile'])
                             <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">
                                 <i class="fas fa-user"></i>
                                 <span>{{ trans('auth.profile') }}</span>
                             </a>
-                        @endpermission
+                        @endcan
 
-                        @permission(['read-auth-users', 'read-auth-roles', 'read-auth-permissions'])
+                        @canany(['read-auth-users', 'read-auth-roles', 'read-auth-permissions'])
                             <div class="dropdown-divider"></div>
 
                             @stack('navbar_profile_users')
 
-                            @permission('read-auth-users')
+                            @can('read-auth-users')
                                 <a href="{{ route('users.index') }}" class="dropdown-item">
                                     <i class="fas fa-users"></i>
                                     <span>{{ trans_choice('general.users', 2) }}</span>
                                 </a>
-                            @endpermission
+                            @endcan
 
                             @stack('navbar_profile_roles')
 
-                            @permission('read-auth-roles')
+                            @can('read-auth-roles')
                                 <a href="{{ route('roles.index') }}" class="dropdown-item">
                                     <i class="fas fa-list"></i>
                                     <span>{{ trans_choice('general.roles', 2) }}</span>
                                 </a>
-                            @endpermission
+                            @endcan
 
                             @stack('navbar_profile_permissions_start')
 
-                            @permission('read-auth-permissions')
+                            @can('read-auth-permissions')
                                 <a href="{{ route('permissions.index') }}" class="dropdown-item">
                                     <i class="fas fa-key"></i>
                                     <span>{{ trans_choice('general.permissions', 2) }}</span>
                                 </a>
-                            @endpermission
+                            @endcan
 
                             @stack('navbar_profile_permissions_end')
-                        @endpermission
+                        @endcanany
 
                         <div class="dropdown-divider"></div>
 

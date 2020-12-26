@@ -22,19 +22,19 @@
 
                     {{ Form::textGroup('rate', trans('taxes.rate'), 'percent', ['@input' => 'onChangeTaxRate']) }}
 
-                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $tax->type) }}
+                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, $tax->type, ['disabledOptions' => $disable_options]) }}
 
                     {{ Form::radioGroup('enabled', trans('general.enabled'), $tax->enabled) }}
                 </div>
             </div>
 
-            @permission('update-settings-taxes')
+            @can('update-settings-taxes')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('taxes.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
         {!! Form::close() !!}
     </div>
 @endsection

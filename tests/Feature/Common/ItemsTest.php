@@ -84,6 +84,6 @@ class ItemsTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Item::class)->states('enabled')->raw();
+        return Item::factory()->enabled()->raw();
     }
 }

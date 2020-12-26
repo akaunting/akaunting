@@ -65,10 +65,10 @@
                                             <button type="button" class="dropdown-item" @click="onEditTax('{{ $item->id }}')">
                                                 {{ trans('general.edit') }}
                                             </button>
-                                            @permission('delete-settings-taxes')
+                                            @can('delete-settings-taxes')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'wizard/taxes') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>
@@ -103,13 +103,13 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="{{ route('wizard.currencies.index') }}" class="btn btn-icon btn-white header-button-top">
+                    <a href="{{ route('wizard.currencies.index') }}" class="btn btn-icon btn-white">
                         <span class="btn-inner--text">{{ trans('pagination.previous') }}</span>
                     </a>
                 </div>
 
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('wizard.finish.index') }}" id="wizard-skip" class="btn btn-icon btn-white header-button-top">
+                    <a href="{{ route('wizard.finish.index') }}" id="wizard-skip" class="btn btn-icon btn-white">
                         <span class="btn-inner--text">{{ trans('pagination.next') }}</span>
                     </a>
                 </div>

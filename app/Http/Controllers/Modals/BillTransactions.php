@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Banking\Transaction as Request;
-use App\Jobs\Banking\CreateDocumentTransaction;
+use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
-use App\Models\Purchase\Bill;
+use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
@@ -31,11 +31,11 @@ class BillTransactions extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  Bill  $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function create(Bill $bill)
+    public function create(Document $bill)
     {
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -86,14 +86,14 @@ class BillTransactions extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Bill  $bill
+     * @param  Document $bill
      * @param  Request  $request
      *
      * @return Response
      */
-    public function store(Bill $bill, Request $request)
+    public function store(Document $bill, Request $request)
     {
-        $response = $this->ajaxDispatch(new CreateDocumentTransaction($bill, $request));
+        $response = $this->ajaxDispatch(new CreateBankingDocumentTransaction($bill, $request));
 
         if ($response['success']) {
             $response['redirect'] = route('bills.show', $bill->id);

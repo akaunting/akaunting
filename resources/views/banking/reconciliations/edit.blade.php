@@ -108,21 +108,21 @@
                 @endif
             </div>
 
-            @permission('update-banking-reconciliations')
+            @can('update-banking-reconciliations')
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-12">
                             @if ($transactions->count())
                                 <div class="float-right">
-                                    <a href="{{ route('reconciliations.index') }}" class="btn btn-outline-secondary header-button-top"><span class="fa fa-times"></span> &nbsp;{{ trans('general.cancel') }}</a>
+                                    <a href="{{ route('reconciliations.index') }}" class="btn btn-outline-secondary">{{ trans('general.cancel') }}</a>
 
                                     {!! Form::button(
-                                        '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span :class="[{\'opacity-10\': reconcile}]" v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-check"></i></span>' . '<span :class="[{\'opacity-10\': reconcile}]" class="btn-inner--text"> ' . trans('reconciliations.reconcile') . '</span>',
-                                        [':disabled' => 'reconcile || form.loading', '@click' => 'onReconcileSubmit', 'type' => 'button', 'class' => 'btn btn-icon btn-info header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+                                        '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'opacity-10\': reconcile}]" class="btn-inner--text">' . trans('reconciliations.reconcile') . '</span>',
+                                        [':disabled' => 'reconcile || form.loading', '@click' => 'onReconcileSubmit', 'type' => 'button', 'class' => 'btn btn-icon btn-info', 'data-loading-text' => trans('general.loading')]) !!}
 
                                     {!! Form::button(
-                                        '<div v-if="form.loading" class="aka-loader-frame"><div class="aka-loader"></div></div> <span v-if="!form.loading" class="btn-inner--icon"><i class="fas fa-save"></i></span>' . '<span v-if="!form.loading" class="btn-inner--text"> ' . trans('general.save') . '</span>',
-                                        [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success header-button-top', 'data-loading-text' => trans('general.loading')]) !!}
+                                        '<span v-if="form.loading" class="btn-inner--icon"><i class="aka-loader"></i></span> <span :class="[{\'ml-0\': form.loading}]" class="btn-inner--text">' . trans('general.save') . '</span>',
+                                        [':disabled' => 'form.loading', 'type' => 'submit', 'class' => 'btn btn-icon btn-success']) !!}
                                 </div>
                             @else
                                 <div class="text-sm text-muted" id="datatable-basic_info" role="status" aria-live="polite">
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
         {!! Form::close() !!}
     </div>

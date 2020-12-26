@@ -2,13 +2,13 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Utilities\Updater;
+use App\Utilities\Versions;
+use App\Traits\Modules;
 use Illuminate\View\View;
-use App\Traits\Modules as RemoteModules;
 
 class Header
 {
-    use RemoteModules;
+    use Modules;
 
     /**
      * Bind data to the view.
@@ -35,12 +35,12 @@ class Header
                 ];
             }
 
-            $undereads = $user->unreadNotifications;
+            $unreads = $user->unreadNotifications;
 
-            foreach ($undereads as $underead) {
-                $data = $underead->getAttribute('data');
+            foreach ($unreads as $unread) {
+                $data = $unread->getAttribute('data');
 
-                switch ($underead->getAttribute('type')) {
+                switch ($unread->getAttribute('type')) {
                     case 'App\Notifications\Purchase\Bill':
                         $bills[$data['bill_id']] = $data['amount'];
                         $notifications++;
@@ -52,7 +52,7 @@ class Header
                 }
             }
 
-            $updates = count(Updater::all());
+            $updates = count(Versions::getUpdates());
 
             $this->loadSuggestions();
         }

@@ -34,7 +34,7 @@ abstract class Export implements FromCollection, ShouldAutoSize, WithHeadings, W
     {
         $map = [];
 
-        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'created_at'];
+        $date_fields = ['paid_at', 'invoiced_at', 'billed_at', 'due_at', 'issued_at', 'created_at', 'transferred_at'];
 
         $evil_chars = ['=', '+', '-', '@'];
 

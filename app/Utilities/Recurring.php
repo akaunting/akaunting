@@ -2,8 +2,7 @@
 
 namespace App\Utilities;
 
-use App\Models\Purchase\Bill;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use Date;
 
 class Recurring
@@ -32,7 +31,7 @@ class Recurring
 
                 $start_date = Date::parse($start->format('Y-m-d'));
 
-                if (($clone instanceof Invoice) || ($clone instanceof Bill)) {
+                if ($clone instanceof Document) {
                     // Days between invoiced/billed and due date
                     $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->$issued_date_field));
 

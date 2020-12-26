@@ -365,7 +365,7 @@ tbody .row {
     position: relative;
     animation: aka-loader 0.7s ease alternate infinite;
     animation-delay: 0.28s;
-    top: -13px;
+    top: -13px !important;
     margin: -10px auto 0;
 }
 
@@ -846,3 +846,405 @@ table .align-items-center td span.badge {
     border: 1px solid #3c3f72;
 }
 /*--lightbox Finish--*/
+
+/*-- Search string & BulkAction Start -- */
+#app > .card > .card-header.bg-gradient-primary {
+    min-height: 88px;
+}
+/*-- Search string & BulkAction Finish --*/
+
+/*-- Embed accordion textarea Start--*/
+.embed-card-body-footer {
+    margin-bottom: -1.5rem;
+}
+
+.embed-acoordion-textarea {
+    margin-bottom: 0;
+}
+
+.embed-acoordion-textarea .embed-card-body-footer-textarea {
+    margin-left: -12px;
+}
+
+.embed-acoordion-textarea textarea {
+    border: none;
+    margin-top: 5px;
+    resize: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-clip: unset;
+    margin-left: 15px;
+}
+
+.embed-acoordion-textarea textarea:focus {
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-clip: unset;
+}
+/*-- Embed accordion textarea Start Finish--*/
+
+.document-item-body {
+    margin-left: -25px;
+    margin-right: -25px;
+}
+
+.item-columns-edit {
+    display: inline-block;
+    margin-left: 50px;
+    background: #f6f9fc;
+    color: #8898aa;
+    padding: 6px 12px;
+    border-radius: 6px 6px 0 0;
+}
+
+.document-total-currency {
+    float: right;
+    margin-bottom: 0;
+    max-width: 150px;
+}
+
+.document-total-span {
+    vertical-align: middle;
+    line-height: 44px;
+    margin-right: 15px;
+}
+
+#invoice-item-rows td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.disabled-money,
+.disabled-money input {
+    border:none !important;
+    background-color: #ffffff !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-transition: none !important;
+    transition: none !important;
+    padding: 0;
+}
+
+.form-group .custom-file {
+    height: calc(1.5em + 1.25rem + 130px) !important;
+}
+
+.dz-message .dz-button {
+    background: hsla(0,0%,100%,0);
+    border: none;
+    color: #8898aa;
+}
+
+.disabled-col-aka .col-aka {
+    margin-left: inherit !important;
+}
+
+.el-select-dropdown__item.is-disabled {
+    color: #C0C4CC !important;
+    cursor: not-allowed !important;
+}
+
+.btn-delete {
+    color: #8898aa;
+}
+
+.btn-delete:hover {
+    color: #ef3232;
+}
+
+.td-move {
+    width: 40px;
+    min-width: 40px;
+    padding-left: 0px;
+    padding-right: 0px;
+    /* width: 40px; padding-left: 15px; padding-top: 20px; padding-right: 16px; */
+}
+
+/* Contact Card Start */
+
+.document-contact-without-contact .aka-select {
+    width: 384px;
+}
+
+.aka-select.aka-select--medium {
+    max-width: 320px;
+}
+
+.aka-select {
+    position: relative;
+    border-radius: 4px;
+    outline: none;
+    margin: 4px 0;
+    display: inline-block;
+    width: 100%;
+    min-width: 160px;
+    max-width: 320px;
+}
+
+.document-contact-without-contact .aka-box {
+    padding: 0;
+}
+
+.aka-box.aka-box--large, .aka-box--gray.aka-box--large {
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.aka-box {
+    display: block;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #b2c2cd;
+    background-color: #fff;
+}
+
+.aka-box__content>:last-child {
+    margin-bottom: 0;
+}
+
+.aka-box__content>:first-child {
+    margin-top: 0;
+}
+
+.document-contact-without-contact-box {
+    display: flex;
+    height: 135px;
+}
+
+.btn-aka-link[class*="aka-btn"] {
+    margin: 0;
+    padding: 0;
+}
+
+.document-contact-without-contact-box-btn {
+    margin: 0;
+}
+
+.btn-aka-link {
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+.aka-btn--fluid {
+    width: 100%;
+}
+
+.aka-text-link,
+.aka-text-link-external,
+.btn-aka-link,
+.aka-datepicker-quicklinks
+.aka-datepicker-quicklink,
+.aka-table-action {
+    text-decoration: none;
+    color: #55588b;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-aka-link:hover:not(.is-disabled):not(:focus) {
+    outline: 0;
+}
+
+.document-contact-without-contact-box-btn:hover:not(.is-disabled) {
+    text-decoration: none;
+}
+
+.btn-aka-link[class*="aka-btn"] {
+    margin: 0;
+    padding: 0;
+}
+
+.aka-text-link:hover,
+.aka-text-link-external:hover,
+.btn-aka-link:hover,
+.aka-datepicker-quicklinks
+.aka-datepicker-quicklink:hover,
+.aka-table-action:hover {
+    color: #1f7eea;
+    text-decoration: underline;
+}
+
+.document-contact-without-contact-box-btn {
+    margin: 0;
+}
+
+.btn-aka-link {
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+.aka-btn--fluid {
+    width: 100%;
+}
+
+.document-contact-without-contact .aka-select .aka-select-menu {
+    padding: 0;
+    top: 0;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.is-open>.aka-select-menu {
+    visibility: visible;
+    height: auto;
+    -webkit-animation: panel-slide-down .1s ease-in-out forwards;
+    animation: panel-slide-down .1s ease-in-out forwards;
+}
+
+.aka-select-menu {
+    list-style: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    top: 110%;
+    z-index: 1000;
+    min-width: 100%;
+    padding: 8px 0;
+    border-radius: 4px;
+    color: #1c252c;
+    background-color: white;
+    box-shadow: 0 0 0 1px rgba(77,101,117,0.1), 0 3px 10px 0 rgba(77,101,117,0.2);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    height: 0;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    overflow: hidden;
+    padding: 0;
+    right: 0;
+    left: 0;
+    top: 100%;
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.document-contact-without-contact .aka-select .aka-select-menu .aka-select-search-container {
+    margin-top: 0;
+}
+
+.aka-select-search-container {
+    padding: 8px;
+}
+
+.is-open>.aka-select-menu {
+    visibility: visible;
+    height: auto;
+    -webkit-animation: panel-slide-down .1s ease-in-out forwards;
+    animation: panel-slide-down .1s ease-in-out forwards;
+}
+
+.aka-select-search-container .aka-prefixed-input {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.aka-prefixed-input.aka-prefixed-input--fluid {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.aka-prefixed-input {
+    width: 100%;
+    min-width: 160px;
+    max-width: 320px;
+}
+
+.aka-prefixed-input, .aka-suffixed-input {
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.aka-prefixed-input-prefix {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 19px;
+    line-height: 19px;
+    vertical-align: middle;
+    color: #b2c2cd;
+    pointer-events: none;
+    text-align: left;
+    width: 40px;
+    margin-right: -40px;
+    padding-left: 12px;
+}
+
+.aka-select-menu-options {
+    list-style: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    max-height: 460px;
+    overflow: auto;
+}
+
+.aka-select-menu-option.is-active:not(.is-selected):not(.is-disabled) {
+    background-color: #f0f4fa;
+}
+
+.aka-select-menu-option {
+    padding: 8px 10px;
+    cursor: pointer;
+    display: -webkit-flex;
+    display: flex;
+    position: relative;
+}
+
+.text-strong {
+    font-weight: bold;
+}
+
+.aka-select__footer {
+    text-align: center;
+    border-top: 1px solid #b2c2cd;
+    padding: 8px;
+    cursor: pointer;
+    color: #55588b;
+    font-weight: bold;
+}
+
+.document-item-table>.aka-table>.aka-table-body>.aka-table-row:last-child .btn-aka-link {
+    padding: 13px 15px;
+    margin: 0;
+}
+
+.document-add-info-content-info-business {
+    margin-top: 12px;
+}
+
+.document-add-info-content-info {
+    text-align: right;
+}
+
+.document-add-info .address .aka-text {
+    line-height: 16px;
+}
+
+.aka-text, .aka-text--body {
+    margin: 16px 0;
+}
+
+.box-shadow-none {
+    text-decoration: none;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+.card-header.collapsed.background-none {
+    background-color: #f8f9fe;
+}
+/* Document Finish */

@@ -3,14 +3,14 @@
 @section('title', trans_choice('general.transactions', 2))
 
 @section('new_button')
-    @permission('create-sales-revenues')
-        <span><a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_income') }}</a></span>
-    @endpermission
-    @permission('create-purchases-payments')
-        <span><a href="{{ route('payments.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_expense') }}</a></span>
-    @endpermission
-    <span><a href="{{ route('import.create', ['banking', 'transactions']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload "></span> &nbsp;{{ trans('import.import') }}</a></span>
-    <span><a href="{{ route('transactions.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    @can('create-sales-revenues')
+        <a href="{{ route('revenues.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_income') }}</a>
+    @endcan
+    @can('create-purchases-payments')
+        <a href="{{ route('payments.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_expense') }}</a>
+    @endcan
+    <a href="{{ route('import.create', ['banking', 'transactions']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+    <a href="{{ route('transactions.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')
@@ -22,10 +22,7 @@
                 'role' => 'form',
                 'class' => 'mb-0'
             ]) !!}
-                <akaunting-search
-                    :placeholder="'{{ trans('general.search_placeholder') }}'"
-                    :options="{{ json_encode([]) }}"
-                ></akaunting-search>
+                <x-search-string model="App\Models\Banking\Transaction" />
             {!! Form::close() !!}
         </div>
 

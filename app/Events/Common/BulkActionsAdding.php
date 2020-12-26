@@ -2,12 +2,10 @@
 
 namespace App\Events\Common;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class BulkActionsAdding
+class BulkActionsAdding extends Event
 {
-    use SerializesModels;
-
     public $bulk_action;
 
     /**

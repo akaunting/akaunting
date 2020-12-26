@@ -20,7 +20,7 @@ class Permissions extends Controller
     {
         $permissions = Permission::collect();
 
-        return view('auth.permissions.index', compact('permissions'));
+        return $this->response('auth.permissions.index', compact('permissions'));
     }
 
     /**

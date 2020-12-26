@@ -29,6 +29,7 @@
         </el-carousel>
 
       <LightBox
+        v-if="media.length"
         ref="lightbox"
         :media="media"
         :show-caption="true"

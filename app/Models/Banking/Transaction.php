@@ -4,17 +4,19 @@ namespace App\Models\Banking;
 
 use App\Abstracts\Model;
 use App\Models\Setting\Category;
+use App\Scopes\Transaction as Scope;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Media;
 use App\Traits\Recurring;
 use App\Traits\Transactions;
 use Bkwld\Cloner\Cloneable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
-    use Cloneable, Currencies, DateTime, Media, Recurring, Transactions;
+    use Cloneable, Currencies, DateTime, HasFactory, Media, Recurring, Transactions;
 
     protected $table = 'transactions';
 
@@ -26,6 +28,16 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = ['company_id', 'type', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'document_id', 'contact_id', 'description', 'category_id', 'payment_method', 'reference', 'parent_id'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'amount' => 'double',
+        'currency_rate' => 'double',
+    ];
 
     /**
      * Sortable columns.
@@ -41,6 +53,18 @@ class Transaction extends Model
      */
     public $cloneable_relations = ['recurring'];
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new Scope);
+    }
+
     public function account()
     {
         return $this->belongsTo('App\Models\Banking\Account')->withDefault(['name' => trans('general.na')]);
@@ -48,7 +72,7 @@ class Transaction extends Model
 
     public function bill()
     {
-        return $this->belongsTo('App\Models\Purchase\Bill', 'document_id');
+        return $this->belongsTo('App\Models\Document\Document', 'document_id');
     }
 
     public function category()
@@ -68,7 +92,12 @@ class Transaction extends Model
 
     public function invoice()
     {
-        return $this->belongsTo('App\Models\Sale\Invoice', 'document_id');
+        return $this->belongsTo('App\Models\Document\Document', 'document_id');
+    }
+
+    public function document()
+    {
+        return $this->belongsTo('App\Models\Document\Document', 'document_id');
     }
 
     public function recurring()
@@ -227,28 +256,6 @@ class Transaction extends Model
     /**
      * Convert amount to double.
      *
-     * @param  string  $value
-     * @return void
-     */
-    public function setAmountAttribute($value)
-    {
-        $this->attributes['amount'] = (double) $value;
-    }
-
-    /**
-     * Convert currency rate to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setCurrencyRateAttribute($value)
-    {
-        $this->attributes['currency_rate'] = (double) $value;
-    }
-
-    /**
-     * Convert amount to double.
-     *
      * @return float
      */
     public function getAmountForAccountAttribute()
@@ -322,5 +329,15 @@ class Transaction extends Model
     public function getRouteIdAttribute($value)
     {
         return $value ?? $this->document_id ?? $this->id;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Transaction::new();
     }
 }

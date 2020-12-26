@@ -4,8 +4,7 @@ namespace App\Observers;
 
 use App\Abstracts\Observer;
 use App\Events\Document\TransactionsCounted;
-use App\Jobs\Purchase\CreateBillHistory;
-use App\Jobs\Sale\CreateInvoiceHistory;
+use App\Jobs\Document\CreateDocumentHistory;
 use App\Models\Banking\Transaction as Model;
 use App\Traits\Jobs;
 
@@ -43,7 +42,7 @@ class Transaction extends Observer
 
         $invoice->save();
 
-        $this->dispatch(new CreateInvoiceHistory($invoice, 0, $this->getDescription($transaction)));
+        $this->dispatch(new CreateDocumentHistory($invoice, 0, $this->getDescription($transaction)));
     }
 
     protected function updateBill($transaction)
@@ -59,7 +58,7 @@ class Transaction extends Observer
 
         $bill->save();
 
-        $this->dispatch(new CreateBillHistory($bill, 0, $this->getDescription($transaction)));
+        $this->dispatch(new CreateDocumentHistory($bill, 0, $this->getDescription($transaction)));
     }
 
     protected function getDescription($transaction)

@@ -40,7 +40,7 @@ class Dashboards extends Controller
     {
         $dashboards = user()->dashboards()->collect();
 
-        return view('common.dashboards.index', compact('dashboards'));
+        return $this->response('common.dashboards.index', compact('dashboards'));
     }
 
     /**
@@ -62,7 +62,7 @@ class Dashboards extends Controller
             $dashboard = $this->dispatch(new CreateDashboard([
                 'company_id' => session('company_id'),
                 'name' => trans_choice('general.dashboards', 1),
-                'with_widgets' => true,
+                'default_widgets' => true,
             ]));
         }
 

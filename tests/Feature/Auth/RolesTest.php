@@ -84,7 +84,7 @@ class RolesTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Role::class)->states('permissions')->raw();
+        return Role::factory()->permissions()->raw();
     }
 
     public function getAssertRequest($request)

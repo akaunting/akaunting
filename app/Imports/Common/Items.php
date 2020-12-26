@@ -2,29 +2,17 @@
 
 namespace App\Imports\Common;
 
-use App\Abstracts\Import;
-use App\Http\Requests\Common\Item as Request;
-use App\Models\Common\Item as Model;
+use App\Imports\Common\Sheets\Items as Base;
+use App\Imports\Common\Sheets\ItemTaxes;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class Items extends Import
+class Items implements WithMultipleSheets
 {
-    public function model(array $row)
+    public function sheets(): array
     {
-        return new Model($row);
-    }
-
-    public function map($row): array
-    {
-        $row = parent::map($row);
-
-        $row['category_id'] = $this->getCategoryId($row, 'item');
-        $row['tax_id'] = $this->getTaxId($row);
-
-        return $row;
-    }
-
-    public function rules(): array
-    {
-        return (new Request())->rules();
+        return [
+            'items' => new Base(),
+            'item_taxes' => new ItemTaxes(),
+        ];
     }
 }

@@ -35,13 +35,13 @@
             </div>
         </div>
 
-        @permission('update-settings-settings')
+        @can('update-settings-settings')
             <div class="card-footer">
                 <div class="row save-buttons">
                     {{ Form::saveButtons('settings.index') }}
                 </div>
             </div>
-        @endpermission
+        @endcan
     </div>
 
     {!! Form::hidden('_prefix', 'schedule') !!}

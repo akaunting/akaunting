@@ -3,16 +3,16 @@
 namespace App\Exports\Sales\Sheets;
 
 use App\Abstracts\Export;
-use App\Models\Sale\InvoiceTotal as Model;
+use App\Models\Document\DocumentTotal as Model;
 
 class InvoiceTotals extends Export
 {
     public function collection()
     {
-        $model = Model::with('invoice')->usingSearchString(request('search'));
+        $model = Model::invoice()->with('document')->usingSearchString(request('search'));
 
         if (!empty($this->ids)) {
-            $model->whereIn('invoice_id', (array) $this->ids);
+            $model->whereIn('document_id', (array) $this->ids);
         }
 
         return $model->cursor();
@@ -20,13 +20,13 @@ class InvoiceTotals extends Export
 
     public function map($model): array
     {
-        $invoice = $model->invoice;
+        $document = $model->document;
 
-        if (empty($invoice)) {
+        if (empty($document)) {
             return [];
         }
 
-        $model->invoice_number = $invoice->invoice_number;
+        $model->invoice_number = $document->document_number;
 
         return parent::map($model);
     }

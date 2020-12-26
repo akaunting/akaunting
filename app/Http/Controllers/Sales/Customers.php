@@ -12,7 +12,7 @@ use App\Jobs\Common\DeleteContact;
 use App\Jobs\Common\UpdateContact;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use Date;
 use Illuminate\Http\Request as BaseRequest;
@@ -28,7 +28,7 @@ class Customers extends Controller
     {
         $customers = Contact::with('invoices.transactions')->customer()->collect();
 
-        return view('sales.customers.index', compact('customers'));
+        return $this->response('sales.customers.index', compact('customers'));
     }
 
     /**
@@ -49,7 +49,7 @@ class Customers extends Controller
         $counts = [];
 
         // Handle invoices
-        $invoices = Invoice::with('transactions')->where('contact_id', $customer->id)->get();
+        $invoices = Document::invoice()->with('transactions')->where('contact_id', $customer->id)->get();
 
         $counts['invoices'] = $invoices->count();
 
@@ -87,7 +87,7 @@ class Customers extends Controller
 
         $limit = request('limit', setting('default.list_limit', '25'));
         $transactions = $this->paginate($transactions->sortByDesc('paid_at'), $limit);
-        $invoices = $this->paginate($invoices->sortByDesc('invoiced_at'), $limit);
+        $invoices = $this->paginate($invoices->sortByDesc('issued_at'), $limit);
 
         return view('sales.customers.show', compact('customer', 'counts', 'amounts', 'transactions', 'invoices'));
     }

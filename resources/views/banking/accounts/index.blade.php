@@ -3,9 +3,9 @@
 @section('title', trans_choice('general.accounts', 2))
 
 @section('new_button')
-    @permission('create-banking-accounts')
-        <a href="{{ route('accounts.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
-    @endpermission
+    @can('create-banking-accounts')
+        <a href="{{ route('accounts.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+    @endcan
 @endsection
 
 @section('content')
@@ -18,10 +18,7 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Banking\Account" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.accounts', $bulk_actions, ['group' => 'banking', 'type' => 'accounts']) }}
@@ -68,10 +65,10 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('accounts.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-banking-accounts')
+                                        @can('delete-banking-accounts')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'accounts.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

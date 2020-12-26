@@ -22,6 +22,10 @@
 
                 {{ Form::selectGroup('currency', trans_choice('general.currencies', 1), 'exchange-alt', $currencies, setting('default.currency'), []) }}
 
+                {{ Form::selectRemoteGroup('income_category', trans('settings.default.income_category'), 'folder', $sales_categories, setting('default.income_category'), ['remote_action' => route('categories.index'). '?type=income']) }}
+
+                {{ Form::selectRemoteGroup('expense_category', trans('settings.default.expense_category'), 'folder', $purchases_categories, setting('default.expense_category'), ['remote_action' => route('categories.index'). '?type=expense']) }}
+
                 {{ Form::selectGroup('tax', trans_choice('general.taxes', 1), 'percent', $taxes, setting('default.tax'), []) }}
 
                 {{ Form::selectGroup('payment_method', trans_choice('general.payment_methods', 1), 'credit-card', $payment_methods, setting('default.payment_method'), []) }}
@@ -34,13 +38,13 @@
             </div>
         </div>
 
-        @permission('update-settings-settings')
+        @can('update-settings-settings')
             <div class="card-footer">
                 <div class="row save-buttons">
                     {{ Form::saveButtons('settings.index') }}
                 </div>
             </div>
-        @endpermission
+        @endcan
     </div>
 
     {!! Form::hidden('_prefix', 'default') !!}

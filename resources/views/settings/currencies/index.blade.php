@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.currencies', 2))
 
-@permission('create-settings-currencies')
+@can('create-settings-currencies')
     @section('new_button')
-        <span><a href="{{ route('currencies.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <a href="{{ route('currencies.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -18,10 +18,7 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Setting\Currency" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.currencies', $bulk_actions, ['group' => 'settings', 'type' => 'currencies']) }}
@@ -68,10 +65,10 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('currencies.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-settings-currencies')
+                                        @can('delete-settings-currencies')
                                         <div class="dropdown-divider"></div>
                                         {!! Form::deleteLink($item, 'currencies.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

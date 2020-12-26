@@ -3,16 +3,16 @@
 namespace App\Imports\Purchases\Sheets;
 
 use App\Abstracts\Import;
-use App\Http\Requests\Purchase\BillHistory as Request;
-use App\Models\Purchase\Bill;
-use App\Models\Purchase\BillHistory as Model;
+use App\Http\Requests\Document\DocumentHistory as Request;
+use App\Models\Document\Document;
+use App\Models\Document\DocumentHistory as Model;
 
 class BillHistories extends Import
 {
     public function model(array $row)
     {
         // @todo remove after laravel-excel 3.2 release
-        if ($row['bill_number'] == $this->empty_field) {
+        if ($row['bill_number'] === $this->empty_field) {
             return null;
         }
 
@@ -27,9 +27,11 @@ class BillHistories extends Import
 
         $row = parent::map($row);
 
-        $row['bill_id'] = (int) Bill::number($row['bill_number'])->pluck('id')->first();
+        $row['document_id'] = (int) Document::bill()->number($row['bill_number'])->pluck('id')->first();
 
         $row['notify'] = (int) $row['notify'];
+
+        $row['type'] = Document::BILL_TYPE;
 
         return $row;
     }
@@ -39,6 +41,7 @@ class BillHistories extends Import
         $rules = (new Request())->rules();
 
         $rules['bill_number'] = 'required|string';
+
         unset($rules['bill_id']);
 
         return $rules;

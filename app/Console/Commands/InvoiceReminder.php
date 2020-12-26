@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Events\Sale\InvoiceReminded;
+use App\Events\Document\DocumentReminded;
 use App\Models\Common\Company;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
+use App\Notifications\Sale\Invoice as Notification;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;
@@ -80,11 +81,11 @@ class InvoiceReminder extends Command
         $date = Date::today()->subDays($day)->toDateString();
 
         // Get upcoming invoices
-        $invoices = Invoice::with('contact')->accrued()->notPaid()->due($date)->cursor();
+        $invoices = Document::invoice()->with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($invoices as $invoice) {
             try {
-                event(new InvoiceReminded($invoice));
+                event(new DocumentReminded($invoice, Notification::class));
             } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
                 $this->error($e->getMessage());
 

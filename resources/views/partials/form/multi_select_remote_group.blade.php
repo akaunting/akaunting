@@ -17,6 +17,10 @@
         name="{{ $name }}"
         :options="{{ json_encode($values) }}"
 
+        @if (isset($attributes['disabledOptions']))
+        :disabled-options="{{ json_encode($attributes['disabledOptions']) }}"
+        @endif
+
         @if (!empty($selected) || old($name))
         :value="{{ json_encode(old($name, $selected)) }}"
         @endif
@@ -62,9 +66,8 @@
         @endif
 
         remote-action="{{ $attributes['remote_action'] }}"
-        remote-type="{{ $attributes['remote_type'] }}"
 
-        @if (!empty($attributes['currecny_code'])) 
+        @if (!empty($attributes['currecny_code']))
         currency-code="{{ $attributes['currecny_code'] }}"
         @endif
 

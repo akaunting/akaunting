@@ -45,7 +45,7 @@ class Reports extends Controller
             $categories[$class->getCategory()][] = $report;
         }
 
-        return view('common.reports.index', compact('categories', 'totals', 'icons'));
+        return $this->response('common.reports.index', compact('categories', 'totals', 'icons'));
     }
 
     /**

@@ -66,6 +66,10 @@
         @else
         :form-error="form.errors.get('{{ $name }}')"
         @endif
+
+        @if (isset($attributes['row-input']))
+        :row-input="{{ $attributes['row-input'] }}"
+        @endif
     ></akaunting-money>
 
 @stack($name . '_input_end')

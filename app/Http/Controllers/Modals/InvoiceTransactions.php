@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Banking\Transaction as Request;
-use App\Jobs\Banking\CreateDocumentTransaction;
+use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Models\Setting\Currency;
 use App\Utilities\Modules;
 use App\Traits\Uploads;
@@ -31,11 +31,11 @@ class InvoiceTransactions extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  Invoice  $invoice
+     * @param  Document  $invoice
      *
      * @return Response
      */
-    public function create(Invoice $invoice)
+    public function create(Document $invoice)
     {
         $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -91,14 +91,14 @@ class InvoiceTransactions extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Invoice $invoice
+     * @param Document $invoice
      * @param Request $request
      *
      * @return Response
      */
-    public function store(Invoice $invoice, Request $request)
+    public function store(Document $invoice, Request $request)
     {
-        $response = $this->ajaxDispatch(new CreateDocumentTransaction($invoice, $request));
+        $response = $this->ajaxDispatch(new CreateBankingDocumentTransaction($invoice, $request));
 
         if ($response['success']) {
             $response['redirect'] = route('invoices.show', $invoice->id);

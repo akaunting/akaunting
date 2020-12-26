@@ -84,6 +84,6 @@ class CategoriesTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Category::class)->states('enabled')->raw();
+        return Category::factory()->enabled()->raw();
     }
 }

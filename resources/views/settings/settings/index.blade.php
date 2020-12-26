@@ -6,7 +6,7 @@
     <div class="card shadow">
         <div class="card-body">
             <div class="row">
-                @permission('read-settings-company')
+                @can('read-settings-company')
                     <div class="col-md-4">
                         <a href="{{ route('settings.company.edit') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -24,9 +24,9 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
-                @permission('read-settings-localisation')
+                @can('read-settings-localisation')
                     <div class="col-md-4">
                         <a href="{{ route('settings.localisation.edit') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -44,9 +44,9 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
-                @permission('read-settings-invoice')
+                @can('read-settings-invoice')
                     <div class="col-md-4">
                         <a href="{{ route('settings.invoice.edit') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -64,9 +64,9 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
-                @permission('read-settings-defaults')
+                @can('read-settings-defaults')
                     <div class="col-md-4">
                         <a href="{{ route('settings.default.edit') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -84,9 +84,9 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
-                @permission('read-settings-email')
+                @can('read-settings-email')
                     <div class="col-md-4">
                         <a href="{{ route('settings.email.edit') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -104,9 +104,9 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
-                @permission('read-settings-schedule')
+                @can('read-settings-schedule')
                     <div class="col-md-4">
                         <a href="{{ route('settings.schedule.edit') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -124,9 +124,9 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
-                @permission('read-settings-categories')
+                @can('read-settings-categories')
                     <div class="col-md-4">
                         <a href="{{ route('categories.index') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -144,10 +144,10 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
 
-                @permission('read-settings-currencies')
+                @can('read-settings-currencies')
                     <div class="col-md-4">
                         <a href="{{ route('currencies.index') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -165,9 +165,9 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
-                @permission('read-settings-taxes')
+                @can('read-settings-taxes')
                     <div class="col-md-4">
                         <a href="{{ route('taxes.index') }}">
                             <button type="button" class="btn-icon-clipboard p-2">
@@ -185,7 +185,7 @@
                             </button>
                         </a>
                     </div>
-                @endpermission
+                @endcan
 
                 @foreach($modules as $module)
                     <div class="col-md-4">
