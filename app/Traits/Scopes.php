@@ -22,6 +22,11 @@ trait Scopes
             return;
         }
 
+        // No request in console
+        if (app()->runningInConsole()) {
+            return;
+        }
+
         // Apply type scope
         $builder->where($model->getTable() . '.type', '=', $this->getTypeFromRequest());
     }
