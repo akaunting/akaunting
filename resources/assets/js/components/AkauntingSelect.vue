@@ -67,17 +67,17 @@
 
             <el-option-group
                 v-if="group"
-                v-for="(group_options, name) in sortOptions"
-                :key="name"
-                :label="name">
+                v-for="(group_options, group_index) in sortOptions"
+                :key="group_options.key"
+                :label="group_options.key">
                 <el-option
-                    v-for="(label, value) in group_options"
-                    :key="value"
-                    :disabled="disabledOptions.includes(value)"
-                    :label="label"
-                    :value="value">
-                    <span class="float-left">{{ label }}</span>
-                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[value]">{{ addNew.new_text }}</span>
+                    v-for="(option, option_index) in group_options.value"
+                    :key="option.option_index"
+                    :disabled="disabledOptions.includes(option.key)"
+                    :label="option.value"
+                    :value="option.key">
+                    <span class="float-left">{{ option.value }}</span>
+                    <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
                 </el-option>
             </el-option-group>
 
@@ -279,42 +279,107 @@ export default {
     },
 
     created() {
-        // Option set sort_option data
-        if (!Array.isArray(this.options)) {
-            for (const [key, value] of Object.entries(this.options)) {
-                this.sort_options.push({
-                    key: key,
-                    value: value
-                });
+        if (this.group) {
+            // Option set sort_option data
+            if (!Array.isArray(this.options)) {
+                for (const [index, options] of Object.entries(this.options)) {
+                    let values = [];
+
+                    for (const [key, value] of Object.entries(options)) {
+                        values.push({
+                            key: key,
+                            value: value
+                        });
+                    }
+
+                    this.sort_options.push({
+                        key: index,
+                        value: values
+                    });
+                }
+            } else {
+                this.options.forEach(function (option, index) {
+                    this.sort_options.push({
+                        index: index,
+                        key: option.id,
+                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                    });
+                }, this);
             }
         } else {
-            this.options.forEach(function (option, index) {
-                this.sort_options.push({
-                    index: index,
-                    key: option.id,
-                    value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                });
-            }, this);
+            // Option set sort_option data
+            if (!Array.isArray(this.options)) {
+                for (const [key, value] of Object.entries(this.options)) {
+                    this.sort_options.push({
+                        key: key,
+                        value: value
+                    });
+                }
+            } else {
+                this.options.forEach(function (option, index) {
+                    this.sort_options.push({
+                        index: index,
+                        key: option.id,
+                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                    });
+                }, this);
+            }
         }
     },
 
     computed: {
         sortOptions() {
-            this.sort_options.sort(function (a, b) {
-                var nameA = a.value.toUpperCase(); // ignore upper and lowercase
-                var nameB = b.value.toUpperCase(); // ignore upper and lowercase
+            if (this.group) {
+                this.sort_options.sort(function (a, b) {
+                    var nameA = a.key.toUpperCase(); // ignore upper and lowercase
+                    var nameB = b.key.toUpperCase(); // ignore upper and lowercase
 
-                if (nameA < nameB) {
-                    return -1;
+                    if (nameA < nameB) {
+                        return -1;
+                    }   
+
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+
+                    // names must be equal
+                    return 0;
+                });
+
+                for (const [index, options] of Object.entries(this.sort_options)) {
+                    options.value.sort(function (aa, bb) {
+                        var nameAA = aa.value.toUpperCase(); // ignore upper and lowercase
+                        var nameBB = bb.value.toUpperCase(); // ignore upper and lowercase
+
+                        if (nameAA < nameBB) {
+                            return -1;
+                        }
+
+                        if (nameAA > nameBB) {
+                            return 1;
+                        }
+
+                        // names must be equal
+                        return 0;
+                    });
                 }
+            } else {
+                this.sort_options.sort(function (a, b) {
+                    var nameA = a.value.toUpperCase(); // ignore upper and lowercase
+                    var nameB = b.value.toUpperCase(); // ignore upper and lowercase
 
-                if (nameA > nameB) {
-                    return 1;
-                }
+                    if (nameA < nameB) {
+                        return -1;
+                    }
 
-                // names must be equal
-                return 0;
-            });
+                    if (nameA > nameB) {
+                        return 1;
+                    }
+
+                    // names must be equal
+                    return 0;
+                });
+            }
 
             return this.sort_options;
         },
