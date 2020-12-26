@@ -146,174 +146,184 @@
                         @stack('delete_td_end')
                     </tr>
 
-                    @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
-                    <tr v-if="!row.add_tax || !row.add_discount">
-                        <td colspan="3" style="border: 0;">
+                    <tr>
+                        <td colspan="3">
+                            @stack('item_custom_fields')
                         </td>
-                        <td colspan="1" style="border: 0;">
-                            <div>
-                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddDiscount(index)" v-if="!discount">Add Discount</button>
-                            </div>
-                        </td>
-                        <td colspan="1" style="border: 0;">
-                            <div>
-                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddTax(index)" v-if="!tax">Add Tax</button>
-                            </div>
-                        </td>
-                        <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
-                        </td>
-                        <td colspan="1" style="border: 0;"  class="w-1">
-                        </td>
-                    </tr>
 
-                    <tr v-if="row.add_discount">
-                        <td colspan="3" style="border: 0;"></td>
-                        <td colspan="2" style="border: 0;">
-                            <div>
-                            @stack('tax_id_input_start')
-                            <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="input-discount-rate">
-                                        <i class="fa fa-percent"></i>
-                                    </span>
-                                </div>
-                                <input type="number"
-                                    max="100"
-                                    min="0"
-                                    class="form-control text-center"
-                                    :name="'items.' + index + '.discount-rate'"
-                                    autocomplete="off"
-                                    required="required"
-                                    data-item="discount_rate"
-                                    v-model="row.discount_rate"
-                                    @input="onCalculateTotal"
-                                    @change="form.errors.clear('items.' + index + '.discount_rate')">
-            
-                                <div class="invalid-feedback d-block"
-                                    v-if="form.errors.has('items.' + index + '.discount_rate')"
-                                    v-html="form.errors.get('items.' + index + '.discount_rate')">
-                                </div>
-                            </div>
-                            @stack('tax_id_input_end')
-                            </div>
-                        </td>
-                        <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
-                            <div>
-                                {{ Form::moneyGroup('discount', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row.discount', 'data-item' => 'discount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
-                            </div>
-                        </td>
-                        <td colspan="1" style="border: 0;"  class="w-1">
-                            <button type="button" @click="onDeleteDiscount(index)" class="btn btn-link btn-sm p-0">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
+                        <td colspan="4" class="p-0">
+                            <table class="w-100">
+                                <colgroup>
+                                    <col style="width: 100px;">
+                                    <col style="width: 100px;">
+                                    <col style="width: 250px;">
+                                    <col style="width: 40px;">
+                                </colgroup>
+                                <tbody>
+                                    @if (!in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+                                    <tr v-if="!row.add_tax || !row.add_discount">
+                                        <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-left: 10px;">
+                                            <div style="max-width: 100px;">
+                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddDiscount(index)" v-if="!discount">Add Discount</button>
+                                            </div>
+                                        </td>
+                                        <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-right: 10px; text-align: right;">
+                                            <div style="max-width: 100px;">
+                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddTax(index)" v-if="!tax">Add Tax</button>
+                                            </div>
+                                        </td>
+                                        <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
+                                        </td>
+                                        <td colspan="1" style="border: 0;"  class="w-1">
+                                        </td>
+                                    </tr>
 
-                    <tr v-if="row.add_tax" v-for="(row_tax, row_tax_index) in row.tax_ids"
-                    :index="row_tax_index">
-                    @else
-                    <tr v-for="(row_tax, row_tax_index) in row.tax_ids"
-                    :index="row_tax_index">
-                    @endif
-                        <td class="pb-0" colspan="2" style="border: 0;">
-                        </td>
-                        <td class="pb-0 pr-0 align-middle text-right long-texts" colspan="1" style="border: 0;">
-                            <span class="invoice-item-row-tax-section__tax__add__label">{{ trans_choice('general.taxes', 1) }}</span>
-                        </td>
-                        <td class="pb-0" colspan="2" style="border: 0;  padding-right: 5px; padding-left: 5px;" >
-                            <div>
-                            @stack('taxes_input_start')
-                            <akaunting-select
-                                class="mb-0 select-tax"
-                                :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
-                                :icon="''"
-                                :title="''"
-                                :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
-                                :name="'items.' + index + '.taxes.' + row_tax_index"
-                                :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
-                                :disabled-options="form.items[index].tax_ids"
-                                :value="row_tax.id"
-                                @interface="row_tax.id = $event"
-                                @change="onCalculateTotal()"
-                                @new="taxes.push($event)"
-                                :form-error="form.errors.get('items.' + index + '.taxes')"
-                                :no-data-text="'{{ trans('general.no_data') }}'"
-                                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
-                            ></akaunting-select>
-                            @stack('taxes_input_end')
-                            </div>
-                        </td>
-                        <td colspan="1" style="border: 0;" class="pb-0 text-right long-texts">
-                            <div>
-                                {{ Form::moneyGroup('tax', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row_tax.price', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
-                            </div>
-                        </td>
-                        <td colspan="1" style="border: 0;"  class="pb-0 align-middle">
-                            <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
+                                    <tr v-if="row.add_discount">
+                                        <td colspan="3" style="border: 0;"></td>
+                                        <td colspan="2" style="border: 0;">
+                                            <div>
+                                            @stack('tax_id_input_start')
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="input-discount-rate">
+                                                        <i class="fa fa-percent"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="number"
+                                                    max="100"
+                                                    min="0"
+                                                    class="form-control text-center"
+                                                    :name="'items.' + index + '.discount-rate'"
+                                                    autocomplete="off"
+                                                    required="required"
+                                                    data-item="discount_rate"
+                                                    v-model="row.discount_rate"
+                                                    @input="onCalculateTotal"
+                                                    @change="form.errors.clear('items.' + index + '.discount_rate')">
+                            
+                                                <div class="invalid-feedback d-block"
+                                                    v-if="form.errors.has('items.' + index + '.discount_rate')"
+                                                    v-html="form.errors.get('items.' + index + '.discount_rate')">
+                                                </div>
+                                            </div>
+                                            @stack('tax_id_input_end')
+                                            </div>
+                                        </td>
+                                        <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
+                                            <div>
+                                                {{ Form::moneyGroup('discount', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row.discount', 'data-item' => 'discount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
+                                            </div>
+                                        </td>
+                                        <td colspan="1" style="border: 0;"  class="w-1">
+                                            <button type="button" @click="onDeleteDiscount(index)" class="btn btn-link btn-sm p-0">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
 
-                    <tr v-if="row.add_tax">
-                        <td class="pb-0" colspan="2" style="border: 0;">
-                        </td>
-                        <td class="pb-0 pr-0 align-middle text-right long-texts" colspan="1" style="border: 0;">
-                            <span class="invoice-item-row-tax-section__tax__add__label">{{ trans_choice('general.taxes', 1) }}</span>
-                        </td>
-                        <td colspan="2" style="border: 0; padding-right: 5px; padding-left: 5px;">
-                            <div>
-                            @stack('taxes_input_start')
-                            <akaunting-select
-                                class="mb-0 select-tax"
-                                :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
-                                :icon="''"
-                                :title="''"
-                                :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
-                                :name="'items.' + index + '.taxes.999'"
-                                :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
-                                :disabled-options="form.items[index].tax_ids"
-                                :value="tax_id"
-                                :add-new="{{ json_encode([
-                                    'status' => true,
-                                    'text' => trans('general.add_new'),
-                                    'path' => route('modals.taxes.create'),
-                                    'type' => 'modal',
-                                    'field' => [
-                                        'key' => 'id',
-                                        'value' => 'title'
-                                    ],
-                                    'new_text' => trans('modules.new'),
-                                    'buttons' => [
-                                        'cancel' => [
-                                            'text' => trans('general.cancel'),
-                                            'class' => 'btn-outline-secondary'
-                                        ],
-                                        'confirm' => [
-                                            'text' => trans('general.save'),
-                                            'class' => 'btn-success'
-                                        ]
-                                    ]
-                                ])}}"
-                                @interface="tax_id = $event"
-                                @visible-change="onSelectedTax(index)"
-                                @new="taxes.push($event)"
-                                :form-error="form.errors.get('items.' + index + '.taxes')"
-                                :no-data-text="'{{ trans('general.no_data') }}'"
-                                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
-                            ></akaunting-select>
-                            @stack('taxes_input_end')
-                            </div>
-                        </td>
-                        <td colspan="1" style="border: 0;" class="text-right long-texts align-middle">
-                            <div>
-                                __
-                            </div>
-                        </td>
-                        <td colspan="1" style="border: 0;">
+                                    <tr v-if="row.add_tax" v-for="(row_tax, row_tax_index) in row.tax_ids"
+                                    :index="row_tax_index">
+                                    @else
+                                    <tr v-for="(row_tax, row_tax_index) in row.tax_ids"
+                                    :index="row_tax_index">
+                                    @endif
+                                        <td colspan="2" class="pb-0" style="border: 0;  padding-right: 5px; padding-left: 5px;" >
+                                            <div style="margin-left: -30px; margin-right: 35px;">
+                                            <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans_choice('general.taxes', 1) }}</span>
 
+                                            @stack('taxes_input_start')
+                                            <akaunting-select
+                                                class="mb-0 select-tax"
+                                                :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
+                                                :icon="''"
+                                                :title="''"
+                                                :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
+                                                :name="'items.' + index + '.taxes.' + row_tax_index"
+                                                :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
+                                                :disabled-options="form.items[index].tax_ids"
+                                                :value="row_tax.id"
+                                                @interface="row_tax.id = $event"
+                                                @change="onCalculateTotal()"
+                                                @new="taxes.push($event)"
+                                                :form-error="form.errors.get('items.' + index + '.taxes')"
+                                                :no-data-text="'{{ trans('general.no_data') }}'"
+                                                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
+                                            ></akaunting-select>
+                                            @stack('taxes_input_end')
+                                            </div>
+                                        </td>
+                                        <td colspan="1" style="border: 0;" class="pb-0 text-right long-texts">
+                                            <div>
+                                                {{ Form::moneyGroup('tax', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row_tax.price', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
+                                            </div>
+                                        </td>
+                                        <td colspan="1" style="border: 0;"  class="pb-0 align-middle">
+                                            <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr v-if="row.add_tax">
+                                        <td colspan="2" style="border: 0; padding-right: 5px; padding-left: 5px;">
+                                            <div style="margin-left: -30px; margin-right:35px;">
+                                            <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans_choice('general.taxes', 1) }}</span>
+
+                                            @stack('taxes_input_start')
+                                            <akaunting-select
+                                                class="mb-0 select-tax"
+                                                :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
+                                                :icon="''"
+                                                :title="''"
+                                                :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
+                                                :name="'items.' + index + '.taxes.999'"
+                                                :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
+                                                :disabled-options="form.items[index].tax_ids"
+                                                :value="tax_id"
+                                                :add-new="{{ json_encode([
+                                                    'status' => true,
+                                                    'text' => trans('general.add_new'),
+                                                    'path' => route('modals.taxes.create'),
+                                                    'type' => 'modal',
+                                                    'field' => [
+                                                        'key' => 'id',
+                                                        'value' => 'title'
+                                                    ],
+                                                    'new_text' => trans('modules.new'),
+                                                    'buttons' => [
+                                                        'cancel' => [
+                                                            'text' => trans('general.cancel'),
+                                                            'class' => 'btn-outline-secondary'
+                                                        ],
+                                                        'confirm' => [
+                                                            'text' => trans('general.save'),
+                                                            'class' => 'btn-success'
+                                                        ]
+                                                    ]
+                                                ])}}"
+                                                @interface="tax_id = $event"
+                                                @visible-change="onSelectedTax(index)"
+                                                @new="taxes.push($event)"
+                                                :form-error="form.errors.get('items.' + index + '.taxes')"
+                                                :no-data-text="'{{ trans('general.no_data') }}'"
+                                                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
+                                            ></akaunting-select>
+                                            @stack('taxes_input_end')
+                                            </div>
+                                        </td>
+                                        <td colspan="1" style="border: 0;" class="text-right long-texts align-middle">
+                                            <div>
+                                                __
+                                            </div>
+                                        </td>
+                                        <td colspan="1" style="border: 0;">
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </td>
-                    </tr>
+                    <tr>
                 </tbody>
             </table>
         </td>
