@@ -442,12 +442,12 @@ trait Permissions
             if (in_array($controller, $skip)) {
                 return;
             }
-        }
 
-        // App\Http\Controllers\FooBar                  -->> foo-bar
-        // App\Http\Controllers\FooBar\Main             -->> foo-bar-main
-        // Modules\Blog\Http\Controllers\Posts          -->> blog-posts
-        // Modules\Blog\Http\Controllers\Portal\Posts   -->> blog-portal-posts
+            // App\Http\Controllers\FooBar                  -->> foo-bar
+            // App\Http\Controllers\FooBar\Main             -->> foo-bar-main
+            // Modules\Blog\Http\Controllers\Posts          -->> blog-posts
+            // Modules\Blog\Http\Controllers\Portal\Posts   -->> blog-portal-posts
+        }
 
         // Add CRUD permission check
         $this->middleware('permission:create-' . $controller)->only('create', 'store', 'duplicate', 'import');

@@ -19,6 +19,8 @@ class SetPermissionControllerForApi
             return;
         }
 
+        // api/contacts?type=customer
+        // api/contacts?type=vendor
         if ($event->table == 'contacts') {
             switch ($event->type) {
                 case 'customer':
@@ -30,6 +32,8 @@ class SetPermissionControllerForApi
             }
         }
 
+        // api/documents?type=invoice
+        // api/documents?type=bill
         if ($event->table == 'documents') {
             switch ($event->type) {
                 case 'invoice':
@@ -41,6 +45,8 @@ class SetPermissionControllerForApi
             }
         }
 
+        // api/transactions?type=income
+        // api/transactions?type=expense
         if ($event->table == 'transactions') {
             switch ($event->type) {
                 case 'income':
