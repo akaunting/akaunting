@@ -68,11 +68,11 @@
             <el-option-group
                 v-if="group"
                 v-for="(group_options, group_index) in sortOptions"
-                :key="group_options.key"
+                :key="group_index"
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
-                    :key="option.option_index"
+                    :key="option_index"
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">

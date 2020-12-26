@@ -170,12 +170,13 @@
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
-                    :key="option.option_index"
+                    :key="option_index"
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">
                     <span class="float-left">{{ option.value }}</span>
                     <span class="badge badge-pill badge-success float-right mt-2" v-if="new_options[option.key]">{{ addNew.new_text }}</span>
+                </el-option>
             </el-option-group>
 
             <el-option class="el-select__footer" :disabled="true"  :value="add_new">
