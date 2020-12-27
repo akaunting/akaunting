@@ -160,7 +160,7 @@
                                     <col style="width: 40px;">
                                 </colgroup>
                                 <tbody>
-                                    @if (!in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+                                    @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                                     <tr v-if="!row.add_tax || !row.add_discount">
                                         <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-left: 10px;">
                                             <div style="max-width: 100px;">
