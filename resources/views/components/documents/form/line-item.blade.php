@@ -179,10 +179,10 @@
                                     </tr>
 
                                     <tr v-if="row.add_discount">
-                                        <td colspan="3" style="border: 0;"></td>
-                                        <td colspan="2" style="border: 0;">
-                                            <div>
-                                            @stack('tax_id_input_start')
+                                        <td colspan="2" class="pb-0" style="border: 0;  padding-right: 5px; padding-left: 5px;" >
+                                            <div style="margin-left: -30px; margin-right: 35px;">
+                                            <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans_choice('general.discount', 1) }}</span>
+                                            @stack('discount_input_start')
                                             <div class="input-group input-group-merge">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="input-discount-rate">
@@ -206,7 +206,7 @@
                                                     v-html="form.errors.get('items.' + index + '.discount_rate')">
                                                 </div>
                                             </div>
-                                            @stack('tax_id_input_end')
+                                            @stack('discount_input_end')
                                             </div>
                                         </td>
                                         <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
