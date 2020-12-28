@@ -2,20 +2,10 @@
 
 namespace App\View\Components\Documents\Form;
 
-use Illuminate\View\Component;
+use App\Abstracts\View\Components\DocumentForm as Component;
 
 class LineItem extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Get the view / contents that represent the component.
      *

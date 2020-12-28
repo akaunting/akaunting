@@ -45,6 +45,16 @@
             text-due-at="{{ $textDueAt }}"
             hide-order-number="{{ $hideOrderNumber }}"
             text-order-number="{{ $textOrderNumber }}"
+            hide-edit-item-columns="{{ $hideEditItemColumns }}"
+            hide-items="{{ $hideItems }}"
+            text-items="{{ $textItems }}"
+            hide-quantity="{{ $hideQuantity }}"
+            text-quantity="{{ $textQuantity }}"
+            hide-price="{{ $hidePrice }}"
+            text-price="{{ $textPrice }}"
+            hide-discount="{{ $hideDiscount }}"
+            hide-amount="{{ $hideAmount }}"
+            text-amount="{{ $textAmount }}"
         />
 
         @if (!$hideFooter) 
