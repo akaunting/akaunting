@@ -78,6 +78,21 @@ abstract class DocumentForm extends Component
     /** @var string */
     public $contactCreateRoute;
 
+    /** @var string */
+    public $textAddContact;
+
+    /** @var string */
+    public $textCreateNewContact;
+
+    /** @var string */
+    public $textEditContact;
+
+    /** @var string */
+    public $textContactInfo;
+
+    /** @var string */
+    public $textChooseDifferentContact;
+
     /** @var bool */
     public $hideContact;
 
@@ -181,6 +196,7 @@ abstract class DocumentForm extends Component
         /** Content Component End */
         /** Metadata Component Start */
         $contacts = [], $contact = false, string $contactType = '', string $contactSearchRoute = '', string $contactCreateRoute = '',
+        string $textAddContact = '', string $textCreateNewContact = '', string $textEditContact = '', string $textContactInfo = '', string $textChooseDifferentContact = '',
         bool $hideContact = false, bool $hideIssuedAt = false, bool $hideDocumentNumber = false, bool $hideDueAt = false, bool $hideOrderNumber = false,
         string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
         string $issuedAt = '', string $documentNumber = '', string $dueAt = '', string $orderNumber = '',
@@ -224,6 +240,12 @@ abstract class DocumentForm extends Component
         $this->contacts = $this->getContacts($type, $contacts);
         $this->contact = $this->getContact($contact, $document);
         $this->contactType = $this->getContactType($type, $contactType);
+
+        $this->textAddContact = $this->getTextAddContact($type, $textAddContact);
+        $this->textCreateNewContact = $this->getTextCreateNewContact($type, $textCreateNewContact);
+        $this->textEditContact = $this->getTextEditContact($type, $textEditContact);
+        $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
+        $this->textChooseDifferentContact = $this->getTextChooseDifferentContact($type, $textChooseDifferentContact);
 
         $this->hideContact = $hideContact;
         $this->hideIssuedAt = $hideIssuedAt;
@@ -334,6 +356,106 @@ abstract class DocumentForm extends Component
         }
 
         return $contact_type;
+    }
+
+    protected function getTextAddContact($type, $textAddContact)
+    {
+        if (!empty($textAddContact)) {
+            return $textAddContact;
+        }
+
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $textAddContact = 'vendor';
+                break;
+            default:
+                $textAddContact = 'customer';
+                break;
+        }
+
+        return $textAddContact;
+    }
+
+    protected function getTextCreateNewContact($type, $textCreateNewContact)
+    {
+        if (!empty($textCreateNewContact)) {
+            return $textCreateNewContact;
+        }
+
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $textCreateNewContact = 'vendor';
+                break;
+            default:
+                $textCreateNewContact = 'customer';
+                break;
+        }
+
+        return $textCreateNewContact;
+    }
+
+    protected function getTextEditContact($type, $textEditContact)
+    {
+        if (!empty($textEditContact)) {
+            return $textEditContact;
+        }
+
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $textEditContact = 'vendor';
+                break;
+            default:
+                $textEditContact = 'customer';
+                break;
+        }
+
+        return $textEditContact;
+    }
+
+    protected function getTextContactInfo($type, $textContactInfo)
+    {
+        if (!empty($textContactInfo)) {
+            return $textContactInfo;
+        }
+
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $textContactInfo = 'vendor';
+                break;
+            default:
+                $textContactInfo = 'customer';
+                break;
+        }
+
+        return $textContactInfo;
+    }
+
+    protected function getTextChooseDifferentContact($type, $textChooseDifferentContact)
+    {
+        if (!empty($textChooseDifferentContact)) {
+            return $textChooseDifferentContact;
+        }
+
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $textChooseDifferentContact = 'vendor';
+                break;
+            default:
+                $textChooseDifferentContact = 'customer';
+                break;
+        }
+
+        return $textChooseDifferentContact;
     }
 
     protected function getIssuedAt($type, $document, $issued_at)
