@@ -3,7 +3,6 @@
 namespace App\View\Components\Documents\Form;
 
 use App\Abstracts\View\Components\DocumentForm as Component;
-
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
 

@@ -2,7 +2,6 @@
 
 namespace App\View\Components\Documents\Form;
 
-
 use App\Abstracts\View\Components\DocumentForm as Component;
 
 class Metadata extends Component
