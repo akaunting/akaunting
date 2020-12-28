@@ -29,7 +29,7 @@ class DocumentTotal extends Model
 
     public function document()
     {
-        return $this->belongsTo('App\Models\Document\Document')->where('type', $this->type);
+        return $this->belongsTo('App\Models\Document\Document');
     }
 
     public function scopeType(Builder $query, string $type)
