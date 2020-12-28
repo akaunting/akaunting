@@ -10,7 +10,7 @@
                                     <div class="document-contact-without-contact-box">
                                         <button type="button" class="btn-aka-link aka-btn--fluid document-contact-without-contact-box-btn"
                                         @click="onContactList">
-                                            <i class="far fa-user fa-2x"></i> Add a customer
+                                            <i class="far fa-user fa-2x"></i> {{ addContactText }}
                                         </button>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                             
                             <div class="aka-select__footer" tabindex="0" @click="onContactCreate">
                                 <span>
-                                    <i class="fas fa-plus"></i> Create a new customer
+                                    <i class="fas fa-plus"></i> {{ createNewContactText }}
                                 </span>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                 
                 <div v-else class="invoice-customer__with-customer__bill-to">
                     <div>
-                        <span class="aka-text aka-text--block-label">Bill to</span>
+                        <span class="aka-text aka-text--block-label">{{ contactInfoText }}</span>
                     </div>
 
                     <div class="table-responsive">
@@ -85,12 +85,12 @@
                                         {{ contact.address }}
                                     </th>
                                 </tr>
-                                <tr>
+                                <tr v-if="contact.tax_number">
                                     <th class="p-0">
-                                        general.tax_number: {{ contact.tax_number }}
+                                        {{ taxNumberText }}: {{ contact.tax_number }}
                                     </th>
                                 </tr>
-                                <tr>
+                                <tr v-if="contact.phone">
                                     <th class="p-0">
                                         {{ contact.phone }}
                                     </th>
@@ -104,7 +104,8 @@
                         </table>
                     </div>
 
-                    <button type="button" class="btn btn-link" @click="onContactEdit">Edit Test Customer</button>&nbsp;•&nbsp;<button type="button" class="btn btn-link" @click="onContactList">Choose a different customer</button>
+                    <button type="button" class="btn btn-link" @click="onContactEdit">{{ editContactText.replace(':contact_name', contact.name) }}</button>&nbsp;•&nbsp;
+                    <button type="button" class="btn btn-link" @click="onContactList">{{ chooseDiffentContactText }}</button>
                 </div>
             </div>
 
@@ -197,6 +198,36 @@ export default {
                 };
             },
             description: "Selectbox Add New Item Feature"
+        },
+        addContactText: {
+            type: String,
+            default: 'Add a customer',
+            description: ""
+        },
+        createNewContactText: {
+            type: String,
+            default: 'Create a new customer',
+            description: ""
+        },
+        editContactText: {
+            type: String,
+            default: 'Edit :contact_name Customer',
+            description: ""
+        },
+        contactInfoText: {
+            type: String,
+            default: 'Bill to',
+            description: ""
+        },
+        taxNumberText: {
+            type: String,
+            default: 'Tax number',
+            description: ""
+        },
+        chooseDiffentContactText: {
+            type: String,
+            default: 'Choose a different customer',
+            description: ""
         },
         noDataText: {
             type: String,

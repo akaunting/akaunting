@@ -6,7 +6,12 @@
     create-route="{{ $create_route }}"
     :contacts="{{ json_encode($contacts) }}"
     :selected="{{ json_encode($contact) }}"
-
+    add-contact-text="{{ $textAddContact }}"
+    create-new-contact-text="{{ $textCreateNewContact }}"
+    editContactText="{{ $textEditContact }}"
+    contact-info-text="{{ $textContactInfo }}"
+    tax-number-text="{{ trans('general.tax_number') }}"
+    choose-different-contact-text="{{ $textChooseDifferentContact }}"
     :add-new="{{ json_encode([
         'status' => true,
         'text' => trans('general.add_new'),
