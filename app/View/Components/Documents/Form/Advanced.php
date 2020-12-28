@@ -30,11 +30,6 @@ class Advanced extends Component
         $type = '';
 
         switch ($this->type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $type = 'income';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
@@ -48,6 +43,9 @@ class Advanced extends Component
                 break;
             case 'transfer':
                 $type = 'transfer';
+                break;
+            default:
+                $type = 'income';
                 break;
         }
 

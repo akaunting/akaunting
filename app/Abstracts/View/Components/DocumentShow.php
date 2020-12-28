@@ -102,7 +102,7 @@ abstract class DocumentShow extends Component
 
     /** @var string */
     public $permissionButtonCustomize;
-    
+
     /** @var bool */
     public $hideButtonGroupDivider1;
 
@@ -316,7 +316,7 @@ abstract class DocumentShow extends Component
     public $hidePrice;
 
     public $hideDiscount;
-    
+
     public $hideAmount;
 
     /** @var string */
@@ -512,15 +512,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textRecurringType = 'general.invoices';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textRecurringType = 'general.bills';
+                break;
+            default:
+                $textRecurringType = 'general.invoices';
                 break;
         }
 
@@ -534,15 +532,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textStatusMessage = 'invoices.messages.draft';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textStatusMessage = 'bills.messages.draft';
+                break;
+            default:
+                $textStatusMessage = 'invoices.messages.draft';
                 break;
         }
 
@@ -629,15 +625,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textHistories = 'invoices.histories';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textHistories = 'bills.histories';
+                break;
+            default:
+                $textHistories = 'invoices.histories';
                 break;
         }
 
@@ -651,15 +645,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textHistoryStatus = 'invoices.statuses.';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textHistoryStatus = 'bills.statuses.';
+                break;
+            default:
+                $textHistoryStatus = 'invoices.statuses.';
                 break;
         }
 
@@ -1013,15 +1005,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textHeaderContact = 'general.customers';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textHeaderContact = 'general.vendors';
+                break;
+            default:
+                $textHeaderContact = 'general.customers';
                 break;
         }
 
@@ -1088,16 +1078,7 @@ abstract class DocumentShow extends Component
             return $hideTimelineStatuses;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideTimelineStatuses = ['paid', 'cancelled'];
-                break;
-        }
+        $hideTimelineStatuses = ['paid', 'cancelled'];
 
         return $hideTimelineStatuses;
     }
@@ -1127,15 +1108,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineSentTitle = 'invoices.send_invoice';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textTimelineSentTitle = 'bills.receive_bill';
+                break;
+            default:
+                $textTimelineSentTitle = 'invoices.send_invoice';
                 break;
         }
 
@@ -1149,15 +1128,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineSentStatusDraft = 'invoices.messages.status.send.draft';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textTimelineSentStatusDraft = 'bills.messages.status.receive.draft';
+                break;
+            default:
+                $textTimelineSentStatusDraft = 'invoices.messages.status.send.draft';
                 break;
         }
 
@@ -1171,15 +1148,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineSentStatusMarkSent = 'invoices.mark_sent';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textTimelineSentStatusMarkSent = 'bills.mark_received';
+                break;
+            default:
+                $textTimelineSentStatusMarkSent = 'invoices.mark_sent';
                 break;
         }
 
@@ -1193,15 +1168,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineSentStatusReceived = 'invoices.mark_sent';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textTimelineSentStatusReceived = 'bills.mark_received';
+                break;
+            default:
+                $textTimelineSentStatusReceived = 'invoices.mark_sent';
                 break;
         }
 
@@ -1215,14 +1188,12 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineSendStatusMail = 'invoices.send_mail';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
+                $textTimelineSendStatusMail = 'bills.send_mail';
+                break;
+            default:
                 $textTimelineSendStatusMail = 'invoices.send_mail';
                 break;
         }
@@ -1237,15 +1208,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineGetPaidTitle = 'invoices.get_paid';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textTimelineGetPaidTitle = 'bills.make_payment';
+                break;
+            default:
+                $textTimelineGetPaidTitle = 'invoices.get_paid';
                 break;
         }
 
@@ -1259,15 +1228,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineGetPaidStatusAwait = 'invoices.messages.status.paid.await';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textTimelineGetPaidStatusAwait = 'bills.messages.status.paid.await';
+                break;
+            default:
+                $textTimelineGetPaidStatusAwait = 'invoices.messages.status.paid.await';
                 break;
         }
 
@@ -1292,15 +1259,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineGetPaidMarkPaid = 'invoices.mark_paid';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textTimelineGetPaidMarkPaid = 'bills.mark_paid';
+                break;
+            default:
+                $textTimelineGetPaidMarkPaid = 'invoices.mark_paid';
                 break;
         }
 
@@ -1314,15 +1279,13 @@ abstract class DocumentShow extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textTimelineGetPaidAddPayment = 'invoices.add_payment';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textTimelineGetPaidAddPayment = 'bills.add_payment';
+                break;
+            default:
+                $textTimelineGetPaidAddPayment = 'invoices.add_payment';
                 break;
         }
 
@@ -1347,15 +1310,13 @@ abstract class DocumentShow extends Component
        }
 
        switch ($type) {
-           case 'sale':
-           case 'income':
-           case 'invoice':
-               $hideName = setting('invoice.hide_item_name', $hideName);
-               break;
            case 'bill':
            case 'expense':
            case 'purchase':
                $hideName = setting('bill.hide_item_name', $hideName);
+               break;
+           default:
+               $hideName = setting('invoice.hide_item_name', $hideName);
                break;
        }
 
@@ -1369,15 +1330,13 @@ abstract class DocumentShow extends Component
        }
 
        switch ($type) {
-           case 'sale':
-           case 'income':
-           case 'invoice':
-               $hideDescription = setting('invoice.hide_item_description', $hideDescription);
-               break;
            case 'bill':
            case 'expense':
            case 'purchase':
                $hideDescription = setting('bill.hide_item_description', $hideDescription);
+               break;
+           default:
+               $hideDescription = setting('invoice.hide_item_description', $hideDescription);
                break;
        }
 
@@ -1391,15 +1350,13 @@ abstract class DocumentShow extends Component
        }
 
        switch ($type) {
-           case 'sale':
-           case 'income':
-           case 'invoice':
-               $hideQuantity = setting('invoice.hide_quantity', $hideQuantity);
-               break;
            case 'bill':
            case 'expense':
            case 'purchase':
                $hideQuantity = setting('bill.hide_quantity', $hideQuantity);
+               break;
+           default:
+               $hideQuantity = setting('invoice.hide_quantity', $hideQuantity);
                break;
        }
 
@@ -1413,15 +1370,13 @@ abstract class DocumentShow extends Component
        }
 
        switch ($type) {
-           case 'sale':
-           case 'income':
-           case 'invoice':
-               $hidePrice = setting('invoice.hide_price', $hidePrice);
-               break;
            case 'bill':
            case 'expense':
            case 'purchase':
                $hidePrice = setting('bill.hide_price', $hidePrice);
+               break;
+           default:
+               $hidePrice = setting('invoice.hide_price', $hidePrice);
                break;
        }
 
@@ -1435,15 +1390,13 @@ abstract class DocumentShow extends Component
        }
 
        switch ($type) {
-           case 'sale':
-           case 'income':
-           case 'invoice':
-               $hideDiscount = setting('invoice.hide_discount', $hideDiscount);
-               break;
            case 'bill':
            case 'expense':
            case 'purchase':
                $hideDiscount = setting('bill.hide_discount', $hideDiscount);
+               break;
+           default:
+               $hideDiscount = setting('invoice.hide_discount', $hideDiscount);
                break;
        }
 
@@ -1457,15 +1410,13 @@ abstract class DocumentShow extends Component
        }
 
        switch ($type) {
-           case 'sale':
-           case 'income':
-           case 'invoice':
-               $hideAmount = setting('invoice.hide_amount', $hideAmount);
-               break;
            case 'bill':
            case 'expense':
            case 'purchase':
                $hideAmount = setting('bill.hide_amount', $hideAmount);
+               break;
+           default:
+               $hideAmount = setting('invoice.hide_amount', $hideAmount);
                break;
        }
 

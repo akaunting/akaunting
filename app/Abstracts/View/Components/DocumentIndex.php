@@ -545,15 +545,13 @@ abstract class DocumentIndex extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textContactName = 'general.customers';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textContactName = 'general.vendors';
+                break;
+            default:
+                $textContactName = 'general.customers';
                 break;
         }
 
@@ -593,15 +591,13 @@ abstract class DocumentIndex extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textIssueAt = 'invoices.invoice_date';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textIssueAt = 'bills.bill_date';
+                break;
+            default:
+                $textIssueAt = 'invoices.invoice_date';
                 break;
         }
 
@@ -628,15 +624,13 @@ abstract class DocumentIndex extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textDueAt = 'invoices.due_date';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textDueAt = 'bills.due_date';
+                break;
+            default:
+                $textDueAt = 'invoices.due_date';
                 break;
         }
 
@@ -663,15 +657,13 @@ abstract class DocumentIndex extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textDocumentStatus = 'invoices.statuses.';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textDocumentStatus = 'bills.statuses.';
+                break;
+            default:
+                $textDocumentStatus = 'invoices.statuses.';
                 break;
         }
 

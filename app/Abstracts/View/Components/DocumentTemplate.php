@@ -146,7 +146,7 @@ abstract class DocumentTemplate extends Component
         $this->hideDueAt = $hideDueAt;
 
         $this->textContactInfo = $this->getTextContactInfo($type, $textContactInfo);
-        $this->textIssuedAt = $this->gettextIssuedAt($type, $textIssuedAt);
+        $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
         $this->textDocumentNumber = $this->getTextDocumentNumber($type, $textDocumentNumber);
         $this->textDueAt = $this->getTextDueAt($type, $textDueAt);
         $this->textOrderNumber = $this->getTextOrderNumber($type, $textOrderNumber);
@@ -229,15 +229,13 @@ abstract class DocumentTemplate extends Component
         $backgroundColor = '#55588b';
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $backgroundColor = setting('invoice.color');
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $backgroundColor = setting('bill.color');
+                break;
+            default:
+                $backgroundColor = setting('invoice.color');
                 break;
         }
 
@@ -251,15 +249,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textDocumentNumber = 'invoices.invoice_number';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textDocumentNumber = 'bills.bill_number';
+                break;
+            default:
+                $textDocumentNumber = 'invoices.invoice_number';
                 break;
         }
 
@@ -273,15 +269,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textOrderNumber = 'invoices.order_number';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textOrderNumber = 'bills.order_number';
+                break;
+            default:
+                $textOrderNumber = 'invoices.order_number';
                 break;
         }
 
@@ -295,37 +289,33 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textContactInfo = 'invoices.bill_to';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textContactInfo = 'bills.bill_from';
+                break;
+            default:
+                $textContactInfo = 'invoices.bill_to';
                 break;
         }
 
         return $textContactInfo;
     }
 
-    protected function gettextIssuedAt($type, $textIssuedAt)
+    protected function getTextIssuedAt($type, $textIssuedAt)
     {
         if (!empty($textIssuedAt)) {
             return $textIssuedAt;
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textIssuedAt = 'invoices.invoice_date';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textIssuedAt = 'bills.bill_date';
+                break;
+            default:
+                $textIssuedAt = 'invoices.invoice_date';
                 break;
         }
 
@@ -339,15 +329,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $textDueAt = 'invoices.due_date';
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $textDueAt = 'bills.due_date';
+                break;
+            default:
+                $textDueAt = 'invoices.due_date';
                 break;
         }
 
@@ -361,19 +349,17 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $textItems = 'general.items';
+                break;
+            default:
                 $textItems = setting('invoice.item_name', 'general.items');
 
                 if ($textItems == 'custom') {
                     $textItems = setting('invoice.item_name_input');
                 }
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textItems = 'general.items';
                 break;
         }
 
@@ -387,19 +373,17 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $textQuantity = 'bills.quantity';
+                break;
+            default:
                 $textQuantity = setting('invoice.quantity_name', 'invoices.quantity');
 
                 if ($textQuantity == 'custom') {
                     $textQuantity = setting('invoice.quantity_name_input');
                 }
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textQuantity = 'bills.quantity';
                 break;
         }
 
@@ -413,19 +397,17 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $text_price = 'bills.price';
+                break;
+            default:
                 $text_price = setting('invoice.price_name', 'invoices.price');
 
                 if ($text_price == 'custom') {
                     $text_price = setting('invoice.price_name_input');
                 }
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $text_price = 'bills.price';
                 break;
         }
 
@@ -438,16 +420,7 @@ abstract class DocumentTemplate extends Component
             return $textAmount;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textAmount = 'general.amount';
-                break;
-        }
+        $textAmount = 'general.amount';
 
         return $textAmount;
     }
@@ -470,15 +443,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $hideName = setting('invoice.hide_item_name', $hideName);
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $hideName = setting('bill.hide_item_name', $hideName);
+                break;
+            default:
+                $hideName = setting('invoice.hide_item_name', $hideName);
                 break;
         }
 
@@ -492,15 +463,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $hideDescription = setting('invoice.hide_item_description', $hideDescription);
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $hideDescription = setting('bill.hide_item_description', $hideDescription);
+                break;
+            default:
+                $hideDescription = setting('invoice.hide_item_description', $hideDescription);
                 break;
         }
 
@@ -514,15 +483,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $hideQuantity = setting('invoice.hide_quantity', $hideQuantity);
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $hideQuantity = setting('bill.hide_quantity', $hideQuantity);
+                break;
+            default:
+                $hideQuantity = setting('invoice.hide_quantity', $hideQuantity);
                 break;
         }
 
@@ -536,15 +503,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $hidePrice = setting('invoice.hide_price', $hidePrice);
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $hidePrice = setting('bill.hide_price', $hidePrice);
+                break;
+            default:
+                $hidePrice = setting('invoice.hide_price', $hidePrice);
                 break;
         }
 
@@ -558,15 +523,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $hideDiscount = setting('invoice.hide_discount', $hideDiscount);
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $hideDiscount = setting('bill.hide_discount', $hideDiscount);
+                break;
+            default:
+                $hideDiscount = setting('invoice.hide_discount', $hideDiscount);
                 break;
         }
 
@@ -580,15 +543,13 @@ abstract class DocumentTemplate extends Component
         }
 
         switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $hideAmount = setting('invoice.hide_amount', $hideAmount);
-                break;
             case 'bill':
             case 'expense':
             case 'purchase':
                 $hideAmount = setting('bill.hide_amount', $hideAmount);
+                break;
+            default:
+                $hideAmount = setting('invoice.hide_amount', $hideAmount);
                 break;
         }
 
