@@ -80,7 +80,11 @@
                     @stack('add_item_td_start')
                         <tr id="addItem">
                             <td class="text-right border-bottom-0" colspan="{{ '7' }}">
-                                <x-select-item-button type="{{ $type }}" />
+                                <x-select-item-button
+                                    type="{{ $type }}"
+                                    is-sale="{{ $isSalePrice }}"
+                                    is-purchase="{{ $isPurchasePrice }}"
+                                />
                             </td>
                         </tr>
                     @stack('add_item_td_end')

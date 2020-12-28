@@ -21,7 +21,7 @@ class SelectItemButton extends Component
      *
      * @return void
      */
-    public function __construct(string $type = 'sale', bool $isSale = true, bool $isPurchase = false)
+    public function __construct(string $type = 'sale', bool $isSale = false, bool $isPurchase = false)
     {
         $this->type = $type;
         $this->isSale = $isSale;
@@ -36,13 +36,10 @@ class SelectItemButton extends Component
     public function render()
     {
         $items = Item::enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
+        $price_type= $this->getPriceType($this->type, $this->isSale, $this->isPurchase);
 
         foreach ($items as $item) {
-            $price = $item->sale_price;
-
-            if ($this->type == 'purchase' || $this->isPurchase) {
-                $price = $item->purchase_price;
-            }
+            $price = $item->{$price_type . '_price'};
 
             $item->price = $price;
         }
@@ -50,5 +47,31 @@ class SelectItemButton extends Component
         $price = ($this->isPurchase) ? 'purchase_price' : 'sale_price';
 
         return view('components.select-item-button', compact('items', 'price'));
+    }
+    
+    protected function getPriceType($type, $is_sale, $is_purchase)
+    {
+        if (!empty($is_sale)) {
+            return 'sale';
+        }
+
+        if (!empty($is_sale)) {
+            return 'purchase';
+        }
+
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $type = 'purchase';
+                break;
+            case 'sale':
+            case 'income':
+            case 'invoice':
+            default:
+                $type = 'sale';
+        }
+
+        return $type;
     }
 }

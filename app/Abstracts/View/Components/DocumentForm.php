@@ -154,6 +154,12 @@ abstract class DocumentForm extends Component
 
     /** @var bool */
     public $hideAmount;
+
+    /** @var bool */
+    public $isSalePrice;
+
+    /** @var bool */
+    public $isPurchasePrice;
     /** Items Component End */
 
     /**
@@ -183,7 +189,8 @@ abstract class DocumentForm extends Component
         string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = '',
         bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false,
         bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false,
-        bool $hideEditItemColumns = false
+        bool $hideEditItemColumns = false,
+        bool $isSalePrice = false, bool $isPurchasePrice = false
         /** Items Component End */
     ) {
         $this->type = $type;
@@ -249,6 +256,8 @@ abstract class DocumentForm extends Component
         $this->hideAmount = $this->getHideAmount($type, $hideAmount);
 
         $this->hideEditItemColumns = $hideEditItemColumns;
+        $this->isSalePrice = $isSalePrice;
+        $this->isPurchasePrice = $isPurchasePrice;
         /** Items Component End */
     }
 
