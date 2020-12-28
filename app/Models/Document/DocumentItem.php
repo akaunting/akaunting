@@ -61,7 +61,7 @@ class DocumentItem extends Model
 
     public function document()
     {
-        return $this->belongsTo('App\Models\Document\Document');
+        return $this->belongsTo('App\Models\Document\Document')->where('type', $this->type);
     }
 
     public function item()
@@ -126,7 +126,7 @@ class DocumentItem extends Model
         $tax_ids = [];
 
         foreach ($this->taxes as $tax) {
-            $tax_ids[] = (string)$tax->tax_id;
+            $tax_ids[] = (string) $tax->tax_id;
         }
 
         $this->setAttribute('tax_ids', $tax_ids);

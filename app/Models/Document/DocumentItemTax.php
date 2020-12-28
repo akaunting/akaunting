@@ -6,7 +6,6 @@ use App\Abstracts\Model;
 use App\Traits\Currencies;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Znck\Eloquent\Relations\BelongsToThrough as BelongsToThroughRelation;
 use Znck\Eloquent\Traits\BelongsToThrough;
 
 class DocumentItemTax extends Model
@@ -28,7 +27,7 @@ class DocumentItemTax extends Model
 
     public function document()
     {
-        return $this->belongsTo('App\Models\Document\Document');
+        return $this->belongsTo('App\Models\Document\Document')->where('type', $this->type);
     }
 
     public function item()

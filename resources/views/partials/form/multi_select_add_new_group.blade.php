@@ -67,6 +67,10 @@
         @change="{{ $attributes['change'] }}($event)"
         @endif
 
+        @if (!empty($attributes['visible-change']))
+        @visible-change="{{ $attributes['visible-change'] }}"
+        @endif
+        
         @if (isset($attributes['readonly']))
         :readonly="{{ $attributes['readonly'] }}"
         @endif
