@@ -2,7 +2,13 @@
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
         @if (!$hideContact)
         <div class="row">
-            <x-select-contact-card type="{{ $contactType }}" :contact="($document) ? $document->contact : new stdClass()"/>
+            <x-select-contact-card 
+                type="{{ $contactType }}"
+                :contact="$contact"
+                :contacts="$contacts"
+                :search_route="$contactSearchRoute"
+                :create_route="$contactCreateRoute"
+            />
         </div>
         @endif
     </div>

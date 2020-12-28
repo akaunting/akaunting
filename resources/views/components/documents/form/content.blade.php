@@ -37,16 +37,26 @@
             :document="$document"
             hide-contact="{{ $hideContact }}"
             contact-type="{{ $contactType }}"
+            :contact="$contact"
+            :contacts="$contacts"
+            :search_route="$contactSearchRoute"
+            :create_route="$contactCreateRoute"
             hide-issue-at="{{ $hideIssuedAt }}"
             text-issue-at="{{ $textIssuedAt }}"
+            issue-at="{{ $issuedAt }}"
             hide-document-number="{{ $hideDocumentNumber }}"
             text-document-number="{{ $textDocumentNumber }}"
+            document-number="{{ $documentNumber }}"
             hide-due-at="{{ $hideDueAt }}"
             text-due-at="{{ $textDueAt }}"
+            due-at="{{ $dueAt }}"
             hide-order-number="{{ $hideOrderNumber }}"
             text-order-number="{{ $textOrderNumber }}"
+            order-number="{{ $orderNumber }}"
             hide-edit-item-columns="{{ $hideEditItemColumns }}"
             hide-items="{{ $hideItems }}"
+            hide-name="{{ $hideName }}"
+            hide-description="{{ $hideDescription }}"
             text-items="{{ $textItems }}"
             hide-quantity="{{ $hideQuantity }}"
             text-quantity="{{ $textQuantity }}"
@@ -58,7 +68,10 @@
         />
 
         @if (!$hideFooter) 
-            <x-documents.form.footer type="{{ $type }}" :document="$document" />
+            <x-documents.form.footer 
+                type="{{ $type }}"
+                :document="$document"
+            />
         @endif
 
         @if (!$hideAdvanced) 

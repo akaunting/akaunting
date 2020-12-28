@@ -67,8 +67,16 @@ abstract class DocumentForm extends Component
     /** Metadata Component Start */
     public $contacts;
 
+    public $contact;
+
     /** @var string */
     public $contactType;
+
+    /** @var string */
+    public $contactSearchRoute;
+
+    /** @var string */
+    public $contactCreateRoute;
 
     /** @var bool */
     public $hideContact;
@@ -166,7 +174,7 @@ abstract class DocumentForm extends Component
         bool $hideCompany = false, bool $hideAdvanced = false, bool $hideFooter = false, bool $hideButtons = false,
         /** Content Component End */
         /** Metadata Component Start */
-        $contacts = [], string $contactType = '',
+        $contacts = [], $contact = false, string $contactType = '', string $contactSearchRoute = '', string $contactCreateRoute = '',
         bool $hideContact = false, bool $hideIssuedAt = false, bool $hideDocumentNumber = false, bool $hideDueAt = false, bool $hideOrderNumber = false,
         string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
         string $issuedAt = '', string $documentNumber = '', string $dueAt = '', string $orderNumber = '',
@@ -207,6 +215,7 @@ abstract class DocumentForm extends Component
 
         /** Metadata Component Start */
         $this->contacts = $this->getContacts($type, $contacts);
+        $this->contact = $this->getContact($contact, $document);
         $this->contactType = $this->getContactType($type, $contactType);
 
         $this->hideContact = $hideContact;
@@ -281,6 +290,21 @@ abstract class DocumentForm extends Component
         }
 
         return $contacts;
+    }
+
+    protected function getContact($contact, $document)
+    {
+        if (!empty($contact)) {
+            return $contact;
+        }
+
+        $contact = new \stdClass();
+
+        if (!empty($document) && !empty($document->contact)) {
+            $contact = $document->contact;
+        }
+
+        return $contact;
     }
 
     protected function getContactType($type, $contact_type)
