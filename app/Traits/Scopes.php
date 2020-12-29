@@ -17,6 +17,10 @@ trait Scopes
      */
     public function applyTypeScope(Builder $builder, Model $model)
     {
+        // Getting type from request causes lots of issues
+        // @todo Try event/listener similar to Permissions trait
+        return;
+
         // Skip if already exists
         if ($this->scopeExists($builder, 'type')) {
             return;
