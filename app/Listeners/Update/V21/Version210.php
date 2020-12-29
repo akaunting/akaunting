@@ -442,7 +442,8 @@ class Version210 extends Listener
                 $table->foreign('document_item_id')
                       ->references('id')
                       ->on('document_items')
-                      ->cascadeOnUpdate();
+                      ->cascadeOnUpdate()
+                      ->cascadeOnDelete();
             }
         );
 
