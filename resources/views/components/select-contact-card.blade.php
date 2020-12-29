@@ -8,7 +8,7 @@
     :selected="{{ json_encode($contact) }}"
     add-contact-text="{{ $textAddContact }}"
     create-new-contact-text="{{ $textCreateNewContact }}"
-    editContactText="{{ $textEditContact }}"
+    edit-contact-text="{{ $textEditContact }}"
     contact-info-text="{{ $textContactInfo }}"
     tax-number-text="{{ trans('general.tax_number') }}"
     choose-different-contact-text="{{ $textChooseDifferentContact }}"
