@@ -29,7 +29,7 @@ trait Scopes
 
         $type = $this->getTypeFromRequest();
 
-        if (empty($type)) {
+        if (empty($type) || !in_array($type, ['invoice', 'bill'])) {
             return;
         }
 
