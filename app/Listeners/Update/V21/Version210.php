@@ -309,13 +309,6 @@ class Version210 extends Listener
             return $column;
         });
 
-        // Remove only primary keys
-        if (!in_array($new_table, ['document_items', 'documents'])) {
-            $selectColumns = $selectColumns->reject(function ($value) {
-                return $value === 'id';
-            });
-        }
-
         $builder = DB::table($table)->selectRaw($selectColumns->implode(','))->limit($limit)->offset($offset);
 
         while ($builder->cursor()->count()) {
