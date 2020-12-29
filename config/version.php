@@ -4,7 +4,7 @@ return [
 
     'name'      =>  'Akaunting',
 
-    'code'      =>  'Argon',
+    'code'      =>  'Document',
 
     'major'     =>  '2',
 

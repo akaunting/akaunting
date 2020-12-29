@@ -71,7 +71,15 @@ trait Scopes
 
     public function getTypeFromRequest()
     {
-        $type = request()->get('type') ?: Str::singular((string) request()->segment(2));
+        $type = '';
+        $request = request();
+
+        // Skip type scope in dashboard and reports
+        if ($request->routeIs('dashboards.*') || $request->routeIs('reports.*')) {
+            return $type;
+        }
+
+        $type = $request->get('type') ?: Str::singular((string) $request->segment(2));
 
         if ($type == 'revenue') {
             $type = 'income';
