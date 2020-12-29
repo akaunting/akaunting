@@ -315,9 +315,9 @@ abstract class DocumentForm extends Component
         $contact_type = $this->getContactType($type, null);
 
         if ($contact_type) {
-            $contacts = Contact::$contact_type()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+            $contacts = Contact::$contact_type()->enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
         } else {
-            $contacts = Contact::enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+            $contacts = Contact::enabled()->orderBy('name')->take(setting('default.select_limit'))->get();
         }
 
         return $contacts;
