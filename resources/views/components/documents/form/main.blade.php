@@ -1,4 +1,8 @@
 <div class="card">
+    <div class="document-loading" v-if="!page_loaded">
+        <div><i class="fas fa-spinner fa-pulse fa-7x"></i></div>
+    </div>
+
     <div class="card-body">
         <x-documents.form.metadata
             type="{{ $type }}"

@@ -19,7 +19,9 @@
                 <thead class="thead-light">
                     <tr>
                         @stack('move_th_start')
-                            <th class="text-left border-top-0 border-right-0 border-bottom-0"></th>
+                            <th class="border-top-0 border-right-0 border-bottom-0" style="max-width: 40px">
+                                <div ></div>
+                            </th>
                         @stack('move_th_end')
 
                         @if (!$hideItems)
@@ -69,7 +71,9 @@
                         @stack('total_th_end')
 
                         @stack('remove_th_start')
-                            <th class="text-left border-top-0 border-right-0 border-bottom-0"></th>
+                            <th class="border-top-0 border-right-0 border-bottom-0" style="max-width: 40px">
+                                <div ></div>
+                            </th>
                         @stack('remove_th_end')
                     </tr>
                 </thead>
@@ -79,7 +83,7 @@
 
                     @stack('add_item_td_start')
                         <tr id="addItem">
-                            <td class="text-right border-bottom-0" colspan="{{ '7' }}">
+                            <td class="text-right border-bottom-0 p-0" colspan="{{ '7' }}">
                                 <x-select-item-button
                                     type="{{ $type }}"
                                     is-sale="{{ $isSalePrice }}"

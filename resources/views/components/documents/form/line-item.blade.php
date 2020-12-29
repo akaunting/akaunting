@@ -17,7 +17,7 @@
                 <tbody>
                     <tr>
                         @stack('move_td_start')
-                            <td class="pb-4 align-middle" colspan="1" style="color: #8898aa;">
+                            <td class="pb-3 align-middle border-bottom-0" colspan="1" style="color: #8898aa;">
                                 <div draggable="true">
                                     <i class="fas fa-grip-vertical"></i>
                                 </div>
@@ -28,19 +28,19 @@
                             @if (!$hideItems || (!$hideName && !$hideDescription))
                                 @stack('name_td_start')
                                     @if (!$hideName)
-                                        <td class="pb-4 align-middle" colspan="1">
+                                        <td class="pb-3 align-middle border-bottom-0" colspan="1">
                                             <span class="aka-text aka-text--body" tabindex="0" v-html="row.name"></span>
                                         </td>
                                     @endif
                                 @stack('name_td_end')
 
                                 @stack('description_td_start')
-                                    @if (!$hideDescription)
-                                        <td class="pb-4" colspan="1">
+                                    @if (!$hideDescription) 
+                                        <td class="pb-3 border-bottom-0" colspan="1">
                                             <textarea 
                                                 class="form-control"
                                                 placeholder="Enter item description"
-                                                style="height: 38px;"
+                                                style="height: 46px; overflow: hidden;"
                                                 :name="'items.' + index + '.description'"
                                                 v-model="row.description"
                                                 data-item="description"
@@ -54,7 +54,7 @@
 
                         @stack('quantity_td_start')
                             @if (!$hideQuantity)
-                            <td colspan="1" class="pb-4" style="padding-right: 5px; padding-left: 5px;">
+                            <td colspan="1" class="pb-3 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
                                 <div>
                                     @stack('quantity_input_start')
                                     <input type="text"
@@ -79,7 +79,7 @@
 
                         @stack('price_td_start')
                             @if (!$hidePrice)
-                                <td colspan="1" class="pb-4" style="padding-right: 5px; padding-left: 5px;">
+                                <td colspan="1" class="pb-3 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
                                     <div>
                                         @stack('price_input_start')
                                             {{ Form::moneyGroup('price', '', '', ['required' => 'required', 'row-input' => 'true', 'v-model' => 'row.price', 'v-error' => 'form.errors.get(\'items.\' + index + \'.price\')', 'v-error-message' => 'form.errors.get(\'items.\' + index + \'.price\')' , 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; form.errors.clear(\'items.\' + index + \'.price\'); onCalculateTotal'], 0.00, 'text-right input-price p-0') }}
@@ -92,7 +92,7 @@
                         @if (!$hideDiscount)
                             @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                                 @stack('discount_td_start')
-                                    <td colspan="1" class="pb-4"
+                                    <td colspan="1" class="pb-3 border-bottom-0"
                                         :class="[{'has-error': form.errors.has('items.' + index + '.discount') }]">
                                         @stack('discount_input_start')
                                         <div class="input-group input-group-merge">
@@ -127,7 +127,7 @@
 
                         @stack('total_td_start')
                             @if (!$hideAmount)
-                                <td colspan="1" class="text-right long-texts pb-4">
+                                <td colspan="1" class="text-right long-texts pb-3 border-bottom-0">
                                     <div>
                                         {{ Form::moneyGroup('total', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row.total', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                     </div>
@@ -136,7 +136,7 @@
                         @stack('total_td_end')
 
                         @stack('delete_td_start')
-                            <td colspan="1" class="pb-4 align-middle">
+                            <td colspan="1" class="pb-3 align-middle border-bottom-0">
                                 <div>
                                     <button type="button" @click="onDeleteItem(index)" class="btn btn-link btn-delete p-0">
                                         <i class="far fa-trash-alt"></i>
@@ -147,11 +147,11 @@
                     </tr>
 
                     <tr>
-                        <td colspan="3">
+                        <td class="border-top-0" colspan="3">
                             @stack('item_custom_fields')
                         </td>
 
-                        <td colspan="4" class="p-0">
+                        <td class="border-top-0 p-0" colspan="4">
                             <table class="w-100">
                                 <colgroup>
                                     <col style="width: 100px;">

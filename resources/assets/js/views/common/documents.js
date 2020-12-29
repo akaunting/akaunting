@@ -53,6 +53,7 @@ const app = new Vue({
 
             items: [],
             taxes: [],
+            page_loaded: false,
         }
     },
 
@@ -800,5 +801,7 @@ const app = new Vue({
                 }, this);
             }, this);
         }
+
+        this.page_loaded = true;
     }
 });

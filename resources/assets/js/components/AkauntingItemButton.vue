@@ -1,12 +1,12 @@
 <template>
     <div :id="'select-item-button-' + _uid" class="product-select">
+        <div class="item-add-new">
+            <button type="button" class="btn btn-link w-100" @click="onItemList">
+                <i class="fas fa-plus-circle"></i> &nbsp; {{ addItemText }}
+            </button>
+        </div>
+ 
         <div class="aka-select aka-select--fluid" :class="[{'is-open': show.item_list}]" tabindex="-1">
-            <div>
-                <button type="button" class="btn btn-link w-100" @click="onItemList">
-                    <i class="fas fa-plus-circle"></i> &nbsp; {{ addItemText }}
-                </button>
-            </div>
-
             <div class="aka-select-menu" v-if="show.item_list">
                 <div class="aka-select-search-container">
                     <span class="aka-prefixed-input aka-prefixed-input--fluid">
