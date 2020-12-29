@@ -10,7 +10,7 @@
                 </span>
             </div>
 
-            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control"></money>
+            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control" :class="moneyClass"></money>
         </div>
 
         <div class="invalid-feedback d-block" v-if="error" v-html="error"></div>
@@ -27,14 +27,13 @@
                 </span>
             </div>
 
-            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control"></money>
+            <money :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control" :class="moneyClass"></money>
         </div>
 
-        <money v-else :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control"></money>
+        <money v-else :name="name" @input="input" :placeholder="placeholder" v-bind="money" :value="model" :disabled="disabled" :masked="masked" class="form-control" :class="moneyClass"></money>
 
         <div class="invalid-feedback d-block" v-if="error" v-html="error"></div>
     </div>
-
 </template>
 
 <script>
@@ -67,6 +66,11 @@ export default {
         icon: {
             type: String,
             description: "Prepend icon (left)"
+        },
+        moneyClass: {
+            type: String,
+            default: null,
+            description: "Selectbox disabled status"
         },
         group_class: {
             type: String,

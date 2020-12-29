@@ -45,6 +45,7 @@
                                     :value="item.price"
                                     v-bind="money"
                                     masked
+                                    disabled
                                     class="text-right disabled-money"
                                 ></money>
                             </div>
