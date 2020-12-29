@@ -1000,11 +1000,11 @@ table .align-items-center td span.badge {
     background-color: #fff;
 }
 
-.aka-box__content>:last-child {
+.aka-box-content>:last-child {
     margin-bottom: 0;
 }
 
-.aka-box__content>:first-child {
+.aka-box-content>:first-child {
     margin-top: 0;
 }
 
@@ -1208,7 +1208,7 @@ table .align-items-center td span.badge {
     font-weight: bold;
 }
 
-.aka-select__footer {
+.aka-select-footer {
     text-align: center;
     border-top: 1px solid #b2c2cd;
     padding: 8px;
@@ -1248,3 +1248,95 @@ table .align-items-center td span.badge {
     background-color: #f8f9fe;
 }
 /* Document Finish */
+
+/* Akaunting Item Button Start */
+.aka-select.aka-select--fluid {
+    min-width: 160px;
+}
+
+.aka-select.aka-select--fluid {
+    max-width: 96%;
+    min-width: 0;
+}
+
+.product-select .aka-select-menu {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    top: 0;
+    overflow: hidden;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top-width: 0;
+}
+
+.aka-select-menu {
+    list-style: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    top: 110%;
+    z-index: 1000;
+    min-width: 100%;
+    padding: 8px 0;
+    border-radius: 4px;
+    color: #1c252c;
+    background-color: white;
+    box-shadow: 0 0 0 1px rgba(77,101,117,0.1), 0 3px 10px 0 rgba(77,101,117,0.2);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    height: 0;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    overflow: hidden;
+    padding: 0;
+    right: 0;
+    left: 0;
+    top: 100%;
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.product-select .aka-select.aka-select--fluid.is-open {
+    position: absolute;
+    display: block;
+}
+
+.item-select {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.item-select-column {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.item-select-price {
+    width: 135px;
+    text-align: right;
+}
+.item-select-info-description, .item-select-info-name {
+    width: 710px;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.item-select-column {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.item-select .v-money.text-right.disabled-money {
+    color: #8898aa;
+}
+/* Akaunting Item Button Finish */

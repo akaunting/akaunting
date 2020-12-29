@@ -3,7 +3,7 @@
         <div class="aka-select aka-select--fluid" :class="[{'is-open': show.item_list}]" tabindex="-1">
             <div>
                 <button type="button" class="btn btn-link w-100" @click="onItemList">
-                    <i class="fas fa-plus-circle"></i> &nbsp; Add an item
+                    <i class="fas fa-plus-circle"></i> &nbsp; {{ addItemText }}
                 </button>
             </div>
 
@@ -34,28 +34,39 @@
 
                 <ul class="aka-select-menu-options">
                     <div class="aka-select-menu-option" v-for="(item, index) in sortItems" :key="index" @click="onItemSeleted(index, item.id)">
-                        <div class="product-select__product">
-                            <div class="product-select__product__column product-select__product__info">
-                                <b class="product-select__product__info__name"><span>{{ item.name }}</span></b>
+                        <div class="item-select w-100">
+                            <div class="item-select-column item-select-info w-75">
+                                <b class="item-select-info-name"><span>{{ item.name }}</span></b>
                             </div>
-                            <div class="product-select__product__column product-select__product__price">
-                                {{ item.price }}
+
+                            <div class="item-select-column item-select-price w-25">
+                                <money 
+                                    :name="'item-id-' + item.id"
+                                    :value="item.price"
+                                    v-bind="money"
+                                    masked
+                                    class="text-right disabled-money"
+                                ></money>
                             </div>
                         </div>
                     </div>
 
                     <div class="aka-select-menu-option" v-if="!sortItems.length">
                         <div>
-                            <strong class="text-strong" v-if="!items.length && !search"><span>{{ noDataText }}</span></strong>
+                            <strong class="text-strong" v-if="!items.length && !search">
+                                <span>{{ noDataText }}</span>
+                            </strong>
 
-                            <strong class="text-strong" v-else><span>{{ noMatchingDataText }}</span></strong>
+                            <strong class="text-strong" v-else>
+                                <span>{{ noMatchingDataText }}</span>
+                            </strong>
                         </div>
                     </div>
                 </ul>
 
-                <div class="aka-select__footer" tabindex="0" @click="onItemCreate">
+                <div class="aka-select-footer" @click="onItemCreate">
                     <span>
-                        <i class="fas fa-plus"></i> Create a new item
+                        <i class="fas fa-plus"></i> {{ createNewItemText }}
                     </span>
                 </div>
             </div>
@@ -124,6 +135,16 @@ export default {
             },
             description: "Selectbox Add New Item Feature"
         },
+        addItemText: {
+            type: String,
+            default: 'Add an item',
+            description: ""
+        },
+        createNewItemTax:{
+            type: String,
+            default: 'Create a new item',
+            description: ""
+        },
         noDataText: {
             type: String,
             default: 'No Data',
@@ -133,6 +154,19 @@ export default {
             type: String,
             default: 'No Matchign Data',
             description: "Selectbox search option not found item message"
+        },
+        dynamicCurrency: {
+            type: Object,
+            default: function () {
+                return {
+                    decimal_mark: '.',
+                    thousands_separator: ',',
+                    symbol_first: 1,
+                    symbol: '$',
+                    precision: 2,
+                };
+            },
+            description: "Dynamic currency"
         },
         currency: {
             type: Object,
@@ -470,6 +504,21 @@ export default {
     },
 
     watch: {
+        dynamicCurrency: function (currency) {
+            if (!currency) {
+                return;
+            }
+
+            this.money = {
+                decimal: currency.decimal_mark,
+                thousands: currency.thousands_separator,
+                prefix: (currency.symbol_first) ? currency.symbol : '',
+                suffix: (!currency.symbol_first) ? currency.symbol : '',
+                precision: parseInt(currency.precision),
+                masked: this.masked
+            };
+        },
+
         show: {
             handler: function(newValue) {
                 if (newValue) {
@@ -481,91 +530,3 @@ export default {
     },
 };
 </script>
-
-<style>
-.aka-select.aka-select--fluid {
-    min-width: 160px;
-}
-
-.aka-select.aka-select--fluid {
-    max-width: 96%;
-    min-width: 0;
-}
-
-.product-select .aka-select-menu {
-    width: 100%;
-    min-width: 0;
-    padding: 0;
-    top: 0;
-    overflow: hidden;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-top-width: 0;
-}
-
-.aka-select-menu {
-    list-style: none;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    display: block;
-    visibility: hidden;
-    position: absolute;
-    top: 110%;
-    z-index: 1000;
-    min-width: 100%;
-    padding: 8px 0;
-    border-radius: 4px;
-    color: #1c252c;
-    background-color: white;
-    box-shadow: 0 0 0 1px rgba(77,101,117,0.1), 0 3px 10px 0 rgba(77,101,117,0.2);
-    -webkit-transform-origin: 0 0;
-    transform-origin: 0 0;
-    height: 0;
-    -webkit-transform: translateY(4px);
-    transform: translateY(4px);
-    overflow: hidden;
-    padding: 0;
-    right: 0;
-    left: 0;
-    top: 100%;
-    border-top: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-}
-
-.product-select .aka-select.aka-select--fluid.is-open {
-    position: absolute;
-    display: block;
-}
-
-.product-select__product {
-    display: flex;
-    flex-flow: row nowrap;
-}
-
-.product-select__product__column {
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.product-select__product__price {
-    width: 135px;
-    text-align: right;
-}
-.product-select__product__info__description, .product-select__product__info__name {
-    width: 710px;
-    display: block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.product-select__product__column {
-    white-space: nowrap;
-    overflow: hidden;
-}
-</style>

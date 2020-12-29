@@ -1,15 +1,14 @@
 <template>
-    <div :id="'select-contact-card-' + _uid" class="form-group col-md-12 invoice-add__body__top-form__customer">
-        <div class="invoice-customer" :class="[{'fs-exclude': show.contact_selected}]">
+    <div :id="'select-contact-card-' + _uid" class="form-group col-md-12 document-add-body-form-contact">
+        <div class="document-contact" :class="[{'fs-exclude': show.contact_selected}]">
             <div class="document-contact-without-contact">
-                <div v-if="!show.contact_selected" class="document-contact-without-contact-box__customer-select fs-exclude">
+                <div v-if="!show.contact_selected" class="document-contact-without-contact-box-contact-select fs-exclude">
                     <div class="aka-select aka-select--medium is-open" tabindex="0">
                         <div>
                             <div class="aka-box aka-box--large">
-                                <div class="aka-box__content">
+                                <div class="aka-box-content">
                                     <div class="document-contact-without-contact-box">
-                                        <button type="button" class="btn-aka-link aka-btn--fluid document-contact-without-contact-box-btn"
-                                        @click="onContactList">
+                                        <button type="button" class="btn-aka-link aka-btn--fluid document-contact-without-contact-box-btn" @click="onContactList">
                                             <i class="far fa-user fa-2x"></i> {{ addContactText }}
                                         </button>
                                     </div>
@@ -58,7 +57,7 @@
                                 </div>
                             </ul>
                             
-                            <div class="aka-select__footer" tabindex="0" @click="onContactCreate">
+                            <div class="aka-select-footer" tabindex="0" @click="onContactCreate">
                                 <span>
                                     <i class="fas fa-plus"></i> {{ createNewContactText }}
                                 </span>
@@ -67,7 +66,7 @@
                     </div>
                 </div>
                 
-                <div v-else class="invoice-customer__with-customer__bill-to">
+                <div v-else class="document-contact-with-contact-bill-to">
                     <div>
                         <span class="aka-text aka-text--block-label">{{ contactInfoText }}</span>
                     </div>
@@ -104,8 +103,12 @@
                         </table>
                     </div>
 
-                    <button type="button" class="btn btn-link" @click="onContactEdit">{{ editContactText.replace(':contact_name', contact.name) }}</button>&nbsp;•&nbsp;
-                    <button type="button" class="btn btn-link" @click="onContactList">{{ chooseDifferentContactText }}</button>
+                    <button type="button" class="btn btn-link" @click="onContactEdit">
+                        {{ editContactText.replace(':contact_name', contact.name) }}
+                    </button>&nbsp;•&nbsp;
+                    <button type="button" class="btn btn-link" @click="onContactList">
+                        {{ chooseDifferentContactText }}
+                    </button>
                 </div>
             </div>
 
@@ -613,6 +616,3 @@ export default {
     },
 };
 </script>
-
-<style>
-</style>
