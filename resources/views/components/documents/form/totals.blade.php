@@ -17,7 +17,7 @@
                         </td>
                         <td class="text-right border-bottom-0 long-texts pb-0">
                             <div>
-                                {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right disabled-money') }}
+                                {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
                         <td class="border-bottom-0 pb-0"></td>
@@ -33,7 +33,7 @@
                             </td>
                             <td class="text-right border-top-0 border-bottom-0 long-texts pb-0">
                                 <div>
-                                    {{ Form::moneyGroup('item_discount', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.item_discount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right disabled-money') }}
+                                    {{ Form::moneyGroup('item_discount', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.item_discount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                                 </div>
                             </td>
                             <td class="border-top-0 pb-0"></td>
@@ -88,7 +88,7 @@
                             </td>
                             <td class="text-right border-top-0  border-bottom-0 pb-0">
                                 <div>
-                                    {{ Form::moneyGroup('discount_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.discount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right disabled-money') }}
+                                    {{ Form::moneyGroup('discount_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.discount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                                 </div>
                                 {!! Form::hidden('discount', null, ['id' => 'discount', 'class' => 'form-control text-right', 'v-model' => 'form.discount']) !!}
                             </td>
@@ -106,7 +106,7 @@
                         </td>
                         <td class="text-right border-top-0 border-bottom-0 long-texts pb-0">
                             <div>
-                                {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'tax.total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right disabled-money') }}
+                                {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'tax.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
                         <td class="border-top-0 pb-0"></td>
@@ -122,12 +122,27 @@
                         </td>
                         <td class="text-right border-top-0 long-texts pb-0">
                             <div>
-                                {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right disabled-money') }}
+                                {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
                         <td class="border-top-0"></td>
                     </tr>
                     @stack('grand_total_td_end')
+
+                    @stack('currency_conversion_td_start')
+                        <tr id="tr-currency-conversion" class="d-none" :class="[{'d-table-row': (('{{ setting('default.currency') }}' != form.currency_code) && totals.total)}]">
+                            <td class="border-top-0 pb-0"></td>
+                            <td class="text-right border-top-0 border-right-0 align-middle pb-0" colspan="2">
+                                <akaunting-currency-conversion 
+                                    currency-conversion-text="{{ trans('currencies.conversion') }}"
+                                    :price="(totals.total / form.currency_rate).toFixed(2)"
+                                    currecy-code="{{ setting('default.currency') }}"
+                                    :currency-rate="form.currency_rate"
+                                ></akaunting-currency-conversion>
+                            </td>
+                            <td class="border-top-0"></td>
+                        </tr>
+                        @stack('currency_conversion_td_end')
                 </tbody>
             </table>
         </div>

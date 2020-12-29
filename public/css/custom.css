@@ -856,6 +856,14 @@ table .align-items-center td span.badge {
 /*-- Embed accordion textarea Start--*/
 .embed-card-body-footer {
     margin-bottom: -1.5rem;
+    border-top: 1px solid #e9ecef;
+    margin-left: -25px;
+    margin-right: -25px;
+}
+
+.embed-acoordion-textarea .form-control-label {
+    margin-top: 20px;
+    margin-bottom: -10px;
 }
 
 .embed-acoordion-textarea {
@@ -1003,6 +1011,10 @@ table .align-items-center td span.badge {
     border-radius: 8px;
     border: 1px solid #b2c2cd;
     background-color: #fff;
+}
+
+.aka-box:hover {
+    background-color: #f6f9fc;
 }
 
 .aka-box-content>:last-child {
@@ -1209,17 +1221,31 @@ table .align-items-center td span.badge {
     position: relative;
 }
 
+.aka-select-menu-option:hover {
+    background-color: #F5F7FA;
+}
+
 .text-strong {
     font-weight: bold;
 }
 
 .aka-select-footer {
     text-align: center;
-    border-top: 1px solid #b2c2cd;
-    padding: 8px;
+    border-top: 1px solid #dee2e6;
     cursor: pointer;
-    color: #55588b;
+    color: #3c3f72;
     font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 6px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.aka-select-footer:hover {
+    background-color: #3c3f72 !important;
+    color: white !important;
+    border-top-color: #3c3f72;
 }
 
 .document-item-table>.aka-table>.aka-table-body>.aka-table-row:last-child .btn-aka-link {
@@ -1358,6 +1384,11 @@ table .align-items-center td span.badge {
 
 .item-select .v-money.text-right.disabled-money {
     color: #8898aa;
+    background-color: transparent !important;
+}
+
+.item-select .v-money.text-right.disabled-money:hover {
+    background-color: #F5F7FA !important;
 }
 /* Akaunting Item Button Finish */
 

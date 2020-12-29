@@ -7,6 +7,10 @@
         :form-classes="[{'has-error': form.errors.has('{{ $name }}') }]"
         @endif
 
+        @if (!empty($attributes['money-class']))
+        money-class="{{ $attributes['money-class'] }}"
+        @endif
+
         @if (isset($attributes['required']))
         :required="{{ ($attributes['required']) ? 'true' : 'false' }}"
         @endif
