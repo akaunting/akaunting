@@ -105,7 +105,7 @@
                     </div>
 
                     <button type="button" class="btn btn-link" @click="onContactEdit">{{ editContactText.replace(':contact_name', contact.name) }}</button>&nbsp;•&nbsp;
-                    <button type="button" class="btn btn-link" @click="onContactList">{{ chooseDiffentContactText }}</button>
+                    <button type="button" class="btn btn-link" @click="onContactList">{{ chooseDifferentContactText }}</button>
                 </div>
             </div>
 
@@ -224,7 +224,7 @@ export default {
             default: 'Tax number',
             description: ""
         },
-        chooseDiffentContactText: {
+        chooseDifferentContactText: {
             type: String,
             default: 'Choose a different customer',
             description: ""

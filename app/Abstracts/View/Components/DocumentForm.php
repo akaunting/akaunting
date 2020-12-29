@@ -368,10 +368,16 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textAddContact = 'vendor';
+                $textAddContact = [
+                    'general.form.add',
+                    'general.vendors'
+                ];
                 break;
             default:
-                $textAddContact = 'customer';
+                $textAddContact = [
+                    'general.form.add',
+                    'general.customers'
+                ];
                 break;
         }
 
@@ -388,10 +394,16 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textCreateNewContact = 'vendor';
+                $textCreateNewContact = [
+                    'general.form.add_new',
+                    'general.vendors'
+                ];
                 break;
             default:
-                $textCreateNewContact = 'customer';
+                $textCreateNewContact = [
+                    'general.form.add_new',
+                    'general.customers'
+                ];
                 break;
         }
 
@@ -408,10 +420,16 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textEditContact = 'vendor';
+                $textEditContact = [
+                    'general.form.contact_edit',
+                    'general.vendors'
+                ];
                 break;
             default:
-                $textEditContact = 'customer';
+                $textEditContact = [
+                    'general.form.contact_edit',
+                    'general.customers'
+                ];
                 break;
         }
 
@@ -428,10 +446,10 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textContactInfo = 'vendor';
+                $textContactInfo = 'bills.bill_from';
                 break;
             default:
-                $textContactInfo = 'customer';
+                $textContactInfo = 'invoices.bill_to';
                 break;
         }
 
@@ -448,10 +466,16 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textChooseDifferentContact = 'vendor';
+                $textChooseDifferentContact = [
+                    'general.form.choose_different',
+                    'general.vendors'
+                ];
                 break;
             default:
-                $textChooseDifferentContact = 'customer';
+                $textChooseDifferentContact = [
+                    'general.form.choose_different',
+                    'general.customers'
+                ];
                 break;
         }
 

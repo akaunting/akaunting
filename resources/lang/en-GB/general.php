@@ -185,7 +185,13 @@ return [
             'field'         => '- Select :field -',
             'file'          => 'Select File',
         ],
+        'add'               => 'Add a :field',
+        'add_an'            => 'Add an :field',
         'add_new'           => 'Add New :field',
+        'edit'              => 'Edit :field',
+        'contact_edit'      => 'Edit :contact_name :field',
+        'choose'            => 'Choose :field',
+        'choose_different'  => 'Choose a different :field',
         'no_file_selected'  => 'No file selected...',
     ],
 

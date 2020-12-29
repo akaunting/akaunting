@@ -8,11 +8,11 @@
                 :contacts="$contacts"
                 :search_route="$contactSearchRoute"
                 :create_route="$contactCreateRoute"
-                text-add-contact="{{ $textAddContact }}"
-                text-create-new-contact="{{ $textCreateNewContact }}"
-                text-edit-contact="{{ $textEditContact }}"
-                text-contact-info="{{ $textContactInfo }}"
-                text-choose-different-contact="{{ $textChooseDifferentContact }}"
+                :text-add-contact="$textAddContact"
+                :text-create-new-contact="$textCreateNewContact"
+                :text-edit-contact="$textEditContact"
+                :text-contact-info="$textContactInfo"
+                :text-choose-different-contact="$textChooseDifferentContact"
             />
         </div>
         @endif

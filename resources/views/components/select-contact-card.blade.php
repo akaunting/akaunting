@@ -6,12 +6,12 @@
     create-route="{{ $create_route }}"
     :contacts="{{ json_encode($contacts) }}"
     :selected="{{ json_encode($contact) }}"
-    add-contact-text="{{ $textAddContact }}"
-    create-new-contact-text="{{ $textCreateNewContact }}"
-    edit-contact-text="{{ $textEditContact }}"
-    contact-info-text="{{ $textContactInfo }}"
+    add-contact-text="{{ is_array($textAddContact) ? trans($textAddContact[0], ['field' => trans_choice($textAddContact[1], 1)]) : trans($textAddContact) }}"
+    create-new-contact-text="{{ is_array($textCreateNewContact) ? trans($textCreateNewContact[0], ['field' => trans_choice($textCreateNewContact[1], 1)]) : trans($textCreateNewContact) }}"
+    edit-contact-text="{{ is_array($textEditContact) ? trans($textEditContact[0], ['field' => trans_choice($textEditContact[1], 1)]) : trans($textEditContact) }}"
+    contact-info-text="{{ is_array($textContactInfo) ? trans($textContactInfo[0], ['field' => trans_choice($textContactInfo[1], 1)]) : trans($textContactInfo) }}"
     tax-number-text="{{ trans('general.tax_number') }}"
-    choose-different-contact-text="{{ $textChooseDifferentContact }}"
+    choose-different-contact-text="{{ is_array($textChooseDifferentContact) ? trans($textChooseDifferentContact[0], ['field' => trans_choice($textChooseDifferentContact[1], 1)]) : trans($textChooseDifferentContact) }}"
     :add-new="{{ json_encode([
         'status' => true,
         'text' => trans('general.add_new'),
