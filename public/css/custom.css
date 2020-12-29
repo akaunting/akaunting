@@ -892,10 +892,16 @@ table .align-items-center td span.badge {
 .item-columns-edit {
     display: inline-block;
     margin-left: 50px;
+    font-weight: normal;
+    font-size:12px;
     background: #f6f9fc;
     color: #8898aa;
     padding: 6px 12px;
     border-radius: 6px 6px 0 0;
+}
+
+.item-columns-edit button {
+    font-weight: normal;
 }
 
 .document-total-currency {
@@ -962,7 +968,6 @@ table .align-items-center td span.badge {
 }
 
 /* Contact Card Start */
-
 .document-contact-without-contact .aka-select {
     width: 384px;
 }
@@ -1063,7 +1068,7 @@ table .align-items-center td span.badge {
 .aka-datepicker-quicklinks
 .aka-datepicker-quicklink:hover,
 .aka-table-action:hover {
-    color: #1f7eea;
+    color: #3c3f72;
     text-decoration: underline;
 }
 
@@ -1260,7 +1265,7 @@ table .align-items-center td span.badge {
 }
 
 .product-select .item-add-new:hover {
-    background-color: #f1f3f3;
+    background-color: #f6f9fc;
     text-decoration: none;
 }
 

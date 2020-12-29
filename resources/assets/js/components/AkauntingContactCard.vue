@@ -9,7 +9,7 @@
                                 <div class="aka-box-content">
                                     <div class="document-contact-without-contact-box">
                                         <button type="button" class="btn-aka-link aka-btn--fluid document-contact-without-contact-box-btn" @click="onContactList">
-                                            <i class="far fa-user fa-2x"></i> {{ addContactText }}
+                                            <i class="far fa-user fa-2x"></i> &nbsp; {{ addContactText }}
                                         </button>
                                     </div>
                                 </div>

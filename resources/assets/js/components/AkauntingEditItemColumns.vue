@@ -1,6 +1,6 @@
 <template>
     <div class="item-columns-edit">
-        <i class="fas fa-pencil-alt"></i>
+        <i class="fas fa-pencil-alt"></i>&nbsp;
         <button 
             type="button"
             class="btn-aka-link"
