@@ -1,5 +1,5 @@
 <template>
-    <div :id="'select-contact-card-' + _uid" class="form-group col-md-12 document-add-body-form-contact">
+    <div :id="'select-contact-card-' + _uid" class="document-add-body-form-contact ml-3">
         <div class="document-contact" :class="[{'fs-exclude': show.contact_selected}]">
             <div class="document-contact-without-contact">
                 <div v-if="!show.contact_selected" class="document-contact-without-contact-box-contact-select fs-exclude">
@@ -390,7 +390,7 @@ export default {
 
             window.axios.get(path)
             .then(response => {
-                this.show.contact_selected = false;
+                //this.show.contact_selected = false;
                 this.show.contact_list = false;
 
                 add_new.show = true;
