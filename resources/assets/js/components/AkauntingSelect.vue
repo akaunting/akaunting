@@ -15,7 +15,13 @@
             :multiple="multiple"
             :readonly="readonly"
             :collapse-tags="collapse"
+            :loading="loading"
         >
+            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty loading">
+                    {{ loadingText }}
+                </p>
+            </div>
 
             <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
@@ -81,7 +87,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true" :value="add_new">
+            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -245,6 +251,12 @@ export default {
             description: "Selectbox collapse status"
         },
 
+        loadingText: {
+            type: String,
+            default: 'Loading...',
+            description: "Selectbox loading message"
+        },
+
         noDataText: {
             type: String,
             default: 'No Data',
@@ -275,6 +287,7 @@ export default {
             form: {},
             sort_options: [],
             new_options: {},
+            loading: false,
         }
     },
 

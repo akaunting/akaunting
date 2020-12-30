@@ -7,7 +7,7 @@
             {!! Form::label($name, $text, ['class' => 'form-control-label'])!!}
         @endif
 
-        <div class="custom-file">
+        <div class="input-group input-group-merge">
             <dropzone-file-upload 
                 @if (!empty($attributes['options']))
                 options={{ json_encode($attributes['options']) }}

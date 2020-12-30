@@ -18,8 +18,13 @@
             :remote-method="remoteMethod"
             :loading="loading"
         >
+            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty loading">
+                    {{ loadingText }}
+                </p>
+            </div>
 
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="!loading && addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
@@ -36,7 +41,7 @@
                 </ul>
             </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+            <div v-else-if="!loading && addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noDataText }}
                 </p>
@@ -70,11 +75,11 @@
             <el-option-group
                 v-if="group"
                 v-for="(group_options, group_index) in sortOptions"
-                :key="group_options.key"
+                :key="group_index"
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
-                    :key="option.option_index"
+                    :key="option_index"
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">
@@ -83,7 +88,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
+            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled" :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -114,8 +119,13 @@
             :remote-method="remoteMethod"
             :loading="loading"
         >
+            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty loading">
+                    {{ loadingText }}
+                </p>
+            </div>
 
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="!loading && addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
@@ -132,7 +142,7 @@
                 </ul>
             </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+            <div v-else-if="!loading && addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noDataText }}
                 </p>
@@ -166,7 +176,7 @@
             <el-option-group
                 v-if="group"
                 v-for="(group_options, group_index) in sortOptions"
-                :key="group_options.key"
+                :key="group_index"
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
@@ -179,7 +189,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
+            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled"  :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -818,25 +828,55 @@ export default {
             if (!this.multiple) {
                 this.selected = selected.toString();
             } else {
-                let is_string = false;
-                let pre_value = [];
+                if (Array.isArray(this.selected) && !this.selected.length) {
+                    this.selected = selected;
+                } else {
+                    let is_string = false;
+                    let pre_value = [];
 
-                selected.forEach(item => {
-                    if (typeof item != 'string') {
-                        is_string = true;
-                        pre_value.push(item.toString());
+                    selected.forEach(item => {
+                        if (typeof item != 'string') {
+                            is_string = true;
+                            pre_value.push(item.toString());
+                        }
+                    });
+
+                    if (is_string) {
+                        this.selected = pre_value;
                     }
-                });
-
-                if (is_string) {
-                    this.selected = pre_value;
                 }
             }
         },
 
         value: function (selected) {
             if (!this.multiple) {
-                this.selected = selected;
+                this.selected = selected.toString();
+            } else {
+                if (Array.isArray(this.selected) && !this.selected.length) {
+                    this.selected = selected;
+                } else {
+                    let is_string = false;
+                    let pre_value = [];
+
+                    selected.forEach(item => {
+                        if (typeof item != 'string') {
+                            is_string = true;
+                            pre_value.push(item.toString());
+                        }
+                    });
+
+                    if (is_string) {
+                        this.selected = pre_value;
+                    }
+                }
+            }
+
+            this.change();
+        },
+
+        model: function (selected) {
+            if (!this.multiple) {
+                this.selected = selected.toString();
             } else {
                 let is_string = false;
                 let pre_value = [];
@@ -855,12 +895,6 @@ export default {
 
             this.change();
         },
-
-        model: function (selected) {
-            this.selected = selected;
-
-            this.change();
-        },
     },
 }
 </script>
@@ -872,6 +906,10 @@ export default {
 
     .el-select-dropdown__empty {
         padding: 10px 0 0 !important;
+    }
+
+    .el-select-dropdown__empty.loading {
+        padding: 10px 0 !important;
     }
 
     .el-select__footer {
