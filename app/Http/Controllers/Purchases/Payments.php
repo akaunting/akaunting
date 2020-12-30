@@ -156,7 +156,7 @@ class Payments extends Controller
 
         $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        if ($revenue->category && !array_key_exists($payment->category_id, $categories)) {
+        if ($payment->category && !array_key_exists($payment->category_id, $categories)) {
             $categories->put($revenue->category->id, $revenue->category->name);
         }
 
