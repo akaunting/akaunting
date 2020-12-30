@@ -34,7 +34,7 @@
 
                 {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed(), $user->locale) }}
 
-                {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1)) }}
+                {{ Form::fileGroup('picture',  trans_choice('general.pictures', 1), '', ['dropzone-class' => 'form-file']) }}
             </div>
         </div>
 

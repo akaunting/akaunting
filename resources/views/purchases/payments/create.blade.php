@@ -38,7 +38,7 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 
-                    {{ Form::fileGroup('attachment', trans('general.attachment')) }}
+                    {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'form-file']) }}
 
                     {{ Form::selectGroup('document_id', trans_choice('general.bills', 1), 'file-invoice', [], null, ['disabled' => 'true']) }}
                 </div>

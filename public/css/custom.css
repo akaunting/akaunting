@@ -1408,3 +1408,12 @@ table .align-items-center td span.badge {
     margin-left: 45%;
 }
 /* Document Loading Finish */
+/* Custom File stype Start */
+.form-file {
+    width: 100%;
+}
+
+.form-file .dz-message {
+    padding: 0.6rem 1rem;
+}
+/* Custom File stype Finish */

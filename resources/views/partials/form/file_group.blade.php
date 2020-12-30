@@ -8,7 +8,10 @@
         @endif
 
         <div class="input-group input-group-merge">
-            <dropzone-file-upload 
+            <dropzone-file-upload
+                @if (!empty($attributes['dropzone-class']))
+                class="{{ $attributes['dropzone-class'] }}"
+                @endif
                 @if (!empty($attributes['options']))
                 options={{ json_encode($attributes['options']) }}
                 @endif

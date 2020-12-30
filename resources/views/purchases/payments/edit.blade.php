@@ -63,7 +63,7 @@
                             @include('partials.media.file')
                         </div>
                     @else
-                        {{ Form::fileGroup('attachment', trans('general.attachment')) }}
+                        {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'form-file']) }}
                     @endif
 
                     @if ($payment->bill)
