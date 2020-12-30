@@ -11,11 +11,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laravel\Sanctum\HasApiTokens;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants;
+    use LaratrustUserTrait, Notifiable, SearchString, SoftDeletes, Sortable, Media, Tenants, HasApiTokens;
 
     protected $table = 'users';
 

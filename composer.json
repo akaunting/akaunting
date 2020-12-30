@@ -38,6 +38,7 @@
         "kyslik/column-sortable": "^6.0",
         "laracasts/flash": "3.1.*",
         "laravel/framework": "^7.0",
+        "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "6.1.*",
