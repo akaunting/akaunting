@@ -150,7 +150,7 @@ class Revenues extends Controller
 
         $customers = Contact::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        if ($revenue->contact && !array_key_exists($revenue->contact_id, $vendors)) {
+        if ($revenue->contact && !array_key_exists($revenue->contact_id, $customers)) {
             $customers->put($revenue->contact->id, $revenue->contact->name);
         }
 
