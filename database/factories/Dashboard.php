@@ -1,32 +1,78 @@
 <?php
 
-use App\Models\Auth\User;
-use App\Models\Common\Dashboard;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$user = User::first();
-$company = $user->companies()->first();
+use App\Abstracts\Factory;
+use App\Models\Common\Dashboard as Model;
 
-$factory->define(Dashboard::class, function (Faker $faker) use ($company) {
-    setting()->setExtraColumns(['company_id' => $company->id]);
+class Dashboard extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Model::class;
 
-    return [
-        'company_id' => $company->id,
-        'name' => $faker->text(15),
-        'enabled' => $faker->boolean ? 1 : 0,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'company_id' => $this->company->id,
+            'name' => $this->faker->text(15),
+            'enabled' => $this->faker->boolean ? 1 : 0,
+        ];
+    }
 
-$factory->state(Dashboard::class, 'enabled', ['enabled' => 1]);
+    /**
+     * Indicate that the model is enabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function enabled()
+    {
+        return $this->state([
+            'enabled' => 1,
+        ]);
+    }
 
-$factory->state(Dashboard::class, 'disabled', ['enabled' => 0]);
+    /**
+     * Indicate that the model is disabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function disabled()
+    {
+        return $this->state([
+            'enabled' => 0,
+        ]);
+    }
 
-$factory->state(Dashboard::class, 'users', function (Faker $faker) use ($company) {
-    return [
-        'users' => $company->users()->enabled()->get()->pluck('id')->toArray(),
-    ];
-});
+    /**
+     * Indicate the model users.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function users()
+    {
+        return $this->state([
+            'users' => $this->getCompanyUsers(),
+        ]);
+    }
 
-$factory->afterCreating(Dashboard::class, function ($dashboard, $faker) use ($company) {
-    $dashboard->users()->attach($company->users()->enabled()->get()->pluck('id')->toArray());
-});
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Model $dashboard) {
+            $dashboard->users()->attach($this->getCompanyUsers());
+        });
+    }
+}

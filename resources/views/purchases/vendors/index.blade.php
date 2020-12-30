@@ -3,15 +3,15 @@
 @section('title', trans_choice('general.vendors', 2))
 
 @section('new_button')
-    @permission('create-purchases-vendors')
-        <span><a href="{{ route('vendors.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-        <span><a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'vendors']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
-    @endpermission
-    <span><a href="{{ route('vendors.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    @can('create-purchases-vendors')
+        <a href="{{ route('vendors.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'vendors']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+    @endcan
+    <a href="{{ route('vendors.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')
-    @if ($vendors->count())
+    @if ($vendors->count() || request()->get('search', false))
         <div class="card">
             <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
@@ -21,10 +21,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <akaunting-search
-                            :placeholder="'{{ trans('general.search_placeholder') }}'"
-                            :options="{{ json_encode([]) }}"
-                        ></akaunting-search>
+                        <x-search-string model="App\Models\Common\Contact" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.vendors', $bulk_actions, ['group' => 'purchases', 'type' => 'vendors']) }}
@@ -82,14 +79,14 @@
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                             <a class="dropdown-item" href="{{ route('vendors.show', $item->id) }}">{{ trans('general.show') }}</a>
                                             <a class="dropdown-item" href="{{ route('vendors.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                            @permission('create-purchases-vendors')
+                                            @can('create-purchases-vendors')
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route('vendors.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
-                                            @endpermission
-                                            @permission('delete-purchases-vendors')
+                                            @endcan
+                                            @can('delete-purchases-vendors')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'vendors.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

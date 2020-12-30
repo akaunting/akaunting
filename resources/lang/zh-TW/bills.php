@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => '帳單標記為已收到',
-        'marked_paid'       => '帳單標記為已付款',
-        'marked_cancelled'  => '帳單標記為已撤銷',
         'draft'             => '這是 <b>草稿</b> 帳單, 在簽收後將反映在圖表上。',
 
         'status' => [

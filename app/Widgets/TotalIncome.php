@@ -4,7 +4,7 @@ namespace App\Widgets;
 
 use App\Abstracts\Widget;
 use App\Models\Banking\Transaction;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 
 class TotalIncome extends Widget
 {
@@ -22,12 +22,17 @@ class TotalIncome extends Widget
             $current += $transaction->getAmountConvertedToDefault();
         });
 
-        $this->applyFilters(Invoice::with('transactions')->accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($invoice) use (&$open, &$overdue) {
-            list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($invoice);
+        $this->applyFilters(
+            Document::invoice()->with('transactions')->accrued()->notPaid(),
+            ['date_field' => 'created_at']
+        )->each(
+            function ($invoice) use (&$open, &$overdue) {
+                list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($invoice);
 
-            $open += $open_tmp;
-            $overdue += $overdue_tmp;
-        });
+                $open += $open_tmp;
+                $overdue += $overdue_tmp;
+            }
+        );
 
         $grand = $current + $open + $overdue;
 

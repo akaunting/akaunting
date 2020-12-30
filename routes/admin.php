@@ -196,6 +196,7 @@ Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
         Route::post('steps', 'Modules\Item@steps')->name('steps');
         Route::post('download', 'Modules\Item@download')->name('download');
         Route::post('unzip', 'Modules\Item@unzip')->name('unzip');
+        Route::post('copy', 'Modules\Item@copy')->name('copy');
         Route::post('install', 'Modules\Item@install')->name('install');
 
         Route::post('{alias}/reviews', 'Modules\Item@reviews')->name('app.reviews');
@@ -225,9 +226,12 @@ Route::group(['as' => 'modals.', 'prefix' => 'modals'], function () {
     Route::resource('categories', 'Modals\Categories');
     Route::resource('currencies', 'Modals\Currencies');
     Route::resource('customers', 'Modals\Customers');
+    Route::resource('companies', 'Modals\Companies');
     Route::resource('vendors', 'Modals\Vendors');
     Route::resource('items', 'Modals\Items');
     Route::patch('invoice-templates', 'Modals\InvoiceTemplates@update')->name('invoice-templates.update');
+    Route::get('invoices/item-columns/edit', 'Modals\InvoiceItemColumns@edit')->name('invoices.item-columns.edit');
+    Route::patch('invoices/item-columns', 'Modals\InvoiceItemColumns@update')->name('invoices.item-columns.update');
     Route::resource('invoices/{invoice}/transactions', 'Modals\InvoiceTransactions', ['names' => 'invoices.invoice.transactions', 'middleware' => ['date.format', 'money']]);
     Route::resource('bills/{bill}/transactions', 'Modals\BillTransactions', ['names' => 'bills.bill.transactions', 'middleware' => ['date.format', 'money']]);
     Route::resource('taxes', 'Modals\Taxes');

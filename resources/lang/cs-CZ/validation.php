@@ -100,10 +100,11 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name'             => 'custom-message',
         ],
-        'invalid_currency' => 'Kód :attribute není platný.',
-        'invalid_amount'   => 'Zvolená hodnota pro :attribute je neplatná.',
+        'invalid_currency'      => 'Kód :attribute není platný.',
+        'invalid_amount'        => 'Zvolená hodnota pro :attribute je neplatná.',
+        'invalid_extension'     => 'Přípona souboru je neplatná.',
     ],
 
     /*

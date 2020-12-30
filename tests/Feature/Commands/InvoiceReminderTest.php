@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Commands;
 
-use App\Jobs\Sale\CreateInvoice;
-use App\Models\Sale\Invoice;
+use App\Jobs\Document\CreateDocument;
+use App\Models\Document\Document;
 use App\Notifications\Sale\Invoice as InvoiceNotification;
 use App\Utilities\Date;
 use Illuminate\Support\Facades\Notification;
@@ -24,7 +24,7 @@ class InvoiceReminderTest extends FeatureTestCase
     {
         Notification::fake();
 
-        $invoice = $this->dispatch(new CreateInvoice($this->getRequest()));
+        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
 
         Date::setTestNow(Date::now()->addDay($this->add_days));
 
@@ -41,7 +41,7 @@ class InvoiceReminderTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Invoice::class)->states('items', 'sent')->raw([
+        return Document::factory()->invoice()->items()->sent()->raw([
             'due_at' => Date::now()->subDays($this->add_days - 1),
         ]);
     }

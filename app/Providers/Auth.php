@@ -12,7 +12,7 @@ class Auth extends Provider
      * @var array
      */
     protected $policies = [
-        //'App\Model' => 'App\Policies\ModelPolicy',
+        //'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -23,7 +23,5 @@ class Auth extends Provider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
     }
 }

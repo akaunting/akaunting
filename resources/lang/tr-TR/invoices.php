@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Fatura e-postası gönderildi!',
-        'marked_sent'       => 'Fatura gönderildi olarak işaretlendi!',
-        'marked_paid'       => 'Fatura ödendi olark işaretlendi!',
-        'marked_viewed'     => 'Fatura görüntülendi olarak işaretlendi!',
-        'marked_cancelled'  => 'Fatura iptal edildi olarak işaretlendi!',
         'email_required'    => 'Bu müşteri için e-posta adresi yok!',
         'draft'             => 'Bu bir <b>TASLAK</b> faturadır ve gönderildikten sonra grafiklere yansıtılacaktır.',
 

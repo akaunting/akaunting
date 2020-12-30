@@ -21,7 +21,7 @@ class Currencies extends Controller
     {
         $currencies = Currency::collect();
 
-        return view('settings.currencies.index', compact('currencies'));
+        return $this->response('settings.currencies.index', compact('currencies'));
     }
 
     /**

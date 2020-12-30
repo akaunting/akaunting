@@ -26,13 +26,13 @@
                 </div>
             </div>
 
-            @permission('update-auth-permissions')
+            @can('update-auth-permissions')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('permissions.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
         {!! Form::close() !!}
     </div>
 @endsection

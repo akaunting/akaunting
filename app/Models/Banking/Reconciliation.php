@@ -18,6 +18,16 @@ class Reconciliation extends Model
     protected $fillable = ['company_id', 'account_id', 'started_at', 'ended_at', 'closing_balance', 'reconciled'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'closing_balance' => 'double',
+        'reconciled' => 'boolean',
+    ];
+
+    /**
      * Sortable columns.
      *
      * @var array
@@ -27,16 +37,5 @@ class Reconciliation extends Model
     public function account()
     {
         return $this->belongsTo('App\Models\Banking\Account');
-    }
-
-    /**
-     * Convert closing balance to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setClosingBalanceAttribute($value)
-    {
-        $this->attributes['closing_balance'] = (double) $value;
     }
 }

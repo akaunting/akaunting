@@ -2,12 +2,10 @@
 
 namespace App\Events\Module;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class PaymentMethodShowing
+class PaymentMethodShowing extends Event
 {
-    use SerializesModels;
-
     public $modules;
 
     /**

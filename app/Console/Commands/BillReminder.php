@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Events\Purchase\BillReminded;
+use App\Events\Document\DocumentReminded;
 use App\Models\Common\Company;
-use App\Models\Purchase\Bill;
+use App\Models\Document\Document;
+use App\Notifications\Purchase\Bill as Notification;
 use App\Utilities\Overrider;
 use Date;
 use Illuminate\Console\Command;
@@ -80,11 +81,11 @@ class BillReminder extends Command
         $date = Date::today()->addDays($day)->toDateString();
 
         // Get upcoming bills
-        $bills = Bill::with('contact')->accrued()->notPaid()->due($date)->cursor();
+        $bills = Document::bill()->with('contact')->accrued()->notPaid()->due($date)->cursor();
 
         foreach ($bills as $bill) {
             try {
-                event(new BillReminded($bill));
+                event(new DocumentReminded($bill, Notification::class));
             } catch (\Exception | \Throwable | \Swift_RfcComplianceException | \Illuminate\Database\QueryException $e) {
                 $this->error($e->getMessage());
 

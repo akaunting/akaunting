@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.roles', 2))
 
-@permission('create-auth-roles')
+@can('create-auth-roles')
     @section('new_button')
-        <a href="{{ route('roles.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
+        <a href="{{ route('roles.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -18,10 +18,7 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Auth\Role" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.roles', $bulk_actions, ['group' => 'auth', 'type' => 'roles']) }}
@@ -54,10 +51,10 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('roles.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-auth-roles')
+                                        @can('delete-auth-roles')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'roles.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>
@@ -69,7 +66,7 @@
 
         <div class="card-footer table-action">
             <div class="row">
-                 @include('partials.admin.pagination', ['items' => $roles])
+                @include('partials.admin.pagination', ['items' => $roles])
             </div>
         </div>
     </div>

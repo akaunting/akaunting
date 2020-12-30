@@ -32,13 +32,7 @@ class Payments extends Controller
     {
         $payments = Transaction::with('account', 'bill', 'category', 'contact')->expense()->isNotTransfer()->collect(['paid_at'=> 'desc']);
 
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
-
-        return view('purchases.payments.index', compact('payments', 'vendors', 'categories', 'accounts'));
+        return $this->response('purchases.payments.index', compact('payments'));
     }
 
     /**
@@ -66,9 +60,9 @@ class Payments extends Controller
 
         $currency = Currency::where('code', $account_currency_code)->first();
 
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
+        $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 
@@ -154,9 +148,9 @@ class Payments extends Controller
 
         $currency = Currency::where('code', $payment->currency_code)->first();
 
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
+        $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
+        $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
         $payment_methods = Modules::getPaymentMethods();
 

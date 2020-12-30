@@ -84,6 +84,6 @@ class RevenuesTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(Transaction::class)->states('income')->raw();
+        return Transaction::factory()->income()->raw();
     }
 }

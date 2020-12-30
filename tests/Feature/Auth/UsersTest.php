@@ -129,7 +129,7 @@ class UsersTest extends FeatureTestCase
 
     public function getRequest()
     {
-        return factory(User::class)->states('enabled')->raw();
+        return User::factory()->enabled()->raw();
     }
 
     public function getAssertRequest($request)

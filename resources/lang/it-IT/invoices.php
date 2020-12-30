@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'E-mail di fattura inviata!',
-        'marked_sent'       => 'Fattura segnata come inviata!',
-        'marked_paid'       => 'Fattura contrassegnata come pagata!',
-        'marked_viewed'     => 'Fattura contrassegnata come vista!',
-        'marked_cancelled'  => 'Fattura contrassegnata come annullata!',
         'email_required'    => 'Nessun indirizzo email per questo cliente!',
         'draft'             => 'Questa è una <b>BOZZA</b> della fattura e si rifletterà sui grafici dopo che sarà inviata.',
 

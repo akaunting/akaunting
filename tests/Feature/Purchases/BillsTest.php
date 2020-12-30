@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Purchases;
 
-use App\Jobs\Purchase\CreateBill;
-use App\Models\Purchase\Bill;
+use App\Jobs\Document\CreateDocument;
+use App\Models\Document\Document;
 use Tests\Feature\FeatureTestCase;
 
 class BillsTest extends FeatureTestCase
@@ -34,8 +34,8 @@ class BillsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('bills', [
-            'bill_number' => $request['bill_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
         ]);
     }
 
@@ -49,8 +49,8 @@ class BillsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('bills', [
-            'bill_number' => $request['bill_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
         ]);
     }
 
@@ -58,7 +58,7 @@ class BillsTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $bill = $this->dispatch(new CreateBill($request));
+        $bill = $this->dispatch(new CreateDocument($request));
 
         $this->loginAs()
             ->get(route('bills.edit', $bill->id))
@@ -70,7 +70,7 @@ class BillsTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $bill = $this->dispatch(new CreateBill($request));
+        $bill = $this->dispatch(new CreateDocument($request));
 
         $request['contact_email'] = $this->faker->safeEmail;
 
@@ -81,8 +81,8 @@ class BillsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertDatabaseHas('bills', [
-            'bill_number' => $request['bill_number'],
+        $this->assertDatabaseHas('documents', [
+            'document_number' => $request['document_number'],
             'contact_email' => $request['contact_email'],
         ]);
     }
@@ -91,7 +91,7 @@ class BillsTest extends FeatureTestCase
     {
         $request = $this->getRequest();
 
-        $bill = $this->dispatch(new CreateBill($request));
+        $bill = $this->dispatch(new CreateDocument($request));
 
         $this->loginAs()
             ->delete(route('bills.destroy', $bill->id))
@@ -99,16 +99,16 @@ class BillsTest extends FeatureTestCase
 
         $this->assertFlashLevel('success');
 
-        $this->assertSoftDeleted('bills', [
-            'bill_number' => $request['bill_number'],
+        $this->assertSoftDeleted('documents', [
+            'document_number' => $request['document_number'],
         ]);
     }
 
     public function getRequest($recurring = false)
     {
-        $factory = factory(Bill::class);
+        $factory = Document::factory();
 
-        $recurring ? $factory->states('items', 'recurring') : $factory->states('items');
+        $factory = $recurring ? $factory->bill()->items()->recurring() : $factory->bill()->items();
 
         return $factory->raw();
     }

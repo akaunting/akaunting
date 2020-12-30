@@ -3,13 +3,15 @@
 namespace App\Models\Common;
 
 use App\Abstracts\Model;
+use App\Models\Document\Document;
 use App\Traits\Currencies;
 use App\Traits\Media;
 use Bkwld\Cloner\Cloneable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
-    use Cloneable, Currencies, Media;
+    use Cloneable, Currencies, HasFactory, Media;
 
     protected $table = 'items';
 
@@ -18,14 +20,25 @@ class Item extends Model
      *
      * @var array
      */
-    protected $appends = ['item_id'];
+    protected $appends = ['item_id', 'tax_ids'];
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'tax_id', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'enabled'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'sale_price' => 'double',
+        'purchase_price' => 'double',
+        'enabled' => 'boolean',
+    ];
 
     /**
      * Sortable columns.
@@ -34,51 +47,39 @@ class Item extends Model
      */
     protected $sortable = ['name', 'category', 'sale_price', 'purchase_price', 'enabled'];
 
+    /**
+     * @var array
+     */
+    public $cloneable_relations = ['taxes'];
+
     public function category()
     {
         return $this->belongsTo('App\Models\Setting\Category')->withDefault(['name' => trans('general.na')]);
     }
 
-    public function tax()
+    public function taxes()
     {
-        return $this->belongsTo('App\Models\Setting\Tax')->withDefault(['name' => trans('general.na'), 'rate' => 0]);
+        return $this->hasMany('App\Models\Common\ItemTax');
+    }
+
+    public function document_items()
+    {
+        return $this->hasMany('App\Models\Document\DocumentItem');
     }
 
     public function bill_items()
     {
-        return $this->hasMany('App\Models\Purchase\BillItem');
+        return $this->document_items()->where('type', Document::BILL_TYPE);
     }
 
     public function invoice_items()
     {
-        return $this->hasMany('App\Models\Sale\InvoiceItem');
+        return $this->document_items()->where('type', Document::INVOICE_TYPE);
     }
 
     public function scopeName($query, $name)
     {
         return $query->where('name', '=', $name);
-    }
-
-    /**
-     * Convert sale price to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setSalePriceAttribute($value)
-    {
-        $this->attributes['sale_price'] = (double) $value;
-    }
-
-    /**
-     * Convert purchase price to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setPurchasePriceAttribute($value)
-    {
-        $this->attributes['purchase_price'] = (double) $value;
     }
 
     /**
@@ -89,6 +90,16 @@ class Item extends Model
     public function getItemIdAttribute()
     {
         return $this->id;
+    }
+
+    /**
+     * Get the item id.
+     *
+     * @return string
+     */
+    public function getTaxIdsAttribute()
+    {
+        return $this->taxes()->pluck('tax_id');
     }
 
     /**
@@ -136,5 +147,15 @@ class Item extends Model
         }
 
         return $this->getMedia('picture')->last();
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Item::new();
     }
 }

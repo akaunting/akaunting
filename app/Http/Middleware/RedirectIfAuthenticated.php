@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class RedirectIfAuthenticated
 {
@@ -11,19 +12,23 @@ class RedirectIfAuthenticated
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param  string|null  ...$guards
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, ...$guards)
     {
-        if (auth()->guard($guard)->check()) {
-            $user = user();
+        $guards = empty($guards) ? [null] : $guards;
 
-            if ($user->contact) {
-                return redirect()->route('portal.dashboard');
+        foreach ($guards as $guard) {
+            if (auth()->guard($guard)->check()) {
+                $user = user();
+
+                if ($user->contact) {
+                    return redirect()->route('portal.dashboard');
+                }
+
+                return redirect()->route($user->landing_page);
             }
-
-            return redirect()->route($user->landing_page);
         }
 
         return $next($request);

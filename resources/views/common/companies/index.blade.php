@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.companies', 2))
 
-@permission('create-common-companies')
+@can('create-common-companies')
     @section('new_button')
-        <a href="{{ route('companies.create') }}" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a>
+        <a href="{{ route('companies.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -18,10 +18,7 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Common\Company" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.companies', $bulk_actions, ['group' => 'common', 'type' => 'companies']) }}
@@ -78,10 +75,10 @@
                                             <div class="dropdown-divider"></div>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('companies.edit', $item->id) }}">{{ trans('general.edit') }}</a>
-                                        @permission('delete-common-companies')
+                                        @can('delete-common-companies')
                                             <div class="dropdown-divider"></div>
                                             {!! Form::deleteLink($item, 'companies.destroy') !!}
-                                        @endpermission
+                                        @endcan
                                     </div>
                                 </div>
                             </td>

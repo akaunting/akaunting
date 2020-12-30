@@ -3,12 +3,14 @@
 namespace App\Models\Setting;
 
 use App\Abstracts\Model;
+use App\Models\Document\Document;
 use App\Traits\Contacts;
 use App\Traits\Transactions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Currency extends Model
 {
-    use Contacts, Transactions;
+    use Contacts, HasFactory, Transactions;
 
     protected $table = 'currencies';
 
@@ -18,6 +20,16 @@ class Currency extends Model
      * @var array
      */
     protected $fillable = ['company_id', 'name', 'code', 'rate', 'enabled', 'precision', 'symbol', 'symbol_first', 'decimal_mark', 'thousands_separator'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'rate' => 'double',
+        'enabled' => 'boolean',
+    ];
 
     /**
      * Sortable columns.
@@ -31,9 +43,14 @@ class Currency extends Model
         return $this->hasMany('App\Models\Banking\Account', 'currency_code', 'code');
     }
 
+    public function documents()
+    {
+        return $this->hasMany('App\Models\Document\Document', 'currency_code', 'code');
+    }
+
     public function bills()
     {
-        return $this->hasMany('App\Models\Purchase\Bill', 'currency_code', 'code');
+        return $this->documents()->where('type', Document::BILL_TYPE);
     }
 
     public function contacts()
@@ -58,7 +75,7 @@ class Currency extends Model
 
     public function invoices()
     {
-        return $this->hasMany('App\Models\Sale\Invoice', 'currency_code', 'code');
+        return $this->documents()->where('type', Document::INVOICE_TYPE);
     }
 
     public function transactions()
@@ -69,17 +86,6 @@ class Currency extends Model
     public function vendors()
     {
         return $this->contacts()->whereIn('type', (array) $this->getVendorTypes());
-    }
-
-    /**
-     * Convert rate to double.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setRateAttribute($value)
-    {
-        $this->attributes['rate'] = (double) $value;
     }
 
     /**
@@ -162,5 +168,15 @@ class Currency extends Model
     public function scopeCode($query, $code)
     {
         return $query->where($this->table . '.code', $code);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\Currency::new();
     }
 }

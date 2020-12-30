@@ -2,9 +2,9 @@
 
 return [
 
-    'import'                => 'Внеси',
-    'title'                 => 'Внеси :type',
-    'message'               => 'Дозволени типови на фајлови: XLS, XLSX. Ве молиме, <a target="_blank" href=":link"><strong>симнете го</strong></a> фајлот.
+    'import'                => 'Увези',
+    'title'                 => 'Увези :type',
+    'message'               => 'Дозволени видови на датотеки: XLS, XLSX. Ве молиме, <a target="_blank" href=":link"><strong>преземете</strong></a> ја датотеката за пример.
  
 ',
 

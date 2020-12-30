@@ -49,9 +49,6 @@ return [
     ],
 
     'messages' => [
-        'marked_received'   => 'Lasku merkitty vastaanotetuksi!',
-        'marked_paid'       => 'Lasku merkitty maksetuksi!',
-        'marked_cancelled'  => 'Lasku merkitty peruutetuksi!',
         'draft'             => 'Tämä lasku on <b>LUONNOS</b> ja se sisällytetään kaavioihin, kun se on vastaanotettu.',
 
         'status' => [

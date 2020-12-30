@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    @permission('update-settings-settings')
+    @can('update-settings-settings')
         <div class="row ml-0 mr-0">
             <div class="card col-md-12">
                 <div class="card-body mr--3">
@@ -97,7 +97,7 @@
                 </div>
             </div>
         </div>
-    @endpermission
+    @endcan
 
     {!! Form::hidden('_prefix', 'email') !!}
 

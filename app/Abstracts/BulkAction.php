@@ -76,7 +76,7 @@ abstract class BulkAction
         $items = $this->getSelectedRecords($request);
 
         foreach ($items as $item) {
-            $item->enabled = 1;
+            $item->enabled = true;
             $item->save();
         }
     }
@@ -93,7 +93,7 @@ abstract class BulkAction
         $items = $this->getSelectedRecords($request);
 
         foreach ($items as $item) {
-            $item->enabled = 0;
+            $item->enabled = false;
             $item->save();
         }
     }

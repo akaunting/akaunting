@@ -1,25 +1,62 @@
 <?php
 
+namespace Database\Factories;
+
+use App\Abstracts\Factory;
 use App\Models\Auth\Permission;
-use App\Models\Auth\Role;
-use Faker\Generator as Faker;
+use App\Models\Auth\Role as Model;
 
-$factory->define(Role::class, function (Faker $faker) {
-    $name = $faker->word;
+class Role extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Model::class;
 
-    return [
-        'name' => strtolower($name),
-        'display_name' => $name,
-        'description' => $name,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $name = $this->faker->word;
 
-$factory->state(Role::class, 'permissions', function (Faker $faker) {
-    return [
-        'permissions' => Permission::take(50)->pluck('id')->toArray(),
-    ];
-});
+        return [
+            'name' => strtolower($name),
+            'display_name' => $name,
+            'description' => $name,
+        ];
+    }
 
-$factory->afterCreating(Role::class, function ($role, $faker) {
-    $role->permissions()->attach(Permission::take(50)->pluck('id')->toArray());
-});
+    /**
+     * Indicate the model permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function permissions()
+    {
+        return $this->state([
+            'permissions' => $this->getPermissions(),
+        ]);
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Model $role) {
+            $role->permissions()->attach($this->getPermissions());
+        });
+    }
+
+    protected function getPermissions()
+    {
+        return Permission::take(50)->pluck('id')->toArray();
+    }
+}

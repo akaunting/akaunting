@@ -104,7 +104,10 @@ return [
     'from'                  => 'From',
     'to'                    => 'To',
     'print'                 => 'Print',
+    'download_pdf'          => 'Download PDF',
+    'customize'             => 'Customize',
     'search'                => 'Search',
+    'search_text'           => 'Search for this text',
     'search_placeholder'    => 'Type to search..',
     'filter'                => 'Filter',
     'help'                  => 'Help',
@@ -152,6 +155,11 @@ return [
     'no_matching_data'      => 'No matching data',
     'clear_cache'           => 'Clear Cache',
     'go_to_dashboard'       => 'Go to dashboard',
+    'is'                    => 'is',
+    'isnot'                 => 'is not', 
+    'recurring_and_more'    => 'Recurring and more..',
+    'due_on'                => 'Due on',
+    'amount_due'            => 'Amount due',
 
     'card' => [
         'name'                  => 'Name on Card',
@@ -177,8 +185,21 @@ return [
             'field'         => '- Select :field -',
             'file'          => 'Select File',
         ],
+        'add'               => 'Add a :field',
+        'add_an'            => 'Add an :field',
         'add_new'           => 'Add New :field',
+        'edit'              => 'Edit :field',
+        'contact_edit'      => 'Edit :contact_name :field',
+        'choose'            => 'Choose :field',
+        'choose_different'  => 'Choose a different :field',
         'no_file_selected'  => 'No file selected...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Type to search..',
+        'search_and_filter' => 'Search or filter results..',
+        'contact_search'    => 'Type a :type name',
+        'item_search'       => 'Type an item name',
     ],
 
     'date_range' => [

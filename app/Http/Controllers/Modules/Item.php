@@ -3,6 +3,13 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Abstracts\Http\Controller;
+use App\Jobs\Install\CopyFiles;
+use App\Jobs\Install\DisableModule;
+use App\Jobs\Install\DownloadFile;
+use App\Jobs\Install\EnableModule;
+use App\Jobs\Install\InstallModule;
+use App\Jobs\Install\UninstallModule;
+use App\Jobs\Install\UnzipFile;
 use App\Models\Module\Module;
 use App\Traits\Modules;
 use Illuminate\Http\Request;
@@ -79,24 +86,39 @@ class Item extends Controller
         $steps = [];
 
         $name = $request['name'];
+        $alias = $request['alias'];
 
-        // Download
-        $steps[] = [
-            'text' => trans('modules.installation.download', ['module' => $name]),
-            'url'  => route('apps.download')
-        ];
+        if ($this->moduleExists($alias)) {
+            // Install
+            $steps[] = [
+                'text' => trans('modules.installation.install', ['module' => $name]),
+                'url'  => route('apps.install')
+            ];
+        } else {
+            // Download
+            $steps[] = [
+                'text' => trans('modules.installation.download', ['module' => $name]),
+                'url'  => route('apps.download')
+            ];
 
-        // Unzip
-        $steps[] = [
-            'text' => trans('modules.installation.unzip', ['module' => $name]),
-            'url'  => route('apps.unzip')
-        ];
+            // Unzip
+            $steps[] = [
+                'text' => trans('modules.installation.unzip', ['module' => $name]),
+                'url'  => route('apps.unzip')
+            ];
 
-        // Download
-        $steps[] = [
-            'text' => trans('modules.installation.install', ['module' => $name]),
-            'url'  => route('apps.install')
-        ];
+            // Copy
+            $steps[] = [
+                'text' => trans('modules.installation.file_copy', ['module' => $name]),
+                'url'  => route('apps.copy')
+            ];
+
+            // Install
+            $steps[] = [
+                'text' => trans('modules.installation.install', ['module' => $name]),
+                'url'  => route('apps.install')
+            ];
+        }
 
         return response()->json([
             'success' => true,
@@ -115,13 +137,25 @@ class Item extends Controller
      */
     public function download(Request $request)
     {
-        $path = $request['path'];
+        try {
+            $path = $this->dispatch(new DownloadFile($request['alias'], $request['version']));
 
-        $version = $request['version'];
-
-        $path .= '/' . $version . '/' . version('short') . '/' . setting('apps.api_key');
-
-        $json = $this->downloadModule($path);
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -135,9 +169,59 @@ class Item extends Controller
      */
     public function unzip(Request $request)
     {
-        $path = $request['path'];
+        try {
+            $path = $this->dispatch(new UnzipFile($request['alias'], $request['path']));
 
-        $json = $this->unzipModule($path);
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'path' => $path,
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
+
+        return response()->json($json);
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  $request
+     *
+     * @return Response
+     */
+    public function copy(Request $request)
+    {
+        try {
+            $this->dispatch(new CopyFiles($request['alias'], $request['path']));
+
+            event(new \App\Events\Module\Copied($request['alias'], session('company_id')));
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'data' => [
+                    'alias' => $request['alias'],
+                ],
+            ];
+        } catch (\Exception $e) {
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $e->getMessage(),
+                'data' => [],
+            ];
+        }
 
         return response()->json($json);
     }
@@ -151,16 +235,36 @@ class Item extends Controller
      */
     public function install(Request $request)
     {
-        $path = $request['path'];
+        try {
+            $this->dispatch(new InstallModule($request['alias'], session('company_id')));
 
-        $json = $this->installModule($path);
+            $name = module($request['alias'])->getName();
 
-        if ($json['success']) {
-            $message = trans('modules.installed', ['module' => $json['data']['name']]);
+            $message = trans('modules.installed', ['module' => $name]);
 
             flash($message)->success();
-        } else {
-            flash($json['message'])->error();
+
+            $json = [
+                'success' => true,
+                'error' => false,
+                'message' => null,
+                'redirect' => route('apps.app.show', $request['alias']),
+                'data' => [
+                    'name' => $name,
+                    'alias' => $request['alias'],
+                ],
+            ];
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+
+            flash($message)->error();
+
+            $json = [
+                'success' => false,
+                'error' => true,
+                'message' => $message,
+                'data' => [],
+            ];
         }
 
         return response()->json($json);
@@ -168,14 +272,18 @@ class Item extends Controller
 
     public function uninstall($alias)
     {
-        $json = $this->uninstallModule($alias);
+        try {
+            $name = module($alias)->getName();
 
-        if ($json['success']) {
-            $message = trans('modules.uninstalled', ['module' => $json['data']['name']]);
+            $this->dispatch(new UninstallModule($alias, session('company_id')));
+
+            $message = trans('modules.uninstalled', ['module' => $name]);
 
             flash($message)->success();
-        } else {
-            flash($json['message'])->error();
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+
+            flash($message)->error();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();
@@ -183,14 +291,18 @@ class Item extends Controller
 
     public function enable($alias)
     {
-        $json = $this->enableModule($alias);
+        try {
+            $name = module($alias)->getName();
 
-        if ($json['success']) {
-            $message = trans('modules.enabled', ['module' => $json['data']['name']]);
+            $this->dispatch(new EnableModule($alias, session('company_id')));
+
+            $message = trans('modules.enabled', ['module' => $name]);
 
             flash($message)->success();
-        } else {
-            flash($json['message'])->error();
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+
+            flash($message)->error();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();
@@ -198,14 +310,18 @@ class Item extends Controller
 
     public function disable($alias)
     {
-        $json = $this->disableModule($alias);
+        try {
+            $name = module($alias)->getName();
 
-        if ($json['success']) {
-            $message = trans('modules.disabled', ['module' => $json['data']['name']]);
+            $this->dispatch(new DisableModule($alias, session('company_id')));
+
+            $message = trans('modules.disabled', ['module' => $name]);
 
             flash($message)->success();
-        } else {
-            flash($json['message'])->error();
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+
+            flash($message)->error();
         }
 
         return redirect()->route('apps.app.show', $alias)->send();

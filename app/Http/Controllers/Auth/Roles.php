@@ -21,7 +21,7 @@ class Roles extends Controller
     {
         $roles = Role::collect();
 
-        return view('auth.roles.index', compact('roles'));
+        return $this->response('auth.roles.index', compact('roles'));
     }
 
     /**

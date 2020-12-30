@@ -33,7 +33,7 @@ return [
 
     'settings' => [
         'company_name'      => 'Firmanavn',
-        'company_email'     => 'Firma E-mail',
+        'company_email'     => 'Officiel e-mail',
         'admin_email'       => 'Administrator e-mail',
         'admin_password'    => 'Administrator Password',
     ],

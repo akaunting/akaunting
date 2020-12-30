@@ -9,11 +9,11 @@
                                 <img class="border-radius-none border-0 mr-3" alt="Akaunting" src="{{ asset('public/img/akaunting-logo-white.svg') }}">
                             </span>
                             <span class="nav-link-text long-texts pl-2 mwpx-100">{{ Str::limit(setting('company.name'), 22) }}</span>
-                            @permission('read-common-companies')
+                            @can('read-common-companies')
                                 <i class="fas fa-sort-down pl-2"></i>
-                            @endpermission
+                            @endcan
                         </a>
-                        @permission('read-common-companies')
+                        @can('read-common-companies')
                             <div class="dropdown-menu dropdown-menu-right menu-dropdown menu-dropdown-width">
                                 @foreach($companies as $com)
                                     <a href="{{ route('companies.switch', $com->id) }}" class="dropdown-item">
@@ -21,15 +21,15 @@
                                         <span>{{ Str::limit($com->name, 18) }}</span>
                                     </a>
                                 @endforeach
-                                @permission('update-common-companies')
+                                @can('update-common-companies')
                                     <div class="dropdown-divider"></div>
                                     <a href="{{ route('companies.index') }}" class="dropdown-item">
                                         <i class="fas fa-cogs"></i>
                                         <span>{{ trans('general.title.manage', ['type' => trans_choice('general.companies', 2)]) }}</span>
                                     </a>
-                                @endpermission
+                                @endcan
                             </div>
-                        @endpermission
+                        @endcan
                     </li>
                 </ul>
                 <div class="ml-auto left-menu-toggle-position overflow-hidden">

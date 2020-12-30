@@ -2,12 +2,10 @@
 
 namespace App\Events\Module;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class Copied
+class Copied extends Event
 {
-    use SerializesModels;
-
     public $alias;
 
     public $company_id;

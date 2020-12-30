@@ -68,7 +68,7 @@
             </ul>
 
             @stack('vendor_edit_button_start')
-            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block edit-sv"><i class="fas fa-edit"></i><b>{{ trans('general.edit') }}</b></a>
+            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-info btn-block"><b>{{ trans('general.edit') }}</b></a>
             @stack('vendor_edit_button_end')
         </div>
 
@@ -190,9 +190,9 @@
                                         <tbody>
                                             @foreach($bills as $item)
                                                 <tr class="row align-items-center border-top-1 tr-py">
-                                                    <td class="col-xs-4 col-sm-1"><a href="{{ route('bills.show', $item->id) }}">{{ $item->bill_number }}</a></td>
+                                                    <td class="col-xs-4 col-sm-1"><a href="{{ route('bills.show', $item->id) }}">{{ $item->document_number }}</a></td>
                                                     <td class="col-xs-4 col-sm-3 text-right">@money($item->amount, $item->currency_code, true)</td>
-                                                    <td class="col-sm-3 d-none d-sm-block text-left">@date($item->billed_at)</td>
+                                                    <td class="col-sm-3 d-none d-sm-block text-left">@date($item->issued_at)</td>
                                                     <td class="col-sm-3 d-none d-sm-block text-left">@date($item->due_at)</td>
                                                     <td class="col-xs-4 col-sm-2"><span class="badge badge-pill badge-{{ $item->status_label }} my--2">{{ trans('bills.statuses.' . $item->status) }}</span></td>
                                                 </tr>

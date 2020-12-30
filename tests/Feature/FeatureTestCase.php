@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Auth\User;
 use App\Models\Common\Company;
+use App\Utilities\Overrider;
 use Faker\Factory;
 use Tests\TestCase;
 
@@ -35,9 +36,10 @@ abstract class FeatureTestCase extends TestCase
         setting()->set(['email.protocol' => 'array']);
         setting()->save();
 
-
         // Disable debugbar
         config(['debugbar.enabled', false]);
+
+        Overrider::load('currencies');
     }
 
     /**

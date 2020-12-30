@@ -5,30 +5,26 @@ namespace App\Http\Controllers\Purchases;
 use App\Abstracts\Http\Controller;
 use App\Exports\Purchases\Bills as Export;
 use App\Http\Requests\Common\Import as ImportRequest;
-use App\Http\Requests\Purchase\Bill as Request;
-use App\Http\Requests\Purchase\BillAddItem as ItemRequest;
+use App\Http\Requests\Document\Document as Request;
 use App\Imports\Purchases\Bills as Import;
-use App\Jobs\Banking\CreateDocumentTransaction;
-use App\Jobs\Purchase\CreateBill;
-use App\Jobs\Purchase\DeleteBill;
-use App\Jobs\Purchase\DuplicateBill;
-use App\Jobs\Purchase\UpdateBill;
-use App\Models\Banking\Account;
-use App\Models\Common\Contact;
-use App\Models\Common\Item;
-use App\Models\Purchase\Bill;
-use App\Models\Setting\Category;
+use App\Jobs\Banking\CreateBankingDocumentTransaction;
+use App\Jobs\Document\CreateDocument;
+use App\Jobs\Document\DeleteDocument;
+use App\Jobs\Document\DuplicateDocument;
+use App\Jobs\Document\UpdateDocument;
+use App\Models\Document\Document;
 use App\Models\Setting\Currency;
-use App\Models\Setting\Tax;
-use App\Traits\Currencies;
-use App\Traits\DateTime;
-use App\Traits\Purchases;
-use App\Traits\Uploads;
-use App\Utilities\Modules;
+use App\Traits\Documents;
+use File;
 
 class Bills extends Controller
 {
-    use Currencies, DateTime, Purchases, Uploads;
+    use Documents;
+
+    /**
+     * @var string
+     */
+    public $type = Document::BILL_TYPE;
 
     /**
      * Display a listing of the resource.
@@ -37,41 +33,21 @@ class Bills extends Controller
      */
     public function index()
     {
-        $bills = Bill::with('contact', 'transactions')->collect(['billed_at'=> 'desc']);
+        $bills = Document::bill()->with('contact', 'transactions')->collect(['issued_at' => 'desc']);
 
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $statuses = $this->getBillStatuses();
-
-        return view('purchases.bills.index', compact('bills', 'vendors', 'categories', 'statuses'));
+        return $this->response('purchases.bills.index', compact('bills'));
     }
 
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Bill  $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function show(Bill $bill)
+    public function show(Document $bill)
     {
-        $accounts = Account::enabled()->orderBy('name')->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
         $currency = Currency::where('code', $bill->currency_code)->first();
-
-        $account_currency_code = Account::where('id', setting('default.account'))->pluck('currency_code')->first();
-
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $payment_methods = Modules::getPaymentMethods();
-
-        $date_format = $this->getCompanyDateFormat();
 
         // Get Bill Totals
         foreach ($bill->totals_sorted as $bill_total) {
@@ -86,7 +62,7 @@ class Bills extends Controller
             $bill->grand_total = round($bill->total - $bill->paid, $currency->precision);
         }
 
-        return view('purchases.bills.show', compact('bill', 'accounts', 'currencies', 'currency', 'account_currency_code', 'vendors', 'categories', 'payment_methods', 'date_format'));
+        return view('purchases.bills.show', compact('bill'));
     }
 
     /**
@@ -96,21 +72,7 @@ class Bills extends Controller
      */
     public function create()
     {
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
-        $currency = Currency::where('code', setting('default.currency'))->first();
-
-        $items = Item::enabled()->orderBy('name')->get();
-
-        $taxes = Tax::enabled()->orderBy('name')->get();
-
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $number = $this->getNextBillNumber();
-
-        return view('purchases.bills.create', compact('vendors', 'currencies', 'currency', 'items', 'taxes', 'categories', 'number'));
+        return view('purchases.bills.create');
     }
 
     /**
@@ -122,7 +84,7 @@ class Bills extends Controller
      */
     public function store(Request $request)
     {
-        $response = $this->ajaxDispatch(new CreateBill($request));
+        $response = $this->ajaxDispatch(new CreateDocument($request));
 
         if ($response['success']) {
             $response['redirect'] = route('bills.show', $response['data']->id);
@@ -144,13 +106,13 @@ class Bills extends Controller
     /**
      * Duplicate the specified resource.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function duplicate(Bill $bill)
+    public function duplicate(Document $bill)
     {
-        $clone = $this->dispatch(new DuplicateBill($bill));
+        $clone = $this->dispatch(new DuplicateDocument($bill));
 
         $message = trans('messages.success.duplicated', ['type' => trans_choice('general.bills', 1)]);
 
@@ -186,38 +148,26 @@ class Bills extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Bill  $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function edit(Bill $bill)
+    public function edit(Document $bill)
     {
-        $vendors = Contact::vendor()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
-
-        $currency = Currency::where('code', $bill->currency_code)->first();
-
-        $items = Item::enabled()->orderBy('name')->get();
-
-        $taxes = Tax::enabled()->orderBy('name')->get();
-
-        $categories = Category::expense()->enabled()->orderBy('name')->pluck('name', 'id');
-
-        return view('purchases.bills.edit', compact('bill', 'vendors', 'currencies', 'currency', 'items', 'taxes', 'categories'));
+        return view('purchases.bills.edit', compact('bill'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Bill $bill
-     * @param  Request $request
+     * @param  Document $bill
+     * @param  Request  $request
      *
      * @return Response
      */
-    public function update(Bill $bill, Request $request)
+    public function update(Document $bill, Request $request)
     {
-        $response = $this->ajaxDispatch(new UpdateBill($bill, $request));
+        $response = $this->ajaxDispatch(new UpdateDocument($bill, $request));
 
         if ($response['success']) {
             $response['redirect'] = route('bills.show', $response['data']->id);
@@ -243,9 +193,9 @@ class Bills extends Controller
      *
      * @return Response
      */
-    public function destroy(Bill $bill)
+    public function destroy(Document $bill)
     {
-        $response = $this->ajaxDispatch(new DeleteBill($bill));
+        $response = $this->ajaxDispatch(new DeleteDocument($bill));
 
         $response['redirect'] = route('bills.index');
 
@@ -275,15 +225,15 @@ class Bills extends Controller
     /**
      * Mark the bill as received.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function markReceived(Bill $bill)
+    public function markReceived(Document $bill)
     {
-        event(new \App\Events\Purchase\BillReceived($bill));
+        event(new \App\Events\Document\DocumentReceived($bill));
 
-        $message = trans('bills.messages.marked_received');
+        $message = trans('general.messages.marked_received', ['type' => trans_choice('general.bills', 1)]);
 
         flash($message)->success();
 
@@ -293,15 +243,15 @@ class Bills extends Controller
     /**
      * Mark the bill as cancelled.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function markCancelled(Bill $bill)
+    public function markCancelled(Document $bill)
     {
-        event(new \App\Events\Purchase\BillCancelled($bill));
+        event(new \App\Events\Document\DocumentCancelled($bill));
 
-        $message = trans('bills.messages.marked_cancelled');
+        $message = trans('general.messages.marked_cancelled', ['type' => trans_choice('general.bills', 1)]);
 
         flash($message)->success();
 
@@ -311,11 +261,11 @@ class Bills extends Controller
     /**
      * Print the bill.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function printBill(Bill $bill)
+    public function printBill(Document $bill)
     {
         $bill = $this->prepareBill($bill);
 
@@ -327,11 +277,11 @@ class Bills extends Controller
     /**
      * Download the PDF file of bill.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function pdfBill(Bill $bill)
+    public function pdfBill(Document $bill)
     {
         $bill = $this->prepareBill($bill);
 
@@ -351,16 +301,16 @@ class Bills extends Controller
     /**
      * Mark the bill as paid.
      *
-     * @param  Bill $bill
+     * @param  Document $bill
      *
      * @return Response
      */
-    public function markPaid(Bill $bill)
+    public function markPaid(Document $bill)
     {
         try {
-            $this->dispatch(new CreateDocumentTransaction($bill, []));
+            $this->dispatch(new CreateBankingDocumentTransaction($bill, ['type' => 'expense']));
 
-            $message = trans('bills.messages.marked_paid');
+            $message = trans('general.messages.marked_paid', ['type' => trans_choice('general.bills', 1)]);
 
             flash($message)->success();
         } catch(\Exception $e) {
@@ -372,38 +322,7 @@ class Bills extends Controller
         return redirect()->back();
     }
 
-    public function addItem(ItemRequest $request)
-    {
-        $item_row = $request['item_row'];
-        $currency_code = $request['currency_code'];
-
-        $taxes = Tax::enabled()->orderBy('rate')->get()->pluck('title', 'id');
-
-        $currency = Currency::where('code', '=', $currency_code)->first();
-
-        if (empty($currency)) {
-            $currency = Currency::where('code', '=', setting('default.currency'))->first();
-        }
-
-        if ($currency) {
-            // it should be integer for amount mask
-            $currency->precision = (int) $currency->precision;
-        }
-
-        $html = view('purchases.bills.item', compact('item_row', 'taxes', 'currency'))->render();
-
-        return response()->json([
-            'success' => true,
-            'error'   => false,
-            'data'    => [
-                'currency' => $currency
-            ],
-            'message' => 'null',
-            'html'    => $html,
-        ]);
-    }
-
-    protected function prepareBill(Bill $bill)
+    protected function prepareBill(Document $bill)
     {
         $paid = 0;
 

@@ -4,8 +4,7 @@ namespace App\Widgets;
 
 use App\Abstracts\Widget;
 use App\Models\Banking\Transaction;
-use App\Models\Purchase\Bill;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 
 class TotalProfit extends Widget
 {
@@ -30,19 +29,29 @@ class TotalProfit extends Widget
             }
         });
 
-        $this->applyFilters(Invoice::with('transactions')->accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($invoice) use (&$open_invoice, &$overdue_invoice) {
-            list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($invoice);
+        $this->applyFilters(
+            Document::invoice()->with('transactions')->accrued()->notPaid(),
+            ['date_field' => 'created_at']
+        )->each(
+            function ($invoice) use (&$open_invoice, &$overdue_invoice) {
+                list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($invoice);
 
-            $open_invoice += $open_tmp;
-            $overdue_invoice += $overdue_tmp;
-        });
+                $open_invoice += $open_tmp;
+                $overdue_invoice += $overdue_tmp;
+            }
+        );
 
-        $this->applyFilters(Bill::with('transactions')->accrued()->notPaid(), ['date_field' => 'created_at'])->each(function ($bill) use (&$open_bill, &$overdue_bill) {
-            list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($bill);
+        $this->applyFilters(
+            Document::bill()->with('transactions')->accrued()->notPaid(),
+            ['date_field' => 'created_at']
+        )->each(
+            function ($bill) use (&$open_bill, &$overdue_bill) {
+                list($open_tmp, $overdue_tmp) = $this->calculateDocumentTotals($bill);
 
-            $open_bill += $open_tmp;
-            $overdue_bill += $overdue_tmp;
-        });
+                $open_bill += $open_tmp;
+                $overdue_bill += $overdue_tmp;
+            }
+        );
 
         $current = $current_income - $current_expenses;
         $open = $open_invoice - $open_bill;

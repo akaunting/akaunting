@@ -2,11 +2,11 @@
 
 @section('title', trans_choice('general.categories', 2))
 
-@permission('create-settings-categories')
+@can('create-settings-categories')
     @section('new_button')
-        <span><a href="{{ route('categories.create') }}" class="btn btn-success btn-sm btn-alone"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
+        <a href="{{ route('categories.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
     @endsection
-@endpermission
+@endcan
 
 @section('content')
     <div class="card">
@@ -18,10 +18,7 @@
                 'class' => 'mb-0'
             ]) !!}
                 <div class="align-items-center" v-if="!bulk_action.show">
-                    <akaunting-search
-                        :placeholder="'{{ trans('general.search_placeholder') }}'"
-                        :options="{{ json_encode([]) }}"
-                    ></akaunting-search>
+                    <x-search-string model="App\Models\Setting\Category" />
                 </div>
 
                 {{ Form::bulkActionRowGroup('general.categories', $bulk_actions, ['group' => 'settings', 'type' => 'categories']) }}
@@ -69,10 +66,10 @@
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('categories.edit',  $item->id) }}">{{ trans('general.edit') }}</a>
                                         @if ($item->id != $transfer_id)
-                                            @permission('delete-settings-categories')
+                                            @can('delete-settings-categories')
                                                 <div class="dropdown-divider"></div>
                                                 {!! Form::deleteLink($item, 'categories.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                         @endif
                                     </div>
                                 </div>

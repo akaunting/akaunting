@@ -5,8 +5,7 @@ namespace App\Traits;
 use App\Models\Banking\Account;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
-use App\Models\Purchase\Bill;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use App\Models\Setting\Category;
 use App\Models\Setting\Tax;
 
@@ -66,18 +65,18 @@ trait Import
         $id = isset($row['document_id']) ? $row['document_id'] : null;
 
         if (empty($id) && !empty($row['invoice_number'])) {
-            $id = Invoice::number($row['invoice_number'])->pluck('id')->first();
+            $id = Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
         }
 
         if (empty($id) && !empty($row['bill_number'])) {
-            $id = Bill::number($row['bill_number'])->pluck('id')->first();
+            $id = Document::bill()->number($row['bill_number'])->pluck('id')->first();
         }
 
         if (empty($id) && !empty($row['invoice_bill_number'])) {
             if ($row['type'] == 'income') {
-                $id = Invoice::number($row['invoice_bill_number'])->pluck('id')->first();
+                $id = Document::invoice()->number($row['invoice_bill_number'])->pluck('id')->first();
             } else {
-                $id = Bill::number($row['invoice_bill_number'])->pluck('id')->first();
+                $id = Document::bill()->number($row['invoice_bill_number'])->pluck('id')->first();
             }
         }
 

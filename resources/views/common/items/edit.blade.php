@@ -20,7 +20,7 @@
                 <div class="row">
                     {{ Form::textGroup('name', trans('general.name'), 'tag') }}
 
-                    {{ Form::selectAddNewGroup('tax_id', trans_choice('general.taxes', 1), 'percentage', $taxes, $item->tax_id, ['path' => route('modals.taxes.create'), 'field' => ['key' => 'id', 'value' => 'title']]) }}
+                    {{ Form::multiSelectAddNewGroup('tax_ids', trans_choice('general.taxes', 1), 'percentage', $taxes, $item->tax_ids, ['path' => route('modals.taxes.create'), 'field' => ['key' => 'id', 'value' => 'title']]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
@@ -28,7 +28,7 @@
 
                     {{ Form::textGroup('purchase_price', trans('items.purchase_price'), 'money-bill-wave-alt') }}
 
-                    {{ Form::selectAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $item->category_id, ['path' => route('modals.categories.create') . '?type=item']) }}
+                    {{ Form::selectRemoteAddNewGroup('category_id', trans_choice('general.categories', 1), 'folder', $categories, $item->category_id, ['path' => route('modals.categories.create') . '?type=item', 'remote_action' => route('categories.index'). '?type=item']) }}
 
                     {{ Form::fileGroup('picture', trans_choice('general.pictures', 1)) }}
 
@@ -36,13 +36,13 @@
                 </div>
             </div>
 
-            @permission('update-common-items')
+            @can('update-common-items')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('items.index') }}
                     </div>
                 </div>
-            @endpermission
+            @endcan
 
         {!! Form::close() !!}
     </div>

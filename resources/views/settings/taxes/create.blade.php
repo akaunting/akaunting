@@ -21,7 +21,7 @@
 
                     {{ Form::textGroup('rate', trans('taxes.rate'), 'percent', ['@input' => 'onChangeTaxRate']) }}
 
-                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal') }}
+                    {{ Form::selectGroup('type', trans_choice('general.types', 1), 'bars', $types, 'normal', ['disabledOptions' => $disable_options]) }}
 
                     {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
                 </div>

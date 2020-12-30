@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Emaili i faturës është dërguar!',
-        'marked_sent'       => 'Fatura e shënuar si e dërguar!',
-        'marked_paid'       => 'Fatura e shënuar si e paguar!',
-        'marked_viewed'     => 'Fatura e shënuar si e shikuar!',
-        'marked_cancelled'  => 'Fatura e shënuar si e anuluar!',
         'email_required'    => 'Ska adresë e-mail për këtë klient!',
         'draft'             => 'Kjo është një faturë <b>DRAFT</b> dhe do të pasqyrohet në skema pasi të jetë dërguar.',
 

@@ -15,9 +15,9 @@
                         ></akaunting-select>
                         {{ Form::hidden('category_page', url("apps/categories"), ['id' => 'category_page']) }}
 
-                        <a href="{{ route('apps.paid') }}" class="btn btn-sm btn-white header-button-top">{{ trans('modules.top_paid') }}</a>
-                        <a href="{{ route('apps.new') }}" class="btn btn-sm btn-white header-button-top">{{ trans('modules.new') }}</a>
-                        <a href="{{ route('apps.free') }}" class="btn btn-sm btn-white header-button-top">{{ trans('modules.top_free') }}</a>
+                        <a href="{{ route('apps.paid') }}" class="btn btn-sm btn-white">{{ trans('modules.top_paid') }}</a>
+                        <a href="{{ route('apps.new') }}" class="btn btn-sm btn-white">{{ trans('modules.new') }}</a>
+                        <a href="{{ route('apps.free') }}" class="btn btn-sm btn-white">{{ trans('modules.top_free') }}</a>
                     </div>
                     <div class="col-xs-12 col-sm-3 text-right">
                         {!! Form::open(['route' => 'apps.search', 'role' => 'form', 'method' => 'GET', 'class' => 'm-0']) !!}

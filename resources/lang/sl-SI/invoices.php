@@ -53,11 +53,6 @@ return [
     ],
 
     'messages' => [
-        'email_sent'        => 'Račun je bil poslan po elektronski pošti!',
-        'marked_sent'       => 'Račun označen kot poslan!',
-        'marked_paid'       => 'Račun označen kot plačan!',
-        'marked_viewed'     => 'Račun označen kot ogledan!',
-        'marked_cancelled'  => 'Račun označen kot preklican!',
         'email_required'    => 'Za to stranko ne obstaja elektronski naslov!',
         'draft'             => 'To je <b>osnutek</b> računa, ki bo v grafikonih viden šele, ko bo poslan.',
 

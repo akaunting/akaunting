@@ -40,13 +40,13 @@
                 </div>
             </div>
 
-            @permission('update-settings-currencies')
+            @can('update-settings-currencies')
                 <div class="card-footer">
                     <div class="row save-buttons">
                         {{ Form::saveButtons('currencies.index') }}
                     </div>
                 </div>
-             @endpermission
+             @endcan
 
         {!! Form::close() !!}
     </div>

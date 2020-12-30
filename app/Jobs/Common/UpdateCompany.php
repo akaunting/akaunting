@@ -16,16 +16,19 @@ class UpdateCompany extends Job
 
     protected $request;
 
+    protected $active_company_id;
+
     /**
      * Create a new job instance.
      *
      * @param  $company
      * @param  $request
      */
-    public function __construct($company, $request)
+    public function __construct($company, $request, $active_company_id)
     {
         $this->company = $company;
         $this->request = $this->getRequestInstance($request);
+        $this->active_company_id = $active_company_id;
     }
 
     /**
@@ -94,7 +97,7 @@ class UpdateCompany extends Job
     public function authorize()
     {
         // Can't disable active company
-        if (($this->request->get('enabled', 1) == 0) && ($this->company->id == session('company_id'))) {
+        if (($this->request->get('enabled', 1) == 0) && ($this->company->id == $this->active_company_id)) {
             $message = trans('companies.error.disable_active');
 
             throw new \Exception($message);

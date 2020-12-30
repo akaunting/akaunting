@@ -1,38 +1,92 @@
 <?php
 
-use App\Models\Auth\User;
-use App\Models\Common\Contact;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$user = User::first();
-$company = $user->companies()->first();
+use App\Abstracts\Factory;
+use App\Models\Common\Contact as Model;
+use App\Traits\Contacts;
 
-$factory->define(Contact::class, function (Faker $faker) use ($company) {
-    session(['company_id' => $company->id]);
-    setting()->setExtraColumns(['company_id' => $company->id]);
+class Contact extends Factory
+{
+    use Contacts;
 
-    $types = ['customer', 'vendor'];
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Model::class;
 
-    return [
-        'company_id' => $company->id,
-        'type' => $faker->randomElement($types),
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'user_id' => null,
-        'tax_number' => $faker->randomNumber(9),
-        'phone' => $faker->phoneNumber,
-        'address' => $faker->address,
-        'website' => 'https://akaunting.com',
-        'currency_code' => setting('default.currency'),
-        'reference' => $faker->text(5),
-        'enabled' => $faker->boolean ? 1 : 0,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $types = array_merge($this->getCustomerTypes(), $this->getVendorTypes());
 
-$factory->state(Contact::class, 'enabled', ['enabled' => 1]);
+        return [
+            'company_id' => $this->company->id,
+            'type' => $this->faker->randomElement($types),
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'user_id' => null,
+            'tax_number' => $this->faker->randomNumber(9),
+            'phone' => $this->faker->phoneNumber,
+            'address' => $this->faker->address,
+            'website' => 'https://akaunting.com',
+            'currency_code' => setting('default.currency'),
+            'reference' => $this->faker->text(5),
+            'enabled' => $this->faker->boolean ? 1 : 0,
+        ];
+    }
 
-$factory->state(Contact::class, 'disabled', ['enabled' => 0]);
+    /**
+     * Indicate that the model is enabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function enabled()
+    {
+        return $this->state([
+            'enabled' => 1,
+        ]);
+    }
 
-$factory->state(Contact::class, 'customer', ['type' => 'customer']);
+    /**
+     * Indicate that the model is disabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function disabled()
+    {
+        return $this->state([
+            'enabled' => 0,
+        ]);
+    }
 
-$factory->state(Contact::class, 'vendor', ['type' => 'vendor']);
+    /**
+     * Indicate that the model type is customer.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function customer()
+    {
+        return $this->state([
+            'type' => 'customer',
+        ]);
+    }
+
+    /**
+     * Indicate that the model type is vendor.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function vendor()
+    {
+        return $this->state([
+            'type' => 'vendor',
+        ]);
+    }
+}

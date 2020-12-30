@@ -1,27 +1,58 @@
 <?php
 
-use App\Models\Auth\User;
-use App\Models\Common\Item;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$user = User::first();
-$company = $user->companies()->first();
+use App\Abstracts\Factory;
+use App\Models\Common\Item as Model;
 
-$factory->define(Item::class, function (Faker $faker) use ($company) {
-    setting()->setExtraColumns(['company_id' => $company->id]);
+class Item extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Model::class;
 
-    return [
-        'company_id' => $company->id,
-        'name' => $faker->text(15),
-        'description' => $faker->text(100),
-        'purchase_price' => $faker->randomFloat(2, 10, 20),
-        'sale_price' => $faker->randomFloat(2, 10, 20),
-        'category_id' => $company->categories()->item()->get()->random(1)->pluck('id')->first(),
-        'tax_id' => null,
-        'enabled' => $faker->boolean ? 1 : 0,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'company_id' => $this->company->id,
+            'name' => $this->faker->text(15),
+            'description' => $this->faker->text(100),
+            'purchase_price' => $this->faker->randomFloat(2, 10, 20),
+            'sale_price' => $this->faker->randomFloat(2, 10, 20),
+            'category_id' => $this->company->categories()->item()->get()->random(1)->pluck('id')->first(),
+            'enabled' => $this->faker->boolean ? 1 : 0,
+        ];
+    }
 
-$factory->state(Item::class, 'enabled', ['enabled' => 1]);
+    /**
+     * Indicate that the model is enabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function enabled()
+    {
+        return $this->state([
+            'enabled' => 1,
+        ]);
+    }
 
-$factory->state(Item::class, 'disabled', ['enabled' => 0]);
+    /**
+     * Indicate that the model is disabled.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function disabled()
+    {
+        return $this->state([
+            'enabled' => 0,
+        ]);
+    }
+}

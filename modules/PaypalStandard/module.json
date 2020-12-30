@@ -97,5 +97,6 @@
             "attributes": {},
             "rules": "required|integer"
         }
-    ]
+    ],
+    "extra-modules": {}
 }

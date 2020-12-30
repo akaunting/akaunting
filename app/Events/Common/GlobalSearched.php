@@ -2,12 +2,10 @@
 
 namespace App\Events\Common;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class GlobalSearched
+class GlobalSearched extends Event
 {
-    use SerializesModels;
-
     public $search;
 
     /**

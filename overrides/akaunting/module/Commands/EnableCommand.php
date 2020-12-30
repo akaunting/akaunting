@@ -35,7 +35,7 @@ class EnableCommand extends Command
             return;
         }
 
-        if ($this->model->enabled == 1) {
+        if ($this->model->enabled) {
             $this->comment("Module [{$this->alias}] is already enabled.");
             return;
         }
@@ -43,7 +43,7 @@ class EnableCommand extends Command
         $this->changeRuntime();
 
         // Update db
-        $this->model->enabled = 1;
+        $this->model->enabled = true;
         $this->model->save();
 
         $this->createHistory('enabled');

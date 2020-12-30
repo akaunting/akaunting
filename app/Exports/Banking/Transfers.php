@@ -5,8 +5,10 @@ namespace App\Exports\Banking;
 use App\Abstracts\Export;
 use App\Models\Banking\Transfer as Model;
 use App\Utilities\Date;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class Transfers extends Export
+class Transfers extends Export implements WithColumnFormatting
 {
     public function collection()
     {
@@ -55,6 +57,13 @@ class Transfers extends Export
             'description',
             'payment_method',
             'reference',
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'A' => NumberFormat::FORMAT_DATE_YYYYMMDD,
         ];
     }
 }

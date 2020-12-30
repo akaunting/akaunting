@@ -2,6 +2,11 @@ import Vue from 'vue';
 
 import axios from 'axios';
 
+import DropzoneFileUpload from './../components/Inputs/DropzoneFileUpload';
+import AkauntingContactCard from './../components/AkauntingContactCard';
+import AkauntingCompanyEdit from './../components/AkauntingCompanyEdit';
+import AkauntingEditItemColumns from './../components/AkauntingEditItemColumns';
+import AkauntingItemButton from './../components/AkauntingItemButton';
 import AkauntingSearch from './../components/AkauntingSearch';
 import AkauntingModal from './../components/AkauntingModal';
 import AkauntingMoney from './../components/AkauntingMoney';
@@ -13,6 +18,7 @@ import AkauntingDate from './../components/AkauntingDate';
 import AkauntingRecurring from './../components/AkauntingRecurring';
 import AkauntingHtmlEditor from './../components/AkauntingHtmlEditor';
 import AkauntingCountdown from './../components/AkauntingCountdown';
+import AkauntingCurrencyConversion from './../components/AkauntingCurrencyConversion';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -21,9 +27,15 @@ import NProgressAxios from './../plugins/nprogress-axios';
 import { Select, Option, Steps, Step, Button, Link, Tooltip, ColorPicker } from 'element-ui';
 
 import Form from './../plugins/form';
+import { concat } from 'lodash';
 
 export default {
     components: {
+        DropzoneFileUpload,
+        AkauntingContactCard,
+        AkauntingCompanyEdit,
+        AkauntingEditItemColumns,
+        AkauntingItemButton,
         AkauntingSearch,
         AkauntingRadioGroup,
         AkauntingSelect,
@@ -35,6 +47,7 @@ export default {
         AkauntingRecurring,
         AkauntingHtmlEditor,
         AkauntingCountdown,
+        AkauntingCurrencyConversion,
         [Select.name]: Select,
         [Option.name]: Option,
         [Steps.name]: Steps,
@@ -48,7 +61,7 @@ export default {
     data: function () {
         return {
             component: '',
-            currency: null,
+            currency: null
         }
     },
 
@@ -388,5 +401,17 @@ export default {
                 })
             });
         },
+
+        // Change Contact Card set form fields..
+        onChangeContactCard(contact) {
+            this.form.contact_id = contact.id;
+            this.form.contact_name = contact.name;
+            this.form.contact_email = contact.email;
+            this.form.contact_tax_number = contact.tax_number;
+            this.form.contact_phone = contact.phone;
+            this.form.contact_address = contact.address;
+
+            this.form.currency_code = contact.currency_code;
+        }
     }
 }

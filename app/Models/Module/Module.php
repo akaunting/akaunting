@@ -16,6 +16,15 @@ class Module extends Model
     protected $fillable = ['company_id', 'alias', 'enabled'];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * Scope alias.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

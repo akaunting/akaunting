@@ -7,6 +7,10 @@
         :form-classes="[{'has-error': form.errors.has('{{ $name }}') }]"
         @endif
 
+        @if (!empty($attributes['money-class']))
+        money-class="{{ $attributes['money-class'] }}"
+        @endif
+
         @if (isset($attributes['required']))
         :required="{{ ($attributes['required']) ? 'true' : 'false' }}"
         @endif
@@ -65,6 +69,10 @@
         :form-error="{{ $attributes['v-error-message'] }}"
         @else
         :form-error="form.errors.get('{{ $name }}')"
+        @endif
+
+        @if (isset($attributes['row-input']))
+        :row-input="{{ $attributes['row-input'] }}"
         @endif
     ></akaunting-money>
 

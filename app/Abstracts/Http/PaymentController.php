@@ -2,9 +2,9 @@
 
 namespace App\Abstracts\Http;
 
-use App\Events\Sale\PaymentReceived;
+use App\Events\Document\PaymentReceived;
 use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
-use App\Models\Sale\Invoice;
+use App\Models\Document\Document;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\URL;
 use Monolog\Logger;
@@ -41,15 +41,15 @@ abstract class PaymentController extends BaseController
         });
     }
 
-    public function show(Invoice $invoice, PaymentRequest $request)
+    public function show(Document $document, PaymentRequest $request)
     {
-        $this->setContactFirstLastName($invoice);
+        $this->setContactFirstLastName($document);
 
-        $confirm_url = $this->getConfirmUrl($invoice);
+        $confirm_url = $this->getConfirmUrl($document);
 
         $html = view('partials.portal.payment_method.' . $this->type, [
             'setting' => $this->setting,
-            'invoice' => $invoice,
+            'invoice' => $document,
             'confirm_url' => $confirm_url,
         ])->render();
 
@@ -62,12 +62,12 @@ abstract class PaymentController extends BaseController
         ]);
     }
 
-    public function signed(Invoice $invoice, PaymentRequest $request)
+    public function signed(Document $document, PaymentRequest $request)
     {
-        return $this->show($invoice, $request);
+        return $this->show($document, $request);
     }
 
-    public function cancel(Invoice $invoice, $force_redirect = false)
+    public function cancel(Document $invoice, $force_redirect = false)
     {
         $message = trans('messages.warning.payment_cancel', ['method' => setting($this->alias . '.name')]);
 
@@ -164,6 +164,7 @@ abstract class PaymentController extends BaseController
         $request['amount'] = $invoice->amount;
         $request['payment_method'] = $this->alias;
         $request['reference'] = $this->getReference($invoice);
+        $request['type'] = 'income';
 
         event(new PaymentReceived($invoice, $request));
     }

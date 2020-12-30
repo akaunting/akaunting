@@ -3,15 +3,15 @@
 @section('title', trans_choice('general.payments', 2))
 
 @section('new_button')
-    @permission('create-purchases-payments')
-        <span><a href="{{ route('payments.create') }}" class="btn btn-success btn-sm header-button-top"><span class="fa fa-plus"></span> &nbsp;{{ trans('general.add_new') }}</a></span>
-        <span><a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'payments']) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-upload"></span> &nbsp;{{ trans('import.import') }}</a></span>
-    @endpermission
-    <span><a href="{{ route('payments.export', request()->input()) }}" class="btn btn-white btn-sm header-button-top"><span class="fa fa-download"></span> &nbsp;{{ trans('general.export') }}</a></span>
+    @can('create-purchases-payments')
+        <a href="{{ route('payments.create') }}" class="btn btn-success btn-sm">{{ trans('general.add_new') }}</a>
+        <a href="{{ route('import.create', ['group' => 'purchases', 'type' => 'payments']) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
+    @endcan
+    <a href="{{ route('payments.export', request()->input()) }}" class="btn btn-white btn-sm">{{ trans('general.export') }}</a>
 @endsection
 
 @section('content')
-    @if ($payments->count())
+    @if ($payments->count() || request()->get('search', false))
         <div class="card">
             <div class="card-header border-bottom-0" :class="[{'bg-gradient-primary': bulk_action.show}]">
                 {!! Form::open([
@@ -21,10 +21,7 @@
                     'class' => 'mb-0'
                 ]) !!}
                     <div class="align-items-center" v-if="!bulk_action.show">
-                        <akaunting-search
-                            :placeholder="'{{ trans('general.search_placeholder') }}'"
-                            :options="{{ json_encode([]) }}"
-                        ></akaunting-search>
+                        <x-search-string model="App\Models\Banking\Transaction" />
                     </div>
 
                     {{ Form::bulkActionRowGroup('general.payments', $bulk_actions, ['group' => 'purchases', 'type' => 'payments']) }}
@@ -60,7 +57,7 @@
 
                                     @if($item->bill)
                                         @if ($item->bill->status == 'paid')
-                                            <el-tooltip content="{{ $item->bill->bill_number }} / {{ trans('bills.statuses.paid') }}"
+                                            <el-tooltip content="{{ $item->bill->document_number }} / {{ trans('bills.statuses.paid') }}"
                                             effect="success"
                                             :open-delay="100"
                                             placement="top">
@@ -69,7 +66,7 @@
                                                 </span>
                                             </el-tooltip>
                                         @elseif ($item->bill->status == 'partial')
-                                            <el-tooltip content="{{ $item->bill->bill_number }} / {{ trans('bills.statuses.partial') }}"
+                                            <el-tooltip content="{{ $item->bill->document_number }} / {{ trans('bills.statuses.partial') }}"
                                             effect="info"
                                             :open-delay="100"
                                             placement="top">
@@ -93,15 +90,15 @@
                                                 <div class="dropdown-divider"></div>
                                             @endif
                                             @if (empty($item->document_id))
-                                            @permission('create-purchases-payments')
+                                            @can('create-purchases-payments')
                                                 <a class="dropdown-item" href="{{ route('payments.duplicate', $item->id) }}">{{ trans('general.duplicate') }}</a>
                                                 <div class="dropdown-divider"></div>
-                                            @endpermission
+                                            @endcan
                                             @endif
                                             @if (!$item->reconciled)
-                                            @permission('delete-purchases-payments')
+                                            @can('delete-purchases-payments')
                                                 {!! Form::deleteLink($item, 'payments.destroy') !!}
-                                            @endpermission
+                                            @endcan
                                             @endif
                                         </div>
                                     </div>

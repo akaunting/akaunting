@@ -2,12 +2,10 @@
 
 namespace App\Events\Report;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
 
-class FilterShowing
+class FilterShowing extends Event
 {
-    use SerializesModels;
-
     public $class;
 
     /**
