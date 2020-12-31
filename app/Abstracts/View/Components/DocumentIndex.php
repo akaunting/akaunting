@@ -83,7 +83,7 @@ abstract class DocumentIndex extends Component
     public $textContactName;
 
     /** @var string */
-    public $textIssueAt;
+    public $textIssuedAt;
 
     /** @var string */
     public $textDueAt;
@@ -196,7 +196,7 @@ abstract class DocumentIndex extends Component
         string $textBulkAction = '', array $bulkActions = [], string $bulkActionClass = '', array $bulkActionRouteParameters = [], string $formCardHeaderRoute = '', string $searchStringModel = '',
         bool $hideBulkAction = false, bool $hideSearchString = false,
         string $classActions = '', string $classBulkAction = '', string $classDocumentNumber = '', string $classContactName = '', string $classIssuedAt = '', string $classDueAt = '', string $classStatus = '',
-        string $textDocumentNumber = '', string $textContactName = '', string $classAmount = '', string $textIssueAt = '', string $textDueAt = '', string $textDocumentStatus = '',
+        string $textDocumentNumber = '', string $textContactName = '', string $classAmount = '', string $textIssuedAt = '', string $textDueAt = '', string $textDocumentStatus = '',
         bool $checkButtonReconciled = true, bool $checkButtonCancelled = true,
         string $routeButtonShow = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonCancelled = '', string $routeButtonDelete = '',
         bool $hideDocumentNumber = false, bool $hideContactName = false, bool $hideAmount = false, bool $hideIssuedAt = false, bool $hideDueAt = false, bool $hideStatus = false, bool $hideActions = false,
@@ -241,7 +241,7 @@ abstract class DocumentIndex extends Component
         /* -- Card Body Start -- */
         $this->textDocumentNumber = $this->getTextDocumentNumber($textDocumentNumber);
         $this->textContactName = $this->getTextContactName($type, $textContactName);
-        $this->textIssueAt = $this->getTextIssueAt($type, $textIssueAt);
+        $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
         $this->textDueAt = $this->getTextDueAt($type, $textDueAt);
         $this->textDocumentStatus = $this->getTextDocumentStatus($type, $textDocumentStatus);
 
@@ -584,24 +584,24 @@ abstract class DocumentIndex extends Component
         return 'col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right';
     }
 
-    protected function getTextIssueAt($type, $textIssueAt)
+    protected function getTextIssuedAt($type, $textIssuedAt)
     {
-        if (!empty($textIssueAt)) {
-            return $textIssueAt;
+        if (!empty($textIssuedAt)) {
+            return $textIssuedAt;
         }
 
         switch ($type) {
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textIssueAt = 'bills.bill_date';
+                $textIssuedAt = 'bills.bill_date';
                 break;
             default:
-                $textIssueAt = 'invoices.invoice_date';
+                $textIssuedAt = 'invoices.invoice_date';
                 break;
         }
 
-        return $textIssueAt;
+        return $textIssuedAt;
     }
 
     protected function getclassIssuedAt($type, $classIssuedAt)

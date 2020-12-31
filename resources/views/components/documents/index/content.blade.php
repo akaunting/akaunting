@@ -26,7 +26,7 @@
             hide-amount="{{ $hideAmount }}"
             class-amount="{{ $classAmount }}"
             hide-issued-at="{{ $hideIssuedAt }}"
-            text-issued-at="{{ $textIssueAt }}"
+            text-issued-at="{{ $textIssuedAt }}"
             class-issued-at="{{ $classIssuedAt }}"
             hide-due-at="{{ $hideDueAt }}"
             class-due-at="{{ $classDueAt }}"
