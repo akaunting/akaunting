@@ -150,13 +150,13 @@ class Revenues extends Controller
 
         $customers = Contact::customer()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        if ($revenue->contact && !array_key_exists($revenue->contact_id, $customers)) {
+        if ($revenue->contact && !$customers->has($revenue->contact_id)) {
             $customers->put($revenue->contact->id, $revenue->contact->name);
         }
 
         $categories = Category::income()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        if ($revenue->category && !array_key_exists($revenue->category_id, $categories)) {
+        if ($revenue->category && !$categories->has($revenue->category_id)) {
             $categories->put($revenue->category->id, $revenue->category->name);
         }
 

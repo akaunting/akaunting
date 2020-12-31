@@ -127,7 +127,7 @@ class Users extends Controller
 
         if ($user->company_ids) {
             foreach($user->company_ids as $company_id) {
-                if (array_key_exists($company_id, $companies)) {
+                if ($companies->has($company_id)) {
                     continue;
                 }
 
