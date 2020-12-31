@@ -185,6 +185,8 @@ export default {
 
         options: null,
 
+        dynamicOptions: null,
+
         disabledOptions: {
             type: Array,
             default: function () {
@@ -685,6 +687,55 @@ export default {
             }
 
             this.change();
+        },
+
+        dynamicOptions: function(options) {
+            if (this.group) {
+                // Option set sort_option data
+                if (!Array.isArray(options)) {
+                    for (const [index, _options] of Object.entries(options)) {
+                        let values = [];
+
+                        for (const [key, value] of Object.entries(_options)) {
+                            values.push({
+                                key: key,
+                                value: value
+                            });
+                        }
+
+                        this.sort_options.push({
+                            key: index,
+                            value: values
+                        });
+                    }
+                } else {
+                    options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            } else {
+                // Option set sort_option data
+                if (!Array.isArray(options)) {
+                    for (const [key, value] of Object.entries(options)) {
+                        this.sort_options.push({
+                            key: key,
+                            value: value
+                        });
+                    }
+                } else {
+                    options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            }
         },
     },
 }

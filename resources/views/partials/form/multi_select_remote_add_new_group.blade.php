@@ -21,6 +21,10 @@
         :disabled-options="{{ json_encode($attributes['disabledOptions']) }}"
         @endif
 
+        @if (isset($attributes['dynamicOptions']))
+        :dynamic-options="{{ $attributes['dynamicOptions'] }}"
+        @endif
+
         @if (!empty($selected) || old($name))
         :value="{{ json_encode(old($name, $selected)) }}"
         @endif
