@@ -910,11 +910,11 @@ abstract class DocumentIndex extends Component
                         $this->class_count++;
                         break;
                     case 2:
-                        $class = 'col-md-4 col-lg-2 col-xl-2 d-none d-md-block';
+                        $class = 'col-md-4 col-lg-3 col-xl-3 d-none d-md-block';
                         $this->class_count += 2;
                         break;
                     case 3:
-                        $class = 'col-md-5 col-lg-2 col-xl-2 d-none d-md-block';
+                        $class = 'col-md-5 col-lg-4 col-xl-4 d-none d-md-block';
                         $this->class_count += 3;
                         break;
                 }
