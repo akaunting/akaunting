@@ -47,7 +47,7 @@
             route-button-duplicate="{{ $routeButtonDuplicate }}"
             hide-button-cancel="{{ $hideButtonCancel }}"
             permission-document-update="{{ $permissionDocumentUpdate }}"
-            route-button-called="{{ $routeButtonCancelled }}"
+            route-button-cancelled="{{ $routeButtonCancelled }}"
             hide-button-delete="{{ $hideButtonDelete }}"
             permission-document-delete="{{ $permissionDocumentDelete }}"
             route-button-delete="{{ $routeButtonDelete }}"
