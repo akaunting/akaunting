@@ -233,7 +233,7 @@ class Bills extends Controller
     {
         event(new \App\Events\Document\DocumentReceived($bill));
 
-        $message = trans('general.messages.marked_received', ['type' => trans_choice('general.bills', 1)]);
+        $message = trans('documents.messages.marked_received', ['type' => trans_choice('general.bills', 1)]);
 
         flash($message)->success();
 
@@ -251,7 +251,7 @@ class Bills extends Controller
     {
         event(new \App\Events\Document\DocumentCancelled($bill));
 
-        $message = trans('general.messages.marked_cancelled', ['type' => trans_choice('general.bills', 1)]);
+        $message = trans('documents.messages.marked_cancelled', ['type' => trans_choice('general.bills', 1)]);
 
         flash($message)->success();
 
@@ -310,7 +310,7 @@ class Bills extends Controller
         try {
             $this->dispatch(new CreateBankingDocumentTransaction($bill, ['type' => 'expense']));
 
-            $message = trans('general.messages.marked_paid', ['type' => trans_choice('general.bills', 1)]);
+            $message = trans('documents.messages.marked_paid', ['type' => trans_choice('general.bills', 1)]);
 
             flash($message)->success();
         } catch(\Exception $e) {

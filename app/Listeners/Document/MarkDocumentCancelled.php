@@ -21,6 +21,6 @@ class MarkDocumentCancelled
     {
         $this->dispatch(new CancelDocument($event->document));
 
-        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('general.messages.marked_cancelled', ['type' => ''])));
+        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('documents.messages.marked_cancelled', ['type' => ''])));
     }
 }

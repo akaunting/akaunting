@@ -24,6 +24,6 @@ class MarkDocumentReceived
             $event->document->save();
         }
 
-        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('general.messages.marked_received', ['type' => ''])));
+        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('documents.messages.marked_received', ['type' => ''])));
     }
 }
