@@ -551,7 +551,6 @@ export default {
             this.$emit('change', this.selected);
 
             // Option changed sort_option data
-            /*
             if (this.group) {
                 this.sort_options.forEach(function (option_group, group_index) {
                     this.option_group.value.forEach(function (option, index) {
@@ -562,7 +561,7 @@ export default {
                             let options = [];
 
                             this.selected.forEach(function (selected_option_id, selected_index) {
-                                if (option.value = this.selected) {
+                                if (option.value == this.selected) {
                                     indexs.push(selected_index);
                                     values.push(option.id);
                                     labels.push(option.value);
@@ -575,7 +574,7 @@ export default {
                             this.$emit('label', labels);
                             this.$emit('option', options);
                         } else {
-                            if (option.value = this.selected) {
+                            if (option.value == this.selected) {
                                 this.$emit('index', index);
                                 this.$emit('value', option.id);
                                 this.$emit('label', option.value);
@@ -593,7 +592,7 @@ export default {
                         let options = [];
 
                         this.selected.forEach(function (selected_option_id, selected_index) {
-                            if (option.value = this.selected) {
+                            if (option.value == this.selected) {
                                 indexs.push(selected_index);
                                 values.push(option.id);
                                 labels.push(option.value);
@@ -606,7 +605,7 @@ export default {
                         this.$emit('label', labels);
                         this.$emit('option', options);
                     } else {
-                        if (option.value = this.selected) {
+                        if (option.value == this.selected) {
                             this.$emit('index', index);
                             this.$emit('value', option.id);
                             this.$emit('label', option.value);
@@ -615,7 +614,6 @@ export default {
                     }
                 }, this);
             }
-            */
         },
 
         visibleChange(event) {
