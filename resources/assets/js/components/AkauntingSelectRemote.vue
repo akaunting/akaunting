@@ -492,58 +492,123 @@ export default {
 
     methods: {
         setSortOptions() {
-        if (this.group) {
-            // Option set sort_option data
-            if (!Array.isArray(this.options)) {
-                for (const [index, options] of Object.entries(this.options)) {
-                    let values = [];
+            if (this.group) {
+                // Option set sort_option data
+                if (!Array.isArray(this.options)) {
+                    for (const [index, options] of Object.entries(this.options)) {
+                        let values = [];
 
-                    for (const [key, value] of Object.entries(options)) {
-                        values.push({
+                        for (const [key, value] of Object.entries(options)) {
+                            values.push({
+                                key: key,
+                                value: value
+                            });
+                        }
+
+                        this.sort_options.push({
+                            key: index,
+                            value: values
+                        });
+                    }
+                } else {
+                    this.options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            } else {
+                // Option set sort_option data
+                if (!Array.isArray(this.options)) {
+                    for (const [key, value] of Object.entries(this.options)) {
+                        this.sort_options.push({
                             key: key,
                             value: value
                         });
                     }
-
-                    this.sort_options.push({
-                        key: index,
-                        value: values
-                    });
+                } else {
+                    this.options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
                 }
-            } else {
-                this.options.forEach(function (option, index) {
-                    this.sort_options.push({
-                        index: index,
-                        key: option.id,
-                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                    });
-                }, this);
             }
-        } else {
-            // Option set sort_option data
-            if (!Array.isArray(this.options)) {
-                for (const [key, value] of Object.entries(this.options)) {
-                    this.sort_options.push({
-                        key: key,
-                        value: value
-                    });
-                }
-            } else {
-                this.options.forEach(function (option, index) {
-                    this.sort_options.push({
-                        index: index,
-                        key: option.id,
-                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                    });
-                }, this);
-            }
-        }
         },
 
         change() {
             this.$emit('interface', this.selected);
 
             this.$emit('change', this.selected);
+
+            // Option changed sort_option data
+            if (this.group) {
+                this.sort_options.forEach(function (option_group, group_index) {
+                    this.option_group.value.forEach(function (option, index) {
+                        if (this.multiple) {
+                            let indexs = [];
+                            let values = [];
+                            let labels = [];
+                            let options = [];
+
+                            this.selected.forEach(function (selected_option_id, selected_index) {
+                                if (option.value = this.selected) {
+                                    indexs.push(selected_index);
+                                    values.push(option.id);
+                                    labels.push(option.value);
+                                    options.push(option);
+                                }
+                            });
+
+                            this.$emit('index', indexs);
+                            this.$emit('value', values);
+                            this.$emit('label', labels);
+                            this.$emit('option', options);
+                        } else {
+                            if (option.value = this.selected) {
+                                this.$emit('index', index);
+                                this.$emit('value', option.id);
+                                this.$emit('label', option.value);
+                                this.$emit('option', option);
+                            }
+                        }
+                    }, this);
+                }, this);
+            } else {
+                this.sort_options.forEach(function (option, index) {
+                    if (this.multiple) {
+                        let indexs = [];
+                        let values = [];
+                        let labels = [];
+                        let options = [];
+
+                        this.selected.forEach(function (selected_option_id, selected_index) {
+                            if (option.value = this.selected) {
+                                indexs.push(selected_index);
+                                values.push(option.id);
+                                labels.push(option.value);
+                                options.push(option);
+                            }
+                        });
+
+                        this.$emit('index', indexs);
+                        this.$emit('value', values);
+                        this.$emit('label', labels);
+                        this.$emit('option', options);
+                    } else {
+                        if (option.value = this.selected) {
+                            this.$emit('index', index);
+                            this.$emit('value', option.id);
+                            this.$emit('label', option.value);
+                            this.$emit('option', option);
+                        }
+                    }
+                }, this);
+            }
         },
 
         visibleChange(event) {
