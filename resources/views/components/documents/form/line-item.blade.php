@@ -29,7 +29,25 @@
                                 @stack('name_td_start')
                                     @if (!$hideName)
                                         <td class="pb-3 align-middle border-bottom-0" colspan="1">
-                                            <span class="aka-text aka-text--body" tabindex="0" v-html="row.name"></span>
+                                            <span class="aka-text aka-text--body" tabindex="0" v-html="row.name" v-if="row.item_id"></span>
+                                            <div v-else>
+                                                @stack('name_input_start')
+                                                <input type="text"
+                                                    class="form-control"
+                                                    :name="'items.' + index + '.name'"
+                                                    autocomplete="off"
+                                                    required="required"
+                                                    data-item="name"
+                                                    v-model="row.name"
+                                                    @input="onCalculateTotal"
+                                                    @change="form.errors.clear('items.' + index + '.name')">
+                                
+                                                <div class="invalid-feedback d-block"
+                                                    v-if="form.errors.has('items.' + index + '.name')"
+                                                    v-html="form.errors.get('items.' + index + '.name')">
+                                                </div>
+                                                @stack('name_input_end')
+                                            </div>
                                         </td>
                                     @endif
                                 @stack('name_td_end')

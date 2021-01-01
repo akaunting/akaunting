@@ -190,6 +190,7 @@ const app = new Vue({
                 sub_total += item.total;
                 grand_total += item.grand_total;
 
+                this.form.items[index].name = item.name;
                 this.form.items[index].description = item.description;
                 this.form.items[index].quantity = item.quantity;
                 this.form.items[index].price = item.price;
