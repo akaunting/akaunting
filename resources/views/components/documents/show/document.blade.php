@@ -91,7 +91,7 @@
                     />
                     @break
                 @default
-                    <x-documents.template.ddefault
+                    <x-documents.template.default
                         type="{{ $type }}"
                         :document="$document"
                         document-template="{{ $documentTemplate }}"
