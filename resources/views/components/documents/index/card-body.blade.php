@@ -49,7 +49,7 @@
                     <th class="{{ $classIssuedAt }}">
                         @stack('issued_at_th_inside_start')
 
-                        @sortablelink('issued_at', trans($textIssueAt))
+                        @sortablelink('issued_at', trans($textIssuedAt))
 
                         @stack('issued_at_th_inside_end')
                     </th>

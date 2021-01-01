@@ -131,7 +131,7 @@ class Items extends Controller
     {
         $categories = Category::item()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
-        if ($item->category && !array_key_exists($item->category_id, $categories)) {
+        if ($item->category && !$categories->has($item->category_id)) {
             $categories->put($item->category->id, $item->category->name);
         }
 

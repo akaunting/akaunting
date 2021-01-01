@@ -22,9 +22,9 @@
         'novalidate' => true
     ]) !!}
 @endif
-        @if (!$hideCompany) 
+        @if (!$hideCompany)
             <x-documents.form.company
-                type="{{ $type }}" 
+                type="{{ $type }}"
                 hide-logo="{{ $hideLogo }}"
                 hide-document-title="{{ $hideDocumentTitle }}"
                 hide-document-subheading="{{ $hideDocumentSubheading }}"
@@ -32,7 +32,7 @@
             />
         @endif
 
-        <x-documents.form.main 
+        <x-documents.form.main
             type="{{ $type }}"
             :document="$document"
             hide-contact="{{ $hideContact }}"
@@ -41,9 +41,9 @@
             :contacts="$contacts"
             :search_route="$contactSearchRoute"
             :create_route="$contactCreateRoute"
-            hide-issue-at="{{ $hideIssuedAt }}"
-            text-issue-at="{{ $textIssuedAt }}"
-            issue-at="{{ $issuedAt }}"
+            hide-issued-at="{{ $hideIssuedAt }}"
+            text-issued-at="{{ $textIssuedAt }}"
+            issued-at="{{ $issuedAt }}"
             hide-document-number="{{ $hideDocumentNumber }}"
             text-document-number="{{ $textDocumentNumber }}"
             document-number="{{ $documentNumber }}"
@@ -67,15 +67,15 @@
             text-amount="{{ $textAmount }}"
         />
 
-        @if (!$hideFooter) 
-            <x-documents.form.footer 
+        @if (!$hideFooter)
+            <x-documents.form.footer
                 type="{{ $type }}"
                 :document="$document"
             />
         @endif
 
-        @if (!$hideAdvanced) 
-            <x-documents.form.advanced 
+        @if (!$hideAdvanced)
+            <x-documents.form.advanced
                 type="{{ $type }}"
                 :document="$document"
                 hide-recurring="{{ $hideRecurring }}"
@@ -84,7 +84,7 @@
             />
         @endif
 
-        @if (!$hideButtons) 
+        @if (!$hideButtons)
             <x-documents.form.buttons
                 type="{{ $type }}"
                 :document="$document"
