@@ -103,10 +103,10 @@
                         </table>
                     </div>
 
-                    <button type="button" class="btn btn-link" @click="onContactEdit">
+                    <button type="button" class="btn btn-link p-0" @click="onContactEdit">
                         {{ editContactText.replace(':contact_name', contact.name) }}
                     </button>&nbsp;•&nbsp;
-                    <button type="button" class="btn btn-link" @click="onContactList">
+                    <button type="button" class="btn btn-link p-0" @click="onContactList">
                         {{ chooseDifferentContactText }}
                     </button>
                 </div>
@@ -387,6 +387,8 @@ export default {
             let path = this.createRoute.replace('/create', '/');
 
             path += this.contact.id + '/edit';
+
+            add_new.text = this.editContactText.replace(':contact_name', this.contact.name);
 
             window.axios.get(path)
             .then(response => {
