@@ -11,6 +11,11 @@
                     <col style="width: 30%;">
                     <col style="width: 100px;">
                     <col style="width: 100px;">
+                    @if (!$hideDiscount)
+                        @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+                            <col style="width: 100px;">
+                        @endif
+                    @endif
                     <col style="width: 250px;">
                     <col style="width: 40px;">
                 </colgroup>
@@ -169,7 +174,7 @@
                             @stack('item_custom_fields')
                         </td>
 
-                        <td class="border-top-0 p-0" colspan="4">
+                        <td class="border-top-0 p-0" colspan="{{ (!$hideDiscount && in_array(setting('localisation.discount_location', 'total'), ['item', 'both'])) ? '5' : '4' }}">
                             <table class="w-100">
                                 <colgroup>
                                     <col style="width: 100px;">
@@ -178,16 +183,17 @@
                                     <col style="width: 40px;">
                                 </colgroup>
                                 <tbody>
-                                    @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+
+                                    @if (!$hideDiscount && in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                                     <tr v-if="!row.add_tax || !row.add_discount">
                                         <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-left: 10px;">
                                             <div style="max-width: 100px;">
-                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddDiscount(index)" v-if="!discount">Add Discount</button>
+                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddDiscount(index)" v-if="!row.add_discount">Add Discount</button>
                                             </div>
                                         </td>
                                         <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-right: 10px; text-align: right;">
                                             <div style="max-width: 100px;">
-                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddTax(index)" v-if="!tax">Add Tax</button>
+                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddTax(index)" v-if="!row.add_tax">Add Tax</button>
                                             </div>
                                         </td>
                                         <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
@@ -232,8 +238,8 @@
                                                 {{ Form::moneyGroup('discount', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row.discount', 'data-item' => 'discount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;"  class="w-1">
-                                            <button type="button" @click="onDeleteDiscount(index)" class="btn btn-link btn-sm p-0">
+                                        <td colspan="1" style="border: 0;"  class="pb-0 align-middle">
+                                            <button type="button" @click="onDeleteDiscount(index)" class="btn btn-link btn-delete p-0">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
                                         </td>
@@ -335,7 +341,11 @@
                                             </div>
                                         </td>
                                         <td colspan="1" style="border: 0;">
-
+                                            @if (!$hideDiscount && in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+                                            <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                            @endif
                                         </td>
                                     </tr>
                                 </tbody>

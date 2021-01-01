@@ -75,7 +75,7 @@ const app = new Vue({
  
             // items calculate
             this.items.forEach(function(item, index) {
-                let discount = 0;
+                let item_discount = 0;
 
                 item.total = item.price * item.quantity;
                 item.grand_total = item.price * item.quantity;
@@ -87,7 +87,7 @@ const app = new Vue({
                     line_discount_amount = item.total * (item.discount / 100);
 
                     item_discounted_total = item.total -= line_discount_amount;
-                    discount = item.discount;
+                    item_discount = item.discount;
                 }
 
                 let item_discounted_total = item.total;
@@ -95,7 +95,7 @@ const app = new Vue({
                 if (global_discount) {
                     item_discounted_total = item.total - (item.total * (global_discount / 100));
 
-                    discount = global_discount;
+                    item_discount = global_discount;
                 }
 
                 // item tax calculate.
@@ -169,7 +169,7 @@ const app = new Vue({
 
                         item.grand_total = item.grand_total - item_base_rate;
 
-                        item.total = item_base_rate + discount;
+                        item.total = item_base_rate + item_discount;
                     }
 
                     if (compounds.length) {
@@ -187,8 +187,16 @@ const app = new Vue({
                     }
                 }
 
+
+                    // calculate sub, tax, discount all items.
+                line_item_discount_total += line_discount_amount;
                 sub_total += item.total;
                 grand_total += item.grand_total;
+
+                // set item total
+                if (item.discount) {
+                    item.total = item_discounted_total;
+                }
 
                 this.form.items[index].name = item.name;
                 this.form.items[index].description = item.description;
@@ -198,131 +206,8 @@ const app = new Vue({
                 this.form.items[index].total = item.total;
             }, this);
 
-            this.totals.sub = sub_total;
-            this.totals.taxes = totals_taxes;
-            this.totals.total = grand_total;
-        },
-
-        onCalculateTotal2() {
-            let sub_total = 0;
-            let discount_total = 0;
-            let line_item_discount_total = 0;
-            let tax_total = 0;
-            let grand_total = 0;
-            let items = this.items;
-            let discount_in_totals = this.discount;
-
-            if (items.length) {
-                let index = 0;
-
-                // get all items.
-                for (index = 0; index < items.length; index++) {
-                    let discount = 0;
-                    // get row item and set item variable.
-                    let item = items[index];
-
-                    // item sub total calcute.
-                    let item_total = item.price * item.quantity;
-
-                    // item discount calculate.
-                    let line_discount_amount = 0;
-
-                    if (item.discount) {
-                        line_discount_amount = item_total * (item.discount / 100);
-
-                        item_discounted_total = item_total -= line_discount_amount;
-                        discount = item.discount;
-                    }
-
-                    let item_discounted_total = item_total;
-
-                    if (discount_in_totals) {
-                        item_discounted_total = item_total - (item_total * (discount_in_totals / 100));
-                        discount = discount_in_totals;
-                    }
-
-                    // item tax calculate.
-                    let item_tax_total = 0;
-
-                    if (item.tax_ids) {
-                        let inclusives = [];
-                        let compounds = [];
-                        let index_taxes = 0;
-                        let taxes = document_taxes;
-
-                        item.tax_ids.forEach(function(item_tax, item_tax_index) {
-                            for (index_taxes = 0; index_taxes < taxes.length; index_taxes++) {
-                                let tax = taxes[index_taxes];
-
-                                if (item_tax.id != tax.id) {
-                                    continue;
-                                }
-
-                                switch (tax.type) {
-                                    case 'inclusive':
-                                        inclusives.push(tax);
-                                        break;
-                                    case 'compound':
-                                        compounds.push(tax);
-                                        break;
-                                    case 'fixed':
-                                        item_tax_total = tax.rate * item.quantity;
-                                        break;
-                                    case 'withholding':
-                                        item_tax_total = 0 - item.price * item.quantity * (tax.rate / 100);
-                                        break;
-                                    default:
-                                        item_tax_total = item.price * item.quantity * (tax.rate / 100);
-                                        break;
-                                }
-
-                                this.items[index].tax_ids[item_tax_index].price = item_tax_total;
-                            }
-                        }, this);
-
-                        if (inclusives.length) {
-                            let item_sub_and_tax_total = item_discounted_total + item_tax_total;
-
-                            let inclusive_total = 0;
-
-                            inclusives.forEach(function(inclusive) {
-                                inclusive_total += inclusive.rate;
-                            });
-
-                            let item_base_rate = item_sub_and_tax_total / (1 + inclusive_total / 100);
-
-                            item_tax_total = item_sub_and_tax_total - item_base_rate;
-
-                            item_total = item_base_rate + discount;
-                        }
-
-                        if (compounds.length) {
-                            compounds.forEach(function(compound) {
-                                item_tax_total += ((item_discounted_total + item_tax_total) / 100) * compound.rate;
-                            });
-                        }
-                    }
-
-                    // set item total
-                    if (item.discount) {
-                        items[index].total = item_discounted_total;
-                    } else {
-                        items[index].total = item_total;
-                    }
-
-                    // calculate sub, tax, discount all items.
-                    line_item_discount_total += line_discount_amount;
-                    sub_total += item_total;
-                    tax_total += item_tax_total;
-                }
-            }
-
-            // set global total variable.
-            this.totals.sub = sub_total;
-            //this.totals.taxes = Math.abs(tax_total);
-            this.totals.item_discount = line_item_discount_total;
-
             // Apply discount to total
+            /*
             if (discount_in_totals) {
                 discount_total = sub_total * (discount_in_totals / 100);
 
@@ -330,75 +215,12 @@ const app = new Vue({
 
                 sub_total = sub_total - (sub_total * (discount_in_totals / 100));
             }
+            */
 
-            // set all item grand total.
-            grand_total = sub_total + tax_total;
-
+            this.totals.item_discount = line_item_discount_total;
+            this.totals.sub = sub_total;
+            this.totals.taxes = totals_taxes;
             this.totals.total = grand_total;
-        },
-
-        onCalculateTaxes() {
-            let taxes = document_taxes;
-
-            this.items.forEach(function (item, index) {
-                let inclusives = [];
-                let compounds = [];
-                let index_taxes = 0;
-    
-                item.tax_ids.forEach(function(item_tax, item_tax_index) {
-                    item_tax_total = 0;
-
-                    for (index_taxes = 0; index_taxes < taxes.length; index_taxes++) {
-                        let tax = taxes[index_taxes];
-    
-                        if (item_tax.id != tax.id) {
-                            continue;
-                        }
-    
-                        switch (tax.type) {
-                            case 'inclusive':
-                                inclusives.push(tax);
-                                break;
-                            case 'compound':
-                                compounds.push(tax);
-                                break;
-                            case 'fixed':
-                                item_tax_total += tax.rate * item.quantity;
-                                break;
-                            case 'withholding':
-                                item_tax_total += 0 - item.price * (tax.rate / 100);
-                                break;
-                            default:
-                                item_tax_total += item.price * (tax.rate / 100);
-                                break;
-                        }
-                    }
-
-                    this.items[index].tax_ids[item_tax_index].price = item_tax_total;
-                }, this);
-    
-                if (inclusives.length) {
-                    let item_sub_and_tax_total = item_discounted_total + item_tax_total;
-    
-                    let inclusive_total = 0;
-    
-                    inclusives.forEach(function(inclusive) {
-                        inclusive_total += inclusive.rate;
-                    }, this);
-    
-                    let item_base_rate = item_sub_and_tax_total / (1 + inclusive_total / 100);
-    
-                    item_tax_total = item_sub_and_tax_total - item_base_rate;
-    
-                    item_total = item_base_rate + discount;
-                }
-    
-                if (compounds.length) {
-                    compounds.forEach(function(compound) {
-                        item_tax_total += ((item_discounted_total + item_tax_total) / 100) * compound.rate;
-                    }, this);
-                }
-            }, this);
         },
 
         calculateTotalsTax(totals_taxes, id, name, price) {
@@ -419,75 +241,6 @@ const app = new Vue({
             }
 
             return totals_taxes;
-        },
-
-        getItemByTaxes(item) {
-            let item_tax_ids = [];
-            let taxes = document_taxes;
-
-            let inclusives = [];
-            let compounds = [];
-            let index_taxes = 0;
-            let item_tax_total = 0;
-
-            item.tax_ids.forEach(function(item_tax, item_tax_index) {
-                item_tax_total = 0;
-
-                for (index_taxes = 0; index_taxes < taxes.length; index_taxes++) {
-                    let tax = taxes[index_taxes];
-
-                    if (item_tax.id != tax.id) {
-                        continue;
-                    }
-
-                    switch (tax.type) {
-                        case 'inclusive':
-                            inclusives.push(tax);
-                            break;
-                        case 'compound':
-                            compounds.push(tax);
-                            break;
-                        case 'fixed':
-                            item_tax_total += tax.rate * item.quantity;
-                            break;
-                        case 'withholding':
-                            item_tax_total += 0 - item.price * (tax.rate / 100);
-                            break;
-                        default:
-                            item_tax_total += item.price * (tax.rate / 100);
-                            break;
-                    }
-                }
-
-                item_tax_ids.push({
-                    id: item_tax.id,
-                    price: item_tax_total 
-                });
-            }, this);
-
-            if (inclusives.length) {
-                let item_sub_and_tax_total = item_discounted_total + item_tax_total;
-
-                let inclusive_total = 0;
-
-                inclusives.forEach(function(inclusive) {
-                    inclusive_total += inclusive.rate;
-                }, this);
-
-                let item_base_rate = item_sub_and_tax_total / (1 + inclusive_total / 100);
-
-                item_tax_total = item_sub_and_tax_total - item_base_rate;
-
-                item_total = item_base_rate + discount;
-            }
-
-            if (compounds.length) {
-                compounds.forEach(function(compound) {
-                    item_tax_total += ((item_discounted_total + item_tax_total) / 100) * compound.rate;
-                }, this);
-            }
-
-            return item_tax_ids;
         },
 
         // Select Item added form
@@ -529,7 +282,7 @@ const app = new Vue({
                 description: item.description,
                 quantity: 1,
                 price: item.price,
-                add_tax: true,
+                add_tax: (document.getElementById('line-discount') != null) ? false : true,
                 tax_ids: item_taxes,
                 add_discount: false,
                 discount: 0,

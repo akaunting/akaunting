@@ -13,6 +13,11 @@
                     <col style="width: 30%;">
                     <col style="width: 100px;">
                     <col style="width: 100px;">
+                    @if (!$hideDiscount)
+                        @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
+                            <col style="width: 100px;">
+                        @endif
+                    @endif
                     <col style="width: 250px;">
                     <col style="width: 40px;">
                 </colgroup>
@@ -55,7 +60,7 @@
                         @if (!$hideDiscount)
                             @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                                 @stack('discount_th_start')
-                                    <th class="text-right border-top-0 border-right-0 border-bottom-0">
+                                    <th id="line-discount" class="text-right border-top-0 border-right-0 border-bottom-0">
                                         {{ trans('invoices.discount') }}
                                     </th>
                                 @stack('discount_th_end')
@@ -83,7 +88,7 @@
 
                     @stack('add_item_td_start')
                         <tr id="addItem">
-                            <td class="text-right border-bottom-0 p-0" colspan="{{ '7' }}">
+                            <td class="text-right border-bottom-0 p-0" colspan="{{ (!$hideDiscount && in_array(setting('localisation.discount_location', 'total'), ['item', 'both'])) ? 8 : 7 }}" :colspan="colspan">
                                 <x-select-item-button
                                     type="{{ $type }}"
                                     is-sale="{{ $isSalePrice }}"
