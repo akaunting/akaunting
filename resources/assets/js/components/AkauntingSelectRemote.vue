@@ -88,7 +88,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled" :value="add_new">
+            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -541,11 +541,17 @@ export default {
         },
 
         change() {
+            // This controll added add new changed..
+            if (typeof(this.selected) === 'object' && typeof(this.selected.type) !== 'undefined') {
+                return false;
+            }
+
             this.$emit('interface', this.selected);
 
             this.$emit('change', this.selected);
 
             // Option changed sort_option data
+            /*
             if (this.group) {
                 this.sort_options.forEach(function (option_group, group_index) {
                     this.option_group.value.forEach(function (option, index) {
@@ -609,6 +615,7 @@ export default {
                     }
                 }, this);
             }
+            */
         },
 
         visibleChange(event) {
@@ -695,7 +702,7 @@ export default {
             if (this.title) {
                 var value = this.$children[0].$children[0].$children[0].$refs.input.value;
             } else {
-                var value = this.$children[0].$children[0].$refs.input.value;
+                var value = this.$children[0].$children[0].$children[0].$refs.input.value;
             }
 
             if (this.add_new.type == 'inline') {
