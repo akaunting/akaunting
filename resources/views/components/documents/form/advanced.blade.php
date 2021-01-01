@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         @if (!$hideRecurring)
-                            {{ Form::recurring('create') }}
+                            {{ Form::recurring('create', null, 'col-md-12') }}
                         @endif
                     </div>
 
@@ -19,7 +19,7 @@
                         @endif
 
                         @if (!$hideAttachment)
-                            {{ Form::fileGroup('attachment', trans('general.attachment')) }}
+                            {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'form-file'], null, 'col-md-12') }}
                         @endif
                     </div>
                 </div>

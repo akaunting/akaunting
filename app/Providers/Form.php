@@ -120,7 +120,7 @@ class Form extends Provider
         ]);
 
         Facade::component('recurring', 'partials.form.recurring', [
-            'page', 'model' => null,
+            'page', 'model' => null, 'col' => 'col-md-12',
         ]);
 
         Facade::component('invoice_text', 'partials.form.invoice_text', [
