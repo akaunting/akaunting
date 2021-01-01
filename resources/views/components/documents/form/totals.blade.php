@@ -131,8 +131,8 @@
 
                     @stack('currency_conversion_td_start')
                         <tr id="tr-currency-conversion" class="d-none" :class="[{'d-table-row': (('{{ setting('default.currency') }}' != form.currency_code) && totals.total)}]">
-                            <td class="border-top-0 pt-0 pb-0"></td>
-                            <td class="text-right border-top-0 border-right-0 align-middle pt-0 pb-0" colspan="2">
+                            <td class="border-top-0 pb-0"></td>
+                            <td class="text-right border-top-0 border-right-0 align-middle pb-0" colspan="2">
                                 <akaunting-currency-conversion 
                                     currency-conversion-text="{{ trans('currencies.conversion') }}"
                                     :price="(totals.total / form.currency_rate).toFixed(2)"
