@@ -35,7 +35,7 @@ class Items extends ApiController
      */
     public function show($id)
     {
-        $item = Item::with('category', 'tax')->find($id);
+        $item = Item::with('category', 'taxes')->find($id);
 
         return $this->response->item($item, new Transformer());
     }
