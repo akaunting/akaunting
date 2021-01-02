@@ -2,9 +2,8 @@
 
 namespace App\Transformers\Common;
 
-use App\Transformers\Setting\Category;
-use App\Transformers\Setting\Tax;
 use App\Models\Common\Item as Model;
+use App\Transformers\Setting\Category;
 use League\Fractal\TransformerAbstract;
 
 class Item extends TransformerAbstract
@@ -46,7 +45,7 @@ class Item extends TransformerAbstract
             return $this->null();
         }
 
-        return $this->collection($model->taxes, new Tax());
+        return $this->collection($model->taxes, new ItemTax());
     }
 
     /**
