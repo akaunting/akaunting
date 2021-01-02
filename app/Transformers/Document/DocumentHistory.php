@@ -2,10 +2,10 @@
 
 namespace App\Transformers\Document;
 
-use App\Models\Document\DocumentItem as Model;
+use App\Models\Document\DocumentHistory as Model;
 use League\Fractal\TransformerAbstract;
 
-class DocumentItems extends TransformerAbstract
+class DocumentHistory extends TransformerAbstract
 {
     /**
      * @param Model $model
@@ -18,12 +18,9 @@ class DocumentItems extends TransformerAbstract
             'company_id' => $model->company_id,
             'type' => $model->type,
             'document_id' => $model->document_id,
-            'item_id' => $model->item_id,
-            'name' => $model->name,
-            'price' => $model->price,
-            'total' => $model->total,
-            'tax' => $model->tax,
-            'tax_id' => $model->tax_id,
+            'status' => $model->status,
+            'notify' => $model->notify,
+            'description' => $model->description,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];

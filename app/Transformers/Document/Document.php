@@ -2,10 +2,10 @@
 
 namespace App\Transformers\Document;
 
+use App\Models\Document\Document as Model;
 use App\Transformers\Banking\Transaction;
 use App\Transformers\Common\Contact;
 use App\Transformers\Setting\Currency;
-use App\Models\Document\Document as Model;
 use League\Fractal\TransformerAbstract;
 
 class Document extends TransformerAbstract
@@ -13,7 +13,7 @@ class Document extends TransformerAbstract
     /**
      * @var array
      */
-    protected $defaultIncludes = ['contact', 'currency', 'histories', 'items', 'transactions'];
+    protected $defaultIncludes = ['contact', 'currency', 'histories', 'items', 'item_taxes', 'totals', 'transactions'];
 
     /**
      * @param Model $model
@@ -70,7 +70,7 @@ class Document extends TransformerAbstract
      */
     public function includeHistories(Model $model)
     {
-        return $this->collection($model->histories, new DocumentHistories());
+        return $this->collection($model->histories, new DocumentHistory());
     }
 
     /**
@@ -79,7 +79,25 @@ class Document extends TransformerAbstract
      */
     public function includeItems(Model $model)
     {
-        return $this->collection($model->items, new DocumentItems());
+        return $this->collection($model->items, new DocumentItem());
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeItemTaxes(Model $model)
+    {
+        return $this->collection($model->item_taxes, new DocumentItemTax());
+    }
+
+    /**
+     * @param Model $model
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeTotals(Model $model)
+    {
+        return $this->collection($model->totals, new DocumentTotal());
     }
 
     /**
