@@ -46,7 +46,7 @@ class Item extends TransformerAbstract
             return $this->null();
         }
 
-        return $this->item($model->taxes, new Tax());
+        return $this->collection($model->taxes, new Tax());
     }
 
     /**
