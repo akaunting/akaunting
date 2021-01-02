@@ -64,7 +64,7 @@ class DocumentTransactions extends ApiController
 
         $transaction = $this->dispatch(new CreateBankingDocumentTransaction($document, $request));
 
-        return $this->response->created(route('documents.transactions.show', [$document_id, $transaction->id]));
+        return $this->response->created(route('api.documents.transactions.show', [$document_id, $transaction->id]));
     }
 
     /**

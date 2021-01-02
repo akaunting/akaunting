@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v3', ['middleware' => ['api']], function($api) {
-    $api->group(['namespace' => 'App\Http\Controllers\Api'], function($api) {
+    $api->group(['as' => 'api', 'namespace' => 'App\Http\Controllers\Api'], function($api) {
         // Companies
         $api->get('companies/{company}/owner', 'Common\Companies@owner')->name('companies.owner');
         $api->get('companies/{company}/enable', 'Common\Companies@enable')->name('companies.enable');
