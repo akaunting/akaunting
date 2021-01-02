@@ -197,15 +197,13 @@
                                     @endif
                                     @stack('edit_button_end')
 
-                                    <div class="dropdown-divider"></div>
-
                                     @if ($checkButtonCancelled)
                                         @if ($item->status != 'cancelled')
                                             @stack('duplicate_button_start')
                                             @if (!$hideButtonDuplicate)
                                                 @can($permissionDocumentCreate)
-                                                    <a class="dropdown-item" href="{{ route($routeButtonDuplicate, $item->id) }}">{{ trans('general.duplicate') }}</a>
                                                     <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="{{ route($routeButtonDuplicate, $item->id) }}">{{ trans('general.duplicate') }}</a>
                                                 @endcan
                                             @endif
                                             @stack('duplicate_button_end')
@@ -213,6 +211,7 @@
                                             @stack('cancel_button_start')
                                             @if (!$hideButtonCancel)
                                                 @can($permissionDocumentUpdate)
+                                                    <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item" href="{{ route($routeButtonCancelled, $item->id) }}">{{ trans('general.cancel') }}</a>
                                                 @endcan
                                             @endif
@@ -222,8 +221,8 @@
                                         @stack('duplicate_button_start')
                                         @if (!$hideButtonDuplicate)
                                             @can($permissionDocumentCreate)
-                                                <a class="dropdown-item" href="{{ route($routeButtonDuplicate, $item->id) }}">{{ trans('general.duplicate') }}</a>
                                                 <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="{{ route($routeButtonDuplicate, $item->id) }}">{{ trans('general.duplicate') }}</a>
                                             @endcan
                                         @endif
                                         @stack('duplicate_button_end')
@@ -231,6 +230,7 @@
                                         @stack('cancel_button_start')
                                         @if (!$hideButtonCancel)
                                             @can($permissionDocumentUpdate)
+                                                <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route($routeButtonCancelled, $item->id) }}">{{ trans('general.cancel') }}</a>
                                             @endcan
                                         @endif
