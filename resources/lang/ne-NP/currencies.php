@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'दशमलव चिन्ह',
     'thousands_separator'   => 'हजार विभाजक',
     'precision'             => 'परिशुद्धता',
+    'conversion'            => 'मुद्रा रूपान्तरण: मूल्य (: currency_code) मा: मुद्रा_दर',
     'symbol' => [
         'symbol'            => 'सङ्केत',
         'position'          => 'सङ्केतको स्थान',

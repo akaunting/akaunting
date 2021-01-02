@@ -62,12 +62,21 @@ return [
         'default'           => 'पूर्व निर्धारित',
         'classic'           => 'क्लासिक',
         'modern'            => 'नवीन',
+        'hide'              => [
+            'item_name'         => 'वस्तु का नाम छिपाएं',
+            'item_description'  => 'वस्तु का विवरण छिपाएँ',
+            'quantity'          => 'मात्रा छिपाएं',
+            'price'             => 'मूल्य छिपाएं',
+            'amount'            => 'राशि छिपाएं',
+        ],
     ],
 
     'default' => [
         'description'       => 'मूल खाता, मुद्रा, आपकी कंपनी की भाषा',
         'list_limit'        => 'प्रति पृष्ठ रेकार्ड',
         'use_gravatar'      => 'Gravatar का उपयोग करें',
+        'income_category'   => 'आय श्रेणी',
+        'expense_category'  => 'व्यय की श्रेणी',
     ],
 
     'email' => [

@@ -62,12 +62,21 @@ return [
         'default'           => 'Predefinito',
         'classic'           => 'Classico',
         'modern'            => 'Moderno',
+        'hide'              => [
+            'item_name'         => 'Nascondi Nome Elemento',
+            'item_description'  => 'Nascondi Descrizione Elemento',
+            'quantity'          => 'Nascondi Quantità',
+            'price'             => 'Nascondi Prezzo',
+            'amount'            => 'Nascondi Importo',
+        ],
     ],
 
     'default' => [
         'description'       => 'Account predefinito, valuta, lingua della tua azienda',
         'list_limit'        => 'Risultati per Pagina',
         'use_gravatar'      => 'Utilizzare Gravatar',
+        'income_category'   => 'Categoria Reddito',
+        'expense_category'  => 'Categoria Spese',
     ],
 
     'email' => [
