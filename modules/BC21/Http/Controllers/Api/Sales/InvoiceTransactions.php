@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers\Api\Sales;
 
+use App\Abstracts\Http\ApiController;
 use App\Http\Requests\Banking\Transaction as Request;
 use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Banking\DeleteTransaction;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
 use App\Transformers\Banking\Transaction as Transformer;
-use Dingo\Api\Routing\Helpers;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class InvoiceTransactions extends BaseController
+class InvoiceTransactions extends ApiController
 {
-    use Helpers, AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        // Add CRUD permission check
+        $this->middleware('permission:create-banking-transactions')->only('create', 'store', 'duplicate', 'import');
+        $this->middleware('permission:read-banking-transactions')->only('index', 'show', 'edit', 'export');
+        $this->middleware('permission:update-banking-transactions')->only('update', 'enable', 'disable');
+        $this->middleware('permission:delete-banking-transactions')->only('destroy');
+    }
 
     /**
      * Display a listing of the resource.
@@ -26,7 +32,7 @@ class InvoiceTransactions extends BaseController
      */
     public function index($invoice_id)
     {
-        $transactions = Transaction::document($invoice_id)->get();
+        $transactions = Transaction::documentId($invoice_id)->get();
 
         return $this->response->collection($transactions, new Transformer());
     }
@@ -40,7 +46,7 @@ class InvoiceTransactions extends BaseController
      */
     public function show($invoice_id, $id)
     {
-        $transaction = Transaction::document($invoice_id)->find($id);
+        $transaction = Transaction::documentId($invoice_id)->find($id);
 
         return $this->response->item($transaction, new Transformer());
     }
@@ -70,7 +76,7 @@ class InvoiceTransactions extends BaseController
      */
     public function destroy($invoice_id, $id)
     {
-        $transaction = Transaction::document($invoice_id)->find($id);
+        $transaction = Transaction::documentId($invoice_id)->find($id);
 
         $this->dispatch(new DeleteTransaction($transaction));
 

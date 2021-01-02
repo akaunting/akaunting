@@ -193,15 +193,51 @@ class Transaction extends Model
     }
 
     /**
-     * Get by document (invoice/bill).
+     * Get by document id.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param  integer $document_id
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDocument($query, $document_id)
+    public function scopeDocumentId($query, $document_id)
     {
         return $query->where('document_id', '=', $document_id);
+    }
+
+    /**
+     * Get by account id.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  integer $account_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAccountId($query, $account_id)
+    {
+        return $query->where('account_id', '=', $account_id);
+    }
+
+    /**
+     * Get by contact id.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  integer $contact_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeContactId($query, $contact_id)
+    {
+        return $query->where('contact_id', '=', $contact_id);
+    }
+
+    /**
+     * Get by category id.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  integer $category_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCategoryId($query, $category_id)
+    {
+        return $query->where('category_id', '=', $category_id);
     }
 
     /**
