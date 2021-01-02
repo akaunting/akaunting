@@ -8,6 +8,7 @@ return [
     'decimal_mark'          => 'Desimaltegn',
     'thousands_separator'   => 'Tusenskille',
     'precision'             => 'Presisjon',
+    'conversion'            => 'Valutakonvertering: :price (:currency_code) mot :currency_rate',
     'symbol' => [
         'symbol'            => 'Symbol',
         'position'          => 'Symbolplassering',

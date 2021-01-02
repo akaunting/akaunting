@@ -57,17 +57,26 @@ return [
         'title'             => 'Titel',
         'subheading'        => 'Undertitel',
         'due_receipt'       => 'Forfalder ved modtagelse',
-        'due_days'          => 'Forfalder om :dage dage',
+        'due_days'          => 'Forfalder om :days dage',
         'choose_template'   => 'Vælg faktura skabelon',
         'default'           => 'Standard',
         'classic'           => 'Klassisk',
         'modern'            => 'Moderne',
+        'hide'              => [
+            'item_name'         => 'Skjul navn',
+            'item_description'  => 'Skjul beskrivelse',
+            'quantity'          => 'Skjul antal',
+            'price'             => 'Skjul pris',
+            'amount'            => 'Skjul beløb',
+        ],
     ],
 
     'default' => [
         'description'       => 'Standard konto, valuta og sprog',
         'list_limit'        => 'Poster pr side',
         'use_gravatar'      => 'Brug standard-ikoner (Gravatar)',
+        'income_category'   => 'Indkomstkategori',
+        'expense_category'  => 'Udgiftskategori',
     ],
 
     'email' => [

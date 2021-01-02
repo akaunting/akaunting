@@ -104,7 +104,10 @@ return [
     'from'                  => 'Fra',
     'to'                    => 'Til',
     'print'                 => 'Skriv ut',
+    'download_pdf'          => 'Last ned PDF',
+    'customize'             => 'Tilpass',
     'search'                => 'Søk',
+    'search_text'           => 'Søk etter tekst',
     'search_placeholder'    => 'Skriv for å søke ...',
     'filter'                => 'Filter',
     'help'                  => 'Hjelp',
@@ -152,6 +155,11 @@ return [
     'no_matching_data'      => 'Fant ingen samsvarende data',
     'clear_cache'           => 'Tøm hurtiglager',
     'go_to_dashboard'       => 'Gå til kontrollpanel',
+    'is'                    => 'er',
+    'isnot'                 => 'er ikke', 
+    'recurring_and_more'    => 'Gjentakende og flere..',
+    'due_on'                => 'Forfall',
+    'amount_due'            => 'Skyldig beløp',
 
     'card' => [
         'name'                  => 'Navn på kort',
@@ -177,8 +185,21 @@ return [
             'field'         => '-Velg :field -',
             'file'          => 'Velg fil',
         ],
+        'add'               => 'Legg til et :field',
+        'add_an'            => 'Legg til et :field',
         'add_new'           => 'Legg til ny :field',
+        'edit'              => 'Rediger :field',
+        'contact_edit'      => 'Rediger :contact_name :field',
+        'choose'            => 'Velg :field',
+        'choose_different'  => 'Velg et annet :field',
         'no_file_selected'  => 'Ingen fil valgt ...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Skriv for å søke',
+        'search_and_filter' => 'Søk eller filtrer resultater..',
+        'contact_search'    => 'Skriv inn et :type navn',
+        'item_search'       => 'Skriv inn et artikkelnavn',
     ],
 
     'date_range' => [
