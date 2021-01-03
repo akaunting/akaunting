@@ -1417,3 +1417,9 @@ table .align-items-center td span.badge {
     padding: 0.6rem 1rem;
 }
 /* Custom File stype Finish */
+
+/* el-select__tags */
+.el-select-tags-pl-38 .el-select .el-select__tags {
+    padding-left: 38px !important;
+}
+/* el-select__tags */
