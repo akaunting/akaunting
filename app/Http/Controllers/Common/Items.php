@@ -277,6 +277,11 @@ class Items extends Controller
                             case 'fixed':
                                 $item_tax_price += $tax->rate;
                                 break;
+                            case 'withholding':
+                                $item_tax_amount = 0 - $item_price * ($tax->rate / 100);
+
+                                $item_tax_price += $item_tax_amount;
+                                break;
                             default:
                                 $item_tax_amount = ($item_price / 100) * $tax->rate;
 
@@ -368,6 +373,11 @@ class Items extends Controller
                                 break;
                             case 'fixed':
                                 $item_tax_total += $tax->rate * $quantity;
+                                break;
+                            case 'withholding':
+                                $item_tax_amount = 0 - $item_discounted_total * ($tax->rate / 100);
+
+                                $item_tax_total += $item_tax_amount;
                                 break;
                             default:
                                 $item_tax_amount = ($item_discounted_total / 100) * $tax->rate;
