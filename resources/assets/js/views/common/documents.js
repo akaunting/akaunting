@@ -280,7 +280,7 @@ const app = new Vue({
                 description: item.description,
                 quantity: 1,
                 price: item.price,
-                add_tax: (document.getElementById('line-discount') != null) ? false : true,
+                add_tax: (document.getElementById('invoice-item-discount-rows') != null) ? false : true,
                 tax_ids: item_taxes,
                 add_discount: false,
                 discount: 0,

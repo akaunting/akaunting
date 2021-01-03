@@ -924,7 +924,7 @@ table .align-items-center td span.badge {
     margin-right: 15px;
 }
 
-#invoice-item-rows td {
+.table-padding-05 td {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }

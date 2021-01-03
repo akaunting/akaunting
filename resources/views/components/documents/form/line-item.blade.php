@@ -108,8 +108,6 @@
                             @endif
                         @stack('price_td_end')
 
-
-
                         @stack('total_td_start')
                             @if (!$hideAmount)
                                 <td colspan="1" class="text-right long-texts pb-3 border-bottom-0">
@@ -136,7 +134,7 @@
                             @stack('item_custom_fields')
                         </td>
 
-                        <td class="border-top-0 p-0" colspan="{{ (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both'])) ? '5' : '4' }}">
+                        <td class="border-top-0 p-0" colspan="{{ '4' }}">
                             <table class="w-100">
                                 <colgroup>
                                     <col style="width: 100px;">
@@ -150,12 +148,12 @@
                                     <tr v-if="!row.add_tax || !row.add_discount">
                                         <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-left: 10px;">
                                             <div style="max-width: 100px;">
-                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddLineDiscount(index)" v-if="!row.add_discount">Add Discount</button>
+                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddLineDiscount(index)" v-if="!row.add_discount">{{ trans('general.title.add', ['type' => trans('invoices.discount')]) }}</button>
                                             </div>
                                         </td>
                                         <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-right: 10px; text-align: right;">
                                             <div style="max-width: 100px;">
-                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddTax(index)" v-if="!row.add_tax">Add Tax</button>
+                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddTax(index)" v-if="!row.add_tax">{{ trans('general.title.add', ['type' => trans_choice('general.taxes', 1)]) }}</button>
                                             </div>
                                         </td>
                                         <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
@@ -165,31 +163,33 @@
                                     </tr>
 
                                     <tr v-if="row.add_discount">
-                                        <td colspan="2" class="pb-0" style="border: 0;  padding-right: 5px; padding-left: 5px;" >
-                                            <div style="margin-left: -30px; margin-right: 35px;">
-                                            <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans_choice('general.discount', 1) }}</span>
+                                        <td colspan="2" class="pb-0" style="border: 0px; padding-left: 5px; padding-right: 5px;">
+                                            <div style="margin-left: -63px; margin-right: 35px;">
+                                            <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans('invoices.discount') }}</span>
                                             @stack('discount_input_start')
-                                            <div class="input-group input-group-merge">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="input-discount">
-                                                        <i class="fa fa-percent"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number"
-                                                    max="100"
-                                                    min="0"
-                                                    class="form-control text-center"
-                                                    :name="'items.' + index + '.discount'"
-                                                    autocomplete="off"
-                                                    required="required"
-                                                    data-item="discount"
-                                                    v-model="row.discount"
-                                                    @input="onCalculateTotal"
-                                                    @change="form.errors.clear('items.' + index + '.discount')">
+                                            <div class="form-group mb-0" style="display: inline-block; position: relative; width: 88%;">
+                                                <div class="input-group input-group-merge mb-0 select-tax">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="input-discount">
+                                                            <i class="fa fa-percent"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="number"
+                                                        max="100"
+                                                        min="0"
+                                                        class="form-control text-center"
+                                                        :name="'items.' + index + '.discount'"
+                                                        autocomplete="off"
+                                                        required="required"
+                                                        data-item="discount"
+                                                        v-model="row.discount"
+                                                        @input="onCalculateTotal"
+                                                        @change="form.errors.clear('items.' + index + '.discount')">
 
-                                                <div class="invalid-feedback d-block"
-                                                    v-if="form.errors.has('items.' + index + '.discount')"
-                                                    v-html="form.errors.get('items.' + index + '.discount')">
+                                                    <div class="invalid-feedback d-block"
+                                                        v-if="form.errors.has('items.' + index + '.discount')"
+                                                        v-html="form.errors.get('items.' + index + '.discount')">
+                                                    </div>
                                                 </div>
                                             </div>
                                             @stack('discount_input_end')
@@ -213,7 +213,7 @@
                                     <tr v-for="(row_tax, row_tax_index) in row.tax_ids"
                                     :index="row_tax_index">
                                     @endif
-                                        <td colspan="2" class="pb-0" style="border: 0;  padding-right: 5px; padding-left: 5px;" >
+                                        <td colspan="2" class="pb-0" style="border: 0;  padding-right: 5px; padding-left: 5px;">
                                             <div style="margin-left: -30px; margin-right: 35px;">
                                             <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans_choice('general.taxes', 1) }}</span>
 
@@ -304,8 +304,8 @@
                                         </td>
                                         <td colspan="1" style="border: 0;">
                                             @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
-                                                <i class="far fa-trash-alt"></i>
-                                                <button type="button" @click="onDeleteDiscount(index)" class="btn btn-link btn-delete p-0">
+                                                <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
+                                                    <i class="far fa-trash-alt"></i>
                                                 </button>
                                             @endif
                                         </td>

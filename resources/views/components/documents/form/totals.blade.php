@@ -8,7 +8,7 @@
                     <col style="width: 20%;">
                     <col style="width: 40px;">
                 </colgroup>
-                <tbody id="invoice-item-rows">
+                <tbody id="invoice-total-rows" class="table-padding-05">
                     @stack('sub_total_td_start')
                     <tr id="tr-subtotal">
                         <td class="border-bottom-0 pb-0"></td>
@@ -26,7 +26,7 @@
 
                 @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                     @stack('item_discount_td_start')
-                        <tr id="tr-subtotal">
+                        <tr id="tr-line-discount" v-if="totals.item_discount">
                             <td class="border-top-0 pt-0 pb-0"></td>
                             <td class="text-right border-top-0 border-right-0 border-bottom-0 align-middle pt-0 pb-0">
                                 <strong>{{ trans('invoices.item_discount') }}</strong>

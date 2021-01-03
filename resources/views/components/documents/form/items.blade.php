@@ -68,12 +68,12 @@
                     </tr>
                 </thead>
 
-                <tbody id="invoice-item-rows">
+                <tbody id="{{ (!$hideDiscount && in_array(setting('localisation.discount_location', 'total'), ['item', 'both'])) ? 'invoice-item-discount-rows' : 'invoice-item-rows' }}" class="table-padding-05">
                     @include('components.documents.form.line-item')
 
                     @stack('add_item_td_start')
                         <tr id="addItem">
-                            <td class="text-right border-bottom-0 p-0" colspan="{{ (!$hideDiscount && in_array(setting('localisation.discount_location', 'total'), ['item', 'both'])) ? 8 : 7 }}" :colspan="colspan">
+                            <td class="text-right border-bottom-0 p-0" colspan="{{ 7 }}" :colspan="colspan">
                                 <x-select-item-button
                                     type="{{ $type }}"
                                     is-sale="{{ $isSalePrice }}"
