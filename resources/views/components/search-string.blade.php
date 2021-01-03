@@ -5,7 +5,7 @@
     operator-is-not-text="{{ trans('general.isnot') }}" 
     no-data-text="{{ trans('general.no_data') }}"
     no-matching-data-text="{{ trans('general.no_matching_data') }}"
-    value="{{ request()->get('search', null) }}"
+    value="{{ rtrim(ltrim(request()->get('search', null), '"'), '"') }}"
     :filters="{{ json_encode($filters) }}"
     :date-config="{
         allowInput: true,
