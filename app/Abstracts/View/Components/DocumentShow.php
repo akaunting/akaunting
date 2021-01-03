@@ -392,7 +392,7 @@ abstract class DocumentShow extends Component
         $this->routeButtonEdit = $this->getRouteButtonEdit($type, $routeButtonEdit);
         $this->routeButtonDuplicate = $this->getRouteButtonDuplicate($type, $routeButtonDuplicate);
         $this->routeButtonPrint = $this->getRouteButtonPrint($type, $routeButtonPrint);
-        $this->routeButtonPdf = $this->getRouteButtonPrint($type, $routeButtonPdf);
+        $this->routeButtonPdf = $this->getRouteButtonPdf($type, $routeButtonPdf);
         $this->routeButtonCancelled = $this->getRouteButtonCancelled($type, $routeButtonCancelled);
         $this->routeButtonCustomize = $this->getRouteButtonCustomize($type, $routeButtonCustomize);
         $this->routeButtonDelete = $this->getRouteButtonDelete($type, $routeButtonDelete);

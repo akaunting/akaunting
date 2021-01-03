@@ -44,7 +44,7 @@
                                                     required="required"
                                                     data-item="name"
                                                     v-model="row.name"
-                                                    @input="onCalculateTotal"
+                                                    @input="onBindingItemField(index, 'name')"
                                                     @change="form.errors.clear('items.' + index + '.name')">
                                 
                                                 <div class="invalid-feedback d-block"
@@ -68,6 +68,7 @@
                                                 v-model="row.description"
                                                 data-item="description"
                                                 resize="none"
+                                                @input="onBindingItemField(index, 'description')"
                                             ></textarea>
                                         </td>
                                     @endif
