@@ -1423,3 +1423,14 @@ table .align-items-center td span.badge {
     padding-left: 38px !important;
 }
 /* el-select__tags */
+
+/* Akaunting select remove add suffix icon Start */
+.el-input.el-input--prefix.el-input--suffix .el-select__caret.el-input__icon.el-icon-:before {
+    content: "\e6e1";
+}
+
+.el-input.el-input--prefix.el-input--suffix.is-focus .el-select__caret.el-input__icon.el-icon- {
+    -webkit-transform: rotateZ(0);
+    transform: rotateZ(0);
+}
+/* Akaunting select remove add suffix icon Finish */
