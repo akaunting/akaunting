@@ -650,13 +650,15 @@ export default {
                    path = url + '/common/items/autocomplete';
                }
 
-               if (path.search('/?') !== -1) {
-                    path += '?search=' + query;
+               if (path.indexOf('?') === -1) {
+                    path += '?search="' + query + '"';
                } else {
-                    path += '&search=' + query;
+                    path += '&search="' + query + '"';
                }
 
                path += '&currency_code=' + this.currencyCode;
+
+               path += '&limit:10';
 
                 window.axios({
                     method: 'GET',
