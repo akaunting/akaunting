@@ -426,7 +426,7 @@ export default {
     methods: {
         change() {
             // This controll added add new changed..
-            if (typeof(this.selected) === 'object' && typeof(this.selectedz.type) !== 'undefined') {
+            if (typeof(this.selected) === 'object' && typeof(this.selected.type) !== 'undefined') {
                 return false;
             }
 
