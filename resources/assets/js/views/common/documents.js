@@ -489,7 +489,7 @@ const app = new Vue({
                 this.form.items.push({
                     item_id: item.item_id,
                     name: item.name,
-                    description: item.description,
+                    description: item.description === null ? "" : item.description,
                     quantity: item.quantity,
                     price: (item.price).toFixed(2),
                     tax_ids: item.tax_ids,
@@ -524,7 +524,7 @@ const app = new Vue({
                 this.items.push({
                     item_id: item.item_id,
                     name: item.name,
-                    description: item.description,
+                    description: item.description === null ? "" : item.description,
                     quantity: item.quantity,
                     price: (item.price).toFixed(2),
                     add_tax: true,
