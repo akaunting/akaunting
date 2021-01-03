@@ -87,7 +87,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled" :value="''">
+            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled" value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
