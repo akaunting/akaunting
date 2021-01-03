@@ -339,6 +339,9 @@ abstract class DocumentShow extends Component
 
     public $attachment;
 
+    /** @var string */
+    public $textDeleteModal;
+
     /**
      * Create a new component instance.
      *
@@ -366,7 +369,8 @@ abstract class DocumentShow extends Component
         bool $hideOrderNumber = false, bool $hideDocumentNumber = false, bool $hideIssuedAt = false, bool $hideDueAt = false,
         string $textContactInfo = '', string $textDocumentNumber = '', string $textOrderNumber = '', string $textIssuedAt = '', string $textDueAt = '',
         bool $hideItems = false, bool $hideName = false, bool $hideDescription = false, bool $hideQuantity = false, bool $hidePrice = false, bool $hideDiscount = false, bool $hideAmount = false, bool $hideNote = false, bool $hideAttachment = false,
-        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = '', $attachment = []
+        string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = '', $attachment = [],
+        string $textDeleteModal = ''
     ) {
         $this->type = $type;
         $this->document = $document;
@@ -503,6 +507,8 @@ abstract class DocumentShow extends Component
         $this->textQuantity = $textQuantity;
         $this->textPrice = $textPrice;
         $this->textAmount = $textAmount;
+
+        $this->textDeleteModal = $textDeleteModal;
     }
 
     protected function getTextRecurringType($type, $textRecurringType)
