@@ -26,7 +26,7 @@
 
                     {{ Form::selectAddNewGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
-                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, setting('default.contact'), ['path' => route('modals.customers.create'), 'remote_action' => route('customers.index')]) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.customers', 1), 'user', $customers, null, ['path' => route('modals.customers.create'), 'remote_action' => route('customers.index')]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
