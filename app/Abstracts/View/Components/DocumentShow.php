@@ -660,6 +660,10 @@ abstract class DocumentShow extends Component
 
     protected function getRouteButtonAddNew($type, $routeButtonAddNew)
     {
+        if (!empty($routeButtonAddNew)) {
+            return $routeButtonAddNew;
+        }
+
         $page = Str::plural($type, 2);
 
         $route = $page . '.create';
