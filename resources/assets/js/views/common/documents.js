@@ -65,14 +65,14 @@ const app = new Vue({
 
     methods: {
         onCalculateTotal() {
-            let global_discount = this.discount;
+            let global_discount = this.form.discount;
             let discount_total = 0;
             let line_item_discount_total = 0;
             let taxes = document_taxes;
             let sub_total = 0;
             let totals_taxes = [];
             let grand_total = 0;
- 
+
             // items calculate
             this.items.forEach(function(item, index) {
                 let item_discount = 0;
@@ -188,15 +188,15 @@ const app = new Vue({
                 }
 
 
-                    // calculate sub, tax, discount all items.
+                // set item total
+                if (item.discount) {
+                    item.grand_total = item_discounted_total;
+                }
+
+                // calculate sub, tax, discount all items.
                 line_item_discount_total += line_discount_amount;
                 sub_total += item.total;
                 grand_total += item.grand_total;
-
-                // set item total
-                if (item.discount) {
-                    item.total = item_discounted_total;
-                }
 
                 this.form.items[index].name = item.name;
                 this.form.items[index].description = item.description;
@@ -207,15 +207,13 @@ const app = new Vue({
             }, this);
 
             // Apply discount to total
-            /*
-            if (discount_in_totals) {
-                discount_total = sub_total * (discount_in_totals / 100);
+            if (global_discount) {
+                discount_total = sub_total * (global_discount / 100);
 
                 this.totals.discount = discount_total;
 
-                sub_total = sub_total - (sub_total * (discount_in_totals / 100));
+                grand_total = sub_total - (sub_total * (global_discount / 100));
             }
-            */
 
             this.totals.item_discount = line_item_discount_total;
             this.totals.sub = sub_total;
@@ -333,8 +331,25 @@ const app = new Vue({
             this.onCalculateTotal();
         },
 
-        onAddDiscount(item_index) {
+        onAddLineDiscount(item_index) {
             this.items[item_index].add_discount = true;
+        },
+
+        onAddTotalDiscount() {
+            let discount = document.getElementById('pre-discount').value;
+
+            if (discount < 0) {
+                discount = 0;
+            } else if (discount > 100) {
+                discount = 100;
+            }
+
+            document.getElementById('pre-discount').value = discount;
+
+            this.form.discount = discount;
+            this.discount = false;
+
+            this.onCalculateTotal();
         },
 
         onDeleteDiscount(item_index) {
@@ -503,9 +518,9 @@ const app = new Vue({
                             this.taxes[tax_id].push(item.id);
                         } else {
                             this.taxes.push(tax_id);
-    
+
                             this.taxes[tax_id] = [];
-    
+
                             this.taxes[tax_id].push(item.id);
                         }
                     }, this);

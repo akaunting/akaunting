@@ -13,11 +13,6 @@
                     <col style="width: 30%;">
                     <col style="width: 100px;">
                     <col style="width: 100px;">
-                    @if (!$hideDiscount)
-                        @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
-                            <col style="width: 100px;">
-                        @endif
-                    @endif
                     <col style="width: 250px;">
                     <col style="width: 40px;">
                 </colgroup>
@@ -56,16 +51,6 @@
                                 </th>
                             @endif
                         @stack('price_th_end')
-
-                        @if (!$hideDiscount)
-                            @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
-                                @stack('discount_th_start')
-                                    <th id="line-discount" class="text-right border-top-0 border-right-0 border-bottom-0">
-                                        {{ trans('invoices.discount') }}
-                                    </th>
-                                @stack('discount_th_end')
-                            @endif
-                        @endif
 
                         @stack('total_th_start')
                             @if (!$hideAmount)
