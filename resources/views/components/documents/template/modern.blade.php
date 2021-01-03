@@ -161,7 +161,7 @@
                         @if (!$hideDiscount)
                             @if (in_array(setting('localisation.discount_location', 'total'), ['item', 'both']))
                                 @stack('discount_td_start')
-                                    <td class="discount text-white">{{ $item->discount }}</td>
+                                    <th class="discount text-white">{{ trans('invoices.discount') }}</th>
                                 @stack('discount_td_end')
                             @endif
                         @endif
