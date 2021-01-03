@@ -463,7 +463,9 @@ export default {
 
     let cookie = Cookies.get('search-string');
 
-    cookie = JSON.parse(cookie)[path];
+    if (cookie != undefined) {
+      cookie = JSON.parse(cookie)[path];
+    }
 
     if (this.value) {
       let search_string = this.value.split(' ');
@@ -486,7 +488,7 @@ export default {
                 }
               }, this);
 
-              if (!value && cookie[_filter.key]) {
+              if (!value && (cookie != undefined && cookie[_filter.key])) {
                 value = cookie[_filter.key].value;
               }
 
@@ -503,7 +505,7 @@ export default {
                 }
               }, this);
 
-              if (cookie[_filter.key]) {
+              if (cookie != undefined && cookie[_filter.key]) {
                   this.selected_values.push(cookie[_filter.key]);
               }
             }
