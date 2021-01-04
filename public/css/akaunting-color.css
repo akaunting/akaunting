@@ -2309,8 +2309,6 @@ option:focus
 .flatpickr-calendar .flatpickr-day.today
 {
   border: 1px solid #3c3f72 !important;
-  background: #3c3f72 !important;
-  color: #ffffff !important
 }
 
 .flatpickr-calendar .flatpickr-day.today:hover
