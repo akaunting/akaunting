@@ -219,6 +219,20 @@ const app = new Vue({
             this.totals.sub = sub_total;
             this.totals.taxes = totals_taxes;
             this.totals.total = grand_total;
+
+            this.form.items.forEach(function(form_item, form_index) {
+                let item = this.items[form_index];
+                
+                for (const [key, value] of Object.entries(item)) {
+                    if (key == 'add_tax' || key == 'tax_ids' || key == 'add_discount') {
+                        continue
+                    }
+
+                    if (form_item[key] === undefined) {
+                        form_item[key] = value
+                    }
+                }
+            }, this);
         },
 
         calculateTotalsTax(totals_taxes, id, name, price) {
