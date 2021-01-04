@@ -1,6 +1,5 @@
 <div class="row document-item-body">
     <div class="col-sm-12 p-0" style="table-layout: fixed;">
-        @php $item_colspan = in_array(setting('localisation.discount_location', 'total'), ['item', 'both']) ? '6' : '5' @endphp
         @if (!$hideEditItemColumns)
             <x-edit-item-columns type="{{ $type }}" />
         @endif
@@ -25,15 +24,15 @@
                         @stack('move_th_end')
 
                         @if (!$hideItems)
-                        @stack('name_th_start')
-                            <th class="text-left border-top-0 border-right-0 border-bottom-0">
-                                {{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}
-                            </th>
-                        @stack('name_th_end')
+                            @stack('name_th_start')
+                                <th class="text-left border-top-0 border-right-0 border-bottom-0">
+                                    {{ (trans_choice($textItems, 2) != $textItems) ? trans_choice($textItems, 2) : trans($textItems) }}
+                                </th>
+                            @stack('name_th_end')
 
-                        @stack('move_th_start')
-                            <th class="text-left border-top-0 border-right-0 border-bottom-0"></th>
-                        @stack('move_th_end')
+                            @stack('move_th_start')
+                                <th class="text-left border-top-0 border-right-0 border-bottom-0"></th>
+                            @stack('move_th_end')
                         @endif
 
                         @stack('quantity_th_start')
@@ -73,7 +72,7 @@
 
                     @stack('add_item_td_start')
                         <tr id="addItem">
-                            <td class="text-right border-bottom-0 p-0" colspan="{{ 7 }}">
+                            <td class="text-right border-bottom-0 p-0" colspan="7">
                                 <x-select-item-button
                                     type="{{ $type }}"
                                     is-sale="{{ $isSalePrice }}"

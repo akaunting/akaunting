@@ -17,8 +17,8 @@
                 <tbody>
                     <tr>
                         @stack('move_td_start')
-                            <td class="pb-3 align-middle border-bottom-0" colspan="1" style="color: #8898aa;">
-                                <div draggable="true">
+                            <td class="pl-3 pb-3 align-middle border-bottom-0" style="max-width: 40px;" style="color: #8898aa;">
+                                <div>
                                     <i class="fas fa-grip-vertical"></i>
                                 </div>
                             </td>
@@ -28,7 +28,7 @@
                             @if (!$hideItems || (!$hideName && !$hideDescription))
                                 @stack('name_td_start')
                                     @if (!$hideName)
-                                        <td class="pb-3 align-middle border-bottom-0" colspan="1">
+                                        <td class="pb-3 align-middle border-bottom-0">
                                             <span class="aka-text aka-text--body" tabindex="0" v-html="row.name" v-if="row.item_id"></span>
                                             <div v-else>
                                                 @stack('name_input_start')
@@ -54,7 +54,7 @@
 
                                 @stack('description_td_start')
                                     @if (!$hideDescription)
-                                        <td class="pb-3 border-bottom-0" colspan="1">
+                                        <td class="pb-3 border-bottom-0">
                                             <textarea
                                                 class="form-control"
                                                 placeholder="Enter item description"
@@ -73,7 +73,7 @@
 
                         @stack('quantity_td_start')
                             @if (!$hideQuantity)
-                            <td colspan="1" class="pb-3 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
+                            <td class="pb-3 pl-0 pr-0 border-bottom-0">
                                 <div>
                                     @stack('quantity_input_start')
                                     <input type="text"
@@ -98,7 +98,7 @@
 
                         @stack('price_td_start')
                             @if (!$hidePrice)
-                                <td colspan="1" class="pb-3 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
+                                <td class="pb-3 pl-2 pr-0 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
                                     <div>
                                         @stack('price_input_start')
                                             {{ Form::moneyGroup('price', '', '', ['required' => 'required', 'row-input' => 'true', 'v-model' => 'row.price', 'v-error' => 'form.errors.get(\'items.\' + index + \'.price\')', 'v-error-message' => 'form.errors.get(\'items.\' + index + \'.price\')' , 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; form.errors.clear(\'items.\' + index + \'.price\'); onCalculateTotal'], 0.00, 'text-right input-price p-0') }}
@@ -110,7 +110,7 @@
 
                         @stack('total_td_start')
                             @if (!$hideAmount)
-                                <td colspan="1" class="text-right long-texts pb-3 border-bottom-0">
+                                <td class="text-right long-texts pb-3 border-bottom-0">
                                     <div>
                                         {{ Form::moneyGroup('total', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row.total', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                     </div>
@@ -119,7 +119,7 @@
                         @stack('total_td_end')
 
                         @stack('delete_td_start')
-                            <td colspan="1" class="pb-3 align-middle border-bottom-0">
+                            <td class="pb-3 pl-2 align-middle border-bottom-0" style="max-width: 40px;" >
                                 <div>
                                     <button type="button" @click="onDeleteItem(index)" class="btn btn-link btn-delete p-0">
                                         <i class="far fa-trash-alt"></i>
@@ -134,7 +134,7 @@
                             @stack('item_custom_fields')
                         </td>
 
-                        <td class="border-top-0 p-0" colspan="{{ '4' }}">
+                        <td class="border-top-0 p-0" colspan="4">
                             <table class="w-100">
                                 <colgroup>
                                     <col style="width: 100px;">
@@ -142,65 +142,75 @@
                                     <col style="width: 250px;">
                                     <col style="width: 40px;">
                                 </colgroup>
+
                                 <tbody>
 
                                     @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
                                     <tr v-if="!row.add_tax || !row.add_discount">
-                                        <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-left: 10px;">
+                                        <td style="border: 0; max-width: 100px; border: 0px; padding-left: 10px;">
                                             <div style="max-width: 100px;">
-                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddLineDiscount(index)" v-if="!row.add_discount">{{ trans('general.title.add', ['type' => trans('invoices.discount')]) }}</button>
+                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddLineDiscount(index)" v-if="!row.add_discount">
+                                                    {{ trans('general.title.add', ['type' => trans('invoices.discount')]) }}
+                                                </button>
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0; max-width: 100px; border: 0px; padding-right: 10px; text-align: right;">
+
+                                        <td style="border: 0; max-width: 100px; border: 0px; padding-right: 10px; text-align: right;">
                                             <div style="max-width: 100px;">
-                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddTax(index)" v-if="!row.add_tax">{{ trans('general.title.add', ['type' => trans_choice('general.taxes', 1)]) }}</button>
+                                                <button type="button" class="btn btn-link btn-sm p-0" @click="onAddTax(index)" v-if="!row.add_tax">
+                                                    {{ trans('general.title.add', ['type' => trans_choice('general.taxes', 1)]) }}
+                                                </button>
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
+
+                                        <td class="text-right total-column border-0 long-texts">
                                         </td>
-                                        <td colspan="1" style="border: 0;"  class="w-1">
+
+                                        <td class="w-1 border-0">
                                         </td>
                                     </tr>
 
                                     <tr v-if="row.add_discount">
-                                        <td colspan="2" class="pb-0" style="border: 0px; padding-left: 5px; padding-right: 5px;">
+                                        <td colspan="2" class="pb-0 border-0" style="padding-left: 5px; padding-right: 5px;">
                                             <div style="margin-left: -63px; margin-right: 35px;">
-                                            <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans('invoices.discount') }}</span>
-                                            @stack('discount_input_start')
-                                            <div class="form-group mb-0" style="display: inline-block; position: relative; width: 88%;">
-                                                <div class="input-group input-group-merge mb-0 select-tax">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="input-discount">
-                                                            <i class="fa fa-percent"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="number"
-                                                        max="100"
-                                                        min="0"
-                                                        class="form-control text-center"
-                                                        :name="'items.' + index + '.discount'"
-                                                        autocomplete="off"
-                                                        required="required"
-                                                        data-item="discount"
-                                                        v-model="row.discount"
-                                                        @input="onCalculateTotal"
-                                                        @change="form.errors.clear('items.' + index + '.discount')">
+                                                <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans('invoices.discount') }}</span>
+                                                @stack('discount_input_start')
+                                                <div class="form-group mb-0" style="display: inline-block; position: relative; width: 88%;">
+                                                    <div class="input-group input-group-merge mb-0 select-tax">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="input-discount">
+                                                                <i class="fa fa-percent"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="number"
+                                                            max="100"
+                                                            min="0"
+                                                            class="form-control text-center"
+                                                            :name="'items.' + index + '.discount'"
+                                                            autocomplete="off"
+                                                            required="required"
+                                                            data-item="discount"
+                                                            v-model="row.discount"
+                                                            @input="onCalculateTotal"
+                                                            @change="form.errors.clear('items.' + index + '.discount')">
 
-                                                    <div class="invalid-feedback d-block"
-                                                        v-if="form.errors.has('items.' + index + '.discount')"
-                                                        v-html="form.errors.get('items.' + index + '.discount')">
+                                                        <div class="invalid-feedback d-block"
+                                                            v-if="form.errors.has('items.' + index + '.discount')"
+                                                            v-html="form.errors.get('items.' + index + '.discount')">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            @stack('discount_input_end')
+                                                @stack('discount_input_end')
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;" class="text-right long-texts">
+
+                                        <td class="text-right long-texts border-0">
                                             <div>
                                                 {{ Form::moneyGroup('discount', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'value' => 'row.discount', 'data-item' => 'discount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;"  class="pb-0 align-middle">
+
+                                        <td class="pb-3 pl-2 align-bottom border-0" style="max-width: 40px;" >
                                             <button type="button" @click="onDeleteDiscount(index)" class="btn btn-link btn-delete p-0">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
@@ -210,37 +220,41 @@
 
                                     <tr v-for="(row_tax, row_tax_index) in row.tax_ids"
                                     :index="row_tax_index">
-                                        <td colspan="2" class="pb-0" :class="{'pb-2' : !row.add_tax}" style="border: 0;  padding-right: 5px; padding-left: 5px;">
-                                            <div style="margin-left: -30px; margin-right: 35px;">
-                                            <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans_choice('general.taxes', 1) }}</span>
+                                        <td colspan="2" class="pl-0 pb-0 border-0" :class="{'pb-2' : !row.add_tax}">
+                                            <div>
+                                                <div style="float: left; margin-top: 15px;">
+                                                    {{ trans_choice('general.taxes', 1) }}
+                                                </div>
 
-                                            @stack('taxes_input_start')
-                                            <akaunting-select
-                                                class="mb-0 select-tax"
-                                                :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
-                                                :icon="''"
-                                                :title="''"
-                                                :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
-                                                :name="'items.' + index + '.taxes.' + row_tax_index"
-                                                :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
-                                                :disabled-options="form.items[index].tax_ids"
-                                                :value="row_tax.id"
-                                                @interface="row_tax.id = $event"
-                                                @change="onCalculateTotal()"
-                                                @new="taxes.push($event)"
-                                                :form-error="form.errors.get('items.' + index + '.taxes')"
-                                                :no-data-text="'{{ trans('general.no_data') }}'"
-                                                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
-                                            ></akaunting-select>
-                                            @stack('taxes_input_end')
+                                                @stack('taxes_input_start')
+                                                <akaunting-select
+                                                    class="mb-0 select-tax"
+                                                    :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
+                                                    :icon="''"
+                                                    :title="''"
+                                                    :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
+                                                    :name="'items.' + index + '.taxes.' + row_tax_index"
+                                                    :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
+                                                    :disabled-options="form.items[index].tax_ids"
+                                                    :value="row_tax.id"
+                                                    @interface="row_tax.id = $event"
+                                                    @change="onCalculateTotal()"
+                                                    @new="taxes.push($event)"
+                                                    :form-error="form.errors.get('items.' + index + '.taxes')"
+                                                    :no-data-text="'{{ trans('general.no_data') }}'"
+                                                    :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
+                                                ></akaunting-select>
+                                                @stack('taxes_input_end')
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;" :class="{'pb-2' : !row.add_tax}" class="pb-0 text-right long-texts">
+
+                                        <td :class="{'pb-2' : !row.add_tax}" class="border-0 pb-0 text-right long-texts">
                                             <div>
                                                 {{ Form::moneyGroup('tax', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row_tax.price', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;" :class="{'pb-2' : !row.add_tax}" class="pb-0 align-middle">
+
+                                        <td class="pb-3 pl-2 align-bottom border-0" :class="{'pb-2' : !row.add_tax}" style="max-width: 40px;" >
                                             <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
@@ -248,11 +262,11 @@
                                     </tr>
 
                                     <tr v-if="row.add_tax">
-                                        <td colspan="2" style="border: 0; padding-right: 5px; padding-left: 5px;">
-                                            <div style="margin-left: -30px; margin-right:35px;">
-                                                <span style="float: left; margin-right: 10px; margin-top: 15px;">
+                                        <td colspan="2" class="pl-0 border-0">
+                                            <div>
+                                                <div style="float: left; margin-top: 15px;">
                                                     {{ trans_choice('general.taxes', 1) }}
-                                                </span>
+                                                </div>
 
                                                 @stack('taxes_input_start')
                                                 <akaunting-select
@@ -296,12 +310,14 @@
                                                 @stack('taxes_input_end')
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;" class="text-right long-texts align-middle">
+
+                                        <td class="border-0 text-right long-texts align-middle">
                                             <div>
                                                 __
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;">
+
+                                        <td class="pb-3 pl-2 align-bottom border-0" style="max-width: 40px;" >
                                             @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
                                                 <button type="button" @click="onDeleteTax(index, 999)" class="btn btn-link btn-delete p-0">
                                                     <i class="far fa-trash-alt"></i>
@@ -309,6 +325,7 @@
                                             @endif
                                         </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </td>

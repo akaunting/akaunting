@@ -1434,3 +1434,10 @@ table .align-items-center td span.badge {
     transform: rotateZ(0);
 }
 /* Akaunting select remove add suffix icon Finish */
+
+.item-add-new .btn-link {
+    color: #55588b;
+}
+.item-columns-edit .btn-aka-link {
+    color: #8688ad;
+}

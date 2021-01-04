@@ -3,9 +3,9 @@
         <div class="table-responsive overflow-x-scroll overflow-y-hidden">
             <table class="table" id="totals">
                 <colgroup>
-                    <col style="width: 60%;">
-                    <col style="width: 30%;">
-                    <col style="width: 20%;">
+                    <col style="width: 50%;">
+                    <col style="width: 35%;">
+                    <col style="width: 25%;">
                     <col style="width: 40px;">
                 </colgroup>
                 <tbody id="invoice-total-rows" class="table-padding-05">
