@@ -83,12 +83,18 @@ export default {
     mounted() {
         this.real_model = this.value;
 
+        if (this.model) {
+            this.real_model = this.model;
+        }
+
         this.$emit('interface', this.real_model);
     },
 
     methods: {
         change() {
             this.$emit('interface', this.real_model);
+            
+            this.$emit('change', this.real_model);
         }
     }
 }
