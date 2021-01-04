@@ -420,16 +420,10 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textEditContact = [
-                    'general.form.contact_edit',
-                    'general.vendors'
-                ];
+                $textEditContact = 'general.form.edit';
                 break;
             default:
-                $textEditContact = [
-                    'general.form.contact_edit',
-                    'general.customers'
-                ];
+                $textEditContact = 'general.form.edit';
                 break;
         }
 

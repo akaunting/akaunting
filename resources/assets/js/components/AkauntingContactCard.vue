@@ -104,7 +104,7 @@
                     </div>
 
                     <button type="button" class="btn btn-link p-0" @click="onContactEdit">
-                        {{ editContactText.replace(':contact_name', contact.name) }}
+                        {{ editContactText.replace(':contact_name', contact.name).replace(':field', contact.name) }}
                     </button>&nbsp;•&nbsp;
                     <button type="button" class="btn btn-link p-0" @click="onContactList">
                         {{ chooseDifferentContactText }}
@@ -214,7 +214,7 @@ export default {
         },
         editContactText: {
             type: String,
-            default: 'Edit :contact_name Customer',
+            default: 'Edit :contact_name',
             description: ""
         },
         contactInfoText: {
@@ -388,7 +388,7 @@ export default {
 
             path += this.contact.id + '/edit';
 
-            add_new.text = this.editContactText.replace(':contact_name', this.contact.name);
+            add_new.text = this.editContactText.replace(':contact_name', this.contact.name).replace(':field', this.contact.name);
 
             window.axios.get(path)
             .then(response => {
