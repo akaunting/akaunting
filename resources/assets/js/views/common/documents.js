@@ -361,6 +361,12 @@ const app = new Vue({
         },
 
         onDeleteTax(item_index, tax_index) {
+            if (tax_index == '999') {
+                this.items[item_index].add_tax = false;
+
+                return;
+            }
+
             this.items[item_index].tax_ids.splice(tax_index, 1);
             this.form.items[item_index].tax_ids.splice(tax_index, 1);
 
@@ -542,9 +548,9 @@ const app = new Vue({
                     description: item.description === null ? "" : item.description,
                     quantity: item.quantity,
                     price: (item.price).toFixed(2),
-                    add_tax: true,
+                    add_tax: (!item_taxes.length && document.getElementById('invoice-item-discount-rows') != null) ? false : true,
                     tax_ids: item_taxes,
-                    add_discount: (item_taxes.length) ? true : false,
+                    add_discount: (item.discount_rate) ? true : false,
                     discount: item.discount_rate,
                     total: (item.total).toFixed(2)
                 });

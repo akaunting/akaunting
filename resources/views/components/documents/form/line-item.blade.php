@@ -195,7 +195,7 @@
                                             @stack('discount_input_end')
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;" class="text-right total-column border-bottom-0 long-texts">
+                                        <td colspan="1" style="border: 0;" class="text-right long-texts">
                                             <div>
                                                 {{ Form::moneyGroup('discount', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'value' => 'row.discount', 'data-item' => 'discount', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                             </div>
@@ -206,14 +206,11 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    @endif
 
-                                    <tr v-if="row.add_tax" v-for="(row_tax, row_tax_index) in row.tax_ids"
-                                    :index="row_tax_index">
-                                    @else
                                     <tr v-for="(row_tax, row_tax_index) in row.tax_ids"
                                     :index="row_tax_index">
-                                    @endif
-                                        <td colspan="2" class="pb-0" style="border: 0;  padding-right: 5px; padding-left: 5px;">
+                                        <td colspan="2" class="pb-0" :class="{'pb-2' : !row.add_tax}" style="border: 0;  padding-right: 5px; padding-left: 5px;">
                                             <div style="margin-left: -30px; margin-right: 35px;">
                                             <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans_choice('general.taxes', 1) }}</span>
 
@@ -238,12 +235,12 @@
                                             @stack('taxes_input_end')
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;" class="pb-0 text-right long-texts">
+                                        <td colspan="1" style="border: 0;" :class="{'pb-2' : !row.add_tax}" class="pb-0 text-right long-texts">
                                             <div>
                                                 {{ Form::moneyGroup('tax', '', '', ['required' => 'required', 'disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'row_tax.price', 'data-item' => 'total', 'currency' => $currency, 'dynamic-currency' => 'currency'], 0.00, 'text-right input-price disabled-money') }}
                                             </div>
                                         </td>
-                                        <td colspan="1" style="border: 0;"  class="pb-0 align-middle">
+                                        <td colspan="1" style="border: 0;" :class="{'pb-2' : !row.add_tax}" class="pb-0 align-middle">
                                             <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
@@ -253,48 +250,50 @@
                                     <tr v-if="row.add_tax">
                                         <td colspan="2" style="border: 0; padding-right: 5px; padding-left: 5px;">
                                             <div style="margin-left: -30px; margin-right:35px;">
-                                            <span style="float: left; margin-right: 10px; margin-top: 15px;">{{ trans_choice('general.taxes', 1) }}</span>
+                                                <span style="float: left; margin-right: 10px; margin-top: 15px;">
+                                                    {{ trans_choice('general.taxes', 1) }}
+                                                </span>
 
-                                            @stack('taxes_input_start')
-                                            <akaunting-select
-                                                class="mb-0 select-tax"
-                                                :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
-                                                :icon="''"
-                                                :title="''"
-                                                :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
-                                                :name="'items.' + index + '.taxes.999'"
-                                                :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
-                                                :disabled-options="form.items[index].tax_ids"
-                                                :value="tax_id"
-                                                :add-new="{{ json_encode([
-                                                    'status' => true,
-                                                    'text' => trans('general.add_new'),
-                                                    'path' => route('modals.taxes.create'),
-                                                    'type' => 'modal',
-                                                    'field' => [
-                                                        'key' => 'id',
-                                                        'value' => 'title'
-                                                    ],
-                                                    'new_text' => trans('modules.new'),
-                                                    'buttons' => [
-                                                        'cancel' => [
-                                                            'text' => trans('general.cancel'),
-                                                            'class' => 'btn-outline-secondary'
+                                                @stack('taxes_input_start')
+                                                <akaunting-select
+                                                    class="mb-0 select-tax"
+                                                    :form-classes="[{'has-error': form.errors.has('items.' + index + '.taxes') }]"
+                                                    :icon="''"
+                                                    :title="''"
+                                                    :placeholder="'{{ trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)]) }}'"
+                                                    :name="'items.' + index + '.taxes.999'"
+                                                    :options="{{ json_encode($taxes->pluck('title', 'id')) }}"
+                                                    :disabled-options="form.items[index].tax_ids"
+                                                    :value="tax_id"
+                                                    :add-new="{{ json_encode([
+                                                        'status' => true,
+                                                        'text' => trans('general.add_new'),
+                                                        'path' => route('modals.taxes.create'),
+                                                        'type' => 'modal',
+                                                        'field' => [
+                                                            'key' => 'id',
+                                                            'value' => 'title'
                                                         ],
-                                                        'confirm' => [
-                                                            'text' => trans('general.save'),
-                                                            'class' => 'btn-success'
+                                                        'new_text' => trans('modules.new'),
+                                                        'buttons' => [
+                                                            'cancel' => [
+                                                                'text' => trans('general.cancel'),
+                                                                'class' => 'btn-outline-secondary'
+                                                            ],
+                                                            'confirm' => [
+                                                                'text' => trans('general.save'),
+                                                                'class' => 'btn-success'
+                                                            ]
                                                         ]
-                                                    ]
-                                                ])}}"
-                                                @interface="tax_id = $event"
-                                                @visible-change="onSelectedTax(index)"
-                                                @new="taxes.push($event)"
-                                                :form-error="form.errors.get('items.' + index + '.taxes')"
-                                                :no-data-text="'{{ trans('general.no_data') }}'"
-                                                :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
-                                            ></akaunting-select>
-                                            @stack('taxes_input_end')
+                                                    ])}}"
+                                                    @interface="tax_id = $event"
+                                                    @visible-change="onSelectedTax(index)"
+                                                    @new="taxes.push($event)"
+                                                    :form-error="form.errors.get('items.' + index + '.taxes')"
+                                                    :no-data-text="'{{ trans('general.no_data') }}'"
+                                                    :no-matching-data-text="'{{ trans('general.no_matching_data') }}'"
+                                                ></akaunting-select>
+                                                @stack('taxes_input_end')
                                             </div>
                                         </td>
                                         <td colspan="1" style="border: 0;" class="text-right long-texts align-middle">
@@ -304,7 +303,7 @@
                                         </td>
                                         <td colspan="1" style="border: 0;">
                                             @if (!$hideDiscount && in_array(setting('localisation.discount_location'), ['item', 'both']))
-                                                <button type="button" @click="onDeleteTax(index, row_tax_index)" class="btn btn-link btn-delete p-0">
+                                                <button type="button" @click="onDeleteTax(index, 999)" class="btn btn-link btn-delete p-0">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                             @endif
