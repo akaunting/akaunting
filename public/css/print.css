@@ -420,6 +420,12 @@ th, td
     text-align: right;
 }
 
+.m-lines .discount
+{
+    width: 10%;
+    text-align: right;
+}
+
 .m-lines .total
 {
     width: 20%;
