@@ -52,6 +52,10 @@
         @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event"
         @endif
 
+        @if (!empty($attributes['change']))
+        @change="{{ $attributes['change'] }}"
+        @endif
+
         @if (isset($attributes['readonly']))
         :readonly="{{ $attributes['readonly'] }}"
         @endif
