@@ -170,6 +170,9 @@ abstract class DocumentShow extends Component
     public $hideTimelineSent;
 
     /** @var bool */
+    public $hideTimelinePaid;
+
+    /** @var bool */
     public $hideButtonSent;
 
     /** @var bool */
@@ -357,7 +360,7 @@ abstract class DocumentShow extends Component
         bool $hideButtonGroupDivider1 = false, bool $hideButtonGroupDivider2 = false, bool $hideButtonGroupDivider3 = false,
         bool $hideButtonMoreActions = false, bool $hideButtonAddNew = false, bool $hideButtonEdit = false, bool $hideButtonDuplicate = false, bool $hideButtonPrint = false, bool $hideButtonPdf = false, bool $hideButtonCancel = false, bool $hideButtonCustomize = false, bool $hideButtonDelete = false,
         bool $hideHeader = false,bool $hideRecurringMessage = false, bool $hideStatusMessage = false, bool $hideTimeline = false, bool $hideFooter = false, bool $hideFooterHistories = false, bool $hideFooterTransactions = false,
-        array $hideTimelineStatuses = [], bool $hideTimelineSent = false, bool $hideButtonSent = false, bool $hideButtonReceived = false, bool $hideButtonEmail = false, bool $hideButtonShare = false, bool $hideButtonPaid = false,
+        array $hideTimelineStatuses = [], bool $hideTimelineSent = false, bool $hideTimelinePaid = false, bool $hideButtonSent = false, bool $hideButtonReceived = false, bool $hideButtonEmail = false, bool $hideButtonShare = false, bool $hideButtonPaid = false,
         string $textHeaderContact = '', string $textHeaderAmount = '', string $textHeaderDueAt = '',
         string $classHeaderStatus = '', string $classHeaderContact = '', string $classHeaderAmount = '', string $classHeaderDueAt = '',
         bool $hideHeaderStatus = false, bool $hideHeaderContact = false, bool $hideHeaderAmount = false, bool $hideHeaderDueAt = false,
@@ -447,6 +450,7 @@ abstract class DocumentShow extends Component
 
         $this->hideTimelineCreate = $hideTimelineCreate;
         $this->hideTimelineSent = $hideTimelineSent;
+        $this->hideTimelinePaid = $hideTimelinePaid;
         $this->hideButtonSent = $hideButtonSent;
         $this->hideButtonReceived = $hideButtonReceived;
         $this->hideButtonEmail = $hideButtonEmail;
