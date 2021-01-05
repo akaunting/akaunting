@@ -21,6 +21,10 @@
         :disabled-options="{{ json_encode($attributes['disabledOptions']) }}"
         @endif
 
+        @if (isset($attributes['dynamicOptions']))
+        :dynamic-options="{{ $attributes['dynamicOptions'] }}"
+        @endif
+
         @if (isset($selected) || old($name))
         value="{{ old($name, $selected) }}"
         @endif
@@ -56,7 +60,7 @@
         @elseif (!empty($attributes['data-field']))
         @interface="form.errors.clear('{{ 'form.' . $attributes['data-field'] . '.' . $name }}'); {{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
-        @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event"
+        @interface="form.{{ $name }} = $event; form.errors.clear('{{ $name }}');"
         @endif
 
         @if (!empty($attributes['change']))
@@ -66,7 +70,7 @@
         @if (!empty($attributes['visible-change']))
         @visible-change="{{ $attributes['visible-change'] }}"
         @endif
-        
+
         @if (isset($attributes['readonly']))
         :readonly="{{ $attributes['readonly'] }}"
         @endif

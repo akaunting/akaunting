@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Transformers\Document;
+namespace App\Transformers\Common;
 
-use App\Models\Document\DocumentItem as Model;
+use App\Models\Common\ItemTax as Model;
+use App\Transformers\Setting\Tax;
 use League\Fractal\TransformerAbstract;
 
-class DocumentItems extends TransformerAbstract
+class ItemTax extends TransformerAbstract
 {
     /**
-     * @param Model $model
+     * @var array
+     */
+    protected $defaultIncludes = ['tax'];
+
+    /**
+     * @param  Model $model
      * @return array
      */
     public function transform(Model $model)
@@ -16,16 +22,23 @@ class DocumentItems extends TransformerAbstract
         return [
             'id' => $model->id,
             'company_id' => $model->company_id,
-            'type' => $model->type,
-            'document_id' => $model->document_id,
             'item_id' => $model->item_id,
-            'name' => $model->name,
-            'price' => $model->price,
-            'total' => $model->total,
-            'tax' => $model->tax,
             'tax_id' => $model->tax_id,
             'created_at' => $model->created_at ? $model->created_at->toIso8601String() : '',
             'updated_at' => $model->updated_at ? $model->updated_at->toIso8601String() : '',
         ];
+    }
+
+    /**
+     * @param  Model $model
+     * @return mixed
+     */
+    public function includeTax(Model $model)
+    {
+        if (!$model->tax) {
+            return $this->null();
+        }
+
+        return $this->item($model->tax, new Tax());
     }
 }

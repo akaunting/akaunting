@@ -18,8 +18,13 @@
             :remote-method="remoteMethod"
             :loading="loading"
         >
+            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty loading">
+                    {{ loadingText }}
+                </p>
+            </div>
 
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="!loading && addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
@@ -36,7 +41,7 @@
                 </ul>
             </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+            <div v-else-if="!loading && addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noDataText }}
                 </p>
@@ -70,11 +75,11 @@
             <el-option-group
                 v-if="group"
                 v-for="(group_options, group_index) in sortOptions"
-                :key="group_options.key"
+                :key="group_index"
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
-                    :key="option.option_index"
+                    :key="option_index"
                     :disabled="disabledOptions.includes(option.key)"
                     :label="option.value"
                     :value="option.key">
@@ -83,7 +88,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
+            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled" value="">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -114,8 +119,13 @@
             :remote-method="remoteMethod"
             :loading="loading"
         >
+            <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
+                <p class="el-select-dropdown__empty loading">
+                    {{ loadingText }}
+                </p>
+            </div>
 
-            <div v-if="addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
+            <div v-if="!loading && addNew.status && options.length != 0" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noMatchingDataText }}
                 </p>
@@ -132,7 +142,7 @@
                 </ul>
             </div>
 
-            <div v-else-if="addNew.status && options.length == 0" slot="empty">
+            <div v-else-if="!loading && addNew.status && options.length == 0" slot="empty">
                 <p class="el-select-dropdown__empty">
                     {{ noDataText }}
                 </p>
@@ -166,7 +176,7 @@
             <el-option-group
                 v-if="group"
                 v-for="(group_options, group_index) in sortOptions"
-                :key="group_options.key"
+                :key="group_index"
                 :label="group_options.key">
                 <el-option
                     v-for="(option, option_index) in group_options.value"
@@ -179,7 +189,7 @@
                 </el-option>
             </el-option-group>
 
-            <el-option v-if="addNew.status && options.length != 0" class="el-select__footer" :disabled="true"  :value="add_new">
+            <el-option v-if="!loading && addNew.status && options.length != 0" class="el-select__footer" :disabled="disabled"  :value="add_new">
                 <div @click="onAddItem">
                     <i class="fas fa-plus"></i>
                     <span>
@@ -275,6 +285,8 @@ export default {
         },
 
         options: null,
+
+        dynamicOptions: null,
 
         disabledOptions: {
             type: Array,
@@ -480,58 +492,128 @@ export default {
 
     methods: {
         setSortOptions() {
-        if (this.group) {
-            // Option set sort_option data
-            if (!Array.isArray(this.options)) {
-                for (const [index, options] of Object.entries(this.options)) {
-                    let values = [];
+            if (this.group) {
+                // Option set sort_option data
+                if (!Array.isArray(this.options)) {
+                    for (const [index, options] of Object.entries(this.options)) {
+                        let values = [];
 
-                    for (const [key, value] of Object.entries(options)) {
-                        values.push({
+                        for (const [key, value] of Object.entries(options)) {
+                            values.push({
+                                key: key,
+                                value: value
+                            });
+                        }
+
+                        this.sort_options.push({
+                            key: index,
+                            value: values
+                        });
+                    }
+                } else {
+                    this.options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            } else {
+                // Option set sort_option data
+                if (!Array.isArray(this.options)) {
+                    for (const [key, value] of Object.entries(this.options)) {
+                        this.sort_options.push({
                             key: key,
                             value: value
                         });
                     }
-
-                    this.sort_options.push({
-                        key: index,
-                        value: values
-                    });
+                } else {
+                    this.options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
                 }
-            } else {
-                this.options.forEach(function (option, index) {
-                    this.sort_options.push({
-                        index: index,
-                        key: option.id,
-                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                    });
-                }, this);
             }
-        } else {
-            // Option set sort_option data
-            if (!Array.isArray(this.options)) {
-                for (const [key, value] of Object.entries(this.options)) {
-                    this.sort_options.push({
-                        key: key,
-                        value: value
-                    });
-                }
-            } else {
-                this.options.forEach(function (option, index) {
-                    this.sort_options.push({
-                        index: index,
-                        key: option.id,
-                        value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
-                    });
-                }, this);
-            }
-        }
         },
 
         change() {
+            // This controll added add new changed..
+            if (typeof(this.selected) === 'object' && typeof(this.selected.type) !== 'undefined') {
+                return false;
+            }
+
             this.$emit('interface', this.selected);
 
             this.$emit('change', this.selected);
+
+            // Option changed sort_option data
+            if (this.group) {
+                this.sort_options.forEach(function (option_group, group_index) {
+                    this.option_group.value.forEach(function (option, index) {
+                        if (this.multiple) {
+                            let indexs = [];
+                            let values = [];
+                            let labels = [];
+                            let options = [];
+
+                            this.selected.forEach(function (selected_option_id, selected_index) {
+                                if (option.value == this.selected) {
+                                    indexs.push(selected_index);
+                                    values.push(option.id);
+                                    labels.push(option.value);
+                                    options.push(option);
+                                }
+                            });
+
+                            this.$emit('index', indexs);
+                            this.$emit('value', values);
+                            this.$emit('label', labels);
+                            this.$emit('option', options);
+                        } else {
+                            if (option.value == this.selected) {
+                                this.$emit('index', index);
+                                this.$emit('value', option.id);
+                                this.$emit('label', option.value);
+                                this.$emit('option', option);
+                            }
+                        }
+                    }, this);
+                }, this);
+            } else {
+                this.sort_options.forEach(function (option, index) {
+                    if (this.multiple) {
+                        let indexs = [];
+                        let values = [];
+                        let labels = [];
+                        let options = [];
+
+                        this.selected.forEach(function (selected_option_id, selected_index) {
+                            if (option.value == this.selected) {
+                                indexs.push(selected_index);
+                                values.push(option.id);
+                                labels.push(option.value);
+                                options.push(option);
+                            }
+                        });
+
+                        this.$emit('index', indexs);
+                        this.$emit('value', values);
+                        this.$emit('label', labels);
+                        this.$emit('option', options);
+                    } else {
+                        if (option.value == this.selected) {
+                            this.$emit('index', index);
+                            this.$emit('value', option.id);
+                            this.$emit('label', option.value);
+                            this.$emit('option', option);
+                        }
+                    }
+                }, this);
+            }
         },
 
         visibleChange(event) {
@@ -568,13 +650,15 @@ export default {
                    path = url + '/common/items/autocomplete';
                }
 
-               if (path.search('/?') !== -1) {
-                    path += '?search=' + query;
+               if (path.indexOf('?') === -1) {
+                    path += '?search="' + query + '"';
                } else {
-                    path += '&search=' + query;
+                    path += '&search="' + query + '"';
                }
 
                path += '&currency_code=' + this.currencyCode;
+
+               path += '&limit:10';
 
                 window.axios({
                     method: 'GET',
@@ -618,7 +702,7 @@ export default {
             if (this.title) {
                 var value = this.$children[0].$children[0].$children[0].$refs.input.value;
             } else {
-                var value = this.$children[0].$children[0].$refs.input.value;
+                var value = this.$children[0].$children[0].$children[0].$refs.input.value;
             }
 
             if (this.add_new.type == 'inline') {
@@ -818,25 +902,55 @@ export default {
             if (!this.multiple) {
                 this.selected = selected.toString();
             } else {
-                let is_string = false;
-                let pre_value = [];
+                if (Array.isArray(this.selected) && !this.selected.length) {
+                    this.selected = selected;
+                } else {
+                    let is_string = false;
+                    let pre_value = [];
 
-                selected.forEach(item => {
-                    if (typeof item != 'string') {
-                        is_string = true;
-                        pre_value.push(item.toString());
+                    selected.forEach(item => {
+                        if (typeof item != 'string') {
+                            is_string = true;
+                            pre_value.push(item.toString());
+                        }
+                    });
+
+                    if (is_string) {
+                        this.selected = pre_value;
                     }
-                });
-
-                if (is_string) {
-                    this.selected = pre_value;
                 }
             }
         },
 
         value: function (selected) {
             if (!this.multiple) {
-                this.selected = selected;
+                this.selected = selected.toString();
+            } else {
+                if (Array.isArray(this.selected) && !this.selected.length) {
+                    this.selected = selected;
+                } else {
+                    let is_string = false;
+                    let pre_value = [];
+
+                    selected.forEach(item => {
+                        if (typeof item != 'string') {
+                            is_string = true;
+                            pre_value.push(item.toString());
+                        }
+                    });
+
+                    if (is_string) {
+                        this.selected = pre_value;
+                    }
+                }
+            }
+
+            this.change();
+        },
+
+        model: function (selected) {
+            if (!this.multiple) {
+                this.selected = selected.toString();
             } else {
                 let is_string = false;
                 let pre_value = [];
@@ -856,10 +970,53 @@ export default {
             this.change();
         },
 
-        model: function (selected) {
-            this.selected = selected;
+        dynamicOptions: function(options) {
+            if (this.group) {
+                // Option set sort_option data
+                if (!Array.isArray(options)) {
+                    for (const [index, _options] of Object.entries(options)) {
+                        let values = [];
 
-            this.change();
+                        for (const [key, value] of Object.entries(_options)) {
+                            values.push({
+                                key: key,
+                                value: value
+                            });
+                        }
+
+                        this.sort_options.push({
+                            key: index,
+                            value: values
+                        });
+                    }
+                } else {
+                    options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            } else {
+                // Option set sort_option data
+                if (!Array.isArray(options)) {
+                    for (const [key, value] of Object.entries(options)) {
+                        this.sort_options.push({
+                            key: key,
+                            value: value
+                        });
+                    }
+                } else {
+                    options.forEach(function (option, index) {
+                        this.sort_options.push({
+                            index: index,
+                            key: option.id,
+                            value: (option.title) ? option.title : (option.display_name) ? option.display_name : option.name
+                        });
+                    }, this);
+                }
+            }
         },
     },
 }
@@ -872,6 +1029,10 @@ export default {
 
     .el-select-dropdown__empty {
         padding: 10px 0 0 !important;
+    }
+
+    .el-select-dropdown__empty.loading {
+        padding: 10px 0 !important;
     }
 
     .el-select__footer {

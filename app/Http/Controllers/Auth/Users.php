@@ -125,6 +125,18 @@ class Users extends Controller
 
         $companies = user()->companies()->take(setting('default.select_limit'))->get()->sortBy('name')->pluck('name', 'id');
 
+        if ($user->company_ids) {
+            foreach($user->company_ids as $company_id) {
+                if ($companies->has($company_id)) {
+                    continue;
+                }
+
+                $company = \App\Models\Common\Company::find($company_id);
+
+                $companies->put($company->id, $company->name);
+            }
+        }
+
         return view('auth.users.edit', compact('user', 'companies', 'roles', 'landing_pages'));
     }
 

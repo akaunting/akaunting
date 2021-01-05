@@ -27,7 +27,7 @@
 
                     {{ Form::textareaGroup('address', trans('general.address')) }}
 
-                    {{ Form::fileGroup('logo', trans('companies.logo')) }}
+                    {{ Form::fileGroup('logo', trans('companies.logo'), '', ['dropzone-class' => 'form-file']) }}
 
                     {{ Form::radioGroup('enabled', trans('general.enabled'), true) }}
                 </div>

@@ -13,9 +13,9 @@
             :contacts="$contacts"
             :search_route="$contactSearchRoute"
             :create_route="$contactCreateRoute"
-            hide-issue-at="{{ $hideIssuedAt }}"
-            text-issue-at="{{ $textIssuedAt }}"
-            issue-at="{{ $issuedAt }}"
+            hide-issued-at="{{ $hideIssuedAt }}"
+            text-issued-at="{{ $textIssuedAt }}"
+            issued-at="{{ $issuedAt }}"
             hide-document-number="{{ $hideDocumentNumber }}"
             text-document-number="{{ $textDocumentNumber }}"
             document-number="{{ $documentNumber }}"
@@ -27,7 +27,7 @@
             order-number="{{ $orderNumber }}"
         />
 
-        <x-documents.form.items 
+        <x-documents.form.items
             type="{{ $type }}"
             :document="$document"
             hide-edit-item-columns="{{ $hideEditItemColumns }}"

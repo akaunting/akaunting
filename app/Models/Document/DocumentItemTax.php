@@ -5,7 +5,6 @@ namespace App\Models\Document;
 use App\Abstracts\Model;
 use App\Traits\Currencies;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Znck\Eloquent\Traits\BelongsToThrough;
 
 class DocumentItemTax extends Model

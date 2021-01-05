@@ -62,12 +62,21 @@ return [
         'default'           => 'Por defecto',
         'classic'           => 'Clásica',
         'modern'            => 'Moderna',
+        'hide'              => [
+            'item_name'         => 'Ocultar nombre del artículo',
+            'item_description'  => 'Ocultar descripción del artículo',
+            'quantity'          => 'Ocultar cantidad',
+            'price'             => 'Ocultar precio',
+            'amount'            => 'Ocultar monto',
+        ],
     ],
 
     'default' => [
         'description'       => 'Cuenta, moneda, idioma por defecto de su empresa',
         'list_limit'        => 'Registros por página',
         'use_gravatar'      => 'Usar Gravatar',
+        'income_category'   => 'Categoría de ingresos',
+        'expense_category'  => 'Categoría de gastos',
     ],
 
     'email' => [

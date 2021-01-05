@@ -1,5 +1,5 @@
 <template>
-    <div class="row col-md-6 pr-0">
+    <div class="row pr-0" :class="formClasses">
         <base-input :label="title"
             name="recurring_frequency"
             :class="frequencyClasses"
@@ -80,7 +80,9 @@ export default {
             default: '',
             description: "Modal header title"
         },
-        formClasses: null,
+        formClasses: {
+            default: 'col-md-6',
+        },
         formError: null,
 
         frequencyOptions: null,

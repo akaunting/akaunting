@@ -251,7 +251,7 @@ class Invoices extends Controller
     {
         event(new \App\Events\Document\DocumentCancelled($invoice));
 
-        $message = trans('general.messages.marked_cancelled', ['type' => trans_choice('general.invoices', 1)]);
+        $message = trans('documents.messages.marked_cancelled', ['type' => trans_choice('general.invoices', 1)]);
 
         flash($message)->success();
 
@@ -360,7 +360,7 @@ class Invoices extends Controller
         try {
             event(new \App\Events\Document\PaymentReceived($invoice, ['type' => 'income']));
 
-            $message = trans('general.messages.marked_paid', ['type' => trans_choice('general.invoices', 1)]);
+            $message = trans('documents.messages.marked_paid', ['type' => trans_choice('general.invoices', 1)]);
 
             flash($message)->success();
         } catch(\Exception $e) {

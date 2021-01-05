@@ -26,7 +26,7 @@
 
                     {{ Form::selectAddNewGroup('account_id', trans_choice('general.accounts', 1), 'university', $accounts, setting('default.account'), ['required' => 'required', 'path' => route('modals.accounts.create'), 'change' => 'onChangeAccount']) }}
 
-                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, setting('default.vendor'), ['path' => route('modals.vendors.create'), 'remote_action' => route('vendors.index')]) }}
+                    {{ Form::selectRemoteAddNewGroup('contact_id', trans_choice('general.vendors', 1), 'user', $vendors, null, ['path' => route('modals.vendors.create'), 'remote_action' => route('vendors.index')]) }}
 
                     {{ Form::textareaGroup('description', trans('general.description')) }}
 
@@ -38,7 +38,7 @@
 
                     {{ Form::textGroup('reference', trans('general.reference'), 'file', []) }}
 
-                    {{ Form::fileGroup('attachment', trans('general.attachment')) }}
+                    {{ Form::fileGroup('attachment', trans('general.attachment'), '', ['dropzone-class' => 'form-file']) }}
 
                     {{ Form::selectGroup('document_id', trans_choice('general.bills', 1), 'file-invoice', [], null, ['disabled' => 'true']) }}
                 </div>

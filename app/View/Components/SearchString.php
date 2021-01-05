@@ -29,23 +29,23 @@ class SearchString extends Component
      */
     public function render()
     {
-        $searc_string = config('search-string');
+        $search_string = config('search-string');
 
         $this->filters = [];
 
-        if (!empty($searc_string[$this->model])) {
-            $columns = $searc_string[$this->model]['columns'];
+        if (!empty($search_string[$this->model])) {
+            $columns = $search_string[$this->model]['columns'];
 
             foreach ($columns as $column => $options) {
                 // This column skip for filter
                 if (!empty($options['searchable'])) {
                     continue;
                 }
-    
+
                 if (!is_array($options)) {
                     $column = $options;
                 }
-                
+
                 if (!$this->isFilter($column, $options)) {
                     continue;
                 }
@@ -66,7 +66,7 @@ class SearchString extends Component
     protected function isFilter($column, $options)
     {
         $filter = true;
-    
+
         if (empty($this->getFilterUrl($column, $options)) && (!isset($options['date']) && !isset($options['boolean']))) {
             $filter = false;
         }
@@ -100,7 +100,7 @@ class SearchString extends Component
         }
 
         $name = trans('general.' . $column);
-    
+
         if ($name == 'general.' . $column) {
             $name = trans('search_string.columns.' . $column);
         }
@@ -108,7 +108,7 @@ class SearchString extends Component
         return $name;
     }
 
-    protected function getFilterType($options) 
+    protected function getFilterType($options)
     {
         $type = 'select';
 
@@ -123,7 +123,7 @@ class SearchString extends Component
         return $type;
     }
 
-    protected function getFilterUrl($column, $options) 
+    protected function getFilterUrl($column, $options)
     {
         $url = '';
 
@@ -143,11 +143,11 @@ class SearchString extends Component
 
                 $url .= Str::slug($module_class[1], '-') . '::';
             }
-            
+
             if (strpos($column, '_id') !== false) {
                 $column = str_replace('_id', '', $column);
             }
-    
+
             $plural = Str::plural($column, 2);
 
             try {
@@ -160,7 +160,7 @@ class SearchString extends Component
         return $url;
     }
 
-    protected function getFilterValues($column, $options) 
+    protected function getFilterValues($column, $options)
     {
         $values = [];
 

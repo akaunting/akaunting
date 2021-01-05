@@ -62,12 +62,21 @@ return [
         'default'           => 'Standard',
         'classic'           => 'Klassisch',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Artikelname ausblenden',
+            'item_description'  => 'Artikelbeschreibung ausblenden',
+            'quantity'          => 'Menge ausblenden',
+            'price'             => 'Preis ausblenden',
+            'amount'            => 'Betrag ausblenden',
+        ],
     ],
 
     'default' => [
         'description'       => 'Standardkonto, Währung, Sprache Ihres Unternehmens',
         'list_limit'        => 'Datensätze pro Seite',
         'use_gravatar'      => 'Gravatar verwenden',
+        'income_category'   => 'Kategorie für Einnahmen',
+        'expense_category'  => 'Kategorie für Ausgaben',
     ],
 
     'email' => [

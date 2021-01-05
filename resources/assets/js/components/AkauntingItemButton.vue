@@ -67,7 +67,7 @@
 
                 <div class="aka-select-footer" @click="onItemCreate">
                     <span>
-                        <i class="fas fa-plus"></i> {{ createNewItemText }}
+                        <i class="fas fa-plus"></i> &nbsp; {{ createNewItemText }}
                     </span>
                 </div>
             </div>
@@ -141,7 +141,7 @@ export default {
             default: 'Add an item',
             description: ""
         },
-        createNewItemTax:{
+        createNewItemText:{
             type: String,
             default: 'Create a new item',
             description: ""

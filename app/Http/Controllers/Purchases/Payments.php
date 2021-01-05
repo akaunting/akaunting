@@ -150,7 +150,15 @@ class Payments extends Controller
 
         $vendors = Contact::vendor()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
 
+        if ($payment->contact && !$vendors->has($payment->contact_id)) {
+            $vendors->put($payment->contact->id, $payment->contact->name);
+        }
+
         $categories = Category::expense()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
+
+        if ($payment->category && !$categories->has($payment->category_id)) {
+            $categories->put($payment->category->id, $payment->category->name);
+        }
 
         $payment_methods = Modules::getPaymentMethods();
 

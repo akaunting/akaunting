@@ -59,7 +59,7 @@
 
                     {{ Form::textareaGroup('address', trans('settings.company.address')) }}
 
-                    {{ Form::fileGroup('logo', trans('settings.company.logo')) }}
+                    {{ Form::fileGroup('logo', trans('settings.company.logo'), '', ['dropzone-class' => 'form-file']) }}
                 </div>
             </div>
 

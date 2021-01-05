@@ -104,7 +104,10 @@ return [
     'from'                  => 'Von',
     'to'                    => 'An',
     'print'                 => 'Drucken',
+    'download_pdf'          => 'Als PDF herunterladen',
+    'customize'             => 'Anpassen',
     'search'                => 'Suchen',
+    'search_text'           => 'Nach diesem Text suchen',
     'search_placeholder'    => 'Suchbegriff eingeben..',
     'filter'                => 'Filter',
     'help'                  => 'Hilfe',
@@ -152,6 +155,11 @@ return [
     'no_matching_data'      => 'Keine passenden Daten',
     'clear_cache'           => 'Zwischenspeicher leeren',
     'go_to_dashboard'       => 'Zum Dashboard gehen',
+    'is'                    => 'ist',
+    'isnot'                 => 'ist nicht', 
+    'recurring_and_more'    => 'Wiederkehrend und mehr..',
+    'due_on'                => 'Fällig am',
+    'amount_due'            => 'Fälliger Betrag',
 
     'card' => [
         'name'                  => 'Name des Karteninhabers',
@@ -177,8 +185,21 @@ return [
             'field'         => '- :field auswählen -',
             'file'          => 'Datei auswählen',
         ],
+        'add'               => ':field neu hinzufügen',
+        'add_an'            => ':field neu hinzufügen',
         'add_new'           => ':field neu hinzufügen',
+        'edit'              => ':field bearbeiten',
+        'contact_edit'      => ':contact_name :field bearbeiten',
+        'choose'            => ':field auswählen',
+        'choose_different'  => 'Wähle ein anderes :field',
         'no_file_selected'  => 'Keine Datei ausgewählt...',
+    ],
+
+    'placeholder' => [
+        'search'            => 'Zum Suchen tippen..',
+        'search_and_filter' => 'Suchen oder Ergebnisse filtern..',
+        'contact_search'    => 'Name von :type eingeben',
+        'item_search'       => 'Artikelname eingeben',
     ],
 
     'date_range' => [

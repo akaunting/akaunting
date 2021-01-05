@@ -5,7 +5,7 @@ namespace App\Transformers\Document;
 use App\Models\Document\DocumentTotal as Model;
 use League\Fractal\TransformerAbstract;
 
-class DocumentTotals extends TransformerAbstract
+class DocumentTotal extends TransformerAbstract
 {
 
     /**

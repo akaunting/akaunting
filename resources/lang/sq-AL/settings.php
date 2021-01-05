@@ -62,12 +62,21 @@ return [
         'default'           => 'Parazgjedhur',
         'classic'           => 'Klasike',
         'modern'            => 'Modern',
+        'hide'              => [
+            'item_name'         => 'Fshih Emrin e Artikullit',
+            'item_description'  => 'Fshih Përshkrimin e Artikullit',
+            'quantity'          => 'Fshih Sasinë',
+            'price'             => 'Fshih Çmimin',
+            'amount'            => 'Fshih Shumën',
+        ],
     ],
 
     'default' => [
         'description'       => 'Llogaria, monedha, gjuha e paracaktuar e kompanisë suaj',
         'list_limit'        => 'Rekordet Për Faqe',
         'use_gravatar'      => 'Përdorni Gravatar',
+        'income_category'   => 'Kategoria e Fitimeve',
+        'expense_category'  => 'Kategoria e Shpenzimeve',
     ],
 
     'email' => [

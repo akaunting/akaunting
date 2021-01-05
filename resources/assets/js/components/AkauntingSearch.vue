@@ -265,8 +265,8 @@ export default {
       now.setTime(now.getTime() + 1 * 3600 * 1000);
       let expires = now.toUTCString();
 
-      let serach_string = {};
-      serach_string[path] = {};
+      let search_string = {};
+      search_string[path] = {};
 
       this.filtered.forEach(function (filter, index) {
         if (!args) {
@@ -275,13 +275,13 @@ export default {
 
         args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
 
-        serach_string[path][this.selected_options[index].key] = {
+        search_string[path][this.selected_options[index].key] = {
           'key': this.selected_values[index].key,
           'value': this.selected_values[index].value
         };
       }, this);
 
-      Cookies.set('search-string', serach_string, expires);
+      Cookies.set('search-string', search_string, expires);
 
       window.location = path + args;
     },
@@ -463,12 +463,14 @@ export default {
 
     let cookie = Cookies.get('search-string');
 
-    cookie = JSON.parse(cookie)[path];
+    if (cookie != undefined) {
+      cookie = JSON.parse(cookie)[path];
+    }
 
     if (this.value) {
-      let serach_string = this.value.split(' ');
+      let search_string = this.value.split(' ');
 
-      serach_string.forEach(function (string) {
+      search_string.forEach(function (string) {
         if (string.search(':') === -1) {
           this.search = string;
         } else {
@@ -486,7 +488,7 @@ export default {
                 }
               }, this);
 
-              if (!value && cookie[_filter.key]) {
+              if (!value && (cookie != undefined && cookie[_filter.key])) {
                 value = cookie[_filter.key].value;
               }
 
@@ -503,7 +505,7 @@ export default {
                 }
               }, this);
 
-              if (cookie[_filter.key]) {
+              if (cookie != undefined && cookie[_filter.key]) {
                   this.selected_values.push(cookie[_filter.key]);
               }
             }

@@ -62,12 +62,21 @@ return [
         'default'           => 'Standard',
         'classic'           => 'Klassisk',
         'modern'            => 'Moderne',
+        'hide'              => [
+            'item_name'         => 'Skjul elementnavn',
+            'item_description'  => 'Skjul elementbeskrivelse',
+            'quantity'          => 'Skjul antall',
+            'price'             => 'Skjul pris',
+            'amount'            => 'Skjul beløp',
+        ],
     ],
 
     'default' => [
         'description'       => 'Standard konto, valuta, språk for ditt foretak',
         'list_limit'        => 'Oppføringer per side',
         'use_gravatar'      => 'Bruk Gravatar',
+        'income_category'   => 'Inntekter etter kategori',
+        'expense_category'  => 'Utgifter etter kategori',
     ],
 
     'email' => [

@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'puslapis tvarkomas',
+    'title' => 'Vyksta tvarkymo (priežiūros) darbai',
 
-    'message' => 'Sorry, we\'re down for maintenance. Please, try again later!',
+    'message' => 'Atsiprašome, dabar vyksta tvarkymo (priežiūros) darbai. Apsilankykite vėliau!',
 
-    'last-updated' => 'This message was last updated :timestamp.',
+    'last-updated' => 'Pranešimas buvo atnaujintas :timestamp.',
 
 ];
