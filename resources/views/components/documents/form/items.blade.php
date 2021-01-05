@@ -37,7 +37,7 @@
 
                         @stack('quantity_th_start')
                             @if (!$hideQuantity)
-                                <th class="text-center border-top-0 border-right-0 border-bottom-0" style="padding-right: 5px;">
+                                <th class="text-center pl-2 border-top-0 border-right-0 border-bottom-0">
                                     {{ trans($textQuantity) }}
                                 </th>
                             @endif

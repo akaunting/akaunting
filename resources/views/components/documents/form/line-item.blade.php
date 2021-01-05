@@ -73,7 +73,7 @@
 
                         @stack('quantity_td_start')
                             @if (!$hideQuantity)
-                            <td class="pb-3 pl-0 pr-0 border-bottom-0">
+                            <td class="pb-3 pl-0 pr-2 border-bottom-0">
                                 <div>
                                     @stack('quantity_input_start')
                                     <input type="text"
@@ -98,7 +98,7 @@
 
                         @stack('price_td_start')
                             @if (!$hidePrice)
-                                <td class="pb-3 pl-2 pr-0 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
+                                <td class="pb-3 pl-0 pr-0 border-bottom-0" style="padding-right: 5px; padding-left: 5px;">
                                     <div>
                                         @stack('price_input_start')
                                             {{ Form::moneyGroup('price', '', '', ['required' => 'required', 'row-input' => 'true', 'v-model' => 'row.price', 'v-error' => 'form.errors.get(\'items.\' + index + \'.price\')', 'v-error-message' => 'form.errors.get(\'items.\' + index + \'.price\')' , 'data-item' => 'price', 'currency' => $currency, 'dynamic-currency' => 'currency', 'change' => 'row.price = $event; form.errors.clear(\'items.\' + index + \'.price\'); onCalculateTotal'], 0.00, 'text-right input-price p-0') }}
