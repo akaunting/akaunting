@@ -28,7 +28,7 @@ class Document extends FormRequest
     {
         $type = $this->request->get('type', Model::INVOICE_TYPE);
 
-        $type = Str::replaceFirst('-', '_', $type);
+        $type = config("type.{$type}.route_parameter");
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {

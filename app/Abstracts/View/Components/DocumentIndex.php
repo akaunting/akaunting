@@ -296,7 +296,7 @@ abstract class DocumentIndex extends Component
             return $page;
         }
 
-        return Str::plural($type, 2);
+        return config("type.{$type}.route_name");
     }
 
     protected function getDocsPath($type, $docsPath)
@@ -349,7 +349,7 @@ abstract class DocumentIndex extends Component
             return $createRoute;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.create';
 
@@ -380,8 +380,8 @@ abstract class DocumentIndex extends Component
         }
 
         $importRouteParameters = [
-            'group' => ($type == 'invoice') ? 'sales' : 'purchases',
-            'type' => Str::plural($type, 2)
+            'group' => config("type.{$type}.group"),
+            'type' => config("type.{$type}.route_name")
         ];
 
         return $importRouteParameters;
@@ -393,7 +393,7 @@ abstract class DocumentIndex extends Component
             return $exportRoute;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.export';
 
@@ -412,7 +412,7 @@ abstract class DocumentIndex extends Component
             return $formCardHeaderRoute;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.index';
 
@@ -453,7 +453,7 @@ abstract class DocumentIndex extends Component
             return $textBulkAction;
         }
 
-        $textBulkAction = 'general.' . Str::plural($type, 2);
+        $textBulkAction = 'general.' . config("type.{$type}.translation_key");
 
         return $textBulkAction;
     }
@@ -500,8 +500,8 @@ abstract class DocumentIndex extends Component
         }
 
         $bulkActionRouteParameters = [
-            'group' => ($type == 'invoice') ? 'sales' : 'purchases',
-            'type' => Str::plural($type, 2)
+            'group' => config("type.{$type}.group"),
+            'type' => config("type.{$type}.route_name")
         ];
 
         return $bulkActionRouteParameters;
@@ -702,7 +702,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonShow;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.show';
 
@@ -724,7 +724,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonEdit;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.edit';
 
@@ -746,7 +746,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonDuplicate;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.duplicate';
 
@@ -768,7 +768,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonCancelled;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.cancelled';
 
@@ -790,7 +790,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonDelete;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.destroy';
 

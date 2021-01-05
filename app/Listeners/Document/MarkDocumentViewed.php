@@ -29,6 +29,18 @@ class MarkDocumentViewed
         $document->status = 'viewed';
         $document->save();
 
-        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('documents.messages.marked_viewed', ['type' => ''])));
+        $type = trans_choice(
+            config("type.{$event->document->type}.alias", '') .
+            'general.' . config("type.{$event->document->type}.translation_key"),
+            1
+        );
+
+        $this->dispatch(
+            new CreateDocumentHistory(
+                $event->document,
+                0,
+                trans('documents.messages.marked_viewed', ['type' => $type])
+            )
+        );
     }
 }
