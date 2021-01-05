@@ -106,11 +106,11 @@
                                             <small>{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($document->sent_at)->format($date_format)]) }}</small>
                                         @stack('timeline_sent_body_message_end')
                                     @endif
- 
+
                                     @if (!($document->status != 'sent' && $document->status != 'partial' && $document->status != 'viewed'))
                                     <div class="mt-3">
                                     @endif
- 
+
                                     @stack('timeline_sent_body_button_email_start')
                                         @if (!$hideButtonEmail)
                                             @if($document->contact_email)
@@ -134,7 +134,7 @@
                                             @endif
                                         @endif
                                     @stack('timeline_sent_body_button_share_end')
- 
+
                                     </div>
 
                                 @stack('timeline_sent_body_end')
@@ -144,7 +144,7 @@
                 @stack('timeline_sent_end')
 
                 @stack('timeline_get_paid_start')
-                    @if (!$hideTimelineSent)
+                    @if (!$hideTimelinePaid)
                         <div class="timeline-block">
                             <span class="timeline-step badge-success">
                                 <i class="far fa-money-bill-alt"></i>
