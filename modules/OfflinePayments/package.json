@@ -51,7 +51,7 @@
         "@vue/cli-plugin-eslint": "^3.11.0",
         "@vue/cli-service": "^3.11.0",
         "@vue/eslint-config-prettier": "^4.0.1",
-        "axios": "^0.18.1",
+        "axios": "^0.21",
         "babel-plugin-component": "^1.1.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.2.1",
