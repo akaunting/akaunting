@@ -10,9 +10,9 @@
                     <col style="width: 40px;">
                     <col style="width: 25%;">
                     <col style="width: 30%;">
-                    <col style="width: 100px;">
-                    <col style="width: 100px;">
-                    <col style="width: 250px;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 20%;">
                     <col style="width: 40px;">
                 </colgroup>
                 <thead class="thead-light">
@@ -45,7 +45,7 @@
 
                         @stack('price_th_start')
                             @if (!$hidePrice)
-                                <th class="text-right border-top-0 border-right-0 border-bottom-0" style="padding-left: 5px;">
+                                <th class="text-right border-top-0 border-right-0 border-bottom-0 pr-1" style="padding-left: 5px;">
                                     {{ trans($textPrice) }}
                                 </th>
                             @endif

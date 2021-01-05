@@ -9,9 +9,9 @@
                     <col style="width: 40px;">
                     <col style="width: 25%;">
                     <col style="width: 30%;">
-                    <col style="width: 100px;">
-                    <col style="width: 100px;">
-                    <col style="width: 250px;">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 20%">
                     <col style="width: 40px;">
                 </colgroup>
                 <tbody>
@@ -137,9 +137,9 @@
                         <td class="border-top-0 p-0" colspan="4">
                             <table class="w-100">
                                 <colgroup>
-                                    <col style="width: 100px;">
-                                    <col style="width: 100px;">
-                                    <col style="width: 250px;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 20%;">
                                     <col style="width: 40px;">
                                 </colgroup>
 
