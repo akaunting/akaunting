@@ -900,7 +900,11 @@ export default {
     watch: {
         selected: function (selected) {
             if (!this.multiple) {
-                this.selected = selected.toString();
+                if (typeof selected != 'string' && selected !== undefined) {
+                    this.selected = selected.toString();
+                } else {
+                    this.selected = selected;
+                }
             } else {
                 if (Array.isArray(this.selected) && !this.selected.length) {
                     this.selected = selected;
@@ -971,6 +975,9 @@ export default {
         },
 
         dynamicOptions: function(options) {
+            this.sort_options = [];
+            this.selected = '';
+            
             if (this.group) {
                 // Option set sort_option data
                 if (!Array.isArray(options)) {
