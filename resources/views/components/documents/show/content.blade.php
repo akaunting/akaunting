@@ -46,7 +46,7 @@
             :document="$document"
             :hide-timeline-statuses="$hideTimelineStatuses"
             hide-timeline-create="{{ $hideTimelineCreate }}"
-            hide-timeline-create-title="{{ $textTimelineCreateTitle }}"
+            text-timeline-create-title="{{ $textTimelineCreateTitle }}"
             text-timeline-create-message="{{ $textTimelineCreateMessage }}"
             hide-button-edit="{{ $hideButtonEdit }}"
             permission-document-update="{{ $permissionDocumentUpdate }}"
