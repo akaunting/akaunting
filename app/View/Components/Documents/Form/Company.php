@@ -16,7 +16,7 @@ class Company extends Component
     {
         $company = user()->companies()->first();
 
-        $inputNameType = Str::replaceFirst('-', '_', $this->type);
+        $inputNameType = config("type.{$this->type}.route_parameter");
 
         return view('components.documents.form.company', compact('company','inputNameType'));
     }

@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Events\Auth\ApiPermissionsAssigning;
 use App\Models\Auth\Permission;
 use App\Models\Auth\Role;
 use App\Utilities\Reports;
@@ -406,12 +405,7 @@ trait Permissions
 
         // Fire event to find the proper controller for common API endpoints
         if (in_array($table, ['contacts', 'documents', 'transactions'])) {
-            $p = new \stdClass();
-            $p->controller = '';
-
-            event(new ApiPermissionsAssigning($p, $table, request()->get('type')));
-
-            $controller = $p->controller;
+            $controller = config('type.' . request()->get('type') . '.permission_name');
         } else {
             $route = app(Route::class);
 

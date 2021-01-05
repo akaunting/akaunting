@@ -613,7 +613,7 @@ abstract class DocumentShow extends Component
             return $signedUrl;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = 'signed.' . $page . '.show';
 
@@ -674,7 +674,7 @@ abstract class DocumentShow extends Component
             return $routeButtonAddNew;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.create';
 
@@ -693,7 +693,7 @@ abstract class DocumentShow extends Component
             return $routeButtonEdit;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.edit';
 
@@ -715,7 +715,7 @@ abstract class DocumentShow extends Component
             return $routeButtonDuplicate;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.duplicate';
 
@@ -737,7 +737,7 @@ abstract class DocumentShow extends Component
             return $routeButtonPrint;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.print';
 
@@ -759,7 +759,7 @@ abstract class DocumentShow extends Component
             return $routeButtonPdf;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.pdf';
 
@@ -781,7 +781,7 @@ abstract class DocumentShow extends Component
             return $routeButtonCancelled;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.cancelled';
 
@@ -820,7 +820,7 @@ abstract class DocumentShow extends Component
             return $routeButtonDelete;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.destroy';
 
@@ -842,7 +842,7 @@ abstract class DocumentShow extends Component
             return $routeButtonPaid;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.paid';
 
@@ -864,7 +864,7 @@ abstract class DocumentShow extends Component
             return $routeButtonSent;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.sent';
 
@@ -886,7 +886,7 @@ abstract class DocumentShow extends Component
             return $routeButtonReceived;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.received';
 
@@ -908,7 +908,7 @@ abstract class DocumentShow extends Component
             return $routeButtonEmail;
         }
 
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.email';
 
@@ -1103,7 +1103,7 @@ abstract class DocumentShow extends Component
             return $textTimelineCreateTitle;
         }
 
-        return Str::plural($type, 2) . '.create_' . $type;
+        return config("type.{$type}.translation_key") . '.create_' . $type;
     }
 
     protected function getTextTimelineCreateMessage($type, $textTimelineCreateMessage)
@@ -1112,7 +1112,7 @@ abstract class DocumentShow extends Component
             return $textTimelineCreateMessage;
         }
 
-        return Str::plural($type, 2) . '.messages.status.created';
+        return config("type.{$type}.translation_key") . '.messages.status.created';
     }
 
     protected function getTextTimelineSentTitle($type, $textTimelineSentTitle)

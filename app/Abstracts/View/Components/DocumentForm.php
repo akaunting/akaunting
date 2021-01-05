@@ -285,13 +285,13 @@ abstract class DocumentForm extends Component
 
     protected function getRoute($type, $document, $parameters = [])
     {
-        $page = Str::plural($type, 2);
+        $page = config("type.{$type}.route_name");
 
         $route = $page . '.store';
 
         if ($document) {
             $parameters = [
-                Str::replaceFirst('-', '_', $type) => $document->id
+                config("type.{$type}.route_parameter") => $document->id
             ];
 
             $route = $page . '.update';
@@ -344,18 +344,7 @@ abstract class DocumentForm extends Component
             return $contact_type;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $contact_type = 'vendor';
-                break;
-            default:
-                $contact_type = 'customer';
-                break;
-        }
-
-        return $contact_type;
+        return config("type.{$type}.contact_type");
     }
 
     protected function getTextAddContact($type, $textAddContact)
