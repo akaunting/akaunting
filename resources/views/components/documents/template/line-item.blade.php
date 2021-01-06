@@ -13,6 +13,7 @@
                 @endif
 
                 @stack('item_custom_fields')
+                @stack('item_custom_fields_' . $item->id)
             </td>
         @endif
     @stack('name_td_end')
