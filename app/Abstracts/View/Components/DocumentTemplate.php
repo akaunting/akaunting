@@ -16,6 +16,8 @@ abstract class DocumentTemplate extends Component
 
     public $type;
 
+    public $item;
+
     public $document;
 
     /** @var string */
@@ -111,7 +113,7 @@ abstract class DocumentTemplate extends Component
      * @return void
      */
     public function __construct(
-        $type, $document, $documentTemplate = '', $logo = '', $backgroundColor = '',
+        $type, $item = false, $document, $documentTemplate = '', $logo = '', $backgroundColor = '',
         bool $hideFooter = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false,
         bool $hideCompanyName = false, bool $hideCompanyAddress = false, bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false, bool $hideContactInfo = false,
         bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false, bool $hideContactPhone = false, bool $hideContactEmail = false,
@@ -121,6 +123,7 @@ abstract class DocumentTemplate extends Component
         string $textItems = '', string $textQuantity = '', string $textPrice = '', string $textAmount = ''
     ) {
         $this->type = $type;
+        $this->item = $item;
         $this->document = $document;
         $this->documentTemplate = $this->getDocumentTemplate($type, $documentTemplate);
         $this->logo = $this->getLogo($logo);

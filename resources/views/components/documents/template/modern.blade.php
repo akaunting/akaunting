@@ -175,7 +175,18 @@
                 </thead>
                 <tbody>
                     @foreach($document->items as $item)
-                        @include('partials.documents.item.print', ['document' => $document])
+                        <x-documents.template.line-item
+                            type="{{ $type }}"
+                            :item="$item"
+                            :document="$document"
+                            hide-items="{{ $hideItems }}"
+                            hide-name="{{ $hideName }}"
+                            hide-description="{{ $hideDescription }}"
+                            hide-quantity="{{ $hideQuantity }}"
+                            hide-price="{{ $hidePrice }}"
+                            hide-discount="{{ $hideDiscount }}"
+                            hide-amount="{{ $hideAmount }}"
+                        />
                     @endforeach
                 </tbody>
             </table>
