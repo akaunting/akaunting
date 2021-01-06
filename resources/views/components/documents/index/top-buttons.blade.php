@@ -1,5 +1,5 @@
-@if ($checkCreatePermission) 
-    @can($createPermission)
+@if ($checkPermissionCreate) 
+    @can($permissionCreate)
 @endif
 
     @if (!$hideCreate) 
@@ -10,7 +10,7 @@
         <a href="{{ route($importRoute, $importRouteParameters) }}" class="btn btn-white btn-sm">{{ trans('import.import') }}</a>
     @endif
 
-@if ($checkCreatePermission)
+@if ($checkPermissionCreate)
     @endcan
 @endif
 

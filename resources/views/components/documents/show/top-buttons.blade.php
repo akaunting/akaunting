@@ -9,7 +9,7 @@
             @stack('button_dropdown_start')
                 @stack('duplicate_button_start')
                 @if (!$hideButtonDuplicate)
-                    @can($permissionDocumentCreate)
+                    @can($permissionCreate)
                         <a class="dropdown-item" href="{{ route($routeButtonDuplicate, $document->id) }}">
                             {{ trans('general.duplicate') }}
                         </a>
@@ -50,7 +50,7 @@
             @stack('button_pdf_end')
 
             @if (!$hideButtonCancel)
-                @can($permissionDocumentUpdate)
+                @can($permissionUpdate)
                     @if ($checkButtonCancelled)
                         @if ($document->status != 'cancelled')
                             @stack('button_cancelled_start')
@@ -93,7 +93,7 @@
 
             @stack('delete_button_start')
             @if (!$hideButtonDelete)
-                @can($permissionDocumentDelete)
+                @can($permissionDelete)
                     @if ($checkButtonReconciled)
                         @if (!$document->reconciled)
                             {!! Form::deleteLink($document, $routeButtonDelete, $textDeleteModal, 'document_number') !!}
@@ -112,7 +112,7 @@
 
 @stack('add_new_button_start')
 @if (!$hideButtonAddNew)
-    @can($permissionDocumentCreate)
+    @can($permissionCreate)
         <a href="{{ route($routeButtonAddNew) }}" class="btn btn-white btn-sm">
             {{ trans('general.add_new') }}
         </a>

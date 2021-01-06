@@ -92,13 +92,13 @@ abstract class DocumentShow extends Component
     public $routeButtonPaid;
 
     /** @var string */
-    public $permissionDocumentCreate;
+    public $permissionCreate;
 
     /** @var string */
-    public $permissionDocumentUpdate;
+    public $permissionUpdate;
 
     /** @var string */
-    public $permissionDocumentDelete;
+    public $permissionDelete;
 
     /** @var string */
     public $permissionButtonCustomize;
@@ -356,7 +356,7 @@ abstract class DocumentShow extends Component
         string $routeButtonAddNew = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonPrint = '', string $routeButtonPdf = '', string $routeButtonCancelled = '', string $routeButtonDelete = '', string $routeButtonCustomize = '', string $routeButtonSent = '',
         string $routeButtonReceived = '', string $routeButtonEmail = '', string $routeButtonPaid = '',
         bool $checkButtonReconciled = true, bool $checkButtonCancelled = true,
-        string $permissionDocumentCreate = '', string $permissionDocumentUpdate = '', string $permissionDocumentDelete = '', string $permissionButtonCustomize = '',
+        string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = '', string $permissionButtonCustomize = '',
         bool $hideButtonGroupDivider1 = false, bool $hideButtonGroupDivider2 = false, bool $hideButtonGroupDivider3 = false,
         bool $hideButtonMoreActions = false, bool $hideButtonAddNew = false, bool $hideButtonEdit = false, bool $hideButtonDuplicate = false, bool $hideButtonPrint = false, bool $hideButtonPdf = false, bool $hideButtonCancel = false, bool $hideButtonCustomize = false, bool $hideButtonDelete = false,
         bool $hideHeader = false,bool $hideRecurringMessage = false, bool $hideStatusMessage = false, bool $hideTimeline = false, bool $hideFooter = false, bool $hideFooterHistories = false, bool $hideFooterTransactions = false,
@@ -405,9 +405,9 @@ abstract class DocumentShow extends Component
         $this->routeButtonDelete = $this->getRouteButtonDelete($type, $routeButtonDelete);
         $this->routeButtonPaid = $this->getRouteButtonPaid($type, $routeButtonPaid);
 
-        $this->permissionDocumentCreate = $this->getPermissionDocumentCreate($type, $permissionDocumentCreate);
-        $this->permissionDocumentUpdate = $this->getPermissionDocumentUpdate($type, $permissionDocumentUpdate);
-        $this->permissionDocumentDelete = $this->getPermissionDocumentDelete($type, $permissionDocumentDelete);
+        $this->permissionCreate = $this->getPermissionCreate($type, $permissionCreate);
+        $this->permissionUpdate = $this->getPermissionUpdate($type, $permissionUpdate);
+        $this->permissionDelete = $this->getPermissionDelete($type, $permissionDelete);
         $this->permissionButtonCustomize = $this->getPermissionButtonCustomize($type, $permissionButtonCustomize);
 
         $this->hideButtonGroupDivider1 = $hideButtonGroupDivider1;
@@ -470,7 +470,7 @@ abstract class DocumentShow extends Component
         $this->textTimelineGetPaidMarkPaid = $this->getTextTimelineGetPaidMarkPaid($type, $textTimelineGetPaidMarkPaid);
         $this->textTimelineGetPaidAddPayment = $this->getTextTimelineGetPaidAddPayment($type, $textTimelineGetPaidAddPayment);
 
-        $this->permissionDocumentUpdate = $this->getPermissionDocumentUpdate($type, $permissionDocumentUpdate);
+        $this->permissionUpdate = $this->getPermissionUpdate($type, $permissionUpdate);
 
         $this->routeButtonSent = $this->getRouteButtonSent($type, $routeButtonSent);
         $this->routeButtonReceived = $this->getRouteButtonReceived($type, $routeButtonReceived);
@@ -924,70 +924,70 @@ abstract class DocumentShow extends Component
         return $route;
     }
 
-    protected function getPermissionDocumentCreate($type, $permissionDocumentCreate)
+    protected function getPermissionCreate($type, $permissionCreate)
     {
-        if (!empty($permissionDocumentCreate)) {
-            return $permissionDocumentCreate;
+        if (!empty($permissionCreate)) {
+            return $permissionCreate;
         }
 
         switch ($type) {
             case 'sale':
             case 'income':
             case 'invoice':
-                $permissionDocumentCreate = 'create-sales-invoices';
+                $permissionCreate = 'create-sales-invoices';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $permissionDocumentCreate = 'create-purchases-bills';
+                $permissionCreate = 'create-purchases-bills';
                 break;
         }
 
-        return $permissionDocumentCreate;
+        return $permissionCreate;
     }
 
-    protected function getPermissionDocumentUpdate($type, $permissionDocumentUpdate)
+    protected function getPermissionUpdate($type, $permissionUpdate)
     {
-        if (!empty($permissionDocumentUpdate)) {
-            return $permissionDocumentUpdate;
+        if (!empty($permissionUpdate)) {
+            return $permissionUpdate;
         }
 
         switch ($type) {
             case 'sale':
             case 'income':
             case 'invoice':
-                $permissionDocumentUpdate = 'update-sales-invoices';
+                $permissionUpdate = 'update-sales-invoices';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $permissionDocumentUpdate = 'update-purchases-bills';
+                $permissionUpdate = 'update-purchases-bills';
                 break;
         }
 
-        return $permissionDocumentUpdate;
+        return $permissionUpdate;
     }
 
-    protected function getPermissionDocumentDelete($type, $permissionDocumentDelete)
+    protected function getPermissionDelete($type, $permissionDelete)
     {
-        if (!empty($permissionDocumentDelete)) {
-            return $permissionDocumentDelete;
+        if (!empty($permissionDelete)) {
+            return $permissionDelete;
         }
 
         switch ($type) {
             case 'sale':
             case 'income':
             case 'invoice':
-                $permissionDocumentDelete = 'delete-sales-invoices';
+                $permissionDelete = 'delete-sales-invoices';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $permissionDocumentDelete = 'delete-purchases-bills';
+                $permissionDelete = 'delete-purchases-bills';
                 break;
         }
 
-        return $permissionDocumentDelete;
+        return $permissionDelete;
     }
 
     protected function getPermissionButtonCustomize($type, $permissionButtonCustomize)

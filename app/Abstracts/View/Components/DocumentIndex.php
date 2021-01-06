@@ -20,10 +20,7 @@ abstract class DocumentIndex extends Component
     public $docsPath;
 
     /** @var bool */
-    public $checkCreatePermission;
-
-    /** @var string */
-    public $createPermission;
+    public $checkPermissionCreate;
 
     /** @var string */
     public $createRoute;
@@ -167,13 +164,13 @@ abstract class DocumentIndex extends Component
     public $hideButtonDelete;
 
     /** @var string */
-    public $permissionDocumentCreate;
+    public $permissionCreate;
 
     /** @var string */
-    public $permissionDocumentUpdate;
+    public $permissionUpdate;
 
     /** @var string */
-    public $permissionDocumentDelete;
+    public $permissionDelete;
     /* -- Card Body End -- */
 
     public $limits;
@@ -191,7 +188,7 @@ abstract class DocumentIndex extends Component
      */
     public function __construct(
         string $type, $documents = [], string $page = '', string $docsPath = '', $limits = [], $hideEmptyPage = false,
-        bool $checkCreatePermission = true, string $createPermission = '', string $createRoute = '', string $importRoute = '', array $importRouteParameters = [], string $exportRoute = '',
+        bool $checkPermissionCreate = true, string $createRoute = '', string $importRoute = '', array $importRouteParameters = [], string $exportRoute = '',
         bool $hideCreate = false, bool $hideImport = false, bool $hideExport = false, // Advanced
         string $textBulkAction = '', array $bulkActions = [], string $bulkActionClass = '', array $bulkActionRouteParameters = [], string $formCardHeaderRoute = '', string $searchStringModel = '',
         bool $hideBulkAction = false, bool $hideSearchString = false,
@@ -201,7 +198,7 @@ abstract class DocumentIndex extends Component
         string $routeButtonShow = '', string $routeButtonEdit = '', string $routeButtonDuplicate = '', string $routeButtonCancelled = '', string $routeButtonDelete = '',
         bool $hideDocumentNumber = false, bool $hideContactName = false, bool $hideAmount = false, bool $hideIssuedAt = false, bool $hideDueAt = false, bool $hideStatus = false, bool $hideActions = false,
         bool $hideButtonShow = false, bool $hideButtonEdit = false, bool $hideButtonDuplicate = false, bool $hideButtonCancel = false, bool $hideButtonDelete = false,
-        string $permissionDocumentCreate = '', string $permissionDocumentUpdate = '', string $permissionDocumentDelete = ''
+        string $permissionCreate = '', string $permissionUpdate = '', string $permissionDelete = ''
     ) {
         $this->type = $type;
         $this->documents = $documents;
@@ -210,8 +207,7 @@ abstract class DocumentIndex extends Component
         $this->hideEmptyPage = $hideEmptyPage;
 
         /* -- Top Buttons Start -- */
-        $this->checkCreatePermission = $checkCreatePermission;
-        $this->createPermission = $this->getCreatePermission($type, $createPermission);
+        $this->checkPermissionCreate = $checkPermissionCreate;
 
         $this->createRoute = $this->getCreateRoute($type, $createRoute);
         $this->importRoute = $this->getImportRoute($importRoute);
@@ -282,9 +278,9 @@ abstract class DocumentIndex extends Component
         $this->hideButtonCancel = $hideButtonCancel;
         $this->hideButtonDelete = $hideButtonDelete;
 
-        $this->permissionDocumentCreate = $this->getPermissionDocumentCreate($type, $permissionDocumentCreate);
-        $this->permissionDocumentUpdate = $this->getPermissionDocumentUpdate($type, $permissionDocumentUpdate);
-        $this->permissionDocumentDelete = $this->getPermissionDocumentDelete($type, $permissionDocumentDelete);
+        $this->permissionCreate = $this->getPermissionCreate($type, $permissionCreate);
+        $this->permissionUpdate = $this->getPermissionUpdate($type, $permissionUpdate);
+        $this->permissionDelete = $this->getPermissionDelete($type, $permissionDelete);
         /* -- Card Body End -- */
 
         $this->limits = ($limits) ? $limits : ['10' => '10', '25' => '25', '50' => '50', '100' => '100'];
@@ -319,28 +315,6 @@ abstract class DocumentIndex extends Component
         }
 
         return $docsPath;
-    }
-
-    protected function getCreatePermission($type, $createPermission)
-    {
-        if (!empty($createPermission)) {
-            return $createPermission;
-        }
-
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $createPermission = 'create-sales-invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $createPermission = 'create-purchases-bills';
-                break;
-        }
-
-        return $createPermission;
     }
 
     protected function getCreateRoute($type, $createRoute)
@@ -806,70 +780,70 @@ abstract class DocumentIndex extends Component
         return $route;
     }
 
-    protected function getPermissionDocumentCreate($type, $permissionDocumentCreate)
+    protected function getPermissionCreate($type, $permissionCreate)
     {
-        if (!empty($permissionDocumentCreate)) {
-            return $permissionDocumentCreate;
+        if (!empty($permissionCreate)) {
+            return $permissionCreate;
         }
 
         switch ($type) {
             case 'sale':
             case 'income':
             case 'invoice':
-                $permissionDocumentCreate = 'create-sales-invoices';
+                $permissionCreate = 'create-sales-invoices';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $permissionDocumentCreate = 'create-purchases-bills';
+                $permissionCreate = 'create-purchases-bills';
                 break;
         }
 
-        return $permissionDocumentCreate;
+        return $permissionCreate;
     }
 
-    protected function getPermissionDocumentUpdate($type, $permissionDocumentUpdate)
+    protected function getPermissionUpdate($type, $permissionUpdate)
     {
-        if (!empty($permissionDocumentUpdate)) {
-            return $permissionDocumentUpdate;
+        if (!empty($permissionUpdate)) {
+            return $permissionUpdate;
         }
 
         switch ($type) {
             case 'sale':
             case 'income':
             case 'invoice':
-                $permissionDocumentUpdate = 'update-sales-invoices';
+                $permissionUpdate = 'update-sales-invoices';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $permissionDocumentUpdate = 'update-purchases-bills';
+                $permissionUpdate = 'update-purchases-bills';
                 break;
         }
 
-        return $permissionDocumentUpdate;
+        return $permissionUpdate;
     }
 
-    protected function getPermissionDocumentDelete($type, $permissionDocumentDelete)
+    protected function getPermissionDelete($type, $permissionDelete)
     {
-        if (!empty($permissionDocumentDelete)) {
-            return $permissionDocumentDelete;
+        if (!empty($permissionDelete)) {
+            return $permissionDelete;
         }
 
         switch ($type) {
             case 'sale':
             case 'income':
             case 'invoice':
-                $permissionDocumentDelete = 'delete-sales-invoices';
+                $permissionDelete = 'delete-sales-invoices';
                 break;
             case 'bill':
             case 'expense':
             case 'purchase':
-                $permissionDocumentDelete = 'delete-purchases-bills';
+                $permissionDelete = 'delete-purchases-bills';
                 break;
         }
 
-        return $permissionDocumentDelete;
+        return $permissionDelete;
     }
 
     protected function calculateClass()

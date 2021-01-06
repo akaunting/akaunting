@@ -49,7 +49,7 @@
             text-timeline-create-title="{{ $textTimelineCreateTitle }}"
             text-timeline-create-message="{{ $textTimelineCreateMessage }}"
             hide-button-edit="{{ $hideButtonEdit }}"
-            permission-document-update="{{ $permissionDocumentUpdate }}"
+            permission-update="{{ $permissionUpdate }}"
             route-button-edit="{{ $routeButtonEdit }}"
             hide-timeline-sent="{{ $hideTimelineSent }}"
             text-timeline-sent-title="{{ $textTimelineSentTitle }}"
