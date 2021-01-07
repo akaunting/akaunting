@@ -2,9 +2,9 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Abstracts\Factory;
+use $MODEL_NAMESPACE$\$NAME$ as Model;
 
-use Faker\Generator as Faker;
 class $NAME$ extends Factory
 {
     /**
@@ -12,7 +12,7 @@ class $NAME$ extends Factory
      *
      * @var string
      */
-    protected $model = \$MODEL_NAMESPACE$\$NAME$::class;
+    protected $model = Model::class;
 
     /**
      * Define the model's default state.

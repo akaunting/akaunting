@@ -30,7 +30,7 @@
                                     <div class="mt-3">
                                         @stack('timeline_create_body_button_edit_start')
                                             @if (!$hideButtonEdit)
-                                                @can($permissionDocumentUpdate)
+                                                @can($permissionUpdate)
                                                     <a href="{{ route($routeButtonEdit, $document->id) }}" class="btn btn-primary btn-sm btn-alone">
                                                         {{ trans('general.edit') }}
                                                     </a>
@@ -72,7 +72,7 @@
                                         <div class="mt-3">
                                             @stack('timeline_sent_body_button_sent_start')
                                                 @if (!$hideButtonSent)
-                                                    @can($permissionDocumentUpdate)
+                                                    @can($permissionUpdate)
                                                         @if($document->status == 'draft')
                                                             <a href="{{ route($routeButtonSent, $document->id) }}" class="btn btn-white btn-sm">
                                                                 {{ trans($textTimelineSentStatusMarkSent) }}
@@ -88,7 +88,7 @@
 
                                             @stack('timeline_receive_body_button_received_start')
                                                 @if (!$hideButtonReceived)
-                                                    @can($permissionDocumentUpdate)
+                                                    @can($permissionUpdate)
                                                         <a href="{{ route($routeButtonReceived, $document->id) }}" class="btn btn-danger btn-sm btn-alone">
                                                             {{ trans($textTimelineSentStatusReceived) }}
                                                         </a>
@@ -106,11 +106,11 @@
                                             <small>{{ trans('invoices.messages.status.send.sent', ['date' => Date::parse($document->sent_at)->format($date_format)]) }}</small>
                                         @stack('timeline_sent_body_message_end')
                                     @endif
- 
+
                                     @if (!($document->status != 'sent' && $document->status != 'partial' && $document->status != 'viewed'))
                                     <div class="mt-3">
                                     @endif
- 
+
                                     @stack('timeline_sent_body_button_email_start')
                                         @if (!$hideButtonEmail)
                                             @if($document->contact_email)
@@ -134,7 +134,7 @@
                                             @endif
                                         @endif
                                     @stack('timeline_sent_body_button_share_end')
- 
+
                                     </div>
 
                                 @stack('timeline_sent_body_end')
@@ -144,7 +144,7 @@
                 @stack('timeline_sent_end')
 
                 @stack('timeline_get_paid_start')
-                    @if (!$hideTimelineSent)
+                    @if (!$hideTimelinePaid)
                         <div class="timeline-block">
                             <span class="timeline-step badge-success">
                                 <i class="far fa-money-bill-alt"></i>

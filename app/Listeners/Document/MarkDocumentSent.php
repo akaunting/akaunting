@@ -24,6 +24,18 @@ class MarkDocumentSent
             $event->document->save();
         }
 
-        $this->dispatch(new CreateDocumentHistory($event->document, 0, trans('documents.messages.marked_sent', ['type' => ''])));
+        $type = trans_choice(
+            config("type.{$event->document->type}.alias", '') .
+            'general.' . config("type.{$event->document->type}.translation_key"),
+            1
+        );
+
+        $this->dispatch(
+            new CreateDocumentHistory(
+                $event->document,
+                0,
+                trans('documents.messages.marked_sent', ['type' => $type])
+            )
+        );
     }
 }

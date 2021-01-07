@@ -43,13 +43,13 @@
             route-button-edit="{{ $routeButtonEdit }}"
             check-button-cancelled="{{ $checkButtonCancelled }}"
             hide-button-duplicate="{{ $hideButtonDuplicate }}"
-            permission-document-create="{{ $permissionDocumentCreate }}"
+            permission-create="{{ $permissionCreate }}"
             route-button-duplicate="{{ $routeButtonDuplicate }}"
             hide-button-cancel="{{ $hideButtonCancel }}"
-            permission-document-update="{{ $permissionDocumentUpdate }}"
+            permission-update="{{ $permissionUpdate }}"
             route-button-cancelled="{{ $routeButtonCancelled }}"
             hide-button-delete="{{ $hideButtonDelete }}"
-            permission-document-delete="{{ $permissionDocumentDelete }}"
+            permission-delete="{{ $permissionDelete }}"
             route-button-delete="{{ $routeButtonDelete }}"
         />
 

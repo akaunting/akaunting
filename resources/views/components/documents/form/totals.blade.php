@@ -15,12 +15,12 @@
                         <td class="text-right border-right-0 border-bottom-0 align-middle pb-0">
                             <strong>{{ trans('invoices.sub_total') }}</strong>
                         </td>
-                        <td class="text-right border-bottom-0 long-texts pb-0">
+                        <td class="text-right border-bottom-0 long-texts pb-0 pr-3">
                             <div>
                                 {{ Form::moneyGroup('sub_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.sub', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
-                        <td class="border-bottom-0 pb-0"></td>
+                        <td class="border-bottom-0 pb-0" style="max-width: 40px"></td>
                     </tr>
                     @stack('sub_total_td_end')
 
@@ -31,12 +31,12 @@
                             <td class="text-right border-top-0 border-right-0 border-bottom-0 align-middle pt-0 pb-0">
                                 <strong>{{ trans('invoices.item_discount') }}</strong>
                             </td>
-                            <td class="text-right border-top-0 border-bottom-0 long-texts pt-0 pb-0">
+                            <td class="text-right border-top-0 border-bottom-0 long-texts pt-0 pb-0 pr-3">
                                 <div>
                                     {{ Form::moneyGroup('item_discount', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.item_discount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                                 </div>
                             </td>
-                            <td class="border-top-0 pt-0 pb-0"></td>
+                            <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
                         </tr>
                     @stack('item_discount_td_end')
                 @endif
@@ -86,13 +86,13 @@
                                     <el-link slot="reference" type="primary" v-if="totals.discount_text" v-html="totals.discount_text"></el-link>
                                 </el-popover>
                             </td>
-                            <td class="text-right border-top-0  border-bottom-0 pt-0 pb-0">
+                            <td class="text-right border-top-0  border-bottom-0 pt-0 pb-0 pr-3">
                                 <div>
                                     {{ Form::moneyGroup('discount_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.discount', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                                 </div>
                                 {!! Form::hidden('discount', null, ['id' => 'discount', 'class' => 'form-control text-right', 'v-model' => 'form.discount']) !!}
                             </td>
-                            <td class="border-top-0 pt-0 pb-0"></td>
+                            <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
                         </tr>
                     @stack('add_discount_td_end')
                 @endif
@@ -104,12 +104,12 @@
                         <td class="text-right border-top-0  border-right-0 border-bottom-0 align-middle pt-0 pb-0">
                             <strong v-html="tax.name"></strong>
                         </td>
-                        <td class="text-right border-top-0 border-bottom-0 long-texts pb-0">
+                        <td class="text-right border-top-0 border-bottom-0 long-texts pb-0 pr-3">
                             <div>
                                 {{ Form::moneyGroup('tax_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'tax.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
-                        <td class="border-top-0 pt-0 pb-0"></td>
+                        <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
                     </tr>
                 @stack('tax_total_td_end')
 
@@ -120,19 +120,19 @@
                             <strong class="document-total-span">{{ trans('invoices.total') }}</strong>
                             {{ Form::selectGroup('currency_code', '', 'exchange-alt', $currencies, setting('default.currency'), ['required' => 'required', 'model' => 'form.currency_code', 'change' => 'onChangeCurrency'], 'document-total-currency') }}
                         </td>
-                        <td class="text-right border-top-0 long-texts pt-0 pb-0">
+                        <td class="text-right border-top-0 long-texts pt-0 pb-0 pr-3">
                             <div>
                                 {{ Form::moneyGroup('grand_total', '', '', ['disabled' => 'true' , 'row-input' => 'true', 'v-model' => 'totals.total', 'currency' => $currency, 'dynamic-currency' => 'currency', 'money-class' => 'text-right disabled-money'], 0.00, 'text-right disabled-money') }}
                             </div>
                         </td>
-                        <td class="border-top-0 pt-0 pb-0"></td>
+                        <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
                     </tr>
                     @stack('grand_total_td_end')
 
                     @stack('currency_conversion_td_start')
                         <tr id="tr-currency-conversion" class="d-none" :class="[{'d-table-row': (('{{ setting('default.currency') }}' != form.currency_code) && totals.total)}]">
                             <td class="border-top-0 pb-0"></td>
-                            <td class="text-right border-top-0 border-right-0 align-middle pb-0" colspan="2">
+                            <td class="text-right border-top-0 border-right-0 align-middle pb-0 pr-3" colspan="2">
                                 <akaunting-currency-conversion
                                     currency-conversion-text="{{ trans('currencies.conversion') }}"
                                     :price="(totals.total / form.currency_rate).toFixed(2)"
@@ -140,7 +140,7 @@
                                     :currency-rate="form.currency_rate"
                                 ></akaunting-currency-conversion>
                             </td>
-                            <td class="border-top-0 pt-0 pb-0"></td>
+                            <td class="border-top-0 pt-0 pb-0" style="max-width: 40px"></td>
                         </tr>
                         @stack('currency_conversion_td_end')
                 </tbody>
