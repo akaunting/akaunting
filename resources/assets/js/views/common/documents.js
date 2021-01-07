@@ -299,6 +299,8 @@ const app = new Vue({
                 add_discount: false,
                 discount: 0,
                 total: total,
+                // @todo
+                // invoice_item_checkbox_sample: [],
             });
 
             this.onCalculateTotal();
@@ -566,7 +568,9 @@ const app = new Vue({
                     tax_ids: item_taxes,
                     add_discount: (item.discount_rate) ? true : false,
                     discount: item.discount_rate,
-                    total: (item.total).toFixed(2)
+                    total: (item.total).toFixed(2),
+                    // @todo
+                    // invoice_item_checkbox_sample: [],
                 });
             }, this);
 
