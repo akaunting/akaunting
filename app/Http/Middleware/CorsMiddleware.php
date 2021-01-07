@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use http\Client\Response;
 
 class CorsMiddleware
 {
@@ -22,10 +23,10 @@ class CorsMiddleware
             'Access-Control-Max-Age'           => '86400',
             'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, X-Requested-With'
         ];
-
-        if ($request->isMethod('OPTIONS'))
-        {
-            return response()->json('{"method":"OPTIONS"}', 200, $headers);
+        if ($request->isMethod('OPTIONS')){
+            $response = Response::make();
+        } else {
+            $response = $next($request);
         }
 
         $response = $next($request);
