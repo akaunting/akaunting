@@ -9,15 +9,22 @@
 
         <div class="row">
             @foreach($items as $item)
+            @php 
+                $item_attributes = $attributes;
+
+                if (!empty($attributes[':id'])) {
+                    $item_attributes[':id'] = str_replace(':item_id', $item->$id, $attributes[':id']);
+                }
+            @endphp
                 <div class="col-md-3">
                     <div class="custom-control custom-checkbox">
-                        {{ Form::checkbox($name, $item->$id, (is_array($selected) && count($selected) ? (in_array($item->$id, $selected) ? true : false) : null), [
+                        {{ Form::checkbox($name, $item->$id, (is_array($selected) && count($selected) ? (in_array($item->$id, $selected) ? true : false) : null), array_merge([
                             'id' => 'checkbox-' . $name . '-' . $item->$id,
                             'class' => 'custom-control-input',
                             'v-model' => !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.'. $name : 'form.' . $name),
-                        ]) }}
+                        ], $item_attributes)) }}
 
-                        <label class="custom-control-label" for="checkbox-{{ $name . '-' . $item->$id}}">
+                        <label class="custom-control-label" :for="{{ !empty($item_attributes[':id']) ? $item_attributes[':id'] : '"checkbox-' . $name . '-' . $item->$id . '"' }}">
                             {{ $item->$value }}
                         </label>
                     </div>
