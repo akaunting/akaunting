@@ -412,55 +412,13 @@ export default {
     computed: {
         sortOptions() {
             if (this.group) {
-                this.sort_options.sort(function (a, b) {
-                    var nameA = a.key.toUpperCase(); // ignore upper and lowercase
-                    var nameB = b.key.toUpperCase(); // ignore upper and lowercase
-
-                    if (nameA < nameB) {
-                        return -1;
-                    }
-
-                    if (nameA > nameB) {
-                        return 1;
-                    }
-
-                    // names must be equal
-                    return 0;
-                });
+                this.sort_options.sort(this.sortBy("key"));
 
                 for (const [index, options] of Object.entries(this.sort_options)) {
-                    options.value.sort(function (aa, bb) {
-                        var nameAA = aa.value.toUpperCase(); // ignore upper and lowercase
-                        var nameBB = bb.value.toUpperCase(); // ignore upper and lowercase
-
-                        if (nameAA < nameBB) {
-                            return -1;
-                        }
-
-                        if (nameAA > nameBB) {
-                            return 1;
-                        }
-
-                        // names must be equal
-                        return 0;
-                    });
+                    options.value.sort(this.sortBy(this.option_sortable));
                 }
             } else {
-                this.sort_options.sort(function (a, b) {
-                    var nameA = a.value.toUpperCase(); // ignore upper and lowercase
-                    var nameB = b.value.toUpperCase(); // ignore upper and lowercase
-
-                    if (nameA < nameB) {
-                        return -1;
-                    }
-
-                    if (nameA > nameB) {
-                        return 1;
-                    }
-
-                    // names must be equal
-                    return 0;
-                });
+                this.sort_options.sort(this.sortBy(this.option_sortable));
             }
 
             return this.sort_options;
@@ -491,6 +449,23 @@ export default {
     },
 
     methods: {
+        sortBy(option) {
+            return (a, b) => {
+                var nameA = a.[option].toUpperCase(); // ignore upper and lowercase
+                var nameB = b.[option].toUpperCase(); // ignore upper and lowercase
+
+                if (nameA < nameB) {
+                    return -1;
+                }
+
+                if (nameA > nameB) {
+                    return 1;
+                }
+
+                // names must be equal
+                return 0;
+            }
+        },
         setSortOptions() {
             if (this.group) {
                 // Option set sort_option data
