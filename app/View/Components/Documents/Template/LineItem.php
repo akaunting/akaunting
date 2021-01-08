@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Documents\Form;
+namespace App\View\Components\Documents\Template;
 
 use App\Abstracts\View\Components\DocumentTemplate as Component;
 

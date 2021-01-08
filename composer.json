@@ -44,6 +44,7 @@
         "laravelcollective/html": "6.2.*",
         "league/oauth2-client": "2.6.*",
         "league/omnipay": "3.1.*",
+        "livewire/livewire": "2.3.*",
         "lorisleiva/laravel-search-string": "1.0.*",
         "maatwebsite/excel": "3.1.*",
         "misterphilip/maintenance-mode": "2.0.*",
@@ -101,7 +102,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
