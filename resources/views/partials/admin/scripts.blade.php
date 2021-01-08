@@ -140,4 +140,5 @@
 
     @stack('body_scripts')
 
+    @livewireScripts
 @stack('scripts_end')
