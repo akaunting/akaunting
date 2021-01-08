@@ -4,12 +4,20 @@
 
 @section('content')
     <div class="card">
-        {!! Form::open([
-            'url' => $path . '/import',
+        @php 
+        $form_open = [
             'files' => true,
             'role' => 'form',
             'class' => 'form-loading-button'
-        ]) !!}
+        ];
+
+        if (!empty($route)) {
+            $form_open['route'] = $route;
+        } else {
+            $form_open['url'] = $path . '/import';
+        }
+        @endphp
+        {!! Form::open($form_open) !!}
 
             <div class="card-body">
                 <div class="row">
@@ -41,7 +49,16 @@
             <div class="card-footer">
                 <div class="row save-buttons">
                     <div class="col-xs-12 col-sm-12">
-                        <a href="{{ url($path) }}" class="btn btn-outline-secondary">{{ trans('general.cancel') }}</a>
+                        @if (!empty($route))
+                            <a href="{{ route(\Str::replaceFirst('.import', '.index', $route)) }}" class="btn btn-outline-secondary">
+                                {{ trans('general.cancel') }}
+                            </a>
+                        @else
+                            <a href="{{ url($path) }}" class="btn btn-outline-secondary">
+                                {{ trans('general.cancel') }}
+                            </a>
+                        @endif
+
                         {!! Form::button(trans('import.import'), ['type' => 'submit', 'class' => 'btn btn-success']) !!}
                     </div>
                 </div>

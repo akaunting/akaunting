@@ -28,7 +28,7 @@ Route::group(['prefix' => 'common'], function () {
     Route::post('widgets/getData', 'Common\Widgets@getData')->name('widgets.getData');
     Route::resource('widgets', 'Common\Widgets');
 
-    Route::get('import/{group}/{type}', 'Common\Import@create')->name('import.create');
+    Route::get('import/{group}/{type}/{route?}', 'Common\Import@create')->name('import.create');
 
     Route::get('items/autocomplete', 'Common\Items@autocomplete')->name('items.autocomplete');
     Route::post('items/total', 'Common\Items@total')->middleware(['money'])->name('items.total');
