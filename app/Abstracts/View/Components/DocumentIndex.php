@@ -2,11 +2,11 @@
 
 namespace App\Abstracts\View\Components;
 
-use Illuminate\View\Component;
-use Illuminate\Support\Str;
+use App\Abstracts\View\Components\Document as Base;
 use App\Events\Common\BulkActionsAdding;
+use Illuminate\Support\Str;
 
-abstract class DocumentIndex extends Component
+abstract class DocumentIndex extends Base
 {
     /** @var string */
     public $type;
@@ -292,7 +292,7 @@ abstract class DocumentIndex extends Component
             return $page;
         }
 
-        return config("type.{$type}.route_name");
+        return config("type.{$type}.route.prefix");
     }
 
     protected function getDocsPath($type, $docsPath)
@@ -323,7 +323,7 @@ abstract class DocumentIndex extends Component
             return $createRoute;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.create';
 
@@ -355,7 +355,8 @@ abstract class DocumentIndex extends Component
 
         $importRouteParameters = [
             'group' => config("type.{$type}.group"),
-            'type' => config("type.{$type}.route_name")
+            'type' => config("type.{$type}.route.prefix"),
+            'route' => 'invoices.import',
         ];
 
         return $importRouteParameters;
@@ -367,7 +368,7 @@ abstract class DocumentIndex extends Component
             return $exportRoute;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.export';
 
@@ -386,7 +387,7 @@ abstract class DocumentIndex extends Component
             return $formCardHeaderRoute;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.index';
 
@@ -427,9 +428,13 @@ abstract class DocumentIndex extends Component
             return $textBulkAction;
         }
 
-        $textBulkAction = 'general.' . config("type.{$type}.translation_key");
+        $translation = $this->getTextFromConfig($type, 'bulk_action', Str::plural($type, 2));
 
-        return $textBulkAction;
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.invoices';
     }
 
     protected function getBulkActions($type, $bulkActions, $bulkActionClass)
@@ -475,7 +480,7 @@ abstract class DocumentIndex extends Component
 
         $bulkActionRouteParameters = [
             'group' => config("type.{$type}.group"),
-            'type' => config("type.{$type}.route_name")
+            'type' => config("type.{$type}.route.prefix")
         ];
 
         return $bulkActionRouteParameters;
@@ -494,6 +499,12 @@ abstract class DocumentIndex extends Component
     {
         if (!empty($textDocumentNumber)) {
             return $textDocumentNumber;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'document_number', 'numbers');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
         return 'general.numbers';
@@ -518,18 +529,15 @@ abstract class DocumentIndex extends Component
             return $textContactName;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textContactName = 'general.vendors';
-                break;
-            default:
-                $textContactName = 'general.customers';
-                break;
+        $contact_type = Str::plural(config('type.' . $type . '.contact_type'), 2);
+
+        $translation = $this->getTextFromConfig($type, 'contact_name', $contact_type, 'trans_choice');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textContactName;
+        return 'general.customers';
     }
 
     protected function getClassContactName($type, $classContactName)
@@ -564,18 +572,13 @@ abstract class DocumentIndex extends Component
             return $textIssuedAt;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textIssuedAt = 'bills.bill_date';
-                break;
-            default:
-                $textIssuedAt = 'invoices.invoice_date';
-                break;
+        $translation = $this->getTextFromConfig($type, 'issued_at');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textIssuedAt;
+        return 'invoices.invoice_date';
     }
 
     protected function getclassIssuedAt($type, $classIssuedAt)
@@ -597,18 +600,13 @@ abstract class DocumentIndex extends Component
             return $textDueAt;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textDueAt = 'bills.due_date';
-                break;
-            default:
-                $textDueAt = 'invoices.due_date';
-                break;
+        $translation = $this->getTextFromConfig($type, 'due_at');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textDueAt;
+        return 'invoices.due_date';
     }
 
     protected function getClassDueAt($type, $classDueAt)
@@ -630,18 +628,15 @@ abstract class DocumentIndex extends Component
             return $textDocumentStatus;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textDocumentStatus = 'bills.statuses.';
-                break;
-            default:
-                $textDocumentStatus = 'invoices.statuses.';
-                break;
+        $default_key = config("type.' . $type . '.translation.prefix") . '.statuses.';
+
+        $translation = $this->getTextFromConfig($type, 'document_status', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textDocumentStatus;
+        return 'invoices.statuses.';
     }
 
     protected function getClassStatus($type, $classStatus)
@@ -676,7 +671,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonShow;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.show';
 
@@ -698,7 +693,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonEdit;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.edit';
 
@@ -720,7 +715,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonDuplicate;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.duplicate';
 
@@ -742,7 +737,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonCancelled;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.cancelled';
 
@@ -764,7 +759,7 @@ abstract class DocumentIndex extends Component
             return $routeButtonDelete;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.destroy';
 

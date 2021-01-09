@@ -2,16 +2,16 @@
 
 namespace App\Abstracts\View\Components;
 
-use Illuminate\View\Component;
-use Illuminate\Support\Str;
+use App\Abstracts\View\Components\Document as Base;
 use App\Traits\DateTime;
 use App\Models\Common\Media;
 use File;
 use Image;
 use Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
-abstract class DocumentShow extends Component
+abstract class DocumentShow extends Base
 {
     use DateTime;
 
@@ -521,18 +521,15 @@ abstract class DocumentShow extends Component
             return $textRecurringType;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textRecurringType = 'general.bills';
-                break;
-            default:
-                $textRecurringType = 'general.invoices';
-                break;
+        $default_key = config("type.' . $type . '.translation.prefix");
+
+        $translation = $this->getTextFromConfig($type, 'recurring_tye', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textRecurringType;
+        return 'general.invoices';
     }
 
     protected function getTextStatusMessage($type, $textStatusMessage)
@@ -541,18 +538,15 @@ abstract class DocumentShow extends Component
             return $textStatusMessage;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textStatusMessage = 'bills.messages.draft';
-                break;
-            default:
-                $textStatusMessage = 'invoices.messages.draft';
-                break;
+        $default_key = config("type.' . $type . '.translation.prefix") . '.messages.draft';
+
+        $translation = $this->getTextFromConfig($type, 'status_message', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textStatusMessage;
+        return 'invoices.messages.draft';
     }
 
     protected function getDocumentTemplate($type, $documentTemplate)
@@ -613,7 +607,7 @@ abstract class DocumentShow extends Component
             return $signedUrl;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = 'signed.' . $page . '.show';
 
@@ -634,18 +628,15 @@ abstract class DocumentShow extends Component
             return $textHistories;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textHistories = 'bills.histories';
-                break;
-            default:
-                $textHistories = 'invoices.histories';
-                break;
+        $default_key = config("type.' . $type . '.translation.prefix") . '.histories';
+
+        $translation = $this->getTextFromConfig($type, 'histories', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textHistories;
+        return 'invoices.histories';
     }
 
     protected function getTextHistoryStatus($type, $textHistoryStatus)
@@ -654,18 +645,15 @@ abstract class DocumentShow extends Component
             return $textHistoryStatus;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textHistoryStatus = 'bills.statuses.';
-                break;
-            default:
-                $textHistoryStatus = 'invoices.statuses.';
-                break;
+        $default_key = config("type.' . $type . '.translation.prefix") . '.statuses.';
+
+        $translation = $this->getTextFromConfig($type, 'statuses', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textHistoryStatus;
+        return 'invoices.statuses.';
     }
 
     protected function getRouteButtonAddNew($type, $routeButtonAddNew)
@@ -674,7 +662,7 @@ abstract class DocumentShow extends Component
             return $routeButtonAddNew;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.create';
 
@@ -693,7 +681,7 @@ abstract class DocumentShow extends Component
             return $routeButtonEdit;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.edit';
 
@@ -715,7 +703,7 @@ abstract class DocumentShow extends Component
             return $routeButtonDuplicate;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.duplicate';
 
@@ -737,7 +725,7 @@ abstract class DocumentShow extends Component
             return $routeButtonPrint;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.print';
 
@@ -759,7 +747,7 @@ abstract class DocumentShow extends Component
             return $routeButtonPdf;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.pdf';
 
@@ -781,7 +769,7 @@ abstract class DocumentShow extends Component
             return $routeButtonCancelled;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.cancelled';
 
@@ -820,7 +808,7 @@ abstract class DocumentShow extends Component
             return $routeButtonDelete;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.destroy';
 
@@ -842,7 +830,7 @@ abstract class DocumentShow extends Component
             return $routeButtonPaid;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.paid';
 
@@ -864,7 +852,7 @@ abstract class DocumentShow extends Component
             return $routeButtonSent;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.sent';
 
@@ -886,7 +874,7 @@ abstract class DocumentShow extends Component
             return $routeButtonReceived;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.received';
 
@@ -908,7 +896,7 @@ abstract class DocumentShow extends Component
             return $routeButtonEmail;
         }
 
-        $page = config("type.{$type}.route_name");
+        $page = config("type.{$type}.route.prefix");
 
         $route = $page . '.email';
 
@@ -1018,24 +1006,27 @@ abstract class DocumentShow extends Component
             return $textHeaderContact;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textHeaderContact = 'general.vendors';
-                break;
-            default:
-                $textHeaderContact = 'general.customers';
-                break;
+        $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
+
+        $translation = $this->getTextFromConfig($type, 'header_contact', $default_key, 'trans_choice');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textHeaderContact;
+        return 'general.customers';
     }
 
     protected function getTextHeaderAmount($type, $textHeaderAmount)
     {
         if (!empty($textHeaderAmount)) {
             return $textHeaderAmount;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'header_amount', 'amount_due');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
         return 'general.amount_due';
@@ -1045,6 +1036,12 @@ abstract class DocumentShow extends Component
     {
         if (!empty($textHeaderDueAt)) {
             return $textHeaderDueAt;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'header_due_at', 'due_on');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
         return 'general.due_on';
@@ -1103,7 +1100,15 @@ abstract class DocumentShow extends Component
             return $textTimelineCreateTitle;
         }
 
-        return config("type.{$type}.translation_key") . '.create_' . $type;
+        $default_key = 'create_' . $type;
+
+        $translation = $this->getTextFromConfig($type, 'timeline_create_title', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.create_invoice';
     }
 
     protected function getTextTimelineCreateMessage($type, $textTimelineCreateMessage)
@@ -1112,7 +1117,13 @@ abstract class DocumentShow extends Component
             return $textTimelineCreateMessage;
         }
 
-        return config("type.{$type}.translation_key") . '.messages.status.created';
+        $translation = $this->getTextFromConfig($type, 'timeline_create_message', 'messages.status.created');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.messages.status.created';
     }
 
     protected function getTextTimelineSentTitle($type, $textTimelineSentTitle)
@@ -1125,14 +1136,20 @@ abstract class DocumentShow extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textTimelineSentTitle = 'bills.receive_bill';
+                $default_key = 'receive_bill';
                 break;
             default:
-                $textTimelineSentTitle = 'invoices.send_invoice';
+                $default_key = 'send_invoice';
                 break;
         }
 
-        return $textTimelineSentTitle;
+        $translation = $this->getTextFromConfig($type, 'timeline_sent_title', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.send_invoice';
     }
 
     protected function getTextTimelineSentStatusDraft($type, $textTimelineSentStatusDraft)
@@ -1145,14 +1162,20 @@ abstract class DocumentShow extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textTimelineSentStatusDraft = 'bills.messages.status.receive.draft';
+                $default_key = 'messages.status.receive.draft';
                 break;
             default:
-                $textTimelineSentStatusDraft = 'invoices.messages.status.send.draft';
+                $default_key = 'messages.status.send.draft';
                 break;
         }
 
-        return $textTimelineSentStatusDraft;
+        $translation = $this->getTextFromConfig($type, 'timeline_sent_status_draft', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.messages.status.send.draft';
     }
 
     protected function getTextTimelineSentStatusMarkSent($type, $textTimelineSentStatusMarkSent)
@@ -1165,14 +1188,20 @@ abstract class DocumentShow extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textTimelineSentStatusMarkSent = 'bills.mark_received';
+                $default_key = 'mark_received';
                 break;
             default:
-                $textTimelineSentStatusMarkSent = 'invoices.mark_sent';
+                $default_key = 'mark_sent';
                 break;
         }
 
-        return $textTimelineSentStatusMarkSent;
+        $translation = $this->getTextFromConfig($type, 'timeline_sent_status_mark_sent', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.mark_sent';
     }
 
     protected function getTextTimelineSentStatusReceived($type, $textTimelineSentStatusReceived)
@@ -1185,14 +1214,20 @@ abstract class DocumentShow extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textTimelineSentStatusReceived = 'bills.mark_received';
+                $textTimelineSentStatusReceived = 'mark_received';
                 break;
             default:
-                $textTimelineSentStatusReceived = 'invoices.mark_sent';
+                $textTimelineSentStatusReceived = 'mark_sent';
                 break;
         }
 
-        return $textTimelineSentStatusReceived;
+        $translation = $this->getTextFromConfig($type, 'timeline_sent_status_received', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.mark_sent';
     }
 
     protected function getTextTimelineSendStatusMail($type, $textTimelineSendStatusMail)
@@ -1201,18 +1236,13 @@ abstract class DocumentShow extends Component
             return $textTimelineSendStatusMail;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textTimelineSendStatusMail = 'bills.send_mail';
-                break;
-            default:
-                $textTimelineSendStatusMail = 'invoices.send_mail';
-                break;
+        $translation = $this->getTextFromConfig($type, 'timeline_sent_status_mail', 'send_mail');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textTimelineSendStatusMail;
+        return 'invoices.send_mail';
     }
 
     protected function getTextTimelineGetPaidTitle($type, $textTimelineGetPaidTitle)
@@ -1225,14 +1255,20 @@ abstract class DocumentShow extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textTimelineGetPaidTitle = 'bills.make_payment';
+                $default_key = 'make_payment';
                 break;
             default:
-                $textTimelineGetPaidTitle = 'invoices.get_paid';
+                $default_key = 'get_paid';
                 break;
         }
 
-        return $textTimelineGetPaidTitle;
+        $translation = $this->getTextFromConfig($type, 'timeline_get_paid_title', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.get_paid';
     }
 
     protected function getTextTimelineGetPaidStatusAwait($type, $textTimelineGetPaidStatusAwait)
@@ -1241,18 +1277,13 @@ abstract class DocumentShow extends Component
             return $textTimelineGetPaidStatusAwait;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textTimelineGetPaidStatusAwait = 'bills.messages.status.paid.await';
-                break;
-            default:
-                $textTimelineGetPaidStatusAwait = 'invoices.messages.status.paid.await';
-                break;
+        $translation = $this->getTextFromConfig($type, 'timeline_get_paid_status_await', 'messages.status.paid.await');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textTimelineGetPaidStatusAwait;
+        return 'invoices.messages.status.paid.await';
     }
 
     protected function getTextTimelineGetPaidStatusPartiallyPaid($type, $textTimelineGetPaidStatusPartiallyPaid)
@@ -1261,9 +1292,13 @@ abstract class DocumentShow extends Component
             return $textTimelineGetPaidStatusPartiallyPaid;
         }
 
-        $textTimelineGetPaidStatusPartiallyPaid = 'general.partially_paid';
+        $translation = $this->getTextFromConfig($type, 'timeline_get_paid_status_partially_paid', 'partially_paid');
 
-        return $textTimelineGetPaidStatusPartiallyPaid;
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.partially_paid';
     }
 
     protected function getTextTimelineGetPaidMarkPaid($type, $textTimelineGetPaidMarkPaid)
@@ -1272,18 +1307,13 @@ abstract class DocumentShow extends Component
             return $textTimelineGetPaidMarkPaid;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textTimelineGetPaidMarkPaid = 'bills.mark_paid';
-                break;
-            default:
-                $textTimelineGetPaidMarkPaid = 'invoices.mark_paid';
-                break;
+        $translation = $this->getTextFromConfig($type, 'timeline_get_paid_mark_paid', 'mark_paid');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textTimelineGetPaidMarkPaid;
+        return 'invoices.mark_paid';
     }
 
     protected function getTextTimelineGetPaidAddPayment($type, $textTimelineGetPaidAddPayment)
@@ -1292,18 +1322,13 @@ abstract class DocumentShow extends Component
             return $textTimelineGetPaidAddPayment;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textTimelineGetPaidAddPayment = 'bills.add_payment';
-                break;
-            default:
-                $textTimelineGetPaidAddPayment = 'invoices.add_payment';
-                break;
+        $translation = $this->getTextFromConfig($type, 'timeline_get_paid_add_payment', 'add_payment');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textTimelineGetPaidAddPayment;
+        return 'invoices.add_payment';
    }
 
    protected function getHideItems($type, $hideItems, $hideName, $hideDescription)

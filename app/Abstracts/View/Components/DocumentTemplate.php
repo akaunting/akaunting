@@ -2,15 +2,15 @@
 
 namespace App\Abstracts\View\Components;
 
-use Illuminate\View\Component;
-use Illuminate\Support\Str;
+use App\Abstracts\View\Components\Document as Base;
 use App\Traits\DateTime;
 use App\Models\Common\Media;
 use File;
 use Image;
 use Storage;
+use Illuminate\Support\Str;
 
-abstract class DocumentTemplate extends Component
+abstract class DocumentTemplate extends Base
 {
     use DateTime;
 
@@ -251,18 +251,13 @@ abstract class DocumentTemplate extends Component
             return $textDocumentNumber;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textDocumentNumber = 'bills.bill_number';
-                break;
-            default:
-                $textDocumentNumber = 'invoices.invoice_number';
-                break;
+        $translation = $this->getTextFromConfig($type, 'document_number', 'numbers');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textDocumentNumber;
+        return 'general.numbers';
     }
 
     protected function getTextOrderNumber($type, $textOrderNumber)
@@ -271,18 +266,13 @@ abstract class DocumentTemplate extends Component
             return $textOrderNumber;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textOrderNumber = 'bills.order_number';
-                break;
-            default:
-                $textOrderNumber = 'invoices.order_number';
-                break;
+        $translation = $this->getTextFromConfig($type, 'order_number');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textOrderNumber;
+        return 'invoices.order_number';
     }
 
     protected function getTextContactInfo($type, $textContactInfo)
@@ -295,14 +285,20 @@ abstract class DocumentTemplate extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textContactInfo = 'bills.bill_from';
+                $default_key = 'bill_from';
                 break;
             default:
-                $textContactInfo = 'invoices.bill_to';
+                $default_key = 'bill_to';
                 break;
         }
 
-        return $textContactInfo;
+        $translation = $this->getTextFromConfig($type, 'contact_info', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.bill_to';
     }
 
     protected function getTextIssuedAt($type, $textIssuedAt)
@@ -315,14 +311,20 @@ abstract class DocumentTemplate extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textIssuedAt = 'bills.bill_date';
+                $default_key = 'bill_date';
                 break;
             default:
-                $textIssuedAt = 'invoices.invoice_date';
+                $default_key = 'invoice_date';
                 break;
         }
 
-        return $textIssuedAt;
+        $translation = $this->getTextFromConfig($type, 'issued_at', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.invoice_date';
     }
 
     protected function getTextDueAt($type, $textDueAt)
@@ -331,18 +333,13 @@ abstract class DocumentTemplate extends Component
             return $textDueAt;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textDueAt = 'bills.due_date';
-                break;
-            default:
-                $textDueAt = 'invoices.due_date';
-                break;
+        $translation = $this->getTextFromConfig($type, 'due_at', 'due_date');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textDueAt;
+        return 'invoices.due_date';
     }
 
     protected function getTextItems($type, $textItems)
@@ -351,22 +348,18 @@ abstract class DocumentTemplate extends Component
             return $textItems;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textItems = 'general.items';
-                break;
-            default:
-                $textItems = setting('invoice.item_name', 'general.items');
-
-                if ($textItems == 'custom') {
-                    $textItems = setting('invoice.item_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.item_name', 'items') == 'custom') {
+            return setting($type . '.item_name_input');
         }
 
-        return $textItems;
+        $translation = $this->getTextFromConfig($type, 'items');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.items';
     }
 
     protected function getTextQuantity($type, $textQuantity)
@@ -375,46 +368,38 @@ abstract class DocumentTemplate extends Component
             return $textQuantity;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textQuantity = 'bills.quantity';
-                break;
-            default:
-                $textQuantity = setting('invoice.quantity_name', 'invoices.quantity');
-
-                if ($textQuantity == 'custom') {
-                    $textQuantity = setting('invoice.quantity_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.quantity_name', 'quantity') == 'custom') {
+            return setting($type . '.quantity_name_input');
         }
 
-        return $textQuantity;
+        $translation = $this->getTextFromConfig($type, 'quantity');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.quantity';
     }
 
-    protected function getTextPrice($type, $text_price)
+    protected function getTextPrice($type, $textPrice)
     {
-        if (!empty($text_price)) {
-            return $text_price;
+        if (!empty($textPrice)) {
+            return $textPrice;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $text_price = 'bills.price';
-                break;
-            default:
-                $text_price = setting('invoice.price_name', 'invoices.price');
-
-                if ($text_price == 'custom') {
-                    $text_price = setting('invoice.price_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.price_name', 'price') == 'custom') {
+            return setting($type . '.price_name_input');
         }
 
-        return $text_price;
+        $translation = $this->getTextFromConfig($type, 'price');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.price';
     }
 
     protected function getTextAmount($type, $textAmount)
@@ -423,9 +408,13 @@ abstract class DocumentTemplate extends Component
             return $textAmount;
         }
 
-        $textAmount = 'general.amount';
+        $translation = $this->getTextFromConfig($type, 'amount');
 
-        return $textAmount;
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.amount';
     }
 
     protected function getHideItems($type, $hideItems, $hideName, $hideDescription)

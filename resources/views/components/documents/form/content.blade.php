@@ -1,6 +1,6 @@
 @if (empty($document))
     {!! Form::open([
-        'route' => $formRoute,
+        'route' => $routeStore,
         'id' => $formId,
         '@submit.prevent' => $formSubmit,
         '@keydown' => 'form.errors.clear($event.target.name)',
@@ -11,7 +11,7 @@
     ]) !!}
 @else
     {!! Form::model($document, [
-        'route' => [$formRoute, $document->id],
+        'route' => [$routeUpdate, $document->id],
         'id' => $formId,
         'method' => 'PATCH',
         '@submit.prevent' => $formSubmit,

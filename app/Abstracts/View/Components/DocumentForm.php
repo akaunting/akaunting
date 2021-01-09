@@ -2,13 +2,13 @@
 
 namespace App\Abstracts\View\Components;
 
+use App\Abstracts\View\Components\Document as Base;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
 use App\Traits\Documents;
 use Date;
-use Illuminate\View\Component;
 use Illuminate\Support\Str;
-abstract class DocumentForm extends Component
+abstract class DocumentForm extends Base
 {
     use Documents;
 
@@ -43,7 +43,10 @@ abstract class DocumentForm extends Component
 
     /** Content Component Start */
     /** @var string */
-    public $formRoute;
+    public $routeStore;
+
+    /** @var string */
+    public $routeUpdate;
 
     /** @var string */
     public $formId;
@@ -191,7 +194,7 @@ abstract class DocumentForm extends Component
         bool $hideLogo = false, bool $hideDocumentTitle = false, bool $hideDocumentSubheading = false, bool $hideCompanyEdit = false,
         /** Company Component End */
         /** Content Component Start */
-        string $formRoute = '', string $formId = 'document', string $formSubmit = 'onSubmit',
+        string $routeStore = '', string $routeUpdate = '', string $formId = 'document', string $formSubmit = 'onSubmit',
         bool $hideCompany = false, bool $hideAdvanced = false, bool $hideFooter = false, bool $hideButtons = false,
         /** Content Component End */
         /** Metadata Component Start */
@@ -226,7 +229,8 @@ abstract class DocumentForm extends Component
         /** Company Component End */
 
         /** Content Component Start */
-        $this->formRoute = ($formRoute) ? $formRoute : $this->getRoute($type, $document);
+        $this->routeStore = $this->getRouteStore($type, $routeStore);
+        $this->routeUpdate = $this->getRouteUpdate($type, $routeUpdate, $document);
         $this->formId = $formId;
         $this->formSubmit = $formSubmit;
 
@@ -283,24 +287,65 @@ abstract class DocumentForm extends Component
         /** Items Component End */
     }
 
-    protected function getRoute($type, $document, $parameters = [])
+    protected function getRouteStore($type, $routeStore)
     {
-        $page = config("type.{$type}.route_name");
+        if (!empty($routeStore)) {
+            return $routeStore;
+        }
 
-        $route = $page . '.store';
+        if ($route = config("type.{$type}.route.store")) {
+            return $route;
+        }
 
-        if ($document) {
+        $prefix = config("type.{$type}.route.prefix");
+
+        $route = $prefix . '.store';
+
+        try {
+            route($route);
+        } catch (\Exception $e) {
+            try {
+                $route = Str::plural($type, 2) . '.store';
+
+                route($route);
+            } catch (\Exception $e) {
+                $route = '';
+            }
+        }
+
+        return $route;
+    }
+
+    protected function getRouteUpdate($type, $routeUpdate, $document, $parameters = [])
+    {
+        if (!empty($routeUpdate)) {
+            return $routeUpdate;
+        }
+
+        if ($route = config("type.{$type}.route.update")) {
+            return $route;
+        }
+
+        $prefix = config("type.{$type}.route.prefix");
+
+        $route = $prefix . '.update';
+
+        if (!empty($parameters)) {
             $parameters = [
-                config("type.{$type}.route_parameter") => $document->id
+                config("type.{$type}.route.parameter") => $document->id
             ];
-
-            $route = $page . '.update';
         }
 
         try {
             route($route, $parameters);
         } catch (\Exception $e) {
-            $route = '';
+            try {
+                $route = Str::plural($type, 2) . '.update';
+
+                route($route, $parameters);
+            } catch (\Exception $e) {
+                $route = '';
+            }
         }
 
         return $route;
@@ -344,6 +389,13 @@ abstract class DocumentForm extends Component
             return $contact_type;
         }
 
+        if ($contact_type = config("type.{$type}.contact_type")) {
+            return $contact_type;
+        }
+
+        // set default type
+        $type = Document::INVOICE_TYPE;
+
         return config("type.{$type}.contact_type");
     }
 
@@ -353,24 +405,19 @@ abstract class DocumentForm extends Component
             return $textAddContact;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textAddContact = [
-                    'general.form.add',
-                    'general.vendors'
-                ];
-                break;
-            default:
-                $textAddContact = [
-                    'general.form.add',
-                    'general.customers'
-                ];
-                break;
+        $translation = $this->getTextFromConfig($type, 'add_contact', Str::plural($this->contactType, 2), 'trans_choice');
+
+        if (!empty($translation)) {
+            return [
+                'general.form.add',
+                $translation,
+            ];
         }
 
-        return $textAddContact;
+        return [
+            'general.form.add',
+            'general.customers',
+        ];
     }
 
     protected function getTextCreateNewContact($type, $textCreateNewContact)
@@ -379,24 +426,21 @@ abstract class DocumentForm extends Component
             return $textCreateNewContact;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textCreateNewContact = [
-                    'general.form.add_new',
-                    'general.vendors'
-                ];
-                break;
-            default:
-                $textCreateNewContact = [
-                    'general.form.add_new',
-                    'general.customers'
-                ];
-                break;
+        $contact_type = Str::plural(config('type.' . $type . '.contact_type'), 2);
+
+        $translation = $this->getTextFromConfig($type, 'create_new_contact', $contact_type, 'trans_choice');
+
+        if (!empty($translation)) {
+            return [
+                'general.form.add_new',
+                $translation,
+            ];
         }
 
-        return $textCreateNewContact;
+        return [
+            'general.form.add_new',
+            'general.customers',
+        ];
     }
 
     protected function getTextEditContact($type, $textEditContact)
@@ -405,18 +449,13 @@ abstract class DocumentForm extends Component
             return $textEditContact;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textEditContact = 'general.form.edit';
-                break;
-            default:
-                $textEditContact = 'general.form.edit';
-                break;
+        $translation = $this->getTextFromConfig($type, 'edit_contact', 'form.edit');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textEditContact;
+        return 'general.form.edit';
     }
 
     protected function getTextContactInfo($type, $textContactInfo)
@@ -429,14 +468,20 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textContactInfo = 'bills.bill_from';
+                $default_key = 'bill_from';
                 break;
             default:
-                $textContactInfo = 'invoices.bill_to';
+                $default_key = 'bill_to';
                 break;
         }
 
-        return $textContactInfo;
+        $translation = $this->getTextFromConfig($type, 'contact_info', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.bill_to';
     }
 
     protected function getTextChooseDifferentContact($type, $textChooseDifferentContact)
@@ -445,24 +490,19 @@ abstract class DocumentForm extends Component
             return $textChooseDifferentContact;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textChooseDifferentContact = [
-                    'general.form.choose_different',
-                    'general.vendors'
-                ];
-                break;
-            default:
-                $textChooseDifferentContact = [
-                    'general.form.choose_different',
-                    'general.customers'
-                ];
-                break;
+        $translation = $this->getTextFromConfig($type, 'choose_different_contact', Str::plural($this->contactType, 2), 'trans_choice');
+
+        if (!empty($translation)) {
+            return [
+                'general.form.choose_different',
+                $translation,
+            ];
         }
 
-        return $textChooseDifferentContact;
+        return [
+            'general.form.choose_different',
+            'general.customers'
+        ];
     }
 
     protected function getIssuedAt($type, $document, $issued_at)
@@ -560,14 +600,20 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textDocumentNumber = 'bills.bill_number';
+                $default_key = 'bill_number';
                 break;
             default:
-                $textDocumentNumber = 'invoices.invoice_number';
+                $default_key = 'invoice_number';
                 break;
         }
 
-        return $textDocumentNumber;
+        $translation = $this->getTextFromConfig($type, 'document_number', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.invoice_number';
     }
 
     protected function getTextOrderNumber($type, $textOrderNumber)
@@ -576,18 +622,13 @@ abstract class DocumentForm extends Component
             return $textOrderNumber;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textOrderNumber = 'bills.order_number';
-                break;
-            default:
-                $textOrderNumber = 'invoices.order_number';
-                break;
+        $translation = $this->getTextFromConfig($type, 'order_number');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textOrderNumber;
+        return 'invoices.order_number';
     }
 
     protected function getTextIssuedAt($type, $textIssuedAt)
@@ -600,14 +641,20 @@ abstract class DocumentForm extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textIssuedAt = 'bills.bill_date';
+                $default_key = 'bill_date';
                 break;
             default:
-                $textIssuedAt = 'invoices.invoice_date';
+                $default_key = 'invoice_date';
                 break;
         }
 
-        return $textIssuedAt;
+        $translation = $this->getTextFromConfig($type, 'issued_at', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.invoice_date';
     }
 
     protected function getTextDueAt($type, $textDueAt)
@@ -616,90 +663,73 @@ abstract class DocumentForm extends Component
             return $textDueAt;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textDueAt = 'bills.due_date';
-                break;
-            default:
-                $textDueAt = 'invoices.due_date';
-                break;
+        $translation = $this->getTextFromConfig($type, 'due_at', 'due_date');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textDueAt;
+        return 'invoices.due_date';
     }
 
-    protected function getTextItems($type, $text_items)
+    protected function getTextItems($type, $textItems)
     {
-        if (!empty($text_items)) {
-            return $text_items;
+        if (!empty($textItems)) {
+            return $textItems;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $text_items = 'general.items';
-                break;
-            default:
-                $text_items = setting('invoice.item_name', 'general.items');
-
-                if ($text_items == 'custom') {
-                    $text_items = setting('invoice.item_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.item_name', 'items') == 'custom') {
+            return setting($type . '.item_name_input');
         }
 
-        return $text_items;
+        $translation = $this->getTextFromConfig($type, 'items');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.items';
     }
 
-    protected function getTextQuantity($type, $text_quantity)
+    protected function getTextQuantity($type, $textQuantity)
     {
-        if (!empty($text_quantity)) {
-            return $text_quantity;
+        if (!empty($textQuantity)) {
+            return $textQuantity;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $text_quantity = 'bills.quantity';
-                break;
-            default:
-                $text_quantity = setting('invoice.quantity_name', 'invoices.quantity');
-
-                if ($text_quantity == 'custom') {
-                    $text_quantity = setting('invoice.quantity_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.quantity_name', 'quantity') == 'custom') {
+            return setting($type . '.quantity_name_input');
         }
 
-        return $text_quantity;
+        $translation = $this->getTextFromConfig($type, 'quantity');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.quantity';
     }
 
-    protected function getTextPrice($type, $text_price)
+    protected function getTextPrice($type, $textPrice)
     {
-        if (!empty($text_price)) {
-            return $text_price;
+        if (!empty($textPrice)) {
+            return $textPrice;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $text_price = 'bills.price';
-                break;
-            default:
-                $text_price = setting('invoice.price_name', 'invoices.price');
-
-                if ($text_price == 'custom') {
-                    $text_price = setting('invoice.price_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.price_name', 'price') == 'custom') {
+            return setting($type . '.price_name_input');
         }
 
-        return $text_price;
+        $translation = $this->getTextFromConfig($type, 'price');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.price';
     }
 
     protected function getTextAmount($type, $text_amount)
@@ -708,9 +738,13 @@ abstract class DocumentForm extends Component
             return $text_amount;
         }
 
-        $text_amount = 'general.amount';
+        $translation = $this->getTextFromConfig($type, 'amount');
 
-        return $text_amount;
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.amount';
     }
 
     protected function getHideItems($type, $hideItems, $hideName, $hideDescription)
