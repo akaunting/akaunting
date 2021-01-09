@@ -405,7 +405,7 @@ trait Permissions
 
         // Fire event to find the proper controller for common API endpoints
         if (in_array($table, ['contacts', 'documents', 'transactions'])) {
-            $controller = config('type.' . request()->get('type') . '.permission_name');
+            $controller = config('type.' . request()->get('type') . '.permission.prefix');
         } else {
             $route = app(Route::class);
 
