@@ -53,7 +53,7 @@ abstract class Document extends Component
         return $translation;
     }
 
-    public function getRouteFromConfig($type, $config_key)
+    public function getRouteFromConfig($type, $config_key, $config_parameters = [])
     {
         $route = '';
 
@@ -62,7 +62,23 @@ abstract class Document extends Component
             return $route;
         }
 
-        $prefix = config("type.' . $type . '.route.prefix");
+        $prefix = config('type.' . $type . '.route.prefix');
+
+        $route = $prefix . '.' . $config_key;
+
+        try {
+            route($route, $config_parameters);
+        } catch (\Exception $e) {
+            try {
+                $route = Str::plural($type, 2) . '.' . $config_key;
+
+                route($route, $config_parameters);
+            } catch (\Exception $e) {
+                $route = '';
+            }
+        }
+
+        return $route;
     }
 
     public function getPermissionFromConfig($type, $config_key)

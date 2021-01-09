@@ -294,27 +294,13 @@ abstract class DocumentForm extends Base
             return $routeStore;
         }
 
-        if ($route = config("type.{$type}.route.store")) {
+        $route = $this->getRouteFromConfig($type, 'store');
+
+        if (!empty($route)) {
             return $route;
         }
 
-        $prefix = config("type.{$type}.route.prefix");
-
-        $route = $prefix . '.store';
-
-        try {
-            route($route);
-        } catch (\Exception $e) {
-            try {
-                $route = Str::plural($type, 2) . '.store';
-
-                route($route);
-            } catch (\Exception $e) {
-                $route = '';
-            }
-        }
-
-        return $route;
+        return 'invoices.store';
     }
 
     protected function getRouteUpdate($type, $routeUpdate, $document, $parameters = [])
@@ -323,33 +309,17 @@ abstract class DocumentForm extends Base
             return $routeUpdate;
         }
 
-        if ($route = config("type.{$type}.route.update")) {
+        $parameters = [
+            config('type.' . $type. '.route.parameter') => $document->id
+        ];
+
+        $route = $this->getRouteFromConfig($type, 'update', $parameters);
+
+        if (!empty($route)) {
             return $route;
         }
 
-        $prefix = config("type.{$type}.route.prefix");
-
-        $route = $prefix . '.update';
-
-        if (!empty($parameters)) {
-            $parameters = [
-                config("type.{$type}.route.parameter") => $document->id
-            ];
-        }
-
-        try {
-            route($route, $parameters);
-        } catch (\Exception $e) {
-            try {
-                $route = Str::plural($type, 2) . '.update';
-
-                route($route, $parameters);
-            } catch (\Exception $e) {
-                $route = '';
-            }
-        }
-
-        return $route;
+        return 'invoices.update';
     }
 
     protected function getContacts($type, $contacts)

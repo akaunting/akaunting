@@ -605,7 +605,7 @@ abstract class DocumentShow extends Base
             return $signedUrl;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        $page = config('type.' . $type . '.route.prefix');
 
         $route = 'signed.' . $page . '.show';
 
@@ -614,7 +614,7 @@ abstract class DocumentShow extends Base
 
             $signedUrl = URL::signedRoute($route, [$this->document->id, 'company_id' => session('company_id')]);
         } catch (\Exception $e) {
-            $route = '';
+            $signedUrl = URL::signedRoute('signed.invoices.show', [$this->document->id, 'company_id' => session('company_id')]);
         }
 
         return $signedUrl;
@@ -660,17 +660,13 @@ abstract class DocumentShow extends Base
             return $routeButtonAddNew;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        $route = $this->getRouteFromConfig($type, 'create');
 
-        $route = $page . '.create';
-
-        try {
-            route($route);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.create';
     }
 
     protected function getRouteButtonEdit($type, $routeButtonEdit)
@@ -679,20 +675,16 @@ abstract class DocumentShow extends Base
             return $routeButtonEdit;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.edit';
+        $route = $this->getRouteFromConfig($type, 'edit', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.edit';
     }
 
     protected function getRouteButtonDuplicate($type, $routeButtonDuplicate)
@@ -701,20 +693,16 @@ abstract class DocumentShow extends Base
             return $routeButtonDuplicate;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.duplicate';
+        $route = $this->getRouteFromConfig($type, 'duplicate', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.duplicate';
     }
 
     protected function getRouteButtonPrint($type, $routeButtonPrint)
@@ -723,20 +711,16 @@ abstract class DocumentShow extends Base
             return $routeButtonPrint;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.print';
+        $route = $this->getRouteFromConfig($type, 'print', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.print';
     }
 
     protected function getRouteButtonPdf($type, $routeButtonPdf)
@@ -745,20 +729,16 @@ abstract class DocumentShow extends Base
             return $routeButtonPdf;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.pdf';
+        $route = $this->getRouteFromConfig($type, 'pdf', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.pdf';
     }
 
     protected function getRouteButtonCancelled($type, $routeButtonCancelled)
@@ -767,20 +747,16 @@ abstract class DocumentShow extends Base
             return $routeButtonCancelled;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.cancelled';
+        $route = $this->getRouteFromConfig($type, 'cancelled', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.cancelled';
     }
 
     protected function getRouteButtonCustomize($type, $routeButtonCustomize)
@@ -794,7 +770,7 @@ abstract class DocumentShow extends Base
         try {
             route($route);
         } catch (\Exception $e) {
-            $route = '';
+            $route = 'settings.invoice.edit';
         }
 
         return $route;
@@ -806,20 +782,16 @@ abstract class DocumentShow extends Base
             return $routeButtonDelete;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.destroy';
+        $route = $this->getRouteFromConfig($type, 'destroy', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.destroy';
     }
 
     protected function getRouteButtonPaid($type, $routeButtonPaid)
@@ -828,20 +800,16 @@ abstract class DocumentShow extends Base
             return $routeButtonPaid;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.paid';
+        $route = $this->getRouteFromConfig($type, 'paid', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.paid';
     }
 
     protected function getRouteButtonSent($type, $routeButtonSent)
@@ -850,20 +818,16 @@ abstract class DocumentShow extends Base
             return $routeButtonSent;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.sent';
+        $route = $this->getRouteFromConfig($type, 'sent', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.sent';
     }
 
     protected function getRouteButtonReceived($type, $routeButtonReceived)
@@ -872,20 +836,16 @@ abstract class DocumentShow extends Base
             return $routeButtonReceived;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.received';
+        $route = $this->getRouteFromConfig($type, 'received', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.received';
     }
 
     protected function getRouteButtonEmail($type, $routeButtonEmail)
@@ -894,20 +854,16 @@ abstract class DocumentShow extends Base
             return $routeButtonEmail;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.email';
+        $route = $this->getRouteFromConfig($type, 'email', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.email';
     }
 
     protected function getPermissionCreate($type, $permissionCreate)

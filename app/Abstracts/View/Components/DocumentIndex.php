@@ -267,7 +267,7 @@ abstract class DocumentIndex extends Base
         $this->classDocumentNumber = $this->getClassDocumentNumber($type, $classDocumentNumber);
         $this->classContactName = $this->getClassContactName($type, $classContactName);
         $this->classAmount = $this->getClassAmount($type, $classAmount);
-        $this->classIssuedAt = $this->getclassIssuedAt($type, $classIssuedAt);
+        $this->classIssuedAt = $this->getClassIssuedAt($type, $classIssuedAt);
         $this->classDueAt = $this->getClassDueAt($type, $classDueAt);
         $this->classStatus = $this->getClassStatus($type, $classStatus);
         $this->classActions = $this->getClassActions($type, $classActions);
@@ -290,6 +290,12 @@ abstract class DocumentIndex extends Base
     {
         if (!empty($page)) {
             return $page;
+        }
+
+        $route = $this->getRouteFromConfig($type, 'update');
+
+        if (!empty($route)) {
+            return $route;
         }
 
         return config("type.{$type}.route.prefix");
@@ -323,17 +329,13 @@ abstract class DocumentIndex extends Base
             return $createRoute;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        $route = $this->getRouteFromConfig($type, 'create');
 
-        $route = $page . '.create';
-
-        try {
-            route($route);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.create';
     }
 
     protected function getImportRoute($importRoute)
@@ -353,10 +355,12 @@ abstract class DocumentIndex extends Base
             return $importRouteParameters;
         }
 
+        $route = $this->getRouteFromConfig($type, 'import');
+
         $importRouteParameters = [
-            'group' => config("type.{$type}.group"),
-            'type' => config("type.{$type}.route.prefix"),
-            'route' => 'invoices.import',
+            'group' => config('type.' . $type . '.group'),
+            'type' => config('type.' . $type . '.route.prefix'),
+            'route' => ($route) ? $route : 'invoices.import',
         ];
 
         return $importRouteParameters;
@@ -368,17 +372,13 @@ abstract class DocumentIndex extends Base
             return $exportRoute;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        $route = $this->getRouteFromConfig($type, 'export');
 
-        $route = $page . '.export';
-
-        try {
-            route($route);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.export';
     }
 
     protected function getRoute($type, $formCardHeaderRoute)
@@ -387,17 +387,13 @@ abstract class DocumentIndex extends Base
             return $formCardHeaderRoute;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        $route = $this->getRouteFromConfig($type, 'index');
 
-        $route = $page . '.index';
-
-        try {
-            route($route);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.index';
     }
 
     protected function getSearchStringModel($type, $searchStringModel)
@@ -480,9 +476,15 @@ abstract class DocumentIndex extends Base
             return $bulkActionRouteParameters;
         }
 
+        $group = config('type.' . $type . '.group');
+
+        if (!empty(config('type.' . $type . '.alias'))) {
+            $group = config('type.' . $type . '.alias');
+        }
+
         $bulkActionRouteParameters = [
-            'group' => config("type.{$type}.group"),
-            'type' => config("type.{$type}.route.prefix")
+            'group' => $group,
+            'type' => config('type.' . $type . '.route.prefix')
         ];
 
         return $bulkActionRouteParameters;
@@ -594,7 +596,7 @@ abstract class DocumentIndex extends Base
         return 'invoices.invoice_date';
     }
 
-    protected function getclassIssuedAt($type, $classIssuedAt)
+    protected function getClassIssuedAt($type, $classIssuedAt)
     {
         if (!empty($classIssuedAt)) {
             return $classIssuedAt;
@@ -684,20 +686,16 @@ abstract class DocumentIndex extends Base
             return $routeButtonShow;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.show';
+        $route = $this->getRouteFromConfig($type, 'show', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.show';
     }
 
     protected function getRouteButtonEdit($type, $routeButtonEdit)
@@ -706,20 +704,16 @@ abstract class DocumentIndex extends Base
             return $routeButtonEdit;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.edit';
+        $route = $this->getRouteFromConfig($type, 'edit', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.edit';
     }
 
     protected function getRouteButtonDuplicate($type, $routeButtonDuplicate)
@@ -728,20 +722,16 @@ abstract class DocumentIndex extends Base
             return $routeButtonDuplicate;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.duplicate';
+        $route = $this->getRouteFromConfig($type, 'duplicate', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.duplicate';
     }
 
     protected function getRouteButtonCancelled($type, $routeButtonCancelled)
@@ -750,20 +740,16 @@ abstract class DocumentIndex extends Base
             return $routeButtonCancelled;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.cancelled';
+        $route = $this->getRouteFromConfig($type, 'cancelled', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.cancelled';
     }
 
     protected function getRouteButtonDelete($type, $routeButtonDelete)
@@ -772,20 +758,16 @@ abstract class DocumentIndex extends Base
             return $routeButtonDelete;
         }
 
-        $page = config("type.{$type}.route.prefix");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.destroy';
+        $route = $this->getRouteFromConfig($type, 'destroy', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.destroy';
     }
 
     protected function getPermissionCreate($type, $permissionCreate)
