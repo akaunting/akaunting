@@ -553,15 +553,11 @@ abstract class DocumentShow extends Base
             return $documentTemplate;
         }
 
-        $documentTemplate = 'default';
-
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $documentTemplate =  setting('invoice.template', 'default');
-                break;
+        if ($template = config('type.' . $type . 'template', false)) {
+            return $template;
         }
+
+        $documentTemplate = setting($type . '.template', 'default');
 
         return $documentTemplate;
     }
@@ -963,6 +959,12 @@ abstract class DocumentShow extends Base
             return $classHeaderStatus;
         }
 
+        $class = $this->getTextFromConfig($type, 'header_status');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-md-2';
     }
 
@@ -970,6 +972,12 @@ abstract class DocumentShow extends Base
     {
         if (!empty($classHeaderContact)) {
             return $classHeaderContact;
+        }
+
+        $class = $this->getTextFromConfig($type, 'header_contact');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         return 'col-md-6';
@@ -981,6 +989,12 @@ abstract class DocumentShow extends Base
             return $classHeaderAmount;
         }
 
+        $class = $this->getTextFromConfig($type, 'header_amount');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-md-2';
     }
 
@@ -988,6 +1002,12 @@ abstract class DocumentShow extends Base
     {
         if (!empty($classHeaderDueAt)) {
             return $classHeaderDueAt;
+        }
+
+        $class = $this->getTextFromConfig($type, 'header_due_at');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         return 'col-md-2';
@@ -1000,6 +1020,10 @@ abstract class DocumentShow extends Base
         }
 
         $hideTimelineStatuses = ['paid', 'cancelled'];
+
+        if ($timelime_statuses = config('type.' . $type . 'timeline_statuses')) {
+            $hideTimelineStatuses = $timelime_statuses;
+        }
 
         return $hideTimelineStatuses;
     }

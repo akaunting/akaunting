@@ -360,14 +360,14 @@ abstract class DocumentForm extends Base
             return $contact_type;
         }
 
-        if ($contact_type = config("type.{$type}.contact_type")) {
+        if ($contact_type = config('type.' . $type . '.contact_type')) {
             return $contact_type;
         }
 
         // set default type
         $type = Document::INVOICE_TYPE;
 
-        return config("type.{$type}.contact_type");
+        return config('type.' . $type . '.contact_type');
     }
 
     protected function getTextAddContact($type, $textAddContact)
@@ -480,28 +480,25 @@ abstract class DocumentForm extends Base
         ];
     }
 
-    protected function getIssuedAt($type, $document, $issued_at)
+    protected function getIssuedAt($type, $document, $issuedAt)
     {
-        if (!empty($issued_at)) {
-            return $issued_at;
+        if (!empty($issuedAt)) {
+            return $issuedAt;
         }
 
         if ($document) {
             return $document->issued_at;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $issued_at = request()->get('billed_at', Date::now()->toDateString());
-                break;
-            default:
-                $issued_at = request()->get('invoiced_at', Date::now()->toDateString());
-                break;
+        $issued_at = $type . '_at';
+
+        if (request()->has($issued_at)) {
+            $issuedAt = request()->get($issued_at); 
+        } else {
+            request()->get('invoiced_at', Date::now()->toDateString());
         }
 
-        return $issued_at;
+        return $issuedAt;
     }
 
     protected function getDocumentNumber($type, $document, $document_number)
@@ -514,15 +511,10 @@ abstract class DocumentForm extends Base
             return $document->document_number;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $document_number = $this->getNextDocumentNumber(Document::BILL_TYPE);
-                break;
-            default:
-                $document_number = $this->getNextDocumentNumber(Document::INVOICE_TYPE);
-                break;
+        $document_number = $this->getNextDocumentNumber($type);
+        
+        if (empty($document_number)) {
+            $document_number = $this->getNextDocumentNumber(Document::INVOICE_TYPE);
         }
 
         return $document_number;
@@ -537,6 +529,8 @@ abstract class DocumentForm extends Base
         if ($document) {
             return $document->due_at;
         }
+        
+        $addDays = (setting($type . '.payment_terms', 0)) ? setting($type . '.payment_terms', 0) : setting('invoice.payment_terms', 0);
 
         switch ($type) {
             case 'bill':
@@ -545,7 +539,7 @@ abstract class DocumentForm extends Base
                 $due_at = request()->get('billed_at', Date::now()->toDateString());
                 break;
             default:
-                $due_at = Date::parse(request()->get('invoiced_at', Date::now()->toDateString()))->addDays(setting('invoice.payment_terms', 0))->toDateString();
+                $due_at = Date::parse(request()->get('invoiced_at', Date::now()->toDateString()))->addDays($addDays)->toDateString();
                 break;
         }
 

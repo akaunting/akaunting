@@ -175,17 +175,11 @@ abstract class DocumentTemplate extends Base
             return $documentTemplate;
         }
 
-        // $documentTemplate = 'components.documents.template.default';
-        $documentTemplate = 'default';
-
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                // $documentTemplate =  'components.documents.template.' . setting('invoice.template', 'default');
-                $documentTemplate =  setting('invoice.template', 'default');
-                break;
+        if ($template = config('type.' . $type . 'template', false)) {
+            return $template;
         }
+
+        $documentTemplate =  setting($type . '.template', 'default');
 
         return $documentTemplate;
     }
@@ -229,18 +223,11 @@ abstract class DocumentTemplate extends Base
             return $backgroundColor;
         }
 
-        $backgroundColor = '#55588b';
-
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $backgroundColor = setting('bill.color');
-                break;
-            default:
-                $backgroundColor = setting('invoice.color');
-                break;
+        if ($background_color = config('type.' . $type . 'color', false)) {
+            return $background_color;
         }
+
+        $backgroundColor = setting($type . '.color', '#55588b');
 
         return $backgroundColor;
     }

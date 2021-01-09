@@ -123,4 +123,11 @@ abstract class Document extends Component
 
         return $hide;
     }
+    
+    public function getClassFromConfig($type, $config_key)
+    {
+        $class_key = 'type.' . $type . '.class.' . $config_key;
+
+        return config($class_key, '');
+    }
 }

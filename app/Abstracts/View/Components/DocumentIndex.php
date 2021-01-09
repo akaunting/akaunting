@@ -292,19 +292,19 @@ abstract class DocumentIndex extends Base
             return $page;
         }
 
-        $route = $this->getRouteFromConfig($type, 'update');
-
-        if (!empty($route)) {
-            return $route;
-        }
-
-        return config("type.{$type}.route.prefix");
+        return config('type.' . $type . '.route.prefix', 'invoices');
     }
 
     protected function getDocsPath($type, $docsPath)
     {
         if (!empty($docsPath)) {
             return $docsPath;
+        }
+
+        $docs_path = config('type.' . $type . '.docs_path');
+
+        if (!empty($docs_path)) {
+            return $docs_path;
         }
 
         switch ($type) {
@@ -401,18 +401,23 @@ abstract class DocumentIndex extends Base
         if (!empty($searchStringModel)) {
             return $searchStringModel;
         }
+        
+        $search_string_model = config('type.' . $type . '.search_string_model');
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $searchStringModel = 'App\Models\Sale\Invoice';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $searchStringModel = 'App\Models\Purchase\Bill';
-                break;
+        if (!empty($search_string_model)) {
+            return $search_string_model;
+        }
+
+        if ($group = config('type.' . $type . '.group')) {
+            $group = Str::studly(Str::plural($group, 1)) . '\\';
+        }
+
+        $prefix = Str::studly(Str::plural(config('type.' . $type . '.route.prefix'), 1))
+
+        if ($alias = config('type.' . $type . '.alias')) {
+            $searchStringModel = 'Modules\\' . Str::studly($alias) .'\Models\\' . $group . $prefix;
+        } else {
+            $searchStringModel = 'App\Models\\' . $group . $prefix;
         }
 
         return $searchStringModel;
@@ -441,17 +446,32 @@ abstract class DocumentIndex extends Base
             return $bulkActions;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $bulkActionClass = 'App\BulkActions\Sales\Invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $bulkActionClass = 'App\BulkActions\Purchases\Bills';
-                break;
+        $bulk_actions = config('type.' . $type . '.bulk_actions');
+
+        if (!empty($bulk_actions)) {
+            return $bulk_actions;
+        }
+
+        $file_name = '';
+
+        if ($group = config('type.' . $type . '.group')) {
+            $file_name .= Str::studly($group) . '\\';
+        }
+
+        if ($prefix = config('type.' . $type . '.route.prefix')) {
+            $file_name .= Str::studly($prefix);
+        }
+
+        if ($alias = config('type.' . $type . '.alias')) {
+            $module = module($alias);
+
+            if (!$module instanceof Module) {
+                return;
+            }
+
+            $bulkActionClass = 'Modules\\' . $module->getStudlyName() . '\BulkActions\\' . $file_name;
+        } else {
+            $bulkActionClass = 'App\BulkActions\\' .  $file_name;
         }
 
         if (class_exists($bulkActionClass)) {
@@ -496,6 +516,12 @@ abstract class DocumentIndex extends Base
             return $classBulkAction;
         }
 
+        $class = $this->getTextFromConfig($type, 'bulk_action');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block';
     }
 
@@ -522,6 +548,12 @@ abstract class DocumentIndex extends Base
 
         if ($classDocumentNumber = $this->getClass('classDocumentNumber')) {
             return $classDocumentNumber;
+        }
+
+        $class = $this->getTextFromConfig($type, 'document_number');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         return 'col-md-2 col-lg-1 col-xl-1 d-none d-md-block';
@@ -554,6 +586,12 @@ abstract class DocumentIndex extends Base
             return $classContactName;
         }
 
+        $class = $this->getTextFromConfig($type, 'contact_name');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 text-left';
     }
 
@@ -565,6 +603,12 @@ abstract class DocumentIndex extends Base
 
         if ($classAmount = $this->getClass('classAmount')) {
             return $classAmount;
+        }
+
+        $class = $this->getTextFromConfig($type, 'amount');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         return 'col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right';
@@ -606,6 +650,12 @@ abstract class DocumentIndex extends Base
             return $classIssuedAt;
         }
 
+        $class = $this->getTextFromConfig($type, 'issued_at');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-lg-2 col-xl-2 d-none d-lg-block text-left';
     }
 
@@ -628,6 +678,12 @@ abstract class DocumentIndex extends Base
     {
         if (!empty($classDueAt)) {
             return $classDueAt;
+        }
+
+        $class = $this->getTextFromConfig($type, 'due_at');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         if ($classDueAt = $this->getClass('classDueAt')) {
@@ -664,6 +720,12 @@ abstract class DocumentIndex extends Base
             return $classStatus;
         }
 
+        $class = $this->getTextFromConfig($type, 'status');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-lg-1 col-xl-1 d-none d-lg-block text-center';
     }
 
@@ -675,6 +737,12 @@ abstract class DocumentIndex extends Base
 
         if ($classActions = $this->getClass('classActions')) {
             return $classActions;
+        }
+
+        $class = $this->getTextFromConfig($type, 'actions');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         return 'col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center';
