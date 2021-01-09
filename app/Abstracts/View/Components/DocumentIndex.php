@@ -235,7 +235,7 @@ abstract class DocumentIndex extends Base
         /* -- Card Header End -- */
 
         /* -- Card Body Start -- */
-        $this->textDocumentNumber = $this->getTextDocumentNumber($textDocumentNumber);
+        $this->textDocumentNumber = $this->getTextDocumentNumber($type, $textDocumentNumber);
         $this->textContactName = $this->getTextContactName($type, $textContactName);
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
         $this->textDueAt = $this->getTextDueAt($type, $textDueAt);
@@ -525,7 +525,7 @@ abstract class DocumentIndex extends Base
         return 'col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block';
     }
 
-    protected function getTextDocumentNumber($textDocumentNumber)
+    protected function getTextDocumentNumber($type, $textDocumentNumber)
     {
         if (!empty($textDocumentNumber)) {
             return $textDocumentNumber;
