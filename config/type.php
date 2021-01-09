@@ -25,6 +25,7 @@ return [
         ],
         'contact_type' => 'customer', // use contact type
         'hide' => [], // for document items
+        'class' => [],
     ],
 
     Document::BILL_TYPE => [

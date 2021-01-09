@@ -310,7 +310,7 @@ abstract class DocumentForm extends Base
         }
 
         $parameters = [
-            config('type.' . $type. '.route.parameter') => $document->id
+            config('type.' . $type. '.route.parameter') => $document->id,
         ];
 
         $route = $this->getRouteFromConfig($type, 'update', $parameters);
@@ -354,10 +354,10 @@ abstract class DocumentForm extends Base
         return $contact;
     }
 
-    protected function getContactType($type, $contact_type)
+    protected function getContactType($type, $contactType)
     {
-        if (!empty($contact_type)) {
-            return $contact_type;
+        if (!empty($contactType)) {
+            return $contactType;
         }
 
         if ($contact_type = config('type.' . $type . '.contact_type')) {
@@ -476,7 +476,7 @@ abstract class DocumentForm extends Base
 
         return [
             'general.form.choose_different',
-            'general.customers'
+            'general.customers',
         ];
     }
 
@@ -501,10 +501,10 @@ abstract class DocumentForm extends Base
         return $issuedAt;
     }
 
-    protected function getDocumentNumber($type, $document, $document_number)
+    protected function getDocumentNumber($type, $document, $documentNumber)
     {
-        if (!empty($document_number)) {
-            return $document_number;
+        if (!empty($documentNumber)) {
+            return $documentNumber;
         }
 
         if ($document) {
@@ -520,10 +520,10 @@ abstract class DocumentForm extends Base
         return $document_number;
     }
 
-    protected function getDueAt($type, $document, $due_at)
+    protected function getDueAt($type, $document, $dueAt)
     {
-        if (!empty($due_at)) {
-            return $due_at;
+        if (!empty($dueAt)) {
+            return $dueAt;
         }
 
         if ($document) {
@@ -546,10 +546,10 @@ abstract class DocumentForm extends Base
         return $due_at;
     }
 
-    protected function getOrderNumber($type, $document, $order_number)
+    protected function getOrderNumber($type, $document, $orderNumber)
     {
-        if (!empty($order_number)) {
-            return $order_number;
+        if (!empty($orderNumber)) {
+            return $orderNumber;
         }
 
         if ($document) {
