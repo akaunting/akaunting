@@ -62,10 +62,10 @@ abstract class Document extends Component
             return $route;
         }
 
-        $prefix = config("type.' . $type . '.route.prefix");        
+        $prefix = config("type.' . $type . '.route.prefix");
     }
 
-    public function getPermissionFromConfig($type, $config_key, $action)
+    public function getPermissionFromConfig($type, $config_key)
     {
         $permission = '';
 
@@ -78,7 +78,7 @@ abstract class Document extends Component
         $group = config('type.' . $type . '.group');
         $prefix = config("type.' . $type . '.permission.prefix");
 
-        $permission = $action . '-';
+        $permission = $config_key . '-';
 
         // if use module set module alias
         if (!empty($alias)) {

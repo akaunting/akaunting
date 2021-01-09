@@ -794,18 +794,7 @@ abstract class DocumentIndex extends Base
             return $permissionCreate;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $permissionCreate = 'create-sales-invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $permissionCreate = 'create-purchases-bills';
-                break;
-        }
+        $permissionCreate = $this->getPermissionFromConfig($type, 'create');
 
         return $permissionCreate;
     }
@@ -816,18 +805,7 @@ abstract class DocumentIndex extends Base
             return $permissionUpdate;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $permissionUpdate = 'update-sales-invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $permissionUpdate = 'update-purchases-bills';
-                break;
-        }
+        $permissionUpdate = $this->getPermissionFromConfig($type, 'update');
 
         return $permissionUpdate;
     }
@@ -838,18 +816,7 @@ abstract class DocumentIndex extends Base
             return $permissionDelete;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $permissionDelete = 'delete-sales-invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $permissionDelete = 'delete-purchases-bills';
-                break;
-        }
+        $permissionDelete = $this->getPermissionFromConfig($type, 'delete');
 
         return $permissionDelete;
     }
