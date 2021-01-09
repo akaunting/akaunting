@@ -420,7 +420,7 @@ export default {
                             let options = [];
 
                             this.selected.forEach(function (selected_option_id, selected_index) {
-                                if (option.key == this.selected) {
+                                if (option.key == selected_option_id) {
                                     indexs.push(selected_index);
                                     values.push(option.id);
                                     labels.push(option.value);
