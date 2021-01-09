@@ -17,7 +17,7 @@ abstract class Document extends Component
         }
 
         $alias = config('type.' . $type . '.alias');
-        $prefix = config("type.' . $type . '.translation.prefix");
+        $prefix = config('type.' . $type . '.translation.prefix');
 
         if (!empty($alias)) {
             $alias .= '::';
@@ -92,7 +92,7 @@ abstract class Document extends Component
 
         $alias = config('type.' . $type . '.alias');
         $group = config('type.' . $type . '.group');
-        $prefix = config("type.' . $type . '.permission.prefix");
+        $prefix = config('type.' . $type . '.permission.prefix');
 
         $permission = $config_key . '-';
 
