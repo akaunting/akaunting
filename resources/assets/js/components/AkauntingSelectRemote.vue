@@ -536,7 +536,7 @@ export default {
                             let options = [];
 
                             this.selected.forEach(function (selected_option_id, selected_index) {
-                                if (option.value == this.selected) {
+                                if (option.value == selected_option_id) {
                                     indexs.push(selected_index);
                                     values.push(option.id);
                                     labels.push(option.value);
@@ -567,7 +567,7 @@ export default {
                         let options = [];
 
                         this.selected.forEach(function (selected_option_id, selected_index) {
-                            if (option.value == this.selected) {
+                            if (option.value == selected_option_id) {
                                 indexs.push(selected_index);
                                 values.push(option.id);
                                 labels.push(option.value);
