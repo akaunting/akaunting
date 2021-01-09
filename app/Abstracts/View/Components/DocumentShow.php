@@ -521,7 +521,7 @@ abstract class DocumentShow extends Base
             return $textRecurringType;
         }
 
-        $default_key = config("type.' . $type . '.translation.prefix");
+        $default_key = config('type.' . $type . '.translation.prefix');
 
         $translation = $this->getTextFromConfig($type, 'recurring_tye', $default_key);
 
@@ -538,7 +538,7 @@ abstract class DocumentShow extends Base
             return $textStatusMessage;
         }
 
-        $default_key = config("type.' . $type . '.translation.prefix") . '.messages.draft';
+        $default_key = config('type.' . $type . '.translation.prefix') . '.messages.draft';
 
         $translation = $this->getTextFromConfig($type, 'status_message', $default_key);
 
@@ -628,7 +628,7 @@ abstract class DocumentShow extends Base
             return $textHistories;
         }
 
-        $default_key = config("type.' . $type . '.translation.prefix") . '.histories';
+        $default_key = config('type.' . $type . '.translation.prefix') . '.histories';
 
         $translation = $this->getTextFromConfig($type, 'histories', $default_key);
 
@@ -645,9 +645,9 @@ abstract class DocumentShow extends Base
             return $textHistoryStatus;
         }
 
-        $default_key = config("type.' . $type . '.translation.prefix") . '.statuses.';
+        $default_key = config('type.' . $type . '.translation.prefix') . '.statuses.';
 
-        $translation = $this->getTextFromConfig($type, 'statuses', $default_key);
+        $translation = $this->getTextFromConfig($type, 'history_status', $default_key);
 
         if (!empty($translation)) {
             return $translation;

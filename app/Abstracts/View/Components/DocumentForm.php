@@ -8,6 +8,7 @@ use App\Models\Document\Document;
 use App\Traits\Documents;
 use Date;
 use Illuminate\Support\Str;
+
 abstract class DocumentForm extends Base
 {
     use Documents;
@@ -405,7 +406,9 @@ abstract class DocumentForm extends Base
             return $textAddContact;
         }
 
-        $translation = $this->getTextFromConfig($type, 'add_contact', Str::plural($this->contactType, 2), 'trans_choice');
+        $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
+
+        $translation = $this->getTextFromConfig($type, 'add_contact', $default_key, 'trans_choice');
 
         if (!empty($translation)) {
             return [
@@ -426,9 +429,9 @@ abstract class DocumentForm extends Base
             return $textCreateNewContact;
         }
 
-        $contact_type = Str::plural(config('type.' . $type . '.contact_type'), 2);
+        $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
 
-        $translation = $this->getTextFromConfig($type, 'create_new_contact', $contact_type, 'trans_choice');
+        $translation = $this->getTextFromConfig($type, 'create_new_contact', $default_key, 'trans_choice');
 
         if (!empty($translation)) {
             return [
@@ -490,7 +493,9 @@ abstract class DocumentForm extends Base
             return $textChooseDifferentContact;
         }
 
-        $translation = $this->getTextFromConfig($type, 'choose_different_contact', Str::plural($this->contactType, 2), 'trans_choice');
+        $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
+
+        $translation = $this->getTextFromConfig($type, 'choose_different_contact', $default_key, 'trans_choice');
 
         if (!empty($translation)) {
             return [
@@ -732,10 +737,10 @@ abstract class DocumentForm extends Base
         return 'invoices.price';
     }
 
-    protected function getTextAmount($type, $text_amount)
+    protected function getTextAmount($type, $textAmount)
     {
-        if (!empty($text_amount)) {
-            return $text_amount;
+        if (!empty($textAmount)) {
+            return $textAmount;
         }
 
         $translation = $this->getTextFromConfig($type, 'amount');

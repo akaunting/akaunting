@@ -427,8 +427,10 @@ abstract class DocumentIndex extends Base
         if (!empty($textBulkAction)) {
             return $textBulkAction;
         }
+        
+        $default_key = config('type.' . $type . '.translation.prefix');
 
-        $translation = $this->getTextFromConfig($type, 'bulk_action', Str::plural($type, 2));
+        $translation = $this->getTextFromConfig($type, 'bulk_action', $default_key, 'trans_choice');
 
         if (!empty($translation)) {
             return $translation;
@@ -529,9 +531,9 @@ abstract class DocumentIndex extends Base
             return $textContactName;
         }
 
-        $contact_type = Str::plural(config('type.' . $type . '.contact_type'), 2);
+        $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
 
-        $translation = $this->getTextFromConfig($type, 'contact_name', $contact_type, 'trans_choice');
+        $translation = $this->getTextFromConfig($type, 'contact_name', $default_key, 'trans_choice');
 
         if (!empty($translation)) {
             return $translation;
@@ -572,7 +574,18 @@ abstract class DocumentIndex extends Base
             return $textIssuedAt;
         }
 
-        $translation = $this->getTextFromConfig($type, 'issued_at');
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $default_key = 'bill_date';
+                break;
+            default:
+                $default_key = 'invoice_date';
+                break;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'issued_at', $default_key);
 
         if (!empty($translation)) {
             return $translation;
@@ -600,7 +613,7 @@ abstract class DocumentIndex extends Base
             return $textDueAt;
         }
 
-        $translation = $this->getTextFromConfig($type, 'due_at');
+        $translation = $this->getTextFromConfig($type, 'due_at', 'due_date');
 
         if (!empty($translation)) {
             return $translation;
@@ -628,7 +641,7 @@ abstract class DocumentIndex extends Base
             return $textDocumentStatus;
         }
 
-        $default_key = config("type.' . $type . '.translation.prefix") . '.statuses.';
+        $default_key = config('type.' . $type . '.translation.prefix') . '.statuses.';
 
         $translation = $this->getTextFromConfig($type, 'document_status', $default_key);
 

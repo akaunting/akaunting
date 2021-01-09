@@ -251,7 +251,18 @@ abstract class DocumentTemplate extends Base
             return $textDocumentNumber;
         }
 
-        $translation = $this->getTextFromConfig($type, 'document_number', 'numbers');
+        switch ($type) {
+            case 'bill':
+            case 'expense':
+            case 'purchase':
+                $default_key = 'bill_number';
+                break;
+            default:
+                $default_key = 'invoice_number';
+                break;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'document_number', $default_key);
 
         if (!empty($translation)) {
             return $translation;
