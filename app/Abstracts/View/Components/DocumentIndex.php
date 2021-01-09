@@ -412,7 +412,7 @@ abstract class DocumentIndex extends Base
             $group = Str::studly(Str::plural($group, 1)) . '\\';
         }
 
-        $prefix = Str::studly(Str::plural(config('type.' . $type . '.route.prefix'), 1))
+        $prefix = Str::studly(Str::plural(config('type.' . $type . '.route.prefix'), 1));
 
         if ($alias = config('type.' . $type . '.alias')) {
             $searchStringModel = 'Modules\\' . Str::studly($alias) .'\Models\\' . $group . $prefix;
