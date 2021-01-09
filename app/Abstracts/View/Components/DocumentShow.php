@@ -1317,7 +1317,7 @@ abstract class DocumentShow extends Base
     }
 
     protected function getTextTimelineGetPaidAddPayment($type, $textTimelineGetPaidAddPayment)
-   {
+    {
         if (!empty($textTimelineGetPaidAddPayment)) {
             return $textTimelineGetPaidAddPayment;
         }
@@ -1331,134 +1331,146 @@ abstract class DocumentShow extends Base
         return 'invoices.add_payment';
    }
 
-   protected function getHideItems($type, $hideItems, $hideName, $hideDescription)
-   {
-       if (!empty($hideItems)) {
-           return $hideItems;
-       }
+    protected function getHideItems($type, $hideItems, $hideName, $hideDescription)
+    {
+        if (!empty($hideItems)) {
+            return $hideItems;
+        }
 
-       $hideItems = ($this->getHideName($type, $hideName) & $this->getHideDescription($type, $hideDescription)) ? true  : false;
+        $hide = $this->getHideFromConfig($type, 'items');
 
-       return $hideItems;
-   }
+        if ($hide) {
+            return $hide;
+        }
 
-   protected function getHideName($type, $hideName)
-   {
-       if (!empty($hideName)) {
-           return $hideName;
-       }
+        $hideItems = ($this->getHideName($type, $hideName) & $this->getHideDescription($type, $hideDescription)) ? true  : false;
 
-       switch ($type) {
-           case 'bill':
-           case 'expense':
-           case 'purchase':
-               $hideName = setting('bill.hide_item_name', $hideName);
-               break;
-           default:
-               $hideName = setting('invoice.hide_item_name', $hideName);
-               break;
-       }
+        return $hideItems;
+    }
 
-       return $hideName;
-   }
+    protected function getHideName($type, $hideName)
+    {
+        if (!empty($hideName)) {
+            return $hideName;
+        }
 
-   protected function getHideDescription($type, $hideDescription)
-   {
-       if (!empty($hideDescription)) {
-           return $hideDescription;
-       }
+        // if you use settting translation
+        if ($hideName = setting($type . '.hide_item_name', false)) {
+            return $hideName;
+        }
 
-       switch ($type) {
-           case 'bill':
-           case 'expense':
-           case 'purchase':
-               $hideDescription = setting('bill.hide_item_description', $hideDescription);
-               break;
-           default:
-               $hideDescription = setting('invoice.hide_item_description', $hideDescription);
-               break;
-       }
+        $hide = $this->getHideFromConfig($type, 'name');
 
-       return $hideDescription;
-   }
+        if ($hide) {
+            return $hide;
+        }
 
-   protected function getHideQuantity($type, $hideQuantity)
-   {
-       if (!empty($hideQuantity)) {
-           return $hideQuantity;
-       }
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_item_name', $hideName);
+    }
 
-       switch ($type) {
-           case 'bill':
-           case 'expense':
-           case 'purchase':
-               $hideQuantity = setting('bill.hide_quantity', $hideQuantity);
-               break;
-           default:
-               $hideQuantity = setting('invoice.hide_quantity', $hideQuantity);
-               break;
-       }
+    protected function getHideDescription($type, $hideDescription)
+    {
+        if (!empty($hideDescription)) {
+            return $hideDescription;
+        }
 
-       return $hideQuantity;
-   }
+        // if you use settting translation
+        if ($hideDescription = setting($type . '.hide_item_description', false)) {
+            return $hideDescription;
+        }
 
-   protected function getHidePrice($type, $hidePrice)
-   {
-       if (!empty($hidePrice)) {
-           return $hidePrice;
-       }
+        $hide = $this->getHideFromConfig($type, 'description');
 
-       switch ($type) {
-           case 'bill':
-           case 'expense':
-           case 'purchase':
-               $hidePrice = setting('bill.hide_price', $hidePrice);
-               break;
-           default:
-               $hidePrice = setting('invoice.hide_price', $hidePrice);
-               break;
-       }
+        if ($hide) {
+            return $hide;
+        }
 
-       return $hidePrice;
-   }
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_item_description', $hideDescription);
+    }
 
-   protected function getHideDiscount($type, $hideDiscount)
-   {
-       if (!empty($hideDiscount)) {
-           return $hideDiscount;
-       }
+    protected function getHideQuantity($type, $hideQuantity)
+    {
+        if (!empty($hideQuantity)) {
+            return $hideQuantity;
+        }
 
-       switch ($type) {
-           case 'bill':
-           case 'expense':
-           case 'purchase':
-               $hideDiscount = setting('bill.hide_discount', $hideDiscount);
-               break;
-           default:
-               $hideDiscount = setting('invoice.hide_discount', $hideDiscount);
-               break;
-       }
+        // if you use settting translation
+        if ($hideQuantity = setting($type . '.hide_quantity', false)) {
+            return $hideQuantity;
+        }
 
-       return $hideDiscount;
-   }
+        $hide = $this->getHideFromConfig($type, 'quantity');
 
-   protected function getHideAmount($type, $hideAmount)
-   {
-       if (!empty($hideAmount)) {
-           return $hideAmount;
-       }
+        if ($hide) {
+            return $hide;
+        }
 
-       switch ($type) {
-           case 'bill':
-           case 'expense':
-           case 'purchase':
-               $hideAmount = setting('bill.hide_amount', $hideAmount);
-               break;
-           default:
-               $hideAmount = setting('invoice.hide_amount', $hideAmount);
-               break;
-       }
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_quantity', $hideQuantity);
+    }
 
-       return $hideAmount;
-   }
+    protected function getHidePrice($type, $hidePrice)
+    {
+        if (!empty($hidePrice)) {
+            return $hidePrice;
+        }
+
+        // if you use settting translation
+        if ($hidePrice = setting($type . '.hide_price', false)) {
+            return $hidePrice;
+        }
+
+        $hide = $this->getHideFromConfig($type, 'price');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_price', $hidePrice);
+    }
+
+    protected function getHideDiscount($type, $hideDiscount)
+    {
+        if (!empty($hideDiscount)) {
+            return $hideDiscount;
+        }
+
+        // if you use settting translation
+        if ($hideDiscount = setting($type . '.hide_discount', false)) {
+            return $hideDiscount;
+        }
+
+        $hide = $this->getHideFromConfig($type, 'discount');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_discount', $hideDiscount);
+    }
+
+    protected function getHideAmount($type, $hideAmount)
+    {
+        if (!empty($hideAmount)) {
+            return $hideAmount;
+        }
+
+        // if you use settting translation
+        if ($hideAmount = setting($type . '.hide_amount', false)) {
+            return $hideAmount;
+        }
+
+        $hide = $this->getHideFromConfig($type, 'amount');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_amount', $hideAmount);
+    }
 }

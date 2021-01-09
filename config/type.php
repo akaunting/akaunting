@@ -24,6 +24,7 @@ return [
             'due_at' => 'invoices.due_date',
         ],
         'contact_type' => 'customer', // use contact type
+        'hide' => [], // for document items
     ],
 
     Document::BILL_TYPE => [
@@ -44,6 +45,7 @@ return [
             'due_at'    => 'bills.due_date',
         ],
         'contact_type' => 'vendor',
+        'hide' => [],
     ],
 
     // Contacts

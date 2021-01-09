@@ -62,9 +62,7 @@ abstract class Document extends Component
             return $route;
         }
 
-        $prefix = config("type.' . $type . '.route.prefix");
-
-        
+        $prefix = config("type.' . $type . '.route.prefix");        
     }
 
     public function getPermissionFromConfig($type, $config_key, $action)
@@ -95,5 +93,18 @@ abstract class Document extends Component
         $permission .= $prefix;
 
         return $permission;
+    }
+
+    public function getHideFromConfig($type, $config_key)
+    {
+        $hide = false;
+
+        $hides = config('type.' . $type . '.hide');
+
+        if (!empty($hides) && (in_array($config_key, $hides))) {
+            $hide = true;
+        }
+
+        return $hide;
     }
 }

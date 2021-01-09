@@ -434,6 +434,12 @@ abstract class DocumentTemplate extends Base
             return $hideItems;
         }
 
+        $hide = $this->getHideFromConfig($type, 'items');
+
+        if ($hide) {
+            return $hide;
+        }
+
         $hideItems = ($this->getHideName($type, $hideName) & $this->getHideDescription($type, $hideDescription)) ? true  : false;
 
         return $hideItems;
@@ -445,18 +451,19 @@ abstract class DocumentTemplate extends Base
             return $hideName;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideName = setting('bill.hide_item_name', $hideName);
-                break;
-            default:
-                $hideName = setting('invoice.hide_item_name', $hideName);
-                break;
+        // if you use settting translation
+        if ($hideName = setting($type . '.hide_item_name', false)) {
+            return $hideName;
         }
 
-        return $hideName;
+        $hide = $this->getHideFromConfig($type, 'name');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_item_name', $hideName);
     }
 
     protected function getHideDescription($type, $hideDescription)
@@ -465,18 +472,19 @@ abstract class DocumentTemplate extends Base
             return $hideDescription;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideDescription = setting('bill.hide_item_description', $hideDescription);
-                break;
-            default:
-                $hideDescription = setting('invoice.hide_item_description', $hideDescription);
-                break;
+        // if you use settting translation
+        if ($hideDescription = setting($type . '.hide_item_description', false)) {
+            return $hideDescription;
         }
 
-        return $hideDescription;
+        $hide = $this->getHideFromConfig($type, 'description');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_item_description', $hideDescription);
     }
 
     protected function getHideQuantity($type, $hideQuantity)
@@ -485,18 +493,19 @@ abstract class DocumentTemplate extends Base
             return $hideQuantity;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideQuantity = setting('bill.hide_quantity', $hideQuantity);
-                break;
-            default:
-                $hideQuantity = setting('invoice.hide_quantity', $hideQuantity);
-                break;
+        // if you use settting translation
+        if ($hideQuantity = setting($type . '.hide_quantity', false)) {
+            return $hideQuantity;
         }
 
-        return $hideQuantity;
+        $hide = $this->getHideFromConfig($type, 'quantity');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_quantity', $hideQuantity);
     }
 
     protected function getHidePrice($type, $hidePrice)
@@ -505,18 +514,19 @@ abstract class DocumentTemplate extends Base
             return $hidePrice;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hidePrice = setting('bill.hide_price', $hidePrice);
-                break;
-            default:
-                $hidePrice = setting('invoice.hide_price', $hidePrice);
-                break;
+        // if you use settting translation
+        if ($hidePrice = setting($type . '.hide_price', false)) {
+            return $hidePrice;
         }
 
-        return $hidePrice;
+        $hide = $this->getHideFromConfig($type, 'price');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_price', $hidePrice);
     }
 
     protected function getHideDiscount($type, $hideDiscount)
@@ -525,18 +535,19 @@ abstract class DocumentTemplate extends Base
             return $hideDiscount;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideDiscount = setting('bill.hide_discount', $hideDiscount);
-                break;
-            default:
-                $hideDiscount = setting('invoice.hide_discount', $hideDiscount);
-                break;
+        // if you use settting translation
+        if ($hideDiscount = setting($type . '.hide_discount', false)) {
+            return $hideDiscount;
         }
 
-        return $hideDiscount;
+        $hide = $this->getHideFromConfig($type, 'discount');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_discount', $hideDiscount);
     }
 
     protected function getHideAmount($type, $hideAmount)
@@ -545,17 +556,18 @@ abstract class DocumentTemplate extends Base
             return $hideAmount;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideAmount = setting('bill.hide_amount', $hideAmount);
-                break;
-            default:
-                $hideAmount = setting('invoice.hide_amount', $hideAmount);
-                break;
+        // if you use settting translation
+        if ($hideAmount = setting($type . '.hide_amount', false)) {
+            return $hideAmount;
         }
 
-        return $hideAmount;
+        $hide = $this->getHideFromConfig($type, 'amount');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_amount', $hideAmount);
     }
 }
