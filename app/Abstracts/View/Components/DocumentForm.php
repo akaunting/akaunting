@@ -310,7 +310,7 @@ abstract class DocumentForm extends Base
         }
 
         $parameters = [
-            config('type.' . $type. '.route.parameter') => $document->id,
+            config('type.' . $type. '.route.parameter') => ($document) ? $document->id : 1,
         ];
 
         $route = $this->getRouteFromConfig($type, 'update', $parameters);
