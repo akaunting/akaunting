@@ -761,7 +761,15 @@ abstract class DocumentShow extends Base
             return $routeButtonCustomize;
         }
 
-        $route = 'settings.' . $type . '.edit';
+        $route = '';
+
+        $alias = config('type.' . $type . '.alias');
+
+        if (!empty($alias)) {
+            $route .= $alias . '.';
+        }
+
+        $route .= 'settings.' . $type . '.edit';
 
         try {
             route($route);
