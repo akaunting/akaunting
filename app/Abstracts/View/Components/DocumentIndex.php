@@ -2,6 +2,7 @@
 
 namespace App\Abstracts\View\Components;
 
+use Akaunting\Module\Module;
 use App\Abstracts\View\Components\Document as Base;
 use App\Events\Common\BulkActionsAdding;
 use Illuminate\Support\Str;
@@ -466,7 +467,12 @@ abstract class DocumentIndex extends Base
             $module = module($alias);
 
             if (!$module instanceof Module) {
-                return;
+                $b = new \stdClass();
+                $b->actions = [];
+
+                event(new BulkActionsAdding($b));
+
+                return $b->actions;
             }
 
             $bulkActionClass = 'Modules\\' . $module->getStudlyName() . '\BulkActions\\' . $file_name;
