@@ -1148,10 +1148,10 @@ abstract class DocumentShow extends Base
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textTimelineSentStatusReceived = 'mark_received';
+                $default_key = 'mark_received';
                 break;
             default:
-                $textTimelineSentStatusReceived = 'mark_sent';
+                $default_key = 'mark_sent';
                 break;
         }
 
