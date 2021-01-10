@@ -10,7 +10,7 @@ return [
         'group' => 'sales', // controller folder name for permission and route
         'route' => [
             'prefix'    => 'invoices', // core use with group + prefix, module ex. estimates
-            'paramater' => 'invoice', // sales/invoices/{parameter}/edit
+            'parameter' => 'invoice', // sales/invoices/{parameter}/edit
             //'create' => 'invoices.create', // if you change route, you can write full path
         ],
         'permission' => [
@@ -33,7 +33,7 @@ return [
         'group' => 'purchases',
         'route' => [
             'prefix'    => 'bills',
-            'paramater' => 'bill',
+            'parameter' => 'bill',
             //'create' => 'bilss.create',
         ],
         'permission' => [

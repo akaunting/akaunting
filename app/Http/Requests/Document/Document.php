@@ -28,7 +28,7 @@ class Document extends FormRequest
     {
         $type = $this->request->get('type', Model::INVOICE_TYPE);
 
-        $type = config('type.' . $type . '.route.paramater');
+        $type = config('type.' . $type . '.route.parameter');
 
         // Check if store or update
         if ($this->getMethod() == 'PATCH') {
