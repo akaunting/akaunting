@@ -522,7 +522,7 @@ abstract class DocumentIndex extends Base
             return $classBulkAction;
         }
 
-        $class = $this->getTextFromConfig($type, 'bulk_action');
+        $class = $this->getClassFromConfig($type, 'bulk_action');
 
         if (!empty($class)) {
             return $class;
@@ -556,7 +556,7 @@ abstract class DocumentIndex extends Base
             return $classDocumentNumber;
         }
 
-        $class = $this->getTextFromConfig($type, 'document_number');
+        $class = $this->getClassFromConfig($type, 'document_number');
 
         if (!empty($class)) {
             return $class;
@@ -592,7 +592,7 @@ abstract class DocumentIndex extends Base
             return $classContactName;
         }
 
-        $class = $this->getTextFromConfig($type, 'contact_name');
+        $class = $this->getClassFromConfig($type, 'contact_name');
 
         if (!empty($class)) {
             return $class;
@@ -611,7 +611,7 @@ abstract class DocumentIndex extends Base
             return $classAmount;
         }
 
-        $class = $this->getTextFromConfig($type, 'amount');
+        $class = $this->getClassFromConfig($type, 'amount');
 
         if (!empty($class)) {
             return $class;
@@ -656,7 +656,7 @@ abstract class DocumentIndex extends Base
             return $classIssuedAt;
         }
 
-        $class = $this->getTextFromConfig($type, 'issued_at');
+        $class = $this->getClassFromConfig($type, 'issued_at');
 
         if (!empty($class)) {
             return $class;
@@ -686,7 +686,7 @@ abstract class DocumentIndex extends Base
             return $classDueAt;
         }
 
-        $class = $this->getTextFromConfig($type, 'due_at');
+        $class = $this->getClassFromConfig($type, 'due_at');
 
         if (!empty($class)) {
             return $class;
@@ -726,7 +726,7 @@ abstract class DocumentIndex extends Base
             return $classStatus;
         }
 
-        $class = $this->getTextFromConfig($type, 'status');
+        $class = $this->getClassFromConfig($type, 'status');
 
         if (!empty($class)) {
             return $class;
@@ -745,7 +745,7 @@ abstract class DocumentIndex extends Base
             return $classActions;
         }
 
-        $class = $this->getTextFromConfig($type, 'actions');
+        $class = $this->getClassFromConfig($type, 'actions');
 
         if (!empty($class)) {
             return $class;

@@ -959,7 +959,7 @@ abstract class DocumentShow extends Base
             return $classHeaderStatus;
         }
 
-        $class = $this->getTextFromConfig($type, 'header_status');
+        $class = $this->getClassFromConfig($type, 'header_status');
 
         if (!empty($class)) {
             return $class;
@@ -974,7 +974,7 @@ abstract class DocumentShow extends Base
             return $classHeaderContact;
         }
 
-        $class = $this->getTextFromConfig($type, 'header_contact');
+        $class = $this->getClassFromConfig($type, 'header_contact');
 
         if (!empty($class)) {
             return $class;
@@ -989,7 +989,7 @@ abstract class DocumentShow extends Base
             return $classHeaderAmount;
         }
 
-        $class = $this->getTextFromConfig($type, 'header_amount');
+        $class = $this->getClassFromConfig($type, 'header_amount');
 
         if (!empty($class)) {
             return $class;
@@ -1004,7 +1004,7 @@ abstract class DocumentShow extends Base
             return $classHeaderDueAt;
         }
 
-        $class = $this->getTextFromConfig($type, 'header_due_at');
+        $class = $this->getClassFromConfig($type, 'header_due_at');
 
         if (!empty($class)) {
             return $class;
