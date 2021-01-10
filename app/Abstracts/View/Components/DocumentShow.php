@@ -647,7 +647,7 @@ abstract class DocumentShow extends Base
             return $translation;
         }
 
-        return 'invoices.statuses.';
+        return $default_key;
     }
 
     protected function getRouteButtonAddNew($type, $routeButtonAddNew)
