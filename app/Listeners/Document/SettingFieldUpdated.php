@@ -24,7 +24,7 @@ class SettingFieldUpdated
         }
 
         $type = $request->get('type');
-        $fields = $request->get('setting', 'general');
+        $fields = $request->get('setting', []);
 
         foreach ($fields as $key => $value) {
             if ($key == 'company_logo') {
