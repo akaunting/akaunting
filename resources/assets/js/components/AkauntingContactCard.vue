@@ -522,7 +522,7 @@ export default {
         },
 
         closeIfClickedOutside(event) {
-            if (!document.getElementById('select-contact-card-' + this._uid).contains(event.target) && event.target.className != 'btn btn-link') {
+            if (!document.getElementById('select-contact-card-' + this._uid).contains(event.target) && event.target.className != 'btn btn-link p-0') {
                 this.show.contact_list = false;
 
                 document.removeEventListener('click', this.closeIfClickedOutside);
