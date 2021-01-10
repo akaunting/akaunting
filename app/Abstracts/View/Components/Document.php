@@ -62,9 +62,19 @@ abstract class Document extends Component
             return $route;
         }
 
+        $alias = config('type.' . $type . '.alias');
         $prefix = config('type.' . $type . '.route.prefix');
 
-        $route = $prefix . '.' . $config_key;
+        // if use module set module alias
+        if (!empty($alias)) {
+            $route .= $alias . '.';
+        }
+
+        if (!empty($prefix)) {
+            $route .= $prefix . '.';
+        }
+
+        $route .= $config_key;
 
         try {
             route($route, $config_parameters);
