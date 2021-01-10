@@ -55,7 +55,7 @@ class CreateDocument extends Job
             $this->document->createRecurring();
         });
 
-        event(new DocumentCreated($this->document));
+        event(new DocumentCreated($this->document, $this->request));
 
         return $this->document;
     }

@@ -39,6 +39,7 @@ class Event extends Provider
         'App\Events\Document\DocumentCreated' => [
             'App\Listeners\Document\CreateDocumentCreatedHistory',
             'App\Listeners\Document\IncreaseNextDocumentNumber',
+            'App\Listeners\Document\SettingFieldCreated',
         ],
         'App\Events\Document\DocumentReceived' => [
             'App\Listeners\Document\MarkDocumentReceived',
@@ -58,6 +59,9 @@ class Event extends Provider
         ],
         'App\Events\Document\DocumentSent' => [
             'App\Listeners\Document\MarkDocumentSent',
+        ],
+        'App\Events\Document\DocumentUpdated' => [
+            'App\Listeners\Document\SettingFieldUpdated',
         ],
         'App\Events\Document\DocumentViewed' => [
             'App\Listeners\Document\MarkDocumentViewed',

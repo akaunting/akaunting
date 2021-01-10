@@ -9,17 +9,17 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         @if (!$hideLogo)
-                            {{ Form::fileGroup('company_logo', trans('settings.company.logo'), 'file-image-o', [], setting('company.logo')) }}
+                            {{ Form::fileGroup('company_logo', trans('settings.company.logo'), 'file-image-o', ['data-field' => 'setting'], setting('company.logo')) }}
                         @endif
                     </div>
 
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         @if (!$hideDocumentTitle)
-                            {{ Form::textGroup($inputNameType . '_title', trans('settings.' . $type . '.title'), 'font', [], setting($type . '.title'), 'col-md-12') }}
+                            {{ Form::textGroup('title', trans('settings.' . $type . '.title'), 'font', ['data-field' => 'setting'], setting($type . '.title'), 'col-md-12') }}
                         @endif
 
                         @if (!$hideDocumentSubheading)
-                            {{ Form::textGroup($inputNameType . '_subheading', trans('settings.' . $type . '.subheading'), 'font', [], setting($type . '.subheading'), 'col-md-12') }}
+                            {{ Form::textGroup('subheading', trans('settings.' . $type . '.subheading'), 'font', ['data-field' => 'setting'], setting($type . '.subheading'), 'col-md-12') }}
                         @endif
 
                         @if (!$hideCompanyEdit)
