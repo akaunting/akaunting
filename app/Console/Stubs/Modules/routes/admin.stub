@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'middleware' => 'admin',
+    'as' => '$ALIAS$.',
     'namespace' => '$MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Controllers'
 ], function () {
     Route::prefix('$ALIAS$')->group(function() {
