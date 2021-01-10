@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'asset_url'  => env('ASSET_URL', './public'),
+    'asset_url' => env('ASSET_URL', 'public'),
 
     /*
     |--------------------------------------------------------------------------
