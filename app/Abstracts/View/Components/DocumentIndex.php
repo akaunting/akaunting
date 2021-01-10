@@ -410,7 +410,7 @@ abstract class DocumentIndex extends Base
         }
 
         if ($group = config('type.' . $type . '.group')) {
-            $group = Str::studly(Str::singular($group) . '\\';
+            $group = Str::studly(Str::singular($group)) . '\\';
         }
 
         $prefix = Str::studly(Str::singular(config('type.' . $type . '.route.prefix')));
