@@ -18,7 +18,13 @@ return [
         'overdue'   => 'Overdue',
         'unpaid'    => 'Unpaid',
         'cancelled' => 'Cancelled',
-        'void'      => 'Void',
+        'voided'    => 'Voided',
+        'completed' => 'Completed',
+        'shipped'   => 'Shipped',
+        'refunded'  => 'Refunded',
+        'failed'    => 'Failed',
+        'denied'    => 'Denied',
+        'processed' => 'Processed',
     ],
 
     'messages' => [
