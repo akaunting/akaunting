@@ -25,7 +25,7 @@ class CoreV210 extends Migration
             $table->string('order_number')->nullable();
             $table->string('status');
             $table->dateTime('issued_at');
-            $table->dateTime('due_at')->nullable();
+            $table->dateTime('due_at');
             $table->double('amount', 15, 4);
             $table->string('currency_code');
             $table->double('currency_rate', 15, 8);
