@@ -135,12 +135,12 @@
                 @endif
             @stack('order_number_input_end')
 
-            @stack('invoiced_at_input_start')
+            @stack('issued_at_input_start')
                 @if (!$hideIssuedAt)
                     <strong>{{ trans($textIssuedAt) }}:</strong>
                     <span class="float-right">@date($document->issued_at)</span><br><br>
                 @endif
-            @stack('invoiced_at_input_end')
+            @stack('issued_at_input_end')
 
             @stack('due_at_input_start')
                 @if (!$hideDueAt)

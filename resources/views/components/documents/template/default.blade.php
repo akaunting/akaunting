@@ -130,7 +130,7 @@
                     </strong>
                     <span class="float-right">@date($document->issued_at)</span><br><br>
                 @endif
-            @stack('issueed_at_input_end')
+            @stack('issued_at_input_end')
 
             @stack('due_at_input_start')
                 @if (!$hideDueAt)
