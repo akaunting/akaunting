@@ -358,8 +358,17 @@ abstract class DocumentIndex extends Base
 
         $route = $this->getRouteFromConfig($type, 'import');
 
+        $alias = config('type.' . $type . '.alias');
+        $group = config('type.' . $type . '.group');
+
+        if (empty($group) && !empty($alias)){
+            $group = $alias;
+        } else if (empty($group) && empty($alias)) {
+            $group = 'sales';
+        }
+
         $importRouteParameters = [
-            'group' => config('type.' . $type . '.group'),
+            'group' => $group,
             'type' => config('type.' . $type . '.route.prefix'),
             'route' => ($route) ? $route : 'invoices.import',
         ];
@@ -402,7 +411,7 @@ abstract class DocumentIndex extends Base
         if (!empty($searchStringModel)) {
             return $searchStringModel;
         }
-        
+
         $search_string_model = config('type.' . $type . '.search_string_model');
 
         if (!empty($search_string_model)) {
@@ -429,7 +438,7 @@ abstract class DocumentIndex extends Base
         if (!empty($textBulkAction)) {
             return $textBulkAction;
         }
-        
+
         $default_key = config('type.' . $type . '.translation.prefix');
 
         $translation = $this->getTextFromConfig($type, 'bulk_action', $default_key, 'trans_choice');
