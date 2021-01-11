@@ -1060,7 +1060,7 @@ abstract class DocumentShow extends Base
             return $translation;
         }
 
-        $default_key = 'create_' . str_replace('-', '_', config('type.' . $type . '.alias');
+        $default_key = 'create_' . str_replace('-', '_', config('type.' . $type . '.alias'));
 
         $translation = $this->getTextFromConfig($type, 'timeline_create_title', $default_key);
 
