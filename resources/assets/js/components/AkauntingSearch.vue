@@ -157,6 +157,7 @@ export default {
 
       option_values: [],
       selected_options: [],
+      selected_operator: [],
       selected_values: [],
       values: [],
       current_value: null,
@@ -278,11 +279,16 @@ export default {
           args += '?search=';
         }
 
+        if (this.selected_operator[index].key == '!=') {
+          args += 'not ';
+        }
+
         args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
 
         search_string[path][this.selected_options[index].key] = {
           'key': this.selected_values[index].key,
-          'value': this.selected_values[index].value
+          'value': this.selected_values[index].value,
+          'operator': this.selected_operator[index].key,
         };
       }, this);
 
@@ -327,13 +333,19 @@ export default {
       this.search = '';
 
       if (option_url) {
-        option_url += '?search=limit:10';
+        if (option_url.indexOf('?') === -1) {
+          option_url += '?search=limit:10';
+        } else {
+          option_url += ' limit:10';
+        }
       }
 
       if (!this.option_values[value] && option_url) {
         window.axios.get(option_url)
         .then(response => {
             let data = response.data.data;
+
+            this.values = [];
 
             data.forEach(function (item) {
               this.values.push({
@@ -393,6 +405,10 @@ export default {
         };
       }
 
+      this.selected_operator.push({
+        key: value
+      });
+
       this.filter_last_step = 'values';
     },
 
@@ -442,10 +458,15 @@ export default {
     onFilterDelete(index) {
       this.filter_list.push(this.selected_options[index]);
 
-      this.filter_index--;
+      if (this.filter_last_step == 'options') {
+        this.filter_index--;
+      }
 
       this.filtered.splice(index, 1);
+
       this.selected_options.splice(index, 1);
+      this.selected_operator.splice(index, 1);
+      this.selected_values.splice(index, 1);
 
       this.filter_last_step = 'options';
     },
@@ -479,8 +500,12 @@ export default {
       cookie = JSON.parse(cookie)[path];
     }
 
-    if (this.value) {
-      let search_string = this.value.split(' ');
+    if (this.value) {""
+      let search_string = this.value.replace(' not ', ' ');
+
+      console.log(search_string);
+
+      search_string = search_string.split(' ');
 
       search_string.forEach(function (string) {
         if (string.search(':') === -1) {
@@ -488,11 +513,13 @@ export default {
         } else {
           let filter = string.split(':');
           let option = '';
+          let operator = '=';
           let value = '';
 
           this.filter_list.forEach(function (_filter, i) {
             if (_filter.key == filter[0]) {
               option = _filter.value;
+              operator = _filter.operator;
 
               _filter.values.forEach(function (_value) {
                 if (_value.key == filter[1]) {
@@ -504,7 +531,16 @@ export default {
                 value = cookie[_filter.key].value;
               }
 
+              if (cookie != undefined && cookie[_filter.key]) {
+                  operator = cookie[_filter.key].operator;
+              }
+
               this.selected_options.push(this.filter_list[i]);
+
+              this.selected_operator.push({
+                key: operator,
+              });
+
               this.filter_list.splice(i, 1);
 
               this.option_values[_filter.key] = _filter.values;
@@ -525,7 +561,7 @@ export default {
 
           this.filtered.push({
             option: option,
-            operator: '=',
+            operator: operator,
             value: value
           });
 
