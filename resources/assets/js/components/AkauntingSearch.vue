@@ -326,6 +326,10 @@ export default {
 
       this.search = '';
 
+      if (option_url) {
+        option_url += '?search=limit:10';
+      }
+
       if (!this.option_values[value] && option_url) {
         window.axios.get(option_url)
         .then(response => {
@@ -432,6 +436,7 @@ export default {
       this.show_date = false;
 
       this.filter_last_step = 'options';
+      this.search = '';
     },
 
     onFilterDelete(index) {
