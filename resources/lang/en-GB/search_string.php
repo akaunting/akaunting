@@ -11,6 +11,7 @@ return [
         'due_at'            => 'Due Date',
         'invoiced_at'       => 'Invoice Date',
         'issued_at'         => 'Issue Date',
+        'symbol_first'      => 'Symbol Position',
     ],
 
 ];
