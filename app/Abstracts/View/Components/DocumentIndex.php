@@ -714,7 +714,7 @@ abstract class DocumentIndex extends Base
             return $textDocumentStatus;
         }
 
-        $translation = $this->getTextFromConfig($type, 'document_status', '.statuses.');
+        $translation = $this->getTextFromConfig($type, 'document_status', 'statuses.');
 
         if (!empty($translation)) {
             return $translation;

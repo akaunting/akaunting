@@ -536,7 +536,7 @@ abstract class DocumentShow extends Base
             return $textStatusMessage;
         }
 
-        $default_key = config('type.' . $type . '.translation.prefix') . '.messages.draft';
+        $default_key = 'messages.draft';
 
         $translation = $this->getTextFromConfig($type, 'status_message', $default_key);
 
@@ -622,9 +622,7 @@ abstract class DocumentShow extends Base
             return $textHistories;
         }
 
-        $default_key = config('type.' . $type . '.translation.prefix') . '.histories';
-
-        $translation = $this->getTextFromConfig($type, 'histories', $default_key);
+        $translation = $this->getTextFromConfig($type, 'histories', 'histories');
 
         if (!empty($translation)) {
             return $translation;
@@ -639,7 +637,7 @@ abstract class DocumentShow extends Base
             return $textHistoryStatus;
         }        
 
-        $translation = $this->getTextFromConfig($type, 'document_status', '.statuses.');
+        $translation = $this->getTextFromConfig($type, 'document_status', 'statuses.');
 
         if (!empty($translation)) {
             return $translation;
