@@ -253,7 +253,7 @@ return [
             'symbol',
             'symbol_first' => [
                 'boolean' => true,
-                'translations' => [
+                'translation' => [
                     0 => 'currencies.symbol.after',
                     1 => 'currencies.symbol.before',
                 ]

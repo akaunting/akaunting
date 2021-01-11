@@ -168,11 +168,11 @@ class SearchString extends Component
             $values = [
                 [
                     'key' => 0,
-                    'value' => empty($options['translations']) ? trans('general.no') : trans($options['translations'][0]),
+                    'value' => empty($options['translation']) ? trans('general.no') : trans($options['translation'][0]),
                 ],
                 [
                     'key' => 1,
-                    'value' => empty($options['translations']) ? trans('general.yes') : trans($options['translations'][1]),
+                    'value' => empty($options['translation']) ? trans('general.yes') : trans($options['translation'][1]),
                 ],
             ];
         } else if ($search = request()->get('search', false)) {
