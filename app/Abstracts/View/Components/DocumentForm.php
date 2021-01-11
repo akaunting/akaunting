@@ -514,7 +514,7 @@ abstract class DocumentForm extends Base
         if (request()->has($issued_at)) {
             $issuedAt = request()->get($issued_at); 
         } else {
-            request()->get('invoiced_at', Date::now()->toDateString());
+            $issuedAt = request()->get('invoiced_at', Date::now()->toDateString());
         }
 
         return $issuedAt;
