@@ -718,7 +718,7 @@ abstract class DocumentIndex extends Base
         if (!empty($alias)) {
             $translation = $alias . '::' . config('type.' . $type . '.translation.prefix') . '.statuses';
 
-            if (is_array(trans($$translation))) {
+            if (is_array(trans($translation))) {
                 return $translation . '.';
             }
         }
