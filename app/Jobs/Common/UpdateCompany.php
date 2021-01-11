@@ -58,6 +58,14 @@ class UpdateCompany extends Job
                 setting()->set('company.email', $this->request->get('email'));
             }
 
+            if ($this->request->has('tax_number')) {
+                setting()->set('company.tax_number', $this->request->get('tax_number'));
+            }
+
+            if ($this->request->has('phone')) {
+                setting()->set('company.phone', $this->request->get('phone'));
+            }
+
             if ($this->request->has('address')) {
                 setting()->set('company.address', $this->request->get('address'));
             }

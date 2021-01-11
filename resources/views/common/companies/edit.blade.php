@@ -26,6 +26,10 @@
 
                     {{ Form::selectGroup('locale', trans_choice('general.languages', 1), 'flag', language()->allowed(), $company->locale ?? config('app.locale', 'en-GB'), []) }}
 
+                    {{ Form::textGroup('tax_number', trans('general.tax_number'), 'percent', [], $company->tax_number) }}
+
+                    {{ Form::textGroup('phone', trans('settings.company.phone'), 'phone', [], $company->phone) }}
+
                     {{ Form::textareaGroup('address', trans('general.address')) }}
 
                     {{ Form::fileGroup('logo', trans('companies.logo'), '', ['dropzone-class' => 'form-file']) }}

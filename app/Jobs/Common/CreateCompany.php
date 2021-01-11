@@ -92,6 +92,8 @@ class CreateCompany extends Job
         setting()->set([
             'company.name' => $this->request->get('name'),
             'company.email' => $this->request->get('email'),
+            'company.tax_number' => $this->request->get('tax_number'),
+            'company.phone' => $this->request->get('phone'),
             'company.address' => $this->request->get('address'),
             'default.currency' => $this->request->get('currency'),
             'default.locale' => $this->request->get('locale', 'en-GB'),
