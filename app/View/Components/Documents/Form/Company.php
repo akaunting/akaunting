@@ -16,7 +16,7 @@ class Company extends Component
     {
         $company = user()->companies()->first();
 
-        $inputNameType = config("type.{$this->type}.route_parameter");
+        $inputNameType = config('type.' . $this->type . '.route.parameter');
 
         return view('components.documents.form.company', compact('company','inputNameType'));
     }

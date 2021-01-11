@@ -14,7 +14,7 @@ class Advanced extends Component
      */
     public function render()
     {
-        $category_type = $this->getCategoryType();
+        $category_type = $this->categoryType;
 
         if ($category_type) {
             $categories = Category::$category_type()->enabled()->orderBy('name')->take(setting('default.select_limit'))->pluck('name', 'id');
@@ -23,32 +23,5 @@ class Advanced extends Component
         }
 
         return view('components.documents.form.advanced', compact('categories', 'category_type'));
-    }
-
-    protected function getCategoryType()
-    {
-        $type = '';
-
-        switch ($this->type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $type = 'expense';
-                break;
-            case 'item':
-                $type = 'item';
-                break;
-            case 'other':
-                $type = 'other';
-                break;
-            case 'transfer':
-                $type = 'transfer';
-                break;
-            default:
-                $type = 'income';
-                break;
-        }
-
-        return $type;
     }
 }

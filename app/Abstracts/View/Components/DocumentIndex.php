@@ -2,11 +2,12 @@
 
 namespace App\Abstracts\View\Components;
 
-use Illuminate\View\Component;
-use Illuminate\Support\Str;
+use Akaunting\Module\Module;
+use App\Abstracts\View\Components\Document as Base;
 use App\Events\Common\BulkActionsAdding;
+use Illuminate\Support\Str;
 
-abstract class DocumentIndex extends Component
+abstract class DocumentIndex extends Base
 {
     /** @var string */
     public $type;
@@ -235,7 +236,7 @@ abstract class DocumentIndex extends Component
         /* -- Card Header End -- */
 
         /* -- Card Body Start -- */
-        $this->textDocumentNumber = $this->getTextDocumentNumber($textDocumentNumber);
+        $this->textDocumentNumber = $this->getTextDocumentNumber($type, $textDocumentNumber);
         $this->textContactName = $this->getTextContactName($type, $textContactName);
         $this->textIssuedAt = $this->getTextIssuedAt($type, $textIssuedAt);
         $this->textDueAt = $this->getTextDueAt($type, $textDueAt);
@@ -267,7 +268,7 @@ abstract class DocumentIndex extends Component
         $this->classDocumentNumber = $this->getClassDocumentNumber($type, $classDocumentNumber);
         $this->classContactName = $this->getClassContactName($type, $classContactName);
         $this->classAmount = $this->getClassAmount($type, $classAmount);
-        $this->classIssuedAt = $this->getclassIssuedAt($type, $classIssuedAt);
+        $this->classIssuedAt = $this->getClassIssuedAt($type, $classIssuedAt);
         $this->classDueAt = $this->getClassDueAt($type, $classDueAt);
         $this->classStatus = $this->getClassStatus($type, $classStatus);
         $this->classActions = $this->getClassActions($type, $classActions);
@@ -292,13 +293,19 @@ abstract class DocumentIndex extends Component
             return $page;
         }
 
-        return config("type.{$type}.route_name");
+        return config('type.' . $type . '.route.prefix', 'invoices');
     }
 
     protected function getDocsPath($type, $docsPath)
     {
         if (!empty($docsPath)) {
             return $docsPath;
+        }
+
+        $docs_path = config('type.' . $type . '.docs_path');
+
+        if (!empty($docs_path)) {
+            return $docs_path;
         }
 
         switch ($type) {
@@ -323,17 +330,13 @@ abstract class DocumentIndex extends Component
             return $createRoute;
         }
 
-        $page = config("type.{$type}.route_name");
+        $route = $this->getRouteFromConfig($type, 'create');
 
-        $route = $page . '.create';
-
-        try {
-            route($route);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.create';
     }
 
     protected function getImportRoute($importRoute)
@@ -353,9 +356,21 @@ abstract class DocumentIndex extends Component
             return $importRouteParameters;
         }
 
+        $route = $this->getRouteFromConfig($type, 'import');
+
+        $alias = config('type.' . $type . '.alias');
+        $group = config('type.' . $type . '.group');
+
+        if (empty($group) && !empty($alias)){
+            $group = $alias;
+        } else if (empty($group) && empty($alias)) {
+            $group = 'sales';
+        }
+
         $importRouteParameters = [
-            'group' => config("type.{$type}.group"),
-            'type' => config("type.{$type}.route_name")
+            'group' => $group,
+            'type' => config('type.' . $type . '.route.prefix'),
+            'route' => ($route) ? $route : 'invoices.import',
         ];
 
         return $importRouteParameters;
@@ -367,17 +382,13 @@ abstract class DocumentIndex extends Component
             return $exportRoute;
         }
 
-        $page = config("type.{$type}.route_name");
+        $route = $this->getRouteFromConfig($type, 'export');
 
-        $route = $page . '.export';
-
-        try {
-            route($route);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.export';
     }
 
     protected function getRoute($type, $formCardHeaderRoute)
@@ -386,17 +397,13 @@ abstract class DocumentIndex extends Component
             return $formCardHeaderRoute;
         }
 
-        $page = config("type.{$type}.route_name");
+        $route = $this->getRouteFromConfig($type, 'index');
 
-        $route = $page . '.index';
-
-        try {
-            route($route);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.index';
     }
 
     protected function getSearchStringModel($type, $searchStringModel)
@@ -405,17 +412,22 @@ abstract class DocumentIndex extends Component
             return $searchStringModel;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $searchStringModel = 'App\Models\Sale\Invoice';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $searchStringModel = 'App\Models\Purchase\Bill';
-                break;
+        $search_string_model = config('type.' . $type . '.search_string_model');
+
+        if (!empty($search_string_model)) {
+            return $search_string_model;
+        }
+
+        if ($group = config('type.' . $type . '.group')) {
+            $group = Str::studly(Str::singular($group)) . '\\';
+        }
+
+        $prefix = Str::studly(Str::singular(config('type.' . $type . '.route.prefix')));
+
+        if ($alias = config('type.' . $type . '.alias')) {
+            $searchStringModel = 'Modules\\' . Str::studly($alias) .'\Models\\' . $group . $prefix;
+        } else {
+            $searchStringModel = 'App\Models\\' . $group . $prefix;
         }
 
         return $searchStringModel;
@@ -427,9 +439,15 @@ abstract class DocumentIndex extends Component
             return $textBulkAction;
         }
 
-        $textBulkAction = 'general.' . config("type.{$type}.translation_key");
+        $default_key = config('type.' . $type . '.translation.prefix');
 
-        return $textBulkAction;
+        $translation = $this->getTextFromConfig($type, 'bulk_action', $default_key, 'trans_choice');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.invoices';
     }
 
     protected function getBulkActions($type, $bulkActions, $bulkActionClass)
@@ -438,17 +456,37 @@ abstract class DocumentIndex extends Component
             return $bulkActions;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $bulkActionClass = 'App\BulkActions\Sales\Invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $bulkActionClass = 'App\BulkActions\Purchases\Bills';
-                break;
+        $bulk_actions = config('type.' . $type . '.bulk_actions');
+
+        if (!empty($bulk_actions)) {
+            return $bulk_actions;
+        }
+
+        $file_name = '';
+
+        if ($group = config('type.' . $type . '.group')) {
+            $file_name .= Str::studly($group) . '\\';
+        }
+
+        if ($prefix = config('type.' . $type . '.route.prefix')) {
+            $file_name .= Str::studly($prefix);
+        }
+
+        if ($alias = config('type.' . $type . '.alias')) {
+            $module = module($alias);
+
+            if (!$module instanceof Module) {
+                $b = new \stdClass();
+                $b->actions = [];
+
+                event(new BulkActionsAdding($b));
+
+                return $b->actions;
+            }
+
+            $bulkActionClass = 'Modules\\' . $module->getStudlyName() . '\BulkActions\\' . $file_name;
+        } else {
+            $bulkActionClass = 'App\BulkActions\\' .  $file_name;
         }
 
         if (class_exists($bulkActionClass)) {
@@ -473,9 +511,15 @@ abstract class DocumentIndex extends Component
             return $bulkActionRouteParameters;
         }
 
+        $group = config('type.' . $type . '.group');
+
+        if (!empty(config('type.' . $type . '.alias'))) {
+            $group = config('type.' . $type . '.alias');
+        }
+
         $bulkActionRouteParameters = [
-            'group' => config("type.{$type}.group"),
-            'type' => config("type.{$type}.route_name")
+            'group' => $group,
+            'type' => config('type.' . $type . '.route.prefix')
         ];
 
         return $bulkActionRouteParameters;
@@ -487,13 +531,25 @@ abstract class DocumentIndex extends Component
             return $classBulkAction;
         }
 
+        $class = $this->getClassFromConfig($type, 'bulk_action');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block';
     }
 
-    protected function getTextDocumentNumber($textDocumentNumber)
+    protected function getTextDocumentNumber($type, $textDocumentNumber)
     {
         if (!empty($textDocumentNumber)) {
             return $textDocumentNumber;
+        }
+
+        $translation = $this->getTextFromConfig($type, 'document_number', 'numbers');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
         return 'general.numbers';
@@ -509,6 +565,12 @@ abstract class DocumentIndex extends Component
             return $classDocumentNumber;
         }
 
+        $class = $this->getClassFromConfig($type, 'document_number');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-md-2 col-lg-1 col-xl-1 d-none d-md-block';
     }
 
@@ -518,18 +580,15 @@ abstract class DocumentIndex extends Component
             return $textContactName;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textContactName = 'general.vendors';
-                break;
-            default:
-                $textContactName = 'general.customers';
-                break;
+        $default_key = Str::plural(config('type.' . $type . '.contact_type'), 2);
+
+        $translation = $this->getTextFromConfig($type, 'contact_name', $default_key, 'trans_choice');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textContactName;
+        return 'general.customers';
     }
 
     protected function getClassContactName($type, $classContactName)
@@ -540,6 +599,12 @@ abstract class DocumentIndex extends Component
 
         if ($classContactName = $this->getClass('classContactName')) {
             return $classContactName;
+        }
+
+        $class = $this->getClassFromConfig($type, 'contact_name');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         return 'col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 text-left';
@@ -555,6 +620,12 @@ abstract class DocumentIndex extends Component
             return $classAmount;
         }
 
+        $class = $this->getClassFromConfig($type, 'amount');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-right';
     }
 
@@ -568,17 +639,23 @@ abstract class DocumentIndex extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textIssuedAt = 'bills.bill_date';
+                $default_key = 'bill_date';
                 break;
             default:
-                $textIssuedAt = 'invoices.invoice_date';
+                $default_key = 'invoice_date';
                 break;
         }
 
-        return $textIssuedAt;
+        $translation = $this->getTextFromConfig($type, 'issued_at', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.invoice_date';
     }
 
-    protected function getclassIssuedAt($type, $classIssuedAt)
+    protected function getClassIssuedAt($type, $classIssuedAt)
     {
         if (!empty($classIssuedAt)) {
             return $classIssuedAt;
@@ -586,6 +663,12 @@ abstract class DocumentIndex extends Component
 
         if ($classIssuedAt = $this->getClass('classIssuedAt')) {
             return $classIssuedAt;
+        }
+
+        $class = $this->getClassFromConfig($type, 'issued_at');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         return 'col-lg-2 col-xl-2 d-none d-lg-block text-left';
@@ -597,24 +680,25 @@ abstract class DocumentIndex extends Component
             return $textDueAt;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textDueAt = 'bills.due_date';
-                break;
-            default:
-                $textDueAt = 'invoices.due_date';
-                break;
+        $translation = $this->getTextFromConfig($type, 'due_at', 'due_date');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textDueAt;
+        return 'invoices.due_date';
     }
 
     protected function getClassDueAt($type, $classDueAt)
     {
         if (!empty($classDueAt)) {
             return $classDueAt;
+        }
+
+        $class = $this->getClassFromConfig($type, 'due_at');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         if ($classDueAt = $this->getClass('classDueAt')) {
@@ -630,18 +714,23 @@ abstract class DocumentIndex extends Component
             return $textDocumentStatus;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textDocumentStatus = 'bills.statuses.';
-                break;
-            default:
-                $textDocumentStatus = 'invoices.statuses.';
-                break;
+        $translation = $this->getTextFromConfig($type, 'document_status', 'statuses.');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textDocumentStatus;
+        $alias = config('type.' . $type . '.alias');
+
+        if (!empty($alias)) {
+            $translation = $alias . '::' . config('type.' . $type . '.translation.prefix') . '.statuses';
+
+            if (is_array(trans($translation))) {
+                return $translation . '.';
+            }
+        }
+
+        return 'documents.statuses.';
     }
 
     protected function getClassStatus($type, $classStatus)
@@ -652,6 +741,12 @@ abstract class DocumentIndex extends Component
 
         if ($classStatus = $this->getClass('classStatus')) {
             return $classStatus;
+        }
+
+        $class = $this->getClassFromConfig($type, 'status');
+
+        if (!empty($class)) {
+            return $class;
         }
 
         return 'col-lg-1 col-xl-1 d-none d-lg-block text-center';
@@ -667,6 +762,12 @@ abstract class DocumentIndex extends Component
             return $classActions;
         }
 
+        $class = $this->getClassFromConfig($type, 'actions');
+
+        if (!empty($class)) {
+            return $class;
+        }
+
         return 'col-xs-4 col-sm-2 col-md-2 col-lg-1 col-xl-1 text-center';
     }
 
@@ -676,20 +777,16 @@ abstract class DocumentIndex extends Component
             return $routeButtonShow;
         }
 
-        $page = config("type.{$type}.route_name");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.show';
+        $route = $this->getRouteFromConfig($type, 'show', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.show';
     }
 
     protected function getRouteButtonEdit($type, $routeButtonEdit)
@@ -698,20 +795,16 @@ abstract class DocumentIndex extends Component
             return $routeButtonEdit;
         }
 
-        $page = config("type.{$type}.route_name");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.edit';
+        $route = $this->getRouteFromConfig($type, 'edit', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.edit';
     }
 
     protected function getRouteButtonDuplicate($type, $routeButtonDuplicate)
@@ -720,20 +813,16 @@ abstract class DocumentIndex extends Component
             return $routeButtonDuplicate;
         }
 
-        $page = config("type.{$type}.route_name");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.duplicate';
+        $route = $this->getRouteFromConfig($type, 'duplicate', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.duplicate';
     }
 
     protected function getRouteButtonCancelled($type, $routeButtonCancelled)
@@ -742,20 +831,16 @@ abstract class DocumentIndex extends Component
             return $routeButtonCancelled;
         }
 
-        $page = config("type.{$type}.route_name");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.cancelled';
+        $route = $this->getRouteFromConfig($type, 'cancelled', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.cancelled';
     }
 
     protected function getRouteButtonDelete($type, $routeButtonDelete)
@@ -764,20 +849,16 @@ abstract class DocumentIndex extends Component
             return $routeButtonDelete;
         }
 
-        $page = config("type.{$type}.route_name");
+        //example route parameter.
+        $parameter = 1;
 
-        $route = $page . '.destroy';
+        $route = $this->getRouteFromConfig($type, 'destroy', $parameter);
 
-        try {
-            //example route parameter.
-            $parameter = 1;
-
-            route($route, $parameter);
-        } catch (\Exception $e) {
-            $route = '';
+        if (!empty($route)) {
+            return $route;
         }
 
-        return $route;
+        return 'invoices.destroy';
     }
 
     protected function getPermissionCreate($type, $permissionCreate)
@@ -786,18 +867,7 @@ abstract class DocumentIndex extends Component
             return $permissionCreate;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $permissionCreate = 'create-sales-invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $permissionCreate = 'create-purchases-bills';
-                break;
-        }
+        $permissionCreate = $this->getPermissionFromConfig($type, 'create');
 
         return $permissionCreate;
     }
@@ -808,18 +878,7 @@ abstract class DocumentIndex extends Component
             return $permissionUpdate;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $permissionUpdate = 'update-sales-invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $permissionUpdate = 'update-purchases-bills';
-                break;
-        }
+        $permissionUpdate = $this->getPermissionFromConfig($type, 'update');
 
         return $permissionUpdate;
     }
@@ -830,18 +889,7 @@ abstract class DocumentIndex extends Component
             return $permissionDelete;
         }
 
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                $permissionDelete = 'delete-sales-invoices';
-                break;
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $permissionDelete = 'delete-purchases-bills';
-                break;
-        }
+        $permissionDelete = $this->getPermissionFromConfig($type, 'delete');
 
         return $permissionDelete;
     }

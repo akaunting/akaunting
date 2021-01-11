@@ -1,6 +1,6 @@
 @if (empty($document))
     {!! Form::open([
-        'route' => $formRoute,
+        'route' => $routeStore,
         'id' => $formId,
         '@submit.prevent' => $formSubmit,
         '@keydown' => 'form.errors.clear($event.target.name)',
@@ -11,7 +11,7 @@
     ]) !!}
 @else
     {!! Form::model($document, [
-        'route' => [$formRoute, $document->id],
+        'route' => [$routeUpdate, $document->id],
         'id' => $formId,
         'method' => 'PATCH',
         '@submit.prevent' => $formSubmit,
@@ -78,6 +78,7 @@
             <x-documents.form.advanced
                 type="{{ $type }}"
                 :document="$document"
+                category-type="{{ $categoryType }}"
                 hide-recurring="{{ $hideRecurring }}"
                 hide-category="{{ $hideCategory }}"
                 hide-attachment="{{ $hideAttachment }}"
@@ -88,6 +89,7 @@
             <x-documents.form.buttons
                 type="{{ $type }}"
                 :document="$document"
+                route-cancel="{{ $routeCancel }}"
             />
         @endif
 

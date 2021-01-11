@@ -405,7 +405,25 @@ trait Permissions
 
         // Fire event to find the proper controller for common API endpoints
         if (in_array($table, ['contacts', 'documents', 'transactions'])) {
-            $controller = config('type.' . request()->get('type') . '.permission_name');
+            $controller = '';
+
+            $type = request()->get('type');
+
+            $alias = config('type.' . $type . '.alias');
+            $group = config('type.' . $type . '.group');
+            $prefix = config('type.' . $type . '.permission.prefix');
+
+            // if use module set module alias
+            if (!empty($alias)) {
+                $controller .= $alias . '-';
+            }
+
+            // if controller in folder it must
+            if (!empty($group)) {
+                $controller .= $group . '-';
+            }
+
+            $controller .= $prefix;
         } else {
             $route = app(Route::class);
 

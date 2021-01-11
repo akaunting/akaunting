@@ -2,15 +2,15 @@
 
 namespace App\Abstracts\View\Components;
 
-use Illuminate\View\Component;
-use Illuminate\Support\Str;
+use App\Abstracts\View\Components\Document as Base;
 use App\Traits\DateTime;
 use App\Models\Common\Media;
 use File;
 use Image;
 use Storage;
+use Illuminate\Support\Str;
 
-abstract class DocumentTemplate extends Component
+abstract class DocumentTemplate extends Base
 {
     use DateTime;
 
@@ -175,17 +175,11 @@ abstract class DocumentTemplate extends Component
             return $documentTemplate;
         }
 
-        // $documentTemplate = 'components.documents.template.default';
-        $documentTemplate = 'default';
-
-        switch ($type) {
-            case 'sale':
-            case 'income':
-            case 'invoice':
-                // $documentTemplate =  'components.documents.template.' . setting('invoice.template', 'default');
-                $documentTemplate =  setting('invoice.template', 'default');
-                break;
+        if ($template = config('type.' . $type . 'template', false)) {
+            return $template;
         }
+
+        $documentTemplate =  setting($type . '.template', 'default');
 
         return $documentTemplate;
     }
@@ -229,18 +223,11 @@ abstract class DocumentTemplate extends Component
             return $backgroundColor;
         }
 
-        $backgroundColor = '#55588b';
-
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $backgroundColor = setting('bill.color');
-                break;
-            default:
-                $backgroundColor = setting('invoice.color');
-                break;
+        if ($background_color = config('type.' . $type . 'color', false)) {
+            return $background_color;
         }
+
+        $backgroundColor = setting($type . '.color', '#55588b');
 
         return $backgroundColor;
     }
@@ -255,14 +242,20 @@ abstract class DocumentTemplate extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textDocumentNumber = 'bills.bill_number';
+                $default_key = 'bill_number';
                 break;
             default:
-                $textDocumentNumber = 'invoices.invoice_number';
+                $default_key = 'invoice_number';
                 break;
         }
 
-        return $textDocumentNumber;
+        $translation = $this->getTextFromConfig($type, 'document_number', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.numbers';
     }
 
     protected function getTextOrderNumber($type, $textOrderNumber)
@@ -271,18 +264,13 @@ abstract class DocumentTemplate extends Component
             return $textOrderNumber;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textOrderNumber = 'bills.order_number';
-                break;
-            default:
-                $textOrderNumber = 'invoices.order_number';
-                break;
+        $translation = $this->getTextFromConfig($type, 'order_number');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textOrderNumber;
+        return 'invoices.order_number';
     }
 
     protected function getTextContactInfo($type, $textContactInfo)
@@ -295,14 +283,20 @@ abstract class DocumentTemplate extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textContactInfo = 'bills.bill_from';
+                $default_key = 'bill_from';
                 break;
             default:
-                $textContactInfo = 'invoices.bill_to';
+                $default_key = 'bill_to';
                 break;
         }
 
-        return $textContactInfo;
+        $translation = $this->getTextFromConfig($type, 'contact_info', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.bill_to';
     }
 
     protected function getTextIssuedAt($type, $textIssuedAt)
@@ -315,14 +309,20 @@ abstract class DocumentTemplate extends Component
             case 'bill':
             case 'expense':
             case 'purchase':
-                $textIssuedAt = 'bills.bill_date';
+                $default_key = 'bill_date';
                 break;
             default:
-                $textIssuedAt = 'invoices.invoice_date';
+                $default_key = 'invoice_date';
                 break;
         }
 
-        return $textIssuedAt;
+        $translation = $this->getTextFromConfig($type, 'issued_at', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.invoice_date';
     }
 
     protected function getTextDueAt($type, $textDueAt)
@@ -331,18 +331,13 @@ abstract class DocumentTemplate extends Component
             return $textDueAt;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textDueAt = 'bills.due_date';
-                break;
-            default:
-                $textDueAt = 'invoices.due_date';
-                break;
+        $translation = $this->getTextFromConfig($type, 'due_at', 'due_date');
+
+        if (!empty($translation)) {
+            return $translation;
         }
 
-        return $textDueAt;
+        return 'invoices.due_date';
     }
 
     protected function getTextItems($type, $textItems)
@@ -351,22 +346,18 @@ abstract class DocumentTemplate extends Component
             return $textItems;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textItems = 'general.items';
-                break;
-            default:
-                $textItems = setting('invoice.item_name', 'general.items');
-
-                if ($textItems == 'custom') {
-                    $textItems = setting('invoice.item_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.item_name', 'items') == 'custom') {
+            return setting($type . '.item_name_input');
         }
 
-        return $textItems;
+        $translation = $this->getTextFromConfig($type, 'items');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.items';
     }
 
     protected function getTextQuantity($type, $textQuantity)
@@ -375,46 +366,38 @@ abstract class DocumentTemplate extends Component
             return $textQuantity;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $textQuantity = 'bills.quantity';
-                break;
-            default:
-                $textQuantity = setting('invoice.quantity_name', 'invoices.quantity');
-
-                if ($textQuantity == 'custom') {
-                    $textQuantity = setting('invoice.quantity_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.quantity_name', 'quantity') == 'custom') {
+            return setting($type . '.quantity_name_input');
         }
 
-        return $textQuantity;
+        $translation = $this->getTextFromConfig($type, 'quantity');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.quantity';
     }
 
-    protected function getTextPrice($type, $text_price)
+    protected function getTextPrice($type, $textPrice)
     {
-        if (!empty($text_price)) {
-            return $text_price;
+        if (!empty($textPrice)) {
+            return $textPrice;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $text_price = 'bills.price';
-                break;
-            default:
-                $text_price = setting('invoice.price_name', 'invoices.price');
-
-                if ($text_price == 'custom') {
-                    $text_price = setting('invoice.price_name_input');
-                }
-                break;
+        // if you use settting translation
+        if (setting($type . '.price_name', 'price') == 'custom') {
+            return setting($type . '.price_name_input');
         }
 
-        return $text_price;
+        $translation = $this->getTextFromConfig($type, 'price');
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'invoices.price';
     }
 
     protected function getTextAmount($type, $textAmount)
@@ -423,15 +406,25 @@ abstract class DocumentTemplate extends Component
             return $textAmount;
         }
 
-        $textAmount = 'general.amount';
+        $translation = $this->getTextFromConfig($type, 'amount');
 
-        return $textAmount;
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        return 'general.amount';
     }
 
     protected function getHideItems($type, $hideItems, $hideName, $hideDescription)
     {
         if (!empty($hideItems)) {
             return $hideItems;
+        }
+
+        $hide = $this->getHideFromConfig($type, 'items');
+
+        if ($hide) {
+            return $hide;
         }
 
         $hideItems = ($this->getHideName($type, $hideName) & $this->getHideDescription($type, $hideDescription)) ? true  : false;
@@ -445,18 +438,19 @@ abstract class DocumentTemplate extends Component
             return $hideName;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideName = setting('bill.hide_item_name', $hideName);
-                break;
-            default:
-                $hideName = setting('invoice.hide_item_name', $hideName);
-                break;
+        // if you use settting translation
+        if ($hideName = setting($type . '.hide_item_name', false)) {
+            return $hideName;
         }
 
-        return $hideName;
+        $hide = $this->getHideFromConfig($type, 'name');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_item_name', $hideName);
     }
 
     protected function getHideDescription($type, $hideDescription)
@@ -465,18 +459,19 @@ abstract class DocumentTemplate extends Component
             return $hideDescription;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideDescription = setting('bill.hide_item_description', $hideDescription);
-                break;
-            default:
-                $hideDescription = setting('invoice.hide_item_description', $hideDescription);
-                break;
+        // if you use settting translation
+        if ($hideDescription = setting($type . '.hide_item_description', false)) {
+            return $hideDescription;
         }
 
-        return $hideDescription;
+        $hide = $this->getHideFromConfig($type, 'description');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_item_description', $hideDescription);
     }
 
     protected function getHideQuantity($type, $hideQuantity)
@@ -485,18 +480,19 @@ abstract class DocumentTemplate extends Component
             return $hideQuantity;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideQuantity = setting('bill.hide_quantity', $hideQuantity);
-                break;
-            default:
-                $hideQuantity = setting('invoice.hide_quantity', $hideQuantity);
-                break;
+        // if you use settting translation
+        if ($hideQuantity = setting($type . '.hide_quantity', false)) {
+            return $hideQuantity;
         }
 
-        return $hideQuantity;
+        $hide = $this->getHideFromConfig($type, 'quantity');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_quantity', $hideQuantity);
     }
 
     protected function getHidePrice($type, $hidePrice)
@@ -505,18 +501,19 @@ abstract class DocumentTemplate extends Component
             return $hidePrice;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hidePrice = setting('bill.hide_price', $hidePrice);
-                break;
-            default:
-                $hidePrice = setting('invoice.hide_price', $hidePrice);
-                break;
+        // if you use settting translation
+        if ($hidePrice = setting($type . '.hide_price', false)) {
+            return $hidePrice;
         }
 
-        return $hidePrice;
+        $hide = $this->getHideFromConfig($type, 'price');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_price', $hidePrice);
     }
 
     protected function getHideDiscount($type, $hideDiscount)
@@ -525,18 +522,19 @@ abstract class DocumentTemplate extends Component
             return $hideDiscount;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideDiscount = setting('bill.hide_discount', $hideDiscount);
-                break;
-            default:
-                $hideDiscount = setting('invoice.hide_discount', $hideDiscount);
-                break;
+        // if you use settting translation
+        if ($hideDiscount = setting($type . '.hide_discount', false)) {
+            return $hideDiscount;
         }
 
-        return $hideDiscount;
+        $hide = $this->getHideFromConfig($type, 'discount');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_discount', $hideDiscount);
     }
 
     protected function getHideAmount($type, $hideAmount)
@@ -545,17 +543,18 @@ abstract class DocumentTemplate extends Component
             return $hideAmount;
         }
 
-        switch ($type) {
-            case 'bill':
-            case 'expense':
-            case 'purchase':
-                $hideAmount = setting('bill.hide_amount', $hideAmount);
-                break;
-            default:
-                $hideAmount = setting('invoice.hide_amount', $hideAmount);
-                break;
+        // if you use settting translation
+        if ($hideAmount = setting($type . '.hide_amount', false)) {
+            return $hideAmount;
         }
 
-        return $hideAmount;
+        $hide = $this->getHideFromConfig($type, 'amount');
+
+        if ($hide) {
+            return $hide;
+        }
+
+        // @todo what return value invoice or always false??
+        return setting('invoice.hide_amount', $hideAmount);
     }
 }

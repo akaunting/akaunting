@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Document\Document;
+use App\Abstracts\View\Components\Document as DocumentComponent;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -50,10 +51,14 @@ trait Documents
             ],
         ];
 
-        $statuses = collect($list[$type])->each(function ($code) use ($type) {
+        // @todo get dynamic path
+        //$trans_key = $this->getTextDocumentStatuses($type);
+        $trans_key = 'documents.statuses.';
+
+        $statuses = collect($list[$type])->each(function ($code) use ($type, $trans_key) {
             $item = new \stdClass();
             $item->code = $code;
-            $item->name = trans(Str::plural($type) . '.statuses.' . $code);
+            $item->name = trans($trans_key . $code);
 
             return $item;
         });
@@ -69,5 +74,28 @@ trait Documents
     public function getSafeDocumentNumber(Document $document, string $separator = '-'): string
     {
         return Str::slug($document->document_number, $separator, language()->getShortCode());
+    }
+    
+    protected function getTextDocumentStatuses($type)
+    {
+        $default_key = config('type.' . $type . '.translation.prefix') . '.statuses.';
+
+        $translation = DocumentComponent::getTextFromConfig($type, 'document_status', $default_key);
+
+        if (!empty($translation)) {
+            return $translation;
+        }
+
+        $alias = config('type.' . $type . '.alias');
+
+        if (!empty($alias)) {
+            $translation = $alias . '::' . config('type.' . $type . '.translation.prefix') . '.statuses';
+
+            if (is_array(trans($translation))) {
+                return $translation . '.';
+            }
+        }
+
+        return 'documents.statuses.';
     }
 }

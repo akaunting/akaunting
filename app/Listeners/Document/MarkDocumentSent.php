@@ -24,11 +24,15 @@ class MarkDocumentSent
             $event->document->save();
         }
 
-        $type = trans_choice(
-            config("type.{$event->document->type}.alias", '') .
-            'general.' . config("type.{$event->document->type}.translation_key"),
-            1
-        );
+        $type_text = '';
+
+        if ($alias = config('type.' . $event->document->type . '.alias', '')) {
+            $type_text .= $alias . '::';
+        }
+
+        $type_text .= 'general.' . config('type.' . $event->document->type .'.translation.prefix');
+
+        $type = trans_choice($type_text, 1);
 
         $this->dispatch(
             new CreateDocumentHistory(
