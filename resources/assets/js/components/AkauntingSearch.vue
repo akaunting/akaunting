@@ -468,6 +468,8 @@ export default {
       this.selected_operator.splice(index, 1);
       this.selected_values.splice(index, 1);
 
+      this.show_date = false;
+
       this.filter_last_step = 'options';
     },
 
