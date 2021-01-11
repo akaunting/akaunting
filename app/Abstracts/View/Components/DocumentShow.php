@@ -637,17 +637,27 @@ abstract class DocumentShow extends Base
     {
         if (!empty($textHistoryStatus)) {
             return $textHistoryStatus;
-        }
+        }        
 
         $default_key = config('type.' . $type . '.translation.prefix') . '.statuses.';
 
-        $translation = $this->getTextFromConfig($type, 'history_status', $default_key);
+        $translation = $this->getTextFromConfig($type, 'document_status', $default_key);
 
         if (!empty($translation)) {
             return $translation;
         }
 
-        return $default_key;
+        $alias = config('type.' . $type . '.alias');
+
+        if (!empty($alias)) {
+            $translation = $alias . '::' . config('type.' . $type . '.translation.prefix') . '.statuses';
+
+            if (is_array(trans($$translation))) {
+                return $translation . '.';
+            }
+        }
+
+        return 'documents.statuses.';
     }
 
     protected function getRouteButtonAddNew($type, $routeButtonAddNew)

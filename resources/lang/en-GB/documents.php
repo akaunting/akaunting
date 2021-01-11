@@ -1,6 +1,26 @@
 <?php
 
 return [
+
+    'statuses' => [
+        'draft'     => 'Draft',
+        'sent'      => 'Sent',
+        'expired'   => 'Expired',
+        'viewed'    => 'Viewed',
+        'approved'  => 'Approved',
+        'received'  => 'Received',
+        'refused'   => 'Refused',
+        'restored'  => 'Restored',
+        'reversed'  => 'Reversed',
+        'partial'   => 'Partial',
+        'paid'      => 'Paid',
+        'invoiced'  => 'Invoiced',
+        'overdue'   => 'Overdue',
+        'unpaid'    => 'Unpaid',
+        'cancelled' => 'Cancelled',
+        'void'      => 'Void',
+    ],
+
     'messages' => [
         'email_sent'        => ':type email has been sent!',
         'marked_sent'       => ':type marked as sent!',

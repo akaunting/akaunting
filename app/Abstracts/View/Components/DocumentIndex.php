@@ -713,7 +713,17 @@ abstract class DocumentIndex extends Base
             return $translation;
         }
 
-        return $default_key;
+        $alias = config('type.' . $type . '.alias');
+
+        if (!empty($alias)) {
+            $translation = $alias . '::' . config('type.' . $type . '.translation.prefix') . '.statuses';
+
+            if (is_array(trans($$translation))) {
+                return $translation . '.';
+            }
+        }
+
+        return 'documents.statuses.';
     }
 
     protected function getClassStatus($type, $classStatus)

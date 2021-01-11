@@ -57,7 +57,7 @@
 
                                     @if($item->bill)
                                         @if ($item->bill->status == 'paid')
-                                            <el-tooltip content="{{ $item->bill->document_number }} / {{ trans('bills.statuses.paid') }}"
+                                            <el-tooltip content="{{ $item->bill->document_number }} / {{ trans('documents.statuses.paid') }}"
                                             effect="success"
                                             :open-delay="100"
                                             placement="top">
@@ -66,7 +66,7 @@
                                                 </span>
                                             </el-tooltip>
                                         @elseif ($item->bill->status == 'partial')
-                                            <el-tooltip content="{{ $item->bill->document_number }} / {{ trans('bills.statuses.partial') }}"
+                                            <el-tooltip content="{{ $item->bill->document_number }} / {{ trans('documents.statuses.partial') }}"
                                             effect="info"
                                             :open-delay="100"
                                             placement="top">
